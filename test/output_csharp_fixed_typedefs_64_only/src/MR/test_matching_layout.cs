@@ -406,7 +406,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::MatchingLayout::foo`.
-            public static MR.CS.MatchingLayout.B Foo()
+            public static MR.CS.MatchingLayout.B foo()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_foo", ExactSpelling = true)]
                 extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_foo();
@@ -414,7 +414,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::MatchingLayout::bar`.
-            public static void Bar(MR.CS.MatchingLayout.B _1)
+            public static void bar(MR.CS.MatchingLayout.B _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_bar", ExactSpelling = true)]
                 extern static void __MR_MatchingLayout_bar(MR.CS.MatchingLayout.B _1);
@@ -423,7 +423,7 @@ public static partial class MR
 
             /// Generated from function `MR::MatchingLayout::baz`.
             /// Parameter `_1` defaults to `MR::MatchingLayout::B{}`.
-            public static unsafe void Baz(MR.CS.MatchingLayout._InOpt_B _1 = default)
+            public static unsafe void baz(MR.CS.MatchingLayout._InOpt_B _1 = default)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_baz", ExactSpelling = true)]
                 extern static void __MR_MatchingLayout_baz(MR.CS.MatchingLayout.B *_1);
@@ -431,7 +431,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::MatchingLayout::bleh`.
-            public static unsafe MR.CS.MatchingLayout.Mut_B? Bleh(MR.CS.MatchingLayout.Mut_B? _1)
+            public static unsafe MR.CS.MatchingLayout.Mut_B? bleh(MR.CS.MatchingLayout.Mut_B? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_bleh", ExactSpelling = true)]
                 extern static MR.CS.MatchingLayout.Mut_B._Underlying *__MR_MatchingLayout_bleh(MR.CS.MatchingLayout.Mut_B._Underlying *_1);

@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from function `MR::Deprecation::foo`.
             [Obsolete]
-            public static void Foo()
+            public static void foo()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Deprecation_foo", ExactSpelling = true)]
                 extern static void __MR_Deprecation_foo();
@@ -15,7 +15,7 @@ public static partial class MR
 
             /// Generated from function `MR::Deprecation::bar`.
             [Obsolete("Some \\message\n")]
-            public static void Bar()
+            public static void bar()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Deprecation_bar", ExactSpelling = true)]
                 extern static void __MR_Deprecation_bar();

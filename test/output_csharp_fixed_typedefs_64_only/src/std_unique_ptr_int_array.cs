@@ -55,7 +55,7 @@ public static partial class MR
                 public static unsafe implicit operator Const_UniquePtr_IntArray(void *other) {return new(other);}
 
                 /// Returns the stored pointer, possibly null.
-                public unsafe MR.CS.Misc.Ref<int>? Get()
+                public unsafe MR.CS.Misc.Ref<int>? get()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_Get", ExactSpelling = true)]
                     extern static int *__MR_C_std_unique_ptr_int_array_Get(_Underlying *_this);
@@ -64,7 +64,7 @@ public static partial class MR
                 }
 
                 /// Returns an element from the stored array. The stored pointer must not be null.
-                public unsafe ref int At(ulong i)
+                public unsafe ref int at(ulong i)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_At", ExactSpelling = true)]
                     extern static int *__MR_C_std_unique_ptr_int_array_At(_Underlying *_this, ulong i);
@@ -107,7 +107,7 @@ public static partial class MR
                 public static unsafe implicit operator UniquePtr_IntArray(void *other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_UniquePtr_IntArray other)
+                public unsafe void assign(MR.CS.Std.Const_UniquePtr_IntArray other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_unique_ptr_int_array_AssignFromAnother(_Underlying *_this, MR.CS.Std.UniquePtr_IntArray._Underlying *other);
@@ -115,7 +115,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(void *other)
+                public unsafe void assign(void *other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_unique_ptr_int_array_AssignFrom(_Underlying *_this, void *other);
@@ -124,7 +124,7 @@ public static partial class MR
 
                 /// Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.
                 /// The returned pointer is owning! It must be deallocated using `MR_C_FreeArray()`.
-                public unsafe MR.CS.Misc.Ref<int>? Release()
+                public unsafe MR.CS.Misc.Ref<int>? release()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_Release", ExactSpelling = true)]
                     extern static int *__MR_C_std_unique_ptr_int_array_Release(_Underlying *_this);

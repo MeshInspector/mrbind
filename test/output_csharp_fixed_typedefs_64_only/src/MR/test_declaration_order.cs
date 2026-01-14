@@ -81,7 +81,7 @@ public static partial class MR
                 public void Assign(Const_A _other) {_Ref = _other._Ref;}
 
                 /// Generated from method `MR::DeclOrder::A::c`.
-                public unsafe MR.CS.DeclOrder.A.B C()
+                public unsafe MR.CS.DeclOrder.A.B c()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_c", ExactSpelling = true)]
                     extern static MR.CS.DeclOrder.A.B __MR_DeclOrder_A_c(_Underlying *_this);
@@ -89,7 +89,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::DeclOrder::A::d`.
-                public unsafe MR.CS.DeclOrder.A.E D()
+                public unsafe MR.CS.DeclOrder.A.E d()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_d", ExactSpelling = true)]
                     extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_d(_Underlying *_this);
@@ -113,7 +113,7 @@ public static partial class MR
                 public A(A _other) {this = _other;}
 
                 /// Generated from method `MR::DeclOrder::A::c`.
-                public unsafe MR.CS.DeclOrder.A.B C()
+                public unsafe MR.CS.DeclOrder.A.B c()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_c", ExactSpelling = true)]
                     extern static MR.CS.DeclOrder.A.B __MR_DeclOrder_A_c(MR.CS.DeclOrder.A *_this);
@@ -124,7 +124,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::DeclOrder::A::d`.
-                public unsafe MR.CS.DeclOrder.A.E D()
+                public unsafe MR.CS.DeclOrder.A.E d()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_d", ExactSpelling = true)]
                     extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_d(MR.CS.DeclOrder.A *_this);
@@ -209,7 +209,7 @@ public static partial class MR
                     public void Assign(Const_B _other) {_Ref = _other._Ref;}
 
                     /// Generated from method `MR::DeclOrder::A::B::a`.
-                    public unsafe MR.CS.DeclOrder.A A()
+                    public unsafe MR.CS.DeclOrder.A a()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_a", ExactSpelling = true)]
                         extern static MR.CS.DeclOrder.A __MR_DeclOrder_A_B_a(_Underlying *_this);
@@ -217,7 +217,7 @@ public static partial class MR
                     }
 
                     /// Generated from method `MR::DeclOrder::A::B::b`.
-                    public unsafe MR.CS.DeclOrder.A.E B_()
+                    public unsafe MR.CS.DeclOrder.A.E b()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_b", ExactSpelling = true)]
                         extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_B_b(_Underlying *_this);
@@ -240,7 +240,7 @@ public static partial class MR
                     public B(B _other) {this = _other;}
 
                     /// Generated from method `MR::DeclOrder::A::B::a`.
-                    public unsafe MR.CS.DeclOrder.A A()
+                    public unsafe MR.CS.DeclOrder.A a()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_a", ExactSpelling = true)]
                         extern static MR.CS.DeclOrder.A __MR_DeclOrder_A_B_a(MR.CS.DeclOrder.A.B *_this);
@@ -251,7 +251,7 @@ public static partial class MR
                     }
 
                     /// Generated from method `MR::DeclOrder::A::B::b`.
-                    public unsafe MR.CS.DeclOrder.A.E B_()
+                    public unsafe MR.CS.DeclOrder.A.E b()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_A_B_b", ExactSpelling = true)]
                         extern static MR.CS.DeclOrder.A.E __MR_DeclOrder_A_B_b(MR.CS.DeclOrder.A.B *_this);
@@ -480,7 +480,7 @@ public static partial class MR
                 public void Assign(Const_C_False _other) {_Ref = _other._Ref;}
 
                 /// Generated from method `MR::DeclOrder::C<false>::blah`.
-                public unsafe MR.CS.DeclOrder.C_True Blah()
+                public unsafe MR.CS.DeclOrder.C_True blah()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_false_blah", ExactSpelling = true)]
                     extern static MR.CS.DeclOrder.C_True __MR_DeclOrder_C_false_blah(_Underlying *_this);
@@ -503,7 +503,7 @@ public static partial class MR
                 public C_False(C_False _other) {this = _other;}
 
                 /// Generated from method `MR::DeclOrder::C<false>::blah`.
-                public unsafe MR.CS.DeclOrder.C_True Blah()
+                public unsafe MR.CS.DeclOrder.C_True blah()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_false_blah", ExactSpelling = true)]
                     extern static MR.CS.DeclOrder.C_True __MR_DeclOrder_C_false_blah(MR.CS.DeclOrder.C_False *_this);
@@ -658,7 +658,7 @@ public static partial class MR
                 public void Assign(Const_C_True _other) {_Ref = _other._Ref;}
 
                 /// Generated from method `MR::DeclOrder::C<true>::blah`.
-                public unsafe MR.CS.DeclOrder.C_False Blah()
+                public unsafe MR.CS.DeclOrder.C_False blah()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_true_blah", ExactSpelling = true)]
                     extern static MR.CS.DeclOrder.C_False __MR_DeclOrder_C_true_blah(_Underlying *_this);
@@ -681,7 +681,7 @@ public static partial class MR
                 public C_True(C_True _other) {this = _other;}
 
                 /// Generated from method `MR::DeclOrder::C<true>::blah`.
-                public unsafe MR.CS.DeclOrder.C_False Blah()
+                public unsafe MR.CS.DeclOrder.C_False blah()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_DeclOrder_C_true_blah", ExactSpelling = true)]
                     extern static MR.CS.DeclOrder.C_False __MR_DeclOrder_C_true_blah(MR.CS.DeclOrder.C_True *_this);

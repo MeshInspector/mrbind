@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// Returns the stored pointer, possibly null.
-                public unsafe MR.CS.Misc.Ref<int>? Get()
+                public unsafe MR.CS.Misc.Ref<int>? get()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_42_Get", ExactSpelling = true)]
                     extern static int *__MR_C_std_shared_ptr_int_array_42_Get(_Underlying *_this);
@@ -54,7 +54,7 @@ public static partial class MR
                 /// How many shared pointers share the managed object. Zero if no object is being managed.
                 /// This being zero usually conincides with `MR_C_std_shared_ptr_int_array_42_Get()` returning null, but is ultimately orthogonal.
                 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
-                public unsafe int UseCount()
+                public unsafe int useCount()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_42_UseCount", ExactSpelling = true)]
                     extern static int __MR_C_std_shared_ptr_int_array_42_UseCount(_Underlying *_this);
@@ -114,7 +114,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std._ByValue_SharedPtr_IntArray42 other)
+                public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_IntArray42 other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_42_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_int_array_42_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_IntArray42._Underlying *other);
@@ -130,7 +130,7 @@ public static partial class MR
                 }
 
                 /// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
-                public unsafe void Assign(void *ptr)
+                public unsafe void assign(void *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_42_Assign", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_int_array_42_Assign(_Underlying *_this, void *ptr);
@@ -148,7 +148,7 @@ public static partial class MR
                 }
 
                 /// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
-                public unsafe void Assign(MR.CS.Misc.InOut<int>? ptr)
+                public unsafe void assign(MR.CS.Misc.InOut<int>? ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_42_AssignNonOwning", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_int_array_42_AssignNonOwning(_Underlying *_this, int *ptr);
@@ -170,7 +170,7 @@ public static partial class MR
 
                 /// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
-                public unsafe void AssignAliasing(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.Misc.InOut<int>? ptr)
+                public unsafe void assignAliasing(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.Misc.InOut<int>? ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_42_AssignAliasing", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_int_array_42_AssignAliasing(_Underlying *_this, MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, int *ptr);

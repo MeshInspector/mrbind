@@ -47,7 +47,7 @@ public static partial class MR
                 }
 
                 /// The element 0, of type `const int`, read-only.
-                public unsafe int GetConstInt()
+                public unsafe int getConstInt()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_int", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_int(_Underlying *_this);
@@ -55,7 +55,7 @@ public static partial class MR
                 }
 
                 /// The element 1, of type `const float`, read-only.
-                public unsafe float GetConstFloat()
+                public unsafe float getConstFloat()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_float", ExactSpelling = true)]
                     extern static float *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_float(_Underlying *_this);
@@ -63,7 +63,7 @@ public static partial class MR
                 }
 
                 /// The element 2, of type `int &`, read-only.
-                public unsafe ref int GetIntRef()
+                public unsafe ref int getIntRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_int_ref", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_int_ref(_Underlying *_this);
@@ -71,7 +71,7 @@ public static partial class MR
                 }
 
                 /// The element 3, of type `float &`, read-only.
-                public unsafe ref float GetFloatRef()
+                public unsafe ref float getFloatRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_float_ref", ExactSpelling = true)]
                     extern static float *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_float_ref(_Underlying *_this);
@@ -79,7 +79,7 @@ public static partial class MR
                 }
 
                 /// The element 4, of type `const int &`, read-only.
-                public unsafe int GetConstIntRef()
+                public unsafe int getConstIntRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_int_ref", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_int_ref(_Underlying *_this);
@@ -87,7 +87,7 @@ public static partial class MR
                 }
 
                 /// The element 5, of type `const float &`, read-only.
-                public unsafe float GetConstFloatRef()
+                public unsafe float getConstFloatRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_float_ref", ExactSpelling = true)]
                     extern static float *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_float_ref(_Underlying *_this);
@@ -95,7 +95,7 @@ public static partial class MR
                 }
 
                 /// The element 6, of type `int &&`, read-only.
-                public unsafe ref int GetIntRvalueRef()
+                public unsafe ref int getIntRvalueRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_int_rvalue_ref", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_int_rvalue_ref(_Underlying *_this);
@@ -103,7 +103,7 @@ public static partial class MR
                 }
 
                 /// The element 7, of type `float &&`, read-only.
-                public unsafe ref float GetFloatRvalueRef()
+                public unsafe ref float getFloatRvalueRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_float_rvalue_ref", ExactSpelling = true)]
                     extern static float *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_float_rvalue_ref(_Underlying *_this);
@@ -111,7 +111,7 @@ public static partial class MR
                 }
 
                 /// The element 8, of type `const int &&`, read-only.
-                public unsafe int GetConstIntRvalueRef()
+                public unsafe int getConstIntRvalueRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_int_rvalue_ref", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_int_rvalue_ref(_Underlying *_this);
@@ -119,7 +119,7 @@ public static partial class MR
                 }
 
                 /// The element 9, of type `const float &&`, read-only.
-                public unsafe float GetConstFloatRvalueRef()
+                public unsafe float getConstFloatRvalueRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_float_rvalue_ref", ExactSpelling = true)]
                     extern static float *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_const_float_rvalue_ref(_Underlying *_this);

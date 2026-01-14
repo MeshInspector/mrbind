@@ -70,7 +70,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::TypedefsInTemplates::A<int>::operator=`.
-                public unsafe MR.CS.TypedefsInTemplates.A_Int Assign(MR.CS.TypedefsInTemplates.Const_A_Int _other)
+                public unsafe MR.CS.TypedefsInTemplates.A_Int assign(MR.CS.TypedefsInTemplates.Const_A_Int _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.A_Int._Underlying *_other);
@@ -78,7 +78,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::TypedefsInTemplates::A<int>::foo`.
-                public unsafe int Foo()
+                public unsafe int foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_foo", ExactSpelling = true)]
                     extern static int __MR_TypedefsInTemplates_A_int_foo(_Underlying *_this);
@@ -216,7 +216,7 @@ public static partial class MR
                     }
 
                     /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::operator=`.
-                    public unsafe MR.CS.TypedefsInTemplates.B_Int.BB_Float Assign(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other)
+                    public unsafe MR.CS.TypedefsInTemplates.B_Int.BB_Float assign(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother", ExactSpelling = true)]
                         extern static MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *_other);
@@ -224,7 +224,7 @@ public static partial class MR
                     }
 
                     /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::foo`.
-                    public unsafe int Foo()
+                    public unsafe int foo()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_foo", ExactSpelling = true)]
                         extern static int __MR_TypedefsInTemplates_B_int_BB_float_foo(_Underlying *_this);
@@ -232,7 +232,7 @@ public static partial class MR
                     }
 
                     /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::foo2`.
-                    public unsafe int Foo2()
+                    public unsafe int foo2()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_foo2", ExactSpelling = true)]
                         extern static int __MR_TypedefsInTemplates_B_int_BB_float_foo2(_Underlying *_this);
@@ -294,7 +294,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::TypedefsInTemplates::B<int>::operator=`.
-                public unsafe MR.CS.TypedefsInTemplates.B_Int Assign(MR.CS.TypedefsInTemplates.Const_B_Int _other)
+                public unsafe MR.CS.TypedefsInTemplates.B_Int assign(MR.CS.TypedefsInTemplates.Const_B_Int _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int._Underlying *_other);
@@ -333,7 +333,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TypedefsInTemplates::bar`.
-            public static void Bar(int _1)
+            public static void bar(int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_bar", ExactSpelling = true)]
                 extern static void __MR_TypedefsInTemplates_bar(int _1);

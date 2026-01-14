@@ -51,7 +51,7 @@ public static partial class MR
                 }
 
                 /// Returns true if this instance stores nothing (which represents success).
-                public unsafe bool GetValue()
+                public unsafe bool getValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_GetValue", ExactSpelling = true)]
                     extern static byte __MR_C_std_expected_void_float_GetValue(_Underlying *_this);
@@ -59,7 +59,7 @@ public static partial class MR
                 }
 
                 /// If this instance represents an error, returns the stored `float`. Otherwise null.
-                public unsafe float? GetError()
+                public unsafe float? getError()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_GetError", ExactSpelling = true)]
                     extern static float *__MR_C_std_expected_void_float_GetError(_Underlying *_this);
@@ -91,7 +91,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_Expected_Void_Float other)
+                public unsafe void assign(MR.CS.Std.Const_Expected_Void_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_expected_void_float_AssignFromAnother(_Underlying *_this, MR.CS.Std.Expected_Void_Float._Underlying *other);
@@ -99,7 +99,7 @@ public static partial class MR
                 }
 
                 /// If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.
-                public unsafe new MR.CS.Misc.Ref<float>? GetError()
+                public unsafe new MR.CS.Misc.Ref<float>? getError()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_void_float_GetMutableError", ExactSpelling = true)]
                     extern static float *__MR_C_std_expected_void_float_GetMutableError(_Underlying *_this);

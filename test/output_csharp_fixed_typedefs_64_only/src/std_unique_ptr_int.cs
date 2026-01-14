@@ -54,7 +54,7 @@ public static partial class MR
                 public static unsafe implicit operator Const_UniquePtr_Int(void *other) {return new(other);}
 
                 /// Returns the stored pointer, possibly null.
-                public unsafe MR.CS.Misc.Ref<int>? Get()
+                public unsafe MR.CS.Misc.Ref<int>? get()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_Get", ExactSpelling = true)]
                     extern static int *__MR_C_std_unique_ptr_int_Get(_Underlying *_this);
@@ -97,7 +97,7 @@ public static partial class MR
                 public static unsafe implicit operator UniquePtr_Int(void *other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_UniquePtr_Int other)
+                public unsafe void assign(MR.CS.Std.Const_UniquePtr_Int other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_unique_ptr_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.UniquePtr_Int._Underlying *other);
@@ -105,7 +105,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(void *other)
+                public unsafe void assign(void *other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_unique_ptr_int_AssignFrom(_Underlying *_this, void *other);
@@ -114,7 +114,7 @@ public static partial class MR
 
                 /// Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.
                 /// The returned pointer is owning! It must be deallocated using `MR_C_Free()`.
-                public unsafe MR.CS.Misc.Ref<int>? Release()
+                public unsafe MR.CS.Misc.Ref<int>? release()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_Release", ExactSpelling = true)]
                     extern static int *__MR_C_std_unique_ptr_int_Release(_Underlying *_this);

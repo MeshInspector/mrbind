@@ -66,7 +66,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CustomPrefNames::Ai::operator=`.
-                public unsafe MR.CS.CustomPrefNames.Ai Assign(MR.CS.CustomPrefNames.Const_Ai _other)
+                public unsafe MR.CS.CustomPrefNames.Ai assign(MR.CS.CustomPrefNames.Const_Ai _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Ai_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_AssignFromAnother(_Underlying *_this, MR.CS.CustomPrefNames.Ai._Underlying *_other);
@@ -166,7 +166,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CustomPrefNames::Af::operator=`.
-                public unsafe MR.CS.CustomPrefNames.Af Assign(MR.CS.CustomPrefNames.Const_Af _other)
+                public unsafe MR.CS.CustomPrefNames.Af assign(MR.CS.CustomPrefNames.Const_Af _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Af_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_AssignFromAnother(_Underlying *_this, MR.CS.CustomPrefNames.Af._Underlying *_other);
@@ -205,7 +205,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::CustomPrefNames::blah`.
-            public static void Blah()
+            public static void blah()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_blah", ExactSpelling = true)]
                 extern static void __MR_CustomPrefNames_blah();

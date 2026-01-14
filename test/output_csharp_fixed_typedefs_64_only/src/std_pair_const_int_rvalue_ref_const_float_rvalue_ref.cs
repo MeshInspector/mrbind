@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// The first of the two elements, read-only.
-                public unsafe int First()
+                public unsafe int first()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_First", ExactSpelling = true)]
                     extern static int *__MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_First(_Underlying *_this);
@@ -51,7 +51,7 @@ public static partial class MR
                 }
 
                 /// The second of the two elements, read-only.
-                public unsafe float Second()
+                public unsafe float second()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_Second", ExactSpelling = true)]
                     extern static float *__MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_Second(_Underlying *_this);

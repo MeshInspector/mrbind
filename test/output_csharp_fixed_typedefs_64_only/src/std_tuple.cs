@@ -66,7 +66,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_Tuple other)
+                public unsafe void assign(MR.CS.Std.Const_Tuple other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_tuple_AssignFromAnother(_Underlying *_this, MR.CS.Std.Tuple._Underlying *other);

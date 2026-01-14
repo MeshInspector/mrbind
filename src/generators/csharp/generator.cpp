@@ -296,6 +296,14 @@ namespace mrbind::CSharp
         return iter->second;
     }
 
+    std::string Generator::AdjustCalledFuncName(std::string str)
+    {
+        str = CppIdentifierToCSharpIdentifier(str);
+        if (begin_func_names_with_lowercase)
+            MakeFirstLetterLowercase(str);
+        return str;
+    }
+
     std::optional<std::string_view> Generator::CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect, std::size_t *out_sizeof)
     {
         if (out_sizeof)
@@ -2524,7 +2532,7 @@ namespace mrbind::CSharp
                     ret.text +=
                         "public static unsafe implicit operator ReadOnlySpan<byte>(" + csharp_name + " self)\n"
                         "{\n"
-                        "    return new(self.Data(), checked((int)self.Size()));\n"
+                        "    return new(self." + AdjustCalledFuncName("Data") + "(), checked((int)self." + AdjustCalledFuncName("Size") + "()));\n"
                         "}\n";
                 }
 
@@ -2532,7 +2540,7 @@ namespace mrbind::CSharp
                 ret.text +=
                     "public static unsafe implicit operator string(" + csharp_name + " self)\n"
                     "{\n"
-                    "    return System.Text.Encoding.UTF8.GetString(self.Data(), checked((int)self.Size()));\n"
+                    "    return System.Text.Encoding.UTF8.GetString(self." + AdjustCalledFuncName("Data") + "(), checked((int)self." + AdjustCalledFuncName("Size") + "()));\n"
                     "}\n"
                     "public override string ToString() {return (string)this;}\n";
             }
@@ -2546,7 +2554,7 @@ namespace mrbind::CSharp
                     ret.text +=
                         "public static unsafe implicit operator Span<byte>(" + csharp_name + " s)\n"
                         "{\n"
-                        "    return new(s.Data(), checked((int)s.Size()));\n"
+                        "    return new(s." + AdjustCalledFuncName("Data") + "(), checked((int)s." + AdjustCalledFuncName("Size") + "()));\n"
                         "}\n";
                 }
             }
@@ -2573,7 +2581,7 @@ namespace mrbind::CSharp
                 // When `--move-classes-returned-by-value` is used, we need `.Value` because `GetString` returns `_Moved<Std.String>` in that case.
                 // This is a bit sad, ideally we'd copy `_Moved` for each class, and duplicate that conversion into it?
                 // But that sounds like a lot of work. And `--move-classes-returned-by-value` is opt-in anyway.
-                "    return self.GetString()" + (move_in_by_value_return ? ".Value" : "") + ";\n"
+                "    return self." + AdjustCalledFuncName("GetString") + "()" + (move_in_by_value_return ? ".Value" : "") + ";\n"
                 "}\n"
                 "public override string ToString() {return (string)this;}\n";
         }
@@ -2713,8 +2721,8 @@ namespace mrbind::CSharp
         // This is a subset of `is_conv_op_rewritten_from_ctor` that's only true for by-value wrappers.
         // In those, we can't just `return new T(...)` because that tries to copy it, so instead we move the result.
         is_conv_op_rewritten_from_ctor_for_by_value_wrapper(IsConvOpForCtorForByValueWrapper(emit_variant)),
-        is_property_get(csharp_name == "get"),
-        is_property_set(csharp_name == "set"),
+        is_property_get(csharp_name == "get{}"),
+        is_property_set(csharp_name == "set{}"),
         is_property(is_property_get || is_property_set),
         // If this is a constructor, is the target class backed by a `shared_ptr`?
         ctor_class_backed_by_shared_ptr([&]{
@@ -3153,7 +3161,7 @@ namespace mrbind::CSharp
             }
 
             // Write the C# name.
-            file.WriteString(is_overloaded_subscript_op ? "this" : csharp_name);
+            file.WriteString(is_property_get ? "get" : is_property_set ? "set" : is_overloaded_subscript_op ? "this" : csharp_name);
 
             // Write the parameter list.
             if (!is_property)
@@ -3193,7 +3201,7 @@ namespace mrbind::CSharp
                 if (emit_variant == EmitVariant::negated_comparison_operator)
                 {
                     if (in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method))
-                        file.WriteString("\n{\n    return !" + ArgA() + ".Equal(" + ArgB() + ");\n}\n");
+                        file.WriteString("\n{\n    return !" + ArgA() + "." + generator.AdjustCalledFuncName("Equal") + "(" + ArgB() + ");\n}\n");
                     else
                         file.WriteString("\n{\n    return !(" + ArgA() + " == " + ArgB() + ");\n}\n");
                     return;
@@ -3202,7 +3210,7 @@ namespace mrbind::CSharp
                 if (emit_variant == EmitVariant::less_to_greater)
                 {
                     if (in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method))
-                        file.WriteString("\n{\n    return " + ArgB() + ".Less(" + ArgA() + ");\n}\n");
+                        file.WriteString("\n{\n    return " + ArgB() + "." + generator.AdjustCalledFuncName("Less") + "(" + ArgA() + ");\n}\n");
                     else
                         file.WriteString("\n{\n    return " + ArgB() + " < " + ArgA() + ";\n}\n");
                     return;
@@ -3211,7 +3219,7 @@ namespace mrbind::CSharp
                 if (emit_variant == EmitVariant::less_to_less_eq)
                 {
                     if (in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method))
-                        file.WriteString("\n{\n    return !" + ArgB() + ".Equal(" + ArgA() + ");\n}\n");
+                        file.WriteString("\n{\n    return !" + ArgB() + "." + generator.AdjustCalledFuncName("Equal") + "(" + ArgA() + ");\n}\n");
                     else
                         file.WriteString("\n{\n    return !(" + ArgB() + " < " + ArgA() + ");\n}\n");
                     return;
@@ -3220,7 +3228,7 @@ namespace mrbind::CSharp
                 if (emit_variant == EmitVariant::less_to_greater_eq)
                 {
                     if (in_exposed_struct && generator.IsMutatingOverloadedOperatorThatMustBeFuncInExposedStruct(*method))
-                        file.WriteString("\n{\n    return !" + ArgA() + ".Less(" + ArgB() + ");\n}\n");
+                        file.WriteString("\n{\n    return !" + ArgA() + "." + generator.AdjustCalledFuncName("Less") + "(" + ArgB() + ");\n}\n");
                     else
                         file.WriteString("\n{\n    return !(" + ArgA() + " < " + ArgB() + ");\n}\n");
                     return;
@@ -3524,9 +3532,11 @@ namespace mrbind::CSharp
 
     std::string Generator::MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant, bool adjust_to_disambiguate)
     {
+        bool ret_is_identifier = false;
         std::string ret = std::visit(Overload{
             [&](const CInterop::MethodKinds::Regular &elem) -> std::string
             {
+                ret_is_identifier = true;
                 // Can't use `CppIdentifierToCSharpIdentifier(elem.name)`, since at the beginning of `Generate()`
                 //   we might replace `name` with `full_name` to disambiguate the names of templates, if necessary.
                 return CppToCSharpIdentifier(ParseNameOrThrow(elem.name));
@@ -3600,6 +3610,7 @@ namespace mrbind::CSharp
                 }
 
                 // Fall back to an identifier.
+                ret_is_identifier = true;
 
                 // Those doesn't give good names for unary `*` and `&`, so we have to handle that first.
                 if (method.params.size() == 1)
@@ -3618,6 +3629,7 @@ namespace mrbind::CSharp
                 {
                     // If this some weird conversion operator that we can't emit, make it a function instead.
 
+                    ret_is_identifier = true;
                     return "ConvertTo_" + CppToCSharpIdentifier(ParseTypeOrThrow(method.ret.cpp_type));
                 }
 
@@ -3626,6 +3638,9 @@ namespace mrbind::CSharp
                 return std::string(elem.is_explicit ? "explicit" : "implicit") + " operator " + GetReturnBinding(method.ret, TypeBindingFlags::no_move_in_by_value_return * IsOverloadableOpOrConvOp(&method)).csharp_return_type;
             },
         }, method.var);
+
+        if (ret_is_identifier && begin_func_names_with_lowercase)
+            MakeFirstLetterLowercase(ret);
 
         // Adjust the result if it conflicts with other member names.
         if (
@@ -4520,7 +4535,7 @@ namespace mrbind::CSharp
                                     + (added_nullability ? "    if (" + param.name + " is null)\n        return false;\n" : "") +
                                     (
                                         equal_is_method
-                                        ? "    return this.Equal(" + param.name + ");\n" // This should never be necessary...
+                                        ? "    return this." + AdjustCalledFuncName("Equal") + "(" + param.name + ");\n" // This should never be necessary...
                                         : "    return this == " + param.name + ";\n"
                                     ) +
                                     "}\n";
@@ -5774,7 +5789,7 @@ namespace mrbind::CSharp
             //   since its parameter type (the by-value wrapper) needs to be different from what the getter returns, and C# requires those types to match.
             // But this isn't an issue, since we have `.Assign()` in our class wrappers.
 
-            FuncLikeEmitter emit_getter(*this, &maybe_const_getter.value(), "get", false/*doesn't matter since we're not in a ctor*/);
+            FuncLikeEmitter emit_getter(*this, &maybe_const_getter.value(), "get{}", false/*doesn't matter since we're not in a ctor*/);
 
             file.WriteSeparatingNewline();
 
@@ -6091,6 +6106,9 @@ namespace mrbind::CSharp
                         unqual_csharp_name = CppIdentifierToCSharpIdentifier(cppdecl::TokenToIdentifier(std::get<cppdecl::OverloadedOperator>(qual_name.parts.back().var).token, true));
                     else
                         unqual_csharp_name = CppToCSharpIdentifier(qual_name.parts.back());
+
+                    if (begin_func_names_with_lowercase)
+                        MakeFirstLetterLowercase(unqual_csharp_name);
 
                     { // Adjust the name to avoid conflicts with types.
                         qual_name.parts.pop_back();

@@ -145,7 +145,7 @@ public static partial class MR
                 public static unsafe implicit operator ClassTemplate_MRCUint64T(int _1) {return new(_1);}
 
                 /// Generated from method `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::operator=`.
-                public unsafe MR.CS.TestSimpleTypes.ClassTemplate_MRCUint64T Assign(MR.CS.TestSimpleTypes.Const_ClassTemplate_MRCUint64T _other)
+                public unsafe MR.CS.TestSimpleTypes.ClassTemplate_MRCUint64T assign(MR.CS.TestSimpleTypes.Const_ClassTemplate_MRCUint64T _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSimpleTypes.ClassTemplate_MRCUint64T._Underlying *__MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother(_Underlying *_this, MR.CS.TestSimpleTypes.ClassTemplate_MRCUint64T._Underlying *_other);
@@ -154,7 +154,7 @@ public static partial class MR
 
                 // Methods.
                 /// Generated from method `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::foo<MR_C_uint64_t>`.
-                public unsafe void Foo_MRCUint64T()
+                public unsafe void foo_MRCUint64T()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_uint64_t", ExactSpelling = true)]
                     extern static void __MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_uint64_t(_Underlying *_this);
@@ -163,7 +163,7 @@ public static partial class MR
 
                 // Methods.
                 /// Generated from method `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::foo<int>`.
-                public unsafe void Foo_Int()
+                public unsafe void foo_Int()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_int", ExactSpelling = true)]
                     extern static void __MR_TestSimpleTypes_ClassTemplate_uint64_t_foo_int(_Underlying *_this);
@@ -210,7 +210,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::GetInt`.
-            public static int GetInt()
+            public static int getInt()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetInt", ExactSpelling = true)]
                 extern static int __MR_TestSimpleTypes_GetInt();
@@ -218,7 +218,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetInt`.
-            public static void SetInt(int _1)
+            public static void setInt(int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetInt", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetInt(int _1);
@@ -227,7 +227,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetIntDef`.
             /// Parameter `_1` defaults to `42`.
-            public static unsafe void SetIntDef(int? _1 = null)
+            public static unsafe void setIntDef(int? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetIntDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetIntDef(int *_1);
@@ -236,7 +236,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::GetIntPtr`.
-            public static unsafe MR.CS.Misc.Ref<int>? GetIntPtr()
+            public static unsafe MR.CS.Misc.Ref<int>? getIntPtr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetIntPtr", ExactSpelling = true)]
                 extern static int *__MR_TestSimpleTypes_GetIntPtr();
@@ -245,7 +245,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetIntPtr`.
-            public static unsafe void SetIntPtr(MR.CS.Misc.InOut<int>? _1)
+            public static unsafe void setIntPtr(MR.CS.Misc.InOut<int>? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetIntPtr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetIntPtr(int *_1);
@@ -256,7 +256,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetIntPtrDef`.
             /// Parameter `_1` defaults to `&global_int`.
-            public static unsafe void SetIntPtrDef(MR.CS.Misc._InOutOpt<int>? _1 = null)
+            public static unsafe void setIntPtrDef(MR.CS.Misc._InOutOpt<int>? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetIntPtrDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetIntPtrDef(int **_1);
@@ -267,7 +267,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetIntPtrDefNull`.
-            public static unsafe void SetIntPtrDefNull(MR.CS.Misc.InOut<int>? _1 = null)
+            public static unsafe void setIntPtrDefNull(MR.CS.Misc.InOut<int>? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetIntPtrDefNull", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetIntPtrDefNull(int *_1);
@@ -277,7 +277,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::GetIntRef`.
-            public static unsafe ref int GetIntRef()
+            public static unsafe ref int getIntRef()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetIntRef", ExactSpelling = true)]
                 extern static int *__MR_TestSimpleTypes_GetIntRef();
@@ -285,7 +285,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetIntRef`.
-            public static unsafe void SetIntRef(ref int _1)
+            public static unsafe void setIntRef(ref int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetIntRef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetIntRef(int *_1);
@@ -297,7 +297,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetIntRefDef`.
             /// Parameter `_1` defaults to `global_int`.
-            public static unsafe void SetIntRefDef(MR.CS.Misc.InOut<int>? _1 = null)
+            public static unsafe void setIntRefDef(MR.CS.Misc.InOut<int>? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetIntRefDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetIntRefDef(int *_1);
@@ -308,7 +308,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::GetVoidPtr`.
             /// Returns a mutable pointer.
-            public static unsafe void *GetVoidPtr()
+            public static unsafe void *getVoidPtr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetVoidPtr", ExactSpelling = true)]
                 extern static void *__MR_TestSimpleTypes_GetVoidPtr();
@@ -317,7 +317,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetVoidPtr`.
             /// Parameter `_1` is a mutable pointer.
-            public static unsafe void SetVoidPtr(void *_1)
+            public static unsafe void setVoidPtr(void *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetVoidPtr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetVoidPtr(void *_1);
@@ -327,7 +327,7 @@ public static partial class MR
             /// Generated from function `MR::TestSimpleTypes::SetVoidPtrDef`.
             /// Parameter `_1` defaults to `&global_int`.
             /// Parameter `_1` is a mutable pointer.
-            public static unsafe void SetVoidPtrDef(void **_1 = null)
+            public static unsafe void setVoidPtrDef(void **_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetVoidPtrDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetVoidPtrDef(void **_1);
@@ -336,7 +336,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetVoidPtrDefNull`.
             /// Parameter `_1` is a mutable pointer.
-            public static unsafe void SetVoidPtrDefNull(void *_1 = null)
+            public static unsafe void setVoidPtrDefNull(void *_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetVoidPtrDefNull", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetVoidPtrDefNull(void *_1);
@@ -345,7 +345,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::GetConstVoidPtr`.
             /// Returns a read-only pointer.
-            public static unsafe void *GetConstVoidPtr()
+            public static unsafe void *getConstVoidPtr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetConstVoidPtr", ExactSpelling = true)]
                 extern static void *__MR_TestSimpleTypes_GetConstVoidPtr();
@@ -354,7 +354,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetConstVoidPtr`.
             /// Parameter `_1` is a read-only pointer.
-            public static unsafe void SetConstVoidPtr(void *_1)
+            public static unsafe void setConstVoidPtr(void *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetConstVoidPtr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetConstVoidPtr(void *_1);
@@ -364,7 +364,7 @@ public static partial class MR
             /// Generated from function `MR::TestSimpleTypes::SetConstVoidPtrDef`.
             /// Parameter `_1` defaults to `&global_int`.
             /// Parameter `_1` is a read-only pointer.
-            public static unsafe void SetConstVoidPtrDef(void **_1 = null)
+            public static unsafe void setConstVoidPtrDef(void **_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetConstVoidPtrDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetConstVoidPtrDef(void **_1);
@@ -373,7 +373,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetConstVoidPtrDefNull`.
             /// Parameter `_1` is a read-only pointer.
-            public static unsafe void SetConstVoidPtrDefNull(void *_1 = null)
+            public static unsafe void setConstVoidPtrDefNull(void *_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetConstVoidPtrDefNull", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetConstVoidPtrDefNull(void *_1);
@@ -381,7 +381,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::GetVoidPtrPtr`.
-            public static unsafe void **GetVoidPtrPtr()
+            public static unsafe void **getVoidPtrPtr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetVoidPtrPtr", ExactSpelling = true)]
                 extern static void **__MR_TestSimpleTypes_GetVoidPtrPtr();
@@ -389,7 +389,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetVoidPtrPtr`.
-            public static unsafe void SetVoidPtrPtr(void **_1)
+            public static unsafe void setVoidPtrPtr(void **_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetVoidPtrPtr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetVoidPtrPtr(void **_1);
@@ -398,7 +398,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetVoidPtrPtrDef`.
             /// Parameter `_1` defaults to `&global_void_ptr`.
-            public static unsafe void SetVoidPtrPtrDef(void ***_1 = null)
+            public static unsafe void setVoidPtrPtrDef(void ***_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetVoidPtrPtrDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetVoidPtrPtrDef(void ***_1);
@@ -406,7 +406,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetVoidPtrPtrDefNull`.
-            public static unsafe void SetVoidPtrPtrDefNull(void **_1 = null)
+            public static unsafe void setVoidPtrPtrDefNull(void **_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetVoidPtrPtrDefNull", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetVoidPtrPtrDefNull(void **_1);
@@ -414,7 +414,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::GetEnum`.
-            public static int GetEnum()
+            public static int getEnum()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetEnum", ExactSpelling = true)]
                 extern static int __MR_TestSimpleTypes_GetEnum();
@@ -422,7 +422,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetEnum`.
-            public static void SetEnum(MR.CS.TestSimpleTypes.E _1)
+            public static void setEnum(MR.CS.TestSimpleTypes.E _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnum(MR.CS.TestSimpleTypes.E _1);
@@ -431,7 +431,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetEnumDef`.
             /// Parameter `_1` defaults to `E::e1`.
-            public static unsafe void SetEnumDef(MR.CS.TestSimpleTypes.E? _1 = null)
+            public static unsafe void setEnumDef(MR.CS.TestSimpleTypes.E? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnumDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnumDef(MR.CS.TestSimpleTypes.E *_1);
@@ -440,7 +440,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::GetEnumPtr`.
-            public static unsafe MR.CS.Misc.Ref<MR.CS.TestSimpleTypes.E>? GetEnumPtr()
+            public static unsafe MR.CS.Misc.Ref<MR.CS.TestSimpleTypes.E>? getEnumPtr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetEnumPtr", ExactSpelling = true)]
                 extern static MR.CS.TestSimpleTypes.E *__MR_TestSimpleTypes_GetEnumPtr();
@@ -449,7 +449,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetEnumPtr`.
-            public static unsafe void SetEnumPtr(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E>? _1)
+            public static unsafe void setEnumPtr(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E>? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnumPtr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnumPtr(MR.CS.TestSimpleTypes.E *_1);
@@ -460,7 +460,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetEnumPtrDef`.
             /// Parameter `_1` defaults to `&global_enum`.
-            public static unsafe void SetEnumPtrDef(MR.CS.Misc._InOutOpt<MR.CS.TestSimpleTypes.E>? _1 = null)
+            public static unsafe void setEnumPtrDef(MR.CS.Misc._InOutOpt<MR.CS.TestSimpleTypes.E>? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnumPtrDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnumPtrDef(MR.CS.TestSimpleTypes.E **_1);
@@ -471,7 +471,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetEnumPtrDefNull`.
-            public static unsafe void SetEnumPtrDefNull(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E>? _1 = null)
+            public static unsafe void setEnumPtrDefNull(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E>? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnumPtrDefNull", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnumPtrDefNull(MR.CS.TestSimpleTypes.E *_1);
@@ -481,7 +481,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::GetEnumRef`.
-            public static unsafe ref MR.CS.TestSimpleTypes.E GetEnumRef()
+            public static unsafe ref MR.CS.TestSimpleTypes.E getEnumRef()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetEnumRef", ExactSpelling = true)]
                 extern static MR.CS.TestSimpleTypes.E *__MR_TestSimpleTypes_GetEnumRef();
@@ -489,7 +489,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetEnumRef`.
-            public static unsafe void SetEnumRef(ref MR.CS.TestSimpleTypes.E _1)
+            public static unsafe void setEnumRef(ref MR.CS.TestSimpleTypes.E _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnumRef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnumRef(MR.CS.TestSimpleTypes.E *_1);
@@ -501,7 +501,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetEnumRefDef`.
             /// Parameter `_1` defaults to `global_enum`.
-            public static unsafe void SetEnumRefDef(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E>? _1 = null)
+            public static unsafe void setEnumRefDef(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E>? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnumRefDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnumRefDef(MR.CS.TestSimpleTypes.E *_1);
@@ -511,7 +511,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::GetEnum2`.
-            public static int GetEnum2()
+            public static int getEnum2()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetEnum2", ExactSpelling = true)]
                 extern static int __MR_TestSimpleTypes_GetEnum2();
@@ -519,7 +519,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetEnum2`.
-            public static void SetEnum2(MR.CS.TestSimpleTypes.E2 _1)
+            public static void setEnum2(MR.CS.TestSimpleTypes.E2 _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum2", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnum2(MR.CS.TestSimpleTypes.E2 _1);
@@ -528,7 +528,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetEnum2Def`.
             /// Parameter `_1` defaults to `E2::e1`.
-            public static unsafe void SetEnum2Def(MR.CS.TestSimpleTypes.E2? _1 = null)
+            public static unsafe void setEnum2Def(MR.CS.TestSimpleTypes.E2? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum2Def", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnum2Def(MR.CS.TestSimpleTypes.E2 *_1);
@@ -537,7 +537,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::GetEnum2Ptr`.
-            public static unsafe MR.CS.Misc.Ref<MR.CS.TestSimpleTypes.E2>? GetEnum2Ptr()
+            public static unsafe MR.CS.Misc.Ref<MR.CS.TestSimpleTypes.E2>? getEnum2Ptr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetEnum2Ptr", ExactSpelling = true)]
                 extern static MR.CS.TestSimpleTypes.E2 *__MR_TestSimpleTypes_GetEnum2Ptr();
@@ -546,7 +546,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetEnum2Ptr`.
-            public static unsafe void SetEnum2Ptr(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E2>? _1)
+            public static unsafe void setEnum2Ptr(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E2>? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum2Ptr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnum2Ptr(MR.CS.TestSimpleTypes.E2 *_1);
@@ -557,7 +557,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetEnum2PtrDef`.
             /// Parameter `_1` defaults to `&global_enum2`.
-            public static unsafe void SetEnum2PtrDef(MR.CS.Misc._InOutOpt<MR.CS.TestSimpleTypes.E2>? _1 = null)
+            public static unsafe void setEnum2PtrDef(MR.CS.Misc._InOutOpt<MR.CS.TestSimpleTypes.E2>? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum2PtrDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnum2PtrDef(MR.CS.TestSimpleTypes.E2 **_1);
@@ -568,7 +568,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetEnum2PtrDefNull`.
-            public static unsafe void SetEnum2PtrDefNull(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E2>? _1 = null)
+            public static unsafe void setEnum2PtrDefNull(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E2>? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum2PtrDefNull", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnum2PtrDefNull(MR.CS.TestSimpleTypes.E2 *_1);
@@ -578,7 +578,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::GetEnum2Ref`.
-            public static unsafe ref MR.CS.TestSimpleTypes.E2 GetEnum2Ref()
+            public static unsafe ref MR.CS.TestSimpleTypes.E2 getEnum2Ref()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetEnum2Ref", ExactSpelling = true)]
                 extern static MR.CS.TestSimpleTypes.E2 *__MR_TestSimpleTypes_GetEnum2Ref();
@@ -586,7 +586,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetEnum2Ref`.
-            public static unsafe void SetEnum2Ref(ref MR.CS.TestSimpleTypes.E2 _1)
+            public static unsafe void setEnum2Ref(ref MR.CS.TestSimpleTypes.E2 _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum2Ref", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnum2Ref(MR.CS.TestSimpleTypes.E2 *_1);
@@ -598,7 +598,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSimpleTypes::SetEnum2RefDef`.
             /// Parameter `_1` defaults to `global_enum2`.
-            public static unsafe void SetEnum2RefDef(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E2>? _1 = null)
+            public static unsafe void setEnum2RefDef(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E2>? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum2RefDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnum2RefDef(MR.CS.TestSimpleTypes.E2 *_1);
@@ -609,7 +609,7 @@ public static partial class MR
 
             // Test all kinds of `char`.
             /// Generated from function `MR::TestSimpleTypes::CheckCharMaybeUnsigned`.
-            public static unsafe void CheckCharMaybeUnsigned(MR.CS.Misc.InOut<byte>? _1)
+            public static unsafe void checkCharMaybeUnsigned(MR.CS.Misc.InOut<byte>? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_CheckCharMaybeUnsigned", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_CheckCharMaybeUnsigned(byte *_1);
@@ -619,7 +619,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::CheckChar`.
-            public static unsafe void CheckChar(MR.CS.Misc.InOut<byte>? _1)
+            public static unsafe void checkChar(MR.CS.Misc.InOut<byte>? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_CheckChar_unsigned_char_ptr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(byte *_1);
@@ -629,7 +629,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::CheckChar`.
-            public static unsafe void CheckChar(MR.CS.Misc.InOut<sbyte>? _1)
+            public static unsafe void checkChar(MR.CS.Misc.InOut<sbyte>? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_CheckChar_signed_char_ptr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_CheckChar_signed_char_ptr(sbyte *_1);
@@ -639,7 +639,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::blah`.
-            public static ulong Blah(ulong x)
+            public static ulong blah(ulong x)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_blah_uint64_t", ExactSpelling = true)]
                 extern static ulong __MR_TestSimpleTypes_blah_uint64_t(ulong x);
@@ -647,7 +647,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::blah`.
-            public static long Blah(long x)
+            public static long blah(long x)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_blah_int64_t", ExactSpelling = true)]
                 extern static long __MR_TestSimpleTypes_blah_int64_t(long x);
@@ -656,7 +656,7 @@ public static partial class MR
 
             // Function templates.
             /// Generated from function `MR::TestSimpleTypes::FuncTemplate<MR_C_uint64_t>`.
-            public static ulong FuncTemplate(ulong _1)
+            public static ulong funcTemplate(ulong _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_FuncTemplate_uint64_t", ExactSpelling = true)]
                 extern static ulong __MR_TestSimpleTypes_FuncTemplate_uint64_t(ulong _1);
@@ -665,7 +665,7 @@ public static partial class MR
 
             // Function templates.
             /// Generated from function `MR::TestSimpleTypes::FuncTemplate<int>`.
-            public static int FuncTemplate(int _1)
+            public static int funcTemplate(int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_FuncTemplate_int", ExactSpelling = true)]
                 extern static int __MR_TestSimpleTypes_FuncTemplate_int(int _1);

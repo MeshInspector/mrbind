@@ -60,7 +60,7 @@ public static partial class MR
                 public static unsafe implicit operator Const_String(string other) {return new(other);}
 
                 /// The number of characters in the string, excluding the null-terminator.
-                public unsafe ulong Size()
+                public unsafe ulong size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Size", ExactSpelling = true)]
                     extern static ulong __MR_C_std_string_Size(_Underlying *_this);
@@ -69,7 +69,7 @@ public static partial class MR
 
                 /// Returns the string contents, which are always null-terminated.
                 /// Returns a read-only pointer.
-                public unsafe byte *Data()
+                public unsafe byte *data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Data", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_Data(_Underlying *_this);
@@ -78,7 +78,7 @@ public static partial class MR
 
                 /// Returns a pointer to the end of string, to its null-terminator.
                 /// Returns a read-only pointer.
-                public unsafe byte *DataEnd()
+                public unsafe byte *dataEnd()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DataEnd", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_DataEnd(_Underlying *_this);
@@ -89,12 +89,12 @@ public static partial class MR
 
                 public static unsafe implicit operator ReadOnlySpan<byte>(MR.CS.Std.Const_String self)
                 {
-                    return new(self.Data(), checked((int)self.Size()));
+                    return new(self.data(), checked((int)self.size()));
                 }
 
                 public static unsafe implicit operator string(MR.CS.Std.Const_String self)
                 {
-                    return System.Text.Encoding.UTF8.GetString(self.Data(), checked((int)self.Size()));
+                    return System.Text.Encoding.UTF8.GetString(self.data(), checked((int)self.size()));
                 }
                 public override string ToString() {return (string)this;}
             }
@@ -139,7 +139,7 @@ public static partial class MR
                 public static unsafe implicit operator String(string other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std._ByValue_String other)
+                public unsafe void assign(MR.CS.Std._ByValue_String other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.String._Underlying *other);
@@ -147,7 +147,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(ReadOnlySpan<char> other)
+                public unsafe void assign(ReadOnlySpan<char> other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_string_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
@@ -161,7 +161,7 @@ public static partial class MR
 
                 /// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.
                 /// Returns a read-only pointer.
-                public unsafe new byte *Data()
+                public unsafe new byte *data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableData", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_MutableData(_Underlying *_this);
@@ -170,7 +170,7 @@ public static partial class MR
 
                 /// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.
                 /// Returns a mutable pointer.
-                public unsafe new byte *DataEnd()
+                public unsafe new byte *dataEnd()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableDataEnd", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_MutableDataEnd(_Underlying *_this);
@@ -181,7 +181,7 @@ public static partial class MR
 
                 public static unsafe implicit operator Span<byte>(MR.CS.Std.String s)
                 {
-                    return new(s.Data(), checked((int)s.Size()));
+                    return new(s.data(), checked((int)s.size()));
                 }
             }
 

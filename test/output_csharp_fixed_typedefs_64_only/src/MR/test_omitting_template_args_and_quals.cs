@@ -45,7 +45,7 @@ public static partial class MR
                 }
 
                 /// Generated from function `MR::OmittingTargsAndQuals::operator*`.
-                public unsafe void Deref()
+                public unsafe void deref()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_deref_MR_OmittingTargsAndQuals_A_int", ExactSpelling = true)]
                     extern static void __MR_C_deref_MR_OmittingTargsAndQuals_A_int(_Underlying *_1);
@@ -53,7 +53,7 @@ public static partial class MR
                 }
 
                 /// Generated from function `MR::OmittingTargsAndQuals::operator~<int>`.
-                public unsafe void Compl()
+                public unsafe void compl()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_MR_OmittingTargsAndQuals_A_int", ExactSpelling = true)]
                     extern static void __MR_C_compl_MR_OmittingTargsAndQuals_A_int(_Underlying *_1);
@@ -86,7 +86,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator=`.
-                public unsafe MR.CS.OmittingTargsAndQuals.A_Int Assign(MR.CS.OmittingTargsAndQuals.Const_A_Int _other)
+                public unsafe MR.CS.OmittingTargsAndQuals.A_Int assign(MR.CS.OmittingTargsAndQuals.Const_A_Int _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_A_int_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OmittingTargsAndQuals.A_Int._Underlying *__MR_OmittingTargsAndQuals_A_int_AssignFromAnother(_Underlying *_this, MR.CS.OmittingTargsAndQuals.A_Int._Underlying *_other);
@@ -94,7 +94,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator+`.
-                public unsafe void Add()
+                public unsafe void add()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_OmittingTargsAndQuals_A_int", ExactSpelling = true)]
                     extern static void __MR_C_pos_MR_OmittingTargsAndQuals_A_int(_Underlying *_this);
@@ -102,7 +102,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator-<float>`.
-                public unsafe void Sub(MR.CS.OmittingTargsAndQuals.Const_A_Float _1)
+                public unsafe void sub(MR.CS.OmittingTargsAndQuals.Const_A_Float _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_OmittingTargsAndQuals_A_int_MR_OmittingTargsAndQuals_A_float", ExactSpelling = true)]
                     extern static void __MR_C_sub_MR_OmittingTargsAndQuals_A_int_MR_OmittingTargsAndQuals_A_float(_Underlying *_this, MR.CS.OmittingTargsAndQuals.A_Float._Underlying *_1);
@@ -206,7 +206,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator=`.
-                public unsafe MR.CS.OmittingTargsAndQuals.A_Float Assign(MR.CS.OmittingTargsAndQuals.Const_A_Float _other)
+                public unsafe MR.CS.OmittingTargsAndQuals.A_Float assign(MR.CS.OmittingTargsAndQuals.Const_A_Float _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_A_float_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OmittingTargsAndQuals.A_Float._Underlying *__MR_OmittingTargsAndQuals_A_float_AssignFromAnother(_Underlying *_this, MR.CS.OmittingTargsAndQuals.A_Float._Underlying *_other);
@@ -214,7 +214,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator+`.
-                public unsafe void Add()
+                public unsafe void add()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_OmittingTargsAndQuals_A_float", ExactSpelling = true)]
                     extern static void __MR_C_pos_MR_OmittingTargsAndQuals_A_float(_Underlying *_this);
@@ -253,7 +253,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::OmittingTargsAndQuals::a`.
-            public static unsafe void A(MR.CS.OmittingTargsAndQuals.Const_A_Int _1)
+            public static unsafe void a(MR.CS.OmittingTargsAndQuals.Const_A_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_int", ExactSpelling = true)]
                 extern static void __MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_int(MR.CS.OmittingTargsAndQuals.A_Int._Underlying *_1);
@@ -261,7 +261,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::OmittingTargsAndQuals::b<float>`.
-            public static unsafe void B(MR.CS.OmittingTargsAndQuals.Const_A_Int _1, MR.CS.OmittingTargsAndQuals.Const_A_Float _2)
+            public static unsafe void b(MR.CS.OmittingTargsAndQuals.Const_A_Int _1, MR.CS.OmittingTargsAndQuals.Const_A_Float _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_b", ExactSpelling = true)]
                 extern static void __MR_OmittingTargsAndQuals_b(MR.CS.OmittingTargsAndQuals.A_Int._Underlying *_1, MR.CS.OmittingTargsAndQuals.A_Float._Underlying *_2);
@@ -269,7 +269,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::OmittingTargsAndQuals::a`.
-            public static unsafe void A(MR.CS.OmittingTargsAndQuals.Const_A_Float _1)
+            public static unsafe void a(MR.CS.OmittingTargsAndQuals.Const_A_Float _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_float", ExactSpelling = true)]
                 extern static void __MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_float(MR.CS.OmittingTargsAndQuals.A_Float._Underlying *_1);
@@ -277,7 +277,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::OmittingTargsAndQuals::c`.
-            public static unsafe void C(MR.CS.OmittingTargsAndQuals.Const_A_Int _1)
+            public static unsafe void c(MR.CS.OmittingTargsAndQuals.Const_A_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_c", ExactSpelling = true)]
                 extern static void __MR_OmittingTargsAndQuals_c(MR.CS.OmittingTargsAndQuals.A_Int._Underlying *_1);
@@ -285,7 +285,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::OmittingTargsAndQuals::d<int>`.
-            public static unsafe void D(MR.CS.OmittingTargsAndQuals.Const_A_Int _1)
+            public static unsafe void d(MR.CS.OmittingTargsAndQuals.Const_A_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_d", ExactSpelling = true)]
                 extern static void __MR_OmittingTargsAndQuals_d(MR.CS.OmittingTargsAndQuals.A_Int._Underlying *_1);
@@ -293,7 +293,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::OmittingTargsAndQuals::inst`.
-            public static void Inst()
+            public static void inst()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_inst", ExactSpelling = true)]
                 extern static void __MR_OmittingTargsAndQuals_inst();

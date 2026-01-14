@@ -54,7 +54,7 @@ public static partial class MR
                 public static unsafe implicit operator Const_Optional_MRCSharpTrivial(MR.CS.CSharp.Const_Trivial? other) {return new(other);}
 
                 /// The stored element or null if none, read-only.
-                public unsafe MR.CS.CSharp.Const_Trivial? Value()
+                public unsafe MR.CS.CSharp.Const_Trivial? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_Value", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_Trivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_Value(_Underlying *_this);
@@ -97,7 +97,7 @@ public static partial class MR
                 public static unsafe implicit operator Optional_MRCSharpTrivial(MR.CS.CSharp.Const_Trivial? other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_Optional_MRCSharpTrivial other)
+                public unsafe void assign(MR.CS.Std.Const_Optional_MRCSharpTrivial other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
@@ -105,7 +105,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(MR.CS.CSharp.Const_Trivial? other)
+                public unsafe void assign(MR.CS.CSharp.Const_Trivial? other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_Trivial_AssignFrom(_Underlying *_this, MR.CS.CSharp.Trivial._Underlying *other);
@@ -113,7 +113,7 @@ public static partial class MR
                 }
 
                 /// The stored element or null if none, mutable.
-                public unsafe new MR.CS.CSharp.Trivial? Value()
+                public unsafe new MR.CS.CSharp.Trivial? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_MutableValue", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Trivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_MutableValue(_Underlying *_this);

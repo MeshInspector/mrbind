@@ -2015,6 +2015,7 @@ public static partial class MR
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Get", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SA_Get(_UnderlyingShared *_this);
                         return __MR_C_std_shared_ptr_MR_CSharp_SA_Get(_UnderlyingSharedPtr);
@@ -2022,22 +2023,26 @@ public static partial class MR
                 }
 
                 /// Check if the underlying shared pointer is owning or not.
-                public override bool _IsOwning
+                public override unsafe bool _IsOwning
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SA_UseCount();
-                        return __MR_C_std_shared_ptr_MR_CSharp_SA_UseCount() > 0;
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SA_UseCount(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SA_UseCount(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
-                /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
-                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                /// Check if the underlying shared pointer is non-null.
+                /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                private unsafe bool _SharedPtrIsNotNull
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_ConstructFromAnother", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
-                    return __MR_C_std_shared_ptr_MR_CSharp_SA_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SA_Get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SA_Get(_UnderlyingSharedPtr) is not null;
+                    }
                 }
 
                 internal unsafe Const_SA(_Underlying *ptr, bool is_owning) : base(true)
@@ -2198,6 +2203,7 @@ public static partial class MR
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Get", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SB_Get(_UnderlyingShared *_this);
                         return __MR_C_std_shared_ptr_MR_CSharp_SB_Get(_UnderlyingSharedPtr);
@@ -2205,22 +2211,26 @@ public static partial class MR
                 }
 
                 /// Check if the underlying shared pointer is owning or not.
-                public override bool _IsOwning
+                public override unsafe bool _IsOwning
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SB_UseCount();
-                        return __MR_C_std_shared_ptr_MR_CSharp_SB_UseCount() > 0;
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SB_UseCount(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SB_UseCount(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
-                /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
-                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                /// Check if the underlying shared pointer is non-null.
+                /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                private unsafe bool _SharedPtrIsNotNull
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_ConstructFromAnother", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
-                    return __MR_C_std_shared_ptr_MR_CSharp_SB_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SB_Get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SB_Get(_UnderlyingSharedPtr) is not null;
+                    }
                 }
 
                 internal unsafe Const_SB(_Underlying *ptr, bool is_owning) : base(true)
@@ -2400,6 +2410,7 @@ public static partial class MR
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Get", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SC_Get(_UnderlyingShared *_this);
                         return __MR_C_std_shared_ptr_MR_CSharp_SC_Get(_UnderlyingSharedPtr);
@@ -2407,22 +2418,26 @@ public static partial class MR
                 }
 
                 /// Check if the underlying shared pointer is owning or not.
-                public override bool _IsOwning
+                public override unsafe bool _IsOwning
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SC_UseCount();
-                        return __MR_C_std_shared_ptr_MR_CSharp_SC_UseCount() > 0;
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SC_UseCount(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SC_UseCount(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
-                /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
-                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                /// Check if the underlying shared pointer is non-null.
+                /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                private unsafe bool _SharedPtrIsNotNull
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructFromAnother", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
-                    return __MR_C_std_shared_ptr_MR_CSharp_SC_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SC_Get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SC_Get(_UnderlyingSharedPtr) is not null;
+                    }
                 }
 
                 internal unsafe Const_SC(_Underlying *ptr, bool is_owning) : base(true)
@@ -2630,6 +2645,7 @@ public static partial class MR
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Get", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SD_Get(_UnderlyingShared *_this);
                         return __MR_C_std_shared_ptr_MR_CSharp_SD_Get(_UnderlyingSharedPtr);
@@ -2637,22 +2653,26 @@ public static partial class MR
                 }
 
                 /// Check if the underlying shared pointer is owning or not.
-                public override bool _IsOwning
+                public override unsafe bool _IsOwning
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SD_UseCount();
-                        return __MR_C_std_shared_ptr_MR_CSharp_SD_UseCount() > 0;
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SD_UseCount(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SD_UseCount(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
-                /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
-                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                /// Check if the underlying shared pointer is non-null.
+                /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                private unsafe bool _SharedPtrIsNotNull
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_ConstructFromAnother", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SD_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
-                    return __MR_C_std_shared_ptr_MR_CSharp_SD_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SD_Get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SD_Get(_UnderlyingSharedPtr) is not null;
+                    }
                 }
 
                 internal unsafe Const_SD(_Underlying *ptr, bool is_owning) : base(true)
@@ -2831,6 +2851,7 @@ public static partial class MR
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Get", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SE_Get(_UnderlyingShared *_this);
                         return __MR_C_std_shared_ptr_MR_CSharp_SE_Get(_UnderlyingSharedPtr);
@@ -2838,22 +2859,26 @@ public static partial class MR
                 }
 
                 /// Check if the underlying shared pointer is owning or not.
-                public override bool _IsOwning
+                public override unsafe bool _IsOwning
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SE_UseCount();
-                        return __MR_C_std_shared_ptr_MR_CSharp_SE_UseCount() > 0;
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SE_UseCount(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SE_UseCount(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
-                /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
-                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                /// Check if the underlying shared pointer is non-null.
+                /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                private unsafe bool _SharedPtrIsNotNull
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_ConstructFromAnother", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SE_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
-                    return __MR_C_std_shared_ptr_MR_CSharp_SE_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SE_Get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SE_Get(_UnderlyingSharedPtr) is not null;
+                    }
                 }
 
                 internal unsafe Const_SE(_Underlying *ptr, bool is_owning) : base(true)
@@ -3033,6 +3058,7 @@ public static partial class MR
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Get", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SF_Get(_UnderlyingShared *_this);
                         return __MR_C_std_shared_ptr_MR_CSharp_SF_Get(_UnderlyingSharedPtr);
@@ -3040,22 +3066,26 @@ public static partial class MR
                 }
 
                 /// Check if the underlying shared pointer is owning or not.
-                public override bool _IsOwning
+                public override unsafe bool _IsOwning
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SF_UseCount();
-                        return __MR_C_std_shared_ptr_MR_CSharp_SF_UseCount() > 0;
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SF_UseCount(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SF_UseCount(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
-                /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
-                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                /// Check if the underlying shared pointer is non-null.
+                /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                private unsafe bool _SharedPtrIsNotNull
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructFromAnother", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
-                    return __MR_C_std_shared_ptr_MR_CSharp_SF_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SF_Get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SF_Get(_UnderlyingSharedPtr) is not null;
+                    }
                 }
 
                 internal unsafe Const_SF(_Underlying *ptr, bool is_owning) : base(true)
@@ -12657,6 +12687,7 @@ public static partial class MR
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get(_UnderlyingShared *_this);
                         return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get(_UnderlyingSharedPtr);
@@ -12664,22 +12695,26 @@ public static partial class MR
                 }
 
                 /// Check if the underlying shared pointer is owning or not.
-                public override bool _IsOwning
+                public override unsafe bool _IsOwning
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_UseCount();
-                        return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_UseCount() > 0;
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_UseCount(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_UseCount(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
-                /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
-                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                /// Check if the underlying shared pointer is non-null.
+                /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                private unsafe bool _SharedPtrIsNotNull
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructFromAnother", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
-                    return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get(_UnderlyingSharedPtr) is not null;
+                    }
                 }
 
                 /// Get the underlying struct.

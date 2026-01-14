@@ -304,15 +304,18 @@ namespace mrbind::CSharp
         // This C# namespace is added to the names that don't already start with the first unqualified part of it.
         std::optional<cppdecl::QualifiedName> forced_namespace;
 
+        // If true, name C# functions `fooBar` instead of `FooBar`.
+        bool begin_func_names_with_lowercase = false;
+
         // The language version. This affects what features we can use.
-        int csharp_version = -1; // This is set elsewhere.
+        int csharp_version = 12; // C# 12 corresponds to .NET 8
 
         // The .NET framework version. This seems to affect what standard library features we can use, as opposed to C# language features.
         // If positive, this is the .NET version, e.g. `80` means ".NET 8".
         //   Similarly, `21` means .NET Core 2.1 (this is the numeration for some older versions).
         // If negative, this is the .NET framework version, e.g. `-21` means `2.1`.
         // Use `NetFrameworkAtLeast()` to test this variable.
-        int dotnet_version = 0; // This is set elsewhere.
+        int dotnet_version = 80; // = .NET 8
 
         // Test that we're using at least a specific .NET version, or a specific .NET Standard version.
         // E.g. `NetFrameworkAtLeast(80, 21)` means ".NET 8 or newer, or .NET Standard 2.1 or newer".
@@ -334,7 +337,7 @@ namespace mrbind::CSharp
         // If true, wrap classes returned by value in `_Moved<...>` (assuming they need a pass-by enum).
         // This gives a more correct behavior, at the cost of the bindings being harder to understand and use (having to use `.Value` on `_Moved<...>` returned
         //   by the functions, or alternatively avoiding `var` and specifying all the variable types).
-        bool move_in_by_value_return = true;
+        bool move_in_by_value_return = false;
 
         // ]
 
@@ -352,6 +355,10 @@ namespace mrbind::CSharp
 
         [[nodiscard]] const cppdecl::Type &ParseTypeOrThrow(const std::string &str);
         [[nodiscard]] const cppdecl::QualifiedName &ParseNameOrThrow(const std::string &str);
+
+        // Use this when calling generated C# functions manually from handwritten C# code.
+        // This will adjust `str` to the correct naming style, as per `begin_func_names_with_lowercase`.
+        [[nodiscard]] std::string AdjustCalledFuncName(std::string str);
 
         // Translates a primitive C type to C#. This intentionally rejects pointers.
         // `is_indirect` affects how `bool` is mapped. If true, returns `bool` as is, and otherwise returns `byte`.

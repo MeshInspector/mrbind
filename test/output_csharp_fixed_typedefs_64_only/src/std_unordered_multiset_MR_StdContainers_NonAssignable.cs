@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// The number of elements.
-                public unsafe ulong Size()
+                public unsafe ulong size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_Size", ExactSpelling = true)]
                     extern static ulong __MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_Size(_Underlying *_this);
@@ -51,7 +51,7 @@ public static partial class MR
                 }
 
                 /// Returns true if the size is zero.
-                public unsafe bool IsEmpty()
+                public unsafe bool isEmpty()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_IsEmpty", ExactSpelling = true)]
                     extern static byte __MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_IsEmpty(_Underlying *_this);
@@ -59,7 +59,7 @@ public static partial class MR
                 }
 
                 /// Checks if the contain contains this key.
-                public unsafe ulong Count(MR.CS.StdContainers.Const_NonAssignable key)
+                public unsafe ulong count(MR.CS.StdContainers.Const_NonAssignable key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_Count", ExactSpelling = true)]
                     extern static ulong __MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_Count(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
@@ -67,7 +67,7 @@ public static partial class MR
                 }
 
                 /// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
-                public unsafe MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.ConstIterator Find(MR.CS.StdContainers.Const_NonAssignable key)
+                public unsafe MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.ConstIterator find(MR.CS.StdContainers.Const_NonAssignable key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_Find", ExactSpelling = true)]
                     extern static MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_Find(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
@@ -75,7 +75,7 @@ public static partial class MR
                 }
 
                 /// The begin iterator, const.
-                public unsafe MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.ConstIterator Begin()
+                public unsafe MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.ConstIterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_Begin", ExactSpelling = true)]
                     extern static MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_Begin(_Underlying *_this);
@@ -83,7 +83,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a const iterator is the begin iterator.
-                public unsafe bool IsBegin(MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.Const_ConstIterator iter)
+                public unsafe bool isBegin(MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_IsBegin", ExactSpelling = true)]
                     extern static byte __MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_IsBegin(_Underlying *_this, MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.Const_ConstIterator._Underlying *iter);
@@ -91,7 +91,7 @@ public static partial class MR
                 }
 
                 /// The end iterator, const.
-                public unsafe MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.ConstIterator End()
+                public unsafe MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.ConstIterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_End", ExactSpelling = true)]
                     extern static MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_End(_Underlying *_this);
@@ -99,7 +99,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a const iterator is the end iterator.
-                public unsafe bool IsEnd(MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.Const_ConstIterator iter)
+                public unsafe bool isEnd(MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_IsEnd", ExactSpelling = true)]
                     extern static byte __MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_IsEnd(_Underlying *_this, MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.Const_ConstIterator._Underlying *iter);
@@ -145,7 +145,7 @@ public static partial class MR
                     }
 
                     /// Dereferences a const iterator.
-                    public unsafe MR.CS.StdContainers.Const_NonAssignable Deref()
+                    public unsafe MR.CS.StdContainers.Const_NonAssignable deref()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator_Deref", ExactSpelling = true)]
                         extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator_Deref(_Underlying *_this);
@@ -176,7 +176,7 @@ public static partial class MR
                     }
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
-                    public unsafe void Assign(MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.Const_ConstIterator other)
+                    public unsafe void assign(MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.Const_ConstIterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.ConstIterator._Underlying *other);
@@ -184,7 +184,7 @@ public static partial class MR
                     }
 
                     /// Increments a const iterator.
-                    public unsafe void Incr()
+                    public unsafe void incr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator_Incr", ExactSpelling = true)]
                         extern static void __MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator_Incr(_Underlying *_this);
@@ -246,7 +246,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std._ByValue_UnorderedMultiset_MRStdContainersNonAssignable other)
+                public unsafe void assign(MR.CS.Std._ByValue_UnorderedMultiset_MRStdContainersNonAssignable other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable._Underlying *other);
@@ -254,7 +254,7 @@ public static partial class MR
                 }
 
                 /// Removes all elements from the container.
-                public unsafe void Clear()
+                public unsafe void clear()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_Clear", ExactSpelling = true)]
                     extern static void __MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_Clear(_Underlying *_this);

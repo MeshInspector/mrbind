@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// The number of elements.
-                public unsafe ulong Size()
+                public unsafe ulong size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_Size", ExactSpelling = true)]
                     extern static ulong __MR_C_phmap_btree_multimap_int_float_Size(_Underlying *_this);
@@ -51,7 +51,7 @@ public static partial class MR
                 }
 
                 /// Returns true if the size is zero.
-                public unsafe bool IsEmpty()
+                public unsafe bool isEmpty()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_IsEmpty", ExactSpelling = true)]
                     extern static byte __MR_C_phmap_btree_multimap_int_float_IsEmpty(_Underlying *_this);
@@ -59,7 +59,7 @@ public static partial class MR
                 }
 
                 /// Checks if the contain contains this key.
-                public unsafe ulong Count(int key)
+                public unsafe ulong count(int key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_Count", ExactSpelling = true)]
                     extern static ulong __MR_C_phmap_btree_multimap_int_float_Count(_Underlying *_this, int *key);
@@ -67,7 +67,7 @@ public static partial class MR
                 }
 
                 /// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
-                public unsafe MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator Find(int key)
+                public unsafe MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator find(int key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_Find", ExactSpelling = true)]
                     extern static MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator._Underlying *__MR_C_phmap_btree_multimap_int_float_Find(_Underlying *_this, int *key);
@@ -75,7 +75,7 @@ public static partial class MR
                 }
 
                 /// The begin iterator, const.
-                public unsafe MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator Begin()
+                public unsafe MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_Begin", ExactSpelling = true)]
                     extern static MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator._Underlying *__MR_C_phmap_btree_multimap_int_float_Begin(_Underlying *_this);
@@ -83,7 +83,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a const iterator is the begin iterator.
-                public unsafe bool IsBegin(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_ConstIterator iter)
+                public unsafe bool isBegin(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_IsBegin", ExactSpelling = true)]
                     extern static byte __MR_C_phmap_btree_multimap_int_float_IsBegin(_Underlying *_this, MR.CS.Phmap.BtreeMultimap_Int_Float.Const_ConstIterator._Underlying *iter);
@@ -91,7 +91,7 @@ public static partial class MR
                 }
 
                 /// The end iterator, const.
-                public unsafe MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator End()
+                public unsafe MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_End", ExactSpelling = true)]
                     extern static MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator._Underlying *__MR_C_phmap_btree_multimap_int_float_End(_Underlying *_this);
@@ -99,7 +99,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a const iterator is the end iterator.
-                public unsafe bool IsEnd(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_ConstIterator iter)
+                public unsafe bool isEnd(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_IsEnd", ExactSpelling = true)]
                     extern static byte __MR_C_phmap_btree_multimap_int_float_IsEnd(_Underlying *_this, MR.CS.Phmap.BtreeMultimap_Int_Float.Const_ConstIterator._Underlying *iter);
@@ -156,7 +156,7 @@ public static partial class MR
                     public static unsafe implicit operator Const_ConstIterator(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator iter) {return new(iter);}
 
                     /// Dereferences a const iterator, returning the key.
-                    public unsafe int DerefKey()
+                    public unsafe int derefKey()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_const_iterator_DerefKey", ExactSpelling = true)]
                         extern static int *__MR_C_phmap_btree_multimap_int_float_const_iterator_DerefKey(_Underlying *_this);
@@ -164,7 +164,7 @@ public static partial class MR
                     }
 
                     /// Dereferences a const iterator, returning the mapped value.
-                    public unsafe float DerefValue()
+                    public unsafe float derefValue()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_const_iterator_DerefValue", ExactSpelling = true)]
                         extern static float *__MR_C_phmap_btree_multimap_int_float_const_iterator_DerefValue(_Underlying *_this);
@@ -195,7 +195,7 @@ public static partial class MR
                     }
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
-                    public unsafe void Assign(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_ConstIterator other)
+                    public unsafe void assign(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_ConstIterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_const_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_phmap_btree_multimap_int_float_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Phmap.BtreeMultimap_Int_Float.ConstIterator._Underlying *other);
@@ -214,7 +214,7 @@ public static partial class MR
                     public static unsafe implicit operator ConstIterator(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator iter) {return new(iter);}
 
                     /// Increments a const iterator.
-                    public unsafe void Incr()
+                    public unsafe void incr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_const_iterator_Incr", ExactSpelling = true)]
                         extern static void __MR_C_phmap_btree_multimap_int_float_const_iterator_Incr(_Underlying *_this);
@@ -222,7 +222,7 @@ public static partial class MR
                     }
 
                     /// Decrements a const iterator.
-                    public unsafe void Decr()
+                    public unsafe void decr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_const_iterator_Decr", ExactSpelling = true)]
                         extern static void __MR_C_phmap_btree_multimap_int_float_const_iterator_Decr(_Underlying *_this);
@@ -302,7 +302,7 @@ public static partial class MR
                     }
 
                     /// Dereferences a mutable iterator, returning the key.
-                    public unsafe int DerefKey()
+                    public unsafe int derefKey()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_iterator_DerefKey", ExactSpelling = true)]
                         extern static int *__MR_C_phmap_btree_multimap_int_float_iterator_DerefKey(_Underlying *_this);
@@ -310,7 +310,7 @@ public static partial class MR
                     }
 
                     /// Dereferences a mutable iterator, returning the mapped value.
-                    public unsafe ref float DerefValue()
+                    public unsafe ref float derefValue()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_iterator_DerefValue", ExactSpelling = true)]
                         extern static float *__MR_C_phmap_btree_multimap_int_float_iterator_DerefValue(_Underlying *_this);
@@ -341,7 +341,7 @@ public static partial class MR
                     }
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
-                    public unsafe void Assign(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator other)
+                    public unsafe void assign(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_phmap_btree_multimap_int_float_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator._Underlying *other);
@@ -349,7 +349,7 @@ public static partial class MR
                     }
 
                     /// Increments a mutable iterator.
-                    public unsafe void Incr()
+                    public unsafe void incr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_iterator_Incr", ExactSpelling = true)]
                         extern static void __MR_C_phmap_btree_multimap_int_float_iterator_Incr(_Underlying *_this);
@@ -357,7 +357,7 @@ public static partial class MR
                     }
 
                     /// Decrements a mutable iterator.
-                    public unsafe void Decr()
+                    public unsafe void decr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_iterator_Decr", ExactSpelling = true)]
                         extern static void __MR_C_phmap_btree_multimap_int_float_iterator_Decr(_Underlying *_this);
@@ -419,7 +419,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Phmap._ByValue_BtreeMultimap_Int_Float other)
+                public unsafe void assign(MR.CS.Phmap._ByValue_BtreeMultimap_Int_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_phmap_btree_multimap_int_float_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Phmap.BtreeMultimap_Int_Float._Underlying *other);
@@ -427,7 +427,7 @@ public static partial class MR
                 }
 
                 /// Removes all elements from the container.
-                public unsafe void Clear()
+                public unsafe void clear()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_Clear", ExactSpelling = true)]
                     extern static void __MR_C_phmap_btree_multimap_int_float_Clear(_Underlying *_this);
@@ -435,7 +435,7 @@ public static partial class MR
                 }
 
                 /// Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.
-                public unsafe new MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator Find(int key)
+                public unsafe new MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator find(int key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_FindMutable", ExactSpelling = true)]
                     extern static MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator._Underlying *__MR_C_phmap_btree_multimap_int_float_FindMutable(_Underlying *_this, int *key);
@@ -443,7 +443,7 @@ public static partial class MR
                 }
 
                 /// The begin iterator, mutable.
-                public unsafe new MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator Begin()
+                public unsafe new MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_MutableBegin", ExactSpelling = true)]
                     extern static MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator._Underlying *__MR_C_phmap_btree_multimap_int_float_MutableBegin(_Underlying *_this);
@@ -451,7 +451,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a mutable iterator is the begin iterator.
-                public unsafe bool IsBegin(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator iter)
+                public unsafe bool isBegin(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_IsMutableBegin", ExactSpelling = true)]
                     extern static byte __MR_C_phmap_btree_multimap_int_float_IsMutableBegin(_Underlying *_this, MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator._Underlying *iter);
@@ -459,7 +459,7 @@ public static partial class MR
                 }
 
                 /// The end iterator, mutable.
-                public unsafe new MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator End()
+                public unsafe new MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_MutableEnd", ExactSpelling = true)]
                     extern static MR.CS.Phmap.BtreeMultimap_Int_Float.Iterator._Underlying *__MR_C_phmap_btree_multimap_int_float_MutableEnd(_Underlying *_this);
@@ -467,7 +467,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a mutable iterator is the end iterator.
-                public unsafe bool IsEnd(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator iter)
+                public unsafe bool isEnd(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int_float_IsMutableEnd", ExactSpelling = true)]
                     extern static byte __MR_C_phmap_btree_multimap_int_float_IsMutableEnd(_Underlying *_this, MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator._Underlying *iter);

@@ -21,16 +21,8 @@ int main(int argc, char **argv)
     std::optional<std::string> input_json_path;
     std::optional<std::string> output_dir_path;
     bool clean_output_dir = false;
-    std::optional<std::string> imported_lib_name;
-    std::optional<std::string> helpers_namespace;
-    std::vector<std::pair<std::string, std::string>> replaced_namespaces;
-    std::optional<std::string> forced_namespace;
-    bool allow_csharp_spans = true;
-    bool deref_expected = true;
-    bool move_in_by_value_return = false;
 
-    int csharp_version = 12; // C# 12 corresponds to .NET 8
-    int dotnet_version = 80; // = .NET 8
+    mrbind::CSharp::Generator generator;
 
     mrbind::CommandLineParser args_parser;
 
@@ -63,7 +55,7 @@ int main(int argc, char **argv)
         .desc = "Mandatory. Sets the shared library name that the C# code should load. This must match the library you compiled from the generated C bindings. To make the result cross-platform, omit the `.dll`/`.so` suffix and the `lib` prefix if any.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            imported_lib_name = args.front();
+            generator.imported_lib_name = args.front();
         },
     });
     args_parser.AddFlag("--helpers-namespace", {
@@ -71,7 +63,7 @@ int main(int argc, char **argv)
         .desc = "Mandatory. The parameter is a C++-style `Foo::Bar` namespace name. This will be used in the generated C# to store some additional utilities. This namespace doesn't have to exist in the C++ input. In C# this will be generated as a static class, rather than an actual namespace.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            helpers_namespace = args.front();
+            generator.helpers_namespace = generator.ParseNameOrThrow(std::string(args.front()));
         },
     });
     args_parser.AddFlag("--replace-namespace", {
@@ -80,7 +72,12 @@ int main(int argc, char **argv)
         .desc = "Takes two C++-style namespace names. Applies a replacement to the prefixes of all C++ names in the input. The flag can be specified multiple times, the replacements will be applied in the same order. The second argument can be `::` to remove a namespace entirely.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            replaced_namespaces.emplace_back(std::string(args[0]), std::string(args[1]));
+            // The second parameter specifically can be `::`, so we special-case it here, since `::` is otherwise not a valid qualified name.
+            cppdecl::QualifiedName second;
+            if (args[1] != "::")
+                second = generator.ParseNameOrThrow(std::string(args[1]));
+
+            generator.replaced_namespaces.emplace_back(generator.ParseNameOrThrow(std::string(args[0])), std::move(second));
         },
     });
     args_parser.AddFlag("--force-namespace", {
@@ -88,18 +85,26 @@ int main(int argc, char **argv)
         .desc = "The parameter is a C++-style `Foo::Bar` namespace name. Any C++ names that don't start with the first component of this namespae (`Foo` in this example) will have this namespace prepended to them.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            forced_namespace = args.front();
+            generator.forced_namespace = generator.ParseNameOrThrow(std::string(args.front()));
+        },
+    });
+    args_parser.AddFlag("--begin-func-names-with-lowercase", {
+        .desc = "Name C# functions in the style `fooBar()` instead of the default `FooBar()`.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            generator.begin_func_names_with_lowercase = true;
         },
     });
     args_parser.AddFlag("--csharp-version", {
         .arg_names = {"number"},
-        .desc = "Tune the generated bindings for a specific C# version. Defaults to " + std::to_string(csharp_version) + ".",
+        .desc = "Tune the generated bindings for a specific C# version. Defaults to " + std::to_string(generator.csharp_version) + ".",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             if (args.front().size() > 2 || !std::all_of(args.front().begin(), args.front().end(), cppdecl::IsDigit))
                 throw std::runtime_error("Not a valid C# version: " + std::string(args.front()));
 
-            csharp_version = std::atoi(args.front().data()); // We guarantee that those are null-terminated.
+            generator.csharp_version = std::atoi(args.front().data()); // We guarantee that those are null-terminated.
         },
     });
     args_parser.AddFlag("--dotnet-version", {
@@ -123,16 +128,16 @@ int main(int argc, char **argv)
                 if (!cppdecl::IsDigit(arg.front()))
                     throw std::runtime_error("Expected a version digit but got character `" + std::string(1, arg.front()) + "`.");
 
-                dotnet_version = 0;
+                generator.dotnet_version = 0;
                 do
                 {
-                    dotnet_version = dotnet_version * 10 + (arg.front() - '0');
+                    generator.dotnet_version = generator.dotnet_version * 10 + (arg.front() - '0');
                     arg.remove_prefix(1);
                 }
                 while (!arg.empty() && cppdecl::IsDigit(arg.front()));
 
                 // The smallest digit is reserved for the minor version.
-                dotnet_version *= 10;
+                generator.dotnet_version *= 10;
 
                 if (!arg.empty())
                 {
@@ -143,7 +148,7 @@ int main(int argc, char **argv)
                     if (arg.empty() || !cppdecl::IsDigit(arg.front()))
                         throw std::runtime_error("Expected the minor version digit after the `.`.");
 
-                    dotnet_version += (arg.front() - '0');
+                    generator.dotnet_version += (arg.front() - '0');
                     arg.remove_prefix(1);
                 }
 
@@ -151,7 +156,7 @@ int main(int argc, char **argv)
                     throw std::runtime_error("Unexpected junk after the version: `" + std::string(arg) + "`.");
 
                 if (is_std)
-                    dotnet_version = -dotnet_version;
+                    generator.dotnet_version = -generator.dotnet_version;
             }
             catch (...)
             {
@@ -164,7 +169,7 @@ int main(int argc, char **argv)
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             (void)args;
-            allow_csharp_spans = false;
+            generator.allow_csharp_spans = false;
         },
     });
     args_parser.AddFlag("--no-deref-expected", {
@@ -172,7 +177,7 @@ int main(int argc, char **argv)
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             (void)args;
-            deref_expected = false;
+            generator.deref_expected = false;
         },
     });
     args_parser.AddFlag("--move-classes-returned-by-value", {
@@ -180,14 +185,12 @@ int main(int argc, char **argv)
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
             (void)args;
-            move_in_by_value_return = true;
+            generator.move_in_by_value_return = true;
         },
     });
 
     mrbind::CommandLineArgsAsUtf8 args(argc, argv);
     args_parser.Parse(args.argc, args.argv);
-
-    mrbind::CSharp::Generator generator;
 
     // Load input JSON.
     if (!input_json_path)
@@ -200,35 +203,11 @@ int main(int argc, char **argv)
     const std::filesystem::path output_dir_fs_path = mrbind::MakePath(*output_dir_path);
     mrbind::PrepareOutputDir(output_dir_fs_path, clean_output_dir ? "" : "--clean-output-dir");
 
-    if (!imported_lib_name)
+    if (generator.imported_lib_name.empty())
         throw std::runtime_error("`--imported-lib-name` is required.");
-    generator.imported_lib_name = *imported_lib_name;
 
-    if (!helpers_namespace)
+    if (generator.helpers_namespace.IsEmpty())
         throw std::runtime_error("`--helpers-namespace` is required.");
-    generator.helpers_namespace = generator.ParseNameOrThrow(*helpers_namespace);
-
-    generator.replaced_namespaces.reserve(replaced_namespaces.size());
-    for (const auto &elem : replaced_namespaces)
-    {
-        // The second parameter specifically can be `::`, so we special-case it here, since `::` is otherwise not a valid qualified name.
-        cppdecl::QualifiedName second;
-        if (elem.second != "::")
-            second = generator.ParseNameOrThrow(elem.second);
-
-        generator.replaced_namespaces.emplace_back(generator.ParseNameOrThrow(elem.first), std::move(second));
-    }
-
-    if (forced_namespace)
-        generator.forced_namespace = generator.ParseNameOrThrow(*forced_namespace);
-
-    generator.csharp_version = csharp_version;
-    generator.dotnet_version = dotnet_version;
-
-    generator.allow_csharp_spans = allow_csharp_spans;
-
-    generator.deref_expected = deref_expected;
-    generator.move_in_by_value_return = move_in_by_value_return;
 
     // Generate.
     generator.Generate();

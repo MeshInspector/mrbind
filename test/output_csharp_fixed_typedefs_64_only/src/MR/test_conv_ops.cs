@@ -74,7 +74,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::ConvOps::A::operator=`.
-                public unsafe MR.CS.ConvOps.A Assign(MR.CS.ConvOps.Const_A _other)
+                public unsafe MR.CS.ConvOps.A assign(MR.CS.ConvOps.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_AssignFromAnother(_Underlying *_this, MR.CS.ConvOps.A._Underlying *_other);

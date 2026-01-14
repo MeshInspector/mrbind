@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class IncompleteArrayElemType
         {
             /// Generated from function `MR::IncompleteArrayElemType::foo`.
-            public static unsafe void Foo(MR.CS.IncompleteArrayElemType.ArrayE4 *_1)
+            public static unsafe void foo(MR.CS.IncompleteArrayElemType.ArrayE4 *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncompleteArrayElemType_foo", ExactSpelling = true)]
                 extern static void __MR_IncompleteArrayElemType_foo(MR.CS.IncompleteArrayElemType.ArrayE4 *_1);

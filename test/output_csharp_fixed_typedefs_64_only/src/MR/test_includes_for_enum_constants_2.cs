@@ -66,7 +66,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>::operator=`.
-                public unsafe MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1 Assign(MR.CS.IncludesForEnumConstants.Const_A_MRIncludesForEnumConstantsEE1 _other)
+                public unsafe MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1 assign(MR.CS.IncludesForEnumConstants.Const_A_MRIncludesForEnumConstantsEE1 _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother(_Underlying *_this, MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *_other);

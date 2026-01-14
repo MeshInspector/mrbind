@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class StdString
         {
             /// Generated from function `MR::StdString::Set`.
-            public static unsafe void Set(ReadOnlySpan<char> s)
+            public static unsafe void set(ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_Set", ExactSpelling = true)]
                 extern static void __MR_StdString_Set(byte *s, byte *s_end);
@@ -19,7 +19,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdString::SetWithDefault`.
             /// Parameter `s` defaults to `"42"`.
-            public static unsafe void SetWithDefault(MR.CS.Misc.ReadOnlyCharSpanOpt s = new())
+            public static unsafe void setWithDefault(MR.CS.Misc.ReadOnlyCharSpanOpt s = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_SetWithDefault", ExactSpelling = true)]
                 extern static void __MR_StdString_SetWithDefault(byte *s, byte *s_end);
@@ -37,7 +37,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdString::Get`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.String> Get()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.String> get()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_Get", ExactSpelling = true)]
                 extern static MR.CS.Std.String._Underlying *__MR_StdString_Get();
@@ -45,7 +45,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdString::WriteToRef`.
-            public static unsafe void WriteToRef(MR.CS.Std.String ref_)
+            public static unsafe void writeToRef(MR.CS.Std.String ref_)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_WriteToRef", ExactSpelling = true)]
                 extern static void __MR_StdString_WriteToRef(MR.CS.Std.String._Underlying *ref_);
@@ -53,7 +53,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdString::WriteToPtr`.
-            public static unsafe void WriteToPtr(MR.CS.Std.String? ptr)
+            public static unsafe void writeToPtr(MR.CS.Std.String? ptr)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_WriteToPtr", ExactSpelling = true)]
                 extern static void __MR_StdString_WriteToPtr(MR.CS.Std.String._Underlying *ptr);
@@ -61,7 +61,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdString::ConstRef`.
-            public static unsafe void ConstRef(ReadOnlySpan<char> s)
+            public static unsafe void constRef(ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_ConstRef", ExactSpelling = true)]
                 extern static void __MR_StdString_ConstRef(byte *s, byte *s_end);
@@ -74,7 +74,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdString::RvalueRef`.
-            public static unsafe void RvalueRef(MR.CS.Misc._MoveRef _move_s, ReadOnlySpan<char> s)
+            public static unsafe void rvalueRef(MR.CS.Misc._MoveRef _move_s, ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_RvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdString_RvalueRef(byte *s, byte *s_end);
@@ -87,7 +87,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdString::ConstRvalueRef`.
-            public static unsafe void ConstRvalueRef(MR.CS.Misc._MoveRef _move_s, ReadOnlySpan<char> s)
+            public static unsafe void constRvalueRef(MR.CS.Misc._MoveRef _move_s, ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_ConstRvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdString_ConstRvalueRef(byte *s, byte *s_end);

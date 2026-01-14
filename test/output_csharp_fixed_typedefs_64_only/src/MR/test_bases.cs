@@ -92,7 +92,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::A::operator=`.
-                public unsafe MR.CS.Bases.A Assign(MR.CS.Bases.Const_A _other)
+                public unsafe MR.CS.Bases.A assign(MR.CS.Bases.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.A._Underlying *__MR_Bases_A_AssignFromAnother(_Underlying *_this, MR.CS.Bases.A._Underlying *_other);
@@ -230,7 +230,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::B::operator=`.
-                public unsafe MR.CS.Bases.B Assign(MR.CS.Bases.Const_B _other)
+                public unsafe MR.CS.Bases.B assign(MR.CS.Bases.Const_B _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.B._Underlying *__MR_Bases_B_AssignFromAnother(_Underlying *_this, MR.CS.Bases.B._Underlying *_other);
@@ -376,7 +376,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::B2::operator=`.
-                public unsafe MR.CS.Bases.B2 Assign(MR.CS.Bases.Const_B2 _other)
+                public unsafe MR.CS.Bases.B2 assign(MR.CS.Bases.Const_B2 _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B2_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.B2._Underlying *__MR_Bases_B2_AssignFromAnother(_Underlying *_this, MR.CS.Bases.B2._Underlying *_other);
@@ -508,7 +508,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::C::operator=`.
-                public unsafe MR.CS.Bases.C Assign(MR.CS.Bases.Const_C _other)
+                public unsafe MR.CS.Bases.C assign(MR.CS.Bases.Const_C _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_C_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.C._Underlying *__MR_Bases_C_AssignFromAnother(_Underlying *_this, MR.CS.Bases.C._Underlying *_other);
@@ -656,7 +656,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::D::operator=`.
-                public unsafe MR.CS.Bases.D Assign(MR.CS.Bases.Const_D _other)
+                public unsafe MR.CS.Bases.D assign(MR.CS.Bases.Const_D _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D._Underlying *__MR_Bases_D_AssignFromAnother(_Underlying *_this, MR.CS.Bases.D._Underlying *_other);
@@ -786,7 +786,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::D2::operator=`.
-                public unsafe MR.CS.Bases.D2 Assign(MR.CS.Bases.Const_D2 _other)
+                public unsafe MR.CS.Bases.D2 assign(MR.CS.Bases.Const_D2 _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D2_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D2._Underlying *__MR_Bases_D2_AssignFromAnother(_Underlying *_this, MR.CS.Bases.D2._Underlying *_other);
@@ -916,7 +916,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::D3::operator=`.
-                public unsafe MR.CS.Bases.D3 Assign(MR.CS.Bases.Const_D3 _other)
+                public unsafe MR.CS.Bases.D3 assign(MR.CS.Bases.Const_D3 _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D3_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D3._Underlying *__MR_Bases_D3_AssignFromAnother(_Underlying *_this, MR.CS.Bases.D3._Underlying *_other);
@@ -1030,7 +1030,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::E::operator=`.
-                public unsafe MR.CS.Bases.E Assign(MR.CS.Bases.Const_E _other)
+                public unsafe MR.CS.Bases.E assign(MR.CS.Bases.Const_E _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_E_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.E._Underlying *__MR_Bases_E_AssignFromAnother(_Underlying *_this, MR.CS.Bases.E._Underlying *_other);
@@ -1166,7 +1166,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::F::operator=`.
-                public unsafe MR.CS.Bases.F Assign(MR.CS.Bases.Const_F _other)
+                public unsafe MR.CS.Bases.F assign(MR.CS.Bases.Const_F _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_F_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.F._Underlying *__MR_Bases_F_AssignFromAnother(_Underlying *_this, MR.CS.Bases.F._Underlying *_other);
@@ -1312,7 +1312,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::G::operator=`.
-                public unsafe MR.CS.Bases.G Assign(MR.CS.Bases._ByValue_G _other)
+                public unsafe MR.CS.Bases.G assign(MR.CS.Bases._ByValue_G _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_G_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.G._Underlying *__MR_Bases_G_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.G._Underlying *_other);
@@ -1496,7 +1496,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::H::operator=`.
-                public unsafe MR.CS.Bases.H Assign(MR.CS.Bases._ByValue_H _other)
+                public unsafe MR.CS.Bases.H assign(MR.CS.Bases._ByValue_H _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_H_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.H._Underlying *__MR_Bases_H_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.H._Underlying *_other);
@@ -1678,7 +1678,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Bases::I::operator=`.
-                public unsafe MR.CS.Bases.I Assign(MR.CS.Bases._ByValue_I _other)
+                public unsafe MR.CS.Bases.I assign(MR.CS.Bases._ByValue_I _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_I_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.I._Underlying *__MR_Bases_I_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.I._Underlying *_other);

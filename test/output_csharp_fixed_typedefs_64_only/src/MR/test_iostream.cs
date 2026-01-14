@@ -66,7 +66,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::IOStream::A::operator=`.
-                public unsafe MR.CS.IOStream.A Assign(MR.CS.IOStream.Const_A _other)
+                public unsafe MR.CS.IOStream.A assign(MR.CS.IOStream.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.IOStream.A._Underlying *__MR_IOStream_A_AssignFromAnother(_Underlying *_this, MR.CS.IOStream.A._Underlying *_other);

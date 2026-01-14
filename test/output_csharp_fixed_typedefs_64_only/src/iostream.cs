@@ -20,7 +20,7 @@ public static partial class MR
                 internal unsafe Ostream(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from function `MR::IOStream::operator<<`.
-                public unsafe void Lshift(MR.CS.IOStream.Const_A _2)
+                public unsafe void lshift(MR.CS.IOStream.Const_A _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_print_MR_IOStream_A", ExactSpelling = true)]
                     extern static void __MR_C_print_MR_IOStream_A(_Underlying *_1, MR.CS.IOStream.Const_A._Underlying *_2);
@@ -74,7 +74,7 @@ public static partial class MR
                 internal unsafe Istream(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from function `MR::IOStream::operator>>`.
-                public unsafe void Rshift(MR.CS.IOStream.A _2)
+                public unsafe void rshift(MR.CS.IOStream.A _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_input_MR_IOStream_A", ExactSpelling = true)]
                     extern static void __MR_C_input_MR_IOStream_A(_Underlying *_1, MR.CS.IOStream.A._Underlying *_2);
@@ -114,7 +114,7 @@ public static partial class MR
         }
 
         /// Returns the `stdout` stream.
-        public static unsafe MR.CS.Std.Ostream GetStdCout()
+        public static unsafe MR.CS.Std.Ostream getStdCout()
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCout", ExactSpelling = true)]
             extern static MR.CS.Std.Ostream._Underlying *__MR_C_GetStdCout();
@@ -122,7 +122,7 @@ public static partial class MR
         }
 
         /// Returns the `stderr` stream, buffered.
-        public static unsafe MR.CS.Std.Ostream GetStdCerr()
+        public static unsafe MR.CS.Std.Ostream getStdCerr()
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCerr", ExactSpelling = true)]
             extern static MR.CS.Std.Ostream._Underlying *__MR_C_GetStdCerr();
@@ -130,7 +130,7 @@ public static partial class MR
         }
 
         /// Returns the `stderr` stream, unbuffered.
-        public static unsafe MR.CS.Std.Ostream GetStdClog()
+        public static unsafe MR.CS.Std.Ostream getStdClog()
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdClog", ExactSpelling = true)]
             extern static MR.CS.Std.Ostream._Underlying *__MR_C_GetStdClog();
@@ -138,7 +138,7 @@ public static partial class MR
         }
 
         /// Returns the `stdin` stream.
-        public static unsafe MR.CS.Std.Istream GetStdCin()
+        public static unsafe MR.CS.Std.Istream getStdCin()
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCin", ExactSpelling = true)]
             extern static MR.CS.Std.Istream._Underlying *__MR_C_GetStdCin();

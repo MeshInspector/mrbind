@@ -68,7 +68,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::StdUniquePtr::A::operator=`.
-                public unsafe MR.CS.StdUniquePtr.A Assign(MR.CS.StdUniquePtr.Const_A _other)
+                public unsafe MR.CS.StdUniquePtr.A assign(MR.CS.StdUniquePtr.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdUniquePtr.A._Underlying *__MR_StdUniquePtr_A_AssignFromAnother(_Underlying *_this, MR.CS.StdUniquePtr.A._Underlying *_other);
@@ -107,7 +107,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::GetInt`.
-            public static unsafe void *GetInt()
+            public static unsafe void *getInt()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetInt", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetInt();
@@ -115,7 +115,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetInt`.
-            public static unsafe void SetInt(void *_1)
+            public static unsafe void setInt(void *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetInt", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetInt(void *_1);
@@ -123,7 +123,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetIntConstRef`.
-            public static unsafe void SetIntConstRef(MR.CS.Std.Const_UniquePtr_Int _1)
+            public static unsafe void setIntConstRef(MR.CS.Std.Const_UniquePtr_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntConstRef(MR.CS.Std.Const_UniquePtr_Int._Underlying *_1);
@@ -131,7 +131,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetIntDefTrivial`.
-            public static unsafe void SetIntDefTrivial(void *_1 = null)
+            public static unsafe void setIntDefTrivial(void *_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntDefTrivial(void *_1);
@@ -140,7 +140,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdUniquePtr::SetIntDef`.
             /// Parameter `_1` defaults to `std::make_unique<int>(42)`.
-            public static unsafe void SetIntDef(void **_1 = null)
+            public static unsafe void setIntDef(void **_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntDef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntDef(void *_1);
@@ -148,7 +148,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetIntLvalueRef`.
-            public static unsafe void SetIntLvalueRef(MR.CS.Std.UniquePtr_Int _1)
+            public static unsafe void setIntLvalueRef(MR.CS.Std.UniquePtr_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntLvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntLvalueRef(MR.CS.Std.UniquePtr_Int._Underlying *_1);
@@ -156,7 +156,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetIntLvalueConstRef`.
-            public static unsafe void SetIntLvalueConstRef(MR.CS.Std.Const_UniquePtr_Int _1)
+            public static unsafe void setIntLvalueConstRef(MR.CS.Std.Const_UniquePtr_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntLvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntLvalueConstRef(MR.CS.Std.Const_UniquePtr_Int._Underlying *_1);
@@ -164,7 +164,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetIntRvalueRef`.
-            public static unsafe void SetIntRvalueRef(void *_1)
+            public static unsafe void setIntRvalueRef(void *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntRvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntRvalueRef(void *_1);
@@ -172,7 +172,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetIntRvalueConstRef`.
-            public static unsafe void SetIntRvalueConstRef(void *_1)
+            public static unsafe void setIntRvalueConstRef(void *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntRvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntRvalueConstRef(void *_1);
@@ -180,7 +180,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::GetIntArr`.
-            public static unsafe void *GetIntArr()
+            public static unsafe void *getIntArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetIntArr", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetIntArr();
@@ -188,7 +188,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetIntArr`.
-            public static unsafe void SetIntArr(void *_1)
+            public static unsafe void setIntArr(void *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntArr", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntArr(void *_1);
@@ -196,7 +196,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetIntArrDefTrivial`.
-            public static unsafe void SetIntArrDefTrivial(void *_1 = null)
+            public static unsafe void setIntArrDefTrivial(void *_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntArrDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntArrDefTrivial(void *_1);
@@ -205,7 +205,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdUniquePtr::SetIntArrDef`.
             /// Parameter `_1` defaults to `std::make_unique<int[]>(42)`.
-            public static unsafe void SetIntArrDef(void **_1 = null)
+            public static unsafe void setIntArrDef(void **_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntArrDef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntArrDef(void *_1);
@@ -213,7 +213,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::GetClass`.
-            public static unsafe void *GetClass()
+            public static unsafe void *getClass()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetClass", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetClass();
@@ -221,7 +221,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetClass`.
-            public static unsafe void SetClass(void *_1)
+            public static unsafe void setClass(void *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClass", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClass(void *_1);
@@ -229,7 +229,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetClassConstRef`.
-            public static unsafe void SetClassConstRef(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA _1)
+            public static unsafe void setClassConstRef(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassConstRef(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA._Underlying *_1);
@@ -237,7 +237,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetClassDefTrivial`.
-            public static unsafe void SetClassDefTrivial(void *_1 = null)
+            public static unsafe void setClassDefTrivial(void *_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassDefTrivial(void *_1);
@@ -246,7 +246,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdUniquePtr::SetClassDef`.
             /// Parameter `_1` defaults to `std::make_unique<MR::StdUniquePtr::A>(MR::StdUniquePtr::A{})`.
-            public static unsafe void SetClassDef(void **_1 = null)
+            public static unsafe void setClassDef(void **_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassDef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassDef(void *_1);
@@ -254,7 +254,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetClassLvalueRef`.
-            public static unsafe void SetClassLvalueRef(MR.CS.Std.UniquePtr_MRStdUniquePtrA _1)
+            public static unsafe void setClassLvalueRef(MR.CS.Std.UniquePtr_MRStdUniquePtrA _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassLvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassLvalueRef(MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *_1);
@@ -262,7 +262,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetClassLvalueConstRef`.
-            public static unsafe void SetClassLvalueConstRef(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA _1)
+            public static unsafe void setClassLvalueConstRef(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassLvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassLvalueConstRef(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA._Underlying *_1);
@@ -270,7 +270,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetClassRvalueRef`.
-            public static unsafe void SetClassRvalueRef(void *_1)
+            public static unsafe void setClassRvalueRef(void *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassRvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassRvalueRef(void *_1);
@@ -278,7 +278,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetClassRvalueConstRef`.
-            public static unsafe void SetClassRvalueConstRef(void *_1)
+            public static unsafe void setClassRvalueConstRef(void *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassRvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassRvalueConstRef(void *_1);
@@ -286,7 +286,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::GetClassArr`.
-            public static unsafe void *GetClassArr()
+            public static unsafe void *getClassArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetClassArr", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetClassArr();
@@ -294,7 +294,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetClassArr`.
-            public static unsafe void SetClassArr(void *_1)
+            public static unsafe void setClassArr(void *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassArr", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassArr(void *_1);
@@ -302,7 +302,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetClassArrDefTrivial`.
-            public static unsafe void SetClassArrDefTrivial(void *_1 = null)
+            public static unsafe void setClassArrDefTrivial(void *_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassArrDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassArrDefTrivial(void *_1);
@@ -311,7 +311,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdUniquePtr::SetClassArrDef`.
             /// Parameter `_1` defaults to `std::make_unique<MR::StdUniquePtr::A[]>(42)`.
-            public static unsafe void SetClassArrDef(void **_1 = null)
+            public static unsafe void setClassArrDef(void **_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassArrDef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassArrDef(void *_1);
@@ -320,7 +320,7 @@ public static partial class MR
 
             // Try const element types:
             /// Generated from function `MR::StdUniquePtr::GetConstInt`.
-            public static unsafe void *GetConstInt()
+            public static unsafe void *getConstInt()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetConstInt", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetConstInt();
@@ -328,7 +328,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::GetConstIntArr`.
-            public static unsafe void *GetConstIntArr()
+            public static unsafe void *getConstIntArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetConstIntArr", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetConstIntArr();
@@ -336,7 +336,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::GetConstClass`.
-            public static unsafe void *GetConstClass()
+            public static unsafe void *getConstClass()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetConstClass", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetConstClass();
@@ -344,7 +344,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::GetConstClassArr`.
-            public static unsafe void *GetConstClassArr()
+            public static unsafe void *getConstClassArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetConstClassArr", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetConstClassArr();
@@ -353,7 +353,7 @@ public static partial class MR
 
             // Here `std::unique_ptr<float>` never gets emitted as an actual type (since we don't have non-null default arguments), so its header should not be emitted.
             /// Generated from function `MR::StdUniquePtr::GetFloat`.
-            public static unsafe void *GetFloat()
+            public static unsafe void *getFloat()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetFloat", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetFloat();
@@ -361,7 +361,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetFloat`.
-            public static unsafe void SetFloat(void *_1)
+            public static unsafe void setFloat(void *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetFloat", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetFloat(void *_1);
@@ -369,7 +369,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdUniquePtr::SetFloatDefTrivial`.
-            public static unsafe void SetFloatDefTrivial(void *_1 = null)
+            public static unsafe void setFloatDefTrivial(void *_1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetFloatDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetFloatDefTrivial(void *_1);

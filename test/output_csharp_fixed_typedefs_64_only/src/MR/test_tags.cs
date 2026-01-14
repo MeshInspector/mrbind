@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Tags
         {
             /// Generated from function `MR::Tags::foo`.
-            public static void Foo(MR.CS.Std.Less_Int _1)
+            public static void foo(MR.CS.Std.Less_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Tags_foo_1_std_less_int", ExactSpelling = true)]
                 extern static void __MR_Tags_foo_1_std_less_int();
@@ -13,7 +13,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::Tags::foo`.
-            public static void Foo(MR.CS.Std.Less_Void _1)
+            public static void foo(MR.CS.Std.Less_Void _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Tags_foo_1_std_less_void", ExactSpelling = true)]
                 extern static void __MR_Tags_foo_1_std_less_void();
@@ -21,7 +21,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::Tags::foo`.
-            public static void Foo(MR.CS.Std.Greater_Int _1)
+            public static void foo(MR.CS.Std.Greater_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Tags_foo_1_std_greater_int", ExactSpelling = true)]
                 extern static void __MR_Tags_foo_1_std_greater_int();
@@ -29,7 +29,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::Tags::foo`.
-            public static void Foo(MR.CS.Std.Greater_Void _1)
+            public static void foo(MR.CS.Std.Greater_Void _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Tags_foo_1_std_greater_void", ExactSpelling = true)]
                 extern static void __MR_Tags_foo_1_std_greater_void();
@@ -37,7 +37,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::Tags::foo`.
-            public static MR.CS.Std.Less_Int Foo()
+            public static MR.CS.Std.Less_Int foo()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Tags_foo_0", ExactSpelling = true)]
                 extern static void __MR_Tags_foo_0();

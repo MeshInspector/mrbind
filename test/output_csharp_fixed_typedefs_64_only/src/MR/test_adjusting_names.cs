@@ -88,7 +88,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::AdjustingNames::A::operator=`.
-                public unsafe MR.CS.AdjustingNames.A Assign(MR.CS.AdjustingNames.Const_A _other)
+                public unsafe MR.CS.AdjustingNames.A assign(MR.CS.AdjustingNames.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_AssignFromAnother(_Underlying *_this, MR.CS.AdjustingNames.A._Underlying *_other);
@@ -96,7 +96,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::AdjustingNames::A::foo<MR_C_uint64_t>`.
-                public unsafe void Foo()
+                public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_foo", ExactSpelling = true)]
                     extern static void __MR_AdjustingNames_A_foo(_Underlying *_this);
@@ -104,7 +104,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::AdjustingNames::A::bar`.
-                public unsafe void Bar()
+                public unsafe void bar()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_bar", ExactSpelling = true)]
                     extern static void __MR_AdjustingNames_A_bar(_Underlying *_this);
@@ -145,7 +145,7 @@ public static partial class MR
             // When we're gonna call `foo<MR_C_uint64_t>()` in the source file, we must include the header for our typedef (and for the template arguments in general).
             // And we must make sure that the typedef gets applied to the name correctly.
             /// Generated from function `MR::AdjustingNames::foo<MR_C_uint64_t>`.
-            public static void Foo()
+            public static void foo()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_foo", ExactSpelling = true)]
                 extern static void __MR_AdjustingNames_foo();
@@ -153,7 +153,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::AdjustingNames::bar`.
-            public static void Bar()
+            public static void bar()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_bar", ExactSpelling = true)]
                 extern static void __MR_AdjustingNames_bar();

@@ -106,7 +106,7 @@ public static partial class MR
                     }
 
                     /// Generated from method `MR::NestedTemplateInst::A<int>::AA<float>::operator=`.
-                    public unsafe MR.CS.NestedTemplateInst.A_Int.AA_Float Assign(MR.CS.NestedTemplateInst.A_Int.Const_AA_Float _other)
+                    public unsafe MR.CS.NestedTemplateInst.A_Int.AA_Float assign(MR.CS.NestedTemplateInst.A_Int.Const_AA_Float _other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother", ExactSpelling = true)]
                         extern static MR.CS.NestedTemplateInst.A_Int.AA_Float._Underlying *__MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother(_Underlying *_this, MR.CS.NestedTemplateInst.A_Int.AA_Float._Underlying *_other);
@@ -168,7 +168,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::NestedTemplateInst::A<int>::operator=`.
-                public unsafe MR.CS.NestedTemplateInst.A_Int Assign(MR.CS.NestedTemplateInst.Const_A_Int _other)
+                public unsafe MR.CS.NestedTemplateInst.A_Int assign(MR.CS.NestedTemplateInst.Const_A_Int _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.NestedTemplateInst.A_Int._Underlying *__MR_NestedTemplateInst_A_int_AssignFromAnother(_Underlying *_this, MR.CS.NestedTemplateInst.A_Int._Underlying *_other);

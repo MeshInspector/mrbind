@@ -66,7 +66,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std._ByValue_Function_IntFuncFromIntInt other)
+                public unsafe void assign(MR.CS.Std._ByValue_Function_IntFuncFromIntInt other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_from_int_int_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_int_from_int_int_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_IntFuncFromIntInt._Underlying *other);

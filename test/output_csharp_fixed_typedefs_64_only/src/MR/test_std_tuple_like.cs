@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class StdTupleLike
         {
             /// Generated from function `MR::StdTupleLike::SetPair`.
-            public static unsafe void SetPair(MR.CS.Std.Const_Pair_Int_Float _1)
+            public static unsafe void setPair(MR.CS.Std.Const_Pair_Int_Float _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_SetPair", ExactSpelling = true)]
                 extern static void __MR_StdTupleLike_SetPair(MR.CS.Std.Pair_Int_Float._Underlying *_1);
@@ -13,7 +13,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdTupleLike::GetPair`.
-            public static unsafe MR.CS.Std.Pair_Int_Float GetPair()
+            public static unsafe MR.CS.Std.Pair_Int_Float getPair()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_GetPair", ExactSpelling = true)]
                 extern static MR.CS.Std.Pair_Int_Float._Underlying *__MR_StdTupleLike_GetPair();
@@ -21,7 +21,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdTupleLike::GetPair2`.
-            public static unsafe MR.CS.Std.Pair_ConstInt_Float GetPair2()
+            public static unsafe MR.CS.Std.Pair_ConstInt_Float getPair2()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_GetPair2", ExactSpelling = true)]
                 extern static MR.CS.Std.Pair_ConstInt_Float._Underlying *__MR_StdTupleLike_GetPair2();
@@ -29,7 +29,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdTupleLike::GetPair3`.
-            public static unsafe MR.CS.Std.Pair_IntRef_FloatRef GetPair3()
+            public static unsafe MR.CS.Std.Pair_IntRef_FloatRef getPair3()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_GetPair3", ExactSpelling = true)]
                 extern static MR.CS.Std.Pair_IntRef_FloatRef._Underlying *__MR_StdTupleLike_GetPair3();
@@ -37,7 +37,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdTupleLike::GetPair4`.
-            public static unsafe MR.CS.Std.Pair_ConstIntRef_ConstFloatRef GetPair4()
+            public static unsafe MR.CS.Std.Pair_ConstIntRef_ConstFloatRef getPair4()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_GetPair4", ExactSpelling = true)]
                 extern static MR.CS.Std.Pair_ConstIntRef_ConstFloatRef._Underlying *__MR_StdTupleLike_GetPair4();
@@ -45,7 +45,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdTupleLike::GetPair5`.
-            public static unsafe MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef GetPair5()
+            public static unsafe MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef getPair5()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_GetPair5", ExactSpelling = true)]
                 extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_StdTupleLike_GetPair5();
@@ -53,7 +53,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdTupleLike::GetPair6`.
-            public static unsafe MR.CS.Std.Pair_ConstIntRvalueRef_ConstFloatRvalueRef GetPair6()
+            public static unsafe MR.CS.Std.Pair_ConstIntRvalueRef_ConstFloatRvalueRef getPair6()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_GetPair6", ExactSpelling = true)]
                 extern static MR.CS.Std.Pair_ConstIntRvalueRef_ConstFloatRvalueRef._Underlying *__MR_StdTupleLike_GetPair6();
@@ -61,7 +61,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdTupleLike::SetTuple`.
-            public static unsafe void SetTuple(MR.CS.Std.Const_Tuple_Int_Float _1)
+            public static unsafe void setTuple(MR.CS.Std.Const_Tuple_Int_Float _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_SetTuple", ExactSpelling = true)]
                 extern static void __MR_StdTupleLike_SetTuple(MR.CS.Std.Tuple_Int_Float._Underlying *_1);
@@ -69,7 +69,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdTupleLike::GetTuple`.
-            public static unsafe MR.CS.Std.Tuple_Int_Float GetTuple()
+            public static unsafe MR.CS.Std.Tuple_Int_Float getTuple()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_GetTuple", ExactSpelling = true)]
                 extern static MR.CS.Std.Tuple_Int_Float._Underlying *__MR_StdTupleLike_GetTuple();
@@ -78,7 +78,7 @@ public static partial class MR
 
             // Three separate tuples to avoid generating file paths that are too long, as those cause issues on some filesystems apparently.
             /// Generated from function `MR::StdTupleLike::GetTuple2`.
-            public static unsafe MR.CS.Std.Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef GetTuple2()
+            public static unsafe MR.CS.Std.Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef getTuple2()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_GetTuple2", ExactSpelling = true)]
                 extern static MR.CS.Std.Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef._Underlying *__MR_StdTupleLike_GetTuple2();
@@ -86,7 +86,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdTupleLike::GetTuple7`.
-            public static unsafe MR.CS.Std.Tuple GetTuple7()
+            public static unsafe MR.CS.Std.Tuple getTuple7()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_GetTuple7", ExactSpelling = true)]
                 extern static MR.CS.Std.Tuple._Underlying *__MR_StdTupleLike_GetTuple7();
@@ -94,7 +94,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdTupleLike::GetTuple8`.
-            public static unsafe MR.CS.Std.Tuple_Float_Double_Int_Int GetTuple8()
+            public static unsafe MR.CS.Std.Tuple_Float_Double_Int_Int getTuple8()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdTupleLike_GetTuple8", ExactSpelling = true)]
                 extern static MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_StdTupleLike_GetTuple8();

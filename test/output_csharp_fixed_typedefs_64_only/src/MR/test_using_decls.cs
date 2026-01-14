@@ -70,7 +70,7 @@ public static partial class MR
                 public static unsafe implicit operator Const_A(int _1) {return new(_1);}
 
                 /// Generated from method `MR::UsingDecls::A::StaticFunc`.
-                public static void StaticFunc()
+                public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_StaticFunc", ExactSpelling = true)]
                     extern static void __MR_UsingDecls_A_StaticFunc();
@@ -130,7 +130,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::UsingDecls::A::operator=`.
-                public unsafe MR.CS.UsingDecls.A Assign(MR.CS.UsingDecls.Const_A _other)
+                public unsafe MR.CS.UsingDecls.A assign(MR.CS.UsingDecls.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_AssignFromAnother(_Underlying *_this, MR.CS.UsingDecls.A._Underlying *_other);
@@ -138,7 +138,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::UsingDecls::A::operator=`.
-                public unsafe void Assign(int _1)
+                public unsafe void assign(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_assign", ExactSpelling = true)]
                     extern static void __MR_UsingDecls_A_assign(_Underlying *_this, int _1);
@@ -146,7 +146,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::UsingDecls::A::Method`.
-                public unsafe void Method()
+                public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Method", ExactSpelling = true)]
                     extern static void __MR_UsingDecls_A_Method(_Underlying *_this);
@@ -251,7 +251,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::UsingDecls::B::StaticFunc`.
-                public static void StaticFunc()
+                public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_StaticFunc", ExactSpelling = true)]
                     extern static void __MR_UsingDecls_B_StaticFunc();
@@ -305,7 +305,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::UsingDecls::B::operator=`.
-                public unsafe MR.CS.UsingDecls.B Assign(MR.CS.UsingDecls.Const_B _other)
+                public unsafe MR.CS.UsingDecls.B assign(MR.CS.UsingDecls.Const_B _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.UsingDecls.B._Underlying *__MR_UsingDecls_B_AssignFromAnother(_Underlying *_this, MR.CS.UsingDecls.B._Underlying *_other);
@@ -313,7 +313,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::UsingDecls::B::operator=`.
-                public unsafe void Assign(int _1)
+                public unsafe void assign(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_assign", ExactSpelling = true)]
                     extern static void __MR_UsingDecls_B_assign(_Underlying *_this, int _1);
@@ -321,7 +321,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::UsingDecls::B::Method`.
-                public unsafe void Method()
+                public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_Method", ExactSpelling = true)]
                     extern static void __MR_UsingDecls_B_Method(_Underlying *_this);

@@ -116,7 +116,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::StdFunction::A::operator=`.
-                public unsafe MR.CS.StdFunction.A Assign(MR.CS.StdFunction._ByValue_A _other)
+                public unsafe MR.CS.StdFunction.A assign(MR.CS.StdFunction._ByValue_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdFunction.A._Underlying *__MR_StdFunction_A_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdFunction.A._Underlying *_other);
@@ -173,7 +173,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdFunction::foo`.
-            public static unsafe void Foo(MR.CS.Std._ByValue_Function_IntFunc _1)
+            public static unsafe void foo(MR.CS.Std._ByValue_Function_IntFunc _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_int_func", ExactSpelling = true)]
                 extern static void __MR_StdFunction_foo_std_function_int_func(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_IntFunc._Underlying *_1);
@@ -181,7 +181,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdFunction::foo`.
-            public static unsafe void Foo(MR.CS.Std._ByValue_Function_VoidFuncFromIntInt _1)
+            public static unsafe void foo(MR.CS.Std._ByValue_Function_VoidFuncFromIntInt _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_void_func_from_int_int", ExactSpelling = true)]
                 extern static void __MR_StdFunction_foo_std_function_void_func_from_int_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_VoidFuncFromIntInt._Underlying *_1);
@@ -189,7 +189,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdFunction::foo`.
-            public static unsafe void Foo(MR.CS.Std._ByValue_Function_IntFuncFromIntInt _1)
+            public static unsafe void foo(MR.CS.Std._ByValue_Function_IntFuncFromIntInt _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_int_func_from_int_int", ExactSpelling = true)]
                 extern static void __MR_StdFunction_foo_std_function_int_func_from_int_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_IntFuncFromIntInt._Underlying *_1);
@@ -197,7 +197,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdFunction::foo`.
-            public static unsafe void Foo(MR.CS.Std._ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE _1)
+            public static unsafe void foo(MR.CS.Std._ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E", ExactSpelling = true)]
                 extern static void __MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_MRStdFunctionEFuncFromIntMRStdFunctionE._Underlying *_1);
@@ -205,7 +205,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdFunction::foo`.
-            public static unsafe void Foo(MR.CS.Std._ByValue_Function_StdStringFuncFromIntFloat _1)
+            public static unsafe void foo(MR.CS.Std._ByValue_Function_StdStringFuncFromIntFloat _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_std_string_func_from_int_float", ExactSpelling = true)]
                 extern static void __MR_StdFunction_foo_std_function_std_string_func_from_int_float(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_StdStringFuncFromIntFloat._Underlying *_1);
@@ -213,7 +213,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdFunction::foo`.
-            public static unsafe void Foo(MR.CS.Std._ByValue_Function_VoidFuncFromStdString _1)
+            public static unsafe void foo(MR.CS.Std._ByValue_Function_VoidFuncFromStdString _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_void_func_from_std_string", ExactSpelling = true)]
                 extern static void __MR_StdFunction_foo_std_function_void_func_from_std_string(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_VoidFuncFromStdString._Underlying *_1);
@@ -221,7 +221,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdFunction::foo`.
-            public static unsafe void Foo(MR.CS.Std._ByValue_Function_VoidFuncFromMRStdFunctionA _1)
+            public static unsafe void foo(MR.CS.Std._ByValue_Function_VoidFuncFromMRStdFunctionA _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A", ExactSpelling = true)]
                 extern static void __MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_VoidFuncFromMRStdFunctionA._Underlying *_1);
@@ -229,7 +229,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdFunction::foo`.
-            public static unsafe void Foo(MR.CS.Std._ByValue_Function_MRStdFunctionAFunc _1)
+            public static unsafe void foo(MR.CS.Std._ByValue_Function_MRStdFunctionAFunc _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_MR_StdFunction_A_func", ExactSpelling = true)]
                 extern static void __MR_StdFunction_foo_std_function_MR_StdFunction_A_func(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_MRStdFunctionAFunc._Underlying *_1);

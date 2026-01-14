@@ -54,7 +54,7 @@ public static partial class MR
                 public static unsafe implicit operator Const_Optional_MRCSharpExposedLayoutSh(MR.CS.CSharp._InOpt_ExposedLayoutSh other) {return new(other);}
 
                 /// The stored element or null if none, read-only.
-                public unsafe MR.CS.CSharp.Const_ExposedLayoutSh? Value()
+                public unsafe MR.CS.CSharp.Const_ExposedLayoutSh? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value(_Underlying *_this);
@@ -97,7 +97,7 @@ public static partial class MR
                 public static unsafe implicit operator Optional_MRCSharpExposedLayoutSh(MR.CS.CSharp._InOpt_ExposedLayoutSh other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh other)
+                public unsafe void assign(MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *other);
@@ -105,7 +105,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(MR.CS.CSharp._InOpt_ExposedLayoutSh other)
+                public unsafe void assign(MR.CS.CSharp._InOpt_ExposedLayoutSh other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFrom(_Underlying *_this, MR.CS.CSharp.ExposedLayoutSh *other);
@@ -113,7 +113,7 @@ public static partial class MR
                 }
 
                 /// The stored element or null if none, mutable.
-                public unsafe new MR.CS.CSharp.Mut_ExposedLayoutSh? Value()
+                public unsafe new MR.CS.CSharp.Mut_ExposedLayoutSh? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Mut_ExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue(_Underlying *_this);

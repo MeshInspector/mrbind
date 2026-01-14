@@ -22,7 +22,7 @@ public static partial class MR
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from method `MR::AbstractClasses::A::foo`.
-                public unsafe void Foo()
+                public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_A_foo", ExactSpelling = true)]
                     extern static void __MR_AbstractClasses_A_foo(_Underlying *_this);
@@ -96,7 +96,7 @@ public static partial class MR
                 internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from method `MR::AbstractClasses::B::foo`.
-                public unsafe void Foo()
+                public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_B_foo", ExactSpelling = true)]
                     extern static void __MR_AbstractClasses_B_foo(_Underlying *_this);
@@ -214,7 +214,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::AbstractClasses::C::foo`.
-                public unsafe void Foo()
+                public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_foo", ExactSpelling = true)]
                     extern static void __MR_AbstractClasses_C_foo(_Underlying *_this);

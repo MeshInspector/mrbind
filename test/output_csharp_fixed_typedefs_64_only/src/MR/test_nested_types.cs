@@ -132,7 +132,7 @@ public static partial class MR
                     }
 
                     /// Generated from method `MR::NestedTypes::A::B::operator=`.
-                    public unsafe MR.CS.NestedTypes.A.B Assign(MR.CS.NestedTypes.A.Const_B _other)
+                    public unsafe MR.CS.NestedTypes.A.B assign(MR.CS.NestedTypes.A.Const_B _other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_B_AssignFromAnother", ExactSpelling = true)]
                         extern static MR.CS.NestedTypes.A.B._Underlying *__MR_NestedTypes_A_B_AssignFromAnother(_Underlying *_this, MR.CS.NestedTypes.A.B._Underlying *_other);
@@ -226,7 +226,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::NestedTypes::A::operator=`.
-                public unsafe MR.CS.NestedTypes.A Assign(MR.CS.NestedTypes.Const_A _other)
+                public unsafe MR.CS.NestedTypes.A assign(MR.CS.NestedTypes.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_AssignFromAnother(_Underlying *_this, MR.CS.NestedTypes.A._Underlying *_other);

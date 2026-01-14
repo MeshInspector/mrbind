@@ -54,7 +54,7 @@ public static partial class MR
                 public static unsafe implicit operator Const_Optional_MRStdOptionalA(MR.CS.StdOptional.Const_A? other) {return new(other);}
 
                 /// The stored element or null if none, read-only.
-                public unsafe MR.CS.StdOptional.Const_A? Value()
+                public unsafe MR.CS.StdOptional.Const_A? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_A_Value", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.Const_A._Underlying *__MR_C_std_optional_MR_StdOptional_A_Value(_Underlying *_this);
@@ -97,7 +97,7 @@ public static partial class MR
                 public static unsafe implicit operator Optional_MRStdOptionalA(MR.CS.StdOptional.Const_A? other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_Optional_MRStdOptionalA other)
+                public unsafe void assign(MR.CS.Std.Const_Optional_MRStdOptionalA other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_A_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_StdOptional_A_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRStdOptionalA._Underlying *other);
@@ -105,7 +105,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(MR.CS.StdOptional.Const_A? other)
+                public unsafe void assign(MR.CS.StdOptional.Const_A? other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_A_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_StdOptional_A_AssignFrom(_Underlying *_this, MR.CS.StdOptional.A._Underlying *other);
@@ -113,7 +113,7 @@ public static partial class MR
                 }
 
                 /// The stored element or null if none, mutable.
-                public unsafe new MR.CS.StdOptional.A? Value()
+                public unsafe new MR.CS.StdOptional.A? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_A_MutableValue", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.A._Underlying *__MR_C_std_optional_MR_StdOptional_A_MutableValue(_Underlying *_this);

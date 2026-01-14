@@ -35,7 +35,7 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, read-only.
-                public unsafe MR.CS.StdContainers.Const_NonAssignable At(ulong i)
+                public unsafe MR.CS.StdContainers.Const_NonAssignable at(ulong i)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_At", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_At(_Underlying *_this, ulong i);
@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
-                public unsafe MR.CS.StdContainers.ConstPtrNonAssignable? Data()
+                public unsafe MR.CS.StdContainers.ConstPtrNonAssignable? data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_Data", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_Data(_Underlying *_this);
@@ -67,7 +67,7 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe new MR.CS.StdContainers.NonAssignable At(ulong i)
+                public unsafe new MR.CS.StdContainers.NonAssignable at(ulong i)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableAt", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableAt(_Underlying *_this, ulong i);
@@ -75,7 +75,7 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
-                public unsafe new MR.CS.StdContainers.PtrNonAssignable? Data()
+                public unsafe new MR.CS.StdContainers.PtrNonAssignable? data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableData", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableData(_Underlying *_this);

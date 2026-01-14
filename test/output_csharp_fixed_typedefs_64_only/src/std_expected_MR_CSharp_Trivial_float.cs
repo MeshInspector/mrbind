@@ -51,7 +51,7 @@ public static partial class MR
                 }
 
                 /// If this instance represents success, returns the stored `MR::CSharp::Trivial`. Otherwise null.
-                public unsafe MR.CS.CSharp.Const_Trivial? GetValue()
+                public unsafe MR.CS.CSharp.Const_Trivial? getValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_GetValue", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_Trivial._Underlying *__MR_C_std_expected_MR_CSharp_Trivial_float_GetValue(_Underlying *_this);
@@ -60,7 +60,7 @@ public static partial class MR
                 }
 
                 /// If this instance represents an error, returns the stored `float`. Otherwise null.
-                public unsafe float? GetError()
+                public unsafe float? getError()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_GetError", ExactSpelling = true)]
                     extern static float *__MR_C_std_expected_MR_CSharp_Trivial_float_GetError(_Underlying *_this);
@@ -92,7 +92,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float other)
+                public unsafe void assign(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_expected_MR_CSharp_Trivial_float_AssignFromAnother(_Underlying *_this, MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *other);
@@ -100,7 +100,7 @@ public static partial class MR
                 }
 
                 /// If this instance represents success, returns the stored `MR::CSharp::Trivial`. Otherwise null. This version returns a mutable pointer.
-                public unsafe new MR.CS.CSharp.Trivial? GetValue()
+                public unsafe new MR.CS.CSharp.Trivial? getValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_GetMutableValue", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Trivial._Underlying *__MR_C_std_expected_MR_CSharp_Trivial_float_GetMutableValue(_Underlying *_this);
@@ -109,7 +109,7 @@ public static partial class MR
                 }
 
                 /// If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.
-                public unsafe new MR.CS.Misc.Ref<float>? GetError()
+                public unsafe new MR.CS.Misc.Ref<float>? getError()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_GetMutableError", ExactSpelling = true)]
                     extern static float *__MR_C_std_expected_MR_CSharp_Trivial_float_GetMutableError(_Underlying *_this);

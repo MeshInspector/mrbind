@@ -52,7 +52,7 @@ public static partial class MR
                 }
 
                 /// The number of elements.
-                public unsafe ulong Size()
+                public unsafe ulong size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_Size", ExactSpelling = true)]
                     extern static ulong __MR_C_std_set_float_Size(_Underlying *_this);
@@ -60,7 +60,7 @@ public static partial class MR
                 }
 
                 /// Returns true if the size is zero.
-                public unsafe bool IsEmpty()
+                public unsafe bool isEmpty()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_IsEmpty", ExactSpelling = true)]
                     extern static byte __MR_C_std_set_float_IsEmpty(_Underlying *_this);
@@ -68,7 +68,7 @@ public static partial class MR
                 }
 
                 /// Checks if the contain contains this key.
-                public unsafe bool Contains(float key)
+                public unsafe bool contains(float key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_Contains", ExactSpelling = true)]
                     extern static byte __MR_C_std_set_float_Contains(_Underlying *_this, float *key);
@@ -76,7 +76,7 @@ public static partial class MR
                 }
 
                 /// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
-                public unsafe MR.CS.Std.Set_Float.ConstIterator Find(float key)
+                public unsafe MR.CS.Std.Set_Float.ConstIterator find(float key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_Find", ExactSpelling = true)]
                     extern static MR.CS.Std.Set_Float.ConstIterator._Underlying *__MR_C_std_set_float_Find(_Underlying *_this, float *key);
@@ -84,7 +84,7 @@ public static partial class MR
                 }
 
                 /// The begin iterator, const.
-                public unsafe MR.CS.Std.Set_Float.ConstIterator Begin()
+                public unsafe MR.CS.Std.Set_Float.ConstIterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_Begin", ExactSpelling = true)]
                     extern static MR.CS.Std.Set_Float.ConstIterator._Underlying *__MR_C_std_set_float_Begin(_Underlying *_this);
@@ -92,7 +92,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a const iterator is the begin iterator.
-                public unsafe bool IsBegin(MR.CS.Std.Set_Float.Const_ConstIterator iter)
+                public unsafe bool isBegin(MR.CS.Std.Set_Float.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_IsBegin", ExactSpelling = true)]
                     extern static byte __MR_C_std_set_float_IsBegin(_Underlying *_this, MR.CS.Std.Set_Float.Const_ConstIterator._Underlying *iter);
@@ -100,7 +100,7 @@ public static partial class MR
                 }
 
                 /// The end iterator, const.
-                public unsafe MR.CS.Std.Set_Float.ConstIterator End()
+                public unsafe MR.CS.Std.Set_Float.ConstIterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_End", ExactSpelling = true)]
                     extern static MR.CS.Std.Set_Float.ConstIterator._Underlying *__MR_C_std_set_float_End(_Underlying *_this);
@@ -108,7 +108,7 @@ public static partial class MR
                 }
 
                 /// Tests whether a const iterator is the end iterator.
-                public unsafe bool IsEnd(MR.CS.Std.Set_Float.Const_ConstIterator iter)
+                public unsafe bool isEnd(MR.CS.Std.Set_Float.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_IsEnd", ExactSpelling = true)]
                     extern static byte __MR_C_std_set_float_IsEnd(_Underlying *_this, MR.CS.Std.Set_Float.Const_ConstIterator._Underlying *iter);
@@ -154,7 +154,7 @@ public static partial class MR
                     }
 
                     /// Dereferences a const iterator.
-                    public unsafe float Deref()
+                    public unsafe float deref()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_const_iterator_Deref", ExactSpelling = true)]
                         extern static float *__MR_C_std_set_float_const_iterator_Deref(_Underlying *_this);
@@ -185,7 +185,7 @@ public static partial class MR
                     }
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
-                    public unsafe void Assign(MR.CS.Std.Set_Float.Const_ConstIterator other)
+                    public unsafe void assign(MR.CS.Std.Set_Float.Const_ConstIterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_const_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_set_float_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Set_Float.ConstIterator._Underlying *other);
@@ -193,7 +193,7 @@ public static partial class MR
                     }
 
                     /// Increments a const iterator.
-                    public unsafe void Incr()
+                    public unsafe void incr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_const_iterator_Incr", ExactSpelling = true)]
                         extern static void __MR_C_std_set_float_const_iterator_Incr(_Underlying *_this);
@@ -201,7 +201,7 @@ public static partial class MR
                     }
 
                     /// Decrements a const iterator.
-                    public unsafe void Decr()
+                    public unsafe void decr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_const_iterator_Decr", ExactSpelling = true)]
                         extern static void __MR_C_std_set_float_const_iterator_Decr(_Underlying *_this);
@@ -263,7 +263,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std._ByValue_Set_Float other)
+                public unsafe void assign(MR.CS.Std._ByValue_Set_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_set_float_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Set_Float._Underlying *other);
@@ -280,7 +280,7 @@ public static partial class MR
                 }
 
                 /// Assign from a range of elements, overwriting previous contents.
-                public unsafe void Assign(float? ptr, ulong size)
+                public unsafe void assign(float? ptr, ulong size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_AssignFromRange", ExactSpelling = true)]
                     extern static void __MR_C_std_set_float_AssignFromRange(_Underlying *_this, float *ptr, ulong size);
@@ -289,7 +289,7 @@ public static partial class MR
                 }
 
                 /// Removes all elements from the container.
-                public unsafe void Clear()
+                public unsafe void clear()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_Clear", ExactSpelling = true)]
                     extern static void __MR_C_std_set_float_Clear(_Underlying *_this);
@@ -297,7 +297,7 @@ public static partial class MR
                 }
 
                 /// Inserts a new element.
-                public unsafe void Insert(float new_elem)
+                public unsafe void insert(float new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_Insert", ExactSpelling = true)]
                     extern static void __MR_C_std_set_float_Insert(_Underlying *_this, float new_elem);

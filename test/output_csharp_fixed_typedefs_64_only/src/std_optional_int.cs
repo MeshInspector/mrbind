@@ -55,7 +55,7 @@ public static partial class MR
                 public static unsafe implicit operator Const_Optional_Int(int? other) {return new(other);}
 
                 /// The stored element or null if none, read-only.
-                public unsafe int? Value()
+                public unsafe int? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_Value", ExactSpelling = true)]
                     extern static int *__MR_C_std_optional_int_Value(_Underlying *_this);
@@ -99,7 +99,7 @@ public static partial class MR
                 public static unsafe implicit operator Optional_Int(int? other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_Optional_Int other)
+                public unsafe void assign(MR.CS.Std.Const_Optional_Int other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_Int._Underlying *other);
@@ -107,7 +107,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(int? other)
+                public unsafe void assign(int? other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_int_AssignFrom(_Underlying *_this, int *other);
@@ -116,7 +116,7 @@ public static partial class MR
                 }
 
                 /// The stored element or null if none, mutable.
-                public unsafe new MR.CS.Misc.Ref<int>? Value()
+                public unsafe new MR.CS.Misc.Ref<int>? value()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_MutableValue", ExactSpelling = true)]
                     extern static int *__MR_C_std_optional_int_MutableValue(_Underlying *_this);

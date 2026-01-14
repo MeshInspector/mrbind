@@ -53,7 +53,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::StaticFuncs::A::blah`.
-                public static void Blah()
+                public static void blah()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_blah", ExactSpelling = true)]
                     extern static void __MR_StaticFuncs_A_blah();
@@ -84,7 +84,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::StaticFuncs::A::operator=`.
-                public unsafe MR.CS.StaticFuncs.A Assign(MR.CS.StaticFuncs.Const_A _other)
+                public unsafe MR.CS.StaticFuncs.A assign(MR.CS.StaticFuncs.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_AssignFromAnother(_Underlying *_this, MR.CS.StaticFuncs.A._Underlying *_other);

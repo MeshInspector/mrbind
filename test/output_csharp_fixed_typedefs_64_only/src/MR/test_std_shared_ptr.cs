@@ -17,6 +17,7 @@ public static partial class MR
                 {
                     get
                     {
+                        System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get", ExactSpelling = true)]
                         extern static _Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get(_UnderlyingShared *_this);
                         return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get(_UnderlyingSharedPtr);
@@ -24,22 +25,26 @@ public static partial class MR
                 }
 
                 /// Check if the underlying shared pointer is owning or not.
-                public override bool _IsOwning
+                public override unsafe bool _IsOwning
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_StdSharedPtr_A_UseCount();
-                        return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_UseCount() > 0;
+                        extern static int __MR_C_std_shared_ptr_MR_StdSharedPtr_A_UseCount(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_UseCount(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
-                /// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).
-                internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()
+                /// Check if the underlying shared pointer is non-null.
+                /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                private unsafe bool _SharedPtrIsNotNull
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructFromAnother", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, _UnderlyingShared *other);
-                    return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructFromAnother(MR.CS.Misc._PassBy.copy, _UnderlyingSharedPtr);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get(_UnderlyingSharedPtr) is not null;
+                    }
                 }
 
                 internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(true)
@@ -127,7 +132,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::StdSharedPtr::A::operator=`.
-                public unsafe MR.CS.StdSharedPtr.A Assign(MR.CS.StdSharedPtr.Const_A _other)
+                public unsafe MR.CS.StdSharedPtr.A assign(MR.CS.StdSharedPtr.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_AssignFromAnother(_Underlying *_this, MR.CS.StdSharedPtr.A._Underlying *_other);
@@ -184,7 +189,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetInt`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Int> GetInt()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Int> getInt()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetInt", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_Int._Underlying *__MR_StdSharedPtr_GetInt();
@@ -192,7 +197,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetInt`.
-            public static unsafe void SetInt(MR.CS.Std._ByValue_SharedPtr_Int _1)
+            public static unsafe void setInt(MR.CS.Std._ByValue_SharedPtr_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetInt", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetInt(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_Int._Underlying *_1);
@@ -200,7 +205,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetIntConstRef`.
-            public static unsafe void SetIntConstRef(MR.CS.Std.Const_SharedPtr_Int _1)
+            public static unsafe void setIntConstRef(MR.CS.Std.Const_SharedPtr_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntConstRef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntConstRef(MR.CS.Std.Const_SharedPtr_Int._Underlying *_1);
@@ -209,7 +214,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetIntDefTrivial`.
             /// Parameter `_1` defaults to `{}`.
-            public static unsafe void SetIntDefTrivial(MR.CS.Std._ByValue_SharedPtr_Int? _1 = null)
+            public static unsafe void setIntDefTrivial(MR.CS.Std._ByValue_SharedPtr_Int? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_Int._Underlying *_1);
@@ -218,7 +223,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetIntDef`.
             /// Parameter `_1` defaults to `std::make_unique<int>(42)`.
-            public static unsafe void SetIntDef(MR.CS.Std._ByValue_SharedPtr_Int? _1 = null)
+            public static unsafe void setIntDef(MR.CS.Std._ByValue_SharedPtr_Int? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntDef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_Int._Underlying *_1);
@@ -226,7 +231,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetIntLvalueRef`.
-            public static unsafe void SetIntLvalueRef(MR.CS.Std.SharedPtr_Int _1)
+            public static unsafe void setIntLvalueRef(MR.CS.Std.SharedPtr_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntLvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntLvalueRef(MR.CS.Std.SharedPtr_Int._Underlying *_1);
@@ -234,7 +239,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetIntLvalueConstRef`.
-            public static unsafe void SetIntLvalueConstRef(MR.CS.Std.Const_SharedPtr_Int _1)
+            public static unsafe void setIntLvalueConstRef(MR.CS.Std.Const_SharedPtr_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntLvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntLvalueConstRef(MR.CS.Std.Const_SharedPtr_Int._Underlying *_1);
@@ -242,7 +247,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetIntRvalueRef`.
-            public static unsafe void SetIntRvalueRef(MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Int> _1)
+            public static unsafe void setIntRvalueRef(MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Int> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntRvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntRvalueRef(MR.CS.Std.SharedPtr_Int._Underlying *_1);
@@ -250,7 +255,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetIntRvalueConstRef`.
-            public static unsafe void SetIntRvalueConstRef(MR.CS.Misc._Moved<MR.CS.Std.Const_SharedPtr_Int> _1)
+            public static unsafe void setIntRvalueConstRef(MR.CS.Misc._Moved<MR.CS.Std.Const_SharedPtr_Int> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntRvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntRvalueConstRef(MR.CS.Std.Const_SharedPtr_Int._Underlying *_1);
@@ -258,7 +263,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetIntArr`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_IntArray> GetIntArr()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_IntArray> getIntArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetIntArr", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_IntArray._Underlying *__MR_StdSharedPtr_GetIntArr();
@@ -266,7 +271,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetIntArr`.
-            public static unsafe void SetIntArr(MR.CS.Std._ByValue_SharedPtr_IntArray _1)
+            public static unsafe void setIntArr(MR.CS.Std._ByValue_SharedPtr_IntArray _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArr", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntArr(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray._Underlying *_1);
@@ -275,7 +280,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetIntArrDefTrivial`.
             /// Parameter `_1` defaults to `{}`.
-            public static unsafe void SetIntArrDefTrivial(MR.CS.Std._ByValue_SharedPtr_IntArray? _1 = null)
+            public static unsafe void setIntArrDefTrivial(MR.CS.Std._ByValue_SharedPtr_IntArray? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArrDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntArrDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray._Underlying *_1);
@@ -284,7 +289,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetIntArrDef`.
             /// Parameter `_1` defaults to `std::make_unique<int[]>(42)`.
-            public static unsafe void SetIntArrDef(MR.CS.Std._ByValue_SharedPtr_IntArray? _1 = null)
+            public static unsafe void setIntArrDef(MR.CS.Std._ByValue_SharedPtr_IntArray? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArrDef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntArrDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray._Underlying *_1);
@@ -292,7 +297,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetIntArr42`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_IntArray42> GetIntArr42()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_IntArray42> getIntArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetIntArr42", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_IntArray42._Underlying *__MR_StdSharedPtr_GetIntArr42();
@@ -300,7 +305,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetIntArr42`.
-            public static unsafe void SetIntArr42(MR.CS.Std._ByValue_SharedPtr_IntArray42 _1)
+            public static unsafe void setIntArr42(MR.CS.Std._ByValue_SharedPtr_IntArray42 _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArr42", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntArr42(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray42._Underlying *_1);
@@ -309,7 +314,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetIntArr42DefTrivial`.
             /// Parameter `_1` defaults to `{}`.
-            public static unsafe void SetIntArr42DefTrivial(MR.CS.Std._ByValue_SharedPtr_IntArray42? _1 = null)
+            public static unsafe void setIntArr42DefTrivial(MR.CS.Std._ByValue_SharedPtr_IntArray42? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArr42DefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntArr42DefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray42._Underlying *_1);
@@ -318,7 +323,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetIntArr42Def`.
             /// Parameter `_1` defaults to `std::make_shared<int[42]>()`.
-            public static unsafe void SetIntArr42Def(MR.CS.Std._ByValue_SharedPtr_IntArray42? _1 = null)
+            public static unsafe void setIntArr42Def(MR.CS.Std._ByValue_SharedPtr_IntArray42? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetIntArr42Def", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetIntArr42Def(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_IntArray42._Underlying *_1);
@@ -326,7 +331,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetClass`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.StdSharedPtr.A> GetClass()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.StdSharedPtr.A> getClass()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetClass", ExactSpelling = true)]
                 extern static MR.CS.StdSharedPtr.A._UnderlyingShared *__MR_StdSharedPtr_GetClass();
@@ -334,7 +339,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClass`.
-            public static unsafe void SetClass(MR.CS.StdSharedPtr._ByValueShared_A _1)
+            public static unsafe void setClass(MR.CS.StdSharedPtr._ByValueShared_A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClass", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClass(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
@@ -342,7 +347,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClassConstRef`.
-            public static unsafe void SetClassConstRef(MR.CS.StdSharedPtr.Const_A _1)
+            public static unsafe void setClassConstRef(MR.CS.StdSharedPtr.Const_A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassConstRef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassConstRef(MR.CS.StdSharedPtr.Const_A._UnderlyingShared *_1);
@@ -351,7 +356,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetClassDefTrivial`.
             /// Parameter `_1` defaults to `{}`.
-            public static unsafe void SetClassDefTrivial(MR.CS.StdSharedPtr._ByValueShared_A? _1 = null)
+            public static unsafe void setClassDefTrivial(MR.CS.StdSharedPtr._ByValueShared_A? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
@@ -360,7 +365,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetClassDef`.
             /// Parameter `_1` defaults to `std::make_unique<MR::StdSharedPtr::A>(MR::StdSharedPtr::A{})`.
-            public static unsafe void SetClassDef(MR.CS.StdSharedPtr._ByValueShared_A? _1 = null)
+            public static unsafe void setClassDef(MR.CS.StdSharedPtr._ByValueShared_A? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassDef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
@@ -368,7 +373,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClassLvalueRef`.
-            public static unsafe void SetClassLvalueRef(MR.CS.StdSharedPtr.A _1)
+            public static unsafe void setClassLvalueRef(MR.CS.StdSharedPtr.A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassLvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassLvalueRef(MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
@@ -376,7 +381,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClassLvalueConstRef`.
-            public static unsafe void SetClassLvalueConstRef(MR.CS.StdSharedPtr.Const_A _1)
+            public static unsafe void setClassLvalueConstRef(MR.CS.StdSharedPtr.Const_A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassLvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassLvalueConstRef(MR.CS.StdSharedPtr.Const_A._UnderlyingShared *_1);
@@ -384,7 +389,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClassRvalueRef`.
-            public static unsafe void SetClassRvalueRef(MR.CS.Misc._Moved<MR.CS.StdSharedPtr.A> _1)
+            public static unsafe void setClassRvalueRef(MR.CS.Misc._Moved<MR.CS.StdSharedPtr.A> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassRvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassRvalueRef(MR.CS.StdSharedPtr.A._UnderlyingShared *_1);
@@ -392,7 +397,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClassRvalueConstRef`.
-            public static unsafe void SetClassRvalueConstRef(MR.CS.Misc._Moved<MR.CS.StdSharedPtr.Const_A> _1)
+            public static unsafe void setClassRvalueConstRef(MR.CS.Misc._Moved<MR.CS.StdSharedPtr.Const_A> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassRvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassRvalueConstRef(MR.CS.StdSharedPtr.Const_A._UnderlyingShared *_1);
@@ -400,7 +405,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetClassArr`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_MRStdSharedPtrAArray> GetClassArr()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_MRStdSharedPtrAArray> getClassArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetClassArr", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *__MR_StdSharedPtr_GetClassArr();
@@ -408,7 +413,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClassArr`.
-            public static unsafe void SetClassArr(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray _1)
+            public static unsafe void setClassArr(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArr", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassArr(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *_1);
@@ -417,7 +422,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetClassArrDefTrivial`.
             /// Parameter `_1` defaults to `{}`.
-            public static unsafe void SetClassArrDefTrivial(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray? _1 = null)
+            public static unsafe void setClassArrDefTrivial(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArrDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassArrDefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *_1);
@@ -426,7 +431,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetClassArrDef`.
             /// Parameter `_1` defaults to `std::make_unique<MR::StdSharedPtr::A[]>(42)`.
-            public static unsafe void SetClassArrDef(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray? _1 = null)
+            public static unsafe void setClassArrDef(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArrDef", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassArrDef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray._Underlying *_1);
@@ -434,7 +439,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetClassArr42`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42> GetClassArr42()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42> getClassArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetClassArr42", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *__MR_StdSharedPtr_GetClassArr42();
@@ -442,7 +447,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::SetClassArr42`.
-            public static unsafe void SetClassArr42(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42 _1)
+            public static unsafe void setClassArr42(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42 _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArr42", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassArr42(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *_1);
@@ -451,7 +456,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetClassArr42DefTrivial`.
             /// Parameter `_1` defaults to `{}`.
-            public static unsafe void SetClassArr42DefTrivial(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42? _1 = null)
+            public static unsafe void setClassArr42DefTrivial(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArr42DefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassArr42DefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *_1);
@@ -460,7 +465,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdSharedPtr::SetClassArr42Def`.
             /// Parameter `_1` defaults to `std::make_shared<MR::StdSharedPtr::A[42]>()`.
-            public static unsafe void SetClassArr42Def(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42? _1 = null)
+            public static unsafe void setClassArr42Def(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_SetClassArr42Def", ExactSpelling = true)]
                 extern static void __MR_StdSharedPtr_SetClassArr42Def(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrAArray42._Underlying *_1);
@@ -470,7 +475,7 @@ public static partial class MR
             // With constness:
             // Try const element types:
             /// Generated from function `MR::StdSharedPtr::GetConstInt`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstInt> GetConstInt()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstInt> getConstInt()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstInt", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_ConstInt._Underlying *__MR_StdSharedPtr_GetConstInt();
@@ -478,7 +483,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetConstIntArr`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstIntArray> GetConstIntArr()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstIntArray> getConstIntArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstIntArr", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_ConstIntArray._Underlying *__MR_StdSharedPtr_GetConstIntArr();
@@ -486,7 +491,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetConstIntArr42`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstIntArray42> GetConstIntArr42()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstIntArray42> getConstIntArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstIntArr42", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_ConstIntArray42._Underlying *__MR_StdSharedPtr_GetConstIntArr42();
@@ -494,7 +499,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetConstClass`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.StdSharedPtr.A> GetConstClass()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.StdSharedPtr.A> getConstClass()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstClass", ExactSpelling = true)]
                 extern static MR.CS.StdSharedPtr.A._UnderlyingShared *__MR_StdSharedPtr_GetConstClass();
@@ -502,7 +507,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetConstClassArr`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray> GetConstClassArr()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray> getConstClassArr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstClassArr", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_StdSharedPtr_GetConstClassArr();
@@ -510,7 +515,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdSharedPtr::GetConstClassArr42`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray42> GetConstClassArr42()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray42> getConstClassArr42()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_GetConstClassArr42", ExactSpelling = true)]
                 extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray42._Underlying *__MR_StdSharedPtr_GetConstClassArr42();

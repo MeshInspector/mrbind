@@ -84,7 +84,7 @@ public static partial class MR
             }
 
             /// Generated from method `MR::A::operator=`.
-            public unsafe MR.CS.A Assign(MR.CS._ByValue_A _other)
+            public unsafe MR.CS.A assign(MR.CS._ByValue_A _other)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_AssignFromAnother", ExactSpelling = true)]
                 extern static MR.CS.A._Underlying *__MR_A_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.A._Underlying *_other);
@@ -141,7 +141,7 @@ public static partial class MR
         }
 
         /// Generated from function `MR::foo`.
-        public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRA> Foo()
+        public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRA> foo()
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_foo", ExactSpelling = true)]
             extern static MR.CS.Std.Vector_MRA._Underlying *__MR_foo();
@@ -149,7 +149,7 @@ public static partial class MR
         }
 
         /// Generated from function `MR::bar`.
-        public static unsafe void Bar(MR.CS.Std._ByValue_Vector_MRA _1)
+        public static unsafe void bar(MR.CS.Std._ByValue_Vector_MRA _1)
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_bar", ExactSpelling = true)]
             extern static void __MR_bar(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_MRA._Underlying *_1);

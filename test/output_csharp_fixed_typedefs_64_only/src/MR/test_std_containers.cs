@@ -68,7 +68,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::StdContainers::A::operator=`.
-                public unsafe MR.CS.StdContainers.A Assign(MR.CS.StdContainers.Const_A _other)
+                public unsafe MR.CS.StdContainers.A assign(MR.CS.StdContainers.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_AssignFromAnother(_Underlying *_this, MR.CS.StdContainers.A._Underlying *_other);
@@ -176,7 +176,7 @@ public static partial class MR
                 public static unsafe implicit operator NonDefaultConstructible(int _1) {return new(_1);}
 
                 /// Generated from method `MR::StdContainers::NonDefaultConstructible::operator=`.
-                public unsafe MR.CS.StdContainers.NonDefaultConstructible Assign(MR.CS.StdContainers.Const_NonDefaultConstructible _other)
+                public unsafe MR.CS.StdContainers.NonDefaultConstructible assign(MR.CS.StdContainers.Const_NonDefaultConstructible _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_AssignFromAnother(_Underlying *_this, MR.CS.StdContainers.NonDefaultConstructible._Underlying *_other);
@@ -257,7 +257,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::StdContainers::NonAssignable::operator<`.
-                public unsafe bool Less(MR.CS.StdContainers._ByValue_NonAssignable _1)
+                public unsafe bool less(MR.CS.StdContainers._ByValue_NonAssignable _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_StdContainers_NonAssignable", ExactSpelling = true)]
                     extern static byte __MR_C_less_MR_StdContainers_NonAssignable(_Underlying *_this, MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *_1);
@@ -365,7 +365,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::Set`.
-            public static unsafe void Set(MR.CS.Std._ByValue_Vector_Int _1)
+            public static unsafe void set(MR.CS.Std._ByValue_Vector_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_Set", ExactSpelling = true)]
                 extern static void __MR_StdContainers_Set(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_Int._Underlying *_1);
@@ -374,7 +374,7 @@ public static partial class MR
 
             /// Generated from function `MR::StdContainers::SetWithDefault`.
             /// Parameter `_1` defaults to `{1, 2, 3}`.
-            public static unsafe void SetWithDefault(MR.CS.Std._ByValue_Vector_Int? _1 = null)
+            public static unsafe void setWithDefault(MR.CS.Std._ByValue_Vector_Int? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_SetWithDefault", ExactSpelling = true)]
                 extern static void __MR_StdContainers_SetWithDefault(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_Int._Underlying *_1);
@@ -382,7 +382,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::Get`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_Int> Get()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_Int> get()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_Get", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_Int._Underlying *__MR_StdContainers_Get();
@@ -390,7 +390,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::WriteToRef`.
-            public static unsafe void WriteToRef(MR.CS.Std.Vector_Int _1)
+            public static unsafe void writeToRef(MR.CS.Std.Vector_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_WriteToRef", ExactSpelling = true)]
                 extern static void __MR_StdContainers_WriteToRef(MR.CS.Std.Vector_Int._Underlying *_1);
@@ -398,7 +398,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::WriteToPtr`.
-            public static unsafe void WriteToPtr(MR.CS.Std.Vector_Int? _1)
+            public static unsafe void writeToPtr(MR.CS.Std.Vector_Int? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_WriteToPtr", ExactSpelling = true)]
                 extern static void __MR_StdContainers_WriteToPtr(MR.CS.Std.Vector_Int._Underlying *_1);
@@ -406,7 +406,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::ConstRef`.
-            public static unsafe void ConstRef(MR.CS.Std.Const_Vector_Int _1)
+            public static unsafe void constRef(MR.CS.Std.Const_Vector_Int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_ConstRef", ExactSpelling = true)]
                 extern static void __MR_StdContainers_ConstRef(MR.CS.Std.Const_Vector_Int._Underlying *_1);
@@ -414,7 +414,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::RvalueRef`.
-            public static unsafe void RvalueRef(MR.CS.Misc._Moved<MR.CS.Std.Vector_Int> _1)
+            public static unsafe void rvalueRef(MR.CS.Misc._Moved<MR.CS.Std.Vector_Int> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_RvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdContainers_RvalueRef(MR.CS.Std.Vector_Int._Underlying *_1);
@@ -422,7 +422,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::ConstRvalueRef`.
-            public static unsafe void ConstRvalueRef(MR.CS.Misc._Moved<MR.CS.Std.Const_Vector_Int> _1)
+            public static unsafe void constRvalueRef(MR.CS.Misc._Moved<MR.CS.Std.Const_Vector_Int> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_ConstRvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdContainers_ConstRvalueRef(MR.CS.Std.Const_Vector_Int._Underlying *_1);
@@ -431,7 +431,7 @@ public static partial class MR
 
             // Just the list of other containers.
             /// Generated from function `MR::StdContainers::GetDeque`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Deque_Int> GetDeque()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Deque_Int> getDeque()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetDeque", ExactSpelling = true)]
                 extern static MR.CS.Std.Deque_Int._Underlying *__MR_StdContainers_GetDeque();
@@ -439,7 +439,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetList`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.List_Int> GetList()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.List_Int> getList()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetList", ExactSpelling = true)]
                 extern static MR.CS.Std.List_Int._Underlying *__MR_StdContainers_GetList();
@@ -447,7 +447,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetSet`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Set_Int> GetSet()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Set_Int> getSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetSet", ExactSpelling = true)]
                 extern static MR.CS.Std.Set_Int._Underlying *__MR_StdContainers_GetSet();
@@ -455,7 +455,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetMultiSet`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_Int> GetMultiSet()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_Int> getMultiSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiSet", ExactSpelling = true)]
                 extern static MR.CS.Std.Multiset_Int._Underlying *__MR_StdContainers_GetMultiSet();
@@ -463,7 +463,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedSet`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedSet_Int> GetUnorderedSet()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedSet_Int> getUnorderedSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedSet", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedSet_Int._Underlying *__MR_StdContainers_GetUnorderedSet();
@@ -471,7 +471,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMultiSet`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultiset_Int> GetUnorderedMultiSet()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultiset_Int> getUnorderedMultiSet()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiSet", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMultiset_Int._Underlying *__MR_StdContainers_GetUnorderedMultiSet();
@@ -479,7 +479,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetMap`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Map_Int_Float> GetMap()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Map_Int_Float> getMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMap", ExactSpelling = true)]
                 extern static MR.CS.Std.Map_Int_Float._Underlying *__MR_StdContainers_GetMap();
@@ -487,7 +487,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetMultiMap`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multimap_Int_Float> GetMultiMap()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multimap_Int_Float> getMultiMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiMap", ExactSpelling = true)]
                 extern static MR.CS.Std.Multimap_Int_Float._Underlying *__MR_StdContainers_GetMultiMap();
@@ -495,7 +495,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMap`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMap_Int_Float> GetUnorderedMap()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMap_Int_Float> getUnorderedMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMap", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMap_Int_Float._Underlying *__MR_StdContainers_GetUnorderedMap();
@@ -503,7 +503,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMultiMap`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultimap_Int_Float> GetUnorderedMultiMap()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultimap_Int_Float> getUnorderedMultiMap()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiMap", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMultimap_Int_Float._Underlying *__MR_StdContainers_GetUnorderedMultiMap();
@@ -511,7 +511,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetStdArray`.
-            public static unsafe MR.CS.Std.Array_MRStdContainersA_42 GetStdArray()
+            public static unsafe MR.CS.Std.Array_MRStdContainersA_42 getStdArray()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetStdArray", ExactSpelling = true)]
                 extern static MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_StdContainers_GetStdArray();
@@ -519,7 +519,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetStdArraySimple`.
-            public static MR.CS.Std.Array_Int_43 GetStdArraySimple()
+            public static MR.CS.Std.Array_Int_43 getStdArraySimple()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetStdArraySimple", ExactSpelling = true)]
                 extern static MR.CS.Std.Array_Int_43 __MR_StdContainers_GetStdArraySimple();
@@ -528,7 +528,7 @@ public static partial class MR
 
             // The custom simple array needs a bit more testing:
             /// Generated from function `MR::StdContainers::StdArraySimpleParam`.
-            public static void StdArraySimpleParam(MR.CS.Std.Array_Int_43 _1)
+            public static void stdArraySimpleParam(MR.CS.Std.Array_Int_43 _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_StdArraySimpleParam", ExactSpelling = true)]
                 extern static void __MR_StdContainers_StdArraySimpleParam(MR.CS.Std.Array_Int_43 _1);
@@ -536,7 +536,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::StdArraySimplePtr`.
-            public static unsafe MR.CS.Std.Mut_Array_Int_43? StdArraySimplePtr(MR.CS.Std.Mut_Array_Int_43? param)
+            public static unsafe MR.CS.Std.Mut_Array_Int_43? stdArraySimplePtr(MR.CS.Std.Mut_Array_Int_43? param)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_StdArraySimplePtr", ExactSpelling = true)]
                 extern static MR.CS.Std.Mut_Array_Int_43._Underlying *__MR_StdContainers_StdArraySimplePtr(MR.CS.Std.Mut_Array_Int_43._Underlying *param);
@@ -546,7 +546,7 @@ public static partial class MR
 
             // For this `std::multiset` specialization, mention all iterators so that they get merged.
             /// Generated from function `MR::StdContainers::GetMultiSetWithMergedIters`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_Float> GetMultiSetWithMergedIters()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_Float> getMultiSetWithMergedIters()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiSetWithMergedIters", ExactSpelling = true)]
                 extern static MR.CS.Std.Multiset_Float._Underlying *__MR_StdContainers_GetMultiSetWithMergedIters();
@@ -554,7 +554,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetMergedIter`.
-            public static unsafe MR.CS.Std.Set_Float.ConstIterator GetMergedIter()
+            public static unsafe MR.CS.Std.Set_Float.ConstIterator getMergedIter()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMergedIter", ExactSpelling = true)]
                 extern static MR.CS.Std.Set_Float.ConstIterator._Underlying *__MR_StdContainers_GetMergedIter();
@@ -562,7 +562,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetMergedIterConst`.
-            public static unsafe MR.CS.Std.Set_Float.ConstIterator GetMergedIterConst()
+            public static unsafe MR.CS.Std.Set_Float.ConstIterator getMergedIterConst()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMergedIterConst", ExactSpelling = true)]
                 extern static MR.CS.Std.Set_Float.ConstIterator._Underlying *__MR_StdContainers_GetMergedIterConst();
@@ -570,7 +570,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::NonDefCon`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible> NonDefCon()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible> nonDefCon()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefCon", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible._Underlying *__MR_StdContainers_NonDefCon();
@@ -578,7 +578,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetVectorNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRStdContainersNonAssignable> GetVectorNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRStdContainersNonAssignable> getVectorNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetVectorNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetVectorNA();
@@ -586,7 +586,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetDequeNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Deque_MRStdContainersNonAssignable> GetDequeNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Deque_MRStdContainersNonAssignable> getDequeNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetDequeNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Deque_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetDequeNA();
@@ -594,7 +594,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetListNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.List_MRStdContainersNonAssignable> GetListNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.List_MRStdContainersNonAssignable> getListNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetListNA", ExactSpelling = true)]
                 extern static MR.CS.Std.List_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetListNA();
@@ -602,7 +602,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetSetNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Set_MRStdContainersNonAssignable> GetSetNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Set_MRStdContainersNonAssignable> getSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetSetNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Set_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetSetNA();
@@ -610,7 +610,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetMultiSetNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_MRStdContainersNonAssignable> GetMultiSetNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multiset_MRStdContainersNonAssignable> getMultiSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiSetNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Multiset_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetMultiSetNA();
@@ -618,7 +618,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedSetNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable> GetUnorderedSetNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable> getUnorderedSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedSetNA", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedSet_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetUnorderedSetNA();
@@ -626,7 +626,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMultiSetNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable> GetUnorderedMultiSetNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable> getUnorderedMultiSetNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiSetNA", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable._Underlying *__MR_StdContainers_GetUnorderedMultiSetNA();
@@ -634,7 +634,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetMapNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Map_MRStdContainersNonAssignable_Float> GetMapNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Map_MRStdContainersNonAssignable_Float> getMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMapNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Map_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetMapNA();
@@ -642,7 +642,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetMultiMapNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float> GetMultiMapNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float> getMultiMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetMultiMapNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetMultiMapNA();
@@ -650,7 +650,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMapNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float> GetUnorderedMapNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float> getUnorderedMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMapNA", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetUnorderedMapNA();
@@ -658,7 +658,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetUnorderedMultiMapNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float> GetUnorderedMultiMapNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float> getUnorderedMultiMapNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetUnorderedMultiMapNA", ExactSpelling = true)]
                 extern static MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float._Underlying *__MR_StdContainers_GetUnorderedMultiMapNA();
@@ -666,7 +666,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::GetStdArrayNA`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Array_MRStdContainersNonAssignable_42> GetStdArrayNA()
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Array_MRStdContainersNonAssignable_42> getStdArrayNA()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetStdArrayNA", ExactSpelling = true)]
                 extern static MR.CS.Std.Array_MRStdContainersNonAssignable_42._Underlying *__MR_StdContainers_GetStdArrayNA();
@@ -676,7 +676,7 @@ public static partial class MR
             // Fun stuff!
             // The type name is a bit weird for this, but at least it works.
             /// Generated from function `MR::StdContainers::GetStdArrayOfPlainArray`.
-            public static MR.CS.Std.Array_IntArray4Array3_5 GetStdArrayOfPlainArray()
+            public static MR.CS.Std.Array_IntArray4Array3_5 getStdArrayOfPlainArray()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_GetStdArrayOfPlainArray", ExactSpelling = true)]
                 extern static MR.CS.Std.Array_IntArray4Array3_5 __MR_StdContainers_GetStdArrayOfPlainArray();

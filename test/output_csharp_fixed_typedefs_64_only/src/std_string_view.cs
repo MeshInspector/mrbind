@@ -60,7 +60,7 @@ public static partial class MR
                 public static unsafe implicit operator Const_StringView(string other) {return new(other);}
 
                 /// The number of characters in the string.
-                public unsafe ulong Size()
+                public unsafe ulong size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Size", ExactSpelling = true)]
                     extern static ulong __MR_C_std_string_view_Size(_Underlying *_this);
@@ -69,7 +69,7 @@ public static partial class MR
 
                 /// Returns the string contents, NOT necessarily null-terminated.
                 /// Returns a read-only pointer.
-                public unsafe byte *Data()
+                public unsafe byte *data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Data", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_view_Data(_Underlying *_this);
@@ -78,7 +78,7 @@ public static partial class MR
 
                 /// Returns a pointer to the end of string. Not dereferencable.
                 /// Returns a read-only pointer.
-                public unsafe byte *DataEnd()
+                public unsafe byte *dataEnd()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DataEnd", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_view_DataEnd(_Underlying *_this);
@@ -89,12 +89,12 @@ public static partial class MR
 
                 public static unsafe implicit operator ReadOnlySpan<byte>(MR.CS.Std.Const_StringView self)
                 {
-                    return new(self.Data(), checked((int)self.Size()));
+                    return new(self.data(), checked((int)self.size()));
                 }
 
                 public static unsafe implicit operator string(MR.CS.Std.Const_StringView self)
                 {
-                    return System.Text.Encoding.UTF8.GetString(self.Data(), checked((int)self.Size()));
+                    return System.Text.Encoding.UTF8.GetString(self.data(), checked((int)self.size()));
                 }
                 public override string ToString() {return (string)this;}
             }
@@ -139,7 +139,7 @@ public static partial class MR
                 public static unsafe implicit operator StringView(string other) {return new(other);}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_StringView other)
+                public unsafe void assign(MR.CS.Std.Const_StringView other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_string_view_AssignFromAnother(_Underlying *_this, MR.CS.Std.StringView._Underlying *other);
@@ -147,7 +147,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents.
-                public unsafe void Assign(ReadOnlySpan<char> other)
+                public unsafe void assign(ReadOnlySpan<char> other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_string_view_AssignFrom(_Underlying *_this, byte *other, byte *other_end);

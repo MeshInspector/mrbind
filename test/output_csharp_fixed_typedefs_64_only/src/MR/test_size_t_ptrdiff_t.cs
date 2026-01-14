@@ -66,7 +66,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::TestSizeT::A<MR_C_uint64_t>::operator=`.
-                public unsafe MR.CS.TestSizeT.A_MRCUint64T Assign(MR.CS.TestSizeT.Const_A_MRCUint64T _other)
+                public unsafe MR.CS.TestSizeT.A_MRCUint64T assign(MR.CS.TestSizeT.Const_A_MRCUint64T _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_AssignFromAnother(_Underlying *_this, MR.CS.TestSizeT.A_MRCUint64T._Underlying *_other);
@@ -74,7 +74,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::TestSizeT::A<MR_C_uint64_t>::foo`.
-                public unsafe ulong Foo()
+                public unsafe ulong foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_foo", ExactSpelling = true)]
                     extern static ulong __MR_TestSizeT_A_uint64_t_foo(_Underlying *_this);
@@ -113,7 +113,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
-            public static ulong Foo(ulong _1)
+            public static ulong foo(ulong _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_uint64_t", ExactSpelling = true)]
                 extern static ulong __MR_TestSizeT_foo_uint64_t(ulong _1);
@@ -122,7 +122,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSizeT::foo`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref ulong *Foo(ref ulong *_1)
+            public static unsafe ref ulong *foo(ref ulong *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_uint64_t_ptr", ExactSpelling = true)]
                 extern static ulong **__MR_TestSizeT_foo_uint64_t_ptr(ulong **_1);
@@ -133,7 +133,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCUint64T> Foo(MR.CS.Std._ByValue_Vector_MRCUint64T _1)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCUint64T> foo(MR.CS.Std._ByValue_Vector_MRCUint64T _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_uint64_t", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_MRCUint64T._Underlying *__MR_TestSizeT_foo_std_vector_uint64_t(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_MRCUint64T._Underlying *_1);
@@ -141,7 +141,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
-            public static long Foo(long _1)
+            public static long foo(long _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_int64_t", ExactSpelling = true)]
                 extern static long __MR_TestSizeT_foo_int64_t(long _1);
@@ -150,7 +150,7 @@ public static partial class MR
 
             /// Generated from function `MR::TestSizeT::foo`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref long *Foo(ref long *_1)
+            public static unsafe ref long *foo(ref long *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_int64_t_ptr", ExactSpelling = true)]
                 extern static long **__MR_TestSizeT_foo_int64_t_ptr(long **_1);
@@ -161,7 +161,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
-            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCInt64T> Foo(MR.CS.Std._ByValue_Vector_MRCInt64T _1)
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCInt64T> foo(MR.CS.Std._ByValue_Vector_MRCInt64T _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_int64_t", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_MRCInt64T._Underlying *__MR_TestSizeT_foo_std_vector_int64_t(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_MRCInt64T._Underlying *_1);

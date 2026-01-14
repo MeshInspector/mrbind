@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, read-only.
-                public unsafe MR.CS.StdContainers.Const_A At(ulong i)
+                public unsafe MR.CS.StdContainers.Const_A at(ulong i)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_At", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_At(_Underlying *_this, ulong i);
@@ -51,7 +51,7 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
-                public unsafe MR.CS.StdContainers.ConstPtrA? Data()
+                public unsafe MR.CS.StdContainers.ConstPtrA? data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_Data", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_Data(_Underlying *_this);
@@ -83,7 +83,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_Array_MRStdContainersA_42 other)
+                public unsafe void assign(MR.CS.Std.Const_Array_MRStdContainersA_42 other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_array_MR_StdContainers_A_42_AssignFromAnother(_Underlying *_this, MR.CS.Std.Array_MRStdContainersA_42._Underlying *other);
@@ -91,7 +91,7 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe new MR.CS.StdContainers.A At(ulong i)
+                public unsafe new MR.CS.StdContainers.A at(ulong i)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_MutableAt", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_MutableAt(_Underlying *_this, ulong i);
@@ -99,7 +99,7 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
-                public unsafe new MR.CS.StdContainers.PtrA? Data()
+                public unsafe new MR.CS.StdContainers.PtrA? data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_MutableData", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_MutableData(_Underlying *_this);

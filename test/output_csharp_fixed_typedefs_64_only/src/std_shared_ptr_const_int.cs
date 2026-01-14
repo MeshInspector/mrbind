@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// Returns the stored pointer, possibly null.
-                public unsafe int? Get()
+                public unsafe int? get()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_Get", ExactSpelling = true)]
                     extern static int *__MR_C_std_shared_ptr_const_int_Get(_Underlying *_this);
@@ -54,7 +54,7 @@ public static partial class MR
                 /// How many shared pointers share the managed object. Zero if no object is being managed.
                 /// This being zero usually conincides with `MR_C_std_shared_ptr_const_int_Get()` returning null, but is ultimately orthogonal.
                 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
-                public unsafe int UseCount()
+                public unsafe int useCount()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_UseCount", ExactSpelling = true)]
                     extern static int __MR_C_std_shared_ptr_const_int_UseCount(_Underlying *_this);
@@ -123,7 +123,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std._ByValue_SharedPtr_ConstInt other)
+                public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_ConstInt other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_ConstInt._Underlying *other);
@@ -139,7 +139,7 @@ public static partial class MR
                 }
 
                 /// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
-                public unsafe void Assign(void *ptr)
+                public unsafe void assign(void *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_Assign", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int_Assign(_Underlying *_this, void *ptr);
@@ -156,7 +156,7 @@ public static partial class MR
                 }
 
                 /// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
-                public unsafe void Assign(int? ptr)
+                public unsafe void assign(int? ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_AssignNonOwning", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int_AssignNonOwning(_Underlying *_this, int *ptr);
@@ -176,7 +176,7 @@ public static partial class MR
                 public static unsafe implicit operator SharedPtr_ConstInt(MR.CS.Std._ByValue_SharedPtr_Int ptr) {return new(ptr);}
 
                 /// Overwrite the existing instance with a non-const pointer to the same type.
-                public unsafe void Assign(MR.CS.Std._ByValue_SharedPtr_Int ptr)
+                public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_Int ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_AssignFromMutable", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int_AssignFromMutable(_Underlying *_this, MR.CS.Misc._PassBy ptr_pass_by, MR.CS.Std.SharedPtr_Int._Underlying *ptr);
@@ -195,7 +195,7 @@ public static partial class MR
 
                 /// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
-                public unsafe void AssignAliasing(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, int? ptr)
+                public unsafe void assignAliasing(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, int? ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_AssignAliasing", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int_AssignAliasing(_Underlying *_this, MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, int *ptr);

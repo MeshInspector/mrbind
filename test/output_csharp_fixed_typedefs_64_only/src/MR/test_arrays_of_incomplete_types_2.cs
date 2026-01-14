@@ -10,7 +10,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::IncompleteArrayElemType::bar`.
-            public static unsafe void Bar(MR.CS.IncompleteArrayElemType.ArrayE4 *_1)
+            public static unsafe void bar(MR.CS.IncompleteArrayElemType.ArrayE4 *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncompleteArrayElemType_bar", ExactSpelling = true)]
                 extern static void __MR_IncompleteArrayElemType_bar(MR.CS.IncompleteArrayElemType.ArrayE4 *_1);

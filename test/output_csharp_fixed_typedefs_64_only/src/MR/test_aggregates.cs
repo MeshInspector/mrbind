@@ -136,7 +136,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Aggregates::A::operator=`.
-                public unsafe MR.CS.Aggregates.A Assign(MR.CS.Aggregates._ByValue_A _other)
+                public unsafe MR.CS.Aggregates.A assign(MR.CS.Aggregates._ByValue_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.A._Underlying *__MR_Aggregates_A_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.Aggregates.A._Underlying *_other);
@@ -256,7 +256,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Aggregates::B::operator=`.
-                public unsafe MR.CS.Aggregates.B Assign(MR.CS.Aggregates.Const_B _other)
+                public unsafe MR.CS.Aggregates.B assign(MR.CS.Aggregates.Const_B _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_B_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.B._Underlying *__MR_Aggregates_B_AssignFromAnother(_Underlying *_this, MR.CS.Aggregates.B._Underlying *_other);
@@ -340,7 +340,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Aggregates::NonDefaultConstructible::operator=`.
-                public unsafe MR.CS.Aggregates.NonDefaultConstructible Assign(MR.CS.Aggregates.Const_NonDefaultConstructible _other)
+                public unsafe MR.CS.Aggregates.NonDefaultConstructible assign(MR.CS.Aggregates.Const_NonDefaultConstructible _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_NonDefaultConstructible_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.NonDefaultConstructible._Underlying *__MR_Aggregates_NonDefaultConstructible_AssignFromAnother(_Underlying *_this, MR.CS.Aggregates.NonDefaultConstructible._Underlying *_other);
@@ -618,7 +618,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Aggregates::C::operator=`.
-                public unsafe MR.CS.Aggregates.C Assign(MR.CS.Aggregates.Const_C _other)
+                public unsafe MR.CS.Aggregates.C assign(MR.CS.Aggregates.Const_C _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.C._Underlying *__MR_Aggregates_C_AssignFromAnother(_Underlying *_this, MR.CS.Aggregates.C._Underlying *_other);
@@ -914,7 +914,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Aggregates::D::operator=`.
-                public unsafe MR.CS.Aggregates.D Assign(MR.CS.Aggregates.Const_D _other)
+                public unsafe MR.CS.Aggregates.D assign(MR.CS.Aggregates.Const_D _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.D._Underlying *__MR_Aggregates_D_AssignFromAnother(_Underlying *_this, MR.CS.Aggregates.D._Underlying *_other);
@@ -1234,7 +1234,7 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::Aggregates::E::operator=`.
-                public unsafe MR.CS.Aggregates.E Assign(MR.CS.Aggregates.Const_E _other)
+                public unsafe MR.CS.Aggregates.E assign(MR.CS.Aggregates.Const_E _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.E._Underlying *__MR_Aggregates_E_AssignFromAnother(_Underlying *_this, MR.CS.Aggregates.E._Underlying *_other);

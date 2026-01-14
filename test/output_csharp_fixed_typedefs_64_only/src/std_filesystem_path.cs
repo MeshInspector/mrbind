@@ -62,7 +62,7 @@ public static partial class MR
                     public static unsafe implicit operator Const_Path(string other) {return new(other);}
 
                     /// Get the contents as a UTF8-encoded string.
-                    public unsafe MR.CS.Misc._Moved<MR.CS.Std.String> GetString()
+                    public unsafe MR.CS.Misc._Moved<MR.CS.Std.String> getString()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_GetString", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_C_std_filesystem_path_GetString(_Underlying *_this);
@@ -73,7 +73,7 @@ public static partial class MR
 
                     public static unsafe implicit operator string(MR.CS.Std.Filesystem.Const_Path self)
                     {
-                        return self.GetString().Value;
+                        return self.getString().Value;
                     }
                     public override string ToString() {return (string)this;}
                 }
@@ -118,7 +118,7 @@ public static partial class MR
                     public static unsafe implicit operator Path(string other) {return new(other);}
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
-                    public unsafe void Assign(MR.CS.Std.Filesystem._ByValue_Path other)
+                    public unsafe void assign(MR.CS.Std.Filesystem._ByValue_Path other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_filesystem_path_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
@@ -126,7 +126,7 @@ public static partial class MR
                     }
 
                     /// Assigns the contents.
-                    public unsafe void Assign(ReadOnlySpan<char> other)
+                    public unsafe void assign(ReadOnlySpan<char> other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_AssignFrom", ExactSpelling = true)]
                         extern static void __MR_C_std_filesystem_path_AssignFrom(_Underlying *_this, byte *other, byte *other_end);
@@ -142,7 +142,7 @@ public static partial class MR
 
                     public static unsafe implicit operator string(MR.CS.Std.Filesystem.Path self)
                     {
-                        return self.GetString().Value;
+                        return self.getString().Value;
                     }
                     public override string ToString() {return (string)this;}
                 }

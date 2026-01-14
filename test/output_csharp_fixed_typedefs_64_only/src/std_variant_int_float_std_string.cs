@@ -43,7 +43,7 @@ public static partial class MR
                 }
 
                 /// Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
-                public unsafe ulong Index()
+                public unsafe ulong index()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_Index", ExactSpelling = true)]
                     extern static ulong __MR_C_std_variant_int_float_std_string_Index(_Underlying *_this);
@@ -80,7 +80,7 @@ public static partial class MR
                 }
 
                 /// Returns the element 0, of type `int`, read-only. If it's not the active element, returns null.
-                public unsafe int? GetInt()
+                public unsafe int? getInt()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_Get_int", ExactSpelling = true)]
                     extern static int *__MR_C_std_variant_int_float_std_string_Get_int(_Underlying *_this);
@@ -89,7 +89,7 @@ public static partial class MR
                 }
 
                 /// Returns the element 1, of type `float`, read-only. If it's not the active element, returns null.
-                public unsafe float? GetFloat()
+                public unsafe float? getFloat()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_Get_float", ExactSpelling = true)]
                     extern static float *__MR_C_std_variant_int_float_std_string_Get_float(_Underlying *_this);
@@ -98,7 +98,7 @@ public static partial class MR
                 }
 
                 /// Returns the element 2, of type `std::string`, read-only. If it's not the active element, returns null.
-                public unsafe MR.CS.Std.Const_String? GetStdString()
+                public unsafe MR.CS.Std.Const_String? getStdString()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_Get_std_string", ExactSpelling = true)]
                     extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_variant_int_float_std_string_Get_std_string(_Underlying *_this);
@@ -130,7 +130,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std._ByValue_Variant_Int_Float_StdString other)
+                public unsafe void assign(MR.CS.Std._ByValue_Variant_Int_Float_StdString other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_variant_int_float_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Variant_Int_Float_StdString._Underlying *other);
@@ -167,7 +167,7 @@ public static partial class MR
                 }
 
                 /// Assigns to the variant, making it store the element 0, of type `int`.
-                public unsafe void AssignAsInt(int value)
+                public unsafe void assignAsInt(int value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_int", ExactSpelling = true)]
                     extern static void __MR_C_std_variant_int_float_std_string_AssignAs_int(_Underlying *_this, int value);
@@ -175,7 +175,7 @@ public static partial class MR
                 }
 
                 /// Assigns to the variant, making it store the element 1, of type `float`.
-                public unsafe void AssignAsFloat(float value)
+                public unsafe void assignAsFloat(float value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_float", ExactSpelling = true)]
                     extern static void __MR_C_std_variant_int_float_std_string_AssignAs_float(_Underlying *_this, float value);
@@ -183,7 +183,7 @@ public static partial class MR
                 }
 
                 /// Assigns to the variant, making it store the element 2, of type `std::string`.
-                public unsafe void AssignAsStdString(ReadOnlySpan<char> value)
+                public unsafe void assignAsStdString(ReadOnlySpan<char> value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_std_string", ExactSpelling = true)]
                     extern static void __MR_C_std_variant_int_float_std_string_AssignAs_std_string(_Underlying *_this, byte *value, byte *value_end);
@@ -196,7 +196,7 @@ public static partial class MR
                 }
 
                 /// Returns the element 0, of type `int`, mutable. If it's not the active element, returns null.
-                public unsafe new MR.CS.Misc.Ref<int>? GetInt()
+                public unsafe new MR.CS.Misc.Ref<int>? getInt()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_GetMutable_int", ExactSpelling = true)]
                     extern static int *__MR_C_std_variant_int_float_std_string_GetMutable_int(_Underlying *_this);
@@ -205,7 +205,7 @@ public static partial class MR
                 }
 
                 /// Returns the element 1, of type `float`, mutable. If it's not the active element, returns null.
-                public unsafe new MR.CS.Misc.Ref<float>? GetFloat()
+                public unsafe new MR.CS.Misc.Ref<float>? getFloat()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_GetMutable_float", ExactSpelling = true)]
                     extern static float *__MR_C_std_variant_int_float_std_string_GetMutable_float(_Underlying *_this);
@@ -214,7 +214,7 @@ public static partial class MR
                 }
 
                 /// Returns the element 2, of type `std::string`, mutable. If it's not the active element, returns null.
-                public unsafe new MR.CS.Std.String? GetStdString()
+                public unsafe new MR.CS.Std.String? getStdString()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_GetMutable_std_string", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_C_std_variant_int_float_std_string_GetMutable_std_string(_Underlying *_this);

@@ -51,7 +51,7 @@ public static partial class MR
                 }
 
                 /// The first of the two elements, read-only.
-                public unsafe int First()
+                public unsafe int first()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_First", ExactSpelling = true)]
                     extern static int *__MR_C_std_pair_int_float_First(_Underlying *_this);
@@ -59,7 +59,7 @@ public static partial class MR
                 }
 
                 /// The second of the two elements, read-only.
-                public unsafe float Second()
+                public unsafe float second()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_Second", ExactSpelling = true)]
                     extern static float *__MR_C_std_pair_int_float_Second(_Underlying *_this);
@@ -90,7 +90,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_Pair_Int_Float other)
+                public unsafe void assign(MR.CS.Std.Const_Pair_Int_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_pair_int_float_AssignFromAnother(_Underlying *_this, MR.CS.Std.Pair_Int_Float._Underlying *other);
@@ -106,7 +106,7 @@ public static partial class MR
                 }
 
                 /// The first of the two elements, mutable.
-                public unsafe new ref int First()
+                public unsafe new ref int first()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_MutableFirst", ExactSpelling = true)]
                     extern static int *__MR_C_std_pair_int_float_MutableFirst(_Underlying *_this);
@@ -114,7 +114,7 @@ public static partial class MR
                 }
 
                 /// The second of the two elements, mutable.
-                public unsafe new ref float Second()
+                public unsafe new ref float second()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_MutableSecond", ExactSpelling = true)]
                     extern static float *__MR_C_std_pair_int_float_MutableSecond(_Underlying *_this);

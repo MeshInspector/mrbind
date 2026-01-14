@@ -51,7 +51,7 @@ public static partial class MR
                 }
 
                 /// If this instance represents success, returns the stored `int`. Otherwise null.
-                public unsafe int? GetValue()
+                public unsafe int? getValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetValue", ExactSpelling = true)]
                     extern static int *__MR_C_std_expected_int_std_string_GetValue(_Underlying *_this);
@@ -60,7 +60,7 @@ public static partial class MR
                 }
 
                 /// If this instance represents an error, returns the stored `std::string`. Otherwise null.
-                public unsafe MR.CS.Std.Const_String? GetError()
+                public unsafe MR.CS.Std.Const_String? getError()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetError", ExactSpelling = true)]
                     extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_expected_int_std_string_GetError(_Underlying *_this);
@@ -92,7 +92,7 @@ public static partial class MR
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std._ByValue_Expected_Int_StdString other)
+                public unsafe void assign(MR.CS.Std._ByValue_Expected_Int_StdString other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_expected_int_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_Int_StdString._Underlying *other);
@@ -100,7 +100,7 @@ public static partial class MR
                 }
 
                 /// If this instance represents success, returns the stored `int`. Otherwise null. This version returns a mutable pointer.
-                public unsafe new MR.CS.Misc.Ref<int>? GetValue()
+                public unsafe new MR.CS.Misc.Ref<int>? getValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetMutableValue", ExactSpelling = true)]
                     extern static int *__MR_C_std_expected_int_std_string_GetMutableValue(_Underlying *_this);
@@ -109,7 +109,7 @@ public static partial class MR
                 }
 
                 /// If this instance represents an error, returns the stored `std::string`. Otherwise null. This version returns a mutable pointer.
-                public unsafe new MR.CS.Std.String? GetError()
+                public unsafe new MR.CS.Std.String? getError()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetMutableError", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_C_std_expected_int_std_string_GetMutableError(_Underlying *_this);
