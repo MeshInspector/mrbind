@@ -4581,6 +4581,8 @@ namespace mrbind::CSharp
                                 file.WriteString("get\n");
                                 file.PushScope({}, "{\n", "}\n");
 
+                                file.WriteString("System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, \"Internal error: This object holds a null shared pointer.\");\n");
+
                                 auto dllimport_get_ptr_from_shared = MakeDllImportDecl(c_sharedptr_name.value() + "_Get", "_Underlying *", "_UnderlyingShared *_this");
                                 file.WriteString(dllimport_get_ptr_from_shared.dllimport_decl);
                                 file.WriteString("return " + dllimport_get_ptr_from_shared.csharp_name + "(_UnderlyingSharedPtr);\n");
@@ -4592,31 +4594,31 @@ namespace mrbind::CSharp
                             { // Check if the underlying shared pointer owns the target object.
                                 file.WriteSeparatingNewline();
                                 file.WriteString("/// Check if the underlying shared pointer is owning or not.\n");
-                                file.WriteString("public override bool _IsOwning\n");
+                                file.WriteString("public override unsafe bool _IsOwning\n");
                                 file.PushScope({}, "{\n", "}\n");
                                 file.PushScope({}, "get\n{\n", "}\n");
 
-                                auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_UseCount", "int", "");
+                                auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_UseCount", "int", "_UnderlyingShared *_this");
                                 file.WriteString(dllimport_use_count.dllimport_decl);
-                                file.WriteString("return " + dllimport_use_count.csharp_name + "() > 0;\n");
+                                file.WriteString("return " + dllimport_use_count.csharp_name + "(_UnderlyingSharedPtr) > 0;\n");
 
                                 file.PopScope();
                                 file.PopScope();
                             }
 
-                            { // Copy the underlying shared pointer.
-                                // This sadly has to be public, as otherwise we can't override methods from interfaces.
-                                // Though honestly this doesn't strictly
-
+                            { // Check if the underlying shared isn't null.
                                 file.WriteSeparatingNewline();
-                                file.WriteString("/// Clones the underlying shared pointer. Returns an owning pointer to shared pointer (which itself isn't necessarily owning).\n");
-                                file.WriteString("internal unsafe _UnderlyingShared *_CloneUnderlyingSharedPtr()\n");
+                                file.WriteString("/// Check if the underlying shared pointer is non-null.\n");
+                                file.WriteString("/// If this returns null, calling any member other than `.Assign()` on this object will assert.\n");
+                                file.WriteString("private unsafe bool _SharedPtrIsNotNull\n");
                                 file.PushScope({}, "{\n", "}\n");
+                                file.PushScope({}, "get\n{\n", "}\n");
 
-                                auto dllimport_clone_shared = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructFromAnother", "_UnderlyingShared *", RequestHelper("_PassBy") + " other_pass_by, _UnderlyingShared *other");
-                                file.WriteString(dllimport_clone_shared.dllimport_decl);
-                                file.WriteString("return " + dllimport_clone_shared.csharp_name + "(" + RequestHelper("_PassBy") + ".copy, _UnderlyingSharedPtr);\n");
+                                auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_Get", "void *", "_UnderlyingShared *_this");
+                                file.WriteString(dllimport_use_count.dllimport_decl);
+                                file.WriteString("return " + dllimport_use_count.csharp_name + "(_UnderlyingSharedPtr) is not null;\n");
 
+                                file.PopScope();
                                 file.PopScope();
                             }
                         }
