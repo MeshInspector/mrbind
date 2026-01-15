@@ -1512,7 +1512,7 @@ namespace mrbind::CSharp
 
                                         // Throw if null.
                                         // Note no trailing newline here yet.
-                                        ret += "if (__expected_ret.GetError() is var __expected_error and not null) throw new " + RequestHelper("UnexpectedResultException") + "($\"{__expected_error}\");"; // This should call `.ToString()` (built-in method of the C# `object`, the common base of all objects, possibly overridden). But unlike `ToString()`, which returns `string?`, this should automatically fall back to the type name or whatever.
+                                        ret += "if (__expected_ret." + AdjustCalledFuncName("GetError") + "() is var __expected_error and not null) throw new " + RequestHelper("UnexpectedResultException") + "($\"{__expected_error}\");"; // This should call `.ToString()` (built-in method of the C# `object`, the common base of all objects, possibly overridden). But unlike `ToString()`, which returns `string?`, this should automatically fall back to the type name or whatever.
 
                                         // Return the underlying instance.
                                         // The `{,_nomove}` part shouldn't affect this condition.
@@ -1525,7 +1525,7 @@ namespace mrbind::CSharp
                                             // Need to keep-alive the expected!
                                             ret +=
                                                 "\n" +
-                                                csharp_success_type_nomove + " __expected_success = __expected_ret.GetValue()!;\n"
+                                                csharp_success_type_nomove + " __expected_success = __expected_ret." + AdjustCalledFuncName("GetValue") + "()!;\n"
                                                 "__expected_success._KeepAlive(__expected_ret);\n";
 
                                             // A crude check to see if we need to move or not.
@@ -1537,7 +1537,7 @@ namespace mrbind::CSharp
                                         else
                                         {
                                             // Just this.
-                                            ret += "\n" + target + " __expected_ret.GetValue()!;";
+                                            ret += "\n" + target + " __expected_ret." + AdjustCalledFuncName("GetValue") + "()!;";
                                         }
 
                                         return ret;
