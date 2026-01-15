@@ -46,7 +46,7 @@ namespace MRBind::pb11
         static adjusted_param_type ReverseUnadjustParam(T &object, reverse_unadjust_param_extra_param &&extra)
         {
             extra = OutputParamOfBuiltinType<T>(object);
-            return extra;
+            return static_cast<adjusted_param_type &>(extra); // Must unmove `extra` in newer C++.
         }
     };
 
