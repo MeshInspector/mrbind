@@ -270,7 +270,7 @@ namespace mrbind::CBindings
                     { // [] const
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The element at a specific index, read-only.";
-                        emit.name = class_binder.MakeMemberFuncName(generator, "At");
+                        emit.name = class_binder.MakeMemberFuncName(generator, "At", CInterop::MethodKinds::Operator{.token = "[]"});
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                         emit.params.push_back({
@@ -284,7 +284,7 @@ namespace mrbind::CBindings
                     { // [] mutable
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The element at a specific index, mutable.";
-                        emit.name = class_binder.MakeMemberFuncName(generator, "MutableAt", "At");
+                        emit.name = class_binder.MakeMemberFuncName(generator, "MutableAt", CInterop::MethodKinds::Operator{.token = "[]"});
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Reference{});
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({

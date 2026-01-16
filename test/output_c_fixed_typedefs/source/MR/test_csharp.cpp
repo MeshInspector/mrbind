@@ -6578,18 +6578,25 @@ void MR_C_incr_MR_CSharp_ExposedLayout(MR_CSharp_ExposedLayout *_this)
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayout *)(_this)).operator++();
 }
 
-int32_t MR_C_add_MR_CSharp_ExposedLayout_int32_t(MR_CSharp_ExposedLayout *_this, int32_t _1)
+int32_t MR_C_add_MR_CSharp_ExposedLayout_ref_int32_t(MR_CSharp_ExposedLayout *_this, int32_t _1)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayout *)(_this)).operator+(
         _1
     );
 }
 
-int32_t MR_C_mul_MR_CSharp_ExposedLayout_int32_t(const MR_CSharp_ExposedLayout *_this, int32_t _1)
+MR_CSharp_ExposedLayout *MR_C_mul_MR_CSharp_ExposedLayout_int32_t(const MR_CSharp_ExposedLayout *_this, int32_t _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_this)).operator*(
+    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_this)).operator*(
         _1
-    );
+    ));
+}
+
+const MR_CSharp_ExposedLayout *MR_C_add_const_MR_CSharp_ExposedLayout_ref_int32_t(const MR_CSharp_ExposedLayout *_this, int32_t _1)
+{
+    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_this)).operator+(
+        _1
+    ));
 }
 
 bool MR_C_less_MR_CSharp_ExposedLayout(const MR_CSharp_ExposedLayout *_this, const MR_CSharp_ExposedLayout *_1)
@@ -6773,6 +6780,20 @@ bool MR_C_less_MR_CSharp_ExposedLayoutSh_char(MR_CSharp_ExposedLayoutSh *_this, 
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayoutSh *)(_this)).operator<(
         _1
+    );
+}
+
+bool MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(const MR_CSharp_ExposedLayoutSh *_this, const MR_CSharp_ExposedLayout *_1)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(_this)).operator==(
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_1))
+    );
+}
+
+bool MR_C_equal_MR_CSharp_ExposedLayoutSh(const MR_CSharp_ExposedLayoutSh *_this, const MR_CSharp_ExposedLayoutSh *_1)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(_this)).operator==(
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(_1))
     );
 }
 

@@ -59,11 +59,14 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, read-only.
-                public unsafe MR.CS.StdContainers.Const_NonAssignable At(ulong i)
+                public unsafe MR.CS.StdContainers.Const_NonAssignable this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_At", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_deque_MR_StdContainers_NonAssignable_At(_Underlying *_this, ulong i);
-                    return new(__MR_C_std_deque_MR_StdContainers_NonAssignable_At(_UnderlyingPtr, i), is_owning: false);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_At", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_deque_MR_StdContainers_NonAssignable_At(_Underlying *_this, ulong i);
+                        return new(__MR_C_std_deque_MR_StdContainers_NonAssignable_At(_UnderlyingPtr, i), is_owning: false);
+                    }
                 }
 
                 /// The first element or null if empty, read-only.
@@ -485,11 +488,14 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe new MR.CS.StdContainers.NonAssignable At(ulong i)
+                public unsafe new MR.CS.StdContainers.NonAssignable this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_MutableAt", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_deque_MR_StdContainers_NonAssignable_MutableAt(_Underlying *_this, ulong i);
-                    return new(__MR_C_std_deque_MR_StdContainers_NonAssignable_MutableAt(_UnderlyingPtr, i), is_owning: false);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_MutableAt", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_deque_MR_StdContainers_NonAssignable_MutableAt(_Underlying *_this, ulong i);
+                        return new(__MR_C_std_deque_MR_StdContainers_NonAssignable_MutableAt(_UnderlyingPtr, i), is_owning: false);
+                    }
                 }
 
                 /// The first element or null if empty, mutable.

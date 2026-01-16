@@ -67,11 +67,14 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, read-only.
-                public unsafe MR.CS.Const_A At(ulong i)
+                public unsafe MR.CS.Const_A this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_At", ExactSpelling = true)]
-                    extern static MR.CS.Const_A._Underlying *__MR_C_std_vector_MR_A_At(_Underlying *_this, ulong i);
-                    return new(__MR_C_std_vector_MR_A_At(_UnderlyingPtr, i), is_owning: false);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_At", ExactSpelling = true)]
+                        extern static MR.CS.Const_A._Underlying *__MR_C_std_vector_MR_A_At(_Underlying *_this, ulong i);
+                        return new(__MR_C_std_vector_MR_A_At(_UnderlyingPtr, i), is_owning: false);
+                    }
                 }
 
                 /// The first element or null if empty, read-only.
@@ -517,11 +520,14 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe new MR.CS.A At(ulong i)
+                public unsafe new MR.CS.A this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_MutableAt", ExactSpelling = true)]
-                    extern static MR.CS.A._Underlying *__MR_C_std_vector_MR_A_MutableAt(_Underlying *_this, ulong i);
-                    return new(__MR_C_std_vector_MR_A_MutableAt(_UnderlyingPtr, i), is_owning: false);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_MutableAt", ExactSpelling = true)]
+                        extern static MR.CS.A._Underlying *__MR_C_std_vector_MR_A_MutableAt(_Underlying *_this, ulong i);
+                        return new(__MR_C_std_vector_MR_A_MutableAt(_UnderlyingPtr, i), is_owning: false);
+                    }
                 }
 
                 /// The first element or null if empty, mutable.

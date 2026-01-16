@@ -431,12 +431,14 @@ public static partial class MR
             }
 
             /// Generated from function `MR::MatchingLayout::bleh`.
-            public static unsafe MR.CS.MatchingLayout.Mut_B? bleh(MR.CS.MatchingLayout.Mut_B? _1)
+            public static unsafe MR.CS.Misc.Ref<MR.CS.MatchingLayout.B>? bleh(MR.CS.Misc.InOut<MR.CS.MatchingLayout.B>? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_bleh", ExactSpelling = true)]
-                extern static MR.CS.MatchingLayout.Mut_B._Underlying *__MR_MatchingLayout_bleh(MR.CS.MatchingLayout.Mut_B._Underlying *_1);
-                var __ret = __MR_MatchingLayout_bleh(_1 is not null ? _1._UnderlyingPtr : null);
-                return __ret is not null ? new MR.CS.MatchingLayout.Mut_B(__ret, is_owning: false) : null;
+                extern static MR.CS.MatchingLayout.B *__MR_MatchingLayout_bleh(MR.CS.MatchingLayout.B *_1);
+                MR.CS.MatchingLayout.B __value__1 = _1 is not null ? _1.Value : default(MR.CS.MatchingLayout.B);
+                var __ret = __MR_MatchingLayout_bleh(_1 is not null ? &__value__1 : null);
+                if (_1 is not null) _1.Value = __value__1;
+                return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.MatchingLayout.B>(__ret) : null;
             }
         }
     }

@@ -78,7 +78,7 @@ public static partial class MR
                 public static implicit operator _InOpt<T>(T NewOpt) {return new _InOpt<T>(NewOpt);}
             }
 
-            /// A reference to a C object. This is used to return optional references, since `ref` can't be nullable.
+            /// A reference to a C object. This is sometimes used to return optional references, since `ref` can't be nullable. Or to return references from operators, since those can't return `ref`s.
             /// This object itself isn't nullable, we return `Ref<T>?` when nullability is needed.
             public unsafe class Ref<T> where T: unmanaged
             {
@@ -94,6 +94,24 @@ public static partial class MR
                 public ref T Value => ref *Ptr;
 
                 public static implicit operator T(Ref<T> wrapper) {return wrapper.Value;}
+            }
+
+            /// A reference to a C object. This is sometimes used to return optional references, since `ref` can't be nullable. Or to return references from operators, since those can't return `ref`s.
+            /// This object itself isn't nullable, we return `ConstRef<T>?` when nullability is needed.
+            public unsafe class ConstRef<T> where T: unmanaged
+            {
+                /// Should never be null.
+                private T *Ptr;
+                /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.
+                internal ConstRef(T *new_ptr)
+                {
+                    System.Diagnostics.Trace.Assert(new_ptr is not null);
+                    Ptr = new_ptr;
+                }
+
+                public ref T Value => ref *Ptr;
+
+                public static implicit operator T(ConstRef<T> wrapper) {return wrapper.Value;}
             }
 
             /// Wraps the object in a wrapper that indicates that it should be treated as a temporary object.

@@ -43,11 +43,12 @@ public static partial class MR
                 }
 
                 /// Construct from a range of elements.
-                public unsafe Const_Vector_MRCSharpExposedLayout(MR.CS.CSharp.Const_ExposedLayout? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Const_Vector_MRCSharpExposedLayout(MR.CS.CSharp.ExposedLayout? ptr, ulong size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(MR.CS.CSharp.Const_ExposedLayout._Underlying *ptr, ulong size);
-                    _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(ptr is not null ? ptr._UnderlyingPtr : null, size);
+                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(MR.CS.CSharp.ExposedLayout *ptr, ulong size);
+                    MR.CS.CSharp.ExposedLayout __deref_ptr = ptr.GetValueOrDefault();
+                    _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
 
                 /// The number of elements.
@@ -75,29 +76,32 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, read-only.
-                public unsafe MR.CS.CSharp.Const_ExposedLayout At(ulong i)
+                public unsafe ref readonly MR.CS.CSharp.ExposedLayout this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_At", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_ExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_At(_Underlying *_this, ulong i);
-                    return new(__MR_C_std_vector_MR_CSharp_ExposedLayout_At(_UnderlyingPtr, i), is_owning: false);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_At", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_At(_Underlying *_this, ulong i);
+                        return ref *__MR_C_std_vector_MR_CSharp_ExposedLayout_At(_UnderlyingPtr, i);
+                    }
                 }
 
                 /// The first element or null if empty, read-only.
-                public unsafe MR.CS.CSharp.Const_ExposedLayout? Front()
+                public unsafe MR.CS.CSharp.ExposedLayout? Front()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_Front", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_ExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_Front(_Underlying *_this);
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_Front(_Underlying *_this);
                     var __ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_Front(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.Const_ExposedLayout(__ret, is_owning: false) : null;
+                    if (__ret is not null) return *__ret; else return null;
                 }
 
                 /// The last element or null if empty, read-only.
-                public unsafe MR.CS.CSharp.Const_ExposedLayout? Back()
+                public unsafe MR.CS.CSharp.ExposedLayout? Back()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_Back", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_ExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_Back(_Underlying *_this);
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_Back(_Underlying *_this);
                     var __ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_Back(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.Const_ExposedLayout(__ret, is_owning: false) : null;
+                    if (__ret is not null) return *__ret; else return null;
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
@@ -207,11 +211,11 @@ public static partial class MR
                     public static unsafe implicit operator Const_ConstIterator(MR.CS.Std.Vector_MRCSharpExposedLayout.Const_Iterator iter) {return new(iter);}
 
                     /// Dereferences a const iterator.
-                    public unsafe MR.CS.CSharp.Const_ExposedLayout Deref()
+                    public unsafe ref readonly MR.CS.CSharp.ExposedLayout Deref()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Deref", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_ExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Deref(_Underlying *_this);
-                        return new(__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Deref(_UnderlyingPtr), is_owning: false);
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Deref(_Underlying *_this);
+                        return ref *__MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Deref(_UnderlyingPtr);
                     }
 
                     /// Computes the signed difference between two const iterators. Completes in constant time.
@@ -361,11 +365,11 @@ public static partial class MR
                     }
 
                     /// Dereferences a mutable iterator.
-                    public unsafe MR.CS.CSharp.Mut_ExposedLayout Deref()
+                    public unsafe ref MR.CS.CSharp.ExposedLayout Deref()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Deref", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Deref(_Underlying *_this);
-                        return new(__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Deref(_UnderlyingPtr), is_owning: false);
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Deref(_Underlying *_this);
+                        return ref *__MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Deref(_UnderlyingPtr);
                     }
 
                     /// Computes the signed difference between two mutable iterators. Completes in constant time.
@@ -494,19 +498,21 @@ public static partial class MR
                 }
 
                 /// Construct from a range of elements.
-                public unsafe Vector_MRCSharpExposedLayout(MR.CS.CSharp.Const_ExposedLayout? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Vector_MRCSharpExposedLayout(MR.CS.CSharp.ExposedLayout? ptr, ulong size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(MR.CS.CSharp.Const_ExposedLayout._Underlying *ptr, ulong size);
-                    _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(ptr is not null ? ptr._UnderlyingPtr : null, size);
+                    extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(MR.CS.CSharp.ExposedLayout *ptr, ulong size);
+                    MR.CS.CSharp.ExposedLayout __deref_ptr = ptr.GetValueOrDefault();
+                    _UnderlyingPtr = __MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
 
                 /// Assign from a range of elements, overwriting previous contents.
-                public unsafe void Assign(MR.CS.CSharp.Const_ExposedLayout? ptr, ulong size)
+                public unsafe void Assign(MR.CS.CSharp.ExposedLayout? ptr, ulong size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange(_Underlying *_this, MR.CS.CSharp.Const_ExposedLayout._Underlying *ptr, ulong size);
-                    __MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange(_UnderlyingPtr, ptr is not null ? ptr._UnderlyingPtr : null, size);
+                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange(_Underlying *_this, MR.CS.CSharp.ExposedLayout *ptr, ulong size);
+                    MR.CS.CSharp.ExposedLayout __deref_ptr = ptr.GetValueOrDefault();
+                    __MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromRange(_UnderlyingPtr, ptr.HasValue ? &__deref_ptr : null, size);
                 }
 
                 /// Resizes the container. The new elements if any are zeroed.
@@ -518,11 +524,14 @@ public static partial class MR
                 }
 
                 /// Resizes the container. The new elements if any are set to the specified value.
-                public unsafe void ResizeWithDefaultValue(ulong new_size, MR.CS.CSharp.Const_ExposedLayout value)
+                public unsafe void ResizeWithDefaultValue(ulong new_size, in MR.CS.CSharp.ExposedLayout value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_ResizeWithDefaultValue", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_ResizeWithDefaultValue(_Underlying *_this, ulong new_size, MR.CS.CSharp.Const_ExposedLayout._Underlying *value);
-                    __MR_C_std_vector_MR_CSharp_ExposedLayout_ResizeWithDefaultValue(_UnderlyingPtr, new_size, value._UnderlyingPtr);
+                    extern static void __MR_C_std_vector_MR_CSharp_ExposedLayout_ResizeWithDefaultValue(_Underlying *_this, ulong new_size, MR.CS.CSharp.ExposedLayout *value);
+                    fixed (MR.CS.CSharp.ExposedLayout *__ptr_value = &value)
+                    {
+                        __MR_C_std_vector_MR_CSharp_ExposedLayout_ResizeWithDefaultValue(_UnderlyingPtr, new_size, __ptr_value);
+                    }
                 }
 
                 /// Removes all elements from the container.
@@ -550,29 +559,32 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe new MR.CS.CSharp.Mut_ExposedLayout At(ulong i)
+                public unsafe new ref MR.CS.CSharp.ExposedLayout this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_MutableAt", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableAt(_Underlying *_this, ulong i);
-                    return new(__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableAt(_UnderlyingPtr, i), is_owning: false);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_MutableAt", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableAt(_Underlying *_this, ulong i);
+                        return ref *__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableAt(_UnderlyingPtr, i);
+                    }
                 }
 
                 /// The first element or null if empty, mutable.
-                public unsafe new MR.CS.CSharp.Mut_ExposedLayout? Front()
+                public unsafe new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>? Front()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_MutableFront", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableFront(_Underlying *_this);
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableFront(_Underlying *_this);
                     var __ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_MutableFront(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.Mut_ExposedLayout(__ret, is_owning: false) : null;
+                    return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>(__ret) : null;
                 }
 
                 /// The last element or null if empty, mutable.
-                public unsafe new MR.CS.CSharp.Mut_ExposedLayout? Back()
+                public unsafe new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>? Back()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_MutableBack", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableBack(_Underlying *_this);
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableBack(_Underlying *_this);
                     var __ret = __MR_C_std_vector_MR_CSharp_ExposedLayout_MutableBack(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.Mut_ExposedLayout(__ret, is_owning: false) : null;
+                    return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>(__ret) : null;
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.

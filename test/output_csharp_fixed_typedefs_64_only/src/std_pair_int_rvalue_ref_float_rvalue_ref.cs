@@ -35,33 +35,27 @@ public static partial class MR
                 }
 
                 /// Constructs the pair elementwise.
-                public unsafe Const_Pair_IntRvalueRef_FloatRvalueRef(MR.CS.Misc._MoveRef _move_first, ref int first, MR.CS.Misc._MoveRef _move_second, ref float second) : this(null, is_owning: true)
+                public unsafe Const_Pair_IntRvalueRef_FloatRvalueRef(MR.CS.Misc._MoveRef _move_first, int first, MR.CS.Misc._MoveRef _move_second, float second) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(int *first, float *second);
-                    fixed (int *__ptr_first = &first)
-                    {
-                        fixed (float *__ptr_second = &second)
-                        {
-                            _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(__ptr_first, __ptr_second);
-                        }
-                    }
+                    _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(&first, &second);
                 }
 
                 /// The first of the two elements, read-only.
-                public unsafe ref int first()
+                public unsafe int first()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_First", ExactSpelling = true)]
                     extern static int *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_First(_Underlying *_this);
-                    return ref *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_First(_UnderlyingPtr);
+                    return *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_First(_UnderlyingPtr);
                 }
 
                 /// The second of the two elements, read-only.
-                public unsafe ref float second()
+                public unsafe float second()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Second", ExactSpelling = true)]
                     extern static float *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Second(_Underlying *_this);
-                    return ref *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Second(_UnderlyingPtr);
+                    return *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Second(_UnderlyingPtr);
                 }
             }
 
@@ -80,17 +74,11 @@ public static partial class MR
                 }
 
                 /// Constructs the pair elementwise.
-                public unsafe Pair_IntRvalueRef_FloatRvalueRef(MR.CS.Misc._MoveRef _move_first, ref int first, MR.CS.Misc._MoveRef _move_second, ref float second) : this(null, is_owning: true)
+                public unsafe Pair_IntRvalueRef_FloatRvalueRef(MR.CS.Misc._MoveRef _move_first, int first, MR.CS.Misc._MoveRef _move_second, float second) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(int *first, float *second);
-                    fixed (int *__ptr_first = &first)
-                    {
-                        fixed (float *__ptr_second = &second)
-                        {
-                            _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(__ptr_first, __ptr_second);
-                        }
-                    }
+                    _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(&first, &second);
                 }
             }
 

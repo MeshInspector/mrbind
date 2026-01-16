@@ -910,7 +910,10 @@ namespace MR::CSharp
         void operator++() {}
 
         int operator+(int) {return 42;}
-        int operator*(int) const {return 42;}
+        // Test how returning references to an exposed struct works, since C# overloaded operators can't return `ref`.
+        // Note that this operator must be `const` to test this correctly, since we turn non-const operators in exposed structs into functions.
+        ExposedLayout &operator*(int) const {return const_cast<ExposedLayout &>(*this);}
+        const ExposedLayout &operator+(int) const {return *this;} // Same, but return a const ref.
         bool operator<(const ExposedLayout &) const {return false;}
         friend int operator-(int, ExposedLayout) {return 43;}
         friend int operator/(int, ExposedLayout &) {return 43;}
@@ -964,6 +967,11 @@ namespace MR::CSharp
 
         bool operator==(float) {return true;}
         bool operator<(char) {return true;}
+
+        // While we're at it, test comparison against another exposed struct, since this is apparently non-trivial.
+        bool operator==(const ExposedLayout &) const {return true;}
+        // And against itself, too.
+        bool operator==(const ExposedLayoutSh &) const {return true;}
     };
     inline void operator--(ExposedLayoutSh) {}
 

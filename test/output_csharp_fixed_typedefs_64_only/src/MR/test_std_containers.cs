@@ -536,12 +536,14 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdContainers::StdArraySimplePtr`.
-            public static unsafe MR.CS.Std.Mut_Array_Int_43? stdArraySimplePtr(MR.CS.Std.Mut_Array_Int_43? param)
+            public static unsafe MR.CS.Misc.Ref<MR.CS.Std.Array_Int_43>? stdArraySimplePtr(MR.CS.Misc.InOut<MR.CS.Std.Array_Int_43>? param)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_StdArraySimplePtr", ExactSpelling = true)]
-                extern static MR.CS.Std.Mut_Array_Int_43._Underlying *__MR_StdContainers_StdArraySimplePtr(MR.CS.Std.Mut_Array_Int_43._Underlying *param);
-                var __ret = __MR_StdContainers_StdArraySimplePtr(param is not null ? param._UnderlyingPtr : null);
-                return __ret is not null ? new MR.CS.Std.Mut_Array_Int_43(__ret, is_owning: false) : null;
+                extern static MR.CS.Std.Array_Int_43 *__MR_StdContainers_StdArraySimplePtr(MR.CS.Std.Array_Int_43 *param);
+                MR.CS.Std.Array_Int_43 __value_param = param is not null ? param.Value : default(MR.CS.Std.Array_Int_43);
+                var __ret = __MR_StdContainers_StdArraySimplePtr(param is not null ? &__value_param : null);
+                if (param is not null) param.Value = __value_param;
+                return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.Std.Array_Int_43>(__ret) : null;
             }
 
             // For this `std::multiset` specialization, mention all iterators so that they get merged.

@@ -76,11 +76,14 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, read-only.
-                public unsafe int At(ulong i)
+                public unsafe int this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int_At", ExactSpelling = true)]
-                    extern static int *__MR_C_std_vector_int_At(_Underlying *_this, ulong i);
-                    return *__MR_C_std_vector_int_At(_UnderlyingPtr, i);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int_At", ExactSpelling = true)]
+                        extern static int *__MR_C_std_vector_int_At(_Underlying *_this, ulong i);
+                        return *__MR_C_std_vector_int_At(_UnderlyingPtr, i);
+                    }
                 }
 
                 /// The first element or null if empty, read-only.
@@ -553,11 +556,14 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe new ref int At(ulong i)
+                public unsafe new ref int this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int_MutableAt", ExactSpelling = true)]
-                    extern static int *__MR_C_std_vector_int_MutableAt(_Underlying *_this, ulong i);
-                    return ref *__MR_C_std_vector_int_MutableAt(_UnderlyingPtr, i);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int_MutableAt", ExactSpelling = true)]
+                        extern static int *__MR_C_std_vector_int_MutableAt(_Underlying *_this, ulong i);
+                        return ref *__MR_C_std_vector_int_MutableAt(_UnderlyingPtr, i);
+                    }
                 }
 
                 /// The first element or null if empty, mutable.

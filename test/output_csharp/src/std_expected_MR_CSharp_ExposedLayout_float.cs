@@ -51,12 +51,12 @@ public static partial class MR
                 }
 
                 /// If this instance represents success, returns the stored `MR::CSharp::ExposedLayout`. Otherwise null.
-                public unsafe MR.CS.CSharp.Const_ExposedLayout? GetValue()
+                public unsafe MR.CS.CSharp.ExposedLayout? GetValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetValue", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_ExposedLayout._Underlying *__MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetValue(_Underlying *_this);
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetValue(_Underlying *_this);
                     var __ret = __MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetValue(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.Const_ExposedLayout(__ret, is_owning: false) : null;
+                    if (__ret is not null) return *__ret; else return null;
                 }
 
                 /// If this instance represents an error, returns the stored `float`. Otherwise null.
@@ -100,12 +100,12 @@ public static partial class MR
                 }
 
                 /// If this instance represents success, returns the stored `MR::CSharp::ExposedLayout`. Otherwise null. This version returns a mutable pointer.
-                public unsafe new MR.CS.CSharp.Mut_ExposedLayout? GetValue()
+                public unsafe new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>? GetValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetMutableValue", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying *__MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetMutableValue(_Underlying *_this);
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetMutableValue(_Underlying *_this);
                     var __ret = __MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetMutableValue(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.Mut_ExposedLayout(__ret, is_owning: false) : null;
+                    return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>(__ret) : null;
                 }
 
                 /// If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.

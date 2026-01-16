@@ -1580,13 +1580,17 @@ namespace mrbind::CSharp
                             if (!underlying_type_desc)
                                 return nullptr;
 
-                            // This is for arithmetic types and enums.
+                            // This is for arithmetic types and enums, and for exposed structs.
                             // If `fix_input` is specified, it should return an extra statement for parameters' `extra_statements`.
                             // The result should be terminated with a newline, and you can read/write `name` in your statement.
                             // NOTE: The `fix_input` lambda is preserved, make sure it doesn't dangle.
-                            auto MakeScalarRefBinding = [&](const std::string &csharp_type, std::function<std::string(const std::string &name)> fix_input = nullptr) -> TypeBinding
+                            auto MakeScalarRefBinding = [&](const std::string &csharp_type, std::function<std::string(const std::string &name)> fix_input = nullptr, bool is_exposed_struct = false) -> TypeBinding
                             {
-                                if (!is_const)
+                                const bool add_in = is_exposed_struct;
+                                const bool return_ref_instead_of_by_value = is_exposed_struct; // Otherwise return by value.
+                                const bool return_ref_wrapper = bool(flags & TypeBindingFlags::return_ref_wrapper);
+
+                                if (!is_const && !is_rvalue_ref)
                                 {
                                     return {
                                         .param_usage = TypeBinding::ParamUsage{
@@ -1602,6 +1606,8 @@ namespace mrbind::CSharp
                                                 };
                                             },
                                         },
+                                        // This one could be rewritten to use our `Mut_T` wrapper (if we decide to not remove those).
+                                        // That could be faster than this suspicious copying of the value into a local variable.
                                         .param_usage_with_default_arg = TypeBinding::ParamUsage{
                                             .make_strings = [this, csharp_type, fix_input, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
                                             {
@@ -1621,8 +1627,17 @@ namespace mrbind::CSharp
                                         },
                                         .return_usage = TypeBinding::ReturnUsage{
                                             .dllimport_return_type = csharp_type + " *",
-                                            .csharp_return_type = "ref " + csharp_type,
-                                            .make_return_statements = [](const std::string &target, const std::string &expr){return target + " ref *" + expr + ";";},
+                                            .csharp_return_type =
+                                                return_ref_wrapper
+                                                ? RequestHelper("Ref") + "<" + csharp_type + ">"
+                                                : "ref " + csharp_type,
+                                            .make_return_statements = [this, csharp_type, return_ref_wrapper](const std::string &target, const std::string &expr)
+                                            {
+                                                if (return_ref_wrapper)
+                                                    return target + " new " + RequestHelper("Ref") + "<" + csharp_type + ">(" + expr + ");";
+                                                else
+                                                    return target + " ref *" + expr + ";";
+                                            },
                                         },
                                     };
                                 }
@@ -1630,14 +1645,24 @@ namespace mrbind::CSharp
                                 {
                                     return {
                                         .param_usage = TypeBinding::ParamUsage{
-                                            .make_strings = [csharp_type, fix_input, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
+                                            .make_strings = [csharp_type, fix_input, add_in, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
                                             {
-                                                return TypeBinding::ParamUsage::Strings{
+                                                TypeBinding::ParamUsage::Strings ret{
                                                     .dllimport_decl_params = csharp_type + " *" + name, // No const pointers in C#.
-                                                    .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = csharp_type, .name = name}}),
+                                                    .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = (add_in ? "in " : "") + csharp_type, .name = name}}),
                                                     .extra_statements = fix_input ? fix_input(name) : "",
                                                     .dllimport_args = "&" + name,
                                                 };
+
+                                                if (add_in)
+                                                {
+                                                    // For some reason I'm unable to directly take addresses of `in` struct parameters, so I have to use the `fixed` block.
+                                                    ret.scope_open = "fixed (" + csharp_type + " *__ptr_" + name + " = &" + name + ")\n{\n";
+                                                    ret.dllimport_args = "__ptr_" + name;
+                                                    ret.scope_close = "}\n";
+                                                }
+
+                                                return ret;
                                             },
                                         },
                                         .param_usage_with_default_arg = TypeBinding::ParamUsage{
@@ -1656,8 +1681,14 @@ namespace mrbind::CSharp
                                         .return_usage = TypeBinding::ReturnUsage{
                                             // Since here we return a non-reference, we don't insert a comment about it being an rvalue reference.
                                             .dllimport_return_type = csharp_type + " *",
-                                            .csharp_return_type = csharp_type,
-                                            .make_return_statements = [](const std::string &target, const std::string &expr){return target + " *" + expr + ";";},
+                                            .csharp_return_type = (return_ref_instead_of_by_value ? (return_ref_wrapper ? RequestHelper("ConstRef") + "<" + csharp_type + ">" : "ref readonly " + csharp_type) : csharp_type),
+                                            .make_return_statements = [return_ref_instead_of_by_value, return_ref_wrapper](const std::string &target, const std::string &expr)
+                                            {
+                                                if (return_ref_instead_of_by_value && return_ref_wrapper)
+                                                    return target + " new(" + expr + ");";
+                                                else
+                                                    return target + (return_ref_instead_of_by_value ? " ref" : "") + " *" + expr + ";";
+                                            },
                                         },
                                     };
                                 }
@@ -1709,55 +1740,27 @@ namespace mrbind::CSharp
                                     if (!cpp_underlying_type.IsOnlyQualifiedName())
                                         throw std::runtime_error("The referenced type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
 
-                                    // Special behavior for when we want raw `ref`s to exposed structs.
-                                    if (bool(flags & TypeBindingFlags::use_ref_for_exposed_struct_refs) && elem.kind == CInterop::ClassKind::exposed_struct)
-                                    {
-                                        const std::string csharp_type = CppToCSharpExposedStructName(cpp_type.simple_type.name);
-                                        const std::string csharp_ref_type = (is_const ? "ref readonly " : "ref ") + csharp_type;
-
-                                        return CreateBinding({
-                                            .param_usage = TypeBinding::ParamUsage{
-                                                .make_strings = [csharp_type, csharp_ref_type](const std::string &name, bool /*have_useless_defarg*/)
-                                                {
-                                                    return TypeBinding::ParamUsage::Strings{
-                                                        .dllimport_decl_params = csharp_type + " *" + name,
-                                                        .csharp_decl_params = {{.type = csharp_ref_type, .name = name}},
-                                                        .dllimport_args = "&" + name,
-                                                    };
-                                                },
-                                            },
-                                            // No default argument support, since there are no optional refs.
-                                            // `use_ref_for_exposed_struct_refs` only exists for field properties anyway.
-                                            .return_usage = TypeBinding::ReturnUsage{
-                                                .dllimport_return_type = csharp_type + " *",
-                                                .csharp_return_type = csharp_ref_type,
-                                                .make_return_statements = [](const std::string &target, const std::string &expr)
-                                                {
-                                                    return target + " ref *" + expr + ";";
-                                                },
-                                            },
-                                        });
-                                    }
-
                                     const bool is_shared_ptr = cpp_underlying_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                                     const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_underlying_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
                                     const bool is_transparent_shared_ptr = shared_ptr_targ && TypeIsCppClass(*shared_ptr_targ);
 
-                                    // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
-                                    // Otherwise this is the original referenced type.
-                                    const cppdecl::Type &cpp_effective_type = is_transparent_shared_ptr ? *shared_ptr_targ : cpp_type;
-
-                                    const std::string csharp_type = CppToCSharpClassName(cpp_effective_type.simple_type.name, is_const);
-                                    const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : "_UnderlyingPtr";
-                                    const std::string csharp_underlying_ptr_type = csharp_type + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
-
-                                    switch (elem.kind)
+                                    if (elem.kind == CInterop::ClassKind::exposed_struct && !is_transparent_shared_ptr && !bool(flags & TypeBindingFlags::use_heap_wrappers_for_exposed_structs))
                                     {
-                                      case CInterop::ClassKind::ref_only:
-                                      case CInterop::ClassKind::uses_pass_by_enum:
-                                      case CInterop::ClassKind::trivial_via_ptr:
-                                      case CInterop::ClassKind::only_returnable:
-                                      case CInterop::ClassKind::exposed_struct:
+                                        // An exposed struct, and not a shared pointer.
+
+                                        // Note, this must match what `ClassifyParamManagedKind()` is returning for references.
+                                        return CreateBinding(MakeScalarRefBinding(CppToCSharpExposedStructName(cpp_type.simple_type.name), nullptr, true));
+                                    }
+                                    else
+                                    {
+                                        // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
+                                        // Otherwise this is the original referenced type.
+                                        const cppdecl::Type &cpp_effective_type = is_transparent_shared_ptr ? *shared_ptr_targ : cpp_type;
+
+                                        const std::string csharp_type = CppToCSharpClassName(cpp_effective_type.simple_type.name, is_const);
+                                        const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : "_UnderlyingPtr";
+                                        const std::string csharp_underlying_ptr_type = csharp_type + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
+
                                         if (!is_rvalue_ref)
                                         {
                                             return CreateBinding({
@@ -1834,9 +1837,8 @@ namespace mrbind::CSharp
                                                 },
                                             });
                                         }
-
-                                        break;
                                     }
+
                                     return nullptr;
                                 },
                             }, underlying_type_desc->var);
@@ -1851,7 +1853,8 @@ namespace mrbind::CSharp
                         ref_target_type.RemoveModifier();
                         if (auto csharp_type = CppToCSharpKnownSizeType(ref_target_type))
                         {
-                            const std::string ref = cpp_type.IsConst(1) ? "ref readonly " : "ref ";
+                            const std::string ref_param = cpp_type.IsConst(1) ? "in " : "ref ";
+                            const std::string ref_ret = cpp_type.IsConst(1) ? "ref readonly " : "ref ";
 
                             std::string csharp_type_ptr = *csharp_type;
                             if (!csharp_type_ptr.ends_with('*'))
@@ -1860,11 +1863,11 @@ namespace mrbind::CSharp
 
                             return CreateBinding({
                                 .param_usage = TypeBinding::ParamUsage{
-                                    .make_strings = [csharp_type, csharp_type_ptr, ref, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
+                                    .make_strings = [csharp_type, csharp_type_ptr, ref_param, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
                                     {
                                         return TypeBinding::ParamUsage::Strings{
                                             .dllimport_decl_params = csharp_type_ptr + name,
-                                            .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = ref + *csharp_type, .name = name}}),
+                                            .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = ref_param + *csharp_type, .name = name}}),
                                             .scope_open = "fixed (" + csharp_type_ptr + "__ptr_" + name + " = &" + name + ")\n{\n",
                                             .dllimport_args = "__ptr_" + name,
                                             .scope_close = "}\n",
@@ -1886,7 +1889,7 @@ namespace mrbind::CSharp
                                 .return_usage = TypeBinding::ReturnUsage{
                                     .extra_comment = "/// In C++ this function returns an rvalue reference.\n",
                                     .dllimport_return_type = csharp_type_ptr,
-                                    .csharp_return_type = ref + *csharp_type,
+                                    .csharp_return_type = ref_ret + *csharp_type,
                                     .make_return_statements = [](const std::string &target, const std::string &expr){return target + " ref *" + expr + ";";},
                                 },
                             });
@@ -1920,7 +1923,7 @@ namespace mrbind::CSharp
                             // If `fix_input` is specified, it should return an extra statement for parameters' `extra_statements`.
                             // The result should be terminated with a newline, and you can read/write `name` in your statement.
                             // NOTE: The `fix_input` lambda is preserved, make sure it doesn't dangle.
-                            auto MakeScalarPtrBinding = [&](const std::string &csharp_type, std::function<std::string(const std::string &name)> fix_input = nullptr) -> TypeBinding
+                            auto MakeScalarPtrBinding = [&](const std::string &csharp_type, std::function<std::string(const std::string &name)> fix_input = nullptr, bool is_exposed_struct = false) -> TypeBinding
                             {
                                 if (bool(flags & TypeBindingFlags::pointer_to_array))
                                 {
@@ -2036,7 +2039,13 @@ namespace mrbind::CSharp
                                             .needs_temporary_variable = true,
                                             .dllimport_return_type = csharp_type + " *",
                                             .csharp_return_type = csharp_type + "?",
-                                            .make_return_statements = [](const std::string &target, const std::string &expr){return target + " " + expr + " is not null ? *" + expr + " : null;";},
+                                            .make_return_statements = [is_exposed_struct](const std::string &target, const std::string &expr)
+                                            {
+                                                if (is_exposed_struct)
+                                                    return "if (" + expr + " is not null) " + target + " *" + expr + "; else " + target + " null;"; // The ternary below doesn't work with structs, since apparently dereferencing the struct pointer produces a non-nullable ref, and `? :` doesn't that mixing that with `null` in the other operand. Weird.
+                                                else
+                                                    return target + " " + expr + " is not null ? *" + expr + " : null;";
+                                            },
                                         },
                                     };
                                 }
@@ -2166,23 +2175,24 @@ namespace mrbind::CSharp
                                     const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_underlying_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
                                     const bool is_transparent_shared_ptr = shared_ptr_targ && TypeIsCppClass(*shared_ptr_targ);
 
-                                    // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
-                                    // Otherwise this is the original referenced type.
-                                    const cppdecl::Type &cpp_effective_type = is_transparent_shared_ptr ? *shared_ptr_targ : cpp_type;
-
-                                    const std::string csharp_type = CppToCSharpClassName(cpp_effective_type.simple_type.name, is_const);
-                                    const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : "_UnderlyingPtr";
-                                    const std::string csharp_underlying_ptr_type = csharp_type + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
-                                    const std::string csharp_in_opt_mut = CppToCSharpInOptMutNontrivialHelperName(cpp_effective_type.simple_type.name);
-                                    const std::string csharp_in_opt_const = CppToCSharpInOptConstNontrivialHelperName(cpp_effective_type.simple_type.name);
-
-                                    switch (elem.kind)
+                                    if (elem.kind == CInterop::ClassKind::exposed_struct && !is_transparent_shared_ptr)
                                     {
-                                      case CInterop::ClassKind::ref_only:
-                                      case CInterop::ClassKind::uses_pass_by_enum:
-                                      case CInterop::ClassKind::trivial_via_ptr:
-                                      case CInterop::ClassKind::only_returnable:
-                                      case CInterop::ClassKind::exposed_struct:
+                                        // An exposed struct, and not a shared pointer.
+
+                                        return CreateBinding(MakeScalarPtrBinding(CppToCSharpExposedStructName(cpp_type.simple_type.name), {}, true));
+                                    }
+                                    else
+                                    {
+                                        // If this is a transparent `shared_ptr` (i.e. pointing to a class storing one), this its target type.
+                                        // Otherwise this is the original referenced type.
+                                        const cppdecl::Type &cpp_effective_type = is_transparent_shared_ptr ? *shared_ptr_targ : cpp_type;
+
+                                        const std::string csharp_type = CppToCSharpClassName(cpp_effective_type.simple_type.name, is_const);
+                                        const std::string csharp_underlying_ptr = is_transparent_shared_ptr ? "_UnderlyingSharedPtr" : "_UnderlyingPtr";
+                                        const std::string csharp_underlying_ptr_type = csharp_type + (is_transparent_shared_ptr ? "._UnderlyingShared" : "._Underlying") + " *";
+                                        const std::string csharp_in_opt_mut = CppToCSharpInOptMutNontrivialHelperName(cpp_effective_type.simple_type.name);
+                                        const std::string csharp_in_opt_const = CppToCSharpInOptConstNontrivialHelperName(cpp_effective_type.simple_type.name);
+
                                         return CreateBinding({
                                             .param_usage = TypeBinding::ParamUsage{
                                                 .make_strings = [csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool have_useless_defarg)
@@ -2215,10 +2225,7 @@ namespace mrbind::CSharp
                                                 },
                                             },
                                         });
-
-                                        break;
                                     }
-                                    return nullptr;
                                 },
                             }, underlying_type_desc->var);
                         }();
@@ -2807,12 +2814,11 @@ namespace mrbind::CSharp
                     // NOTE: This behavior must match what's done in `MakeUnqualCSharpMethodName()` to avoid spelling `_Moved<...>` in the name.
                     Generator::TypeBindingFlags::no_move_in_by_value_return
                 ) :
-                // Custom behavior for property getters.
-                // This must match the logic `EmitCppField()` is using to determine the C# property type.
-                is_property_get
+                is_overloaded_op_or_conv_op_from_this
+                // Custom behavior for all other overloaded operators.
                 ? (
-                    // This improves the usability, allowing `=` instead of `.Assign()`. This is the only reason we're doing this.
-                    Generator::TypeBindingFlags::use_ref_for_exposed_struct_refs
+                    // Overloaded operators can't return true `ref`s, so we must return a wrapper class instead.
+                    Generator::TypeBindingFlags::return_ref_wrapper
                 ) :
                 // Otherwise use default flags.
                 TypeBindingFlags{}
@@ -2872,7 +2878,7 @@ namespace mrbind::CSharp
 
                     fake_param.cpp_type = CppdeclToCode(new_type);
 
-                    this_param_strings = generator.GetParameterBinding(fake_param, false);
+                    this_param_strings = generator.GetParameterBinding(fake_param, false, {}, false, !in_exposed_struct * Generator::TypeBindingFlags::use_heap_wrappers_for_exposed_structs);
 
                     if (in_exposed_struct)
                     {
@@ -2917,7 +2923,7 @@ namespace mrbind::CSharp
                     // Here we can't adjust the reference-ness of `fake_param`, since that will affect the dllimport params,
                     //   and we don't want that.
 
-                    this_param_strings = generator.GetParameterBinding(fake_param, false, {}, in_exposed_struct);
+                    this_param_strings = generator.GetParameterBinding(fake_param, false, {}, in_exposed_struct, !in_exposed_struct * Generator::TypeBindingFlags::use_heap_wrappers_for_exposed_structs);
 
                     cppdecl::Type param_type = generator.ParseTypeOrThrow(param.cpp_type);
 
@@ -2934,7 +2940,11 @@ namespace mrbind::CSharp
                         if (param_type.Is<cppdecl::Reference>())
                         {
                             this_param_strings.csharp_decl_params.front().type = generator.CppToCSharpExposedStructName(param_type.simple_type.name);
-                            this_param_strings.dllimport_args = "(" + generator.CppToCSharpClassName(unqual_param_type.simple_type.name, false) + "._Underlying *)&" + param.name_or_placeholder;
+                            this_param_strings.dllimport_args = "&" + param.name_or_placeholder;
+
+                            // Remove the now useless `fixed` block too.
+                            this_param_strings.scope_open = {};
+                            this_param_strings.scope_close = {};
                         }
                     }
                     else
@@ -3385,11 +3395,43 @@ namespace mrbind::CSharp
 
                         std::string ret;
 
+                        std::string ret_target;
+
                         if (ret_binding->csharp_return_type != "void")
-                            ret += ret_binding->csharp_return_type + " __unused_ret;\n";
+                        {
+                            if (ret_binding->needs_temporary_variable)
+                            {
+                                ret_target = "__unused_ret =";
+
+                                // Declare the variable.
+                                ret = ret_binding->csharp_return_type + " __unused_ret";
+
+                                // If it's a reference, we need to give it a dummy initializer.
+                                if (ret_binding->csharp_return_type.starts_with("ref "))
+                                {
+                                    // If we must create a ref variable, but don't have an initialized for it yet, give it a dummy value.
+                                    // This is non-null because in C++ at one point I had to do this to prevent UBSAN from complaining about null references.
+                                    // I don't know if this matters in C# at all or not, but this looks like a decent way of doing this.
+
+                                    std::string type_without_ref = ret_binding->csharp_return_type.substr(4);
+                                    ret += " = ref *(" + type_without_ref + " *)sizeof(" + type_without_ref + "); // Uninitialized ref.\n";
+                                }
+                                else
+                                {
+                                    ret += ";\n";
+                                }
+                            }
+                            else
+                            {
+                                // Avoid creating the variable on a separate line if possible, and initialize it directly.
+                                // This is only possible if the return binding doesn't use this string multiple times, as would be indicated by `ret_binding->needs_temporary_variable`.
+                                // This is purely to improve how the code looks, it shouldn't affect the result.
+                                ret_target = ret_binding->csharp_return_type + " __unused_ret =";
+                            }
+                        }
 
                         // If `ret_binding->csharp_return_type == "void"`, then `MakeReturnStatements()` should ignore the first argument anyway.
-                        ret += ret_binding->MakeReturnStatements("__unused_ret =", expr);
+                        ret += ret_binding->MakeReturnStatements(ret_target, expr);
 
                         if (acts_on_copy_of_this)
                             ret += "\nreturn __this_copy;";
@@ -3703,7 +3745,7 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    TypeBinding::ParamUsage::Strings Generator::GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name, bool in_exposed_struct)
+    TypeBinding::ParamUsage::Strings Generator::GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name, bool in_exposed_struct, TypeBindingFlags extra_flags)
     {
         TypeBinding::ParamUsage::Strings ret;
 
@@ -3795,7 +3837,7 @@ namespace mrbind::CSharp
             }
             else
             {
-                const TypeBinding &param_binding = GetTypeBinding(ParseTypeOrThrow(param.cpp_type), TypeBindingFlagsForParam(param));
+                const TypeBinding &param_binding = GetTypeBinding(ParseTypeOrThrow(param.cpp_type), TypeBindingFlagsForParam(param) | extra_flags);
 
                 // Note that we don't have fallback between usages with and without default args, unlike in the C generator.
                 const auto &param_usage = param.default_arg_affects_parameter_passing ? param_binding.param_usage_with_default_arg : param_binding.param_usage;
@@ -4486,7 +4528,7 @@ namespace mrbind::CSharp
                                 const ManagedKind param_managed_kind =
                                     is_exposed_struct_by_value && dummy_emitter.is_op_with_symmetric_self_args
                                     ? ManagedKind::never_managed // Gotta adjust the condition a little.
-                                    : ClassifyParamManagedKind(ParseTypeOrThrow(method.params.at(1).cpp_type));
+                                    : ClassifyParamManagedKind(ParseTypeOrThrow(method.params.at(1).cpp_type), !is_exposed_struct_by_value && dummy_emitter.is_op_with_symmetric_self_args/*ugh*/);
                                 const bool param_is_managed = param_managed_kind == ManagedKind::managed;
 
                                 // There's an extra dummy `this` parameter in static methods.
@@ -4495,12 +4537,19 @@ namespace mrbind::CSharp
                                 assert(dummy_emitter.param_strings.size() == (method.is_static ? 3 : 2));
 
                                 // This describes the other parameter, the one that may have a type not matching `this`.
-                                const auto &param_strings = dummy_emitter.param_strings.at(1);
+                                auto &param_strings = dummy_emitter.param_strings.at(1);
+
+                                // Remove `in` from the parameter, to match what the interface expects.
+                                bool removed_in = false;
+                                if (param_strings.csharp_decl_params.front().type.starts_with("in "))
+                                {
+                                    removed_in = true;
+                                    param_strings.csharp_decl_params.front().type.erase(0, 3);
+                                }
 
                                 assert(param_strings.csharp_decl_params.size() == 1);
 
                                 std::string interface_targ = param_strings.csharp_decl_params.front().type;
-
                                 if (interface_targ.ends_with('?') && param_is_managed)
                                     interface_targ.pop_back(); // `IEquatable<T>` requires implementing `Equals(T? t)`, so just in case.
 
@@ -4517,9 +4566,11 @@ namespace mrbind::CSharp
                                     param.type += '?'; // The interface requires this.
                                 }
 
-                                std::string param_type_without_nullable = param.type;
-                                if (param_type_without_nullable.ends_with('?'))
-                                    param_type_without_nullable.pop_back();
+                                std::string param_type_without_in_and_nullable = param.type;
+                                if (param_type_without_in_and_nullable.ends_with('?'))
+                                    param_type_without_in_and_nullable.pop_back();
+                                if (param_type_without_in_and_nullable.starts_with("in "))
+                                    param_type_without_in_and_nullable.erase(0, 3);
 
                                 if (iequatable_impls.empty())
                                     iequatable_impls += "\n// IEquatable:\n\n";
@@ -4536,16 +4587,17 @@ namespace mrbind::CSharp
                                     (
                                         equal_is_method
                                         ? "    return this." + AdjustCalledFuncName("Equal") + "(" + param.name + ");\n" // This should never be necessary...
-                                        : "    return this == " + param.name + ";\n"
+                                        // If the original `==` has an `in` parameter, we need a cast here, otherwise it can't find a function to call. No idea why.
+                                        : "    return this == " + (removed_in ? "(" + param_type_without_in_and_nullable + ")" : "") + param.name + ";\n"
                                     ) +
                                     "}\n";
 
                                 iequatable_generic_impl +=
-                                    "    if (other is " + param_type_without_nullable + ")\n" +
+                                    "    if (other is " + param_type_without_in_and_nullable + ")\n" +
                                     (
                                         equal_is_method
-                                        ? "        return this.Equals((" + param_type_without_nullable + ")other);\n" // This should never be necessary...
-                                        : "        return this == (" + param_type_without_nullable + ")other;\n"
+                                        ? "        return this.Equals((" + param_type_without_in_and_nullable + ")other);\n" // This should never be necessary...
+                                        : "        return this == (" + param_type_without_in_and_nullable + ")other;\n"
                                     );
                             }
 
@@ -5543,11 +5595,21 @@ namespace mrbind::CSharp
         return false;
     }
 
-    Generator::ManagedKind Generator::ClassifyParamManagedKind(const cppdecl::Type &cpp_type)
+    Generator::ManagedKind Generator::ClassifyParamManagedKind(const cppdecl::Type &cpp_type, bool in_heap_allocated_struct_wrapper)
     {
-        // If this is a reference, return true if it's a class reference.
+        // If this is a reference, return true if it's a class reference (not to an exposed struct).
         if (cpp_type.modifiers.size() == 1 && cpp_type.Is<cppdecl::Reference>())
-            return TypeIsCppClass(cppdecl::Type::FromSimpleType(cpp_type.simple_type)) ? ManagedKind::managed : ManagedKind::unsure;
+        {
+            if (auto type_desc = c_desc.FindTypeOpt(CppdeclToCode(cpp_type.simple_type.name)))
+            {
+                if (auto class_desc = std::get_if<CInterop::TypeKinds::Class>(&type_desc->var))
+                {
+                    // Returning `never_managed` for references to exposed structs, which should be `ref`s.
+                    // Const refs can also be `in`, and it doesn't make much sense to classify those, but I'm just ignoring them and returning `never_managed` regardless.
+                    return class_desc->kind == CInterop::ClassKind::exposed_struct && !in_heap_allocated_struct_wrapper ? Generator::ManagedKind::never_managed : Generator::ManagedKind::managed;
+                }
+            }
+        }
 
         // If this has no modifiers, return true if it's a class, unless it's an exposed struct.
         if (cpp_type.modifiers.empty())
@@ -5558,7 +5620,7 @@ namespace mrbind::CSharp
             auto class_desc = std::get_if<CInterop::TypeKinds::Class>(&type_desc->var);
             if (!class_desc)
                 return ManagedKind::unmanaged; // Hopefully this is always correct.
-            return class_desc->kind == CInterop::ClassKind::exposed_struct ? ManagedKind::never_managed : ManagedKind::managed;
+            return class_desc->kind == CInterop::ClassKind::exposed_struct ? ManagedKind::unmanaged : ManagedKind::managed;
         }
 
         return ManagedKind::unsure; // Whatever.
@@ -5778,9 +5840,8 @@ namespace mrbind::CSharp
 
             // Determine the C# property type.
             // This can be different for const and mutable halves, but this is fine.
-            // Note that this (specifically the `use_ref_for_exposed_struct_refs` part) must match how `FuncLikeEmitter`
-            //   determines the return type binding for properties.
-            const std::string csharp_property_type = GetReturnBinding(maybe_const_getter->ret, TypeBindingFlags::use_ref_for_exposed_struct_refs).csharp_return_type;
+            // Note that this must match how `FuncLikeEmitter` determines the return type binding for properties.
+            const std::string csharp_property_type = GetReturnBinding(maybe_const_getter->ret).csharp_return_type;
 
             // Emit the property.
             // We only emit the `get` half, never the `set` half.
@@ -6261,33 +6322,41 @@ namespace mrbind::CSharp
                     );
                 }
 
-                // `Ref`.
-                if (requested_helpers.erase("Ref")) // See below for why there's no `_` prefix.
-                {
-                    file.WriteSeparatingNewline();
-                    file.WriteString(
-                        // This isn't prefixed with `_`, since the user might need to deal with those directly,
-                        //   when handling results of functions returning this.
-                        "/// A reference to a C object. This is used to return optional references, since `ref` can't be nullable.\n"
-                        "/// This object itself isn't nullable, we return `Ref<T>?` when nullability is needed.\n"
-                        "public unsafe class Ref<T> where T: unmanaged\n"
-                        "{\n"
-                        "    /// Should never be null.\n"
-                        "    private T *Ptr;\n"
-                        "    /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.\n"
-                        "    internal Ref(T *new_ptr)\n"
-                        "    {\n"
-                        "        System.Diagnostics.Trace.Assert(new_ptr is not null);\n"
-                        "        Ptr = new_ptr;\n"
-                        "    }\n"
-                        "\n"
-                        "    public ref T Value => ref *Ptr;\n"
-                        "\n"
-                        // Add implicit conversion to `T`.
-                        // This is needed not just for user convenience, but also for our automatic dereferencing of `expected`.
-                        "    public static implicit operator T(Ref<T> wrapper) {return wrapper.Value;}\n"
-                        "}\n"
-                    );
+                { // `Ref` and `ConstRef`.
+                    auto MakeMaybeConstRef = [&](bool is_const)
+                    {
+                        std::string name = is_const ? "ConstRef" : "Ref"; // See below for why there's no `_` prefix.
+                        if (!requested_helpers.erase(name))
+                            return;
+
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            // This isn't prefixed with `_`, since the user might need to deal with those directly,
+                            //   when handling results of functions returning this.
+                            "/// A reference to a C object. This is sometimes used to return optional references, since `ref` can't be nullable. Or to return references from operators, since those can't return `ref`s.\n"
+                            "/// This object itself isn't nullable, we return `" + name + "<T>?` when nullability is needed.\n"
+                            "public unsafe class " + name + "<T> where T: unmanaged\n"
+                            "{\n"
+                            "    /// Should never be null.\n"
+                            "    private T *Ptr;\n"
+                            "    /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.\n"
+                            "    internal " + name + "(T *new_ptr)\n"
+                            "    {\n"
+                            "        System.Diagnostics.Trace.Assert(new_ptr is not null);\n"
+                            "        Ptr = new_ptr;\n"
+                            "    }\n"
+                            "\n"
+                            "    public ref T Value => ref *Ptr;\n"
+                            "\n"
+                            // Add implicit conversion to `T`.
+                            // This is needed not just for user convenience, but also for our automatic dereferencing of `expected`.
+                            "    public static implicit operator T(" + name + "<T> wrapper) {return wrapper.Value;}\n"
+                            "}\n"
+                        );
+                    };
+
+                    MakeMaybeConstRef(false);
+                    MakeMaybeConstRef(true);
                 }
 
                 // Stuff for `_ByValue_...`.

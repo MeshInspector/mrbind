@@ -76,11 +76,14 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, read-only.
-                public unsafe ulong At(ulong i)
+                public unsafe ulong this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_At", ExactSpelling = true)]
-                    extern static ulong *__MR_C_std_vector_unsigned_long_At(_Underlying *_this, ulong i);
-                    return *__MR_C_std_vector_unsigned_long_At(_UnderlyingPtr, i);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_At", ExactSpelling = true)]
+                        extern static ulong *__MR_C_std_vector_unsigned_long_At(_Underlying *_this, ulong i);
+                        return *__MR_C_std_vector_unsigned_long_At(_UnderlyingPtr, i);
+                    }
                 }
 
                 /// The first element or null if empty, read-only.
@@ -553,11 +556,14 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe new ref ulong At(ulong i)
+                public unsafe new ref ulong this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_MutableAt", ExactSpelling = true)]
-                    extern static ulong *__MR_C_std_vector_unsigned_long_MutableAt(_Underlying *_this, ulong i);
-                    return ref *__MR_C_std_vector_unsigned_long_MutableAt(_UnderlyingPtr, i);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_MutableAt", ExactSpelling = true)]
+                        extern static ulong *__MR_C_std_vector_unsigned_long_MutableAt(_Underlying *_this, ulong i);
+                        return ref *__MR_C_std_vector_unsigned_long_MutableAt(_UnderlyingPtr, i);
+                    }
                 }
 
                 /// The first element or null if empty, mutable.

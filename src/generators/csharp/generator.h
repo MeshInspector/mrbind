@@ -567,11 +567,12 @@ namespace mrbind::CSharp
             no_move_in_by_value_return = 1 << 2,
             // This flag disables the implicit `no_move_in_by_value_return` caused by the lack of `--move-classes-returned-by-value`.
             force_move_in_by_value_return = 1 << 3,
-            // When dealing with references to exposed structs, use `ref` and `ref readonly` instead of heap-allocating wrappers.
-            // This also disables default argument support, since there are no optional `ref`s. We could implement the default args
-            //   using some of our wrappers, but since this flag only exists to improve the interface of class field properties,
-            //   we don't need this at the moment.
-            use_ref_for_exposed_struct_refs = 1 << 4,
+            // Don't return a true `ref`, instead return a wrapper class.
+            // This is good for overloaded operators, which can't return `ref`s (or have them as parameters).
+            return_ref_wrapper = 1 << 4,
+            // When dealing with references to exposed structs, use the heap-allocating wrapper classes, instead of `ref`, `ref readonly`, and `in`.
+            // This is only useful for emitting operators in those wrappers themselves. When we eventually remove those (I hope), we can drop this flag too.
+            use_heap_wrappers_for_exposed_structs = 1 << 5,
         };
         MRBIND_FLAG_OPERATORS_IN_CLASS(TypeBindingFlags)
 
@@ -815,7 +816,7 @@ namespace mrbind::CSharp
         // `is_static_method` only matters if this is a `this` parameter.
         // If `override_name` is passed, it replaces the parameter name recoded in the parameter itself.
         // Set `in_exposed_struct == true` when in a method of an exposed struct. This only matters for non-static methods.
-        [[nodiscard]] TypeBinding::ParamUsage::Strings GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name = {}, bool in_exposed_struct = false);
+        [[nodiscard]] TypeBinding::ParamUsage::Strings GetParameterBinding(const CInterop::FuncParam &param, bool is_static_method, std::optional<std::string> override_name = {}, bool in_exposed_struct = false, TypeBindingFlags extra_flags = {});
 
         // Returns the binding information for a function return type.
         [[nodiscard]] const TypeBinding::ReturnUsage &GetReturnBinding(const CInterop::FuncReturn &ret, TypeBindingFlags extra_flags = {});
@@ -872,7 +873,8 @@ namespace mrbind::CSharp
         // Given a C++ type, possibly const and/or a reference, try to determine if it's a managed type or not.
         // This this only reliable for classes and references to them. For everything else, for now it always returns `probably_unmanged`.
         // We can improve this later.
-        [[nodiscard]] ManagedKind ClassifyParamManagedKind(const cppdecl::Type &cpp_type);
+        // The parameter `in_heap_allocated_struct_wrapper` can be removed once we remove the heap-allocated struct wrappers (I hope we remove them).
+        [[nodiscard]] ManagedKind ClassifyParamManagedKind(const cppdecl::Type &cpp_type, bool in_heap_allocated_struct_wrapper = false);
 
         // If our input has a binding for `std::shared_ptr<T>` (where `T` is `cpp_type`), returns that binding. Otherwise null.
         // This can be used to check if a class is backed by a shared pointer or not.

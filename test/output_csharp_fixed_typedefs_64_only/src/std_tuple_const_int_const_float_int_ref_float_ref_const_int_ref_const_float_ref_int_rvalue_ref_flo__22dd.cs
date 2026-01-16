@@ -27,7 +27,7 @@ public static partial class MR
                 ~Const_Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef() {Dispose(false);}
 
                 /// Constructs the tuple elementwise.
-                public unsafe Const_Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef(int _0, float _1, ref int _2, ref float _3, int _4, float _5, MR.CS.Misc._MoveRef _move__6, ref int _6, MR.CS.Misc._MoveRef _move__7, ref float _7, MR.CS.Misc._MoveRef _move__8, int _8, MR.CS.Misc._MoveRef _move__9, float _9) : this(null, is_owning: true)
+                public unsafe Const_Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef(int _0, float _1, ref int _2, ref float _3, int _4, float _5, MR.CS.Misc._MoveRef _move__6, int _6, MR.CS.Misc._MoveRef _move__7, float _7, MR.CS.Misc._MoveRef _move__8, int _8, MR.CS.Misc._MoveRef _move__9, float _9) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef._Underlying *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct(int _0, float _1, int *_2, float *_3, int *_4, float *_5, int *_6, float *_7, int *_8, float *_9);
@@ -35,13 +35,7 @@ public static partial class MR
                     {
                         fixed (float *__ptr__3 = &_3)
                         {
-                            fixed (int *__ptr__6 = &_6)
-                            {
-                                fixed (float *__ptr__7 = &_7)
-                                {
-                                    _UnderlyingPtr = __MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct(_0, _1, __ptr__2, __ptr__3, &_4, &_5, __ptr__6, __ptr__7, &_8, &_9);
-                                }
-                            }
+                            _UnderlyingPtr = __MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct(_0, _1, __ptr__2, __ptr__3, &_4, &_5, &_6, &_7, &_8, &_9);
                         }
                     }
                 }
@@ -95,19 +89,19 @@ public static partial class MR
                 }
 
                 /// The element 6, of type `int &&`, read-only.
-                public unsafe ref int getIntRvalueRef()
+                public unsafe int getIntRvalueRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_int_rvalue_ref", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_int_rvalue_ref(_Underlying *_this);
-                    return ref *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_int_rvalue_ref(_UnderlyingPtr);
+                    return *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_int_rvalue_ref(_UnderlyingPtr);
                 }
 
                 /// The element 7, of type `float &&`, read-only.
-                public unsafe ref float getFloatRvalueRef()
+                public unsafe float getFloatRvalueRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_float_rvalue_ref", ExactSpelling = true)]
                     extern static float *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_float_rvalue_ref(_Underlying *_this);
-                    return ref *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_float_rvalue_ref(_UnderlyingPtr);
+                    return *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Get_float_rvalue_ref(_UnderlyingPtr);
                 }
 
                 /// The element 8, of type `const int &&`, read-only.
@@ -134,7 +128,7 @@ public static partial class MR
                 internal unsafe Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs the tuple elementwise.
-                public unsafe Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef(int _0, float _1, ref int _2, ref float _3, int _4, float _5, MR.CS.Misc._MoveRef _move__6, ref int _6, MR.CS.Misc._MoveRef _move__7, ref float _7, MR.CS.Misc._MoveRef _move__8, int _8, MR.CS.Misc._MoveRef _move__9, float _9) : this(null, is_owning: true)
+                public unsafe Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef(int _0, float _1, ref int _2, ref float _3, int _4, float _5, MR.CS.Misc._MoveRef _move__6, int _6, MR.CS.Misc._MoveRef _move__7, float _7, MR.CS.Misc._MoveRef _move__8, int _8, MR.CS.Misc._MoveRef _move__9, float _9) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef._Underlying *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct(int _0, float _1, int *_2, float *_3, int *_4, float *_5, int *_6, float *_7, int *_8, float *_9);
@@ -142,13 +136,7 @@ public static partial class MR
                     {
                         fixed (float *__ptr__3 = &_3)
                         {
-                            fixed (int *__ptr__6 = &_6)
-                            {
-                                fixed (float *__ptr__7 = &_7)
-                                {
-                                    _UnderlyingPtr = __MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct(_0, _1, __ptr__2, __ptr__3, &_4, &_5, __ptr__6, __ptr__7, &_8, &_9);
-                                }
-                            }
+                            _UnderlyingPtr = __MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct(_0, _1, __ptr__2, __ptr__3, &_4, &_5, &_6, &_7, &_8, &_9);
                         }
                     }
                 }

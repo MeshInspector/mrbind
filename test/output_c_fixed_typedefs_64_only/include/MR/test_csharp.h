@@ -5328,11 +5328,19 @@ MR_C_API void MR_C_incr_MR_CSharp_ExposedLayout(MR_CSharp_ExposedLayout *_this);
 
 /// Generated from method `MR::CSharp::ExposedLayout::operator+`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API int MR_C_add_MR_CSharp_ExposedLayout_int(MR_CSharp_ExposedLayout *_this, int _1);
+MR_C_API int MR_C_add_MR_CSharp_ExposedLayout_ref_int(MR_CSharp_ExposedLayout *_this, int _1);
 
+// Test how returning references to an exposed struct works, since C# overloaded operators can't return `ref`.
+// Note that this operator must be `const` to test this correctly, since we turn non-const operators in exposed structs into functions.
 /// Generated from method `MR::CSharp::ExposedLayout::operator*`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API int MR_C_mul_MR_CSharp_ExposedLayout_int(const MR_CSharp_ExposedLayout *_this, int _1);
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ExposedLayout *MR_C_mul_MR_CSharp_ExposedLayout_int(const MR_CSharp_ExposedLayout *_this, int _1);
+
+/// Generated from method `MR::CSharp::ExposedLayout::operator+`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_ExposedLayout *MR_C_add_const_MR_CSharp_ExposedLayout_ref_int(const MR_CSharp_ExposedLayout *_this, int _1);
 
 /// Generated from method `MR::CSharp::ExposedLayout::operator<`.
 /// Parameter `_this` can not be null. It is a single object.
@@ -5454,6 +5462,18 @@ MR_C_API bool MR_C_equal_MR_CSharp_ExposedLayoutSh_float(MR_CSharp_ExposedLayout
 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator<`.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API bool MR_C_less_MR_CSharp_ExposedLayoutSh_char(MR_CSharp_ExposedLayoutSh *_this, char _1);
+
+// While we're at it, test comparison against another exposed struct, since this is apparently non-trivial.
+/// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(const MR_CSharp_ExposedLayoutSh *_this, const MR_CSharp_ExposedLayout *_1);
+
+// And against itself, too.
+/// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null. It is a single object.
+MR_C_API bool MR_C_equal_MR_CSharp_ExposedLayoutSh(const MR_CSharp_ExposedLayoutSh *_this, const MR_CSharp_ExposedLayoutSh *_1);
 
 /// Generated from function `MR::CSharp::operator-`.
 MR_C_API int MR_C_sub_int_MR_CSharp_ExposedLayoutSh(int _1, MR_CSharp_ExposedLayoutSh _2);
