@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class AbstractClasses
         {
+            /// <summary>
             /// Generated from class `MR::AbstractClasses::A`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A : MR.CS.Misc.Object
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -15,13 +17,17 @@ public static partial class MR
                 internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
             }
 
+            /// <summary>
             /// Generated from class `MR::AbstractClasses::A`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class A : Const_A
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Generated from method `MR::AbstractClasses::A::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_A_foo", ExactSpelling = true)]
@@ -30,12 +36,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` directly.
+            /// </summary>
             public class _InOptMut_A
             {
                 public A? Opt;
@@ -45,12 +53,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A(A value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A
             {
                 public Const_A? Opt;
@@ -60,11 +70,13 @@ public static partial class MR
                 public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::AbstractClasses::B`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::AbstractClasses::C`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_B : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -86,16 +98,20 @@ public static partial class MR
                 ~Const_B() {Dispose(false);}
             }
 
+            /// <summary>
             /// Generated from class `MR::AbstractClasses::B`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::AbstractClasses::C`
             /// This is the non-const half of the class.
+            /// </summary>
             public class B : Const_B
             {
                 internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Generated from method `MR::AbstractClasses::B::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_B_foo", ExactSpelling = true)]
@@ -104,12 +120,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` directly.
+            /// </summary>
             public class _InOptMut_B
             {
                 public B? Opt;
@@ -119,12 +137,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_B(B value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` to pass it to the function.
+            /// </summary>
             public class _InOptConst_B
             {
                 public Const_B? Opt;
@@ -134,11 +154,13 @@ public static partial class MR
                 public static implicit operator _InOptConst_B(Const_B value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::AbstractClasses::C`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::AbstractClasses::B`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_C : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -182,11 +204,13 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::AbstractClasses::C`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::AbstractClasses::B`
             /// This is the non-const half of the class.
+            /// </summary>
             public class C : Const_C
             {
                 internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -213,7 +237,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::AbstractClasses::C::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_foo", ExactSpelling = true)]
@@ -222,12 +248,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `C` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_C`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `C`/`Const_C` directly.
+            /// </summary>
             public class _InOptMut_C
             {
                 public C? Opt;
@@ -237,12 +265,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_C(C value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `C` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_C`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `C`/`Const_C` to pass it to the function.
+            /// </summary>
             public class _InOptConst_C
             {
                 public Const_C? Opt;

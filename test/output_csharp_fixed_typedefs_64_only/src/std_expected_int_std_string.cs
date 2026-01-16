@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// <summary>
             /// Stores either a `int` that represents success or a `std::string` that represents an error.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Expected_Int_StdString : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -26,7 +28,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Expected_Int_StdString() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_Expected_Int_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_DefaultConstruct", ExactSpelling = true)]
@@ -34,7 +38,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_int_std_string_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Const_Expected_Int_StdString(MR.CS.Std._ByValue_Expected_Int_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_ConstructFromAnother", ExactSpelling = true)]
@@ -42,7 +48,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_int_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Returns true if this instance represents success, or false if it represents an error.
+                /// </summary>
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_Int_StdString _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_Success", ExactSpelling = true)]
@@ -50,7 +58,9 @@ public static partial class MR
                     return __MR_C_std_expected_int_std_string_Success(_this._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// If this instance represents success, returns the stored `int`. Otherwise null.
+                /// </summary>
                 public unsafe int? getValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetValue", ExactSpelling = true)]
@@ -59,7 +69,9 @@ public static partial class MR
                     return __ret is not null ? *__ret : null;
                 }
 
+                /// <summary>
                 /// If this instance represents an error, returns the stored `std::string`. Otherwise null.
+                /// </summary>
                 public unsafe MR.CS.Std.Const_String? getError()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetError", ExactSpelling = true)]
@@ -69,13 +81,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Stores either a `int` that represents success or a `std::string` that represents an error.
             /// This is the non-const half of the class.
+            /// </summary>
             public class Expected_Int_StdString : Const_Expected_Int_StdString
             {
                 internal unsafe Expected_Int_StdString(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Expected_Int_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_DefaultConstruct", ExactSpelling = true)]
@@ -83,7 +99,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_int_std_string_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Expected_Int_StdString(MR.CS.Std._ByValue_Expected_Int_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_ConstructFromAnother", ExactSpelling = true)]
@@ -91,7 +109,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_int_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
+                /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_Expected_Int_StdString other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_AssignFromAnother", ExactSpelling = true)]
@@ -99,7 +119,9 @@ public static partial class MR
                     __MR_C_std_expected_int_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// If this instance represents success, returns the stored `int`. Otherwise null. This version returns a mutable pointer.
+                /// </summary>
                 public unsafe new MR.CS.Misc.Ref<int>? getValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetMutableValue", ExactSpelling = true)]
@@ -108,7 +130,9 @@ public static partial class MR
                     return __ret is not null ? new MR.CS.Misc.Ref<int>(__ret) : null;
                 }
 
+                /// <summary>
                 /// If this instance represents an error, returns the stored `std::string`. Otherwise null. This version returns a mutable pointer.
+                /// </summary>
                 public unsafe new MR.CS.Std.String? getError()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetMutableError", ExactSpelling = true)]
@@ -118,6 +142,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `Expected_Int_StdString` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -125,6 +150,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_Expected_Int_StdString
             {
                 internal readonly Const_Expected_Int_StdString? Value;
@@ -136,12 +162,14 @@ public static partial class MR
                 public static implicit operator _ByValue_Expected_Int_StdString(MR.CS.Misc._Moved<Expected_Int_StdString> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Expected_Int_StdString` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Expected_Int_StdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Expected_Int_StdString`/`Const_Expected_Int_StdString` directly.
+            /// </summary>
             public class _InOptMut_Expected_Int_StdString
             {
                 public Expected_Int_StdString? Opt;
@@ -151,12 +179,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Expected_Int_StdString(Expected_Int_StdString value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Expected_Int_StdString` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Expected_Int_StdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Expected_Int_StdString`/`Const_Expected_Int_StdString` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Expected_Int_StdString
             {
                 public Const_Expected_Int_StdString? Opt;

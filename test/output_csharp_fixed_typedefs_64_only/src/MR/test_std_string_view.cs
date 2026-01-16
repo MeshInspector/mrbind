@@ -4,7 +4,9 @@ public static partial class MR
     {
         public static partial class StdStringView
         {
+            /// <summary>
             /// Generated from function `MR::StdStringView::Set`.
+            /// </summary>
             public static unsafe void set(ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_Set", ExactSpelling = true)]
@@ -17,8 +19,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::StdStringView::SetWithDefault`.
             /// Parameter `s` defaults to `"42"`.
+            /// </summary>
             public static unsafe void setWithDefault(MR.CS.Misc.ReadOnlyCharSpanOpt s = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_SetWithDefault", ExactSpelling = true)]
@@ -36,7 +40,9 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::StdStringView::Get`.
+            /// </summary>
             public static unsafe MR.CS.Std.StringView get()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_Get", ExactSpelling = true)]
@@ -44,7 +50,9 @@ public static partial class MR
                 return new(__MR_StdStringView_Get(), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdStringView::WriteToRef`.
+            /// </summary>
             public static unsafe void writeToRef(MR.CS.Std.StringView ref_)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_WriteToRef", ExactSpelling = true)]
@@ -52,7 +60,9 @@ public static partial class MR
                 __MR_StdStringView_WriteToRef(ref_._UnderlyingPtr);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdStringView::WriteToPtr`.
+            /// </summary>
             public static unsafe void writeToPtr(MR.CS.Std.StringView? ptr)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_WriteToPtr", ExactSpelling = true)]
@@ -60,7 +70,9 @@ public static partial class MR
                 __MR_StdStringView_WriteToPtr(ptr is not null ? ptr._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdStringView::ConstRef`.
+            /// </summary>
             public static unsafe void constRef(ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_ConstRef", ExactSpelling = true)]
@@ -73,7 +85,9 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::StdStringView::RvalueRef`.
+            /// </summary>
             public static unsafe void rvalueRef(MR.CS.Misc._MoveRef _move_s, ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_RvalueRef", ExactSpelling = true)]
@@ -86,7 +100,9 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::StdStringView::ConstRvalueRef`.
+            /// </summary>
             public static unsafe void constRvalueRef(MR.CS.Misc._MoveRef _move_s, ReadOnlySpan<char> s)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdStringView_ConstRvalueRef", ExactSpelling = true)]

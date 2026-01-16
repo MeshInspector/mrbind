@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// <summary>
             /// Stores a functor of type: `MR::StdFunction::E(int, MR::StdFunction::E)`. Possibly stateful.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -26,7 +28,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct", ExactSpelling = true)]
@@ -34,7 +38,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(MR.CS.Std._ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother", ExactSpelling = true)]
@@ -43,13 +49,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Stores a functor of type: `MR::StdFunction::E(int, MR::StdFunction::E)`. Possibly stateful.
             /// This is the non-const half of the class.
+            /// </summary>
             public class Function_MRStdFunctionEFuncFromIntMRStdFunctionE : Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE
             {
                 internal unsafe Function_MRStdFunctionEFuncFromIntMRStdFunctionE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Function_MRStdFunctionEFuncFromIntMRStdFunctionE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct", ExactSpelling = true)]
@@ -57,7 +67,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Function_MRStdFunctionEFuncFromIntMRStdFunctionE(MR.CS.Std._ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother", ExactSpelling = true)]
@@ -65,7 +77,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
+                /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother", ExactSpelling = true)]
@@ -74,6 +88,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `Function_MRStdFunctionEFuncFromIntMRStdFunctionE` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -81,6 +96,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE
             {
                 internal readonly Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE? Value;
@@ -92,12 +108,14 @@ public static partial class MR
                 public static implicit operator _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(MR.CS.Misc._Moved<Function_MRStdFunctionEFuncFromIntMRStdFunctionE> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Function_MRStdFunctionEFuncFromIntMRStdFunctionE` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_MRStdFunctionEFuncFromIntMRStdFunctionE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_MRStdFunctionEFuncFromIntMRStdFunctionE`/`Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE` directly.
+            /// </summary>
             public class _InOptMut_Function_MRStdFunctionEFuncFromIntMRStdFunctionE
             {
                 public Function_MRStdFunctionEFuncFromIntMRStdFunctionE? Opt;
@@ -107,12 +125,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(Function_MRStdFunctionEFuncFromIntMRStdFunctionE value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Function_MRStdFunctionEFuncFromIntMRStdFunctionE` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_MRStdFunctionEFuncFromIntMRStdFunctionE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_MRStdFunctionEFuncFromIntMRStdFunctionE`/`Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Function_MRStdFunctionEFuncFromIntMRStdFunctionE
             {
                 public Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE? Opt;

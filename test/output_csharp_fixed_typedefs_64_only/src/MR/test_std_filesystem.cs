@@ -4,7 +4,9 @@ public static partial class MR
     {
         public static partial class StdFilesystem
         {
+            /// <summary>
             /// Generated from function `MR::StdFilesystem::GetPath`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Path> getPath()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_GetPath", ExactSpelling = true)]
@@ -12,7 +14,9 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.Std.Filesystem.Path(__MR_StdFilesystem_GetPath(), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFilesystem::SetPath`.
+            /// </summary>
             public static unsafe void setPath(ReadOnlySpan<char> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPath", ExactSpelling = true)]
@@ -25,7 +29,9 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFilesystem::SetPathConstRef`.
+            /// </summary>
             public static unsafe void setPathConstRef(ReadOnlySpan<char> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathConstRef", ExactSpelling = true)]
@@ -38,8 +44,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFilesystem::SetPathDefTrivial`.
             /// Parameter `_1` defaults to `{}`.
+            /// </summary>
             public static unsafe void setPathDefTrivial(MR.CS.Misc.ReadOnlyCharSpanOpt _1 = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathDefTrivial", ExactSpelling = true)]
@@ -57,8 +65,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFilesystem::SetPathDef`.
             /// Parameter `_1` defaults to `"hmm"`.
+            /// </summary>
             public static unsafe void setPathDef(MR.CS.Misc.ReadOnlyCharSpanOpt _1 = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_SetPathDef", ExactSpelling = true)]

@@ -6,8 +6,10 @@ public static partial class MR
         {
             // Aggregates get elementwise constructors. This is necessary if their elements are not default-constructible,
             //   because otherwise there would be no way to construct them.
+            /// <summary>
             /// Generated from class `MR::Aggregates::A`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -48,7 +50,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_DefaultConstruct", ExactSpelling = true)]
@@ -56,7 +60,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::Aggregates::A` elementwise.
+                /// </summary>
                 public unsafe Const_A(int x, ReadOnlySpan<char> y) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_ConstructFrom", ExactSpelling = true)]
@@ -69,7 +75,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::A::A`.
+                /// </summary>
                 public unsafe Const_A(MR.CS.Aggregates._ByValue_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_ConstructFromAnother", ExactSpelling = true)]
@@ -80,8 +88,10 @@ public static partial class MR
 
             // Aggregates get elementwise constructors. This is necessary if their elements are not default-constructible,
             //   because otherwise there would be no way to construct them.
+            /// <summary>
             /// Generated from class `MR::Aggregates::A`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class A : Const_A
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -106,7 +116,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_DefaultConstruct", ExactSpelling = true)]
@@ -114,7 +126,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::Aggregates::A` elementwise.
+                /// </summary>
                 public unsafe A(int x, ReadOnlySpan<char> y) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_ConstructFrom", ExactSpelling = true)]
@@ -127,7 +141,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::A::A`.
+                /// </summary>
                 public unsafe A(MR.CS.Aggregates._ByValue_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_ConstructFromAnother", ExactSpelling = true)]
@@ -135,7 +151,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::Aggregates::A::operator=`.
+                /// </summary>
                 public unsafe MR.CS.Aggregates.A assign(MR.CS.Aggregates._ByValue_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_AssignFromAnother", ExactSpelling = true)]
@@ -144,6 +162,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `A` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -151,6 +170,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_A
             {
                 internal readonly Const_A? Value;
@@ -162,12 +182,14 @@ public static partial class MR
                 public static implicit operator _ByValue_A(MR.CS.Misc._Moved<A> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` directly.
+            /// </summary>
             public class _InOptMut_A
             {
                 public A? Opt;
@@ -177,12 +199,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A(A value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A
             {
                 public Const_A? Opt;
@@ -193,8 +217,10 @@ public static partial class MR
             }
 
             // This is an empty aggregate, it doesn't need an elementwise constructor.
+            /// <summary>
             /// Generated from class `MR::Aggregates::B`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_B : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -215,7 +241,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_B() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_B() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_B_DefaultConstruct", ExactSpelling = true)]
@@ -223,7 +251,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_B_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::B::B`.
+                /// </summary>
                 public unsafe Const_B(MR.CS.Aggregates.Const_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_B_ConstructFromAnother", ExactSpelling = true)]
@@ -233,13 +263,17 @@ public static partial class MR
             }
 
             // This is an empty aggregate, it doesn't need an elementwise constructor.
+            /// <summary>
             /// Generated from class `MR::Aggregates::B`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class B : Const_B
             {
                 internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe B() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_B_DefaultConstruct", ExactSpelling = true)]
@@ -247,7 +281,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_B_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::B::B`.
+                /// </summary>
                 public unsafe B(MR.CS.Aggregates.Const_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_B_ConstructFromAnother", ExactSpelling = true)]
@@ -255,7 +291,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_B_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::Aggregates::B::operator=`.
+                /// </summary>
                 public unsafe MR.CS.Aggregates.B assign(MR.CS.Aggregates.Const_B _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_B_AssignFromAnother", ExactSpelling = true)]
@@ -264,12 +302,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` directly.
+            /// </summary>
             public class _InOptMut_B
             {
                 public B? Opt;
@@ -279,12 +319,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_B(B value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` to pass it to the function.
+            /// </summary>
             public class _InOptConst_B
             {
                 public Const_B? Opt;
@@ -294,8 +336,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_B(Const_B value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::Aggregates::NonDefaultConstructible`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_NonDefaultConstructible : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -316,7 +360,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonDefaultConstructible() {Dispose(false);}
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::NonDefaultConstructible::NonDefaultConstructible`.
+                /// </summary>
                 public unsafe Const_NonDefaultConstructible(MR.CS.Aggregates.Const_NonDefaultConstructible _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_NonDefaultConstructible_ConstructFromAnother", ExactSpelling = true)]
@@ -325,13 +371,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::Aggregates::NonDefaultConstructible`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class NonDefaultConstructible : Const_NonDefaultConstructible
             {
                 internal unsafe NonDefaultConstructible(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::NonDefaultConstructible::NonDefaultConstructible`.
+                /// </summary>
                 public unsafe NonDefaultConstructible(MR.CS.Aggregates.Const_NonDefaultConstructible _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_NonDefaultConstructible_ConstructFromAnother", ExactSpelling = true)]
@@ -339,7 +389,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_NonDefaultConstructible_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::Aggregates::NonDefaultConstructible::operator=`.
+                /// </summary>
                 public unsafe MR.CS.Aggregates.NonDefaultConstructible assign(MR.CS.Aggregates.Const_NonDefaultConstructible _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_NonDefaultConstructible_AssignFromAnother", ExactSpelling = true)]
@@ -348,12 +400,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NonDefaultConstructible` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_NonDefaultConstructible`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NonDefaultConstructible`/`Const_NonDefaultConstructible` directly.
+            /// </summary>
             public class _InOptMut_NonDefaultConstructible
             {
                 public NonDefaultConstructible? Opt;
@@ -363,12 +417,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_NonDefaultConstructible(NonDefaultConstructible value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NonDefaultConstructible` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_NonDefaultConstructible`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NonDefaultConstructible`/`Const_NonDefaultConstructible` to pass it to the function.
+            /// </summary>
             public class _InOptConst_NonDefaultConstructible
             {
                 public Const_NonDefaultConstructible? Opt;
@@ -379,8 +435,10 @@ public static partial class MR
             }
 
             // Test the optional limit on the number of fields that we aggregate-initialize.
+            /// <summary>
             /// Generated from class `MR::Aggregates::C`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_C : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -481,7 +539,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_C() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_DefaultConstruct", ExactSpelling = true)]
@@ -489,7 +549,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_C_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::Aggregates::C` elementwise.
+                /// </summary>
                 public unsafe Const_C(int a, int b, int c, int d, int e, int f, int g, int h) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_ConstructFrom", ExactSpelling = true)]
@@ -497,7 +559,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_C_ConstructFrom(a, b, c, d, e, f, g, h);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::C::C`.
+                /// </summary>
                 public unsafe Const_C(MR.CS.Aggregates.Const_C _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_ConstructFromAnother", ExactSpelling = true)]
@@ -507,8 +571,10 @@ public static partial class MR
             }
 
             // Test the optional limit on the number of fields that we aggregate-initialize.
+            /// <summary>
             /// Generated from class `MR::Aggregates::C`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class C : Const_C
             {
                 internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -593,7 +659,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe C() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_DefaultConstruct", ExactSpelling = true)]
@@ -601,7 +669,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_C_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::Aggregates::C` elementwise.
+                /// </summary>
                 public unsafe C(int a, int b, int c, int d, int e, int f, int g, int h) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_ConstructFrom", ExactSpelling = true)]
@@ -609,7 +679,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_C_ConstructFrom(a, b, c, d, e, f, g, h);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::C::C`.
+                /// </summary>
                 public unsafe C(MR.CS.Aggregates.Const_C _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_ConstructFromAnother", ExactSpelling = true)]
@@ -617,7 +689,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_C_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::Aggregates::C::operator=`.
+                /// </summary>
                 public unsafe MR.CS.Aggregates.C assign(MR.CS.Aggregates.Const_C _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_AssignFromAnother", ExactSpelling = true)]
@@ -626,12 +700,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `C` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_C`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `C`/`Const_C` directly.
+            /// </summary>
             public class _InOptMut_C
             {
                 public C? Opt;
@@ -641,12 +717,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_C(C value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `C` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_C`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `C`/`Const_C` to pass it to the function.
+            /// </summary>
             public class _InOptConst_C
             {
                 public Const_C? Opt;
@@ -656,8 +734,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_C(Const_C value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::Aggregates::D`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_D : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -768,7 +848,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_D() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_DefaultConstruct", ExactSpelling = true)]
@@ -776,7 +858,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_D_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::Aggregates::D` elementwise.
+                /// </summary>
                 public unsafe Const_D(int a, int b, int c, int d, int e, int f, int g, int h, int i) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_ConstructFrom", ExactSpelling = true)]
@@ -784,7 +868,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_D_ConstructFrom(a, b, c, d, e, f, g, h, i);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::D::D`.
+                /// </summary>
                 public unsafe Const_D(MR.CS.Aggregates.Const_D _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_ConstructFromAnother", ExactSpelling = true)]
@@ -793,8 +879,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::Aggregates::D`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class D : Const_D
             {
                 internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -889,7 +977,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe D() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_DefaultConstruct", ExactSpelling = true)]
@@ -897,7 +987,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_D_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::Aggregates::D` elementwise.
+                /// </summary>
                 public unsafe D(int a, int b, int c, int d, int e, int f, int g, int h, int i) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_ConstructFrom", ExactSpelling = true)]
@@ -905,7 +997,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_D_ConstructFrom(a, b, c, d, e, f, g, h, i);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::D::D`.
+                /// </summary>
                 public unsafe D(MR.CS.Aggregates.Const_D _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_ConstructFromAnother", ExactSpelling = true)]
@@ -913,7 +1007,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_D_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::Aggregates::D::operator=`.
+                /// </summary>
                 public unsafe MR.CS.Aggregates.D assign(MR.CS.Aggregates.Const_D _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_AssignFromAnother", ExactSpelling = true)]
@@ -922,12 +1018,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `D` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_D`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `D`/`Const_D` directly.
+            /// </summary>
             public class _InOptMut_D
             {
                 public D? Opt;
@@ -937,12 +1035,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_D(D value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `D` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_D`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `D`/`Const_D` to pass it to the function.
+            /// </summary>
             public class _InOptConst_D
             {
                 public Const_D? Opt;
@@ -952,8 +1052,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_D(Const_D value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::Aggregates::E`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_E : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1084,7 +1186,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::E::E`.
+                /// </summary>
                 public unsafe Const_E(MR.CS.Aggregates.Const_E _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_ConstructFromAnother", ExactSpelling = true)]
@@ -1092,7 +1196,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_E_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Constructs `MR::Aggregates::E` elementwise.
+                /// </summary>
                 public unsafe Const_E(int a, int b, int c, int d, int e, int f, int g, int h, int i, MR.CS.Aggregates.Const_NonDefaultConstructible j) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_ConstructFrom", ExactSpelling = true)]
@@ -1101,8 +1207,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::Aggregates::E`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class E : Const_E
             {
                 internal unsafe E(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -1217,7 +1325,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::Aggregates::E::E`.
+                /// </summary>
                 public unsafe E(MR.CS.Aggregates.Const_E _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_ConstructFromAnother", ExactSpelling = true)]
@@ -1225,7 +1335,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_E_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Constructs `MR::Aggregates::E` elementwise.
+                /// </summary>
                 public unsafe E(int a, int b, int c, int d, int e, int f, int g, int h, int i, MR.CS.Aggregates.Const_NonDefaultConstructible j) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_ConstructFrom", ExactSpelling = true)]
@@ -1233,7 +1345,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_E_ConstructFrom(a, b, c, d, e, f, g, h, i, j._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::Aggregates::E::operator=`.
+                /// </summary>
                 public unsafe MR.CS.Aggregates.E assign(MR.CS.Aggregates.Const_E _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_AssignFromAnother", ExactSpelling = true)]
@@ -1242,12 +1356,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `E` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_E`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `E`/`Const_E` directly.
+            /// </summary>
             public class _InOptMut_E
             {
                 public E? Opt;
@@ -1257,12 +1373,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_E(E value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `E` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_E`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `E`/`Const_E` to pass it to the function.
+            /// </summary>
             public class _InOptConst_E
             {
                 public Const_E? Opt;

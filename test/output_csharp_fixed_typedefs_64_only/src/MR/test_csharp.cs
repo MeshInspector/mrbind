@@ -4,7 +4,9 @@ public static partial class MR
     {
         public static partial class CSharp
         {
+            /// <summary>
             /// Enum comment.
+            /// </summary>
             public enum E1 : int
             {
                 // A
@@ -15,13 +17,16 @@ public static partial class MR
                 C = 30,
             }
 
+            /// <summary>
             /// This enum is intended to be boolean.
+            /// </summary>
             public enum E2 : byte
             {
                 A = 0,
                 B = 1,
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::A`.
             /// Derived classes:
             ///   Virtual:
@@ -31,6 +36,7 @@ public static partial class MR
             ///     `MR::CSharp::F`
             ///     `MR::CSharp::G`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -51,7 +57,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DefaultConstruct", ExactSpelling = true)]
@@ -59,7 +67,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::A::A`.
+                /// </summary>
                 public unsafe Const_A(MR.CS.CSharp._ByValue_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_ConstructFromAnother", ExactSpelling = true)]
@@ -67,7 +77,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::A::bar`.
+                /// </summary>
                 public unsafe void bar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_bar", ExactSpelling = true)]
@@ -75,7 +87,9 @@ public static partial class MR
                     __MR_CSharp_A_bar(_UnderlyingPtr, _1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::A::static_foo`.
+                /// </summary>
                 public static void staticFoo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_static_foo", ExactSpelling = true)]
@@ -83,7 +97,9 @@ public static partial class MR
                     __MR_CSharp_A_static_foo();
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::A::static_bar`.
+                /// </summary>
                 public static void staticBar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_static_bar", ExactSpelling = true)]
@@ -91,7 +107,9 @@ public static partial class MR
                     __MR_CSharp_A_static_bar(_1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::A::virtual_bar`.
+                /// </summary>
                 public unsafe void virtualBar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_virtual_bar", ExactSpelling = true)]
@@ -100,6 +118,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::A`.
             /// Derived classes:
             ///   Virtual:
@@ -109,11 +128,14 @@ public static partial class MR
             ///     `MR::CSharp::F`
             ///     `MR::CSharp::G`
             /// This is the non-const half of the class.
+            /// </summary>
             public class A : Const_A
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DefaultConstruct", ExactSpelling = true)]
@@ -121,7 +143,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::A::A`.
+                /// </summary>
                 public unsafe A(MR.CS.CSharp._ByValue_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_ConstructFromAnother", ExactSpelling = true)]
@@ -129,7 +153,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::A::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.A assign(MR.CS.CSharp._ByValue_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_AssignFromAnother", ExactSpelling = true)]
@@ -137,7 +163,9 @@ public static partial class MR
                     return new(__MR_CSharp_A_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::A::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_foo", ExactSpelling = true)]
@@ -145,7 +173,9 @@ public static partial class MR
                     __MR_CSharp_A_foo(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::A::virtual_foo`.
+                /// </summary>
                 public unsafe void virtualFoo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_virtual_foo", ExactSpelling = true)]
@@ -153,7 +183,9 @@ public static partial class MR
                     __MR_CSharp_A_virtual_foo(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::A::refs`.
+                /// </summary>
                 public unsafe ref int refs(ref int x, ref int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_refs", ExactSpelling = true)]
@@ -168,6 +200,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `A` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -175,6 +208,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_A
             {
                 internal readonly Const_A? Value;
@@ -186,12 +220,14 @@ public static partial class MR
                 public static implicit operator _ByValue_A(MR.CS.Misc._Moved<A> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` directly.
+            /// </summary>
             public class _InOptMut_A
             {
                 public A? Opt;
@@ -201,12 +237,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A(A value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A
             {
                 public Const_A? Opt;
@@ -216,11 +254,13 @@ public static partial class MR
                 public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::B`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::A`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_B : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -263,7 +303,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_B() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_DefaultConstruct", ExactSpelling = true)]
@@ -271,7 +313,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_B_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::B::B`.
+                /// </summary>
                 public unsafe Const_B(MR.CS.CSharp._ByValue_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_ConstructFromAnother", ExactSpelling = true)]
@@ -279,7 +323,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_B_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::B::B`.
+                /// </summary>
                 public unsafe Const_B(int a, int b) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_Construct", ExactSpelling = true)]
@@ -287,7 +333,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_B_Construct(a, b);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::B::bar`.
+                /// </summary>
                 public unsafe void bar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_bar", ExactSpelling = true)]
@@ -295,7 +343,9 @@ public static partial class MR
                     __MR_CSharp_B_bar(_UnderlyingPtr, _1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::B::static_foo`.
+                /// </summary>
                 public static void staticFoo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_static_foo", ExactSpelling = true)]
@@ -303,7 +353,9 @@ public static partial class MR
                     __MR_CSharp_B_static_foo();
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::B::static_bar`.
+                /// </summary>
                 public static void staticBar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_static_bar", ExactSpelling = true)]
@@ -311,7 +363,9 @@ public static partial class MR
                     __MR_CSharp_B_static_bar(_1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::B::virtual_bar`.
+                /// </summary>
                 public unsafe void virtualBar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_virtual_bar", ExactSpelling = true)]
@@ -320,11 +374,13 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::B`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::A`
             /// This is the non-const half of the class.
+            /// </summary>
             public class B : Const_B
             {
                 internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -351,7 +407,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe B() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_DefaultConstruct", ExactSpelling = true)]
@@ -359,7 +417,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_B_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::B::B`.
+                /// </summary>
                 public unsafe B(MR.CS.CSharp._ByValue_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_ConstructFromAnother", ExactSpelling = true)]
@@ -367,7 +427,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_B_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::B::B`.
+                /// </summary>
                 public unsafe B(int a, int b) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_Construct", ExactSpelling = true)]
@@ -375,7 +437,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_B_Construct(a, b);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::B::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.B assign(MR.CS.CSharp._ByValue_B _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_AssignFromAnother", ExactSpelling = true)]
@@ -383,7 +447,9 @@ public static partial class MR
                     return new(__MR_CSharp_B_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::B::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_foo", ExactSpelling = true)]
@@ -391,7 +457,9 @@ public static partial class MR
                     __MR_CSharp_B_foo(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::B::virtual_foo`.
+                /// </summary>
                 public unsafe void virtualFoo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_virtual_foo", ExactSpelling = true)]
@@ -399,7 +467,9 @@ public static partial class MR
                     __MR_CSharp_B_virtual_foo(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::B::refs`.
+                /// </summary>
                 public unsafe ref int refs(ref int x, ref int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_refs", ExactSpelling = true)]
@@ -414,6 +484,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `B` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -421,6 +492,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_B
             {
                 internal readonly Const_B? Value;
@@ -432,12 +504,14 @@ public static partial class MR
                 public static implicit operator _ByValue_B(MR.CS.Misc._Moved<B> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` directly.
+            /// </summary>
             public class _InOptMut_B
             {
                 public B? Opt;
@@ -447,12 +521,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_B(B value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` to pass it to the function.
+            /// </summary>
             public class _InOptConst_B
             {
                 public Const_B? Opt;
@@ -462,11 +538,13 @@ public static partial class MR
                 public static implicit operator _InOptConst_B(Const_B value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::C`.
             /// Base classes:
             ///   Virtual:
             ///     `MR::CSharp::A`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_C : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -509,7 +587,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_C() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_DefaultConstruct", ExactSpelling = true)]
@@ -517,7 +597,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_C_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::C::C`.
+                /// </summary>
                 public unsafe Const_C(MR.CS.CSharp._ByValue_C _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_ConstructFromAnother", ExactSpelling = true)]
@@ -525,7 +607,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_C_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::C::bar`.
+                /// </summary>
                 public unsafe void bar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_bar", ExactSpelling = true)]
@@ -533,7 +617,9 @@ public static partial class MR
                     __MR_CSharp_C_bar(_UnderlyingPtr, _1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::C::static_foo`.
+                /// </summary>
                 public static void staticFoo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_static_foo", ExactSpelling = true)]
@@ -541,7 +627,9 @@ public static partial class MR
                     __MR_CSharp_C_static_foo();
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::C::static_bar`.
+                /// </summary>
                 public static void staticBar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_static_bar", ExactSpelling = true)]
@@ -549,7 +637,9 @@ public static partial class MR
                     __MR_CSharp_C_static_bar(_1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::C::virtual_bar`.
+                /// </summary>
                 public unsafe void virtualBar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_virtual_bar", ExactSpelling = true)]
@@ -558,11 +648,13 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::C`.
             /// Base classes:
             ///   Virtual:
             ///     `MR::CSharp::A`
             /// This is the non-const half of the class.
+            /// </summary>
             public class C : Const_C
             {
                 internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -589,7 +681,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe C() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_DefaultConstruct", ExactSpelling = true)]
@@ -597,7 +691,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_C_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::C::C`.
+                /// </summary>
                 public unsafe C(MR.CS.CSharp._ByValue_C _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_ConstructFromAnother", ExactSpelling = true)]
@@ -605,7 +701,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_C_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::C::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.C assign(MR.CS.CSharp._ByValue_C _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_AssignFromAnother", ExactSpelling = true)]
@@ -613,7 +711,9 @@ public static partial class MR
                     return new(__MR_CSharp_C_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::C::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_foo", ExactSpelling = true)]
@@ -621,7 +721,9 @@ public static partial class MR
                     __MR_CSharp_C_foo(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::C::virtual_foo`.
+                /// </summary>
                 public unsafe void virtualFoo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_virtual_foo", ExactSpelling = true)]
@@ -629,7 +731,9 @@ public static partial class MR
                     __MR_CSharp_C_virtual_foo(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::C::refs`.
+                /// </summary>
                 public unsafe ref int refs(ref int x, ref int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_refs", ExactSpelling = true)]
@@ -644,6 +748,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `C` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -651,6 +756,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_C
             {
                 internal readonly Const_C? Value;
@@ -662,12 +768,14 @@ public static partial class MR
                 public static implicit operator _ByValue_C(MR.CS.Misc._Moved<C> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `C` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_C`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `C`/`Const_C` directly.
+            /// </summary>
             public class _InOptMut_C
             {
                 public C? Opt;
@@ -677,12 +785,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_C(C value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `C` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_C`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `C`/`Const_C` to pass it to the function.
+            /// </summary>
             public class _InOptConst_C
             {
                 public Const_C? Opt;
@@ -692,12 +802,14 @@ public static partial class MR
                 public static implicit operator _InOptConst_C(Const_C value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::D`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::F`
             ///     `MR::CSharp::G`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_D : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -718,7 +830,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_D() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_D() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_D_DefaultConstruct", ExactSpelling = true)]
@@ -726,7 +840,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_D_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::D::D`.
+                /// </summary>
                 public unsafe Const_D(MR.CS.CSharp.Const_D _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_D_ConstructFromAnother", ExactSpelling = true)]
@@ -734,7 +850,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_D_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::D::d1`.
+                /// </summary>
                 public unsafe void d1()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_D_d1", ExactSpelling = true)]
@@ -743,17 +861,21 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::D`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::F`
             ///     `MR::CSharp::G`
             /// This is the non-const half of the class.
+            /// </summary>
             public class D : Const_D
             {
                 internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe D() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_D_DefaultConstruct", ExactSpelling = true)]
@@ -761,7 +883,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_D_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::D::D`.
+                /// </summary>
                 public unsafe D(MR.CS.CSharp.Const_D _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_D_ConstructFromAnother", ExactSpelling = true)]
@@ -769,7 +893,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_D_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::D::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.D assign(MR.CS.CSharp.Const_D _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_D_AssignFromAnother", ExactSpelling = true)]
@@ -777,7 +903,9 @@ public static partial class MR
                     return new(__MR_CSharp_D_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::D::d2`.
+                /// </summary>
                 public unsafe void d2()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_D_d2", ExactSpelling = true)]
@@ -786,12 +914,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `D` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_D`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `D`/`Const_D` directly.
+            /// </summary>
             public class _InOptMut_D
             {
                 public D? Opt;
@@ -801,12 +931,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_D(D value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `D` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_D`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `D`/`Const_D` to pass it to the function.
+            /// </summary>
             public class _InOptConst_D
             {
                 public Const_D? Opt;
@@ -816,6 +948,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_D(Const_D value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::E`.
             /// Derived classes:
             ///   Virtual:
@@ -823,6 +956,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::F`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_E : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -843,7 +977,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_E() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_E() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_E_DefaultConstruct", ExactSpelling = true)]
@@ -851,7 +987,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_E_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::E::E`.
+                /// </summary>
                 public unsafe Const_E(MR.CS.CSharp.Const_E _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_E_ConstructFromAnother", ExactSpelling = true)]
@@ -859,7 +997,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_E_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::E::e1`.
+                /// </summary>
                 public unsafe void e1()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_E_e1", ExactSpelling = true)]
@@ -868,6 +1008,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::E`.
             /// Derived classes:
             ///   Virtual:
@@ -875,11 +1016,14 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::F`
             /// This is the non-const half of the class.
+            /// </summary>
             public class E : Const_E
             {
                 internal unsafe E(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe E() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_E_DefaultConstruct", ExactSpelling = true)]
@@ -887,7 +1031,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_E_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::E::E`.
+                /// </summary>
                 public unsafe E(MR.CS.CSharp.Const_E _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_E_ConstructFromAnother", ExactSpelling = true)]
@@ -895,7 +1041,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_E_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::E::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.E assign(MR.CS.CSharp.Const_E _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_E_AssignFromAnother", ExactSpelling = true)]
@@ -903,7 +1051,9 @@ public static partial class MR
                     return new(__MR_CSharp_E_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::E::e2`.
+                /// </summary>
                 public unsafe void e2()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_E_e2", ExactSpelling = true)]
@@ -912,12 +1062,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `E` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_E`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `E`/`Const_E` directly.
+            /// </summary>
             public class _InOptMut_E
             {
                 public E? Opt;
@@ -927,12 +1079,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_E(E value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `E` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_E`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `E`/`Const_E` to pass it to the function.
+            /// </summary>
             public class _InOptConst_E
             {
                 public Const_E? Opt;
@@ -942,6 +1096,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_E(Const_E value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::F`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -949,6 +1104,7 @@ public static partial class MR
             ///     `MR::CSharp::D`
             ///     `MR::CSharp::E`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_F : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1007,7 +1163,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_F() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_DefaultConstruct", ExactSpelling = true)]
@@ -1015,7 +1173,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_F_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::F::F`.
+                /// </summary>
                 public unsafe Const_F(MR.CS.CSharp._ByValue_F _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_ConstructFromAnother", ExactSpelling = true)]
@@ -1023,7 +1183,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_F_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::bar`.
+                /// </summary>
                 public unsafe void bar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_bar", ExactSpelling = true)]
@@ -1031,7 +1193,9 @@ public static partial class MR
                     __MR_CSharp_F_bar(_UnderlyingPtr, _1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::static_foo`.
+                /// </summary>
                 public static void staticFoo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_static_foo", ExactSpelling = true)]
@@ -1039,7 +1203,9 @@ public static partial class MR
                     __MR_CSharp_F_static_foo();
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::static_bar`.
+                /// </summary>
                 public static void staticBar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_static_bar", ExactSpelling = true)]
@@ -1047,7 +1213,9 @@ public static partial class MR
                     __MR_CSharp_F_static_bar(_1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::virtual_bar`.
+                /// </summary>
                 public unsafe void virtualBar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_virtual_bar", ExactSpelling = true)]
@@ -1055,7 +1223,9 @@ public static partial class MR
                     __MR_CSharp_F_virtual_bar(_UnderlyingPtr, _1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::d1`.
+                /// </summary>
                 public unsafe void d1()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_d1", ExactSpelling = true)]
@@ -1063,7 +1233,9 @@ public static partial class MR
                     __MR_CSharp_F_d1(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::e1`.
+                /// </summary>
                 public unsafe void e1()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_e1", ExactSpelling = true)]
@@ -1072,6 +1244,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::F`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -1079,6 +1252,7 @@ public static partial class MR
             ///     `MR::CSharp::D`
             ///     `MR::CSharp::E`
             /// This is the non-const half of the class.
+            /// </summary>
             public class F : Const_F
             {
                 internal unsafe F(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -1121,7 +1295,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe F() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_DefaultConstruct", ExactSpelling = true)]
@@ -1129,7 +1305,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_F_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::F::F`.
+                /// </summary>
                 public unsafe F(MR.CS.CSharp._ByValue_F _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_ConstructFromAnother", ExactSpelling = true)]
@@ -1137,7 +1315,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_F_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.F assign(MR.CS.CSharp._ByValue_F _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_AssignFromAnother", ExactSpelling = true)]
@@ -1145,7 +1325,9 @@ public static partial class MR
                     return new(__MR_CSharp_F_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_foo", ExactSpelling = true)]
@@ -1153,7 +1335,9 @@ public static partial class MR
                     __MR_CSharp_F_foo(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::virtual_foo`.
+                /// </summary>
                 public unsafe void virtualFoo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_virtual_foo", ExactSpelling = true)]
@@ -1161,7 +1345,9 @@ public static partial class MR
                     __MR_CSharp_F_virtual_foo(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::refs`.
+                /// </summary>
                 public unsafe ref int refs(ref int x, ref int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_refs", ExactSpelling = true)]
@@ -1175,7 +1361,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::d2`.
+                /// </summary>
                 public unsafe void d2()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_d2", ExactSpelling = true)]
@@ -1183,7 +1371,9 @@ public static partial class MR
                     __MR_CSharp_F_d2(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::e2`.
+                /// </summary>
                 public unsafe void e2()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_e2", ExactSpelling = true)]
@@ -1192,6 +1382,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `F` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -1199,6 +1390,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_F
             {
                 internal readonly Const_F? Value;
@@ -1210,12 +1402,14 @@ public static partial class MR
                 public static implicit operator _ByValue_F(MR.CS.Misc._Moved<F> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `F` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_F`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `F`/`Const_F` directly.
+            /// </summary>
             public class _InOptMut_F
             {
                 public F? Opt;
@@ -1225,12 +1419,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_F(F value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `F` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_F`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `F`/`Const_F` to pass it to the function.
+            /// </summary>
             public class _InOptConst_F
             {
                 public Const_F? Opt;
@@ -1241,6 +1437,7 @@ public static partial class MR
             }
 
             // Even if the secondary bases are virtual, this doesn't affect anything.
+            /// <summary>
             /// Generated from class `MR::CSharp::G`.
             /// Base classes:
             ///   Virtual:
@@ -1249,6 +1446,7 @@ public static partial class MR
             ///     `MR::CSharp::A`
             ///     `MR::CSharp::D`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_G : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1307,7 +1505,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_G() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_DefaultConstruct", ExactSpelling = true)]
@@ -1315,7 +1515,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_G_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::G::G`.
+                /// </summary>
                 public unsafe Const_G(MR.CS.CSharp._ByValue_G _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_ConstructFromAnother", ExactSpelling = true)]
@@ -1323,7 +1525,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::bar`.
+                /// </summary>
                 public unsafe void bar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_bar", ExactSpelling = true)]
@@ -1331,7 +1535,9 @@ public static partial class MR
                     __MR_CSharp_G_bar(_UnderlyingPtr, _1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::static_foo`.
+                /// </summary>
                 public static void staticFoo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_static_foo", ExactSpelling = true)]
@@ -1339,7 +1545,9 @@ public static partial class MR
                     __MR_CSharp_G_static_foo();
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::static_bar`.
+                /// </summary>
                 public static void staticBar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_static_bar", ExactSpelling = true)]
@@ -1347,7 +1555,9 @@ public static partial class MR
                     __MR_CSharp_G_static_bar(_1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::virtual_bar`.
+                /// </summary>
                 public unsafe void virtualBar(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_virtual_bar", ExactSpelling = true)]
@@ -1355,7 +1565,9 @@ public static partial class MR
                     __MR_CSharp_G_virtual_bar(_UnderlyingPtr, _1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::d1`.
+                /// </summary>
                 public unsafe void d1()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_d1", ExactSpelling = true)]
@@ -1363,7 +1575,9 @@ public static partial class MR
                     __MR_CSharp_G_d1(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::e1`.
+                /// </summary>
                 public unsafe void e1()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_e1", ExactSpelling = true)]
@@ -1373,6 +1587,7 @@ public static partial class MR
             }
 
             // Even if the secondary bases are virtual, this doesn't affect anything.
+            /// <summary>
             /// Generated from class `MR::CSharp::G`.
             /// Base classes:
             ///   Virtual:
@@ -1381,6 +1596,7 @@ public static partial class MR
             ///     `MR::CSharp::A`
             ///     `MR::CSharp::D`
             /// This is the non-const half of the class.
+            /// </summary>
             public class G : Const_G
             {
                 internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -1423,7 +1639,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe G() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_DefaultConstruct", ExactSpelling = true)]
@@ -1431,7 +1649,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_G_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::G::G`.
+                /// </summary>
                 public unsafe G(MR.CS.CSharp._ByValue_G _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_ConstructFromAnother", ExactSpelling = true)]
@@ -1439,7 +1659,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.G assign(MR.CS.CSharp._ByValue_G _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_AssignFromAnother", ExactSpelling = true)]
@@ -1447,7 +1669,9 @@ public static partial class MR
                     return new(__MR_CSharp_G_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_foo", ExactSpelling = true)]
@@ -1455,7 +1679,9 @@ public static partial class MR
                     __MR_CSharp_G_foo(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::virtual_foo`.
+                /// </summary>
                 public unsafe void virtualFoo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_virtual_foo", ExactSpelling = true)]
@@ -1463,7 +1689,9 @@ public static partial class MR
                     __MR_CSharp_G_virtual_foo(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::refs`.
+                /// </summary>
                 public unsafe ref int refs(ref int x, ref int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_refs", ExactSpelling = true)]
@@ -1477,7 +1705,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::d2`.
+                /// </summary>
                 public unsafe void d2()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_d2", ExactSpelling = true)]
@@ -1485,7 +1715,9 @@ public static partial class MR
                     __MR_CSharp_G_d2(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::e2`.
+                /// </summary>
                 public unsafe void e2()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_e2", ExactSpelling = true)]
@@ -1494,6 +1726,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `G` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -1501,6 +1734,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_G
             {
                 internal readonly Const_G? Value;
@@ -1512,12 +1746,14 @@ public static partial class MR
                 public static implicit operator _ByValue_G(MR.CS.Misc._Moved<G> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `G` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_G`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `G`/`Const_G` directly.
+            /// </summary>
             public class _InOptMut_G
             {
                 public G? Opt;
@@ -1527,12 +1763,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_G(G value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `G` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_G`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `G`/`Const_G` to pass it to the function.
+            /// </summary>
             public class _InOptConst_G
             {
                 public Const_G? Opt;
@@ -1542,8 +1780,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_G(Const_G value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::Trivial`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Trivial : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1564,7 +1804,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Trivial() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_Trivial() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Trivial_DefaultConstruct", ExactSpelling = true)]
@@ -1572,7 +1814,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_Trivial_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::Trivial::Trivial`.
+                /// </summary>
                 public unsafe Const_Trivial(MR.CS.CSharp.Const_Trivial _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Trivial_ConstructFromAnother", ExactSpelling = true)]
@@ -1581,13 +1825,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::Trivial`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class Trivial : Const_Trivial
             {
                 internal unsafe Trivial(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Trivial() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Trivial_DefaultConstruct", ExactSpelling = true)]
@@ -1595,7 +1843,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_Trivial_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::Trivial::Trivial`.
+                /// </summary>
                 public unsafe Trivial(MR.CS.CSharp.Const_Trivial _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Trivial_ConstructFromAnother", ExactSpelling = true)]
@@ -1603,7 +1853,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_Trivial_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::Trivial::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.Trivial assign(MR.CS.CSharp.Const_Trivial _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Trivial_AssignFromAnother", ExactSpelling = true)]
@@ -1612,12 +1864,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Trivial` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Trivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Trivial`/`Const_Trivial` directly.
+            /// </summary>
             public class _InOptMut_Trivial
             {
                 public Trivial? Opt;
@@ -1627,12 +1881,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Trivial(Trivial value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Trivial` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Trivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Trivial`/`Const_Trivial` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Trivial
             {
                 public Const_Trivial? Opt;
@@ -1642,8 +1898,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_Trivial(Const_Trivial value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TrivialDerived`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_TrivialDerived : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1664,7 +1922,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TrivialDerived() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_TrivialDerived() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TrivialDerived_DefaultConstruct", ExactSpelling = true)]
@@ -1672,7 +1932,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TrivialDerived_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TrivialDerived::TrivialDerived`.
+                /// </summary>
                 public unsafe Const_TrivialDerived(MR.CS.CSharp.Const_TrivialDerived _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TrivialDerived_ConstructFromAnother", ExactSpelling = true)]
@@ -1681,13 +1943,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TrivialDerived`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class TrivialDerived : Const_TrivialDerived
             {
                 internal unsafe TrivialDerived(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe TrivialDerived() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TrivialDerived_DefaultConstruct", ExactSpelling = true)]
@@ -1695,7 +1961,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TrivialDerived_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TrivialDerived::TrivialDerived`.
+                /// </summary>
                 public unsafe TrivialDerived(MR.CS.CSharp.Const_TrivialDerived _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TrivialDerived_ConstructFromAnother", ExactSpelling = true)]
@@ -1703,7 +1971,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TrivialDerived_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TrivialDerived::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.TrivialDerived assign(MR.CS.CSharp.Const_TrivialDerived _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TrivialDerived_AssignFromAnother", ExactSpelling = true)]
@@ -1712,12 +1982,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TrivialDerived` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_TrivialDerived`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TrivialDerived`/`Const_TrivialDerived` directly.
+            /// </summary>
             public class _InOptMut_TrivialDerived
             {
                 public TrivialDerived? Opt;
@@ -1727,12 +1999,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_TrivialDerived(TrivialDerived value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TrivialDerived` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_TrivialDerived`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TrivialDerived`/`Const_TrivialDerived` to pass it to the function.
+            /// </summary>
             public class _InOptConst_TrivialDerived
             {
                 public Const_TrivialDerived? Opt;
@@ -1742,8 +2016,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_TrivialDerived(Const_TrivialDerived value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::NonTrivial`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_NonTrivial : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1764,7 +2040,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonTrivial() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_NonTrivial() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivial_DefaultConstruct", ExactSpelling = true)]
@@ -1772,7 +2050,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivial_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::NonTrivial::NonTrivial`.
+                /// </summary>
                 public unsafe Const_NonTrivial(MR.CS.CSharp._ByValue_NonTrivial _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivial_ConstructFromAnother", ExactSpelling = true)]
@@ -1781,13 +2061,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::NonTrivial`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class NonTrivial : Const_NonTrivial
             {
                 internal unsafe NonTrivial(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe NonTrivial() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivial_DefaultConstruct", ExactSpelling = true)]
@@ -1795,7 +2079,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivial_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::NonTrivial::NonTrivial`.
+                /// </summary>
                 public unsafe NonTrivial(MR.CS.CSharp._ByValue_NonTrivial _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivial_ConstructFromAnother", ExactSpelling = true)]
@@ -1803,7 +2089,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivial_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::NonTrivial::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.NonTrivial assign(MR.CS.CSharp._ByValue_NonTrivial _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivial_AssignFromAnother", ExactSpelling = true)]
@@ -1812,6 +2100,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `NonTrivial` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -1819,6 +2108,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_NonTrivial
             {
                 internal readonly Const_NonTrivial? Value;
@@ -1830,6 +2120,7 @@ public static partial class MR
                 public static implicit operator _ByValue_NonTrivial(MR.CS.Misc._Moved<NonTrivial> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives an optional `NonTrivial` by value,
             ///   and also has a default argument, meaning it has two different null states.
             /// Usage:
@@ -1839,6 +2130,7 @@ public static partial class MR
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument.
             /// * Pass `MR.CS.Misc.NullOptType` to pass no object.
+            /// </summary>
             public class _ByValueOptOpt_NonTrivial
             {
                 internal readonly Const_NonTrivial? Value;
@@ -1852,12 +2144,14 @@ public static partial class MR
                 public static implicit operator _ByValueOptOpt_NonTrivial(MR.CS.Misc.NullOptType nullopt) {return new(nullopt);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NonTrivial` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_NonTrivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NonTrivial`/`Const_NonTrivial` directly.
+            /// </summary>
             public class _InOptMut_NonTrivial
             {
                 public NonTrivial? Opt;
@@ -1867,12 +2161,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_NonTrivial(NonTrivial value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NonTrivial` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_NonTrivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NonTrivial`/`Const_NonTrivial` to pass it to the function.
+            /// </summary>
             public class _InOptConst_NonTrivial
             {
                 public Const_NonTrivial? Opt;
@@ -1882,8 +2178,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_NonTrivial(Const_NonTrivial value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::NonTrivialDerived`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_NonTrivialDerived : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1904,7 +2202,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonTrivialDerived() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_NonTrivialDerived() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialDerived_DefaultConstruct", ExactSpelling = true)]
@@ -1912,7 +2212,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivialDerived_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::NonTrivialDerived::NonTrivialDerived`.
+                /// </summary>
                 public unsafe Const_NonTrivialDerived(MR.CS.CSharp._ByValue_NonTrivialDerived _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialDerived_ConstructFromAnother", ExactSpelling = true)]
@@ -1921,13 +2223,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::NonTrivialDerived`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class NonTrivialDerived : Const_NonTrivialDerived
             {
                 internal unsafe NonTrivialDerived(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe NonTrivialDerived() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialDerived_DefaultConstruct", ExactSpelling = true)]
@@ -1935,7 +2241,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivialDerived_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::NonTrivialDerived::NonTrivialDerived`.
+                /// </summary>
                 public unsafe NonTrivialDerived(MR.CS.CSharp._ByValue_NonTrivialDerived _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialDerived_ConstructFromAnother", ExactSpelling = true)]
@@ -1943,7 +2251,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivialDerived_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::NonTrivialDerived::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.NonTrivialDerived assign(MR.CS.CSharp._ByValue_NonTrivialDerived _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialDerived_AssignFromAnother", ExactSpelling = true)]
@@ -1952,6 +2262,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `NonTrivialDerived` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -1959,6 +2270,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_NonTrivialDerived
             {
                 internal readonly Const_NonTrivialDerived? Value;
@@ -1970,12 +2282,14 @@ public static partial class MR
                 public static implicit operator _ByValue_NonTrivialDerived(MR.CS.Misc._Moved<NonTrivialDerived> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NonTrivialDerived` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_NonTrivialDerived`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NonTrivialDerived`/`Const_NonTrivialDerived` directly.
+            /// </summary>
             public class _InOptMut_NonTrivialDerived
             {
                 public NonTrivialDerived? Opt;
@@ -1985,12 +2299,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_NonTrivialDerived(NonTrivialDerived value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NonTrivialDerived` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_NonTrivialDerived`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NonTrivialDerived`/`Const_NonTrivialDerived` to pass it to the function.
+            /// </summary>
             public class _InOptConst_NonTrivialDerived
             {
                 public Const_NonTrivialDerived? Opt;
@@ -2000,11 +2316,13 @@ public static partial class MR
                 public static implicit operator _InOptConst_NonTrivialDerived(Const_NonTrivialDerived value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SA`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SC`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_SA : MR.CS.Misc.SharedObject, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -2022,7 +2340,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is owning or not.
+                /// </summary>
                 public override unsafe bool _IsOwning
                 {
                     get
@@ -2033,8 +2353,10 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is non-null.
                 /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                /// </summary>
                 private unsafe bool _SharedPtrIsNotNull
                 {
                     get
@@ -2087,7 +2409,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_SA() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_SA() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SA_DefaultConstruct", ExactSpelling = true)]
@@ -2095,7 +2419,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SA_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SA::SA`.
+                /// </summary>
                 public unsafe Const_SA(MR.CS.CSharp.Const_SA _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SA_ConstructFromAnother", ExactSpelling = true)]
@@ -2104,18 +2430,22 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SA`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SC`
             /// This is the non-const half of the class.
+            /// </summary>
             public class SA : Const_SA
             {
                 internal unsafe SA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 internal unsafe SA(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe SA() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SA_DefaultConstruct", ExactSpelling = true)]
@@ -2123,7 +2453,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SA_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SA::SA`.
+                /// </summary>
                 public unsafe SA(MR.CS.CSharp.Const_SA _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SA_ConstructFromAnother", ExactSpelling = true)]
@@ -2131,7 +2463,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SA_ConstructFromAnother(_other._UnderlyingPtr));
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::SA::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.SA assign(MR.CS.CSharp.Const_SA _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SA_AssignFromAnother", ExactSpelling = true)]
@@ -2140,6 +2474,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SA` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2147,6 +2482,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValueShared_SA
             {
                 internal readonly Const_SA? Value;
@@ -2158,12 +2494,14 @@ public static partial class MR
                 public static implicit operator _ByValueShared_SA(MR.CS.Misc._Moved<SA> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SA` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_SA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SA`/`Const_SA` directly.
+            /// </summary>
             public class _InOptMut_SA
             {
                 public SA? Opt;
@@ -2173,12 +2511,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_SA(SA value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SA` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_SA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SA`/`Const_SA` to pass it to the function.
+            /// </summary>
             public class _InOptConst_SA
             {
                 public Const_SA? Opt;
@@ -2188,11 +2528,13 @@ public static partial class MR
                 public static implicit operator _InOptConst_SA(Const_SA value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SB`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SC`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_SB : MR.CS.Misc.SharedObject, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -2210,7 +2552,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is owning or not.
+                /// </summary>
                 public override unsafe bool _IsOwning
                 {
                     get
@@ -2221,8 +2565,10 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is non-null.
                 /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                /// </summary>
                 private unsafe bool _SharedPtrIsNotNull
                 {
                     get
@@ -2275,7 +2621,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_SB() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_SB() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_DefaultConstruct", ExactSpelling = true)]
@@ -2283,7 +2631,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SB_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SB::SB`.
+                /// </summary>
                 public unsafe Const_SB(MR.CS.CSharp._ByValue_SB _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_ConstructFromAnother", ExactSpelling = true)]
@@ -2292,18 +2642,22 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SB`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SC`
             /// This is the non-const half of the class.
+            /// </summary>
             public class SB : Const_SB
             {
                 internal unsafe SB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 internal unsafe SB(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe SB() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_DefaultConstruct", ExactSpelling = true)]
@@ -2311,7 +2665,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SB_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SB::SB`.
+                /// </summary>
                 public unsafe SB(MR.CS.CSharp._ByValue_SB _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_ConstructFromAnother", ExactSpelling = true)]
@@ -2319,7 +2675,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::SB::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.SB assign(MR.CS.CSharp._ByValue_SB _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_AssignFromAnother", ExactSpelling = true)]
@@ -2328,6 +2686,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SB` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2335,6 +2694,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_SB
             {
                 internal readonly Const_SB? Value;
@@ -2346,6 +2706,7 @@ public static partial class MR
                 public static implicit operator _ByValue_SB(MR.CS.Misc._Moved<SB> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SB` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2353,6 +2714,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValueShared_SB
             {
                 internal readonly Const_SB? Value;
@@ -2364,12 +2726,14 @@ public static partial class MR
                 public static implicit operator _ByValueShared_SB(MR.CS.Misc._Moved<SB> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SB` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_SB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SB`/`Const_SB` directly.
+            /// </summary>
             public class _InOptMut_SB
             {
                 public SB? Opt;
@@ -2379,12 +2743,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_SB(SB value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SB` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_SB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SB`/`Const_SB` to pass it to the function.
+            /// </summary>
             public class _InOptConst_SB
             {
                 public Const_SB? Opt;
@@ -2394,12 +2760,14 @@ public static partial class MR
                 public static implicit operator _InOptConst_SB(Const_SB value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SC`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SA`
             ///     `MR::CSharp::SB`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_SC : MR.CS.Misc.SharedObject, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -2417,7 +2785,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is owning or not.
+                /// </summary>
                 public override unsafe bool _IsOwning
                 {
                     get
@@ -2428,8 +2798,10 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is non-null.
                 /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                /// </summary>
                 private unsafe bool _SharedPtrIsNotNull
                 {
                     get
@@ -2496,7 +2868,9 @@ public static partial class MR
                     return MR.CS.CSharp.Const_SB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SC_UpcastTo_MR_CSharp_SB(self._UnderlyingPtr));
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_SC() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_DefaultConstruct", ExactSpelling = true)]
@@ -2504,7 +2878,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SC_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SC::SC`.
+                /// </summary>
                 public unsafe Const_SC(MR.CS.CSharp._ByValue_SC _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_ConstructFromAnother", ExactSpelling = true)]
@@ -2513,12 +2889,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SC`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SA`
             ///     `MR::CSharp::SB`
             /// This is the non-const half of the class.
+            /// </summary>
             public class SC : Const_SC
             {
                 internal unsafe SC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -2539,7 +2917,9 @@ public static partial class MR
                     return MR.CS.CSharp.SB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SC_UpcastTo_MR_CSharp_SB(self._UnderlyingPtr));
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe SC() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_DefaultConstruct", ExactSpelling = true)]
@@ -2547,7 +2927,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SC_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SC::SC`.
+                /// </summary>
                 public unsafe SC(MR.CS.CSharp._ByValue_SC _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_ConstructFromAnother", ExactSpelling = true)]
@@ -2555,7 +2937,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SC_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::SC::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.SC assign(MR.CS.CSharp._ByValue_SC _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_AssignFromAnother", ExactSpelling = true)]
@@ -2564,6 +2948,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SC` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2571,6 +2956,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_SC
             {
                 internal readonly Const_SC? Value;
@@ -2582,6 +2968,7 @@ public static partial class MR
                 public static implicit operator _ByValue_SC(MR.CS.Misc._Moved<SC> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SC` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2589,6 +2976,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValueShared_SC
             {
                 internal readonly Const_SC? Value;
@@ -2600,12 +2988,14 @@ public static partial class MR
                 public static implicit operator _ByValueShared_SC(MR.CS.Misc._Moved<SC> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SC` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_SC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SC`/`Const_SC` directly.
+            /// </summary>
             public class _InOptMut_SC
             {
                 public SC? Opt;
@@ -2615,12 +3005,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_SC(SC value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SC` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_SC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SC`/`Const_SC` to pass it to the function.
+            /// </summary>
             public class _InOptConst_SC
             {
                 public Const_SC? Opt;
@@ -2630,11 +3022,13 @@ public static partial class MR
                 public static implicit operator _InOptConst_SC(Const_SC value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SD`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SF`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_SD : MR.CS.Misc.SharedObject, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -2652,7 +3046,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is owning or not.
+                /// </summary>
                 public override unsafe bool _IsOwning
                 {
                     get
@@ -2663,8 +3059,10 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is non-null.
                 /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                /// </summary>
                 private unsafe bool _SharedPtrIsNotNull
                 {
                     get
@@ -2717,7 +3115,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_SD() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_SD() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_DefaultConstruct", ExactSpelling = true)]
@@ -2725,7 +3125,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SD_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SD::SD`.
+                /// </summary>
                 public unsafe Const_SD(MR.CS.CSharp._ByValue_SD _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_ConstructFromAnother", ExactSpelling = true)]
@@ -2734,18 +3136,22 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SD`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SF`
             /// This is the non-const half of the class.
+            /// </summary>
             public class SD : Const_SD
             {
                 internal unsafe SD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 internal unsafe SD(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe SD() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_DefaultConstruct", ExactSpelling = true)]
@@ -2753,7 +3159,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SD_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SD::SD`.
+                /// </summary>
                 public unsafe SD(MR.CS.CSharp._ByValue_SD _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_ConstructFromAnother", ExactSpelling = true)]
@@ -2761,7 +3169,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SD_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::SD::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.SD assign(MR.CS.CSharp._ByValue_SD _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_AssignFromAnother", ExactSpelling = true)]
@@ -2770,6 +3180,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SD` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2777,6 +3188,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_SD
             {
                 internal readonly Const_SD? Value;
@@ -2788,6 +3200,7 @@ public static partial class MR
                 public static implicit operator _ByValue_SD(MR.CS.Misc._Moved<SD> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SD` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2795,6 +3208,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValueShared_SD
             {
                 internal readonly Const_SD? Value;
@@ -2806,12 +3220,14 @@ public static partial class MR
                 public static implicit operator _ByValueShared_SD(MR.CS.Misc._Moved<SD> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SD` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_SD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SD`/`Const_SD` directly.
+            /// </summary>
             public class _InOptMut_SD
             {
                 public SD? Opt;
@@ -2821,12 +3237,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_SD(SD value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SD` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_SD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SD`/`Const_SD` to pass it to the function.
+            /// </summary>
             public class _InOptConst_SD
             {
                 public Const_SD? Opt;
@@ -2836,11 +3254,13 @@ public static partial class MR
                 public static implicit operator _InOptConst_SD(Const_SD value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SE`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SF`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_SE : MR.CS.Misc.SharedObject, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -2858,7 +3278,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is owning or not.
+                /// </summary>
                 public override unsafe bool _IsOwning
                 {
                     get
@@ -2869,8 +3291,10 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is non-null.
                 /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                /// </summary>
                 private unsafe bool _SharedPtrIsNotNull
                 {
                     get
@@ -2923,7 +3347,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_SE() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_SE() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_DefaultConstruct", ExactSpelling = true)]
@@ -2931,7 +3357,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SE_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SE::SE`.
+                /// </summary>
                 public unsafe Const_SE(MR.CS.CSharp._ByValue_SE _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_ConstructFromAnother", ExactSpelling = true)]
@@ -2940,18 +3368,22 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SE`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SF`
             /// This is the non-const half of the class.
+            /// </summary>
             public class SE : Const_SE
             {
                 internal unsafe SE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 internal unsafe SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe SE() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_DefaultConstruct", ExactSpelling = true)]
@@ -2959,7 +3391,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SE_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SE::SE`.
+                /// </summary>
                 public unsafe SE(MR.CS.CSharp._ByValue_SE _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_ConstructFromAnother", ExactSpelling = true)]
@@ -2967,7 +3401,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SE_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::SE::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.SE assign(MR.CS.CSharp._ByValue_SE _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_AssignFromAnother", ExactSpelling = true)]
@@ -2976,6 +3412,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SE` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2983,6 +3420,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_SE
             {
                 internal readonly Const_SE? Value;
@@ -2994,6 +3432,7 @@ public static partial class MR
                 public static implicit operator _ByValue_SE(MR.CS.Misc._Moved<SE> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SE` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -3001,6 +3440,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValueShared_SE
             {
                 internal readonly Const_SE? Value;
@@ -3012,12 +3452,14 @@ public static partial class MR
                 public static implicit operator _ByValueShared_SE(MR.CS.Misc._Moved<SE> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SE` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_SE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SE`/`Const_SE` directly.
+            /// </summary>
             public class _InOptMut_SE
             {
                 public SE? Opt;
@@ -3027,12 +3469,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_SE(SE value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SE` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_SE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SE`/`Const_SE` to pass it to the function.
+            /// </summary>
             public class _InOptConst_SE
             {
                 public Const_SE? Opt;
@@ -3042,12 +3486,14 @@ public static partial class MR
                 public static implicit operator _InOptConst_SE(Const_SE value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SF`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SD`
             ///     `MR::CSharp::SE`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_SF : MR.CS.Misc.SharedObject, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -3065,7 +3511,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is owning or not.
+                /// </summary>
                 public override unsafe bool _IsOwning
                 {
                     get
@@ -3076,8 +3524,10 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is non-null.
                 /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                /// </summary>
                 private unsafe bool _SharedPtrIsNotNull
                 {
                     get
@@ -3154,7 +3604,9 @@ public static partial class MR
                     return Const_SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_SF() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_DefaultConstruct", ExactSpelling = true)]
@@ -3162,7 +3614,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SF_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SF::SF`.
+                /// </summary>
                 public unsafe Const_SF(MR.CS.CSharp._ByValue_SF _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_ConstructFromAnother", ExactSpelling = true)]
@@ -3171,12 +3625,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::SF`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::CSharp::SD`
             ///     `MR::CSharp::SE`
             /// This is the non-const half of the class.
+            /// </summary>
             public class SF : Const_SF
             {
                 internal unsafe SF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -3207,7 +3663,9 @@ public static partial class MR
                     return SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe SF() : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_DefaultConstruct", ExactSpelling = true)]
@@ -3215,7 +3673,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SF_DefaultConstruct());
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::SF::SF`.
+                /// </summary>
                 public unsafe SF(MR.CS.CSharp._ByValue_SF _other) : this(shared_ptr: null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_ConstructFromAnother", ExactSpelling = true)]
@@ -3223,7 +3683,9 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SF_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::SF::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.SF assign(MR.CS.CSharp._ByValue_SF _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_AssignFromAnother", ExactSpelling = true)]
@@ -3232,6 +3694,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SF` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -3239,6 +3702,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_SF
             {
                 internal readonly Const_SF? Value;
@@ -3250,6 +3714,7 @@ public static partial class MR
                 public static implicit operator _ByValue_SF(MR.CS.Misc._Moved<SF> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SF` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -3257,6 +3722,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValueShared_SF
             {
                 internal readonly Const_SF? Value;
@@ -3268,12 +3734,14 @@ public static partial class MR
                 public static implicit operator _ByValueShared_SF(MR.CS.Misc._Moved<SF> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SF` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_SF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SF`/`Const_SF` directly.
+            /// </summary>
             public class _InOptMut_SF
             {
                 public SF? Opt;
@@ -3283,12 +3751,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_SF(SF value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SF` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_SF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SF`/`Const_SF` to pass it to the function.
+            /// </summary>
             public class _InOptConst_SF
             {
                 public Const_SF? Opt;
@@ -3299,8 +3769,10 @@ public static partial class MR
             }
 
             // Nested classes.
+            /// <summary>
             /// Generated from class `MR::CSharp::Outer`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Outer : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -3321,7 +3793,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Outer() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_Outer() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_DefaultConstruct", ExactSpelling = true)]
@@ -3329,7 +3803,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_Outer_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::Outer::Outer`.
+                /// </summary>
                 public unsafe Const_Outer(MR.CS.CSharp.Const_Outer _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_ConstructFromAnother", ExactSpelling = true)]
@@ -3337,8 +3813,10 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_Outer_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from class `MR::CSharp::Outer::Inner`.
                 /// This is the const half of the class.
+                /// </summary>
                 public class Const_Inner : MR.CS.Misc.Object, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
@@ -3359,7 +3837,9 @@ public static partial class MR
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_Inner() {Dispose(false);}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Const_Inner() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_Inner_DefaultConstruct", ExactSpelling = true)]
@@ -3367,7 +3847,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_CSharp_Outer_Inner_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Generated from constructor `MR::CSharp::Outer::Inner::Inner`.
+                    /// </summary>
                     public unsafe Const_Inner(MR.CS.CSharp.Outer.Const_Inner _other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_Inner_ConstructFromAnother", ExactSpelling = true)]
@@ -3376,13 +3858,17 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from class `MR::CSharp::Outer::Inner`.
                 /// This is the non-const half of the class.
+                /// </summary>
                 public class Inner : Const_Inner
                 {
                     internal unsafe Inner(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Inner() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_Inner_DefaultConstruct", ExactSpelling = true)]
@@ -3390,7 +3876,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_CSharp_Outer_Inner_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Generated from constructor `MR::CSharp::Outer::Inner::Inner`.
+                    /// </summary>
                     public unsafe Inner(MR.CS.CSharp.Outer.Const_Inner _other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_Inner_ConstructFromAnother", ExactSpelling = true)]
@@ -3398,7 +3886,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_CSharp_Outer_Inner_ConstructFromAnother(_other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Generated from method `MR::CSharp::Outer::Inner::operator=`.
+                    /// </summary>
                     public unsafe MR.CS.CSharp.Outer.Inner assign(MR.CS.CSharp.Outer.Const_Inner _other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_Inner_AssignFromAnother", ExactSpelling = true)]
@@ -3406,7 +3896,9 @@ public static partial class MR
                         return new(__MR_CSharp_Outer_Inner_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                     }
 
+                    /// <summary>
                     /// Generated from method `MR::CSharp::Outer::Inner::bar`.
+                    /// </summary>
                     public unsafe void bar()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_Inner_bar", ExactSpelling = true)]
@@ -3415,12 +3907,14 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `Inner` with default arguments.
                 /// This is only used mutable parameters. For const ones we have `_InOptConst_Inner`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `Inner`/`Const_Inner` directly.
+                /// </summary>
                 public class _InOptMut_Inner
                 {
                     public Inner? Opt;
@@ -3430,12 +3924,14 @@ public static partial class MR
                     public static implicit operator _InOptMut_Inner(Inner value) {return new(value);}
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `Inner` with default arguments.
                 /// This is only used const parameters. For non-const ones we have `_InOptMut_Inner`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `Inner`/`Const_Inner` to pass it to the function.
+                /// </summary>
                 public class _InOptConst_Inner
                 {
                     public Const_Inner? Opt;
@@ -3447,13 +3943,17 @@ public static partial class MR
             }
 
             // Nested classes.
+            /// <summary>
             /// Generated from class `MR::CSharp::Outer`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class Outer : Const_Outer
             {
                 internal unsafe Outer(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Outer() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_DefaultConstruct", ExactSpelling = true)]
@@ -3461,7 +3961,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_Outer_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::Outer::Outer`.
+                /// </summary>
                 public unsafe Outer(MR.CS.CSharp.Const_Outer _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_ConstructFromAnother", ExactSpelling = true)]
@@ -3469,7 +3971,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_Outer_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::Outer::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.Outer assign(MR.CS.CSharp.Const_Outer _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_AssignFromAnother", ExactSpelling = true)]
@@ -3477,7 +3981,9 @@ public static partial class MR
                     return new(__MR_CSharp_Outer_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::Outer::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_Outer_foo", ExactSpelling = true)]
@@ -3486,12 +3992,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Outer` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Outer`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Outer`/`Const_Outer` directly.
+            /// </summary>
             public class _InOptMut_Outer
             {
                 public Outer? Opt;
@@ -3501,12 +4009,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Outer(Outer value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Outer` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Outer`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Outer`/`Const_Outer` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Outer
             {
                 public Const_Outer? Opt;
@@ -3516,8 +4026,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_Outer(Const_Outer value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TestFields`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_TestFields : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -3698,7 +4210,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
+                /// </summary>
                 public unsafe Const_TestFields(MR.CS.CSharp._ByValue_TestFields _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_ConstructFromAnother", ExactSpelling = true)]
@@ -3706,7 +4220,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestFields_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::TestFields` elementwise.
+                /// </summary>
                 public unsafe Const_TestFields(int i, int const_i, ref int i_ref, int const_i_ref, ReadOnlySpan<char> s, ReadOnlySpan<char> const_s, MR.CS.Std.String s_ref, ReadOnlySpan<char> const_s_ref) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_ConstructFrom", ExactSpelling = true)]
@@ -3733,8 +4249,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TestFields`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class TestFields : Const_TestFields
             {
                 internal unsafe TestFields(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -3759,7 +4277,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
+                /// </summary>
                 public unsafe TestFields(MR.CS.CSharp._ByValue_TestFields _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_ConstructFromAnother", ExactSpelling = true)]
@@ -3767,7 +4287,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestFields_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::TestFields` elementwise.
+                /// </summary>
                 public unsafe TestFields(int i, int const_i, ref int i_ref, int const_i_ref, ReadOnlySpan<char> s, ReadOnlySpan<char> const_s, MR.CS.Std.String s_ref, ReadOnlySpan<char> const_s_ref) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_ConstructFrom", ExactSpelling = true)]
@@ -3794,12 +4316,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `TestFields` by value.
             /// Usage:
             /// * Pass an instance of `TestFields`/`Const_TestFields` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_TestFields
             {
                 internal readonly Const_TestFields? Value;
@@ -3810,12 +4334,14 @@ public static partial class MR
                 public static implicit operator _ByValue_TestFields(MR.CS.Misc._Moved<TestFields> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TestFields` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_TestFields`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TestFields`/`Const_TestFields` directly.
+            /// </summary>
             public class _InOptMut_TestFields
             {
                 public TestFields? Opt;
@@ -3825,12 +4351,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_TestFields(TestFields value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TestFields` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_TestFields`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TestFields`/`Const_TestFields` to pass it to the function.
+            /// </summary>
             public class _InOptConst_TestFields
             {
                 public Const_TestFields? Opt;
@@ -3840,8 +4368,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_TestFields(Const_TestFields value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TestConstness`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_TestConstness : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -3862,7 +4392,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestConstness() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_TestConstness() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestConstness_DefaultConstruct", ExactSpelling = true)]
@@ -3870,7 +4402,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestConstness_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TestConstness::TestConstness`.
+                /// </summary>
                 public unsafe Const_TestConstness(MR.CS.CSharp.Const_TestConstness _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestConstness_ConstructFromAnother", ExactSpelling = true)]
@@ -3878,7 +4412,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestConstness_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestConstness::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestConstness_foo_const", ExactSpelling = true)]
@@ -3887,13 +4423,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TestConstness`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class TestConstness : Const_TestConstness
             {
                 internal unsafe TestConstness(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe TestConstness() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestConstness_DefaultConstruct", ExactSpelling = true)]
@@ -3901,7 +4441,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestConstness_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TestConstness::TestConstness`.
+                /// </summary>
                 public unsafe TestConstness(MR.CS.CSharp.Const_TestConstness _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestConstness_ConstructFromAnother", ExactSpelling = true)]
@@ -3909,7 +4451,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestConstness_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestConstness::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.TestConstness assign(MR.CS.CSharp.Const_TestConstness _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestConstness_AssignFromAnother", ExactSpelling = true)]
@@ -3917,7 +4461,9 @@ public static partial class MR
                     return new(__MR_CSharp_TestConstness_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestConstness::foo`.
+                /// </summary>
                 public unsafe new void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestConstness_foo", ExactSpelling = true)]
@@ -3926,12 +4472,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TestConstness` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_TestConstness`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TestConstness`/`Const_TestConstness` directly.
+            /// </summary>
             public class _InOptMut_TestConstness
             {
                 public TestConstness? Opt;
@@ -3941,12 +4489,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_TestConstness(TestConstness value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TestConstness` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_TestConstness`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TestConstness`/`Const_TestConstness` to pass it to the function.
+            /// </summary>
             public class _InOptConst_TestConstness
             {
                 public Const_TestConstness? Opt;
@@ -3958,8 +4508,10 @@ public static partial class MR
 
             // This is the happy path.
             // This emits static operators in the const half, and non-static operators (or functions pre C# 14) in the non-const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrA`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IncrDecrA : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -3980,7 +4532,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrA() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IncrDecrA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrA_DefaultConstruct", ExactSpelling = true)]
@@ -3988,7 +4542,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrA::IncrDecrA`.
+                /// </summary>
                 public unsafe Const_IncrDecrA(MR.CS.CSharp.Const_IncrDecrA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrA_ConstructFromAnother", ExactSpelling = true)]
@@ -3996,7 +4552,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrA::operator++`.
+                /// </summary>
                 public static unsafe IncrDecrA operator++(MR.CS.CSharp.Const_IncrDecrA _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrA", ExactSpelling = true)]
@@ -4006,7 +4564,9 @@ public static partial class MR
                     return __this_copy;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrA::operator--`.
+                /// </summary>
                 public static unsafe IncrDecrA operator--(MR.CS.CSharp.Const_IncrDecrA _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrA", ExactSpelling = true)]
@@ -4019,13 +4579,17 @@ public static partial class MR
 
             // This is the happy path.
             // This emits static operators in the const half, and non-static operators (or functions pre C# 14) in the non-const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrA`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IncrDecrA : Const_IncrDecrA
             {
                 internal unsafe IncrDecrA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IncrDecrA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrA_DefaultConstruct", ExactSpelling = true)]
@@ -4033,7 +4597,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrA::IncrDecrA`.
+                /// </summary>
                 public unsafe IncrDecrA(MR.CS.CSharp.Const_IncrDecrA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrA_ConstructFromAnother", ExactSpelling = true)]
@@ -4041,7 +4607,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrA::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.IncrDecrA assign(MR.CS.CSharp.Const_IncrDecrA _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrA_AssignFromAnother", ExactSpelling = true)]
@@ -4049,7 +4617,9 @@ public static partial class MR
                     return new(__MR_CSharp_IncrDecrA_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrA::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrA", ExactSpelling = true)]
@@ -4057,7 +4627,9 @@ public static partial class MR
                     MR.CS.CSharp.IncrDecrA __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrA(_UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrA::operator--`.
+                /// </summary>
                 public unsafe void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrA", ExactSpelling = true)]
@@ -4066,12 +4638,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrA` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IncrDecrA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrA`/`Const_IncrDecrA` directly.
+            /// </summary>
             public class _InOptMut_IncrDecrA
             {
                 public IncrDecrA? Opt;
@@ -4081,12 +4655,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IncrDecrA(IncrDecrA value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrA` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IncrDecrA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrA`/`Const_IncrDecrA` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IncrDecrA
             {
                 public Const_IncrDecrA? Opt;
@@ -4097,8 +4673,10 @@ public static partial class MR
             }
 
             // This is a somewhat happy path. Same as above, but everything gets emitted in the const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrB`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IncrDecrB : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -4119,7 +4697,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrB() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IncrDecrB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrB_DefaultConstruct", ExactSpelling = true)]
@@ -4127,7 +4707,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrB::IncrDecrB`.
+                /// </summary>
                 public unsafe Const_IncrDecrB(MR.CS.CSharp.Const_IncrDecrB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrB_ConstructFromAnother", ExactSpelling = true)]
@@ -4135,7 +4717,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrB_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrB::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrB", ExactSpelling = true)]
@@ -4143,7 +4727,9 @@ public static partial class MR
                     MR.CS.CSharp.Const_IncrDecrB __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrB(_UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrB::operator++`.
+                /// </summary>
                 public static unsafe IncrDecrB operator++(MR.CS.CSharp.Const_IncrDecrB _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrB", ExactSpelling = true)]
@@ -4153,7 +4739,9 @@ public static partial class MR
                     return __this_copy;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrB::operator--`.
+                /// </summary>
                 public unsafe void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrB", ExactSpelling = true)]
@@ -4161,7 +4749,9 @@ public static partial class MR
                     MR.CS.CSharp.Const_IncrDecrB __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrB(_UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrB::operator--`.
+                /// </summary>
                 public static unsafe IncrDecrB operator--(MR.CS.CSharp.Const_IncrDecrB _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrB", ExactSpelling = true)]
@@ -4173,13 +4763,17 @@ public static partial class MR
             }
 
             // This is a somewhat happy path. Same as above, but everything gets emitted in the const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrB`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IncrDecrB : Const_IncrDecrB
             {
                 internal unsafe IncrDecrB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IncrDecrB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrB_DefaultConstruct", ExactSpelling = true)]
@@ -4187,7 +4781,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrB::IncrDecrB`.
+                /// </summary>
                 public unsafe IncrDecrB(MR.CS.CSharp.Const_IncrDecrB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrB_ConstructFromAnother", ExactSpelling = true)]
@@ -4195,7 +4791,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrB_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrB::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.IncrDecrB assign(MR.CS.CSharp.Const_IncrDecrB _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrB_AssignFromAnother", ExactSpelling = true)]
@@ -4204,12 +4802,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrB` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IncrDecrB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrB`/`Const_IncrDecrB` directly.
+            /// </summary>
             public class _InOptMut_IncrDecrB
             {
                 public IncrDecrB? Opt;
@@ -4219,12 +4819,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IncrDecrB(IncrDecrB value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrB` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IncrDecrB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrB`/`Const_IncrDecrB` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IncrDecrB
             {
                 public Const_IncrDecrB? Opt;
@@ -4236,8 +4838,10 @@ public static partial class MR
 
             // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
             // The non-static ones are not marked const, so they're also in the non-const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrC`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IncrDecrC : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -4258,7 +4862,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrC() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IncrDecrC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrC_DefaultConstruct", ExactSpelling = true)]
@@ -4266,7 +4872,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrC::IncrDecrC`.
+                /// </summary>
                 public unsafe Const_IncrDecrC(MR.CS.CSharp.Const_IncrDecrC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrC_ConstructFromAnother", ExactSpelling = true)]
@@ -4277,13 +4885,17 @@ public static partial class MR
 
             // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
             // The non-static ones are not marked const, so they're also in the non-const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrC`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IncrDecrC : Const_IncrDecrC
             {
                 internal unsafe IncrDecrC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IncrDecrC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrC_DefaultConstruct", ExactSpelling = true)]
@@ -4291,7 +4903,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrC::IncrDecrC`.
+                /// </summary>
                 public unsafe IncrDecrC(MR.CS.CSharp.Const_IncrDecrC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrC_ConstructFromAnother", ExactSpelling = true)]
@@ -4299,7 +4913,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrC_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrC::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.IncrDecrC assign(MR.CS.CSharp.Const_IncrDecrC _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrC_AssignFromAnother", ExactSpelling = true)]
@@ -4307,7 +4923,9 @@ public static partial class MR
                     return new(__MR_CSharp_IncrDecrC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrC::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
@@ -4315,7 +4933,9 @@ public static partial class MR
                     MR.CS.CSharp.IncrDecrC __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrC(_UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrC::operator++`.
+                /// </summary>
                 public static unsafe IncrDecrC operator++(MR.CS.CSharp.IncrDecrC _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
@@ -4325,7 +4945,9 @@ public static partial class MR
                     return __this_copy;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrC::operator--`.
+                /// </summary>
                 public unsafe void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
@@ -4333,7 +4955,9 @@ public static partial class MR
                     MR.CS.CSharp.IncrDecrC __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrC(_UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrC::operator--`.
+                /// </summary>
                 public static unsafe IncrDecrC operator--(MR.CS.CSharp.IncrDecrC _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
@@ -4344,12 +4968,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrC` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IncrDecrC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrC`/`Const_IncrDecrC` directly.
+            /// </summary>
             public class _InOptMut_IncrDecrC
             {
                 public IncrDecrC? Opt;
@@ -4359,12 +4985,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IncrDecrC(IncrDecrC value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrC` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IncrDecrC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrC`/`Const_IncrDecrC` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IncrDecrC
             {
                 public Const_IncrDecrC? Opt;
@@ -4376,8 +5004,10 @@ public static partial class MR
 
             // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
             // The non-static ones are in the const half due to being marked const.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrD`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IncrDecrD : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -4398,7 +5028,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrD() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IncrDecrD() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrD_DefaultConstruct", ExactSpelling = true)]
@@ -4406,7 +5038,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrD_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrD::IncrDecrD`.
+                /// </summary>
                 public unsafe Const_IncrDecrD(MR.CS.CSharp.Const_IncrDecrD _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrD_ConstructFromAnother", ExactSpelling = true)]
@@ -4414,7 +5048,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrD_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrD::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
@@ -4422,7 +5058,9 @@ public static partial class MR
                     MR.CS.CSharp.Const_IncrDecrD __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrD(_UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrD::operator--`.
+                /// </summary>
                 public unsafe void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
@@ -4433,13 +5071,17 @@ public static partial class MR
 
             // This is a somewhat happy path. Since here the copy ctor takes a non-const reference, the static operators get added to the non-const half.
             // The non-static ones are in the const half due to being marked const.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrD`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IncrDecrD : Const_IncrDecrD
             {
                 internal unsafe IncrDecrD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IncrDecrD() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrD_DefaultConstruct", ExactSpelling = true)]
@@ -4447,7 +5089,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrD_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrD::IncrDecrD`.
+                /// </summary>
                 public unsafe IncrDecrD(MR.CS.CSharp.Const_IncrDecrD _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrD_ConstructFromAnother", ExactSpelling = true)]
@@ -4455,7 +5099,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrD_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrD::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.IncrDecrD assign(MR.CS.CSharp.Const_IncrDecrD _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrD_AssignFromAnother", ExactSpelling = true)]
@@ -4463,7 +5109,9 @@ public static partial class MR
                     return new(__MR_CSharp_IncrDecrD_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrD::operator++`.
+                /// </summary>
                 public static unsafe IncrDecrD operator++(MR.CS.CSharp.IncrDecrD _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
@@ -4473,7 +5121,9 @@ public static partial class MR
                     return __this_copy;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrD::operator--`.
+                /// </summary>
                 public static unsafe IncrDecrD operator--(MR.CS.CSharp.IncrDecrD _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
@@ -4484,12 +5134,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrD` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IncrDecrD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrD`/`Const_IncrDecrD` directly.
+            /// </summary>
             public class _InOptMut_IncrDecrD
             {
                 public IncrDecrD? Opt;
@@ -4499,12 +5151,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IncrDecrD(IncrDecrD value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrD` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IncrDecrD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrD`/`Const_IncrDecrD` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IncrDecrD
             {
                 public Const_IncrDecrD? Opt;
@@ -4515,8 +5169,10 @@ public static partial class MR
             }
 
             // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the non-const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrE`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IncrDecrE : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -4537,7 +5193,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrE() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IncrDecrE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_DefaultConstruct", ExactSpelling = true)]
@@ -4545,7 +5203,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrE_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrE::IncrDecrE`.
+                /// </summary>
                 public unsafe Const_IncrDecrE(MR.CS.CSharp._ByValue_IncrDecrE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_ConstructFromAnother", ExactSpelling = true)]
@@ -4555,13 +5215,17 @@ public static partial class MR
             }
 
             // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the non-const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrE`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IncrDecrE : Const_IncrDecrE
             {
                 internal unsafe IncrDecrE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IncrDecrE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_DefaultConstruct", ExactSpelling = true)]
@@ -4569,7 +5233,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrE_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrE::IncrDecrE`.
+                /// </summary>
                 public unsafe IncrDecrE(MR.CS.CSharp._ByValue_IncrDecrE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrE_ConstructFromAnother", ExactSpelling = true)]
@@ -4577,7 +5243,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrE_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrE::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrE", ExactSpelling = true)]
@@ -4585,7 +5253,9 @@ public static partial class MR
                     MR.CS.CSharp.IncrDecrE __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrE(_UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrE::operator--`.
+                /// </summary>
                 public unsafe void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrE", ExactSpelling = true)]
@@ -4594,12 +5264,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `IncrDecrE` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_IncrDecrE
             {
                 internal readonly Const_IncrDecrE? Value;
@@ -4609,12 +5281,14 @@ public static partial class MR
                 public static implicit operator _ByValue_IncrDecrE(MR.CS.Misc._Moved<IncrDecrE> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrE` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IncrDecrE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrE`/`Const_IncrDecrE` directly.
+            /// </summary>
             public class _InOptMut_IncrDecrE
             {
                 public IncrDecrE? Opt;
@@ -4624,12 +5298,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IncrDecrE(IncrDecrE value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrE` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IncrDecrE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrE`/`Const_IncrDecrE` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IncrDecrE
             {
                 public Const_IncrDecrE? Opt;
@@ -4640,8 +5316,10 @@ public static partial class MR
             }
 
             // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrF`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IncrDecrF : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -4662,7 +5340,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrF() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IncrDecrF() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_DefaultConstruct", ExactSpelling = true)]
@@ -4670,7 +5350,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrF_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrF::IncrDecrF`.
+                /// </summary>
                 public unsafe Const_IncrDecrF(MR.CS.CSharp._ByValue_IncrDecrF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_ConstructFromAnother", ExactSpelling = true)]
@@ -4678,7 +5360,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrF_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrF::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrF", ExactSpelling = true)]
@@ -4686,7 +5370,9 @@ public static partial class MR
                     MR.CS.CSharp.Const_IncrDecrF __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrF(_UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrF::operator--`.
+                /// </summary>
                 public unsafe void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrF", ExactSpelling = true)]
@@ -4696,13 +5382,17 @@ public static partial class MR
             }
 
             // Here we don't special-case those operators due to the class being non-copyable (and not trivially movable). They get spawned as functions as usual, in the const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrF`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IncrDecrF : Const_IncrDecrF
             {
                 internal unsafe IncrDecrF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IncrDecrF() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_DefaultConstruct", ExactSpelling = true)]
@@ -4710,7 +5400,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrF_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrF::IncrDecrF`.
+                /// </summary>
                 public unsafe IncrDecrF(MR.CS.CSharp._ByValue_IncrDecrF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrF_ConstructFromAnother", ExactSpelling = true)]
@@ -4719,12 +5411,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `IncrDecrF` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_IncrDecrF
             {
                 internal readonly Const_IncrDecrF? Value;
@@ -4734,12 +5428,14 @@ public static partial class MR
                 public static implicit operator _ByValue_IncrDecrF(MR.CS.Misc._Moved<IncrDecrF> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrF` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IncrDecrF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrF`/`Const_IncrDecrF` directly.
+            /// </summary>
             public class _InOptMut_IncrDecrF
             {
                 public IncrDecrF? Opt;
@@ -4749,12 +5445,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IncrDecrF(IncrDecrF value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrF` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IncrDecrF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrF`/`Const_IncrDecrF` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IncrDecrF
             {
                 public Const_IncrDecrF? Opt;
@@ -4765,8 +5463,10 @@ public static partial class MR
             }
 
             // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrG`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IncrDecrG : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -4787,7 +5487,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrG() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IncrDecrG() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrG_DefaultConstruct", ExactSpelling = true)]
@@ -4795,7 +5497,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrG_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrG::IncrDecrG`.
+                /// </summary>
                 public unsafe Const_IncrDecrG(MR.CS.CSharp.Const_IncrDecrG _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrG_ConstructFromAnother", ExactSpelling = true)]
@@ -4803,7 +5507,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrG_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrG::operator++`.
+                /// </summary>
                 public static unsafe IncrDecrG operator++(MR.CS.CSharp.Const_IncrDecrG _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrG", ExactSpelling = true)]
@@ -4813,7 +5519,9 @@ public static partial class MR
                     return __this_copy;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrG::operator--`.
+                /// </summary>
                 public static unsafe IncrDecrG operator--(MR.CS.CSharp.Const_IncrDecrG _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrG", ExactSpelling = true)]
@@ -4825,13 +5533,17 @@ public static partial class MR
             }
 
             // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrG`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IncrDecrG : Const_IncrDecrG
             {
                 internal unsafe IncrDecrG(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IncrDecrG() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrG_DefaultConstruct", ExactSpelling = true)]
@@ -4839,7 +5551,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrG_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrG::IncrDecrG`.
+                /// </summary>
                 public unsafe IncrDecrG(MR.CS.CSharp.Const_IncrDecrG _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrG_ConstructFromAnother", ExactSpelling = true)]
@@ -4847,7 +5561,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrG_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrG::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrG", ExactSpelling = true)]
@@ -4855,7 +5571,9 @@ public static partial class MR
                     MR.CS.CSharp.IncrDecrG __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrG(_UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrG::operator--`.
+                /// </summary>
                 public unsafe void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrG", ExactSpelling = true)]
@@ -4864,12 +5582,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrG` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IncrDecrG`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrG`/`Const_IncrDecrG` directly.
+            /// </summary>
             public class _InOptMut_IncrDecrG
             {
                 public IncrDecrG? Opt;
@@ -4879,12 +5599,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IncrDecrG(IncrDecrG value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrG` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IncrDecrG`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrG`/`Const_IncrDecrG` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IncrDecrG
             {
                 public Const_IncrDecrG? Opt;
@@ -4895,8 +5617,10 @@ public static partial class MR
             }
 
             // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrH`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IncrDecrH : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -4917,7 +5641,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrH() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IncrDecrH() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrH_DefaultConstruct", ExactSpelling = true)]
@@ -4925,7 +5651,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrH_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrH::IncrDecrH`.
+                /// </summary>
                 public unsafe Const_IncrDecrH(MR.CS.CSharp.Const_IncrDecrH _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrH_ConstructFromAnother", ExactSpelling = true)]
@@ -4933,7 +5661,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrH_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrH::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrH", ExactSpelling = true)]
@@ -4941,7 +5671,9 @@ public static partial class MR
                     MR.CS.CSharp.Const_IncrDecrH __unused_ret = new(__MR_C_incr_MR_CSharp_IncrDecrH(_UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrH::operator++`.
+                /// </summary>
                 public static unsafe IncrDecrH operator++(MR.CS.CSharp.Const_IncrDecrH _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrH", ExactSpelling = true)]
@@ -4951,7 +5683,9 @@ public static partial class MR
                     return __this_copy;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrH::operator--`.
+                /// </summary>
                 public unsafe void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrH", ExactSpelling = true)]
@@ -4959,7 +5693,9 @@ public static partial class MR
                     MR.CS.CSharp.Const_IncrDecrH __unused_ret = new(__MR_C_decr_MR_CSharp_IncrDecrH(_UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrH::operator--`.
+                /// </summary>
                 public static unsafe IncrDecrH operator--(MR.CS.CSharp.Const_IncrDecrH _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrH", ExactSpelling = true)]
@@ -4971,13 +5707,17 @@ public static partial class MR
             }
 
             // This class is non-copyable, but is trivially movable, so we treat it as if it was copyable.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrH`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IncrDecrH : Const_IncrDecrH
             {
                 internal unsafe IncrDecrH(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IncrDecrH() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrH_DefaultConstruct", ExactSpelling = true)]
@@ -4985,7 +5725,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrH_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrH::IncrDecrH`.
+                /// </summary>
                 public unsafe IncrDecrH(MR.CS.CSharp.Const_IncrDecrH _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrH_ConstructFromAnother", ExactSpelling = true)]
@@ -4994,12 +5736,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrH` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IncrDecrH`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrH`/`Const_IncrDecrH` directly.
+            /// </summary>
             public class _InOptMut_IncrDecrH
             {
                 public IncrDecrH? Opt;
@@ -5009,12 +5753,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IncrDecrH(IncrDecrH value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrH` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IncrDecrH`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrH`/`Const_IncrDecrH` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IncrDecrH
             {
                 public Const_IncrDecrH? Opt;
@@ -5025,8 +5771,10 @@ public static partial class MR
             }
 
             // Friend functions.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrI`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IncrDecrI : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -5047,7 +5795,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrI() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IncrDecrI() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrI_DefaultConstruct", ExactSpelling = true)]
@@ -5055,7 +5805,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrI_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrI::IncrDecrI`.
+                /// </summary>
                 public unsafe Const_IncrDecrI(MR.CS.CSharp.Const_IncrDecrI _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrI_ConstructFromAnother", ExactSpelling = true)]
@@ -5063,7 +5815,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrI_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
@@ -5071,7 +5825,9 @@ public static partial class MR
                     int __unused_ret = __MR_C_incr_MR_CSharp_IncrDecrI(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator++`.
+                /// </summary>
                 public static unsafe IncrDecrI operator++(MR.CS.CSharp.Const_IncrDecrI _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
@@ -5081,7 +5837,9 @@ public static partial class MR
                     return __this_copy;
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
+                /// </summary>
                 public unsafe void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
@@ -5089,7 +5847,9 @@ public static partial class MR
                     int __unused_ret = __MR_C_decr_MR_CSharp_IncrDecrI(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
+                /// </summary>
                 public static unsafe IncrDecrI operator--(MR.CS.CSharp.Const_IncrDecrI _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
@@ -5101,13 +5861,17 @@ public static partial class MR
             }
 
             // Friend functions.
+            /// <summary>
             /// Generated from class `MR::CSharp::IncrDecrI`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IncrDecrI : Const_IncrDecrI
             {
                 internal unsafe IncrDecrI(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IncrDecrI() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrI_DefaultConstruct", ExactSpelling = true)]
@@ -5115,7 +5879,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrI_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IncrDecrI::IncrDecrI`.
+                /// </summary>
                 public unsafe IncrDecrI(MR.CS.CSharp.Const_IncrDecrI _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrI_ConstructFromAnother", ExactSpelling = true)]
@@ -5123,7 +5889,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrI_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrI::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.IncrDecrI assign(MR.CS.CSharp.Const_IncrDecrI _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IncrDecrI_AssignFromAnother", ExactSpelling = true)]
@@ -5132,12 +5900,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrI` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IncrDecrI`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrI`/`Const_IncrDecrI` directly.
+            /// </summary>
             public class _InOptMut_IncrDecrI
             {
                 public IncrDecrI? Opt;
@@ -5147,12 +5917,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IncrDecrI(IncrDecrI value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IncrDecrI` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IncrDecrI`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IncrDecrI`/`Const_IncrDecrI` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IncrDecrI
             {
                 public Const_IncrDecrI? Opt;
@@ -5163,8 +5935,10 @@ public static partial class MR
             }
 
             // Test equality comparison.
+            /// <summary>
             /// Generated from class `MR::CSharp::EqualityA`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_EqualityA : MR.CS.Misc.Object, System.IDisposable, System.IEquatable<MR.CS.CSharp.Const_EqualityA>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -5185,7 +5959,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityA() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_EqualityA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityA_DefaultConstruct", ExactSpelling = true)]
@@ -5193,7 +5969,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::EqualityA::EqualityA`.
+                /// </summary>
                 public unsafe Const_EqualityA(MR.CS.CSharp.Const_EqualityA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityA_ConstructFromAnother", ExactSpelling = true)]
@@ -5201,7 +5979,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityA::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.Const_EqualityA _this, MR.CS.CSharp.Const_EqualityA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_EqualityA", ExactSpelling = true)]
@@ -5234,13 +6014,17 @@ public static partial class MR
             }
 
             // Test equality comparison.
+            /// <summary>
             /// Generated from class `MR::CSharp::EqualityA`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class EqualityA : Const_EqualityA, System.IEquatable<int>
             {
                 internal unsafe EqualityA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe EqualityA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityA_DefaultConstruct", ExactSpelling = true)]
@@ -5248,7 +6032,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::EqualityA::EqualityA`.
+                /// </summary>
                 public unsafe EqualityA(MR.CS.CSharp.Const_EqualityA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityA_ConstructFromAnother", ExactSpelling = true)]
@@ -5256,7 +6042,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityA::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.EqualityA assign(MR.CS.CSharp.Const_EqualityA _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityA_AssignFromAnother", ExactSpelling = true)]
@@ -5264,7 +6052,9 @@ public static partial class MR
                     return new(__MR_CSharp_EqualityA_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityA::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.EqualityA _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_EqualityA_int", ExactSpelling = true)]
@@ -5294,12 +6084,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `EqualityA` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_EqualityA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `EqualityA`/`Const_EqualityA` directly.
+            /// </summary>
             public class _InOptMut_EqualityA
             {
                 public EqualityA? Opt;
@@ -5309,12 +6101,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_EqualityA(EqualityA value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `EqualityA` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_EqualityA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `EqualityA`/`Const_EqualityA` to pass it to the function.
+            /// </summary>
             public class _InOptConst_EqualityA
             {
                 public Const_EqualityA? Opt;
@@ -5325,8 +6119,10 @@ public static partial class MR
             }
 
             // Return type isn't `bool`.
+            /// <summary>
             /// Generated from class `MR::CSharp::EqualityB`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_EqualityB : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -5347,7 +6143,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityB() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_EqualityB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityB_DefaultConstruct", ExactSpelling = true)]
@@ -5355,7 +6153,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::EqualityB::EqualityB`.
+                /// </summary>
                 public unsafe Const_EqualityB(MR.CS.CSharp.Const_EqualityB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityB_ConstructFromAnother", ExactSpelling = true)]
@@ -5363,7 +6163,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityB_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityB::operator==`.
+                /// </summary>
                 public unsafe int equal(MR.CS.CSharp.Const_EqualityB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_EqualityB", ExactSpelling = true)]
@@ -5373,13 +6175,17 @@ public static partial class MR
             }
 
             // Return type isn't `bool`.
+            /// <summary>
             /// Generated from class `MR::CSharp::EqualityB`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class EqualityB : Const_EqualityB
             {
                 internal unsafe EqualityB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe EqualityB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityB_DefaultConstruct", ExactSpelling = true)]
@@ -5387,7 +6193,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::EqualityB::EqualityB`.
+                /// </summary>
                 public unsafe EqualityB(MR.CS.CSharp.Const_EqualityB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityB_ConstructFromAnother", ExactSpelling = true)]
@@ -5395,7 +6203,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityB_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityB::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.EqualityB assign(MR.CS.CSharp.Const_EqualityB _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityB_AssignFromAnother", ExactSpelling = true)]
@@ -5403,7 +6213,9 @@ public static partial class MR
                     return new(__MR_CSharp_EqualityB_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityB::operator==`.
+                /// </summary>
                 public unsafe int equal(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_EqualityB_int", ExactSpelling = true)]
@@ -5411,7 +6223,9 @@ public static partial class MR
                     return __MR_C_equal_MR_CSharp_EqualityB_int(_UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityB::operator!=`.
+                /// </summary>
                 public unsafe int notEqual(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_equal_MR_CSharp_EqualityB_int", ExactSpelling = true)]
@@ -5420,12 +6234,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `EqualityB` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_EqualityB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `EqualityB`/`Const_EqualityB` directly.
+            /// </summary>
             public class _InOptMut_EqualityB
             {
                 public EqualityB? Opt;
@@ -5435,12 +6251,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_EqualityB(EqualityB value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `EqualityB` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_EqualityB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `EqualityB`/`Const_EqualityB` to pass it to the function.
+            /// </summary>
             public class _InOptConst_EqualityB
             {
                 public Const_EqualityB? Opt;
@@ -5451,8 +6269,10 @@ public static partial class MR
             }
 
             // Return type is `void`.
+            /// <summary>
             /// Generated from class `MR::CSharp::EqualityC`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_EqualityC : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -5473,7 +6293,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityC() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_EqualityC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityC_DefaultConstruct", ExactSpelling = true)]
@@ -5481,7 +6303,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::EqualityC::EqualityC`.
+                /// </summary>
                 public unsafe Const_EqualityC(MR.CS.CSharp.Const_EqualityC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityC_ConstructFromAnother", ExactSpelling = true)]
@@ -5489,7 +6313,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityC_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityC::operator==`.
+                /// </summary>
                 public unsafe void equal(MR.CS.CSharp.Const_EqualityC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_EqualityC", ExactSpelling = true)]
@@ -5499,13 +6325,17 @@ public static partial class MR
             }
 
             // Return type is `void`.
+            /// <summary>
             /// Generated from class `MR::CSharp::EqualityC`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class EqualityC : Const_EqualityC
             {
                 internal unsafe EqualityC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe EqualityC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityC_DefaultConstruct", ExactSpelling = true)]
@@ -5513,7 +6343,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::EqualityC::EqualityC`.
+                /// </summary>
                 public unsafe EqualityC(MR.CS.CSharp.Const_EqualityC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityC_ConstructFromAnother", ExactSpelling = true)]
@@ -5521,7 +6353,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityC_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityC::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.EqualityC assign(MR.CS.CSharp.Const_EqualityC _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityC_AssignFromAnother", ExactSpelling = true)]
@@ -5529,7 +6363,9 @@ public static partial class MR
                     return new(__MR_CSharp_EqualityC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityC::operator==`.
+                /// </summary>
                 public unsafe void equal(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_EqualityC_int", ExactSpelling = true)]
@@ -5537,7 +6373,9 @@ public static partial class MR
                     __MR_C_equal_MR_CSharp_EqualityC_int(_UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityC::operator!=`.
+                /// </summary>
                 public unsafe void notEqual(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_equal_MR_CSharp_EqualityC_int", ExactSpelling = true)]
@@ -5546,12 +6384,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `EqualityC` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_EqualityC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `EqualityC`/`Const_EqualityC` directly.
+            /// </summary>
             public class _InOptMut_EqualityC
             {
                 public EqualityC? Opt;
@@ -5561,12 +6401,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_EqualityC(EqualityC value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `EqualityC` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_EqualityC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `EqualityC`/`Const_EqualityC` to pass it to the function.
+            /// </summary>
             public class _InOptConst_EqualityC
             {
                 public Const_EqualityC? Opt;
@@ -5577,8 +6419,10 @@ public static partial class MR
             }
 
             // The C# parameter type ends with `?`, and isn't a managed type.
+            /// <summary>
             /// Generated from class `MR::CSharp::EqualityD`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_EqualityD : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -5599,7 +6443,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityD() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_EqualityD() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityD_DefaultConstruct", ExactSpelling = true)]
@@ -5607,7 +6453,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityD_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::EqualityD::EqualityD`.
+                /// </summary>
                 public unsafe Const_EqualityD(MR.CS.CSharp.Const_EqualityD _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityD_ConstructFromAnother", ExactSpelling = true)]
@@ -5617,13 +6465,17 @@ public static partial class MR
             }
 
             // The C# parameter type ends with `?`, and isn't a managed type.
+            /// <summary>
             /// Generated from class `MR::CSharp::EqualityD`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class EqualityD : Const_EqualityD, System.IEquatable<int?>
             {
                 internal unsafe EqualityD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe EqualityD() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityD_DefaultConstruct", ExactSpelling = true)]
@@ -5631,7 +6483,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityD_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::EqualityD::EqualityD`.
+                /// </summary>
                 public unsafe EqualityD(MR.CS.CSharp.Const_EqualityD _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityD_ConstructFromAnother", ExactSpelling = true)]
@@ -5639,7 +6493,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityD_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityD::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.EqualityD assign(MR.CS.CSharp.Const_EqualityD _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityD_AssignFromAnother", ExactSpelling = true)]
@@ -5647,7 +6503,9 @@ public static partial class MR
                     return new(__MR_CSharp_EqualityD_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityD::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.EqualityD _this, int? _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_EqualityD_const_int_ptr", ExactSpelling = true)]
@@ -5678,12 +6536,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `EqualityD` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_EqualityD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `EqualityD`/`Const_EqualityD` directly.
+            /// </summary>
             public class _InOptMut_EqualityD
             {
                 public EqualityD? Opt;
@@ -5693,12 +6553,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_EqualityD(EqualityD value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `EqualityD` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_EqualityD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `EqualityD`/`Const_EqualityD` to pass it to the function.
+            /// </summary>
             public class _InOptConst_EqualityD
             {
                 public Const_EqualityD? Opt;
@@ -5709,8 +6571,10 @@ public static partial class MR
             }
 
             // The C# parameter type ends with `?`, and is a managed type.
+            /// <summary>
             /// Generated from class `MR::CSharp::EqualityE`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_EqualityE : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -5731,7 +6595,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityE() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_EqualityE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityE_DefaultConstruct", ExactSpelling = true)]
@@ -5739,7 +6605,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityE_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::EqualityE::EqualityE`.
+                /// </summary>
                 public unsafe Const_EqualityE(MR.CS.CSharp.Const_EqualityE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityE_ConstructFromAnother", ExactSpelling = true)]
@@ -5749,13 +6617,17 @@ public static partial class MR
             }
 
             // The C# parameter type ends with `?`, and is a managed type.
+            /// <summary>
             /// Generated from class `MR::CSharp::EqualityE`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class EqualityE : Const_EqualityE, System.IEquatable<MR.CS.CSharp.EqualityD?>
             {
                 internal unsafe EqualityE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe EqualityE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityE_DefaultConstruct", ExactSpelling = true)]
@@ -5763,7 +6635,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityE_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::EqualityE::EqualityE`.
+                /// </summary>
                 public unsafe EqualityE(MR.CS.CSharp.Const_EqualityE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityE_ConstructFromAnother", ExactSpelling = true)]
@@ -5771,7 +6645,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityE_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityE::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.EqualityE assign(MR.CS.CSharp.Const_EqualityE _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_EqualityE_AssignFromAnother", ExactSpelling = true)]
@@ -5779,7 +6655,9 @@ public static partial class MR
                     return new(__MR_CSharp_EqualityE_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityE::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.EqualityE _this, MR.CS.CSharp.EqualityD? _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr", ExactSpelling = true)]
@@ -5809,12 +6687,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `EqualityE` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_EqualityE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `EqualityE`/`Const_EqualityE` directly.
+            /// </summary>
             public class _InOptMut_EqualityE
             {
                 public EqualityE? Opt;
@@ -5824,12 +6704,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_EqualityE(EqualityE value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `EqualityE` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_EqualityE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `EqualityE`/`Const_EqualityE` to pass it to the function.
+            /// </summary>
             public class _InOptConst_EqualityE
             {
                 public Const_EqualityE? Opt;
@@ -5840,8 +6722,10 @@ public static partial class MR
             }
 
             // The happy path, the operator is const.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalA`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_RelationalA : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -5862,7 +6746,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalA() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_RelationalA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalA_DefaultConstruct", ExactSpelling = true)]
@@ -5870,7 +6756,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalA::RelationalA`.
+                /// </summary>
                 public unsafe Const_RelationalA(MR.CS.CSharp.Const_RelationalA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalA_ConstructFromAnother", ExactSpelling = true)]
@@ -5878,7 +6766,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalA::operator<`.
+                /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.Const_RelationalA _this, MR.CS.CSharp.Const_RelationalA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_RelationalA", ExactSpelling = true)]
@@ -5903,13 +6793,17 @@ public static partial class MR
             }
 
             // The happy path, the operator is const.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalA`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class RelationalA : Const_RelationalA
             {
                 internal unsafe RelationalA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe RelationalA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalA_DefaultConstruct", ExactSpelling = true)]
@@ -5917,7 +6811,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalA::RelationalA`.
+                /// </summary>
                 public unsafe RelationalA(MR.CS.CSharp.Const_RelationalA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalA_ConstructFromAnother", ExactSpelling = true)]
@@ -5925,7 +6821,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalA::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.RelationalA assign(MR.CS.CSharp.Const_RelationalA _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalA_AssignFromAnother", ExactSpelling = true)]
@@ -5934,12 +6832,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalA` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_RelationalA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalA`/`Const_RelationalA` directly.
+            /// </summary>
             public class _InOptMut_RelationalA
             {
                 public RelationalA? Opt;
@@ -5949,12 +6849,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_RelationalA(RelationalA value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalA` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_RelationalA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalA`/`Const_RelationalA` to pass it to the function.
+            /// </summary>
             public class _InOptConst_RelationalA
             {
                 public Const_RelationalA? Opt;
@@ -5965,8 +6867,10 @@ public static partial class MR
             }
 
             // The happy path, the operator is non-const.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalB`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_RelationalB : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -5987,7 +6891,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalB() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_RelationalB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalB_DefaultConstruct", ExactSpelling = true)]
@@ -5995,7 +6901,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalB::RelationalB`.
+                /// </summary>
                 public unsafe Const_RelationalB(MR.CS.CSharp.Const_RelationalB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalB_ConstructFromAnother", ExactSpelling = true)]
@@ -6005,13 +6913,17 @@ public static partial class MR
             }
 
             // The happy path, the operator is non-const.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalB`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class RelationalB : Const_RelationalB
             {
                 internal unsafe RelationalB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe RelationalB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalB_DefaultConstruct", ExactSpelling = true)]
@@ -6019,7 +6931,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalB::RelationalB`.
+                /// </summary>
                 public unsafe RelationalB(MR.CS.CSharp.Const_RelationalB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalB_ConstructFromAnother", ExactSpelling = true)]
@@ -6027,7 +6941,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalB_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalB::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.RelationalB assign(MR.CS.CSharp.Const_RelationalB _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalB_AssignFromAnother", ExactSpelling = true)]
@@ -6035,7 +6951,9 @@ public static partial class MR
                     return new(__MR_CSharp_RelationalB_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalB::operator<`.
+                /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.RelationalB _this, MR.CS.CSharp.RelationalB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_RelationalB", ExactSpelling = true)]
@@ -6059,12 +6977,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalB` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_RelationalB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalB`/`Const_RelationalB` directly.
+            /// </summary>
             public class _InOptMut_RelationalB
             {
                 public RelationalB? Opt;
@@ -6074,12 +6994,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_RelationalB(RelationalB value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalB` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_RelationalB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalB`/`Const_RelationalB` to pass it to the function.
+            /// </summary>
             public class _InOptConst_RelationalB
             {
                 public Const_RelationalB? Opt;
@@ -6090,8 +7012,10 @@ public static partial class MR
             }
 
             // The operators have mixed constness, which causes them to be demoted to functions.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalC`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_RelationalC : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -6112,7 +7036,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalC() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_RelationalC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalC_DefaultConstruct", ExactSpelling = true)]
@@ -6120,7 +7046,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalC::RelationalC`.
+                /// </summary>
                 public unsafe Const_RelationalC(MR.CS.CSharp.Const_RelationalC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalC_ConstructFromAnother", ExactSpelling = true)]
@@ -6128,7 +7056,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalC_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalC::operator<`.
+                /// </summary>
                 public unsafe bool less(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6136,7 +7066,9 @@ public static partial class MR
                     return __MR_C_less_MR_CSharp_RelationalC(_UnderlyingPtr, _1._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalC::operator>`.
+                /// </summary>
                 public unsafe bool greater(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6145,7 +7077,9 @@ public static partial class MR
                 }
 
                 // bool operator<=(RelationalC &) const {return false;} // Skip one operator to observe the function missing.
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalC::operator>=`.
+                /// </summary>
                 public unsafe bool greaterEqual(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_equal_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6155,13 +7089,17 @@ public static partial class MR
             }
 
             // The operators have mixed constness, which causes them to be demoted to functions.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalC`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class RelationalC : Const_RelationalC
             {
                 internal unsafe RelationalC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe RelationalC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalC_DefaultConstruct", ExactSpelling = true)]
@@ -6169,7 +7107,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalC::RelationalC`.
+                /// </summary>
                 public unsafe RelationalC(MR.CS.CSharp.Const_RelationalC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalC_ConstructFromAnother", ExactSpelling = true)]
@@ -6177,7 +7117,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalC_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalC::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.RelationalC assign(MR.CS.CSharp.Const_RelationalC _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalC_AssignFromAnother", ExactSpelling = true)]
@@ -6186,12 +7128,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalC` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_RelationalC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalC`/`Const_RelationalC` directly.
+            /// </summary>
             public class _InOptMut_RelationalC
             {
                 public RelationalC? Opt;
@@ -6201,12 +7145,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_RelationalC(RelationalC value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalC` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_RelationalC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalC`/`Const_RelationalC` to pass it to the function.
+            /// </summary>
             public class _InOptConst_RelationalC
             {
                 public Const_RelationalC? Opt;
@@ -6217,8 +7163,10 @@ public static partial class MR
             }
 
             // The operators have operands of different types, causing them to be demoted to functions.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalD`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_RelationalD : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -6239,7 +7187,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalD() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_RelationalD() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalD_DefaultConstruct", ExactSpelling = true)]
@@ -6247,7 +7197,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalD_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalD::RelationalD`.
+                /// </summary>
                 public unsafe Const_RelationalD(MR.CS.CSharp.Const_RelationalD _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalD_ConstructFromAnother", ExactSpelling = true)]
@@ -6255,7 +7207,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalD_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalD::operator<`.
+                /// </summary>
                 public unsafe bool less(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_RelationalD_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6263,7 +7217,9 @@ public static partial class MR
                     return __MR_C_less_MR_CSharp_RelationalD_MR_CSharp_RelationalC(_UnderlyingPtr, _1._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalD::operator>`.
+                /// </summary>
                 public unsafe bool greater(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_MR_CSharp_RelationalD_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6271,7 +7227,9 @@ public static partial class MR
                     return __MR_C_greater_MR_CSharp_RelationalD_MR_CSharp_RelationalC(_UnderlyingPtr, _1._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalD::operator<=`.
+                /// </summary>
                 public unsafe bool lessEqual(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_equal_MR_CSharp_RelationalD_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6279,7 +7237,9 @@ public static partial class MR
                     return __MR_C_less_equal_MR_CSharp_RelationalD_MR_CSharp_RelationalC(_UnderlyingPtr, _1._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalD::operator>=`.
+                /// </summary>
                 public unsafe bool greaterEqual(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_equal_MR_CSharp_RelationalD_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6289,13 +7249,17 @@ public static partial class MR
             }
 
             // The operators have operands of different types, causing them to be demoted to functions.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalD`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class RelationalD : Const_RelationalD
             {
                 internal unsafe RelationalD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe RelationalD() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalD_DefaultConstruct", ExactSpelling = true)]
@@ -6303,7 +7267,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalD_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalD::RelationalD`.
+                /// </summary>
                 public unsafe RelationalD(MR.CS.CSharp.Const_RelationalD _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalD_ConstructFromAnother", ExactSpelling = true)]
@@ -6311,7 +7277,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalD_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalD::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.RelationalD assign(MR.CS.CSharp.Const_RelationalD _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalD_AssignFromAnother", ExactSpelling = true)]
@@ -6320,12 +7288,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalD` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_RelationalD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalD`/`Const_RelationalD` directly.
+            /// </summary>
             public class _InOptMut_RelationalD
             {
                 public RelationalD? Opt;
@@ -6335,12 +7305,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_RelationalD(RelationalD value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalD` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_RelationalD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalD`/`Const_RelationalD` to pass it to the function.
+            /// </summary>
             public class _InOptConst_RelationalD
             {
                 public Const_RelationalD? Opt;
@@ -6351,8 +7323,10 @@ public static partial class MR
             }
 
             // The operators have a weird return type.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalE`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_RelationalE : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -6373,7 +7347,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalE() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_RelationalE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalE_DefaultConstruct", ExactSpelling = true)]
@@ -6381,7 +7357,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalE_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalE::RelationalE`.
+                /// </summary>
                 public unsafe Const_RelationalE(MR.CS.CSharp.Const_RelationalE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalE_ConstructFromAnother", ExactSpelling = true)]
@@ -6389,7 +7367,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalE_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalE::operator<`.
+                /// </summary>
                 public unsafe int less(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_RelationalE_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6397,7 +7377,9 @@ public static partial class MR
                     return __MR_C_less_MR_CSharp_RelationalE_MR_CSharp_RelationalC(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalE::operator>`.
+                /// </summary>
                 public unsafe int greater(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_MR_CSharp_RelationalE_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6405,7 +7387,9 @@ public static partial class MR
                     return __MR_C_greater_MR_CSharp_RelationalE_MR_CSharp_RelationalC(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalE::operator<=`.
+                /// </summary>
                 public unsafe int lessEqual(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_equal_MR_CSharp_RelationalE_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6413,7 +7397,9 @@ public static partial class MR
                     return __MR_C_less_equal_MR_CSharp_RelationalE_MR_CSharp_RelationalC(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalE::operator>=`.
+                /// </summary>
                 public unsafe int greaterEqual(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_equal_MR_CSharp_RelationalE_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6423,13 +7409,17 @@ public static partial class MR
             }
 
             // The operators have a weird return type.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalE`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class RelationalE : Const_RelationalE
             {
                 internal unsafe RelationalE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe RelationalE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalE_DefaultConstruct", ExactSpelling = true)]
@@ -6437,7 +7427,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalE_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalE::RelationalE`.
+                /// </summary>
                 public unsafe RelationalE(MR.CS.CSharp.Const_RelationalE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalE_ConstructFromAnother", ExactSpelling = true)]
@@ -6445,7 +7437,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalE_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalE::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.RelationalE assign(MR.CS.CSharp.Const_RelationalE _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalE_AssignFromAnother", ExactSpelling = true)]
@@ -6454,12 +7448,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalE` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_RelationalE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalE`/`Const_RelationalE` directly.
+            /// </summary>
             public class _InOptMut_RelationalE
             {
                 public RelationalE? Opt;
@@ -6469,12 +7465,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_RelationalE(RelationalE value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalE` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_RelationalE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalE`/`Const_RelationalE` to pass it to the function.
+            /// </summary>
             public class _InOptConst_RelationalE
             {
                 public Const_RelationalE? Opt;
@@ -6485,8 +7483,10 @@ public static partial class MR
             }
 
             // The operators return void.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalF`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_RelationalF : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -6507,7 +7507,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalF() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_RelationalF() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalF_DefaultConstruct", ExactSpelling = true)]
@@ -6515,7 +7517,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalF_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalF::RelationalF`.
+                /// </summary>
                 public unsafe Const_RelationalF(MR.CS.CSharp.Const_RelationalF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalF_ConstructFromAnother", ExactSpelling = true)]
@@ -6523,7 +7527,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalF_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalF::operator<`.
+                /// </summary>
                 public unsafe void less(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_RelationalF_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6531,7 +7537,9 @@ public static partial class MR
                     __MR_C_less_MR_CSharp_RelationalF_MR_CSharp_RelationalC(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalF::operator>`.
+                /// </summary>
                 public unsafe void greater(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_MR_CSharp_RelationalF_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6539,7 +7547,9 @@ public static partial class MR
                     __MR_C_greater_MR_CSharp_RelationalF_MR_CSharp_RelationalC(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalF::operator<=`.
+                /// </summary>
                 public unsafe void lessEqual(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_equal_MR_CSharp_RelationalF_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6547,7 +7557,9 @@ public static partial class MR
                     __MR_C_less_equal_MR_CSharp_RelationalF_MR_CSharp_RelationalC(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalF::operator>=`.
+                /// </summary>
                 public unsafe void greaterEqual(MR.CS.CSharp.RelationalC _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_greater_equal_MR_CSharp_RelationalF_MR_CSharp_RelationalC", ExactSpelling = true)]
@@ -6557,13 +7569,17 @@ public static partial class MR
             }
 
             // The operators return void.
+            /// <summary>
             /// Generated from class `MR::CSharp::RelationalF`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class RelationalF : Const_RelationalF
             {
                 internal unsafe RelationalF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe RelationalF() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalF_DefaultConstruct", ExactSpelling = true)]
@@ -6571,7 +7587,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalF_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::RelationalF::RelationalF`.
+                /// </summary>
                 public unsafe RelationalF(MR.CS.CSharp.Const_RelationalF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalF_ConstructFromAnother", ExactSpelling = true)]
@@ -6579,7 +7597,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalF_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalF::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.RelationalF assign(MR.CS.CSharp.Const_RelationalF _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_RelationalF_AssignFromAnother", ExactSpelling = true)]
@@ -6588,12 +7608,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalF` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_RelationalF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalF`/`Const_RelationalF` directly.
+            /// </summary>
             public class _InOptMut_RelationalF
             {
                 public RelationalF? Opt;
@@ -6603,12 +7625,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_RelationalF(RelationalF value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `RelationalF` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_RelationalF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `RelationalF`/`Const_RelationalF` to pass it to the function.
+            /// </summary>
             public class _InOptConst_RelationalF
             {
                 public Const_RelationalF? Opt;
@@ -6619,8 +7643,10 @@ public static partial class MR
             }
 
             // The operator is injected correctly.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsA`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsLhsA : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -6641,7 +7667,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsA() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsA_DefaultConstruct", ExactSpelling = true)]
@@ -6649,7 +7677,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsA::StaticOpsLhsA`.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsA(MR.CS.CSharp.Const_StaticOpsLhsA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsA_ConstructFromAnother", ExactSpelling = true)]
@@ -6657,7 +7687,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(Const_StaticOpsLhsA _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsA_int", ExactSpelling = true)]
@@ -6667,13 +7699,17 @@ public static partial class MR
             }
 
             // The operator is injected correctly.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsA`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsLhsA : Const_StaticOpsLhsA
             {
                 internal unsafe StaticOpsLhsA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsLhsA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsA_DefaultConstruct", ExactSpelling = true)]
@@ -6681,7 +7717,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsA::StaticOpsLhsA`.
+                /// </summary>
                 public unsafe StaticOpsLhsA(MR.CS.CSharp.Const_StaticOpsLhsA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsA_ConstructFromAnother", ExactSpelling = true)]
@@ -6689,7 +7727,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsLhsA::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsLhsA assign(MR.CS.CSharp.Const_StaticOpsLhsA _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsA_AssignFromAnother", ExactSpelling = true)]
@@ -6698,12 +7738,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsA` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsLhsA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsA`/`Const_StaticOpsLhsA` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsLhsA
             {
                 public StaticOpsLhsA? Opt;
@@ -6713,12 +7755,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsLhsA(StaticOpsLhsA value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsA` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsLhsA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsA`/`Const_StaticOpsLhsA` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsLhsA
             {
                 public Const_StaticOpsLhsA? Opt;
@@ -6729,8 +7773,10 @@ public static partial class MR
             }
 
             // The operator injects but becomes a function, because it returns void.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsB`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsLhsB : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -6751,7 +7797,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsB() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsB_DefaultConstruct", ExactSpelling = true)]
@@ -6759,7 +7807,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsB::StaticOpsLhsB`.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsB(MR.CS.CSharp.Const_StaticOpsLhsB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsB_ConstructFromAnother", ExactSpelling = true)]
@@ -6767,7 +7817,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsB_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public unsafe void add(int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsB_int", ExactSpelling = true)]
@@ -6777,13 +7829,17 @@ public static partial class MR
             }
 
             // The operator injects but becomes a function, because it returns void.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsB`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsLhsB : Const_StaticOpsLhsB
             {
                 internal unsafe StaticOpsLhsB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsLhsB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsB_DefaultConstruct", ExactSpelling = true)]
@@ -6791,7 +7847,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsB::StaticOpsLhsB`.
+                /// </summary>
                 public unsafe StaticOpsLhsB(MR.CS.CSharp.Const_StaticOpsLhsB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsB_ConstructFromAnother", ExactSpelling = true)]
@@ -6799,7 +7857,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsB_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsLhsB::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsLhsB assign(MR.CS.CSharp.Const_StaticOpsLhsB _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsB_AssignFromAnother", ExactSpelling = true)]
@@ -6808,12 +7868,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsB` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsLhsB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsB`/`Const_StaticOpsLhsB` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsLhsB
             {
                 public StaticOpsLhsB? Opt;
@@ -6823,12 +7885,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsLhsB(StaticOpsLhsB value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsB` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsLhsB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsB`/`Const_StaticOpsLhsB` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsLhsB
             {
                 public Const_StaticOpsLhsB? Opt;
@@ -6839,8 +7903,10 @@ public static partial class MR
             }
 
             // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsC`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsLhsC : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -6861,7 +7927,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsC() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_DefaultConstruct", ExactSpelling = true)]
@@ -6869,7 +7937,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsC::StaticOpsLhsC`.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsC(MR.CS.CSharp._ByValue_StaticOpsLhsC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_ConstructFromAnother", ExactSpelling = true)]
@@ -6879,13 +7949,17 @@ public static partial class MR
             }
 
             // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsC`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsLhsC : Const_StaticOpsLhsC
             {
                 internal unsafe StaticOpsLhsC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsLhsC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_DefaultConstruct", ExactSpelling = true)]
@@ -6893,7 +7967,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsC::StaticOpsLhsC`.
+                /// </summary>
                 public unsafe StaticOpsLhsC(MR.CS.CSharp._ByValue_StaticOpsLhsC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsC_ConstructFromAnother", ExactSpelling = true)]
@@ -6902,12 +7978,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `StaticOpsLhsC` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_StaticOpsLhsC
             {
                 internal readonly Const_StaticOpsLhsC? Value;
@@ -6917,12 +7995,14 @@ public static partial class MR
                 public static implicit operator _ByValue_StaticOpsLhsC(MR.CS.Misc._Moved<StaticOpsLhsC> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsC` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsLhsC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsC`/`Const_StaticOpsLhsC` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsLhsC
             {
                 public StaticOpsLhsC? Opt;
@@ -6932,12 +8012,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsLhsC(StaticOpsLhsC value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsC` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsLhsC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsC`/`Const_StaticOpsLhsC` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsLhsC
             {
                 public Const_StaticOpsLhsC? Opt;
@@ -6948,8 +8030,10 @@ public static partial class MR
             }
 
             // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsD`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsLhsD : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -6970,7 +8054,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsD() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsD() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsD_DefaultConstruct", ExactSpelling = true)]
@@ -6978,7 +8064,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsD_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsD::StaticOpsLhsD`.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsD(MR.CS.CSharp.Const_StaticOpsLhsD _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsD_ConstructFromAnother", ExactSpelling = true)]
@@ -6986,7 +8074,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsD_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(Const_StaticOpsLhsD _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsD_int", ExactSpelling = true)]
@@ -6996,13 +8086,17 @@ public static partial class MR
             }
 
             // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsD`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsLhsD : Const_StaticOpsLhsD
             {
                 internal unsafe StaticOpsLhsD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsLhsD() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsD_DefaultConstruct", ExactSpelling = true)]
@@ -7010,7 +8104,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsD_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsD::StaticOpsLhsD`.
+                /// </summary>
                 public unsafe StaticOpsLhsD(MR.CS.CSharp.Const_StaticOpsLhsD _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsD_ConstructFromAnother", ExactSpelling = true)]
@@ -7019,12 +8115,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsD` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsLhsD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsD`/`Const_StaticOpsLhsD` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsLhsD
             {
                 public StaticOpsLhsD? Opt;
@@ -7034,12 +8132,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsLhsD(StaticOpsLhsD value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsD` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsLhsD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsD`/`Const_StaticOpsLhsD` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsLhsD
             {
                 public Const_StaticOpsLhsD? Opt;
@@ -7050,8 +8150,10 @@ public static partial class MR
             }
 
             // The class isn't copyable, but the operator takes it by reference, so it injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsE`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsLhsE : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -7072,7 +8174,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsE() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsE_DefaultConstruct", ExactSpelling = true)]
@@ -7080,7 +8184,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsE_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsE::StaticOpsLhsE`.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsE(MR.CS.CSharp.Const_StaticOpsLhsE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsE_ConstructFromAnother", ExactSpelling = true)]
@@ -7090,13 +8196,17 @@ public static partial class MR
             }
 
             // The class isn't copyable, but the operator takes it by reference, so it injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsE`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsLhsE : Const_StaticOpsLhsE
             {
                 internal unsafe StaticOpsLhsE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsLhsE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsE_DefaultConstruct", ExactSpelling = true)]
@@ -7104,7 +8214,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsE_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsE::StaticOpsLhsE`.
+                /// </summary>
                 public unsafe StaticOpsLhsE(MR.CS.CSharp.Const_StaticOpsLhsE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsE_ConstructFromAnother", ExactSpelling = true)]
@@ -7112,7 +8224,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsE_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsLhsE::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsLhsE assign(MR.CS.CSharp.Const_StaticOpsLhsE _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsE_AssignFromAnother", ExactSpelling = true)]
@@ -7120,7 +8234,9 @@ public static partial class MR
                     return new(__MR_CSharp_StaticOpsLhsE_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.StaticOpsLhsE _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsE_int", ExactSpelling = true)]
@@ -7129,12 +8245,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsE` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsLhsE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsE`/`Const_StaticOpsLhsE` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsLhsE
             {
                 public StaticOpsLhsE? Opt;
@@ -7144,12 +8262,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsLhsE(StaticOpsLhsE value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsE` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsLhsE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsE`/`Const_StaticOpsLhsE` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsLhsE
             {
                 public Const_StaticOpsLhsE? Opt;
@@ -7160,8 +8280,10 @@ public static partial class MR
             }
 
             // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsF`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsLhsF : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -7182,7 +8304,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsF() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsF() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsF_DefaultConstruct", ExactSpelling = true)]
@@ -7190,7 +8314,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsF_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsF::StaticOpsLhsF`.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsF(MR.CS.CSharp.Const_StaticOpsLhsF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsF_ConstructFromAnother", ExactSpelling = true)]
@@ -7198,7 +8324,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsF_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.Const_StaticOpsLhsF _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsF_int", ExactSpelling = true)]
@@ -7208,13 +8336,17 @@ public static partial class MR
             }
 
             // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsF`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsLhsF : Const_StaticOpsLhsF
             {
                 internal unsafe StaticOpsLhsF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsLhsF() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsF_DefaultConstruct", ExactSpelling = true)]
@@ -7222,7 +8354,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsF_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsF::StaticOpsLhsF`.
+                /// </summary>
                 public unsafe StaticOpsLhsF(MR.CS.CSharp.Const_StaticOpsLhsF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsF_ConstructFromAnother", ExactSpelling = true)]
@@ -7230,7 +8364,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsF_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsLhsF::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsLhsF assign(MR.CS.CSharp.Const_StaticOpsLhsF _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsF_AssignFromAnother", ExactSpelling = true)]
@@ -7239,12 +8375,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsF` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsLhsF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsF`/`Const_StaticOpsLhsF` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsLhsF
             {
                 public StaticOpsLhsF? Opt;
@@ -7254,12 +8392,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsLhsF(StaticOpsLhsF value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsF` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsLhsF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsF`/`Const_StaticOpsLhsF` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsLhsF
             {
                 public Const_StaticOpsLhsF? Opt;
@@ -7270,8 +8410,10 @@ public static partial class MR
             }
 
             // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsG`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsLhsG : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -7292,7 +8434,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsG() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsG() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsG_DefaultConstruct", ExactSpelling = true)]
@@ -7300,7 +8444,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsG_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsG::StaticOpsLhsG`.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsG(MR.CS.CSharp.Const_StaticOpsLhsG _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsG_ConstructFromAnother", ExactSpelling = true)]
@@ -7310,13 +8456,17 @@ public static partial class MR
             }
 
             // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsG`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsLhsG : Const_StaticOpsLhsG
             {
                 internal unsafe StaticOpsLhsG(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsLhsG() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsG_DefaultConstruct", ExactSpelling = true)]
@@ -7324,7 +8474,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsG_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsG::StaticOpsLhsG`.
+                /// </summary>
                 public unsafe StaticOpsLhsG(MR.CS.CSharp.Const_StaticOpsLhsG _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsG_ConstructFromAnother", ExactSpelling = true)]
@@ -7332,7 +8484,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsG_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsLhsG::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsLhsG assign(MR.CS.CSharp.Const_StaticOpsLhsG _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsG_AssignFromAnother", ExactSpelling = true)]
@@ -7340,7 +8494,9 @@ public static partial class MR
                     return new(__MR_CSharp_StaticOpsLhsG_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(StaticOpsLhsG _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsG_int", ExactSpelling = true)]
@@ -7349,12 +8505,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsG` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsLhsG`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsG`/`Const_StaticOpsLhsG` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsLhsG
             {
                 public StaticOpsLhsG? Opt;
@@ -7364,12 +8522,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsLhsG(StaticOpsLhsG value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsG` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsLhsG`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsG`/`Const_StaticOpsLhsG` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsLhsG
             {
                 public Const_StaticOpsLhsG? Opt;
@@ -7381,8 +8541,10 @@ public static partial class MR
 
             // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
             //   so the operator gets injected into the const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsH`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsLhsH : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -7403,7 +8565,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsH() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsH() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsH_DefaultConstruct", ExactSpelling = true)]
@@ -7411,7 +8575,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsH_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsH::StaticOpsLhsH`.
+                /// </summary>
                 public unsafe Const_StaticOpsLhsH(MR.CS.CSharp.Const_StaticOpsLhsH _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsH_ConstructFromAnother", ExactSpelling = true)]
@@ -7419,7 +8585,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsH_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.Const_StaticOpsLhsH _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsH_int", ExactSpelling = true)]
@@ -7430,13 +8598,17 @@ public static partial class MR
 
             // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
             //   so the operator gets injected into the const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsLhsH`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsLhsH : Const_StaticOpsLhsH
             {
                 internal unsafe StaticOpsLhsH(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsLhsH() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsH_DefaultConstruct", ExactSpelling = true)]
@@ -7444,7 +8616,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsH_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsLhsH::StaticOpsLhsH`.
+                /// </summary>
                 public unsafe StaticOpsLhsH(MR.CS.CSharp.Const_StaticOpsLhsH _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsH_ConstructFromAnother", ExactSpelling = true)]
@@ -7452,7 +8626,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsH_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsLhsH::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsLhsH assign(MR.CS.CSharp.Const_StaticOpsLhsH _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsLhsH_AssignFromAnother", ExactSpelling = true)]
@@ -7461,12 +8637,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsH` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsLhsH`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsH`/`Const_StaticOpsLhsH` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsLhsH
             {
                 public StaticOpsLhsH? Opt;
@@ -7476,12 +8654,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsLhsH(StaticOpsLhsH value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsLhsH` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsLhsH`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsLhsH`/`Const_StaticOpsLhsH` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsLhsH
             {
                 public Const_StaticOpsLhsH? Opt;
@@ -7492,8 +8672,10 @@ public static partial class MR
             }
 
             // The operator is injected correctly.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsA`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsRhsA : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -7514,7 +8696,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsA() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsA_DefaultConstruct", ExactSpelling = true)]
@@ -7522,7 +8706,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsA::StaticOpsRhsA`.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsA(MR.CS.CSharp.Const_StaticOpsRhsA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsA_ConstructFromAnother", ExactSpelling = true)]
@@ -7530,7 +8716,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(int _1, Const_StaticOpsRhsA _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_int_MR_CSharp_StaticOpsRhsA", ExactSpelling = true)]
@@ -7540,13 +8728,17 @@ public static partial class MR
             }
 
             // The operator is injected correctly.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsA`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsRhsA : Const_StaticOpsRhsA
             {
                 internal unsafe StaticOpsRhsA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsRhsA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsA_DefaultConstruct", ExactSpelling = true)]
@@ -7554,7 +8746,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsA::StaticOpsRhsA`.
+                /// </summary>
                 public unsafe StaticOpsRhsA(MR.CS.CSharp.Const_StaticOpsRhsA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsA_ConstructFromAnother", ExactSpelling = true)]
@@ -7562,7 +8756,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsRhsA::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsRhsA assign(MR.CS.CSharp.Const_StaticOpsRhsA _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsA_AssignFromAnother", ExactSpelling = true)]
@@ -7571,12 +8767,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsA` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsRhsA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsA`/`Const_StaticOpsRhsA` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsRhsA
             {
                 public StaticOpsRhsA? Opt;
@@ -7586,12 +8784,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsRhsA(StaticOpsRhsA value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsA` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsRhsA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsA`/`Const_StaticOpsRhsA` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsRhsA
             {
                 public Const_StaticOpsRhsA? Opt;
@@ -7602,8 +8802,10 @@ public static partial class MR
             }
 
             // The operator injects but becomes a function, because it returns void.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsB`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsRhsB : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -7624,7 +8826,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsB() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsB_DefaultConstruct", ExactSpelling = true)]
@@ -7632,7 +8836,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsB::StaticOpsRhsB`.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsB(MR.CS.CSharp.Const_StaticOpsRhsB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsB_ConstructFromAnother", ExactSpelling = true)]
@@ -7640,7 +8846,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsB_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe void add(int _1, MR.CS.CSharp.Const_StaticOpsRhsB _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_int_MR_CSharp_StaticOpsRhsB", ExactSpelling = true)]
@@ -7650,13 +8858,17 @@ public static partial class MR
             }
 
             // The operator injects but becomes a function, because it returns void.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsB`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsRhsB : Const_StaticOpsRhsB
             {
                 internal unsafe StaticOpsRhsB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsRhsB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsB_DefaultConstruct", ExactSpelling = true)]
@@ -7664,7 +8876,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsB::StaticOpsRhsB`.
+                /// </summary>
                 public unsafe StaticOpsRhsB(MR.CS.CSharp.Const_StaticOpsRhsB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsB_ConstructFromAnother", ExactSpelling = true)]
@@ -7672,7 +8886,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsB_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsRhsB::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsRhsB assign(MR.CS.CSharp.Const_StaticOpsRhsB _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsB_AssignFromAnother", ExactSpelling = true)]
@@ -7681,12 +8897,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsB` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsRhsB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsB`/`Const_StaticOpsRhsB` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsRhsB
             {
                 public StaticOpsRhsB? Opt;
@@ -7696,12 +8914,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsRhsB(StaticOpsRhsB value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsB` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsRhsB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsB`/`Const_StaticOpsRhsB` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsRhsB
             {
                 public Const_StaticOpsRhsB? Opt;
@@ -7712,8 +8932,10 @@ public static partial class MR
             }
 
             // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsC`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsRhsC : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -7734,7 +8956,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsC() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsC_DefaultConstruct", ExactSpelling = true)]
@@ -7742,7 +8966,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsC::StaticOpsRhsC`.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsC(MR.CS.CSharp._ByValue_StaticOpsRhsC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsC_ConstructFromAnother", ExactSpelling = true)]
@@ -7752,13 +8978,17 @@ public static partial class MR
             }
 
             // The operator fails to inject because the class isn't copyable (and isn't trivially movable), and the operator takes it by value.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsC`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsRhsC : Const_StaticOpsRhsC
             {
                 internal unsafe StaticOpsRhsC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsRhsC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsC_DefaultConstruct", ExactSpelling = true)]
@@ -7766,7 +8996,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsC::StaticOpsRhsC`.
+                /// </summary>
                 public unsafe StaticOpsRhsC(MR.CS.CSharp._ByValue_StaticOpsRhsC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsC_ConstructFromAnother", ExactSpelling = true)]
@@ -7775,12 +9007,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `StaticOpsRhsC` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_StaticOpsRhsC
             {
                 internal readonly Const_StaticOpsRhsC? Value;
@@ -7790,12 +9024,14 @@ public static partial class MR
                 public static implicit operator _ByValue_StaticOpsRhsC(MR.CS.Misc._Moved<StaticOpsRhsC> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsC` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsRhsC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsC`/`Const_StaticOpsRhsC` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsRhsC
             {
                 public StaticOpsRhsC? Opt;
@@ -7805,12 +9041,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsRhsC(StaticOpsRhsC value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsC` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsRhsC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsC`/`Const_StaticOpsRhsC` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsRhsC
             {
                 public Const_StaticOpsRhsC? Opt;
@@ -7821,8 +9059,10 @@ public static partial class MR
             }
 
             // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsD`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsRhsD : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -7843,7 +9083,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsD() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsD() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsD_DefaultConstruct", ExactSpelling = true)]
@@ -7851,7 +9093,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsD_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsD::StaticOpsRhsD`.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsD(MR.CS.CSharp.Const_StaticOpsRhsD _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsD_ConstructFromAnother", ExactSpelling = true)]
@@ -7859,7 +9103,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsD_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(int _1, Const_StaticOpsRhsD _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_int_MR_CSharp_StaticOpsRhsD", ExactSpelling = true)]
@@ -7869,13 +9115,17 @@ public static partial class MR
             }
 
             // The class is non-copyable, but is trivially movable, so the by-value operator injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsD`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsRhsD : Const_StaticOpsRhsD
             {
                 internal unsafe StaticOpsRhsD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsRhsD() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsD_DefaultConstruct", ExactSpelling = true)]
@@ -7883,7 +9133,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsD_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsD::StaticOpsRhsD`.
+                /// </summary>
                 public unsafe StaticOpsRhsD(MR.CS.CSharp.Const_StaticOpsRhsD _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsD_ConstructFromAnother", ExactSpelling = true)]
@@ -7892,12 +9144,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsD` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsRhsD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsD`/`Const_StaticOpsRhsD` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsRhsD
             {
                 public StaticOpsRhsD? Opt;
@@ -7907,12 +9161,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsRhsD(StaticOpsRhsD value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsD` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsRhsD`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsD`/`Const_StaticOpsRhsD` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsRhsD
             {
                 public Const_StaticOpsRhsD? Opt;
@@ -7923,8 +9179,10 @@ public static partial class MR
             }
 
             // The class isn't copyable, but the operator takes it by reference, so it injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsE`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsRhsE : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -7945,7 +9203,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsE() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsE_DefaultConstruct", ExactSpelling = true)]
@@ -7953,7 +9213,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsE_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsE::StaticOpsRhsE`.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsE(MR.CS.CSharp.Const_StaticOpsRhsE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsE_ConstructFromAnother", ExactSpelling = true)]
@@ -7963,13 +9225,17 @@ public static partial class MR
             }
 
             // The class isn't copyable, but the operator takes it by reference, so it injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsE`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsRhsE : Const_StaticOpsRhsE
             {
                 internal unsafe StaticOpsRhsE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsRhsE() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsE_DefaultConstruct", ExactSpelling = true)]
@@ -7977,7 +9243,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsE_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsE::StaticOpsRhsE`.
+                /// </summary>
                 public unsafe StaticOpsRhsE(MR.CS.CSharp.Const_StaticOpsRhsE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsE_ConstructFromAnother", ExactSpelling = true)]
@@ -7985,7 +9253,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsE_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsRhsE::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsRhsE assign(MR.CS.CSharp.Const_StaticOpsRhsE _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsE_AssignFromAnother", ExactSpelling = true)]
@@ -7993,7 +9263,9 @@ public static partial class MR
                     return new(__MR_CSharp_StaticOpsRhsE_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(int _1, MR.CS.CSharp.StaticOpsRhsE _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_int_MR_CSharp_StaticOpsRhsE", ExactSpelling = true)]
@@ -8002,12 +9274,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsE` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsRhsE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsE`/`Const_StaticOpsRhsE` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsRhsE
             {
                 public StaticOpsRhsE? Opt;
@@ -8017,12 +9291,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsRhsE(StaticOpsRhsE value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsE` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsRhsE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsE`/`Const_StaticOpsRhsE` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsRhsE
             {
                 public Const_StaticOpsRhsE? Opt;
@@ -8033,8 +9309,10 @@ public static partial class MR
             }
 
             // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsF`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsRhsF : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -8055,7 +9333,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsF() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsF() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsF_DefaultConstruct", ExactSpelling = true)]
@@ -8063,7 +9343,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsF_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsF::StaticOpsRhsF`.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsF(MR.CS.CSharp.Const_StaticOpsRhsF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsF_ConstructFromAnother", ExactSpelling = true)]
@@ -8071,7 +9353,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsF_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(int _1, MR.CS.CSharp.Const_StaticOpsRhsF _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_int_MR_CSharp_StaticOpsRhsF", ExactSpelling = true)]
@@ -8081,13 +9365,17 @@ public static partial class MR
             }
 
             // The class isn't copyable, but the operator takes it by const reference, so it injects fine.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsF`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsRhsF : Const_StaticOpsRhsF
             {
                 internal unsafe StaticOpsRhsF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsRhsF() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsF_DefaultConstruct", ExactSpelling = true)]
@@ -8095,7 +9383,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsF_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsF::StaticOpsRhsF`.
+                /// </summary>
                 public unsafe StaticOpsRhsF(MR.CS.CSharp.Const_StaticOpsRhsF _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsF_ConstructFromAnother", ExactSpelling = true)]
@@ -8103,7 +9393,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsF_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsRhsF::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsRhsF assign(MR.CS.CSharp.Const_StaticOpsRhsF _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsF_AssignFromAnother", ExactSpelling = true)]
@@ -8112,12 +9404,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsF` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsRhsF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsF`/`Const_StaticOpsRhsF` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsRhsF
             {
                 public StaticOpsRhsF? Opt;
@@ -8127,12 +9421,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsRhsF(StaticOpsRhsF value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsF` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsRhsF`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsF`/`Const_StaticOpsRhsF` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsRhsF
             {
                 public Const_StaticOpsRhsF? Opt;
@@ -8143,8 +9439,10 @@ public static partial class MR
             }
 
             // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsG`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsRhsG : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -8165,7 +9463,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsG() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsG() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsG_DefaultConstruct", ExactSpelling = true)]
@@ -8173,7 +9473,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsG_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsG::StaticOpsRhsG`.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsG(MR.CS.CSharp.Const_StaticOpsRhsG _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsG_ConstructFromAnother", ExactSpelling = true)]
@@ -8183,13 +9485,17 @@ public static partial class MR
             }
 
             // The copy ctor uses a non-const reference, so an operator with a by-value parameter gets injected into the non-const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsG`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsRhsG : Const_StaticOpsRhsG
             {
                 internal unsafe StaticOpsRhsG(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsRhsG() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsG_DefaultConstruct", ExactSpelling = true)]
@@ -8197,7 +9503,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsG_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsG::StaticOpsRhsG`.
+                /// </summary>
                 public unsafe StaticOpsRhsG(MR.CS.CSharp.Const_StaticOpsRhsG _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsG_ConstructFromAnother", ExactSpelling = true)]
@@ -8205,7 +9513,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsG_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsRhsG::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsRhsG assign(MR.CS.CSharp.Const_StaticOpsRhsG _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsG_AssignFromAnother", ExactSpelling = true)]
@@ -8213,7 +9523,9 @@ public static partial class MR
                     return new(__MR_CSharp_StaticOpsRhsG_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(int _1, StaticOpsRhsG _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_int_MR_CSharp_StaticOpsRhsG", ExactSpelling = true)]
@@ -8222,12 +9534,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsG` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsRhsG`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsG`/`Const_StaticOpsRhsG` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsRhsG
             {
                 public StaticOpsRhsG? Opt;
@@ -8237,12 +9551,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsRhsG(StaticOpsRhsG value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsG` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsRhsG`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsG`/`Const_StaticOpsRhsG` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsRhsG
             {
                 public Const_StaticOpsRhsG? Opt;
@@ -8254,8 +9570,10 @@ public static partial class MR
 
             // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
             //   so the operator gets injected into the const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsH`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsRhsH : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -8276,7 +9594,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsH() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsH() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsH_DefaultConstruct", ExactSpelling = true)]
@@ -8284,7 +9604,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsH_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsH::StaticOpsRhsH`.
+                /// </summary>
                 public unsafe Const_StaticOpsRhsH(MR.CS.CSharp.Const_StaticOpsRhsH _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsH_ConstructFromAnother", ExactSpelling = true)]
@@ -8292,7 +9614,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsH_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(int _1, MR.CS.CSharp.Const_StaticOpsRhsH _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_int_MR_CSharp_StaticOpsRhsH", ExactSpelling = true)]
@@ -8303,13 +9627,17 @@ public static partial class MR
 
             // The copy ctor uses a non-const reference, but it doesn't matter because the operator takes the parameter by const reference,
             //   so the operator gets injected into the const half.
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsRhsH`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsRhsH : Const_StaticOpsRhsH
             {
                 internal unsafe StaticOpsRhsH(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsRhsH() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsH_DefaultConstruct", ExactSpelling = true)]
@@ -8317,7 +9645,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsH_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsRhsH::StaticOpsRhsH`.
+                /// </summary>
                 public unsafe StaticOpsRhsH(MR.CS.CSharp.Const_StaticOpsRhsH _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsH_ConstructFromAnother", ExactSpelling = true)]
@@ -8325,7 +9655,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsH_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsRhsH::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsRhsH assign(MR.CS.CSharp.Const_StaticOpsRhsH _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsRhsH_AssignFromAnother", ExactSpelling = true)]
@@ -8334,12 +9666,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsH` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsRhsH`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsH`/`Const_StaticOpsRhsH` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsRhsH
             {
                 public StaticOpsRhsH? Opt;
@@ -8349,12 +9683,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsRhsH(StaticOpsRhsH value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsRhsH` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsRhsH`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsRhsH`/`Const_StaticOpsRhsH` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsRhsH
             {
                 public Const_StaticOpsRhsH? Opt;
@@ -8369,8 +9705,10 @@ public static partial class MR
             {
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsMixedLhs`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsMixedLhs : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -8391,7 +9729,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsMixedLhs() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsMixedLhs() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsMixedLhs_DefaultConstruct", ExactSpelling = true)]
@@ -8399,7 +9739,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsMixedLhs_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsMixedLhs::StaticOpsMixedLhs`.
+                /// </summary>
                 public unsafe Const_StaticOpsMixedLhs(MR.CS.CSharp.Const_StaticOpsMixedLhs _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsMixedLhs_ConstructFromAnother", ExactSpelling = true)]
@@ -8408,7 +9750,9 @@ public static partial class MR
                 }
 
                 // Gets injected into the lhs by default.
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(Const_StaticOpsMixedLhs _1, MR.CS.CSharp.Const_StaticOpsMixedRhs _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsMixedLhs_MR_CSharp_StaticOpsMixedRhs", ExactSpelling = true)]
@@ -8417,13 +9761,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsMixedLhs`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsMixedLhs : Const_StaticOpsMixedLhs
             {
                 internal unsafe StaticOpsMixedLhs(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsMixedLhs() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsMixedLhs_DefaultConstruct", ExactSpelling = true)]
@@ -8431,7 +9779,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsMixedLhs_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsMixedLhs::StaticOpsMixedLhs`.
+                /// </summary>
                 public unsafe StaticOpsMixedLhs(MR.CS.CSharp.Const_StaticOpsMixedLhs _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsMixedLhs_ConstructFromAnother", ExactSpelling = true)]
@@ -8439,7 +9789,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsMixedLhs_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsMixedLhs::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsMixedLhs assign(MR.CS.CSharp.Const_StaticOpsMixedLhs _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsMixedLhs_AssignFromAnother", ExactSpelling = true)]
@@ -8448,12 +9800,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsMixedLhs` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsMixedLhs`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsMixedLhs`/`Const_StaticOpsMixedLhs` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsMixedLhs
             {
                 public StaticOpsMixedLhs? Opt;
@@ -8463,12 +9817,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsMixedLhs(StaticOpsMixedLhs value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsMixedLhs` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsMixedLhs`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsMixedLhs`/`Const_StaticOpsMixedLhs` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsMixedLhs
             {
                 public Const_StaticOpsMixedLhs? Opt;
@@ -8478,8 +9834,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_StaticOpsMixedLhs(Const_StaticOpsMixedLhs value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsMixedRhs`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StaticOpsMixedRhs : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -8500,7 +9858,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsMixedRhs() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StaticOpsMixedRhs() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsMixedRhs_DefaultConstruct", ExactSpelling = true)]
@@ -8508,7 +9868,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsMixedRhs_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsMixedRhs::StaticOpsMixedRhs`.
+                /// </summary>
                 public unsafe Const_StaticOpsMixedRhs(MR.CS.CSharp.Const_StaticOpsMixedRhs _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsMixedRhs_ConstructFromAnother", ExactSpelling = true)]
@@ -8517,13 +9879,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::StaticOpsMixedRhs`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StaticOpsMixedRhs : Const_StaticOpsMixedRhs
             {
                 internal unsafe StaticOpsMixedRhs(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StaticOpsMixedRhs() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsMixedRhs_DefaultConstruct", ExactSpelling = true)]
@@ -8531,7 +9897,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsMixedRhs_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StaticOpsMixedRhs::StaticOpsMixedRhs`.
+                /// </summary>
                 public unsafe StaticOpsMixedRhs(MR.CS.CSharp.Const_StaticOpsMixedRhs _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsMixedRhs_ConstructFromAnother", ExactSpelling = true)]
@@ -8539,7 +9907,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsMixedRhs_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsMixedRhs::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StaticOpsMixedRhs assign(MR.CS.CSharp.Const_StaticOpsMixedRhs _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StaticOpsMixedRhs_AssignFromAnother", ExactSpelling = true)]
@@ -8548,12 +9918,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsMixedRhs` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StaticOpsMixedRhs`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsMixedRhs`/`Const_StaticOpsMixedRhs` directly.
+            /// </summary>
             public class _InOptMut_StaticOpsMixedRhs
             {
                 public StaticOpsMixedRhs? Opt;
@@ -8563,12 +9935,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StaticOpsMixedRhs(StaticOpsMixedRhs value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StaticOpsMixedRhs` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StaticOpsMixedRhs`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StaticOpsMixedRhs`/`Const_StaticOpsMixedRhs` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StaticOpsMixedRhs
             {
                 public Const_StaticOpsMixedRhs? Opt;
@@ -8579,8 +9953,10 @@ public static partial class MR
             }
 
             // Check how non-trivial class types are passed by value into operators.
+            /// <summary>
             /// Generated from class `MR::CSharp::NonTrivialClassOps`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_NonTrivialClassOps : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -8601,7 +9977,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonTrivialClassOps() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_NonTrivialClassOps() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialClassOps_DefaultConstruct", ExactSpelling = true)]
@@ -8609,7 +9987,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivialClassOps_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::NonTrivialClassOps::NonTrivialClassOps`.
+                /// </summary>
                 public unsafe Const_NonTrivialClassOps(MR.CS.CSharp._ByValue_NonTrivialClassOps _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialClassOps_ConstructFromAnother", ExactSpelling = true)]
@@ -8617,7 +9997,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivialClassOps_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(Const_NonTrivialClassOps _1, float _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_NonTrivialClassOps_float", ExactSpelling = true)]
@@ -8625,7 +10007,9 @@ public static partial class MR
                     return __MR_C_add_MR_CSharp_NonTrivialClassOps_float(MR.CS.Misc._PassBy.copy, _1._UnderlyingPtr, _2);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(float _1, Const_NonTrivialClassOps _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_float_MR_CSharp_NonTrivialClassOps", ExactSpelling = true)]
@@ -8635,13 +10019,17 @@ public static partial class MR
             }
 
             // Check how non-trivial class types are passed by value into operators.
+            /// <summary>
             /// Generated from class `MR::CSharp::NonTrivialClassOps`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class NonTrivialClassOps : Const_NonTrivialClassOps
             {
                 internal unsafe NonTrivialClassOps(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe NonTrivialClassOps() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialClassOps_DefaultConstruct", ExactSpelling = true)]
@@ -8649,7 +10037,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivialClassOps_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::NonTrivialClassOps::NonTrivialClassOps`.
+                /// </summary>
                 public unsafe NonTrivialClassOps(MR.CS.CSharp._ByValue_NonTrivialClassOps _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialClassOps_ConstructFromAnother", ExactSpelling = true)]
@@ -8657,7 +10047,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivialClassOps_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::NonTrivialClassOps::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.NonTrivialClassOps assign(MR.CS.CSharp._ByValue_NonTrivialClassOps _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonTrivialClassOps_AssignFromAnother", ExactSpelling = true)]
@@ -8665,7 +10057,9 @@ public static partial class MR
                     return new(__MR_CSharp_NonTrivialClassOps_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::NonTrivialClassOps::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.NonTrivialClassOps _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_NonTrivialClassOps_int", ExactSpelling = true)]
@@ -8674,6 +10068,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `NonTrivialClassOps` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -8681,6 +10076,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_NonTrivialClassOps
             {
                 internal readonly Const_NonTrivialClassOps? Value;
@@ -8692,12 +10088,14 @@ public static partial class MR
                 public static implicit operator _ByValue_NonTrivialClassOps(MR.CS.Misc._Moved<NonTrivialClassOps> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NonTrivialClassOps` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_NonTrivialClassOps`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NonTrivialClassOps`/`Const_NonTrivialClassOps` directly.
+            /// </summary>
             public class _InOptMut_NonTrivialClassOps
             {
                 public NonTrivialClassOps? Opt;
@@ -8707,12 +10105,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_NonTrivialClassOps(NonTrivialClassOps value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NonTrivialClassOps` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_NonTrivialClassOps`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NonTrivialClassOps`/`Const_NonTrivialClassOps` to pass it to the function.
+            /// </summary>
             public class _InOptConst_NonTrivialClassOps
             {
                 public Const_NonTrivialClassOps? Opt;
@@ -8723,8 +10123,10 @@ public static partial class MR
             }
 
             // The class is non-copyable, so operators with by-value parameters fail to inject.
+            /// <summary>
             /// Generated from class `MR::CSharp::NonCopyableClassByValueOps`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_NonCopyableClassByValueOps : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -8745,7 +10147,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonCopyableClassByValueOps() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_NonCopyableClassByValueOps() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonCopyableClassByValueOps_DefaultConstruct", ExactSpelling = true)]
@@ -8753,7 +10157,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonCopyableClassByValueOps_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::NonCopyableClassByValueOps::NonCopyableClassByValueOps`.
+                /// </summary>
                 public unsafe Const_NonCopyableClassByValueOps(MR.CS.CSharp.Const_NonCopyableClassByValueOps _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonCopyableClassByValueOps_ConstructFromAnother", ExactSpelling = true)]
@@ -8761,7 +10167,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonCopyableClassByValueOps_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(Const_NonCopyableClassByValueOps _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_NonCopyableClassByValueOps_int", ExactSpelling = true)]
@@ -8769,7 +10177,9 @@ public static partial class MR
                     return __MR_C_add_MR_CSharp_NonCopyableClassByValueOps_int(_1._UnderlyingPtr, _2);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
+                /// </summary>
                 public static unsafe int operator+(int _1, Const_NonCopyableClassByValueOps _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_int_MR_CSharp_NonCopyableClassByValueOps", ExactSpelling = true)]
@@ -8779,13 +10189,17 @@ public static partial class MR
             }
 
             // The class is non-copyable, so operators with by-value parameters fail to inject.
+            /// <summary>
             /// Generated from class `MR::CSharp::NonCopyableClassByValueOps`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class NonCopyableClassByValueOps : Const_NonCopyableClassByValueOps
             {
                 internal unsafe NonCopyableClassByValueOps(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe NonCopyableClassByValueOps() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonCopyableClassByValueOps_DefaultConstruct", ExactSpelling = true)]
@@ -8793,7 +10207,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonCopyableClassByValueOps_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::NonCopyableClassByValueOps::NonCopyableClassByValueOps`.
+                /// </summary>
                 public unsafe NonCopyableClassByValueOps(MR.CS.CSharp.Const_NonCopyableClassByValueOps _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonCopyableClassByValueOps_ConstructFromAnother", ExactSpelling = true)]
@@ -8801,7 +10217,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonCopyableClassByValueOps_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::NonCopyableClassByValueOps::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.NonCopyableClassByValueOps assign(MR.CS.CSharp.Const_NonCopyableClassByValueOps _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NonCopyableClassByValueOps_AssignFromAnother", ExactSpelling = true)]
@@ -8810,12 +10228,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NonCopyableClassByValueOps` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_NonCopyableClassByValueOps`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NonCopyableClassByValueOps`/`Const_NonCopyableClassByValueOps` directly.
+            /// </summary>
             public class _InOptMut_NonCopyableClassByValueOps
             {
                 public NonCopyableClassByValueOps? Opt;
@@ -8825,12 +10245,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_NonCopyableClassByValueOps(NonCopyableClassByValueOps value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NonCopyableClassByValueOps` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_NonCopyableClassByValueOps`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NonCopyableClassByValueOps`/`Const_NonCopyableClassByValueOps` to pass it to the function.
+            /// </summary>
             public class _InOptConst_NonCopyableClassByValueOps
             {
                 public Const_NonCopyableClassByValueOps? Opt;
@@ -8842,8 +10264,10 @@ public static partial class MR
 
             // Test the call operator, since it can have an unusual amount of arguments.
             // Not testing `[]` here to be able to run the tests on older C++.
+            /// <summary>
             /// Generated from class `MR::CSharp::CallOp`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_CallOp : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -8864,7 +10288,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_CallOp() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_CallOp() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_CallOp_DefaultConstruct", ExactSpelling = true)]
@@ -8872,7 +10298,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_CallOp_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::CallOp::CallOp`.
+                /// </summary>
                 public unsafe Const_CallOp(MR.CS.CSharp.Const_CallOp _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_CallOp_ConstructFromAnother", ExactSpelling = true)]
@@ -8883,13 +10311,17 @@ public static partial class MR
 
             // Test the call operator, since it can have an unusual amount of arguments.
             // Not testing `[]` here to be able to run the tests on older C++.
+            /// <summary>
             /// Generated from class `MR::CSharp::CallOp`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class CallOp : Const_CallOp
             {
                 internal unsafe CallOp(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe CallOp() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_CallOp_DefaultConstruct", ExactSpelling = true)]
@@ -8897,7 +10329,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_CallOp_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::CallOp::CallOp`.
+                /// </summary>
                 public unsafe CallOp(MR.CS.CSharp.Const_CallOp _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_CallOp_ConstructFromAnother", ExactSpelling = true)]
@@ -8905,7 +10339,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_CallOp_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::CallOp::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.CallOp assign(MR.CS.CSharp.Const_CallOp _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_CallOp_AssignFromAnother", ExactSpelling = true)]
@@ -8913,7 +10349,9 @@ public static partial class MR
                     return new(__MR_CSharp_CallOp_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::CallOp::operator()`.
+                /// </summary>
                 public unsafe void call()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_CallOp_call_0", ExactSpelling = true)]
@@ -8921,7 +10359,9 @@ public static partial class MR
                     __MR_CSharp_CallOp_call_0(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::CallOp::operator()`.
+                /// </summary>
                 public unsafe int call(int _1, int _2, int _3)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_CallOp_call_3", ExactSpelling = true)]
@@ -8930,12 +10370,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `CallOp` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_CallOp`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `CallOp`/`Const_CallOp` directly.
+            /// </summary>
             public class _InOptMut_CallOp
             {
                 public CallOp? Opt;
@@ -8945,12 +10387,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_CallOp(CallOp value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `CallOp` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_CallOp`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `CallOp`/`Const_CallOp` to pass it to the function.
+            /// </summary>
             public class _InOptConst_CallOp
             {
                 public Const_CallOp? Opt;
@@ -8960,8 +10404,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_CallOp(Const_CallOp value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TestOpsA`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_TestOpsA : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -8982,7 +10428,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestOpsA() {Dispose(false);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TestOpsA::TestOpsA`.
+                /// </summary>
                 public unsafe Const_TestOpsA(MR.CS.CSharp.Const_TestOpsA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_ConstructFromAnother", ExactSpelling = true)]
@@ -8991,13 +10439,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TestOpsA`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class TestOpsA : Const_TestOpsA
             {
                 internal unsafe TestOpsA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TestOpsA::TestOpsA`.
+                /// </summary>
                 public unsafe TestOpsA(MR.CS.CSharp.Const_TestOpsA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_ConstructFromAnother", ExactSpelling = true)]
@@ -9005,7 +10457,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestOpsA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator=`.
+                /// </summary>
                 public unsafe int assign(MR.CS.CSharp.Const_TestOpsA _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_AssignFromAnother", ExactSpelling = true)]
@@ -9013,7 +10467,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.TestOpsA _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9021,7 +10477,9 @@ public static partial class MR
                     return __MR_C_pos_MR_CSharp_TestOpsA(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9029,7 +10487,9 @@ public static partial class MR
                     return __MR_C_add_MR_CSharp_TestOpsA(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator-`.
+                /// </summary>
                 public static unsafe int operator-(MR.CS.CSharp.TestOpsA _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9037,7 +10497,9 @@ public static partial class MR
                     return __MR_C_neg_MR_CSharp_TestOpsA(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator-`.
+                /// </summary>
                 public static unsafe int operator-(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9045,7 +10507,9 @@ public static partial class MR
                     return __MR_C_sub_MR_CSharp_TestOpsA(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator*`.
+                /// </summary>
                 public unsafe int deref()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_deref_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9053,7 +10517,9 @@ public static partial class MR
                     return __MR_C_deref_MR_CSharp_TestOpsA(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator*`.
+                /// </summary>
                 public static unsafe int operator*(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9061,7 +10527,9 @@ public static partial class MR
                     return __MR_C_mul_MR_CSharp_TestOpsA(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator/`.
+                /// </summary>
                 public static unsafe int operator/(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9069,7 +10537,9 @@ public static partial class MR
                     return __MR_C_div_MR_CSharp_TestOpsA(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator%`.
+                /// </summary>
                 public static unsafe int operator%(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9077,7 +10547,9 @@ public static partial class MR
                     return __MR_C_mod_MR_CSharp_TestOpsA(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator^`.
+                /// </summary>
                 public static unsafe int operator^(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_xor_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9085,7 +10557,9 @@ public static partial class MR
                     return __MR_C_xor_MR_CSharp_TestOpsA(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator&`.
+                /// </summary>
                 public unsafe int addressOf()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_addressof_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9093,7 +10567,9 @@ public static partial class MR
                     return __MR_C_addressof_MR_CSharp_TestOpsA(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator&`.
+                /// </summary>
                 public static unsafe int operator&(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9101,7 +10577,9 @@ public static partial class MR
                     return __MR_C_bitand_MR_CSharp_TestOpsA(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator|`.
+                /// </summary>
                 public static unsafe int operator|(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitor_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9109,7 +10587,9 @@ public static partial class MR
                     return __MR_C_bitor_MR_CSharp_TestOpsA(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator~`.
+                /// </summary>
                 public static unsafe int operator~(MR.CS.CSharp.TestOpsA _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9117,7 +10597,9 @@ public static partial class MR
                     return __MR_C_compl_MR_CSharp_TestOpsA(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator!`.
+                /// </summary>
                 public static unsafe int operator!(MR.CS.CSharp.TestOpsA _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9125,7 +10607,9 @@ public static partial class MR
                     return __MR_C_not_MR_CSharp_TestOpsA(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator+=`.
+                /// </summary>
                 public unsafe int addAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_add_assign", ExactSpelling = true)]
@@ -9133,7 +10617,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_add_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator-=`.
+                /// </summary>
                 public unsafe int subAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_sub_assign", ExactSpelling = true)]
@@ -9141,7 +10627,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_sub_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator*=`.
+                /// </summary>
                 public unsafe int mulAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_mul_assign", ExactSpelling = true)]
@@ -9149,7 +10637,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_mul_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator/=`.
+                /// </summary>
                 public unsafe int divAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_div_assign", ExactSpelling = true)]
@@ -9157,7 +10647,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_div_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator%=`.
+                /// </summary>
                 public unsafe int modAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_mod_assign", ExactSpelling = true)]
@@ -9165,7 +10657,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_mod_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator^=`.
+                /// </summary>
                 public unsafe int xorAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_xor_assign", ExactSpelling = true)]
@@ -9173,7 +10667,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_xor_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator&=`.
+                /// </summary>
                 public unsafe int bitandAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_bitand_assign", ExactSpelling = true)]
@@ -9181,7 +10677,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_bitand_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator|=`.
+                /// </summary>
                 public unsafe int bitorAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_bitor_assign", ExactSpelling = true)]
@@ -9189,7 +10687,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_bitor_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator<<`.
+                /// </summary>
                 public static unsafe int operator<<(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_lshift_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9197,7 +10697,9 @@ public static partial class MR
                     return __MR_C_lshift_MR_CSharp_TestOpsA(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator>>`.
+                /// </summary>
                 public static unsafe int operator>>(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_rshift_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9205,7 +10707,9 @@ public static partial class MR
                     return __MR_C_rshift_MR_CSharp_TestOpsA(_this._UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator<<=`.
+                /// </summary>
                 public unsafe int lshiftAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_lshift_assign", ExactSpelling = true)]
@@ -9213,7 +10717,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_lshift_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator>>=`.
+                /// </summary>
                 public unsafe int rshiftAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_rshift_assign", ExactSpelling = true)]
@@ -9221,7 +10727,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_rshift_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator<=>`.
+                /// </summary>
                 public unsafe int compareThreeWay(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9229,7 +10737,9 @@ public static partial class MR
                     return __MR_C_compare_three_way_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator&&`.
+                /// </summary>
                 public unsafe int and(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_and_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9237,7 +10747,9 @@ public static partial class MR
                     return __MR_C_and_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator||`.
+                /// </summary>
                 public unsafe int or(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_or_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9245,7 +10757,9 @@ public static partial class MR
                     return __MR_C_or_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator,`.
+                /// </summary>
                 public unsafe int comma(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_comma_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9253,7 +10767,9 @@ public static partial class MR
                     return __MR_C_comma_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator->*`.
+                /// </summary>
                 public unsafe int arrowStar(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_arrow_star", ExactSpelling = true)]
@@ -9261,7 +10777,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_arrow_star(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator->`.
+                /// </summary>
                 public unsafe int arrow()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_arrow", ExactSpelling = true)]
@@ -9269,7 +10787,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_arrow(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator()`.
+                /// </summary>
                 public unsafe int call(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsA_call", ExactSpelling = true)]
@@ -9277,7 +10797,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsA_call(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator[]`.
+                /// </summary>
                 public unsafe int this[MR.CS.CSharp.Const_TestOpsA _1]
                 {
                     get
@@ -9289,12 +10811,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TestOpsA` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_TestOpsA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TestOpsA`/`Const_TestOpsA` directly.
+            /// </summary>
             public class _InOptMut_TestOpsA
             {
                 public TestOpsA? Opt;
@@ -9304,12 +10828,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_TestOpsA(TestOpsA value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TestOpsA` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_TestOpsA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TestOpsA`/`Const_TestOpsA` to pass it to the function.
+            /// </summary>
             public class _InOptConst_TestOpsA
             {
                 public Const_TestOpsA? Opt;
@@ -9319,8 +10845,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_TestOpsA(Const_TestOpsA value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TestOpsB`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_TestOpsB : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -9341,7 +10869,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestOpsB() {Dispose(false);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
+                /// </summary>
                 public unsafe Const_TestOpsB(MR.CS.CSharp._ByValue_TestOpsB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_ConstructFromAnother", ExactSpelling = true)]
@@ -9350,13 +10880,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TestOpsB`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class TestOpsB : Const_TestOpsB
             {
                 internal unsafe TestOpsB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
+                /// </summary>
                 public unsafe TestOpsB(MR.CS.CSharp._ByValue_TestOpsB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_ConstructFromAnother", ExactSpelling = true)]
@@ -9364,7 +10898,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestOpsB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator=`.
+                /// </summary>
                 public unsafe int assign(MR.CS.CSharp._ByValue_TestOpsB _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_AssignFromAnother", ExactSpelling = true)]
@@ -9372,7 +10908,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.TestOpsB _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9380,7 +10918,9 @@ public static partial class MR
                     return __MR_C_pos_MR_CSharp_TestOpsB(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9388,7 +10928,9 @@ public static partial class MR
                     return __MR_C_add_MR_CSharp_TestOpsB(_this._UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator-`.
+                /// </summary>
                 public static unsafe int operator-(MR.CS.CSharp.TestOpsB _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9396,7 +10938,9 @@ public static partial class MR
                     return __MR_C_neg_MR_CSharp_TestOpsB(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator-`.
+                /// </summary>
                 public static unsafe int operator-(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9404,7 +10948,9 @@ public static partial class MR
                     return __MR_C_sub_MR_CSharp_TestOpsB(_this._UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator*`.
+                /// </summary>
                 public unsafe int deref()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_deref_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9412,7 +10958,9 @@ public static partial class MR
                     return __MR_C_deref_MR_CSharp_TestOpsB(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator*`.
+                /// </summary>
                 public static unsafe int operator*(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9420,7 +10968,9 @@ public static partial class MR
                     return __MR_C_mul_MR_CSharp_TestOpsB(_this._UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator/`.
+                /// </summary>
                 public static unsafe int operator/(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9428,7 +10978,9 @@ public static partial class MR
                     return __MR_C_div_MR_CSharp_TestOpsB(_this._UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator%`.
+                /// </summary>
                 public static unsafe int operator%(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9436,7 +10988,9 @@ public static partial class MR
                     return __MR_C_mod_MR_CSharp_TestOpsB(_this._UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator^`.
+                /// </summary>
                 public static unsafe int operator^(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_xor_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9444,7 +10998,9 @@ public static partial class MR
                     return __MR_C_xor_MR_CSharp_TestOpsB(_this._UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator&`.
+                /// </summary>
                 public unsafe int addressOf()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_addressof_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9452,7 +11008,9 @@ public static partial class MR
                     return __MR_C_addressof_MR_CSharp_TestOpsB(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator&`.
+                /// </summary>
                 public static unsafe int operator&(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9460,7 +11018,9 @@ public static partial class MR
                     return __MR_C_bitand_MR_CSharp_TestOpsB(_this._UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator|`.
+                /// </summary>
                 public static unsafe int operator|(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitor_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9468,7 +11028,9 @@ public static partial class MR
                     return __MR_C_bitor_MR_CSharp_TestOpsB(_this._UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator~`.
+                /// </summary>
                 public static unsafe int operator~(MR.CS.CSharp.TestOpsB _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9476,7 +11038,9 @@ public static partial class MR
                     return __MR_C_compl_MR_CSharp_TestOpsB(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator!`.
+                /// </summary>
                 public static unsafe int operator!(MR.CS.CSharp.TestOpsB _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9484,7 +11048,9 @@ public static partial class MR
                     return __MR_C_not_MR_CSharp_TestOpsB(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator+=`.
+                /// </summary>
                 public unsafe int addAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_add_assign", ExactSpelling = true)]
@@ -9492,7 +11058,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_add_assign(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator-=`.
+                /// </summary>
                 public unsafe int subAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_sub_assign", ExactSpelling = true)]
@@ -9500,7 +11068,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_sub_assign(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator*=`.
+                /// </summary>
                 public unsafe int mulAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_mul_assign", ExactSpelling = true)]
@@ -9508,7 +11078,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_mul_assign(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator/=`.
+                /// </summary>
                 public unsafe int divAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_div_assign", ExactSpelling = true)]
@@ -9516,7 +11088,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_div_assign(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator%=`.
+                /// </summary>
                 public unsafe int modAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_mod_assign", ExactSpelling = true)]
@@ -9524,7 +11098,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_mod_assign(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator^=`.
+                /// </summary>
                 public unsafe int xorAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_xor_assign", ExactSpelling = true)]
@@ -9532,7 +11108,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_xor_assign(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator&=`.
+                /// </summary>
                 public unsafe int bitandAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_bitand_assign", ExactSpelling = true)]
@@ -9540,7 +11118,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_bitand_assign(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator|=`.
+                /// </summary>
                 public unsafe int bitorAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_bitor_assign", ExactSpelling = true)]
@@ -9548,7 +11128,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_bitor_assign(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator<<`.
+                /// </summary>
                 public static unsafe int operator<<(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_lshift_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9556,7 +11138,9 @@ public static partial class MR
                     return __MR_C_lshift_MR_CSharp_TestOpsB(_this._UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator>>`.
+                /// </summary>
                 public static unsafe int operator>>(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_rshift_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9564,7 +11148,9 @@ public static partial class MR
                     return __MR_C_rshift_MR_CSharp_TestOpsB(_this._UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator<<=`.
+                /// </summary>
                 public unsafe int lshiftAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_lshift_assign", ExactSpelling = true)]
@@ -9572,7 +11158,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_lshift_assign(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator>>=`.
+                /// </summary>
                 public unsafe int rshiftAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_rshift_assign", ExactSpelling = true)]
@@ -9580,7 +11168,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_rshift_assign(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator<=>`.
+                /// </summary>
                 public unsafe int compareThreeWay(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9588,7 +11178,9 @@ public static partial class MR
                     return __MR_C_compare_three_way_MR_CSharp_TestOpsB(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator&&`.
+                /// </summary>
                 public unsafe int and(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_and_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9596,7 +11188,9 @@ public static partial class MR
                     return __MR_C_and_MR_CSharp_TestOpsB(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator||`.
+                /// </summary>
                 public unsafe int or(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_or_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9604,7 +11198,9 @@ public static partial class MR
                     return __MR_C_or_MR_CSharp_TestOpsB(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator,`.
+                /// </summary>
                 public unsafe int comma(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_comma_MR_CSharp_TestOpsB", ExactSpelling = true)]
@@ -9612,7 +11208,9 @@ public static partial class MR
                     return __MR_C_comma_MR_CSharp_TestOpsB(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator->*`.
+                /// </summary>
                 public unsafe int arrowStar(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_arrow_star", ExactSpelling = true)]
@@ -9620,7 +11218,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_arrow_star(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator->`.
+                /// </summary>
                 public unsafe int arrow()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_arrow", ExactSpelling = true)]
@@ -9628,7 +11228,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_arrow(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator()`.
+                /// </summary>
                 public unsafe int call(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsB_call", ExactSpelling = true)]
@@ -9636,7 +11238,9 @@ public static partial class MR
                     return __MR_CSharp_TestOpsB_call(_UnderlyingPtr, _1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator[]`.
+                /// </summary>
                 public unsafe int this[MR.CS.CSharp._ByValue_TestOpsB _1]
                 {
                     get
@@ -9648,10 +11252,12 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `TestOpsB` by value.
             /// Usage:
             /// * Pass an instance of `TestOpsB`/`Const_TestOpsB` to copy it into the function.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_TestOpsB
             {
                 internal readonly Const_TestOpsB? Value;
@@ -9660,12 +11266,14 @@ public static partial class MR
                 public static implicit operator _ByValue_TestOpsB(Const_TestOpsB arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TestOpsB` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_TestOpsB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TestOpsB`/`Const_TestOpsB` directly.
+            /// </summary>
             public class _InOptMut_TestOpsB
             {
                 public TestOpsB? Opt;
@@ -9675,12 +11283,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_TestOpsB(TestOpsB value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TestOpsB` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_TestOpsB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TestOpsB`/`Const_TestOpsB` to pass it to the function.
+            /// </summary>
             public class _InOptConst_TestOpsB
             {
                 public Const_TestOpsB? Opt;
@@ -9690,8 +11300,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_TestOpsB(Const_TestOpsB value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TestOpsC`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_TestOpsC : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -9712,7 +11324,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestOpsC() {Dispose(false);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TestOpsC::TestOpsC`.
+                /// </summary>
                 public unsafe Const_TestOpsC(MR.CS.CSharp.Const_TestOpsC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_ConstructFromAnother", ExactSpelling = true)]
@@ -9721,13 +11335,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::TestOpsC`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class TestOpsC : Const_TestOpsC
             {
                 internal unsafe TestOpsC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::TestOpsC::TestOpsC`.
+                /// </summary>
                 public unsafe TestOpsC(MR.CS.CSharp.Const_TestOpsC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_ConstructFromAnother", ExactSpelling = true)]
@@ -9735,7 +11353,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestOpsC_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.TestOpsC assign(MR.CS.CSharp.Const_TestOpsC _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_AssignFromAnother", ExactSpelling = true)]
@@ -9743,7 +11363,9 @@ public static partial class MR
                     return new(__MR_CSharp_TestOpsC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator+`.
+                /// </summary>
                 public unsafe void add()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_CSharp_TestOpsC", ExactSpelling = true)]
@@ -9751,7 +11373,9 @@ public static partial class MR
                     __MR_C_pos_MR_CSharp_TestOpsC(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator+`.
+                /// </summary>
                 public unsafe void add(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9759,7 +11383,9 @@ public static partial class MR
                     __MR_C_add_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator-`.
+                /// </summary>
                 public unsafe void sub()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_MR_CSharp_TestOpsC", ExactSpelling = true)]
@@ -9767,7 +11393,9 @@ public static partial class MR
                     __MR_C_neg_MR_CSharp_TestOpsC(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator-`.
+                /// </summary>
                 public unsafe void sub(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9775,7 +11403,9 @@ public static partial class MR
                     __MR_C_sub_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator*`.
+                /// </summary>
                 public unsafe void deref()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_deref_MR_CSharp_TestOpsC", ExactSpelling = true)]
@@ -9783,7 +11413,9 @@ public static partial class MR
                     __MR_C_deref_MR_CSharp_TestOpsC(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator*`.
+                /// </summary>
                 public unsafe void mul(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9791,7 +11423,9 @@ public static partial class MR
                     __MR_C_mul_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator/`.
+                /// </summary>
                 public unsafe void div(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9799,7 +11433,9 @@ public static partial class MR
                     __MR_C_div_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator%`.
+                /// </summary>
                 public unsafe void mod(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9807,7 +11443,9 @@ public static partial class MR
                     __MR_C_mod_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator^`.
+                /// </summary>
                 public unsafe void xor(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_xor_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9815,7 +11453,9 @@ public static partial class MR
                     __MR_C_xor_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator&`.
+                /// </summary>
                 public unsafe void addressOf()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_addressof_MR_CSharp_TestOpsC", ExactSpelling = true)]
@@ -9823,7 +11463,9 @@ public static partial class MR
                     __MR_C_addressof_MR_CSharp_TestOpsC(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator&`.
+                /// </summary>
                 public unsafe void bitand(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9831,7 +11473,9 @@ public static partial class MR
                     __MR_C_bitand_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator|`.
+                /// </summary>
                 public unsafe void bitor(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitor_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9839,7 +11483,9 @@ public static partial class MR
                     __MR_C_bitor_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator~`.
+                /// </summary>
                 public unsafe void compl()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_MR_CSharp_TestOpsC", ExactSpelling = true)]
@@ -9847,7 +11493,9 @@ public static partial class MR
                     __MR_C_compl_MR_CSharp_TestOpsC(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator!`.
+                /// </summary>
                 public unsafe void not()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_MR_CSharp_TestOpsC", ExactSpelling = true)]
@@ -9855,7 +11503,9 @@ public static partial class MR
                     __MR_C_not_MR_CSharp_TestOpsC(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator=`.
+                /// </summary>
                 public unsafe void assign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_assign", ExactSpelling = true)]
@@ -9863,7 +11513,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator+=`.
+                /// </summary>
                 public unsafe void addAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_add_assign", ExactSpelling = true)]
@@ -9871,7 +11523,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_add_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator-=`.
+                /// </summary>
                 public unsafe void subAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_sub_assign", ExactSpelling = true)]
@@ -9879,7 +11533,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_sub_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator*=`.
+                /// </summary>
                 public unsafe void mulAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_mul_assign", ExactSpelling = true)]
@@ -9887,7 +11543,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_mul_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator/=`.
+                /// </summary>
                 public unsafe void divAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_div_assign", ExactSpelling = true)]
@@ -9895,7 +11553,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_div_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator%=`.
+                /// </summary>
                 public unsafe void modAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_mod_assign", ExactSpelling = true)]
@@ -9903,7 +11563,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_mod_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator^=`.
+                /// </summary>
                 public unsafe void xorAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_xor_assign", ExactSpelling = true)]
@@ -9911,7 +11573,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_xor_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator&=`.
+                /// </summary>
                 public unsafe void bitandAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_bitand_assign", ExactSpelling = true)]
@@ -9919,7 +11583,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_bitand_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator|=`.
+                /// </summary>
                 public unsafe void bitorAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_bitor_assign", ExactSpelling = true)]
@@ -9927,7 +11593,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_bitor_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator<<`.
+                /// </summary>
                 public unsafe void lshift(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_lshift_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9935,7 +11603,9 @@ public static partial class MR
                     __MR_C_lshift_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator>>`.
+                /// </summary>
                 public unsafe void rshift(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_rshift_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9943,7 +11613,9 @@ public static partial class MR
                     __MR_C_rshift_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator<<=`.
+                /// </summary>
                 public unsafe void lshiftAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_lshift_assign", ExactSpelling = true)]
@@ -9951,7 +11623,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_lshift_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator>>=`.
+                /// </summary>
                 public unsafe void rshiftAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_rshift_assign", ExactSpelling = true)]
@@ -9959,7 +11633,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_rshift_assign(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator<=>`.
+                /// </summary>
                 public unsafe void compareThreeWay(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compare_three_way_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9967,7 +11643,9 @@ public static partial class MR
                     __MR_C_compare_three_way_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator&&`.
+                /// </summary>
                 public unsafe void and(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_and_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9975,7 +11653,9 @@ public static partial class MR
                     __MR_C_and_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator||`.
+                /// </summary>
                 public unsafe void or(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_or_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9983,7 +11663,9 @@ public static partial class MR
                     __MR_C_or_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator,`.
+                /// </summary>
                 public unsafe void comma(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_comma_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA", ExactSpelling = true)]
@@ -9991,7 +11673,9 @@ public static partial class MR
                     __MR_C_comma_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator->*`.
+                /// </summary>
                 public unsafe void arrowStar(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_arrow_star", ExactSpelling = true)]
@@ -9999,7 +11683,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_arrow_star(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator->`.
+                /// </summary>
                 public unsafe void arrow()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_arrow", ExactSpelling = true)]
@@ -10007,7 +11693,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_arrow(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator()`.
+                /// </summary>
                 public unsafe void call(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_call", ExactSpelling = true)]
@@ -10015,7 +11703,9 @@ public static partial class MR
                     __MR_CSharp_TestOpsC_call(_UnderlyingPtr, _1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator[]`.
+                /// </summary>
                 public unsafe void index(MR.CS.CSharp.Const_TestOpsA _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestOpsC_index", ExactSpelling = true)]
@@ -10024,12 +11714,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TestOpsC` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_TestOpsC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TestOpsC`/`Const_TestOpsC` directly.
+            /// </summary>
             public class _InOptMut_TestOpsC
             {
                 public TestOpsC? Opt;
@@ -10039,12 +11731,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_TestOpsC(TestOpsC value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `TestOpsC` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_TestOpsC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `TestOpsC`/`Const_TestOpsC` to pass it to the function.
+            /// </summary>
             public class _InOptConst_TestOpsC
             {
                 public Const_TestOpsC? Opt;
@@ -10055,8 +11749,10 @@ public static partial class MR
             }
 
             // Subscription operator.
+            /// <summary>
             /// Generated from class `MR::CSharp::IndexerA`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IndexerA : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -10087,7 +11783,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IndexerA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_DefaultConstruct", ExactSpelling = true)]
@@ -10095,7 +11793,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::IndexerA` elementwise.
+                /// </summary>
                 public unsafe Const_IndexerA(int x) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_ConstructFrom", ExactSpelling = true)]
@@ -10103,7 +11803,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFrom(x);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IndexerA::IndexerA`.
+                /// </summary>
                 public unsafe Const_IndexerA(MR.CS.CSharp.Const_IndexerA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_ConstructFromAnother", ExactSpelling = true)]
@@ -10113,8 +11815,10 @@ public static partial class MR
             }
 
             // Subscription operator.
+            /// <summary>
             /// Generated from class `MR::CSharp::IndexerA`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IndexerA : Const_IndexerA
             {
                 internal unsafe IndexerA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -10129,7 +11833,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IndexerA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_DefaultConstruct", ExactSpelling = true)]
@@ -10137,7 +11843,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerA_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::IndexerA` elementwise.
+                /// </summary>
                 public unsafe IndexerA(int x) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_ConstructFrom", ExactSpelling = true)]
@@ -10145,7 +11853,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFrom(x);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IndexerA::IndexerA`.
+                /// </summary>
                 public unsafe IndexerA(MR.CS.CSharp.Const_IndexerA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_ConstructFromAnother", ExactSpelling = true)]
@@ -10153,7 +11863,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerA::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.IndexerA assign(MR.CS.CSharp.Const_IndexerA _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_AssignFromAnother", ExactSpelling = true)]
@@ -10161,7 +11873,9 @@ public static partial class MR
                     return new(__MR_CSharp_IndexerA_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerA::operator[]`.
+                /// </summary>
                 public unsafe ref int this[int i]
                 {
                     get
@@ -10173,12 +11887,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IndexerA` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IndexerA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IndexerA`/`Const_IndexerA` directly.
+            /// </summary>
             public class _InOptMut_IndexerA
             {
                 public IndexerA? Opt;
@@ -10188,12 +11904,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IndexerA(IndexerA value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IndexerA` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IndexerA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IndexerA`/`Const_IndexerA` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IndexerA
             {
                 public Const_IndexerA? Opt;
@@ -10203,8 +11921,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_IndexerA(Const_IndexerA value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::IndexerB`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IndexerB : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -10235,7 +11955,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IndexerB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_DefaultConstruct", ExactSpelling = true)]
@@ -10243,7 +11965,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::IndexerB` elementwise.
+                /// </summary>
                 public unsafe Const_IndexerB(MR.CS.CSharp.Const_IndexerA a) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_ConstructFrom", ExactSpelling = true)]
@@ -10251,7 +11975,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFrom(a._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IndexerB::IndexerB`.
+                /// </summary>
                 public unsafe Const_IndexerB(MR.CS.CSharp.Const_IndexerB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_ConstructFromAnother", ExactSpelling = true)]
@@ -10259,7 +11985,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerB::operator[]`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.Const_IndexerA this[int i]
                 {
                     get
@@ -10270,7 +11998,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerB::operator[]`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.Const_IndexerA this[int i, int j]
                 {
                     get
@@ -10281,7 +12011,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerB::operator[]`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.Const_IndexerA index()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_index_0", ExactSpelling = true)]
@@ -10290,8 +12022,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::IndexerB`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IndexerB : Const_IndexerB
             {
                 internal unsafe IndexerB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -10306,7 +12040,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IndexerB() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_DefaultConstruct", ExactSpelling = true)]
@@ -10314,7 +12050,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerB_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::IndexerB` elementwise.
+                /// </summary>
                 public unsafe IndexerB(MR.CS.CSharp.Const_IndexerA a) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_ConstructFrom", ExactSpelling = true)]
@@ -10322,7 +12060,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFrom(a._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IndexerB::IndexerB`.
+                /// </summary>
                 public unsafe IndexerB(MR.CS.CSharp.Const_IndexerB _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_ConstructFromAnother", ExactSpelling = true)]
@@ -10330,7 +12070,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerB::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.IndexerB assign(MR.CS.CSharp.Const_IndexerB _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_AssignFromAnother", ExactSpelling = true)]
@@ -10339,12 +12081,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IndexerB` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IndexerB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IndexerB`/`Const_IndexerB` directly.
+            /// </summary>
             public class _InOptMut_IndexerB
             {
                 public IndexerB? Opt;
@@ -10354,12 +12098,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IndexerB(IndexerB value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IndexerB` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IndexerB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IndexerB`/`Const_IndexerB` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IndexerB
             {
                 public Const_IndexerB? Opt;
@@ -10369,8 +12115,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_IndexerB(Const_IndexerB value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::IndexerC`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_IndexerC : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -10391,7 +12139,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IndexerC() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_IndexerC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_DefaultConstruct", ExactSpelling = true)]
@@ -10399,7 +12149,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IndexerC::IndexerC`.
+                /// </summary>
                 public unsafe Const_IndexerC(MR.CS.CSharp.Const_IndexerC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_ConstructFromAnother", ExactSpelling = true)]
@@ -10407,7 +12159,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerC_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerC::operator[]`.
+                /// </summary>
                 public unsafe float this[int i]
                 {
                     get
@@ -10419,13 +12173,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::IndexerC`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class IndexerC : Const_IndexerC
             {
                 internal unsafe IndexerC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe IndexerC() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_DefaultConstruct", ExactSpelling = true)]
@@ -10433,7 +12191,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerC_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::IndexerC::IndexerC`.
+                /// </summary>
                 public unsafe IndexerC(MR.CS.CSharp.Const_IndexerC _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_ConstructFromAnother", ExactSpelling = true)]
@@ -10441,7 +12201,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerC_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerC::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.IndexerC assign(MR.CS.CSharp.Const_IndexerC _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_AssignFromAnother", ExactSpelling = true)]
@@ -10449,7 +12211,9 @@ public static partial class MR
                     return new(__MR_CSharp_IndexerC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerC::operator[]`.
+                /// </summary>
                 public unsafe new int this[int i]
                 {
                     get
@@ -10461,12 +12225,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IndexerC` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_IndexerC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IndexerC`/`Const_IndexerC` directly.
+            /// </summary>
             public class _InOptMut_IndexerC
             {
                 public IndexerC? Opt;
@@ -10476,12 +12242,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_IndexerC(IndexerC value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `IndexerC` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_IndexerC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `IndexerC`/`Const_IndexerC` to pass it to the function.
+            /// </summary>
             public class _InOptConst_IndexerC
             {
                 public Const_IndexerC? Opt;
@@ -10492,8 +12260,10 @@ public static partial class MR
             }
 
             // Conversion operators. We preserve explicit-ness.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvOp`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ConvOp : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -10514,7 +12284,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvOp() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_ConvOp() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_DefaultConstruct", ExactSpelling = true)]
@@ -10522,7 +12294,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvOp_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvOp::ConvOp`.
+                /// </summary>
                 public unsafe Const_ConvOp(MR.CS.CSharp.Const_ConvOp _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_ConstructFromAnother", ExactSpelling = true)]
@@ -10532,13 +12306,17 @@ public static partial class MR
             }
 
             // Conversion operators. We preserve explicit-ness.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvOp`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ConvOp : Const_ConvOp
             {
                 internal unsafe ConvOp(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe ConvOp() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_DefaultConstruct", ExactSpelling = true)]
@@ -10546,7 +12324,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvOp_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvOp::ConvOp`.
+                /// </summary>
                 public unsafe ConvOp(MR.CS.CSharp.Const_ConvOp _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_ConstructFromAnother", ExactSpelling = true)]
@@ -10554,7 +12334,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvOp_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::ConvOp::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CSharp.ConvOp _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_ConvertTo_int", ExactSpelling = true)]
@@ -10562,7 +12344,9 @@ public static partial class MR
                     return __MR_CSharp_ConvOp_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::ConvOp::operator float`.
+                /// </summary>
                 public static unsafe explicit operator float(MR.CS.CSharp.ConvOp _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_ConvertTo_float", ExactSpelling = true)]
@@ -10570,7 +12354,9 @@ public static partial class MR
                     return __MR_CSharp_ConvOp_ConvertTo_float(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConvOp::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.ConvOp assign(MR.CS.CSharp.Const_ConvOp _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOp_AssignFromAnother", ExactSpelling = true)]
@@ -10579,12 +12365,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvOp` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvOp`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvOp`/`Const_ConvOp` directly.
+            /// </summary>
             public class _InOptMut_ConvOp
             {
                 public ConvOp? Opt;
@@ -10594,12 +12382,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ConvOp(ConvOp value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvOp` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvOp`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvOp`/`Const_ConvOp` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ConvOp
             {
                 public Const_ConvOp? Opt;
@@ -10610,8 +12400,10 @@ public static partial class MR
             }
 
             // Conversion operators to references.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvOpToRef`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ConvOpToRef : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -10632,7 +12424,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvOpToRef() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_ConvOpToRef() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_DefaultConstruct", ExactSpelling = true)]
@@ -10640,7 +12434,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvOpToRef_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvOpToRef::ConvOpToRef`.
+                /// </summary>
                 public unsafe Const_ConvOpToRef(MR.CS.CSharp.Const_ConvOpToRef _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_ConstructFromAnother", ExactSpelling = true)]
@@ -10650,13 +12446,17 @@ public static partial class MR
             }
 
             // Conversion operators to references.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvOpToRef`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ConvOpToRef : Const_ConvOpToRef
             {
                 internal unsafe ConvOpToRef(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe ConvOpToRef() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_DefaultConstruct", ExactSpelling = true)]
@@ -10664,7 +12464,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvOpToRef_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvOpToRef::ConvOpToRef`.
+                /// </summary>
                 public unsafe ConvOpToRef(MR.CS.CSharp.Const_ConvOpToRef _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_ConstructFromAnother", ExactSpelling = true)]
@@ -10673,7 +12475,9 @@ public static partial class MR
                 }
 
                 // Not to a reference.
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::ConvOpToRef::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CSharp.ConvOpToRef _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_ConvertTo_int", ExactSpelling = true)]
@@ -10682,7 +12486,9 @@ public static partial class MR
                 }
 
                 // To a reference.
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::ConvOpToRef::operator float &`.
+                /// </summary>
                 public unsafe ref float convertTo_FloatRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_ConvertTo_float_ref", ExactSpelling = true)]
@@ -10691,7 +12497,9 @@ public static partial class MR
                 }
 
                 // To a reference, explicit.
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::ConvOpToRef::operator unsigned short &`.
+                /// </summary>
                 public unsafe ref ushort convertTo_UnsignedShortRef()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_ConvertTo_unsigned_short_ref", ExactSpelling = true)]
@@ -10699,7 +12507,9 @@ public static partial class MR
                     return ref *__MR_CSharp_ConvOpToRef_ConvertTo_unsigned_short_ref(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConvOpToRef::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.ConvOpToRef assign(MR.CS.CSharp.Const_ConvOpToRef _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvOpToRef_AssignFromAnother", ExactSpelling = true)]
@@ -10708,12 +12518,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvOpToRef` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvOpToRef`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvOpToRef`/`Const_ConvOpToRef` directly.
+            /// </summary>
             public class _InOptMut_ConvOpToRef
             {
                 public ConvOpToRef? Opt;
@@ -10723,12 +12535,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ConvOpToRef(ConvOpToRef value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvOpToRef` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvOpToRef`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvOpToRef`/`Const_ConvOpToRef` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ConvOpToRef
             {
                 public Const_ConvOpToRef? Opt;
@@ -10740,8 +12554,10 @@ public static partial class MR
 
             // Conversions to string-like types.
             // Those create the additional `operator string` to convert directly to a C# string, and `override string ToString()` to override the method of the implicit base `object`.
+            /// <summary>
             /// Generated from class `MR::CSharp::StringConvString`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StringConvString : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -10762,7 +12578,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StringConvString() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StringConvString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_DefaultConstruct", ExactSpelling = true)]
@@ -10770,7 +12588,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvString_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StringConvString::StringConvString`.
+                /// </summary>
                 public unsafe Const_StringConvString(MR.CS.CSharp.Const_StringConvString _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_ConstructFromAnother", ExactSpelling = true)]
@@ -10781,13 +12601,17 @@ public static partial class MR
 
             // Conversions to string-like types.
             // Those create the additional `operator string` to convert directly to a C# string, and `override string ToString()` to override the method of the implicit base `object`.
+            /// <summary>
             /// Generated from class `MR::CSharp::StringConvString`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StringConvString : Const_StringConvString
             {
                 internal unsafe StringConvString(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StringConvString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_DefaultConstruct", ExactSpelling = true)]
@@ -10795,7 +12619,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvString_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StringConvString::StringConvString`.
+                /// </summary>
                 public unsafe StringConvString(MR.CS.CSharp.Const_StringConvString _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_ConstructFromAnother", ExactSpelling = true)]
@@ -10803,7 +12629,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvString_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvString::operator std::string`.
+                /// </summary>
                 public static unsafe implicit operator MR.CS.Std.String(MR.CS.CSharp.StringConvString _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_ConvertTo_std_string", ExactSpelling = true)]
@@ -10811,13 +12639,19 @@ public static partial class MR
                     return new(__MR_CSharp_StringConvString_ConvertTo_std_string(_this._UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvString::operator std::string`.
+                /// </summary>
                 public static implicit operator string(MR.CS.CSharp.StringConvString _this) {return (MR.CS.Std.String)_this;}
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvString::operator std::string`.
+                /// </summary>
                 public override string ToString() {return (string)this;}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StringConvString::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StringConvString assign(MR.CS.CSharp.Const_StringConvString _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvString_AssignFromAnother", ExactSpelling = true)]
@@ -10826,12 +12660,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StringConvString` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StringConvString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StringConvString`/`Const_StringConvString` directly.
+            /// </summary>
             public class _InOptMut_StringConvString
             {
                 public StringConvString? Opt;
@@ -10841,12 +12677,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StringConvString(StringConvString value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StringConvString` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StringConvString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StringConvString`/`Const_StringConvString` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StringConvString
             {
                 public Const_StringConvString? Opt;
@@ -10856,8 +12694,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_StringConvString(Const_StringConvString value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::StringConvStringView`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StringConvStringView : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -10878,7 +12718,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StringConvStringView() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StringConvStringView() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_DefaultConstruct", ExactSpelling = true)]
@@ -10886,7 +12728,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvStringView_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StringConvStringView::StringConvStringView`.
+                /// </summary>
                 public unsafe Const_StringConvStringView(MR.CS.CSharp.Const_StringConvStringView _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_ConstructFromAnother", ExactSpelling = true)]
@@ -10895,7 +12739,9 @@ public static partial class MR
                 }
 
                 // Mark this `explicit` and `const` for a change.
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvStringView::operator std::string_view`.
+                /// </summary>
                 public static unsafe explicit operator MR.CS.Std.StringView(MR.CS.CSharp.Const_StringConvStringView _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_ConvertTo_std_string_view", ExactSpelling = true)]
@@ -10904,21 +12750,29 @@ public static partial class MR
                 }
 
                 // Mark this `explicit` and `const` for a change.
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvStringView::operator std::string_view`.
+                /// </summary>
                 public static explicit operator string(MR.CS.CSharp.Const_StringConvStringView _this) {return (MR.CS.Std.StringView)_this;}
 
                 // Mark this `explicit` and `const` for a change.
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvStringView::operator std::string_view`.
+                /// </summary>
                 public override string ToString() {return (string)this;}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::StringConvStringView`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StringConvStringView : Const_StringConvStringView
             {
                 internal unsafe StringConvStringView(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StringConvStringView() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_DefaultConstruct", ExactSpelling = true)]
@@ -10926,7 +12780,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvStringView_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StringConvStringView::StringConvStringView`.
+                /// </summary>
                 public unsafe StringConvStringView(MR.CS.CSharp.Const_StringConvStringView _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_ConstructFromAnother", ExactSpelling = true)]
@@ -10934,7 +12790,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvStringView_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StringConvStringView::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StringConvStringView assign(MR.CS.CSharp.Const_StringConvStringView _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvStringView_AssignFromAnother", ExactSpelling = true)]
@@ -10943,12 +12801,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StringConvStringView` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StringConvStringView`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StringConvStringView`/`Const_StringConvStringView` directly.
+            /// </summary>
             public class _InOptMut_StringConvStringView
             {
                 public StringConvStringView? Opt;
@@ -10958,12 +12818,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StringConvStringView(StringConvStringView value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StringConvStringView` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StringConvStringView`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StringConvStringView`/`Const_StringConvStringView` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StringConvStringView
             {
                 public Const_StringConvStringView? Opt;
@@ -10973,8 +12835,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_StringConvStringView(Const_StringConvStringView value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::StringConvFsPath`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_StringConvFsPath : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -10995,7 +12859,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StringConvFsPath() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_StringConvFsPath() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_DefaultConstruct", ExactSpelling = true)]
@@ -11003,7 +12869,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvFsPath_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StringConvFsPath::StringConvFsPath`.
+                /// </summary>
                 public unsafe Const_StringConvFsPath(MR.CS.CSharp.Const_StringConvFsPath _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_ConstructFromAnother", ExactSpelling = true)]
@@ -11012,13 +12880,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::StringConvFsPath`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class StringConvFsPath : Const_StringConvFsPath
             {
                 internal unsafe StringConvFsPath(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe StringConvFsPath() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_DefaultConstruct", ExactSpelling = true)]
@@ -11026,7 +12898,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvFsPath_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::StringConvFsPath::StringConvFsPath`.
+                /// </summary>
                 public unsafe StringConvFsPath(MR.CS.CSharp.Const_StringConvFsPath _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_ConstructFromAnother", ExactSpelling = true)]
@@ -11034,7 +12908,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvFsPath_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvFsPath::operator std::filesystem::path`.
+                /// </summary>
                 public static unsafe implicit operator MR.CS.Std.Filesystem.Path(MR.CS.CSharp.StringConvFsPath _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_ConvertTo_std_filesystem_path", ExactSpelling = true)]
@@ -11042,13 +12918,19 @@ public static partial class MR
                     return new(__MR_CSharp_StringConvFsPath_ConvertTo_std_filesystem_path(_this._UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvFsPath::operator std::filesystem::path`.
+                /// </summary>
                 public static implicit operator string(MR.CS.CSharp.StringConvFsPath _this) {return (MR.CS.Std.Filesystem.Path)_this;}
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvFsPath::operator std::filesystem::path`.
+                /// </summary>
                 public override string ToString() {return (string)this;}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::StringConvFsPath::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.StringConvFsPath assign(MR.CS.CSharp.Const_StringConvFsPath _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_StringConvFsPath_AssignFromAnother", ExactSpelling = true)]
@@ -11057,12 +12939,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StringConvFsPath` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_StringConvFsPath`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StringConvFsPath`/`Const_StringConvFsPath` directly.
+            /// </summary>
             public class _InOptMut_StringConvFsPath
             {
                 public StringConvFsPath? Opt;
@@ -11072,12 +12956,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_StringConvFsPath(StringConvFsPath value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `StringConvFsPath` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_StringConvFsPath`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `StringConvFsPath`/`Const_StringConvFsPath` to pass it to the function.
+            /// </summary>
             public class _InOptConst_StringConvFsPath
             {
                 public Const_StringConvFsPath? Opt;
@@ -11089,8 +12975,10 @@ public static partial class MR
 
             // Conversion constructors. Right now we only provide conversion operators for implicit ones,
             //   because I have no idea when the explicit ones could be useful.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtor`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ConvCtor : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -11111,7 +12999,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtor() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_ConvCtor() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_DefaultConstruct", ExactSpelling = true)]
@@ -11119,7 +13009,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public unsafe Const_ConvCtor(MR.CS.CSharp.Const_ConvCtor _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_ConstructFromAnother", ExactSpelling = true)]
@@ -11127,7 +13019,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public unsafe Const_ConvCtor(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_1_int", ExactSpelling = true)]
@@ -11135,10 +13029,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_1_int(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public static unsafe implicit operator Const_ConvCtor(int _1) {return new(_1);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public unsafe Const_ConvCtor(int _1, int _2) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_2_int", ExactSpelling = true)]
@@ -11146,7 +13044,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_2_int(_1, _2);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public unsafe Const_ConvCtor(float _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_1_float", ExactSpelling = true)]
@@ -11154,7 +13054,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_1_float(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public unsafe Const_ConvCtor(float _1, float _2) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_2_float", ExactSpelling = true)]
@@ -11165,13 +13067,17 @@ public static partial class MR
 
             // Conversion constructors. Right now we only provide conversion operators for implicit ones,
             //   because I have no idea when the explicit ones could be useful.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtor`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ConvCtor : Const_ConvCtor
             {
                 internal unsafe ConvCtor(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe ConvCtor() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_DefaultConstruct", ExactSpelling = true)]
@@ -11179,7 +13085,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public unsafe ConvCtor(MR.CS.CSharp.Const_ConvCtor _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_ConstructFromAnother", ExactSpelling = true)]
@@ -11187,7 +13095,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public unsafe ConvCtor(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_1_int", ExactSpelling = true)]
@@ -11195,10 +13105,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_1_int(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public static unsafe implicit operator ConvCtor(int _1) {return new(_1);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public unsafe ConvCtor(int _1, int _2) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_2_int", ExactSpelling = true)]
@@ -11206,7 +13120,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_2_int(_1, _2);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public unsafe ConvCtor(float _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_1_float", ExactSpelling = true)]
@@ -11214,7 +13130,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_1_float(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public unsafe ConvCtor(float _1, float _2) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_2_float", ExactSpelling = true)]
@@ -11222,7 +13140,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_2_float(_1, _2);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConvCtor::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.ConvCtor assign(MR.CS.CSharp.Const_ConvCtor _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_AssignFromAnother", ExactSpelling = true)]
@@ -11231,12 +13151,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtor` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvCtor`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtor`/`Const_ConvCtor` directly.
+            /// </summary>
             public class _InOptMut_ConvCtor
             {
                 public ConvCtor? Opt;
@@ -11246,12 +13168,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ConvCtor(ConvCtor value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtor` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvCtor`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtor`/`Const_ConvCtor` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ConvCtor
             {
                 public Const_ConvCtor? Opt;
@@ -11260,13 +13184,17 @@ public static partial class MR
                 public _InOptConst_ConvCtor(Const_ConvCtor value) {Opt = value;}
                 public static implicit operator _InOptConst_ConvCtor(Const_ConvCtor value) {return new(value);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public static unsafe implicit operator _InOptConst_ConvCtor(int _1) {return new Const_ConvCtor(_1);}
             }
 
             // Test that the default argument of the parameter of a converting constructor is stripped when rewriting it as a conversion operator.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorWithDefArg`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ConvCtorWithDefArg : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -11287,8 +13215,10 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorWithDefArg() {Dispose(false);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
                 /// Parameter `_1` defaults to `42`.
+                /// </summary>
                 public unsafe Const_ConvCtorWithDefArg(int? _1 = null) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorWithDefArg_Construct", ExactSpelling = true)]
@@ -11297,11 +13227,15 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorWithDefArg_Construct(_1.HasValue ? &__deref__1 : null);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
                 /// Parameter `_1` defaults to `42`.
+                /// </summary>
                 public static unsafe implicit operator Const_ConvCtorWithDefArg(int? _1) {return new(_1);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+                /// </summary>
                 public unsafe Const_ConvCtorWithDefArg(MR.CS.CSharp.Const_ConvCtorWithDefArg _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother", ExactSpelling = true)]
@@ -11311,14 +13245,18 @@ public static partial class MR
             }
 
             // Test that the default argument of the parameter of a converting constructor is stripped when rewriting it as a conversion operator.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorWithDefArg`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ConvCtorWithDefArg : Const_ConvCtorWithDefArg
             {
                 internal unsafe ConvCtorWithDefArg(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
                 /// Parameter `_1` defaults to `42`.
+                /// </summary>
                 public unsafe ConvCtorWithDefArg(int? _1 = null) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorWithDefArg_Construct", ExactSpelling = true)]
@@ -11327,11 +13265,15 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorWithDefArg_Construct(_1.HasValue ? &__deref__1 : null);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
                 /// Parameter `_1` defaults to `42`.
+                /// </summary>
                 public static unsafe implicit operator ConvCtorWithDefArg(int? _1) {return new(_1);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+                /// </summary>
                 public unsafe ConvCtorWithDefArg(MR.CS.CSharp.Const_ConvCtorWithDefArg _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother", ExactSpelling = true)]
@@ -11339,7 +13281,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConvCtorWithDefArg::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.ConvCtorWithDefArg assign(MR.CS.CSharp.Const_ConvCtorWithDefArg _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorWithDefArg_AssignFromAnother", ExactSpelling = true)]
@@ -11348,12 +13292,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtorWithDefArg` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvCtorWithDefArg`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtorWithDefArg`/`Const_ConvCtorWithDefArg` directly.
+            /// </summary>
             public class _InOptMut_ConvCtorWithDefArg
             {
                 public ConvCtorWithDefArg? Opt;
@@ -11363,12 +13309,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ConvCtorWithDefArg(ConvCtorWithDefArg value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtorWithDefArg` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvCtorWithDefArg`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtorWithDefArg`/`Const_ConvCtorWithDefArg` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ConvCtorWithDefArg
             {
                 public Const_ConvCtorWithDefArg? Opt;
@@ -11377,15 +13325,19 @@ public static partial class MR
                 public _InOptConst_ConvCtorWithDefArg(Const_ConvCtorWithDefArg value) {Opt = value;}
                 public static implicit operator _InOptConst_ConvCtorWithDefArg(Const_ConvCtorWithDefArg value) {return new(value);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
                 /// Parameter `_1` defaults to `42`.
+                /// </summary>
                 public static unsafe implicit operator _InOptConst_ConvCtorWithDefArg(int? _1) {return new Const_ConvCtorWithDefArg(_1);}
             }
 
             // A non-trivial move-only class with a converting ctor.
             // Here we test that our converting constructors injected into `_ByValue_...` don't attempt to copy the class.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorNonTrivialRestricted`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ConvCtorNonTrivialRestricted : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -11406,7 +13358,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorNonTrivialRestricted() {Dispose(false);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
+                /// </summary>
                 public unsafe Const_ConvCtorNonTrivialRestricted(MR.CS.CSharp._ByValue_ConvCtorNonTrivialRestricted _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivialRestricted_ConstructFromAnother", ExactSpelling = true)]
@@ -11414,7 +13368,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivialRestricted_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
+                /// </summary>
                 public unsafe Const_ConvCtorNonTrivialRestricted(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivialRestricted_Construct", ExactSpelling = true)]
@@ -11422,19 +13378,25 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivialRestricted_Construct(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
+                /// </summary>
                 public static unsafe implicit operator Const_ConvCtorNonTrivialRestricted(int _1) {return new(_1);}
             }
 
             // A non-trivial move-only class with a converting ctor.
             // Here we test that our converting constructors injected into `_ByValue_...` don't attempt to copy the class.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorNonTrivialRestricted`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ConvCtorNonTrivialRestricted : Const_ConvCtorNonTrivialRestricted
             {
                 internal unsafe ConvCtorNonTrivialRestricted(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
+                /// </summary>
                 public unsafe ConvCtorNonTrivialRestricted(MR.CS.CSharp._ByValue_ConvCtorNonTrivialRestricted _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivialRestricted_ConstructFromAnother", ExactSpelling = true)]
@@ -11442,7 +13404,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivialRestricted_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
+                /// </summary>
                 public unsafe ConvCtorNonTrivialRestricted(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivialRestricted_Construct", ExactSpelling = true)]
@@ -11450,10 +13414,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivialRestricted_Construct(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
+                /// </summary>
                 public static unsafe implicit operator ConvCtorNonTrivialRestricted(int _1) {return new(_1);}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConvCtorNonTrivialRestricted::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.ConvCtorNonTrivialRestricted assign(MR.CS.CSharp._ByValue_ConvCtorNonTrivialRestricted _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivialRestricted_AssignFromAnother", ExactSpelling = true)]
@@ -11462,11 +13430,13 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `ConvCtorNonTrivialRestricted` by value.
             /// Usage:
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_ConvCtorNonTrivialRestricted
             {
                 internal readonly Const_ConvCtorNonTrivialRestricted? Value;
@@ -11474,16 +13444,20 @@ public static partial class MR
                 public _ByValue_ConvCtorNonTrivialRestricted(MR.CS.Misc._Moved<ConvCtorNonTrivialRestricted> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_ConvCtorNonTrivialRestricted(MR.CS.Misc._Moved<ConvCtorNonTrivialRestricted> arg) {return new(arg);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
+                /// </summary>
                 public static unsafe implicit operator _ByValue_ConvCtorNonTrivialRestricted(int _1) {return new MR.CS.Misc._Moved<MR.CS.CSharp.ConvCtorNonTrivialRestricted>(_1);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtorNonTrivialRestricted` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvCtorNonTrivialRestricted`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtorNonTrivialRestricted`/`Const_ConvCtorNonTrivialRestricted` directly.
+            /// </summary>
             public class _InOptMut_ConvCtorNonTrivialRestricted
             {
                 public ConvCtorNonTrivialRestricted? Opt;
@@ -11493,12 +13467,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ConvCtorNonTrivialRestricted(ConvCtorNonTrivialRestricted value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtorNonTrivialRestricted` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvCtorNonTrivialRestricted`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtorNonTrivialRestricted`/`Const_ConvCtorNonTrivialRestricted` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ConvCtorNonTrivialRestricted
             {
                 public Const_ConvCtorNonTrivialRestricted? Opt;
@@ -11507,24 +13483,35 @@ public static partial class MR
                 public _InOptConst_ConvCtorNonTrivialRestricted(Const_ConvCtorNonTrivialRestricted value) {Opt = value;}
                 public static implicit operator _InOptConst_ConvCtorNonTrivialRestricted(Const_ConvCtorNonTrivialRestricted value) {return new(value);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
+                /// </summary>
                 public static unsafe implicit operator _InOptConst_ConvCtorNonTrivialRestricted(int _1) {return new Const_ConvCtorNonTrivialRestricted(_1);}
             }
 
             // A converting ctor in an exposed struct.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorExposed`.
             /// This is the const reference to the struct.
+            /// </summary>
             public class Const_ConvCtorExposed : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe ref readonly ConvCtorExposed _Ref => ref *(ConvCtorExposed *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Const_ConvCtorExposed(ConvCtorExposed other) : this(new Const_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
                 /// Convert from a struct by copying it. Note that only `Const_ConvCtorExposed` has this conversion, `Mut_ConvCtorExposed` intentionally doesn't.
+                /// </summary>
                 public static implicit operator Const_ConvCtorExposed(ConvCtorExposed other) {return new(other);}
 
                 internal unsafe Const_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
@@ -11541,14 +13528,18 @@ public static partial class MR
 
                 public ref readonly int x => ref _Ref.x;
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Const_ConvCtorExposed(Const_ConvCtorExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                /// </summary>
                 public unsafe Const_ConvCtorExposed(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
@@ -11558,35 +13549,50 @@ public static partial class MR
                     System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                /// </summary>
                 public static unsafe implicit operator Const_ConvCtorExposed(int _1) {return new(_1);}
             }
 
             // A converting ctor in an exposed struct.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorExposed`.
             /// This is the non-const reference to the struct.
+            /// </summary>
             public class Mut_ConvCtorExposed : Const_ConvCtorExposed
             {
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe new ref ConvCtorExposed _Ref => ref *(ConvCtorExposed *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Mut_ConvCtorExposed(ConvCtorExposed other) : this(new Const_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 public new ref int x => ref _Ref.x;
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Mut_ConvCtorExposed(Const_ConvCtorExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
                 }
 
+                /// <summary>
                 /// Generated copy assignment.
+                /// </summary>
                 public void Assign(Const_ConvCtorExposed _other) {_Ref = _other._Ref;}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                /// </summary>
                 public unsafe Mut_ConvCtorExposed(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
@@ -11596,26 +13602,36 @@ public static partial class MR
                     System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                /// </summary>
                 public static unsafe implicit operator Mut_ConvCtorExposed(int _1) {return new(_1);}
             }
 
             // A converting ctor in an exposed struct.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorExposed`.
             /// This is the by-value version of the struct.
+            /// </summary>
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
             public struct ConvCtorExposed
             {
+                /// <summary>
                 /// Copy contents from a wrapper class to this struct.
+                /// </summary>
                 public static implicit operator ConvCtorExposed(Const_ConvCtorExposed other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public ConvCtorExposed(ConvCtorExposed _other) {this = _other;}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                /// </summary>
                 public unsafe ConvCtorExposed(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
@@ -11623,14 +13639,18 @@ public static partial class MR
                     this = __MR_CSharp_ConvCtorExposed_Construct(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                /// </summary>
                 public static unsafe implicit operator ConvCtorExposed(int _1) {return new(_1);}
             }
 
+            /// <summary>
             /// This is used as a function parameter when passing `Mut_ConvCtorExposed` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_ConvCtorExposed`/`Const_ConvCtorExposed` to copy it into the function.
             /// * Pass `null` to use the default argument
+            /// </summary>
             public readonly ref struct _InOpt_ConvCtorExposed
             {
                 public readonly bool HasValue;
@@ -11649,10 +13669,13 @@ public static partial class MR
                 public _InOpt_ConvCtorExposed(Const_ConvCtorExposed new_value) {HasValue = true; Object = new_value._Ref;}
                 public static implicit operator _InOpt_ConvCtorExposed(Const_ConvCtorExposed new_value) {return new(new_value);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                /// </summary>
                 public static unsafe implicit operator _InOpt_ConvCtorExposed(int _1) {return new Const_ConvCtorExposed(_1);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_ConvCtorExposed` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvCtorExposed`.
             /// Usage:
@@ -11660,6 +13683,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_ConvCtorExposed`/`Const_ConvCtorExposed` directly.
             /// * Pass `new(ref ...)` to pass a reference to `ConvCtorExposed`.
+            /// </summary>
             public class _InOptMut_ConvCtorExposed
             {
                 public Mut_ConvCtorExposed? Opt;
@@ -11676,6 +13700,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_ConvCtorExposed` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvCtorExposed`.
             /// Usage:
@@ -11683,6 +13708,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_ConvCtorExposed`/`Const_ConvCtorExposed` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `ConvCtorExposed`.
+            /// </summary>
             public class _InOptConst_ConvCtorExposed
             {
                 public Const_ConvCtorExposed? Opt;
@@ -11698,14 +13724,18 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
+                /// </summary>
                 public static unsafe implicit operator _InOptConst_ConvCtorExposed(int _1) {return new Const_ConvCtorExposed(_1);}
             }
 
             // A sad class that's copyable but not movable.
             // This can often happen if you have a user-provided destructor.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorCopyButNoMove`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ConvCtorCopyButNoMove : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -11726,7 +13756,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorCopyButNoMove() {Dispose(false);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
                 public unsafe Const_ConvCtorCopyButNoMove(MR.CS.CSharp._ByValue_ConvCtorCopyButNoMove _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother", ExactSpelling = true)]
@@ -11734,7 +13766,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
                 public unsafe Const_ConvCtorCopyButNoMove(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_Construct", ExactSpelling = true)]
@@ -11742,19 +13776,25 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorCopyButNoMove_Construct(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
                 public static unsafe implicit operator Const_ConvCtorCopyButNoMove(int _1) {return new(_1);}
             }
 
             // A sad class that's copyable but not movable.
             // This can often happen if you have a user-provided destructor.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorCopyButNoMove`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ConvCtorCopyButNoMove : Const_ConvCtorCopyButNoMove
             {
                 internal unsafe ConvCtorCopyButNoMove(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
                 public unsafe ConvCtorCopyButNoMove(MR.CS.CSharp._ByValue_ConvCtorCopyButNoMove _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother", ExactSpelling = true)]
@@ -11762,7 +13802,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
                 public unsafe ConvCtorCopyButNoMove(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_Construct", ExactSpelling = true)]
@@ -11770,10 +13812,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorCopyButNoMove_Construct(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
                 public static unsafe implicit operator ConvCtorCopyButNoMove(int _1) {return new(_1);}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConvCtorCopyButNoMove::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.ConvCtorCopyButNoMove assign(MR.CS.CSharp._ByValue_ConvCtorCopyButNoMove _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_AssignFromAnother", ExactSpelling = true)]
@@ -11782,10 +13828,12 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `ConvCtorCopyButNoMove` by value.
             /// Usage:
             /// * Pass an instance of `ConvCtorCopyButNoMove`/`Const_ConvCtorCopyButNoMove` to copy it into the function.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_ConvCtorCopyButNoMove
             {
                 internal readonly Const_ConvCtorCopyButNoMove? Value;
@@ -11793,16 +13841,20 @@ public static partial class MR
                 public _ByValue_ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
                 public static implicit operator _ByValue_ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove arg) {return new(arg);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
                 public static unsafe implicit operator _ByValue_ConvCtorCopyButNoMove(int _1) {return new MR.CS.CSharp.ConvCtorCopyButNoMove(_1);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtorCopyButNoMove` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvCtorCopyButNoMove`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtorCopyButNoMove`/`Const_ConvCtorCopyButNoMove` directly.
+            /// </summary>
             public class _InOptMut_ConvCtorCopyButNoMove
             {
                 public ConvCtorCopyButNoMove? Opt;
@@ -11812,12 +13864,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ConvCtorCopyButNoMove(ConvCtorCopyButNoMove value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtorCopyButNoMove` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvCtorCopyButNoMove`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtorCopyButNoMove`/`Const_ConvCtorCopyButNoMove` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ConvCtorCopyButNoMove
             {
                 public Const_ConvCtorCopyButNoMove? Opt;
@@ -11826,13 +13880,17 @@ public static partial class MR
                 public _InOptConst_ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove value) {Opt = value;}
                 public static implicit operator _InOptConst_ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove value) {return new(value);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
                 public static unsafe implicit operator _InOptConst_ConvCtorCopyButNoMove(int _1) {return new Const_ConvCtorCopyButNoMove(_1);}
             }
 
             // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorTrivial`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ConvCtorTrivial : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -11853,7 +13911,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorTrivial() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_ConvCtorTrivial() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_DefaultConstruct", ExactSpelling = true)]
@@ -11861,7 +13921,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                /// </summary>
                 public unsafe Const_ConvCtorTrivial(MR.CS.CSharp.Const_ConvCtorTrivial _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_ConstructFromAnother", ExactSpelling = true)]
@@ -11869,7 +13931,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                /// </summary>
                 public unsafe Const_ConvCtorTrivial(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_Construct", ExactSpelling = true)]
@@ -11877,18 +13941,24 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_Construct(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                /// </summary>
                 public static unsafe implicit operator Const_ConvCtorTrivial(int _1) {return new(_1);}
             }
 
             // Test how a trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorTrivial`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ConvCtorTrivial : Const_ConvCtorTrivial
             {
                 internal unsafe ConvCtorTrivial(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe ConvCtorTrivial() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_DefaultConstruct", ExactSpelling = true)]
@@ -11896,7 +13966,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                /// </summary>
                 public unsafe ConvCtorTrivial(MR.CS.CSharp.Const_ConvCtorTrivial _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_ConstructFromAnother", ExactSpelling = true)]
@@ -11904,7 +13976,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                /// </summary>
                 public unsafe ConvCtorTrivial(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_Construct", ExactSpelling = true)]
@@ -11912,10 +13986,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_Construct(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                /// </summary>
                 public static unsafe implicit operator ConvCtorTrivial(int _1) {return new(_1);}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConvCtorTrivial::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.ConvCtorTrivial assign(MR.CS.CSharp.Const_ConvCtorTrivial _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_AssignFromAnother", ExactSpelling = true)]
@@ -11924,12 +14002,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtorTrivial` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvCtorTrivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtorTrivial`/`Const_ConvCtorTrivial` directly.
+            /// </summary>
             public class _InOptMut_ConvCtorTrivial
             {
                 public ConvCtorTrivial? Opt;
@@ -11939,12 +14019,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ConvCtorTrivial(ConvCtorTrivial value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtorTrivial` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvCtorTrivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtorTrivial`/`Const_ConvCtorTrivial` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ConvCtorTrivial
             {
                 public Const_ConvCtorTrivial? Opt;
@@ -11953,13 +14035,17 @@ public static partial class MR
                 public _InOptConst_ConvCtorTrivial(Const_ConvCtorTrivial value) {Opt = value;}
                 public static implicit operator _InOptConst_ConvCtorTrivial(Const_ConvCtorTrivial value) {return new(value);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                /// </summary>
                 public static unsafe implicit operator _InOptConst_ConvCtorTrivial(int _1) {return new Const_ConvCtorTrivial(_1);}
             }
 
             // Test how a non-trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorNonTrivial`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ConvCtorNonTrivial : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -11980,7 +14066,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorNonTrivial() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_ConvCtorNonTrivial() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_DefaultConstruct", ExactSpelling = true)]
@@ -11988,7 +14076,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
                 public unsafe Const_ConvCtorNonTrivial(MR.CS.CSharp._ByValue_ConvCtorNonTrivial _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother", ExactSpelling = true)]
@@ -11996,7 +14086,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
                 public unsafe Const_ConvCtorNonTrivial(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_Construct", ExactSpelling = true)]
@@ -12004,18 +14096,24 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_Construct(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
                 public static unsafe implicit operator Const_ConvCtorNonTrivial(int _1) {return new(_1);}
             }
 
             // Test how a non-trivial class with a converting constructor gets the additional conversion operators in its parameter passing helpers.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConvCtorNonTrivial`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ConvCtorNonTrivial : Const_ConvCtorNonTrivial
             {
                 internal unsafe ConvCtorNonTrivial(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe ConvCtorNonTrivial() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_DefaultConstruct", ExactSpelling = true)]
@@ -12023,7 +14121,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
                 public unsafe ConvCtorNonTrivial(MR.CS.CSharp._ByValue_ConvCtorNonTrivial _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother", ExactSpelling = true)]
@@ -12031,7 +14131,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
                 public unsafe ConvCtorNonTrivial(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_Construct", ExactSpelling = true)]
@@ -12039,10 +14141,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_Construct(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
                 public static unsafe implicit operator ConvCtorNonTrivial(int _1) {return new(_1);}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConvCtorNonTrivial::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.ConvCtorNonTrivial assign(MR.CS.CSharp._ByValue_ConvCtorNonTrivial _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_AssignFromAnother", ExactSpelling = true)]
@@ -12051,6 +14157,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `ConvCtorNonTrivial` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -12058,6 +14165,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_ConvCtorNonTrivial
             {
                 internal readonly Const_ConvCtorNonTrivial? Value;
@@ -12068,16 +14176,20 @@ public static partial class MR
                 public _ByValue_ConvCtorNonTrivial(MR.CS.Misc._Moved<ConvCtorNonTrivial> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_ConvCtorNonTrivial(MR.CS.Misc._Moved<ConvCtorNonTrivial> arg) {return new(arg);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
                 public static unsafe implicit operator _ByValue_ConvCtorNonTrivial(int _1) {return new MR.CS.Misc._Moved<MR.CS.CSharp.ConvCtorNonTrivial>(_1);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtorNonTrivial` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvCtorNonTrivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtorNonTrivial`/`Const_ConvCtorNonTrivial` directly.
+            /// </summary>
             public class _InOptMut_ConvCtorNonTrivial
             {
                 public ConvCtorNonTrivial? Opt;
@@ -12087,12 +14199,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ConvCtorNonTrivial(ConvCtorNonTrivial value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ConvCtorNonTrivial` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvCtorNonTrivial`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ConvCtorNonTrivial`/`Const_ConvCtorNonTrivial` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ConvCtorNonTrivial
             {
                 public Const_ConvCtorNonTrivial? Opt;
@@ -12101,24 +14215,35 @@ public static partial class MR
                 public _InOptConst_ConvCtorNonTrivial(Const_ConvCtorNonTrivial value) {Opt = value;}
                 public static implicit operator _InOptConst_ConvCtorNonTrivial(Const_ConvCtorNonTrivial value) {return new(value);}
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
                 public static unsafe implicit operator _InOptConst_ConvCtorNonTrivial(int _1) {return new Const_ConvCtorNonTrivial(_1);}
             }
 
             // Exposed structs:
+            /// <summary>
             /// Generated from class `MR::CSharp::ExposedLayout`.
             /// This is the const reference to the struct.
+            /// </summary>
             public class Const_ExposedLayout : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe ref readonly ExposedLayout _Ref => ref *(ExposedLayout *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Const_ExposedLayout(ExposedLayout other) : this(new Const_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
                 /// Convert from a struct by copying it. Note that only `Const_ExposedLayout` has this conversion, `Mut_ExposedLayout` intentionally doesn't.
+                /// </summary>
                 public static implicit operator Const_ExposedLayout(ExposedLayout other) {return new(other);}
 
                 internal unsafe Const_ExposedLayout(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
@@ -12146,21 +14271,27 @@ public static partial class MR
 
                 public ref readonly MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
+                /// <summary>
                 /// Generated default constructor.
+                /// </summary>
                 public unsafe Const_ExposedLayout() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
                     System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 56, 0);
                 }
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Const_ExposedLayout(Const_ExposedLayout _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::bar`.
+                /// </summary>
                 public unsafe void bar()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayout_bar", ExactSpelling = true)]
@@ -12168,7 +14299,9 @@ public static partial class MR
                     __MR_CSharp_ExposedLayout_bar(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::blah`.
+                /// </summary>
                 public static void blah()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayout_blah", ExactSpelling = true)]
@@ -12177,7 +14310,9 @@ public static partial class MR
                 }
 
                 // Try some jank operators.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator++`.
+                /// </summary>
                 public static unsafe Mut_ExposedLayout operator++(MR.CS.CSharp.Const_ExposedLayout _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12189,7 +14324,9 @@ public static partial class MR
 
                 // Test how returning references to an exposed struct works, since C# overloaded operators can't return `ref`.
                 // Note that this operator must be `const` to test this correctly, since we turn non-const operators in exposed structs into functions.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator*`.
+                /// </summary>
                 public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout> operator*(MR.CS.CSharp.Const_ExposedLayout _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_CSharp_ExposedLayout_int", ExactSpelling = true)]
@@ -12197,7 +14334,9 @@ public static partial class MR
                     return new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>(__MR_C_mul_MR_CSharp_ExposedLayout_int(_this._UnderlyingPtr, _1));
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator+`.
+                /// </summary>
                 public static unsafe MR.CS.Misc.ConstRef<MR.CS.CSharp.ExposedLayout> operator+(MR.CS.CSharp.Const_ExposedLayout _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_const_MR_CSharp_ExposedLayout_ref_int", ExactSpelling = true)]
@@ -12205,7 +14344,9 @@ public static partial class MR
                     return new(__MR_C_add_const_MR_CSharp_ExposedLayout_ref_int(_this._UnderlyingPtr, _1));
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator<`.
+                /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.Const_ExposedLayout _this, MR.CS.CSharp.Const_ExposedLayout _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12228,7 +14369,9 @@ public static partial class MR
                     return !(_this < _1);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator-`.
+                /// </summary>
                 public static unsafe int operator-(int _1, Const_ExposedLayout _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_int_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12236,7 +14379,9 @@ public static partial class MR
                     return __MR_C_sub_int_MR_CSharp_ExposedLayout(_1, _2._Ref);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator%`.
+                /// </summary>
                 public static unsafe int operator%(int _1, MR.CS.CSharp.Const_ExposedLayout _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_int_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12244,7 +14389,9 @@ public static partial class MR
                     return __MR_C_mod_int_MR_CSharp_ExposedLayout(_1, _2._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
+                /// </summary>
                 public unsafe void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12252,7 +14399,9 @@ public static partial class MR
                     __MR_C_decr_MR_CSharp_ExposedLayout(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
+                /// </summary>
                 public static unsafe Mut_ExposedLayout operator--(MR.CS.CSharp.Const_ExposedLayout _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12264,13 +14413,20 @@ public static partial class MR
             }
 
             // Exposed structs:
+            /// <summary>
             /// Generated from class `MR::CSharp::ExposedLayout`.
             /// This is the non-const reference to the struct.
+            /// </summary>
             public class Mut_ExposedLayout : Const_ExposedLayout, System.IEquatable<float>
             {
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe new ref ExposedLayout _Ref => ref *(ExposedLayout *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Mut_ExposedLayout(ExposedLayout other) : this(new Const_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_ExposedLayout(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -12288,24 +14444,32 @@ public static partial class MR
 
                 public new ref MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
+                /// <summary>
                 /// Generated default constructor.
+                /// </summary>
                 public unsafe Mut_ExposedLayout() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
                     System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 56, 0);
                 }
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Mut_ExposedLayout(Const_ExposedLayout _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
                 }
 
+                /// <summary>
                 /// Generated copy assignment.
+                /// </summary>
                 public void Assign(Const_ExposedLayout _other) {_Ref = _other._Ref;}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayout_foo", ExactSpelling = true)]
@@ -12314,7 +14478,9 @@ public static partial class MR
                 }
 
                 // Try some jank operators.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12322,7 +14488,9 @@ public static partial class MR
                     __MR_C_incr_MR_CSharp_ExposedLayout(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.Mut_ExposedLayout _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_ExposedLayout_ref_int", ExactSpelling = true)]
@@ -12330,7 +14498,9 @@ public static partial class MR
                     return __MR_C_add_MR_CSharp_ExposedLayout_ref_int(_this._UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.Mut_ExposedLayout _this, float _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayout_float", ExactSpelling = true)]
@@ -12343,7 +14513,9 @@ public static partial class MR
                     return !(_this == _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator<`.
+                /// </summary>
                 public unsafe bool less(byte _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_ExposedLayout_char", ExactSpelling = true)]
@@ -12351,7 +14523,9 @@ public static partial class MR
                     return __MR_C_less_MR_CSharp_ExposedLayout_char(_UnderlyingPtr, _1) != 0;
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator/`.
+                /// </summary>
                 public static unsafe int operator/(int _1, MR.CS.CSharp.Mut_ExposedLayout _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_int_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12377,12 +14551,16 @@ public static partial class MR
             }
 
             // Exposed structs:
+            /// <summary>
             /// Generated from class `MR::CSharp::ExposedLayout`.
             /// This is the by-value version of the struct.
+            /// </summary>
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
             public struct ExposedLayout : System.IEquatable<float>
             {
+                /// <summary>
                 /// Copy contents from a wrapper class to this struct.
+                /// </summary>
                 public static implicit operator ExposedLayout(Const_ExposedLayout other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
@@ -12405,10 +14583,14 @@ public static partial class MR
                 [System.Runtime.InteropServices.FieldOffset(29)]
                 public MR.CS.ArrayBool4_5 ba;
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public ExposedLayout(ExposedLayout _other) {this = _other;}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayout_foo", ExactSpelling = true)]
@@ -12419,7 +14601,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::bar`.
+                /// </summary>
                 public readonly unsafe void bar()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayout_bar", ExactSpelling = true)]
@@ -12430,7 +14614,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::blah`.
+                /// </summary>
                 public static void blah()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayout_blah", ExactSpelling = true)]
@@ -12439,7 +14625,9 @@ public static partial class MR
                 }
 
                 // Try some jank operators.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12451,7 +14639,9 @@ public static partial class MR
                 }
 
                 // Try some jank operators.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator++`.
+                /// </summary>
                 public unsafe ExposedLayout incr(MR.CS.CSharp.ExposedLayout _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12461,7 +14651,9 @@ public static partial class MR
                     return __this_copy;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator+`.
+                /// </summary>
                 public unsafe int add(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_ExposedLayout_ref_int", ExactSpelling = true)]
@@ -12474,7 +14666,9 @@ public static partial class MR
 
                 // Test how returning references to an exposed struct works, since C# overloaded operators can't return `ref`.
                 // Note that this operator must be `const` to test this correctly, since we turn non-const operators in exposed structs into functions.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator*`.
+                /// </summary>
                 public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout> operator*(MR.CS.CSharp.ExposedLayout _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_CSharp_ExposedLayout_int", ExactSpelling = true)]
@@ -12482,7 +14676,9 @@ public static partial class MR
                     return new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>(__MR_C_mul_MR_CSharp_ExposedLayout_int(&_this, _1));
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator+`.
+                /// </summary>
                 public static unsafe MR.CS.Misc.ConstRef<MR.CS.CSharp.ExposedLayout> operator+(MR.CS.CSharp.ExposedLayout _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_const_MR_CSharp_ExposedLayout_ref_int", ExactSpelling = true)]
@@ -12490,7 +14686,9 @@ public static partial class MR
                     return new(__MR_C_add_const_MR_CSharp_ExposedLayout_ref_int(&_this, _1));
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator<`.
+                /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.ExposedLayout _this, MR.CS.CSharp.ExposedLayout _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12513,7 +14711,9 @@ public static partial class MR
                     return !(_this < _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator==`.
+                /// </summary>
                 public unsafe bool equal(float _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayout_float", ExactSpelling = true)]
@@ -12529,7 +14729,9 @@ public static partial class MR
                     return !this.equal(_1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator<`.
+                /// </summary>
                 public unsafe bool less(byte _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_ExposedLayout_char", ExactSpelling = true)]
@@ -12540,7 +14742,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator-`.
+                /// </summary>
                 public static int operator-(int _1, MR.CS.CSharp.ExposedLayout _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_int_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12548,7 +14752,9 @@ public static partial class MR
                     return __MR_C_sub_int_MR_CSharp_ExposedLayout(_1, _2);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator/`.
+                /// </summary>
                 public static unsafe int div(int _1, ref MR.CS.CSharp.ExposedLayout _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_int_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12559,7 +14765,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator%`.
+                /// </summary>
                 public static unsafe int operator%(int _1, MR.CS.CSharp.ExposedLayout _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_int_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12567,7 +14775,9 @@ public static partial class MR
                     return __MR_C_mod_int_MR_CSharp_ExposedLayout(_1, &_2);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
+                /// </summary>
                 public void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12575,7 +14785,9 @@ public static partial class MR
                     __MR_C_decr_MR_CSharp_ExposedLayout(this);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
+                /// </summary>
                 public static ExposedLayout operator--(MR.CS.CSharp.ExposedLayout _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12602,10 +14814,12 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when passing `Mut_ExposedLayout` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_ExposedLayout`/`Const_ExposedLayout` to copy it into the function.
             /// * Pass `null` to use the default argument
+            /// </summary>
             public readonly ref struct _InOpt_ExposedLayout
             {
                 public readonly bool HasValue;
@@ -12625,6 +14839,7 @@ public static partial class MR
                 public static implicit operator _InOpt_ExposedLayout(Const_ExposedLayout new_value) {return new(new_value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_ExposedLayout` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ExposedLayout`.
             /// Usage:
@@ -12632,6 +14847,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_ExposedLayout`/`Const_ExposedLayout` directly.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayout`.
+            /// </summary>
             public class _InOptMut_ExposedLayout
             {
                 public Mut_ExposedLayout? Opt;
@@ -12648,6 +14864,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_ExposedLayout` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ExposedLayout`.
             /// Usage:
@@ -12655,6 +14872,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_ExposedLayout`/`Const_ExposedLayout` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayout`.
+            /// </summary>
             public class _InOptConst_ExposedLayout
             {
                 public Const_ExposedLayout? Opt;
@@ -12672,8 +14890,10 @@ public static partial class MR
             }
 
             // This one is backed by a shared pointer.
+            /// <summary>
             /// Generated from class `MR::CSharp::ExposedLayoutSh`.
             /// This is the const reference to the struct.
+            /// </summary>
             public class Const_ExposedLayoutSh : MR.CS.Misc.SharedObject, System.IDisposable, System.IEquatable<MR.CS.CSharp.ExposedLayout>, System.IEquatable<MR.CS.CSharp.Const_ExposedLayoutSh>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -12691,7 +14911,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is owning or not.
+                /// </summary>
                 public override unsafe bool _IsOwning
                 {
                     get
@@ -12702,8 +14924,10 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Check if the underlying shared pointer is non-null.
                 /// If this returns null, calling any member other than `.Assign()` on this object will assert.
+                /// </summary>
                 private unsafe bool _SharedPtrIsNotNull
                 {
                     get
@@ -12714,11 +14938,18 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe ref readonly ExposedLayoutSh _Ref => ref *(ExposedLayoutSh *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Const_ExposedLayoutSh(ExposedLayoutSh other) : this(new Const_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
                 /// Convert from a struct by copying it. Note that only `Const_ExposedLayoutSh` has this conversion, `Mut_ExposedLayoutSh` intentionally doesn't.
+                /// </summary>
                 public static implicit operator Const_ExposedLayoutSh(ExposedLayoutSh other) {return new(other);}
 
                 internal unsafe Const_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(true)
@@ -12776,21 +15007,27 @@ public static partial class MR
 
                 public ref readonly MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
+                /// <summary>
                 /// Generated default constructor.
+                /// </summary>
                 public unsafe Const_ExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
                     System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 56, 0);
                 }
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Const_ExposedLayoutSh(Const_ExposedLayoutSh _other) : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::bar`.
+                /// </summary>
                 public unsafe void bar()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutSh_bar", ExactSpelling = true)]
@@ -12798,7 +15035,9 @@ public static partial class MR
                     __MR_CSharp_ExposedLayoutSh_bar(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::blah`.
+                /// </summary>
                 public static void blah()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutSh_blah", ExactSpelling = true)]
@@ -12807,7 +15046,9 @@ public static partial class MR
                 }
 
                 // Try some jank operators.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator++`.
+                /// </summary>
                 public static unsafe Mut_ExposedLayoutSh operator++(MR.CS.CSharp.Const_ExposedLayoutSh _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -12817,7 +15058,9 @@ public static partial class MR
                     return __this_copy;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator*`.
+                /// </summary>
                 public static unsafe int operator*(MR.CS.CSharp.Const_ExposedLayoutSh _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_CSharp_ExposedLayoutSh_int", ExactSpelling = true)]
@@ -12825,7 +15068,9 @@ public static partial class MR
                     return __MR_C_mul_MR_CSharp_ExposedLayoutSh_int(_this._UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator<`.
+                /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.Const_ExposedLayoutSh _this, MR.CS.CSharp.Const_ExposedLayoutSh _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -12849,7 +15094,9 @@ public static partial class MR
                 }
 
                 // While we're at it, test comparison against another exposed struct, since this is apparently non-trivial.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.Const_ExposedLayoutSh _this, in MR.CS.CSharp.ExposedLayout _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -12866,7 +15113,9 @@ public static partial class MR
                 }
 
                 // And against itself, too.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.Const_ExposedLayoutSh _this, MR.CS.CSharp.Const_ExposedLayoutSh _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -12879,7 +15128,9 @@ public static partial class MR
                     return !(_this == _1);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator-`.
+                /// </summary>
                 public static unsafe int operator-(int _1, Const_ExposedLayoutSh _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_int_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -12887,7 +15138,9 @@ public static partial class MR
                     return __MR_C_sub_int_MR_CSharp_ExposedLayoutSh(_1, _2._Ref);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator%`.
+                /// </summary>
                 public static unsafe int operator%(int _1, MR.CS.CSharp.Const_ExposedLayoutSh _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_int_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -12895,7 +15148,9 @@ public static partial class MR
                     return __MR_C_mod_int_MR_CSharp_ExposedLayoutSh(_1, _2._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
+                /// </summary>
                 public unsafe void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -12903,7 +15158,9 @@ public static partial class MR
                     __MR_C_decr_MR_CSharp_ExposedLayoutSh(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
+                /// </summary>
                 public static unsafe Mut_ExposedLayoutSh operator--(MR.CS.CSharp.Const_ExposedLayoutSh _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -12940,13 +15197,20 @@ public static partial class MR
             }
 
             // This one is backed by a shared pointer.
+            /// <summary>
             /// Generated from class `MR::CSharp::ExposedLayoutSh`.
             /// This is the non-const reference to the struct.
+            /// </summary>
             public class Mut_ExposedLayoutSh : Const_ExposedLayoutSh, System.IEquatable<float>
             {
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe new ref ExposedLayoutSh _Ref => ref *(ExposedLayoutSh *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Mut_ExposedLayoutSh(ExposedLayoutSh other) : this(new Const_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -12966,24 +15230,32 @@ public static partial class MR
 
                 public new ref MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
+                /// <summary>
                 /// Generated default constructor.
+                /// </summary>
                 public unsafe Mut_ExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
                     System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 56, 0);
                 }
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Mut_ExposedLayoutSh(Const_ExposedLayoutSh _other) : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
                 }
 
+                /// <summary>
                 /// Generated copy assignment.
+                /// </summary>
                 public void Assign(Const_ExposedLayoutSh _other) {_Ref = _other._Ref;}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutSh_foo", ExactSpelling = true)]
@@ -12992,7 +15264,9 @@ public static partial class MR
                 }
 
                 // Try some jank operators.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -13000,7 +15274,9 @@ public static partial class MR
                     __MR_C_incr_MR_CSharp_ExposedLayoutSh(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.Mut_ExposedLayoutSh _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_ExposedLayoutSh_int", ExactSpelling = true)]
@@ -13008,7 +15284,9 @@ public static partial class MR
                     return __MR_C_add_MR_CSharp_ExposedLayoutSh_int(_this._UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.Mut_ExposedLayoutSh _this, float _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutSh_float", ExactSpelling = true)]
@@ -13021,7 +15299,9 @@ public static partial class MR
                     return !(_this == _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator<`.
+                /// </summary>
                 public unsafe bool less(byte _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_ExposedLayoutSh_char", ExactSpelling = true)]
@@ -13029,7 +15309,9 @@ public static partial class MR
                     return __MR_C_less_MR_CSharp_ExposedLayoutSh_char(_UnderlyingPtr, _1) != 0;
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator/`.
+                /// </summary>
                 public static unsafe int operator/(int _1, MR.CS.CSharp.Mut_ExposedLayoutSh _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_int_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -13055,12 +15337,16 @@ public static partial class MR
             }
 
             // This one is backed by a shared pointer.
+            /// <summary>
             /// Generated from class `MR::CSharp::ExposedLayoutSh`.
             /// This is the by-value version of the struct.
+            /// </summary>
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
             public struct ExposedLayoutSh : System.IEquatable<float>, System.IEquatable<MR.CS.CSharp.ExposedLayout>, System.IEquatable<MR.CS.CSharp.ExposedLayoutSh>
             {
+                /// <summary>
                 /// Copy contents from a wrapper class to this struct.
+                /// </summary>
                 public static implicit operator ExposedLayoutSh(Const_ExposedLayoutSh other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
@@ -13083,10 +15369,14 @@ public static partial class MR
                 [System.Runtime.InteropServices.FieldOffset(29)]
                 public MR.CS.ArrayBool4_5 ba;
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public ExposedLayoutSh(ExposedLayoutSh _other) {this = _other;}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::foo`.
+                /// </summary>
                 public unsafe void foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutSh_foo", ExactSpelling = true)]
@@ -13097,7 +15387,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::bar`.
+                /// </summary>
                 public readonly unsafe void bar()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutSh_bar", ExactSpelling = true)]
@@ -13108,7 +15400,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::blah`.
+                /// </summary>
                 public static void blah()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutSh_blah", ExactSpelling = true)]
@@ -13117,7 +15411,9 @@ public static partial class MR
                 }
 
                 // Try some jank operators.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator++`.
+                /// </summary>
                 public unsafe void incr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -13129,7 +15425,9 @@ public static partial class MR
                 }
 
                 // Try some jank operators.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator++`.
+                /// </summary>
                 public unsafe ExposedLayoutSh incr(MR.CS.CSharp.ExposedLayoutSh _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -13139,7 +15437,9 @@ public static partial class MR
                     return __this_copy;
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator+`.
+                /// </summary>
                 public unsafe int add(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_ExposedLayoutSh_int", ExactSpelling = true)]
@@ -13150,7 +15450,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator*`.
+                /// </summary>
                 public static unsafe int operator*(MR.CS.CSharp.ExposedLayoutSh _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_CSharp_ExposedLayoutSh_int", ExactSpelling = true)]
@@ -13158,7 +15460,9 @@ public static partial class MR
                     return __MR_C_mul_MR_CSharp_ExposedLayoutSh_int(&_this, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator<`.
+                /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.ExposedLayoutSh _this, MR.CS.CSharp.ExposedLayoutSh _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -13181,7 +15485,9 @@ public static partial class MR
                     return !(_this < _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
+                /// </summary>
                 public unsafe bool equal(float _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutSh_float", ExactSpelling = true)]
@@ -13197,7 +15503,9 @@ public static partial class MR
                     return !this.equal(_1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator<`.
+                /// </summary>
                 public unsafe bool less(byte _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_ExposedLayoutSh_char", ExactSpelling = true)]
@@ -13209,7 +15517,9 @@ public static partial class MR
                 }
 
                 // While we're at it, test comparison against another exposed struct, since this is apparently non-trivial.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.ExposedLayoutSh _this, in MR.CS.CSharp.ExposedLayout _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -13226,7 +15536,9 @@ public static partial class MR
                 }
 
                 // And against itself, too.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.ExposedLayoutSh _this, MR.CS.CSharp.ExposedLayoutSh _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -13239,7 +15551,9 @@ public static partial class MR
                     return !(_this == _1);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator-`.
+                /// </summary>
                 public static int operator-(int _1, MR.CS.CSharp.ExposedLayoutSh _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_int_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -13247,7 +15561,9 @@ public static partial class MR
                     return __MR_C_sub_int_MR_CSharp_ExposedLayoutSh(_1, _2);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator/`.
+                /// </summary>
                 public static unsafe int div(int _1, ref MR.CS.CSharp.ExposedLayoutSh _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_int_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -13258,7 +15574,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator%`.
+                /// </summary>
                 public static unsafe int operator%(int _1, MR.CS.CSharp.ExposedLayoutSh _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_int_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -13266,7 +15584,9 @@ public static partial class MR
                     return __MR_C_mod_int_MR_CSharp_ExposedLayoutSh(_1, &_2);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
+                /// </summary>
                 public void decr()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -13274,7 +15594,9 @@ public static partial class MR
                     __MR_C_decr_MR_CSharp_ExposedLayoutSh(this);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
+                /// </summary>
                 public static ExposedLayoutSh operator--(MR.CS.CSharp.ExposedLayoutSh _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -13315,6 +15637,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `Mut_ExposedLayoutSh` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -13322,6 +15645,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValueShared_ExposedLayoutSh
             {
                 internal readonly Const_ExposedLayoutSh? Value;
@@ -13333,10 +15657,12 @@ public static partial class MR
                 public static implicit operator _ByValueShared_ExposedLayoutSh(MR.CS.Misc._Moved<Mut_ExposedLayoutSh> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used as a function parameter when passing `Mut_ExposedLayoutSh` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_ExposedLayoutSh`/`Const_ExposedLayoutSh` to copy it into the function.
             /// * Pass `null` to use the default argument
+            /// </summary>
             public readonly ref struct _InOpt_ExposedLayoutSh
             {
                 public readonly bool HasValue;
@@ -13356,6 +15682,7 @@ public static partial class MR
                 public static implicit operator _InOpt_ExposedLayoutSh(Const_ExposedLayoutSh new_value) {return new(new_value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_ExposedLayoutSh` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ExposedLayoutSh`.
             /// Usage:
@@ -13363,6 +15690,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_ExposedLayoutSh`/`Const_ExposedLayoutSh` directly.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutSh`.
+            /// </summary>
             public class _InOptMut_ExposedLayoutSh
             {
                 public Mut_ExposedLayoutSh? Opt;
@@ -13379,6 +15707,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_ExposedLayoutSh` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ExposedLayoutSh`.
             /// Usage:
@@ -13386,6 +15715,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_ExposedLayoutSh`/`Const_ExposedLayoutSh` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutSh`.
+            /// </summary>
             public class _InOptConst_ExposedLayoutSh
             {
                 public Const_ExposedLayoutSh? Opt;
@@ -13402,19 +15732,28 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
             /// This is the const reference to the struct.
+            /// </summary>
             public class Const_ExposedLayoutB : MR.CS.Misc.Object, System.IDisposable, System.IEquatable<MR.CS.CSharp.Const_ExposedLayoutB>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe ref readonly ExposedLayoutB _Ref => ref *(ExposedLayoutB *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Const_ExposedLayoutB(ExposedLayoutB other) : this(new Const_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
                 /// Convert from a struct by copying it. Note that only `Const_ExposedLayoutB` has this conversion, `Mut_ExposedLayoutB` intentionally doesn't.
+                /// </summary>
                 public static implicit operator Const_ExposedLayoutB(ExposedLayoutB other) {return new(other);}
 
                 internal unsafe Const_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
@@ -13431,7 +15770,9 @@ public static partial class MR
 
                 public ref readonly int x => ref _Ref.x;
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Const_ExposedLayoutB(Const_ExposedLayoutB _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
@@ -13439,7 +15780,9 @@ public static partial class MR
                 }
 
                 // Some random ctor.
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+                /// </summary>
                 public unsafe Const_ExposedLayoutB(int _1, int _2) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct", ExactSpelling = true)]
@@ -13450,7 +15793,9 @@ public static partial class MR
                 }
 
                 // And try an equality comparison!
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.Const_ExposedLayoutB _1, MR.CS.CSharp.Const_ExposedLayoutB _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutB", ExactSpelling = true)]
@@ -13482,31 +15827,44 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
             /// This is the non-const reference to the struct.
+            /// </summary>
             public class Mut_ExposedLayoutB : Const_ExposedLayoutB
             {
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe new ref ExposedLayoutB _Ref => ref *(ExposedLayoutB *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Mut_ExposedLayoutB(ExposedLayoutB other) : this(new Const_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 public new ref int x => ref _Ref.x;
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Mut_ExposedLayoutB(Const_ExposedLayoutB _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
                 }
 
+                /// <summary>
                 /// Generated copy assignment.
+                /// </summary>
                 public void Assign(Const_ExposedLayoutB _other) {_Ref = _other._Ref;}
 
                 // Some random ctor.
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+                /// </summary>
                 public unsafe Mut_ExposedLayoutB(int _1, int _2) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct", ExactSpelling = true)]
@@ -13517,22 +15875,30 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
             /// This is the by-value version of the struct.
+            /// </summary>
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
             public struct ExposedLayoutB : System.IEquatable<MR.CS.CSharp.ExposedLayoutB>
             {
+                /// <summary>
                 /// Copy contents from a wrapper class to this struct.
+                /// </summary>
                 public static implicit operator ExposedLayoutB(Const_ExposedLayoutB other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public ExposedLayoutB(ExposedLayoutB _other) {this = _other;}
 
                 // Some random ctor.
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+                /// </summary>
                 public unsafe ExposedLayoutB(int _1, int _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct", ExactSpelling = true)]
@@ -13541,7 +15907,9 @@ public static partial class MR
                 }
 
                 // And try an equality comparison!
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator==`.
+                /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.ExposedLayoutB _1, MR.CS.CSharp.ExposedLayoutB _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutB", ExactSpelling = true)]
@@ -13571,10 +15939,12 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when passing `Mut_ExposedLayoutB` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_ExposedLayoutB`/`Const_ExposedLayoutB` to copy it into the function.
             /// * Pass `null` to use the default argument
+            /// </summary>
             public readonly ref struct _InOpt_ExposedLayoutB
             {
                 public readonly bool HasValue;
@@ -13594,6 +15964,7 @@ public static partial class MR
                 public static implicit operator _InOpt_ExposedLayoutB(Const_ExposedLayoutB new_value) {return new(new_value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_ExposedLayoutB` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ExposedLayoutB`.
             /// Usage:
@@ -13601,6 +15972,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_ExposedLayoutB`/`Const_ExposedLayoutB` directly.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutB`.
+            /// </summary>
             public class _InOptMut_ExposedLayoutB
             {
                 public Mut_ExposedLayoutB? Opt;
@@ -13617,6 +15989,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_ExposedLayoutB` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ExposedLayoutB`.
             /// Usage:
@@ -13624,6 +15997,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_ExposedLayoutB`/`Const_ExposedLayoutB` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutB`.
+            /// </summary>
             public class _InOptConst_ExposedLayoutB
             {
                 public Const_ExposedLayoutB? Opt;
@@ -13641,8 +16015,10 @@ public static partial class MR
             }
 
             // Test various array members.
+            /// <summary>
             /// Generated from class `MR::CSharp::ArrayMembers`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ArrayMembers : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -13764,7 +16140,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_ArrayMembers() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_DefaultConstruct", ExactSpelling = true)]
@@ -13772,7 +16150,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ArrayMembers_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ArrayMembers::ArrayMembers`.
+                /// </summary>
                 public unsafe Const_ArrayMembers(MR.CS.CSharp._ByValue_ArrayMembers _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_ConstructFromAnother", ExactSpelling = true)]
@@ -13782,8 +16162,10 @@ public static partial class MR
             }
 
             // Test various array members.
+            /// <summary>
             /// Generated from class `MR::CSharp::ArrayMembers`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ArrayMembers : Const_ArrayMembers
             {
                 internal unsafe ArrayMembers(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -13838,7 +16220,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe ArrayMembers() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_DefaultConstruct", ExactSpelling = true)]
@@ -13846,7 +16230,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ArrayMembers_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ArrayMembers::ArrayMembers`.
+                /// </summary>
                 public unsafe ArrayMembers(MR.CS.CSharp._ByValue_ArrayMembers _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_ConstructFromAnother", ExactSpelling = true)]
@@ -13855,6 +16241,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `ArrayMembers` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -13862,6 +16249,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_ArrayMembers
             {
                 internal readonly Const_ArrayMembers? Value;
@@ -13873,12 +16261,14 @@ public static partial class MR
                 public static implicit operator _ByValue_ArrayMembers(MR.CS.Misc._Moved<ArrayMembers> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ArrayMembers` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ArrayMembers`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ArrayMembers`/`Const_ArrayMembers` directly.
+            /// </summary>
             public class _InOptMut_ArrayMembers
             {
                 public ArrayMembers? Opt;
@@ -13888,12 +16278,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ArrayMembers(ArrayMembers value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ArrayMembers` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ArrayMembers`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ArrayMembers`/`Const_ArrayMembers` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ArrayMembers
             {
                 public Const_ArrayMembers? Opt;
@@ -13904,8 +16296,10 @@ public static partial class MR
             }
 
             // Members having the same name as the exposed class, after rewriting.
+            /// <summary>
             /// Generated from class `MR::CSharp::NameConflicts`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_NameConflicts : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -13946,7 +16340,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_NameConflicts() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_DefaultConstruct", ExactSpelling = true)]
@@ -13954,7 +16350,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::NameConflicts` elementwise.
+                /// </summary>
                 public unsafe Const_NameConflicts(int name_conflicts, MR.CS.CSharp.NameConflicts.Const_A a) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_ConstructFrom", ExactSpelling = true)]
@@ -13962,7 +16360,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFrom(name_conflicts, a._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::NameConflicts::NameConflicts`.
+                /// </summary>
                 public unsafe Const_NameConflicts(MR.CS.CSharp.Const_NameConflicts _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_ConstructFromAnother", ExactSpelling = true)]
@@ -13970,8 +16370,10 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from class `MR::CSharp::NameConflicts::A`.
                 /// This is the const half of the class.
+                /// </summary>
                 public class Const_A : MR.CS.Misc.Object, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
@@ -13992,7 +16394,9 @@ public static partial class MR
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_A() {Dispose(false);}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Const_A() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_A_DefaultConstruct", ExactSpelling = true)]
@@ -14000,7 +16404,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_CSharp_NameConflicts_A_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Generated from constructor `MR::CSharp::NameConflicts::A::A`.
+                    /// </summary>
                     public unsafe Const_A(MR.CS.CSharp.NameConflicts.Const_A _other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_A_ConstructFromAnother", ExactSpelling = true)]
@@ -14009,13 +16415,17 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from class `MR::CSharp::NameConflicts::A`.
                 /// This is the non-const half of the class.
+                /// </summary>
                 public class A : Const_A
                 {
                     internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe A() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_A_DefaultConstruct", ExactSpelling = true)]
@@ -14023,7 +16433,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_CSharp_NameConflicts_A_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Generated from constructor `MR::CSharp::NameConflicts::A::A`.
+                    /// </summary>
                     public unsafe A(MR.CS.CSharp.NameConflicts.Const_A _other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_A_ConstructFromAnother", ExactSpelling = true)]
@@ -14031,7 +16443,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_CSharp_NameConflicts_A_ConstructFromAnother(_other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Generated from method `MR::CSharp::NameConflicts::A::operator=`.
+                    /// </summary>
                     public unsafe MR.CS.CSharp.NameConflicts.A assign(MR.CS.CSharp.NameConflicts.Const_A _other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_A_AssignFromAnother", ExactSpelling = true)]
@@ -14040,12 +16454,14 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `A` with default arguments.
                 /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `A`/`Const_A` directly.
+                /// </summary>
                 public class _InOptMut_A
                 {
                     public A? Opt;
@@ -14055,12 +16471,14 @@ public static partial class MR
                     public static implicit operator _InOptMut_A(A value) {return new(value);}
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `A` with default arguments.
                 /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+                /// </summary>
                 public class _InOptConst_A
                 {
                     public Const_A? Opt;
@@ -14072,8 +16490,10 @@ public static partial class MR
             }
 
             // Members having the same name as the exposed class, after rewriting.
+            /// <summary>
             /// Generated from class `MR::CSharp::NameConflicts`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class NameConflicts : Const_NameConflicts
             {
                 internal unsafe NameConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -14098,7 +16518,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe NameConflicts() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_DefaultConstruct", ExactSpelling = true)]
@@ -14106,7 +16528,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::NameConflicts` elementwise.
+                /// </summary>
                 public unsafe NameConflicts(int name_conflicts, MR.CS.CSharp.NameConflicts.Const_A a) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_ConstructFrom", ExactSpelling = true)]
@@ -14114,7 +16538,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFrom(name_conflicts, a._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::NameConflicts::NameConflicts`.
+                /// </summary>
                 public unsafe NameConflicts(MR.CS.CSharp.Const_NameConflicts _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_ConstructFromAnother", ExactSpelling = true)]
@@ -14122,7 +16548,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::NameConflicts::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.NameConflicts assign(MR.CS.CSharp.Const_NameConflicts _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_AssignFromAnother", ExactSpelling = true)]
@@ -14130,7 +16558,9 @@ public static partial class MR
                     return new(__MR_CSharp_NameConflicts_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::NameConflicts::name_Conflicts`.
+                /// </summary>
                 public unsafe void nameConflicts_()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_name_Conflicts", ExactSpelling = true)]
@@ -14139,12 +16569,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NameConflicts` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_NameConflicts`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NameConflicts`/`Const_NameConflicts` directly.
+            /// </summary>
             public class _InOptMut_NameConflicts
             {
                 public NameConflicts? Opt;
@@ -14154,12 +16586,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_NameConflicts(NameConflicts value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `NameConflicts` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_NameConflicts`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `NameConflicts`/`Const_NameConflicts` to pass it to the function.
+            /// </summary>
             public class _InOptConst_NameConflicts
             {
                 public Const_NameConflicts? Opt;
@@ -14169,19 +16603,28 @@ public static partial class MR
                 public static implicit operator _InOptConst_NameConflicts(Const_NameConflicts value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::NameConflictsExposed`.
             /// This is the const reference to the struct.
+            /// </summary>
             public class Const_NameConflictsExposed : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe ref readonly NameConflictsExposed _Ref => ref *(NameConflictsExposed *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Const_NameConflictsExposed(NameConflictsExposed other) : this(new Const_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
                 /// Convert from a struct by copying it. Note that only `Const_NameConflictsExposed` has this conversion, `Mut_NameConflictsExposed` intentionally doesn't.
+                /// </summary>
                 public static implicit operator Const_NameConflictsExposed(NameConflictsExposed other) {return new(other);}
 
                 internal unsafe Const_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
@@ -14200,14 +16643,18 @@ public static partial class MR
 
                 public ref readonly MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
 
+                /// <summary>
                 /// Generated default constructor.
+                /// </summary>
                 public unsafe Const_NameConflictsExposed() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
                     System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 8, 0);
                 }
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Const_NameConflictsExposed(Const_NameConflictsExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
@@ -14215,13 +16662,20 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::NameConflictsExposed`.
             /// This is the non-const reference to the struct.
+            /// </summary>
             public class Mut_NameConflictsExposed : Const_NameConflictsExposed
             {
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe new ref NameConflictsExposed _Ref => ref *(NameConflictsExposed *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Mut_NameConflictsExposed(NameConflictsExposed other) : this(new Const_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -14230,24 +16684,32 @@ public static partial class MR
 
                 public new ref MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
 
+                /// <summary>
                 /// Generated default constructor.
+                /// </summary>
                 public unsafe Mut_NameConflictsExposed() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
                     System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 8, 0);
                 }
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Mut_NameConflictsExposed(Const_NameConflictsExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 8);
                 }
 
+                /// <summary>
                 /// Generated copy assignment.
+                /// </summary>
                 public void Assign(Const_NameConflictsExposed _other) {_Ref = _other._Ref;}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::NameConflictsExposed::name_Conflicts_exposed`.
+                /// </summary>
                 public unsafe void nameConflictsExposed_()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsExposed_name_Conflicts_exposed", ExactSpelling = true)]
@@ -14256,12 +16718,16 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::NameConflictsExposed`.
             /// This is the by-value version of the struct.
+            /// </summary>
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 8)]
             public struct NameConflictsExposed
             {
+                /// <summary>
                 /// Copy contents from a wrapper class to this struct.
+                /// </summary>
                 public static implicit operator NameConflictsExposed(Const_NameConflictsExposed other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
@@ -14270,10 +16736,14 @@ public static partial class MR
                 [System.Runtime.InteropServices.FieldOffset(4)]
                 public MR.CS.CSharp.NameConflictsExposed.A a;
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public NameConflictsExposed(NameConflictsExposed _other) {this = _other;}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::NameConflictsExposed::name_Conflicts_exposed`.
+                /// </summary>
                 public unsafe void nameConflictsExposed_()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflictsExposed_name_Conflicts_exposed", ExactSpelling = true)]
@@ -14284,19 +16754,28 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
                 /// This is the const reference to the struct.
+                /// </summary>
                 public class Const_A : MR.CS.Misc.Object, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
+                    /// <summary>
                     /// Get the underlying struct.
+                    /// </summary>
                     public unsafe ref readonly A _Ref => ref *(A *)_UnderlyingPtr;
+
+                    /// <summary>
                     /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                    /// </summary>
                     public unsafe Const_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
+                    /// <summary>
                     /// Convert from a struct by copying it. Note that only `Const_A` has this conversion, `Mut_A` intentionally doesn't.
+                    /// </summary>
                     public static implicit operator Const_A(A other) {return new(other);}
 
                     internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
@@ -14313,14 +16792,18 @@ public static partial class MR
 
                     public ref readonly int x => ref _Ref.x;
 
+                    /// <summary>
                     /// Generated default constructor.
+                    /// </summary>
                     public unsafe Const_A() : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                         System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
                     }
 
+                    /// <summary>
                     /// Generated copy constructor.
+                    /// </summary>
                     public unsafe Const_A(Const_A _other) : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
@@ -14328,56 +16811,77 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
                 /// This is the non-const reference to the struct.
+                /// </summary>
                 public class Mut_A : Const_A
                 {
+                    /// <summary>
                     /// Get the underlying struct.
+                    /// </summary>
                     public unsafe new ref A _Ref => ref *(A *)_UnderlyingPtr;
+
+                    /// <summary>
                     /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                    /// </summary>
                     public unsafe Mut_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
 
                     internal unsafe Mut_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                     public new ref int x => ref _Ref.x;
 
+                    /// <summary>
                     /// Generated default constructor.
+                    /// </summary>
                     public unsafe Mut_A() : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                         System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
                     }
 
+                    /// <summary>
                     /// Generated copy constructor.
+                    /// </summary>
                     public unsafe Mut_A(Const_A _other) : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                         System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
                     }
 
+                    /// <summary>
                     /// Generated copy assignment.
+                    /// </summary>
                     public void Assign(Const_A _other) {_Ref = _other._Ref;}
                 }
 
+                /// <summary>
                 /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
                 /// This is the by-value version of the struct.
+                /// </summary>
                 [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
                 public struct A
                 {
+                    /// <summary>
                     /// Copy contents from a wrapper class to this struct.
+                    /// </summary>
                     public static implicit operator A(Const_A other) => other._Ref;
 
                     [System.Runtime.InteropServices.FieldOffset(0)]
                     public int x;
 
+                    /// <summary>
                     /// Generated copy constructor.
+                    /// </summary>
                     public A(A _other) {this = _other;}
                 }
 
+                /// <summary>
                 /// This is used as a function parameter when passing `Mut_A` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
                 /// Usage:
                 /// * Pass an instance of `Mut_A`/`Const_A` to copy it into the function.
                 /// * Pass `null` to use the default argument
+                /// </summary>
                 public readonly ref struct _InOpt_A
                 {
                     public readonly bool HasValue;
@@ -14397,6 +16901,7 @@ public static partial class MR
                     public static implicit operator _InOpt_A(Const_A new_value) {return new(new_value);}
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `Mut_A` with default arguments.
                 /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
                 /// Usage:
@@ -14404,6 +16909,7 @@ public static partial class MR
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `Mut_A`/`Const_A` directly.
                 /// * Pass `new(ref ...)` to pass a reference to `A`.
+                /// </summary>
                 public class _InOptMut_A
                 {
                     public Mut_A? Opt;
@@ -14420,6 +16926,7 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `Mut_A` with default arguments.
                 /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
                 /// Usage:
@@ -14427,6 +16934,7 @@ public static partial class MR
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `Mut_A`/`Const_A` to pass it to the function.
                 /// * Pass `new(ref ...)` to pass a reference to `A`.
+                /// </summary>
                 public class _InOptConst_A
                 {
                     public Const_A? Opt;
@@ -14444,10 +16952,12 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when passing `Mut_NameConflictsExposed` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_NameConflictsExposed`/`Const_NameConflictsExposed` to copy it into the function.
             /// * Pass `null` to use the default argument
+            /// </summary>
             public readonly ref struct _InOpt_NameConflictsExposed
             {
                 public readonly bool HasValue;
@@ -14467,6 +16977,7 @@ public static partial class MR
                 public static implicit operator _InOpt_NameConflictsExposed(Const_NameConflictsExposed new_value) {return new(new_value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_NameConflictsExposed` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_NameConflictsExposed`.
             /// Usage:
@@ -14474,6 +16985,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_NameConflictsExposed`/`Const_NameConflictsExposed` directly.
             /// * Pass `new(ref ...)` to pass a reference to `NameConflictsExposed`.
+            /// </summary>
             public class _InOptMut_NameConflictsExposed
             {
                 public Mut_NameConflictsExposed? Opt;
@@ -14490,6 +17002,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_NameConflictsExposed` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_NameConflictsExposed`.
             /// Usage:
@@ -14497,6 +17010,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_NameConflictsExposed`/`Const_NameConflictsExposed` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `NameConflictsExposed`.
+            /// </summary>
             public class _InOptConst_NameConflictsExposed
             {
                 public Const_NameConflictsExposed? Opt;
@@ -14513,8 +17027,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::AmbiguousTemplates`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_AmbiguousTemplates : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -14535,7 +17051,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_AmbiguousTemplates() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_AmbiguousTemplates() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_DefaultConstruct", ExactSpelling = true)]
@@ -14543,7 +17061,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_AmbiguousTemplates_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::AmbiguousTemplates::AmbiguousTemplates`.
+                /// </summary>
                 public unsafe Const_AmbiguousTemplates(MR.CS.CSharp.Const_AmbiguousTemplates _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_ConstructFromAnother", ExactSpelling = true)]
@@ -14552,13 +17072,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::AmbiguousTemplates`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class AmbiguousTemplates : Const_AmbiguousTemplates
             {
                 internal unsafe AmbiguousTemplates(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe AmbiguousTemplates() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_DefaultConstruct", ExactSpelling = true)]
@@ -14566,7 +17090,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_AmbiguousTemplates_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::AmbiguousTemplates::AmbiguousTemplates`.
+                /// </summary>
                 public unsafe AmbiguousTemplates(MR.CS.CSharp.Const_AmbiguousTemplates _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_ConstructFromAnother", ExactSpelling = true)]
@@ -14574,7 +17100,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_AmbiguousTemplates_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::AmbiguousTemplates::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CSharp.AmbiguousTemplates assign(MR.CS.CSharp.Const_AmbiguousTemplates _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_AssignFromAnother", ExactSpelling = true)]
@@ -14582,7 +17110,9 @@ public static partial class MR
                     return new(__MR_CSharp_AmbiguousTemplates_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::AmbiguousTemplates::template_a<int>`.
+                /// </summary>
                 public unsafe void templateA(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_template_a_int", ExactSpelling = true)]
@@ -14590,7 +17120,9 @@ public static partial class MR
                     __MR_CSharp_AmbiguousTemplates_template_a_int(_UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::AmbiguousTemplates::template_a<float>`.
+                /// </summary>
                 public unsafe void templateA(float _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_template_a_float", ExactSpelling = true)]
@@ -14598,7 +17130,9 @@ public static partial class MR
                     __MR_CSharp_AmbiguousTemplates_template_a_float(_UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::AmbiguousTemplates::template_b<int>`.
+                /// </summary>
                 public unsafe int templateB_Int()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_template_b_int", ExactSpelling = true)]
@@ -14606,7 +17140,9 @@ public static partial class MR
                     return __MR_CSharp_AmbiguousTemplates_template_b_int(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::AmbiguousTemplates::template_b<float>`.
+                /// </summary>
                 public unsafe float templateB_Float()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_template_b_float", ExactSpelling = true)]
@@ -14614,7 +17150,9 @@ public static partial class MR
                     return __MR_CSharp_AmbiguousTemplates_template_b_float(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::AmbiguousTemplates::template_c<int>`.
+                /// </summary>
                 public unsafe void templateC_Int()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_template_c_int", ExactSpelling = true)]
@@ -14622,7 +17160,9 @@ public static partial class MR
                     __MR_CSharp_AmbiguousTemplates_template_c_int(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::AmbiguousTemplates::template_c<float>`.
+                /// </summary>
                 public unsafe void templateC_Float()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_template_c_float", ExactSpelling = true)]
@@ -14630,7 +17170,9 @@ public static partial class MR
                     __MR_CSharp_AmbiguousTemplates_template_c_float(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::AmbiguousTemplates::instantiate`.
+                /// </summary>
                 public unsafe void instantiate()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_AmbiguousTemplates_instantiate", ExactSpelling = true)]
@@ -14639,12 +17181,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `AmbiguousTemplates` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_AmbiguousTemplates`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `AmbiguousTemplates`/`Const_AmbiguousTemplates` directly.
+            /// </summary>
             public class _InOptMut_AmbiguousTemplates
             {
                 public AmbiguousTemplates? Opt;
@@ -14654,12 +17198,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_AmbiguousTemplates(AmbiguousTemplates value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `AmbiguousTemplates` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_AmbiguousTemplates`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `AmbiguousTemplates`/`Const_AmbiguousTemplates` to pass it to the function.
+            /// </summary>
             public class _InOptConst_AmbiguousTemplates
             {
                 public Const_AmbiguousTemplates? Opt;
@@ -14670,19 +17216,28 @@ public static partial class MR
             }
 
             // Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
             /// This is the const reference to the struct.
+            /// </summary>
             public class Const_ConstNonconstConflicts : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe ref readonly ConstNonconstConflicts _Ref => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Const_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new Const_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
                 /// Convert from a struct by copying it. Note that only `Const_ConstNonconstConflicts` has this conversion, `Mut_ConstNonconstConflicts` intentionally doesn't.
+                /// </summary>
                 public static implicit operator Const_ConstNonconstConflicts(ConstNonconstConflicts other) {return new(other);}
 
                 internal unsafe Const_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
@@ -14699,21 +17254,27 @@ public static partial class MR
 
                 public ref readonly int x => ref _Ref.x;
 
+                /// <summary>
                 /// Generated default constructor.
+                /// </summary>
                 public unsafe Const_ConstNonconstConflicts() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
                 }
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Const_ConstNonconstConflicts(Const_ConstNonconstConflicts _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                /// </summary>
                 public unsafe void foo(float _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_float", ExactSpelling = true)]
@@ -14721,7 +17282,9 @@ public static partial class MR
                     __MR_CSharp_ConstNonconstConflicts_foo_const_float(_UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                /// </summary>
                 public unsafe void foo(byte _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_char", ExactSpelling = true)]
@@ -14729,7 +17292,9 @@ public static partial class MR
                     __MR_CSharp_ConstNonconstConflicts_foo_const_char(_UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.Const_ConstNonconstConflicts _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14737,7 +17302,9 @@ public static partial class MR
                     return __MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator~`.
+                /// </summary>
                 public unsafe void compl()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14745,7 +17312,9 @@ public static partial class MR
                     __MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
+                /// </summary>
                 public static unsafe int operator/(MR.CS.CSharp.Const_ConstNonconstConflicts _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int", ExactSpelling = true)]
@@ -14753,7 +17322,9 @@ public static partial class MR
                     return __MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int(_this._UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator-`.
+                /// </summary>
                 public static unsafe int operator-(MR.CS.CSharp.Const_ConstNonconstConflicts _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14761,7 +17332,9 @@ public static partial class MR
                     return __MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref(_1._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator!`.
+                /// </summary>
                 public unsafe void not()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14769,7 +17342,9 @@ public static partial class MR
                     __MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator&`.
+                /// </summary>
                 public static unsafe int operator&(int _1, MR.CS.CSharp.Const_ConstNonconstConflicts _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14779,37 +17354,52 @@ public static partial class MR
             }
 
             // Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
             /// This is the non-const reference to the struct.
+            /// </summary>
             public class Mut_ConstNonconstConflicts : Const_ConstNonconstConflicts
             {
+                /// <summary>
                 /// Get the underlying struct.
+                /// </summary>
                 public unsafe new ref ConstNonconstConflicts _Ref => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
+
+                /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
                 public unsafe Mut_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new Const_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Mut_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 public new ref int x => ref _Ref.x;
 
+                /// <summary>
                 /// Generated default constructor.
+                /// </summary>
                 public unsafe Mut_ConstNonconstConflicts() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
                 }
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public unsafe Mut_ConstNonconstConflicts(Const_ConstNonconstConflicts _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
                 }
 
+                /// <summary>
                 /// Generated copy assignment.
+                /// </summary>
                 public void Assign(Const_ConstNonconstConflicts _other) {_Ref = _other._Ref;}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                /// </summary>
                 public unsafe void foo(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_int", ExactSpelling = true)]
@@ -14817,7 +17407,9 @@ public static partial class MR
                     __MR_CSharp_ConstNonconstConflicts_foo_int(_UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                /// </summary>
                 public unsafe new void foo(byte _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_char", ExactSpelling = true)]
@@ -14825,7 +17417,9 @@ public static partial class MR
                     __MR_CSharp_ConstNonconstConflicts_foo_char(_UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.Mut_ConstNonconstConflicts _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14834,7 +17428,9 @@ public static partial class MR
                 }
 
                 // Since this returns void, it gets rewritten into a method.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator~`.
+                /// </summary>
                 public unsafe new void compl()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14842,7 +17438,9 @@ public static partial class MR
                     __MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
+                /// </summary>
                 public static unsafe int operator/(MR.CS.CSharp.Mut_ConstNonconstConflicts _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int", ExactSpelling = true)]
@@ -14850,7 +17448,9 @@ public static partial class MR
                     return __MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int(_this._UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator-`.
+                /// </summary>
                 public static unsafe int operator-(MR.CS.CSharp.Mut_ConstNonconstConflicts _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14859,7 +17459,9 @@ public static partial class MR
                 }
 
                 // Since this returns void, it gets rewritten into a method.
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator!`.
+                /// </summary>
                 public unsafe new void not()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14867,7 +17469,9 @@ public static partial class MR
                     __MR_C_not_MR_CSharp_ConstNonconstConflicts_ref(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator&`.
+                /// </summary>
                 public static unsafe int operator&(int _1, MR.CS.CSharp.Mut_ConstNonconstConflicts _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14877,21 +17481,29 @@ public static partial class MR
             }
 
             // Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
+            /// <summary>
             /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
             /// This is the by-value version of the struct.
+            /// </summary>
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
             public struct ConstNonconstConflicts
             {
+                /// <summary>
                 /// Copy contents from a wrapper class to this struct.
+                /// </summary>
                 public static implicit operator ConstNonconstConflicts(Const_ConstNonconstConflicts other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
 
+                /// <summary>
                 /// Generated copy constructor.
+                /// </summary>
                 public ConstNonconstConflicts(ConstNonconstConflicts _other) {this = _other;}
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                /// </summary>
                 public unsafe void foo(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_int", ExactSpelling = true)]
@@ -14902,7 +17514,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                /// </summary>
                 public readonly unsafe void foo(float _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_float", ExactSpelling = true)]
@@ -14913,7 +17527,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                /// </summary>
                 public unsafe void foo(byte _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_char", ExactSpelling = true)]
@@ -14924,7 +17540,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
+                /// </summary>
                 public readonly unsafe void foo_Const(byte _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_char", ExactSpelling = true)]
@@ -14935,7 +17553,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
+                /// </summary>
                 public unsafe int add()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14946,7 +17566,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
+                /// </summary>
                 public static unsafe int operator+(MR.CS.CSharp.ConstNonconstConflicts _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14955,7 +17577,9 @@ public static partial class MR
                 }
 
                 // Since this returns void, it gets rewritten into a method.
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator~`.
+                /// </summary>
                 public unsafe void compl()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14966,7 +17590,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator~`.
+                /// </summary>
                 public readonly unsafe void compl_Const()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -14977,7 +17603,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
+                /// </summary>
                 public unsafe int div(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int", ExactSpelling = true)]
@@ -14988,7 +17616,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
+                /// </summary>
                 public static unsafe int operator/(MR.CS.CSharp.ConstNonconstConflicts _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int", ExactSpelling = true)]
@@ -14996,7 +17626,9 @@ public static partial class MR
                     return __MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int(&_this, _1);
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator-`.
+                /// </summary>
                 public unsafe int sub()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -15007,7 +17639,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator-`.
+                /// </summary>
                 public static unsafe int operator-(MR.CS.CSharp.ConstNonconstConflicts _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -15016,7 +17650,9 @@ public static partial class MR
                 }
 
                 // Since this returns void, it gets rewritten into a method.
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator!`.
+                /// </summary>
                 public unsafe void not()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -15027,7 +17663,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator!`.
+                /// </summary>
                 public readonly unsafe void not_Const()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -15038,7 +17676,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator&`.
+                /// </summary>
                 public static unsafe int bitand(int _1, ref MR.CS.CSharp.ConstNonconstConflicts _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -15049,7 +17689,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator&`.
+                /// </summary>
                 public static unsafe int operator&(int _1, MR.CS.CSharp.ConstNonconstConflicts _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
@@ -15058,10 +17700,12 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when passing `Mut_ConstNonconstConflicts` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
             /// * Pass an instance of `Mut_ConstNonconstConflicts`/`Const_ConstNonconstConflicts` to copy it into the function.
             /// * Pass `null` to use the default argument
+            /// </summary>
             public readonly ref struct _InOpt_ConstNonconstConflicts
             {
                 public readonly bool HasValue;
@@ -15081,6 +17725,7 @@ public static partial class MR
                 public static implicit operator _InOpt_ConstNonconstConflicts(Const_ConstNonconstConflicts new_value) {return new(new_value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_ConstNonconstConflicts` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConstNonconstConflicts`.
             /// Usage:
@@ -15088,6 +17733,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_ConstNonconstConflicts`/`Const_ConstNonconstConflicts` directly.
             /// * Pass `new(ref ...)` to pass a reference to `ConstNonconstConflicts`.
+            /// </summary>
             public class _InOptMut_ConstNonconstConflicts
             {
                 public Mut_ConstNonconstConflicts? Opt;
@@ -15104,6 +17750,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Mut_ConstNonconstConflicts` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConstNonconstConflicts`.
             /// Usage:
@@ -15111,6 +17758,7 @@ public static partial class MR
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Mut_ConstNonconstConflicts`/`Const_ConstNonconstConflicts` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `ConstNonconstConflicts`.
+            /// </summary>
             public class _InOptConst_ConstNonconstConflicts
             {
                 public Const_ConstNonconstConflicts? Opt;
@@ -15128,8 +17776,10 @@ public static partial class MR
             }
 
             // Class fields of pointer types:
+            /// <summary>
             /// Generated from class `MR::CSharp::ClassMemberPointersClass`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ClassMemberPointersClass : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -15160,7 +17810,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.A(*ptr, is_owning: false) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `Sa`, to keep the target object alive.
+                /// </summary>
                 public static MR.CS.CSharp.A? _Storage_Sa = null;
 
                 public static unsafe MR.CS.CSharp.Const_A? Sb
@@ -15173,7 +17825,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.Const_A(*ptr, is_owning: false) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `Sb`, to keep the target object alive.
+                /// </summary>
                 public static MR.CS.CSharp.Const_A? _Storage_Sb = null;
 
                 public static unsafe MR.CS.CSharp.A Sc
@@ -15206,7 +17860,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.A(*ptr, is_owning: false) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `a`, to keep the target object alive.
+                /// </summary>
                 public MR.CS.CSharp.A? _Storage_a = null;
 
                 public unsafe MR.CS.CSharp.Const_A? b
@@ -15219,7 +17875,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.Const_A(*ptr, is_owning: false) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `b`, to keep the target object alive.
+                /// </summary>
                 public MR.CS.CSharp.Const_A? _Storage_b = null;
 
                 public unsafe MR.CS.CSharp.A c
@@ -15242,7 +17900,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersClass::ClassMemberPointersClass`.
+                /// </summary>
                 public unsafe Const_ClassMemberPointersClass(MR.CS.CSharp.Const_ClassMemberPointersClass _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_ConstructFromAnother", ExactSpelling = true)]
@@ -15250,7 +17910,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersClass` elementwise.
+                /// </summary>
                 public unsafe Const_ClassMemberPointersClass(MR.CS.CSharp.A? a, MR.CS.CSharp.Const_A? b, MR.CS.CSharp.A c, MR.CS.CSharp.Const_A d) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_ConstructFrom", ExactSpelling = true)]
@@ -15260,8 +17922,10 @@ public static partial class MR
             }
 
             // Class fields of pointer types:
+            /// <summary>
             /// Generated from class `MR::CSharp::ClassMemberPointersClass`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ClassMemberPointersClass : Const_ClassMemberPointersClass
             {
                 internal unsafe ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -15292,7 +17956,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersClass::ClassMemberPointersClass`.
+                /// </summary>
                 public unsafe ClassMemberPointersClass(MR.CS.CSharp.Const_ClassMemberPointersClass _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_ConstructFromAnother", ExactSpelling = true)]
@@ -15300,7 +17966,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersClass` elementwise.
+                /// </summary>
                 public unsafe ClassMemberPointersClass(MR.CS.CSharp.A? a, MR.CS.CSharp.Const_A? b, MR.CS.CSharp.A c, MR.CS.CSharp.Const_A d) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_ConstructFrom", ExactSpelling = true)]
@@ -15309,12 +17977,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ClassMemberPointersClass` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ClassMemberPointersClass`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ClassMemberPointersClass`/`Const_ClassMemberPointersClass` directly.
+            /// </summary>
             public class _InOptMut_ClassMemberPointersClass
             {
                 public ClassMemberPointersClass? Opt;
@@ -15324,12 +17994,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ClassMemberPointersClass(ClassMemberPointersClass value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ClassMemberPointersClass` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ClassMemberPointersClass`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ClassMemberPointersClass`/`Const_ClassMemberPointersClass` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ClassMemberPointersClass
             {
                 public Const_ClassMemberPointersClass? Opt;
@@ -15339,8 +18011,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_ClassMemberPointersClass(Const_ClassMemberPointersClass value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::ClassMemberPointersExposed`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ClassMemberPointersExposed : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -15371,7 +18045,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.Mut_ExposedLayout(*ptr, is_owning: false) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `Sa`, to keep the target object alive.
+                /// </summary>
                 public static MR.CS.CSharp.Mut_ExposedLayout? _Storage_Sa = null;
 
                 public static unsafe MR.CS.CSharp.Const_ExposedLayout? Sb
@@ -15384,7 +18060,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.Const_ExposedLayout(*ptr, is_owning: false) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `Sb`, to keep the target object alive.
+                /// </summary>
                 public static MR.CS.CSharp.Const_ExposedLayout? _Storage_Sb = null;
 
                 public static unsafe ref MR.CS.CSharp.ExposedLayout Sc
@@ -15417,7 +18095,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.Mut_ExposedLayout(*ptr, is_owning: false) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `a`, to keep the target object alive.
+                /// </summary>
                 public MR.CS.CSharp.Mut_ExposedLayout? _Storage_a = null;
 
                 public unsafe MR.CS.CSharp.Const_ExposedLayout? b
@@ -15430,7 +18110,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.CSharp.Const_ExposedLayout(*ptr, is_owning: false) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `b`, to keep the target object alive.
+                /// </summary>
                 public MR.CS.CSharp.Const_ExposedLayout? _Storage_b = null;
 
                 public unsafe ref MR.CS.CSharp.ExposedLayout c
@@ -15453,7 +18135,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersExposed::ClassMemberPointersExposed`.
+                /// </summary>
                 public unsafe Const_ClassMemberPointersExposed(MR.CS.CSharp.Const_ClassMemberPointersExposed _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother", ExactSpelling = true)]
@@ -15461,7 +18145,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersExposed` elementwise.
+                /// </summary>
                 public unsafe Const_ClassMemberPointersExposed(MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayout>? a, MR.CS.CSharp.ExposedLayout? b, ref MR.CS.CSharp.ExposedLayout c, in MR.CS.CSharp.ExposedLayout d) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_ConstructFrom", ExactSpelling = true)]
@@ -15479,8 +18165,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::ClassMemberPointersExposed`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ClassMemberPointersExposed : Const_ClassMemberPointersExposed
             {
                 internal unsafe ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -15511,7 +18199,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersExposed::ClassMemberPointersExposed`.
+                /// </summary>
                 public unsafe ClassMemberPointersExposed(MR.CS.CSharp.Const_ClassMemberPointersExposed _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother", ExactSpelling = true)]
@@ -15519,7 +18209,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersExposed` elementwise.
+                /// </summary>
                 public unsafe ClassMemberPointersExposed(MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayout>? a, MR.CS.CSharp.ExposedLayout? b, ref MR.CS.CSharp.ExposedLayout c, in MR.CS.CSharp.ExposedLayout d) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_ConstructFrom", ExactSpelling = true)]
@@ -15537,12 +18229,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ClassMemberPointersExposed` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ClassMemberPointersExposed`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ClassMemberPointersExposed`/`Const_ClassMemberPointersExposed` directly.
+            /// </summary>
             public class _InOptMut_ClassMemberPointersExposed
             {
                 public ClassMemberPointersExposed? Opt;
@@ -15552,12 +18246,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ClassMemberPointersExposed(ClassMemberPointersExposed value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ClassMemberPointersExposed` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ClassMemberPointersExposed`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ClassMemberPointersExposed`/`Const_ClassMemberPointersExposed` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ClassMemberPointersExposed
             {
                 public Const_ClassMemberPointersExposed? Opt;
@@ -15567,8 +18263,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_ClassMemberPointersExposed(Const_ClassMemberPointersExposed value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::ClassMemberPointersUshort`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ClassMemberPointersUshort : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -15599,7 +18297,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Box<ushort>(*ptr) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `Sa`, to keep the target object alive.
+                /// </summary>
                 public static MR.CS.Misc.Box<ushort>? _Storage_Sa = null;
 
                 public static unsafe MR.CS.Misc.Const_Box<ushort>? Sb
@@ -15612,7 +18312,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Const_Box<ushort>(*ptr) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `Sb`, to keep the target object alive.
+                /// </summary>
                 public static MR.CS.Misc.Const_Box<ushort>? _Storage_Sb = null;
 
                 public static unsafe ref ushort Sc
@@ -15645,7 +18347,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Box<ushort>(*ptr) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `a`, to keep the target object alive.
+                /// </summary>
                 public MR.CS.Misc.Box<ushort>? _Storage_a = null;
 
                 public unsafe MR.CS.Misc.Const_Box<ushort>? b
@@ -15658,7 +18362,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Const_Box<ushort>(*ptr) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `b`, to keep the target object alive.
+                /// </summary>
                 public MR.CS.Misc.Const_Box<ushort>? _Storage_b = null;
 
                 public unsafe ref ushort c
@@ -15681,7 +18387,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersUshort::ClassMemberPointersUshort`.
+                /// </summary>
                 public unsafe Const_ClassMemberPointersUshort(MR.CS.CSharp.Const_ClassMemberPointersUshort _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother", ExactSpelling = true)]
@@ -15689,7 +18397,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersUshort` elementwise.
+                /// </summary>
                 public unsafe Const_ClassMemberPointersUshort(MR.CS.Misc.InOut<ushort>? a, ushort? b, ref ushort c, ushort d) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_ConstructFrom", ExactSpelling = true)]
@@ -15704,8 +18414,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::ClassMemberPointersUshort`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ClassMemberPointersUshort : Const_ClassMemberPointersUshort
             {
                 internal unsafe ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -15736,7 +18448,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersUshort::ClassMemberPointersUshort`.
+                /// </summary>
                 public unsafe ClassMemberPointersUshort(MR.CS.CSharp.Const_ClassMemberPointersUshort _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother", ExactSpelling = true)]
@@ -15744,7 +18458,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersUshort` elementwise.
+                /// </summary>
                 public unsafe ClassMemberPointersUshort(MR.CS.Misc.InOut<ushort>? a, ushort? b, ref ushort c, ushort d) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_ConstructFrom", ExactSpelling = true)]
@@ -15759,12 +18475,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ClassMemberPointersUshort` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ClassMemberPointersUshort`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ClassMemberPointersUshort`/`Const_ClassMemberPointersUshort` directly.
+            /// </summary>
             public class _InOptMut_ClassMemberPointersUshort
             {
                 public ClassMemberPointersUshort? Opt;
@@ -15774,12 +18492,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ClassMemberPointersUshort(ClassMemberPointersUshort value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ClassMemberPointersUshort` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ClassMemberPointersUshort`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ClassMemberPointersUshort`/`Const_ClassMemberPointersUshort` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ClassMemberPointersUshort
             {
                 public Const_ClassMemberPointersUshort? Opt;
@@ -15789,8 +18509,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_ClassMemberPointersUshort(Const_ClassMemberPointersUshort value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::ClassMemberPointersBool`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_ClassMemberPointersBool : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -15821,7 +18543,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Box<byte>(*ptr) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `Sa`, to keep the target object alive.
+                /// </summary>
                 public static MR.CS.Misc.Box<byte>? _Storage_Sa = null;
 
                 public static unsafe MR.CS.Misc.Const_Box<byte>? Sb
@@ -15834,7 +18558,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Const_Box<byte>(*ptr) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `Sb`, to keep the target object alive.
+                /// </summary>
                 public static MR.CS.Misc.Const_Box<byte>? _Storage_Sb = null;
 
                 public static unsafe ref bool Sc
@@ -15867,7 +18593,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Box<byte>(*ptr) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `a`, to keep the target object alive.
+                /// </summary>
                 public MR.CS.Misc.Box<byte>? _Storage_a = null;
 
                 public unsafe MR.CS.Misc.Const_Box<byte>? b
@@ -15880,7 +18608,9 @@ public static partial class MR
                         return *ptr is not null ? new MR.CS.Misc.Const_Box<byte>(*ptr) : null;
                     }
                 }
+                /// <summary>
                 /// This holds the last value manually assigned to property `b`, to keep the target object alive.
+                /// </summary>
                 public MR.CS.Misc.Const_Box<byte>? _Storage_b = null;
 
                 public unsafe ref bool c
@@ -15903,7 +18633,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersBool::ClassMemberPointersBool`.
+                /// </summary>
                 public unsafe Const_ClassMemberPointersBool(MR.CS.CSharp.Const_ClassMemberPointersBool _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_ConstructFromAnother", ExactSpelling = true)]
@@ -15911,7 +18643,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersBool` elementwise.
+                /// </summary>
                 public unsafe Const_ClassMemberPointersBool(MR.CS.Misc.InOut<bool>? a, bool? b, ref bool c, bool d) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_ConstructFrom", ExactSpelling = true)]
@@ -15926,8 +18660,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CSharp::ClassMemberPointersBool`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class ClassMemberPointersBool : Const_ClassMemberPointersBool
             {
                 internal unsafe ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -15958,7 +18694,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersBool::ClassMemberPointersBool`.
+                /// </summary>
                 public unsafe ClassMemberPointersBool(MR.CS.CSharp.Const_ClassMemberPointersBool _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_ConstructFromAnother", ExactSpelling = true)]
@@ -15966,7 +18704,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersBool` elementwise.
+                /// </summary>
                 public unsafe ClassMemberPointersBool(MR.CS.Misc.InOut<bool>? a, bool? b, ref bool c, bool d) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_ConstructFrom", ExactSpelling = true)]
@@ -15981,12 +18721,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ClassMemberPointersBool` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ClassMemberPointersBool`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ClassMemberPointersBool`/`Const_ClassMemberPointersBool` directly.
+            /// </summary>
             public class _InOptMut_ClassMemberPointersBool
             {
                 public ClassMemberPointersBool? Opt;
@@ -15996,12 +18738,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_ClassMemberPointersBool(ClassMemberPointersBool value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `ClassMemberPointersBool` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ClassMemberPointersBool`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `ClassMemberPointersBool`/`Const_ClassMemberPointersBool` to pass it to the function.
+            /// </summary>
             public class _InOptConst_ClassMemberPointersBool
             {
                 public Const_ClassMemberPointersBool? Opt;
@@ -16011,7 +18755,9 @@ public static partial class MR
                 public static implicit operator _InOptConst_ClassMemberPointersBool(Const_ClassMemberPointersBool value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::foo`.
+            /// </summary>
             public static void foo()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_foo", ExactSpelling = true)]
@@ -16019,8 +18765,10 @@ public static partial class MR
                 __MR_CSharp_foo();
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_int`.
             /// Parameter `b` defaults to `42`.
+            /// </summary>
             public static unsafe int testInt(int a, int? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_int", ExactSpelling = true)]
@@ -16029,8 +18777,10 @@ public static partial class MR
                 return __MR_CSharp_test_int(a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_bool`.
             /// Parameter `b` defaults to `true`.
+            /// </summary>
             public static unsafe bool testBool(bool a, bool? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool", ExactSpelling = true)]
@@ -16039,8 +18789,10 @@ public static partial class MR
                 return __MR_CSharp_test_bool(a ? (byte)1 : (byte)0, b.HasValue ? &__deref_b : null) != 0;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_bool_ref`.
             /// Parameter `b` defaults to `default_bool`.
+            /// </summary>
             public static unsafe void testBoolRef(ref bool a, MR.CS.Misc.InOut<bool>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_ref", ExactSpelling = true)]
@@ -16053,8 +18805,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_bool_ref2`.
             /// Parameter `b` defaults to `default_bool`.
+            /// </summary>
             public static unsafe int testBoolRef2(ref bool a, MR.CS.Misc.InOut<bool>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_ref2", ExactSpelling = true)]
@@ -16068,7 +18822,9 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::get_bool_ref`.
+            /// </summary>
             public static unsafe ref bool getBoolRef()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_get_bool_ref", ExactSpelling = true)]
@@ -16076,7 +18832,9 @@ public static partial class MR
                 return ref *__MR_CSharp_get_bool_ref();
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::print_bool_ref`.
+            /// </summary>
             public static void printBoolRef()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_print_bool_ref", ExactSpelling = true)]
@@ -16084,8 +18842,10 @@ public static partial class MR
                 __MR_CSharp_print_bool_ref();
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_bool_cref`.
             /// Parameter `_2` defaults to `default_bool`.
+            /// </summary>
             public static unsafe bool testBoolCref(bool _1, bool? _2 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool_cref", ExactSpelling = true)]
@@ -16094,8 +18854,10 @@ public static partial class MR
                 return *__MR_CSharp_test_bool_cref(&_1, _2.HasValue ? &__deref__2 : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_int_ref`.
             /// Parameter `b` defaults to `default_int`.
+            /// </summary>
             public static unsafe ref int testIntRef(ref int a, MR.CS.Misc.InOut<int>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_int_ref", ExactSpelling = true)]
@@ -16109,8 +18871,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_int_cref`.
             /// Parameter `b` defaults to `default_int`.
+            /// </summary>
             public static unsafe int testIntCref(int a, int? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_int_cref", ExactSpelling = true)]
@@ -16119,8 +18883,10 @@ public static partial class MR
                 return *__MR_CSharp_test_int_cref(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_int_rref`.
             /// Parameter `b` defaults to `42`.
+            /// </summary>
             public static unsafe int testIntRref(MR.CS.Misc._MoveRef _move_a, int a, MR.CS.Misc._MoveRef _move_b = default, int? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_int_rref", ExactSpelling = true)]
@@ -16129,8 +18895,10 @@ public static partial class MR
                 return *__MR_CSharp_test_int_rref(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_int_crref`.
             /// Parameter `b` defaults to `42`.
+            /// </summary>
             public static unsafe int testIntCrref(MR.CS.Misc._MoveRef _move_a, int a, MR.CS.Misc._MoveRef _move_b = default, int? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_int_crref", ExactSpelling = true)]
@@ -16139,8 +18907,10 @@ public static partial class MR
                 return *__MR_CSharp_test_int_crref(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_int_ptr`.
             /// Parameter `c` defaults to `&default_int`.
+            /// </summary>
             public static unsafe MR.CS.Misc.Ref<int>? testIntPtr(MR.CS.Misc.InOut<int>? a, MR.CS.Misc.InOut<int>? b = null, MR.CS.Misc._InOutOpt<int>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_int_ptr", ExactSpelling = true)]
@@ -16156,8 +18926,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Misc.Ref<int>(__ret) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_int_cptr`.
             /// Parameter `c` defaults to `&default_int`.
+            /// </summary>
             public static unsafe int? testIntCptr(int? a, int? b = null, MR.CS.Misc._InOpt<int>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_int_cptr", ExactSpelling = true)]
@@ -16170,8 +18942,10 @@ public static partial class MR
                 return __ret is not null ? *__ret : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_ushort`.
             /// Parameter `b` defaults to `42`.
+            /// </summary>
             public static unsafe ushort testUshort(ushort a, ushort? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort", ExactSpelling = true)]
@@ -16180,8 +18954,10 @@ public static partial class MR
                 return __MR_CSharp_test_ushort(a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_ref`.
             /// Parameter `b` defaults to `default_ushort`.
+            /// </summary>
             public static unsafe ref ushort testUshortRef(ref ushort a, MR.CS.Misc.InOut<ushort>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_ref", ExactSpelling = true)]
@@ -16195,8 +18971,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_cref`.
             /// Parameter `b` defaults to `default_ushort`.
+            /// </summary>
             public static unsafe ushort testUshortCref(ushort a, ushort? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_cref", ExactSpelling = true)]
@@ -16205,8 +18983,10 @@ public static partial class MR
                 return *__MR_CSharp_test_ushort_cref(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_rref`.
             /// Parameter `b` defaults to `(unsigned short&&)default_ushort`.
+            /// </summary>
             public static unsafe ushort testUshortRref(MR.CS.Misc._MoveRef _move_a, ushort a, MR.CS.Misc._MoveRef _move_b = default, ushort? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_rref", ExactSpelling = true)]
@@ -16215,8 +18995,10 @@ public static partial class MR
                 return *__MR_CSharp_test_ushort_rref(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_crref`.
             /// Parameter `b` defaults to `(unsigned short&&)default_ushort`.
+            /// </summary>
             public static unsafe ushort testUshortCrref(MR.CS.Misc._MoveRef _move_a, ushort a, MR.CS.Misc._MoveRef _move_b = default, ushort? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_crref", ExactSpelling = true)]
@@ -16225,8 +19007,10 @@ public static partial class MR
                 return *__MR_CSharp_test_ushort_crref(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_ptr`.
             /// Parameter `c` defaults to `&default_ushort`.
+            /// </summary>
             public static unsafe MR.CS.Misc.Ref<ushort>? testUshortPtr(MR.CS.Misc.InOut<ushort>? a, MR.CS.Misc.InOut<ushort>? b = null, MR.CS.Misc._InOutOpt<ushort>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_ptr", ExactSpelling = true)]
@@ -16242,8 +19026,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Misc.Ref<ushort>(__ret) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_cptr`.
             /// Parameter `c` defaults to `&default_ushort`.
+            /// </summary>
             public static unsafe ushort? testUshortCptr(ushort? a, ushort? b = null, MR.CS.Misc._InOpt<ushort>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ushort_cptr", ExactSpelling = true)]
@@ -16256,8 +19042,10 @@ public static partial class MR
                 return __ret is not null ? *__ret : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum`.
             /// Parameter `b` defaults to `E1::b`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.E1 testEnum(MR.CS.CSharp.E1 a, MR.CS.CSharp.E1? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_MR_CSharp_E1", ExactSpelling = true)]
@@ -16266,8 +19054,10 @@ public static partial class MR
                 return __MR_CSharp_test_enum_MR_CSharp_E1(a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_ref`.
             /// Parameter `b` defaults to `default_e1`.
+            /// </summary>
             public static unsafe ref MR.CS.CSharp.E1 testEnumRef(ref MR.CS.CSharp.E1 a, MR.CS.Misc.InOut<MR.CS.CSharp.E1>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ref_MR_CSharp_E1", ExactSpelling = true)]
@@ -16281,8 +19071,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_cref`.
             /// Parameter `b` defaults to `default_e1`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.E1 testEnumCref(MR.CS.CSharp.E1 a, MR.CS.CSharp.E1? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_cref_MR_CSharp_E1", ExactSpelling = true)]
@@ -16291,8 +19083,10 @@ public static partial class MR
                 return *__MR_CSharp_test_enum_cref_MR_CSharp_E1(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_rref`.
             /// Parameter `b` defaults to `(MR::CSharp::E1&&)default_e1`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.E1 testEnumRref(MR.CS.Misc._MoveRef _move_a, MR.CS.CSharp.E1 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.E1? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_rref_MR_CSharp_E1", ExactSpelling = true)]
@@ -16301,8 +19095,10 @@ public static partial class MR
                 return *__MR_CSharp_test_enum_rref_MR_CSharp_E1(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_crref`.
             /// Parameter `b` defaults to `(MR::CSharp::E1&&)default_e1`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.E1 testEnumCrref(MR.CS.Misc._MoveRef _move_a, MR.CS.CSharp.E1 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.E1? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_crref_MR_CSharp_E1", ExactSpelling = true)]
@@ -16311,8 +19107,10 @@ public static partial class MR
                 return *__MR_CSharp_test_enum_crref_MR_CSharp_E1(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_ptr`.
             /// Parameter `c` defaults to `&default_e1`.
+            /// </summary>
             public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.E1>? testEnumPtr(MR.CS.Misc.InOut<MR.CS.CSharp.E1>? a, MR.CS.Misc.InOut<MR.CS.CSharp.E1>? b = null, MR.CS.Misc._InOutOpt<MR.CS.CSharp.E1>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ptr_MR_CSharp_E1_ptr", ExactSpelling = true)]
@@ -16328,8 +19126,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.E1>(__ret) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_cptr`.
             /// Parameter `c` defaults to `&default_e1`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.E1? testEnumCptr(MR.CS.CSharp.E1? a, MR.CS.CSharp.E1? b = null, MR.CS.Misc._InOpt<MR.CS.CSharp.E1>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_cptr_const_MR_CSharp_E1_ptr", ExactSpelling = true)]
@@ -16342,8 +19142,10 @@ public static partial class MR
                 return __ret is not null ? *__ret : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum`.
             /// Parameter `b` defaults to `E2::b`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.E2 testEnum(MR.CS.CSharp.E2 a, MR.CS.CSharp.E2? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_MR_CSharp_E2", ExactSpelling = true)]
@@ -16354,8 +19156,10 @@ public static partial class MR
                 return __MR_CSharp_test_enum_MR_CSharp_E2(a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_ref`.
             /// Parameter `b` defaults to `default_e2`.
+            /// </summary>
             public static unsafe ref MR.CS.CSharp.E2 testEnumRef(ref MR.CS.CSharp.E2 a, MR.CS.Misc.InOut<MR.CS.CSharp.E2>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ref_MR_CSharp_E2", ExactSpelling = true)]
@@ -16371,8 +19175,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_cref`.
             /// Parameter `b` defaults to `default_e2`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.E2 testEnumCref(MR.CS.CSharp.E2 a, MR.CS.CSharp.E2? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_cref_MR_CSharp_E2", ExactSpelling = true)]
@@ -16383,8 +19189,10 @@ public static partial class MR
                 return *__MR_CSharp_test_enum_cref_MR_CSharp_E2(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_rref`.
             /// Parameter `b` defaults to `(MR::CSharp::E2&&)default_e2`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.E2 testEnumRref(MR.CS.Misc._MoveRef _move_a, MR.CS.CSharp.E2 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.E2? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_rref_MR_CSharp_E2", ExactSpelling = true)]
@@ -16395,8 +19203,10 @@ public static partial class MR
                 return *__MR_CSharp_test_enum_rref_MR_CSharp_E2(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_crref`.
             /// Parameter `b` defaults to `(MR::CSharp::E2&&)default_e2`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.E2 testEnumCrref(MR.CS.Misc._MoveRef _move_a, MR.CS.CSharp.E2 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.E2? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_crref_MR_CSharp_E2", ExactSpelling = true)]
@@ -16407,8 +19217,10 @@ public static partial class MR
                 return *__MR_CSharp_test_enum_crref_MR_CSharp_E2(&a, b.HasValue ? &__deref_b : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_ptr`.
             /// Parameter `c` defaults to `&default_e2`.
+            /// </summary>
             public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.E2>? testEnumPtr(MR.CS.Misc.InOut<MR.CS.CSharp.E2>? a, MR.CS.Misc.InOut<MR.CS.CSharp.E2>? b = null, MR.CS.Misc._InOutOpt<MR.CS.CSharp.E2>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_ptr_MR_CSharp_E2_ptr", ExactSpelling = true)]
@@ -16427,8 +19239,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.E2>(__ret) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum_cptr`.
             /// Parameter `c` defaults to `&default_e2`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.E2? testEnumCptr(MR.CS.CSharp.E2? a, MR.CS.CSharp.E2? b = null, MR.CS.Misc._InOpt<MR.CS.CSharp.E2>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_enum_cptr_const_MR_CSharp_E2_ptr", ExactSpelling = true)]
@@ -16444,8 +19258,10 @@ public static partial class MR
                 return __ret is not null ? *__ret : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial`.
             /// Parameter `b` defaults to `{}`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Trivial testClassTrivial(MR.CS.CSharp.Const_Trivial a, MR.CS.CSharp.Const_Trivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial", ExactSpelling = true)]
@@ -16453,8 +19269,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_class_trivial(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_ref`.
             /// Parameter `b` defaults to `default_trivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Trivial testClassTrivialRef(MR.CS.CSharp.Trivial a, MR.CS.CSharp.Trivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_ref", ExactSpelling = true)]
@@ -16462,8 +19280,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_class_trivial_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_cref`.
             /// Parameter `b` defaults to `default_trivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_Trivial testClassTrivialCref(MR.CS.CSharp.Const_Trivial a, MR.CS.CSharp.Const_Trivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_cref", ExactSpelling = true)]
@@ -16471,8 +19291,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_class_trivial_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_rref`.
             /// Parameter `b` defaults to `(MR::CSharp::Trivial&&)default_trivial`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Trivial> testClassTrivialRref(MR.CS.Misc._Moved<MR.CS.CSharp.Trivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.Trivial>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_rref", ExactSpelling = true)]
@@ -16480,8 +19302,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.Trivial(__MR_CSharp_test_class_trivial_rref(a.Value._UnderlyingPtr, b.HasValue ? b.Value.Value._UnderlyingPtr : null), is_owning: false));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_crref`.
             /// Parameter `b` defaults to `(MR::CSharp::Trivial&&)default_trivial`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_Trivial> testClassTrivialCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_Trivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_Trivial>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_crref", ExactSpelling = true)]
@@ -16489,8 +19313,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.Const_Trivial(__MR_CSharp_test_class_trivial_crref(a.Value._UnderlyingPtr, b.HasValue ? b.Value.Value._UnderlyingPtr : null), is_owning: false));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_ptr`.
             /// Parameter `c` defaults to `&default_trivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Trivial? testClassTrivialPtr(MR.CS.CSharp.Trivial? a, MR.CS.CSharp.Trivial? b = null, MR.CS.CSharp._InOptMut_Trivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_ptr", ExactSpelling = true)]
@@ -16500,8 +19326,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.Trivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_cptr`.
             /// Parameter `c` defaults to `&default_trivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_Trivial? testClassTrivialCptr(MR.CS.CSharp.Const_Trivial? a, MR.CS.CSharp.Const_Trivial? b = null, MR.CS.CSharp._InOptConst_Trivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_trivial_cptr", ExactSpelling = true)]
@@ -16511,8 +19339,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.Const_Trivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial`.
             /// Parameter `b` defaults to `{}`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.NonTrivial> testClassNontrivial(MR.CS.CSharp._ByValue_NonTrivial a, MR.CS.CSharp._ByValue_NonTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial", ExactSpelling = true)]
@@ -16520,8 +19350,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.NonTrivial(__MR_CSharp_test_class_nontrivial(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_ref`.
             /// Parameter `b` defaults to `default_nontrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.NonTrivial testClassNontrivialRef(MR.CS.CSharp.NonTrivial a, MR.CS.CSharp.NonTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_ref", ExactSpelling = true)]
@@ -16529,8 +19361,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_class_nontrivial_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_cref`.
             /// Parameter `b` defaults to `default_nontrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_NonTrivial testClassNontrivialCref(MR.CS.CSharp.Const_NonTrivial a, MR.CS.CSharp.Const_NonTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_cref", ExactSpelling = true)]
@@ -16538,8 +19372,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_class_nontrivial_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_rref`.
             /// Parameter `b` defaults to `(MR::CSharp::NonTrivial&&)default_nontrivial`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.NonTrivial> testClassNontrivialRref(MR.CS.Misc._Moved<MR.CS.CSharp.NonTrivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.NonTrivial>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_rref", ExactSpelling = true)]
@@ -16547,8 +19383,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.NonTrivial(__MR_CSharp_test_class_nontrivial_rref(a.Value._UnderlyingPtr, b.HasValue ? b.Value.Value._UnderlyingPtr : null), is_owning: false));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_crref`.
             /// Parameter `b` defaults to `(MR::CSharp::NonTrivial&&)default_nontrivial`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_NonTrivial> testClassNontrivialCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_NonTrivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_NonTrivial>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_crref", ExactSpelling = true)]
@@ -16556,8 +19394,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.Const_NonTrivial(__MR_CSharp_test_class_nontrivial_crref(a.Value._UnderlyingPtr, b.HasValue ? b.Value.Value._UnderlyingPtr : null), is_owning: false));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_ptr`.
             /// Parameter `c` defaults to `&default_nontrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.NonTrivial? testClassNontrivialPtr(MR.CS.CSharp.NonTrivial? a, MR.CS.CSharp.NonTrivial? b = null, MR.CS.CSharp._InOptMut_NonTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_ptr", ExactSpelling = true)]
@@ -16567,8 +19407,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.NonTrivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_cptr`.
             /// Parameter `c` defaults to `&default_nontrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_NonTrivial? testClassNontrivialCptr(MR.CS.CSharp.Const_NonTrivial? a, MR.CS.CSharp.Const_NonTrivial? b = null, MR.CS.CSharp._InOptConst_NonTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_nontrivial_cptr", ExactSpelling = true)]
@@ -16578,12 +19420,14 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.Const_NonTrivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_void_ptr`.
             /// Parameter `a` is a mutable pointer.
             /// Parameter `b` is a mutable pointer.
             /// Parameter `c` defaults to `(void*)42`.
             /// Parameter `c` is a mutable pointer.
             /// Returns a mutable pointer.
+            /// </summary>
             public static unsafe void *testVoidPtr(void *a, void *b = null, void **c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_void_ptr", ExactSpelling = true)]
@@ -16591,12 +19435,14 @@ public static partial class MR
                 return __MR_CSharp_test_void_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_void_cptr`.
             /// Parameter `a` is a read-only pointer.
             /// Parameter `b` is a read-only pointer.
             /// Parameter `c` defaults to `(const void*)42`.
             /// Parameter `c` is a read-only pointer.
             /// Returns a read-only pointer.
+            /// </summary>
             public static unsafe void *testVoidCptr(void *a, void *b = null, void **c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_void_cptr", ExactSpelling = true)]
@@ -16604,7 +19450,9 @@ public static partial class MR
                 return __MR_CSharp_test_void_cptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::mark_se_as_shared`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SE> markSeAsShared()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_mark_se_as_shared", ExactSpelling = true)]
@@ -16613,8 +19461,10 @@ public static partial class MR
             }
 
             // Poking a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shptr`.
             /// Parameter `b` defaults to `default_shptr`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> testShptr(MR.CS.CSharp._ByValueShared_SA a, MR.CS.CSharp._ByValueShared_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr", ExactSpelling = true)]
@@ -16622,8 +19472,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.SA(__MR_CSharp_test_shptr(a.PassByMode, a.Value is not null ? a.Value._UnderlyingSharedPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingSharedPtr : null), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_ref`.
             /// Parameter `b` defaults to `default_shptr`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.SA testShptrRef(MR.CS.CSharp.SA a, MR.CS.CSharp.SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_ref", ExactSpelling = true)]
@@ -16631,8 +19483,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_shptr_ref(a._UnderlyingSharedPtr, b is not null ? b._UnderlyingSharedPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_cref`.
             /// Parameter `b` defaults to `default_shptr`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_SA testShptrCref(MR.CS.CSharp.Const_SA a, MR.CS.CSharp.Const_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_cref", ExactSpelling = true)]
@@ -16640,8 +19494,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_shptr_cref(a._UnderlyingSharedPtr, b is not null ? b._UnderlyingSharedPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_rref`.
             /// Parameter `b` defaults to `(std::shared_ptr<MR::CSharp::SA>&&)default_shptr`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> testShptrRref(MR.CS.Misc._Moved<MR.CS.CSharp.SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.SA>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_rref", ExactSpelling = true)]
@@ -16649,8 +19505,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.SA(__MR_CSharp_test_shptr_rref(a.Value._UnderlyingSharedPtr, b.HasValue ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: false));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_crref`.
             /// Parameter `b` defaults to `(std::shared_ptr<MR::CSharp::SA>&&)default_shptr`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> testShptrCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_crref", ExactSpelling = true)]
@@ -16658,8 +19516,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.Const_SA(__MR_CSharp_test_shptr_crref(a.Value._UnderlyingSharedPtr, b.HasValue ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: false));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_ptr`.
             /// Parameter `b` defaults to `&default_shptr`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.SA? testShptrPtr(MR.CS.CSharp.SA? a, MR.CS.CSharp._InOptMut_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_ptr", ExactSpelling = true)]
@@ -16669,8 +19529,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.SA(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_cptr`.
             /// Parameter `b` defaults to `&default_shptr`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_SA? testShptrCptr(MR.CS.CSharp.Const_SA? a, MR.CS.CSharp._InOptConst_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shptr_cptr", ExactSpelling = true)]
@@ -16680,8 +19542,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.Const_SA(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr`.
             /// Parameter `b` defaults to `default_shcptr`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> testShcptr(MR.CS.CSharp._ByValueShared_SA a, MR.CS.CSharp._ByValueShared_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr", ExactSpelling = true)]
@@ -16689,8 +19553,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.SA(__MR_CSharp_test_shcptr(a.PassByMode, a.Value is not null ? a.Value._UnderlyingSharedPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingSharedPtr : null), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_ref`.
             /// Parameter `b` defaults to `default_shcptr`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.SA testShcptrRef(MR.CS.CSharp.SA a, MR.CS.CSharp.SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_ref", ExactSpelling = true)]
@@ -16698,8 +19564,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_shcptr_ref(a._UnderlyingSharedPtr, b is not null ? b._UnderlyingSharedPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_cref`.
             /// Parameter `b` defaults to `default_shcptr`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_SA testShcptrCref(MR.CS.CSharp.Const_SA a, MR.CS.CSharp.Const_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_cref", ExactSpelling = true)]
@@ -16707,8 +19575,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_shcptr_cref(a._UnderlyingSharedPtr, b is not null ? b._UnderlyingSharedPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_rref`.
             /// Parameter `b` defaults to `(std::shared_ptr<const MR::CSharp::SA>&&)default_shcptr`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> testShcptrRref(MR.CS.Misc._Moved<MR.CS.CSharp.SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.SA>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_rref", ExactSpelling = true)]
@@ -16716,8 +19586,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.SA(__MR_CSharp_test_shcptr_rref(a.Value._UnderlyingSharedPtr, b.HasValue ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: false));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_crref`.
             /// Parameter `b` defaults to `(std::shared_ptr<const MR::CSharp::SA>&&)default_shcptr`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> testShcptrCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_crref", ExactSpelling = true)]
@@ -16725,8 +19597,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.Const_SA(__MR_CSharp_test_shcptr_crref(a.Value._UnderlyingSharedPtr, b.HasValue ? b.Value.Value._UnderlyingSharedPtr : null), is_owning: false));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_ptr`.
             /// Parameter `b` defaults to `&default_shcptr`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.SA? testShcptrPtr(MR.CS.CSharp.SA? a, MR.CS.CSharp._InOptMut_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_ptr", ExactSpelling = true)]
@@ -16736,8 +19610,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.SA(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_cptr`.
             /// Parameter `b` defaults to `&default_shcptr`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_SA? testShcptrCptr(MR.CS.CSharp.Const_SA? a, MR.CS.CSharp._InOptConst_SA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_shcptr_cptr", ExactSpelling = true)]
@@ -16747,8 +19623,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.Const_SA(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_string`.
             /// Parameter `b` defaults to `default_string`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.String> testString(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string", ExactSpelling = true)]
@@ -16771,8 +19649,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_string_ref`.
             /// Parameter `b` defaults to `default_string`.
+            /// </summary>
             public static unsafe MR.CS.Std.String testStringRef(MR.CS.Std.String a, MR.CS.Std.String? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_ref", ExactSpelling = true)]
@@ -16780,8 +19660,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_string_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_string_cref`.
             /// Parameter `b` defaults to `default_string`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_String testStringCref(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_cref", ExactSpelling = true)]
@@ -16804,8 +19686,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_string_rref`.
             /// Parameter `b` defaults to `(std::string&&)default_string`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.String> testStringRref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_rref", ExactSpelling = true)]
@@ -16828,8 +19712,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_string_crref`.
             /// Parameter `b` defaults to `(std::string&&)default_string`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Const_String> testStringCrref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_crref", ExactSpelling = true)]
@@ -16852,8 +19738,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_string_ptr`.
             /// Parameter `b` defaults to `&default_string`.
+            /// </summary>
             public static unsafe MR.CS.Std.String? testStringPtr(MR.CS.Std.String? a, MR.CS.Std._InOptMut_String? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_ptr", ExactSpelling = true)]
@@ -16863,8 +19751,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.String(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_string_cptr`.
             /// Parameter `b` defaults to `&default_string`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_String? testStringCptr(MR.CS.Std.Const_String? a, MR.CS.Std._InOptConst_String? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_string_cptr", ExactSpelling = true)]
@@ -16874,8 +19764,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_String(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_stringview`.
             /// Parameter `b` defaults to `default_stringview`.
+            /// </summary>
             public static unsafe MR.CS.Std.StringView testStringview(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview", ExactSpelling = true)]
@@ -16898,8 +19790,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_ref`.
             /// Parameter `b` defaults to `default_stringview`.
+            /// </summary>
             public static unsafe MR.CS.Std.StringView testStringviewRef(MR.CS.Std.StringView a, MR.CS.Std.StringView? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_ref", ExactSpelling = true)]
@@ -16907,8 +19801,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_stringview_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_cref`.
             /// Parameter `b` defaults to `default_stringview`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_StringView testStringviewCref(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_cref", ExactSpelling = true)]
@@ -16931,8 +19827,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_rref`.
             /// Parameter `b` defaults to `(std::string_view&&)default_stringview`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.StringView> testStringviewRref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_rref", ExactSpelling = true)]
@@ -16955,8 +19853,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_crref`.
             /// Parameter `b` defaults to `(std::string_view&&)default_stringview`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Const_StringView> testStringviewCrref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_crref", ExactSpelling = true)]
@@ -16979,8 +19879,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_ptr`.
             /// Parameter `b` defaults to `&default_stringview`.
+            /// </summary>
             public static unsafe MR.CS.Std.StringView? testStringviewPtr(MR.CS.Std.StringView? a, MR.CS.Std._InOptMut_StringView? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_ptr", ExactSpelling = true)]
@@ -16990,8 +19892,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.StringView(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_cptr`.
             /// Parameter `b` defaults to `&default_stringview`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_StringView? testStringviewCptr(MR.CS.Std.Const_StringView? a, MR.CS.Std._InOptConst_StringView? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_stringview_cptr", ExactSpelling = true)]
@@ -17001,8 +19905,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_StringView(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_fspath`.
             /// Parameter `b` defaults to `default_fspath`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Path> testFspath(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath", ExactSpelling = true)]
@@ -17025,8 +19931,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_ref`.
             /// Parameter `b` defaults to `default_fspath`.
+            /// </summary>
             public static unsafe MR.CS.Std.Filesystem.Path testFspathRef(MR.CS.Std.Filesystem.Path a, MR.CS.Std.Filesystem.Path? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_ref", ExactSpelling = true)]
@@ -17034,8 +19942,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_fspath_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_cref`.
             /// Parameter `b` defaults to `default_fspath`.
+            /// </summary>
             public static unsafe MR.CS.Std.Filesystem.Const_Path testFspathCref(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_cref", ExactSpelling = true)]
@@ -17058,8 +19968,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_rref`.
             /// Parameter `b` defaults to `(std::filesystem::path&&)default_fspath`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Path> testFspathRref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_rref", ExactSpelling = true)]
@@ -17082,8 +19994,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_crref`.
             /// Parameter `b` defaults to `(std::filesystem::path&&)default_fspath`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Const_Path> testFspathCrref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_crref", ExactSpelling = true)]
@@ -17106,8 +20020,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_ptr`.
             /// Parameter `b` defaults to `&default_fspath`.
+            /// </summary>
             public static unsafe MR.CS.Std.Filesystem.Path? testFspathPtr(MR.CS.Std.Filesystem.Path? a, MR.CS.Std.Filesystem._InOptMut_Path? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_ptr", ExactSpelling = true)]
@@ -17117,8 +20033,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Filesystem.Path(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_cptr`.
             /// Parameter `b` defaults to `&default_fspath`.
+            /// </summary>
             public static unsafe MR.CS.Std.Filesystem.Const_Path? testFspathCptr(MR.CS.Std.Filesystem.Const_Path? a, MR.CS.Std.Filesystem._InOptConst_Path? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_fspath_cptr", ExactSpelling = true)]
@@ -17128,7 +20046,9 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Filesystem.Const_Path(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::operator+`.
+            /// </summary>
             public static unsafe int add(MR.CS.CSharp._ByValue_StaticOpsLhsC _1, int _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsLhsC_int", ExactSpelling = true)]
@@ -17136,7 +20056,9 @@ public static partial class MR
                 return __MR_C_add_MR_CSharp_StaticOpsLhsC_int(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null, _2);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::operator+`.
+            /// </summary>
             public static unsafe int add(int _1, MR.CS.CSharp._ByValue_StaticOpsRhsC _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_int_MR_CSharp_StaticOpsRhsC", ExactSpelling = true)]
@@ -17145,7 +20067,9 @@ public static partial class MR
             }
 
             // Fails to inject, becomes a free function.
+            /// <summary>
             /// Generated from function `MR::CSharp::operator+`.
+            /// </summary>
             public static int add(MR.CS.CSharp.StaticOpsEnum _1, int _2)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_StaticOpsEnum_int", ExactSpelling = true)]
@@ -17153,8 +20077,10 @@ public static partial class MR
                 return __MR_C_add_MR_CSharp_StaticOpsEnum_int(_1, _2);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_convtrivial`.
             /// Parameter `b` defaults to `{}`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ConvCtorTrivial testClassConvtrivial(MR.CS.CSharp.Const_ConvCtorTrivial a, MR.CS.CSharp.Const_ConvCtorTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convtrivial", ExactSpelling = true)]
@@ -17162,8 +20088,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_class_convtrivial(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_convtrivial_ref`.
             /// Parameter `b` defaults to `default_convtrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ConvCtorTrivial testClassConvtrivialRef(MR.CS.CSharp.ConvCtorTrivial a, MR.CS.CSharp.ConvCtorTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convtrivial_ref", ExactSpelling = true)]
@@ -17171,8 +20099,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_class_convtrivial_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_convtrivial_cref`.
             /// Parameter `b` defaults to `default_convtrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_ConvCtorTrivial testClassConvtrivialCref(MR.CS.CSharp.Const_ConvCtorTrivial a, MR.CS.CSharp.Const_ConvCtorTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convtrivial_cref", ExactSpelling = true)]
@@ -17180,8 +20110,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_class_convtrivial_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_convtrivial_ptr`.
             /// Parameter `c` defaults to `&default_convtrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ConvCtorTrivial? testClassConvtrivialPtr(MR.CS.CSharp.ConvCtorTrivial? a, MR.CS.CSharp.ConvCtorTrivial? b = null, MR.CS.CSharp._InOptMut_ConvCtorTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convtrivial_ptr", ExactSpelling = true)]
@@ -17191,8 +20123,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.ConvCtorTrivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_convtrivial_cptr`.
             /// Parameter `c` defaults to `&default_convtrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_ConvCtorTrivial? testClassConvtrivialCptr(MR.CS.CSharp.Const_ConvCtorTrivial? a, MR.CS.CSharp.Const_ConvCtorTrivial? b = null, MR.CS.CSharp._InOptConst_ConvCtorTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convtrivial_cptr", ExactSpelling = true)]
@@ -17202,8 +20136,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.Const_ConvCtorTrivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_convnontrivial`.
             /// Parameter `b` defaults to `{}`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.ConvCtorNonTrivial> testClassConvnontrivial(MR.CS.CSharp._ByValue_ConvCtorNonTrivial a, MR.CS.CSharp._ByValue_ConvCtorNonTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial", ExactSpelling = true)]
@@ -17211,8 +20147,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.ConvCtorNonTrivial(__MR_CSharp_test_class_convnontrivial(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_convnontrivial_ref`.
             /// Parameter `b` defaults to `default_convnontrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ConvCtorNonTrivial testClassConvnontrivialRef(MR.CS.CSharp.ConvCtorNonTrivial a, MR.CS.CSharp.ConvCtorNonTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial_ref", ExactSpelling = true)]
@@ -17220,8 +20158,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_class_convnontrivial_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_convnontrivial_cref`.
             /// Parameter `b` defaults to `default_convnontrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_ConvCtorNonTrivial testClassConvnontrivialCref(MR.CS.CSharp.Const_ConvCtorNonTrivial a, MR.CS.CSharp.Const_ConvCtorNonTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial_cref", ExactSpelling = true)]
@@ -17229,8 +20169,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_class_convnontrivial_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_convnontrivial_ptr`.
             /// Parameter `c` defaults to `&default_convnontrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ConvCtorNonTrivial? testClassConvnontrivialPtr(MR.CS.CSharp.ConvCtorNonTrivial? a, MR.CS.CSharp.ConvCtorNonTrivial? b = null, MR.CS.CSharp._InOptMut_ConvCtorNonTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial_ptr", ExactSpelling = true)]
@@ -17240,8 +20182,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.ConvCtorNonTrivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_class_convnontrivial_cptr`.
             /// Parameter `c` defaults to `&default_convnontrivial`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.Const_ConvCtorNonTrivial? testClassConvnontrivialCptr(MR.CS.CSharp.Const_ConvCtorNonTrivial? a, MR.CS.CSharp.Const_ConvCtorNonTrivial? b = null, MR.CS.CSharp._InOptConst_ConvCtorNonTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_class_convnontrivial_cptr", ExactSpelling = true)]
@@ -17251,8 +20195,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.CSharp.Const_ConvCtorNonTrivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed`.
             /// Parameter `b` defaults to `default_exposed`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ExposedLayout testExposed(MR.CS.CSharp.ExposedLayout a, MR.CS.CSharp._InOpt_ExposedLayout b = default)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -17260,8 +20206,10 @@ public static partial class MR
                 return __MR_CSharp_test_exposed_MR_CSharp_ExposedLayout(a, b.HasValue ? &b.Object : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_ref`.
             /// Parameter `b` defaults to `default_exposed`.
+            /// </summary>
             public static unsafe ref MR.CS.CSharp.ExposedLayout testExposedRef(ref MR.CS.CSharp.ExposedLayout a, MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayout>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -17275,8 +20223,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_cref`.
             /// Parameter `b` defaults to `default_exposed`.
+            /// </summary>
             public static unsafe ref readonly MR.CS.CSharp.ExposedLayout testExposedCref(in MR.CS.CSharp.ExposedLayout a, MR.CS.CSharp.ExposedLayout? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayout", ExactSpelling = true)]
@@ -17288,8 +20238,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_rref`.
             /// Parameter `b` defaults to `(MR::CSharp::ExposedLayout&&)default_exposed`.
+            /// </summary>
             public static unsafe ref readonly MR.CS.CSharp.ExposedLayout testExposedRref(MR.CS.Misc._MoveRef _move_a, in MR.CS.CSharp.ExposedLayout a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.ExposedLayout? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_rref", ExactSpelling = true)]
@@ -17301,8 +20253,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_crref`.
             /// Parameter `b` defaults to `(MR::CSharp::ExposedLayout&&)default_exposed`.
+            /// </summary>
             public static unsafe ref readonly MR.CS.CSharp.ExposedLayout testExposedCrref(MR.CS.Misc._MoveRef _move_a, in MR.CS.CSharp.ExposedLayout a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.ExposedLayout? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_crref", ExactSpelling = true)]
@@ -17314,8 +20268,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_ptr`.
             /// Parameter `c` defaults to `&default_exposed`.
+            /// </summary>
             public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>? testExposedPtr(MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayout>? a, MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayout>? b = null, MR.CS.Misc._InOutOpt<MR.CS.CSharp.ExposedLayout>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayout_ptr", ExactSpelling = true)]
@@ -17331,8 +20287,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>(__ret) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_cptr`.
             /// Parameter `c` defaults to `&default_exposed`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ExposedLayout? testExposedCptr(MR.CS.CSharp.ExposedLayout? a, MR.CS.CSharp.ExposedLayout? b = null, MR.CS.Misc._InOpt<MR.CS.CSharp.ExposedLayout>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayout_ptr", ExactSpelling = true)]
@@ -17346,7 +20304,9 @@ public static partial class MR
             }
 
             // This broke at one point, so testing it too.
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_vec`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCSharpExposedLayout> testExposedVec()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_vec", ExactSpelling = true)]
@@ -17354,7 +20314,9 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRCSharpExposedLayout(__MR_CSharp_test_exposed_vec(), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::make_exposed_sh`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Mut_ExposedLayoutSh> makeExposedSh()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_make_exposed_sh", ExactSpelling = true)]
@@ -17362,8 +20324,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.CSharp.Mut_ExposedLayoutSh(__MR_CSharp_make_exposed_sh(), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed`.
             /// Parameter `b` defaults to `default_exposed_sh`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ExposedLayoutSh testExposed(MR.CS.CSharp.ExposedLayoutSh a, MR.CS.CSharp._InOpt_ExposedLayoutSh b = default)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -17371,8 +20335,10 @@ public static partial class MR
                 return __MR_CSharp_test_exposed_MR_CSharp_ExposedLayoutSh(a, b.HasValue ? &b.Object : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_ref`.
             /// Parameter `b` defaults to `default_exposed_sh`.
+            /// </summary>
             public static unsafe ref MR.CS.CSharp.ExposedLayoutSh testExposedRef(ref MR.CS.CSharp.ExposedLayoutSh a, MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayoutSh>? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -17386,8 +20352,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_cref`.
             /// Parameter `b` defaults to `default_exposed_sh`.
+            /// </summary>
             public static unsafe ref readonly MR.CS.CSharp.ExposedLayoutSh testExposedCref(in MR.CS.CSharp.ExposedLayoutSh a, MR.CS.CSharp.ExposedLayoutSh? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
@@ -17399,8 +20367,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_ptr`.
             /// Parameter `c` defaults to `&default_exposed_sh`.
+            /// </summary>
             public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayoutSh>? testExposedPtr(MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayoutSh>? a, MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayoutSh>? b = null, MR.CS.Misc._InOutOpt<MR.CS.CSharp.ExposedLayoutSh>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr", ExactSpelling = true)]
@@ -17416,8 +20386,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayoutSh>(__ret) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_cptr`.
             /// Parameter `c` defaults to `&default_exposed_sh`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ExposedLayoutSh? testExposedCptr(MR.CS.CSharp.ExposedLayoutSh? a, MR.CS.CSharp.ExposedLayoutSh? b = null, MR.CS.Misc._InOpt<MR.CS.CSharp.ExposedLayoutSh>? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr", ExactSpelling = true)]
@@ -17430,9 +20402,11 @@ public static partial class MR
                 if (__ret is not null) return *__ret; else return null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optint`.
             /// Parameter `b` defaults to `default_optint`.
             /// Parameter `c` defaults to `default_optint`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_Int testOptint(int? a, MR.CS.Std.Const_Optional_Int? b = null, MR.CS.Std.Const_Optional_Int? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optint", ExactSpelling = true)]
@@ -17441,8 +20415,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optint(a.HasValue ? &__deref_a : null, b is not null ? b._UnderlyingPtr : null, c is not null ? c._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optint_ref`.
             /// Parameter `b` defaults to `default_optint`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_Int testOptintRef(MR.CS.Std.Optional_Int a, MR.CS.Std.Optional_Int? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optint_ref", ExactSpelling = true)]
@@ -17450,8 +20426,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optint_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optint_cref`.
             /// Parameter `b` defaults to `default_optint`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_Int testOptintCref(int? a, MR.CS.Std.Const_Optional_Int? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optint_cref", ExactSpelling = true)]
@@ -17460,8 +20438,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optint_cref(a.HasValue ? &__deref_a : null, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optint_ptr`.
             /// Parameter `c` defaults to `&default_optint`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_Int? testOptintPtr(MR.CS.Std.Optional_Int? a, MR.CS.Std.Optional_Int? b = null, MR.CS.Std._InOptMut_Optional_Int? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optint_ptr", ExactSpelling = true)]
@@ -17471,8 +20451,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Optional_Int(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optint_cptr`.
             /// Parameter `c` defaults to `&default_optint`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_Int? testOptintCptr(MR.CS.Std.Const_Optional_Int? a, MR.CS.Std.Const_Optional_Int? b = null, MR.CS.Std._InOptConst_Optional_Int? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optint_cptr", ExactSpelling = true)]
@@ -17482,9 +20464,11 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Optional_Int(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optstr`.
             /// Parameter `b` defaults to `default_optstr`.
             /// Parameter `c` defaults to `default_optstr`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Optional_StdString> testOptstr(MR.CS.Misc.ReadOnlyCharSpanOpt a, MR.CS.Std._ByValue_Optional_StdString? b = null, MR.CS.Std._ByValue_Optional_StdString? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr", ExactSpelling = true)]
@@ -17502,8 +20486,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optstr_ref`.
             /// Parameter `b` defaults to `default_optstr`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_StdString testOptstrRef(MR.CS.Std.Optional_StdString a, MR.CS.Std.Optional_StdString? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr_ref", ExactSpelling = true)]
@@ -17511,8 +20497,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optstr_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optstr_cref`.
             /// Parameter `b` defaults to `default_optstr`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_StdString testOptstrCref(MR.CS.Misc.ReadOnlyCharSpanOpt a, MR.CS.Std.Const_Optional_StdString? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr_cref", ExactSpelling = true)]
@@ -17530,8 +20518,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optstr_ptr`.
             /// Parameter `c` defaults to `&default_optstr`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_StdString? testOptstrPtr(MR.CS.Std.Optional_StdString? a, MR.CS.Std.Optional_StdString? b = null, MR.CS.Std._InOptMut_Optional_StdString? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr_ptr", ExactSpelling = true)]
@@ -17541,8 +20531,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Optional_StdString(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optstr_cptr`.
             /// Parameter `c` defaults to `&default_optstr`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_StdString? testOptstrCptr(MR.CS.Std.Const_Optional_StdString? a, MR.CS.Std.Const_Optional_StdString? b = null, MR.CS.Std._InOptConst_Optional_StdString? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optstr_cptr", ExactSpelling = true)]
@@ -17552,9 +20544,11 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Optional_StdString(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_opttriv`.
             /// Parameter `b` defaults to `default_opttriv`.
             /// Parameter `c` defaults to `default_opttriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpTrivial testOpttriv(MR.CS.CSharp.Const_Trivial? a, MR.CS.Std.Const_Optional_MRCSharpTrivial? b = null, MR.CS.Std.Const_Optional_MRCSharpTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_opttriv", ExactSpelling = true)]
@@ -17562,8 +20556,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_opttriv(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? c._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_opttriv_ref`.
             /// Parameter `b` defaults to `default_opttriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpTrivial testOpttrivRef(MR.CS.Std.Optional_MRCSharpTrivial a, MR.CS.Std.Optional_MRCSharpTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_opttriv_ref", ExactSpelling = true)]
@@ -17571,8 +20567,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_opttriv_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_opttriv_cref`.
             /// Parameter `b` defaults to `default_opttriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpTrivial testOpttrivCref(MR.CS.CSharp.Const_Trivial? a, MR.CS.Std.Const_Optional_MRCSharpTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_opttriv_cref", ExactSpelling = true)]
@@ -17580,8 +20578,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_opttriv_cref(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_opttriv_ptr`.
             /// Parameter `c` defaults to `&default_opttriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpTrivial? testOpttrivPtr(MR.CS.Std.Optional_MRCSharpTrivial? a, MR.CS.Std.Optional_MRCSharpTrivial? b = null, MR.CS.Std._InOptMut_Optional_MRCSharpTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_opttriv_ptr", ExactSpelling = true)]
@@ -17591,8 +20591,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Optional_MRCSharpTrivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_opttriv_cptr`.
             /// Parameter `c` defaults to `&default_opttriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpTrivial? testOpttrivCptr(MR.CS.Std.Const_Optional_MRCSharpTrivial? a, MR.CS.Std.Const_Optional_MRCSharpTrivial? b = null, MR.CS.Std._InOptConst_Optional_MRCSharpTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_opttriv_cptr", ExactSpelling = true)]
@@ -17602,9 +20604,11 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Optional_MRCSharpTrivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optnontriv`.
             /// Parameter `b` defaults to `default_optnontriv`.
             /// Parameter `c` defaults to `default_optnontriv`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Optional_MRCSharpNonTrivial> testOptnontriv(MR.CS.CSharp._ByValue_NonTrivial? a, MR.CS.CSharp._ByValueOptOpt_NonTrivial? b = null, MR.CS.CSharp._ByValueOptOpt_NonTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optnontriv", ExactSpelling = true)]
@@ -17612,8 +20616,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.Std.Optional_MRCSharpNonTrivial(__MR_CSharp_test_optnontriv(a is not null ? a.PassByMode : MR.CS.Misc._PassBy.no_object, a is not null && a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null, c is not null ? c.PassByMode : MR.CS.Misc._PassBy.default_arg, c is not null && c.Value is not null ? c.Value._UnderlyingPtr : null), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optnontriv_ref`.
             /// Parameter `b` defaults to `default_optnontriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial testOptnontrivRef(MR.CS.Std.Optional_MRCSharpNonTrivial a, MR.CS.Std.Optional_MRCSharpNonTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optnontriv_ref", ExactSpelling = true)]
@@ -17621,8 +20627,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optnontriv_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optnontriv_cref`.
             /// Parameter `b` defaults to `default_optnontriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpNonTrivial testOptnontrivCref(MR.CS.CSharp._ByValue_NonTrivial? a, MR.CS.CSharp._ByValueOptOpt_NonTrivial? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optnontriv_cref", ExactSpelling = true)]
@@ -17630,8 +20638,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optnontriv_cref(a is not null ? a.PassByMode : MR.CS.Misc._PassBy.no_object, a is not null && a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optnontriv_ptr`.
             /// Parameter `c` defaults to `&default_optnontriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial? testOptnontrivPtr(MR.CS.Std.Optional_MRCSharpNonTrivial? a, MR.CS.Std.Optional_MRCSharpNonTrivial? b = null, MR.CS.Std._InOptMut_Optional_MRCSharpNonTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optnontriv_ptr", ExactSpelling = true)]
@@ -17641,8 +20651,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Optional_MRCSharpNonTrivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optnontriv_cptr`.
             /// Parameter `c` defaults to `&default_optnontriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpNonTrivial? testOptnontrivCptr(MR.CS.Std.Const_Optional_MRCSharpNonTrivial? a, MR.CS.Std.Const_Optional_MRCSharpNonTrivial? b = null, MR.CS.Std._InOptConst_Optional_MRCSharpNonTrivial? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optnontriv_cptr", ExactSpelling = true)]
@@ -17652,9 +20664,11 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Optional_MRCSharpNonTrivial(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optshexp`.
             /// Parameter `b` defaults to `default_optshexp`.
             /// Parameter `c` defaults to `default_optshexp`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpExposedLayoutSh testOptshexp(MR.CS.CSharp._InOpt_ExposedLayoutSh a, MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? b = null, MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshexp", ExactSpelling = true)]
@@ -17662,8 +20676,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optshexp(a.HasValue ? &a.Object : null, b is not null ? b._UnderlyingPtr : null, c is not null ? c._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optshexp_ref`.
             /// Parameter `b` defaults to `default_optshexp`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpExposedLayoutSh testOptshexpRef(MR.CS.Std.Optional_MRCSharpExposedLayoutSh a, MR.CS.Std.Optional_MRCSharpExposedLayoutSh? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshexp_ref", ExactSpelling = true)]
@@ -17671,8 +20687,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optshexp_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optshexp_cref`.
             /// Parameter `b` defaults to `default_optshexp`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh testOptshexpCref(MR.CS.CSharp._InOpt_ExposedLayoutSh a, MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshexp_cref", ExactSpelling = true)]
@@ -17680,8 +20698,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optshexp_cref(a.HasValue ? &a.Object : null, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optshexp_ptr`.
             /// Parameter `c` defaults to `&default_optshexp`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpExposedLayoutSh? testOptshexpPtr(MR.CS.Std.Optional_MRCSharpExposedLayoutSh? a, MR.CS.Std.Optional_MRCSharpExposedLayoutSh? b = null, MR.CS.Std._InOptMut_Optional_MRCSharpExposedLayoutSh? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshexp_ptr", ExactSpelling = true)]
@@ -17691,8 +20711,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Optional_MRCSharpExposedLayoutSh(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optshexp_cptr`.
             /// Parameter `c` defaults to `&default_optshexp`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? testOptshexpCptr(MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? a, MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? b = null, MR.CS.Std._InOptConst_Optional_MRCSharpExposedLayoutSh? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshexp_cptr", ExactSpelling = true)]
@@ -17702,9 +20724,11 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optshtriv`.
             /// Parameter `b` defaults to `default_optshtriv`.
             /// Parameter `c` defaults to `default_optshtriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpSA testOptshtriv(MR.CS.CSharp.Const_SA? a, MR.CS.Std.Const_Optional_MRCSharpSA? b = null, MR.CS.Std.Const_Optional_MRCSharpSA? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshtriv", ExactSpelling = true)]
@@ -17712,8 +20736,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optshtriv(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null, c is not null ? c._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optshtriv_ref`.
             /// Parameter `b` defaults to `default_optshtriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpSA testOptshtrivRef(MR.CS.Std.Optional_MRCSharpSA a, MR.CS.Std.Optional_MRCSharpSA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshtriv_ref", ExactSpelling = true)]
@@ -17721,8 +20747,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optshtriv_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optshtriv_cref`.
             /// Parameter `b` defaults to `default_optshtriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpSA testOptshtrivCref(MR.CS.CSharp.Const_SA? a, MR.CS.Std.Const_Optional_MRCSharpSA? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshtriv_cref", ExactSpelling = true)]
@@ -17730,8 +20758,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_optshtriv_cref(a is not null ? a._UnderlyingPtr : null, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optshtriv_ptr`.
             /// Parameter `c` defaults to `&default_optshtriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpSA? testOptshtrivPtr(MR.CS.Std.Optional_MRCSharpSA? a, MR.CS.Std.Optional_MRCSharpSA? b = null, MR.CS.Std._InOptMut_Optional_MRCSharpSA? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshtriv_ptr", ExactSpelling = true)]
@@ -17741,8 +20771,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Optional_MRCSharpSA(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_optshtriv_cptr`.
             /// Parameter `c` defaults to `&default_optshtriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpSA? testOptshtrivCptr(MR.CS.Std.Const_Optional_MRCSharpSA? a, MR.CS.Std.Const_Optional_MRCSharpSA? b = null, MR.CS.Std._InOptConst_Optional_MRCSharpSA? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_optshtriv_cptr", ExactSpelling = true)]
@@ -17753,7 +20785,9 @@ public static partial class MR
             }
 
             // Tag types:
+            /// <summary>
             /// Generated from function `MR::CSharp::test_tag`.
+            /// </summary>
             public static MR.CS.Std.Greater_Int testTag(MR.CS.Std.Greater_Int a, MR.CS.Std.Greater_Int b = default)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_tag", ExactSpelling = true)]
@@ -17762,7 +20796,9 @@ public static partial class MR
                 return new();
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_tag_cref`.
+            /// </summary>
             public static void testTagCref(MR.CS.Std.Greater_Int a, MR.CS.Std.Greater_Int b = default)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_tag_cref", ExactSpelling = true)]
@@ -17770,7 +20806,9 @@ public static partial class MR
                 __MR_CSharp_test_tag_cref();
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_tag_ptr`.
+            /// </summary>
             public static MR.CS.Std.Greater_Int? testTagPtr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_tag_ptr", ExactSpelling = true)]
@@ -17778,7 +20816,9 @@ public static partial class MR
                 return __MR_CSharp_test_tag_ptr() ? new MR.CS.Std.Greater_Int() : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_tag_cptr`.
+            /// </summary>
             public static MR.CS.Std.Greater_Int? testTagCptr()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_tag_cptr", ExactSpelling = true)]
@@ -17786,8 +20826,10 @@ public static partial class MR
                 return __MR_CSharp_test_tag_cptr() ? new MR.CS.Std.Greater_Int() : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_variant`.
             /// Parameter `b` defaults to `default_variant`.
+            /// </summary>
             public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float testVariant(MR.CS.Std.Const_Variant_StdMonostate_Int_Float a, MR.CS.Std.Const_Variant_StdMonostate_Int_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant", ExactSpelling = true)]
@@ -17795,8 +20837,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_variant(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_variant_ref`.
             /// Parameter `b` defaults to `default_variant`.
+            /// </summary>
             public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float testVariantRef(MR.CS.Std.Variant_StdMonostate_Int_Float a, MR.CS.Std.Variant_StdMonostate_Int_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant_ref", ExactSpelling = true)]
@@ -17804,8 +20848,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_variant_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_variant_cref`.
             /// Parameter `b` defaults to `default_variant`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Variant_StdMonostate_Int_Float testVariantCref(MR.CS.Std.Const_Variant_StdMonostate_Int_Float a, MR.CS.Std.Const_Variant_StdMonostate_Int_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant_cref", ExactSpelling = true)]
@@ -17813,8 +20859,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_variant_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_variant_ptr`.
             /// Parameter `b` defaults to `&default_variant`.
+            /// </summary>
             public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float? testVariantPtr(MR.CS.Std.Variant_StdMonostate_Int_Float? a, MR.CS.Std._InOptMut_Variant_StdMonostate_Int_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant_ptr", ExactSpelling = true)]
@@ -17824,8 +20872,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Variant_StdMonostate_Int_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_variant_cptr`.
             /// Parameter `b` defaults to `&default_variant`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Variant_StdMonostate_Int_Float? testVariantCptr(MR.CS.Std.Const_Variant_StdMonostate_Int_Float? a, MR.CS.Std._InOptConst_Variant_StdMonostate_Int_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant_cptr", ExactSpelling = true)]
@@ -17836,7 +20886,9 @@ public static partial class MR
             }
 
             // Test a variant that has duplicate element types.
+            /// <summary>
             /// Generated from function `MR::CSharp::test_variant_with_repeated_types`.
+            /// </summary>
             public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float_Float testVariantWithRepeatedTypes()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_variant_with_repeated_types", ExactSpelling = true)]
@@ -17845,7 +20897,9 @@ public static partial class MR
             }
 
             // Input and output streams:
+            /// <summary>
             /// Generated from function `MR::CSharp::test_iostreams_ref`.
+            /// </summary>
             public static unsafe MR.CS.Std.Ostream testIostreamsRef(MR.CS.Std.Istream _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_iostreams_ref", ExactSpelling = true)]
@@ -17853,7 +20907,9 @@ public static partial class MR
                 return new(__MR_CSharp_test_iostreams_ref(_1._UnderlyingPtr), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_iostreams_ptr`.
+            /// </summary>
             public static unsafe MR.CS.Std.Ostream? testIostreamsPtr(MR.CS.Std.Istream? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_iostreams_ptr", ExactSpelling = true)]
@@ -17862,7 +20918,9 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Ostream(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_iostreams_cref`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Ostream testIostreamsCref(MR.CS.Std.Const_Istream _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_iostreams_cref", ExactSpelling = true)]
@@ -17870,7 +20928,9 @@ public static partial class MR
                 return new(__MR_CSharp_test_iostreams_cref(_1._UnderlyingPtr), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_iostreams_cptr`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Ostream? testIostreamsCptr(MR.CS.Std.Const_Istream? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_iostreams_cptr", ExactSpelling = true)]
@@ -17879,8 +20939,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Ostream(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_uniqueptr`.
             /// Parameter `b` defaults to `std::move(default_uniqueptr)`.
+            /// </summary>
             public static unsafe void *testUniqueptr(void *a, void **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_uniqueptr", ExactSpelling = true)]
@@ -17888,8 +20950,10 @@ public static partial class MR
                 return __MR_CSharp_test_uniqueptr(a, b);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_uniqueptr_ref`.
             /// Parameter `b` defaults to `default_uniqueptr`.
+            /// </summary>
             public static unsafe MR.CS.Std.UniquePtr_Int testUniqueptrRef(MR.CS.Std.UniquePtr_Int a, MR.CS.Std.UniquePtr_Int? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_uniqueptr_ref", ExactSpelling = true)]
@@ -17897,8 +20961,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_uniqueptr_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_uniqueptr_cref`.
             /// Parameter `b` defaults to `default_uniqueptr`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_UniquePtr_Int testUniqueptrCref(MR.CS.Std.Const_UniquePtr_Int a, MR.CS.Std.Const_UniquePtr_Int? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_uniqueptr_cref", ExactSpelling = true)]
@@ -17906,8 +20972,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_uniqueptr_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_uniqueptr_ptr`.
             /// Parameter `c` defaults to `&default_uniqueptr`.
+            /// </summary>
             public static unsafe MR.CS.Std.UniquePtr_Int? testUniqueptrPtr(MR.CS.Std.UniquePtr_Int? a, MR.CS.Std.UniquePtr_Int? b = null, MR.CS.Std._InOptMut_UniquePtr_Int? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_uniqueptr_ptr", ExactSpelling = true)]
@@ -17917,8 +20985,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.UniquePtr_Int(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_uniqueptr_cptr`.
             /// Parameter `c` defaults to `&default_uniqueptr`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_UniquePtr_Int? testUniqueptrCptr(MR.CS.Std.Const_UniquePtr_Int? a, MR.CS.Std.Const_UniquePtr_Int? b = null, MR.CS.Std._InOptConst_UniquePtr_Int? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_uniqueptr_cptr", ExactSpelling = true)]
@@ -17928,9 +20998,11 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_UniquePtr_Int(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_ref`.
             /// Parameter `b` defaults to `default_plainarr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.ArrayInt42 testPlainarrRef(ref MR.CS.ArrayInt42 a, MR.CS.ArrayInt42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_ref", ExactSpelling = true)]
@@ -17941,9 +21013,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_cref`.
             /// Parameter `b` defaults to `default_plainarr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.ConstArrayInt42 testPlainarrCref(ref MR.CS.ConstArrayInt42 a, MR.CS.ConstArrayInt42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_cref", ExactSpelling = true)]
@@ -17954,9 +21028,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_rref`.
             /// Parameter `b` defaults to `(MR::CSharp::PlainArray&&)default_plainarr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.ArrayInt42 testPlainarrRref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ArrayInt42 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ArrayInt42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_rref", ExactSpelling = true)]
@@ -17967,9 +21043,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_crref`.
             /// Parameter `b` defaults to `(MR::CSharp::PlainArray&&)default_plainarr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.ConstArrayInt42 testPlainarrCrref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ConstArrayInt42 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_crref", ExactSpelling = true)]
@@ -17980,8 +21058,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_ptr`.
             /// Parameter `c` defaults to `&default_plainarr`.
+            /// </summary>
             public static unsafe MR.CS.ArrayInt42 *testPlainarrPtr(MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 *b = null, MR.CS.ArrayInt42 **c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_ptr", ExactSpelling = true)]
@@ -17989,8 +21069,10 @@ public static partial class MR
                 return __MR_CSharp_test_plainarr_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_cptr`.
             /// Parameter `c` defaults to `&default_plainarr`.
+            /// </summary>
             public static unsafe MR.CS.ConstArrayInt42 *testPlainarrCptr(MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 *b = null, MR.CS.ConstArrayInt42 **c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_cptr", ExactSpelling = true)]
@@ -17998,9 +21080,11 @@ public static partial class MR
                 return __MR_CSharp_test_plainarr_cptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_ref`.
             /// Parameter `b` defaults to `default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.ArrayInt10_20 testPlainarr2Ref(ref MR.CS.ArrayInt10_20 a, MR.CS.ArrayInt10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_ref", ExactSpelling = true)]
@@ -18011,9 +21095,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_cref`.
             /// Parameter `b` defaults to `default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.ConstArrayInt10_20 testPlainarr2Cref(ref MR.CS.ConstArrayInt10_20 a, MR.CS.ConstArrayInt10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_cref", ExactSpelling = true)]
@@ -18024,9 +21110,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_rref`.
             /// Parameter `b` defaults to `(MR::CSharp::PlainArray2&&)default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.ArrayInt10_20 testPlainarr2Rref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ArrayInt10_20 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ArrayInt10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_rref", ExactSpelling = true)]
@@ -18037,9 +21125,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_crref`.
             /// Parameter `b` defaults to `(MR::CSharp::PlainArray2&&)default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.ConstArrayInt10_20 testPlainarr2Crref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ConstArrayInt10_20 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_crref", ExactSpelling = true)]
@@ -18050,8 +21140,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_ptr`.
             /// Parameter `c` defaults to `&default_plainarr2`.
+            /// </summary>
             public static unsafe MR.CS.ArrayInt10_20 *testPlainarr2Ptr(MR.CS.ArrayInt10_20 *a, MR.CS.ArrayInt10_20 *b = null, MR.CS.ArrayInt10_20 **c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_ptr", ExactSpelling = true)]
@@ -18059,8 +21151,10 @@ public static partial class MR
                 return __MR_CSharp_test_plainarr2_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_cptr`.
             /// Parameter `c` defaults to `&default_plainarr2`.
+            /// </summary>
             public static unsafe MR.CS.ConstArrayInt10_20 *testPlainarr2Cptr(MR.CS.ConstArrayInt10_20 *a, MR.CS.ConstArrayInt10_20 *b = null, MR.CS.ConstArrayInt10_20 **c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_cptr", ExactSpelling = true)]
@@ -18068,9 +21162,11 @@ public static partial class MR
                 return __MR_CSharp_test_plainarr2_cptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum_ref`.
             /// Parameter `b` defaults to `default_plainarrenum`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.CSharp.ArrayE1_42 testPlainarrenumRef(ref MR.CS.CSharp.ArrayE1_42 a, MR.CS.CSharp.ArrayE1_42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_ref", ExactSpelling = true)]
@@ -18081,9 +21177,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum_cref`.
             /// Parameter `b` defaults to `default_plainarrenum`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.CSharp.ConstArrayE1_42 testPlainarrenumCref(ref MR.CS.CSharp.ConstArrayE1_42 a, MR.CS.CSharp.ConstArrayE1_42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_cref", ExactSpelling = true)]
@@ -18094,8 +21192,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum_ptr`.
             /// Parameter `c` defaults to `&default_plainarrenum`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ArrayE1_42 *testPlainarrenumPtr(MR.CS.CSharp.ArrayE1_42 *a, MR.CS.CSharp.ArrayE1_42 *b = null, MR.CS.CSharp.ArrayE1_42 **c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_ptr", ExactSpelling = true)]
@@ -18103,8 +21203,10 @@ public static partial class MR
                 return __MR_CSharp_test_plainarrenum_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum_cptr`.
             /// Parameter `c` defaults to `&default_plainarrenum`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ConstArrayE1_42 *testPlainarrenumCptr(MR.CS.CSharp.ConstArrayE1_42 *a, MR.CS.CSharp.ConstArrayE1_42 *b = null, MR.CS.CSharp.ConstArrayE1_42 **c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_cptr", ExactSpelling = true)]
@@ -18112,9 +21214,11 @@ public static partial class MR
                 return __MR_CSharp_test_plainarrenum_cptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum2_ref`.
             /// Parameter `b` defaults to `default_plainarrenum2`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.CSharp.ArrayE1_10_20 testPlainarrenum2Ref(ref MR.CS.CSharp.ArrayE1_10_20 a, MR.CS.CSharp.ArrayE1_10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_ref", ExactSpelling = true)]
@@ -18125,9 +21229,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum2_cref`.
             /// Parameter `b` defaults to `default_plainarrenum2`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.CSharp.ConstArrayE1_10_20 testPlainarrenum2Cref(ref MR.CS.CSharp.ConstArrayE1_10_20 a, MR.CS.CSharp.ConstArrayE1_10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_cref", ExactSpelling = true)]
@@ -18138,8 +21244,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum2_ptr`.
             /// Parameter `c` defaults to `&default_plainarrenum2`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ArrayE1_10_20 *testPlainarrenum2Ptr(MR.CS.CSharp.ArrayE1_10_20 *a, MR.CS.CSharp.ArrayE1_10_20 *b = null, MR.CS.CSharp.ArrayE1_10_20 **c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_ptr", ExactSpelling = true)]
@@ -18147,8 +21255,10 @@ public static partial class MR
                 return __MR_CSharp_test_plainarrenum2_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum2_cptr`.
             /// Parameter `c` defaults to `&default_plainarrenum2`.
+            /// </summary>
             public static unsafe MR.CS.CSharp.ConstArrayE1_10_20 *testPlainarrenum2Cptr(MR.CS.CSharp.ConstArrayE1_10_20 *a, MR.CS.CSharp.ConstArrayE1_10_20 *b = null, MR.CS.CSharp.ConstArrayE1_10_20 **c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_cptr", ExactSpelling = true)]
@@ -18157,7 +21267,9 @@ public static partial class MR
             }
 
             // Some multi-level pointer madness:
+            /// <summary>
             /// Generated from function `MR::CSharp::test_ptrs1`.
+            /// </summary>
             public static unsafe MR.CS.ArrayInt42 **testPtrs1(MR.CS.ArrayInt42 **ptr, ref MR.CS.ArrayInt42 *ref_)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ptrs1", ExactSpelling = true)]
@@ -18168,7 +21280,9 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_ptrs2`.
+            /// </summary>
             public static unsafe MR.CS.ArrayInt42 ***testPtrs2(MR.CS.ArrayInt42 ***ptr, ref MR.CS.ArrayInt42 **ref_)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_ptrs2", ExactSpelling = true)]
@@ -18179,9 +21293,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intptr_ref`.
             /// Parameter `b` defaults to `default_intptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref int *testIntptrRef(ref int *a, int **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptr_ref", ExactSpelling = true)]
@@ -18192,9 +21308,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intptr_cref`.
             /// Parameter `b` defaults to `default_intptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref readonly int *testIntptrCref(in int *a, int **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptr_cref", ExactSpelling = true)]
@@ -18205,8 +21323,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intptr_ptr`.
             /// Parameter `c` defaults to `&default_intptr`.
+            /// </summary>
             public static unsafe int **testIntptrPtr(int **a, int **b = null, int ***c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptr_ptr", ExactSpelling = true)]
@@ -18214,8 +21334,10 @@ public static partial class MR
                 return __MR_CSharp_test_intptr_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intptr_cptr`.
             /// Parameter `c` defaults to `&default_intptr`.
+            /// </summary>
             public static unsafe int **testIntptrCptr(int **a, int **b = null, int ***c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptr_cptr", ExactSpelling = true)]
@@ -18223,9 +21345,11 @@ public static partial class MR
                 return __MR_CSharp_test_intptr_cptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intcptr_ref`.
             /// Parameter `b` defaults to `default_intcptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref int *testIntcptrRef(ref int *a, int **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intcptr_ref", ExactSpelling = true)]
@@ -18236,9 +21360,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intcptr_cref`.
             /// Parameter `b` defaults to `default_intcptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref readonly int *testIntcptrCref(in int *a, int **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intcptr_cref", ExactSpelling = true)]
@@ -18249,8 +21375,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intcptr_ptr`.
             /// Parameter `c` defaults to `&default_intcptr`.
+            /// </summary>
             public static unsafe int **testIntcptrPtr(int **a, int **b = null, int ***c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intcptr_ptr", ExactSpelling = true)]
@@ -18258,8 +21386,10 @@ public static partial class MR
                 return __MR_CSharp_test_intcptr_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intcptr_cptr`.
             /// Parameter `c` defaults to `&default_intcptr`.
+            /// </summary>
             public static unsafe int **testIntcptrCptr(int **a, int **b = null, int ***c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intcptr_cptr", ExactSpelling = true)]
@@ -18267,9 +21397,11 @@ public static partial class MR
                 return __MR_CSharp_test_intcptr_cptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intptrptr_ref`.
             /// Parameter `b` defaults to `default_intptrptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref int **testIntptrptrRef(ref int **a, int ***b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptrptr_ref", ExactSpelling = true)]
@@ -18280,9 +21412,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intptrptr_cref`.
             /// Parameter `b` defaults to `default_intptrptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref readonly int **testIntptrptrCref(in int **a, int ***b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptrptr_cref", ExactSpelling = true)]
@@ -18293,8 +21427,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intptrptr_ptr`.
             /// Parameter `c` defaults to `&default_intptrptr`.
+            /// </summary>
             public static unsafe int ***testIntptrptrPtr(int ***a, int ***b = null, int ****c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptrptr_ptr", ExactSpelling = true)]
@@ -18302,8 +21438,10 @@ public static partial class MR
                 return __MR_CSharp_test_intptrptr_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_intptrptr_cptr`.
             /// Parameter `c` defaults to `&default_intptrptr`.
+            /// </summary>
             public static unsafe int ***testIntptrptrCptr(int ***a, int ***b = null, int ****c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_intptrptr_cptr", ExactSpelling = true)]
@@ -18311,9 +21449,11 @@ public static partial class MR
                 return __MR_CSharp_test_intptrptr_cptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_voidptr_ref`.
             /// Parameter `b` defaults to `default_voidptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref void *testVoidptrRef(ref void *a, void **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptr_ref", ExactSpelling = true)]
@@ -18324,9 +21464,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_voidptr_cref`.
             /// Parameter `b` defaults to `default_voidptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref readonly void *testVoidptrCref(in void *a, void **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptr_cref", ExactSpelling = true)]
@@ -18337,8 +21479,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_voidptr_ptr`.
             /// Parameter `c` defaults to `&default_voidptr`.
+            /// </summary>
             public static unsafe void **testVoidptrPtr(void **a, void **b = null, void ***c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptr_ptr", ExactSpelling = true)]
@@ -18346,8 +21490,10 @@ public static partial class MR
                 return __MR_CSharp_test_voidptr_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_voidptr_cptr`.
             /// Parameter `c` defaults to `&default_voidptr`.
+            /// </summary>
             public static unsafe void **testVoidptrCptr(void **a, void **b = null, void ***c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptr_cptr", ExactSpelling = true)]
@@ -18355,9 +21501,11 @@ public static partial class MR
                 return __MR_CSharp_test_voidptr_cptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_voidptrptr_ref`.
             /// Parameter `b` defaults to `default_voidptrptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref void **testVoidptrptrRef(ref void **a, void ***b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptrptr_ref", ExactSpelling = true)]
@@ -18368,9 +21516,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_voidptrptr_cref`.
             /// Parameter `b` defaults to `default_voidptrptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref readonly void **testVoidptrptrCref(in void **a, void ***b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptrptr_cref", ExactSpelling = true)]
@@ -18381,8 +21531,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_voidptrptr_ptr`.
             /// Parameter `c` defaults to `&default_voidptrptr`.
+            /// </summary>
             public static unsafe void ***testVoidptrptrPtr(void ***a, void ***b = null, void ****c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptrptr_ptr", ExactSpelling = true)]
@@ -18390,8 +21542,10 @@ public static partial class MR
                 return __MR_CSharp_test_voidptrptr_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_voidptrptr_cptr`.
             /// Parameter `c` defaults to `&default_voidptrptr`.
+            /// </summary>
             public static unsafe void ***testVoidptrptrCptr(void ***a, void ***b = null, void ****c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_voidptrptr_cptr", ExactSpelling = true)]
@@ -18399,9 +21553,11 @@ public static partial class MR
                 return __MR_CSharp_test_voidptrptr_cptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_arrptr_ref`.
             /// Parameter `b` defaults to `default_arrptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.ArrayInt42 *testArrptrRef(ref MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrptr_ref", ExactSpelling = true)]
@@ -18412,9 +21568,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_arrptr_cref`.
             /// Parameter `b` defaults to `default_arrptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref readonly MR.CS.ArrayInt42 *testArrptrCref(in MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrptr_cref", ExactSpelling = true)]
@@ -18425,8 +21583,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_arrptr_ptr`.
             /// Parameter `c` defaults to `&default_arrptr`.
+            /// </summary>
             public static unsafe MR.CS.ArrayInt42 **testArrptrPtr(MR.CS.ArrayInt42 **a, MR.CS.ArrayInt42 **b = null, MR.CS.ArrayInt42 ***c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrptr_ptr", ExactSpelling = true)]
@@ -18434,8 +21594,10 @@ public static partial class MR
                 return __MR_CSharp_test_arrptr_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_arrptr_cptr`.
             /// Parameter `c` defaults to `&default_arrptr`.
+            /// </summary>
             public static unsafe MR.CS.ArrayInt42 **testArrptrCptr(MR.CS.ArrayInt42 **a, MR.CS.ArrayInt42 **b = null, MR.CS.ArrayInt42 ***c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrptr_cptr", ExactSpelling = true)]
@@ -18443,9 +21605,11 @@ public static partial class MR
                 return __MR_CSharp_test_arrptr_cptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_arrcptr_ref`.
             /// Parameter `b` defaults to `default_arrcptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref MR.CS.ConstArrayInt42 *testArrcptrRef(ref MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrcptr_ref", ExactSpelling = true)]
@@ -18456,9 +21620,11 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_arrcptr_cref`.
             /// Parameter `b` defaults to `default_arrcptr`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref readonly MR.CS.ConstArrayInt42 *testArrcptrCref(in MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 **b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrcptr_cref", ExactSpelling = true)]
@@ -18469,8 +21635,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_arrcptr_ptr`.
             /// Parameter `c` defaults to `&default_arrcptr`.
+            /// </summary>
             public static unsafe MR.CS.ConstArrayInt42 **testArrcptrPtr(MR.CS.ConstArrayInt42 **a, MR.CS.ConstArrayInt42 **b = null, MR.CS.ConstArrayInt42 ***c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrcptr_ptr", ExactSpelling = true)]
@@ -18478,8 +21646,10 @@ public static partial class MR
                 return __MR_CSharp_test_arrcptr_ptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_arrcptr_cptr`.
             /// Parameter `c` defaults to `&default_arrcptr`.
+            /// </summary>
             public static unsafe MR.CS.ConstArrayInt42 **testArrcptrCptr(MR.CS.ConstArrayInt42 **a, MR.CS.ConstArrayInt42 **b = null, MR.CS.ConstArrayInt42 ***c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_arrcptr_cptr", ExactSpelling = true)]
@@ -18487,7 +21657,9 @@ public static partial class MR
                 return __MR_CSharp_test_arrcptr_cptr(a, b, c);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::nameConflicts`.
+            /// </summary>
             public static void nameConflicts()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_nameConflicts", ExactSpelling = true)]
@@ -18495,7 +21667,9 @@ public static partial class MR
                 __MR_CSharp_nameConflicts();
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::nameConflictsExposed`.
+            /// </summary>
             public static void nameConflictsExposed()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_nameConflictsExposed", ExactSpelling = true)]
@@ -18504,7 +21678,9 @@ public static partial class MR
             }
 
             // Test how template arguments are added to function names when needed to avoid ambiguities.
+            /// <summary>
             /// Generated from function `MR::CSharp::template_a<int>`.
+            /// </summary>
             public static void templateA(int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_a_int", ExactSpelling = true)]
@@ -18513,7 +21689,9 @@ public static partial class MR
             }
 
             // Test how template arguments are added to function names when needed to avoid ambiguities.
+            /// <summary>
             /// Generated from function `MR::CSharp::template_a<float>`.
+            /// </summary>
             public static void templateA(float _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_a_float", ExactSpelling = true)]
@@ -18521,7 +21699,9 @@ public static partial class MR
                 __MR_CSharp_template_a_float(_1);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::template_b<int>`.
+            /// </summary>
             public static int templateB_Int()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_b_int", ExactSpelling = true)]
@@ -18529,7 +21709,9 @@ public static partial class MR
                 return __MR_CSharp_template_b_int();
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::template_b<float>`.
+            /// </summary>
             public static float templateB_Float()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_b_float", ExactSpelling = true)]
@@ -18537,7 +21719,9 @@ public static partial class MR
                 return __MR_CSharp_template_b_float();
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::template_c<int>`.
+            /// </summary>
             public static void templateC_Int()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_c_int", ExactSpelling = true)]
@@ -18545,7 +21729,9 @@ public static partial class MR
                 __MR_CSharp_template_c_int();
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::template_c<float>`.
+            /// </summary>
             public static void templateC_Float()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_template_c_float", ExactSpelling = true)]
@@ -18553,7 +21739,9 @@ public static partial class MR
                 __MR_CSharp_template_c_float();
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::instantiate`.
+            /// </summary>
             public static void instantiate()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_instantiate", ExactSpelling = true)]
@@ -18561,8 +21749,10 @@ public static partial class MR
                 __MR_CSharp_instantiate();
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_int`.
             /// Parameter `b` defaults to `std::expected<int, float>{42}`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_Int_Float testExpectedInt(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_int", ExactSpelling = true)]
@@ -18570,8 +21760,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_int(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_int_ref`.
             /// Parameter `b` defaults to `default_expected_int`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_Int_Float testExpectedIntRef(MR.CS.Std.Expected_Int_Float a, MR.CS.Std.Expected_Int_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_int_ref", ExactSpelling = true)]
@@ -18579,8 +21771,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_int_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_int_cref`.
             /// Parameter `b` defaults to `default_expected_int`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_Int_Float testExpectedIntCref(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_int_cref", ExactSpelling = true)]
@@ -18588,8 +21782,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_int_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_int_ptr`.
             /// Parameter `c` defaults to `&default_expected_int`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_Int_Float? testExpectedIntPtr(MR.CS.Std.Expected_Int_Float? a, MR.CS.Std.Expected_Int_Float? b = null, MR.CS.Std._InOptMut_Expected_Int_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_int_ptr", ExactSpelling = true)]
@@ -18599,8 +21795,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Expected_Int_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_int_cptr`.
             /// Parameter `c` defaults to `&default_expected_int`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_Int_Float? testExpectedIntCptr(MR.CS.Std.Const_Expected_Int_Float? a, MR.CS.Std.Const_Expected_Int_Float? b = null, MR.CS.Std._InOptConst_Expected_Int_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_int_cptr", ExactSpelling = true)]
@@ -18610,8 +21808,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Expected_Int_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_void`.
             /// Parameter `b` defaults to `std::expected<void, float>{}`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_Void_Float testExpectedVoid(MR.CS.Std.Const_Expected_Void_Float a, MR.CS.Std.Const_Expected_Void_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_void", ExactSpelling = true)]
@@ -18619,8 +21819,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_void(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_void_ref`.
             /// Parameter `b` defaults to `default_expected_void`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_Void_Float testExpectedVoidRef(MR.CS.Std.Expected_Void_Float a, MR.CS.Std.Expected_Void_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_void_ref", ExactSpelling = true)]
@@ -18628,8 +21830,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_void_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_void_cref`.
             /// Parameter `b` defaults to `default_expected_void`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_Void_Float testExpectedVoidCref(MR.CS.Std.Const_Expected_Void_Float a, MR.CS.Std.Const_Expected_Void_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_void_cref", ExactSpelling = true)]
@@ -18637,8 +21841,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_void_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_void_ptr`.
             /// Parameter `c` defaults to `&default_expected_void`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_Void_Float? testExpectedVoidPtr(MR.CS.Std.Expected_Void_Float? a, MR.CS.Std.Expected_Void_Float? b = null, MR.CS.Std._InOptMut_Expected_Void_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_void_ptr", ExactSpelling = true)]
@@ -18648,8 +21854,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Expected_Void_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_void_cptr`.
             /// Parameter `c` defaults to `&default_expected_void`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_Void_Float? testExpectedVoidCptr(MR.CS.Std.Const_Expected_Void_Float? a, MR.CS.Std.Const_Expected_Void_Float? b = null, MR.CS.Std._InOptConst_Expected_Void_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_void_cptr", ExactSpelling = true)]
@@ -18659,8 +21867,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Expected_Void_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_enum`.
             /// Parameter `b` defaults to `std::expected<MR::CSharp::E1, float>{E1::b}`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpE1_Float testExpectedEnum(MR.CS.Std.Const_Expected_MRCSharpE1_Float a, MR.CS.Std.Const_Expected_MRCSharpE1_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_enum", ExactSpelling = true)]
@@ -18668,8 +21878,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_enum(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_enum_ref`.
             /// Parameter `b` defaults to `default_expected_enum`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpE1_Float testExpectedEnumRef(MR.CS.Std.Expected_MRCSharpE1_Float a, MR.CS.Std.Expected_MRCSharpE1_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_enum_ref", ExactSpelling = true)]
@@ -18677,8 +21889,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_enum_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_enum_cref`.
             /// Parameter `b` defaults to `default_expected_enum`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpE1_Float testExpectedEnumCref(MR.CS.Std.Const_Expected_MRCSharpE1_Float a, MR.CS.Std.Const_Expected_MRCSharpE1_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_enum_cref", ExactSpelling = true)]
@@ -18686,8 +21900,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_enum_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_enum_ptr`.
             /// Parameter `c` defaults to `&default_expected_enum`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpE1_Float? testExpectedEnumPtr(MR.CS.Std.Expected_MRCSharpE1_Float? a, MR.CS.Std.Expected_MRCSharpE1_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpE1_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_enum_ptr", ExactSpelling = true)]
@@ -18697,8 +21913,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Expected_MRCSharpE1_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_enum_cptr`.
             /// Parameter `c` defaults to `&default_expected_enum`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpE1_Float? testExpectedEnumCptr(MR.CS.Std.Const_Expected_MRCSharpE1_Float? a, MR.CS.Std.Const_Expected_MRCSharpE1_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpE1_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_enum_cptr", ExactSpelling = true)]
@@ -18708,8 +21926,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Expected_MRCSharpE1_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_triv`.
             /// Parameter `b` defaults to `std::expected<MR::CSharp::Trivial, float>{MR::CSharp::Trivial{}}`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpTrivial_Float testExpectedTriv(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float a, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_triv", ExactSpelling = true)]
@@ -18717,8 +21937,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_triv(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_triv_ref`.
             /// Parameter `b` defaults to `default_expected_triv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpTrivial_Float testExpectedTrivRef(MR.CS.Std.Expected_MRCSharpTrivial_Float a, MR.CS.Std.Expected_MRCSharpTrivial_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_triv_ref", ExactSpelling = true)]
@@ -18726,8 +21948,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_triv_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_triv_cref`.
             /// Parameter `b` defaults to `default_expected_triv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpTrivial_Float testExpectedTrivCref(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float a, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_triv_cref", ExactSpelling = true)]
@@ -18735,8 +21959,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_triv_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_triv_ptr`.
             /// Parameter `c` defaults to `&default_expected_triv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpTrivial_Float? testExpectedTrivPtr(MR.CS.Std.Expected_MRCSharpTrivial_Float? a, MR.CS.Std.Expected_MRCSharpTrivial_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpTrivial_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_triv_ptr", ExactSpelling = true)]
@@ -18746,8 +21972,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Expected_MRCSharpTrivial_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_triv_cptr`.
             /// Parameter `c` defaults to `&default_expected_triv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? testExpectedTrivCptr(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? a, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpTrivial_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_triv_cptr", ExactSpelling = true)]
@@ -18757,8 +21985,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Expected_MRCSharpTrivial_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_nontriv`.
             /// Parameter `b` defaults to `std::expected<MR::CSharp::NonTrivial, float>{MR::CSharp::NonTrivial{}}`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Expected_MRCSharpNonTrivial_Float> testExpectedNontriv(MR.CS.Std._ByValue_Expected_MRCSharpNonTrivial_Float a, MR.CS.Std._ByValue_Expected_MRCSharpNonTrivial_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_nontriv", ExactSpelling = true)]
@@ -18766,8 +21996,10 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.Std.Expected_MRCSharpNonTrivial_Float(__MR_CSharp_test_expected_nontriv(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_nontriv_ref`.
             /// Parameter `b` defaults to `default_expected_nontriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpNonTrivial_Float testExpectedNontrivRef(MR.CS.Std.Expected_MRCSharpNonTrivial_Float a, MR.CS.Std.Expected_MRCSharpNonTrivial_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_nontriv_ref", ExactSpelling = true)]
@@ -18775,8 +22007,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_nontriv_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_nontriv_cref`.
             /// Parameter `b` defaults to `default_expected_nontriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float testExpectedNontrivCref(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float a, MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_nontriv_cref", ExactSpelling = true)]
@@ -18784,8 +22018,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_nontriv_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_nontriv_ptr`.
             /// Parameter `c` defaults to `&default_expected_nontriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpNonTrivial_Float? testExpectedNontrivPtr(MR.CS.Std.Expected_MRCSharpNonTrivial_Float? a, MR.CS.Std.Expected_MRCSharpNonTrivial_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpNonTrivial_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_nontriv_ptr", ExactSpelling = true)]
@@ -18795,8 +22031,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Expected_MRCSharpNonTrivial_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_nontriv_cptr`.
             /// Parameter `c` defaults to `&default_expected_nontriv`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? testExpectedNontrivCptr(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? a, MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpNonTrivial_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_nontriv_cptr", ExactSpelling = true)]
@@ -18806,8 +22044,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_shared`.
             /// Parameter `b` defaults to `std::expected<MR::CSharp::SA, float>{MR::CSharp::SA{}}`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpSA_Float testExpectedShared(MR.CS.Std.Const_Expected_MRCSharpSA_Float a, MR.CS.Std.Const_Expected_MRCSharpSA_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_shared", ExactSpelling = true)]
@@ -18815,8 +22055,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_shared(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_shared_ref`.
             /// Parameter `b` defaults to `default_expected_shared`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpSA_Float testExpectedSharedRef(MR.CS.Std.Expected_MRCSharpSA_Float a, MR.CS.Std.Expected_MRCSharpSA_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_shared_ref", ExactSpelling = true)]
@@ -18824,8 +22066,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_shared_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_shared_cref`.
             /// Parameter `b` defaults to `default_expected_shared`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpSA_Float testExpectedSharedCref(MR.CS.Std.Const_Expected_MRCSharpSA_Float a, MR.CS.Std.Const_Expected_MRCSharpSA_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_shared_cref", ExactSpelling = true)]
@@ -18833,8 +22077,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_shared_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_shared_ptr`.
             /// Parameter `c` defaults to `&default_expected_shared`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpSA_Float? testExpectedSharedPtr(MR.CS.Std.Expected_MRCSharpSA_Float? a, MR.CS.Std.Expected_MRCSharpSA_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpSA_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_shared_ptr", ExactSpelling = true)]
@@ -18844,8 +22090,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Expected_MRCSharpSA_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_shared_cptr`.
             /// Parameter `c` defaults to `&default_expected_shared`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpSA_Float? testExpectedSharedCptr(MR.CS.Std.Const_Expected_MRCSharpSA_Float? a, MR.CS.Std.Const_Expected_MRCSharpSA_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpSA_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_shared_cptr", ExactSpelling = true)]
@@ -18855,8 +22103,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Expected_MRCSharpSA_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed`.
             /// Parameter `b` defaults to `std::expected<MR::CSharp::ExposedLayout, float>{MR::CSharp::ExposedLayout{}}`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayout_Float testExpectedExposed(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed", ExactSpelling = true)]
@@ -18864,8 +22114,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_exposed(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_ref`.
             /// Parameter `b` defaults to `default_expected_exposed`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayout_Float testExpectedExposedRef(MR.CS.Std.Expected_MRCSharpExposedLayout_Float a, MR.CS.Std.Expected_MRCSharpExposedLayout_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_ref", ExactSpelling = true)]
@@ -18873,8 +22125,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_exposed_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_cref`.
             /// Parameter `b` defaults to `default_expected_exposed`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float testExpectedExposedCref(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_cref", ExactSpelling = true)]
@@ -18882,8 +22136,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_exposed_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_ptr`.
             /// Parameter `c` defaults to `&default_expected_exposed`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayout_Float? testExpectedExposedPtr(MR.CS.Std.Expected_MRCSharpExposedLayout_Float? a, MR.CS.Std.Expected_MRCSharpExposedLayout_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpExposedLayout_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_ptr", ExactSpelling = true)]
@@ -18893,8 +22149,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Expected_MRCSharpExposedLayout_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_cptr`.
             /// Parameter `c` defaults to `&default_expected_exposed`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? testExpectedExposedCptr(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? a, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpExposedLayout_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_cptr", ExactSpelling = true)]
@@ -18904,8 +22162,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_shared`.
             /// Parameter `b` defaults to `std::expected<MR::CSharp::ExposedLayoutSh, float>{MR::CSharp::ExposedLayoutSh{}}`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float testExpectedExposedShared(MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_shared", ExactSpelling = true)]
@@ -18913,8 +22173,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_exposed_shared(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_shared_ref`.
             /// Parameter `b` defaults to `default_expected_exposed_shared`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float testExpectedExposedSharedRef(MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float a, MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_shared_ref", ExactSpelling = true)]
@@ -18922,8 +22184,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_exposed_shared_ref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_shared_cref`.
             /// Parameter `b` defaults to `default_expected_exposed_shared`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float testExpectedExposedSharedCref(MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_shared_cref", ExactSpelling = true)]
@@ -18931,8 +22195,10 @@ public static partial class MR
                 return new(__MR_CSharp_test_expected_exposed_shared_cref(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_shared_ptr`.
             /// Parameter `c` defaults to `&default_expected_exposed_shared`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? testExpectedExposedSharedPtr(MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? a, MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpExposedLayoutSh_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_shared_ptr", ExactSpelling = true)]
@@ -18942,8 +22208,10 @@ public static partial class MR
                 return __ret is not null ? new MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float(__ret, is_owning: false) : null;
             }
 
+            /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_shared_cptr`.
             /// Parameter `c` defaults to `&default_expected_exposed_shared`.
+            /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? testExpectedExposedSharedCptr(MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? a, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpExposedLayoutSh_Float? c = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_expected_exposed_shared_cptr", ExactSpelling = true)]

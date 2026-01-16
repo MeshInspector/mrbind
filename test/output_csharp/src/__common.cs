@@ -55,11 +55,11 @@ public static partial class MR
             {
                 public InOut<T>? Opt;
 
-                // Use this constructor (by passing `new()`) if you don't want to receive output from this function parameter.
+                /// Use this constructor (by passing `new()`) if you don't want to receive output from this function parameter.
                 public _InOutOpt() {}
-                // Use this constructor (by passing an existing `InOut` instance) if you do want to receive output, into that object.
+                /// Use this constructor (by passing an existing `InOut` instance) if you do want to receive output, into that object.
                 public _InOutOpt(InOut<T>? NewOpt) {Opt = NewOpt;}
-                // An implicit conversion for passing function parameters.
+                /// An implicit conversion for passing function parameters.
                 public static implicit operator _InOutOpt<T>(InOut<T>? NewOpt) {return new _InOutOpt<T>(NewOpt);}
             }
 
@@ -82,9 +82,9 @@ public static partial class MR
             /// This object itself isn't nullable, we return `Ref<T>?` when nullability is needed.
             public unsafe class Ref<T> where T: unmanaged
             {
-                /// Should never be null.
+                // Should never be null.
                 private T *Ptr;
-                /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.
+                // Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.
                 internal Ref(T *new_ptr)
                 {
                     System.Diagnostics.Trace.Assert(new_ptr is not null);
@@ -100,9 +100,9 @@ public static partial class MR
             /// This object itself isn't nullable, we return `ConstRef<T>?` when nullability is needed.
             public unsafe class ConstRef<T> where T: unmanaged
             {
-                /// Should never be null.
+                // Should never be null.
                 private T *Ptr;
-                /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.
+                // Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.
                 internal ConstRef(T *new_ptr)
                 {
                     System.Diagnostics.Trace.Assert(new_ptr is not null);
@@ -172,8 +172,8 @@ public static partial class MR
                     *_UnderlyingPtr = value;
                 }
 
-                // Implicitly convert from a value, allocating a copy of it.
-                // Only `Const_Box<T>` has this, `Box<T>` intentionally doesn't.
+                /// Implicitly convert from a value, allocating a copy of it.
+                /// Only `Const_Box<T>` has this, `Box<T>` intentionally doesn't.
                 public static implicit operator Const_Box<T>(T value) {return new(value);}
 
                 /// Store a non-owning pointer.

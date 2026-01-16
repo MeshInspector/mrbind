@@ -4,7 +4,9 @@ public static partial class MR
     {
         public static partial class Deprecation
         {
+            /// <summary>
             /// Generated from function `MR::Deprecation::foo`.
+            /// </summary>
             [Obsolete]
             public static void foo()
             {
@@ -13,7 +15,9 @@ public static partial class MR
                 __MR_Deprecation_foo();
             }
 
+            /// <summary>
             /// Generated from function `MR::Deprecation::bar`.
+            /// </summary>
             [Obsolete("Some \\message\n")]
             public static void bar()
             {

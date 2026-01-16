@@ -14,6 +14,7 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly Array_IntArray4Array3_5 _Ref => ref *(Array_IntArray4Array3_5 *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) : this(new Const_Array_IntArray4Array3_5((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_Array_IntArray4Array3_5` has this conversion, `Mut_Array_IntArray4Array3_5` intentionally doesn't.
@@ -54,6 +55,7 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref Array_IntArray4Array3_5 _Ref => ref *(Array_IntArray4Array3_5 *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) : this(new Const_Array_IntArray4Array3_5((_Underlying *)&other, is_owning: false)) {}
 

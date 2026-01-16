@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class StaticFuncs
         {
+            /// <summary>
             /// Generated from class `MR::StaticFuncs::A`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -36,7 +38,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_DefaultConstruct", ExactSpelling = true)]
@@ -44,7 +48,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StaticFuncs_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::StaticFuncs::A::A`.
+                /// </summary>
                 public unsafe Const_A(MR.CS.StaticFuncs.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_ConstructFromAnother", ExactSpelling = true)]
@@ -52,7 +58,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StaticFuncs_A_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::StaticFuncs::A::blah`.
+                /// </summary>
                 public static void blah()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_blah", ExactSpelling = true)]
@@ -61,13 +69,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::StaticFuncs::A`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class A : Const_A
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_DefaultConstruct", ExactSpelling = true)]
@@ -75,7 +87,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StaticFuncs_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::StaticFuncs::A::A`.
+                /// </summary>
                 public unsafe A(MR.CS.StaticFuncs.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_ConstructFromAnother", ExactSpelling = true)]
@@ -83,7 +97,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StaticFuncs_A_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::StaticFuncs::A::operator=`.
+                /// </summary>
                 public unsafe MR.CS.StaticFuncs.A assign(MR.CS.StaticFuncs.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_AssignFromAnother", ExactSpelling = true)]
@@ -92,12 +108,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` directly.
+            /// </summary>
             public class _InOptMut_A
             {
                 public A? Opt;
@@ -107,12 +125,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A(A value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A
             {
                 public Const_A? Opt;

@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// <summary>
             /// Stores one of 3 objects: `int`, `float`, `std::string`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Variant_Int_Float_StdString : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -26,7 +28,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Variant_Int_Float_StdString() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_Variant_Int_Float_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_DefaultConstruct", ExactSpelling = true)]
@@ -34,7 +38,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Const_Variant_Int_Float_StdString(MR.CS.Std._ByValue_Variant_Int_Float_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructFromAnother", ExactSpelling = true)]
@@ -42,7 +48,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
+                /// </summary>
                 public unsafe ulong index()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_Index", ExactSpelling = true)]
@@ -50,7 +58,9 @@ public static partial class MR
                     return __MR_C_std_variant_int_float_std_string_Index(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Constructs the variant storing the element 0, of type `int`.
+                /// </summary>
                 public unsafe Const_Variant_Int_Float_StdString(int value, MR.CS.Std.VariantIndex_0 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_int", ExactSpelling = true)]
@@ -58,7 +68,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_int(value);
                 }
 
+                /// <summary>
                 /// Constructs the variant storing the element 1, of type `float`.
+                /// </summary>
                 public unsafe Const_Variant_Int_Float_StdString(float value, MR.CS.Std.VariantIndex_1 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_float", ExactSpelling = true)]
@@ -66,7 +78,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_float(value);
                 }
 
+                /// <summary>
                 /// Constructs the variant storing the element 2, of type `std::string`.
+                /// </summary>
                 public unsafe Const_Variant_Int_Float_StdString(ReadOnlySpan<char> value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_std_string", ExactSpelling = true)]
@@ -79,7 +93,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Returns the element 0, of type `int`, read-only. If it's not the active element, returns null.
+                /// </summary>
                 public unsafe int? getInt()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_Get_int", ExactSpelling = true)]
@@ -88,7 +104,9 @@ public static partial class MR
                     return __ret is not null ? *__ret : null;
                 }
 
+                /// <summary>
                 /// Returns the element 1, of type `float`, read-only. If it's not the active element, returns null.
+                /// </summary>
                 public unsafe float? getFloat()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_Get_float", ExactSpelling = true)]
@@ -97,7 +115,9 @@ public static partial class MR
                     return __ret is not null ? *__ret : null;
                 }
 
+                /// <summary>
                 /// Returns the element 2, of type `std::string`, read-only. If it's not the active element, returns null.
+                /// </summary>
                 public unsafe MR.CS.Std.Const_String? getStdString()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_Get_std_string", ExactSpelling = true)]
@@ -107,13 +127,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Stores one of 3 objects: `int`, `float`, `std::string`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class Variant_Int_Float_StdString : Const_Variant_Int_Float_StdString
             {
                 internal unsafe Variant_Int_Float_StdString(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Variant_Int_Float_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_DefaultConstruct", ExactSpelling = true)]
@@ -121,7 +145,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Variant_Int_Float_StdString(MR.CS.Std._ByValue_Variant_Int_Float_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructFromAnother", ExactSpelling = true)]
@@ -129,7 +155,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
+                /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_Variant_Int_Float_StdString other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignFromAnother", ExactSpelling = true)]
@@ -137,7 +165,9 @@ public static partial class MR
                     __MR_C_std_variant_int_float_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Constructs the variant storing the element 0, of type `int`.
+                /// </summary>
                 public unsafe Variant_Int_Float_StdString(int value, MR.CS.Std.VariantIndex_0 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_int", ExactSpelling = true)]
@@ -145,7 +175,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_int(value);
                 }
 
+                /// <summary>
                 /// Constructs the variant storing the element 1, of type `float`.
+                /// </summary>
                 public unsafe Variant_Int_Float_StdString(float value, MR.CS.Std.VariantIndex_1 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_float", ExactSpelling = true)]
@@ -153,7 +185,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_float(value);
                 }
 
+                /// <summary>
                 /// Constructs the variant storing the element 2, of type `std::string`.
+                /// </summary>
                 public unsafe Variant_Int_Float_StdString(ReadOnlySpan<char> value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_ConstructAs_std_string", ExactSpelling = true)]
@@ -166,7 +200,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Assigns to the variant, making it store the element 0, of type `int`.
+                /// </summary>
                 public unsafe void assignAsInt(int value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_int", ExactSpelling = true)]
@@ -174,7 +210,9 @@ public static partial class MR
                     __MR_C_std_variant_int_float_std_string_AssignAs_int(_UnderlyingPtr, value);
                 }
 
+                /// <summary>
                 /// Assigns to the variant, making it store the element 1, of type `float`.
+                /// </summary>
                 public unsafe void assignAsFloat(float value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_float", ExactSpelling = true)]
@@ -182,7 +220,9 @@ public static partial class MR
                     __MR_C_std_variant_int_float_std_string_AssignAs_float(_UnderlyingPtr, value);
                 }
 
+                /// <summary>
                 /// Assigns to the variant, making it store the element 2, of type `std::string`.
+                /// </summary>
                 public unsafe void assignAsStdString(ReadOnlySpan<char> value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_AssignAs_std_string", ExactSpelling = true)]
@@ -195,7 +235,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Returns the element 0, of type `int`, mutable. If it's not the active element, returns null.
+                /// </summary>
                 public unsafe new MR.CS.Misc.Ref<int>? getInt()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_GetMutable_int", ExactSpelling = true)]
@@ -204,7 +246,9 @@ public static partial class MR
                     return __ret is not null ? new MR.CS.Misc.Ref<int>(__ret) : null;
                 }
 
+                /// <summary>
                 /// Returns the element 1, of type `float`, mutable. If it's not the active element, returns null.
+                /// </summary>
                 public unsafe new MR.CS.Misc.Ref<float>? getFloat()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_GetMutable_float", ExactSpelling = true)]
@@ -213,7 +257,9 @@ public static partial class MR
                     return __ret is not null ? new MR.CS.Misc.Ref<float>(__ret) : null;
                 }
 
+                /// <summary>
                 /// Returns the element 2, of type `std::string`, mutable. If it's not the active element, returns null.
+                /// </summary>
                 public unsafe new MR.CS.Std.String? getStdString()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_std_string_GetMutable_std_string", ExactSpelling = true)]
@@ -223,6 +269,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `Variant_Int_Float_StdString` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -230,6 +277,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_Variant_Int_Float_StdString
             {
                 internal readonly Const_Variant_Int_Float_StdString? Value;
@@ -241,12 +289,14 @@ public static partial class MR
                 public static implicit operator _ByValue_Variant_Int_Float_StdString(MR.CS.Misc._Moved<Variant_Int_Float_StdString> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Variant_Int_Float_StdString` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Variant_Int_Float_StdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Variant_Int_Float_StdString`/`Const_Variant_Int_Float_StdString` directly.
+            /// </summary>
             public class _InOptMut_Variant_Int_Float_StdString
             {
                 public Variant_Int_Float_StdString? Opt;
@@ -256,12 +306,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Variant_Int_Float_StdString(Variant_Int_Float_StdString value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Variant_Int_Float_StdString` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Variant_Int_Float_StdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Variant_Int_Float_StdString`/`Const_Variant_Int_Float_StdString` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Variant_Int_Float_StdString
             {
                 public Const_Variant_Int_Float_StdString? Opt;

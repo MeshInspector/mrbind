@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// <summary>
             /// Stores either a `MR::CSharp::ExposedLayout` that represents success or a `float` that represents an error.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Expected_MRCSharpExposedLayout_Float : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -26,7 +28,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Expected_MRCSharpExposedLayout_Float() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_Expected_MRCSharpExposedLayout_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_DefaultConstruct", ExactSpelling = true)]
@@ -34,7 +38,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_ExposedLayout_float_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Const_Expected_MRCSharpExposedLayout_Float(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_ConstructFromAnother", ExactSpelling = true)]
@@ -42,7 +48,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_ExposedLayout_float_ConstructFromAnother(other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Returns true if this instance represents success, or false if it represents an error.
+                /// </summary>
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_Success", ExactSpelling = true)]
@@ -50,7 +58,9 @@ public static partial class MR
                     return __MR_C_std_expected_MR_CSharp_ExposedLayout_float_Success(_this._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// If this instance represents success, returns the stored `MR::CSharp::ExposedLayout`. Otherwise null.
+                /// </summary>
                 public unsafe MR.CS.CSharp.ExposedLayout? getValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetValue", ExactSpelling = true)]
@@ -59,7 +69,9 @@ public static partial class MR
                     if (__ret is not null) return *__ret; else return null;
                 }
 
+                /// <summary>
                 /// If this instance represents an error, returns the stored `float`. Otherwise null.
+                /// </summary>
                 public unsafe float? getError()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetError", ExactSpelling = true)]
@@ -69,13 +81,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Stores either a `MR::CSharp::ExposedLayout` that represents success or a `float` that represents an error.
             /// This is the non-const half of the class.
+            /// </summary>
             public class Expected_MRCSharpExposedLayout_Float : Const_Expected_MRCSharpExposedLayout_Float
             {
                 internal unsafe Expected_MRCSharpExposedLayout_Float(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Expected_MRCSharpExposedLayout_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_DefaultConstruct", ExactSpelling = true)]
@@ -83,7 +99,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_ExposedLayout_float_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Expected_MRCSharpExposedLayout_Float(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_ConstructFromAnother", ExactSpelling = true)]
@@ -91,7 +109,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_ExposedLayout_float_ConstructFromAnother(other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
+                /// </summary>
                 public unsafe void assign(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_AssignFromAnother", ExactSpelling = true)]
@@ -99,7 +119,9 @@ public static partial class MR
                     __MR_C_std_expected_MR_CSharp_ExposedLayout_float_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// If this instance represents success, returns the stored `MR::CSharp::ExposedLayout`. Otherwise null. This version returns a mutable pointer.
+                /// </summary>
                 public unsafe new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>? getValue()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetMutableValue", ExactSpelling = true)]
@@ -108,7 +130,9 @@ public static partial class MR
                     return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>(__ret) : null;
                 }
 
+                /// <summary>
                 /// If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.
+                /// </summary>
                 public unsafe new MR.CS.Misc.Ref<float>? getError()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_ExposedLayout_float_GetMutableError", ExactSpelling = true)]
@@ -118,12 +142,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Expected_MRCSharpExposedLayout_Float` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Expected_MRCSharpExposedLayout_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Expected_MRCSharpExposedLayout_Float`/`Const_Expected_MRCSharpExposedLayout_Float` directly.
+            /// </summary>
             public class _InOptMut_Expected_MRCSharpExposedLayout_Float
             {
                 public Expected_MRCSharpExposedLayout_Float? Opt;
@@ -133,12 +159,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Expected_MRCSharpExposedLayout_Float(Expected_MRCSharpExposedLayout_Float value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Expected_MRCSharpExposedLayout_Float` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Expected_MRCSharpExposedLayout_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Expected_MRCSharpExposedLayout_Float`/`Const_Expected_MRCSharpExposedLayout_Float` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Expected_MRCSharpExposedLayout_Float
             {
                 public Const_Expected_MRCSharpExposedLayout_Float? Opt;

@@ -27,7 +27,8 @@ build/mrbind_gen_csharp \
     --force-namespace MR::CS \
     --no-deref-expected \
     --move-classes-returned-by-value \
-    --begin-func-names-with-lowercase
+    --begin-func-names-with-lowercase \
+    --wrap-doc-comments-in-summary-tag
 
 dotnet build test/output_csharp
 dotnet build test/output_csharp_fixed_typedefs_64_only

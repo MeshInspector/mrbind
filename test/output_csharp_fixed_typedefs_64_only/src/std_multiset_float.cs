@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// <summary>
             /// Generated from C++ container `std::multiset<float>`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Multiset_Float : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -26,7 +28,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Multiset_Float() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_Multiset_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_DefaultConstruct", ExactSpelling = true)]
@@ -34,7 +38,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_multiset_float_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Const_Multiset_Float(MR.CS.Std._ByValue_Multiset_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_ConstructFromAnother", ExactSpelling = true)]
@@ -42,7 +48,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_multiset_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Construct from a range of elements.
+                /// </summary>
                 public unsafe Const_Multiset_Float(float? ptr, ulong size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_ConstructFromRange", ExactSpelling = true)]
@@ -51,7 +59,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_multiset_float_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
 
+                /// <summary>
                 /// The number of elements.
+                /// </summary>
                 public unsafe ulong size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_Size", ExactSpelling = true)]
@@ -59,7 +69,9 @@ public static partial class MR
                     return __MR_C_std_multiset_float_Size(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Returns true if the size is zero.
+                /// </summary>
                 public unsafe bool isEmpty()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_IsEmpty", ExactSpelling = true)]
@@ -67,7 +79,9 @@ public static partial class MR
                     return __MR_C_std_multiset_float_IsEmpty(_UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// Checks if the contain contains this key.
+                /// </summary>
                 public unsafe ulong count(float key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_Count", ExactSpelling = true)]
@@ -75,7 +89,9 @@ public static partial class MR
                     return __MR_C_std_multiset_float_Count(_UnderlyingPtr, &key);
                 }
 
+                /// <summary>
                 /// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
+                /// </summary>
                 public unsafe MR.CS.Std.Multiset_Float.ConstIterator find(float key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_Find", ExactSpelling = true)]
@@ -83,7 +99,9 @@ public static partial class MR
                     return new(__MR_C_std_multiset_float_Find(_UnderlyingPtr, &key), is_owning: true);
                 }
 
+                /// <summary>
                 /// The begin iterator, const.
+                /// </summary>
                 public unsafe MR.CS.Std.Multiset_Float.ConstIterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_Begin", ExactSpelling = true)]
@@ -91,7 +109,9 @@ public static partial class MR
                     return new(__MR_C_std_multiset_float_Begin(_UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Tests whether a const iterator is the begin iterator.
+                /// </summary>
                 public unsafe bool isBegin(MR.CS.Std.Multiset_Float.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_IsBegin", ExactSpelling = true)]
@@ -99,7 +119,9 @@ public static partial class MR
                     return __MR_C_std_multiset_float_IsBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// The end iterator, const.
+                /// </summary>
                 public unsafe MR.CS.Std.Multiset_Float.ConstIterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_End", ExactSpelling = true)]
@@ -107,7 +129,9 @@ public static partial class MR
                     return new(__MR_C_std_multiset_float_End(_UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Tests whether a const iterator is the end iterator.
+                /// </summary>
                 public unsafe bool isEnd(MR.CS.Std.Multiset_Float.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_IsEnd", ExactSpelling = true)]
@@ -115,8 +139,10 @@ public static partial class MR
                     return __MR_C_std_multiset_float_IsEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// Read-only iterator for `MR_C_std_multiset_float`.
                 /// This is the const half of the class.
+                /// </summary>
                 public class Const_ConstIterator : MR.CS.Misc.Object, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
@@ -137,7 +163,9 @@ public static partial class MR
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_ConstIterator() {Dispose(false);}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Const_ConstIterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_const_iterator_DefaultConstruct", ExactSpelling = true)]
@@ -145,7 +173,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_multiset_float_const_iterator_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.Multiset_Float.Const_ConstIterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_const_iterator_ConstructFromAnother", ExactSpelling = true)]
@@ -153,7 +183,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_multiset_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Dereferences a const iterator.
+                    /// </summary>
                     public unsafe float deref()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_const_iterator_Deref", ExactSpelling = true)]
@@ -162,13 +194,17 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Read-only iterator for `MR_C_std_multiset_float`.
                 /// This is the non-const half of the class.
+                /// </summary>
                 public class ConstIterator : Const_ConstIterator
                 {
                     internal unsafe ConstIterator(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe ConstIterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_const_iterator_DefaultConstruct", ExactSpelling = true)]
@@ -176,7 +212,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_multiset_float_const_iterator_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
                     public unsafe ConstIterator(MR.CS.Std.Multiset_Float.Const_ConstIterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_const_iterator_ConstructFromAnother", ExactSpelling = true)]
@@ -184,7 +222,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_multiset_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
+                    /// </summary>
                     public unsafe void assign(MR.CS.Std.Multiset_Float.Const_ConstIterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_const_iterator_AssignFromAnother", ExactSpelling = true)]
@@ -192,7 +232,9 @@ public static partial class MR
                         __MR_C_std_multiset_float_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Increments a const iterator.
+                    /// </summary>
                     public unsafe void incr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_const_iterator_Incr", ExactSpelling = true)]
@@ -200,7 +242,9 @@ public static partial class MR
                         __MR_C_std_multiset_float_const_iterator_Incr(_UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Decrements a const iterator.
+                    /// </summary>
                     public unsafe void decr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_const_iterator_Decr", ExactSpelling = true)]
@@ -209,12 +253,14 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `ConstIterator` with default arguments.
                 /// This is only used mutable parameters. For const ones we have `_InOptConst_ConstIterator`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `ConstIterator`/`Const_ConstIterator` directly.
+                /// </summary>
                 public class _InOptMut_ConstIterator
                 {
                     public ConstIterator? Opt;
@@ -224,12 +270,14 @@ public static partial class MR
                     public static implicit operator _InOptMut_ConstIterator(ConstIterator value) {return new(value);}
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `ConstIterator` with default arguments.
                 /// This is only used const parameters. For non-const ones we have `_InOptMut_ConstIterator`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `ConstIterator`/`Const_ConstIterator` to pass it to the function.
+                /// </summary>
                 public class _InOptConst_ConstIterator
                 {
                     public Const_ConstIterator? Opt;
@@ -240,13 +288,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from C++ container `std::multiset<float>`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class Multiset_Float : Const_Multiset_Float
             {
                 internal unsafe Multiset_Float(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Multiset_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_DefaultConstruct", ExactSpelling = true)]
@@ -254,7 +306,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_multiset_float_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Multiset_Float(MR.CS.Std._ByValue_Multiset_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_ConstructFromAnother", ExactSpelling = true)]
@@ -262,7 +316,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_multiset_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
+                /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_Multiset_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_AssignFromAnother", ExactSpelling = true)]
@@ -270,7 +326,9 @@ public static partial class MR
                     __MR_C_std_multiset_float_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Construct from a range of elements.
+                /// </summary>
                 public unsafe Multiset_Float(float? ptr, ulong size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_ConstructFromRange", ExactSpelling = true)]
@@ -279,7 +337,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_multiset_float_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
 
+                /// <summary>
                 /// Assign from a range of elements, overwriting previous contents.
+                /// </summary>
                 public unsafe void assign(float? ptr, ulong size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_AssignFromRange", ExactSpelling = true)]
@@ -288,7 +348,9 @@ public static partial class MR
                     __MR_C_std_multiset_float_AssignFromRange(_UnderlyingPtr, ptr.HasValue ? &__deref_ptr : null, size);
                 }
 
+                /// <summary>
                 /// Removes all elements from the container.
+                /// </summary>
                 public unsafe void clear()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_Clear", ExactSpelling = true)]
@@ -296,7 +358,9 @@ public static partial class MR
                     __MR_C_std_multiset_float_Clear(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Inserts a new element.
+                /// </summary>
                 public unsafe void insert(float new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_Insert", ExactSpelling = true)]
@@ -305,6 +369,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `Multiset_Float` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -312,6 +377,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_Multiset_Float
             {
                 internal readonly Const_Multiset_Float? Value;
@@ -323,12 +389,14 @@ public static partial class MR
                 public static implicit operator _ByValue_Multiset_Float(MR.CS.Misc._Moved<Multiset_Float> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Multiset_Float` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Multiset_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Multiset_Float`/`Const_Multiset_Float` directly.
+            /// </summary>
             public class _InOptMut_Multiset_Float
             {
                 public Multiset_Float? Opt;
@@ -338,12 +406,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Multiset_Float(Multiset_Float value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Multiset_Float` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Multiset_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Multiset_Float`/`Const_Multiset_Float` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Multiset_Float
             {
                 public Const_Multiset_Float? Opt;

@@ -4,9 +4,11 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// <summary>
             /// Wraps a pointer to a shared reference-counted heap-allocated array of type `int`, of an unspecified size.
             /// Doesn't store the size, it has to be obtained separately.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_SharedPtr_IntArray : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -27,7 +29,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_SharedPtr_IntArray() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_SharedPtr_IntArray() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_DefaultConstruct", ExactSpelling = true)]
@@ -35,7 +39,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_int_array_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Const_SharedPtr_IntArray(MR.CS.Std._ByValue_SharedPtr_IntArray other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_ConstructFromAnother", ExactSpelling = true)]
@@ -43,7 +49,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_int_array_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Returns the stored pointer, possibly null.
+                /// </summary>
                 public unsafe MR.CS.Misc.Ref<int>? get()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_Get", ExactSpelling = true)]
@@ -52,7 +60,9 @@ public static partial class MR
                     return __ret is not null ? new MR.CS.Misc.Ref<int>(__ret) : null;
                 }
 
+                /// <summary>
                 /// Returns an element from the stored array. The stored pointer must not be null.
+                /// </summary>
                 public unsafe ref int at(long i)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_At", ExactSpelling = true)]
@@ -60,9 +70,11 @@ public static partial class MR
                     return ref *__MR_C_std_shared_ptr_int_array_At(_UnderlyingPtr, i);
                 }
 
+                /// <summary>
                 /// How many shared pointers share the managed object. Zero if no object is being managed.
                 /// This being zero usually conincides with `MR_C_std_shared_ptr_int_array_Get()` returning null, but is ultimately orthogonal.
                 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
+                /// </summary>
                 public unsafe int useCount()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_UseCount", ExactSpelling = true)]
@@ -70,7 +82,9 @@ public static partial class MR
                     return __MR_C_std_shared_ptr_int_array_UseCount(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Create a new instance, taking ownership of an existing pointer.
+                /// </summary>
                 public unsafe Const_SharedPtr_IntArray(void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_Construct", ExactSpelling = true)]
@@ -78,7 +92,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_int_array_Construct(ptr);
                 }
 
+                /// <summary>
                 /// Create a new instance, storing a non-owning pointer.
+                /// </summary>
                 public unsafe Const_SharedPtr_IntArray(MR.CS.Misc.InOut<int>? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_ConstructNonOwning", ExactSpelling = true)]
@@ -88,8 +104,10 @@ public static partial class MR
                     if (ptr is not null) ptr.Value = __value_ptr;
                 }
 
+                /// <summary>
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
+                /// </summary>
                 public unsafe Const_SharedPtr_IntArray(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.Misc.InOut<int>? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_ConstructAliasing", ExactSpelling = true)]
@@ -100,14 +118,18 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Wraps a pointer to a shared reference-counted heap-allocated array of type `int`, of an unspecified size.
             /// Doesn't store the size, it has to be obtained separately.
             /// This is the non-const half of the class.
+            /// </summary>
             public class SharedPtr_IntArray : Const_SharedPtr_IntArray
             {
                 internal unsafe SharedPtr_IntArray(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe SharedPtr_IntArray() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_DefaultConstruct", ExactSpelling = true)]
@@ -115,7 +137,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_int_array_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe SharedPtr_IntArray(MR.CS.Std._ByValue_SharedPtr_IntArray other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_ConstructFromAnother", ExactSpelling = true)]
@@ -123,7 +147,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_int_array_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
+                /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_IntArray other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_AssignFromAnother", ExactSpelling = true)]
@@ -131,7 +157,9 @@ public static partial class MR
                     __MR_C_std_shared_ptr_int_array_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Create a new instance, taking ownership of an existing pointer.
+                /// </summary>
                 public unsafe SharedPtr_IntArray(void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_Construct", ExactSpelling = true)]
@@ -139,7 +167,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_int_array_Construct(ptr);
                 }
 
+                /// <summary>
                 /// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
+                /// </summary>
                 public unsafe void assign(void *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_Assign", ExactSpelling = true)]
@@ -147,7 +177,9 @@ public static partial class MR
                     __MR_C_std_shared_ptr_int_array_Assign(_UnderlyingPtr, ptr);
                 }
 
+                /// <summary>
                 /// Create a new instance, storing a non-owning pointer.
+                /// </summary>
                 public unsafe SharedPtr_IntArray(MR.CS.Misc.InOut<int>? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_ConstructNonOwning", ExactSpelling = true)]
@@ -157,7 +189,9 @@ public static partial class MR
                     if (ptr is not null) ptr.Value = __value_ptr;
                 }
 
+                /// <summary>
                 /// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
+                /// </summary>
                 public unsafe void assign(MR.CS.Misc.InOut<int>? ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_AssignNonOwning", ExactSpelling = true)]
@@ -167,8 +201,10 @@ public static partial class MR
                     if (ptr is not null) ptr.Value = __value_ptr;
                 }
 
+                /// <summary>
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
+                /// </summary>
                 public unsafe SharedPtr_IntArray(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.Misc.InOut<int>? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_ConstructAliasing", ExactSpelling = true)]
@@ -178,8 +214,10 @@ public static partial class MR
                     if (ptr is not null) ptr.Value = __value_ptr;
                 }
 
+                /// <summary>
                 /// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
+                /// </summary>
                 public unsafe void assignAliasing(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.Misc.InOut<int>? ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_array_AssignAliasing", ExactSpelling = true)]
@@ -190,6 +228,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `SharedPtr_IntArray` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -197,6 +236,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_SharedPtr_IntArray
             {
                 internal readonly Const_SharedPtr_IntArray? Value;
@@ -208,12 +248,14 @@ public static partial class MR
                 public static implicit operator _ByValue_SharedPtr_IntArray(MR.CS.Misc._Moved<SharedPtr_IntArray> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SharedPtr_IntArray` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_SharedPtr_IntArray`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SharedPtr_IntArray`/`Const_SharedPtr_IntArray` directly.
+            /// </summary>
             public class _InOptMut_SharedPtr_IntArray
             {
                 public SharedPtr_IntArray? Opt;
@@ -223,12 +265,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_SharedPtr_IntArray(SharedPtr_IntArray value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `SharedPtr_IntArray` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_SharedPtr_IntArray`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `SharedPtr_IntArray`/`Const_SharedPtr_IntArray` to pass it to the function.
+            /// </summary>
             public class _InOptConst_SharedPtr_IntArray
             {
                 public Const_SharedPtr_IntArray? Opt;

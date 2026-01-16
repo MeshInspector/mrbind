@@ -4,15 +4,21 @@ public static partial class MR
     {
         public static partial class Misc
         {
+            /// <summary>
             /// This is the base class for all our classes.
+            /// </summary>
             public abstract class Object
             {
                 protected bool _IsOwningVal;
+                /// <summary>
                 /// Returns true if this is an owning instance, and when disposed, will destroy the underlying C++ instance.
                 /// If false, we assume that the underlying C++ instance will live long enough.
+                /// </summary>
                 public virtual bool _IsOwning => _IsOwningVal;
 
+                /// <summary>
                 /// Which objects need to be kept alive while this object exists? This is public just in case.
+                /// </summary>
                 public List<object>? _KeepAliveList;
                 public void _KeepAlive(object obj)
                 {
@@ -24,20 +30,28 @@ public static partial class MR
                 internal Object(bool is_owning) {_IsOwningVal = is_owning;}
             }
 
+            /// <summary>
             /// This is the base class for those of our classes that are backed by `std::shared_ptr`.
+            /// </summary>
             public abstract class SharedObject : Object
             {
+                /// <summary>
                 /// This checks if the `shared_ptr` itself is owning or not, rather than whether we own our `shared_ptr`, which isn't a given.
                 /// The derived classes have to implement this, since it depends on the specific `shared_ptr` type.
+                /// </summary>
                 public abstract override bool _IsOwning {get;}
+                /// <summary>
                 /// This checks if we own the underlying `shared_ptr` instance, regardless of whether it owns the underlying object, which is orthogonal.
                 /// We repurpose `_IsOwningVal` for this.
+                /// </summary>
                 public bool _IsOwningSharedPtr => _IsOwningVal;
 
                 internal SharedObject(bool is_owning) : base(is_owning) {}
             }
 
+            /// <summary>
             /// This is used for optional in/out parameters, since `ref` can't be nullable.
+            /// </summary>
             public class InOut<T> where T: unmanaged
             {
                 public T Value;
@@ -46,29 +60,39 @@ public static partial class MR
                 public InOut(T NewValue) {Value = NewValue;}
             }
 
+            /// <summary>
             /// This is used for optional in/out parameters with default arguments.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `InOut<T>` to pass it to the function.
+            /// </summary>
             public class _InOutOpt<T> where T: unmanaged
             {
                 public InOut<T>? Opt;
 
-                // Use this constructor (by passing `new()`) if you don't want to receive output from this function parameter.
+                /// <summary>
+                /// Use this constructor (by passing `new()`) if you don't want to receive output from this function parameter.
+                /// </summary>
                 public _InOutOpt() {}
-                // Use this constructor (by passing an existing `InOut` instance) if you do want to receive output, into that object.
+                /// <summary>
+                /// Use this constructor (by passing an existing `InOut` instance) if you do want to receive output, into that object.
+                /// </summary>
                 public _InOutOpt(InOut<T>? NewOpt) {Opt = NewOpt;}
-                // An implicit conversion for passing function parameters.
+                /// <summary>
+                /// An implicit conversion for passing function parameters.
+                /// </summary>
                 public static implicit operator _InOutOpt<T>(InOut<T>? NewOpt) {return new _InOutOpt<T>(NewOpt);}
             }
 
+            /// <summary>
             /// This is used for optional parameters with default arguments.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `T` to pass it to the function.
             /// Passing a null `_InOpt` means "use default argument", and passing a one with a null `.Opt` means "pass nothing to the function".
+            /// </summary>
             public class _InOpt<T> where T: unmanaged
             {
                 public T? Opt;
@@ -78,13 +102,15 @@ public static partial class MR
                 public static implicit operator _InOpt<T>(T NewOpt) {return new _InOpt<T>(NewOpt);}
             }
 
+            /// <summary>
             /// A reference to a C object. This is sometimes used to return optional references, since `ref` can't be nullable. Or to return references from operators, since those can't return `ref`s.
             /// This object itself isn't nullable, we return `Ref<T>?` when nullability is needed.
+            /// </summary>
             public unsafe class Ref<T> where T: unmanaged
             {
-                /// Should never be null.
+                // Should never be null.
                 private T *Ptr;
-                /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.
+                // Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.
                 internal Ref(T *new_ptr)
                 {
                     System.Diagnostics.Trace.Assert(new_ptr is not null);
@@ -96,13 +122,15 @@ public static partial class MR
                 public static implicit operator T(Ref<T> wrapper) {return wrapper.Value;}
             }
 
+            /// <summary>
             /// A reference to a C object. This is sometimes used to return optional references, since `ref` can't be nullable. Or to return references from operators, since those can't return `ref`s.
             /// This object itself isn't nullable, we return `ConstRef<T>?` when nullability is needed.
+            /// </summary>
             public unsafe class ConstRef<T> where T: unmanaged
             {
-                /// Should never be null.
+                // Should never be null.
                 private T *Ptr;
-                /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.
+                // Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.
                 internal ConstRef(T *new_ptr)
                 {
                     System.Diagnostics.Trace.Assert(new_ptr is not null);
@@ -114,14 +142,18 @@ public static partial class MR
                 public static implicit operator T(ConstRef<T> wrapper) {return wrapper.Value;}
             }
 
+            /// <summary>
             /// Wraps the object in a wrapper that indicates that it should be treated as a temporary object.
             /// This can be used with `_ByValue_...` function parameters, to indicate that the argument should be moved.
             /// See those structs for a longer explanation.
+            /// </summary>
             public static _Moved<T> Move<T>(T new_value) {return new(new_value);}
 
+            /// <summary>
             /// A wrapper for `T` that indicates that it's a temporary object, or should be treated as such.
             /// If you're calling a function that returns this, you can safely convert this to `T`.
             /// If you're calling a function that takes this as a parameter, use the `Move()` function to create this wrapper.
+            /// </summary>
             public readonly struct _Moved<T>
             {
                 public readonly T Value;
@@ -138,21 +170,31 @@ public static partial class MR
                 no_object,
             }
 
+            /// <summary>
             /// This is a tag value. Pass it to functions having a `_MoveRef` parameter.
             /// This indicates that the reference parameter immediately following it is an rvalue reference.
+            /// </summary>
             public static _MoveRef MoveRef = default;
+            /// <summary>
             /// This is a tag type for passing rvalue references. Don't construct directly, prefer the `MoveRef` constant.
+            /// </summary>
             public struct _MoveRef {}
 
+            /// <summary>
             /// The type of `NullOpt`, see that for more details.
+            /// </summary>
             public struct NullOptType {}
+            /// <summary>
             /// This can be passed into `_ByValueOptOpt_...` parameters to indicate that you want to pass no object,
             ///   as opposed to using the default argument provided by the function.
+            /// </summary>
             public static NullOptType NullOpt;
 
+            /// <summary>
             /// This is used for optional `ReadOnlySpan<char>` function parameters. This is a specialized version that provides string interop.
             /// Pass `null` or `new()` to use the default argument.
             ///   Note that for the original `ReadOnlySpan<char>`, those result in an empty span instead.
+            /// </summary>
             public ref struct ReadOnlyCharSpanOpt
             {
                 public readonly bool HasValue;
@@ -177,12 +219,14 @@ public static partial class MR
                 public static implicit operator ReadOnlyCharSpanOpt(string? str) {return new(str);}
             }
 
+            /// <summary>
             /// Stores a single heap-allocated value with a stable address, or a user-provided non-owning pointer.
             /// This is used for class fields of pointer types to const non-classes.
             /// Usage:
             /// * To read a property of type `Const_Box<T>?`, first check `is not null`. If it's not null, use `.Value` to read the value.
             /// * To modify the property, either assign a value of type `T`, or assign `null`.
             ///   Assigning a value will allocate its copy and make the underlying pointer point to it.
+            /// </summary>
             public class Const_Box<T> : System.IDisposable where T: unmanaged
             {
                 internal unsafe T *_UnderlyingPtr;
@@ -191,7 +235,9 @@ public static partial class MR
                 public unsafe ref readonly T Value => ref *_UnderlyingPtr;
                 public bool IsOwning => _IsOwning;
 
+                /// <summary>
                 /// Allocate a new value.
+                /// </summary>
                 unsafe public Const_Box(T value)
                 {
                     _IsOwning = true;
@@ -199,11 +245,15 @@ public static partial class MR
                     *_UnderlyingPtr = value;
                 }
 
-                // Implicitly convert from a value, allocating a copy of it.
-                // Only `Const_Box<T>` has this, `Box<T>` intentionally doesn't.
+                /// <summary>
+                /// Implicitly convert from a value, allocating a copy of it.
+                /// Only `Const_Box<T>` has this, `Box<T>` intentionally doesn't.
+                /// </summary>
                 public static implicit operator Const_Box<T>(T value) {return new(value);}
 
+                /// <summary>
                 /// Store a non-owning pointer.
+                /// </summary>
                 unsafe public Const_Box(T *ptr)
                 {
                     _IsOwning = false;
@@ -221,24 +271,32 @@ public static partial class MR
                 ~Const_Box() {Dispose(false);}
             }
 
+            /// <summary>
             /// Stores a single heap-allocated value with a stable address, or a user-provided non-owning pointer.
             /// This is used for class fields of pointer types to mutable non-classes.
             /// Usage:
             /// * To read a property of type `Box<T>?`, first check `is not null`. If it's not null, use `.Value` to read the value.
             /// * To modify the property, either assign `new(value)` (to allocate a copy of the value and point to it), or assign `null`.
             ///   Since `.Value` returns a mutable ref, you can also assign to that to modify the pointee, assuming the property isn't null.
+            /// </summary>
             public class Box<T> : Const_Box<T> where T: unmanaged
             {
                 public new unsafe ref T Value => ref *_UnderlyingPtr;
 
+                /// <summary>
                 /// Allocate a new value.
+                /// </summary>
                 unsafe public Box(T value) : base(value) {}
 
+                /// <summary>
                 /// Store a non-owning pointer.
+                /// </summary>
                 unsafe public Box(T *ptr) : base(ptr) {}
             }
 
+            /// <summary>
             /// An internal function for allocating memory through C++.
+            /// </summary>
             internal static unsafe void *_Alloc(nuint size)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
@@ -246,7 +304,9 @@ public static partial class MR
                 return __MR_C_Alloc(size);
             }
 
+            /// <summary>
             /// An internal function for deallocating memory through C++.
+            /// </summary>
             internal static unsafe void _Free(void *ptr)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Free", ExactSpelling = true)]
@@ -258,31 +318,49 @@ public static partial class MR
 
         public static partial class Std
         {
+            /// <summary>
             /// This is an empty tag type.
+            /// </summary>
             public struct Greater_Int {}
 
+            /// <summary>
             /// This is an empty tag type.
+            /// </summary>
             public struct Greater_Void {}
 
+            /// <summary>
             /// This is an empty tag type.
+            /// </summary>
             public struct Less_Int {}
 
+            /// <summary>
             /// This is an empty tag type.
+            /// </summary>
             public struct Less_Void {}
 
+            /// <summary>
             /// This is an empty tag type.
+            /// </summary>
             public struct Monostate {}
 
+            /// <summary>
             /// This is an empty tag type.
+            /// </summary>
             public struct VariantIndex_0 {}
 
+            /// <summary>
             /// This is an empty tag type.
+            /// </summary>
             public struct VariantIndex_1 {}
 
+            /// <summary>
             /// This is an empty tag type.
+            /// </summary>
             public struct VariantIndex_2 {}
 
+            /// <summary>
             /// This is an empty tag type.
+            /// </summary>
             public struct VariantIndex_3 {}
 
         }

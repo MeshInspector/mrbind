@@ -8,8 +8,10 @@ public static partial class MR
             {
             }
 
+            /// <summary>
             /// Generated from class `MR::StdFunction::A`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -40,7 +42,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_DefaultConstruct", ExactSpelling = true)]
@@ -48,7 +52,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdFunction_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::StdFunction::A` elementwise.
+                /// </summary>
                 public unsafe Const_A(ReadOnlySpan<char> a) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_ConstructFrom", ExactSpelling = true)]
@@ -61,7 +67,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::StdFunction::A::A`.
+                /// </summary>
                 public unsafe Const_A(MR.CS.StdFunction._ByValue_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_ConstructFromAnother", ExactSpelling = true)]
@@ -70,8 +78,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::StdFunction::A`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class A : Const_A
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -86,7 +96,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_DefaultConstruct", ExactSpelling = true)]
@@ -94,7 +106,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdFunction_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::StdFunction::A` elementwise.
+                /// </summary>
                 public unsafe A(ReadOnlySpan<char> a) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_ConstructFrom", ExactSpelling = true)]
@@ -107,7 +121,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::StdFunction::A::A`.
+                /// </summary>
                 public unsafe A(MR.CS.StdFunction._ByValue_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_ConstructFromAnother", ExactSpelling = true)]
@@ -115,7 +131,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdFunction_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::StdFunction::A::operator=`.
+                /// </summary>
                 public unsafe MR.CS.StdFunction.A assign(MR.CS.StdFunction._ByValue_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_AssignFromAnother", ExactSpelling = true)]
@@ -124,6 +142,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `A` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -131,6 +150,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_A
             {
                 internal readonly Const_A? Value;
@@ -142,12 +162,14 @@ public static partial class MR
                 public static implicit operator _ByValue_A(MR.CS.Misc._Moved<A> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` directly.
+            /// </summary>
             public class _InOptMut_A
             {
                 public A? Opt;
@@ -157,12 +179,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A(A value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A
             {
                 public Const_A? Opt;
@@ -172,7 +196,9 @@ public static partial class MR
                 public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFunction::foo`.
+            /// </summary>
             public static unsafe void foo(MR.CS.Std._ByValue_Function_IntFunc _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_int_func", ExactSpelling = true)]
@@ -180,7 +206,9 @@ public static partial class MR
                 __MR_StdFunction_foo_std_function_int_func(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFunction::foo`.
+            /// </summary>
             public static unsafe void foo(MR.CS.Std._ByValue_Function_VoidFuncFromIntInt _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_void_func_from_int_int", ExactSpelling = true)]
@@ -188,7 +216,9 @@ public static partial class MR
                 __MR_StdFunction_foo_std_function_void_func_from_int_int(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFunction::foo`.
+            /// </summary>
             public static unsafe void foo(MR.CS.Std._ByValue_Function_IntFuncFromIntInt _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_int_func_from_int_int", ExactSpelling = true)]
@@ -196,7 +226,9 @@ public static partial class MR
                 __MR_StdFunction_foo_std_function_int_func_from_int_int(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFunction::foo`.
+            /// </summary>
             public static unsafe void foo(MR.CS.Std._ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E", ExactSpelling = true)]
@@ -204,7 +236,9 @@ public static partial class MR
                 __MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFunction::foo`.
+            /// </summary>
             public static unsafe void foo(MR.CS.Std._ByValue_Function_StdStringFuncFromIntFloat _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_std_string_func_from_int_float", ExactSpelling = true)]
@@ -212,7 +246,9 @@ public static partial class MR
                 __MR_StdFunction_foo_std_function_std_string_func_from_int_float(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFunction::foo`.
+            /// </summary>
             public static unsafe void foo(MR.CS.Std._ByValue_Function_VoidFuncFromStdString _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_void_func_from_std_string", ExactSpelling = true)]
@@ -220,7 +256,9 @@ public static partial class MR
                 __MR_StdFunction_foo_std_function_void_func_from_std_string(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFunction::foo`.
+            /// </summary>
             public static unsafe void foo(MR.CS.Std._ByValue_Function_VoidFuncFromMRStdFunctionA _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A", ExactSpelling = true)]
@@ -228,7 +266,9 @@ public static partial class MR
                 __MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdFunction::foo`.
+            /// </summary>
             public static unsafe void foo(MR.CS.Std._ByValue_Function_MRStdFunctionAFunc _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_MR_StdFunction_A_func", ExactSpelling = true)]

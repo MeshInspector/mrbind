@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class SignatureFilters
         {
+            /// <summary>
             /// Generated from class `MR::SignatureFilters::A`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -26,7 +28,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_DefaultConstruct", ExactSpelling = true)]
@@ -34,7 +38,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_SignatureFilters_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::SignatureFilters::A::A`.
+                /// </summary>
                 public unsafe Const_A(MR.CS.SignatureFilters.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_ConstructFromAnother", ExactSpelling = true)]
@@ -43,13 +49,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::SignatureFilters::A`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class A : Const_A
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_DefaultConstruct", ExactSpelling = true)]
@@ -57,7 +67,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_SignatureFilters_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::SignatureFilters::A::A`.
+                /// </summary>
                 public unsafe A(MR.CS.SignatureFilters.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_ConstructFromAnother", ExactSpelling = true)]
@@ -65,7 +77,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_SignatureFilters_A_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::SignatureFilters::A::operator=`.
+                /// </summary>
                 public unsafe MR.CS.SignatureFilters.A assign(MR.CS.SignatureFilters.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_AssignFromAnother", ExactSpelling = true)]
@@ -74,12 +88,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` directly.
+            /// </summary>
             public class _InOptMut_A
             {
                 public A? Opt;
@@ -89,12 +105,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A(A value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A
             {
                 public Const_A? Opt;
@@ -104,8 +122,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::SignatureFilters::Blah`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Blah : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -136,7 +156,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_Blah() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_DefaultConstruct", ExactSpelling = true)]
@@ -144,7 +166,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::SignatureFilters::Blah::Blah`.
+                /// </summary>
                 public unsafe Const_Blah(MR.CS.SignatureFilters.Const_Blah _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_ConstructFromAnother", ExactSpelling = true)]
@@ -153,8 +177,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::SignatureFilters::Blah`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class Blah : Const_Blah
             {
                 internal unsafe Blah(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -169,7 +195,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Blah() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_DefaultConstruct", ExactSpelling = true)]
@@ -177,7 +205,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::SignatureFilters::Blah::Blah`.
+                /// </summary>
                 public unsafe Blah(MR.CS.SignatureFilters.Const_Blah _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_ConstructFromAnother", ExactSpelling = true)]
@@ -185,7 +215,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::SignatureFilters::Blah::operator=`.
+                /// </summary>
                 public unsafe MR.CS.SignatureFilters.Blah assign(MR.CS.SignatureFilters.Const_Blah _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_AssignFromAnother", ExactSpelling = true)]
@@ -194,12 +226,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Blah` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Blah`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Blah`/`Const_Blah` directly.
+            /// </summary>
             public class _InOptMut_Blah
             {
                 public Blah? Opt;
@@ -209,12 +243,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Blah(Blah value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Blah` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Blah`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Blah`/`Const_Blah` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Blah
             {
                 public Const_Blah? Opt;
@@ -224,7 +260,9 @@ public static partial class MR
                 public static implicit operator _InOptConst_Blah(Const_Blah value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from function `MR::SignatureFilters::foo`.
+            /// </summary>
             public static unsafe void foo(MR.CS.SignatureFilters.Const_A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo_1", ExactSpelling = true)]
@@ -232,7 +270,9 @@ public static partial class MR
                 __MR_SignatureFilters_foo_1(_1._UnderlyingPtr);
             }
 
+            /// <summary>
             /// Generated from function `MR::SignatureFilters::foo`.
+            /// </summary>
             public static unsafe MR.CS.SignatureFilters.A foo()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo_0", ExactSpelling = true)]
@@ -240,7 +280,9 @@ public static partial class MR
                 return new(__MR_SignatureFilters_foo_0(), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::SignatureFilters::foo2`.
+            /// </summary>
             public static unsafe void foo2(MR.CS.SignatureFilters.A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo2_1", ExactSpelling = true)]
@@ -248,7 +290,9 @@ public static partial class MR
                 __MR_SignatureFilters_foo2_1(_1._UnderlyingPtr);
             }
 
+            /// <summary>
             /// Generated from function `MR::SignatureFilters::foo2`.
+            /// </summary>
             public static unsafe MR.CS.SignatureFilters.A foo2()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo2_0", ExactSpelling = true)]
@@ -256,7 +300,9 @@ public static partial class MR
                 return new(__MR_SignatureFilters_foo2_0(), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::SignatureFilters::foo3`.
+            /// </summary>
             public static unsafe void foo3(MR.CS.Misc._Moved<MR.CS.SignatureFilters.A> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo3_1", ExactSpelling = true)]
@@ -264,7 +310,9 @@ public static partial class MR
                 __MR_SignatureFilters_foo3_1(_1.Value._UnderlyingPtr);
             }
 
+            /// <summary>
             /// Generated from function `MR::SignatureFilters::foo3`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.SignatureFilters.A> foo3()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo3_0", ExactSpelling = true)]
@@ -272,7 +320,9 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.SignatureFilters.A(__MR_SignatureFilters_foo3_0(), is_owning: false));
             }
 
+            /// <summary>
             /// Generated from function `MR::SignatureFilters::foo4`.
+            /// </summary>
             public static unsafe void foo4(MR.CS.SignatureFilters.Const_A _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo4_1", ExactSpelling = true)]
@@ -280,7 +330,9 @@ public static partial class MR
                 __MR_SignatureFilters_foo4_1(_1._UnderlyingPtr);
             }
 
+            /// <summary>
             /// Generated from function `MR::SignatureFilters::foo4`.
+            /// </summary>
             public static unsafe MR.CS.SignatureFilters.Const_A foo4()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo4_0", ExactSpelling = true)]
@@ -288,7 +340,9 @@ public static partial class MR
                 return new(__MR_SignatureFilters_foo4_0(), is_owning: false);
             }
 
+            /// <summary>
             /// Generated from function `MR::SignatureFilters::foo5`.
+            /// </summary>
             public static unsafe void foo5(MR.CS.Misc._Moved<MR.CS.SignatureFilters.Const_A> _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo5_1", ExactSpelling = true)]
@@ -296,7 +350,9 @@ public static partial class MR
                 __MR_SignatureFilters_foo5_1(_1.Value._UnderlyingPtr);
             }
 
+            /// <summary>
             /// Generated from function `MR::SignatureFilters::foo5`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.SignatureFilters.Const_A> foo5()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_foo5_0", ExactSpelling = true)]

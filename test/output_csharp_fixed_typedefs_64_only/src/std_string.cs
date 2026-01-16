@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// <summary>
             /// A heap-allocated null-terminated string.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_String : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -26,7 +28,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_String() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_String() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DefaultConstruct", ExactSpelling = true)]
@@ -34,7 +38,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_string_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Const_String(MR.CS.Std._ByValue_String other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFromAnother", ExactSpelling = true)]
@@ -42,7 +48,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Constructs a new instance.
+                /// </summary>
                 public unsafe Const_String(ReadOnlySpan<char> other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFrom", ExactSpelling = true)]
@@ -55,11 +63,15 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs a new instance.
+                /// </summary>
                 public static unsafe implicit operator Const_String(ReadOnlySpan<char> other) {return new(other);}
                 public static unsafe implicit operator Const_String(string other) {return new(other);}
 
+                /// <summary>
                 /// The number of characters in the string, excluding the null-terminator.
+                /// </summary>
                 public unsafe ulong size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Size", ExactSpelling = true)]
@@ -67,8 +79,10 @@ public static partial class MR
                     return __MR_C_std_string_Size(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Returns the string contents, which are always null-terminated.
                 /// Returns a read-only pointer.
+                /// </summary>
                 public unsafe byte *data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Data", ExactSpelling = true)]
@@ -76,8 +90,10 @@ public static partial class MR
                     return __MR_C_std_string_Data(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Returns a pointer to the end of string, to its null-terminator.
                 /// Returns a read-only pointer.
+                /// </summary>
                 public unsafe byte *dataEnd()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DataEnd", ExactSpelling = true)]
@@ -99,13 +115,17 @@ public static partial class MR
                 public override string ToString() {return (string)this;}
             }
 
+            /// <summary>
             /// A heap-allocated null-terminated string.
             /// This is the non-const half of the class.
+            /// </summary>
             public class String : Const_String
             {
                 internal unsafe String(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe String() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DefaultConstruct", ExactSpelling = true)]
@@ -113,7 +133,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_string_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe String(MR.CS.Std._ByValue_String other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFromAnother", ExactSpelling = true)]
@@ -121,7 +143,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Constructs a new instance.
+                /// </summary>
                 public unsafe String(ReadOnlySpan<char> other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_ConstructFrom", ExactSpelling = true)]
@@ -134,11 +158,15 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs a new instance.
+                /// </summary>
                 public static unsafe implicit operator String(ReadOnlySpan<char> other) {return new(other);}
                 public static unsafe implicit operator String(string other) {return new(other);}
 
+                /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
+                /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_String other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFromAnother", ExactSpelling = true)]
@@ -146,7 +174,9 @@ public static partial class MR
                     __MR_C_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Assigns the contents.
+                /// </summary>
                 public unsafe void assign(ReadOnlySpan<char> other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_AssignFrom", ExactSpelling = true)]
@@ -159,8 +189,10 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.
                 /// Returns a read-only pointer.
+                /// </summary>
                 public unsafe new byte *data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableData", ExactSpelling = true)]
@@ -168,8 +200,10 @@ public static partial class MR
                     return __MR_C_std_string_MutableData(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.
                 /// Returns a mutable pointer.
+                /// </summary>
                 public unsafe new byte *dataEnd()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableDataEnd", ExactSpelling = true)]
@@ -185,6 +219,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `String` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -192,6 +227,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_String
             {
                 internal readonly Const_String? Value;
@@ -202,11 +238,14 @@ public static partial class MR
                 public _ByValue_String(MR.CS.Misc._Moved<String> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_String(MR.CS.Misc._Moved<String> arg) {return new(arg);}
 
+                /// <summary>
                 /// Constructs a new instance.
+                /// </summary>
                 public static unsafe implicit operator _ByValue_String(ReadOnlySpan<char> other) {return new MR.CS.Misc._Moved<MR.CS.Std.String>(other);}
                 public static unsafe implicit operator _ByValue_String(string other) {return new(other);}
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives an optional `String` by value,
             ///   and also has a default argument, meaning it has two different null states.
             /// Usage:
@@ -216,6 +255,7 @@ public static partial class MR
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument.
             /// * Pass `MR.CS.Misc.NullOptType` to pass no object.
+            /// </summary>
             public class _ByValueOptOpt_String
             {
                 internal readonly Const_String? Value;
@@ -228,17 +268,21 @@ public static partial class MR
                 public _ByValueOptOpt_String(MR.CS.Misc.NullOptType nullopt) {PassByMode = MR.CS.Misc._PassBy.no_object;}
                 public static implicit operator _ByValueOptOpt_String(MR.CS.Misc.NullOptType nullopt) {return new(nullopt);}
 
+                /// <summary>
                 /// Constructs a new instance.
+                /// </summary>
                 public static unsafe implicit operator _ByValueOptOpt_String(ReadOnlySpan<char> other) {return new MR.CS.Misc._Moved<MR.CS.Std.String>(other);}
                 public static unsafe implicit operator _ByValueOptOpt_String(string other) {return new(other);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `String` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_String`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `String`/`Const_String` directly.
+            /// </summary>
             public class _InOptMut_String
             {
                 public String? Opt;
@@ -248,12 +292,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_String(String value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `String` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_String`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `String`/`Const_String` to pass it to the function.
+            /// </summary>
             public class _InOptConst_String
             {
                 public Const_String? Opt;
@@ -262,7 +308,9 @@ public static partial class MR
                 public _InOptConst_String(Const_String value) {Opt = value;}
                 public static implicit operator _InOptConst_String(Const_String value) {return new(value);}
 
+                /// <summary>
                 /// Constructs a new instance.
+                /// </summary>
                 public static unsafe implicit operator _InOptConst_String(ReadOnlySpan<char> other) {return new Const_String(other);}
                 public static unsafe implicit operator _InOptConst_String(string other) {return new(other);}
             }

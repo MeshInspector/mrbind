@@ -116,8 +116,8 @@ namespace mrbind::CSharp
         void DumpToOstream(std::ostream &out) const;
 
         // Writes the string with automatic indentation.
-        // `extra_indent` is how many additional levels of indentation to add or remove from this string.
-        void WriteString(std::string_view input, int extra_indent = 0);
+        // `extra_indent_levels` is how many additional levels of indentation to add or remove from this string.
+        void WriteString(std::string_view input, int extra_indent_levels = 0);
 
         // Writes a separating newline, but only if the previous line doesn't end with `{`.
         void WriteSeparatingNewline();
@@ -339,6 +339,9 @@ namespace mrbind::CSharp
         //   by the functions, or alternatively avoiding `var` and specifying all the variable types).
         bool move_in_by_value_return = false;
 
+        // Write all generated C# documentation comments wrapped in `<summary>...</summary>` tags, to let them be parsed as XML by Microsoft IDEs and tools.
+        bool wrap_doc_comments_in_summary_tag = false;
+
         // ]
 
         // Maps relative file paths (without extensions) to the file descriptions and contents.
@@ -347,6 +350,11 @@ namespace mrbind::CSharp
 
         // Creates a new output file struct in memory (or returns an existing one), corresponding to `interop_file`.
         [[nodiscard]] OutputFile &GetOutputFile(const CInterop::OutputFile &interop_file);
+
+        // Writes a comment to `file`. It must include leading slashes or equivalent, we assert otherwise.
+        // If `comment` is not empty, it must end with a newline. We assert this too.
+        // Importantly, you must write the entire comment of an entity in one piece, using a single call to this function.
+        void WriteComment(OutputFile &file, std::string comment, int extra_indent_levels = 0);
 
         // Caches `cppdecl::Type` parsing. Don't access directly, this is for `ParseTypeOrThrow`.
         std::unordered_map<std::string, cppdecl::Type> cached_parsed_types;

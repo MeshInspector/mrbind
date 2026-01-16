@@ -5,11 +5,13 @@ public static partial class MR
         public static partial class UsingDecls
         {
             // Test how `using` declarations import things.
+            /// <summary>
             /// Generated from class `MR::UsingDecls::A`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::UsingDecls::B`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -50,7 +52,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::UsingDecls::A::A`.
+                /// </summary>
                 public unsafe Const_A(MR.CS.UsingDecls.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_ConstructFromAnother", ExactSpelling = true)]
@@ -58,7 +62,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_UsingDecls_A_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::UsingDecls::A::A`.
+                /// </summary>
                 public unsafe Const_A(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Construct", ExactSpelling = true)]
@@ -66,10 +72,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_UsingDecls_A_Construct(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::UsingDecls::A::A`.
+                /// </summary>
                 public static unsafe implicit operator Const_A(int _1) {return new(_1);}
 
+                /// <summary>
                 /// Generated from method `MR::UsingDecls::A::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_StaticFunc", ExactSpelling = true)]
@@ -83,11 +93,13 @@ public static partial class MR
             }
 
             // Test how `using` declarations import things.
+            /// <summary>
             /// Generated from class `MR::UsingDecls::A`.
             /// Derived classes:
             ///   Direct: (non-virtual)
             ///     `MR::UsingDecls::B`
             /// This is the non-const half of the class.
+            /// </summary>
             public class A : Const_A
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -102,7 +114,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::UsingDecls::A::A`.
+                /// </summary>
                 public unsafe A(MR.CS.UsingDecls.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_ConstructFromAnother", ExactSpelling = true)]
@@ -110,7 +124,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_UsingDecls_A_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::UsingDecls::A::A`.
+                /// </summary>
                 public unsafe A(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Construct", ExactSpelling = true)]
@@ -118,10 +134,14 @@ public static partial class MR
                     _UnderlyingPtr = __MR_UsingDecls_A_Construct(_1);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::UsingDecls::A::A`.
+                /// </summary>
                 public static unsafe implicit operator A(int _1) {return new(_1);}
 
+                /// <summary>
                 /// Generated from conversion operator `MR::UsingDecls::A::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.UsingDecls.A _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_ConvertTo_int", ExactSpelling = true)]
@@ -129,7 +149,9 @@ public static partial class MR
                     return __MR_UsingDecls_A_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::UsingDecls::A::operator=`.
+                /// </summary>
                 public unsafe MR.CS.UsingDecls.A assign(MR.CS.UsingDecls.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_AssignFromAnother", ExactSpelling = true)]
@@ -137,7 +159,9 @@ public static partial class MR
                     return new(__MR_UsingDecls_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::UsingDecls::A::operator=`.
+                /// </summary>
                 public unsafe void assign(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_assign", ExactSpelling = true)]
@@ -145,7 +169,9 @@ public static partial class MR
                     __MR_UsingDecls_A_assign(_UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::UsingDecls::A::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Method", ExactSpelling = true)]
@@ -154,12 +180,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` directly.
+            /// </summary>
             public class _InOptMut_A
             {
                 public A? Opt;
@@ -169,12 +197,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A(A value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A
             {
                 public Const_A? Opt;
@@ -183,15 +213,19 @@ public static partial class MR
                 public _InOptConst_A(Const_A value) {Opt = value;}
                 public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
 
+                /// <summary>
                 /// Generated from constructor `MR::UsingDecls::A::A`.
+                /// </summary>
                 public static unsafe implicit operator _InOptConst_A(int _1) {return new Const_A(_1);}
             }
 
+            /// <summary>
             /// Generated from class `MR::UsingDecls::B`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::UsingDecls::A`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_B : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -242,7 +276,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::UsingDecls::B::B`.
+                /// </summary>
                 public unsafe Const_B(MR.CS.UsingDecls.Const_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_ConstructFromAnother", ExactSpelling = true)]
@@ -250,7 +286,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_UsingDecls_B_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::UsingDecls::B::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_StaticFunc", ExactSpelling = true)]
@@ -259,11 +297,13 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::UsingDecls::B`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::UsingDecls::A`
             /// This is the non-const half of the class.
+            /// </summary>
             public class B : Const_B
             {
                 internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -288,7 +328,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::UsingDecls::B::B`.
+                /// </summary>
                 public unsafe B(MR.CS.UsingDecls.Const_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_ConstructFromAnother", ExactSpelling = true)]
@@ -296,7 +338,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_UsingDecls_B_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::UsingDecls::B::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.UsingDecls.B _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_ConvertTo_int", ExactSpelling = true)]
@@ -304,7 +348,9 @@ public static partial class MR
                     return __MR_UsingDecls_B_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::UsingDecls::B::operator=`.
+                /// </summary>
                 public unsafe MR.CS.UsingDecls.B assign(MR.CS.UsingDecls.Const_B _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_AssignFromAnother", ExactSpelling = true)]
@@ -312,7 +358,9 @@ public static partial class MR
                     return new(__MR_UsingDecls_B_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::UsingDecls::B::operator=`.
+                /// </summary>
                 public unsafe void assign(int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_assign", ExactSpelling = true)]
@@ -320,7 +368,9 @@ public static partial class MR
                     __MR_UsingDecls_B_assign(_UnderlyingPtr, _1);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::UsingDecls::B::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_Method", ExactSpelling = true)]
@@ -329,12 +379,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` directly.
+            /// </summary>
             public class _InOptMut_B
             {
                 public B? Opt;
@@ -344,12 +396,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_B(B value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` to pass it to the function.
+            /// </summary>
             public class _InOptConst_B
             {
                 public Const_B? Opt;

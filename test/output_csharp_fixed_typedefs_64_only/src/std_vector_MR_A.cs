@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// <summary>
             /// Generated from C++ container `std::vector<MR::A>`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Vector_MRA : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -26,7 +28,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Vector_MRA() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_Vector_MRA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_DefaultConstruct", ExactSpelling = true)]
@@ -34,7 +38,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_vector_MR_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Const_Vector_MRA(MR.CS.Std._ByValue_Vector_MRA other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_ConstructFromAnother", ExactSpelling = true)]
@@ -42,7 +48,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_vector_MR_A_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// The number of elements.
+                /// </summary>
                 public unsafe ulong size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_Size", ExactSpelling = true)]
@@ -50,7 +58,9 @@ public static partial class MR
                     return __MR_C_std_vector_MR_A_Size(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Returns true if the size is zero.
+                /// </summary>
                 public unsafe bool isEmpty()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_IsEmpty", ExactSpelling = true)]
@@ -58,7 +68,9 @@ public static partial class MR
                     return __MR_C_std_vector_MR_A_IsEmpty(_UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// The memory capacity, measued in the number of elements.
+                /// </summary>
                 public unsafe ulong capacity()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_Capacity", ExactSpelling = true)]
@@ -66,7 +78,9 @@ public static partial class MR
                     return __MR_C_std_vector_MR_A_Capacity(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// The element at a specific index, read-only.
+                /// </summary>
                 public unsafe MR.CS.Const_A this[ulong i]
                 {
                     get
@@ -77,7 +91,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// The first element or null if empty, read-only.
+                /// </summary>
                 public unsafe MR.CS.Const_A? front()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_Front", ExactSpelling = true)]
@@ -86,7 +102,9 @@ public static partial class MR
                     return __ret is not null ? new MR.CS.Const_A(__ret, is_owning: false) : null;
                 }
 
+                /// <summary>
                 /// The last element or null if empty, read-only.
+                /// </summary>
                 public unsafe MR.CS.Const_A? back()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_Back", ExactSpelling = true)]
@@ -95,7 +113,9 @@ public static partial class MR
                     return __ret is not null ? new MR.CS.Const_A(__ret, is_owning: false) : null;
                 }
 
+                /// <summary>
                 /// The begin iterator, const.
+                /// </summary>
                 public unsafe MR.CS.Std.Vector_MRA.ConstIterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_Begin", ExactSpelling = true)]
@@ -103,7 +123,9 @@ public static partial class MR
                     return new(__MR_C_std_vector_MR_A_Begin(_UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Tests whether a const iterator is the begin iterator.
+                /// </summary>
                 public unsafe bool isBegin(MR.CS.Std.Vector_MRA.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_IsBegin", ExactSpelling = true)]
@@ -111,7 +133,9 @@ public static partial class MR
                     return __MR_C_std_vector_MR_A_IsBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// The end iterator, const.
+                /// </summary>
                 public unsafe MR.CS.Std.Vector_MRA.ConstIterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_End", ExactSpelling = true)]
@@ -119,7 +143,9 @@ public static partial class MR
                     return new(__MR_C_std_vector_MR_A_End(_UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Tests whether a const iterator is the end iterator.
+                /// </summary>
                 public unsafe bool isEnd(MR.CS.Std.Vector_MRA.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_IsEnd", ExactSpelling = true)]
@@ -127,7 +153,9 @@ public static partial class MR
                     return __MR_C_std_vector_MR_A_IsEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// Convert a const iterator to an index.
+                /// </summary>
                 public unsafe long toIndex(MR.CS.Std.Vector_MRA.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_ToIndex", ExactSpelling = true)]
@@ -135,7 +163,9 @@ public static partial class MR
                     return __MR_C_std_vector_MR_A_ToIndex(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Convert a mutable iterator to an index.
+                /// </summary>
                 public unsafe long toIndex(MR.CS.Std.Vector_MRA.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_MutableToIndex", ExactSpelling = true)]
@@ -143,8 +173,10 @@ public static partial class MR
                     return __MR_C_std_vector_MR_A_MutableToIndex(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Read-only iterator for `MR_C_std_vector_MR_A`.
                 /// This is the const half of the class.
+                /// </summary>
                 public class Const_ConstIterator : MR.CS.Misc.Object, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
@@ -165,7 +197,9 @@ public static partial class MR
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_ConstIterator() {Dispose(false);}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Const_ConstIterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_DefaultConstruct", ExactSpelling = true)]
@@ -173,7 +207,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_A_const_iterator_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRA.Const_ConstIterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_ConstructFromAnother", ExactSpelling = true)]
@@ -181,7 +217,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_A_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
+                    /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRA.Const_Iterator iter) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_FromMutable", ExactSpelling = true)]
@@ -189,10 +227,14 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_A_const_iterator_FromMutable(iter._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
+                    /// </summary>
                     public static unsafe implicit operator Const_ConstIterator(MR.CS.Std.Vector_MRA.Const_Iterator iter) {return new(iter);}
 
+                    /// <summary>
                     /// Dereferences a const iterator.
+                    /// </summary>
                     public unsafe MR.CS.Const_A deref()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_Deref", ExactSpelling = true)]
@@ -200,7 +242,9 @@ public static partial class MR
                         return new(__MR_C_std_vector_MR_A_const_iterator_Deref(_UnderlyingPtr), is_owning: false);
                     }
 
+                    /// <summary>
                     /// Computes the signed difference between two const iterators. Completes in constant time.
+                    /// </summary>
                     public static unsafe long distance(MR.CS.Std.Vector_MRA.Const_ConstIterator a, MR.CS.Std.Vector_MRA.Const_ConstIterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_Distance", ExactSpelling = true)]
@@ -209,13 +253,17 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Read-only iterator for `MR_C_std_vector_MR_A`.
                 /// This is the non-const half of the class.
+                /// </summary>
                 public class ConstIterator : Const_ConstIterator
                 {
                     internal unsafe ConstIterator(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe ConstIterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_DefaultConstruct", ExactSpelling = true)]
@@ -223,7 +271,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_A_const_iterator_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
                     public unsafe ConstIterator(MR.CS.Std.Vector_MRA.Const_ConstIterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_ConstructFromAnother", ExactSpelling = true)]
@@ -231,7 +281,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_A_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
+                    /// </summary>
                     public unsafe void assign(MR.CS.Std.Vector_MRA.Const_ConstIterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_AssignFromAnother", ExactSpelling = true)]
@@ -239,7 +291,9 @@ public static partial class MR
                         __MR_C_std_vector_MR_A_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
+                    /// </summary>
                     public unsafe ConstIterator(MR.CS.Std.Vector_MRA.Const_Iterator iter) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_FromMutable", ExactSpelling = true)]
@@ -247,10 +301,14 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_A_const_iterator_FromMutable(iter._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
+                    /// </summary>
                     public static unsafe implicit operator ConstIterator(MR.CS.Std.Vector_MRA.Const_Iterator iter) {return new(iter);}
 
+                    /// <summary>
                     /// Increments a const iterator.
+                    /// </summary>
                     public unsafe void incr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_Incr", ExactSpelling = true)]
@@ -258,7 +316,9 @@ public static partial class MR
                         __MR_C_std_vector_MR_A_const_iterator_Incr(_UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Decrements a const iterator.
+                    /// </summary>
                     public unsafe void decr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_Decr", ExactSpelling = true)]
@@ -266,7 +326,9 @@ public static partial class MR
                         __MR_C_std_vector_MR_A_const_iterator_Decr(_UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Increments or decrements a const iterator by the specific amount. Completes in constant time.
+                    /// </summary>
                     public unsafe void offsetBy(long delta)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_const_iterator_OffsetBy", ExactSpelling = true)]
@@ -275,12 +337,14 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `ConstIterator` with default arguments.
                 /// This is only used mutable parameters. For const ones we have `_InOptConst_ConstIterator`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `ConstIterator`/`Const_ConstIterator` directly.
+                /// </summary>
                 public class _InOptMut_ConstIterator
                 {
                     public ConstIterator? Opt;
@@ -290,12 +354,14 @@ public static partial class MR
                     public static implicit operator _InOptMut_ConstIterator(ConstIterator value) {return new(value);}
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `ConstIterator` with default arguments.
                 /// This is only used const parameters. For non-const ones we have `_InOptMut_ConstIterator`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `ConstIterator`/`Const_ConstIterator` to pass it to the function.
+                /// </summary>
                 public class _InOptConst_ConstIterator
                 {
                     public Const_ConstIterator? Opt;
@@ -304,12 +370,16 @@ public static partial class MR
                     public _InOptConst_ConstIterator(Const_ConstIterator value) {Opt = value;}
                     public static implicit operator _InOptConst_ConstIterator(Const_ConstIterator value) {return new(value);}
 
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
+                    /// </summary>
                     public static unsafe implicit operator _InOptConst_ConstIterator(MR.CS.Std.Vector_MRA.Const_Iterator iter) {return new Const_ConstIterator(iter);}
                 }
 
+                /// <summary>
                 /// Mutable iterator for `MR_C_std_vector_MR_A`.
                 /// This is the const half of the class.
+                /// </summary>
                 public class Const_Iterator : MR.CS.Misc.Object, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
@@ -330,7 +400,9 @@ public static partial class MR
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_Iterator() {Dispose(false);}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Const_Iterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_iterator_DefaultConstruct", ExactSpelling = true)]
@@ -338,7 +410,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_A_iterator_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
                     public unsafe Const_Iterator(MR.CS.Std.Vector_MRA.Const_Iterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_iterator_ConstructFromAnother", ExactSpelling = true)]
@@ -346,7 +420,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_A_iterator_ConstructFromAnother(other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Dereferences a mutable iterator.
+                    /// </summary>
                     public unsafe MR.CS.A deref()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_iterator_Deref", ExactSpelling = true)]
@@ -354,7 +430,9 @@ public static partial class MR
                         return new(__MR_C_std_vector_MR_A_iterator_Deref(_UnderlyingPtr), is_owning: false);
                     }
 
+                    /// <summary>
                     /// Computes the signed difference between two mutable iterators. Completes in constant time.
+                    /// </summary>
                     public static unsafe long distance(MR.CS.Std.Vector_MRA.Const_Iterator a, MR.CS.Std.Vector_MRA.Const_Iterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_iterator_Distance", ExactSpelling = true)]
@@ -363,13 +441,17 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Mutable iterator for `MR_C_std_vector_MR_A`.
                 /// This is the non-const half of the class.
+                /// </summary>
                 public class Iterator : Const_Iterator
                 {
                     internal unsafe Iterator(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Iterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_iterator_DefaultConstruct", ExactSpelling = true)]
@@ -377,7 +459,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_A_iterator_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
                     public unsafe Iterator(MR.CS.Std.Vector_MRA.Const_Iterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_iterator_ConstructFromAnother", ExactSpelling = true)]
@@ -385,7 +469,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_A_iterator_ConstructFromAnother(other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
+                    /// </summary>
                     public unsafe void assign(MR.CS.Std.Vector_MRA.Const_Iterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_iterator_AssignFromAnother", ExactSpelling = true)]
@@ -393,7 +479,9 @@ public static partial class MR
                         __MR_C_std_vector_MR_A_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Increments a mutable iterator.
+                    /// </summary>
                     public unsafe void incr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_iterator_Incr", ExactSpelling = true)]
@@ -401,7 +489,9 @@ public static partial class MR
                         __MR_C_std_vector_MR_A_iterator_Incr(_UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Decrements a mutable iterator.
+                    /// </summary>
                     public unsafe void decr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_iterator_Decr", ExactSpelling = true)]
@@ -409,7 +499,9 @@ public static partial class MR
                         __MR_C_std_vector_MR_A_iterator_Decr(_UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
+                    /// </summary>
                     public unsafe void offsetBy(long delta)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_iterator_OffsetBy", ExactSpelling = true)]
@@ -418,12 +510,14 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `Iterator` with default arguments.
                 /// This is only used mutable parameters. For const ones we have `_InOptConst_Iterator`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `Iterator`/`Const_Iterator` directly.
+                /// </summary>
                 public class _InOptMut_Iterator
                 {
                     public Iterator? Opt;
@@ -433,12 +527,14 @@ public static partial class MR
                     public static implicit operator _InOptMut_Iterator(Iterator value) {return new(value);}
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `Iterator` with default arguments.
                 /// This is only used const parameters. For non-const ones we have `_InOptMut_Iterator`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `Iterator`/`Const_Iterator` to pass it to the function.
+                /// </summary>
                 public class _InOptConst_Iterator
                 {
                     public Const_Iterator? Opt;
@@ -449,13 +545,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from C++ container `std::vector<MR::A>`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class Vector_MRA : Const_Vector_MRA
             {
                 internal unsafe Vector_MRA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Vector_MRA() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_DefaultConstruct", ExactSpelling = true)]
@@ -463,7 +563,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_vector_MR_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Vector_MRA(MR.CS.Std._ByValue_Vector_MRA other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_ConstructFromAnother", ExactSpelling = true)]
@@ -471,7 +573,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_vector_MR_A_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
+                /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_Vector_MRA other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_AssignFromAnother", ExactSpelling = true)]
@@ -479,7 +583,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Resizes the container. The new elements if any are zeroed.
+                /// </summary>
                 public unsafe void resize(ulong new_size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_Resize", ExactSpelling = true)]
@@ -487,7 +593,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_Resize(_UnderlyingPtr, new_size);
                 }
 
+                /// <summary>
                 /// Resizes the container. The new elements if any are set to the specified value.
+                /// </summary>
                 public unsafe void resizeWithDefaultValue(ulong new_size, MR.CS.Const_A value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_ResizeWithDefaultValue", ExactSpelling = true)]
@@ -495,7 +603,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_ResizeWithDefaultValue(_UnderlyingPtr, new_size, value._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Removes all elements from the container.
+                /// </summary>
                 public unsafe void clear()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_Clear", ExactSpelling = true)]
@@ -503,7 +613,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_Clear(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Reserves memory for a certain number of elements. Never shrinks the memory.
+                /// </summary>
                 public unsafe void reserve(ulong new_capacity)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_Reserve", ExactSpelling = true)]
@@ -511,7 +623,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_Reserve(_UnderlyingPtr, new_capacity);
                 }
 
+                /// <summary>
                 /// Shrinks the capacity to match the size.
+                /// </summary>
                 public unsafe void shrinkToFit()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_ShrinkToFit", ExactSpelling = true)]
@@ -519,7 +633,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_ShrinkToFit(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// The element at a specific index, mutable.
+                /// </summary>
                 public unsafe new MR.CS.A this[ulong i]
                 {
                     get
@@ -530,7 +646,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// The first element or null if empty, mutable.
+                /// </summary>
                 public unsafe new MR.CS.A? front()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_MutableFront", ExactSpelling = true)]
@@ -539,7 +657,9 @@ public static partial class MR
                     return __ret is not null ? new MR.CS.A(__ret, is_owning: false) : null;
                 }
 
+                /// <summary>
                 /// The last element or null if empty, mutable.
+                /// </summary>
                 public unsafe new MR.CS.A? back()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_MutableBack", ExactSpelling = true)]
@@ -548,7 +668,9 @@ public static partial class MR
                     return __ret is not null ? new MR.CS.A(__ret, is_owning: false) : null;
                 }
 
+                /// <summary>
                 /// Inserts a new element at the end.
+                /// </summary>
                 public unsafe void pushBack(MR.CS._ByValue_A new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_PushBack", ExactSpelling = true)]
@@ -556,7 +678,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_PushBack(_UnderlyingPtr, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Removes one element from the end.
+                /// </summary>
                 public unsafe void popBack()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_PopBack", ExactSpelling = true)]
@@ -564,7 +688,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_PopBack(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Inserts a new element right before the specified position.
+                /// </summary>
                 public unsafe void insert(ulong position, MR.CS._ByValue_A new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_Insert", ExactSpelling = true)]
@@ -572,7 +698,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_Insert(_UnderlyingPtr, position, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Erases the element at the specified position.
+                /// </summary>
                 public unsafe void erase(ulong position)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_Erase", ExactSpelling = true)]
@@ -580,7 +708,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_Erase(_UnderlyingPtr, position);
                 }
 
+                /// <summary>
                 /// Inserts a new element right before the specified position.
+                /// </summary>
                 public unsafe void insertAtMutableIter(MR.CS.Std.Vector_MRA.Const_Iterator position, MR.CS._ByValue_A new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_InsertAtMutableIter", ExactSpelling = true)]
@@ -588,7 +718,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_InsertAtMutableIter(_UnderlyingPtr, position._UnderlyingPtr, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Erases the element at the specified position.
+                /// </summary>
                 public unsafe void eraseAtMutableIter(MR.CS.Std.Vector_MRA.Const_Iterator position)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_EraseAtMutableIter", ExactSpelling = true)]
@@ -596,7 +728,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_EraseAtMutableIter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
+                /// </summary>
                 public unsafe void insertAtIter(MR.CS.Std.Vector_MRA.Const_ConstIterator position, MR.CS._ByValue_A new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_InsertAtIter", ExactSpelling = true)]
@@ -604,7 +738,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_InsertAtIter(_UnderlyingPtr, position._UnderlyingPtr, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
+                /// </summary>
                 public unsafe void eraseAtIter(MR.CS.Std.Vector_MRA.Const_ConstIterator position)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_EraseAtIter", ExactSpelling = true)]
@@ -612,7 +748,9 @@ public static partial class MR
                     __MR_C_std_vector_MR_A_EraseAtIter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// The begin iterator, mutable.
+                /// </summary>
                 public unsafe new MR.CS.Std.Vector_MRA.Iterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_MutableBegin", ExactSpelling = true)]
@@ -620,7 +758,9 @@ public static partial class MR
                     return new(__MR_C_std_vector_MR_A_MutableBegin(_UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Tests whether a mutable iterator is the begin iterator.
+                /// </summary>
                 public unsafe bool isBegin(MR.CS.Std.Vector_MRA.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_IsMutableBegin", ExactSpelling = true)]
@@ -628,7 +768,9 @@ public static partial class MR
                     return __MR_C_std_vector_MR_A_IsMutableBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// The end iterator, mutable.
+                /// </summary>
                 public unsafe new MR.CS.Std.Vector_MRA.Iterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_MutableEnd", ExactSpelling = true)]
@@ -636,7 +778,9 @@ public static partial class MR
                     return new(__MR_C_std_vector_MR_A_MutableEnd(_UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Tests whether a mutable iterator is the end iterator.
+                /// </summary>
                 public unsafe bool isEnd(MR.CS.Std.Vector_MRA.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_A_IsMutableEnd", ExactSpelling = true)]
@@ -645,6 +789,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `Vector_MRA` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -652,6 +797,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_Vector_MRA
             {
                 internal readonly Const_Vector_MRA? Value;
@@ -663,12 +809,14 @@ public static partial class MR
                 public static implicit operator _ByValue_Vector_MRA(MR.CS.Misc._Moved<Vector_MRA> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Vector_MRA` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Vector_MRA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Vector_MRA`/`Const_Vector_MRA` directly.
+            /// </summary>
             public class _InOptMut_Vector_MRA
             {
                 public Vector_MRA? Opt;
@@ -678,12 +826,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Vector_MRA(Vector_MRA value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Vector_MRA` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Vector_MRA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Vector_MRA`/`Const_Vector_MRA` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Vector_MRA
             {
                 public Const_Vector_MRA? Opt;

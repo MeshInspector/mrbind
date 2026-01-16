@@ -9,8 +9,10 @@ public static partial class MR
                 E1 = 0,
             }
 
+            /// <summary>
             /// Generated from class `MR::StdOptional::A`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -41,7 +43,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_DefaultConstruct", ExactSpelling = true)]
@@ -49,7 +53,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::StdOptional::A` elementwise.
+                /// </summary>
                 public unsafe Const_A(int x) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_ConstructFrom", ExactSpelling = true)]
@@ -57,7 +63,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_A_ConstructFrom(x);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::StdOptional::A::A`.
+                /// </summary>
                 public unsafe Const_A(MR.CS.StdOptional.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_ConstructFromAnother", ExactSpelling = true)]
@@ -66,8 +74,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::StdOptional::A`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class A : Const_A
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -82,7 +92,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_DefaultConstruct", ExactSpelling = true)]
@@ -90,7 +102,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::StdOptional::A` elementwise.
+                /// </summary>
                 public unsafe A(int x) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_ConstructFrom", ExactSpelling = true)]
@@ -98,7 +112,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_A_ConstructFrom(x);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::StdOptional::A::A`.
+                /// </summary>
                 public unsafe A(MR.CS.StdOptional.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_ConstructFromAnother", ExactSpelling = true)]
@@ -106,7 +122,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_A_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::StdOptional::A::operator=`.
+                /// </summary>
                 public unsafe MR.CS.StdOptional.A assign(MR.CS.StdOptional.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_AssignFromAnother", ExactSpelling = true)]
@@ -115,12 +133,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` directly.
+            /// </summary>
             public class _InOptMut_A
             {
                 public A? Opt;
@@ -130,12 +150,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A(A value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A
             {
                 public Const_A? Opt;
@@ -145,8 +167,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::StdOptional::B`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_B : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -177,7 +201,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_B() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_DefaultConstruct", ExactSpelling = true)]
@@ -185,7 +211,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_B_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::StdOptional::B` elementwise.
+                /// </summary>
                 public unsafe Const_B(ReadOnlySpan<char> s) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFrom", ExactSpelling = true)]
@@ -198,7 +226,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::StdOptional::B::B`.
+                /// </summary>
                 public unsafe Const_B(MR.CS.StdOptional._ByValue_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFromAnother", ExactSpelling = true)]
@@ -207,8 +237,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::StdOptional::B`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class B : Const_B
             {
                 internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -223,7 +255,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe B() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_DefaultConstruct", ExactSpelling = true)]
@@ -231,7 +265,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_B_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::StdOptional::B` elementwise.
+                /// </summary>
                 public unsafe B(ReadOnlySpan<char> s) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFrom", ExactSpelling = true)]
@@ -244,7 +280,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::StdOptional::B::B`.
+                /// </summary>
                 public unsafe B(MR.CS.StdOptional._ByValue_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFromAnother", ExactSpelling = true)]
@@ -252,7 +290,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_B_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::StdOptional::B::operator=`.
+                /// </summary>
                 public unsafe MR.CS.StdOptional.B assign(MR.CS.StdOptional._ByValue_B _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_AssignFromAnother", ExactSpelling = true)]
@@ -261,6 +301,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `B` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -268,6 +309,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_B
             {
                 internal readonly Const_B? Value;
@@ -279,6 +321,7 @@ public static partial class MR
                 public static implicit operator _ByValue_B(MR.CS.Misc._Moved<B> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives an optional `B` by value,
             ///   and also has a default argument, meaning it has two different null states.
             /// Usage:
@@ -288,6 +331,7 @@ public static partial class MR
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument.
             /// * Pass `MR.CS.Misc.NullOptType` to pass no object.
+            /// </summary>
             public class _ByValueOptOpt_B
             {
                 internal readonly Const_B? Value;
@@ -301,12 +345,14 @@ public static partial class MR
                 public static implicit operator _ByValueOptOpt_B(MR.CS.Misc.NullOptType nullopt) {return new(nullopt);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` directly.
+            /// </summary>
             public class _InOptMut_B
             {
                 public B? Opt;
@@ -316,12 +362,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_B(B value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` to pass it to the function.
+            /// </summary>
             public class _InOptConst_B
             {
                 public Const_B? Opt;
@@ -331,7 +379,9 @@ public static partial class MR
                 public static implicit operator _InOptConst_B(Const_B value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::GetInt`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_Int getInt()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_GetInt", ExactSpelling = true)]
@@ -339,7 +389,9 @@ public static partial class MR
                 return new(__MR_StdOptional_GetInt(), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetInt`.
+            /// </summary>
             public static unsafe void setInt(int? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetInt", ExactSpelling = true)]
@@ -348,7 +400,9 @@ public static partial class MR
                 __MR_StdOptional_SetInt(_1.HasValue ? &__deref__1 : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetIntConstRef`.
+            /// </summary>
             public static unsafe void setIntConstRef(int? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetIntConstRef", ExactSpelling = true)]
@@ -357,7 +411,9 @@ public static partial class MR
                 __MR_StdOptional_SetIntConstRef(_1.HasValue ? &__deref__1 : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetIntDefTrivial`.
+            /// </summary>
             public static unsafe void setIntDefTrivial(int? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetIntDefTrivial", ExactSpelling = true)]
@@ -366,8 +422,10 @@ public static partial class MR
                 __MR_StdOptional_SetIntDefTrivial(_1.HasValue ? &__deref__1 : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetIntDef`.
             /// Parameter `_1` defaults to `42`.
+            /// </summary>
             public static unsafe void setIntDef(MR.CS.Std.Const_Optional_Int? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetIntDef", ExactSpelling = true)]
@@ -375,7 +433,9 @@ public static partial class MR
                 __MR_StdOptional_SetIntDef(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::GetEnum`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRStdOptionalE getEnum()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_GetEnum", ExactSpelling = true)]
@@ -383,7 +443,9 @@ public static partial class MR
                 return new(__MR_StdOptional_GetEnum(), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetEnum`.
+            /// </summary>
             public static unsafe void setEnum(MR.CS.StdOptional.E? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetEnum", ExactSpelling = true)]
@@ -392,7 +454,9 @@ public static partial class MR
                 __MR_StdOptional_SetEnum(_1.HasValue ? &__deref__1 : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetEnumConstRef`.
+            /// </summary>
             public static unsafe void setEnumConstRef(MR.CS.StdOptional.E? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetEnumConstRef", ExactSpelling = true)]
@@ -401,7 +465,9 @@ public static partial class MR
                 __MR_StdOptional_SetEnumConstRef(_1.HasValue ? &__deref__1 : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetEnumDefTrivial`.
+            /// </summary>
             public static unsafe void setEnumDefTrivial(MR.CS.StdOptional.E? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetEnumDefTrivial", ExactSpelling = true)]
@@ -410,8 +476,10 @@ public static partial class MR
                 __MR_StdOptional_SetEnumDefTrivial(_1.HasValue ? &__deref__1 : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetEnumDef`.
             /// Parameter `_1` defaults to `E::e1`.
+            /// </summary>
             public static unsafe void setEnumDef(MR.CS.Std.Const_Optional_MRStdOptionalE? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetEnumDef", ExactSpelling = true)]
@@ -419,7 +487,9 @@ public static partial class MR
                 __MR_StdOptional_SetEnumDef(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::GetClass`.
+            /// </summary>
             public static unsafe MR.CS.Std.Optional_MRStdOptionalA getClass()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_GetClass", ExactSpelling = true)]
@@ -427,7 +497,9 @@ public static partial class MR
                 return new(__MR_StdOptional_GetClass(), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetClass`.
+            /// </summary>
             public static unsafe void setClass(MR.CS.StdOptional.Const_A? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClass", ExactSpelling = true)]
@@ -435,7 +507,9 @@ public static partial class MR
                 __MR_StdOptional_SetClass(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetClassConstRef`.
+            /// </summary>
             public static unsafe void setClassConstRef(MR.CS.StdOptional.Const_A? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClassConstRef", ExactSpelling = true)]
@@ -443,7 +517,9 @@ public static partial class MR
                 __MR_StdOptional_SetClassConstRef(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetClassDefTrivial`.
+            /// </summary>
             public static unsafe void setClassDefTrivial(MR.CS.StdOptional.Const_A? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClassDefTrivial", ExactSpelling = true)]
@@ -451,8 +527,10 @@ public static partial class MR
                 __MR_StdOptional_SetClassDefTrivial(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetClassDef`.
             /// Parameter `_1` defaults to `MR::StdOptional::A{42}`.
+            /// </summary>
             public static unsafe void setClassDef(MR.CS.Std.Const_Optional_MRStdOptionalA? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClassDef", ExactSpelling = true)]
@@ -460,7 +538,9 @@ public static partial class MR
                 __MR_StdOptional_SetClassDef(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::GetClass2`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Optional_MRStdOptionalB> getClass2()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_GetClass2", ExactSpelling = true)]
@@ -468,7 +548,9 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.Std.Optional_MRStdOptionalB(__MR_StdOptional_GetClass2(), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetClass2`.
+            /// </summary>
             public static unsafe void setClass2(MR.CS.StdOptional._ByValue_B? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClass2", ExactSpelling = true)]
@@ -476,7 +558,9 @@ public static partial class MR
                 __MR_StdOptional_SetClass2(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.no_object, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetClass2ConstRef`.
+            /// </summary>
             public static unsafe void setClass2ConstRef(MR.CS.StdOptional._ByValue_B? _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClass2ConstRef", ExactSpelling = true)]
@@ -484,7 +568,9 @@ public static partial class MR
                 __MR_StdOptional_SetClass2ConstRef(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.no_object, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetClass2DefTrivial`.
+            /// </summary>
             public static unsafe void setClass2DefTrivial(MR.CS.StdOptional._ByValue_B? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClass2DefTrivial", ExactSpelling = true)]
@@ -492,8 +578,10 @@ public static partial class MR
                 __MR_StdOptional_SetClass2DefTrivial(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.no_object, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdOptional::SetClass2Def`.
             /// Parameter `_1` defaults to `MR::StdOptional::B{"blah"}`.
+            /// </summary>
             public static unsafe void setClass2Def(MR.CS.StdOptional._ByValueOptOpt_B? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClass2Def", ExactSpelling = true)]

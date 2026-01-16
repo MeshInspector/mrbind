@@ -14,6 +14,7 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly A _Ref => ref *(A *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_A` has this conversion, `Mut_A` intentionally doesn't.
@@ -78,6 +79,7 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref A _Ref => ref *(A *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
 
@@ -228,6 +230,7 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly B _Ref => ref *(B *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_B(B other) : this(new Const_B((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_B` has this conversion, `Mut_B` intentionally doesn't.
@@ -275,6 +278,7 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref B _Ref => ref *(B *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_B(B other) : this(new Const_B((_Underlying *)&other, is_owning: false)) {}
 

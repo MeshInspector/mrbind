@@ -96,6 +96,14 @@ int main(int argc, char **argv)
             generator.begin_func_names_with_lowercase = true;
         },
     });
+    args_parser.AddFlag("--wrap-doc-comments-in-summary-tag", {
+        .desc = "A simple way to expose documentation comments (usually Doxygen style) to C# IDEs that only show doc comments if they are annotated with XML tags. This wraps every documentation comment in a `<summary>` tag, which is enough to display it to the user, but any Doxygen tags will be pasted as is, rather than parsed.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            generator.wrap_doc_comments_in_summary_tag = true;
+        },
+    });
     args_parser.AddFlag("--csharp-version", {
         .arg_names = {"number"},
         .desc = "Tune the generated bindings for a specific C# version. Defaults to " + std::to_string(generator.csharp_version) + ".",

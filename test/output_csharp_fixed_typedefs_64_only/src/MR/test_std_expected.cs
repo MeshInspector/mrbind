@@ -4,7 +4,9 @@ public static partial class MR
     {
         public static partial class StdExpected
         {
+            /// <summary>
             /// Generated from function `MR::StdExpected::GetExp`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Expected_Int_StdString> getExp()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_GetExp", ExactSpelling = true)]
@@ -12,7 +14,9 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.Std.Expected_Int_StdString(__MR_StdExpected_GetExp(), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::StdExpected::SetExp`.
+            /// </summary>
             public static unsafe void setExp(MR.CS.Std._ByValue_Expected_Int_StdString _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_SetExp", ExactSpelling = true)]
@@ -20,7 +24,9 @@ public static partial class MR
                 __MR_StdExpected_SetExp(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdExpected::SetExpConstRef`.
+            /// </summary>
             public static unsafe void setExpConstRef(MR.CS.Std.Const_Expected_Int_StdString _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_SetExpConstRef", ExactSpelling = true)]
@@ -28,8 +34,10 @@ public static partial class MR
                 __MR_StdExpected_SetExpConstRef(_1._UnderlyingPtr);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdExpected::SetExpDefTrivial`.
             /// Parameter `_1` defaults to `{}`.
+            /// </summary>
             public static unsafe void setExpDefTrivial(MR.CS.Std._ByValue_Expected_Int_StdString? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_SetExpDefTrivial", ExactSpelling = true)]
@@ -37,8 +45,10 @@ public static partial class MR
                 __MR_StdExpected_SetExpDefTrivial(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdExpected::SetExpDef`.
             /// Parameter `_1` defaults to `42`.
+            /// </summary>
             public static unsafe void setExpDef(MR.CS.Std._ByValue_Expected_Int_StdString? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_SetExpDef", ExactSpelling = true)]
@@ -46,7 +56,9 @@ public static partial class MR
                 __MR_StdExpected_SetExpDef(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdExpected::GetExpVoid`.
+            /// </summary>
             public static unsafe MR.CS.Std.Expected_Void_Float getExpVoid()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_GetExpVoid", ExactSpelling = true)]
@@ -54,7 +66,9 @@ public static partial class MR
                 return new(__MR_StdExpected_GetExpVoid(), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdExpected::SetExpVoid`.
+            /// </summary>
             public static unsafe void setExpVoid(MR.CS.Std.Const_Expected_Void_Float _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_SetExpVoid", ExactSpelling = true)]
@@ -62,7 +76,9 @@ public static partial class MR
                 __MR_StdExpected_SetExpVoid(_1._UnderlyingPtr);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdExpected::SetExpVoidConstRef`.
+            /// </summary>
             public static unsafe void setExpVoidConstRef(MR.CS.Std.Const_Expected_Void_Float _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_SetExpVoidConstRef", ExactSpelling = true)]
@@ -70,8 +86,10 @@ public static partial class MR
                 __MR_StdExpected_SetExpVoidConstRef(_1._UnderlyingPtr);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdExpected::SetExpVoidDefTrivial`.
             /// Parameter `_1` defaults to `{}`.
+            /// </summary>
             public static unsafe void setExpVoidDefTrivial(MR.CS.Std.Const_Expected_Void_Float? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_SetExpVoidDefTrivial", ExactSpelling = true)]
@@ -79,8 +97,10 @@ public static partial class MR
                 __MR_StdExpected_SetExpVoidDefTrivial(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdExpected::SetExpVoidDef`.
             /// Parameter `_1` defaults to `std::expected<void, float>{}`.
+            /// </summary>
             public static unsafe void setExpVoidDef(MR.CS.Std.Const_Expected_Void_Float? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_SetExpVoidDef", ExactSpelling = true)]
@@ -88,7 +108,9 @@ public static partial class MR
                 __MR_StdExpected_SetExpVoidDef(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdExpected::GetExpVec`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_StdExpectedIntStdString> getExpVec()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdExpected_GetExpVec", ExactSpelling = true)]

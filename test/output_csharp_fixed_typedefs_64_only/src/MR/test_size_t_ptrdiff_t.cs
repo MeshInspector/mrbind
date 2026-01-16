@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class TestSizeT
         {
+            /// <summary>
             /// Generated from class `MR::TestSizeT::A<MR_C_uint64_t>`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A_MRCUint64T : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -26,7 +28,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A_MRCUint64T() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_A_MRCUint64T() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_DefaultConstruct", ExactSpelling = true)]
@@ -34,7 +38,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TestSizeT_A_uint64_t_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::TestSizeT::A<MR_C_uint64_t>::A`.
+                /// </summary>
                 public unsafe Const_A_MRCUint64T(MR.CS.TestSizeT.Const_A_MRCUint64T _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_ConstructFromAnother", ExactSpelling = true)]
@@ -43,13 +49,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::TestSizeT::A<MR_C_uint64_t>`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class A_MRCUint64T : Const_A_MRCUint64T
             {
                 internal unsafe A_MRCUint64T(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe A_MRCUint64T() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_DefaultConstruct", ExactSpelling = true)]
@@ -57,7 +67,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TestSizeT_A_uint64_t_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::TestSizeT::A<MR_C_uint64_t>::A`.
+                /// </summary>
                 public unsafe A_MRCUint64T(MR.CS.TestSizeT.Const_A_MRCUint64T _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_ConstructFromAnother", ExactSpelling = true)]
@@ -65,7 +77,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TestSizeT_A_uint64_t_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::TestSizeT::A<MR_C_uint64_t>::operator=`.
+                /// </summary>
                 public unsafe MR.CS.TestSizeT.A_MRCUint64T assign(MR.CS.TestSizeT.Const_A_MRCUint64T _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_AssignFromAnother", ExactSpelling = true)]
@@ -73,7 +87,9 @@ public static partial class MR
                     return new(__MR_TestSizeT_A_uint64_t_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::TestSizeT::A<MR_C_uint64_t>::foo`.
+                /// </summary>
                 public unsafe ulong foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_foo", ExactSpelling = true)]
@@ -82,12 +98,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A_MRCUint64T` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A_MRCUint64T`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A_MRCUint64T`/`Const_A_MRCUint64T` directly.
+            /// </summary>
             public class _InOptMut_A_MRCUint64T
             {
                 public A_MRCUint64T? Opt;
@@ -97,12 +115,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A_MRCUint64T(A_MRCUint64T value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A_MRCUint64T` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A_MRCUint64T`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A_MRCUint64T`/`Const_A_MRCUint64T` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A_MRCUint64T
             {
                 public Const_A_MRCUint64T? Opt;
@@ -112,7 +132,9 @@ public static partial class MR
                 public static implicit operator _InOptConst_A_MRCUint64T(Const_A_MRCUint64T value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from function `MR::TestSizeT::foo`.
+            /// </summary>
             public static ulong foo(ulong _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_uint64_t", ExactSpelling = true)]
@@ -120,8 +142,10 @@ public static partial class MR
                 return __MR_TestSizeT_foo_uint64_t(_1);
             }
 
+            /// <summary>
             /// Generated from function `MR::TestSizeT::foo`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref ulong *foo(ref ulong *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_uint64_t_ptr", ExactSpelling = true)]
@@ -132,7 +156,9 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::TestSizeT::foo`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCUint64T> foo(MR.CS.Std._ByValue_Vector_MRCUint64T _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_uint64_t", ExactSpelling = true)]
@@ -140,7 +166,9 @@ public static partial class MR
                 return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRCUint64T(__MR_TestSizeT_foo_std_vector_uint64_t(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true));
             }
 
+            /// <summary>
             /// Generated from function `MR::TestSizeT::foo`.
+            /// </summary>
             public static long foo(long _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_int64_t", ExactSpelling = true)]
@@ -148,8 +176,10 @@ public static partial class MR
                 return __MR_TestSizeT_foo_int64_t(_1);
             }
 
+            /// <summary>
             /// Generated from function `MR::TestSizeT::foo`.
             /// In C++ this function returns an rvalue reference.
+            /// </summary>
             public static unsafe ref long *foo(ref long *_1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_int64_t_ptr", ExactSpelling = true)]
@@ -160,7 +190,9 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from function `MR::TestSizeT::foo`.
+            /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCInt64T> foo(MR.CS.Std._ByValue_Vector_MRCInt64T _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_int64_t", ExactSpelling = true)]

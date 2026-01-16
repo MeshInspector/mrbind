@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class NestedTypes
         {
+            /// <summary>
             /// Generated from class `MR::NestedTypes::A`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -46,7 +48,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_DefaultConstruct", ExactSpelling = true)]
@@ -54,7 +58,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_NestedTypes_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::NestedTypes::A` elementwise.
+                /// </summary>
                 public unsafe Const_A(MR.CS.NestedTypes.A.Const_B b, MR.CS.NestedTypes.A.E e) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_ConstructFrom", ExactSpelling = true)]
@@ -62,7 +68,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFrom(b._UnderlyingPtr, e);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::NestedTypes::A::A`.
+                /// </summary>
                 public unsafe Const_A(MR.CS.NestedTypes.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_ConstructFromAnother", ExactSpelling = true)]
@@ -70,8 +78,10 @@ public static partial class MR
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from class `MR::NestedTypes::A::B`.
                 /// This is the const half of the class.
+                /// </summary>
                 public class Const_B : MR.CS.Misc.Object, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
@@ -92,7 +102,9 @@ public static partial class MR
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_B() {Dispose(false);}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Const_B() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_B_DefaultConstruct", ExactSpelling = true)]
@@ -100,7 +112,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_NestedTypes_A_B_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Generated from constructor `MR::NestedTypes::A::B::B`.
+                    /// </summary>
                     public unsafe Const_B(MR.CS.NestedTypes.A.Const_B _other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_B_ConstructFromAnother", ExactSpelling = true)]
@@ -109,13 +123,17 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from class `MR::NestedTypes::A::B`.
                 /// This is the non-const half of the class.
+                /// </summary>
                 public class B : Const_B
                 {
                     internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe B() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_B_DefaultConstruct", ExactSpelling = true)]
@@ -123,7 +141,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_NestedTypes_A_B_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Generated from constructor `MR::NestedTypes::A::B::B`.
+                    /// </summary>
                     public unsafe B(MR.CS.NestedTypes.A.Const_B _other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_B_ConstructFromAnother", ExactSpelling = true)]
@@ -131,7 +151,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_NestedTypes_A_B_ConstructFromAnother(_other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Generated from method `MR::NestedTypes::A::B::operator=`.
+                    /// </summary>
                     public unsafe MR.CS.NestedTypes.A.B assign(MR.CS.NestedTypes.A.Const_B _other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_B_AssignFromAnother", ExactSpelling = true)]
@@ -140,12 +162,14 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `B` with default arguments.
                 /// This is only used mutable parameters. For const ones we have `_InOptConst_B`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `B`/`Const_B` directly.
+                /// </summary>
                 public class _InOptMut_B
                 {
                     public B? Opt;
@@ -155,12 +179,14 @@ public static partial class MR
                     public static implicit operator _InOptMut_B(B value) {return new(value);}
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `B` with default arguments.
                 /// This is only used const parameters. For non-const ones we have `_InOptMut_B`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `B`/`Const_B` to pass it to the function.
+                /// </summary>
                 public class _InOptConst_B
                 {
                     public Const_B? Opt;
@@ -175,8 +201,10 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::NestedTypes::A`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class A : Const_A
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -201,7 +229,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_DefaultConstruct", ExactSpelling = true)]
@@ -209,7 +239,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_NestedTypes_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::NestedTypes::A` elementwise.
+                /// </summary>
                 public unsafe A(MR.CS.NestedTypes.A.Const_B b, MR.CS.NestedTypes.A.E e) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_ConstructFrom", ExactSpelling = true)]
@@ -217,7 +249,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFrom(b._UnderlyingPtr, e);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::NestedTypes::A::A`.
+                /// </summary>
                 public unsafe A(MR.CS.NestedTypes.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_ConstructFromAnother", ExactSpelling = true)]
@@ -225,7 +259,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::NestedTypes::A::operator=`.
+                /// </summary>
                 public unsafe MR.CS.NestedTypes.A assign(MR.CS.NestedTypes.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_AssignFromAnother", ExactSpelling = true)]
@@ -234,12 +270,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` directly.
+            /// </summary>
             public class _InOptMut_A
             {
                 public A? Opt;
@@ -249,12 +287,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A(A value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A
             {
                 public Const_A? Opt;

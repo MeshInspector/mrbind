@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// <summary>
             /// Stores 0 objects.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Tuple : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -26,7 +28,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Tuple() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_Tuple() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_DefaultConstruct", ExactSpelling = true)]
@@ -34,7 +38,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_tuple_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Const_Tuple(MR.CS.Std.Const_Tuple other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_ConstructFromAnother", ExactSpelling = true)]
@@ -43,13 +49,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Stores 0 objects.
             /// This is the non-const half of the class.
+            /// </summary>
             public class Tuple : Const_Tuple
             {
                 internal unsafe Tuple(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Tuple() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_DefaultConstruct", ExactSpelling = true)]
@@ -57,7 +67,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_tuple_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Tuple(MR.CS.Std.Const_Tuple other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_ConstructFromAnother", ExactSpelling = true)]
@@ -65,7 +77,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_tuple_ConstructFromAnother(other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
+                /// </summary>
                 public unsafe void assign(MR.CS.Std.Const_Tuple other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_AssignFromAnother", ExactSpelling = true)]
@@ -74,12 +88,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Tuple` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Tuple`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Tuple`/`Const_Tuple` directly.
+            /// </summary>
             public class _InOptMut_Tuple
             {
                 public Tuple? Opt;
@@ -89,12 +105,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Tuple(Tuple value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Tuple` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Tuple`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Tuple`/`Const_Tuple` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Tuple
             {
                 public Const_Tuple? Opt;

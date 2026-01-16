@@ -11516,6 +11516,7 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly ConvCtorExposed _Ref => ref *(ConvCtorExposed *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_ConvCtorExposed(ConvCtorExposed other) : this(new Const_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_ConvCtorExposed` has this conversion, `Mut_ConvCtorExposed` intentionally doesn't.
@@ -11563,6 +11564,7 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref ConvCtorExposed _Ref => ref *(ConvCtorExposed *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_ConvCtorExposed(ConvCtorExposed other) : this(new Const_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
 
@@ -12110,6 +12112,7 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly ExposedLayout _Ref => ref *(ExposedLayout *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_ExposedLayout(ExposedLayout other) : this(new Const_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_ExposedLayout` has this conversion, `Mut_ExposedLayout` intentionally doesn't.
@@ -12264,6 +12267,7 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayout _Ref => ref *(ExposedLayout *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_ExposedLayout(ExposedLayout other) : this(new Const_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
 
@@ -12710,6 +12714,7 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly ExposedLayoutSh _Ref => ref *(ExposedLayoutSh *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_ExposedLayoutSh(ExposedLayoutSh other) : this(new Const_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_ExposedLayoutSh` has this conversion, `Mut_ExposedLayoutSh` intentionally doesn't.
@@ -12940,6 +12945,7 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayoutSh _Ref => ref *(ExposedLayoutSh *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_ExposedLayoutSh(ExposedLayoutSh other) : this(new Const_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
 
@@ -13406,6 +13412,7 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly ExposedLayoutB _Ref => ref *(ExposedLayoutB *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_ExposedLayoutB(ExposedLayoutB other) : this(new Const_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_ExposedLayoutB` has this conversion, `Mut_ExposedLayoutB` intentionally doesn't.
@@ -13482,6 +13489,7 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayoutB _Ref => ref *(ExposedLayoutB *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_ExposedLayoutB(ExposedLayoutB other) : this(new Const_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
 
@@ -14173,6 +14181,7 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly NameConflictsExposed _Ref => ref *(NameConflictsExposed *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_NameConflictsExposed(NameConflictsExposed other) : this(new Const_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_NameConflictsExposed` has this conversion, `Mut_NameConflictsExposed` intentionally doesn't.
@@ -14215,6 +14224,7 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref NameConflictsExposed _Ref => ref *(NameConflictsExposed *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_NameConflictsExposed(NameConflictsExposed other) : this(new Const_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
 
@@ -14288,6 +14298,7 @@ public static partial class MR
 
                     /// Get the underlying struct.
                     public unsafe ref readonly A _Ref => ref *(A *)_UnderlyingPtr;
+
                     /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                     public unsafe Const_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
                     /// Convert from a struct by copying it. Note that only `Const_A` has this conversion, `Mut_A` intentionally doesn't.
@@ -14328,6 +14339,7 @@ public static partial class MR
                 {
                     /// Get the underlying struct.
                     public unsafe new ref A _Ref => ref *(A *)_UnderlyingPtr;
+
                     /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                     public unsafe Mut_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
 
@@ -14674,6 +14686,7 @@ public static partial class MR
 
                 /// Get the underlying struct.
                 public unsafe ref readonly ConstNonconstConflicts _Ref => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Const_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new Const_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
                 /// Convert from a struct by copying it. Note that only `Const_ConstNonconstConflicts` has this conversion, `Mut_ConstNonconstConflicts` intentionally doesn't.
@@ -14779,6 +14792,7 @@ public static partial class MR
             {
                 /// Get the underlying struct.
                 public unsafe new ref ConstNonconstConflicts _Ref => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Mut_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new Const_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
 

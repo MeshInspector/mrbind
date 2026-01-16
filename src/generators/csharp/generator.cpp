@@ -1,4 +1,5 @@
 #include "generator.h"
+#include "common/parse_cpp_comment.h"
 #include "common/string_escape.h"
 
 #include <cppdecl/declarations/parse.h>
@@ -174,7 +175,7 @@ namespace mrbind::CSharp
         out << contents;
     }
 
-    void OutputFile::WriteString(std::string_view input, int extra_indent)
+    void OutputFile::WriteString(std::string_view input, int extra_indent_levels)
     {
         bool first = true;
         Strings::Split(input, "\n", [&](std::string_view part)
@@ -187,7 +188,7 @@ namespace mrbind::CSharp
             // Only indent non-empty strings, and only when starting a new line in the file.
             if (!part.empty() && (contents.empty() || contents.ends_with('\n')))
             {
-                for (int i = 0; i < int(current_scope.size()) + extra_indent; i++)
+                for (int i = 0; i < int(current_scope.size()) + extra_indent_levels; i++)
                     contents += "    ";
             }
 
@@ -260,6 +261,54 @@ namespace mrbind::CSharp
     {
         // Nothing fancy for now.
         return output_files.try_emplace(interop_file.relative_name).first->second;
+    }
+
+    void Generator::WriteComment(OutputFile &file, std::string comment, int extra_indent_levels)
+    {
+        if (comment.empty())
+            return;
+        assert(comment.ends_with('\n'));
+
+        // If we don't need to process the comment, just write it as is.
+        // Our parsing can eat some whitespace and possibly mess up the comment in other ways too, so don't do it if we can avoid it.
+        if (!wrap_doc_comments_in_summary_tag)
+        {
+            file.WriteString(comment);
+            return;
+        }
+
+        // Here we split the individual pieces of the comment into two separate part, first the non-documentation part, and then the documentation part.
+        // We deinterleave them into this order.
+
+        std::string non_doc;
+        std::string doc;
+
+        bool first = true;
+        ParseCppComment(comment, [&](bool is_doc, std::string_view part)
+        {
+            if (!is_doc)
+            {
+                non_doc += "// ";
+                non_doc += part;
+                non_doc += '\n';
+                return false;
+            }
+
+            if (std::exchange(first, false))
+                doc += "/// <summary>\n";
+
+            doc += "/// ";
+            doc += part;
+            doc += '\n';
+
+            return false;
+        });
+
+        if (!first)
+            doc += "/// </summary>\n";
+
+        file.WriteString(non_doc, extra_indent_levels);
+        file.WriteString(doc, extra_indent_levels);
     }
 
     const cppdecl::Type &Generator::ParseTypeOrThrow(const std::string &str)
@@ -3063,7 +3112,7 @@ namespace mrbind::CSharp
             {
                 // Write the comment.
                 if (!is_comparison_rewrite)
-                    file.WriteString(generator.MakeFuncComment(any_func_like));
+                    generator.WriteComment(file, generator.MakeFuncComment(any_func_like));
 
                 // Deprecation attribute?
                 if (func_like.is_deprecated)
@@ -3916,13 +3965,17 @@ namespace mrbind::CSharp
             // A separator?
             file.WriteSeparatingNewline();
 
-            // A comment?
-            file.WriteString(enum_desc.comment.c_style);
-
             const PrimitiveTypeInfo::Kind underlying_kind = c_desc.platform_info.FindPrimitiveType(enum_desc.underlying_type)->kind;
-            // If the underlying type is `bool`, mention this in a comment, because in C# we'll use `byte` (it doesn't allow `bool`).
-            if (underlying_kind == PrimitiveTypeInfo::Kind::boolean)
-                file.WriteString("/// This enum is intended to be boolean.\n");
+
+            { // A comment?
+                std::string comment = enum_desc.comment.c_style;
+
+                // If the underlying type is `bool`, mention this in a comment, because in C# we'll use `byte` (C# doesn't allow `bool`).
+                if (underlying_kind == PrimitiveTypeInfo::Kind::boolean)
+                    comment += "/// This enum is intended to be boolean.\n";
+
+                WriteComment(file, comment);
+            }
 
             // Access.
             file.WriteString("public ");
@@ -4454,13 +4507,16 @@ namespace mrbind::CSharp
                     // Begin writing the class.
                     file.WriteSeparatingNewline();
 
-                    // The comment, if any.
-                    // This already has a trailing newline and the slashes.
-                    file.WriteString(class_desc.comment.c_style);
-                    if (is_exposed_struct_by_value)
-                        file.WriteString("/// This is the by-value version of the struct.\n");
-                    else
-                        file.WriteString("/// This is the " + std::string(IsConst() ? "const" : "non-const") + " " + (class_desc.kind == CInterop::ClassKind::exposed_struct ? "reference to the struct" : "half of the class") + ".\n");
+                    { // The comment, if any.
+                        std::string comment = class_desc.comment.c_style;
+
+                        if (is_exposed_struct_by_value)
+                            comment += "/// This is the by-value version of the struct.\n";
+                        else
+                            comment += "/// This is the " + std::string(IsConst() ? "const" : "non-const") + " " + (class_desc.kind == CInterop::ClassKind::exposed_struct ? "reference to the struct" : "half of the class") + ".\n";
+
+                        WriteComment(file, comment);
+                    }
 
                     // The struct attributes.
                     if (is_exposed_struct_by_value)
@@ -4660,7 +4716,7 @@ namespace mrbind::CSharp
 
                             { // Check if the underlying shared pointer owns the target object.
                                 file.WriteSeparatingNewline();
-                                file.WriteString("/// Check if the underlying shared pointer is owning or not.\n");
+                                WriteComment(file, "/// Check if the underlying shared pointer is owning or not.\n");
                                 file.WriteString("public override unsafe bool _IsOwning\n");
                                 file.PushScope({}, "{\n", "}\n");
                                 file.PushScope({}, "get\n{\n", "}\n");
@@ -4675,8 +4731,10 @@ namespace mrbind::CSharp
 
                             { // Check if the underlying shared isn't null.
                                 file.WriteSeparatingNewline();
-                                file.WriteString("/// Check if the underlying shared pointer is non-null.\n");
-                                file.WriteString("/// If this returns null, calling any member other than `.Assign()` on this object will assert.\n");
+                                WriteComment(file,
+                                    "/// Check if the underlying shared pointer is non-null.\n"
+                                    "/// If this returns null, calling any member other than `.Assign()` on this object will assert.\n"
+                                );
                                 file.WriteString("private unsafe bool _SharedPtrIsNotNull\n");
                                 file.PushScope({}, "{\n", "}\n");
                                 file.PushScope({}, "get\n{\n", "}\n");
@@ -4698,8 +4756,10 @@ namespace mrbind::CSharp
                         const std::string struct_name = CppToCSharpUnqualExposedStructName(cpp_qual_name);
 
                         file.WriteSeparatingNewline();
-                        file.WriteString(
+                        WriteComment(file,
                             "/// Get the underlying struct.\n"
+                        );
+                        file.WriteString(
                             "public unsafe " +
                             std::string(IsConst() ? "" : "new ") +
                             (IsConst() ? "ref readonly " : "ref ") +
@@ -4715,16 +4775,21 @@ namespace mrbind::CSharp
                         const std::string const_name = CppToCSharpUnqualClassName(cpp_qual_name, true);
 
                         file.WriteSeparatingNewline();
-                        file.WriteString(
+                        WriteComment(file,
                             "/// Copy contents from a wrapper class to this struct.\n"
+                        );
+                        file.WriteString(
                             "public static implicit operator " + unqual_csharp_name + "(" + const_name + " other) => other._Ref;\n"
                         );
                     }
                     // Constructor of the class wrapper from the exposed struct.
                     else if (class_desc.kind == CInterop::ClassKind::exposed_struct)
                     {
-                        file.WriteString(
+                        file.WriteSeparatingNewline();
+                        WriteComment(file,
                             "/// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)\n"
+                        );
+                        file.WriteString(
                             // Note, we must respect `copy_constructor_takes_nonconst_ref` here. Attempting to always use `is_const = false` sometimes causes ambiguities.
                             "public unsafe " + unqual_csharp_name + "(" + CppToCSharpUnqualExposedStructName(cpp_qual_name) + " other) : this(new " + CppToCSharpUnqualClassName(cpp_qual_name, !type_desc.traits.value().copy_constructor_takes_nonconst_ref) + "((_Underlying *)&other, is_owning: false)) {}\n"
                         );
@@ -4733,8 +4798,10 @@ namespace mrbind::CSharp
                         // Note that this behavior should be synced with how `Box<T>` and `Const_Box<T>` implicitly convert from `T`.
                         if (IsConst())
                         {
-                            file.WriteString(
+                            WriteComment(file,
                                 "/// Convert from a struct by copying it. Note that only `" + unqual_csharp_name + "` has this conversion, `" + CppToCSharpUnqualClassName(cpp_qual_name, false) + "` intentionally doesn't.\n"
+                            );
+                            file.WriteString(
                                 "public static implicit operator " + unqual_csharp_name + "(" + CppToCSharpUnqualExposedStructName(cpp_qual_name) + " other) {return new(other);}\n"
                             );
                         }
@@ -5072,7 +5139,7 @@ namespace mrbind::CSharp
                         if (!is_exposed_struct_by_value && type_desc.traits.value().is_default_constructible && type_desc.traits.value().is_trivially_default_constructible)
                         {
                             file.WriteSeparatingNewline();
-                            file.WriteString("/// Generated default constructor.\n");
+                            WriteComment(file, "/// Generated default constructor.\n");
                             file.WriteString("public unsafe " + unqual_csharp_name + "()");
 
                             if (shared_ptr_desc)
@@ -5113,7 +5180,7 @@ namespace mrbind::CSharp
                                 : CppToCSharpUnqualClassName(cpp_qual_name, !type_desc.traits.value().copy_constructor_takes_nonconst_ref);
 
                             file.WriteSeparatingNewline();
-                            file.WriteString("/// Generated copy constructor.\n");
+                            WriteComment(file, "/// Generated copy constructor.\n");
                             if (is_exposed_struct_by_value)
                             {
                                 // C# doesn't seem to generate this automatically.
@@ -5167,7 +5234,7 @@ namespace mrbind::CSharp
                             const std::string unqual_param_type = CppToCSharpUnqualClassName(cpp_qual_name, !type_desc.traits.value().copy_constructor_takes_nonconst_ref);
 
                             file.WriteSeparatingNewline();
-                            file.WriteString("/// Generated copy assignment.\n");
+                            WriteComment(file, "/// Generated copy assignment.\n");
                             file.WriteString("public void Assign(" + unqual_param_type + " _other) {_Ref = _other._Ref;}\n");
                         }
                     }
@@ -5339,7 +5406,7 @@ namespace mrbind::CSharp
                         const bool allow_move_ctor = is_shared || type_desc.traits.value().is_move_constructible;
 
                         file.WriteSeparatingNewline();
-                        file.WriteString(
+                        WriteComment(file,
                             std::string(
                                 is_opt_opt
                                 ?
@@ -5364,7 +5431,9 @@ namespace mrbind::CSharp
                                     "/// * Pass `" + RequestHelper("NullOptType") + "` to pass no object.\n"
                                 :
                                     "/// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).\n"
-                            ) +
+                            )
+                        );
+                        file.WriteString(
                             // Can't be a `ref struct` because we use it with `?`.
                             // Can't be a plain `struct` because we might want it to not be default-constructible, if the underlying class isn't.
                             "public class " + by_val_name + "\n"
@@ -5450,11 +5519,13 @@ namespace mrbind::CSharp
                     const std::string in_opt_name = CppToCSharpUnqualInOptStructHelperName(cpp_name.parts.back());
 
                     file.WriteSeparatingNewline();
-                    file.WriteString(
+                    WriteComment(file,
                         "/// This is used as a function parameter when passing `" + mut_half_name + "` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.\n"
                         "/// Usage:\n"
                         "/// * Pass an instance of " + related_classes_list + " to copy it into the function.\n"
                         "/// * Pass `null` to use the default argument\n"
+                    );
+                    file.WriteString(
                         "public readonly ref struct " + in_opt_name + "\n"
                     );
                     file.PushScope({}, "{\n", "}\n");
@@ -5489,14 +5560,16 @@ namespace mrbind::CSharp
                     const std::string in_opt_mut_name = CppToCSharpUnqualInOptMutNontrivialHelperName(cpp_name.parts.back());
 
                     file.WriteSeparatingNewline();
-                    file.WriteString(
+                    WriteComment(file,
                         "/// This is used for optional parameters of class `" + mut_half_name + "` with default arguments.\n"
                         "/// This is only used mutable parameters. For const ones we have `" + CppToCSharpUnqualInOptConstNontrivialHelperName(cpp_name.parts.back()) + "`.\n"
                         "/// Usage:\n"
                         "/// * Pass `null` to use the default argument.\n"
                         "/// * Pass `new()` to pass no object.\n"
                         "/// * Pass an instance of " + related_classes_list + " directly.\n"
-                        + (class_desc.kind == CInterop::ClassKind::exposed_struct ? "/// * Pass `new(ref ...)` to pass a reference to `" + *struct_name + "`.\n" : "") +
+                        + (class_desc.kind == CInterop::ClassKind::exposed_struct ? "/// * Pass `new(ref ...)` to pass a reference to `" + *struct_name + "`.\n" : "")
+                    );
+                    file.WriteString(
                         "public class " + in_opt_mut_name + "\n"
                     );
                     file.PushScope({}, "{\n", "}\n");
@@ -5531,14 +5604,16 @@ namespace mrbind::CSharp
                     const std::string in_opt_const_name = CppToCSharpUnqualInOptConstNontrivialHelperName(cpp_name.parts.back());
 
                     file.WriteSeparatingNewline();
-                    file.WriteString(
+                    WriteComment(file,
                         "/// This is used for optional parameters of class `" + mut_half_name + "` with default arguments.\n"
                         "/// This is only used const parameters. For non-const ones we have `" + CppToCSharpUnqualInOptMutNontrivialHelperName(cpp_name.parts.back()) + "`.\n"
                         "/// Usage:\n"
                         "/// * Pass `null` to use the default argument.\n"
                         "/// * Pass `new()` to pass no object.\n"
                         "/// * Pass an instance of " + related_classes_list + " to pass it to the function.\n"
-                        + (class_desc.kind == CInterop::ClassKind::exposed_struct ? "/// * Pass `new(ref ...)` to pass a reference to `" + *struct_name + "`.\n" : "") +
+                        + (class_desc.kind == CInterop::ClassKind::exposed_struct ? "/// * Pass `new(ref ...)` to pass a reference to `" + *struct_name + "`.\n" : "")
+                    );
+                    file.WriteString(
                         "public class " + in_opt_const_name + "\n"
                     );
                     file.PushScope({}, "{\n", "}\n");
@@ -5818,7 +5893,7 @@ namespace mrbind::CSharp
                         // The keepalive field.
                         if (is_const)
                         {
-                            file.WriteString("/// This holds the last value manually assigned to property `" + csharp_field_name + "`, to keep the target object alive.\n");
+                            WriteComment(file, "/// This holds the last value manually assigned to property `" + csharp_field_name + "`, to keep the target object alive.\n");
                             file.WriteString("public ");
                             if (field.is_static)
                                 file.WriteString("static ");
@@ -6211,17 +6286,25 @@ namespace mrbind::CSharp
                 if (requested_helpers.erase("Object") | (need_shared_object = requested_helpers.erase("SharedObject")))
                 {
                     file.WriteSeparatingNewline();
+                    WriteComment(file, "/// This is the base class for all our classes.\n");
                     file.WriteString(
                         // This is semantically abstract, and we also must mark it as one due to the reasons explained in `SharedObject` below.
-                        "/// This is the base class for all our classes.\n"
                         "public abstract class Object\n"
                         "{\n"
                         "    protected bool _IsOwningVal;\n"
+                    );
+                    WriteComment(file,
                         "    /// Returns true if this is an owning instance, and when disposed, will destroy the underlying C++ instance.\n"
                         "    /// If false, we assume that the underlying C++ instance will live long enough.\n"
+                    , 1);
+                    file.WriteString(
                         "    public virtual bool _IsOwning => _IsOwningVal;\n"
                         "\n"
+                    );
+                    WriteComment(file,
                         "    /// Which objects need to be kept alive while this object exists? This is public just in case.\n"
+                    , 1);
+                    file.WriteString(
                         "    public List<object>? _KeepAliveList;\n"
                         "    public void _KeepAlive(object obj)\n"
                         "    {\n"
@@ -6238,16 +6321,26 @@ namespace mrbind::CSharp
                     if (need_shared_object)
                     {
                         file.WriteSeparatingNewline();
+                        WriteComment(file,
+                            "/// This is the base class for those of our classes that are backed by `std::shared_ptr`.\n"
+                        );
                         file.WriteString(
                             // This is semantically abstract, and we also must mark it as one because we want to make the `IsOwning` property abstract.
-                            "/// This is the base class for those of our classes that are backed by `std::shared_ptr`.\n"
                             "public abstract class SharedObject : Object\n"
                             "{\n"
+                        );
+                        WriteComment(file,
                             "    /// This checks if the `shared_ptr` itself is owning or not, rather than whether we own our `shared_ptr`, which isn't a given.\n"
                             "    /// The derived classes have to implement this, since it depends on the specific `shared_ptr` type.\n"
+                        , 1);
+                        file.WriteString(
                             "    public abstract override bool _IsOwning {get;}\n"
+                        );
+                        WriteComment(file,
                             "    /// This checks if we own the underlying `shared_ptr` instance, regardless of whether it owns the underlying object, which is orthogonal.\n"
                             "    /// We repurpose `_IsOwningVal` for this.\n"
+                        , 1);
+                        file.WriteString(
                             "    public bool _IsOwningSharedPtr => _IsOwningVal;\n"
                             "\n"
                             "    internal SharedObject(bool is_owning) : base(is_owning) {}\n"
@@ -6263,9 +6356,11 @@ namespace mrbind::CSharp
                     if (need_inout || need_inout_opt)
                     {
                         file.WriteSeparatingNewline();
+                        WriteComment(file,
+                            "/// This is used for optional in/out parameters, since `ref` can't be nullable.\n"
+                        );
                         file.WriteString(
                             // This class isn't prefixed with `_`, since you need to manually construct instances of it ot pass to `_InOutOpt`.
-                            "/// This is used for optional in/out parameters, since `ref` can't be nullable.\n"
                             "public class InOut<T> where T: unmanaged\n"
                             "{\n"
                             "    public T Value;\n"
@@ -6278,21 +6373,35 @@ namespace mrbind::CSharp
                         if (need_inout_opt)
                         {
                             file.WriteSeparatingNewline();
-                            file.WriteString(
+                            WriteComment(file,
                                 "/// This is used for optional in/out parameters with default arguments.\n"
                                 "/// Usage:\n"
                                 "/// * Pass `null` to use the default argument.\n"
                                 "/// * Pass `new()` to pass no object.\n"
                                 "/// * Pass an instance of `InOut<T>` to pass it to the function.\n"
+                            );
+                            file.WriteString(
                                 "public class _InOutOpt<T> where T: unmanaged\n"
                                 "{\n"
                                 "    public InOut<T>? Opt;\n"
                                 "\n"
-                                "    // Use this constructor (by passing `new()`) if you don't want to receive output from this function parameter.\n"
+                            );
+                            WriteComment(file,
+                                "    /// Use this constructor (by passing `new()`) if you don't want to receive output from this function parameter.\n"
+                            , 1);
+                            file.WriteString(
                                 "    public _InOutOpt() {}\n"
-                                "    // Use this constructor (by passing an existing `InOut` instance) if you do want to receive output, into that object.\n"
+                            );
+                            WriteComment(file,
+                                "    /// Use this constructor (by passing an existing `InOut` instance) if you do want to receive output, into that object.\n"
+                            , 1);
+                            file.WriteString(
                                 "    public _InOutOpt(InOut<T>? NewOpt) {Opt = NewOpt;}\n"
-                                "    // An implicit conversion for passing function parameters.\n"
+                            );
+                            WriteComment(file,
+                                "    /// An implicit conversion for passing function parameters.\n"
+                            , 1);
+                            file.WriteString(
                                 "    public static implicit operator _InOutOpt<T>(InOut<T>? NewOpt) {return new _InOutOpt<T>(NewOpt);}\n"
                                 "}\n"
                             );
@@ -6304,13 +6413,15 @@ namespace mrbind::CSharp
                 if (requested_helpers.erase("_InOpt"))
                 {
                     file.WriteSeparatingNewline();
-                    file.WriteString(
+                    WriteComment(file,
                         "/// This is used for optional parameters with default arguments.\n"
                         "/// Usage:\n"
                         "/// * Pass `null` to use the default argument.\n"
                         "/// * Pass `new()` to pass no object.\n"
                         "/// * Pass an instance of `T` to pass it to the function.\n"
                         "/// Passing a null `_InOpt` means \"use default argument\", and passing a one with a null `.Opt` means \"pass nothing to the function\".\n"
+                    );
+                    file.WriteString(
                         "public class _InOpt<T> where T: unmanaged\n"
                         "{\n"
                         "    public T? Opt;\n"
@@ -6330,16 +6441,18 @@ namespace mrbind::CSharp
                             return;
 
                         file.WriteSeparatingNewline();
+                        WriteComment(file,
+                            "/// A reference to a C object. This is sometimes used to return optional references, since `ref` can't be nullable. Or to return references from operators, since those can't return `ref`s.\n"
+                            "/// This object itself isn't nullable, we return `" + name + "<T>?` when nullability is needed.\n"
+                        );
                         file.WriteString(
                             // This isn't prefixed with `_`, since the user might need to deal with those directly,
                             //   when handling results of functions returning this.
-                            "/// A reference to a C object. This is sometimes used to return optional references, since `ref` can't be nullable. Or to return references from operators, since those can't return `ref`s.\n"
-                            "/// This object itself isn't nullable, we return `" + name + "<T>?` when nullability is needed.\n"
                             "public unsafe class " + name + "<T> where T: unmanaged\n"
                             "{\n"
-                            "    /// Should never be null.\n"
+                            "    // Should never be null.\n"
                             "    private T *Ptr;\n"
-                            "    /// Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.\n"
+                            "    // Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.\n"
                             "    internal " + name + "(T *new_ptr)\n"
                             "    {\n"
                             "        System.Diagnostics.Trace.Assert(new_ptr is not null);\n"
@@ -6364,15 +6477,21 @@ namespace mrbind::CSharp
                 if (requested_helpers.erase("_Moved") | requested_helpers.erase("Move"))
                 {
                     file.WriteSeparatingNewline();
-                    file.WriteString(
+                    WriteComment(file,
                         "/// Wraps the object in a wrapper that indicates that it should be treated as a temporary object.\n"
                         "/// This can be used with `_ByValue_...` function parameters, to indicate that the argument should be moved.\n"
                         "/// See those structs for a longer explanation.\n"
+                    );
+                    file.WriteString(
                         "public static _Moved<T> Move<T>(T new_value) {return new(new_value);}\n"
                         "\n"
+                    );
+                    WriteComment(file,
                         "/// A wrapper for `T` that indicates that it's a temporary object, or should be treated as such.\n"
                         "/// If you're calling a function that returns this, you can safely convert this to `T`.\n"
                         "/// If you're calling a function that takes this as a parameter, use the `Move()` function to create this wrapper.\n"
+                    );
+                    file.WriteString(
                         "public readonly struct _Moved<T>\n"
                         "{\n"
                         "    public readonly T Value;\n"
@@ -6401,11 +6520,17 @@ namespace mrbind::CSharp
                 if (requested_helpers.erase("_MoveRef"))
                 {
                     file.WriteSeparatingNewline();
-                    file.WriteString(
+                    WriteComment(file,
                         "/// This is a tag value. Pass it to functions having a `_MoveRef` parameter.\n"
                         "/// This indicates that the reference parameter immediately following it is an rvalue reference.\n"
+                    );
+                    file.WriteString(
                         "public static _MoveRef MoveRef = default;\n"
+                    );
+                    WriteComment(file,
                         "/// This is a tag type for passing rvalue references. Don't construct directly, prefer the `MoveRef` constant.\n"
+                    );
+                    file.WriteString(
                         "public struct _MoveRef {}\n"
                     );
                 }
@@ -6415,12 +6540,18 @@ namespace mrbind::CSharp
                 if (requested_helpers.erase("NullOpt") || requested_helpers.erase("NullOptType"))
                 {
                     file.WriteSeparatingNewline();
+                    WriteComment(file,
+                        "/// The type of `NullOpt`, see that for more details.\n"
+                    );
                     file.WriteString(
                         // This is a struct as an optimization.
-                        "/// The type of `NullOpt`, see that for more details.\n"
                         "public struct NullOptType {}\n"
+                    );
+                    WriteComment(file,
                         "/// This can be passed into `_ByValueOptOpt_...` parameters to indicate that you want to pass no object,\n"
                         "///   as opposed to using the default argument provided by the function.\n"
+                    );
+                    file.WriteString(
                         "public static NullOptType NullOpt;\n"
                     );
                 }
@@ -6431,10 +6562,12 @@ namespace mrbind::CSharp
                     if (requested_helpers.erase("ReadOnlySpanOpt"))
                     {
                         file.WriteSeparatingNewline();
-                        file.WriteString(
+                        WriteComment(file,
                             "/// This is used for optional `ReadOnlySpan` function parameters.\n"
                             "/// Pass `null` or `new()` to use the default argument.\n"
                             "///   Note that for the original `ReadOnlySpan`, those result in an empty span instead.\n"
+                        );
+                        file.WriteString(
                             "public ref struct ReadOnlySpanOpt<T> where T: unmanaged\n"
                             "{\n"
                             "    public readonly bool HasValue;\n"
@@ -6461,10 +6594,12 @@ namespace mrbind::CSharp
                     if (requested_helpers.erase("ReadOnlyCharSpanOpt"))
                     {
                         file.WriteSeparatingNewline();
-                        file.WriteString(
+                        WriteComment(file,
                             "/// This is used for optional `ReadOnlySpan<char>` function parameters. This is a specialized version that provides string interop.\n"
                             "/// Pass `null` or `new()` to use the default argument.\n"
                             "///   Note that for the original `ReadOnlySpan<char>`, those result in an empty span instead.\n"
+                        );
+                        file.WriteString(
                             "public ref struct ReadOnlyCharSpanOpt\n"
                             "{\n"
                             "    public readonly bool HasValue;\n"
@@ -6497,13 +6632,15 @@ namespace mrbind::CSharp
                 if (requested_helpers.erase("Box") | requested_helpers.erase("Const_Box"))
                 {
                     file.WriteSeparatingNewline();
-                    file.WriteString(
+                    WriteComment(file,
                         "/// Stores a single heap-allocated value with a stable address, or a user-provided non-owning pointer.\n"
                         "/// This is used for class fields of pointer types to const non-classes.\n"
                         "/// Usage:\n"
                         "/// * To read a property of type `Const_Box<T>?`, first check `is not null`. If it's not null, use `.Value` to read the value.\n"
                         "/// * To modify the property, either assign a value of type `T`, or assign `null`.\n"
                         "///   Assigning a value will allocate its copy and make the underlying pointer point to it.\n"
+                    );
+                    file.WriteString(
                         "public class Const_Box<T> : System.IDisposable where T: unmanaged\n"
                         "{\n"
                         "    internal unsafe T *_UnderlyingPtr;\n"
@@ -6512,7 +6649,11 @@ namespace mrbind::CSharp
                         "    public unsafe ref readonly T Value => ref *_UnderlyingPtr;\n"
                         "    public bool IsOwning => _IsOwning;\n"
                         "\n"
+                    );
+                    WriteComment(file,
                         "    /// Allocate a new value.\n"
+                    , 1);
+                    file.WriteString(
                         "    unsafe public Const_Box(T value)\n"
                         "    {\n"
                         "        _IsOwning = true;\n"
@@ -6520,11 +6661,19 @@ namespace mrbind::CSharp
                         "        *_UnderlyingPtr = value;\n"
                         "    }\n"
                         "\n"
-                        "    // Implicitly convert from a value, allocating a copy of it.\n"
-                        "    // Only `Const_Box<T>` has this, `Box<T>` intentionally doesn't.\n" // Note that this behavior should be synced with how exposed structs are converted to their wrappers.
+                    );
+                    WriteComment(file,
+                        "    /// Implicitly convert from a value, allocating a copy of it.\n"
+                        "    /// Only `Const_Box<T>` has this, `Box<T>` intentionally doesn't.\n" // Note that this behavior should be synced with how exposed structs are converted to their wrappers.
+                    , 1);
+                    file.WriteString(
                         "    public static implicit operator Const_Box<T>(T value) {return new(value);}\n"
                         "\n"
+                    );
+                    WriteComment(file,
                         "    /// Store a non-owning pointer.\n"
+                    , 1);
+                    file.WriteString(
                         "    unsafe public Const_Box(T *ptr)\n"
                         "    {\n"
                         "        _IsOwning = false;\n"
@@ -6544,21 +6693,31 @@ namespace mrbind::CSharp
                     );
 
                     file.WriteSeparatingNewline();
-                    file.WriteString(
+                    WriteComment(file,
                         "/// Stores a single heap-allocated value with a stable address, or a user-provided non-owning pointer.\n"
                         "/// This is used for class fields of pointer types to mutable non-classes.\n"
                         "/// Usage:\n"
                         "/// * To read a property of type `Box<T>?`, first check `is not null`. If it's not null, use `.Value` to read the value.\n"
                         "/// * To modify the property, either assign `new(value)` (to allocate a copy of the value and point to it), or assign `null`.\n"
                         "///   Since `.Value` returns a mutable ref, you can also assign to that to modify the pointee, assuming the property isn't null.\n"
+                    );
+                    file.WriteString(
                         "public class Box<T> : Const_Box<T> where T: unmanaged\n"
                         "{\n"
                         "    public new unsafe ref T Value => ref *_UnderlyingPtr;\n"
                         "\n"
+                    );
+                    WriteComment(file,
                         "    /// Allocate a new value.\n"
+                    , 1);
+                    file.WriteString(
                         "    unsafe public Box(T value) : base(value) {}\n"
                         "\n"
+                    );
+                    WriteComment(file,
                         "    /// Store a non-owning pointer.\n"
+                    , 1);
+                    file.WriteString(
                         "    unsafe public Box(T *ptr) : base(ptr) {}\n"
                         "}\n"
                     );
@@ -6573,13 +6732,7 @@ namespace mrbind::CSharp
                             return;
 
                         file.WriteSeparatingNewline();
-
-                        if (!comment.empty())
-                        {
-                            assert(comment.ends_with('\n'));
-                            file.WriteString(comment);
-                        }
-
+                        WriteComment(file, comment);
                         file.WriteString(
                             "public class " + name + " : System.Exception\n"
                             "{\n"
@@ -6601,8 +6754,10 @@ namespace mrbind::CSharp
                 {
 
                     file.WriteSeparatingNewline();
-                    file.WriteString(
+                    WriteComment(file,
                         "/// An internal function for allocating memory through C++.\n"
+                    );
+                    file.WriteString(
                         "internal static unsafe void *_Alloc(nuint size)\n"
                     );
                     file.PushScope({}, "{\n", "}\n");
@@ -6618,8 +6773,10 @@ namespace mrbind::CSharp
                 {
 
                     file.WriteSeparatingNewline();
-                    file.WriteString(
+                    WriteComment(file,
                         "/// An internal function for deallocating memory through C++.\n"
+                    );
+                    file.WriteString(
                         "internal static unsafe void _Free(void *ptr)\n"
                     );
                     file.PushScope({}, "{\n", "}\n");
@@ -6663,10 +6820,12 @@ namespace mrbind::CSharp
                     }
 
                     file.WriteSeparatingNewline();
-                    file.WriteString(
+                    WriteComment(file,
                         // "/// This is an empty tag type, corresponding to C++ `" + CppdeclToCode(cpp_name) + "`.\n"
                         // Don't tell the underlying C++ type, since this type can be made up, such as our fake `std::variant_index` in the variant binding.
                         "/// This is an empty tag type.\n"
+                    );
+                    file.WriteString(
                         // A plain struct seems most appropriate. A `ref struct` would add extra limitations that we don't need.
                         "public struct " + CppToCSharpIdentifier(cpp_name.parts.back()) + " {}\n" // No members!
                     );

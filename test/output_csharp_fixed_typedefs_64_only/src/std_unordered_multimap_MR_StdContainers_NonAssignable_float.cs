@@ -4,8 +4,10 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// <summary>
             /// Generated from C++ container `std::unordered_multimap<MR::StdContainers::NonAssignable, float>`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_UnorderedMultimap_MRStdContainersNonAssignable_Float : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -26,7 +28,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_UnorderedMultimap_MRStdContainersNonAssignable_Float() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_UnorderedMultimap_MRStdContainersNonAssignable_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct", ExactSpelling = true)]
@@ -34,7 +38,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe Const_UnorderedMultimap_MRStdContainersNonAssignable_Float(MR.CS.Std._ByValue_UnorderedMultimap_MRStdContainersNonAssignable_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother", ExactSpelling = true)]
@@ -42,7 +48,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// The number of elements.
+                /// </summary>
                 public unsafe ulong size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_Size", ExactSpelling = true)]
@@ -50,7 +58,9 @@ public static partial class MR
                     return __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_Size(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Returns true if the size is zero.
+                /// </summary>
                 public unsafe bool isEmpty()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_IsEmpty", ExactSpelling = true)]
@@ -58,7 +68,9 @@ public static partial class MR
                     return __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_IsEmpty(_UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// Checks if the contain contains this key.
+                /// </summary>
                 public unsafe ulong count(MR.CS.StdContainers.Const_NonAssignable key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_Count", ExactSpelling = true)]
@@ -66,7 +78,9 @@ public static partial class MR
                     return __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_Count(_UnderlyingPtr, key._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
+                /// </summary>
                 public unsafe MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.ConstIterator find(MR.CS.StdContainers.Const_NonAssignable key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_Find", ExactSpelling = true)]
@@ -74,7 +88,9 @@ public static partial class MR
                     return new(__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_Find(_UnderlyingPtr, key._UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// The begin iterator, const.
+                /// </summary>
                 public unsafe MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.ConstIterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_Begin", ExactSpelling = true)]
@@ -82,7 +98,9 @@ public static partial class MR
                     return new(__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_Begin(_UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Tests whether a const iterator is the begin iterator.
+                /// </summary>
                 public unsafe bool isBegin(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_IsBegin", ExactSpelling = true)]
@@ -90,7 +108,9 @@ public static partial class MR
                     return __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_IsBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// The end iterator, const.
+                /// </summary>
                 public unsafe MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.ConstIterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_End", ExactSpelling = true)]
@@ -98,7 +118,9 @@ public static partial class MR
                     return new(__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_End(_UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Tests whether a const iterator is the end iterator.
+                /// </summary>
                 public unsafe bool isEnd(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_IsEnd", ExactSpelling = true)]
@@ -106,8 +128,10 @@ public static partial class MR
                     return __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_IsEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// Read-only iterator for `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float`.
                 /// This is the const half of the class.
+                /// </summary>
                 public class Const_ConstIterator : MR.CS.Misc.Object, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
@@ -128,7 +152,9 @@ public static partial class MR
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_ConstIterator() {Dispose(false);}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Const_ConstIterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct", ExactSpelling = true)]
@@ -136,7 +162,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_ConstIterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother", ExactSpelling = true)]
@@ -144,7 +172,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
+                    /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_Iterator iter) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_FromMutable", ExactSpelling = true)]
@@ -152,10 +182,14 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_FromMutable(iter._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
+                    /// </summary>
                     public static unsafe implicit operator Const_ConstIterator(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_Iterator iter) {return new(iter);}
 
+                    /// <summary>
                     /// Dereferences a const iterator, returning the key.
+                    /// </summary>
                     public unsafe MR.CS.StdContainers.Const_NonAssignable derefKey()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DerefKey", ExactSpelling = true)]
@@ -163,7 +197,9 @@ public static partial class MR
                         return new(__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DerefKey(_UnderlyingPtr), is_owning: false);
                     }
 
+                    /// <summary>
                     /// Dereferences a const iterator, returning the mapped value.
+                    /// </summary>
                     public unsafe float derefValue()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DerefValue", ExactSpelling = true)]
@@ -172,13 +208,17 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Read-only iterator for `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float`.
                 /// This is the non-const half of the class.
+                /// </summary>
                 public class ConstIterator : Const_ConstIterator
                 {
                     internal unsafe ConstIterator(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe ConstIterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct", ExactSpelling = true)]
@@ -186,7 +226,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
                     public unsafe ConstIterator(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_ConstIterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother", ExactSpelling = true)]
@@ -194,7 +236,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
+                    /// </summary>
                     public unsafe void assign(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_ConstIterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_AssignFromAnother", ExactSpelling = true)]
@@ -202,7 +246,9 @@ public static partial class MR
                         __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
+                    /// </summary>
                     public unsafe ConstIterator(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_Iterator iter) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_FromMutable", ExactSpelling = true)]
@@ -210,10 +256,14 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_FromMutable(iter._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
+                    /// </summary>
                     public static unsafe implicit operator ConstIterator(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_Iterator iter) {return new(iter);}
 
+                    /// <summary>
                     /// Increments a const iterator.
+                    /// </summary>
                     public unsafe void incr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_Incr", ExactSpelling = true)]
@@ -222,12 +272,14 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `ConstIterator` with default arguments.
                 /// This is only used mutable parameters. For const ones we have `_InOptConst_ConstIterator`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `ConstIterator`/`Const_ConstIterator` directly.
+                /// </summary>
                 public class _InOptMut_ConstIterator
                 {
                     public ConstIterator? Opt;
@@ -237,12 +289,14 @@ public static partial class MR
                     public static implicit operator _InOptMut_ConstIterator(ConstIterator value) {return new(value);}
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `ConstIterator` with default arguments.
                 /// This is only used const parameters. For non-const ones we have `_InOptMut_ConstIterator`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `ConstIterator`/`Const_ConstIterator` to pass it to the function.
+                /// </summary>
                 public class _InOptConst_ConstIterator
                 {
                     public Const_ConstIterator? Opt;
@@ -251,12 +305,16 @@ public static partial class MR
                     public _InOptConst_ConstIterator(Const_ConstIterator value) {Opt = value;}
                     public static implicit operator _InOptConst_ConstIterator(Const_ConstIterator value) {return new(value);}
 
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
+                    /// </summary>
                     public static unsafe implicit operator _InOptConst_ConstIterator(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_Iterator iter) {return new Const_ConstIterator(iter);}
                 }
 
+                /// <summary>
                 /// Mutable iterator for `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float`.
                 /// This is the const half of the class.
+                /// </summary>
                 public class Const_Iterator : MR.CS.Misc.Object, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
@@ -277,7 +335,9 @@ public static partial class MR
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_Iterator() {Dispose(false);}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Const_Iterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct", ExactSpelling = true)]
@@ -285,7 +345,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
                     public unsafe Const_Iterator(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_Iterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother", ExactSpelling = true)]
@@ -293,7 +355,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother(other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Dereferences a mutable iterator, returning the key.
+                    /// </summary>
                     public unsafe MR.CS.StdContainers.Const_NonAssignable derefKey()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_DerefKey", ExactSpelling = true)]
@@ -301,7 +365,9 @@ public static partial class MR
                         return new(__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_DerefKey(_UnderlyingPtr), is_owning: false);
                     }
 
+                    /// <summary>
                     /// Dereferences a mutable iterator, returning the mapped value.
+                    /// </summary>
                     public unsafe ref float derefValue()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_DerefValue", ExactSpelling = true)]
@@ -310,13 +376,17 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Mutable iterator for `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float`.
                 /// This is the non-const half of the class.
+                /// </summary>
                 public class Iterator : Const_Iterator
                 {
                     internal unsafe Iterator(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Iterator() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct", ExactSpelling = true)]
@@ -324,7 +394,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
                     public unsafe Iterator(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_Iterator other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother", ExactSpelling = true)]
@@ -332,7 +404,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother(other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
+                    /// </summary>
                     public unsafe void assign(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_Iterator other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_AssignFromAnother", ExactSpelling = true)]
@@ -340,7 +414,9 @@ public static partial class MR
                         __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Increments a mutable iterator.
+                    /// </summary>
                     public unsafe void incr()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_Incr", ExactSpelling = true)]
@@ -349,12 +425,14 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `Iterator` with default arguments.
                 /// This is only used mutable parameters. For const ones we have `_InOptConst_Iterator`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `Iterator`/`Const_Iterator` directly.
+                /// </summary>
                 public class _InOptMut_Iterator
                 {
                     public Iterator? Opt;
@@ -364,12 +442,14 @@ public static partial class MR
                     public static implicit operator _InOptMut_Iterator(Iterator value) {return new(value);}
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `Iterator` with default arguments.
                 /// This is only used const parameters. For non-const ones we have `_InOptMut_Iterator`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `Iterator`/`Const_Iterator` to pass it to the function.
+                /// </summary>
                 public class _InOptConst_Iterator
                 {
                     public Const_Iterator? Opt;
@@ -380,13 +460,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from C++ container `std::unordered_multimap<MR::StdContainers::NonAssignable, float>`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class UnorderedMultimap_MRStdContainersNonAssignable_Float : Const_UnorderedMultimap_MRStdContainersNonAssignable_Float
             {
                 internal unsafe UnorderedMultimap_MRStdContainersNonAssignable_Float(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe UnorderedMultimap_MRStdContainersNonAssignable_Float() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct", ExactSpelling = true)]
@@ -394,7 +478,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
                 public unsafe UnorderedMultimap_MRStdContainersNonAssignable_Float(MR.CS.Std._ByValue_UnorderedMultimap_MRStdContainersNonAssignable_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother", ExactSpelling = true)]
@@ -402,7 +488,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
+                /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_UnorderedMultimap_MRStdContainersNonAssignable_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_AssignFromAnother", ExactSpelling = true)]
@@ -410,7 +498,9 @@ public static partial class MR
                     __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Removes all elements from the container.
+                /// </summary>
                 public unsafe void clear()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_Clear", ExactSpelling = true)]
@@ -418,7 +508,9 @@ public static partial class MR
                     __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_Clear(_UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.
+                /// </summary>
                 public unsafe new MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Iterator find(MR.CS.StdContainers.Const_NonAssignable key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_FindMutable", ExactSpelling = true)]
@@ -426,7 +518,9 @@ public static partial class MR
                     return new(__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_FindMutable(_UnderlyingPtr, key._UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// The begin iterator, mutable.
+                /// </summary>
                 public unsafe new MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Iterator begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_MutableBegin", ExactSpelling = true)]
@@ -434,7 +528,9 @@ public static partial class MR
                     return new(__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_MutableBegin(_UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Tests whether a mutable iterator is the begin iterator.
+                /// </summary>
                 public unsafe bool isBegin(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_IsMutableBegin", ExactSpelling = true)]
@@ -442,7 +538,9 @@ public static partial class MR
                     return __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_IsMutableBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
                 /// The end iterator, mutable.
+                /// </summary>
                 public unsafe new MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Iterator end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_MutableEnd", ExactSpelling = true)]
@@ -450,7 +548,9 @@ public static partial class MR
                     return new(__MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_MutableEnd(_UnderlyingPtr), is_owning: true);
                 }
 
+                /// <summary>
                 /// Tests whether a mutable iterator is the end iterator.
+                /// </summary>
                 public unsafe bool isEnd(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_IsMutableEnd", ExactSpelling = true)]
@@ -459,6 +559,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `UnorderedMultimap_MRStdContainersNonAssignable_Float` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -466,6 +567,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_UnorderedMultimap_MRStdContainersNonAssignable_Float
             {
                 internal readonly Const_UnorderedMultimap_MRStdContainersNonAssignable_Float? Value;
@@ -477,12 +579,14 @@ public static partial class MR
                 public static implicit operator _ByValue_UnorderedMultimap_MRStdContainersNonAssignable_Float(MR.CS.Misc._Moved<UnorderedMultimap_MRStdContainersNonAssignable_Float> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `UnorderedMultimap_MRStdContainersNonAssignable_Float` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_UnorderedMultimap_MRStdContainersNonAssignable_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `UnorderedMultimap_MRStdContainersNonAssignable_Float`/`Const_UnorderedMultimap_MRStdContainersNonAssignable_Float` directly.
+            /// </summary>
             public class _InOptMut_UnorderedMultimap_MRStdContainersNonAssignable_Float
             {
                 public UnorderedMultimap_MRStdContainersNonAssignable_Float? Opt;
@@ -492,12 +596,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_UnorderedMultimap_MRStdContainersNonAssignable_Float(UnorderedMultimap_MRStdContainersNonAssignable_Float value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `UnorderedMultimap_MRStdContainersNonAssignable_Float` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_UnorderedMultimap_MRStdContainersNonAssignable_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `UnorderedMultimap_MRStdContainersNonAssignable_Float`/`Const_UnorderedMultimap_MRStdContainersNonAssignable_Float` to pass it to the function.
+            /// </summary>
             public class _InOptConst_UnorderedMultimap_MRStdContainersNonAssignable_Float
             {
                 public Const_UnorderedMultimap_MRStdContainersNonAssignable_Float? Opt;

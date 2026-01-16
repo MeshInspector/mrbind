@@ -6,8 +6,10 @@ public static partial class MR
         {
             // This tests a specific Clang bug/quirk.
             // Certain typedefs in templates get their names printed without the template arguments of the enclosing class template, breaking our code generation.
+            /// <summary>
             /// Generated from class `MR::TypedefsInTemplates::A<int>`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A_Int : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -28,7 +30,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A_Int() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_A_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_DefaultConstruct", ExactSpelling = true)]
@@ -36,7 +40,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
+                /// </summary>
                 public unsafe Const_A_Int(MR.CS.TypedefsInTemplates.Const_A_Int _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_ConstructFromAnother", ExactSpelling = true)]
@@ -47,13 +53,17 @@ public static partial class MR
 
             // This tests a specific Clang bug/quirk.
             // Certain typedefs in templates get their names printed without the template arguments of the enclosing class template, breaking our code generation.
+            /// <summary>
             /// Generated from class `MR::TypedefsInTemplates::A<int>`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class A_Int : Const_A_Int
             {
                 internal unsafe A_Int(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe A_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_DefaultConstruct", ExactSpelling = true)]
@@ -61,7 +71,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
+                /// </summary>
                 public unsafe A_Int(MR.CS.TypedefsInTemplates.Const_A_Int _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_ConstructFromAnother", ExactSpelling = true)]
@@ -69,7 +81,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::TypedefsInTemplates::A<int>::operator=`.
+                /// </summary>
                 public unsafe MR.CS.TypedefsInTemplates.A_Int assign(MR.CS.TypedefsInTemplates.Const_A_Int _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_AssignFromAnother", ExactSpelling = true)]
@@ -77,7 +91,9 @@ public static partial class MR
                     return new(__MR_TypedefsInTemplates_A_int_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::TypedefsInTemplates::A<int>::foo`.
+                /// </summary>
                 public unsafe int foo()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_foo", ExactSpelling = true)]
@@ -86,12 +102,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A_Int` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A_Int`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A_Int`/`Const_A_Int` directly.
+            /// </summary>
             public class _InOptMut_A_Int
             {
                 public A_Int? Opt;
@@ -101,12 +119,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A_Int(A_Int value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A_Int` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A_Int`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A_Int`/`Const_A_Int` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A_Int
             {
                 public Const_A_Int? Opt;
@@ -116,8 +136,10 @@ public static partial class MR
                 public static implicit operator _InOptConst_A_Int(Const_A_Int value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::TypedefsInTemplates::B<int>`.
             /// This is the const half of the class.
+            /// </summary>
             public class Const_B_Int : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -138,7 +160,9 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_B_Int() {Dispose(false);}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_B_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_DefaultConstruct", ExactSpelling = true)]
@@ -146,7 +170,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
+                /// </summary>
                 public unsafe Const_B_Int(MR.CS.TypedefsInTemplates.Const_B_Int _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_ConstructFromAnother", ExactSpelling = true)]
@@ -154,8 +180,10 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from class `MR::TypedefsInTemplates::B<int>::BB<float>`.
                 /// This is the const half of the class.
+                /// </summary>
                 public class Const_BB_Float : MR.CS.Misc.Object, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
@@ -176,7 +204,9 @@ public static partial class MR
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_BB_Float() {Dispose(false);}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe Const_BB_Float() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct", ExactSpelling = true)]
@@ -184,7 +214,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
+                    /// </summary>
                     public unsafe Const_BB_Float(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother", ExactSpelling = true)]
@@ -193,13 +225,17 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Generated from class `MR::TypedefsInTemplates::B<int>::BB<float>`.
                 /// This is the non-const half of the class.
+                /// </summary>
                 public class BB_Float : Const_BB_Float
                 {
                     internal unsafe BB_Float(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                    /// <summary>
                     /// Constructs an empty (default-constructed) instance.
+                    /// </summary>
                     public unsafe BB_Float() : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct", ExactSpelling = true)]
@@ -207,7 +243,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
                     }
 
+                    /// <summary>
                     /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
+                    /// </summary>
                     public unsafe BB_Float(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other) : this(null, is_owning: true)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother", ExactSpelling = true)]
@@ -215,7 +253,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(_other._UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::operator=`.
+                    /// </summary>
                     public unsafe MR.CS.TypedefsInTemplates.B_Int.BB_Float assign(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother", ExactSpelling = true)]
@@ -223,7 +263,9 @@ public static partial class MR
                         return new(__MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                     }
 
+                    /// <summary>
                     /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::foo`.
+                    /// </summary>
                     public unsafe int foo()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_foo", ExactSpelling = true)]
@@ -231,7 +273,9 @@ public static partial class MR
                         return __MR_TypedefsInTemplates_B_int_BB_float_foo(_UnderlyingPtr);
                     }
 
+                    /// <summary>
                     /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::foo2`.
+                    /// </summary>
                     public unsafe int foo2()
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_foo2", ExactSpelling = true)]
@@ -240,12 +284,14 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `BB_Float` with default arguments.
                 /// This is only used mutable parameters. For const ones we have `_InOptConst_BB_Float`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `BB_Float`/`Const_BB_Float` directly.
+                /// </summary>
                 public class _InOptMut_BB_Float
                 {
                     public BB_Float? Opt;
@@ -255,12 +301,14 @@ public static partial class MR
                     public static implicit operator _InOptMut_BB_Float(BB_Float value) {return new(value);}
                 }
 
+                /// <summary>
                 /// This is used for optional parameters of class `BB_Float` with default arguments.
                 /// This is only used const parameters. For non-const ones we have `_InOptMut_BB_Float`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
                 /// * Pass an instance of `BB_Float`/`Const_BB_Float` to pass it to the function.
+                /// </summary>
                 public class _InOptConst_BB_Float
                 {
                     public Const_BB_Float? Opt;
@@ -271,13 +319,17 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::TypedefsInTemplates::B<int>`.
             /// This is the non-const half of the class.
+            /// </summary>
             public class B_Int : Const_B_Int
             {
                 internal unsafe B_Int(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe B_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_DefaultConstruct", ExactSpelling = true)]
@@ -285,7 +337,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
+                /// </summary>
                 public unsafe B_Int(MR.CS.TypedefsInTemplates.Const_B_Int _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_ConstructFromAnother", ExactSpelling = true)]
@@ -293,7 +347,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::TypedefsInTemplates::B<int>::operator=`.
+                /// </summary>
                 public unsafe MR.CS.TypedefsInTemplates.B_Int assign(MR.CS.TypedefsInTemplates.Const_B_Int _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_AssignFromAnother", ExactSpelling = true)]
@@ -302,12 +358,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B_Int` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_B_Int`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B_Int`/`Const_B_Int` directly.
+            /// </summary>
             public class _InOptMut_B_Int
             {
                 public B_Int? Opt;
@@ -317,12 +375,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_B_Int(B_Int value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B_Int` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_B_Int`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B_Int`/`Const_B_Int` to pass it to the function.
+            /// </summary>
             public class _InOptConst_B_Int
             {
                 public Const_B_Int? Opt;
@@ -332,7 +392,9 @@ public static partial class MR
                 public static implicit operator _InOptConst_B_Int(Const_B_Int value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from function `MR::TypedefsInTemplates::bar`.
+            /// </summary>
             public static void bar(int _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_bar", ExactSpelling = true)]

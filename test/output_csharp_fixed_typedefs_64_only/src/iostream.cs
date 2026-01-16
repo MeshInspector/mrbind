@@ -4,7 +4,9 @@ public static partial class MR
     {
         public static partial class Std
         {
+            /// <summary>
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Ostream : MR.CS.Misc.Object
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -14,12 +16,16 @@ public static partial class MR
                 internal unsafe Const_Ostream(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
             }
 
+            /// <summary>
             /// This is the non-const half of the class.
+            /// </summary>
             public class Ostream : Const_Ostream
             {
                 internal unsafe Ostream(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Generated from function `MR::IOStream::operator<<`.
+                /// </summary>
                 public unsafe void lshift(MR.CS.IOStream.Const_A _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_print_MR_IOStream_A", ExactSpelling = true)]
@@ -28,12 +34,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Ostream` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Ostream`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Ostream`/`Const_Ostream` directly.
+            /// </summary>
             public class _InOptMut_Ostream
             {
                 public Ostream? Opt;
@@ -43,12 +51,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Ostream(Ostream value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Ostream` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Ostream`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Ostream`/`Const_Ostream` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Ostream
             {
                 public Const_Ostream? Opt;
@@ -58,7 +68,9 @@ public static partial class MR
                 public static implicit operator _InOptConst_Ostream(Const_Ostream value) {return new(value);}
             }
 
+            /// <summary>
             /// This is the const half of the class.
+            /// </summary>
             public class Const_Istream : MR.CS.Misc.Object
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -68,12 +80,16 @@ public static partial class MR
                 internal unsafe Const_Istream(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
             }
 
+            /// <summary>
             /// This is the non-const half of the class.
+            /// </summary>
             public class Istream : Const_Istream
             {
                 internal unsafe Istream(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
+                /// <summary>
                 /// Generated from function `MR::IOStream::operator>>`.
+                /// </summary>
                 public unsafe void rshift(MR.CS.IOStream.A _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_input_MR_IOStream_A", ExactSpelling = true)]
@@ -82,12 +98,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Istream` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Istream`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Istream`/`Const_Istream` directly.
+            /// </summary>
             public class _InOptMut_Istream
             {
                 public Istream? Opt;
@@ -97,12 +115,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_Istream(Istream value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `Istream` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Istream`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Istream`/`Const_Istream` to pass it to the function.
+            /// </summary>
             public class _InOptConst_Istream
             {
                 public Const_Istream? Opt;
@@ -113,7 +133,9 @@ public static partial class MR
             }
         }
 
+        /// <summary>
         /// Returns the `stdout` stream.
+        /// </summary>
         public static unsafe MR.CS.Std.Ostream getStdCout()
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCout", ExactSpelling = true)]
@@ -121,7 +143,9 @@ public static partial class MR
             return new(__MR_C_GetStdCout(), is_owning: false);
         }
 
+        /// <summary>
         /// Returns the `stderr` stream, buffered.
+        /// </summary>
         public static unsafe MR.CS.Std.Ostream getStdCerr()
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCerr", ExactSpelling = true)]
@@ -129,7 +153,9 @@ public static partial class MR
             return new(__MR_C_GetStdCerr(), is_owning: false);
         }
 
+        /// <summary>
         /// Returns the `stderr` stream, unbuffered.
+        /// </summary>
         public static unsafe MR.CS.Std.Ostream getStdClog()
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdClog", ExactSpelling = true)]
@@ -137,7 +163,9 @@ public static partial class MR
             return new(__MR_C_GetStdClog(), is_owning: false);
         }
 
+        /// <summary>
         /// Returns the `stdin` stream.
+        /// </summary>
         public static unsafe MR.CS.Std.Istream getStdCin()
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCin", ExactSpelling = true)]

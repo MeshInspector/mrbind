@@ -4,7 +4,9 @@ public static partial class MR
     {
         public static partial class StdVariant
         {
+            /// <summary>
             /// Generated from function `MR::StdVariant::foo`.
+            /// </summary>
             public static unsafe MR.CS.Std.Variant_Int_Float foo()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_foo", ExactSpelling = true)]
@@ -12,7 +14,9 @@ public static partial class MR
                 return new(__MR_StdVariant_foo(), is_owning: true);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdVariant::bar`.
+            /// </summary>
             public static unsafe void bar(MR.CS.Std.Const_Variant_Int_Float_Float _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_bar", ExactSpelling = true)]
@@ -20,7 +24,9 @@ public static partial class MR
                 __MR_StdVariant_bar(_1._UnderlyingPtr);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdVariant::baz`.
+            /// </summary>
             public static unsafe void baz(MR.CS.Std._ByValue_Variant_Int_Float_StdString _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_baz", ExactSpelling = true)]
@@ -28,7 +34,9 @@ public static partial class MR
                 __MR_StdVariant_baz(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
+            /// <summary>
             /// Generated from function `MR::StdVariant::blah`.
+            /// </summary>
             public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float blah()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdVariant_blah", ExactSpelling = true)]

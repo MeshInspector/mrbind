@@ -4,6 +4,7 @@ public static partial class MR
     {
         public static partial class CopyInheritedMembers
         {
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::A`.
             /// Derived classes:
             ///   Virtual:
@@ -23,6 +24,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::K`
             ///     `MR::CopyInheritedMembers::L`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_A : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -63,7 +65,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_DefaultConstruct", ExactSpelling = true)]
@@ -71,7 +75,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::CopyInheritedMembers::A` elementwise.
+                /// </summary>
                 public unsafe Const_A(int Field) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFrom", ExactSpelling = true)]
@@ -79,7 +85,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFrom(Field);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::A::A`.
+                /// </summary>
                 public unsafe Const_A(MR.CS.CopyInheritedMembers.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFromAnother", ExactSpelling = true)]
@@ -87,7 +95,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::A::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_StaticFunc", ExactSpelling = true)]
@@ -96,6 +106,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::A`.
             /// Derived classes:
             ///   Virtual:
@@ -115,6 +126,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::K`
             ///     `MR::CopyInheritedMembers::L`
             /// This is the non-const half of the class.
+            /// </summary>
             public class A : Const_A
             {
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -129,7 +141,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe A() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_DefaultConstruct", ExactSpelling = true)]
@@ -137,7 +151,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::CopyInheritedMembers::A` elementwise.
+                /// </summary>
                 public unsafe A(int Field) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFrom", ExactSpelling = true)]
@@ -145,7 +161,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFrom(Field);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::A::A`.
+                /// </summary>
                 public unsafe A(MR.CS.CopyInheritedMembers.Const_A _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFromAnother", ExactSpelling = true)]
@@ -153,7 +171,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::A::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.A _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConvertTo_int", ExactSpelling = true)]
@@ -161,7 +181,9 @@ public static partial class MR
                     return __MR_CopyInheritedMembers_A_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::A::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.A assign(MR.CS.CopyInheritedMembers.Const_A _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_AssignFromAnother", ExactSpelling = true)]
@@ -169,7 +191,9 @@ public static partial class MR
                     return new(__MR_CopyInheritedMembers_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::A::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_Method", ExactSpelling = true)]
@@ -178,12 +202,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` directly.
+            /// </summary>
             public class _InOptMut_A
             {
                 public A? Opt;
@@ -193,12 +219,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_A(A value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `A` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `A`/`Const_A` to pass it to the function.
+            /// </summary>
             public class _InOptConst_A
             {
                 public Const_A? Opt;
@@ -208,6 +236,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::B`.
             /// Derived classes:
             ///   Direct: (non-virtual)
@@ -217,6 +246,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::E`
             ///     `MR::CopyInheritedMembers::F`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_B : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -257,7 +287,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_B() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_DefaultConstruct", ExactSpelling = true)]
@@ -265,7 +297,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::CopyInheritedMembers::B` elementwise.
+                /// </summary>
                 public unsafe Const_B(int Field) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFrom", ExactSpelling = true)]
@@ -273,7 +307,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFrom(Field);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::B::B`.
+                /// </summary>
                 public unsafe Const_B(MR.CS.CopyInheritedMembers.Const_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFromAnother", ExactSpelling = true)]
@@ -281,7 +317,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::B::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_StaticFunc", ExactSpelling = true)]
@@ -290,6 +328,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::B`.
             /// Derived classes:
             ///   Direct: (non-virtual)
@@ -299,6 +338,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::E`
             ///     `MR::CopyInheritedMembers::F`
             /// This is the non-const half of the class.
+            /// </summary>
             public class B : Const_B
             {
                 internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -313,7 +353,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe B() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_DefaultConstruct", ExactSpelling = true)]
@@ -321,7 +363,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Constructs `MR::CopyInheritedMembers::B` elementwise.
+                /// </summary>
                 public unsafe B(int Field) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFrom", ExactSpelling = true)]
@@ -329,7 +373,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFrom(Field);
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::B::B`.
+                /// </summary>
                 public unsafe B(MR.CS.CopyInheritedMembers.Const_B _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFromAnother", ExactSpelling = true)]
@@ -337,7 +383,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::B::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.B _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConvertTo_int", ExactSpelling = true)]
@@ -345,7 +393,9 @@ public static partial class MR
                     return __MR_CopyInheritedMembers_B_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::B::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.B assign(MR.CS.CopyInheritedMembers.Const_B _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_AssignFromAnother", ExactSpelling = true)]
@@ -353,7 +403,9 @@ public static partial class MR
                     return new(__MR_CopyInheritedMembers_B_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::B::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_Method", ExactSpelling = true)]
@@ -362,12 +414,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` directly.
+            /// </summary>
             public class _InOptMut_B
             {
                 public B? Opt;
@@ -377,12 +431,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_B(B value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `B` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_B`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `B`/`Const_B` to pass it to the function.
+            /// </summary>
             public class _InOptConst_B
             {
                 public Const_B? Opt;
@@ -392,12 +448,14 @@ public static partial class MR
                 public static implicit operator _InOptConst_B(Const_B value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::C`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::CopyInheritedMembers::A`
             ///     `MR::CopyInheritedMembers::B`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_C : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -436,7 +494,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_C() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_DefaultConstruct", ExactSpelling = true)]
@@ -444,7 +504,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::C::C`.
+                /// </summary>
                 public unsafe Const_C(MR.CS.CopyInheritedMembers.Const_C _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_ConstructFromAnother", ExactSpelling = true)]
@@ -453,12 +515,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::C`.
             /// Base classes:
             ///   Direct: (non-virtual)
             ///     `MR::CopyInheritedMembers::A`
             ///     `MR::CopyInheritedMembers::B`
             /// This is the non-const half of the class.
+            /// </summary>
             public class C : Const_C
             {
                 internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -481,7 +545,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe C() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_DefaultConstruct", ExactSpelling = true)]
@@ -489,7 +555,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::C::C`.
+                /// </summary>
                 public unsafe C(MR.CS.CopyInheritedMembers.Const_C _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_ConstructFromAnother", ExactSpelling = true)]
@@ -497,7 +565,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::C::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.C assign(MR.CS.CopyInheritedMembers.Const_C _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_AssignFromAnother", ExactSpelling = true)]
@@ -506,12 +576,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `C` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_C`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `C`/`Const_C` directly.
+            /// </summary>
             public class _InOptMut_C
             {
                 public C? Opt;
@@ -521,12 +593,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_C(C value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `C` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_C`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `C`/`Const_C` to pass it to the function.
+            /// </summary>
             public class _InOptConst_C
             {
                 public Const_C? Opt;
@@ -536,6 +610,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_C(Const_C value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::D`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -545,6 +620,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::E`
             ///     `MR::CopyInheritedMembers::F`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_D : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -595,7 +671,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_D() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_DefaultConstruct", ExactSpelling = true)]
@@ -603,7 +681,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::D::D`.
+                /// </summary>
                 public unsafe Const_D(MR.CS.CopyInheritedMembers.Const_D _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_ConstructFromAnother", ExactSpelling = true)]
@@ -611,7 +691,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::D::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_StaticFunc", ExactSpelling = true)]
@@ -620,6 +702,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::D`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -629,6 +712,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::E`
             ///     `MR::CopyInheritedMembers::F`
             /// This is the non-const half of the class.
+            /// </summary>
             public class D : Const_D
             {
                 internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -653,7 +737,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe D() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_DefaultConstruct", ExactSpelling = true)]
@@ -661,7 +747,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::D::D`.
+                /// </summary>
                 public unsafe D(MR.CS.CopyInheritedMembers.Const_D _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_ConstructFromAnother", ExactSpelling = true)]
@@ -669,7 +757,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::D::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.D _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_ConvertTo_int", ExactSpelling = true)]
@@ -677,7 +767,9 @@ public static partial class MR
                     return __MR_CopyInheritedMembers_D_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::D::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.D assign(MR.CS.CopyInheritedMembers.Const_D _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_AssignFromAnother", ExactSpelling = true)]
@@ -685,7 +777,9 @@ public static partial class MR
                     return new(__MR_CopyInheritedMembers_D_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::D::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_Method", ExactSpelling = true)]
@@ -694,12 +788,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `D` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_D`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `D`/`Const_D` directly.
+            /// </summary>
             public class _InOptMut_D
             {
                 public D? Opt;
@@ -709,12 +805,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_D(D value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `D` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_D`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `D`/`Const_D` to pass it to the function.
+            /// </summary>
             public class _InOptConst_D
             {
                 public Const_D? Opt;
@@ -724,6 +822,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_D(Const_D value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::E`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -732,6 +831,7 @@ public static partial class MR
             ///   Indirect: (non-virtual)
             ///     `MR::CopyInheritedMembers::B`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_E : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -778,7 +878,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_E() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_DefaultConstruct", ExactSpelling = true)]
@@ -786,7 +888,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::E::E`.
+                /// </summary>
                 public unsafe Const_E(MR.CS.CopyInheritedMembers.Const_E _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_ConstructFromAnother", ExactSpelling = true)]
@@ -795,6 +899,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::E`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -803,6 +908,7 @@ public static partial class MR
             ///   Indirect: (non-virtual)
             ///     `MR::CopyInheritedMembers::B`
             /// This is the non-const half of the class.
+            /// </summary>
             public class E : Const_E
             {
                 internal unsafe E(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -833,7 +939,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe E() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_DefaultConstruct", ExactSpelling = true)]
@@ -841,7 +949,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::E::E`.
+                /// </summary>
                 public unsafe E(MR.CS.CopyInheritedMembers.Const_E _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_ConstructFromAnother", ExactSpelling = true)]
@@ -849,7 +959,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::E::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.E assign(MR.CS.CopyInheritedMembers.Const_E _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_AssignFromAnother", ExactSpelling = true)]
@@ -858,12 +970,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `E` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_E`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `E`/`Const_E` directly.
+            /// </summary>
             public class _InOptMut_E
             {
                 public E? Opt;
@@ -873,12 +987,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_E(E value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `E` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_E`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `E`/`Const_E` to pass it to the function.
+            /// </summary>
             public class _InOptConst_E
             {
                 public Const_E? Opt;
@@ -888,6 +1004,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_E(Const_E value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::F`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -896,6 +1013,7 @@ public static partial class MR
             ///   Indirect: (non-virtual)
             ///     `MR::CopyInheritedMembers::B`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_F : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -942,7 +1060,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_F() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_DefaultConstruct", ExactSpelling = true)]
@@ -950,7 +1070,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::F::F`.
+                /// </summary>
                 public unsafe Const_F(MR.CS.CopyInheritedMembers.Const_F _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_ConstructFromAnother", ExactSpelling = true)]
@@ -959,6 +1081,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::F`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -967,6 +1090,7 @@ public static partial class MR
             ///   Indirect: (non-virtual)
             ///     `MR::CopyInheritedMembers::B`
             /// This is the non-const half of the class.
+            /// </summary>
             public class F : Const_F
             {
                 internal unsafe F(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -997,7 +1121,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe F() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_DefaultConstruct", ExactSpelling = true)]
@@ -1005,7 +1131,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::F::F`.
+                /// </summary>
                 public unsafe F(MR.CS.CopyInheritedMembers.Const_F _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_ConstructFromAnother", ExactSpelling = true)]
@@ -1013,7 +1141,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::F::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.F assign(MR.CS.CopyInheritedMembers.Const_F _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_AssignFromAnother", ExactSpelling = true)]
@@ -1022,12 +1152,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `F` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_F`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `F`/`Const_F` directly.
+            /// </summary>
             public class _InOptMut_F
             {
                 public F? Opt;
@@ -1037,12 +1169,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_F(F value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `F` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_F`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `F`/`Const_F` to pass it to the function.
+            /// </summary>
             public class _InOptConst_F
             {
                 public Const_F? Opt;
@@ -1052,6 +1186,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_F(Const_F value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::G`.
             /// Base classes:
             ///   Virtual:
@@ -1063,6 +1198,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::K`
             ///     `MR::CopyInheritedMembers::L`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_G : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1113,7 +1249,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_G() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_DefaultConstruct", ExactSpelling = true)]
@@ -1121,7 +1259,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
+                /// </summary>
                 public unsafe Const_G(MR.CS.CopyInheritedMembers._ByValue_G _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_ConstructFromAnother", ExactSpelling = true)]
@@ -1129,7 +1269,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::G::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_StaticFunc", ExactSpelling = true)]
@@ -1138,6 +1280,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::G`.
             /// Base classes:
             ///   Virtual:
@@ -1149,6 +1292,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::K`
             ///     `MR::CopyInheritedMembers::L`
             /// This is the non-const half of the class.
+            /// </summary>
             public class G : Const_G
             {
                 internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -1173,7 +1317,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe G() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_DefaultConstruct", ExactSpelling = true)]
@@ -1181,7 +1327,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
+                /// </summary>
                 public unsafe G(MR.CS.CopyInheritedMembers._ByValue_G _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_ConstructFromAnother", ExactSpelling = true)]
@@ -1189,7 +1337,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::G::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.G _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_ConvertTo_int", ExactSpelling = true)]
@@ -1197,7 +1347,9 @@ public static partial class MR
                     return __MR_CopyInheritedMembers_G_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::G::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.G assign(MR.CS.CopyInheritedMembers._ByValue_G _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_AssignFromAnother", ExactSpelling = true)]
@@ -1205,7 +1357,9 @@ public static partial class MR
                     return new(__MR_CopyInheritedMembers_G_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::G::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_Method", ExactSpelling = true)]
@@ -1214,6 +1368,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `G` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -1221,6 +1376,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_G
             {
                 internal readonly Const_G? Value;
@@ -1232,12 +1388,14 @@ public static partial class MR
                 public static implicit operator _ByValue_G(MR.CS.Misc._Moved<G> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `G` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_G`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `G`/`Const_G` directly.
+            /// </summary>
             public class _InOptMut_G
             {
                 public G? Opt;
@@ -1247,12 +1405,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_G(G value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `G` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_G`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `G`/`Const_G` to pass it to the function.
+            /// </summary>
             public class _InOptConst_G
             {
                 public Const_G? Opt;
@@ -1262,6 +1422,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_G(Const_G value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::H`.
             /// Base classes:
             ///   Virtual:
@@ -1269,6 +1430,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::CopyInheritedMembers::G`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_H : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1327,7 +1489,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_H() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_DefaultConstruct", ExactSpelling = true)]
@@ -1335,7 +1499,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
+                /// </summary>
                 public unsafe Const_H(MR.CS.CopyInheritedMembers._ByValue_H _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_ConstructFromAnother", ExactSpelling = true)]
@@ -1343,7 +1509,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::H::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_StaticFunc", ExactSpelling = true)]
@@ -1352,6 +1520,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::H`.
             /// Base classes:
             ///   Virtual:
@@ -1359,6 +1528,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::CopyInheritedMembers::G`
             /// This is the non-const half of the class.
+            /// </summary>
             public class H : Const_H
             {
                 internal unsafe H(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -1391,7 +1561,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe H() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_DefaultConstruct", ExactSpelling = true)]
@@ -1399,7 +1571,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
+                /// </summary>
                 public unsafe H(MR.CS.CopyInheritedMembers._ByValue_H _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_ConstructFromAnother", ExactSpelling = true)]
@@ -1407,7 +1581,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::H::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.H _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_ConvertTo_int", ExactSpelling = true)]
@@ -1415,7 +1591,9 @@ public static partial class MR
                     return __MR_CopyInheritedMembers_H_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::H::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.H assign(MR.CS.CopyInheritedMembers._ByValue_H _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_AssignFromAnother", ExactSpelling = true)]
@@ -1423,7 +1601,9 @@ public static partial class MR
                     return new(__MR_CopyInheritedMembers_H_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::H::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_Method", ExactSpelling = true)]
@@ -1432,6 +1612,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `H` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -1439,6 +1620,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_H
             {
                 internal readonly Const_H? Value;
@@ -1450,12 +1632,14 @@ public static partial class MR
                 public static implicit operator _ByValue_H(MR.CS.Misc._Moved<H> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `H` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_H`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `H`/`Const_H` directly.
+            /// </summary>
             public class _InOptMut_H
             {
                 public H? Opt;
@@ -1465,12 +1649,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_H(H value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `H` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_H`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `H`/`Const_H` to pass it to the function.
+            /// </summary>
             public class _InOptConst_H
             {
                 public Const_H? Opt;
@@ -1480,6 +1666,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_H(Const_H value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::I`.
             /// Base classes:
             ///   Virtual:
@@ -1487,6 +1674,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::CopyInheritedMembers::G`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_I : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1545,7 +1733,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_I() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_DefaultConstruct", ExactSpelling = true)]
@@ -1553,7 +1743,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
+                /// </summary>
                 public unsafe Const_I(MR.CS.CopyInheritedMembers._ByValue_I _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_ConstructFromAnother", ExactSpelling = true)]
@@ -1561,7 +1753,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::I::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_StaticFunc", ExactSpelling = true)]
@@ -1570,6 +1764,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::I`.
             /// Base classes:
             ///   Virtual:
@@ -1577,6 +1772,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::CopyInheritedMembers::G`
             /// This is the non-const half of the class.
+            /// </summary>
             public class I : Const_I
             {
                 internal unsafe I(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -1609,7 +1805,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe I() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_DefaultConstruct", ExactSpelling = true)]
@@ -1617,7 +1815,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
+                /// </summary>
                 public unsafe I(MR.CS.CopyInheritedMembers._ByValue_I _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_ConstructFromAnother", ExactSpelling = true)]
@@ -1625,7 +1825,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::I::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.I _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_ConvertTo_int", ExactSpelling = true)]
@@ -1633,7 +1835,9 @@ public static partial class MR
                     return __MR_CopyInheritedMembers_I_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::I::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.I assign(MR.CS.CopyInheritedMembers._ByValue_I _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_AssignFromAnother", ExactSpelling = true)]
@@ -1641,7 +1845,9 @@ public static partial class MR
                     return new(__MR_CopyInheritedMembers_I_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::I::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_Method", ExactSpelling = true)]
@@ -1650,6 +1856,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `I` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -1657,6 +1864,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_I
             {
                 internal readonly Const_I? Value;
@@ -1668,12 +1876,14 @@ public static partial class MR
                 public static implicit operator _ByValue_I(MR.CS.Misc._Moved<I> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `I` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_I`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `I`/`Const_I` directly.
+            /// </summary>
             public class _InOptMut_I
             {
                 public I? Opt;
@@ -1683,12 +1893,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_I(I value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `I` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_I`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `I`/`Const_I` to pass it to the function.
+            /// </summary>
             public class _InOptConst_I
             {
                 public Const_I? Opt;
@@ -1698,6 +1910,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_I(Const_I value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::J`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -1711,6 +1924,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::K`
             ///     `MR::CopyInheritedMembers::L`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_J : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1761,7 +1975,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_J() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_DefaultConstruct", ExactSpelling = true)]
@@ -1769,7 +1985,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::J::J`.
+                /// </summary>
                 public unsafe Const_J(MR.CS.CopyInheritedMembers.Const_J _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_ConstructFromAnother", ExactSpelling = true)]
@@ -1777,7 +1995,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::J::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_StaticFunc", ExactSpelling = true)]
@@ -1786,6 +2006,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::J`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -1799,6 +2020,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::K`
             ///     `MR::CopyInheritedMembers::L`
             /// This is the non-const half of the class.
+            /// </summary>
             public class J : Const_J
             {
                 internal unsafe J(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -1823,7 +2045,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe J() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_DefaultConstruct", ExactSpelling = true)]
@@ -1831,7 +2055,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::J::J`.
+                /// </summary>
                 public unsafe J(MR.CS.CopyInheritedMembers.Const_J _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_ConstructFromAnother", ExactSpelling = true)]
@@ -1839,7 +2065,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_ConstructFromAnother(_other._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::J::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.J _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_ConvertTo_int", ExactSpelling = true)]
@@ -1847,7 +2075,9 @@ public static partial class MR
                     return __MR_CopyInheritedMembers_J_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::J::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.J assign(MR.CS.CopyInheritedMembers.Const_J _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_AssignFromAnother", ExactSpelling = true)]
@@ -1855,7 +2085,9 @@ public static partial class MR
                     return new(__MR_CopyInheritedMembers_J_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::J::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_Method", ExactSpelling = true)]
@@ -1864,12 +2096,14 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `J` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_J`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `J`/`Const_J` directly.
+            /// </summary>
             public class _InOptMut_J
             {
                 public J? Opt;
@@ -1879,12 +2113,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_J(J value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `J` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_J`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `J`/`Const_J` to pass it to the function.
+            /// </summary>
             public class _InOptConst_J
             {
                 public Const_J? Opt;
@@ -1894,6 +2130,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_J(Const_J value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::K`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -1902,6 +2139,7 @@ public static partial class MR
             ///   Ambiguous:
             ///     `MR::CopyInheritedMembers::A`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_K : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -1940,7 +2178,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_K() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_DefaultConstruct", ExactSpelling = true)]
@@ -1948,7 +2188,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
+                /// </summary>
                 public unsafe Const_K(MR.CS.CopyInheritedMembers._ByValue_K _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_ConstructFromAnother", ExactSpelling = true)]
@@ -1957,6 +2199,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::K`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -1965,6 +2208,7 @@ public static partial class MR
             ///   Ambiguous:
             ///     `MR::CopyInheritedMembers::A`
             /// This is the non-const half of the class.
+            /// </summary>
             public class K : Const_K
             {
                 internal unsafe K(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -1987,7 +2231,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe K() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_DefaultConstruct", ExactSpelling = true)]
@@ -1995,7 +2241,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
+                /// </summary>
                 public unsafe K(MR.CS.CopyInheritedMembers._ByValue_K _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_ConstructFromAnother", ExactSpelling = true)]
@@ -2003,7 +2251,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::K::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.K assign(MR.CS.CopyInheritedMembers._ByValue_K _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_AssignFromAnother", ExactSpelling = true)]
@@ -2012,6 +2262,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `K` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2019,6 +2270,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_K
             {
                 internal readonly Const_K? Value;
@@ -2030,12 +2282,14 @@ public static partial class MR
                 public static implicit operator _ByValue_K(MR.CS.Misc._Moved<K> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `K` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_K`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `K`/`Const_K` directly.
+            /// </summary>
             public class _InOptMut_K
             {
                 public K? Opt;
@@ -2045,12 +2299,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_K(K value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `K` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_K`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `K`/`Const_K` to pass it to the function.
+            /// </summary>
             public class _InOptConst_K
             {
                 public Const_K? Opt;
@@ -2060,6 +2316,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_K(Const_K value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::L`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -2068,6 +2325,7 @@ public static partial class MR
             ///   Ambiguous:
             ///     `MR::CopyInheritedMembers::A`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_L : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -2106,7 +2364,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_L() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_DefaultConstruct", ExactSpelling = true)]
@@ -2114,7 +2374,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
+                /// </summary>
                 public unsafe Const_L(MR.CS.CopyInheritedMembers._ByValue_L _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_ConstructFromAnother", ExactSpelling = true)]
@@ -2123,6 +2385,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::L`.
             /// Base classes:
             ///   Direct: (non-virtual)
@@ -2131,6 +2394,7 @@ public static partial class MR
             ///   Ambiguous:
             ///     `MR::CopyInheritedMembers::A`
             /// This is the non-const half of the class.
+            /// </summary>
             public class L : Const_L
             {
                 internal unsafe L(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -2153,7 +2417,9 @@ public static partial class MR
                     return ret;
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe L() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_DefaultConstruct", ExactSpelling = true)]
@@ -2161,7 +2427,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
+                /// </summary>
                 public unsafe L(MR.CS.CopyInheritedMembers._ByValue_L _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_ConstructFromAnother", ExactSpelling = true)]
@@ -2169,7 +2437,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::L::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.L assign(MR.CS.CopyInheritedMembers._ByValue_L _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_AssignFromAnother", ExactSpelling = true)]
@@ -2178,6 +2448,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `L` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2185,6 +2456,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_L
             {
                 internal readonly Const_L? Value;
@@ -2196,12 +2468,14 @@ public static partial class MR
                 public static implicit operator _ByValue_L(MR.CS.Misc._Moved<L> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `L` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_L`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `L`/`Const_L` directly.
+            /// </summary>
             public class _InOptMut_L
             {
                 public L? Opt;
@@ -2211,12 +2485,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_L(L value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `L` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_L`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `L`/`Const_L` to pass it to the function.
+            /// </summary>
             public class _InOptConst_L
             {
                 public Const_L? Opt;
@@ -2227,6 +2503,7 @@ public static partial class MR
             }
 
             // Now test that a non-virtual base of a virtual base gets treated as a virtual.
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::M`.
             /// Base classes:
             ///   Virtual:
@@ -2239,6 +2516,7 @@ public static partial class MR
             ///   Indirect: (non-virtual)
             ///     `MR::CopyInheritedMembers::O`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_M : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -2297,7 +2575,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_M() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_DefaultConstruct", ExactSpelling = true)]
@@ -2305,7 +2585,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
+                /// </summary>
                 public unsafe Const_M(MR.CS.CopyInheritedMembers._ByValue_M _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_ConstructFromAnother", ExactSpelling = true)]
@@ -2313,7 +2595,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::M::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_StaticFunc", ExactSpelling = true)]
@@ -2323,6 +2607,7 @@ public static partial class MR
             }
 
             // Now test that a non-virtual base of a virtual base gets treated as a virtual.
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::M`.
             /// Base classes:
             ///   Virtual:
@@ -2335,6 +2620,7 @@ public static partial class MR
             ///   Indirect: (non-virtual)
             ///     `MR::CopyInheritedMembers::O`
             /// This is the non-const half of the class.
+            /// </summary>
             public class M : Const_M
             {
                 internal unsafe M(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -2367,7 +2653,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe M() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_DefaultConstruct", ExactSpelling = true)]
@@ -2375,7 +2663,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
+                /// </summary>
                 public unsafe M(MR.CS.CopyInheritedMembers._ByValue_M _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_ConstructFromAnother", ExactSpelling = true)]
@@ -2383,7 +2673,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::M::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.M _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_ConvertTo_int", ExactSpelling = true)]
@@ -2391,7 +2683,9 @@ public static partial class MR
                     return __MR_CopyInheritedMembers_M_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::M::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.M assign(MR.CS.CopyInheritedMembers._ByValue_M _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_AssignFromAnother", ExactSpelling = true)]
@@ -2399,7 +2693,9 @@ public static partial class MR
                     return new(__MR_CopyInheritedMembers_M_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::M::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_Method", ExactSpelling = true)]
@@ -2408,6 +2704,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `M` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2415,6 +2712,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_M
             {
                 internal readonly Const_M? Value;
@@ -2426,12 +2724,14 @@ public static partial class MR
                 public static implicit operator _ByValue_M(MR.CS.Misc._Moved<M> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `M` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_M`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `M`/`Const_M` directly.
+            /// </summary>
             public class _InOptMut_M
             {
                 public M? Opt;
@@ -2441,12 +2741,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_M(M value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `M` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_M`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `M`/`Const_M` to pass it to the function.
+            /// </summary>
             public class _InOptConst_M
             {
                 public Const_M? Opt;
@@ -2456,6 +2758,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_M(Const_M value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::N`.
             /// Base classes:
             ///   Virtual:
@@ -2468,6 +2771,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::CopyInheritedMembers::O`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_N : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -2534,7 +2838,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_N() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_DefaultConstruct", ExactSpelling = true)]
@@ -2542,7 +2848,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
+                /// </summary>
                 public unsafe Const_N(MR.CS.CopyInheritedMembers._ByValue_N _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_ConstructFromAnother", ExactSpelling = true)]
@@ -2550,7 +2858,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::N::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_StaticFunc", ExactSpelling = true)]
@@ -2559,6 +2869,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::N`.
             /// Base classes:
             ///   Virtual:
@@ -2571,6 +2882,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::CopyInheritedMembers::O`
             /// This is the non-const half of the class.
+            /// </summary>
             public class N : Const_N
             {
                 internal unsafe N(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -2611,7 +2923,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe N() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_DefaultConstruct", ExactSpelling = true)]
@@ -2619,7 +2933,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
+                /// </summary>
                 public unsafe N(MR.CS.CopyInheritedMembers._ByValue_N _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_ConstructFromAnother", ExactSpelling = true)]
@@ -2627,7 +2943,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::N::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.N _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_ConvertTo_int", ExactSpelling = true)]
@@ -2635,7 +2953,9 @@ public static partial class MR
                     return __MR_CopyInheritedMembers_N_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::N::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.N assign(MR.CS.CopyInheritedMembers._ByValue_N _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_AssignFromAnother", ExactSpelling = true)]
@@ -2643,7 +2963,9 @@ public static partial class MR
                     return new(__MR_CopyInheritedMembers_N_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::N::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_Method", ExactSpelling = true)]
@@ -2652,6 +2974,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `N` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2659,6 +2982,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_N
             {
                 internal readonly Const_N? Value;
@@ -2670,12 +2994,14 @@ public static partial class MR
                 public static implicit operator _ByValue_N(MR.CS.Misc._Moved<N> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `N` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_N`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `N`/`Const_N` directly.
+            /// </summary>
             public class _InOptMut_N
             {
                 public N? Opt;
@@ -2685,12 +3011,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_N(N value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `N` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_N`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `N`/`Const_N` to pass it to the function.
+            /// </summary>
             public class _InOptConst_N
             {
                 public Const_N? Opt;
@@ -2700,6 +3028,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_N(Const_N value) {return new(value);}
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::O`.
             /// Base classes:
             ///   Virtual:
@@ -2711,6 +3040,7 @@ public static partial class MR
             ///   Indirect: (non-virtual)
             ///     `MR::CopyInheritedMembers::M`
             /// This is the const half of the class.
+            /// </summary>
             public class Const_O : MR.CS.Misc.Object, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
@@ -2785,7 +3115,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe Const_O() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_DefaultConstruct", ExactSpelling = true)]
@@ -2793,7 +3125,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
+                /// </summary>
                 public unsafe Const_O(MR.CS.CopyInheritedMembers._ByValue_O _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_ConstructFromAnother", ExactSpelling = true)]
@@ -2801,7 +3135,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::O::StaticFunc`.
+                /// </summary>
                 public static void staticFunc()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_StaticFunc", ExactSpelling = true)]
@@ -2810,6 +3146,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// Generated from class `MR::CopyInheritedMembers::O`.
             /// Base classes:
             ///   Virtual:
@@ -2821,6 +3158,7 @@ public static partial class MR
             ///   Indirect: (non-virtual)
             ///     `MR::CopyInheritedMembers::M`
             /// This is the non-const half of the class.
+            /// </summary>
             public class O : Const_O
             {
                 internal unsafe O(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -2869,7 +3207,9 @@ public static partial class MR
                     }
                 }
 
+                /// <summary>
                 /// Constructs an empty (default-constructed) instance.
+                /// </summary>
                 public unsafe O() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_DefaultConstruct", ExactSpelling = true)]
@@ -2877,7 +3217,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_DefaultConstruct();
                 }
 
+                /// <summary>
                 /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
+                /// </summary>
                 public unsafe O(MR.CS.CopyInheritedMembers._ByValue_O _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_ConstructFromAnother", ExactSpelling = true)]
@@ -2885,7 +3227,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
+                /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::O::operator int`.
+                /// </summary>
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.O _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_ConvertTo_int", ExactSpelling = true)]
@@ -2893,7 +3237,9 @@ public static partial class MR
                     return __MR_CopyInheritedMembers_O_ConvertTo_int(_this._UnderlyingPtr);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::O::operator=`.
+                /// </summary>
                 public unsafe MR.CS.CopyInheritedMembers.O assign(MR.CS.CopyInheritedMembers._ByValue_O _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_AssignFromAnother", ExactSpelling = true)]
@@ -2901,7 +3247,9 @@ public static partial class MR
                     return new(__MR_CopyInheritedMembers_O_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::O::Method`.
+                /// </summary>
                 public unsafe void method()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_Method", ExactSpelling = true)]
@@ -2910,6 +3258,7 @@ public static partial class MR
                 }
             }
 
+            /// <summary>
             /// This is used as a function parameter when the underlying function receives `O` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
@@ -2917,6 +3266,7 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
             public class _ByValue_O
             {
                 internal readonly Const_O? Value;
@@ -2928,12 +3278,14 @@ public static partial class MR
                 public static implicit operator _ByValue_O(MR.CS.Misc._Moved<O> arg) {return new(arg);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `O` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_O`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `O`/`Const_O` directly.
+            /// </summary>
             public class _InOptMut_O
             {
                 public O? Opt;
@@ -2943,12 +3295,14 @@ public static partial class MR
                 public static implicit operator _InOptMut_O(O value) {return new(value);}
             }
 
+            /// <summary>
             /// This is used for optional parameters of class `O` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_O`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `O`/`Const_O` to pass it to the function.
+            /// </summary>
             public class _InOptConst_O
             {
                 public Const_O? Opt;
