@@ -54,7 +54,13 @@
 //     * `name_` - parameter name.
 //     * `default_arg_` - parenthesized default argument, or empty if none.
 //     * `default_arg_cpp_` - parenthesized default argument, or empty if none. This one is adjusted to be a valid C++ expression (e.g. `{}` is prepended with a type, etc).
-#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, deprecated_, comment_, params_)
+// `lifetimes_` - a list of lifetime relations, or empty if none.
+//     Each element is `(holder_, target_)`, where both `holder_` and `target_` are indices.
+//     Those indices are picked to match the Pybind's `keep_alive()` convention:
+//     * 0 = return value
+//     * 1+ = parameters, where `1` is `this` in member functions, or just the first parameter in free functions (this macro can't receive member functions, but I'm documenting it here for completeness).
+//     In constructors, `0` is illegal and `1` is the resulting object (this macro can't receive constructors either, documenting here for completeness).
+#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, deprecated_, comment_, params_, lifetimes_)
 #endif
 
 #ifndef MB_CLASS
@@ -83,6 +89,7 @@
 //         * `deprecated_` - either a deprecation message string literal, or empty string if deprecated without a message, or completely empty if not deprecated.
 //         * `comment_` - a string literal with the comment, or empty if none.
 //         * `params_` - a parameter list, same as for `MB_FUNC(...)`, see above.
+//         * `lifetimes_` - lifetime relations, same as for `MB_FUNC(...)`, see above.
 //     * A public method `(method, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_)`, where:
 //         * `static_` - either `static` or nothing if non-static.
 //         * `assignment_kind_` one of: `none`, `copy`, `move` (the latter two represent copy and move assignment respectively).
@@ -94,6 +101,7 @@
 //         * `deprecated_` - either a deprecation message string literal, or empty string if deprecated without a message, or completely empty if not deprecated.
 //         * `comment_` - a string literal with the comment, or empty if none.
 //         * `params_` - a parameter list, same as for constructors as documented above.
+//         * `lifetimes_` - lifetime relations, same as for `MB_FUNC(...)`, see above.
 //     * A public conversion operator `(conv_op, explicit_, ret_, const_, deprecated_, comment_)`, with the same parameter meaning as above.
 #define MB_CLASS(kind_, name_, qualname_, ns_stack_, is_aggregate_, comment_, bases_, members_)
 #endif

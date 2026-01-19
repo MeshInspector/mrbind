@@ -1328,17 +1328,163 @@ namespace mrbind
             return ret;
         }
 
-        [[nodiscard]] std::vector<FuncParam> GetFuncParams(const clang::FunctionDecl &decl)
+        [[nodiscard]] std::vector<FuncParam> GetFuncParams(const clang::FunctionDecl &decl, std::set<LifetimeRelation> *lifetime_relations, bool is_member_function_or_ctor, bool is_ctor)
         {
             std::vector<FuncParam> ret;
-            for (const clang::ParmVarDecl *p : decl.parameters())
+
+            auto HandleLifetimeAttrs = [&](const clang::Decl *this_param_decl, const LifetimeRelation::Variant &this_entity_var)
+            {
+                if (lifetime_relations)
+                {
+                    // This is a copy of an internal Clang function with the same name, slightly modified to compile here.
+                    // Checks if the type of the function is marked with `[[clang::lifetime_bound]]` (i.e. the attribute is after the parameter list and cvref-qualifiers, which in case of this attribute makes it act on `this`).
+                    auto implicitObjectParamIsLifetimeBound = [](const clang::FunctionDecl *FD) -> bool
+                    {
+                        FD = FD->getMostRecentDecl();
+                        const clang::TypeSourceInfo *TSI = FD->getTypeSourceInfo();
+                        if (!TSI)
+                            return false;
+                        // Don't declare this variable in the second operand of the for-statement;
+                        // GCC miscompiles that by ending its lifetime before evaluating the
+                        // third operand. See gcc.gnu.org/PR86769.
+                        clang::AttributedTypeLoc ATL;
+                        for (clang::TypeLoc TL = TSI->getTypeLoc(); (ATL = TL.getAsAdjusted<clang::AttributedTypeLoc>()); TL = ATL.getModifiedLoc())
+                        {
+                            if (ATL.getAttrAs<clang::LifetimeBoundAttr>())
+                                return true;
+                        }
+
+                        // mrbind: This is copied from the internal Clang function with the same name too.
+                        auto isNormalAssignmentOperator = [](const clang::FunctionDecl *FD) -> bool
+                        {
+                            clang::OverloadedOperatorKind OO = FD->getDeclName().getCXXOverloadedOperator();
+                            if (OO == clang::OO_Equal || isCompoundAssignmentOperator(OO))
+                            {
+                                clang::QualType RetT = FD->getReturnType();
+                                if (RetT->isLValueReferenceType())
+                                {
+                                    clang::ASTContext &Ctx = FD->getASTContext();
+                                    clang::QualType LHST;
+                                    auto *MD = llvm::dyn_cast<clang::CXXMethodDecl>(FD);
+                                    if (MD && MD->isCXXInstanceMember())
+                                        LHST = Ctx.getLValueReferenceType(MD->getFunctionObjectParameterType());
+                                    else
+                                        LHST = FD->getParamDecl(0)->getType();
+                                    if (Ctx.hasSameType(RetT, LHST))
+                                        return true;
+                                }
+                            }
+                            return false;
+                        };
+
+                        return isNormalAssignmentOperator(FD);
+                    };
+
+                    // Calls `func` which is `(int attr_param) -> void` for every parameter of `[[clang::lifetime_capture_by(...)]]` attribute specified on this function, after its parameter list and cvref-qualifiers,
+                    //   which in case of this attribute makes it act on `this`.
+                    auto ForEachLifetimeCapturedByParamOfImplicitThisParam = [&](auto &&func)
+                    {
+                        // This is mostly pasted from `implicitObjectParamIsLifetimeBound()`, which is an internal Clang function, which I also pasted above.
+                        // I just changed what attribute is being handled here.
+
+                        auto FD = decl.getMostRecentDecl();
+                        const clang::TypeSourceInfo *TSI = FD->getTypeSourceInfo();
+                        if (!TSI)
+                            return;
+                        // Don't declare this variable in the second operand of the for-statement;
+                        // GCC miscompiles that by ending its lifetime before evaluating the
+                        // third operand. See gcc.gnu.org/PR86769.
+                        clang::AttributedTypeLoc ATL;
+                        for (clang::TypeLoc TL = TSI->getTypeLoc(); (ATL = TL.getAsAdjusted<clang::AttributedTypeLoc>()); TL = ATL.getModifiedLoc())
+                        {
+                            if (auto attr = ATL.getAttrAs<clang::LifetimeCaptureByAttr>())
+                            {
+                                for (int attr_param : attr->params())
+                                    func(attr_param);
+                            }
+                        }
+                    };
+
+                    const bool is_implicit_this_param = std::holds_alternative<LifetimeRelation::ThisObject>(this_entity_var);
+                    assert(is_implicit_this_param != bool(this_param_decl));
+
+                    // `[[clang::lifetimebound]]`?
+                    if (is_implicit_this_param ? implicitObjectParamIsLifetimeBound(&decl) : !this_param_decl->specific_attrs<clang::LifetimeBoundAttr>().empty())
+                    {
+                        // For constructors, gotta unify the handling of "return value" and "this" into one common representation.
+                        // It doesn't really matter which one, I'm picking "this" because this is what Pybind uses, and because it also makes more sense on the language level (constructors don't have a return type, but do have `this`).
+                        //   But on the other hand, this makes less sense
+                        if (is_ctor)
+                            lifetime_relations->insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var});
+                        else
+                            lifetime_relations->insert(LifetimeRelation{.holder = LifetimeRelation::ReturnValue{}, .target = this_entity_var});
+                    }
+
+                    // `[[clang::lifetime_capture_by(...)]]`?
+                    // This attribute seems to only exist in Clang 20 and newer.
+                    #if CLANG_VERSION_MAJOR >= 20
+                    auto HandleLifetimeCapturedByParam = [&](int attr_param)
+                    {
+                        if (attr_param < 0)
+                            return; // Some special value that we don't care about, see `clang::LifetimeCaptureByAttr::ArgIndex` if you're curious.
+
+                        if (is_member_function_or_ctor)
+                        {
+                            // Special handling of the `this` target.
+                            if (attr_param == 0)
+                            {
+                                lifetime_relations->insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var});
+                                return;
+                            }
+
+                            // Remove `this` from the indexing, making the first normal parameter have index 0.
+                            attr_param--;
+                        }
+
+                        // The target is some other parameter.
+                        bool attr_param_is_valid = true;
+                        if (auto p = std::get_if<LifetimeRelation::Param>(&this_entity_var))
+                        {
+                            if (p->index == attr_param)
+                                attr_param_is_valid = false;
+                        }
+                        assert(attr_param_is_valid); // The two parameter indices are the same!
+
+                        if (attr_param_is_valid)
+                            lifetime_relations->insert(LifetimeRelation{.holder = LifetimeRelation::Param{.index = attr_param}, .target = this_entity_var});
+                    };
+
+                    if (is_implicit_this_param)
+                    {
+                        ForEachLifetimeCapturedByParamOfImplicitThisParam(HandleLifetimeCapturedByParam);
+                    }
+                    else
+                    {
+                        for (const auto *attr : this_param_decl->specific_attrs<clang::LifetimeCaptureByAttr>())
+                        {
+                            for (int attr_param : attr->params())
+                                HandleLifetimeCapturedByParam(attr_param);
+                        }
+                    }
+                    #endif
+                }
+            };
+
+            for (int i = 0; const clang::ParmVarDecl *p : decl.parameters())
             {
                 FuncParam &new_param = ret.emplace_back();
                 if (auto name = p->getName(); !name.empty())
                     new_param.name = name; // Since `new_param.name` is optional, we don't want to fill it if the parameter name is empty.
                 new_param.type = GetTypeStrings(p->getType(), TypeUses::parameter);
                 GetDefaultArgumentStrings(new_param.default_argument, *p, printing_policies.normal);
+                HandleLifetimeAttrs(p, LifetimeRelation::Param{.index = i});
+                i++;
             }
+
+            // The lifetime annotations on `this`:
+            if (is_member_function_or_ctor)
+                HandleLifetimeAttrs(nullptr, LifetimeRelation::ThisObject{});
+
             return ret;
         }
 
@@ -1448,8 +1594,11 @@ namespace mrbind
 
                 BasicFunc *basic_func = nullptr;
 
+                bool is_ctor = false;
+
                 if (auto ctor = llvm::dyn_cast<clang::CXXConstructorDecl>(method))
                 {
+                    is_ctor = true;
                     ClassCtor &new_ctor = target_class.members.emplace_back().emplace<ClassCtor>();
                     new_ctor.is_explicit = ctor->isExplicit();
                     new_ctor.is_trivial = ctor->isTrivial();
@@ -1532,7 +1681,7 @@ namespace mrbind
                 }
 
                 basic_func->comment = GetCommentString(*ctx, *params, *method);
-                basic_func->params = GetFuncParams(*method);
+                basic_func->params = GetFuncParams(*method, &basic_func->lifetimes, true, is_ctor);
                 basic_func->deprecation_message = GetDeprecationMessage(*method);
                 return true; // Done processing member function, the rest is for non-members.
             }
@@ -1543,7 +1692,7 @@ namespace mrbind
             if (HasInstantiateOnlyAttribute(*decl))
             {
                 // Just register the types.
-                (void)GetFuncParams(*decl);
+                (void)GetFuncParams(*decl, nullptr, false, false);
                 (void)GetTypeStrings(decl->getReturnType(), TypeUses::returned);
                 return true;
             }
@@ -1566,7 +1715,7 @@ namespace mrbind
             new_func.simple_name = GetAdjustedFuncName(*decl);
             new_func.return_type = GetTypeStrings(decl->getReturnType(), TypeUses::returned);
             new_func.comment = GetCommentString(*ctx, *params, *decl);
-            new_func.params = GetFuncParams(*decl);
+            new_func.params = GetFuncParams(*decl, &new_func.lifetimes, false, false);
             new_func.deprecation_message = GetDeprecationMessage(*decl);
             new_func.declared_in_file = GetDefinitionLocationFile(*decl, new_func.name);
 

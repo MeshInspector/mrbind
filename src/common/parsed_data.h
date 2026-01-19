@@ -146,6 +146,56 @@ namespace mrbind
         }
     };
 
+    // This represents the relation between two entities from the following set related to a function: its parameters, its return value, and the `this` object.
+    // The `target` object is expected to stay alive at least as long as `holder`, which holds some sort of reference to it (or if we bind to a language that lets you do this, that `holder` should keep `target` alive somehow).
+    // Note that this class doesn't cover all lifetime extensions that you should do:
+    //   For class fields, you're recommended to extend the lifetimes of objects asigned to them (especially if the field is a raw pointer, but covering all classes is probably a good idea too).
+    //   And when returning a reference to a field, it should extend the lifetime of `this`.
+    struct LifetimeRelation
+    {
+        // For constructors, this is the resulting object.
+        struct ThisObject
+        {
+            static constexpr std::string_view name_in_variant = "this_object";
+
+            MBREFL_STRUCT()
+
+            friend auto operator<=>(const ThisObject &, const ThisObject &) = default;
+        };
+
+        struct Param
+        {
+            static constexpr std::string_view name_in_variant = "param";
+
+            MBREFL_STRUCT(
+                (int)(index, -1) // 0-based parameter index.
+            )
+
+            friend auto operator<=>(const Param &, const Param &) = default;
+        };
+
+        // For constructors, this should not be used. Use `ThisObject` to refer to the resulting object instead. This matches the Pybind convention.
+        struct ReturnValue
+        {
+            static constexpr std::string_view name_in_variant = "return";
+
+            MBREFL_STRUCT()
+
+            friend auto operator<=>(const ReturnValue &, const ReturnValue &) = default;
+        };
+
+        // Not placing `Param` first to avoid the dumb Clang bug making the variant not default-constructible.
+        using Variant = std::variant<ThisObject, Param, ReturnValue>;
+
+        MBREFL_STRUCT(
+            (Variant)(holder)
+            (Variant)(target)
+        )
+        inline static Variant v;
+
+        friend auto operator<=>(const LifetimeRelation &, const LifetimeRelation &) = default;
+    };
+
     struct BasicFunc
     {
         BasicFunc() = default;
@@ -159,6 +209,7 @@ namespace mrbind
             (std::optional<Comment>)(comment)
             (std::vector<FuncParam>)(params)
             (std::optional<std::string>)(deprecation_message) // Null if not deprecated. Empty string if deprecated without a message.
+            (std::set<LifetimeRelation>)(lifetimes) // An ordered `set` to get consistent serialization.
         )
 
         // Respecting the default arguments, is this callable with `n` arguments?

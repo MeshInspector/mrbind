@@ -3558,7 +3558,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     }
 
 // Bind a function.
-#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, deprecated_, comment_, params_) \
+#define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, deprecated_, comment_, params_, lifetimes_) \
     MRBind::pb11::GetRegistry().func_entries.emplace_back( \
         /* Qualified name */\
         MRBIND_STR(MRBIND_IDENTITY qualname_), \
@@ -3739,7 +3739,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field_OFFSETOF_static(class_qualname_, name_)
 
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor(...) DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(__VA_ARGS__) // Need an extra level of nesting for the Clang's dumb MSVC preprocessor imitation.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, copy_move_kind_, deprecated_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_ctor_0(qualname_, explicit_, copy_move_kind_, deprecated_, comment_, params_, lifetimes_) \
     MRBind::pb11::TryAddCtor<\
         /* Copy/move kind. */\
         MRBind::pb11::CopyMoveKind::copy_move_kind_, \
@@ -3759,7 +3759,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_) \
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_, lifetimes_) \
     MRBind::pb11::TryAddFunc< \
         /* Is this function static? */\
         MRBind::pb11::FuncKind:: MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(nonmember_or_static, member_nonstatic),\

@@ -166,7 +166,7 @@ namespace mrbind
         out << "MB_FILE\n\n";
 
         { // Dump file contents.
-            auto dump_params = [&](const std::vector<FuncParam> &params, bool indent_twice = true)
+            auto DumpParams = [&](const std::vector<FuncParam> &params, bool indent_twice = true)
             {
                 if (params.empty())
                 {
@@ -188,6 +188,52 @@ namespace mrbind
                 }
 
                 if (indent_twice && !params.empty())
+                    out << "    ";
+            };
+
+            // `params` is only passed here so we can print nice parameter names.
+            auto DumpLifetimes = [&](const std::vector<FuncParam> &params, const std::set<LifetimeRelation> &lifetimes, bool is_class_member)
+            {
+                if (lifetimes.empty())
+                {
+                    out << "/*no lifetime info*/";
+                    return;
+                }
+
+                out << "/*lifetime info:*/\n";
+                for (const LifetimeRelation &lifetime : lifetimes)
+                {
+                    // This matches the Pybind convention.
+                    // Notably, for constructors, the resulting object uses index `1`, and `0` is unused there (which isn't handled by this function, but by how the parser assigns things.
+                    auto VariantToIndex = [&](bool is_target, const LifetimeRelation::Variant &var) -> std::string
+                    {
+                        std::string kind_str = is_target ? "target: " : "holder: ";
+
+                        return std::visit(Overload{
+                            [&](const LifetimeRelation::ThisObject &) -> std::string
+                            {
+                                assert(is_class_member);
+                                return "1/*" + kind_str + "this*/";
+                            },
+                            [&](const LifetimeRelation::Param &param) -> std::string
+                            {
+                                assert(param.index >= 0);
+                                const auto &param_name = params.at(std::size_t(param.index)).name;
+                                return std::to_string(param.index + 1 + int(is_class_member)) + "/*" + kind_str + "param #" + std::to_string(param.index) + (param_name ? " `" + *param_name + "`" : "") + "*/"; // Pybind indices are 1-based, and index `1` is reserved for `this` in member functions.
+                            },
+                            [&](const LifetimeRelation::ReturnValue &) -> std::string
+                            {
+                                return "0/*" + kind_str + "return*/";
+                            },
+                        }, var);
+                    };
+
+                    if (is_class_member)
+                        out << "    ";
+                    out << "    (" << VariantToIndex(false, lifetime.holder) << ", " << VariantToIndex(true, lifetime.target) << ")\n";
+                }
+
+                if (is_class_member && !lifetimes.empty())
                     out << "    ";
             };
 
@@ -277,7 +323,9 @@ namespace mrbind
                             << (e.deprecation_message ? "/*deprecated:*/" + EscapeQuoteString(*e.deprecation_message) : "/*not deprecated*/") + ", "
                             << (e.comment ? EscapeQuoteString(e.comment->text) : "/*no comment*/")
                             << ", ";
-                        dump_params(e.params, false);
+                        DumpParams(e.params, false);
+                        out << ", ";
+                        DumpLifetimes(e.params, e.lifetimes, false);
                         out << ")\n";
                         EndMultiplexBlock();
                     },
@@ -351,7 +399,9 @@ namespace mrbind
                                         out << ", "
                                             << (ctor.deprecation_message ? "/*deprecated:*/" + EscapeQuoteString(*ctor.deprecation_message) : "/*not deprecated*/") + ", "
                                             << (ctor.comment ? EscapeQuoteString(ctor.comment->text) : "/*no comment*/") << ", ";
-                                        dump_params(ctor.params);
+                                        DumpParams(ctor.params);
+                                        out << ", ";
+                                        DumpLifetimes(ctor.params, ctor.lifetimes, true);
                                         out << ")\n";
                                     },
                                     [&](const ClassMethod &method)
@@ -375,7 +425,9 @@ namespace mrbind
                                             << (method.is_const ? "const" : "/*not const*/") << ", "
                                             << (method.deprecation_message ? "/*deprecated:*/" + EscapeQuoteString(*method.deprecation_message) : "/*not deprecated*/") + ", "
                                             << (method.comment ? EscapeQuoteString(method.comment->text) : "/*no comment*/") << ", ";
-                                        dump_params(method.params);
+                                        DumpParams(method.params);
+                                        out << ", ";
+                                        DumpLifetimes(method.params, method.lifetimes, true);
                                         out << ")\n";
                                     },
                                     [&](const ClassConvOp &conv_op)
