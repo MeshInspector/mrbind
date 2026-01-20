@@ -1479,7 +1479,7 @@ namespace MRBind::pb11
                 // This further strips pointers and refs. Not smart pointers though.
                 using LambdaReturnTypeAdjustedWrapperPtrRefStripped = typename RemovePointersRefs<LambdaReturnTypeAdjustedWrapped>::type;
 
-                // I thought `return_value_policy::autmatic_reference` was supposed to do the same thing, but for some reason it doesn't.
+                // I thought `return_value_policy::automatic_reference` was supposed to do the same thing, but for some reason it doesn't.
                 // E.g. it refuses (at runtime) to call functions returning references to non-movable classes.
                 static constexpr pybind11::return_value_policy ret_policy =
                     returns_unique_ptr_to_builtin ?
@@ -1490,7 +1490,7 @@ namespace MRBind::pb11
                     !std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped>
                         ? bool(Kind & FuncKind::member_nonstatic) ? pybind11::return_value_policy::reference_internal : pybind11::return_value_policy::reference :
                     // This is important too, otherwise pybind11 will const_cast and then move!
-                    std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped> ? pybind11::return_value_policy::copy
+                    std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped> ? (std::is_copy_constructible_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped> ? pybind11::return_value_policy::copy : pybind11::return_value_policy::reference/*ugh*/)
                     : pybind11::return_value_policy::move;
 
                 // Make sure this isn't a hard error. We add our own specializations, and we don't want them to be ambiguous.
