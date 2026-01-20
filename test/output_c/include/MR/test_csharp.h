@@ -840,127 +840,152 @@ MR_C_API MR_CSharp_A *MR_CSharp_A_DefaultConstruct(void);
 MR_C_API MR_CSharp_A *MR_CSharp_A_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_A *MR_CSharp_A_OffsetPtr(const MR_CSharp_A *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_A *MR_CSharp_A_OffsetMutablePtr(MR_CSharp_A *ptr, ptrdiff_t i);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::B`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_B *MR_CSharp_A_StaticDowncastTo_MR_CSharp_B(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::B`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_B *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_B(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::B`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_B *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::B`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_B(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::B`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// This version is acting on mutable pointers.
 /// Parameter `object` can not be null. It is a single object.
+/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_B *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_B(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::B`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// Parameter `object` can not be null. It is a single object.
+/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_B(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_C *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_C(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// This version is acting on mutable pointers.
 /// Parameter `object` can not be null. It is a single object.
+/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_C *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_C(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// Parameter `object` can not be null. It is a single object.
+/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_C(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_F *MR_CSharp_A_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_F *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::F`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_F *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::F`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_F(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::F`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// This version is acting on mutable pointers.
 /// Parameter `object` can not be null. It is a single object.
+/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_F *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_F(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::F`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// Parameter `object` can not be null. It is a single object.
+/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_F(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::G`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_G *MR_CSharp_A_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::G`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_G *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_G(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::G`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_G *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::G`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_G(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::G`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// This version is acting on mutable pointers.
 /// Parameter `object` can not be null. It is a single object.
+/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_G *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_G(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::G`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// Parameter `object` can not be null. It is a single object.
+/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_G(MR_CSharp_A *object);
 
 /// Generated from constructor `MR::CSharp::A::A`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_A *MR_CSharp_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_A *_other);
 
@@ -972,7 +997,10 @@ MR_C_API void MR_CSharp_A_DestroyArray(const MR_CSharp_A *_this);
 
 /// Generated from method `MR::CSharp::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_A *MR_CSharp_A_AssignFromAnother(MR_CSharp_A *_this, MR_C_PassBy _other_pass_by, MR_CSharp_A *_other);
 
 /// Generated from method `MR::CSharp::A::foo`.
@@ -1014,19 +1042,24 @@ MR_C_API MR_CSharp_B *MR_CSharp_B_DefaultConstruct(void);
 MR_C_API MR_CSharp_B *MR_CSharp_B_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_B *MR_CSharp_B_OffsetPtr(const MR_CSharp_B *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_B *MR_CSharp_B_OffsetMutablePtr(MR_CSharp_B *ptr, ptrdiff_t i);
 
 /// Upcasts an instance of `MR::CSharp::B` to its base class `MR::CSharp::A`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_A *MR_CSharp_B_UpcastTo_MR_CSharp_A(const MR_CSharp_B *object);
 
 /// Upcasts an instance of `MR::CSharp::B` to its base class `MR::CSharp::A`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_A *MR_CSharp_B_MutableUpcastTo_MR_CSharp_A(MR_CSharp_B *object);
 
 /// Generated from constructor `MR::CSharp::B::B`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_B *MR_CSharp_B_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_B *_other);
 
@@ -1042,7 +1075,9 @@ MR_C_API void MR_CSharp_B_DestroyArray(const MR_CSharp_B *_this);
 
 /// Generated from method `MR::CSharp::B::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_B *MR_CSharp_B_AssignFromAnother(MR_CSharp_B *_this, MR_C_PassBy _other_pass_by, MR_CSharp_B *_other);
 
 /// Generated from method `MR::CSharp::B::foo`.
@@ -1084,19 +1119,24 @@ MR_C_API MR_CSharp_C *MR_CSharp_C_DefaultConstruct(void);
 MR_C_API MR_CSharp_C *MR_CSharp_C_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_C *MR_CSharp_C_OffsetPtr(const MR_CSharp_C *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_C *MR_CSharp_C_OffsetMutablePtr(MR_CSharp_C *ptr, ptrdiff_t i);
 
 /// Upcasts an instance of `MR::CSharp::C` to its base class `MR::CSharp::A`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_A *MR_CSharp_C_UpcastTo_MR_CSharp_A(const MR_CSharp_C *object);
 
 /// Upcasts an instance of `MR::CSharp::C` to its base class `MR::CSharp::A`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_A *MR_CSharp_C_MutableUpcastTo_MR_CSharp_A(MR_CSharp_C *object);
 
 /// Generated from constructor `MR::CSharp::C::C`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_C_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_C *MR_CSharp_C_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_C *_other);
 
@@ -1108,7 +1148,9 @@ MR_C_API void MR_CSharp_C_DestroyArray(const MR_CSharp_C *_this);
 
 /// Generated from method `MR::CSharp::C::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_C *MR_CSharp_C_AssignFromAnother(MR_CSharp_C *_this, MR_C_PassBy _other_pass_by, MR_CSharp_C *_other);
 
 /// Generated from method `MR::CSharp::C::foo`.
@@ -1150,31 +1192,38 @@ MR_C_API MR_CSharp_D *MR_CSharp_D_DefaultConstruct(void);
 MR_C_API MR_CSharp_D *MR_CSharp_D_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_D *MR_CSharp_D_OffsetPtr(const MR_CSharp_D *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_D *MR_CSharp_D_OffsetMutablePtr(MR_CSharp_D *ptr, ptrdiff_t i);
 
 /// Downcasts an instance of `MR::CSharp::D` to a derived class `MR::CSharp::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_F *MR_CSharp_D_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_D *object);
 
 /// Downcasts an instance of `MR::CSharp::D` to a derived class `MR::CSharp::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_F *MR_CSharp_D_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_D *object);
 
 /// Downcasts an instance of `MR::CSharp::D` to a derived class `MR::CSharp::G`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_G *MR_CSharp_D_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_D *object);
 
 /// Downcasts an instance of `MR::CSharp::D` to a derived class `MR::CSharp::G`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_G *MR_CSharp_D_MutableStaticDowncastTo_MR_CSharp_G(MR_CSharp_D *object);
 
 /// Generated from constructor `MR::CSharp::D::D`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_D_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_D *MR_CSharp_D_ConstructFromAnother(const MR_CSharp_D *_other);
 
@@ -1187,7 +1236,9 @@ MR_C_API void MR_CSharp_D_DestroyArray(const MR_CSharp_D *_this);
 /// Generated from method `MR::CSharp::D::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_D *MR_CSharp_D_AssignFromAnother(MR_CSharp_D *_this, const MR_CSharp_D *_other);
 
 /// Generated from method `MR::CSharp::D::d1`.
@@ -1208,22 +1259,27 @@ MR_C_API MR_CSharp_E *MR_CSharp_E_DefaultConstruct(void);
 MR_C_API MR_CSharp_E *MR_CSharp_E_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_E *MR_CSharp_E_OffsetPtr(const MR_CSharp_E *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_E *MR_CSharp_E_OffsetMutablePtr(MR_CSharp_E *ptr, ptrdiff_t i);
 
 /// Downcasts an instance of `MR::CSharp::E` to a derived class `MR::CSharp::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_F *MR_CSharp_E_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_E *object);
 
 /// Downcasts an instance of `MR::CSharp::E` to a derived class `MR::CSharp::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_F *MR_CSharp_E_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_E *object);
 
 /// Generated from constructor `MR::CSharp::E::E`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_E_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_E *MR_CSharp_E_ConstructFromAnother(const MR_CSharp_E *_other);
 
@@ -1236,7 +1292,9 @@ MR_C_API void MR_CSharp_E_DestroyArray(const MR_CSharp_E *_this);
 /// Generated from method `MR::CSharp::E::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_E *MR_CSharp_E_AssignFromAnother(MR_CSharp_E *_this, const MR_CSharp_E *_other);
 
 /// Generated from method `MR::CSharp::E::e1`.
@@ -1257,33 +1315,42 @@ MR_C_API MR_CSharp_F *MR_CSharp_F_DefaultConstruct(void);
 MR_C_API MR_CSharp_F *MR_CSharp_F_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_F *MR_CSharp_F_OffsetPtr(const MR_CSharp_F *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_F *MR_CSharp_F_OffsetMutablePtr(MR_CSharp_F *ptr, ptrdiff_t i);
 
 /// Upcasts an instance of `MR::CSharp::F` to its base class `MR::CSharp::A`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_A *MR_CSharp_F_UpcastTo_MR_CSharp_A(const MR_CSharp_F *object);
 
 /// Upcasts an instance of `MR::CSharp::F` to its base class `MR::CSharp::A`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_A *MR_CSharp_F_MutableUpcastTo_MR_CSharp_A(MR_CSharp_F *object);
 
 /// Upcasts an instance of `MR::CSharp::F` to its base class `MR::CSharp::D`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_D *MR_CSharp_F_UpcastTo_MR_CSharp_D(const MR_CSharp_F *object);
 
 /// Upcasts an instance of `MR::CSharp::F` to its base class `MR::CSharp::D`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_D *MR_CSharp_F_MutableUpcastTo_MR_CSharp_D(MR_CSharp_F *object);
 
 /// Upcasts an instance of `MR::CSharp::F` to its base class `MR::CSharp::E`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_E *MR_CSharp_F_UpcastTo_MR_CSharp_E(const MR_CSharp_F *object);
 
 /// Upcasts an instance of `MR::CSharp::F` to its base class `MR::CSharp::E`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_E *MR_CSharp_F_MutableUpcastTo_MR_CSharp_E(MR_CSharp_F *object);
 
 /// Generated from constructor `MR::CSharp::F::F`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_F_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_F *MR_CSharp_F_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_F *_other);
 
@@ -1295,7 +1362,9 @@ MR_C_API void MR_CSharp_F_DestroyArray(const MR_CSharp_F *_this);
 
 /// Generated from method `MR::CSharp::F::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_F *MR_CSharp_F_AssignFromAnother(MR_CSharp_F *_this, MR_C_PassBy _other_pass_by, MR_CSharp_F *_other);
 
 /// Generated from method `MR::CSharp::F::foo`.
@@ -1353,33 +1422,42 @@ MR_C_API MR_CSharp_G *MR_CSharp_G_DefaultConstruct(void);
 MR_C_API MR_CSharp_G *MR_CSharp_G_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_G *MR_CSharp_G_OffsetPtr(const MR_CSharp_G *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_G *MR_CSharp_G_OffsetMutablePtr(MR_CSharp_G *ptr, ptrdiff_t i);
 
 /// Upcasts an instance of `MR::CSharp::G` to its base class `MR::CSharp::A`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_A *MR_CSharp_G_UpcastTo_MR_CSharp_A(const MR_CSharp_G *object);
 
 /// Upcasts an instance of `MR::CSharp::G` to its base class `MR::CSharp::A`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_A *MR_CSharp_G_MutableUpcastTo_MR_CSharp_A(MR_CSharp_G *object);
 
 /// Upcasts an instance of `MR::CSharp::G` to its base class `MR::CSharp::D`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_D *MR_CSharp_G_UpcastTo_MR_CSharp_D(const MR_CSharp_G *object);
 
 /// Upcasts an instance of `MR::CSharp::G` to its base class `MR::CSharp::D`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_D *MR_CSharp_G_MutableUpcastTo_MR_CSharp_D(MR_CSharp_G *object);
 
 /// Upcasts an instance of `MR::CSharp::G` to its base class `MR::CSharp::E`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_E *MR_CSharp_G_UpcastTo_MR_CSharp_E(const MR_CSharp_G *object);
 
 /// Upcasts an instance of `MR::CSharp::G` to its base class `MR::CSharp::E`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_E *MR_CSharp_G_MutableUpcastTo_MR_CSharp_E(MR_CSharp_G *object);
 
 /// Generated from constructor `MR::CSharp::G::G`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_G_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_G *MR_CSharp_G_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_G *_other);
 
@@ -1391,7 +1469,9 @@ MR_C_API void MR_CSharp_G_DestroyArray(const MR_CSharp_G *_this);
 
 /// Generated from method `MR::CSharp::G::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_G *MR_CSharp_G_AssignFromAnother(MR_CSharp_G *_this, MR_C_PassBy _other_pass_by, MR_CSharp_G *_other);
 
 /// Generated from method `MR::CSharp::G::foo`.
@@ -1449,13 +1529,16 @@ MR_C_API MR_CSharp_Trivial *MR_CSharp_Trivial_DefaultConstruct(void);
 MR_C_API MR_CSharp_Trivial *MR_CSharp_Trivial_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_Trivial *MR_CSharp_Trivial_OffsetPtr(const MR_CSharp_Trivial *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_Trivial *MR_CSharp_Trivial_OffsetMutablePtr(MR_CSharp_Trivial *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::Trivial::Trivial`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_Trivial_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_Trivial *MR_CSharp_Trivial_ConstructFromAnother(const MR_CSharp_Trivial *_other);
 
@@ -1468,7 +1551,9 @@ MR_C_API void MR_CSharp_Trivial_DestroyArray(const MR_CSharp_Trivial *_this);
 /// Generated from method `MR::CSharp::Trivial::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_Trivial *MR_CSharp_Trivial_AssignFromAnother(MR_CSharp_Trivial *_this, const MR_CSharp_Trivial *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -1481,13 +1566,16 @@ MR_C_API MR_CSharp_TrivialDerived *MR_CSharp_TrivialDerived_DefaultConstruct(voi
 MR_C_API MR_CSharp_TrivialDerived *MR_CSharp_TrivialDerived_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_TrivialDerived *MR_CSharp_TrivialDerived_OffsetPtr(const MR_CSharp_TrivialDerived *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_TrivialDerived *MR_CSharp_TrivialDerived_OffsetMutablePtr(MR_CSharp_TrivialDerived *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::TrivialDerived::TrivialDerived`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_TrivialDerived_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_TrivialDerived *MR_CSharp_TrivialDerived_ConstructFromAnother(const MR_CSharp_TrivialDerived *_other);
 
@@ -1500,7 +1588,9 @@ MR_C_API void MR_CSharp_TrivialDerived_DestroyArray(const MR_CSharp_TrivialDeriv
 /// Generated from method `MR::CSharp::TrivialDerived::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_TrivialDerived *MR_CSharp_TrivialDerived_AssignFromAnother(MR_CSharp_TrivialDerived *_this, const MR_CSharp_TrivialDerived *_other);
 
 /// Generated from function `MR::CSharp::test_class_trivial`.
@@ -1568,12 +1658,15 @@ MR_C_API MR_CSharp_NonTrivial *MR_CSharp_NonTrivial_DefaultConstruct(void);
 MR_C_API MR_CSharp_NonTrivial *MR_CSharp_NonTrivial_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_NonTrivial *MR_CSharp_NonTrivial_OffsetPtr(const MR_CSharp_NonTrivial *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_NonTrivial *MR_CSharp_NonTrivial_OffsetMutablePtr(MR_CSharp_NonTrivial *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::NonTrivial::NonTrivial`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NonTrivial_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_NonTrivial *MR_CSharp_NonTrivial_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivial *_other);
 
@@ -1585,7 +1678,9 @@ MR_C_API void MR_CSharp_NonTrivial_DestroyArray(const MR_CSharp_NonTrivial *_thi
 
 /// Generated from method `MR::CSharp::NonTrivial::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NonTrivial *MR_CSharp_NonTrivial_AssignFromAnother(MR_CSharp_NonTrivial *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivial *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -1598,12 +1693,15 @@ MR_C_API MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_DefaultConstru
 MR_C_API MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_OffsetPtr(const MR_CSharp_NonTrivialDerived *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_OffsetMutablePtr(MR_CSharp_NonTrivialDerived *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::NonTrivialDerived::NonTrivialDerived`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NonTrivialDerived_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialDerived *_other);
 
@@ -1615,7 +1713,9 @@ MR_C_API void MR_CSharp_NonTrivialDerived_DestroyArray(const MR_CSharp_NonTrivia
 
 /// Generated from method `MR::CSharp::NonTrivialDerived::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_AssignFromAnother(MR_CSharp_NonTrivialDerived *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialDerived *_other);
 
 /// Generated from function `MR::CSharp::test_class_nontrivial`.
@@ -1691,22 +1791,27 @@ MR_C_API MR_CSharp_SA *MR_CSharp_SA_DefaultConstruct(void);
 MR_C_API MR_CSharp_SA *MR_CSharp_SA_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_SA *MR_CSharp_SA_OffsetPtr(const MR_CSharp_SA *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_SA *MR_CSharp_SA_OffsetMutablePtr(MR_CSharp_SA *ptr, ptrdiff_t i);
 
 /// Downcasts an instance of `MR::CSharp::SA` to a derived class `MR::CSharp::SC`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_SC *MR_CSharp_SA_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_SA *object);
 
 /// Downcasts an instance of `MR::CSharp::SA` to a derived class `MR::CSharp::SC`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_SC *MR_CSharp_SA_MutableStaticDowncastTo_MR_CSharp_SC(MR_CSharp_SA *object);
 
 /// Generated from constructor `MR::CSharp::SA::SA`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SA_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_SA *MR_CSharp_SA_ConstructFromAnother(const MR_CSharp_SA *_other);
 
@@ -1719,7 +1824,9 @@ MR_C_API void MR_CSharp_SA_DestroyArray(const MR_CSharp_SA *_this);
 /// Generated from method `MR::CSharp::SA::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SA *MR_CSharp_SA_AssignFromAnother(MR_CSharp_SA *_this, const MR_CSharp_SA *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -1732,21 +1839,26 @@ MR_C_API MR_CSharp_SB *MR_CSharp_SB_DefaultConstruct(void);
 MR_C_API MR_CSharp_SB *MR_CSharp_SB_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_SB *MR_CSharp_SB_OffsetPtr(const MR_CSharp_SB *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_SB *MR_CSharp_SB_OffsetMutablePtr(MR_CSharp_SB *ptr, ptrdiff_t i);
 
 /// Downcasts an instance of `MR::CSharp::SB` to a derived class `MR::CSharp::SC`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_SC *MR_CSharp_SB_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_SB *object);
 
 /// Downcasts an instance of `MR::CSharp::SB` to a derived class `MR::CSharp::SC`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_SC *MR_CSharp_SB_MutableStaticDowncastTo_MR_CSharp_SC(MR_CSharp_SB *object);
 
 /// Generated from constructor `MR::CSharp::SB::SB`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SB_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_SB *MR_CSharp_SB_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SB *_other);
 
@@ -1758,7 +1870,9 @@ MR_C_API void MR_CSharp_SB_DestroyArray(const MR_CSharp_SB *_this);
 
 /// Generated from method `MR::CSharp::SB::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SB *MR_CSharp_SB_AssignFromAnother(MR_CSharp_SB *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SB *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -1771,26 +1885,33 @@ MR_C_API MR_CSharp_SC *MR_CSharp_SC_DefaultConstruct(void);
 MR_C_API MR_CSharp_SC *MR_CSharp_SC_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_SC *MR_CSharp_SC_OffsetPtr(const MR_CSharp_SC *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_SC *MR_CSharp_SC_OffsetMutablePtr(MR_CSharp_SC *ptr, ptrdiff_t i);
 
 /// Upcasts an instance of `MR::CSharp::SC` to its base class `MR::CSharp::SA`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_SA *MR_CSharp_SC_UpcastTo_MR_CSharp_SA(const MR_CSharp_SC *object);
 
 /// Upcasts an instance of `MR::CSharp::SC` to its base class `MR::CSharp::SA`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_SA *MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SA(MR_CSharp_SC *object);
 
 /// Upcasts an instance of `MR::CSharp::SC` to its base class `MR::CSharp::SB`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_SB *MR_CSharp_SC_UpcastTo_MR_CSharp_SB(const MR_CSharp_SC *object);
 
 /// Upcasts an instance of `MR::CSharp::SC` to its base class `MR::CSharp::SB`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_SB *MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SB(MR_CSharp_SC *object);
 
 /// Generated from constructor `MR::CSharp::SC::SC`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SC_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_SC *MR_CSharp_SC_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SC *_other);
 
@@ -1802,7 +1923,9 @@ MR_C_API void MR_CSharp_SC_DestroyArray(const MR_CSharp_SC *_this);
 
 /// Generated from method `MR::CSharp::SC::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SC *MR_CSharp_SC_AssignFromAnother(MR_CSharp_SC *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SC *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -1815,43 +1938,52 @@ MR_C_API MR_CSharp_SD *MR_CSharp_SD_DefaultConstruct(void);
 MR_C_API MR_CSharp_SD *MR_CSharp_SD_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_SD *MR_CSharp_SD_OffsetPtr(const MR_CSharp_SD *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_SD *MR_CSharp_SD_OffsetMutablePtr(MR_CSharp_SD *ptr, ptrdiff_t i);
 
 /// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_SF *MR_CSharp_SD_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object);
 
 /// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_SF *MR_CSharp_SD_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object);
 
 /// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object);
 
 /// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object);
 
 /// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// This version is acting on mutable pointers.
 /// Parameter `object` can not be null. It is a single object.
+/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastToOrFail_MR_CSharp_SF(const MR_CSharp_SD *object);
 
 /// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// Parameter `object` can not be null. It is a single object.
+/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastToOrFail_MR_CSharp_SF(MR_CSharp_SD *object);
 
 /// Generated from constructor `MR::CSharp::SD::SD`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SD_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_SD *MR_CSharp_SD_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other);
 
@@ -1863,7 +1995,10 @@ MR_C_API void MR_CSharp_SD_DestroyArray(const MR_CSharp_SD *_this);
 
 /// Generated from method `MR::CSharp::SD::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SD *MR_CSharp_SD_AssignFromAnother(MR_CSharp_SD *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -1876,21 +2011,26 @@ MR_C_API MR_CSharp_SE *MR_CSharp_SE_DefaultConstruct(void);
 MR_C_API MR_CSharp_SE *MR_CSharp_SE_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_SE *MR_CSharp_SE_OffsetPtr(const MR_CSharp_SE *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_SE *MR_CSharp_SE_OffsetMutablePtr(MR_CSharp_SE *ptr, ptrdiff_t i);
 
 /// Downcasts an instance of `MR::CSharp::SE` to a derived class `MR::CSharp::SF`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_SF *MR_CSharp_SE_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SE *object);
 
 /// Downcasts an instance of `MR::CSharp::SE` to a derived class `MR::CSharp::SF`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_SF *MR_CSharp_SE_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SE *object);
 
 /// Generated from constructor `MR::CSharp::SE::SE`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SE_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_SE *MR_CSharp_SE_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SE *_other);
 
@@ -1902,7 +2042,9 @@ MR_C_API void MR_CSharp_SE_DestroyArray(const MR_CSharp_SE *_this);
 
 /// Generated from method `MR::CSharp::SE::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SE *MR_CSharp_SE_AssignFromAnother(MR_CSharp_SE *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SE *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -1915,26 +2057,33 @@ MR_C_API MR_CSharp_SF *MR_CSharp_SF_DefaultConstruct(void);
 MR_C_API MR_CSharp_SF *MR_CSharp_SF_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_SF *MR_CSharp_SF_OffsetPtr(const MR_CSharp_SF *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_SF *MR_CSharp_SF_OffsetMutablePtr(MR_CSharp_SF *ptr, ptrdiff_t i);
 
 /// Upcasts an instance of `MR::CSharp::SF` to its base class `MR::CSharp::SD`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_SD *MR_CSharp_SF_UpcastTo_MR_CSharp_SD(const MR_CSharp_SF *object);
 
 /// Upcasts an instance of `MR::CSharp::SF` to its base class `MR::CSharp::SD`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_SD *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SD(MR_CSharp_SF *object);
 
 /// Upcasts an instance of `MR::CSharp::SF` to its base class `MR::CSharp::SE`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CSharp_SE *MR_CSharp_SF_UpcastTo_MR_CSharp_SE(const MR_CSharp_SF *object);
 
 /// Upcasts an instance of `MR::CSharp::SF` to its base class `MR::CSharp::SE`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CSharp_SE *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SE(MR_CSharp_SF *object);
 
 /// Generated from constructor `MR::CSharp::SF::SF`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SF_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_SF *MR_CSharp_SF_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SF *_other);
 
@@ -1946,7 +2095,9 @@ MR_C_API void MR_CSharp_SF_DestroyArray(const MR_CSharp_SF *_this);
 
 /// Generated from method `MR::CSharp::SF::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SF *MR_CSharp_SF_AssignFromAnother(MR_CSharp_SF *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SF *_other);
 
 /// Generated from function `MR::CSharp::mark_se_as_shared`.
@@ -2217,13 +2368,16 @@ MR_C_API MR_CSharp_Outer *MR_CSharp_Outer_DefaultConstruct(void);
 MR_C_API MR_CSharp_Outer *MR_CSharp_Outer_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_Outer *MR_CSharp_Outer_OffsetPtr(const MR_CSharp_Outer *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_Outer *MR_CSharp_Outer_OffsetMutablePtr(MR_CSharp_Outer *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::Outer::Outer`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_Outer_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_Outer *MR_CSharp_Outer_ConstructFromAnother(const MR_CSharp_Outer *_other);
 
@@ -2236,7 +2390,9 @@ MR_C_API void MR_CSharp_Outer_DestroyArray(const MR_CSharp_Outer *_this);
 /// Generated from method `MR::CSharp::Outer::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_Outer *MR_CSharp_Outer_AssignFromAnother(MR_CSharp_Outer *_this, const MR_CSharp_Outer *_other);
 
 /// Generated from method `MR::CSharp::Outer::foo`.
@@ -2253,13 +2409,16 @@ MR_C_API MR_CSharp_Outer_Inner *MR_CSharp_Outer_Inner_DefaultConstruct(void);
 MR_C_API MR_CSharp_Outer_Inner *MR_CSharp_Outer_Inner_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_Outer_Inner *MR_CSharp_Outer_Inner_OffsetPtr(const MR_CSharp_Outer_Inner *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_Outer_Inner *MR_CSharp_Outer_Inner_OffsetMutablePtr(MR_CSharp_Outer_Inner *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::Outer::Inner::Inner`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_Outer_Inner_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_Outer_Inner *MR_CSharp_Outer_Inner_ConstructFromAnother(const MR_CSharp_Outer_Inner *_other);
 
@@ -2272,7 +2431,9 @@ MR_C_API void MR_CSharp_Outer_Inner_DestroyArray(const MR_CSharp_Outer_Inner *_t
 /// Generated from method `MR::CSharp::Outer::Inner::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_Outer_Inner *MR_CSharp_Outer_Inner_AssignFromAnother(MR_CSharp_Outer_Inner *_this, const MR_CSharp_Outer_Inner *_other);
 
 /// Generated from method `MR::CSharp::Outer::Inner::bar`.
@@ -2284,6 +2445,7 @@ MR_C_API void MR_CSharp_Outer_Inner_bar(MR_CSharp_Outer_Inner *_this);
 MR_C_API const int *MR_CSharp_TestFields_Get_static_i(void);
 
 /// Modifies a member variable of class `MR::CSharp::TestFields` named `static_i`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `static_i`.
 MR_C_API void MR_CSharp_TestFields_Set_static_i(int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `static_i`.
@@ -2309,6 +2471,8 @@ MR_C_API const MR_C_std_string *MR_CSharp_TestFields_Get_static_s(void);
 /// Modifies a member variable of class `MR::CSharp::TestFields` named `static_s`.
 /// Parameter `value` can not be null.
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `static_s`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `static_s`.
 MR_C_API void MR_CSharp_TestFields_Set_static_s(const char *value, const char *value_end);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `static_s`.
@@ -2329,35 +2493,42 @@ MR_C_API const MR_C_std_string *MR_CSharp_TestFields_Get_static_const_s_ref(void
 
 /// Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_CSharp_TestFields_Get_i(const MR_CSharp_TestFields *_this);
 
 /// Modifies a member variable of class `MR::CSharp::TestFields` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `i`.
 MR_C_API void MR_CSharp_TestFields_Set_i(MR_CSharp_TestFields *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_CSharp_TestFields_GetMutable_i(MR_CSharp_TestFields *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `const_i`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_CSharp_TestFields_Get_const_i(const MR_CSharp_TestFields *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `i_ref`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_CSharp_TestFields_Get_i_ref(const MR_CSharp_TestFields *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `const_i_ref`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_CSharp_TestFields_Get_const_i_ref(const MR_CSharp_TestFields *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `s`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_CSharp_TestFields_Get_s(const MR_CSharp_TestFields *_this);
 
@@ -2365,49 +2536,64 @@ MR_C_API const MR_C_std_string *MR_CSharp_TestFields_Get_s(const MR_CSharp_TestF
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `value` can not be null.
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `s`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `s`.
 MR_C_API void MR_CSharp_TestFields_Set_s(MR_CSharp_TestFields *_this, const char *value, const char *value_end);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `s`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_CSharp_TestFields_GetMutable_s(MR_CSharp_TestFields *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `const_s`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_CSharp_TestFields_Get_const_s(const MR_CSharp_TestFields *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `s_ref`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_CSharp_TestFields_Get_s_ref(const MR_CSharp_TestFields *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `const_s_ref`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_CSharp_TestFields_Get_const_s_ref(const MR_CSharp_TestFields *_this);
 
 /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_TestFields_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_TestFields *MR_CSharp_TestFields_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_TestFields *_other);
 
 /// Constructs `MR::CSharp::TestFields` elementwise.
 /// Parameter `i_ref` can not be null. It is a single object.
+/// The reference to the parameter `i_ref` might be preserved in the return value.
 /// Parameter `const_i_ref` can not be null. It is a single object.
+/// The reference to the parameter `const_i_ref` might be preserved in the return value.
 /// Parameter `s` can not be null.
 /// If `s_end` is null, then `s` is assumed to be null-terminated.
+/// The reference to the parameter `s` might be preserved in the return value.
 /// Parameter `const_s` can not be null.
 /// If `const_s_end` is null, then `const_s` is assumed to be null-terminated.
+/// The reference to the parameter `const_s` might be preserved in the return value.
 /// Parameter `s_ref` can not be null. It is a single object.
+/// The reference to the parameter `s_ref` might be preserved in the return value.
 /// Parameter `const_s_ref` can not be null.
 /// If `const_s_ref_end` is null, then `const_s_ref` is assumed to be null-terminated.
+/// The reference to the parameter `const_s_ref` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_TestFields_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_TestFields *MR_CSharp_TestFields_ConstructFrom(int i, int const_i, int *i_ref, const int *const_i_ref, const char *s, const char *s_end, const char *const_s, const char *const_s_end, MR_C_std_string *s_ref, const char *const_s_ref, const char *const_s_ref_end);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_TestFields *MR_CSharp_TestFields_OffsetPtr(const MR_CSharp_TestFields *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_TestFields *MR_CSharp_TestFields_OffsetMutablePtr(MR_CSharp_TestFields *ptr, ptrdiff_t i);
 
 /// Destroys a heap-allocated instance of `MR_CSharp_TestFields`. Does nothing if the pointer is null.
@@ -2426,13 +2612,16 @@ MR_C_API MR_CSharp_TestConstness *MR_CSharp_TestConstness_DefaultConstruct(void)
 MR_C_API MR_CSharp_TestConstness *MR_CSharp_TestConstness_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_TestConstness *MR_CSharp_TestConstness_OffsetPtr(const MR_CSharp_TestConstness *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_TestConstness *MR_CSharp_TestConstness_OffsetMutablePtr(MR_CSharp_TestConstness *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::TestConstness::TestConstness`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_TestConstness_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_TestConstness *MR_CSharp_TestConstness_ConstructFromAnother(const MR_CSharp_TestConstness *_other);
 
@@ -2445,7 +2634,9 @@ MR_C_API void MR_CSharp_TestConstness_DestroyArray(const MR_CSharp_TestConstness
 /// Generated from method `MR::CSharp::TestConstness::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_TestConstness *MR_CSharp_TestConstness_AssignFromAnother(MR_CSharp_TestConstness *_this, const MR_CSharp_TestConstness *_other);
 
 /// Generated from method `MR::CSharp::TestConstness::foo`.
@@ -2466,13 +2657,16 @@ MR_C_API MR_CSharp_IncrDecrA *MR_CSharp_IncrDecrA_DefaultConstruct(void);
 MR_C_API MR_CSharp_IncrDecrA *MR_CSharp_IncrDecrA_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IncrDecrA *MR_CSharp_IncrDecrA_OffsetPtr(const MR_CSharp_IncrDecrA *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IncrDecrA *MR_CSharp_IncrDecrA_OffsetMutablePtr(MR_CSharp_IncrDecrA *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IncrDecrA::IncrDecrA`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrA_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IncrDecrA *MR_CSharp_IncrDecrA_ConstructFromAnother(const MR_CSharp_IncrDecrA *_other);
 
@@ -2485,7 +2679,9 @@ MR_C_API void MR_CSharp_IncrDecrA_DestroyArray(const MR_CSharp_IncrDecrA *_this)
 /// Generated from method `MR::CSharp::IncrDecrA::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IncrDecrA *MR_CSharp_IncrDecrA_AssignFromAnother(MR_CSharp_IncrDecrA *_this, const MR_CSharp_IncrDecrA *_other);
 
 /// Generated from method `MR::CSharp::IncrDecrA::operator++`.
@@ -2518,13 +2714,16 @@ MR_C_API MR_CSharp_IncrDecrB *MR_CSharp_IncrDecrB_DefaultConstruct(void);
 MR_C_API MR_CSharp_IncrDecrB *MR_CSharp_IncrDecrB_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IncrDecrB *MR_CSharp_IncrDecrB_OffsetPtr(const MR_CSharp_IncrDecrB *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IncrDecrB *MR_CSharp_IncrDecrB_OffsetMutablePtr(MR_CSharp_IncrDecrB *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IncrDecrB::IncrDecrB`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrB_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IncrDecrB *MR_CSharp_IncrDecrB_ConstructFromAnother(const MR_CSharp_IncrDecrB *_other);
 
@@ -2537,7 +2736,9 @@ MR_C_API void MR_CSharp_IncrDecrB_DestroyArray(const MR_CSharp_IncrDecrB *_this)
 /// Generated from method `MR::CSharp::IncrDecrB::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IncrDecrB *MR_CSharp_IncrDecrB_AssignFromAnother(MR_CSharp_IncrDecrB *_this, const MR_CSharp_IncrDecrB *_other);
 
 /// Generated from method `MR::CSharp::IncrDecrB::operator++`.
@@ -2570,13 +2771,16 @@ MR_C_API MR_CSharp_IncrDecrC *MR_CSharp_IncrDecrC_DefaultConstruct(void);
 MR_C_API MR_CSharp_IncrDecrC *MR_CSharp_IncrDecrC_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IncrDecrC *MR_CSharp_IncrDecrC_OffsetPtr(const MR_CSharp_IncrDecrC *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IncrDecrC *MR_CSharp_IncrDecrC_OffsetMutablePtr(MR_CSharp_IncrDecrC *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IncrDecrC::IncrDecrC`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrC_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IncrDecrC *MR_CSharp_IncrDecrC_ConstructFromAnother(const MR_CSharp_IncrDecrC *_other);
 
@@ -2589,7 +2793,9 @@ MR_C_API void MR_CSharp_IncrDecrC_DestroyArray(const MR_CSharp_IncrDecrC *_this)
 /// Generated from method `MR::CSharp::IncrDecrC::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IncrDecrC *MR_CSharp_IncrDecrC_AssignFromAnother(MR_CSharp_IncrDecrC *_this, const MR_CSharp_IncrDecrC *_other);
 
 /// Generated from method `MR::CSharp::IncrDecrC::operator++`.
@@ -2622,13 +2828,16 @@ MR_C_API MR_CSharp_IncrDecrD *MR_CSharp_IncrDecrD_DefaultConstruct(void);
 MR_C_API MR_CSharp_IncrDecrD *MR_CSharp_IncrDecrD_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IncrDecrD *MR_CSharp_IncrDecrD_OffsetPtr(const MR_CSharp_IncrDecrD *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IncrDecrD *MR_CSharp_IncrDecrD_OffsetMutablePtr(MR_CSharp_IncrDecrD *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IncrDecrD::IncrDecrD`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrD_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IncrDecrD *MR_CSharp_IncrDecrD_ConstructFromAnother(const MR_CSharp_IncrDecrD *_other);
 
@@ -2641,7 +2850,9 @@ MR_C_API void MR_CSharp_IncrDecrD_DestroyArray(const MR_CSharp_IncrDecrD *_this)
 /// Generated from method `MR::CSharp::IncrDecrD::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IncrDecrD *MR_CSharp_IncrDecrD_AssignFromAnother(MR_CSharp_IncrDecrD *_this, const MR_CSharp_IncrDecrD *_other);
 
 /// Generated from method `MR::CSharp::IncrDecrD::operator++`.
@@ -2674,12 +2885,15 @@ MR_C_API MR_CSharp_IncrDecrE *MR_CSharp_IncrDecrE_DefaultConstruct(void);
 MR_C_API MR_CSharp_IncrDecrE *MR_CSharp_IncrDecrE_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IncrDecrE *MR_CSharp_IncrDecrE_OffsetPtr(const MR_CSharp_IncrDecrE *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IncrDecrE *MR_CSharp_IncrDecrE_OffsetMutablePtr(MR_CSharp_IncrDecrE *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IncrDecrE::IncrDecrE`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrE_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IncrDecrE *MR_CSharp_IncrDecrE_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_IncrDecrE *_other);
 
@@ -2719,12 +2933,15 @@ MR_C_API MR_CSharp_IncrDecrF *MR_CSharp_IncrDecrF_DefaultConstruct(void);
 MR_C_API MR_CSharp_IncrDecrF *MR_CSharp_IncrDecrF_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IncrDecrF *MR_CSharp_IncrDecrF_OffsetPtr(const MR_CSharp_IncrDecrF *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IncrDecrF *MR_CSharp_IncrDecrF_OffsetMutablePtr(MR_CSharp_IncrDecrF *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IncrDecrF::IncrDecrF`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrF_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IncrDecrF *MR_CSharp_IncrDecrF_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_IncrDecrF *_other);
 
@@ -2764,13 +2981,16 @@ MR_C_API MR_CSharp_IncrDecrG *MR_CSharp_IncrDecrG_DefaultConstruct(void);
 MR_C_API MR_CSharp_IncrDecrG *MR_CSharp_IncrDecrG_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IncrDecrG *MR_CSharp_IncrDecrG_OffsetPtr(const MR_CSharp_IncrDecrG *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IncrDecrG *MR_CSharp_IncrDecrG_OffsetMutablePtr(MR_CSharp_IncrDecrG *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IncrDecrG::IncrDecrG`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrG_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IncrDecrG *MR_CSharp_IncrDecrG_ConstructFromAnother(const MR_CSharp_IncrDecrG *_other);
 
@@ -2810,13 +3030,16 @@ MR_C_API MR_CSharp_IncrDecrH *MR_CSharp_IncrDecrH_DefaultConstruct(void);
 MR_C_API MR_CSharp_IncrDecrH *MR_CSharp_IncrDecrH_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IncrDecrH *MR_CSharp_IncrDecrH_OffsetPtr(const MR_CSharp_IncrDecrH *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IncrDecrH *MR_CSharp_IncrDecrH_OffsetMutablePtr(MR_CSharp_IncrDecrH *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IncrDecrH::IncrDecrH`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrH_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IncrDecrH *MR_CSharp_IncrDecrH_ConstructFromAnother(const MR_CSharp_IncrDecrH *_other);
 
@@ -2856,13 +3079,16 @@ MR_C_API MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_DefaultConstruct(void);
 MR_C_API MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_OffsetPtr(const MR_CSharp_IncrDecrI *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_OffsetMutablePtr(MR_CSharp_IncrDecrI *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IncrDecrI::IncrDecrI`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrI_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_ConstructFromAnother(const MR_CSharp_IncrDecrI *_other);
 
@@ -2875,7 +3101,9 @@ MR_C_API void MR_CSharp_IncrDecrI_DestroyArray(const MR_CSharp_IncrDecrI *_this)
 /// Generated from method `MR::CSharp::IncrDecrI::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_AssignFromAnother(MR_CSharp_IncrDecrI *_this, const MR_CSharp_IncrDecrI *_other);
 
 /// Generated from function `MR::CSharp::operator++`.
@@ -2904,13 +3132,16 @@ MR_C_API MR_CSharp_EqualityA *MR_CSharp_EqualityA_DefaultConstruct(void);
 MR_C_API MR_CSharp_EqualityA *MR_CSharp_EqualityA_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_EqualityA *MR_CSharp_EqualityA_OffsetPtr(const MR_CSharp_EqualityA *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_EqualityA *MR_CSharp_EqualityA_OffsetMutablePtr(MR_CSharp_EqualityA *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::EqualityA::EqualityA`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_EqualityA_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_EqualityA *MR_CSharp_EqualityA_ConstructFromAnother(const MR_CSharp_EqualityA *_other);
 
@@ -2923,7 +3154,9 @@ MR_C_API void MR_CSharp_EqualityA_DestroyArray(const MR_CSharp_EqualityA *_this)
 /// Generated from method `MR::CSharp::EqualityA::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_EqualityA *MR_CSharp_EqualityA_AssignFromAnother(MR_CSharp_EqualityA *_this, const MR_CSharp_EqualityA *_other);
 
 /// Generated from method `MR::CSharp::EqualityA::operator==`.
@@ -2949,13 +3182,16 @@ MR_C_API MR_CSharp_EqualityB *MR_CSharp_EqualityB_DefaultConstruct(void);
 MR_C_API MR_CSharp_EqualityB *MR_CSharp_EqualityB_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_EqualityB *MR_CSharp_EqualityB_OffsetPtr(const MR_CSharp_EqualityB *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_EqualityB *MR_CSharp_EqualityB_OffsetMutablePtr(MR_CSharp_EqualityB *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::EqualityB::EqualityB`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_EqualityB_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_EqualityB *MR_CSharp_EqualityB_ConstructFromAnother(const MR_CSharp_EqualityB *_other);
 
@@ -2968,7 +3204,9 @@ MR_C_API void MR_CSharp_EqualityB_DestroyArray(const MR_CSharp_EqualityB *_this)
 /// Generated from method `MR::CSharp::EqualityB::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_EqualityB *MR_CSharp_EqualityB_AssignFromAnother(MR_CSharp_EqualityB *_this, const MR_CSharp_EqualityB *_other);
 
 /// Generated from method `MR::CSharp::EqualityB::operator==`.
@@ -2994,13 +3232,16 @@ MR_C_API MR_CSharp_EqualityC *MR_CSharp_EqualityC_DefaultConstruct(void);
 MR_C_API MR_CSharp_EqualityC *MR_CSharp_EqualityC_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_EqualityC *MR_CSharp_EqualityC_OffsetPtr(const MR_CSharp_EqualityC *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_EqualityC *MR_CSharp_EqualityC_OffsetMutablePtr(MR_CSharp_EqualityC *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::EqualityC::EqualityC`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_EqualityC_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_EqualityC *MR_CSharp_EqualityC_ConstructFromAnother(const MR_CSharp_EqualityC *_other);
 
@@ -3013,7 +3254,9 @@ MR_C_API void MR_CSharp_EqualityC_DestroyArray(const MR_CSharp_EqualityC *_this)
 /// Generated from method `MR::CSharp::EqualityC::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_EqualityC *MR_CSharp_EqualityC_AssignFromAnother(MR_CSharp_EqualityC *_this, const MR_CSharp_EqualityC *_other);
 
 /// Generated from method `MR::CSharp::EqualityC::operator==`.
@@ -3039,13 +3282,16 @@ MR_C_API MR_CSharp_EqualityD *MR_CSharp_EqualityD_DefaultConstruct(void);
 MR_C_API MR_CSharp_EqualityD *MR_CSharp_EqualityD_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_EqualityD *MR_CSharp_EqualityD_OffsetPtr(const MR_CSharp_EqualityD *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_EqualityD *MR_CSharp_EqualityD_OffsetMutablePtr(MR_CSharp_EqualityD *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::EqualityD::EqualityD`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_EqualityD_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_EqualityD *MR_CSharp_EqualityD_ConstructFromAnother(const MR_CSharp_EqualityD *_other);
 
@@ -3058,7 +3304,9 @@ MR_C_API void MR_CSharp_EqualityD_DestroyArray(const MR_CSharp_EqualityD *_this)
 /// Generated from method `MR::CSharp::EqualityD::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_EqualityD *MR_CSharp_EqualityD_AssignFromAnother(MR_CSharp_EqualityD *_this, const MR_CSharp_EqualityD *_other);
 
 /// Generated from method `MR::CSharp::EqualityD::operator==`.
@@ -3075,13 +3323,16 @@ MR_C_API MR_CSharp_EqualityE *MR_CSharp_EqualityE_DefaultConstruct(void);
 MR_C_API MR_CSharp_EqualityE *MR_CSharp_EqualityE_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_EqualityE *MR_CSharp_EqualityE_OffsetPtr(const MR_CSharp_EqualityE *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_EqualityE *MR_CSharp_EqualityE_OffsetMutablePtr(MR_CSharp_EqualityE *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::EqualityE::EqualityE`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_EqualityE_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_EqualityE *MR_CSharp_EqualityE_ConstructFromAnother(const MR_CSharp_EqualityE *_other);
 
@@ -3094,7 +3345,9 @@ MR_C_API void MR_CSharp_EqualityE_DestroyArray(const MR_CSharp_EqualityE *_this)
 /// Generated from method `MR::CSharp::EqualityE::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_EqualityE *MR_CSharp_EqualityE_AssignFromAnother(MR_CSharp_EqualityE *_this, const MR_CSharp_EqualityE *_other);
 
 /// Generated from method `MR::CSharp::EqualityE::operator==`.
@@ -3111,13 +3364,16 @@ MR_C_API MR_CSharp_RelationalA *MR_CSharp_RelationalA_DefaultConstruct(void);
 MR_C_API MR_CSharp_RelationalA *MR_CSharp_RelationalA_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_RelationalA *MR_CSharp_RelationalA_OffsetPtr(const MR_CSharp_RelationalA *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_RelationalA *MR_CSharp_RelationalA_OffsetMutablePtr(MR_CSharp_RelationalA *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::RelationalA::RelationalA`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_RelationalA_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_RelationalA *MR_CSharp_RelationalA_ConstructFromAnother(const MR_CSharp_RelationalA *_other);
 
@@ -3130,7 +3386,9 @@ MR_C_API void MR_CSharp_RelationalA_DestroyArray(const MR_CSharp_RelationalA *_t
 /// Generated from method `MR::CSharp::RelationalA::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalA *MR_CSharp_RelationalA_AssignFromAnother(MR_CSharp_RelationalA *_this, const MR_CSharp_RelationalA *_other);
 
 /// Generated from method `MR::CSharp::RelationalA::operator<`.
@@ -3163,13 +3421,16 @@ MR_C_API MR_CSharp_RelationalB *MR_CSharp_RelationalB_DefaultConstruct(void);
 MR_C_API MR_CSharp_RelationalB *MR_CSharp_RelationalB_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_RelationalB *MR_CSharp_RelationalB_OffsetPtr(const MR_CSharp_RelationalB *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_RelationalB *MR_CSharp_RelationalB_OffsetMutablePtr(MR_CSharp_RelationalB *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::RelationalB::RelationalB`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_RelationalB_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_RelationalB *MR_CSharp_RelationalB_ConstructFromAnother(const MR_CSharp_RelationalB *_other);
 
@@ -3182,7 +3443,9 @@ MR_C_API void MR_CSharp_RelationalB_DestroyArray(const MR_CSharp_RelationalB *_t
 /// Generated from method `MR::CSharp::RelationalB::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalB *MR_CSharp_RelationalB_AssignFromAnother(MR_CSharp_RelationalB *_this, const MR_CSharp_RelationalB *_other);
 
 /// Generated from method `MR::CSharp::RelationalB::operator<`.
@@ -3215,13 +3478,16 @@ MR_C_API MR_CSharp_RelationalC *MR_CSharp_RelationalC_DefaultConstruct(void);
 MR_C_API MR_CSharp_RelationalC *MR_CSharp_RelationalC_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_RelationalC *MR_CSharp_RelationalC_OffsetPtr(const MR_CSharp_RelationalC *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_RelationalC *MR_CSharp_RelationalC_OffsetMutablePtr(MR_CSharp_RelationalC *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::RelationalC::RelationalC`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_RelationalC_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_RelationalC *MR_CSharp_RelationalC_ConstructFromAnother(const MR_CSharp_RelationalC *_other);
 
@@ -3234,7 +3500,9 @@ MR_C_API void MR_CSharp_RelationalC_DestroyArray(const MR_CSharp_RelationalC *_t
 /// Generated from method `MR::CSharp::RelationalC::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalC *MR_CSharp_RelationalC_AssignFromAnother(MR_CSharp_RelationalC *_this, const MR_CSharp_RelationalC *_other);
 
 /// Generated from method `MR::CSharp::RelationalC::operator<`.
@@ -3263,13 +3531,16 @@ MR_C_API MR_CSharp_RelationalD *MR_CSharp_RelationalD_DefaultConstruct(void);
 MR_C_API MR_CSharp_RelationalD *MR_CSharp_RelationalD_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_RelationalD *MR_CSharp_RelationalD_OffsetPtr(const MR_CSharp_RelationalD *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_RelationalD *MR_CSharp_RelationalD_OffsetMutablePtr(MR_CSharp_RelationalD *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::RelationalD::RelationalD`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_RelationalD_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_RelationalD *MR_CSharp_RelationalD_ConstructFromAnother(const MR_CSharp_RelationalD *_other);
 
@@ -3282,7 +3553,9 @@ MR_C_API void MR_CSharp_RelationalD_DestroyArray(const MR_CSharp_RelationalD *_t
 /// Generated from method `MR::CSharp::RelationalD::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalD *MR_CSharp_RelationalD_AssignFromAnother(MR_CSharp_RelationalD *_this, const MR_CSharp_RelationalD *_other);
 
 /// Generated from method `MR::CSharp::RelationalD::operator<`.
@@ -3315,13 +3588,16 @@ MR_C_API MR_CSharp_RelationalE *MR_CSharp_RelationalE_DefaultConstruct(void);
 MR_C_API MR_CSharp_RelationalE *MR_CSharp_RelationalE_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_RelationalE *MR_CSharp_RelationalE_OffsetPtr(const MR_CSharp_RelationalE *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_RelationalE *MR_CSharp_RelationalE_OffsetMutablePtr(MR_CSharp_RelationalE *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::RelationalE::RelationalE`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_RelationalE_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_RelationalE *MR_CSharp_RelationalE_ConstructFromAnother(const MR_CSharp_RelationalE *_other);
 
@@ -3334,7 +3610,9 @@ MR_C_API void MR_CSharp_RelationalE_DestroyArray(const MR_CSharp_RelationalE *_t
 /// Generated from method `MR::CSharp::RelationalE::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalE *MR_CSharp_RelationalE_AssignFromAnother(MR_CSharp_RelationalE *_this, const MR_CSharp_RelationalE *_other);
 
 /// Generated from method `MR::CSharp::RelationalE::operator<`.
@@ -3367,13 +3645,16 @@ MR_C_API MR_CSharp_RelationalF *MR_CSharp_RelationalF_DefaultConstruct(void);
 MR_C_API MR_CSharp_RelationalF *MR_CSharp_RelationalF_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_RelationalF *MR_CSharp_RelationalF_OffsetPtr(const MR_CSharp_RelationalF *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_RelationalF *MR_CSharp_RelationalF_OffsetMutablePtr(MR_CSharp_RelationalF *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::RelationalF::RelationalF`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_RelationalF_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_RelationalF *MR_CSharp_RelationalF_ConstructFromAnother(const MR_CSharp_RelationalF *_other);
 
@@ -3386,7 +3667,9 @@ MR_C_API void MR_CSharp_RelationalF_DestroyArray(const MR_CSharp_RelationalF *_t
 /// Generated from method `MR::CSharp::RelationalF::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalF *MR_CSharp_RelationalF_AssignFromAnother(MR_CSharp_RelationalF *_this, const MR_CSharp_RelationalF *_other);
 
 /// Generated from method `MR::CSharp::RelationalF::operator<`.
@@ -3419,13 +3702,16 @@ MR_C_API MR_CSharp_StaticOpsLhsA *MR_CSharp_StaticOpsLhsA_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsLhsA *MR_CSharp_StaticOpsLhsA_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsLhsA *MR_CSharp_StaticOpsLhsA_OffsetPtr(const MR_CSharp_StaticOpsLhsA *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsLhsA *MR_CSharp_StaticOpsLhsA_OffsetMutablePtr(MR_CSharp_StaticOpsLhsA *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsLhsA::StaticOpsLhsA`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsLhsA_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsLhsA *MR_CSharp_StaticOpsLhsA_ConstructFromAnother(const MR_CSharp_StaticOpsLhsA *_other);
 
@@ -3438,7 +3724,9 @@ MR_C_API void MR_CSharp_StaticOpsLhsA_DestroyArray(const MR_CSharp_StaticOpsLhsA
 /// Generated from method `MR::CSharp::StaticOpsLhsA::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsA *MR_CSharp_StaticOpsLhsA_AssignFromAnother(MR_CSharp_StaticOpsLhsA *_this, const MR_CSharp_StaticOpsLhsA *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3455,13 +3743,16 @@ MR_C_API MR_CSharp_StaticOpsLhsB *MR_CSharp_StaticOpsLhsB_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsLhsB *MR_CSharp_StaticOpsLhsB_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsLhsB *MR_CSharp_StaticOpsLhsB_OffsetPtr(const MR_CSharp_StaticOpsLhsB *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsLhsB *MR_CSharp_StaticOpsLhsB_OffsetMutablePtr(MR_CSharp_StaticOpsLhsB *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsLhsB::StaticOpsLhsB`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsLhsB_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsLhsB *MR_CSharp_StaticOpsLhsB_ConstructFromAnother(const MR_CSharp_StaticOpsLhsB *_other);
 
@@ -3474,7 +3765,9 @@ MR_C_API void MR_CSharp_StaticOpsLhsB_DestroyArray(const MR_CSharp_StaticOpsLhsB
 /// Generated from method `MR::CSharp::StaticOpsLhsB::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsB *MR_CSharp_StaticOpsLhsB_AssignFromAnother(MR_CSharp_StaticOpsLhsB *_this, const MR_CSharp_StaticOpsLhsB *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3491,12 +3784,15 @@ MR_C_API MR_CSharp_StaticOpsLhsC *MR_CSharp_StaticOpsLhsC_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsLhsC *MR_CSharp_StaticOpsLhsC_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsLhsC *MR_CSharp_StaticOpsLhsC_OffsetPtr(const MR_CSharp_StaticOpsLhsC *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsLhsC *MR_CSharp_StaticOpsLhsC_OffsetMutablePtr(MR_CSharp_StaticOpsLhsC *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsLhsC::StaticOpsLhsC`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsLhsC_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsLhsC *MR_CSharp_StaticOpsLhsC_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_StaticOpsLhsC *_other);
 
@@ -3519,13 +3815,16 @@ MR_C_API MR_CSharp_StaticOpsLhsD *MR_CSharp_StaticOpsLhsD_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsLhsD *MR_CSharp_StaticOpsLhsD_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsLhsD *MR_CSharp_StaticOpsLhsD_OffsetPtr(const MR_CSharp_StaticOpsLhsD *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsLhsD *MR_CSharp_StaticOpsLhsD_OffsetMutablePtr(MR_CSharp_StaticOpsLhsD *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsLhsD::StaticOpsLhsD`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsLhsD_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsLhsD *MR_CSharp_StaticOpsLhsD_ConstructFromAnother(const MR_CSharp_StaticOpsLhsD *_other);
 
@@ -3549,13 +3848,16 @@ MR_C_API MR_CSharp_StaticOpsLhsE *MR_CSharp_StaticOpsLhsE_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsLhsE *MR_CSharp_StaticOpsLhsE_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsLhsE *MR_CSharp_StaticOpsLhsE_OffsetPtr(const MR_CSharp_StaticOpsLhsE *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsLhsE *MR_CSharp_StaticOpsLhsE_OffsetMutablePtr(MR_CSharp_StaticOpsLhsE *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsLhsE::StaticOpsLhsE`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsLhsE_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsLhsE *MR_CSharp_StaticOpsLhsE_ConstructFromAnother(const MR_CSharp_StaticOpsLhsE *_other);
 
@@ -3567,8 +3869,11 @@ MR_C_API void MR_CSharp_StaticOpsLhsE_DestroyArray(const MR_CSharp_StaticOpsLhsE
 
 /// Generated from method `MR::CSharp::StaticOpsLhsE::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsE *MR_CSharp_StaticOpsLhsE_AssignFromAnother(MR_CSharp_StaticOpsLhsE *_this, const MR_CSharp_StaticOpsLhsE *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3585,13 +3890,16 @@ MR_C_API MR_CSharp_StaticOpsLhsF *MR_CSharp_StaticOpsLhsF_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsLhsF *MR_CSharp_StaticOpsLhsF_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsLhsF *MR_CSharp_StaticOpsLhsF_OffsetPtr(const MR_CSharp_StaticOpsLhsF *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsLhsF *MR_CSharp_StaticOpsLhsF_OffsetMutablePtr(MR_CSharp_StaticOpsLhsF *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsLhsF::StaticOpsLhsF`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsLhsF_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsLhsF *MR_CSharp_StaticOpsLhsF_ConstructFromAnother(const MR_CSharp_StaticOpsLhsF *_other);
 
@@ -3603,8 +3911,11 @@ MR_C_API void MR_CSharp_StaticOpsLhsF_DestroyArray(const MR_CSharp_StaticOpsLhsF
 
 /// Generated from method `MR::CSharp::StaticOpsLhsF::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsF *MR_CSharp_StaticOpsLhsF_AssignFromAnother(MR_CSharp_StaticOpsLhsF *_this, const MR_CSharp_StaticOpsLhsF *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3621,13 +3932,16 @@ MR_C_API MR_CSharp_StaticOpsLhsG *MR_CSharp_StaticOpsLhsG_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsLhsG *MR_CSharp_StaticOpsLhsG_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsLhsG *MR_CSharp_StaticOpsLhsG_OffsetPtr(const MR_CSharp_StaticOpsLhsG *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsLhsG *MR_CSharp_StaticOpsLhsG_OffsetMutablePtr(MR_CSharp_StaticOpsLhsG *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsLhsG::StaticOpsLhsG`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsLhsG_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsLhsG *MR_CSharp_StaticOpsLhsG_ConstructFromAnother(const MR_CSharp_StaticOpsLhsG *_other);
 
@@ -3640,7 +3954,9 @@ MR_C_API void MR_CSharp_StaticOpsLhsG_DestroyArray(const MR_CSharp_StaticOpsLhsG
 /// Generated from method `MR::CSharp::StaticOpsLhsG::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsG *MR_CSharp_StaticOpsLhsG_AssignFromAnother(MR_CSharp_StaticOpsLhsG *_this, const MR_CSharp_StaticOpsLhsG *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3657,13 +3973,16 @@ MR_C_API MR_CSharp_StaticOpsLhsH *MR_CSharp_StaticOpsLhsH_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsLhsH *MR_CSharp_StaticOpsLhsH_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsLhsH *MR_CSharp_StaticOpsLhsH_OffsetPtr(const MR_CSharp_StaticOpsLhsH *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsLhsH *MR_CSharp_StaticOpsLhsH_OffsetMutablePtr(MR_CSharp_StaticOpsLhsH *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsLhsH::StaticOpsLhsH`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsLhsH_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsLhsH *MR_CSharp_StaticOpsLhsH_ConstructFromAnother(const MR_CSharp_StaticOpsLhsH *_other);
 
@@ -3676,7 +3995,9 @@ MR_C_API void MR_CSharp_StaticOpsLhsH_DestroyArray(const MR_CSharp_StaticOpsLhsH
 /// Generated from method `MR::CSharp::StaticOpsLhsH::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsH *MR_CSharp_StaticOpsLhsH_AssignFromAnother(MR_CSharp_StaticOpsLhsH *_this, const MR_CSharp_StaticOpsLhsH *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3693,13 +4014,16 @@ MR_C_API MR_CSharp_StaticOpsRhsA *MR_CSharp_StaticOpsRhsA_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsRhsA *MR_CSharp_StaticOpsRhsA_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsRhsA *MR_CSharp_StaticOpsRhsA_OffsetPtr(const MR_CSharp_StaticOpsRhsA *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsRhsA *MR_CSharp_StaticOpsRhsA_OffsetMutablePtr(MR_CSharp_StaticOpsRhsA *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsRhsA::StaticOpsRhsA`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsRhsA_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsRhsA *MR_CSharp_StaticOpsRhsA_ConstructFromAnother(const MR_CSharp_StaticOpsRhsA *_other);
 
@@ -3712,7 +4036,9 @@ MR_C_API void MR_CSharp_StaticOpsRhsA_DestroyArray(const MR_CSharp_StaticOpsRhsA
 /// Generated from method `MR::CSharp::StaticOpsRhsA::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsA *MR_CSharp_StaticOpsRhsA_AssignFromAnother(MR_CSharp_StaticOpsRhsA *_this, const MR_CSharp_StaticOpsRhsA *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3729,13 +4055,16 @@ MR_C_API MR_CSharp_StaticOpsRhsB *MR_CSharp_StaticOpsRhsB_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsRhsB *MR_CSharp_StaticOpsRhsB_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsRhsB *MR_CSharp_StaticOpsRhsB_OffsetPtr(const MR_CSharp_StaticOpsRhsB *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsRhsB *MR_CSharp_StaticOpsRhsB_OffsetMutablePtr(MR_CSharp_StaticOpsRhsB *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsRhsB::StaticOpsRhsB`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsRhsB_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsRhsB *MR_CSharp_StaticOpsRhsB_ConstructFromAnother(const MR_CSharp_StaticOpsRhsB *_other);
 
@@ -3748,7 +4077,9 @@ MR_C_API void MR_CSharp_StaticOpsRhsB_DestroyArray(const MR_CSharp_StaticOpsRhsB
 /// Generated from method `MR::CSharp::StaticOpsRhsB::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsB *MR_CSharp_StaticOpsRhsB_AssignFromAnother(MR_CSharp_StaticOpsRhsB *_this, const MR_CSharp_StaticOpsRhsB *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3765,12 +4096,15 @@ MR_C_API MR_CSharp_StaticOpsRhsC *MR_CSharp_StaticOpsRhsC_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsRhsC *MR_CSharp_StaticOpsRhsC_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsRhsC *MR_CSharp_StaticOpsRhsC_OffsetPtr(const MR_CSharp_StaticOpsRhsC *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsRhsC *MR_CSharp_StaticOpsRhsC_OffsetMutablePtr(MR_CSharp_StaticOpsRhsC *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsRhsC::StaticOpsRhsC`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsRhsC_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsRhsC *MR_CSharp_StaticOpsRhsC_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_StaticOpsRhsC *_other);
 
@@ -3793,13 +4127,16 @@ MR_C_API MR_CSharp_StaticOpsRhsD *MR_CSharp_StaticOpsRhsD_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsRhsD *MR_CSharp_StaticOpsRhsD_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsRhsD *MR_CSharp_StaticOpsRhsD_OffsetPtr(const MR_CSharp_StaticOpsRhsD *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsRhsD *MR_CSharp_StaticOpsRhsD_OffsetMutablePtr(MR_CSharp_StaticOpsRhsD *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsRhsD::StaticOpsRhsD`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsRhsD_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsRhsD *MR_CSharp_StaticOpsRhsD_ConstructFromAnother(const MR_CSharp_StaticOpsRhsD *_other);
 
@@ -3823,13 +4160,16 @@ MR_C_API MR_CSharp_StaticOpsRhsE *MR_CSharp_StaticOpsRhsE_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsRhsE *MR_CSharp_StaticOpsRhsE_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsRhsE *MR_CSharp_StaticOpsRhsE_OffsetPtr(const MR_CSharp_StaticOpsRhsE *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsRhsE *MR_CSharp_StaticOpsRhsE_OffsetMutablePtr(MR_CSharp_StaticOpsRhsE *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsRhsE::StaticOpsRhsE`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsRhsE_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsRhsE *MR_CSharp_StaticOpsRhsE_ConstructFromAnother(const MR_CSharp_StaticOpsRhsE *_other);
 
@@ -3841,8 +4181,11 @@ MR_C_API void MR_CSharp_StaticOpsRhsE_DestroyArray(const MR_CSharp_StaticOpsRhsE
 
 /// Generated from method `MR::CSharp::StaticOpsRhsE::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsE *MR_CSharp_StaticOpsRhsE_AssignFromAnother(MR_CSharp_StaticOpsRhsE *_this, const MR_CSharp_StaticOpsRhsE *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3859,13 +4202,16 @@ MR_C_API MR_CSharp_StaticOpsRhsF *MR_CSharp_StaticOpsRhsF_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsRhsF *MR_CSharp_StaticOpsRhsF_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsRhsF *MR_CSharp_StaticOpsRhsF_OffsetPtr(const MR_CSharp_StaticOpsRhsF *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsRhsF *MR_CSharp_StaticOpsRhsF_OffsetMutablePtr(MR_CSharp_StaticOpsRhsF *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsRhsF::StaticOpsRhsF`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsRhsF_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsRhsF *MR_CSharp_StaticOpsRhsF_ConstructFromAnother(const MR_CSharp_StaticOpsRhsF *_other);
 
@@ -3877,8 +4223,11 @@ MR_C_API void MR_CSharp_StaticOpsRhsF_DestroyArray(const MR_CSharp_StaticOpsRhsF
 
 /// Generated from method `MR::CSharp::StaticOpsRhsF::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsF *MR_CSharp_StaticOpsRhsF_AssignFromAnother(MR_CSharp_StaticOpsRhsF *_this, const MR_CSharp_StaticOpsRhsF *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3895,13 +4244,16 @@ MR_C_API MR_CSharp_StaticOpsRhsG *MR_CSharp_StaticOpsRhsG_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsRhsG *MR_CSharp_StaticOpsRhsG_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsRhsG *MR_CSharp_StaticOpsRhsG_OffsetPtr(const MR_CSharp_StaticOpsRhsG *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsRhsG *MR_CSharp_StaticOpsRhsG_OffsetMutablePtr(MR_CSharp_StaticOpsRhsG *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsRhsG::StaticOpsRhsG`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsRhsG_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsRhsG *MR_CSharp_StaticOpsRhsG_ConstructFromAnother(const MR_CSharp_StaticOpsRhsG *_other);
 
@@ -3914,7 +4266,9 @@ MR_C_API void MR_CSharp_StaticOpsRhsG_DestroyArray(const MR_CSharp_StaticOpsRhsG
 /// Generated from method `MR::CSharp::StaticOpsRhsG::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsG *MR_CSharp_StaticOpsRhsG_AssignFromAnother(MR_CSharp_StaticOpsRhsG *_this, const MR_CSharp_StaticOpsRhsG *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3931,13 +4285,16 @@ MR_C_API MR_CSharp_StaticOpsRhsH *MR_CSharp_StaticOpsRhsH_DefaultConstruct(void)
 MR_C_API MR_CSharp_StaticOpsRhsH *MR_CSharp_StaticOpsRhsH_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsRhsH *MR_CSharp_StaticOpsRhsH_OffsetPtr(const MR_CSharp_StaticOpsRhsH *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsRhsH *MR_CSharp_StaticOpsRhsH_OffsetMutablePtr(MR_CSharp_StaticOpsRhsH *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsRhsH::StaticOpsRhsH`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsRhsH_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsRhsH *MR_CSharp_StaticOpsRhsH_ConstructFromAnother(const MR_CSharp_StaticOpsRhsH *_other);
 
@@ -3950,7 +4307,9 @@ MR_C_API void MR_CSharp_StaticOpsRhsH_DestroyArray(const MR_CSharp_StaticOpsRhsH
 /// Generated from method `MR::CSharp::StaticOpsRhsH::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsH *MR_CSharp_StaticOpsRhsH_AssignFromAnother(MR_CSharp_StaticOpsRhsH *_this, const MR_CSharp_StaticOpsRhsH *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -3971,13 +4330,16 @@ MR_C_API MR_CSharp_StaticOpsMixedLhs *MR_CSharp_StaticOpsMixedLhs_DefaultConstru
 MR_C_API MR_CSharp_StaticOpsMixedLhs *MR_CSharp_StaticOpsMixedLhs_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsMixedLhs *MR_CSharp_StaticOpsMixedLhs_OffsetPtr(const MR_CSharp_StaticOpsMixedLhs *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsMixedLhs *MR_CSharp_StaticOpsMixedLhs_OffsetMutablePtr(MR_CSharp_StaticOpsMixedLhs *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsMixedLhs::StaticOpsMixedLhs`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsMixedLhs_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsMixedLhs *MR_CSharp_StaticOpsMixedLhs_ConstructFromAnother(const MR_CSharp_StaticOpsMixedLhs *_other);
 
@@ -3990,7 +4352,9 @@ MR_C_API void MR_CSharp_StaticOpsMixedLhs_DestroyArray(const MR_CSharp_StaticOps
 /// Generated from method `MR::CSharp::StaticOpsMixedLhs::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsMixedLhs *MR_CSharp_StaticOpsMixedLhs_AssignFromAnother(MR_CSharp_StaticOpsMixedLhs *_this, const MR_CSharp_StaticOpsMixedLhs *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -4003,13 +4367,16 @@ MR_C_API MR_CSharp_StaticOpsMixedRhs *MR_CSharp_StaticOpsMixedRhs_DefaultConstru
 MR_C_API MR_CSharp_StaticOpsMixedRhs *MR_CSharp_StaticOpsMixedRhs_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StaticOpsMixedRhs *MR_CSharp_StaticOpsMixedRhs_OffsetPtr(const MR_CSharp_StaticOpsMixedRhs *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StaticOpsMixedRhs *MR_CSharp_StaticOpsMixedRhs_OffsetMutablePtr(MR_CSharp_StaticOpsMixedRhs *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StaticOpsMixedRhs::StaticOpsMixedRhs`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StaticOpsMixedRhs_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StaticOpsMixedRhs *MR_CSharp_StaticOpsMixedRhs_ConstructFromAnother(const MR_CSharp_StaticOpsMixedRhs *_other);
 
@@ -4022,7 +4389,9 @@ MR_C_API void MR_CSharp_StaticOpsMixedRhs_DestroyArray(const MR_CSharp_StaticOps
 /// Generated from method `MR::CSharp::StaticOpsMixedRhs::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsMixedRhs *MR_CSharp_StaticOpsMixedRhs_AssignFromAnother(MR_CSharp_StaticOpsMixedRhs *_this, const MR_CSharp_StaticOpsMixedRhs *_other);
 
 // Gets injected into the lhs by default.
@@ -4041,12 +4410,15 @@ MR_C_API MR_CSharp_NonTrivialClassOps *MR_CSharp_NonTrivialClassOps_DefaultConst
 MR_C_API MR_CSharp_NonTrivialClassOps *MR_CSharp_NonTrivialClassOps_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_NonTrivialClassOps *MR_CSharp_NonTrivialClassOps_OffsetPtr(const MR_CSharp_NonTrivialClassOps *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_NonTrivialClassOps *MR_CSharp_NonTrivialClassOps_OffsetMutablePtr(MR_CSharp_NonTrivialClassOps *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::NonTrivialClassOps::NonTrivialClassOps`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NonTrivialClassOps_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_NonTrivialClassOps *MR_CSharp_NonTrivialClassOps_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialClassOps *_other);
 
@@ -4058,7 +4430,9 @@ MR_C_API void MR_CSharp_NonTrivialClassOps_DestroyArray(const MR_CSharp_NonTrivi
 
 /// Generated from method `MR::CSharp::NonTrivialClassOps::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NonTrivialClassOps *MR_CSharp_NonTrivialClassOps_AssignFromAnother(MR_CSharp_NonTrivialClassOps *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialClassOps *_other);
 
 /// Generated from method `MR::CSharp::NonTrivialClassOps::operator+`.
@@ -4081,13 +4455,16 @@ MR_C_API MR_CSharp_NonCopyableClassByValueOps *MR_CSharp_NonCopyableClassByValue
 MR_C_API MR_CSharp_NonCopyableClassByValueOps *MR_CSharp_NonCopyableClassByValueOps_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_NonCopyableClassByValueOps *MR_CSharp_NonCopyableClassByValueOps_OffsetPtr(const MR_CSharp_NonCopyableClassByValueOps *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_NonCopyableClassByValueOps *MR_CSharp_NonCopyableClassByValueOps_OffsetMutablePtr(MR_CSharp_NonCopyableClassByValueOps *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::NonCopyableClassByValueOps::NonCopyableClassByValueOps`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NonCopyableClassByValueOps_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_NonCopyableClassByValueOps *MR_CSharp_NonCopyableClassByValueOps_ConstructFromAnother(const MR_CSharp_NonCopyableClassByValueOps *_other);
 
@@ -4099,8 +4476,11 @@ MR_C_API void MR_CSharp_NonCopyableClassByValueOps_DestroyArray(const MR_CSharp_
 
 /// Generated from method `MR::CSharp::NonCopyableClassByValueOps::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NonCopyableClassByValueOps *MR_CSharp_NonCopyableClassByValueOps_AssignFromAnother(MR_CSharp_NonCopyableClassByValueOps *_this, const MR_CSharp_NonCopyableClassByValueOps *_other);
 
 /// Generated from function `MR::CSharp::operator+`.
@@ -4121,13 +4501,16 @@ MR_C_API MR_CSharp_CallOp *MR_CSharp_CallOp_DefaultConstruct(void);
 MR_C_API MR_CSharp_CallOp *MR_CSharp_CallOp_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_CallOp *MR_CSharp_CallOp_OffsetPtr(const MR_CSharp_CallOp *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_CallOp *MR_CSharp_CallOp_OffsetMutablePtr(MR_CSharp_CallOp *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::CallOp::CallOp`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_CallOp_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_CallOp *MR_CSharp_CallOp_ConstructFromAnother(const MR_CSharp_CallOp *_other);
 
@@ -4140,7 +4523,9 @@ MR_C_API void MR_CSharp_CallOp_DestroyArray(const MR_CSharp_CallOp *_this);
 /// Generated from method `MR::CSharp::CallOp::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_CallOp *MR_CSharp_CallOp_AssignFromAnother(MR_CSharp_CallOp *_this, const MR_CSharp_CallOp *_other);
 
 /// Generated from method `MR::CSharp::CallOp::operator()`.
@@ -4153,13 +4538,16 @@ MR_C_API int MR_CSharp_CallOp_call_3(MR_CSharp_CallOp *_this, int _1, int _2, in
 
 /// Generated from constructor `MR::CSharp::TestOpsA::TestOpsA`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_TestOpsA_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_TestOpsA *MR_CSharp_TestOpsA_ConstructFromAnother(const MR_CSharp_TestOpsA *_other);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_TestOpsA *MR_CSharp_TestOpsA_OffsetPtr(const MR_CSharp_TestOpsA *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_TestOpsA *MR_CSharp_TestOpsA_OffsetMutablePtr(MR_CSharp_TestOpsA *ptr, ptrdiff_t i);
 
 /// Destroys a heap-allocated instance of `MR_CSharp_TestOpsA`. Does nothing if the pointer is null.
@@ -4171,6 +4559,8 @@ MR_C_API void MR_CSharp_TestOpsA_DestroyArray(const MR_CSharp_TestOpsA *_this);
 /// Generated from method `MR::CSharp::TestOpsA::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API int MR_CSharp_TestOpsA_AssignFromAnother(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_other);
 
 /// Generated from method `MR::CSharp::TestOpsA::operator+`.
@@ -4337,13 +4727,16 @@ MR_C_API int MR_CSharp_TestOpsA_call(MR_CSharp_TestOpsA *_this, const MR_CSharp_
 MR_C_API int MR_CSharp_TestOpsA_index(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1);
 
 /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_TestOpsB_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_TestOpsB *MR_CSharp_TestOpsB_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_TestOpsB *_other);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_TestOpsB *MR_CSharp_TestOpsB_OffsetPtr(const MR_CSharp_TestOpsB *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_TestOpsB *MR_CSharp_TestOpsB_OffsetMutablePtr(MR_CSharp_TestOpsB *ptr, ptrdiff_t i);
 
 /// Destroys a heap-allocated instance of `MR_CSharp_TestOpsB`. Does nothing if the pointer is null.
@@ -4354,6 +4747,8 @@ MR_C_API void MR_CSharp_TestOpsB_DestroyArray(const MR_CSharp_TestOpsB *_this);
 
 /// Generated from method `MR::CSharp::TestOpsB::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API int MR_CSharp_TestOpsB_AssignFromAnother(MR_CSharp_TestOpsB *_this, MR_C_PassBy _other_pass_by, MR_CSharp_TestOpsB *_other);
 
 /// Generated from method `MR::CSharp::TestOpsB::operator+`.
@@ -4494,13 +4889,16 @@ MR_C_API int MR_CSharp_TestOpsB_index(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_
 
 /// Generated from constructor `MR::CSharp::TestOpsC::TestOpsC`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_TestOpsC_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_TestOpsC *MR_CSharp_TestOpsC_ConstructFromAnother(const MR_CSharp_TestOpsC *_other);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_TestOpsC *MR_CSharp_TestOpsC_OffsetPtr(const MR_CSharp_TestOpsC *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_TestOpsC *MR_CSharp_TestOpsC_OffsetMutablePtr(MR_CSharp_TestOpsC *ptr, ptrdiff_t i);
 
 /// Destroys a heap-allocated instance of `MR_CSharp_TestOpsC`. Does nothing if the pointer is null.
@@ -4512,7 +4910,9 @@ MR_C_API void MR_CSharp_TestOpsC_DestroyArray(const MR_CSharp_TestOpsC *_this);
 /// Generated from method `MR::CSharp::TestOpsC::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_TestOpsC *MR_CSharp_TestOpsC_AssignFromAnother(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsC *_other);
 
 /// Generated from method `MR::CSharp::TestOpsC::operator+`.
@@ -4685,15 +5085,18 @@ MR_C_API void MR_CSharp_TestOpsC_index(MR_CSharp_TestOpsC *_this, const MR_CShar
 
 /// Returns a pointer to a member variable of class `MR::CSharp::IndexerA` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_CSharp_IndexerA_Get_x(const MR_CSharp_IndexerA *_this);
 
 /// Modifies a member variable of class `MR::CSharp::IndexerA` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `x`.
 MR_C_API void MR_CSharp_IndexerA_Set_x(MR_CSharp_IndexerA *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::IndexerA` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_CSharp_IndexerA_GetMutable_x(MR_CSharp_IndexerA *_this);
 
@@ -4711,13 +5114,16 @@ MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_DefaultConstructArray(size_t num
 MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_ConstructFrom(int x);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IndexerA *MR_CSharp_IndexerA_OffsetPtr(const MR_CSharp_IndexerA *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_OffsetMutablePtr(MR_CSharp_IndexerA *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IndexerA::IndexerA`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerA_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_ConstructFromAnother(const MR_CSharp_IndexerA *_other);
 
@@ -4730,7 +5136,9 @@ MR_C_API void MR_CSharp_IndexerA_DestroyArray(const MR_CSharp_IndexerA *_this);
 /// Generated from method `MR::CSharp::IndexerA::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_AssignFromAnother(MR_CSharp_IndexerA *_this, const MR_CSharp_IndexerA *_other);
 
 /// Generated from method `MR::CSharp::IndexerA::operator[]`.
@@ -4740,16 +5148,20 @@ MR_C_API int *MR_CSharp_IndexerA_index(MR_CSharp_IndexerA *_this, int i);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::IndexerB` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_IndexerA *MR_CSharp_IndexerB_Get_a(const MR_CSharp_IndexerB *_this);
 
 /// Modifies a member variable of class `MR::CSharp::IndexerB` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `value` can not be null. It is a single object.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_IndexerB_Set_a(MR_CSharp_IndexerB *_this, const MR_CSharp_IndexerA *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::IndexerB` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerB_GetMutable_a(MR_CSharp_IndexerB *_this);
 
@@ -4764,17 +5176,21 @@ MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_DefaultConstructArray(size_t num
 
 /// Constructs `MR::CSharp::IndexerB` elementwise.
 /// Parameter `a` can not be null. It is a single object.
+/// The reference to the parameter `a` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerB_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_ConstructFrom(const MR_CSharp_IndexerA *a);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IndexerB *MR_CSharp_IndexerB_OffsetPtr(const MR_CSharp_IndexerB *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_OffsetMutablePtr(MR_CSharp_IndexerB *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IndexerB::IndexerB`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerB_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_ConstructFromAnother(const MR_CSharp_IndexerB *_other);
 
@@ -4787,7 +5203,9 @@ MR_C_API void MR_CSharp_IndexerB_DestroyArray(const MR_CSharp_IndexerB *_this);
 /// Generated from method `MR::CSharp::IndexerB::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_AssignFromAnother(MR_CSharp_IndexerB *_this, const MR_CSharp_IndexerB *_other);
 
 /// Generated from method `MR::CSharp::IndexerB::operator[]`.
@@ -4815,13 +5233,16 @@ MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_DefaultConstruct(void);
 MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_IndexerC *MR_CSharp_IndexerC_OffsetPtr(const MR_CSharp_IndexerC *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_OffsetMutablePtr(MR_CSharp_IndexerC *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::IndexerC::IndexerC`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IndexerC_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_ConstructFromAnother(const MR_CSharp_IndexerC *_other);
 
@@ -4834,7 +5255,9 @@ MR_C_API void MR_CSharp_IndexerC_DestroyArray(const MR_CSharp_IndexerC *_this);
 /// Generated from method `MR::CSharp::IndexerC::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_AssignFromAnother(MR_CSharp_IndexerC *_this, const MR_CSharp_IndexerC *_other);
 
 /// Generated from method `MR::CSharp::IndexerC::operator[]`.
@@ -4855,13 +5278,16 @@ MR_C_API MR_CSharp_ConvOp *MR_CSharp_ConvOp_DefaultConstruct(void);
 MR_C_API MR_CSharp_ConvOp *MR_CSharp_ConvOp_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ConvOp *MR_CSharp_ConvOp_OffsetPtr(const MR_CSharp_ConvOp *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ConvOp *MR_CSharp_ConvOp_OffsetMutablePtr(MR_CSharp_ConvOp *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::ConvOp::ConvOp`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvOp_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ConvOp *MR_CSharp_ConvOp_ConstructFromAnother(const MR_CSharp_ConvOp *_other);
 
@@ -4882,7 +5308,9 @@ MR_C_API float MR_CSharp_ConvOp_ConvertTo_float(MR_CSharp_ConvOp *_this);
 /// Generated from method `MR::CSharp::ConvOp::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvOp *MR_CSharp_ConvOp_AssignFromAnother(MR_CSharp_ConvOp *_this, const MR_CSharp_ConvOp *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -4895,13 +5323,16 @@ MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_DefaultConstruct(void);
 MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_OffsetPtr(const MR_CSharp_ConvOpToRef *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_OffsetMutablePtr(MR_CSharp_ConvOpToRef *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::ConvOpToRef::ConvOpToRef`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvOpToRef_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_ConstructFromAnother(const MR_CSharp_ConvOpToRef *_other);
 
@@ -4931,7 +5362,9 @@ MR_C_API unsigned short *MR_CSharp_ConvOpToRef_ConvertTo_unsigned_short_ref(MR_C
 /// Generated from method `MR::CSharp::ConvOpToRef::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_AssignFromAnother(MR_CSharp_ConvOpToRef *_this, const MR_CSharp_ConvOpToRef *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -4944,13 +5377,16 @@ MR_C_API MR_CSharp_StringConvString *MR_CSharp_StringConvString_DefaultConstruct
 MR_C_API MR_CSharp_StringConvString *MR_CSharp_StringConvString_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StringConvString *MR_CSharp_StringConvString_OffsetPtr(const MR_CSharp_StringConvString *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StringConvString *MR_CSharp_StringConvString_OffsetMutablePtr(MR_CSharp_StringConvString *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StringConvString::StringConvString`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StringConvString_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StringConvString *MR_CSharp_StringConvString_ConstructFromAnother(const MR_CSharp_StringConvString *_other);
 
@@ -4968,7 +5404,9 @@ MR_C_API MR_C_std_string *MR_CSharp_StringConvString_ConvertTo_std_string(MR_CSh
 /// Generated from method `MR::CSharp::StringConvString::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StringConvString *MR_CSharp_StringConvString_AssignFromAnother(MR_CSharp_StringConvString *_this, const MR_CSharp_StringConvString *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -4981,13 +5419,16 @@ MR_C_API MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_DefaultC
 MR_C_API MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_OffsetPtr(const MR_CSharp_StringConvStringView *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_OffsetMutablePtr(MR_CSharp_StringConvStringView *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StringConvStringView::StringConvStringView`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StringConvStringView_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_ConstructFromAnother(const MR_CSharp_StringConvStringView *_other);
 
@@ -5006,7 +5447,9 @@ MR_C_API MR_C_std_string_view *MR_CSharp_StringConvStringView_ConvertTo_std_stri
 /// Generated from method `MR::CSharp::StringConvStringView::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_AssignFromAnother(MR_CSharp_StringConvStringView *_this, const MR_CSharp_StringConvStringView *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -5019,13 +5462,16 @@ MR_C_API MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_DefaultConstruct
 MR_C_API MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_OffsetPtr(const MR_CSharp_StringConvFsPath *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_OffsetMutablePtr(MR_CSharp_StringConvFsPath *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::StringConvFsPath::StringConvFsPath`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_StringConvFsPath_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_ConstructFromAnother(const MR_CSharp_StringConvFsPath *_other);
 
@@ -5043,7 +5489,9 @@ MR_C_API MR_C_std_filesystem_path *MR_CSharp_StringConvFsPath_ConvertTo_std_file
 /// Generated from method `MR::CSharp::StringConvFsPath::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_AssignFromAnother(MR_CSharp_StringConvFsPath *_this, const MR_CSharp_StringConvFsPath *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -5056,13 +5504,16 @@ MR_C_API MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_DefaultConstruct(void);
 MR_C_API MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_OffsetPtr(const MR_CSharp_ConvCtor *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_OffsetMutablePtr(MR_CSharp_ConvCtor *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtor_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_ConstructFromAnother(const MR_CSharp_ConvCtor *_other);
 
@@ -5091,7 +5542,9 @@ MR_C_API void MR_CSharp_ConvCtor_DestroyArray(const MR_CSharp_ConvCtor *_this);
 /// Generated from method `MR::CSharp::ConvCtor::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_AssignFromAnother(MR_CSharp_ConvCtor *_this, const MR_CSharp_ConvCtor *_other);
 
 /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
@@ -5105,13 +5558,16 @@ MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_Construct(co
 MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_OffsetPtr(const MR_CSharp_ConvCtorWithDefArg *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_OffsetMutablePtr(MR_CSharp_ConvCtorWithDefArg *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorWithDefArg_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother(const MR_CSharp_ConvCtorWithDefArg *_other);
 
@@ -5124,17 +5580,22 @@ MR_C_API void MR_CSharp_ConvCtorWithDefArg_DestroyArray(const MR_CSharp_ConvCtor
 /// Generated from method `MR::CSharp::ConvCtorWithDefArg::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_AssignFromAnother(MR_CSharp_ConvCtorWithDefArg *_this, const MR_CSharp_ConvCtorWithDefArg *_other);
 
 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorNonTrivialRestricted_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_OffsetPtr(const MR_CSharp_ConvCtorNonTrivialRestricted *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_OffsetMutablePtr(MR_CSharp_ConvCtorNonTrivialRestricted *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
@@ -5149,20 +5610,26 @@ MR_C_API void MR_CSharp_ConvCtorNonTrivialRestricted_DestroyArray(const MR_CShar
 
 /// Generated from method `MR::CSharp::ConvCtorNonTrivialRestricted::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_AssignFromAnother(MR_CSharp_ConvCtorNonTrivialRestricted *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other);
 
 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
 MR_C_API MR_CSharp_ConvCtorExposed MR_CSharp_ConvCtorExposed_Construct(int _1);
 
 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorCopyButNoMove_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorCopyButNoMove *_other);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_OffsetPtr(const MR_CSharp_ConvCtorCopyButNoMove *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_OffsetMutablePtr(MR_CSharp_ConvCtorCopyButNoMove *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
@@ -5177,7 +5644,10 @@ MR_C_API void MR_CSharp_ConvCtorCopyButNoMove_DestroyArray(const MR_CSharp_ConvC
 
 /// Generated from method `MR::CSharp::ConvCtorCopyButNoMove::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_AssignFromAnother(MR_CSharp_ConvCtorCopyButNoMove *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorCopyButNoMove *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -5190,13 +5660,16 @@ MR_C_API MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_DefaultConstruct(v
 MR_C_API MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_OffsetPtr(const MR_CSharp_ConvCtorTrivial *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_OffsetMutablePtr(MR_CSharp_ConvCtorTrivial *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorTrivial_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_ConstructFromAnother(const MR_CSharp_ConvCtorTrivial *_other);
 
@@ -5213,7 +5686,9 @@ MR_C_API void MR_CSharp_ConvCtorTrivial_DestroyArray(const MR_CSharp_ConvCtorTri
 /// Generated from method `MR::CSharp::ConvCtorTrivial::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_AssignFromAnother(MR_CSharp_ConvCtorTrivial *_this, const MR_CSharp_ConvCtorTrivial *_other);
 
 /// Generated from function `MR::CSharp::test_class_convtrivial`.
@@ -5257,12 +5732,15 @@ MR_C_API MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_DefaultConst
 MR_C_API MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_OffsetPtr(const MR_CSharp_ConvCtorNonTrivial *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_OffsetMutablePtr(MR_CSharp_ConvCtorNonTrivial *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtorNonTrivial_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivial *_other);
 
@@ -5278,7 +5756,9 @@ MR_C_API void MR_CSharp_ConvCtorNonTrivial_DestroyArray(const MR_CSharp_ConvCtor
 
 /// Generated from method `MR::CSharp::ConvCtorNonTrivial::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_AssignFromAnother(MR_CSharp_ConvCtorNonTrivial *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivial *_other);
 
 /// Generated from function `MR::CSharp::test_class_convnontrivial`.
@@ -5533,25 +6013,30 @@ MR_C_API bool MR_C_equal_MR_CSharp_ExposedLayoutB(const MR_CSharp_ExposedLayoutB
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_CSharp_ArrayMembers_Get_i(const MR_CSharp_ArrayMembers *_this);
 
 /// Modifies a member variable of class `MR::CSharp::ArrayMembers` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `i`.
 MR_C_API void MR_CSharp_ArrayMembers_Set_i(MR_CSharp_ArrayMembers *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_CSharp_ArrayMembers_GetMutable_i(MR_CSharp_ArrayMembers *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `ia`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_CSharp_ArrayMembers_Get_ia(const MR_CSharp_ArrayMembers *_this);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `ia`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_CSharp_ArrayMembers_GetMutable_ia(MR_CSharp_ArrayMembers *_this);
 
@@ -5560,11 +6045,13 @@ MR_C_API size_t MR_CSharp_ArrayMembers_GetSize_ia(void);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `iaa`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int (*MR_CSharp_ArrayMembers_Get_iaa(const MR_CSharp_ArrayMembers *_this))[4];
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `iaa`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int (*MR_CSharp_ArrayMembers_GetMutable_iaa(MR_CSharp_ArrayMembers *_this))[4];
 
@@ -5573,11 +6060,13 @@ MR_C_API size_t MR_CSharp_ArrayMembers_GetSize_iaa(void);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `ci`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_CSharp_ArrayMembers_Get_ci(const MR_CSharp_ArrayMembers *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `cia`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_CSharp_ArrayMembers_Get_cia(const MR_CSharp_ArrayMembers *_this);
 
@@ -5586,6 +6075,7 @@ MR_C_API size_t MR_CSharp_ArrayMembers_GetSize_cia(void);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `ciaa`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int (*MR_CSharp_ArrayMembers_Get_ciaa(const MR_CSharp_ArrayMembers *_this))[4];
 
@@ -5594,6 +6084,7 @@ MR_C_API size_t MR_CSharp_ArrayMembers_GetSize_ciaa(void);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `s`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_CSharp_ArrayMembers_Get_s(const MR_CSharp_ArrayMembers *_this);
 
@@ -5601,20 +6092,25 @@ MR_C_API const MR_C_std_string *MR_CSharp_ArrayMembers_Get_s(const MR_CSharp_Arr
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `value` can not be null.
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `s`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `s`.
 MR_C_API void MR_CSharp_ArrayMembers_Set_s(MR_CSharp_ArrayMembers *_this, const char *value, const char *value_end);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `s`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_CSharp_ArrayMembers_GetMutable_s(MR_CSharp_ArrayMembers *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `sa`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_CSharp_ArrayMembers_Get_sa(const MR_CSharp_ArrayMembers *_this);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `sa`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_CSharp_ArrayMembers_GetMutable_sa(MR_CSharp_ArrayMembers *_this);
 
@@ -5624,11 +6120,13 @@ MR_C_API size_t MR_CSharp_ArrayMembers_GetSize_sa(void);
 // std::string saa[3][4]; // The C generator doesn't support those yet. We'd need to expose them as flat arrays, with N size getters, I think?
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `cs`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_CSharp_ArrayMembers_Get_cs(const MR_CSharp_ArrayMembers *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ArrayMembers` named `csa`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_CSharp_ArrayMembers_Get_csa(const MR_CSharp_ArrayMembers *_this);
 
@@ -5645,12 +6143,15 @@ MR_C_API MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_DefaultConstruct(void);
 MR_C_API MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_OffsetPtr(const MR_CSharp_ArrayMembers *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_OffsetMutablePtr(MR_CSharp_ArrayMembers *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::ArrayMembers::ArrayMembers`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ArrayMembers_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ArrayMembers *_other);
 
@@ -6283,30 +6784,37 @@ MR_C_API const int (*const *MR_CSharp_test_arrcptr_cptr(const int (*const *a)[42
 
 /// Returns a pointer to a member variable of class `MR::CSharp::NameConflicts` named `name_conflicts`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_CSharp_NameConflicts_Get_name_conflicts(const MR_CSharp_NameConflicts *_this);
 
 /// Modifies a member variable of class `MR::CSharp::NameConflicts` named `name_conflicts`.
 /// Parameter `_this` can not be null. It is a single object.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `name_conflicts`.
 MR_C_API void MR_CSharp_NameConflicts_Set_name_conflicts(MR_CSharp_NameConflicts *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::NameConflicts` named `name_conflicts`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_CSharp_NameConflicts_GetMutable_name_conflicts(MR_CSharp_NameConflicts *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::NameConflicts` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_Get_a(const MR_CSharp_NameConflicts *_this);
 
 /// Modifies a member variable of class `MR::CSharp::NameConflicts` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `value` can not be null. It is a single object.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_NameConflicts_Set_a(MR_CSharp_NameConflicts *_this, const MR_CSharp_NameConflicts_A *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::NameConflicts` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_GetMutable_a(MR_CSharp_NameConflicts *_this);
 
@@ -6321,17 +6829,21 @@ MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_DefaultConstructArray(
 
 /// Constructs `MR::CSharp::NameConflicts` elementwise.
 /// Parameter `a` can not be null. It is a single object.
+/// The reference to the parameter `a` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NameConflicts_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_ConstructFrom(int name_conflicts, const MR_CSharp_NameConflicts_A *a);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_OffsetPtr(const MR_CSharp_NameConflicts *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_OffsetMutablePtr(MR_CSharp_NameConflicts *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::NameConflicts::NameConflicts`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NameConflicts_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_ConstructFromAnother(const MR_CSharp_NameConflicts *_other);
 
@@ -6344,7 +6856,9 @@ MR_C_API void MR_CSharp_NameConflicts_DestroyArray(const MR_CSharp_NameConflicts
 /// Generated from method `MR::CSharp::NameConflicts::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_AssignFromAnother(MR_CSharp_NameConflicts *_this, const MR_CSharp_NameConflicts *_other);
 
 /// Generated from method `MR::CSharp::NameConflicts::name_Conflicts`.
@@ -6361,13 +6875,16 @@ MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_DefaultConstruct(v
 MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_OffsetPtr(const MR_CSharp_NameConflicts_A *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_OffsetMutablePtr(MR_CSharp_NameConflicts_A *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::NameConflicts::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_NameConflicts_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_ConstructFromAnother(const MR_CSharp_NameConflicts_A *_other);
 
@@ -6380,7 +6897,9 @@ MR_C_API void MR_CSharp_NameConflicts_A_DestroyArray(const MR_CSharp_NameConflic
 /// Generated from method `MR::CSharp::NameConflicts::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_AssignFromAnother(MR_CSharp_NameConflicts_A *_this, const MR_CSharp_NameConflicts_A *_other);
 
 /// Generated from function `MR::CSharp::nameConflicts`.
@@ -6426,13 +6945,16 @@ MR_C_API MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_DefaultConst
 MR_C_API MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_OffsetPtr(const MR_CSharp_AmbiguousTemplates *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_OffsetMutablePtr(MR_CSharp_AmbiguousTemplates *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::CSharp::AmbiguousTemplates::AmbiguousTemplates`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_AmbiguousTemplates_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_ConstructFromAnother(const MR_CSharp_AmbiguousTemplates *_other);
 
@@ -6445,7 +6967,9 @@ MR_C_API void MR_CSharp_AmbiguousTemplates_DestroyArray(const MR_CSharp_Ambiguou
 /// Generated from method `MR::CSharp::AmbiguousTemplates::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_AssignFromAnother(MR_CSharp_AmbiguousTemplates *_this, const MR_CSharp_AmbiguousTemplates *_other);
 
 /// Generated from method `MR::CSharp::AmbiguousTemplates::template_a<int>`.
@@ -6547,6 +7071,8 @@ MR_C_API int MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref(int _1, 
 MR_C_API MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_sa(void);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sa`.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `sa`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `sa`.
 MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_sa(MR_CSharp_A *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sa`.
@@ -6558,6 +7084,8 @@ MR_C_API MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_sa(void);
 MR_C_API const MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_sb(void);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sb`.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `sb`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `sb`.
 MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_sb(const MR_CSharp_A *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sb`.
@@ -6574,57 +7102,74 @@ MR_C_API const MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_sd(void);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_a(const MR_CSharp_ClassMemberPointersClass *_this);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_a(MR_CSharp_ClassMemberPointersClass *_this, MR_CSharp_A *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_a(MR_CSharp_ClassMemberPointersClass *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_b(const MR_CSharp_ClassMemberPointersClass *_this);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `b`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_b(MR_CSharp_ClassMemberPointersClass *_this, const MR_CSharp_A *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_b(MR_CSharp_ClassMemberPointersClass *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_c(const MR_CSharp_ClassMemberPointersClass *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_d(const MR_CSharp_ClassMemberPointersClass *_this);
 
 /// Generated from constructor `MR::CSharp::ClassMemberPointersClass::ClassMemberPointersClass`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersClass_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(const MR_CSharp_ClassMemberPointersClass *_other);
 
 /// Constructs `MR::CSharp::ClassMemberPointersClass` elementwise.
+/// The reference to the parameter `a` might be preserved in the return value.
+/// The reference to the parameter `b` might be preserved in the return value.
 /// Parameter `c` can not be null. It is a single object.
+/// The reference to the parameter `c` might be preserved in the return value.
 /// Parameter `d` can not be null. It is a single object.
+/// The reference to the parameter `d` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersClass_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_ConstructFrom(MR_CSharp_A *a, const MR_CSharp_A *b, MR_CSharp_A *c, const MR_CSharp_A *d);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_OffsetPtr(const MR_CSharp_ClassMemberPointersClass *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_OffsetMutablePtr(MR_CSharp_ClassMemberPointersClass *ptr, ptrdiff_t i);
 
 /// Destroys a heap-allocated instance of `MR_CSharp_ClassMemberPointersClass`. Does nothing if the pointer is null.
@@ -6638,6 +7183,8 @@ MR_C_API void MR_CSharp_ClassMemberPointersClass_DestroyArray(const MR_CSharp_Cl
 MR_C_API MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_sa(void);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sa`.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `sa`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `sa`.
 MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_sa(MR_CSharp_ExposedLayout *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sa`.
@@ -6649,6 +7196,8 @@ MR_C_API MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutab
 MR_C_API const MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_sb(void);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sb`.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `sb`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `sb`.
 MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_sb(const MR_CSharp_ExposedLayout *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sb`.
@@ -6665,57 +7214,74 @@ MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_a(const MR_CSharp_ClassMemberPointersExposed *_this);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_a(MR_CSharp_ClassMemberPointersExposed *_this, MR_CSharp_ExposedLayout *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_a(MR_CSharp_ClassMemberPointersExposed *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_b(const MR_CSharp_ClassMemberPointersExposed *_this);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `b`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_b(MR_CSharp_ClassMemberPointersExposed *_this, const MR_CSharp_ExposedLayout *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_b(MR_CSharp_ClassMemberPointersExposed *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_c(const MR_CSharp_ClassMemberPointersExposed *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_d(const MR_CSharp_ClassMemberPointersExposed *_this);
 
 /// Generated from constructor `MR::CSharp::ClassMemberPointersExposed::ClassMemberPointersExposed`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersExposed_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(const MR_CSharp_ClassMemberPointersExposed *_other);
 
 /// Constructs `MR::CSharp::ClassMemberPointersExposed` elementwise.
+/// The reference to the parameter `a` might be preserved in the return value.
+/// The reference to the parameter `b` might be preserved in the return value.
 /// Parameter `c` can not be null. It is a single object.
+/// The reference to the parameter `c` might be preserved in the return value.
 /// Parameter `d` can not be null. It is a single object.
+/// The reference to the parameter `d` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersExposed_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_ConstructFrom(MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b, MR_CSharp_ExposedLayout *c, const MR_CSharp_ExposedLayout *d);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_OffsetPtr(const MR_CSharp_ClassMemberPointersExposed *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_OffsetMutablePtr(MR_CSharp_ClassMemberPointersExposed *ptr, ptrdiff_t i);
 
 /// Destroys a heap-allocated instance of `MR_CSharp_ClassMemberPointersExposed`. Does nothing if the pointer is null.
@@ -6729,6 +7295,8 @@ MR_C_API void MR_CSharp_ClassMemberPointersExposed_DestroyArray(const MR_CSharp_
 MR_C_API unsigned short *const *MR_CSharp_ClassMemberPointersUshort_Get_sa(void);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sa`.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `sa`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `sa`.
 MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_sa(unsigned short *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sa`.
@@ -6740,6 +7308,8 @@ MR_C_API unsigned short **MR_CSharp_ClassMemberPointersUshort_GetMutable_sa(void
 MR_C_API const unsigned short *const *MR_CSharp_ClassMemberPointersUshort_Get_sb(void);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sb`.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `sb`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `sb`.
 MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_sb(const unsigned short *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sb`.
@@ -6756,57 +7326,74 @@ MR_C_API const unsigned short *MR_CSharp_ClassMemberPointersUshort_Get_sd(void);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API unsigned short *const *MR_CSharp_ClassMemberPointersUshort_Get_a(const MR_CSharp_ClassMemberPointersUshort *_this);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_a(MR_CSharp_ClassMemberPointersUshort *_this, unsigned short *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API unsigned short **MR_CSharp_ClassMemberPointersUshort_GetMutable_a(MR_CSharp_ClassMemberPointersUshort *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const unsigned short *const *MR_CSharp_ClassMemberPointersUshort_Get_b(const MR_CSharp_ClassMemberPointersUshort *_this);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `b`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_b(MR_CSharp_ClassMemberPointersUshort *_this, const unsigned short *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const unsigned short **MR_CSharp_ClassMemberPointersUshort_GetMutable_b(MR_CSharp_ClassMemberPointersUshort *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API unsigned short *MR_CSharp_ClassMemberPointersUshort_Get_c(const MR_CSharp_ClassMemberPointersUshort *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const unsigned short *MR_CSharp_ClassMemberPointersUshort_Get_d(const MR_CSharp_ClassMemberPointersUshort *_this);
 
 /// Generated from constructor `MR::CSharp::ClassMemberPointersUshort::ClassMemberPointersUshort`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersUshort_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(const MR_CSharp_ClassMemberPointersUshort *_other);
 
 /// Constructs `MR::CSharp::ClassMemberPointersUshort` elementwise.
+/// The reference to the parameter `a` might be preserved in the return value.
+/// The reference to the parameter `b` might be preserved in the return value.
 /// Parameter `c` can not be null. It is a single object.
+/// The reference to the parameter `c` might be preserved in the return value.
 /// Parameter `d` can not be null. It is a single object.
+/// The reference to the parameter `d` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersUshort_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_ConstructFrom(unsigned short *a, const unsigned short *b, unsigned short *c, const unsigned short *d);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_OffsetPtr(const MR_CSharp_ClassMemberPointersUshort *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_OffsetMutablePtr(MR_CSharp_ClassMemberPointersUshort *ptr, ptrdiff_t i);
 
 /// Destroys a heap-allocated instance of `MR_CSharp_ClassMemberPointersUshort`. Does nothing if the pointer is null.
@@ -6820,6 +7407,8 @@ MR_C_API void MR_CSharp_ClassMemberPointersUshort_DestroyArray(const MR_CSharp_C
 MR_C_API bool *const *MR_CSharp_ClassMemberPointersBool_Get_sa(void);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sa`.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `sa`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `sa`.
 MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_sa(bool *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sa`.
@@ -6831,6 +7420,8 @@ MR_C_API bool **MR_CSharp_ClassMemberPointersBool_GetMutable_sa(void);
 MR_C_API const bool *const *MR_CSharp_ClassMemberPointersBool_Get_sb(void);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sb`.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `sb`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `sb`.
 MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_sb(const bool *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sb`.
@@ -6847,57 +7438,74 @@ MR_C_API const bool *MR_CSharp_ClassMemberPointersBool_Get_sd(void);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API bool *const *MR_CSharp_ClassMemberPointersBool_Get_a(const MR_CSharp_ClassMemberPointersBool *_this);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_a(MR_CSharp_ClassMemberPointersBool *_this, bool *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API bool **MR_CSharp_ClassMemberPointersBool_GetMutable_a(MR_CSharp_ClassMemberPointersBool *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const bool *const *MR_CSharp_ClassMemberPointersBool_Get_b(const MR_CSharp_ClassMemberPointersBool *_this);
 
 /// Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `b`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_b(MR_CSharp_ClassMemberPointersBool *_this, const bool *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const bool **MR_CSharp_ClassMemberPointersBool_GetMutable_b(MR_CSharp_ClassMemberPointersBool *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API bool *MR_CSharp_ClassMemberPointersBool_Get_c(const MR_CSharp_ClassMemberPointersBool *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const bool *MR_CSharp_ClassMemberPointersBool_Get_d(const MR_CSharp_ClassMemberPointersBool *_this);
 
 /// Generated from constructor `MR::CSharp::ClassMemberPointersBool::ClassMemberPointersBool`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersBool_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(const MR_CSharp_ClassMemberPointersBool *_other);
 
 /// Constructs `MR::CSharp::ClassMemberPointersBool` elementwise.
+/// The reference to the parameter `a` might be preserved in the return value.
+/// The reference to the parameter `b` might be preserved in the return value.
 /// Parameter `c` can not be null. It is a single object.
+/// The reference to the parameter `c` might be preserved in the return value.
 /// Parameter `d` can not be null. It is a single object.
+/// The reference to the parameter `d` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ClassMemberPointersBool_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_ConstructFrom(bool *a, const bool *b, bool *c, const bool *d);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_OffsetPtr(const MR_CSharp_ClassMemberPointersBool *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_OffsetMutablePtr(MR_CSharp_ClassMemberPointersBool *ptr, ptrdiff_t i);
 
 /// Destroys a heap-allocated instance of `MR_CSharp_ClassMemberPointersBool`. Does nothing if the pointer is null.

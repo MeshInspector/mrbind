@@ -548,12 +548,12 @@ namespace mrbind::CBindings
         return message.empty() ? GetDeprecationMacroName(false) : GetDeprecationMacroName(true) + "(" + EscapeQuoteString(message) + ")";
     }
 
-    bool Generator::TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags, bool allow_scalar_typedefs) const
+    bool Generator::TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeFlags flags, bool allow_scalar_typedefs) const
     {
         if (name.IsBuiltInTypeName(flags))
             return true;
 
-        if (allow_scalar_typedefs && bool(flags & cppdecl::IsBuiltInTypeNameFlags::allow_integral))
+        if (allow_scalar_typedefs && bool(flags & cppdecl::IsBuiltInTypeFlags::allow_integral))
         {
             // Not handling the `std::` namespace on those typedefs. Firstly because the parser doesn't emit it anyway in the canonical types
             //   (and those typedefs should only appear in the canonical types when `--canonicalize-to-fixed-size-typedefs` is used).
@@ -617,7 +617,7 @@ namespace mrbind::CBindings
         if (type_name.AsSingleWord() == "bool")
             return &AddNewTypeBindableWithSameAddress(type_name, {.declared_in_c_stdlib_file = "stdbool.h", .needs_reinterpret_cast = false});
         // Built-in types.
-        if (TypeNameIsCBuiltIn(type_name, cppdecl::IsBuiltInTypeNameFlags::allow_all & ~cppdecl::IsBuiltInTypeNameFlags::allow_bool))
+        if (TypeNameIsCBuiltIn(type_name, cppdecl::IsBuiltInTypeFlags::allow_all & ~cppdecl::IsBuiltInTypeFlags::allow_bool))
         {
             // Need to specify `custom_c_type_name` here for `long long` to be correctly printed with a space, instead of being replaced with `long_long`.
             return &AddNewTypeBindableWithSameAddress(type_name, {.custom_c_type_name = type_name_str, .needs_reinterpret_cast = false});
@@ -667,7 +667,7 @@ namespace mrbind::CBindings
             cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
             [&](const cppdecl::Type &simple_type)
             {
-                if (!simple_type.simple_type.name.IsEmpty() && !TypeNameIsCBuiltIn(simple_type.simple_type.name, cppdecl::IsBuiltInTypeNameFlags::allow_all & ~cppdecl::IsBuiltInTypeNameFlags::allow_bool))
+                if (!simple_type.simple_type.name.IsEmpty() && !TypeNameIsCBuiltIn(simple_type.simple_type.name, cppdecl::IsBuiltInTypeFlags::allow_all & ~cppdecl::IsBuiltInTypeFlags::allow_bool))
                     func(simple_type.simple_type.name, simple_type.Is<cppdecl::Array>(simple_type.modifiers.size() - 1)); // The underflow is fine here, because `Is()` silently returns false on out-of-range indices.
                 return false;
             }
@@ -1757,10 +1757,52 @@ namespace mrbind::CBindings
         cpp_return_type = self.ParseTypeOrThrow(new_func.return_type.canonical);
     }
 
+    void Generator::EmitFuncParams::SetLifetimesFromParsedFunc(const BasicFunc &new_func, bool is_member_func_or_ctor, bool is_ctor)
+    {
+        auto TranslateVariant = [&](const LifetimeRelation::Variant &var)
+        {
+            return std::visit(Overload{
+                [&](const LifetimeRelation::ThisObject &) -> CInterop::LifetimeRelation::Variant
+                {
+                    assert(is_member_func_or_ctor);
+                    if (is_ctor)
+                        return CInterop::LifetimeRelation::ReturnValue{};
+                    else
+                        return CInterop::LifetimeRelation::Param{.index = 0};
+                },
+                [&](const LifetimeRelation::Param &param) -> CInterop::LifetimeRelation::Variant
+                {
+                    return CInterop::LifetimeRelation::Param{.index = param.index + int(is_member_func_or_ctor && !is_ctor)};
+                },
+                [](const LifetimeRelation::ReturnValue &) -> CInterop::LifetimeRelation::Variant
+                {
+                    return CInterop::LifetimeRelation::ReturnValue{};
+                },
+            }, var);
+        };
+
+        for (const auto &lifetime : new_func.lifetimes.relations)
+        {
+            CInterop::LifetimeRelation new_lifetime;
+
+            new_lifetime.holder = TranslateVariant(lifetime.holder);
+            new_lifetime.target = TranslateVariant(lifetime.target);
+            new_lifetime.key = lifetime.key;
+            new_lifetime.force_only_nested = lifetime.force_only_nested;
+
+            lifetimes.relations.insert(std::move(new_lifetime));
+        }
+
+        for (const auto &removed_key_for_variant : new_func.lifetimes.removed_keys)
+            lifetimes.removed_keys.try_emplace(TranslateVariant(removed_key_for_variant.first), removed_key_for_variant.second);
+    }
+
     void Generator::EmitFuncParams::SetFromParsedFunc(Generator &self, const FuncEntity &new_func, bool is_class_friend, std::span<const NamespaceEntity *const> new_using_namespace_stack)
     {
         mark_deprecated = new_func.deprecation_message;
         silence_deprecation |= bool(new_func.deprecation_message);
+
+        SetLifetimesFromParsedFunc(new_func, false, false);
 
         AddParamsFromParsedFunc(self, new_func.params);
         if (new_func.IsPostIncrOrDecr())
@@ -1795,7 +1837,6 @@ namespace mrbind::CBindings
         }
 
         SetReturnTypeFromParsedFunc(self, new_func);
-
 
 
         // Might need this at least for the custom `[u]int64_t` typedefs.
@@ -1837,6 +1878,8 @@ namespace mrbind::CBindings
     {
         mark_deprecated = new_ctor.deprecation_message;
         silence_deprecation |= bool(new_ctor.deprecation_message);
+
+        SetLifetimesFromParsedFunc(new_ctor, true, true);
 
         AddParamsFromParsedFunc(self, new_ctor.params);
 
@@ -1894,6 +1937,8 @@ namespace mrbind::CBindings
     {
         mark_deprecated = new_method.deprecation_message;
         silence_deprecation |= bool(new_method.deprecation_message);
+
+        SetLifetimesFromParsedFunc(new_method, true, false);
 
         mark_virtual = new_method.is_virtual;
 
@@ -2131,6 +2176,7 @@ namespace mrbind::CBindings
             params.push_back({
                 .name = "value",
                 .cpp_type = field_type,
+                .reference_assigned = full_name_fixed_deco, // Doesn't matter which one we use. I guess let's go with the decorative one.
             });
 
             // Not using `@this@.` here because this can be a static data member too!
@@ -2141,6 +2187,8 @@ namespace mrbind::CBindings
         {
             // Replace arrays with references to their first elements.
             // Using a reference instead of a pointer here to get a nice comment telling the user that it'll never be null (which is true).
+
+            lifetimes.ReturnsReferenceToThis();
 
             if (is_array)
                 cpp_return_type.RemoveModifier();
@@ -2189,6 +2237,85 @@ namespace mrbind::CBindings
     {
         EmittedFunctionStrings ret;
 
+        { // Handle the lifetime stuff.
+            // If a type of a parameter or the return type can't refer to anything, we prune the lifetime information about it.
+            // Including it in the first place is legal for codegen convenience.
+            // Note that by-value classes can still refer to stuff, so we don't prune them here.
+            // This is best effort, we might fail to prune something, but this isn't a big deal. It'll just emit some extra noise in the comments,
+            //   and the consumers of the interop info are expected to filter this by themselves anyway.
+            auto TypeHasNoLifetime = [&](const cppdecl::Type &type) -> bool
+            {
+                return type.IsBuiltInType();
+            };
+
+            // Merge the per-parameter properties into `ret.lifetimes`.
+            ret.lifetimes = params.lifetimes;
+            for (int i = 0; const auto &param : params.params)
+            {
+                if (std::holds_alternative<std::string>(param.reference_returned) || (std::holds_alternative<bool>(param.reference_returned) && std::get<bool>(param.reference_returned)))
+                    ret.lifetimes.ReturnsReferenceToParam(i, std::holds_alternative<std::string>(param.reference_returned) ? std::get<std::string>(param.reference_returned) : "");
+                if (std::holds_alternative<std::string>(param.reference_assigned) || (std::holds_alternative<bool>(param.reference_assigned) && std::get<bool>(param.reference_assigned)))
+                {
+                    if (params.params.front().kind == EmitFuncParams::Param::Kind::normal)
+                        throw std::runtime_error("A lifetime annotation refers to `this`, but this is not a member function. For those annotation purposes, constructors don't count as member functions.");
+                    ret.lifetimes.AssignsReferenceToParam(i, std::holds_alternative<std::string>(param.reference_assigned) ? std::get<std::string>(param.reference_assigned) : "");
+                }
+                if (std::holds_alternative<std::string>(param.reference_appended) || (std::holds_alternative<bool>(param.reference_appended) && std::get<bool>(param.reference_appended)))
+                {
+                    if (params.params.front().kind == EmitFuncParams::Param::Kind::normal)
+                        throw std::runtime_error("A lifetime annotation refers to `this`, but this is not a member function. For those annotation purposes, constructors don't count as member functions.");
+                    ret.lifetimes.AppendsReferenceToParam(i, std::holds_alternative<std::string>(param.reference_appended) ? std::get<std::string>(param.reference_appended) : "");
+                }
+
+                // Prune lifetimes related to this parameter if its type can't have lifetime properties.
+                if (TypeHasNoLifetime(param.cpp_type))
+                {
+                    std::erase_if(ret.lifetimes.relations, [&](const CInterop::LifetimeRelation &lifetime)
+                    {
+                        if (auto p = std::get_if<CInterop::LifetimeRelation::Param>(&lifetime.holder); p && p->index == i)
+                            return true;
+                        if (auto p = std::get_if<CInterop::LifetimeRelation::Param>(&lifetime.target); p && p->index == i)
+                            return true;
+                        return false;
+                    });
+                }
+
+                i++;
+            }
+
+            // Prune lifetimes related to the return value if the return type can't have lifetime properties.
+            if (TypeHasNoLifetime(params.cpp_return_type))
+            {
+                std::erase_if(ret.lifetimes.relations, [](const CInterop::LifetimeRelation &lifetime)
+                {
+                    return
+                        std::holds_alternative<CInterop::LifetimeRelation::ReturnValue>(lifetime.holder) ||
+                        std::holds_alternative<CInterop::LifetimeRelation::ReturnValue>(lifetime.target);
+                });
+            }
+
+            // Validate that we aren't doing anything stupid.
+
+            // Does this function return void?
+            // We COULD check `IsBuiltInTypeName()` here, but I think it's better not to.
+            // This allows redundant attributes in custom functions, without having to actively check if they're actually redundant or not.
+            if (params.cpp_return_type.AsSingleWord() == "void")
+            {
+                for (const CInterop::LifetimeRelation &lifetime : ret.lifetimes.relations)
+                {
+                    if (
+                        std::holds_alternative<CInterop::LifetimeRelation::ReturnValue>(lifetime.holder) ||
+                        std::holds_alternative<CInterop::LifetimeRelation::ReturnValue>(lifetime.target)
+                    )
+                    {
+                        throw std::runtime_error("This function returns void, but has lifetime annotations referring to its return value.");
+                    }
+                }
+            }
+
+            // I'd also like to validate that constructors don't refer to `this`, but I can't, since here `this` and the first parameter are the same thing, so I can't distinguish between the two.
+        }
+
         cppdecl::Function new_func;
         cppdecl::Function new_func_decl;
 
@@ -2212,7 +2339,6 @@ namespace mrbind::CBindings
         bool should_silence_deprecation = params.silence_deprecation;
 
         // Assemble the parameter and argument lists.
-        std::size_t i = 1; // This counter doesn't increment on `this` parameters. It is 1-based for user-friendliness.
         bool first_arg_in_call_expr = true;
         bool seen_this_param = false;
         bool seen_any_placeholders = false;
@@ -2238,16 +2364,30 @@ namespace mrbind::CBindings
         // At least one default C++ argument, not counting the ones we skip because of being trivial (null pointers and such).
         bool has_any_useful_default_args = false;
 
+        // Do a pre-pass over C++ parameters to generate their fixed names.
+        // We need this here, since the primary pass might need the names of future parameters to show them in the lifetime comments.
+        for (std::size_t i_onebased_nothis = 1; const auto &param : params.params)
+        {
+            const bool is_this_param = param.kind != EmitFuncParams::Param::Kind::normal;
+
+            EmittedFunctionStrings::ParamInfo &out_param_info = ret.params_info.emplace_back();
+            out_param_info.fixed_name = !param.name.empty() ? param.name : is_this_param ? "_this" : "_" + std::to_string(i_onebased_nothis);
+
+            if (!is_this_param)
+                i_onebased_nothis++;
+        }
+
         // For each C++ parameter...
+        std::size_t i = 0;
+        std::size_t i_onebased_nothis = 1; // This counter doesn't increment on `this` parameters, and is 1-based for user-friendliness.
         for (const auto &param : params.params)
         {
             const bool is_this_param = param.kind != EmitFuncParams::Param::Kind::normal;
 
             try
             {
-                EmittedFunctionStrings::ParamInfo &out_param_info = ret.params_info.emplace_back();
+                EmittedFunctionStrings::ParamInfo &out_param_info = ret.params_info.at(i);
 
-                out_param_info.fixed_name = !param.name.empty() ? param.name : is_this_param ? "_this" : "_" + std::to_string(i);
                 const auto &param_name_fixed = out_param_info.fixed_name;
 
                 std::string arg_expr;
@@ -2343,6 +2483,44 @@ namespace mrbind::CBindings
                         ret.comment += "/// Parameter `" + param_name_fixed + "` defaults to " + *useless_default_arg_message + " in C++.\n";
                     }
 
+                    { // Comment about lifetime, if any.
+                        for (const CInterop::LifetimeRelation &lifetime : ret.lifetimes.relations)
+                        {
+                            if (auto param = std::get_if<CInterop::LifetimeRelation::Param>(&lifetime.target); param && param->index == int(i))
+                            {
+                                ret.comment += "/// The reference to ";
+
+                                if (lifetime.force_only_nested)
+                                    ret.comment += "things referred to by ";
+
+                                ret.comment += "the parameter `" + out_param_info.fixed_name + "` ";
+
+                                if (lifetime.force_only_nested)
+                                    ret.comment += "(if any) ";
+
+                                ret.comment += "might be preserved in ";
+
+                                std::visit(Overload{
+                                    [&](const CInterop::LifetimeRelation::ReturnValue &)
+                                    {
+                                        ret.comment += "the return value";
+                                    },
+                                    [&](const CInterop::LifetimeRelation::Param &param)
+                                    {
+                                        ret.comment += "the parameter `" + ret.params_info.at(std::size_t(param.index)).fixed_name + "`";
+                                    },
+                                }, lifetime.holder);
+
+                                if (!lifetime.key.empty())
+                                    ret.comment += " in element `" + lifetime.key + "`";
+
+                                ret.comment += ".\n";
+
+                                // I'd say "Make sure it doesn't dangle." here, but this will look meaningless in Python/C#/etc.
+                            }
+                        }
+                    }
+
                     if (!param.custom_argument_spelling && param.kind != EmitFuncParams::Param::Kind::static_ && !param.omit_from_call)
                         arg_expr = param_usage.CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? BindableType::ParamUsage::DefaultArgVar(param.default_arg->cpp_expr) : BindableType::ParamUsage::DefaultArgNone{});
                 }
@@ -2398,13 +2576,13 @@ namespace mrbind::CBindings
                     {
                         if (seen_this_param)
                             throw std::logic_error("Internal error: Bad usage: More than one `this` parameter in the function to emit.");
-                        else if (i > 1)
+                        else if (i_onebased_nothis > 1)
                             throw std::logic_error("Internal error: Bad usage: `this` parameter must be the first parameter in the function to emit.");
                         else
                             seen_this_param = true;
                     }
 
-                    std::string placeholder = is_this_param ? "@this@" : "@" + std::to_string(i) + "@";
+                    std::string placeholder = is_this_param ? "@this@" : "@" + std::to_string(i_onebased_nothis) + "@";
 
                     if (params.cpp_called_func.find(placeholder) != std::string::npos || body_pre.find(placeholder) != std::string::npos)
                     {
@@ -2429,12 +2607,13 @@ namespace mrbind::CBindings
                     }
                 }
 
+                i++;
                 if (!is_this_param)
-                    i++; // Don't count the this parameter.
+                    i_onebased_nothis++; // Don't count the this parameter.
             }
             catch (...)
             {
-                std::throw_with_nested(std::runtime_error("While processing parameter " + (is_this_param ? "`this`" : std::to_string(i) + (seen_this_param ? " (not counting `this`)" : "")) + ":"));
+                std::throw_with_nested(std::runtime_error("While processing parameter " + (is_this_param ? "`this`" : std::to_string(i_onebased_nothis) + (seen_this_param ? " (not counting `this`)" : "")) + ":"));
             }
         }
 
@@ -2522,6 +2701,53 @@ namespace mrbind::CBindings
         catch (...)
         {
             std::throw_with_nested(std::runtime_error("While processing the return type:"));
+        }
+
+        { // Append non-parameter-specific lifetime information to the comment.
+            for (const auto &removed_keys : ret.lifetimes.removed_keys)
+            {
+                if (removed_keys.second.empty())
+                {
+                    assert(false); // This isn't a big deal, but still it's uncool to have an empty set here. Why is it empty?
+                    continue;
+                }
+
+                ret.comment += "/// After this function is called, ";
+                std::visit(Overload{
+                    [&](const CInterop::LifetimeRelation::ReturnValue &)
+                    {
+                        ret.comment += "the return value";
+                    },
+                    [&](const CInterop::LifetimeRelation::Param &param)
+                    {
+                        ret.comment += "the parameter `" + ret.params_info.at(std::size_t(param.index)).fixed_name + "`";
+                    },
+                }, removed_keys.first);
+
+                const bool all_refs = removed_keys.second.contains("");
+                ret.comment += " will drop ";
+                if (all_refs)
+                    ret.comment += "any ";
+                ret.comment += "object references it had previously";
+
+                if (!all_refs)
+                {
+                    ret.comment += " in ";
+
+                    bool first = true;
+                    for (const auto &key : removed_keys.second)
+                    {
+                        if (!std::exchange(first, false))
+                            ret.comment += ", ";
+
+                        ret.comment += "`";
+                        ret.comment += key;
+                        ret.comment += "`";
+                    }
+                }
+
+                ret.comment += ".\n";
+            }
         }
 
         // The trailing custom comment, if any.
@@ -2707,7 +2933,7 @@ namespace mrbind::CBindings
             type.Is<cppdecl::Pointer>() ||
             (
                 type.IsOnlyQualifiedName() &&
-                TypeNameIsCBuiltIn(type.simple_type.name, cppdecl::IsBuiltInTypeNameFlags::allow_arithmetic, true)
+                TypeNameIsCBuiltIn(type.simple_type.name, cppdecl::IsBuiltInTypeFlags::allow_arithmetic, true)
             )
         )
         {
@@ -4259,6 +4485,7 @@ namespace mrbind::CBindings
                                 emit.params.push_back({
                                     .name = member_desc.name,
                                     .cpp_type = member_desc.type,
+                                    .reference_returned = true,
                                 });
                             }
                             emit.cpp_called_func = cpp_class_name_str;
@@ -4344,6 +4571,8 @@ namespace mrbind::CBindings
                                             );
                                             // Hide from interop. Call those functions directly by their names if you need them.
                                             emit.name.ignore_in_interop = true;
+
+                                            emit.lifetimes.ReturnsReferenceToThis();
 
                                             // Will add a pointer or a reference later.
                                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(target_cpp_qual_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_);

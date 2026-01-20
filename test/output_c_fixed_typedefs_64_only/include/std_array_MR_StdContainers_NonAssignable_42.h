@@ -31,27 +31,33 @@ MR_C_API void MR_C_std_array_MR_StdContainers_NonAssignable_42_Destroy(const MR_
 MR_C_API void MR_C_std_array_MR_StdContainers_NonAssignable_42_DestroyArray(const MR_C_std_array_MR_StdContainers_NonAssignable_42 *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_C_std_array_MR_StdContainers_NonAssignable_42_OffsetPtr(const MR_C_std_array_MR_StdContainers_NonAssignable_42 *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_array_MR_StdContainers_NonAssignable_42 *MR_C_std_array_MR_StdContainers_NonAssignable_42_OffsetMutablePtr(MR_C_std_array_MR_StdContainers_NonAssignable_42 *ptr, ptrdiff_t i);
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_array_MR_StdContainers_NonAssignable_42_At(const MR_C_std_array_MR_StdContainers_NonAssignable_42 *_this, size_t i);
 
 /// The element at a specific index, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdContainers_NonAssignable *MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableAt(MR_C_std_array_MR_StdContainers_NonAssignable_42 *_this, size_t i);
 
 /// Returns a pointer to the continuous storage that holds all elements, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_array_MR_StdContainers_NonAssignable_42_Data(const MR_C_std_array_MR_StdContainers_NonAssignable_42 *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_StdContainers_NonAssignable *MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableData(MR_C_std_array_MR_StdContainers_NonAssignable_42 *_this);
 
 #ifdef __cplusplus

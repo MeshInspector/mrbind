@@ -35,11 +35,14 @@ MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *MR_C_std_vect
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
+/// The reference to the parameter `other` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_AssignFromAnother(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible`. Does nothing if the pointer is null.
@@ -49,9 +52,11 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Destroy(c
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_DestroyArray(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_OffsetPtr(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_OffsetMutablePtr(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *ptr, ptrdiff_t i);
 
 /// The number of elements.
@@ -69,6 +74,7 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ResizeWit
 
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Clear(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
 /// The memory capacity, measued in the number of elements.
@@ -85,33 +91,40 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ShrinkToF
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_At(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, size_t i);
 
 /// The element at a specific index, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableAt(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, size_t i);
 
 /// The first element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Front(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
 /// The first element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableFront(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
 /// The last element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Back(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
 /// The last element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBack(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
 /// Inserts a new element at the end.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `new_elem` can not be null. It is a single object.
+/// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_PushBack(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, const MR_StdContainers_NonDefaultConstructible *new_elem);
 
 /// Removes one element from the end.
@@ -121,6 +134,7 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_PopBack(M
 /// Inserts a new element right before the specified position.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `new_elem` can not be null. It is a single object.
+/// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Insert(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, size_t position, const MR_StdContainers_NonDefaultConstructible *new_elem);
 
 /// Erases the element at the specified position.
@@ -131,6 +145,7 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Erase(MR_
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `position` can not be null. It is a single object.
 /// Parameter `new_elem` can not be null. It is a single object.
+/// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_InsertAtMutableIter(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *position, const MR_StdContainers_NonDefaultConstructible *new_elem);
 
 /// Erases the element at the specified position.
@@ -142,6 +157,7 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_EraseAtMu
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `position` can not be null. It is a single object.
 /// Parameter `new_elem` can not be null. It is a single object.
+/// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_InsertAtIter(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *position, const MR_StdContainers_NonDefaultConstructible *new_elem);
 
 /// Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
@@ -151,6 +167,7 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_EraseAtIt
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Begin(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
@@ -161,6 +178,7 @@ MR_C_API bool MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsBegin(c
 
 /// The begin iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBegin(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
@@ -171,6 +189,7 @@ MR_C_API bool MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsMutable
 
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_End(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
@@ -181,6 +200,7 @@ MR_C_API bool MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsEnd(con
 
 /// The end iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableEnd(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
@@ -210,12 +230,15 @@ MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_ConstructFromAnother(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_AssignFromAnother(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *_this, const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator`. Does nothing if the pointer is null.
@@ -225,9 +248,11 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_ite
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_DestroyArray(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_OffsetPtr(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_OffsetMutablePtr(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *ptr, ptrdiff_t i);
 
 /// Makes a const iterator from a mutable one.
@@ -246,12 +271,15 @@ MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *MR_C
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_ConstructFromAnother(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_AssignFromAnother(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *_this, const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator`. Does nothing if the pointer is null.
@@ -261,13 +289,16 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_DestroyArray(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_OffsetPtr(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_OffsetMutablePtr(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *ptr, ptrdiff_t i);
 
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Deref(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *_this);
 
@@ -290,6 +321,7 @@ MR_C_API ptrdiff_t MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_cons
 
 /// Dereferences a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Deref(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *_this);
 

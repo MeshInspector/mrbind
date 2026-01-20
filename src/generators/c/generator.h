@@ -315,7 +315,7 @@ namespace mrbind::CBindings
 
         // Returns true if this is a built-in C type.
         // If both `allow_scalar_typedefs` is true and `flags & allow_integral` is true, also accept `[u]int??_t`, to match `--canonicalize-to-fixed-size-typedefs`.
-        [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeNameFlags flags = cppdecl::IsBuiltInTypeNameFlags::allow_all, bool allow_scalar_typedefs = false) const;
+        [[nodiscard]] bool TypeNameIsCBuiltIn(const cppdecl::QualifiedName &name, cppdecl::IsBuiltInTypeFlags flags = cppdecl::IsBuiltInTypeFlags::allow_all, bool allow_scalar_typedefs = false) const;
 
 
         // Those types are a subset of `IsSimplyBindableIndirectReinterpret()` for pure qualified names (without cvref/ptr-qualifiers).
@@ -1314,6 +1314,22 @@ namespace mrbind::CBindings
                 // We translate this to C types automatically.
                 cppdecl::Type cpp_type;
 
+                // Indicates that this function can return a reference to this parameter.
+                // This is a shorthand for `lifetimes.ReturnsReferenceToParam(i, "...")`.
+                // If true or a string, indicates that this function can store a reference to this parameter in the returned object. If it's a string, then the reference is marked with this string (see `reference_assigned` for what this does).
+                // You can use this for constrctors.
+                std::variant<bool, std::string> reference_returned = false;
+                // If false, has no effect.
+                // If true or a string, indicates that this function can store a reference to this parameter in the current object (in `this`).
+                // If true, this erases all existing references in the object. If this is a string, then only erases references marked with the same string. An empty string erases all references, it has the same effect as `true`.
+                // This is a shorthand for `lifetimes.AssignsReferenceToParam(i, "...")`.
+                // It doesn't make sense to make this conditional on the parameter type being a reference, since if it's not a reference, then this will automatically apply to whatever it keeps alive.
+                // Don't use this for constructors, since those
+                std::variant<bool, std::string> reference_assigned = false;
+                // Same, but doesn't remove the existing references.
+                // It doesn't make sense to make this conditional on the parameter type being a reference, since if it's not a reference, then this will automatically apply to whatever it keeps alive.
+                std::variant<bool, std::string> reference_appended = false;
+
                 // If true, do not attempt to translate the type to C, paste it as is.
                 // This conflicts with `default_arg` (will trigger an internal error when emitting).
                 // If this is true, `remove_sugar` be ignored.
@@ -1332,6 +1348,9 @@ namespace mrbind::CBindings
                 std::optional<DefaultArg> default_arg{}; // Adding `{}` to avoid Clang warning when this field is omitted in designated init.
             };
             std::vector<Param> params;
+
+            // Lifetime information. This can come from the parser, and it also makes sense to specify it manually for custom bindings.
+            CInterop::Lifetimes lifetimes;
 
             enum class FieldAccessorKind
             {
@@ -1384,6 +1403,8 @@ namespace mrbind::CBindings
 
             void SetReturnTypeFromParsedFunc(Generator &self, const BasicReturningFunc &new_func);
 
+            void SetLifetimesFromParsedFunc(const BasicFunc &new_func, bool is_member_func_or_ctor, bool is_ctor);
+
             void SetFromParsedFunc(Generator &self, const FuncEntity &new_func, bool is_class_friend, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassCtor(Generator &self, const ClassEntity &new_class, const ClassCtor &new_ctor, std::span<const NamespaceEntity *const> new_using_namespace_stack);
             void SetFromParsedClassMethod(Generator &self, const ClassEntity &new_class, const ClassMethod &new_method, std::span<const NamespaceEntity *const> new_using_namespace_stack);
@@ -1425,6 +1446,9 @@ namespace mrbind::CBindings
 
             // Stores additional information about the parameters. Has the same size as `params.params`.
             std::vector<ParamInfo> params_info;
+
+            // Stores the lifetime information. This is based on `EmitFuncParams::lifetimes`, but with additional information appended.
+            CInterop::Lifetimes lifetimes;
         };
         // Like `EmitFunction()`, but doesn't write the function directly to the file. Instead returns the strings composing it.
         // But the includes and such still get written directly to the file.

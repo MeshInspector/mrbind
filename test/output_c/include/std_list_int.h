@@ -33,11 +33,14 @@ MR_C_API MR_C_std_list_int *MR_C_std_list_int_DefaultConstruct(void);
 MR_C_API MR_C_std_list_int *MR_C_std_list_int_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
+/// The reference to the parameter `other` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_list_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_list_int *MR_C_std_list_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_list_int *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_list_int_AssignFromAnother(MR_C_std_list_int *_this, MR_C_PassBy other_pass_by, MR_C_std_list_int *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_list_int`. Does nothing if the pointer is null.
@@ -47,9 +50,11 @@ MR_C_API void MR_C_std_list_int_Destroy(const MR_C_std_list_int *_this);
 MR_C_API void MR_C_std_list_int_DestroyArray(const MR_C_std_list_int *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_list_int *MR_C_std_list_int_OffsetPtr(const MR_C_std_list_int *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_list_int *MR_C_std_list_int_OffsetMutablePtr(MR_C_std_list_int *ptr, ptrdiff_t i);
 
 /// Construct from a range of elements.
@@ -78,22 +83,27 @@ MR_C_API void MR_C_std_list_int_ResizeWithDefaultValue(MR_C_std_list_int *_this,
 
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_list_int_Clear(MR_C_std_list_int *_this);
 
 /// The first element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const int *MR_C_std_list_int_Front(const MR_C_std_list_int *_this);
 
 /// The first element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API int *MR_C_std_list_int_MutableFront(MR_C_std_list_int *_this);
 
 /// The last element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const int *MR_C_std_list_int_Back(const MR_C_std_list_int *_this);
 
 /// The last element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API int *MR_C_std_list_int_MutableBack(MR_C_std_list_int *_this);
 
 /// Inserts a new element at the end.
@@ -134,6 +144,7 @@ MR_C_API void MR_C_std_list_int_EraseAtIter(MR_C_std_list_int *_this, const MR_C
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_list_int_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_list_int_const_iterator *MR_C_std_list_int_Begin(const MR_C_std_list_int *_this);
 
@@ -144,6 +155,7 @@ MR_C_API bool MR_C_std_list_int_IsBegin(const MR_C_std_list_int *_this, const MR
 
 /// The begin iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_list_int_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_list_int_iterator *MR_C_std_list_int_MutableBegin(MR_C_std_list_int *_this);
 
@@ -154,6 +166,7 @@ MR_C_API bool MR_C_std_list_int_IsMutableBegin(MR_C_std_list_int *_this, const M
 
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_list_int_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_list_int_const_iterator *MR_C_std_list_int_End(const MR_C_std_list_int *_this);
 
@@ -164,6 +177,7 @@ MR_C_API bool MR_C_std_list_int_IsEnd(const MR_C_std_list_int *_this, const MR_C
 
 /// The end iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_list_int_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_list_int_iterator *MR_C_std_list_int_MutableEnd(MR_C_std_list_int *_this);
 
@@ -183,12 +197,15 @@ MR_C_API MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_Defa
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_list_int_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_ConstructFromAnother(const MR_C_std_list_int_const_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_list_int_const_iterator_AssignFromAnother(MR_C_std_list_int_const_iterator *_this, const MR_C_std_list_int_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_list_int_const_iterator`. Does nothing if the pointer is null.
@@ -198,9 +215,11 @@ MR_C_API void MR_C_std_list_int_const_iterator_Destroy(const MR_C_std_list_int_c
 MR_C_API void MR_C_std_list_int_const_iterator_DestroyArray(const MR_C_std_list_int_const_iterator *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_OffsetPtr(const MR_C_std_list_int_const_iterator *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_OffsetMutablePtr(MR_C_std_list_int_const_iterator *ptr, ptrdiff_t i);
 
 /// Makes a const iterator from a mutable one.
@@ -219,12 +238,15 @@ MR_C_API MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_DefaultConstruct
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_list_int_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_ConstructFromAnother(const MR_C_std_list_int_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_list_int_iterator_AssignFromAnother(MR_C_std_list_int_iterator *_this, const MR_C_std_list_int_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_list_int_iterator`. Does nothing if the pointer is null.
@@ -234,13 +256,16 @@ MR_C_API void MR_C_std_list_int_iterator_Destroy(const MR_C_std_list_int_iterato
 MR_C_API void MR_C_std_list_int_iterator_DestroyArray(const MR_C_std_list_int_iterator *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_OffsetPtr(const MR_C_std_list_int_iterator *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_OffsetMutablePtr(MR_C_std_list_int_iterator *ptr, ptrdiff_t i);
 
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_C_std_list_int_const_iterator_Deref(const MR_C_std_list_int_const_iterator *_this);
 
@@ -254,6 +279,7 @@ MR_C_API void MR_C_std_list_int_const_iterator_Decr(MR_C_std_list_int_const_iter
 
 /// Dereferences a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_C_std_list_int_iterator_Deref(const MR_C_std_list_int_iterator *_this);
 

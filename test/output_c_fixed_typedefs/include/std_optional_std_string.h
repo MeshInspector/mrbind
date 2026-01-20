@@ -30,6 +30,7 @@ MR_C_API MR_C_std_optional_std_string *MR_C_std_optional_std_string_DefaultConst
 MR_C_API MR_C_std_optional_std_string *MR_C_std_optional_std_string_DefaultConstructArray(size_t num_elems);
 
 // Constructs a copy of another instance. The source remains alive.
+// The reference to the parameter `other` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_optional_std_string *MR_C_std_optional_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_optional_std_string *other);
 
@@ -42,6 +43,8 @@ MR_C_API MR_C_std_optional_std_string *MR_C_std_optional_std_string_ConstructFro
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the parameter `_this`.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_optional_std_string_AssignFromAnother(MR_C_std_optional_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_optional_std_string *other);
 
 // Assigns the contents.
@@ -58,17 +61,21 @@ MR_C_API void MR_C_std_optional_std_string_Destroy(const MR_C_std_optional_std_s
 MR_C_API void MR_C_std_optional_std_string_DestroyArray(const MR_C_std_optional_std_string *_this);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_optional_std_string *MR_C_std_optional_std_string_OffsetPtr(const MR_C_std_optional_std_string *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_optional_std_string *MR_C_std_optional_std_string_OffsetMutablePtr(MR_C_std_optional_std_string *ptr, ptrdiff_t i);
 
 // The stored element or null if none, read-only.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_C_std_string *MR_C_std_optional_std_string_Value(const MR_C_std_optional_std_string *_this);
 
 // The stored element or null if none, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_C_std_string *MR_C_std_optional_std_string_MutableValue(MR_C_std_optional_std_string *_this);
 
 #ifdef __cplusplus

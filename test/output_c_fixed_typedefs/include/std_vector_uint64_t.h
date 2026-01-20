@@ -37,11 +37,14 @@ MR_C_API MR_C_std_vector_uint64_t *MR_C_std_vector_uint64_t_DefaultConstruct(voi
 MR_C_API MR_C_std_vector_uint64_t *MR_C_std_vector_uint64_t_DefaultConstructArray(size_t num_elems);
 
 // Constructs a copy of another instance. The source remains alive.
+// The reference to the parameter `other` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_uint64_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_uint64_t *MR_C_std_vector_uint64_t_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_uint64_t *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the parameter `_this`.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_uint64_t_AssignFromAnother(MR_C_std_vector_uint64_t *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_uint64_t *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_vector_uint64_t`. Does nothing if the pointer is null.
@@ -51,9 +54,11 @@ MR_C_API void MR_C_std_vector_uint64_t_Destroy(const MR_C_std_vector_uint64_t *_
 MR_C_API void MR_C_std_vector_uint64_t_DestroyArray(const MR_C_std_vector_uint64_t *_this);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_vector_uint64_t *MR_C_std_vector_uint64_t_OffsetPtr(const MR_C_std_vector_uint64_t *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_vector_uint64_t *MR_C_std_vector_uint64_t_OffsetMutablePtr(MR_C_std_vector_uint64_t *ptr, ptrdiff_t i);
 
 // Construct from a range of elements.
@@ -82,6 +87,7 @@ MR_C_API void MR_C_std_vector_uint64_t_ResizeWithDefaultValue(MR_C_std_vector_ui
 
 // Removes all elements from the container.
 // Parameter `_this` can not be null. It is a single object.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_uint64_t_Clear(MR_C_std_vector_uint64_t *_this);
 
 // The memory capacity, measued in the number of elements.
@@ -98,40 +104,49 @@ MR_C_API void MR_C_std_vector_uint64_t_ShrinkToFit(MR_C_std_vector_uint64_t *_th
 
 // The element at a specific index, read-only.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_uint64_t *MR_C_std_vector_uint64_t_At(const MR_C_std_vector_uint64_t *_this, size_t i);
 
 // The element at a specific index, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_uint64_t *MR_C_std_vector_uint64_t_MutableAt(MR_C_std_vector_uint64_t *_this, size_t i);
 
 // The first element or null if empty, read-only.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_C_uint64_t *MR_C_std_vector_uint64_t_Front(const MR_C_std_vector_uint64_t *_this);
 
 // The first element or null if empty, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_C_uint64_t *MR_C_std_vector_uint64_t_MutableFront(MR_C_std_vector_uint64_t *_this);
 
 // The last element or null if empty, read-only.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_C_uint64_t *MR_C_std_vector_uint64_t_Back(const MR_C_std_vector_uint64_t *_this);
 
 // The last element or null if empty, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_C_uint64_t *MR_C_std_vector_uint64_t_MutableBack(MR_C_std_vector_uint64_t *_this);
 
 // Returns a pointer to the continuous storage that holds all elements, read-only.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_C_uint64_t *MR_C_std_vector_uint64_t_Data(const MR_C_std_vector_uint64_t *_this);
 
 // Returns a pointer to the continuous storage that holds all elements, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_C_uint64_t *MR_C_std_vector_uint64_t_MutableData(MR_C_std_vector_uint64_t *_this);
 
 // Inserts a new element at the end.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_uint64_t_PushBack(MR_C_std_vector_uint64_t *_this, MR_C_uint64_t new_elem);
 
 // Removes one element from the end.
@@ -140,6 +155,7 @@ MR_C_API void MR_C_std_vector_uint64_t_PopBack(MR_C_std_vector_uint64_t *_this);
 
 // Inserts a new element right before the specified position.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_uint64_t_Insert(MR_C_std_vector_uint64_t *_this, size_t position, MR_C_uint64_t new_elem);
 
 // Erases the element at the specified position.
@@ -149,6 +165,7 @@ MR_C_API void MR_C_std_vector_uint64_t_Erase(MR_C_std_vector_uint64_t *_this, si
 // Inserts a new element right before the specified position.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `position` can not be null. It is a single object.
+// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_uint64_t_InsertAtMutableIter(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_iterator *position, MR_C_uint64_t new_elem);
 
 // Erases the element at the specified position.
@@ -159,6 +176,7 @@ MR_C_API void MR_C_std_vector_uint64_t_EraseAtMutableIter(MR_C_std_vector_uint64
 // Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `position` can not be null. It is a single object.
+// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_uint64_t_InsertAtIter(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_const_iterator *position, MR_C_uint64_t new_elem);
 
 // Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
@@ -168,6 +186,7 @@ MR_C_API void MR_C_std_vector_uint64_t_EraseAtIter(MR_C_std_vector_uint64_t *_th
 
 // The begin iterator, const.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_uint64_t_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_Begin(const MR_C_std_vector_uint64_t *_this);
 
@@ -178,6 +197,7 @@ MR_C_API bool MR_C_std_vector_uint64_t_IsBegin(const MR_C_std_vector_uint64_t *_
 
 // The begin iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_uint64_t_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_MutableBegin(MR_C_std_vector_uint64_t *_this);
 
@@ -188,6 +208,7 @@ MR_C_API bool MR_C_std_vector_uint64_t_IsMutableBegin(MR_C_std_vector_uint64_t *
 
 // The end iterator, const.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_uint64_t_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_End(const MR_C_std_vector_uint64_t *_this);
 
@@ -198,6 +219,7 @@ MR_C_API bool MR_C_std_vector_uint64_t_IsEnd(const MR_C_std_vector_uint64_t *_th
 
 // The end iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_uint64_t_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_MutableEnd(MR_C_std_vector_uint64_t *_this);
 
@@ -227,12 +249,15 @@ MR_C_API MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_const
 
 // Constructs a copy of another instance. The source remains alive.
 // Parameter `other` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_uint64_t_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_const_iterator_ConstructFromAnother(const MR_C_std_vector_uint64_t_const_iterator *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the parameter `_this`.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_uint64_t_const_iterator_AssignFromAnother(MR_C_std_vector_uint64_t_const_iterator *_this, const MR_C_std_vector_uint64_t_const_iterator *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_vector_uint64_t_const_iterator`. Does nothing if the pointer is null.
@@ -242,9 +267,11 @@ MR_C_API void MR_C_std_vector_uint64_t_const_iterator_Destroy(const MR_C_std_vec
 MR_C_API void MR_C_std_vector_uint64_t_const_iterator_DestroyArray(const MR_C_std_vector_uint64_t_const_iterator *_this);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_const_iterator_OffsetPtr(const MR_C_std_vector_uint64_t_const_iterator *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_const_iterator_OffsetMutablePtr(MR_C_std_vector_uint64_t_const_iterator *ptr, ptrdiff_t i);
 
 // Makes a const iterator from a mutable one.
@@ -263,12 +290,15 @@ MR_C_API MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_iterator_De
 
 // Constructs a copy of another instance. The source remains alive.
 // Parameter `other` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_uint64_t_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_iterator_ConstructFromAnother(const MR_C_std_vector_uint64_t_iterator *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the parameter `_this`.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_uint64_t_iterator_AssignFromAnother(MR_C_std_vector_uint64_t_iterator *_this, const MR_C_std_vector_uint64_t_iterator *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_vector_uint64_t_iterator`. Does nothing if the pointer is null.
@@ -278,13 +308,16 @@ MR_C_API void MR_C_std_vector_uint64_t_iterator_Destroy(const MR_C_std_vector_ui
 MR_C_API void MR_C_std_vector_uint64_t_iterator_DestroyArray(const MR_C_std_vector_uint64_t_iterator *_this);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_iterator_OffsetPtr(const MR_C_std_vector_uint64_t_iterator *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_iterator_OffsetMutablePtr(MR_C_std_vector_uint64_t_iterator *ptr, ptrdiff_t i);
 
 // Dereferences a const iterator.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_uint64_t *MR_C_std_vector_uint64_t_const_iterator_Deref(const MR_C_std_vector_uint64_t_const_iterator *_this);
 
@@ -307,6 +340,7 @@ MR_C_API ptrdiff_t MR_C_std_vector_uint64_t_const_iterator_Distance(const MR_C_s
 
 // Dereferences a mutable iterator.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_uint64_t *MR_C_std_vector_uint64_t_iterator_Deref(const MR_C_std_vector_uint64_t_iterator *_this);
 

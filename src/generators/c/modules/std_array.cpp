@@ -60,13 +60,15 @@ namespace mrbind::CBindings::Modules
                             { // [] const
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// The element at a specific index, read-only.";
-                                emit.name = binder.MakeMemberFuncName(generator, "At");
+                                emit.name = binder.MakeMemberFuncName(generator, "At", CInterop::MethodKinds::Operator{.token = "[]"});
+                                emit.lifetimes.ReturnsReferenceToThis();
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                                 emit.params.push_back({
                                     .name = "i",
                                     .cpp_type = cppdecl::Type::FromSingleWord("size_t"),
                                 });
+
                                 emit.cpp_called_func = "at";
                                 generator.EmitFunction(file, emit);
                             }
@@ -74,7 +76,8 @@ namespace mrbind::CBindings::Modules
                             { // [] mutable
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// The element at a specific index, mutable.";
-                                emit.name = binder.MakeMemberFuncName(generator, "MutableAt", "At");
+                                emit.name = binder.MakeMemberFuncName(generator, "MutableAt", CInterop::MethodKinds::Operator{.token = "[]"});
+                                emit.lifetimes.ReturnsReferenceToThis();
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Reference{});
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                                 emit.params.push_back({
@@ -89,6 +92,7 @@ namespace mrbind::CBindings::Modules
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, read-only.";
                                 emit.name = binder.MakeMemberFuncName(generator, "Data");
+                                emit.lifetimes.ReturnsReferenceToThis();
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                                 emit.mark_as_returning_pointer_to_array = true;
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
@@ -100,6 +104,7 @@ namespace mrbind::CBindings::Modules
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, mutable.";
                                 emit.name = binder.MakeMemberFuncName(generator, "MutableData", "Data");
+                                emit.lifetimes.ReturnsReferenceToThis();
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
                                 emit.mark_as_returning_pointer_to_array = true;
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);

@@ -30,11 +30,14 @@ MR_C_API MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_
 MR_C_API MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_DefaultConstructArray(size_t num_elems);
 
 // Constructs a copy of another instance. The source remains alive.
+// The reference to the parameter `other` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_MR_StdFunction_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_A *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the parameter `_this`.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_function_MR_StdFunction_A_AssignFromAnother(MR_C_std_function_MR_StdFunction_A *_this, MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_A *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_function_MR_StdFunction_A`. Does nothing if the pointer is null.
@@ -44,9 +47,11 @@ MR_C_API void MR_C_std_function_MR_StdFunction_A_Destroy(const MR_C_std_function
 MR_C_API void MR_C_std_function_MR_StdFunction_A_DestroyArray(const MR_C_std_function_MR_StdFunction_A *_this);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_OffsetPtr(const MR_C_std_function_MR_StdFunction_A *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_OffsetMutablePtr(MR_C_std_function_MR_StdFunction_A *ptr, ptrdiff_t i);
 
 // Construct a stateless function.
@@ -60,6 +65,7 @@ MR_C_API MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_
 MR_C_API void MR_C_std_function_MR_StdFunction_A_Assign(MR_C_std_function_MR_StdFunction_A *_this, MR_StdFunction_A *(*func)(MR_C_PassBy *_return_pass_by));
 
 // Construct a function with an extra user data pointer.
+// The reference to the parameter `userdata` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_MR_StdFunction_A_Destroy()` to free it when you're done using it.
 // Callback parameter `_return_pass_by` is an output parameter. It's will never be null, and initially points to a zeroed variable.
 // Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
@@ -72,6 +78,8 @@ MR_C_API MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_
 
 // Assign a function with an extra user data pointer.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `userdata` might be preserved in the parameter `_this`.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 // Callback parameter `_return_pass_by` is an output parameter. It's will never be null, and initially points to a zeroed variable.
 // Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
 // How to use `userdata_callback`:

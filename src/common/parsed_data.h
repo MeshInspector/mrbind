@@ -148,11 +148,10 @@ namespace mrbind
 
     // This represents the relation between two entities from the following set related to a function: its parameters, its return value, and the `this` object.
     // The `target` object is expected to stay alive at least as long as `holder`, which holds some sort of reference to it (or if we bind to a language that lets you do this, that `holder` should keep `target` alive somehow).
-    // Note that this class doesn't cover all lifetime extensions that you should do:
-    //   For class fields, you're recommended to extend the lifetimes of objects asigned to them (especially if the field is a raw pointer, but covering all classes is probably a good idea too).
-    //   And when returning a reference to a field, it should extend the lifetime of `this`.
     struct LifetimeRelation
     {
+        // When adding new member variables here, consider if you should sync with `CInterop::LifetimeRelation`, and update `CBindings::Generator::EmitFuncParams::SetLifetimesFromParsedFunc()`.
+
         // For constructors, this is the resulting object.
         struct ThisObject
         {
@@ -190,10 +189,40 @@ namespace mrbind
         MBREFL_STRUCT(
             (Variant)(holder)
             (Variant)(target)
+
+            // Handling this isn't strictly needed for correctness.
+            // If possible, don't act on the `target` itself, and only act on the objects that it keeps alive.
+            // This is e.g. what's used on copy constructors and assignments.
+            (bool)(force_only_nested, false)
+
+            // Handling this isn't strictly needed for correctness.
+            // If not empty, then the newly inserted target is marked with this key.
+            // Currently the parser will never set this.
+            (std::string)(key, "")
         )
-        inline static Variant v;
 
         friend auto operator<=>(const LifetimeRelation &, const LifetimeRelation &) = default;
+    };
+
+    // Stores all lifetime information associated with a function, in part based on `[[clang::lifetimebound]]` and `[[clang::lifetime_capture_by(...)]]`.
+    // Note that this class doesn't cover all lifetime extensions that you should do:
+    // * Fields: (not needed to the consumers of the C interop JSON, since the C generator automatically annotates the getters and setters with this).
+    //     For class fields, you're recommended to extend the lifetimes of objects asigned to them (especially if the field is a raw pointer, but covering all classes is probably a good idea too).
+    //     And when returning a reference to a field, it should extend the lifetime of `this`.
+    struct Lifetimes
+    {
+        // When adding new member variables here, consider if you should sync with `CInterop::Lifetimes`, and update `CBindings::Generator::EmitFuncParams::SetLifetimesFromParsedFunc()`.
+
+        MBREFL_STRUCT(
+            (std::set<LifetimeRelation>)(relations)
+
+            // Handling this isn't strictly needed for correctness.
+            // If specified, then any existing targets marked with those keys (the mapped values) are removed from the object (described by the map key) before doing anything else.
+            // If an empty string is specified there, then all targets are removed. (This API design is a bit jank, but it's nice that appending more elements when there's an empty one preserves the empty one (the "erase all keys" property).)
+            // Currently the parser can only set this to `{""}` (for copy/move ctors/assignments), or leave empty.
+            // Using an ordered map to get a consistent serialization.
+            (std::map<LifetimeRelation::Variant, std::set<std::string>>)(removed_keys)
+        )
     };
 
     struct BasicFunc
@@ -209,7 +238,7 @@ namespace mrbind
             (std::optional<Comment>)(comment)
             (std::vector<FuncParam>)(params)
             (std::optional<std::string>)(deprecation_message) // Null if not deprecated. Empty string if deprecated without a message.
-            (std::set<LifetimeRelation>)(lifetimes) // An ordered `set` to get consistent serialization.
+            (Lifetimes)(lifetimes) // An ordered `set` to get consistent serialization.
         )
 
         // Respecting the default arguments, is this callable with `n` arguments?

@@ -146,13 +146,16 @@ MR_C_API MR_StdContainers_A *MR_StdContainers_A_DefaultConstruct(void);
 MR_C_API MR_StdContainers_A *MR_StdContainers_A_DefaultConstructArray(size_t num_elems);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_StdContainers_A *MR_StdContainers_A_OffsetPtr(const MR_StdContainers_A *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_StdContainers_A *MR_StdContainers_A_OffsetMutablePtr(MR_StdContainers_A *ptr, ptrdiff_t i);
 
 // Generated from constructor `MR::StdContainers::A::A`.
 // Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdContainers_A *MR_StdContainers_A_ConstructFromAnother(const MR_StdContainers_A *_other);
 
@@ -165,7 +168,9 @@ MR_C_API void MR_StdContainers_A_DestroyArray(const MR_StdContainers_A *_this);
 // Generated from method `MR::StdContainers::A::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_StdContainers_A *MR_StdContainers_A_AssignFromAnother(MR_StdContainers_A *_this, const MR_StdContainers_A *_other);
 
 // Generated from function `MR::StdContainers::GetStdArray`.
@@ -197,13 +202,16 @@ MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIterConst(
 
 // Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
 // Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonDefaultConstructible_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(const MR_StdContainers_NonDefaultConstructible *_other);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_OffsetPtr(const MR_StdContainers_NonDefaultConstructible *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_OffsetMutablePtr(MR_StdContainers_NonDefaultConstructible *ptr, ptrdiff_t i);
 
 // Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
@@ -219,7 +227,9 @@ MR_C_API void MR_StdContainers_NonDefaultConstructible_DestroyArray(const MR_Std
 // Generated from method `MR::StdContainers::NonDefaultConstructible::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_AssignFromAnother(MR_StdContainers_NonDefaultConstructible *_this, const MR_StdContainers_NonDefaultConstructible *_other);
 
 // Generated from function `MR::StdContainers::NonDefCon`.
@@ -236,12 +246,15 @@ MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_DefaultC
 MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_DefaultConstructArray(size_t num_elems);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_OffsetPtr(const MR_StdContainers_NonAssignable *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_OffsetMutablePtr(MR_StdContainers_NonAssignable *ptr, ptrdiff_t i);
 
 // Generated from constructor `MR::StdContainers::NonAssignable::NonAssignable`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdContainers_NonAssignable *_other);
 

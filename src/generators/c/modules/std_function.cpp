@@ -493,11 +493,13 @@ namespace mrbind::CBindings::Modules
                             emit.params.push_back({
                                 .name = "userdata",
                                 .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
+                                .reference_returned = true,
                             });
 
                             emit.params.push_back({
                                 .name = "userdata_callback",
                                 .cpp_type = funcptr_userdata_cb,
+                                .reference_returned = true,
                                 .use_type_as_is = true,
                             });
 
@@ -525,11 +527,13 @@ namespace mrbind::CBindings::Modules
                             emit.params.push_back({
                                 .name = "userdata",
                                 .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
+                                .reference_assigned = true,
                             });
 
                             emit.params.push_back({
                                 .name = "userdata_callback",
                                 .cpp_type = funcptr_userdata_cb,
+                                .reference_assigned = true,
                                 .use_type_as_is = true,
                             });
 

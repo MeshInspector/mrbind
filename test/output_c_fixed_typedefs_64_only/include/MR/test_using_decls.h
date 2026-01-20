@@ -34,6 +34,7 @@ typedef struct MR_UsingDecls_B MR_UsingDecls_B;
 MR_C_API const int *MR_UsingDecls_A_Get_StaticVar(void);
 
 /// Modifies a member variable of class `MR::UsingDecls::A` named `StaticVar`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `StaticVar`.
 MR_C_API void MR_UsingDecls_A_Set_StaticVar(int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::UsingDecls::A` named `StaticVar`.
@@ -42,36 +43,44 @@ MR_C_API int *MR_UsingDecls_A_GetMutable_StaticVar(void);
 
 /// Returns a pointer to a member variable of class `MR::UsingDecls::A` named `Field`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_UsingDecls_A_Get_Field(const MR_UsingDecls_A *_this);
 
 /// Modifies a member variable of class `MR::UsingDecls::A` named `Field`.
 /// Parameter `_this` can not be null. It is a single object.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `Field`.
 MR_C_API void MR_UsingDecls_A_Set_Field(MR_UsingDecls_A *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::UsingDecls::A` named `Field`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_UsingDecls_A_GetMutable_Field(MR_UsingDecls_A *_this);
 
 /// Generated from constructor `MR::UsingDecls::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_UsingDecls_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_A_ConstructFromAnother(const MR_UsingDecls_A *_other);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_UsingDecls_A *MR_UsingDecls_A_OffsetPtr(const MR_UsingDecls_A *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_A_OffsetMutablePtr(MR_UsingDecls_A *ptr, ptrdiff_t i);
 
 /// Downcasts an instance of `MR::UsingDecls::A` to a derived class `MR::UsingDecls::B`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_UsingDecls_B *MR_UsingDecls_A_StaticDowncastTo_MR_UsingDecls_B(const MR_UsingDecls_A *object);
 
 /// Downcasts an instance of `MR::UsingDecls::A` to a derived class `MR::UsingDecls::B`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_UsingDecls_B *MR_UsingDecls_A_MutableStaticDowncastTo_MR_UsingDecls_B(MR_UsingDecls_A *object);
 
 /// Generated from constructor `MR::UsingDecls::A::A`.
@@ -91,7 +100,9 @@ MR_C_API int MR_UsingDecls_A_ConvertTo_int(MR_UsingDecls_A *_this);
 /// Generated from method `MR::UsingDecls::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_A_AssignFromAnother(MR_UsingDecls_A *_this, const MR_UsingDecls_A *_other);
 
 /// Generated from method `MR::UsingDecls::A::operator=`.
@@ -107,15 +118,18 @@ MR_C_API void MR_UsingDecls_A_StaticFunc(void);
 
 /// Returns a pointer to a member variable of class `MR::UsingDecls::B` named `Field`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_UsingDecls_B_Get_Field(const MR_UsingDecls_B *_this);
 
 /// Modifies a member variable of class `MR::UsingDecls::B` named `Field`.
 /// Parameter `_this` can not be null. It is a single object.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `Field`.
 MR_C_API void MR_UsingDecls_B_Set_Field(MR_UsingDecls_B *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::UsingDecls::B` named `Field`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_UsingDecls_B_GetMutable_Field(MR_UsingDecls_B *_this);
 
@@ -124,6 +138,7 @@ MR_C_API int *MR_UsingDecls_B_GetMutable_Field(MR_UsingDecls_B *_this);
 MR_C_API const int *MR_UsingDecls_B_Get_StaticVar(void);
 
 /// Modifies a member variable of class `MR::UsingDecls::B` named `StaticVar`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `StaticVar`.
 MR_C_API void MR_UsingDecls_B_Set_StaticVar(int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::UsingDecls::B` named `StaticVar`.
@@ -132,20 +147,25 @@ MR_C_API int *MR_UsingDecls_B_GetMutable_StaticVar(void);
 
 /// Generated from constructor `MR::UsingDecls::B::B`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_UsingDecls_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_UsingDecls_B *MR_UsingDecls_B_ConstructFromAnother(const MR_UsingDecls_B *_other);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_UsingDecls_B *MR_UsingDecls_B_OffsetPtr(const MR_UsingDecls_B *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_UsingDecls_B *MR_UsingDecls_B_OffsetMutablePtr(MR_UsingDecls_B *ptr, ptrdiff_t i);
 
 /// Upcasts an instance of `MR::UsingDecls::B` to its base class `MR::UsingDecls::A`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_UsingDecls_A *MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(const MR_UsingDecls_B *object);
 
 /// Upcasts an instance of `MR::UsingDecls::B` to its base class `MR::UsingDecls::A`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_B_MutableUpcastTo_MR_UsingDecls_A(MR_UsingDecls_B *object);
 
 /// Destroys a heap-allocated instance of `MR_UsingDecls_B`. Does nothing if the pointer is null.
@@ -161,7 +181,9 @@ MR_C_API int MR_UsingDecls_B_ConvertTo_int(MR_UsingDecls_B *_this);
 /// Generated from method `MR::UsingDecls::B::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_UsingDecls_B *MR_UsingDecls_B_AssignFromAnother(MR_UsingDecls_B *_this, const MR_UsingDecls_B *_other);
 
 /// Generated from method `MR::UsingDecls::B::operator=`.

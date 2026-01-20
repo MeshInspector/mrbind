@@ -120,6 +120,7 @@ namespace mrbind::CBindings::Modules
                             emit.params.push_back({
                                 .name = "value",
                                 .cpp_type = elem_types[i],
+                                .reference_returned = true,
                             });
                             { // A dummy tag parameter for disamgiuation in languages other than C. See the comment on `tag_name`.
                                 cppdecl::Type param_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName(tag_name).AddTemplateArgument(cppdecl::PseudoExpr{.tokens = {cppdecl::NumericLiteral{.var = cppdecl::NumericLiteral::Integer{.value = std::to_string(i)}}}}));
@@ -147,6 +148,7 @@ namespace mrbind::CBindings::Modules
                             emit.params.push_back({
                                 .name = "value",
                                 .cpp_type = elem_types[i],
+                                .reference_assigned = true,
                             });
                             emit.cpp_extra_statements =
                                 "auto &_self = @this@;\n" // To reduce duplication in the generated code.
@@ -157,6 +159,7 @@ namespace mrbind::CBindings::Modules
                             generator.EmitFunction(file, emit);
                         }
 
+                        // Return a reference to the `i`th element.
                         for (std::size_t i = 0; i < elem_types.size(); i++)
                         {
                             for (bool is_const : {true, false})
@@ -188,7 +191,7 @@ namespace mrbind::CBindings::Modules
 
                                 emit.c_comment = "/// Returns the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ". If it's not the active element, returns null.";
                                 emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + name_suffix, "Get" + name_suffix);
-
+                                emit.lifetimes.ReturnsReferenceToThis();
 
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const);
                                 emit.cpp_called_func = "std::get_if<" + std::to_string(i) + ">(&@this@)";

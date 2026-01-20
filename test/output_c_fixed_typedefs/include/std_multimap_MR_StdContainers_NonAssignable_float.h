@@ -39,11 +39,14 @@ MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float *MR_C_std_multim
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_DefaultConstructArray(size_t num_elems);
 
 // Constructs a copy of another instance. The source remains alive.
+// The reference to the parameter `other` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_multimap_MR_StdContainers_NonAssignable_float *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the parameter `_this`.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_AssignFromAnother(MR_C_std_multimap_MR_StdContainers_NonAssignable_float *_this, MR_C_PassBy other_pass_by, MR_C_std_multimap_MR_StdContainers_NonAssignable_float *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_multimap_MR_StdContainers_NonAssignable_float`. Does nothing if the pointer is null.
@@ -53,9 +56,11 @@ MR_C_API void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Destroy(con
 MR_C_API void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_DestroyArray(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float *_this);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_multimap_MR_StdContainers_NonAssignable_float *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_OffsetPtr(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_OffsetMutablePtr(MR_C_std_multimap_MR_StdContainers_NonAssignable_float *ptr, ptrdiff_t i);
 
 // The number of elements.
@@ -68,6 +73,7 @@ MR_C_API bool MR_C_std_multimap_MR_StdContainers_NonAssignable_float_IsEmpty(con
 
 // Removes all elements from the container.
 // Parameter `_this` can not be null. It is a single object.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Clear(MR_C_std_multimap_MR_StdContainers_NonAssignable_float *_this);
 
 // Checks if the contain contains this key.
@@ -78,17 +84,20 @@ MR_C_API size_t MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Count(con
 // Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `key` can not be null. It is a single object.
+// The reference to the parameter `key` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Find(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float *_this, const MR_StdContainers_NonAssignable *key);
 
 // Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `key` can not be null. It is a single object.
+// The reference to the parameter `key` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_FindMutable(MR_C_std_multimap_MR_StdContainers_NonAssignable_float *_this, const MR_StdContainers_NonAssignable *key);
 
 // The begin iterator, const.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Begin(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float *_this);
 
@@ -99,6 +108,7 @@ MR_C_API bool MR_C_std_multimap_MR_StdContainers_NonAssignable_float_IsBegin(con
 
 // The begin iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_MutableBegin(MR_C_std_multimap_MR_StdContainers_NonAssignable_float *_this);
 
@@ -109,6 +119,7 @@ MR_C_API bool MR_C_std_multimap_MR_StdContainers_NonAssignable_float_IsMutableBe
 
 // The end iterator, const.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_End(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float *_this);
 
@@ -119,6 +130,7 @@ MR_C_API bool MR_C_std_multimap_MR_StdContainers_NonAssignable_float_IsEnd(const
 
 // The end iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_MutableEnd(MR_C_std_multimap_MR_StdContainers_NonAssignable_float *_this);
 
@@ -138,12 +150,15 @@ MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *
 
 // Constructs a copy of another instance. The source remains alive.
 // Parameter `other` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_ConstructFromAnother(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the parameter `_this`.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_AssignFromAnother(MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *_this, const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator`. Does nothing if the pointer is null.
@@ -153,9 +168,11 @@ MR_C_API void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_itera
 MR_C_API void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DestroyArray(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *_this);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_OffsetPtr(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_OffsetMutablePtr(MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *ptr, ptrdiff_t i);
 
 // Makes a const iterator from a mutable one.
@@ -174,12 +191,15 @@ MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *MR_C_s
 
 // Constructs a copy of another instance. The source remains alive.
 // Parameter `other` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_ConstructFromAnother(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the parameter `_this`.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_AssignFromAnother(MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *_this, const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator`. Does nothing if the pointer is null.
@@ -189,18 +209,22 @@ MR_C_API void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_De
 MR_C_API void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DestroyArray(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *_this);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_OffsetPtr(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_OffsetMutablePtr(MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *ptr, ptrdiff_t i);
 
 // Dereferences a const iterator, returning the key.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DerefKey(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *_this);
 
 // Dereferences a const iterator, returning the mapped value.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const float *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DerefValue(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator *_this);
 
@@ -214,11 +238,13 @@ MR_C_API void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_itera
 
 // Dereferences a mutable iterator, returning the key.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DerefKey(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *_this);
 
 // Dereferences a mutable iterator, returning the mapped value.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API float *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DerefValue(const MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator *_this);
 

@@ -28,11 +28,14 @@ MR_C_API MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_C_std_shared_ptr_const_MR_CS
 MR_C_API MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_C_std_shared_ptr_const_MR_CSharp_SA_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
+/// The reference to the parameter `other` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_MR_CSharp_SA_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_C_std_shared_ptr_const_MR_CSharp_SA_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_const_MR_CSharp_SA *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_const_MR_CSharp_SA_AssignFromAnother(MR_C_std_shared_ptr_const_MR_CSharp_SA *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_const_MR_CSharp_SA *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_shared_ptr_const_MR_CSharp_SA`. Does nothing if the pointer is null.
@@ -42,13 +45,16 @@ MR_C_API void MR_C_std_shared_ptr_const_MR_CSharp_SA_Destroy(const MR_C_std_shar
 MR_C_API void MR_C_std_shared_ptr_const_MR_CSharp_SA_DestroyArray(const MR_C_std_shared_ptr_const_MR_CSharp_SA *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_C_std_shared_ptr_const_MR_CSharp_SA_OffsetPtr(const MR_C_std_shared_ptr_const_MR_CSharp_SA *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_C_std_shared_ptr_const_MR_CSharp_SA_OffsetMutablePtr(MR_C_std_shared_ptr_const_MR_CSharp_SA *ptr, ptrdiff_t i);
 
 /// Returns the stored pointer, possibly null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_CSharp_SA *MR_C_std_shared_ptr_const_MR_CSharp_SA_Get(const MR_C_std_shared_ptr_const_MR_CSharp_SA *_this);
 
 /// How many shared pointers share the managed object. Zero if no object is being managed.
@@ -70,11 +76,14 @@ MR_C_API MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_C_std_shared_ptr_const_MR_CS
 MR_C_API void MR_C_std_shared_ptr_const_MR_CSharp_SA_Assign(MR_C_std_shared_ptr_const_MR_CSharp_SA *_this, const MR_CSharp_SA *ptr);
 
 /// Create a new instance, storing a non-owning pointer.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_MR_CSharp_SA_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_C_std_shared_ptr_const_MR_CSharp_SA_ConstructNonOwning(const MR_CSharp_SA *ptr);
 
 /// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `ptr` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_const_MR_CSharp_SA_AssignNonOwning(MR_C_std_shared_ptr_const_MR_CSharp_SA *_this, const MR_CSharp_SA *ptr);
 
 /// Create a new instance from a non-const pointer to the same type.
@@ -87,12 +96,15 @@ MR_C_API void MR_C_std_shared_ptr_const_MR_CSharp_SA_AssignFromMutable(MR_C_std_
 
 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_MR_CSharp_SA_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_C_std_shared_ptr_const_MR_CSharp_SA_ConstructAliasing(MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, const MR_CSharp_SA *ptr);
 
 /// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `ptr` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_const_MR_CSharp_SA_AssignAliasing(MR_C_std_shared_ptr_const_MR_CSharp_SA *_this, MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, const MR_CSharp_SA *ptr);
 
 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.

@@ -29,11 +29,14 @@ MR_C_API MR_C_std_function_int32_t *MR_C_std_function_int32_t_DefaultConstruct(v
 MR_C_API MR_C_std_function_int32_t *MR_C_std_function_int32_t_DefaultConstructArray(size_t num_elems);
 
 // Constructs a copy of another instance. The source remains alive.
+// The reference to the parameter `other` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_int32_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_function_int32_t *MR_C_std_function_int32_t_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_int32_t *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `other` might be preserved in the parameter `_this`.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_function_int32_t_AssignFromAnother(MR_C_std_function_int32_t *_this, MR_C_PassBy other_pass_by, MR_C_std_function_int32_t *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_function_int32_t`. Does nothing if the pointer is null.
@@ -43,9 +46,11 @@ MR_C_API void MR_C_std_function_int32_t_Destroy(const MR_C_std_function_int32_t 
 MR_C_API void MR_C_std_function_int32_t_DestroyArray(const MR_C_std_function_int32_t *_this);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_function_int32_t *MR_C_std_function_int32_t_OffsetPtr(const MR_C_std_function_int32_t *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_function_int32_t *MR_C_std_function_int32_t_OffsetMutablePtr(MR_C_std_function_int32_t *ptr, ptrdiff_t i);
 
 // Construct a stateless function.
@@ -57,6 +62,7 @@ MR_C_API MR_C_std_function_int32_t *MR_C_std_function_int32_t_ConstructStateless
 MR_C_API void MR_C_std_function_int32_t_Assign(MR_C_std_function_int32_t *_this, int32_t (*func)(void));
 
 // Construct a function with an extra user data pointer.
+// The reference to the parameter `userdata` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_int32_t_Destroy()` to free it when you're done using it.
 // Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
 // How to use `userdata_callback`:
@@ -68,6 +74,8 @@ MR_C_API MR_C_std_function_int32_t *MR_C_std_function_int32_t_ConstructWithDataP
 
 // Assign a function with an extra user data pointer.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `userdata` might be preserved in the parameter `_this`.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 // Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
 // How to use `userdata_callback`:
 //   The `_this_userdata` parameter will never be null.

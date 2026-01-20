@@ -516,6 +516,11 @@ namespace mrbind::CBindings
         });
 
         if (with_param_sugar)
+            ret.params.back().reference_returned = sugared_constructor_preserves_reference;
+        else
+            ret.params.back().reference_returned = true;
+
+        if (with_param_sugar)
             ret.c_comment = "/// Constructs a new instance.";
         else
             ret.c_comment = "/// Constructs a copy of another instance. The source remains alive.";
@@ -540,6 +545,11 @@ namespace mrbind::CBindings
             .remove_sugar = !with_param_sugar,
             .cpp_type = cppdecl::Type::FromQualifiedName(cpp_type_name),
         });
+
+        if (with_param_sugar)
+            ret.params.back().reference_assigned = sugared_constructor_preserves_reference;
+        else
+            ret.params.back().reference_assigned = true;
 
         if (with_param_sugar)
             ret.c_comment = "/// Assigns the contents.";
@@ -600,6 +610,7 @@ namespace mrbind::CBindings
         ret.params.push_back({
             .name = "ptr",
             .cpp_type = ret.cpp_return_type,
+            .reference_returned = true,
         });
         ret.params.push_back({
             .name = "i",

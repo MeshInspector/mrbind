@@ -146,6 +146,7 @@ namespace mrbind::CBindings::Modules
                         emit.c_comment = "/// Returns the stored pointer, possibly null.";
                         emit.name = func_name_get;
 
+                        emit.lifetimes.ReturnsReferenceToThis();
                         emit.cpp_return_type = underlying_ptr_type;
 
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
@@ -160,8 +161,9 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns an element from the stored array. The stored pointer must not be null.";
-                        emit.name = binder.MakeMemberFuncName(generator, "At");
+                        emit.name = binder.MakeMemberFuncName(generator, "At", CInterop::MethodKinds::Operator{.token = "[]"});
 
+                        emit.lifetimes.ReturnsReferenceToThis();
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Reference{});
 
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
@@ -212,6 +214,7 @@ namespace mrbind::CBindings::Modules
                         emit.params.push_back({
                             .name = "ptr",
                             .cpp_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("unique_ptr").AddTemplateArgument(cpp_elem_type_force_unknown_bound)),
+                            // No `reference_assigned`, since this takes ownership.
                         });
 
                         emit.cpp_called_func = construct_from_unique_ptr;
@@ -231,6 +234,7 @@ namespace mrbind::CBindings::Modules
                         emit.params.push_back({
                             .name = "ptr",
                             .cpp_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("unique_ptr").AddTemplateArgument(cpp_elem_type_force_unknown_bound)),
+                            // No `reference_assigned`, since this takes ownership.
                         });
 
                         emit.cpp_called_func = "@this@ = " + construct_from_unique_ptr;
@@ -249,6 +253,7 @@ namespace mrbind::CBindings::Modules
                         emit.params.push_back({
                             .name = "ptr",
                             .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
+                            .reference_returned = true,
                         });
 
                         emit.cpp_called_func = type_str + "(std::shared_ptr<void>{}, @1@)";
@@ -265,6 +270,7 @@ namespace mrbind::CBindings::Modules
                         emit.params.push_back({
                             .name = "ptr",
                             .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
+                            .reference_assigned = true,
                         });
 
                         emit.cpp_called_func = "@this@ = " + type_str + "(std::shared_ptr<void>{}, @1@)";
@@ -332,6 +338,7 @@ namespace mrbind::CBindings::Modules
                             emit.params.push_back({
                                 .name = "ptr",
                                 .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
+                                .reference_returned = true, // Hmm.
                             });
 
                             emit.cpp_called_func = type_str;
@@ -354,6 +361,7 @@ namespace mrbind::CBindings::Modules
                             emit.params.push_back({
                                 .name = "ptr",
                                 .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
+                                .reference_assigned = true, // Hmm.
                             });
 
                             emit.cpp_called_func = "@this@ = " + type_str;

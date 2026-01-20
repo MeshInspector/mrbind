@@ -73,6 +73,7 @@ namespace mrbind::CBindings::Modules
                             emit.params.push_back({
                                 .name = "_" + std::to_string(i), // This is almost exactly the same as what the automatically selected names would be, but the difference is that this is zero-based, to match (the optional indices in) the getters below.
                                 .cpp_type = elem_types[i], // `EmitFunction` removes the top-level constness (if any) from this automatically.
+                                .reference_returned = true,
                             });
                         }
 
@@ -116,6 +117,7 @@ namespace mrbind::CBindings::Modules
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// The element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ".";
                                 emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + name_suffix, "Get" + name_suffix);
+                                emit.lifetimes.ReturnsReferenceToThis();
                                 emit.cpp_return_type = elem_types[i];
                                 if (!emit.cpp_return_type.Is<cppdecl::Reference>())
                                 {

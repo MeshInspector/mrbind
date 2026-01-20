@@ -1328,13 +1328,13 @@ namespace mrbind
             return ret;
         }
 
-        [[nodiscard]] std::vector<FuncParam> GetFuncParams(const clang::FunctionDecl &decl, std::set<LifetimeRelation> *lifetime_relations, bool is_member_function_or_ctor, bool is_ctor)
+        [[nodiscard]] std::vector<FuncParam> GetFuncParams(const clang::FunctionDecl &decl, Lifetimes *lifetimes, bool is_member_function_or_ctor, bool is_ctor, bool is_copy_or_move_ctor_or_assignment)
         {
             std::vector<FuncParam> ret;
 
             auto HandleLifetimeAttrs = [&](const clang::Decl *this_param_decl, const LifetimeRelation::Variant &this_entity_var)
             {
-                if (lifetime_relations)
+                if (lifetimes)
                 {
                     // This is a copy of an internal Clang function with the same name, slightly modified to compile here.
                     // Checks if the type of the function is marked with `[[clang::lifetime_bound]]` (i.e. the attribute is after the parameter list and cvref-qualifiers, which in case of this attribute makes it act on `this`).
@@ -1408,16 +1408,25 @@ namespace mrbind
                     const bool is_implicit_this_param = std::holds_alternative<LifetimeRelation::ThisObject>(this_entity_var);
                     assert(is_implicit_this_param != bool(this_param_decl));
 
+                    const bool is_first_param = std::holds_alternative<LifetimeRelation::Param>(this_entity_var) && std::get<LifetimeRelation::Param>(this_entity_var).index == 0;
+
+                    // Implied `lifetimebound` for copy/move constructors and assignments.
+                    if (is_copy_or_move_ctor_or_assignment && is_first_param)
+                    {
+                        lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var, .force_only_nested = true});
+                        if (!is_ctor)
+                            lifetimes->removed_keys[LifetimeRelation::ThisObject{}].insert(""); // Remove all existing targets.
+                    }
                     // `[[clang::lifetimebound]]`?
-                    if (is_implicit_this_param ? implicitObjectParamIsLifetimeBound(&decl) : !this_param_decl->specific_attrs<clang::LifetimeBoundAttr>().empty())
+                    else if (is_implicit_this_param ? implicitObjectParamIsLifetimeBound(&decl) : !this_param_decl->specific_attrs<clang::LifetimeBoundAttr>().empty())
                     {
                         // For constructors, gotta unify the handling of "return value" and "this" into one common representation.
                         // It doesn't really matter which one, I'm picking "this" because this is what Pybind uses, and because it also makes more sense on the language level (constructors don't have a return type, but do have `this`).
                         //   But on the other hand, this makes less sense
                         if (is_ctor)
-                            lifetime_relations->insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var});
+                            lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var});
                         else
-                            lifetime_relations->insert(LifetimeRelation{.holder = LifetimeRelation::ReturnValue{}, .target = this_entity_var});
+                            lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ReturnValue{}, .target = this_entity_var});
                     }
 
                     // `[[clang::lifetime_capture_by(...)]]`?
@@ -1433,7 +1442,7 @@ namespace mrbind
                             // Special handling of the `this` target.
                             if (attr_param == 0)
                             {
-                                lifetime_relations->insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var});
+                                lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var});
                                 return;
                             }
 
@@ -1451,7 +1460,7 @@ namespace mrbind
                         assert(attr_param_is_valid); // The two parameter indices are the same!
 
                         if (attr_param_is_valid)
-                            lifetime_relations->insert(LifetimeRelation{.holder = LifetimeRelation::Param{.index = attr_param}, .target = this_entity_var});
+                            lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::Param{.index = attr_param}, .target = this_entity_var});
                     };
 
                     if (is_implicit_this_param)
@@ -1595,6 +1604,7 @@ namespace mrbind
                 BasicFunc *basic_func = nullptr;
 
                 bool is_ctor = false;
+                bool is_copy_or_move_ctor_or_assignment = false;
 
                 if (auto ctor = llvm::dyn_cast<clang::CXXConstructorDecl>(method))
                 {
@@ -1603,6 +1613,8 @@ namespace mrbind
                     new_ctor.is_explicit = ctor->isExplicit();
                     new_ctor.is_trivial = ctor->isTrivial();
                     new_ctor.kind = ctor->isCopyConstructor() ? CopyMoveKind::copy : ctor->isMoveConstructor() ? CopyMoveKind::move : CopyMoveKind::none;
+                    if (new_ctor.kind != CopyMoveKind::none)
+                        is_copy_or_move_ctor_or_assignment = true;
                     basic_func = &new_ctor;
 
                     // Template arguments?
@@ -1642,6 +1654,8 @@ namespace mrbind
                                 ? CopyMoveKind::move
                                 : CopyMoveKind::none
                             );
+                        if (new_method.assignment_kind != CopyMoveKind::none)
+                            is_copy_or_move_ctor_or_assignment = true;
 
                         new_method.name = method->getDeclName().getAsString();
                         new_method.simple_name = GetAdjustedFuncName(*method);
@@ -1681,7 +1695,7 @@ namespace mrbind
                 }
 
                 basic_func->comment = GetCommentString(*ctx, *params, *method);
-                basic_func->params = GetFuncParams(*method, &basic_func->lifetimes, true, is_ctor);
+                basic_func->params = GetFuncParams(*method, &basic_func->lifetimes, true, is_ctor, is_copy_or_move_ctor_or_assignment);
                 basic_func->deprecation_message = GetDeprecationMessage(*method);
                 return true; // Done processing member function, the rest is for non-members.
             }
@@ -1692,7 +1706,7 @@ namespace mrbind
             if (HasInstantiateOnlyAttribute(*decl))
             {
                 // Just register the types.
-                (void)GetFuncParams(*decl, nullptr, false, false);
+                (void)GetFuncParams(*decl, nullptr, false, false, false);
                 (void)GetTypeStrings(decl->getReturnType(), TypeUses::returned);
                 return true;
             }
@@ -1715,7 +1729,7 @@ namespace mrbind
             new_func.simple_name = GetAdjustedFuncName(*decl);
             new_func.return_type = GetTypeStrings(decl->getReturnType(), TypeUses::returned);
             new_func.comment = GetCommentString(*ctx, *params, *decl);
-            new_func.params = GetFuncParams(*decl, &new_func.lifetimes, false, false);
+            new_func.params = GetFuncParams(*decl, &new_func.lifetimes, false, false, false);
             new_func.deprecation_message = GetDeprecationMessage(*decl);
             new_func.declared_in_file = GetDefinitionLocationFile(*decl, new_func.name);
 

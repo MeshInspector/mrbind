@@ -51,13 +51,16 @@ MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_DefaultConstruct(void)
 MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_OffsetPtr(const MR_TestSizeT_A_uint64_t *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_OffsetMutablePtr(MR_TestSizeT_A_uint64_t *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::TestSizeT::A<MR_C_uint64_t>::A`.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSizeT_A_uint64_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_ConstructFromAnother(const MR_TestSizeT_A_uint64_t *_other);
 
@@ -70,7 +73,9 @@ MR_C_API void MR_TestSizeT_A_uint64_t_DestroyArray(const MR_TestSizeT_A_uint64_t
 /// Generated from method `MR::TestSizeT::A<MR_C_uint64_t>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_AssignFromAnother(MR_TestSizeT_A_uint64_t *_this, const MR_TestSizeT_A_uint64_t *_other);
 
 /// Generated from method `MR::TestSizeT::A<MR_C_uint64_t>::foo`.

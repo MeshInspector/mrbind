@@ -192,16 +192,16 @@ namespace mrbind
             };
 
             // `params` is only passed here so we can print nice parameter names.
-            auto DumpLifetimes = [&](const std::vector<FuncParam> &params, const std::set<LifetimeRelation> &lifetimes, bool is_class_member)
+            auto DumpLifetimes = [&](const std::vector<FuncParam> &params, const Lifetimes &lifetimes, bool is_class_member)
             {
-                if (lifetimes.empty())
+                if (lifetimes.relations.empty())
                 {
                     out << "/*no lifetime info*/";
                     return;
                 }
 
                 out << "/*lifetime info:*/\n";
-                for (const LifetimeRelation &lifetime : lifetimes)
+                for (const LifetimeRelation &lifetime : lifetimes.relations)
                 {
                     // This matches the Pybind convention.
                     // Notably, for constructors, the resulting object uses index `1`, and `0` is unused there (which isn't handled by this function, but by how the parser assigns things.
@@ -233,7 +233,7 @@ namespace mrbind
                     out << "    (" << VariantToIndex(false, lifetime.holder) << ", " << VariantToIndex(true, lifetime.target) << ")\n";
                 }
 
-                if (is_class_member && !lifetimes.empty())
+                if (is_class_member && !lifetimes.relations.empty())
                     out << "    ";
             };
 

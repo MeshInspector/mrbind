@@ -111,6 +111,7 @@ namespace mrbind::CBindings::Modules
                         emit.c_comment = "/// Returns the stored pointer, possibly null.";
                         emit.name = binder.MakeMemberFuncName(generator, "Get");
 
+                        emit.lifetimes.ReturnsReferenceToThis();
                         emit.cpp_return_type = underlying_ptr_type;
 
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
@@ -125,8 +126,9 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns an element from the stored array. The stored pointer must not be null.";
-                        emit.name = binder.MakeMemberFuncName(generator, "At");
+                        emit.name = binder.MakeMemberFuncName(generator, "At", CInterop::MethodKinds::Operator{.token = "[]"});
 
+                        emit.lifetimes.ReturnsReferenceToThis();
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Reference{});
 
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);

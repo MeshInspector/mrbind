@@ -19,6 +19,7 @@ typedef struct MR_A MR_A;
 
 /// Returns a pointer to a member variable of class `MR::A` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_A_Get_x(const MR_A *_this);
 
@@ -26,10 +27,13 @@ MR_C_API const MR_C_std_string *MR_A_Get_x(const MR_A *_this);
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `value` can not be null.
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
+/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `x`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `x`.
 MR_C_API void MR_A_Set_x(MR_A *_this, const char *value, const char *value_end);
 
 /// Returns a mutable pointer to a member variable of class `MR::A` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_C_std_string *MR_A_GetMutable_x(MR_A *_this);
 
@@ -43,12 +47,15 @@ MR_C_API MR_A *MR_A_DefaultConstruct(void);
 MR_C_API MR_A *MR_A_DefaultConstructArray(size_t num_elems);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_A *MR_A_OffsetPtr(const MR_A *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_A *MR_A_OffsetMutablePtr(MR_A *ptr, ptrdiff_t i);
 
 /// Generated from constructor `MR::A::A`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_A *MR_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_A *_other);
 
@@ -60,7 +67,10 @@ MR_C_API void MR_A_DestroyArray(const MR_A *_this);
 
 /// Generated from method `MR::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_A *MR_A_AssignFromAnother(MR_A *_this, MR_C_PassBy _other_pass_by, MR_A *_other);
 
 /// Generated from function `MR::foo`.

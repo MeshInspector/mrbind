@@ -33,11 +33,14 @@ MR_C_API MR_C_std_vector_unsigned_long *MR_C_std_vector_unsigned_long_DefaultCon
 MR_C_API MR_C_std_vector_unsigned_long *MR_C_std_vector_unsigned_long_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
+/// The reference to the parameter `other` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_unsigned_long *MR_C_std_vector_unsigned_long_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_unsigned_long *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_unsigned_long_AssignFromAnother(MR_C_std_vector_unsigned_long *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_unsigned_long *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_unsigned_long`. Does nothing if the pointer is null.
@@ -47,9 +50,11 @@ MR_C_API void MR_C_std_vector_unsigned_long_Destroy(const MR_C_std_vector_unsign
 MR_C_API void MR_C_std_vector_unsigned_long_DestroyArray(const MR_C_std_vector_unsigned_long *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_vector_unsigned_long *MR_C_std_vector_unsigned_long_OffsetPtr(const MR_C_std_vector_unsigned_long *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_vector_unsigned_long *MR_C_std_vector_unsigned_long_OffsetMutablePtr(MR_C_std_vector_unsigned_long *ptr, ptrdiff_t i);
 
 /// Construct from a range of elements.
@@ -78,6 +83,7 @@ MR_C_API void MR_C_std_vector_unsigned_long_ResizeWithDefaultValue(MR_C_std_vect
 
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_unsigned_long_Clear(MR_C_std_vector_unsigned_long *_this);
 
 /// The memory capacity, measued in the number of elements.
@@ -94,40 +100,49 @@ MR_C_API void MR_C_std_vector_unsigned_long_ShrinkToFit(MR_C_std_vector_unsigned
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_At(const MR_C_std_vector_unsigned_long *_this, size_t i);
 
 /// The element at a specific index, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API unsigned long *MR_C_std_vector_unsigned_long_MutableAt(MR_C_std_vector_unsigned_long *_this, size_t i);
 
 /// The first element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_Front(const MR_C_std_vector_unsigned_long *_this);
 
 /// The first element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API unsigned long *MR_C_std_vector_unsigned_long_MutableFront(MR_C_std_vector_unsigned_long *_this);
 
 /// The last element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_Back(const MR_C_std_vector_unsigned_long *_this);
 
 /// The last element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API unsigned long *MR_C_std_vector_unsigned_long_MutableBack(MR_C_std_vector_unsigned_long *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_Data(const MR_C_std_vector_unsigned_long *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API unsigned long *MR_C_std_vector_unsigned_long_MutableData(MR_C_std_vector_unsigned_long *_this);
 
 /// Inserts a new element at the end.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_unsigned_long_PushBack(MR_C_std_vector_unsigned_long *_this, unsigned long new_elem);
 
 /// Removes one element from the end.
@@ -136,6 +151,7 @@ MR_C_API void MR_C_std_vector_unsigned_long_PopBack(MR_C_std_vector_unsigned_lon
 
 /// Inserts a new element right before the specified position.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_unsigned_long_Insert(MR_C_std_vector_unsigned_long *_this, size_t position, unsigned long new_elem);
 
 /// Erases the element at the specified position.
@@ -145,6 +161,7 @@ MR_C_API void MR_C_std_vector_unsigned_long_Erase(MR_C_std_vector_unsigned_long 
 /// Inserts a new element right before the specified position.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `position` can not be null. It is a single object.
+/// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_unsigned_long_InsertAtMutableIter(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_iterator *position, unsigned long new_elem);
 
 /// Erases the element at the specified position.
@@ -155,6 +172,7 @@ MR_C_API void MR_C_std_vector_unsigned_long_EraseAtMutableIter(MR_C_std_vector_u
 /// Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `position` can not be null. It is a single object.
+/// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
 MR_C_API void MR_C_std_vector_unsigned_long_InsertAtIter(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_const_iterator *position, unsigned long new_elem);
 
 /// Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
@@ -164,6 +182,7 @@ MR_C_API void MR_C_std_vector_unsigned_long_EraseAtIter(MR_C_std_vector_unsigned
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_long_Begin(const MR_C_std_vector_unsigned_long *_this);
 
@@ -174,6 +193,7 @@ MR_C_API bool MR_C_std_vector_unsigned_long_IsBegin(const MR_C_std_vector_unsign
 
 /// The begin iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_unsigned_long_iterator *MR_C_std_vector_unsigned_long_MutableBegin(MR_C_std_vector_unsigned_long *_this);
 
@@ -184,6 +204,7 @@ MR_C_API bool MR_C_std_vector_unsigned_long_IsMutableBegin(MR_C_std_vector_unsig
 
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_long_End(const MR_C_std_vector_unsigned_long *_this);
 
@@ -194,6 +215,7 @@ MR_C_API bool MR_C_std_vector_unsigned_long_IsEnd(const MR_C_std_vector_unsigned
 
 /// The end iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_unsigned_long_iterator *MR_C_std_vector_unsigned_long_MutableEnd(MR_C_std_vector_unsigned_long *_this);
 
@@ -223,12 +245,15 @@ MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_long_const_iterator_ConstructFromAnother(const MR_C_std_vector_unsigned_long_const_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_unsigned_long_const_iterator_AssignFromAnother(MR_C_std_vector_unsigned_long_const_iterator *_this, const MR_C_std_vector_unsigned_long_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_unsigned_long_const_iterator`. Does nothing if the pointer is null.
@@ -238,9 +263,11 @@ MR_C_API void MR_C_std_vector_unsigned_long_const_iterator_Destroy(const MR_C_st
 MR_C_API void MR_C_std_vector_unsigned_long_const_iterator_DestroyArray(const MR_C_std_vector_unsigned_long_const_iterator *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_long_const_iterator_OffsetPtr(const MR_C_std_vector_unsigned_long_const_iterator *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_long_const_iterator_OffsetMutablePtr(MR_C_std_vector_unsigned_long_const_iterator *ptr, ptrdiff_t i);
 
 /// Makes a const iterator from a mutable one.
@@ -259,12 +286,15 @@ MR_C_API MR_C_std_vector_unsigned_long_iterator *MR_C_std_vector_unsigned_long_i
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_unsigned_long_iterator *MR_C_std_vector_unsigned_long_iterator_ConstructFromAnother(const MR_C_std_vector_unsigned_long_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
+/// The reference to the parameter `other` might be preserved in the parameter `_this`.
+/// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_unsigned_long_iterator_AssignFromAnother(MR_C_std_vector_unsigned_long_iterator *_this, const MR_C_std_vector_unsigned_long_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_unsigned_long_iterator`. Does nothing if the pointer is null.
@@ -274,13 +304,16 @@ MR_C_API void MR_C_std_vector_unsigned_long_iterator_Destroy(const MR_C_std_vect
 MR_C_API void MR_C_std_vector_unsigned_long_iterator_DestroyArray(const MR_C_std_vector_unsigned_long_iterator *_this);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_C_std_vector_unsigned_long_iterator *MR_C_std_vector_unsigned_long_iterator_OffsetPtr(const MR_C_std_vector_unsigned_long_iterator *ptr, ptrdiff_t i);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_vector_unsigned_long_iterator *MR_C_std_vector_unsigned_long_iterator_OffsetMutablePtr(MR_C_std_vector_unsigned_long_iterator *ptr, ptrdiff_t i);
 
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_const_iterator_Deref(const MR_C_std_vector_unsigned_long_const_iterator *_this);
 
@@ -303,6 +336,7 @@ MR_C_API ptrdiff_t MR_C_std_vector_unsigned_long_const_iterator_Distance(const M
 
 /// Dereferences a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API unsigned long *MR_C_std_vector_unsigned_long_iterator_Deref(const MR_C_std_vector_unsigned_long_iterator *_this);
 

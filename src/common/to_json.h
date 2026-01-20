@@ -245,6 +245,19 @@ namespace mrbind
         }
     };
 
+    template <typename T> requires requires{std::tuple_size<T>::value;}
+    struct WriteToJsonTraits<T>
+    {
+        void operator()(JsonWriter &json, const T &value)
+        {
+            json.BeginArray();
+            [&]<std::size_t ...I>(std::index_sequence<I...>){
+                (void(json.WriteElem(std::get<I>(value))), ...);
+            }(std::make_index_sequence<std::tuple_size_v<T>>{});
+            json.EndArray();
+        }
+    };
+
     template <typename T>
     struct WriteToJsonTraits<std::optional<T>>
     {

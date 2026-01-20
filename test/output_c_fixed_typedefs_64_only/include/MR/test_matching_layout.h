@@ -41,6 +41,7 @@ MR_C_API const int *MR_MatchingLayout_A_Get_x(void);
 
 // Having static fields is not an error! Those get their normal getters and setters.
 /// Modifies a member variable of class `MR::MatchingLayout::A` named `x`.
+/// After this function is called, the parameter `_this` will drop object references it had previously in `x`.
 MR_C_API void MR_MatchingLayout_A_Set_x(int value);
 
 // Having static fields is not an error! Those get their normal getters and setters.

@@ -227,6 +227,8 @@ MR_C_API int32_t MR_TestSimpleTypes_FuncTemplate_int32_t(int32_t _1);
 MR_C_API const MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Get_var_uint64_t(void);
 
 // Modifies a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<MR_C_uint64_t>`.
+// The reference to the parameter `value` might be preserved in the parameter `_this` in element `var<MR_C_uint64_t>`.
+// After this function is called, the parameter `_this` will drop object references it had previously in `var<MR_C_uint64_t>`.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(MR_C_uint64_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<MR_C_uint64_t>`.
@@ -235,13 +237,16 @@ MR_C_API MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var
 
 // Generated from constructor `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::ClassTemplate`.
 // Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_uint64_t_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother(const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API const MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_OffsetPtr(const MR_TestSimpleTypes_ClassTemplate_uint64_t *ptr, ptrdiff_t i);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_OffsetMutablePtr(MR_TestSimpleTypes_ClassTemplate_uint64_t *ptr, ptrdiff_t i);
 
 // Constructors.
@@ -263,7 +268,9 @@ MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_DestroyArray(const MR_Te
 // Generated from method `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// After this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this, const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other);
 
 // Methods.
