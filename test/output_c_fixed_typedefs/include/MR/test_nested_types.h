@@ -36,7 +36,7 @@ MR_C_API const MR_NestedTypes_A_B *MR_NestedTypes_A_Get_b(const MR_NestedTypes_A
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `value` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `b`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_NestedTypes_A_Set_b(MR_NestedTypes_A *_this, const MR_NestedTypes_A_B *value);
 
 // Returns a mutable pointer to a member variable of class `MR::NestedTypes::A` named `b`.
@@ -54,7 +54,7 @@ MR_C_API const MR_NestedTypes_A_E *MR_NestedTypes_A_Get_e(const MR_NestedTypes_A
 // Modifies a member variable of class `MR::NestedTypes::A` named `e`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `e`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `e`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `e`.
 MR_C_API void MR_NestedTypes_A_Set_e(MR_NestedTypes_A *_this, MR_NestedTypes_A_E value);
 
 // Returns a mutable pointer to a member variable of class `MR::NestedTypes::A` named `e`.
@@ -104,7 +104,7 @@ MR_C_API void MR_NestedTypes_A_DestroyArray(const MR_NestedTypes_A *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_NestedTypes_A *MR_NestedTypes_A_AssignFromAnother(MR_NestedTypes_A *_this, const MR_NestedTypes_A *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -141,7 +141,7 @@ MR_C_API void MR_NestedTypes_A_B_DestroyArray(const MR_NestedTypes_A_B *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_NestedTypes_A_B *MR_NestedTypes_A_B_AssignFromAnother(MR_NestedTypes_A_B *_this, const MR_NestedTypes_A_B *_other);
 
 #ifdef __cplusplus

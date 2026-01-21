@@ -24,7 +24,7 @@ MR_C_API const int32_t *MR_StaticFuncs_A_Get_x(void);
 
 // Modifies a member variable of class `MR::StaticFuncs::A` named `x`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `x`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `x`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `x`.
 MR_C_API void MR_StaticFuncs_A_Set_x(int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::StaticFuncs::A` named `x`.
@@ -65,7 +65,7 @@ MR_C_API void MR_StaticFuncs_A_DestroyArray(const MR_StaticFuncs_A *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_AssignFromAnother(MR_StaticFuncs_A *_this, const MR_StaticFuncs_A *_other);
 
 // Generated from method `MR::StaticFuncs::A::blah`.

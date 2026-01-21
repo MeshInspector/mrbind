@@ -42,7 +42,7 @@ MR_C_API MR_C_std_optional_MR_CSharp_NonTrivial *MR_C_std_optional_MR_CSharp_Non
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_optional_MR_CSharp_NonTrivial_AssignFromAnother(MR_C_std_optional_MR_CSharp_NonTrivial *_this, MR_C_PassBy other_pass_by, MR_C_std_optional_MR_CSharp_NonTrivial *other);
 
 // Assigns the contents.

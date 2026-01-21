@@ -222,7 +222,7 @@ MR_C_API void MR_Bases_A_DestroyArray(const MR_Bases_A *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_A *MR_Bases_A_AssignFromAnother(MR_Bases_A *_this, const MR_Bases_A *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -312,7 +312,7 @@ MR_C_API void MR_Bases_B_DestroyArray(const MR_Bases_B *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_B *MR_Bases_B_AssignFromAnother(MR_Bases_B *_this, const MR_Bases_B *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -367,7 +367,7 @@ MR_C_API void MR_Bases_B2_DestroyArray(const MR_Bases_B2 *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_B2 *MR_Bases_B2_AssignFromAnother(MR_Bases_B2 *_this, const MR_Bases_B2 *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -424,7 +424,7 @@ MR_C_API void MR_Bases_C_DestroyArray(const MR_Bases_C *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_C *MR_Bases_C_AssignFromAnother(MR_Bases_C *_this, const MR_Bases_C *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -479,7 +479,7 @@ MR_C_API void MR_Bases_D_DestroyArray(const MR_Bases_D *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_D *MR_Bases_D_AssignFromAnother(MR_Bases_D *_this, const MR_Bases_D *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -525,7 +525,7 @@ MR_C_API void MR_Bases_D2_DestroyArray(const MR_Bases_D2 *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_D2 *MR_Bases_D2_AssignFromAnother(MR_Bases_D2 *_this, const MR_Bases_D2 *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -571,7 +571,7 @@ MR_C_API void MR_Bases_D3_DestroyArray(const MR_Bases_D3 *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_D3 *MR_Bases_D3_AssignFromAnother(MR_Bases_D3 *_this, const MR_Bases_D3 *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -619,7 +619,7 @@ MR_C_API void MR_Bases_E_DestroyArray(const MR_Bases_E *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_E *MR_Bases_E_AssignFromAnother(MR_Bases_E *_this, const MR_Bases_E *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -665,7 +665,7 @@ MR_C_API void MR_Bases_F_DestroyArray(const MR_Bases_F *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_F *MR_Bases_F_AssignFromAnother(MR_Bases_F *_this, const MR_Bases_F *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -718,7 +718,7 @@ MR_C_API void MR_Bases_G_DestroyArray(const MR_Bases_G *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_G *MR_Bases_G_AssignFromAnother(MR_Bases_G *_this, MR_C_PassBy _other_pass_by, MR_Bases_G *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -780,7 +780,7 @@ MR_C_API void MR_Bases_H_DestroyArray(const MR_Bases_H *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_H *MR_Bases_H_AssignFromAnother(MR_Bases_H *_this, MR_C_PassBy _other_pass_by, MR_Bases_H *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -842,7 +842,7 @@ MR_C_API void MR_Bases_I_DestroyArray(const MR_Bases_I *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Bases_I *MR_Bases_I_AssignFromAnother(MR_Bases_I *_this, MR_C_PassBy _other_pass_by, MR_Bases_I *_other);
 
 #ifdef __cplusplus

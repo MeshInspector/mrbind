@@ -32,7 +32,7 @@ MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructFromAno
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_variant_int_float_AssignFromAnother(MR_C_std_variant_int_float *_this, const MR_C_std_variant_int_float *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_variant_int_float`. Does nothing if the pointer is null.
@@ -63,12 +63,12 @@ MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructAs_floa
 
 /// Assigns to the variant, making it store the element 0, of type `int`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_variant_int_float_AssignAs_int(MR_C_std_variant_int_float *_this, int value);
 
 /// Assigns to the variant, making it store the element 1, of type `float`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_variant_int_float_AssignAs_float(MR_C_std_variant_int_float *_this, float value);
 
 /// Returns the element 0, of type `int`, read-only. If it's not the active element, returns null.

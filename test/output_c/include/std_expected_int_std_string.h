@@ -34,7 +34,7 @@ MR_C_API MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_Cons
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_expected_int_std_string_AssignFromAnother(MR_C_std_expected_int_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_expected_int_std_string *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_expected_int_std_string`. Does nothing if the pointer is null.

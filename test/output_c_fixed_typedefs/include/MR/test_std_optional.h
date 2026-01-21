@@ -88,7 +88,7 @@ MR_C_API const int32_t *MR_StdOptional_A_Get_x(const MR_StdOptional_A *_this);
 // Modifies a member variable of class `MR::StdOptional::A` named `x`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `x`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `x`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `x`.
 MR_C_API void MR_StdOptional_A_Set_x(MR_StdOptional_A *_this, int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::StdOptional::A` named `x`.
@@ -136,7 +136,7 @@ MR_C_API void MR_StdOptional_A_DestroyArray(const MR_StdOptional_A *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_AssignFromAnother(MR_StdOptional_A *_this, const MR_StdOptional_A *_other);
 
 // Generated from function `MR::StdOptional::GetClass`.
@@ -175,7 +175,7 @@ MR_C_API const MR_C_std_string *MR_StdOptional_B_Get_s(const MR_StdOptional_B *_
 // Parameter `value` can not be null.
 // If `value_end` is null, then `value` is assumed to be null-terminated.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `s`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `s`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `s`.
 MR_C_API void MR_StdOptional_B_Set_s(MR_StdOptional_B *_this, const char *value, const char *value_end);
 
 // Returns a mutable pointer to a member variable of class `MR::StdOptional::B` named `s`.
@@ -223,7 +223,7 @@ MR_C_API void MR_StdOptional_B_DestroyArray(const MR_StdOptional_B *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_StdOptional_B *MR_StdOptional_B_AssignFromAnother(MR_StdOptional_B *_this, MR_C_PassBy _other_pass_by, MR_StdOptional_B *_other);
 
 // Generated from function `MR::StdOptional::GetClass2`.

@@ -55,7 +55,7 @@ MR_C_API void MR_OmittingTargsAndQuals_A_int_DestroyArray(const MR_OmittingTargs
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_OmittingTargsAndQuals_A_int *MR_OmittingTargsAndQuals_A_int_AssignFromAnother(MR_OmittingTargsAndQuals_A_int *_this, const MR_OmittingTargsAndQuals_A_int *_other);
 
 /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator+`.
@@ -110,7 +110,7 @@ MR_C_API void MR_OmittingTargsAndQuals_A_float_DestroyArray(const MR_OmittingTar
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_float_AssignFromAnother(MR_OmittingTargsAndQuals_A_float *_this, const MR_OmittingTargsAndQuals_A_float *_other);
 
 /// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator+`.

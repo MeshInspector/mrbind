@@ -29,7 +29,7 @@ MR_C_API const unsigned long *MR_AdjustingNames_A_Get_var_unsigned_long(void);
 
 /// Modifies a member variable of class `MR::AdjustingNames::A` named `var<unsigned long>`.
 /// The reference to the parameter `value` might be preserved in the parameter `_this` in element `var<unsigned long>`.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `var<unsigned long>`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `var<unsigned long>`.
 MR_C_API void MR_AdjustingNames_A_Set_var_unsigned_long(unsigned long value);
 
 /// Returns a mutable pointer to a member variable of class `MR::AdjustingNames::A` named `var<unsigned long>`.
@@ -74,7 +74,7 @@ MR_C_API unsigned long MR_AdjustingNames_A_ConvertTo_unsigned_long(MR_AdjustingN
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_AdjustingNames_A *MR_AdjustingNames_A_AssignFromAnother(MR_AdjustingNames_A *_this, const MR_AdjustingNames_A *_other);
 
 /// Generated from method `MR::AdjustingNames::A::foo<unsigned long>`.

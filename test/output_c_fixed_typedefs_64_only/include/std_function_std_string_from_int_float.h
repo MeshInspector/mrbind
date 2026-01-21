@@ -31,7 +31,7 @@ MR_C_API MR_C_std_function_std_string_from_int_float *MR_C_std_function_std_stri
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_function_std_string_from_int_float_AssignFromAnother(MR_C_std_function_std_string_from_int_float *_this, MR_C_PassBy other_pass_by, MR_C_std_function_std_string_from_int_float *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_function_std_string_from_int_float`. Does nothing if the pointer is null.
@@ -79,7 +79,7 @@ MR_C_API MR_C_std_function_std_string_from_int_float *MR_C_std_function_std_stri
 /// Assign a function with an extra user data pointer.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to the parameter `userdata` might be preserved in the parameter `_this`.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 /// Callback parameter `_return_end` is an output parameter. It's will never be null, and initially points to a zeroed variable.
 /// Callback return value can not be null.
 /// If `*_return_end` is kept null, then the callback return value is assumed to be null-terminated.

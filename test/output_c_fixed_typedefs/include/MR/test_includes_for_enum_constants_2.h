@@ -51,7 +51,7 @@ MR_C_API void MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_Des
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother(MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *_this, const MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *_other);
 
 #ifdef __cplusplus

@@ -228,7 +228,7 @@ MR_C_API const MR_C_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_Get_var_
 
 // Modifies a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<MR_C_uint64_t>`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `var<MR_C_uint64_t>`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `var<MR_C_uint64_t>`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `var<MR_C_uint64_t>`.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_Set_var_uint64_t(MR_C_uint64_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>` named `var<MR_C_uint64_t>`.
@@ -270,7 +270,7 @@ MR_C_API void MR_TestSimpleTypes_ClassTemplate_uint64_t_DestroyArray(const MR_Te
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_uint64_t *MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_uint64_t *_this, const MR_TestSimpleTypes_ClassTemplate_uint64_t *_other);
 
 // Methods.

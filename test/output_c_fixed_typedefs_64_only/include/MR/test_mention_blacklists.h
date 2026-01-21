@@ -51,7 +51,7 @@ MR_C_API void MR_SignatureFilters_A_DestroyArray(const MR_SignatureFilters_A *_t
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_A_AssignFromAnother(MR_SignatureFilters_A *_this, const MR_SignatureFilters_A *_other);
 
 /// Generated from function `MR::SignatureFilters::foo`.
@@ -110,7 +110,7 @@ MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_Blah_Get_a(const MR_Si
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `value` can not be null. It is a single object.
 /// The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_SignatureFilters_Blah_Set_a(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_A *value);
 
 /// Returns a mutable pointer to a member variable of class `MR::SignatureFilters::Blah` named `a`.
@@ -153,7 +153,7 @@ MR_C_API void MR_SignatureFilters_Blah_DestroyArray(const MR_SignatureFilters_Bl
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_AssignFromAnother(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_Blah *_other);
 
 #ifdef __cplusplus

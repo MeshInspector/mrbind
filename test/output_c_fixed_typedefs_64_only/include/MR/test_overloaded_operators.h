@@ -54,7 +54,7 @@ MR_C_API void MR_OverloadedOps_A_DestroyArray(const MR_OverloadedOps_A *_this);
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API int MR_OverloadedOps_A_AssignFromAnother(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_other);
 
 // Unary plus.
@@ -339,7 +339,7 @@ MR_C_API void MR_OverloadedOps_B_DestroyArray(const MR_OverloadedOps_B *_this);
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_OverloadedOps_B *MR_OverloadedOps_B_AssignFromAnother(MR_OverloadedOps_B *_this, const MR_OverloadedOps_B *_other);
 
 // Unary plus.
@@ -609,7 +609,7 @@ MR_C_API void MR_OverloadedOps_C_DestroyArray(const MR_OverloadedOps_C *_this);
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_OverloadedOps_C *MR_OverloadedOps_C_AssignFromAnother(MR_OverloadedOps_C *_this, const MR_OverloadedOps_C *_other);
 
 // If rhs type is same as the lhs one (ignoring cvref), it's not emitted.
@@ -658,7 +658,7 @@ MR_C_API void MR_OverloadedOps_D_DestroyArray(const MR_OverloadedOps_D *_this);
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_OverloadedOps_D *MR_OverloadedOps_D_AssignFromAnother(MR_OverloadedOps_D *_this, const MR_OverloadedOps_D *_other);
 
 // Disambiguating the names.

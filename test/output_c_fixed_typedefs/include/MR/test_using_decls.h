@@ -37,7 +37,7 @@ MR_C_API const int32_t *MR_UsingDecls_A_Get_StaticVar(void);
 
 // Modifies a member variable of class `MR::UsingDecls::A` named `StaticVar`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `StaticVar`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `StaticVar`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `StaticVar`.
 MR_C_API void MR_UsingDecls_A_Set_StaticVar(int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::UsingDecls::A` named `StaticVar`.
@@ -53,7 +53,7 @@ MR_C_API const int32_t *MR_UsingDecls_A_Get_Field(const MR_UsingDecls_A *_this);
 // Modifies a member variable of class `MR::UsingDecls::A` named `Field`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `Field`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `Field`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `Field`.
 MR_C_API void MR_UsingDecls_A_Set_Field(MR_UsingDecls_A *_this, int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::UsingDecls::A` named `Field`.
@@ -106,7 +106,7 @@ MR_C_API int32_t MR_UsingDecls_A_ConvertTo_int32_t(MR_UsingDecls_A *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_A_AssignFromAnother(MR_UsingDecls_A *_this, const MR_UsingDecls_A *_other);
 
 // Generated from method `MR::UsingDecls::A::operator=`.
@@ -154,7 +154,7 @@ MR_C_API void MR_UsingDecls_B_DestroyArray(const MR_UsingDecls_B *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_UsingDecls_B *MR_UsingDecls_B_AssignFromAnother(MR_UsingDecls_B *_this, const MR_UsingDecls_B *_other);
 
 #ifdef __cplusplus

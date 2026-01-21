@@ -38,7 +38,7 @@ MR_C_API MR_C_std_variant_int32_t_float_std_string *MR_C_std_variant_int32_t_flo
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_variant_int32_t_float_std_string_AssignFromAnother(MR_C_std_variant_int32_t_float_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_variant_int32_t_float_std_string *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_variant_int32_t_float_std_string`. Does nothing if the pointer is null.
@@ -78,12 +78,12 @@ MR_C_API MR_C_std_variant_int32_t_float_std_string *MR_C_std_variant_int32_t_flo
 // Assigns to the variant, making it store the element 0, of type `int32_t`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_variant_int32_t_float_std_string_AssignAs_int32_t(MR_C_std_variant_int32_t_float_std_string *_this, int32_t value);
 
 // Assigns to the variant, making it store the element 1, of type `float`.
 // Parameter `_this` can not be null. It is a single object.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_variant_int32_t_float_std_string_AssignAs_float(MR_C_std_variant_int32_t_float_std_string *_this, float value);
 
 // Assigns to the variant, making it store the element 2, of type `std::string`.
@@ -91,7 +91,7 @@ MR_C_API void MR_C_std_variant_int32_t_float_std_string_AssignAs_float(MR_C_std_
 // Parameter `value` can not be null.
 // If `value_end` is null, then `value` is assumed to be null-terminated.
 // The reference to the parameter `value` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_variant_int32_t_float_std_string_AssignAs_std_string(MR_C_std_variant_int32_t_float_std_string *_this, const char *value, const char *value_end);
 
 // Returns the element 0, of type `int32_t`, read-only. If it's not the active element, returns null.

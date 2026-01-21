@@ -18,7 +18,7 @@ typedef struct MR_MemberVars_A MR_MemberVars_A;
 MR_C_API const int *MR_MemberVars_A_Get_z(void);
 
 /// Modifies a member variable of class `MR::MemberVars::A` named `z`.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `z`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `z`.
 MR_C_API void MR_MemberVars_A_Set_z(int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::MemberVars::A` named `z`.
@@ -37,7 +37,7 @@ MR_C_API const int *MR_MemberVars_A_Get_x(const MR_MemberVars_A *_this);
 
 /// Modifies a member variable of class `MR::MemberVars::A` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `x`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `x`.
 MR_C_API void MR_MemberVars_A_Set_x(MR_MemberVars_A *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::MemberVars::A` named `x`.

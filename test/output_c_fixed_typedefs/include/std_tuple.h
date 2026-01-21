@@ -36,7 +36,7 @@ MR_C_API MR_C_std_tuple *MR_C_std_tuple_ConstructFromAnother(const MR_C_std_tupl
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_tuple_AssignFromAnother(MR_C_std_tuple *_this, const MR_C_std_tuple *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_tuple`. Does nothing if the pointer is null.

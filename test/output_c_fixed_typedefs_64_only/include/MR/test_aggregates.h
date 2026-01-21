@@ -48,7 +48,7 @@ MR_C_API const int *MR_Aggregates_A_Get_x(const MR_Aggregates_A *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::A` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `x`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `x`.
 MR_C_API void MR_Aggregates_A_Set_x(MR_Aggregates_A *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::A` named `x`.
@@ -68,7 +68,7 @@ MR_C_API const MR_C_std_string *MR_Aggregates_A_Get_y(const MR_Aggregates_A *_th
 /// Parameter `value` can not be null.
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
 /// The reference to the parameter `value` might be preserved in the parameter `_this` in element `y`.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `y`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `y`.
 MR_C_API void MR_Aggregates_A_Set_y(MR_Aggregates_A *_this, const char *value, const char *value_end);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::A` named `y`.
@@ -116,7 +116,7 @@ MR_C_API void MR_Aggregates_A_DestroyArray(const MR_Aggregates_A *_this);
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Aggregates_A *MR_Aggregates_A_AssignFromAnother(MR_Aggregates_A *_this, MR_C_PassBy _other_pass_by, MR_Aggregates_A *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -153,7 +153,7 @@ MR_C_API void MR_Aggregates_B_DestroyArray(const MR_Aggregates_B *_this);
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Aggregates_B *MR_Aggregates_B_AssignFromAnother(MR_Aggregates_B *_this, const MR_Aggregates_B *_other);
 
 /// Generated from constructor `MR::Aggregates::NonDefaultConstructible::NonDefaultConstructible`.
@@ -181,7 +181,7 @@ MR_C_API void MR_Aggregates_NonDefaultConstructible_DestroyArray(const MR_Aggreg
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Aggregates_NonDefaultConstructible *MR_Aggregates_NonDefaultConstructible_AssignFromAnother(MR_Aggregates_NonDefaultConstructible *_this, const MR_Aggregates_NonDefaultConstructible *_other);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `a`.
@@ -192,7 +192,7 @@ MR_C_API const int *MR_Aggregates_C_Get_a(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_Aggregates_C_Set_a(MR_Aggregates_C *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `a`.
@@ -209,7 +209,7 @@ MR_C_API const int *MR_Aggregates_C_Get_b(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_Aggregates_C_Set_b(MR_Aggregates_C *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `b`.
@@ -226,7 +226,7 @@ MR_C_API const int *MR_Aggregates_C_Get_c(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `c`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `c`.
 MR_C_API void MR_Aggregates_C_Set_c(MR_Aggregates_C *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `c`.
@@ -243,7 +243,7 @@ MR_C_API const int *MR_Aggregates_C_Get_d(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `d`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `d`.
 MR_C_API void MR_Aggregates_C_Set_d(MR_Aggregates_C *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `d`.
@@ -260,7 +260,7 @@ MR_C_API const int *MR_Aggregates_C_Get_e(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `e`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `e`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `e`.
 MR_C_API void MR_Aggregates_C_Set_e(MR_Aggregates_C *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `e`.
@@ -277,7 +277,7 @@ MR_C_API const int *MR_Aggregates_C_Get_f(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `f`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `f`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `f`.
 MR_C_API void MR_Aggregates_C_Set_f(MR_Aggregates_C *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `f`.
@@ -294,7 +294,7 @@ MR_C_API const int *MR_Aggregates_C_Get_g(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `g`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `g`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `g`.
 MR_C_API void MR_Aggregates_C_Set_g(MR_Aggregates_C *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `g`.
@@ -311,7 +311,7 @@ MR_C_API const int *MR_Aggregates_C_Get_h(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `h`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `h`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `h`.
 MR_C_API void MR_Aggregates_C_Set_h(MR_Aggregates_C *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `h`.
@@ -358,7 +358,7 @@ MR_C_API void MR_Aggregates_C_DestroyArray(const MR_Aggregates_C *_this);
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Aggregates_C *MR_Aggregates_C_AssignFromAnother(MR_Aggregates_C *_this, const MR_Aggregates_C *_other);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `a`.
@@ -369,7 +369,7 @@ MR_C_API const int *MR_Aggregates_D_Get_a(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_Aggregates_D_Set_a(MR_Aggregates_D *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `a`.
@@ -386,7 +386,7 @@ MR_C_API const int *MR_Aggregates_D_Get_b(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_Aggregates_D_Set_b(MR_Aggregates_D *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `b`.
@@ -403,7 +403,7 @@ MR_C_API const int *MR_Aggregates_D_Get_c(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `c`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `c`.
 MR_C_API void MR_Aggregates_D_Set_c(MR_Aggregates_D *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `c`.
@@ -420,7 +420,7 @@ MR_C_API const int *MR_Aggregates_D_Get_d(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `d`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `d`.
 MR_C_API void MR_Aggregates_D_Set_d(MR_Aggregates_D *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `d`.
@@ -437,7 +437,7 @@ MR_C_API const int *MR_Aggregates_D_Get_e(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `e`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `e`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `e`.
 MR_C_API void MR_Aggregates_D_Set_e(MR_Aggregates_D *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `e`.
@@ -454,7 +454,7 @@ MR_C_API const int *MR_Aggregates_D_Get_f(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `f`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `f`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `f`.
 MR_C_API void MR_Aggregates_D_Set_f(MR_Aggregates_D *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `f`.
@@ -471,7 +471,7 @@ MR_C_API const int *MR_Aggregates_D_Get_g(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `g`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `g`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `g`.
 MR_C_API void MR_Aggregates_D_Set_g(MR_Aggregates_D *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `g`.
@@ -488,7 +488,7 @@ MR_C_API const int *MR_Aggregates_D_Get_h(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `h`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `h`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `h`.
 MR_C_API void MR_Aggregates_D_Set_h(MR_Aggregates_D *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `h`.
@@ -505,7 +505,7 @@ MR_C_API const int *MR_Aggregates_D_Get_i(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `i`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `i`.
 MR_C_API void MR_Aggregates_D_Set_i(MR_Aggregates_D *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `i`.
@@ -552,7 +552,7 @@ MR_C_API void MR_Aggregates_D_DestroyArray(const MR_Aggregates_D *_this);
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Aggregates_D *MR_Aggregates_D_AssignFromAnother(MR_Aggregates_D *_this, const MR_Aggregates_D *_other);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -565,7 +565,7 @@ MR_C_API const int *MR_Aggregates_E_Get_a(const MR_Aggregates_E *_this);
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Modifies a member variable of class `MR::Aggregates::E` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_Aggregates_E_Set_a(MR_Aggregates_E *_this, int value);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -585,7 +585,7 @@ MR_C_API const int *MR_Aggregates_E_Get_b(const MR_Aggregates_E *_this);
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Modifies a member variable of class `MR::Aggregates::E` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_Aggregates_E_Set_b(MR_Aggregates_E *_this, int value);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -605,7 +605,7 @@ MR_C_API const int *MR_Aggregates_E_Get_c(const MR_Aggregates_E *_this);
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Modifies a member variable of class `MR::Aggregates::E` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `c`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `c`.
 MR_C_API void MR_Aggregates_E_Set_c(MR_Aggregates_E *_this, int value);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -625,7 +625,7 @@ MR_C_API const int *MR_Aggregates_E_Get_d(const MR_Aggregates_E *_this);
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Modifies a member variable of class `MR::Aggregates::E` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `d`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `d`.
 MR_C_API void MR_Aggregates_E_Set_d(MR_Aggregates_E *_this, int value);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -645,7 +645,7 @@ MR_C_API const int *MR_Aggregates_E_Get_e(const MR_Aggregates_E *_this);
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Modifies a member variable of class `MR::Aggregates::E` named `e`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `e`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `e`.
 MR_C_API void MR_Aggregates_E_Set_e(MR_Aggregates_E *_this, int value);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -665,7 +665,7 @@ MR_C_API const int *MR_Aggregates_E_Get_f(const MR_Aggregates_E *_this);
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Modifies a member variable of class `MR::Aggregates::E` named `f`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `f`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `f`.
 MR_C_API void MR_Aggregates_E_Set_f(MR_Aggregates_E *_this, int value);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -685,7 +685,7 @@ MR_C_API const int *MR_Aggregates_E_Get_g(const MR_Aggregates_E *_this);
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Modifies a member variable of class `MR::Aggregates::E` named `g`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `g`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `g`.
 MR_C_API void MR_Aggregates_E_Set_g(MR_Aggregates_E *_this, int value);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -705,7 +705,7 @@ MR_C_API const int *MR_Aggregates_E_Get_h(const MR_Aggregates_E *_this);
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Modifies a member variable of class `MR::Aggregates::E` named `h`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `h`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `h`.
 MR_C_API void MR_Aggregates_E_Set_h(MR_Aggregates_E *_this, int value);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -725,7 +725,7 @@ MR_C_API const int *MR_Aggregates_E_Get_i(const MR_Aggregates_E *_this);
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Modifies a member variable of class `MR::Aggregates::E` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `i`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `i`.
 MR_C_API void MR_Aggregates_E_Set_i(MR_Aggregates_E *_this, int value);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -747,7 +747,7 @@ MR_C_API const MR_Aggregates_NonDefaultConstructible *MR_Aggregates_E_Get_j(cons
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `value` can not be null. It is a single object.
 /// The reference to the parameter `value` might be preserved in the parameter `_this` in element `j`.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `j`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `j`.
 MR_C_API void MR_Aggregates_E_Set_j(MR_Aggregates_E *_this, const MR_Aggregates_NonDefaultConstructible *value);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -788,7 +788,7 @@ MR_C_API void MR_Aggregates_E_DestroyArray(const MR_Aggregates_E *_this);
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_Aggregates_E *MR_Aggregates_E_AssignFromAnother(MR_Aggregates_E *_this, const MR_Aggregates_E *_other);
 
 #ifdef __cplusplus

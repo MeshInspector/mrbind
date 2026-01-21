@@ -38,7 +38,7 @@ MR_C_API MR_C_std_array_MR_StdContainers_A_42 *MR_C_std_array_MR_StdContainers_A
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_array_MR_StdContainers_A_42_AssignFromAnother(MR_C_std_array_MR_StdContainers_A_42 *_this, const MR_C_std_array_MR_StdContainers_A_42 *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_array_MR_StdContainers_A_42`. Does nothing if the pointer is null.

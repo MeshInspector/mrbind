@@ -39,7 +39,7 @@ MR_C_API MR_C_std_shared_ptr_MR_CSharp_SE *MR_C_std_shared_ptr_MR_CSharp_SE_Cons
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_MR_CSharp_SE_AssignFromAnother(MR_C_std_shared_ptr_MR_CSharp_SE *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_MR_CSharp_SE *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_shared_ptr_MR_CSharp_SE`. Does nothing if the pointer is null.
@@ -87,7 +87,7 @@ MR_C_API MR_C_std_shared_ptr_MR_CSharp_SE *MR_C_std_shared_ptr_MR_CSharp_SE_Cons
 // Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `ptr` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_MR_CSharp_SE_AssignNonOwning(MR_C_std_shared_ptr_MR_CSharp_SE *_this, MR_CSharp_SE *ptr);
 
 // The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
@@ -100,7 +100,7 @@ MR_C_API MR_C_std_shared_ptr_MR_CSharp_SE *MR_C_std_shared_ptr_MR_CSharp_SE_Cons
 // The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `ptr` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_MR_CSharp_SE_AssignAliasing(MR_C_std_shared_ptr_MR_CSharp_SE *_this, MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, MR_CSharp_SE *ptr);
 
 // Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.

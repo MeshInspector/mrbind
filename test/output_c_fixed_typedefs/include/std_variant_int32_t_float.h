@@ -37,7 +37,7 @@ MR_C_API MR_C_std_variant_int32_t_float *MR_C_std_variant_int32_t_float_Construc
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_variant_int32_t_float_AssignFromAnother(MR_C_std_variant_int32_t_float *_this, const MR_C_std_variant_int32_t_float *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_variant_int32_t_float`. Does nothing if the pointer is null.
@@ -70,12 +70,12 @@ MR_C_API MR_C_std_variant_int32_t_float *MR_C_std_variant_int32_t_float_Construc
 // Assigns to the variant, making it store the element 0, of type `int32_t`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_variant_int32_t_float_AssignAs_int32_t(MR_C_std_variant_int32_t_float *_this, int32_t value);
 
 // Assigns to the variant, making it store the element 1, of type `float`.
 // Parameter `_this` can not be null. It is a single object.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_variant_int32_t_float_AssignAs_float(MR_C_std_variant_int32_t_float *_this, float value);
 
 // Returns the element 0, of type `int32_t`, read-only. If it's not the active element, returns null.

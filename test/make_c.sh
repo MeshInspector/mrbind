@@ -88,6 +88,8 @@ mkdir -p test/output_c_fixed_typedefs_64_only
 build/mrbind \
     -o test/output_c/parsed.json \
     --copy-inherited-members \
+    --infer-lifetime-begin-end \
+    --infer-lifetime-ctors \
     "${MRBIND_FLAGS[@]}"
 
 build/mrbind_gen_c \
@@ -103,6 +105,7 @@ build/mrbind \
     -o test/output_c_fixed_typedefs/parsed.json \
     --canonicalize-to-fixed-size-typedefs \
     --canonicalize-size_t-to-uint64_t \
+    --infer-lifetime-begin-end \
     "${MRBIND_FLAGS[@]}" \
     -DDISABLE_LONG_LONG
 

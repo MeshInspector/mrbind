@@ -58,7 +58,7 @@ MR_C_API const MR_C_std_string *MR_StdFunction_A_Get_a(const MR_StdFunction_A *_
 /// Parameter `value` can not be null.
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
 /// The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
-/// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
+/// When this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_StdFunction_A_Set_a(MR_StdFunction_A *_this, const char *value, const char *value_end);
 
 /// Returns a mutable pointer to a member variable of class `MR::StdFunction::A` named `a`.
@@ -106,7 +106,7 @@ MR_C_API void MR_StdFunction_A_DestroyArray(const MR_StdFunction_A *_this);
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_StdFunction_A *MR_StdFunction_A_AssignFromAnother(MR_StdFunction_A *_this, MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other);
 
 /// Generated from function `MR::StdFunction::foo`.

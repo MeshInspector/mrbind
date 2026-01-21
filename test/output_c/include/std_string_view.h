@@ -39,7 +39,7 @@ MR_C_API MR_C_std_string_view *MR_C_std_string_view_ConstructFrom(const char *ot
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_string_view_AssignFromAnother(MR_C_std_string_view *_this, const MR_C_std_string_view *other);
 
 /// Assigns the contents.
@@ -47,7 +47,7 @@ MR_C_API void MR_C_std_string_view_AssignFromAnother(MR_C_std_string_view *_this
 /// Parameter `other` can not be null.
 /// If `other_end` is null, then `other` is assumed to be null-terminated.
 /// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_string_view_AssignFrom(MR_C_std_string_view *_this, const char *other, const char *other_end);
 
 /// Destroys a heap-allocated instance of `MR_C_std_string_view`. Does nothing if the pointer is null.

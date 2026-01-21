@@ -37,7 +37,7 @@ MR_C_API MR_C_std_tuple_float_double_int32_t_int32_t *MR_C_std_tuple_float_doubl
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_tuple_float_double_int32_t_int32_t_AssignFromAnother(MR_C_std_tuple_float_double_int32_t_int32_t *_this, const MR_C_std_tuple_float_double_int32_t_int32_t *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_tuple_float_double_int32_t_int32_t`. Does nothing if the pointer is null.

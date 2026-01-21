@@ -200,7 +200,7 @@ MR_C_API const int32_t *MR_CopyInheritedMembers_A_Get_StaticField(void);
 
 // Modifies a member variable of class `MR::CopyInheritedMembers::A` named `StaticField`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `StaticField`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `StaticField`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `StaticField`.
 MR_C_API void MR_CopyInheritedMembers_A_Set_StaticField(int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CopyInheritedMembers::A` named `StaticField`.
@@ -216,7 +216,7 @@ MR_C_API const int32_t *MR_CopyInheritedMembers_A_Get_Field(const MR_CopyInherit
 // Modifies a member variable of class `MR::CopyInheritedMembers::A` named `Field`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `Field`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `Field`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `Field`.
 MR_C_API void MR_CopyInheritedMembers_A_Set_Field(MR_CopyInheritedMembers_A *_this, int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CopyInheritedMembers::A` named `Field`.
@@ -312,7 +312,7 @@ MR_C_API int32_t MR_CopyInheritedMembers_A_ConvertTo_int32_t(MR_CopyInheritedMem
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_A_AssignFromAnother(MR_CopyInheritedMembers_A *_this, const MR_CopyInheritedMembers_A *_other);
 
 // Generated from method `MR::CopyInheritedMembers::A::Method`.
@@ -328,7 +328,7 @@ MR_C_API const int32_t *MR_CopyInheritedMembers_B_Get_StaticField(void);
 
 // Modifies a member variable of class `MR::CopyInheritedMembers::B` named `StaticField`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `StaticField`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `StaticField`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `StaticField`.
 MR_C_API void MR_CopyInheritedMembers_B_Set_StaticField(int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CopyInheritedMembers::B` named `StaticField`.
@@ -344,7 +344,7 @@ MR_C_API const int32_t *MR_CopyInheritedMembers_B_Get_Field(const MR_CopyInherit
 // Modifies a member variable of class `MR::CopyInheritedMembers::B` named `Field`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `Field`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `Field`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `Field`.
 MR_C_API void MR_CopyInheritedMembers_B_Set_Field(MR_CopyInheritedMembers_B *_this, int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CopyInheritedMembers::B` named `Field`.
@@ -440,7 +440,7 @@ MR_C_API int32_t MR_CopyInheritedMembers_B_ConvertTo_int32_t(MR_CopyInheritedMem
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_B_AssignFromAnother(MR_CopyInheritedMembers_B *_this, const MR_CopyInheritedMembers_B *_other);
 
 // Generated from method `MR::CopyInheritedMembers::B::Method`.
@@ -502,7 +502,7 @@ MR_C_API void MR_CopyInheritedMembers_C_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_C_AssignFromAnother(MR_CopyInheritedMembers_C *_this, const MR_CopyInheritedMembers_C *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -570,7 +570,7 @@ MR_C_API void MR_CopyInheritedMembers_D_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_D_AssignFromAnother(MR_CopyInheritedMembers_D *_this, const MR_CopyInheritedMembers_D *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -634,7 +634,7 @@ MR_C_API void MR_CopyInheritedMembers_E_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_AssignFromAnother(MR_CopyInheritedMembers_E *_this, const MR_CopyInheritedMembers_E *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -698,7 +698,7 @@ MR_C_API void MR_CopyInheritedMembers_F_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_AssignFromAnother(MR_CopyInheritedMembers_F *_this, const MR_CopyInheritedMembers_F *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -786,7 +786,7 @@ MR_C_API void MR_CopyInheritedMembers_G_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_G_AssignFromAnother(MR_CopyInheritedMembers_G *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_G *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -839,7 +839,7 @@ MR_C_API void MR_CopyInheritedMembers_H_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_H *MR_CopyInheritedMembers_H_AssignFromAnother(MR_CopyInheritedMembers_H *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_H *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -892,7 +892,7 @@ MR_C_API void MR_CopyInheritedMembers_I_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_I *MR_CopyInheritedMembers_I_AssignFromAnother(MR_CopyInheritedMembers_I *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_I *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -960,7 +960,7 @@ MR_C_API void MR_CopyInheritedMembers_J_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_J_AssignFromAnother(MR_CopyInheritedMembers_J *_this, const MR_CopyInheritedMembers_J *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1013,7 +1013,7 @@ MR_C_API void MR_CopyInheritedMembers_K_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_K *MR_CopyInheritedMembers_K_AssignFromAnother(MR_CopyInheritedMembers_K *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_K *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1066,7 +1066,7 @@ MR_C_API void MR_CopyInheritedMembers_L_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_L *MR_CopyInheritedMembers_L_AssignFromAnother(MR_CopyInheritedMembers_L *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_L *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1141,7 +1141,7 @@ MR_C_API void MR_CopyInheritedMembers_M_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_M_AssignFromAnother(MR_CopyInheritedMembers_M *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_M *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1214,7 +1214,7 @@ MR_C_API void MR_CopyInheritedMembers_N_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_AssignFromAnother(MR_CopyInheritedMembers_N *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_N *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1285,7 +1285,7 @@ MR_C_API void MR_CopyInheritedMembers_O_DestroyArray(const MR_CopyInheritedMembe
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_AssignFromAnother(MR_CopyInheritedMembers_O *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_O *_other);
 
 #ifdef __cplusplus

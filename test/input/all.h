@@ -17,6 +17,7 @@
 #include <input/MR/test_includes_for_enum_constants_3.h>
 #include <input/MR/test_includes_for_enum_constants.h>
 #include <input/MR/test_iostream.h>
+#include <input/MR/test_lifetime_inference.h>
 #include <input/MR/test_matching_layout.h>
 #include <input/MR/test_member_vars.h>
 #include <input/MR/test_mention_blacklists.h>

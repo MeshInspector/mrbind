@@ -1003,7 +1003,7 @@ MR_C_API void MR_CSharp_A_DestroyArray(const MR_CSharp_A *_this);
 // The reference to the parameter `_this` might be preserved in the return value.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_A *MR_CSharp_A_AssignFromAnother(MR_CSharp_A *_this, MR_C_PassBy _other_pass_by, MR_CSharp_A *_other);
 
 // Generated from method `MR::CSharp::A::foo`.
@@ -1080,7 +1080,7 @@ MR_C_API void MR_CSharp_B_DestroyArray(const MR_CSharp_B *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_B *MR_CSharp_B_AssignFromAnother(MR_CSharp_B *_this, MR_C_PassBy _other_pass_by, MR_CSharp_B *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1124,7 +1124,7 @@ MR_C_API void MR_CSharp_C_DestroyArray(const MR_CSharp_C *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_C *MR_CSharp_C_AssignFromAnother(MR_CSharp_C *_this, MR_C_PassBy _other_pass_by, MR_CSharp_C *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1183,7 +1183,7 @@ MR_C_API void MR_CSharp_D_DestroyArray(const MR_CSharp_D *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_D *MR_CSharp_D_AssignFromAnother(MR_CSharp_D *_this, const MR_CSharp_D *_other);
 
 // Generated from method `MR::CSharp::D::d1`.
@@ -1239,7 +1239,7 @@ MR_C_API void MR_CSharp_E_DestroyArray(const MR_CSharp_E *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_E *MR_CSharp_E_AssignFromAnother(MR_CSharp_E *_this, const MR_CSharp_E *_other);
 
 // Generated from method `MR::CSharp::E::e1`.
@@ -1309,7 +1309,7 @@ MR_C_API void MR_CSharp_F_DestroyArray(const MR_CSharp_F *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_F *MR_CSharp_F_AssignFromAnother(MR_CSharp_F *_this, MR_C_PassBy _other_pass_by, MR_CSharp_F *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1371,7 +1371,7 @@ MR_C_API void MR_CSharp_G_DestroyArray(const MR_CSharp_G *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_G *MR_CSharp_G_AssignFromAnother(MR_CSharp_G *_this, MR_C_PassBy _other_pass_by, MR_CSharp_G *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1408,7 +1408,7 @@ MR_C_API void MR_CSharp_Trivial_DestroyArray(const MR_CSharp_Trivial *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_Trivial *MR_CSharp_Trivial_AssignFromAnother(MR_CSharp_Trivial *_this, const MR_CSharp_Trivial *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1445,7 +1445,7 @@ MR_C_API void MR_CSharp_TrivialDerived_DestroyArray(const MR_CSharp_TrivialDeriv
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_TrivialDerived *MR_CSharp_TrivialDerived_AssignFromAnother(MR_CSharp_TrivialDerived *_this, const MR_CSharp_TrivialDerived *_other);
 
 // Generated from function `MR::CSharp::test_class_trivial`.
@@ -1535,7 +1535,7 @@ MR_C_API void MR_CSharp_NonTrivial_DestroyArray(const MR_CSharp_NonTrivial *_thi
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NonTrivial *MR_CSharp_NonTrivial_AssignFromAnother(MR_CSharp_NonTrivial *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivial *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1570,7 +1570,7 @@ MR_C_API void MR_CSharp_NonTrivialDerived_DestroyArray(const MR_CSharp_NonTrivia
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_AssignFromAnother(MR_CSharp_NonTrivialDerived *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialDerived *_other);
 
 // Generated from function `MR::CSharp::test_class_nontrivial`.
@@ -1681,7 +1681,7 @@ MR_C_API void MR_CSharp_SA_DestroyArray(const MR_CSharp_SA *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SA *MR_CSharp_SA_AssignFromAnother(MR_CSharp_SA *_this, const MR_CSharp_SA *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1727,7 +1727,7 @@ MR_C_API void MR_CSharp_SB_DestroyArray(const MR_CSharp_SB *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SB *MR_CSharp_SB_AssignFromAnother(MR_CSharp_SB *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SB *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1780,7 +1780,7 @@ MR_C_API void MR_CSharp_SC_DestroyArray(const MR_CSharp_SC *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SC *MR_CSharp_SC_AssignFromAnother(MR_CSharp_SC *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SC *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1853,7 +1853,7 @@ MR_C_API void MR_CSharp_SD_DestroyArray(const MR_CSharp_SD *_this);
 // The reference to the parameter `_this` might be preserved in the return value.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SD *MR_CSharp_SD_AssignFromAnother(MR_CSharp_SD *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1899,7 +1899,7 @@ MR_C_API void MR_CSharp_SE_DestroyArray(const MR_CSharp_SE *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SE *MR_CSharp_SE_AssignFromAnother(MR_CSharp_SE *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SE *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1952,7 +1952,7 @@ MR_C_API void MR_CSharp_SF_DestroyArray(const MR_CSharp_SF *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_SF *MR_CSharp_SF_AssignFromAnother(MR_CSharp_SF *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SF *_other);
 
 // Generated from function `MR::CSharp::mark_se_as_shared`.
@@ -2247,7 +2247,7 @@ MR_C_API void MR_CSharp_Outer_DestroyArray(const MR_CSharp_Outer *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_Outer *MR_CSharp_Outer_AssignFromAnother(MR_CSharp_Outer *_this, const MR_CSharp_Outer *_other);
 
 // Generated from method `MR::CSharp::Outer::foo`.
@@ -2288,7 +2288,7 @@ MR_C_API void MR_CSharp_Outer_Inner_DestroyArray(const MR_CSharp_Outer_Inner *_t
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_Outer_Inner *MR_CSharp_Outer_Inner_AssignFromAnother(MR_CSharp_Outer_Inner *_this, const MR_CSharp_Outer_Inner *_other);
 
 // Generated from method `MR::CSharp::Outer::Inner::bar`.
@@ -2301,7 +2301,7 @@ MR_C_API const int32_t *MR_CSharp_TestFields_Get_static_i(void);
 
 // Modifies a member variable of class `MR::CSharp::TestFields` named `static_i`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `static_i`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `static_i`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `static_i`.
 MR_C_API void MR_CSharp_TestFields_Set_static_i(int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `static_i`.
@@ -2328,7 +2328,7 @@ MR_C_API const MR_C_std_string *MR_CSharp_TestFields_Get_static_s(void);
 // Parameter `value` can not be null.
 // If `value_end` is null, then `value` is assumed to be null-terminated.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `static_s`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `static_s`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `static_s`.
 MR_C_API void MR_CSharp_TestFields_Set_static_s(const char *value, const char *value_end);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `static_s`.
@@ -2356,7 +2356,7 @@ MR_C_API const int32_t *MR_CSharp_TestFields_Get_i(const MR_CSharp_TestFields *_
 // Modifies a member variable of class `MR::CSharp::TestFields` named `i`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `i`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `i`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `i`.
 MR_C_API void MR_CSharp_TestFields_Set_i(MR_CSharp_TestFields *_this, int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `i`.
@@ -2394,7 +2394,7 @@ MR_C_API const MR_C_std_string *MR_CSharp_TestFields_Get_s(const MR_CSharp_TestF
 // Parameter `value` can not be null.
 // If `value_end` is null, then `value` is assumed to be null-terminated.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `s`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `s`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `s`.
 MR_C_API void MR_CSharp_TestFields_Set_s(MR_CSharp_TestFields *_this, const char *value, const char *value_end);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `s`.
@@ -2495,7 +2495,7 @@ MR_C_API void MR_CSharp_TestConstness_DestroyArray(const MR_CSharp_TestConstness
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_TestConstness *MR_CSharp_TestConstness_AssignFromAnother(MR_CSharp_TestConstness *_this, const MR_CSharp_TestConstness *_other);
 
 // Generated from method `MR::CSharp::TestConstness::foo`.
@@ -2540,7 +2540,7 @@ MR_C_API void MR_CSharp_IncrDecrA_DestroyArray(const MR_CSharp_IncrDecrA *_this)
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IncrDecrA *MR_CSharp_IncrDecrA_AssignFromAnother(MR_CSharp_IncrDecrA *_this, const MR_CSharp_IncrDecrA *_other);
 
 // Generated from method `MR::CSharp::IncrDecrA::operator++`.
@@ -2597,7 +2597,7 @@ MR_C_API void MR_CSharp_IncrDecrB_DestroyArray(const MR_CSharp_IncrDecrB *_this)
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IncrDecrB *MR_CSharp_IncrDecrB_AssignFromAnother(MR_CSharp_IncrDecrB *_this, const MR_CSharp_IncrDecrB *_other);
 
 // Generated from method `MR::CSharp::IncrDecrB::operator++`.
@@ -2654,7 +2654,7 @@ MR_C_API void MR_CSharp_IncrDecrC_DestroyArray(const MR_CSharp_IncrDecrC *_this)
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IncrDecrC *MR_CSharp_IncrDecrC_AssignFromAnother(MR_CSharp_IncrDecrC *_this, const MR_CSharp_IncrDecrC *_other);
 
 // Generated from method `MR::CSharp::IncrDecrC::operator++`.
@@ -2711,7 +2711,7 @@ MR_C_API void MR_CSharp_IncrDecrD_DestroyArray(const MR_CSharp_IncrDecrD *_this)
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IncrDecrD *MR_CSharp_IncrDecrD_AssignFromAnother(MR_CSharp_IncrDecrD *_this, const MR_CSharp_IncrDecrD *_other);
 
 // Generated from method `MR::CSharp::IncrDecrD::operator++`.
@@ -2962,7 +2962,7 @@ MR_C_API void MR_CSharp_IncrDecrI_DestroyArray(const MR_CSharp_IncrDecrI *_this)
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_AssignFromAnother(MR_CSharp_IncrDecrI *_this, const MR_CSharp_IncrDecrI *_other);
 
 // Generated from function `MR::CSharp::operator++`.
@@ -3015,7 +3015,7 @@ MR_C_API void MR_CSharp_EqualityA_DestroyArray(const MR_CSharp_EqualityA *_this)
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_EqualityA *MR_CSharp_EqualityA_AssignFromAnother(MR_CSharp_EqualityA *_this, const MR_CSharp_EqualityA *_other);
 
 // Generated from method `MR::CSharp::EqualityA::operator==`.
@@ -3065,7 +3065,7 @@ MR_C_API void MR_CSharp_EqualityB_DestroyArray(const MR_CSharp_EqualityB *_this)
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_EqualityB *MR_CSharp_EqualityB_AssignFromAnother(MR_CSharp_EqualityB *_this, const MR_CSharp_EqualityB *_other);
 
 // Generated from method `MR::CSharp::EqualityB::operator==`.
@@ -3115,7 +3115,7 @@ MR_C_API void MR_CSharp_EqualityC_DestroyArray(const MR_CSharp_EqualityC *_this)
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_EqualityC *MR_CSharp_EqualityC_AssignFromAnother(MR_CSharp_EqualityC *_this, const MR_CSharp_EqualityC *_other);
 
 // Generated from method `MR::CSharp::EqualityC::operator==`.
@@ -3165,7 +3165,7 @@ MR_C_API void MR_CSharp_EqualityD_DestroyArray(const MR_CSharp_EqualityD *_this)
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_EqualityD *MR_CSharp_EqualityD_AssignFromAnother(MR_CSharp_EqualityD *_this, const MR_CSharp_EqualityD *_other);
 
 // Generated from method `MR::CSharp::EqualityD::operator==`.
@@ -3206,7 +3206,7 @@ MR_C_API void MR_CSharp_EqualityE_DestroyArray(const MR_CSharp_EqualityE *_this)
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_EqualityE *MR_CSharp_EqualityE_AssignFromAnother(MR_CSharp_EqualityE *_this, const MR_CSharp_EqualityE *_other);
 
 // Generated from method `MR::CSharp::EqualityE::operator==`.
@@ -3247,7 +3247,7 @@ MR_C_API void MR_CSharp_RelationalA_DestroyArray(const MR_CSharp_RelationalA *_t
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalA *MR_CSharp_RelationalA_AssignFromAnother(MR_CSharp_RelationalA *_this, const MR_CSharp_RelationalA *_other);
 
 // Generated from method `MR::CSharp::RelationalA::operator<`.
@@ -3304,7 +3304,7 @@ MR_C_API void MR_CSharp_RelationalB_DestroyArray(const MR_CSharp_RelationalB *_t
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalB *MR_CSharp_RelationalB_AssignFromAnother(MR_CSharp_RelationalB *_this, const MR_CSharp_RelationalB *_other);
 
 // Generated from method `MR::CSharp::RelationalB::operator<`.
@@ -3361,7 +3361,7 @@ MR_C_API void MR_CSharp_RelationalC_DestroyArray(const MR_CSharp_RelationalC *_t
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalC *MR_CSharp_RelationalC_AssignFromAnother(MR_CSharp_RelationalC *_this, const MR_CSharp_RelationalC *_other);
 
 // Generated from method `MR::CSharp::RelationalC::operator<`.
@@ -3414,7 +3414,7 @@ MR_C_API void MR_CSharp_RelationalD_DestroyArray(const MR_CSharp_RelationalD *_t
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalD *MR_CSharp_RelationalD_AssignFromAnother(MR_CSharp_RelationalD *_this, const MR_CSharp_RelationalD *_other);
 
 // Generated from method `MR::CSharp::RelationalD::operator<`.
@@ -3471,7 +3471,7 @@ MR_C_API void MR_CSharp_RelationalE_DestroyArray(const MR_CSharp_RelationalE *_t
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalE *MR_CSharp_RelationalE_AssignFromAnother(MR_CSharp_RelationalE *_this, const MR_CSharp_RelationalE *_other);
 
 // Generated from method `MR::CSharp::RelationalE::operator<`.
@@ -3528,7 +3528,7 @@ MR_C_API void MR_CSharp_RelationalF_DestroyArray(const MR_CSharp_RelationalF *_t
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_RelationalF *MR_CSharp_RelationalF_AssignFromAnother(MR_CSharp_RelationalF *_this, const MR_CSharp_RelationalF *_other);
 
 // Generated from method `MR::CSharp::RelationalF::operator<`.
@@ -3585,7 +3585,7 @@ MR_C_API void MR_CSharp_StaticOpsLhsA_DestroyArray(const MR_CSharp_StaticOpsLhsA
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsA *MR_CSharp_StaticOpsLhsA_AssignFromAnother(MR_CSharp_StaticOpsLhsA *_this, const MR_CSharp_StaticOpsLhsA *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -3626,7 +3626,7 @@ MR_C_API void MR_CSharp_StaticOpsLhsB_DestroyArray(const MR_CSharp_StaticOpsLhsB
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsB *MR_CSharp_StaticOpsLhsB_AssignFromAnother(MR_CSharp_StaticOpsLhsB *_this, const MR_CSharp_StaticOpsLhsB *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -3732,7 +3732,7 @@ MR_C_API void MR_CSharp_StaticOpsLhsE_DestroyArray(const MR_CSharp_StaticOpsLhsE
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsE *MR_CSharp_StaticOpsLhsE_AssignFromAnother(MR_CSharp_StaticOpsLhsE *_this, const MR_CSharp_StaticOpsLhsE *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -3774,7 +3774,7 @@ MR_C_API void MR_CSharp_StaticOpsLhsF_DestroyArray(const MR_CSharp_StaticOpsLhsF
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsF *MR_CSharp_StaticOpsLhsF_AssignFromAnother(MR_CSharp_StaticOpsLhsF *_this, const MR_CSharp_StaticOpsLhsF *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -3815,7 +3815,7 @@ MR_C_API void MR_CSharp_StaticOpsLhsG_DestroyArray(const MR_CSharp_StaticOpsLhsG
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsG *MR_CSharp_StaticOpsLhsG_AssignFromAnother(MR_CSharp_StaticOpsLhsG *_this, const MR_CSharp_StaticOpsLhsG *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -3856,7 +3856,7 @@ MR_C_API void MR_CSharp_StaticOpsLhsH_DestroyArray(const MR_CSharp_StaticOpsLhsH
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsLhsH *MR_CSharp_StaticOpsLhsH_AssignFromAnother(MR_CSharp_StaticOpsLhsH *_this, const MR_CSharp_StaticOpsLhsH *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -3897,7 +3897,7 @@ MR_C_API void MR_CSharp_StaticOpsRhsA_DestroyArray(const MR_CSharp_StaticOpsRhsA
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsA *MR_CSharp_StaticOpsRhsA_AssignFromAnother(MR_CSharp_StaticOpsRhsA *_this, const MR_CSharp_StaticOpsRhsA *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -3938,7 +3938,7 @@ MR_C_API void MR_CSharp_StaticOpsRhsB_DestroyArray(const MR_CSharp_StaticOpsRhsB
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsB *MR_CSharp_StaticOpsRhsB_AssignFromAnother(MR_CSharp_StaticOpsRhsB *_this, const MR_CSharp_StaticOpsRhsB *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -4044,7 +4044,7 @@ MR_C_API void MR_CSharp_StaticOpsRhsE_DestroyArray(const MR_CSharp_StaticOpsRhsE
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsE *MR_CSharp_StaticOpsRhsE_AssignFromAnother(MR_CSharp_StaticOpsRhsE *_this, const MR_CSharp_StaticOpsRhsE *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -4086,7 +4086,7 @@ MR_C_API void MR_CSharp_StaticOpsRhsF_DestroyArray(const MR_CSharp_StaticOpsRhsF
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsF *MR_CSharp_StaticOpsRhsF_AssignFromAnother(MR_CSharp_StaticOpsRhsF *_this, const MR_CSharp_StaticOpsRhsF *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -4127,7 +4127,7 @@ MR_C_API void MR_CSharp_StaticOpsRhsG_DestroyArray(const MR_CSharp_StaticOpsRhsG
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsG *MR_CSharp_StaticOpsRhsG_AssignFromAnother(MR_CSharp_StaticOpsRhsG *_this, const MR_CSharp_StaticOpsRhsG *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -4168,7 +4168,7 @@ MR_C_API void MR_CSharp_StaticOpsRhsH_DestroyArray(const MR_CSharp_StaticOpsRhsH
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsRhsH *MR_CSharp_StaticOpsRhsH_AssignFromAnother(MR_CSharp_StaticOpsRhsH *_this, const MR_CSharp_StaticOpsRhsH *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -4213,7 +4213,7 @@ MR_C_API void MR_CSharp_StaticOpsMixedLhs_DestroyArray(const MR_CSharp_StaticOps
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsMixedLhs *MR_CSharp_StaticOpsMixedLhs_AssignFromAnother(MR_CSharp_StaticOpsMixedLhs *_this, const MR_CSharp_StaticOpsMixedLhs *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -4250,7 +4250,7 @@ MR_C_API void MR_CSharp_StaticOpsMixedRhs_DestroyArray(const MR_CSharp_StaticOps
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StaticOpsMixedRhs *MR_CSharp_StaticOpsMixedRhs_AssignFromAnother(MR_CSharp_StaticOpsMixedRhs *_this, const MR_CSharp_StaticOpsMixedRhs *_other);
 
 // Gets injected into the lhs by default.
@@ -4291,7 +4291,7 @@ MR_C_API void MR_CSharp_NonTrivialClassOps_DestroyArray(const MR_CSharp_NonTrivi
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NonTrivialClassOps *MR_CSharp_NonTrivialClassOps_AssignFromAnother(MR_CSharp_NonTrivialClassOps *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialClassOps *_other);
 
 // Generated from method `MR::CSharp::NonTrivialClassOps::operator+`.
@@ -4339,7 +4339,7 @@ MR_C_API void MR_CSharp_NonCopyableClassByValueOps_DestroyArray(const MR_CSharp_
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NonCopyableClassByValueOps *MR_CSharp_NonCopyableClassByValueOps_AssignFromAnother(MR_CSharp_NonCopyableClassByValueOps *_this, const MR_CSharp_NonCopyableClassByValueOps *_other);
 
 // Generated from function `MR::CSharp::operator+`.
@@ -4384,7 +4384,7 @@ MR_C_API void MR_CSharp_CallOp_DestroyArray(const MR_CSharp_CallOp *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_CallOp *MR_CSharp_CallOp_AssignFromAnother(MR_CSharp_CallOp *_this, const MR_CSharp_CallOp *_other);
 
 // Generated from method `MR::CSharp::CallOp::operator()`.
@@ -4419,7 +4419,7 @@ MR_C_API void MR_CSharp_TestOpsA_DestroyArray(const MR_CSharp_TestOpsA *_this);
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API int32_t MR_CSharp_TestOpsA_AssignFromAnother(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_other);
 
 // Generated from method `MR::CSharp::TestOpsA::operator+`.
@@ -4607,7 +4607,7 @@ MR_C_API void MR_CSharp_TestOpsB_DestroyArray(const MR_CSharp_TestOpsB *_this);
 // Generated from method `MR::CSharp::TestOpsB::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API int32_t MR_CSharp_TestOpsB_AssignFromAnother(MR_CSharp_TestOpsB *_this, MR_C_PassBy _other_pass_by, MR_CSharp_TestOpsB *_other);
 
 // Generated from method `MR::CSharp::TestOpsB::operator+`.
@@ -4771,7 +4771,7 @@ MR_C_API void MR_CSharp_TestOpsC_DestroyArray(const MR_CSharp_TestOpsC *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_TestOpsC *MR_CSharp_TestOpsC_AssignFromAnother(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsC *_other);
 
 // Generated from method `MR::CSharp::TestOpsC::operator+`.
@@ -4951,7 +4951,7 @@ MR_C_API const int32_t *MR_CSharp_IndexerA_Get_x(const MR_CSharp_IndexerA *_this
 // Modifies a member variable of class `MR::CSharp::IndexerA` named `x`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `x`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `x`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `x`.
 MR_C_API void MR_CSharp_IndexerA_Set_x(MR_CSharp_IndexerA *_this, int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::IndexerA` named `x`.
@@ -4999,7 +4999,7 @@ MR_C_API void MR_CSharp_IndexerA_DestroyArray(const MR_CSharp_IndexerA *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IndexerA *MR_CSharp_IndexerA_AssignFromAnother(MR_CSharp_IndexerA *_this, const MR_CSharp_IndexerA *_other);
 
 // Generated from method `MR::CSharp::IndexerA::operator[]`.
@@ -5017,7 +5017,7 @@ MR_C_API const MR_CSharp_IndexerA *MR_CSharp_IndexerB_Get_a(const MR_CSharp_Inde
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `value` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_IndexerB_Set_a(MR_CSharp_IndexerB *_this, const MR_CSharp_IndexerA *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::IndexerB` named `a`.
@@ -5066,7 +5066,7 @@ MR_C_API void MR_CSharp_IndexerB_DestroyArray(const MR_CSharp_IndexerB *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IndexerB *MR_CSharp_IndexerB_AssignFromAnother(MR_CSharp_IndexerB *_this, const MR_CSharp_IndexerB *_other);
 
 // Generated from method `MR::CSharp::IndexerB::operator[]`.
@@ -5118,7 +5118,7 @@ MR_C_API void MR_CSharp_IndexerC_DestroyArray(const MR_CSharp_IndexerC *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_AssignFromAnother(MR_CSharp_IndexerC *_this, const MR_CSharp_IndexerC *_other);
 
 // Generated from method `MR::CSharp::IndexerC::operator[]`.
@@ -5171,7 +5171,7 @@ MR_C_API float MR_CSharp_ConvOp_ConvertTo_float(MR_CSharp_ConvOp *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvOp *MR_CSharp_ConvOp_AssignFromAnother(MR_CSharp_ConvOp *_this, const MR_CSharp_ConvOp *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -5225,7 +5225,7 @@ MR_C_API uint16_t *MR_CSharp_ConvOpToRef_ConvertTo_uint16_t_ref(MR_CSharp_ConvOp
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_AssignFromAnother(MR_CSharp_ConvOpToRef *_this, const MR_CSharp_ConvOpToRef *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -5267,7 +5267,7 @@ MR_C_API MR_C_std_string *MR_CSharp_StringConvString_ConvertTo_std_string(MR_CSh
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StringConvString *MR_CSharp_StringConvString_AssignFromAnother(MR_CSharp_StringConvString *_this, const MR_CSharp_StringConvString *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -5310,7 +5310,7 @@ MR_C_API MR_C_std_string_view *MR_CSharp_StringConvStringView_ConvertTo_std_stri
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_AssignFromAnother(MR_CSharp_StringConvStringView *_this, const MR_CSharp_StringConvStringView *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -5352,7 +5352,7 @@ MR_C_API MR_C_std_filesystem_path *MR_CSharp_StringConvFsPath_ConvertTo_std_file
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_AssignFromAnother(MR_CSharp_StringConvFsPath *_this, const MR_CSharp_StringConvFsPath *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -5405,7 +5405,7 @@ MR_C_API void MR_CSharp_ConvCtor_DestroyArray(const MR_CSharp_ConvCtor *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_AssignFromAnother(MR_CSharp_ConvCtor *_this, const MR_CSharp_ConvCtor *_other);
 
 // Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
@@ -5443,7 +5443,7 @@ MR_C_API void MR_CSharp_ConvCtorWithDefArg_DestroyArray(const MR_CSharp_ConvCtor
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_AssignFromAnother(MR_CSharp_ConvCtorWithDefArg *_this, const MR_CSharp_ConvCtorWithDefArg *_other);
 
 // Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
@@ -5474,7 +5474,7 @@ MR_C_API void MR_CSharp_ConvCtorNonTrivialRestricted_DestroyArray(const MR_CShar
 // The reference to the parameter `_this` might be preserved in the return value.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_AssignFromAnother(MR_CSharp_ConvCtorNonTrivialRestricted *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other);
 
 // Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
@@ -5508,7 +5508,7 @@ MR_C_API void MR_CSharp_ConvCtorCopyButNoMove_DestroyArray(const MR_CSharp_ConvC
 // The reference to the parameter `_this` might be preserved in the return value.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_AssignFromAnother(MR_CSharp_ConvCtorCopyButNoMove *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorCopyButNoMove *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -5549,7 +5549,7 @@ MR_C_API void MR_CSharp_ConvCtorTrivial_DestroyArray(const MR_CSharp_ConvCtorTri
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_AssignFromAnother(MR_CSharp_ConvCtorTrivial *_this, const MR_CSharp_ConvCtorTrivial *_other);
 
 // Generated from function `MR::CSharp::test_class_convtrivial`.
@@ -5619,7 +5619,7 @@ MR_C_API void MR_CSharp_ConvCtorNonTrivial_DestroyArray(const MR_CSharp_ConvCtor
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_AssignFromAnother(MR_CSharp_ConvCtorNonTrivial *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivial *_other);
 
 // Generated from function `MR::CSharp::test_class_convnontrivial`.
@@ -5881,7 +5881,7 @@ MR_C_API const int32_t *MR_CSharp_ArrayMembers_Get_i(const MR_CSharp_ArrayMember
 // Modifies a member variable of class `MR::CSharp::ArrayMembers` named `i`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `i`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `i`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `i`.
 MR_C_API void MR_CSharp_ArrayMembers_Set_i(MR_CSharp_ArrayMembers *_this, int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `i`.
@@ -5955,7 +5955,7 @@ MR_C_API const MR_C_std_string *MR_CSharp_ArrayMembers_Get_s(const MR_CSharp_Arr
 // Parameter `value` can not be null.
 // If `value_end` is null, then `value` is assumed to be null-terminated.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `s`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `s`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `s`.
 MR_C_API void MR_CSharp_ArrayMembers_Set_s(MR_CSharp_ArrayMembers *_this, const char *value, const char *value_end);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ArrayMembers` named `s`.
@@ -6653,7 +6653,7 @@ MR_C_API const int32_t *MR_CSharp_NameConflicts_Get_name_conflicts(const MR_CSha
 // Modifies a member variable of class `MR::CSharp::NameConflicts` named `name_conflicts`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `name_conflicts`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `name_conflicts`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `name_conflicts`.
 MR_C_API void MR_CSharp_NameConflicts_Set_name_conflicts(MR_CSharp_NameConflicts *_this, int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::NameConflicts` named `name_conflicts`.
@@ -6672,7 +6672,7 @@ MR_C_API const MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_Get_a(const MR
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `value` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_NameConflicts_Set_a(MR_CSharp_NameConflicts *_this, const MR_CSharp_NameConflicts_A *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::NameConflicts` named `a`.
@@ -6722,7 +6722,7 @@ MR_C_API void MR_CSharp_NameConflicts_DestroyArray(const MR_CSharp_NameConflicts
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_AssignFromAnother(MR_CSharp_NameConflicts *_this, const MR_CSharp_NameConflicts *_other);
 
 // Generated from method `MR::CSharp::NameConflicts::name_Conflicts`.
@@ -6763,7 +6763,7 @@ MR_C_API void MR_CSharp_NameConflicts_A_DestroyArray(const MR_CSharp_NameConflic
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_AssignFromAnother(MR_CSharp_NameConflicts_A *_this, const MR_CSharp_NameConflicts_A *_other);
 
 // Generated from function `MR::CSharp::nameConflicts`.
@@ -6833,7 +6833,7 @@ MR_C_API void MR_CSharp_AmbiguousTemplates_DestroyArray(const MR_CSharp_Ambiguou
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_AssignFromAnother(MR_CSharp_AmbiguousTemplates *_this, const MR_CSharp_AmbiguousTemplates *_other);
 
 // Generated from method `MR::CSharp::AmbiguousTemplates::template_a<int32_t>`.
@@ -6936,7 +6936,7 @@ MR_C_API MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_sa(void);
 
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sa`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `sa`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `sa`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `sa`.
 MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_sa(MR_CSharp_A *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sa`.
@@ -6949,7 +6949,7 @@ MR_C_API const MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_sb(voi
 
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sb`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `sb`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `sb`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `sb`.
 MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_sb(const MR_CSharp_A *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `sb`.
@@ -6973,7 +6973,7 @@ MR_C_API MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_a(const MR_C
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `a`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_a(MR_CSharp_ClassMemberPointersClass *_this, MR_CSharp_A *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `a`.
@@ -6991,7 +6991,7 @@ MR_C_API const MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_b(cons
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersClass` named `b`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `b`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_CSharp_ClassMemberPointersClass_Set_b(MR_CSharp_ClassMemberPointersClass *_this, const MR_CSharp_A *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersClass` named `b`.
@@ -7048,7 +7048,7 @@ MR_C_API MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Ge
 
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sa`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `sa`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `sa`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `sa`.
 MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_sa(MR_CSharp_ExposedLayout *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sa`.
@@ -7061,7 +7061,7 @@ MR_C_API const MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExpo
 
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sb`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `sb`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `sb`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `sb`.
 MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_sb(const MR_CSharp_ExposedLayout *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `sb`.
@@ -7085,7 +7085,7 @@ MR_C_API MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Ge
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `a`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_a(MR_CSharp_ClassMemberPointersExposed *_this, MR_CSharp_ExposedLayout *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `a`.
@@ -7103,7 +7103,7 @@ MR_C_API const MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExpo
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `b`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `b`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_CSharp_ClassMemberPointersExposed_Set_b(MR_CSharp_ClassMemberPointersExposed *_this, const MR_CSharp_ExposedLayout *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersExposed` named `b`.
@@ -7160,7 +7160,7 @@ MR_C_API uint16_t *const *MR_CSharp_ClassMemberPointersUshort_Get_sa(void);
 
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sa`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `sa`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `sa`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `sa`.
 MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_sa(uint16_t *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sa`.
@@ -7173,7 +7173,7 @@ MR_C_API const uint16_t *const *MR_CSharp_ClassMemberPointersUshort_Get_sb(void)
 
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sb`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `sb`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `sb`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `sb`.
 MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_sb(const uint16_t *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `sb`.
@@ -7197,7 +7197,7 @@ MR_C_API uint16_t *const *MR_CSharp_ClassMemberPointersUshort_Get_a(const MR_CSh
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `a`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_a(MR_CSharp_ClassMemberPointersUshort *_this, uint16_t *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `a`.
@@ -7215,7 +7215,7 @@ MR_C_API const uint16_t *const *MR_CSharp_ClassMemberPointersUshort_Get_b(const 
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `b`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `b`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_CSharp_ClassMemberPointersUshort_Set_b(MR_CSharp_ClassMemberPointersUshort *_this, const uint16_t *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersUshort` named `b`.
@@ -7272,7 +7272,7 @@ MR_C_API bool *const *MR_CSharp_ClassMemberPointersBool_Get_sa(void);
 
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sa`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `sa`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `sa`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `sa`.
 MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_sa(bool *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sa`.
@@ -7285,7 +7285,7 @@ MR_C_API const bool *const *MR_CSharp_ClassMemberPointersBool_Get_sb(void);
 
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sb`.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `sb`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `sb`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `sb`.
 MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_sb(const bool *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `sb`.
@@ -7309,7 +7309,7 @@ MR_C_API bool *const *MR_CSharp_ClassMemberPointersBool_Get_a(const MR_CSharp_Cl
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `a`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `a`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `a`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `a`.
 MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_a(MR_CSharp_ClassMemberPointersBool *_this, bool *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `a`.
@@ -7327,7 +7327,7 @@ MR_C_API const bool *const *MR_CSharp_ClassMemberPointersBool_Get_b(const MR_CSh
 // Modifies a member variable of class `MR::CSharp::ClassMemberPointersBool` named `b`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in the parameter `_this` in element `b`.
-// After this function is called, the parameter `_this` will drop object references it had previously in `b`.
+// When this function is called, the parameter `_this` will drop object references it had previously in `b`.
 MR_C_API void MR_CSharp_ClassMemberPointersBool_Set_b(MR_CSharp_ClassMemberPointersBool *_this, const bool *value);
 
 // Returns a mutable pointer to a member variable of class `MR::CSharp::ClassMemberPointersBool` named `b`.

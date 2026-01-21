@@ -45,7 +45,7 @@ MR_C_API MR_C_phmap_btree_multimap_int32_t_float *MR_C_phmap_btree_multimap_int3
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_phmap_btree_multimap_int32_t_float_AssignFromAnother(MR_C_phmap_btree_multimap_int32_t_float *_this, MR_C_PassBy other_pass_by, MR_C_phmap_btree_multimap_int32_t_float *other);
 
 // Destroys a heap-allocated instance of `MR_C_phmap_btree_multimap_int32_t_float`. Does nothing if the pointer is null.
@@ -72,7 +72,7 @@ MR_C_API bool MR_C_phmap_btree_multimap_int32_t_float_IsEmpty(const MR_C_phmap_b
 
 // Removes all elements from the container.
 // Parameter `_this` can not be null. It is a single object.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_phmap_btree_multimap_int32_t_float_Clear(MR_C_phmap_btree_multimap_int32_t_float *_this);
 
 // Checks if the contain contains this key.
@@ -157,7 +157,7 @@ MR_C_API MR_C_phmap_btree_multimap_int32_t_float_const_iterator *MR_C_phmap_btre
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_phmap_btree_multimap_int32_t_float_const_iterator_AssignFromAnother(MR_C_phmap_btree_multimap_int32_t_float_const_iterator *_this, const MR_C_phmap_btree_multimap_int32_t_float_const_iterator *other);
 
 // Destroys a heap-allocated instance of `MR_C_phmap_btree_multimap_int32_t_float_const_iterator`. Does nothing if the pointer is null.
@@ -198,7 +198,7 @@ MR_C_API MR_C_phmap_btree_multimap_int32_t_float_iterator *MR_C_phmap_btree_mult
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_phmap_btree_multimap_int32_t_float_iterator_AssignFromAnother(MR_C_phmap_btree_multimap_int32_t_float_iterator *_this, const MR_C_phmap_btree_multimap_int32_t_float_iterator *other);
 
 // Destroys a heap-allocated instance of `MR_C_phmap_btree_multimap_int32_t_float_iterator`. Does nothing if the pointer is null.

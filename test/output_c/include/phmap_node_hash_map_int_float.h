@@ -40,7 +40,7 @@ MR_C_API MR_C_phmap_node_hash_map_int_float *MR_C_phmap_node_hash_map_int_float_
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_phmap_node_hash_map_int_float_AssignFromAnother(MR_C_phmap_node_hash_map_int_float *_this, MR_C_PassBy other_pass_by, MR_C_phmap_node_hash_map_int_float *other);
 
 /// Destroys a heap-allocated instance of `MR_C_phmap_node_hash_map_int_float`. Does nothing if the pointer is null.
@@ -67,7 +67,7 @@ MR_C_API bool MR_C_phmap_node_hash_map_int_float_IsEmpty(const MR_C_phmap_node_h
 
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_phmap_node_hash_map_int_float_Clear(MR_C_phmap_node_hash_map_int_float *_this);
 
 /// Returns the element with the specific key. If it doesn't exist, creates it first. Acts like map's `operator[]` in C++.
@@ -159,7 +159,7 @@ MR_C_API MR_C_phmap_node_hash_map_int_float_const_iterator *MR_C_phmap_node_hash
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_phmap_node_hash_map_int_float_const_iterator_AssignFromAnother(MR_C_phmap_node_hash_map_int_float_const_iterator *_this, const MR_C_phmap_node_hash_map_int_float_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_phmap_node_hash_map_int_float_const_iterator`. Does nothing if the pointer is null.
@@ -200,7 +200,7 @@ MR_C_API MR_C_phmap_node_hash_map_int_float_iterator *MR_C_phmap_node_hash_map_i
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// After this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_phmap_node_hash_map_int_float_iterator_AssignFromAnother(MR_C_phmap_node_hash_map_int_float_iterator *_this, const MR_C_phmap_node_hash_map_int_float_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_phmap_node_hash_map_int_float_iterator`. Does nothing if the pointer is null.

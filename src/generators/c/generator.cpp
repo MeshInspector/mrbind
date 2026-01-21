@@ -2712,7 +2712,7 @@ namespace mrbind::CBindings
                     continue;
                 }
 
-                ret.comment += "/// After this function is called, ";
+                ret.comment += "/// When this function is called, ";
                 std::visit(Overload{
                     [&](const CInterop::LifetimeRelation::ReturnValue &)
                     {

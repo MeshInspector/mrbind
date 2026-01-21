@@ -46,7 +46,7 @@ MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *MR_C_std_vect
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_AssignFromAnother(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible`. Does nothing if the pointer is null.
@@ -78,7 +78,7 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ResizeWit
 
 // Removes all elements from the container.
 // Parameter `_this` can not be null. It is a single object.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Clear(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible *_this);
 
 // The memory capacity, measued in the number of elements.
@@ -242,7 +242,7 @@ MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_AssignFromAnother(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *_this, const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator`. Does nothing if the pointer is null.
@@ -283,7 +283,7 @@ MR_C_API MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *MR_C
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the parameter `_this`.
-// After this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, the parameter `_this` will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_AssignFromAnother(MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *_this, const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator`. Does nothing if the pointer is null.
