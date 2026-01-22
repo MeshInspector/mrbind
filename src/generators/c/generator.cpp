@@ -2161,11 +2161,11 @@ namespace mrbind::CBindings
         }
         else
         {
+            if (!new_field.is_static)
+                lifetimes.ReturnsReferenceToThis();
+
             // Replace arrays with references to their first elements.
             // Using a reference instead of a pointer here to get a nice comment telling the user that it'll never be null (which is true).
-
-            lifetimes.ReturnsReferenceToThis();
-
             if (is_array)
                 cpp_return_type.RemoveModifier();
 

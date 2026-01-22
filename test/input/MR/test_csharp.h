@@ -1367,6 +1367,81 @@ namespace MR::CSharp
         static bool &sc;
         static const bool &sd;
     };
+
+
+
+    // Keep-alive sorcery:
+
+    #if PARSING_FOR_C_BINDINGS
+    #  define MBTEST_LIFETIMEBOUND [[clang::lifetimebound]]
+    #  if __clang_major__ >= 20 // Added in Clang 20.
+    #    define MBTEST_LIFETIME_CAPTURE_BY(x) [[clang::lifetime_capture_by(x)]]
+    #  else
+    #    define MBTEST_LIFETIME_CAPTURE_BY(x)
+    #  endif
+    #else
+    // Define those to nothing when compiling the C bindings, since my Clang 21 ICEs when doing lifetime-based warning checks. `-w` also fixes them.
+    #  define MBTEST_LIFETIMEBOUND
+    #  define MBTEST_LIFETIME_CAPTURE_BY(x)
+    #endif
+
+    struct LifetimesA
+    {
+        int x = 42;
+
+        // Some degenerate cases that have to be ignored in C#, because we don't support the lifetime operations for those types.
+        int &foo() MBTEST_LIFETIMEBOUND {return x;}
+        void bar(int &ref MBTEST_LIFETIME_CAPTURE_BY(this)) {(void)ref;}
+    };
+
+    struct LifetimesB
+    {
+        LifetimesA a;
+
+        // `--infer-lifetime-iterators` should act on those:
+        LifetimesA *begin() {return &a;}
+        LifetimesA *end() {return &a;}
+        LifetimesA &operator*() {return a;}
+    };
+    // `--infer-lifetime-iterators` should act on those:
+    inline const LifetimesA *begin(const LifetimesB &b) {return &b.a;}
+    inline const LifetimesA *end(const LifetimesB &b) {return &b.a;}
+    inline const LifetimesA &operator*(const LifetimesB &b) {return b.a;}
+
+    struct LifetimesC
+    {
+        LifetimesA a;
+
+        // `--infer-lifetime-iterators` should act on those:
+        friend const LifetimesA *begin(const LifetimesC &c) {return &c.a;}
+        friend const LifetimesA *end(const LifetimesC &c) {return &c.a;}
+        friend const LifetimesA &operator*(const LifetimesC &c) {return c.a;}
+    };
+
+    struct LifetimesD
+    {
+        LifetimesA a;
+
+        LifetimesA &get() MBTEST_LIFETIMEBOUND {return a;}
+
+        LifetimesA &return_ref(LifetimesA &ref MBTEST_LIFETIMEBOUND) {return ref;}
+        static LifetimesA &return_ref_static(LifetimesA &ref MBTEST_LIFETIMEBOUND) {return ref;}
+
+        void store_ref_in_this(LifetimesA &ref MBTEST_LIFETIME_CAPTURE_BY(this)) {(void)ref;}
+        void store_ref_in_param(LifetimesA &ref MBTEST_LIFETIME_CAPTURE_BY(other_ref), LifetimesB &other_ref) {(void)ref; (void)other_ref;}
+
+        void store_this_in_param(LifetimesA &ref) MBTEST_LIFETIME_CAPTURE_BY(ref) {(void)ref;}
+
+        // Store param references in this. The two annotation styles are equivalent for constructors.
+        LifetimesD(LifetimesA &ref MBTEST_LIFETIMEBOUND, LifetimesB &other_ref MBTEST_LIFETIME_CAPTURE_BY(this)) {(void)ref; (void)other_ref;}
+
+        // `--infer-lifetime-constructors` should act on this.
+        LifetimesD(LifetimesA &ref) {(void)ref;}
+
+        // Store reference to this in param.
+        // `--infer-lifetime-constructors` skips this, because we already have custom attributes.
+        LifetimesD(LifetimesB &ref) MBTEST_LIFETIME_CAPTURE_BY(ref) {(void)ref;}
+    };
 }
 
 

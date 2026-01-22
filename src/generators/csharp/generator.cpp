@@ -3518,6 +3518,11 @@ namespace mrbind::CSharp
                             if (func_like.params.empty() || !func_like.params.at(0).is_this_param)
                                 throw std::runtime_error("The lifetime annotations on this function refer to `this`, but it's not a class member function.");
 
+                            // Check that we're not trying to keep-alive a static `this`.
+                            // Instead of checking this here, I instead fixed the code that emitted such annotations, since they really shouldn't exist.
+                            // if (!is_holder && !is_ctor && method->is_static)
+                            //     return nullptr;
+
                             if (is_holder)
                                 return TypeBinding::KeepAliveUsage{.object = ""};
                             else
@@ -3525,6 +3530,8 @@ namespace mrbind::CSharp
                         },
                         [&](const LifetimeRelation::Param &param) -> std::optional<TypeBinding::KeepAliveUsage>
                         {
+                            if (func_like.params.at(std::size_t(param.index)).is_this_param)
+                                throw std::runtime_error("The lifetime annotations on this function refer to the `this` parameter by its index, instead of using `ThisObject` as they should.");
                             return param_strings.at(std::size_t(param.index)).keep_other_alive;
                         },
                         [&](const LifetimeRelation::ReturnValue &) -> std::optional<TypeBinding::KeepAliveUsage>
@@ -6226,6 +6233,14 @@ namespace mrbind::CSharp
                                 new_method.BasicFuncLike::operator=(std::move(func));
                                 new_method.params.front().is_this_param = true;
 
+                                // Adjust the lifetime annotations for the `this` parameter.
+                                new_method.lifetimes = new_method.lifetimes.TranslateVariants([&](LifetimeRelation::Variant var)
+                                {
+                                    if (auto param = std::get_if<LifetimeRelation::Param>(&var); param && param->index == 0)
+                                        var = LifetimeRelation::ThisObject{};
+                                    return var;
+                                });
+
                                 auto &new_op = new_method.var.emplace<CInterop::MethodKinds::Operator>();
                                 new_op.token = std::move(std::get<CInterop::FuncKinds::Operator>(func.var).token);
                                 new_op.is_post_incr_or_decr = std::get<CInterop::FuncKinds::Operator>(func.var).is_post_incr_or_decr;
@@ -6266,6 +6281,14 @@ namespace mrbind::CSharp
                                 CInterop::FuncParam &new_this_param = *new_method.params.emplace(new_method.params.begin());
                                 new_this_param.is_this_param = true;
                                 new_this_param.cpp_type = CppdeclToCode(param_type_unqual);
+
+                                // Adjust the lifetime annotations.
+                                new_method.lifetimes = new_method.lifetimes.TranslateVariants([&](LifetimeRelation::Variant var)
+                                {
+                                    if (auto param = std::get_if<LifetimeRelation::Param>(&var))
+                                        param->index++;
+                                    return var;
+                                });
 
                                 auto &new_op = new_method.var.emplace<CInterop::MethodKinds::Operator>();
                                 new_op.token = std::move(std::get<CInterop::FuncKinds::Operator>(func.var).token);
