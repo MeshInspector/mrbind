@@ -150,8 +150,6 @@ namespace mrbind
     // The `target` object is expected to stay alive at least as long as `holder`, which holds some sort of reference to it (or if we bind to a language that lets you do this, that `holder` should keep `target` alive somehow).
     struct LifetimeRelation
     {
-        // When adding new member variables here, consider if you should sync with `CInterop::LifetimeRelation`, and update `CBindings::Generator::EmitFuncParams::SetLifetimesFromParsedFunc()`.
-
         // For constructors, this is the resulting object.
         struct ThisObject
         {
@@ -162,6 +160,8 @@ namespace mrbind
             friend auto operator<=>(const ThisObject &, const ThisObject &) = default;
         };
 
+        // In the C generator, don't use `Param{.index = 0}` to refer to `this` in member functions. We have checks to catch that. Instead use `ThisObject`.
+        //   We do it this way because in the C generator, constructors sometimes don't have the `this` parameter in the parameter list, so we can't consistently use `index == 0` to refer to `this`.
         struct Param
         {
             static constexpr std::string_view name_in_variant = "param";
@@ -193,13 +193,31 @@ namespace mrbind
             // Handling this isn't strictly needed for correctness.
             // If possible, don't act on the `target` itself, and only act on the objects that it keeps alive.
             // This is e.g. what's used on copy constructors and assignments.
-            (bool)(force_only_nested, false)
+            (bool)(only_nested, false)
 
             // Handling this isn't strictly needed for correctness.
             // If not empty, then the newly inserted target is marked with this key.
+            // You should keep a separate set of objects per key (or equivalently a set of object-key pairs).
             // Currently the parser will never set this.
             (std::string)(key, "")
         )
+
+        // Returns a copy of this object, with all `Variant`s modified using `func`.
+        [[nodiscard]] LifetimeRelation TranslateVariants(const std::function<Variant(const Variant &)> &func) const
+        {
+            LifetimeRelation ret;
+            ret.holder = func(holder);
+            ret.target = func(target);
+            ret.key = key;
+            ret.only_nested = only_nested;
+            return ret;
+        }
+
+        // Returns true if this object contains `var` anywhere.
+        [[nodiscard]] bool ContainsVariant(const Variant &var) const
+        {
+            return holder == var || target == var;
+        }
 
         friend auto operator<=>(const LifetimeRelation &, const LifetimeRelation &) = default;
     };
@@ -211,18 +229,93 @@ namespace mrbind
     //     And when returning a reference to a field, it should extend the lifetime of `this`.
     struct Lifetimes
     {
-        // When adding new member variables here, consider if you should sync with `CInterop::Lifetimes`, and update `CBindings::Generator::EmitFuncParams::SetLifetimesFromParsedFunc()`.
-
         MBREFL_STRUCT(
             (std::set<LifetimeRelation>)(relations)
 
             // Handling this isn't strictly needed for correctness.
+            // This should always be empty on constructors.
             // If specified, then any existing targets marked with those keys (the mapped values) are removed from the object (described by the map key) before doing anything else.
             // If an empty string is specified there, then all targets are removed. (This API design is a bit jank, but it's nice that appending more elements when there's an empty one preserves the empty one (the "erase all keys" property).)
             // Currently the parser can only set this to `{""}` (for copy/move ctors/assignments), or leave empty.
             // Using an ordered map to get a consistent serialization.
             (std::map<LifetimeRelation::Variant, std::set<std::string>>)(removed_keys)
         )
+
+        [[nodiscard]] bool IsEmpty() const
+        {
+            return relations.empty() && removed_keys.empty();
+        }
+
+        // Returns a copy of this object, with all `Variant`s modified using `func`.
+        [[nodiscard]] Lifetimes TranslateVariants(const std::function<LifetimeRelation::Variant(const LifetimeRelation::Variant &)> &func) const
+        {
+            Lifetimes ret;
+            for (const auto &lifetime : relations)
+                ret.relations.insert(lifetime.TranslateVariants(func));
+            for (const auto &removed_keys_elem : removed_keys)
+                ret.removed_keys.try_emplace(func(removed_keys_elem.first), removed_keys_elem.second);
+            return ret;
+        }
+
+        // Returns true if this object contains `var` anywhere.
+        [[nodiscard]] bool ContainsVariant(const LifetimeRelation::Variant &var) const
+        {
+            return
+                std::any_of(relations.begin(), relations.end(), [&](const LifetimeRelation &lifetime){return lifetime.ContainsVariant(var);}) ||
+                std::any_of(removed_keys.begin(), removed_keys.end(), [&](const auto &pair){return pair.first == var;});
+        }
+
+        // Removes contents that contain `var`.
+        void RemoveMatching(const LifetimeRelation::Variant &var)
+        {
+            std::erase_if(relations, [&](const LifetimeRelation &lifetime){return lifetime.ContainsVariant(var);});
+            std::erase_if(removed_keys, [&](const auto &pair){return pair.first == var;});
+        }
+
+        // Some helper methods to insert into the set:
+
+        // Don't use any of `Returns...()` for constructors, use `Assigns...()` for them instead.
+
+        // This function returns a reference to `this` or its subobject.
+        void ReturnsReferenceToThis(std::string key = "")
+        {
+            relations.insert({.holder = LifetimeRelation::ReturnValue{}, .target = LifetimeRelation::ThisObject{}, .key = std::move(key)});
+        }
+
+        // This is e.g. for iterators, where we're not interested in keeping `this` alive, but are interested in keeping alive whatever `this` has been keeping alive.
+        void ReturnsReferenceToTargetOfThis(std::string key = "")
+        {
+            relations.insert({.holder = LifetimeRelation::ReturnValue{}, .target = LifetimeRelation::ThisObject{}, .only_nested = true, .key = std::move(key)});
+        }
+
+        // Don't use for constructors, use `AssignsReferenceToParam()` instead.
+        void ReturnsReferenceToParam(int i, std::string key = "")
+        {
+            relations.insert({.holder = LifetimeRelation::ReturnValue{}, .target = LifetimeRelation::Param{.index = i}, .key = std::move(key)});
+        }
+
+        // This saves a reference to the parameter in `this`, and either removes all other references that it might have stored (if `key == ""`), or removes only the references with the same key (if `key != ""`).
+        // Several parameters can be marked with this, and all of them will be stored. This is legal.
+        // It doesn't make sense to make this conditional on the parameter type being a reference, since if it's not a reference, then this will automatically apply to whatever it keeps alive.
+        void AssignsReferenceToParam(int i, std::string key = "")
+        {
+            AppendsReferenceToParam(i, key);
+            OverwritesObject(std::move(key));
+        }
+
+        // This saves a reference to the parameter in `this`, keeping any other references that it might have stored.
+        // If `key` is specified, the reference will be marked with it (see `removed_keys` for why you'd want this).
+        // It doesn't make sense to make this conditional on the parameter type being a reference, since if it's not a reference, then this will automatically apply to whatever it keeps alive.
+        void AppendsReferenceToParam(int i, std::string key = "")
+        {
+            relations.insert({.holder = LifetimeRelation::ThisObject{}, .target = LifetimeRelation::Param{.index = i}, .key = std::move(key)});
+        }
+
+        // Indicates that this function removes either all existing references from this (if the key is empty), or only those marked with this key (if the key isn't empty).
+        void OverwritesObject(std::string key = "")
+        {
+            removed_keys[LifetimeRelation::ThisObject{}].insert(std::move(key));
+        }
     };
 
     struct BasicFunc
@@ -242,6 +335,7 @@ namespace mrbind
         )
 
         // Respecting the default arguments, is this callable with `n` arguments?
+        // For class member functions, this doens't include `this`.
         [[nodiscard]] bool IsCallableWithNumArgs(std::size_t n) const
         {
             if (params.size() < n)
@@ -503,7 +597,7 @@ namespace mrbind
         MBREFL_STRUCT(
             (bool)(is_static, false)
 
-            // Name as a single identifier.
+            // Name as a single identifier. Or, for overloaded operators, `"operator" + token`.
             (std::string)(name)
             // Same, but for overloaded operators this instead contains a placeholder name without punctuation (such as `_Plus` instead of `operator+`).
             (std::string)(simple_name)

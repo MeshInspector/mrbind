@@ -516,9 +516,9 @@ namespace mrbind::CBindings
         });
 
         if (with_param_sugar)
-            ret.params.back().reference_returned = sugared_constructor_preserves_reference;
+            ret.params.back().reference_assigned = sugared_constructor_preserves_reference;
         else
-            ret.params.back().reference_returned = true;
+            ret.params.back().reference_assigned = true;
 
         if (with_param_sugar)
             ret.c_comment = "/// Constructs a new instance.";

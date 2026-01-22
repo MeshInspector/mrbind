@@ -120,7 +120,7 @@ namespace mrbind::CBindings::Modules
                             emit.params.push_back({
                                 .name = "value",
                                 .cpp_type = elem_types[i],
-                                .reference_returned = true,
+                                .reference_assigned = true,
                             });
                             { // A dummy tag parameter for disamgiuation in languages other than C. See the comment on `tag_name`.
                                 cppdecl::Type param_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName(tag_name).AddTemplateArgument(cppdecl::PseudoExpr{.tokens = {cppdecl::NumericLiteral{.var = cppdecl::NumericLiteral::Integer{.value = std::to_string(i)}}}}));

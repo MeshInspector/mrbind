@@ -194,7 +194,7 @@ namespace mrbind
         StringRegexAdjuster parsed_comments_adjuster;
 
         // Automatically add lifetime annotations to the free and member functions named `begin` and `end`, assuming they return iterators.
-        bool infer_lifetime_begin_end = false;
+        bool infer_lifetime_iterators = false;
 
         // Automatically add lifetime annotations to non-copy/move ctors, assuming they store all passed pointers and references.
         bool infer_lifetime_ctors = false;
@@ -1419,7 +1419,7 @@ namespace mrbind
                     // Implied `lifetimebound` for copy/move constructors and assignments.
                     if (is_copy_or_move_ctor_or_assignment && is_first_param)
                     {
-                        lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var, .force_only_nested = true});
+                        lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var, .only_nested = true});
                         if (!is_ctor)
                             lifetimes->removed_keys[LifetimeRelation::ThisObject{}].insert(""); // Remove all existing targets.
                     }
@@ -1608,6 +1608,7 @@ namespace mrbind
                 }
 
                 BasicFunc *basic_func = nullptr;
+                ClassMethod *maybe_method = nullptr; // Only gets set if this is a method (as opposed to a constructor).
 
                 bool is_ctor = false;
                 bool is_copy_or_move_ctor_or_assignment = false;
@@ -1634,7 +1635,6 @@ namespace mrbind
                 else
                 {
                     BasicReturningClassFunc *basic_ret_class_func = nullptr;
-                    ClassMethod *maybe_method = nullptr;
 
                     if (auto conv_op = llvm::dyn_cast<clang::CXXConversionDecl>(method))
                     {
@@ -1700,9 +1700,27 @@ namespace mrbind
                     (void)InstantiateReturnTypeIfNeeded(*ci, *decl);
 
                     basic_ret_class_func->return_type = GetTypeStrings(method->getReturnType(), TypeUses::returned);
+                }
 
-                    // Infer lifetime for `begin`/`end`.
-                    if (maybe_method && params->infer_lifetime_begin_end && (maybe_method->name == "begin" || maybe_method->name == "end"))
+                basic_func->comment = GetCommentString(*ctx, *params, *method);
+                basic_func->params = GetFuncParams(*method, &basic_func->lifetimes, true, is_ctor, is_copy_or_move_ctor_or_assignment);
+                basic_func->deprecation_message = GetDeprecationMessage(*method);
+
+                // Lifetime reference. This only runs if there is no existing lifetime information (from the attributes).
+                // This is there in part to avoid circular relations, when the inferred one is the inverse of the one specified with an attribute.
+                if (basic_func->lifetimes.IsEmpty())
+                {
+                    // Infer lifetime for `begin`/`end`, and for dereferecing.
+                    if (
+                        maybe_method &&
+                        params->infer_lifetime_iterators &&
+                        (
+                            maybe_method->name == "begin" ||
+                            maybe_method->name == "end" ||
+                            // Only unary dereferencing:
+                            (maybe_method->name == "operator*" && maybe_method->params.empty()) // No different than `IsCallableWithNumArgs()`, since overloaded operators can't have default arguments.
+                        )
+                    )
                     {
                         bool types_ok = true;
                         if (params->enable_cppdecl_processing)
@@ -1711,23 +1729,19 @@ namespace mrbind
                         if (types_ok)
                             maybe_method->lifetimes.relations.insert({.holder = LifetimeRelation::ReturnValue{}, .target = LifetimeRelation::ThisObject{}});
                     }
-                }
 
-                basic_func->comment = GetCommentString(*ctx, *params, *method);
-                basic_func->params = GetFuncParams(*method, &basic_func->lifetimes, true, is_ctor, is_copy_or_move_ctor_or_assignment);
-                basic_func->deprecation_message = GetDeprecationMessage(*method);
-
-                // Infer lifetime for constructors.
-                if (params->infer_lifetime_ctors && is_ctor && !is_copy_or_move_ctor_or_assignment)
-                {
-                    for (std::size_t i = 0; i < basic_func->params.size(); i++)
+                    // Infer lifetime for constructors.
+                    if (params->infer_lifetime_ctors && is_ctor && !is_copy_or_move_ctor_or_assignment)
                     {
-                        // Check the type.
-                        if (params->enable_cppdecl_processing && ParseTypeWithCppdecl(basic_func->params.at(i).type.canonical).IsBuiltInType())
-                            continue;
+                        for (std::size_t i = 0; i < basic_func->params.size(); i++)
+                        {
+                            // Check the type.
+                            if (params->enable_cppdecl_processing && ParseTypeWithCppdecl(basic_func->params.at(i).type.canonical).IsBuiltInType())
+                                continue;
 
-                        // Note that in the parser (in `parsed_data.h` as opposed to `c_ouput_desc.h`), the constructors use `ThisObject` for the resulting object.
-                        basic_func->lifetimes.relations.insert({.holder = LifetimeRelation::ThisObject{}, .target = LifetimeRelation::Param{.index = int(i)}});
+                            // Note that in the parser (in `parsed_data.h` as opposed to `c_ouput_desc.h`), the constructors use `ThisObject` for the resulting object.
+                            basic_func->lifetimes.relations.insert({.holder = LifetimeRelation::ThisObject{}, .target = LifetimeRelation::Param{.index = int(i)}});
+                        }
                     }
                 }
 
@@ -1767,8 +1781,11 @@ namespace mrbind
             new_func.deprecation_message = GetDeprecationMessage(*decl);
             new_func.declared_in_file = GetDefinitionLocationFile(*decl, new_func.name);
 
-            // Infer lifetime for `begin`/`end`.
-            if (params->infer_lifetime_begin_end && (new_func.name == "begin" || new_func.name == "end") && new_func.IsCallableWithNumArgs(1))
+            // Infer lifetime for `begin`/`end`, and for dereferencing.
+            // This only runs if there is no existing lifetime information (from attributes).
+            if (
+                new_func.lifetimes.IsEmpty() &&
+                params->infer_lifetime_iterators && (new_func.name == "begin" || new_func.name == "end" || new_func.name == "operator*") && new_func.IsCallableWithNumArgs(1))
             {
                 bool types_ok = true;
                 if (params->enable_cppdecl_processing)
@@ -3409,13 +3426,13 @@ int main(int argc, char **argv)
                         continue;
                     }
 
-                    if (this_arg == "--infer-lifetime-begin-end")
+                    if (this_arg == "--infer-lifetime-iterators")
                     {
-                        params.infer_lifetime_begin_end = true;
+                        params.infer_lifetime_iterators = true;
                         continue;
                     }
 
-                    if (this_arg == "--infer-lifetime-ctors")
+                    if (this_arg == "--infer-lifetime-constructors")
                     {
                         params.infer_lifetime_ctors = true;
                         continue;
@@ -3464,8 +3481,8 @@ int main(int argc, char **argv)
         "  --implicit-enum-underlying-type-is-always-int - This helps produce cross-platform bindings. On Windows enums already seem to default to `int` in all cases, but on Linux they can default to `unsigned int` if all constants are non-negative. If this flag is specified, we instead pretend they default to `int` on all platforms.\n"
         "  --copy-inherited-members    - Copy the inherited members from base classes into the derived classes. This only makes sense for certain output languages that don't do this automatically. This doesn't affect constructors, or any members explicitly imported via `using`, as those are always copied.\n"
         "  --buggy-substitute-default-template-args - Automatically instantiate function templates that have all their arguments defaulted, by substituting those default template arguments. This is currently buggy, enable at your own risk (chokes on old-style SFINAE, works alright with `requires`).\n"
-        "  --infer-lifetime-begin-end  - Add lifetime annotations to any free and member functions named `begin()`, `end()`, as if `[[clang::lifetimebound]]` was used on their parameters. Those annotations are used by some backends to automatically extend object lifetimes to avoid dangling.\n"
-        "  --infer-lifetime-ctors      - Add lifetime annotations to any non-copy/move constructors from pointers and references, as if `[[clang::lifetimebound]]` was used on their parameters. Those annotations are used by some backends to automatically extend object lifetimes to avoid dangling.\n"
+        "  --infer-lifetime-iterators  - Infer lifetime annotations for any free and member functions named `begin()`, `end()`, as if `[[clang::lifetimebound]]` was used on their parameters. Similarly for unary `operator*`, which is assumed to peform iterator dereferencing. Those annotations are used by some backends to automatically extend object lifetimes to avoid dangling.\n"
+        "  --infer-lifetime-constructors      - Infer lifetime annotations for any non-copy/move constructors from pointers and references, as if `[[clang::lifetimebound]]` was used on their parameters. Those annotations are used by some backends to automatically extend object lifetimes to avoid dangling.\n"
         "  --adjust-comments s/A/B/g   - Adjusts all parsed comments with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules. We separately record the comments with and without leading slashes, and this is applied to both forms, so it should correctly handle both, and shouldn't remove the leading slashes, at least not without replacing them with some other form of a comment.\n"
         "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
                                          "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"

@@ -51,12 +51,12 @@ namespace mrbind::CBindings::Modules
                         emit.params.push_back({
                             .name = "first",
                             .cpp_type = cpp_elem_type_a, // `EmitFunction` removes the top-level constness (if any) from this automatically.
-                            .reference_returned = true,
+                            .reference_assigned = true,
                         });
                         emit.params.push_back({
                             .name = "second",
                             .cpp_type = cpp_elem_type_b, // `EmitFunction` removes the top-level constness (if any) from this automatically.
-                            .reference_returned = true,
+                            .reference_assigned = true,
                         });
 
                         emit.cpp_called_func = generator.CppdeclToCode(type);

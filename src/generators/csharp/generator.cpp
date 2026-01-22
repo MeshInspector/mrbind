@@ -1378,6 +1378,11 @@ namespace mrbind::CSharp
                                                 return TypeBinding::ParamUsage::Strings{
                                                     .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_underlying_ptr_type + name,
                                                     .csharp_decl_params = {{.type = by_value_helper, .name = name}},
+                                                    .can_be_kept_alive = true,
+                                                    .keep_other_alive = TypeBinding::KeepAliveUsage{
+                                                        .cond = name + ".Value is not null",
+                                                        .object = name + ".Value",
+                                                    },
                                                     .dllimport_args = name + ".PassByMode, " + name + ".Value is not null ? " + name + ".Value." + csharp_underlying_ptr + " : null",
                                                 };
                                             },
@@ -1388,6 +1393,11 @@ namespace mrbind::CSharp
                                                 return TypeBinding::ParamUsage::Strings{
                                                     .dllimport_decl_params = RequestHelper("_PassBy") + " " + name + "_pass_by, " + csharp_underlying_ptr_type + name,
                                                     .csharp_decl_params = {{.type = by_value_helper + "?", .name = name, .default_arg = "null"}},
+                                                    .can_be_kept_alive = true,
+                                                    .keep_other_alive = TypeBinding::KeepAliveUsage{
+                                                        .cond = name + " is not null && " + name + ".Value is not null",
+                                                        .object = name + ".Value",
+                                                    },
                                                     .dllimport_args = name + " is not null ? " + name + ".PassByMode : " + RequestHelper("_PassBy") + ".default_arg, " + name + " is not null && " + name + ".Value is not null ? " + name + ".Value." + csharp_underlying_ptr + " : null",
                                                 };
                                             },
@@ -1398,6 +1408,12 @@ namespace mrbind::CSharp
                                                 bool(flags & TypeBindingFlags::no_move_in_by_value_return)
                                                 ? csharp_type_mut
                                                 : RequestHelper("_Moved") + "<" + csharp_type_mut + ">",
+                                            .can_be_kept_alive = true,
+                                            .keep_other_alive =
+                                                [no_move = bool(flags & TypeBindingFlags::no_move_in_by_value_return)](const std::string &name) -> TypeBinding::KeepAliveUsage
+                                                {
+                                                    return {.object = no_move ? name : name + ".Value"};
+                                                },
                                             .make_return_statements = [
                                                 this,
                                                 csharp_type_mut,
@@ -1420,6 +1436,8 @@ namespace mrbind::CSharp
                                                 return TypeBinding::ParamUsage::Strings{
                                                     .dllimport_decl_params = csharp_underlying_ptr_type + name,
                                                     .csharp_decl_params = {{.type = csharp_type_const, .name = name}},
+                                                    .can_be_kept_alive = true,
+                                                    .keep_other_alive = TypeBinding::KeepAliveUsage{.object = name},
                                                     .dllimport_args = name + "." + csharp_underlying_ptr,
                                                 };
                                             },
@@ -1430,6 +1448,11 @@ namespace mrbind::CSharp
                                                 return TypeBinding::ParamUsage::Strings{
                                                     .dllimport_decl_params = csharp_underlying_ptr_type + name,
                                                     .csharp_decl_params = {{.type = csharp_type_const + "?", .name = name, .default_arg = "null"}},
+                                                    .can_be_kept_alive = true,
+                                                    .keep_other_alive = TypeBinding::KeepAliveUsage{
+                                                        .cond = name + " is not null",
+                                                        .object = name,
+                                                    },
                                                     .dllimport_args = name + " is not null ? " + name + "." + csharp_underlying_ptr + " : null",
                                                 };
                                             },
@@ -1437,6 +1460,8 @@ namespace mrbind::CSharp
                                         .return_usage = TypeBinding::ReturnUsage{
                                             .dllimport_return_type = csharp_underlying_ptr_type,
                                             .csharp_return_type = csharp_type_mut,
+                                            .can_be_kept_alive = true,
+                                            .keep_other_alive = [](const std::string &name) -> TypeBinding::KeepAliveUsage {return {.object = name};},
                                             .make_return_statements = [](const std::string &target, const std::string &expr)
                                             {
                                                 return target + " new(" + expr + ", is_owning: true);";
@@ -1450,6 +1475,8 @@ namespace mrbind::CSharp
                                         .return_usage = TypeBinding::ReturnUsage{
                                             .dllimport_return_type = csharp_underlying_ptr_type,
                                             .csharp_return_type = csharp_type_mut,
+                                            .can_be_kept_alive = true,
+                                            .keep_other_alive = [](const std::string &name) -> TypeBinding::KeepAliveUsage {return {.object = name};},
                                             .make_return_statements = [](const std::string &target, const std::string &expr)
                                             {
                                                 return target + " new(" + expr + ", is_owning: true);";
@@ -1819,6 +1846,8 @@ namespace mrbind::CSharp
                                                         return TypeBinding::ParamUsage::Strings{
                                                             .dllimport_decl_params = csharp_underlying_ptr_type + name,
                                                             .csharp_decl_params = {{.type = csharp_type, .name = name}},
+                                                            .can_be_kept_alive = true,
+                                                            .keep_other_alive = TypeBinding::KeepAliveUsage{.object = name},
                                                             .dllimport_args = name + "." + csharp_underlying_ptr,
                                                         };
                                                     },
@@ -1829,6 +1858,11 @@ namespace mrbind::CSharp
                                                         return TypeBinding::ParamUsage::Strings{
                                                             .dllimport_decl_params = csharp_underlying_ptr_type + name,
                                                             .csharp_decl_params = {{.type = csharp_type + "?", .name = name, .default_arg = "null"}},
+                                                            .can_be_kept_alive = true,
+                                                            .keep_other_alive = TypeBinding::KeepAliveUsage{
+                                                                .cond = name + " is not null",
+                                                                .object = name,
+                                                            },
                                                             .dllimport_args = name + " is not null ? " + name + "." + csharp_underlying_ptr + " : null",
                                                         };
                                                     },
@@ -1836,6 +1870,8 @@ namespace mrbind::CSharp
                                                 .return_usage = TypeBinding::ReturnUsage{
                                                     .dllimport_return_type = csharp_underlying_ptr_type,
                                                     .csharp_return_type = csharp_type,
+                                                    .can_be_kept_alive = true,
+                                                    .keep_other_alive = [](const std::string &name) -> TypeBinding::KeepAliveUsage {return {.object = name};},
                                                     .make_return_statements = [](const std::string &target, const std::string &expr)
                                                     {
                                                         return target + " new(" + expr + ", is_owning: false);";
@@ -1857,6 +1893,10 @@ namespace mrbind::CSharp
                                                         return TypeBinding::ParamUsage::Strings{
                                                             .dllimport_decl_params = csharp_underlying_ptr_type + name,
                                                             .csharp_decl_params = {{.type = CSharpMovedType(), .name = name}},
+                                                            .can_be_kept_alive = true,
+                                                            .keep_other_alive = TypeBinding::KeepAliveUsage{
+                                                                .object = name + ".Value",
+                                                            },
                                                             .dllimport_args = name + ".Value." + csharp_underlying_ptr,
                                                         };
                                                     },
@@ -1867,6 +1907,11 @@ namespace mrbind::CSharp
                                                         return TypeBinding::ParamUsage::Strings{
                                                             .dllimport_decl_params = csharp_underlying_ptr_type + name,
                                                             .csharp_decl_params = {{.type = CSharpMovedType() + "?", .name = name, .default_arg = "null"}},
+                                                            .can_be_kept_alive = true,
+                                                            .keep_other_alive = TypeBinding::KeepAliveUsage{
+                                                                .cond = name + ".HasValue",
+                                                                .object = name + ".Value",
+                                                            },
                                                             .dllimport_args = name + ".HasValue ? " + name + ".Value.Value." + csharp_underlying_ptr + " : null",
                                                         };
                                                     },
@@ -1874,6 +1919,8 @@ namespace mrbind::CSharp
                                                 .return_usage = TypeBinding::ReturnUsage{
                                                     .dllimport_return_type = csharp_underlying_ptr_type,
                                                     .csharp_return_type = CSharpMovedType(),
+                                                    .can_be_kept_alive = true,
+                                                    .keep_other_alive = [](const std::string &name) -> TypeBinding::KeepAliveUsage {return {.object = name + ".Value"};},
                                                     .make_return_statements = [
                                                         this,
                                                         csharp_type
@@ -2249,6 +2296,11 @@ namespace mrbind::CSharp
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_underlying_ptr_type + name,
                                                         .csharp_decl_params = {{.type = csharp_type + "?", .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
+                                                        .can_be_kept_alive = true,
+                                                        .keep_other_alive = TypeBinding::KeepAliveUsage{
+                                                            .cond = name + " is not null",
+                                                            .object = name,
+                                                        },
                                                         .dllimport_args = name + " is not null ? " + name + "." + csharp_underlying_ptr + " : null",
                                                     };
                                                 },
@@ -2259,6 +2311,11 @@ namespace mrbind::CSharp
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_underlying_ptr_type + "*" + name,
                                                         .csharp_decl_params = {{.type = (is_const ? csharp_in_opt_const : csharp_in_opt_mut) + "?", .name = name, .default_arg = "null"}},
+                                                        .can_be_kept_alive = true,
+                                                        .keep_other_alive = TypeBinding::KeepAliveUsage{
+                                                            .cond = name + " is not null && " + name + ".Opt is not null",
+                                                            .object = name + ".Opt",
+                                                        },
                                                         .extra_statements = csharp_underlying_ptr_type + "__ptr_" + name + " = " + name + " is not null && " + name + ".Opt is not null ? " + name + ".Opt." + csharp_underlying_ptr + " : null;\n",
                                                         .dllimport_args = name + " is not null ? &__ptr_" + name + " : null",
                                                     };
@@ -2268,6 +2325,8 @@ namespace mrbind::CSharp
                                                 .needs_temporary_variable = true,
                                                 .dllimport_return_type = csharp_underlying_ptr_type,
                                                 .csharp_return_type = csharp_type + "?",
+                                                .can_be_kept_alive = true,
+                                                .keep_other_alive = [](const std::string &name) -> TypeBinding::KeepAliveUsage {return {.cond = name + " is not null", .object = name};},
                                                 .make_return_statements = [csharp_type](const std::string &target, const std::string &expr)
                                                 {
                                                     return target + " " + expr + " is not null ? new " + csharp_type + "(" + expr + ", is_owning: false) : null;";
@@ -3370,10 +3429,148 @@ namespace mrbind::CSharp
             file.WriteString(dllimport_strings.dllimport_decl);
 
             // Copy `this` if needed.
+            std::string this_name_for_lifetime = "this";
             if (acts_on_copy_of_this)
             {
                 file.WriteString(*csharp_type_for_copy_of_this);
                 file.WriteString(" __this_copy = new(" + param_strings.at(0).csharp_decl_params.at(0).name + ");\n");
+                this_name_for_lifetime = "__this_copy";
+            }
+
+
+            // Prepare the lifetime things:
+
+            // The code that needs to run to update the kept-alive objects.
+            // This will have a trailing newline.
+            std::string lifetime_statements;
+
+            // Do we need to create a variable for the C# return value, to perform additional lifetime-related operations on it?
+            bool need_result_in_variable_for_lifetimes = false;
+
+            // Drop the old references, if needed.
+            for (const auto &[holder, removed_keys] : func_like.lifetimes.removed_keys)
+            {
+                assert(!removed_keys.empty()); // If it's empty, why is it in the map in the first place?
+
+                std::function<void(const std::string &quoted_key)> perform_call;
+
+                std::visit(Overload{
+                    [&](const LifetimeRelation::ThisObject &)
+                    {
+                        perform_call = [&](const std::string &quoted_key)
+                        {
+                            lifetime_statements += std::string(method_like->is_static ? "_StaticDiscardKeepAlive" : "_DiscardKeepAlive") + "(" + quoted_key + ");\n";
+                        };
+                    },
+                    [&](const LifetimeRelation::ReturnValue &)
+                    {
+                        const auto &func = ret_binding->keep_other_alive;
+                        if (!func)
+                            return; // This return type can't keep other things alive, do nothing.
+
+                        auto usage = func("__ret");
+
+                        need_result_in_variable_for_lifetimes = true;
+                        perform_call = [&lifetime_statements, usage](const std::string &quoted_key)
+                        {
+                            if (usage.cond)
+                                lifetime_statements += "if (" + *usage.cond + ") ";
+                            lifetime_statements += usage.object + "._DiscardKeepAlive(" + quoted_key + ");\n";
+                        };
+                    },
+                    [&](const LifetimeRelation::Param &param)
+                    {
+                        const auto &usage = param_strings.at(std::size_t(param.index)).keep_other_alive;
+                        if (!usage)
+                            return; // This parameter type can't keep other things alive, do nothing.
+
+                        perform_call = [&lifetime_statements, usage](const std::string &quoted_key)
+                        {
+                            if (usage->cond)
+                                lifetime_statements += "if (" + *usage->cond + ") ";
+                            lifetime_statements += usage->object + "._DiscardKeepAlive(" + quoted_key + ");\n";
+                        };
+                    },
+                }, holder);
+
+                if (perform_call)
+                {
+                    if (removed_keys.contains(""))
+                    {
+                        perform_call(""); // Only this, since it will clear all keys.
+                    }
+                    else
+                    {
+                        for (const auto &key : removed_keys)
+                            perform_call(EscapeQuoteString(key));
+                    }
+                }
+            }
+
+            // Handle the annotations.
+            for (const LifetimeRelation &lifetime : func_like.lifetimes.relations)
+            {
+                auto VariantUsage = [&](const LifetimeRelation::Variant &var, bool is_holder) -> std::optional<TypeBinding::KeepAliveUsage>
+                {
+                    return std::visit(Overload{
+                        [&](const LifetimeRelation::ThisObject &) -> std::optional<TypeBinding::KeepAliveUsage>
+                        {
+                            if (func_like.params.empty() || !func_like.params.at(0).is_this_param)
+                                throw std::runtime_error("The lifetime annotations on this function refer to `this`, but it's not a class member function.");
+
+                            if (is_holder)
+                                return TypeBinding::KeepAliveUsage{.object = ""};
+                            else
+                                return TypeBinding::KeepAliveUsage{.object = "this"};
+                        },
+                        [&](const LifetimeRelation::Param &param) -> std::optional<TypeBinding::KeepAliveUsage>
+                        {
+                            return param_strings.at(std::size_t(param.index)).keep_other_alive;
+                        },
+                        [&](const LifetimeRelation::ReturnValue &) -> std::optional<TypeBinding::KeepAliveUsage>
+                        {
+                            std::optional<TypeBinding::KeepAliveUsage> ret;
+                            if (ret_binding->keep_other_alive)
+                            {
+                                ret = ret_binding->keep_other_alive("__ret");
+                                need_result_in_variable_for_lifetimes = true;
+                            }
+                            return ret;
+                        },
+                    }, var);
+                };
+
+                auto holder_usage = VariantUsage(lifetime.holder, true);
+                auto target_usage = VariantUsage(lifetime.target, false);
+
+                if (holder_usage && target_usage)
+                {
+                    if (holder_usage->cond || target_usage->cond)
+                    {
+                        lifetime_statements += "if (";
+                        if (holder_usage->cond)
+                            lifetime_statements += *holder_usage->cond;
+                        if (target_usage->cond)
+                        {
+                            if (holder_usage->cond)
+                                lifetime_statements += " && ";
+                            lifetime_statements += *target_usage->cond;
+                        }
+                        lifetime_statements += ") ";
+                    }
+
+                    lifetime_statements += holder_usage->object;
+                    if (!holder_usage->object.empty()) // The empty string here indicates `this`.
+                        lifetime_statements += '.';
+                    if (holder_usage->object.empty() && !is_ctor && method_like->is_static) // ^
+                        lifetime_statements += "_StaticKeepAlive";
+                    else
+                        lifetime_statements += "_KeepAlive";
+
+                    lifetime_statements += "(";
+                    lifetime_statements += target_usage->object;
+                    lifetime_statements += ");\n";
+                }
             }
 
             std::string extra_statements;
@@ -3437,27 +3634,30 @@ namespace mrbind::CSharp
 
                 auto MakeReturnStatements = [&](const std::string &expr) -> std::string
                 {
-                    if (force_void_return_type || acts_on_copy_of_this)
+                    if (force_void_return_type || acts_on_copy_of_this || need_result_in_variable_for_lifetimes)
                     {
-                        // Note, this `__unused_ret` variable doesn't duplicate `__ret`.
-                        // `__ret` is the result of directly calling the dllimport-ed function, and `__unused_ret` is the C# result.
+                        // Note, this `__ret` variable doesn't duplicate `__c_ret`.
+                        // `__c_ret` is the result of directly calling the dllimport-ed function, and `__ret` is the C# result.
 
                         std::string ret;
 
                         std::string ret_target;
 
+                        bool ret_var_is_ref = false;
                         if (ret_binding->csharp_return_type != "void")
                         {
-                            if (ret_binding->needs_temporary_variable)
+                            if (ret_binding->needs_temporary_variable || need_result_in_variable_for_lifetimes)
                             {
-                                ret_target = "__unused_ret =";
+                                ret_target = "__ret =";
 
                                 // Declare the variable.
-                                ret = ret_binding->csharp_return_type + " __unused_ret";
+                                ret = ret_binding->csharp_return_type + " __ret";
 
                                 // If it's a reference, we need to give it a dummy initializer.
                                 if (ret_binding->csharp_return_type.starts_with("ref "))
                                 {
+                                    ret_var_is_ref = true;
+
                                     // If we must create a ref variable, but don't have an initialized for it yet, give it a dummy value.
                                     // This is non-null because in C++ at one point I had to do this to prevent UBSAN from complaining about null references.
                                     // I don't know if this matters in C# at all or not, but this looks like a decent way of doing this.
@@ -3475,20 +3675,30 @@ namespace mrbind::CSharp
                                 // Avoid creating the variable on a separate line if possible, and initialize it directly.
                                 // This is only possible if the return binding doesn't use this string multiple times, as would be indicated by `ret_binding->needs_temporary_variable`.
                                 // This is purely to improve how the code looks, it shouldn't affect the result.
-                                ret_target = ret_binding->csharp_return_type + " __unused_ret =";
+                                ret_target = ret_binding->csharp_return_type + " __ret =";
                             }
                         }
 
                         // If `ret_binding->csharp_return_type == "void"`, then `MakeReturnStatements()` should ignore the first argument anyway.
                         ret += ret_binding->MakeReturnStatements(ret_target, expr);
+                        ret += '\n';
+
+                        // Run the lifetime stuff.
+                        ret += lifetime_statements;
+
+                        ret += extra_statements_after;
 
                         if (acts_on_copy_of_this)
-                            ret += "\nreturn __this_copy;";
+                            ret += "return " + std::string(ret_var_is_ref ? "ref " : "") + "__this_copy;";
+                        else if (need_result_in_variable_for_lifetimes)
+                            ret += "return " + std::string(ret_var_is_ref ? "ref " : "") + "__ret;";
 
                         return ret;
                     }
 
-                    return ret_binding->MakeReturnStatements("return", expr);
+                    return
+                        lifetime_statements +
+                        ret_binding->MakeReturnStatements("return", expr);
                 };
 
                 // Call the function.
@@ -3536,6 +3746,7 @@ namespace mrbind::CSharp
                         file.WriteString(post_ctor_statements);
                     }
 
+                    file.WriteString(lifetime_statements);
                     file.WriteString(extra_statements_after);
                 }
                 else if (extra_statements_after.empty() && !ret_binding->needs_temporary_variable)
@@ -3547,14 +3758,13 @@ namespace mrbind::CSharp
                 else
                 {
                     // Store the result to a temporary variable (if not void), run some custom code, and then return.
-                    std::string ret_expr = MakeReturnStatements("__ret");
+                    std::string ret_expr = MakeReturnStatements("__c_ret");
 
-                    if (ret_expr == "__ret;")
+                    if (ret_expr == "__c_ret;")
                     {
                         // Likely returning void, don't need to actually store the result in a variable.
                         file.WriteString(extra_statements);
                         file.WriteString(MakeReturnStatements(expr) + '\n'); // Ignore `ret_expr` and call `MakeReturnStatements()` again without giving it a temporary variable.
-                        file.WriteString(extra_statements_after);
                     }
                     else
                     {
@@ -3562,8 +3772,7 @@ namespace mrbind::CSharp
                         // Note the untyped `var`. `expr` here doesn't contains the result of `make_return_expr()` (which itself could be
                         //   an untyped `new()`, which wouldn't work with `var`), but instead contains the result of calling
                         //   a dllimported function, which always return a fixed type.
-                        file.WriteString("var __ret = " + expr + ";\n");
-                        file.WriteString(extra_statements_after);
+                        file.WriteString("var __c_ret = " + expr + ";\n");
                         file.WriteString(ret_expr + '\n');
                     }
                 }
@@ -3763,6 +3972,8 @@ namespace mrbind::CSharp
         }, any_func_like);
 
         std::string ret = func_like.comment.c_style;
+        assert(!ret.starts_with('\n'));
+        assert(ret.empty() || ret.ends_with('\n'));
 
         // Extra comments from the parameter types.
         for (const auto &param : func_like.params)
@@ -3790,6 +4001,18 @@ namespace mrbind::CSharp
             assert(ret_comment.ends_with('\n'));
             ret += ret_comment;
         }
+
+        // The lifetime comment from the input.
+        // Currently disabled, because what if the annotations are ignored for some of the parameters, due to them having weird types?
+        // I'd rather not have the comment at all.
+        #if 0
+        if (!func_like.comment_extra_lifetimes.c_style.empty())
+        {
+            assert(!func_like.comment_extra_lifetimes.c_style.starts_with('\n'));
+            assert(func_like.comment_extra_lifetimes.c_style.ends_with('\n'));
+            ret += func_like.comment_extra_lifetimes.c_style;
+        }
+        #endif
 
         return ret;
     }
@@ -4565,7 +4788,7 @@ namespace mrbind::CSharp
                             // The default base and some default interfaces.
 
                             BaseSeparator();
-                            file.WriteString(RequestHelper(shared_ptr_desc ? "SharedObject" : "Object"));
+                            file.WriteString(RequestHelper(shared_ptr_desc ? "SharedObject" : "Object") + "<" + unqual_csharp_name + ">");
 
                             if (type_desc.traits.value().is_destructible)
                             {
@@ -5815,8 +6038,6 @@ namespace mrbind::CSharp
 
                     if (is_class || csharp_nonclass_type)
                     {
-                        const std::string csharp_storage_field_name = "_Storage_" + csharp_field_name;
-
                         file.WriteSeparatingNewline();
                         file.WriteString(field.comment.c_style);
                         file.WriteString("public ");
@@ -5841,6 +6062,8 @@ namespace mrbind::CSharp
                         // Begin property.
                         file.PushScope({}, "{\n", "}\n");
 
+                        const std::string maybe_static_str = field.is_static ? "Static" : "";
+
                         { // Getter.
                             if (!is_const)
                             {
@@ -5856,11 +6079,16 @@ namespace mrbind::CSharp
 
                                 file.WriteString(
                                     dllimport_getter.dllimport_decl +
-                                    "var ptr = " + dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n"
+                                    "var ptr = " + dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n" +
+                                    csharp_field_wrapper_type + "? value = null;\n"
                                     // Note `*ptr` in the `is not null` condition! `ptr` itself should never be null, as it represents a reference.
                                     // Note that non-class wrapper is constructed from `*ptr` here, but since `ptr` is a pointer-to-pointer, it resolves to `T *`,
                                     //   which is the non-owning constructor, which is what we want.
-                                    "return *ptr is not null ? new " + (is_class ? csharp_field_wrapper_type + "(*ptr, is_owning: false)" : csharp_field_wrapper_type + "(*ptr)") + " : null;\n"
+                                    "if (*ptr is not null)\n" +
+                                    (field.is_static ? "" : "{\n") +
+                                    "    value = new" + (is_class ? "(*ptr, is_owning: false)" : "(*ptr)") + ";\n" +
+                                    (field.is_static ? "" : "    value._KeepAlive(this);\n}\n") +
+                                    "return value;\n"
                                 );
 
                                 // End getter.
@@ -5879,7 +6107,9 @@ namespace mrbind::CSharp
                             file.WriteString(
                                 dllimport_setter.dllimport_decl +
                                 "var ptr = " + dllimport_setter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n" +
-                                csharp_storage_field_name + " = value;\n"
+                                "_" + maybe_static_str + "DiscardKeepAlive(" + EscapeQuoteString(field.full_name) + ");\n" // Using the C++ field name, for consistency with the keys used by the C bindings, even though we don't even use those keys, so it shouldn't really matter.
+                                "if (value is not null)\n"
+                                "    _" + maybe_static_str + "KeepAlive(value, " + EscapeQuoteString(field.full_name) + ");\n" // ^
                                 "*ptr = (value is not null ? value._UnderlyingPtr : null);\n"
                             );
 
@@ -5889,21 +6119,6 @@ namespace mrbind::CSharp
 
                         // End property.
                         file.PopScope();
-
-                        // The keepalive field.
-                        if (is_const)
-                        {
-                            WriteComment(file, "/// This holds the last value manually assigned to property `" + csharp_field_name + "`, to keep the target object alive.\n");
-                            file.WriteString("public ");
-                            if (field.is_static)
-                                file.WriteString("static ");
-                            if (!is_const)
-                                file.WriteString("new ");
-                            file.WriteString(csharp_field_wrapper_type);
-                            file.WriteString("? ");
-                            file.WriteString(csharp_storage_field_name);
-                            file.WriteString(" = null;\n");
-                        }
 
                         return;
                     }
@@ -6289,7 +6504,8 @@ namespace mrbind::CSharp
                     WriteComment(file, "/// This is the base class for all our classes.\n");
                     file.WriteString(
                         // This is semantically abstract, and we also must mark it as one due to the reasons explained in `SharedObject` below.
-                        "public abstract class Object\n"
+                        // This is generic solely because `KeepAliveHolder` needs to be generic, see that for an explanation.
+                        "public abstract class Object<T> : " + RequestHelper("KeepAliveHolder") + "<T>\n"
                         "{\n"
                         "    protected bool _IsOwningVal;\n"
                     );
@@ -6299,19 +6515,6 @@ namespace mrbind::CSharp
                     , 1);
                     file.WriteString(
                         "    public virtual bool _IsOwning => _IsOwningVal;\n"
-                        "\n"
-                    );
-                    WriteComment(file,
-                        "    /// Which objects need to be kept alive while this object exists? This is public just in case.\n"
-                    , 1);
-                    file.WriteString(
-                        "    public List<object>? _KeepAliveList;\n"
-                        "    public void _KeepAlive(object obj)\n"
-                        "    {\n"
-                        "        if (_KeepAliveList is null)\n"
-                        "            _KeepAliveList = new();\n"
-                        "        _KeepAliveList.Add(obj);\n"
-                        "    }\n"
                         "\n"
                         "    internal Object(bool is_owning) {_IsOwningVal = is_owning;}\n"
                         "}\n"
@@ -6326,7 +6529,7 @@ namespace mrbind::CSharp
                         );
                         file.WriteString(
                             // This is semantically abstract, and we also must mark it as one because we want to make the `IsOwning` property abstract.
-                            "public abstract class SharedObject : Object\n"
+                            "public abstract class SharedObject<T> : Object<T>\n"
                             "{\n"
                         );
                         WriteComment(file,
@@ -6641,7 +6844,7 @@ namespace mrbind::CSharp
                         "///   Assigning a value will allocate its copy and make the underlying pointer point to it.\n"
                     );
                     file.WriteString(
-                        "public class Const_Box<T> : System.IDisposable where T: unmanaged\n"
+                        "public class Const_Box<T> : " + RequestHelper("KeepAliveHolder") + "<Const_Box<T>>, System.IDisposable where T: unmanaged\n"
                         "{\n"
                         "    internal unsafe T *_UnderlyingPtr;\n"
                         "    bool _IsOwning;\n"
@@ -6724,6 +6927,80 @@ namespace mrbind::CSharp
                 }
 
                 // <-- Insert new public helpers here.
+
+                // The `KeepAliveHolder`. Needs to be at least after `[Const_]Box`, since they need it.
+                if (requested_helpers.erase("KeepAliveHolder"))
+                {
+                    file.WriteSeparatingNewline();
+                    WriteComment(file,
+                        "/// This is the base classes that keep other classes alive.\n"
+                        "/// This is generic to keep static fields separate.\n"
+                    );
+                    file.WriteString(
+                        "public abstract class KeepAliveHolder<T>\n"
+                        "{\n"
+                    );
+                    WriteComment(file,
+                        "    /// Which objects need to be kept alive while this object exists?\n"
+                    , 1);
+                    file.WriteString(
+                        "    Dictionary<string, HashSet<object>>? _KeepAliveData;\n"
+                        "    static Dictionary<string, HashSet<object>>? _StaticKeepAliveData;\n"
+                        "\n"
+                    );
+                    WriteComment(file,
+                        "    /// Keeps `obj` alive as long as this object exists.\n"
+                        "    /// If `key` is specified, it's an optional tag for this object.\n"
+                    , 1);
+                    file.WriteString(
+                        "    public void _KeepAlive(object obj, string key = \"\")\n"
+                        "    {\n"
+                        "        if (_KeepAliveData is null)\n"
+                        "            _KeepAliveData = new();\n"
+                        "        if (!_KeepAliveData.ContainsKey(key))\n"
+                        "            _KeepAliveData[key] = new();\n"
+                        "        _KeepAliveData[key].Add(obj);\n"
+                        "    }\n"
+                        "    public static void _StaticKeepAlive(object obj, string key = \"\")\n"
+                        "    {\n"
+                        "        if (_StaticKeepAliveData is null)\n"
+                        "            _StaticKeepAliveData = new();\n"
+                        "        if (!_StaticKeepAliveData.ContainsKey(key))\n"
+                        "            _StaticKeepAliveData[key] = new();\n"
+                        "        _StaticKeepAliveData[key].Add(obj);\n"
+                        "    }\n"
+                        "\n"
+                    );
+                    WriteComment(file,
+                        "    /// Discards the objects kept alive by this object.\n"
+                        "    /// If `key` is not empty, only discards the objects with the same key. Otherwise discards all of them.\n"
+                    , 1);
+                    file.WriteString(
+                        "    public void _DiscardKeepAlive(string key = \"\")\n"
+                        "    {\n"
+                        "        if (_KeepAliveData is null)\n"
+                        "            return;\n"
+                        "        if (key == \"\")\n"
+                        "        {\n"
+                        "            _KeepAliveData.Clear(); // I could also make it null, but I don't think it's worth it.\n"
+                        "            return;\n"
+                        "        }\n"
+                        "        _KeepAliveData[key].Clear(); // Or we could `.Remove(key)`, but keeping a slot in the map looks better to me.\n"
+                        "    }\n"
+                        "    public static void _StaticDiscardKeepAlive(string key = \"\")\n"
+                        "    {\n"
+                        "        if (_StaticKeepAliveData is null)\n"
+                        "            return;\n"
+                        "        if (key == \"\")\n"
+                        "        {\n"
+                        "            _StaticKeepAliveData.Clear(); // I could also make it null, but I don't think it's worth it.\n"
+                        "            return;\n"
+                        "        }\n"
+                        "        _StaticKeepAliveData[key].Clear(); // Or we could `.Remove(key)`, but keeping a slot in the map looks better to me.\n"
+                        "    }\n"
+                        "}\n"
+                    );
+                }
 
                 { // Custom exceptions.
                     auto CreateExceptionClassIfNeeded = [&](const std::string &name, const std::string &comment)

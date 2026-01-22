@@ -1759,42 +1759,18 @@ namespace mrbind::CBindings
 
     void Generator::EmitFuncParams::SetLifetimesFromParsedFunc(const BasicFunc &new_func, bool is_member_func_or_ctor, bool is_ctor)
     {
-        auto TranslateVariant = [&](const LifetimeRelation::Variant &var)
+        auto TranslateVariant = [&](LifetimeRelation::Variant var)
         {
-            return std::visit(Overload{
-                [&](const LifetimeRelation::ThisObject &) -> CInterop::LifetimeRelation::Variant
-                {
-                    assert(is_member_func_or_ctor);
-                    if (is_ctor)
-                        return CInterop::LifetimeRelation::ReturnValue{};
-                    else
-                        return CInterop::LifetimeRelation::Param{.index = 0};
-                },
-                [&](const LifetimeRelation::Param &param) -> CInterop::LifetimeRelation::Variant
-                {
-                    return CInterop::LifetimeRelation::Param{.index = param.index + int(is_member_func_or_ctor && !is_ctor)};
-                },
-                [](const LifetimeRelation::ReturnValue &) -> CInterop::LifetimeRelation::Variant
-                {
-                    return CInterop::LifetimeRelation::ReturnValue{};
-                },
-            }, var);
+            if (auto param = std::get_if<LifetimeRelation::Param>(&var))
+            {
+                if (is_member_func_or_ctor && !is_ctor)
+                    param->index++; // Offset the index to make way for the `this` parameter. It's optional for constructors, we don't add it for parsed ones.
+            }
+
+            return var;
         };
 
-        for (const auto &lifetime : new_func.lifetimes.relations)
-        {
-            CInterop::LifetimeRelation new_lifetime;
-
-            new_lifetime.holder = TranslateVariant(lifetime.holder);
-            new_lifetime.target = TranslateVariant(lifetime.target);
-            new_lifetime.key = lifetime.key;
-            new_lifetime.force_only_nested = lifetime.force_only_nested;
-
-            lifetimes.relations.insert(std::move(new_lifetime));
-        }
-
-        for (const auto &removed_key_for_variant : new_func.lifetimes.removed_keys)
-            lifetimes.removed_keys.try_emplace(TranslateVariant(removed_key_for_variant.first), removed_key_for_variant.second);
+        lifetimes = new_func.lifetimes.TranslateVariants(TranslateVariant);
     }
 
     void Generator::EmitFuncParams::SetFromParsedFunc(Generator &self, const FuncEntity &new_func, bool is_class_friend, std::span<const NamespaceEntity *const> new_using_namespace_stack)
@@ -2176,7 +2152,7 @@ namespace mrbind::CBindings
             params.push_back({
                 .name = "value",
                 .cpp_type = field_type,
-                .reference_assigned = full_name_fixed_deco, // Doesn't matter which one we use. I guess let's go with the decorative one.
+                .reference_assigned = full_name_fixed_deco, // Since the field names are written to the output description decorated, we use the decorated spelling here too.
             });
 
             // Not using `@this@.` here because this can be a static data member too!
@@ -2253,67 +2229,59 @@ namespace mrbind::CBindings
             for (int i = 0; const auto &param : params.params)
             {
                 if (std::holds_alternative<std::string>(param.reference_returned) || (std::holds_alternative<bool>(param.reference_returned) && std::get<bool>(param.reference_returned)))
-                    ret.lifetimes.ReturnsReferenceToParam(i, std::holds_alternative<std::string>(param.reference_returned) ? std::get<std::string>(param.reference_returned) : "");
+                {
+                    if (param.kind != EmitFuncParams::Param::Kind::normal)
+                        ret.lifetimes.ReturnsReferenceToThis(std::holds_alternative<std::string>(param.reference_returned) ? std::get<std::string>(param.reference_returned) : "");
+                    else
+                        ret.lifetimes.ReturnsReferenceToParam(i, std::holds_alternative<std::string>(param.reference_returned) ? std::get<std::string>(param.reference_returned) : "");
+                }
                 if (std::holds_alternative<std::string>(param.reference_assigned) || (std::holds_alternative<bool>(param.reference_assigned) && std::get<bool>(param.reference_assigned)))
                 {
-                    if (params.params.front().kind == EmitFuncParams::Param::Kind::normal)
+                    if (param.kind != EmitFuncParams::Param::Kind::normal)
+                        throw std::runtime_error("The `this` parameter can't use the `reference_assigned` annotation.");
+
+                    if (!params.name.IsConstructor() && params.params.front().kind == EmitFuncParams::Param::Kind::normal)
                         throw std::runtime_error("A lifetime annotation refers to `this`, but this is not a member function. For those annotation purposes, constructors don't count as member functions.");
                     ret.lifetimes.AssignsReferenceToParam(i, std::holds_alternative<std::string>(param.reference_assigned) ? std::get<std::string>(param.reference_assigned) : "");
                 }
                 if (std::holds_alternative<std::string>(param.reference_appended) || (std::holds_alternative<bool>(param.reference_appended) && std::get<bool>(param.reference_appended)))
                 {
-                    if (params.params.front().kind == EmitFuncParams::Param::Kind::normal)
+                    if (param.kind != EmitFuncParams::Param::Kind::normal)
+                        throw std::runtime_error("The `this` parameter can't use the `reference_appended` annotation.");
+
+                    if (!params.name.IsConstructor() && params.params.front().kind == EmitFuncParams::Param::Kind::normal)
                         throw std::runtime_error("A lifetime annotation refers to `this`, but this is not a member function. For those annotation purposes, constructors don't count as member functions.");
                     ret.lifetimes.AppendsReferenceToParam(i, std::holds_alternative<std::string>(param.reference_appended) ? std::get<std::string>(param.reference_appended) : "");
                 }
 
                 // Prune lifetimes related to this parameter if its type can't have lifetime properties.
                 if (TypeHasNoLifetime(param.cpp_type))
-                {
-                    std::erase_if(ret.lifetimes.relations, [&](const CInterop::LifetimeRelation &lifetime)
-                    {
-                        if (auto p = std::get_if<CInterop::LifetimeRelation::Param>(&lifetime.holder); p && p->index == i)
-                            return true;
-                        if (auto p = std::get_if<CInterop::LifetimeRelation::Param>(&lifetime.target); p && p->index == i)
-                            return true;
-                        return false;
-                    });
-                }
+                    ret.lifetimes.RemoveMatching(LifetimeRelation::Param{.index = i});
 
                 i++;
             }
 
+            const bool is_ctor = params.name.IsConstructor();
+
             // Prune lifetimes related to the return value if the return type can't have lifetime properties.
-            if (TypeHasNoLifetime(params.cpp_return_type))
-            {
-                std::erase_if(ret.lifetimes.relations, [](const CInterop::LifetimeRelation &lifetime)
-                {
-                    return
-                        std::holds_alternative<CInterop::LifetimeRelation::ReturnValue>(lifetime.holder) ||
-                        std::holds_alternative<CInterop::LifetimeRelation::ReturnValue>(lifetime.target);
-                });
-            }
+            if (!is_ctor && TypeHasNoLifetime(params.cpp_return_type))
+                ret.lifetimes.RemoveMatching(LifetimeRelation::ReturnValue{});
 
             // Validate that we aren't doing anything stupid.
 
             // Does this function return void?
             // We COULD check `IsBuiltInTypeName()` here, but I think it's better not to.
             // This allows redundant attributes in custom functions, without having to actively check if they're actually redundant or not.
-            if (params.cpp_return_type.AsSingleWord() == "void")
-            {
-                for (const CInterop::LifetimeRelation &lifetime : ret.lifetimes.relations)
-                {
-                    if (
-                        std::holds_alternative<CInterop::LifetimeRelation::ReturnValue>(lifetime.holder) ||
-                        std::holds_alternative<CInterop::LifetimeRelation::ReturnValue>(lifetime.target)
-                    )
-                    {
-                        throw std::runtime_error("This function returns void, but has lifetime annotations referring to its return value.");
-                    }
-                }
-            }
+            if (!is_ctor && params.cpp_return_type.AsSingleWord() == "void" && ret.lifetimes.ContainsVariant(LifetimeRelation::ReturnValue{}))
+                throw std::runtime_error("This function returns void, but has lifetime annotations referring to its return value.");
 
-            // I'd also like to validate that constructors don't refer to `this`, but I can't, since here `this` and the first parameter are the same thing, so I can't distinguish between the two.
+            // Is this a constructor with annotations mentioning the return value? Those should refer to `this` instead.
+            if (is_ctor && ret.lifetimes.ContainsVariant(LifetimeRelation::ReturnValue{}))
+                throw std::runtime_error("This is a constructor, but has lifetime annotations referring to the return value. To refer to the constructed object, use `ThisObject` instead.");
+
+            // Do we have a `Param` referring to this?
+            if (!params.params.empty() && params.params.front().kind != EmitFuncParams::Param::Kind::normal && ret.lifetimes.ContainsVariant(LifetimeRelation::Param{.index = 0}))
+                throw std::runtime_error("This function has a `this` parameter and lifetime annotations referring directly to that parameter, which isn't something we allow. The annotations instead should use `ThisObject`.");
         }
 
         cppdecl::Function new_func;
@@ -2484,37 +2452,57 @@ namespace mrbind::CBindings
                     }
 
                     { // Comment about lifetime, if any.
-                        for (const CInterop::LifetimeRelation &lifetime : ret.lifetimes.relations)
+                        auto WriteLifetimeComment = [&](const std::string &comment)
                         {
-                            if (auto param = std::get_if<CInterop::LifetimeRelation::Param>(&lifetime.target); param && param->index == int(i))
+                            ret.comment += comment;
+                            ret.comment_lifetimes += comment;
+                        };
+
+                        for (const LifetimeRelation &lifetime : ret.lifetimes.relations)
+                        {
+                            if (auto param = std::get_if<LifetimeRelation::Param>(&lifetime.target); param && param->index == int(i))
                             {
-                                ret.comment += "/// The reference to ";
+                                WriteLifetimeComment("/// The reference to ");
 
-                                if (lifetime.force_only_nested)
-                                    ret.comment += "things referred to by ";
+                                if (lifetime.only_nested)
+                                    WriteLifetimeComment("things referred to by ");
 
-                                ret.comment += "the parameter `" + out_param_info.fixed_name + "` ";
+                                WriteLifetimeComment("the parameter `" + out_param_info.fixed_name + "` ");
 
-                                if (lifetime.force_only_nested)
-                                    ret.comment += "(if any) ";
+                                if (lifetime.only_nested)
+                                    WriteLifetimeComment("(if any) ");
 
-                                ret.comment += "might be preserved in ";
+                                WriteLifetimeComment("might be preserved in ");
 
                                 std::visit(Overload{
-                                    [&](const CInterop::LifetimeRelation::ReturnValue &)
+                                    [&](const LifetimeRelation::ThisObject &)
                                     {
-                                        ret.comment += "the return value";
+                                        if (params.name.IsConstructor())
+                                        {
+                                            WriteLifetimeComment("the constructed object");
+                                        }
+                                        else
+                                        {
+                                            assert(!params.params.empty() && params.params.at(0).kind != EmitFuncParams::Param::Kind::normal);
+                                            WriteLifetimeComment("this object");
+                                        }
                                     },
-                                    [&](const CInterop::LifetimeRelation::Param &param)
+                                    [&](const LifetimeRelation::ReturnValue &)
                                     {
-                                        ret.comment += "the parameter `" + ret.params_info.at(std::size_t(param.index)).fixed_name + "`";
+                                        assert(!params.name.IsConstructor());
+                                        WriteLifetimeComment("the return value");
+                                    },
+                                    [&](const LifetimeRelation::Param &param)
+                                    {
+                                        assert(params.params.at(std::size_t(param.index)).kind == EmitFuncParams::Param::Kind::normal);
+                                        WriteLifetimeComment("the parameter `" + ret.params_info.at(std::size_t(param.index)).fixed_name + "`");
                                     },
                                 }, lifetime.holder);
 
                                 if (!lifetime.key.empty())
-                                    ret.comment += " in element `" + lifetime.key + "`";
+                                    WriteLifetimeComment(" in element `" + lifetime.key + "`");
 
-                                ret.comment += ".\n";
+                                WriteLifetimeComment(".\n");
 
                                 // I'd say "Make sure it doesn't dangle." here, but this will look meaningless in Python/C#/etc.
                             }
@@ -2714,11 +2702,15 @@ namespace mrbind::CBindings
 
                 ret.comment += "/// When this function is called, ";
                 std::visit(Overload{
-                    [&](const CInterop::LifetimeRelation::ReturnValue &)
+                    [&](const LifetimeRelation::ThisObject &)
+                    {
+                        ret.comment += "this object";
+                    },
+                    [&](const LifetimeRelation::ReturnValue &)
                     {
                         ret.comment += "the return value";
                     },
-                    [&](const CInterop::LifetimeRelation::Param &param)
+                    [&](const LifetimeRelation::Param &param)
                     {
                         ret.comment += "the parameter `" + ret.params_info.at(std::size_t(param.index)).fixed_name + "`";
                     },
@@ -3048,6 +3040,14 @@ namespace mrbind::CBindings
                         .is_this_param = true,
                     });
 
+                    // Shift parameter indices in the lifetime information to handle the new parameter.
+                    strings.lifetimes = strings.lifetimes.TranslateVariants([&](LifetimeRelation::Variant var)
+                    {
+                        if (auto param = std::get_if<LifetimeRelation::Param>(&var))
+                            param->index++;
+                        return var;
+                    });
+
                     new_method.var = std::get<CInterop::MethodKindVar>(params.name.cpp_for_interop); // If this throws, someone has set the wrong `cpp_for_interop` type.
                     new_method.is_static = true; // Constructors are considered static.
                 }
@@ -3066,11 +3066,16 @@ namespace mrbind::CBindings
                 }
 
                 { // The comment.
+                    // Note, not using `strings.comment`, so various C-specific generated annotations are not exposed there.
+
                     assert(!params.c_comment.starts_with('\n'));
                     assert(!params.c_comment.ends_with('\n'));
 
                     func_like->comment.c_style = params.c_comment;
                     func_like->comment.c_style += '\n';
+
+                    // Separately, the lifetimes comment.
+                    func_like->comment_extra_lifetimes.c_style = strings.comment_lifetimes;
                 }
 
                 func_like->c_name = params.name.c;
@@ -3112,6 +3117,11 @@ namespace mrbind::CBindings
 
                 // Deprecation attribute?
                 func_like->is_deprecated = params.mark_deprecated;
+
+                // Lifetime stuff.
+                func_like->lifetimes = std::move(strings.lifetimes);
+                if (params.name.IsConstructor())
+                    func_like->lifetimes.removed_keys = {}; // Silently prune this instead of complaining. This is more convenient, this way we don't have to care about `reference_assigned` vs `reference_appended`.
             }
         }
         catch (std::exception &e)
@@ -4485,7 +4495,7 @@ namespace mrbind::CBindings
                                 emit.params.push_back({
                                     .name = member_desc.name,
                                     .cpp_type = member_desc.type,
-                                    .reference_returned = true,
+                                    .reference_assigned = true,
                                 });
                             }
                             emit.cpp_called_func = cpp_class_name_str;

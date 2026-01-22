@@ -337,12 +337,12 @@ namespace mrbind::CBindings
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.";
                         emit.name = class_binder.MakeMemberFuncName(generator, "Find");
+                        emit.lifetimes.ReturnsReferenceToThis();
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(iterator_binder_const.cpp_type_name);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), true);
                         emit.params.push_back({
                             .name = "key",
                             .cpp_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{}),
-                            .reference_returned = true,
                         });
                         emit.cpp_called_func = "find";
                         generator.EmitFunction(file, emit);
@@ -354,12 +354,12 @@ namespace mrbind::CBindings
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Finds the element by key, or returns the end iterator if no such key. Returns a mutable iterator.";
                         emit.name = class_binder.MakeMemberFuncName(generator, "FindMutable", "Find");
+                        emit.lifetimes.ReturnsReferenceToThis();
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(iterator_binder_mutable.cpp_type_name);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(class_binder.cpp_type_name), false);
                         emit.params.push_back({
                             .name = "key",
                             .cpp_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{}),
-                            .reference_returned = true,
                         });
                         emit.cpp_called_func = "find";
                         generator.EmitFunction(file, emit);

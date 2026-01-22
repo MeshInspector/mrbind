@@ -140,6 +140,19 @@ namespace mrbind::CSharp
 
     struct TypeBinding
     {
+        // This is used in `ParamUsage` and `ReturnUsage` below to explain how to call keep-alive-related functions on this object.
+        struct KeepAliveUsage
+        {
+            // This is optional.
+            // A boolean expression. If evaluates to false, we won't call the keep-alive functions on this object (this usually means it's null).
+            // Those expressions will be pasted next to each other, separated with `&&`. Make sure the priorities in your expression don't mess with this.
+            std::optional<std::string> cond = {};
+
+            // This is required.
+            // The object that we can call keep-alive functions on, if the condition is true.
+            std::string object;
+        };
+
         struct ParamUsage
         {
             struct Strings
@@ -182,6 +195,12 @@ namespace mrbind::CSharp
                 // This one needs to be an actual vector, because we apply non-trivial transformations to it, and splitting a string
                 //   wouldn't be trivial, since we'd have to ignore commas in `<...>` generic argument lists.
                 std::vector<CSharpParam> csharp_decl_params;
+
+                // Can this be kept alive by other objects? This requires the `csharp_decl_params` to include at least one with unmodified name,
+                //   having a C# class type.
+                bool can_be_kept_alive = false;
+                // This should be non-null if this parameter can keep other objects alive. This requires the parameter to be of a C# class type inherited from `KeepAliveHolder`.
+                std::optional<KeepAliveUsage> keep_other_alive = {};
 
                 // Optional. If specified, the return statement is wrapped in a scope, where this string opens it, and `scope_close` closes.
                 // If not empty, must end with a newline. No indentation is needed.
@@ -237,6 +256,12 @@ namespace mrbind::CSharp
 
             // The public C# return type.
             std::string csharp_return_type;
+
+            // Can this be kept alive by other objects? This requires `csharp_return_type` to be a C# class type.
+            bool can_be_kept_alive = false;
+            // This should be non-null if this type can keep other objects alive. This requires the type to be a C# class type inherited from `KeepAliveHolder`.
+            // This function receives a variable name that stores the return value.
+            std::function<KeepAliveUsage(const std::string &name)> keep_other_alive = nullptr;
 
             // Given an expression, creates a return statement for it. If null, defaults to `target + " " + expr + ";"`.
             // Don't call directly, use `MakeReturnExpr()` to apply the default if this is null.

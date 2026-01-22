@@ -253,7 +253,7 @@ namespace mrbind::CBindings::Modules
                         emit.params.push_back({
                             .name = "ptr",
                             .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
-                            .reference_returned = true,
+                            .reference_assigned = true,
                         });
 
                         emit.cpp_called_func = type_str + "(std::shared_ptr<void>{}, @1@)";
@@ -338,7 +338,7 @@ namespace mrbind::CBindings::Modules
                             emit.params.push_back({
                                 .name = "ptr",
                                 .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
-                                .reference_returned = true, // Hmm.
+                                .reference_assigned = true, // Hmm.
                             });
 
                             emit.cpp_called_func = type_str;

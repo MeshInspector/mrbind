@@ -1192,8 +1192,16 @@ namespace mrbind::CBindings
                 // NOTE: All strings in this must be produced using `CppdeclToCodeForComments`! To e.g. adjust `std/tl::expected` to just `expected`, if that's enabled.
                 std::variant<std::monostate, CInterop::FuncKindVar, CInterop::MethodKindVar> cpp_for_interop;
 
-                // If true, `cpp_for_interop` is ignored (can be empty) and the function isn't emitted at all in the description JSON.
+                // If true, `cpp_for_interop` is mostly ignored (can be empty) and the function isn't emitted at all in the description JSON.
                 bool ignore_in_interop = false;
+
+                [[nodiscard]] bool IsConstructor() const
+                {
+                    // We could reject `ignore_in_interop` here. Not sure if it makes sense to do so.
+                    if (auto method = std::get_if<CInterop::MethodKindVar>(&cpp_for_interop))
+                        return std::holds_alternative<CInterop::MethodKinds::Constructor>(*method);
+                    return false;
+                }
             };
 
             // The name of this function.
@@ -1317,14 +1325,14 @@ namespace mrbind::CBindings
                 // Indicates that this function can return a reference to this parameter.
                 // This is a shorthand for `lifetimes.ReturnsReferenceToParam(i, "...")`.
                 // If true or a string, indicates that this function can store a reference to this parameter in the returned object. If it's a string, then the reference is marked with this string (see `reference_assigned` for what this does).
-                // You can use this for constrctors.
+                // Must not use this for constructors! Use `reference_assigned` instead.
                 std::variant<bool, std::string> reference_returned = false;
                 // If false, has no effect.
                 // If true or a string, indicates that this function can store a reference to this parameter in the current object (in `this`).
                 // If true, this erases all existing references in the object. If this is a string, then only erases references marked with the same string. An empty string erases all references, it has the same effect as `true`.
                 // This is a shorthand for `lifetimes.AssignsReferenceToParam(i, "...")`.
                 // It doesn't make sense to make this conditional on the parameter type being a reference, since if it's not a reference, then this will automatically apply to whatever it keeps alive.
-                // Don't use this for constructors, since those
+                // You can use this in constructors to refer to the constructed object.
                 std::variant<bool, std::string> reference_assigned = false;
                 // Same, but doesn't remove the existing references.
                 // It doesn't make sense to make this conditional on the parameter type being a reference, since if it's not a reference, then this will automatically apply to whatever it keeps alive.
@@ -1350,7 +1358,7 @@ namespace mrbind::CBindings
             std::vector<Param> params;
 
             // Lifetime information. This can come from the parser, and it also makes sense to specify it manually for custom bindings.
-            CInterop::Lifetimes lifetimes;
+            Lifetimes lifetimes;
 
             enum class FieldAccessorKind
             {
@@ -1419,8 +1427,12 @@ namespace mrbind::CBindings
 
         struct EmittedFunctionStrings
         {
-            // With leading backslashes. This one unusually has a trailing newline.
+            // With leading backslashes. Has a trailing newline.
             std::string comment;
+
+            // This is a part of `comment` that explains the lifetime annotations on this function.
+            // If you're printing the entire `comment`, you don't need to print this separately.
+            std::string comment_lifetimes;
 
             // The function declaration (C style, of course).
             cppdecl::Decl decl;
@@ -1448,7 +1460,7 @@ namespace mrbind::CBindings
             std::vector<ParamInfo> params_info;
 
             // Stores the lifetime information. This is based on `EmitFuncParams::lifetimes`, but with additional information appended.
-            CInterop::Lifetimes lifetimes;
+            Lifetimes lifetimes;
         };
         // Like `EmitFunction()`, but doesn't write the function directly to the file. Instead returns the strings composing it.
         // But the includes and such still get written directly to the file.
