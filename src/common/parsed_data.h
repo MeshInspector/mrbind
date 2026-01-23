@@ -4,6 +4,7 @@
 #include "meta.h"
 #include "reflection.h"
 
+#include <algorithm>
 #include <cassert>
 #include <concepts>
 #include <cstdint>
