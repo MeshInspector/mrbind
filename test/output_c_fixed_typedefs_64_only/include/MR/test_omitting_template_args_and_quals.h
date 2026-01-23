@@ -40,7 +40,7 @@ MR_C_API MR_OmittingTargsAndQuals_A_int *MR_OmittingTargsAndQuals_A_int_OffsetMu
 
 /// Generated from constructor `MR::OmittingTargsAndQuals::A<int>::A`.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OmittingTargsAndQuals_A_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_OmittingTargsAndQuals_A_int *MR_OmittingTargsAndQuals_A_int_ConstructFromAnother(const MR_OmittingTargsAndQuals_A_int *_other);
 
@@ -53,9 +53,9 @@ MR_C_API void MR_OmittingTargsAndQuals_A_int_DestroyArray(const MR_OmittingTargs
 /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_OmittingTargsAndQuals_A_int *MR_OmittingTargsAndQuals_A_int_AssignFromAnother(MR_OmittingTargsAndQuals_A_int *_this, const MR_OmittingTargsAndQuals_A_int *_other);
 
 /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator+`.
@@ -95,7 +95,7 @@ MR_C_API MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_float_Offs
 
 /// Generated from constructor `MR::OmittingTargsAndQuals::A<float>::A`.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OmittingTargsAndQuals_A_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(const MR_OmittingTargsAndQuals_A_float *_other);
 
@@ -108,9 +108,9 @@ MR_C_API void MR_OmittingTargsAndQuals_A_float_DestroyArray(const MR_OmittingTar
 /// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_OmittingTargsAndQuals_A_float *MR_OmittingTargsAndQuals_A_float_AssignFromAnother(MR_OmittingTargsAndQuals_A_float *_this, const MR_OmittingTargsAndQuals_A_float *_other);
 
 /// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator+`.

@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// A non-owning string view. Not necessarily null-terminated.
             /// This is the const half of the class.
-            public class Const_StringView : MR.CS.Misc.Object, System.IDisposable
+            public class Const_StringView : MR.CS.Misc.Object<Const_StringView>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_string_view_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// Constructs a new instance.
@@ -112,6 +113,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_string_view_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// Constructs a new instance.
@@ -134,6 +136,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_string_view_AssignFromAnother(_Underlying *_this, MR.CS.Std.StringView._Underlying *other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(other);
                     __MR_C_std_string_view_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
@@ -145,6 +149,7 @@ public static partial class MR
                     byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                     fixed (byte *__ptr_other = __bytes_other)
                     {
+                        _DiscardKeepAlive();
                         __MR_C_std_string_view_AssignFrom(_UnderlyingPtr, __ptr_other, __ptr_other + __bytes_other.Length);
                     }
                 }

@@ -20,8 +20,9 @@ typedef struct MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref MR_
 
 // Constructs a copy of another instance. The source remains alive.
 // Parameter `other` can not be null. It is a single object.
-// The reference to the parameter `other` might be preserved in the return value.
+// The reference to the parameter `other` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref *MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref_ConstructFromAnother(const MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref`. Does nothing if the pointer is null.
@@ -42,24 +43,23 @@ MR_C_API MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref *MR_C_std
 // Parameter `first` can not be null. It is a single object.
 // In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 //   but if your pointer is owning, you must still destroy it manually later.
-// The reference to the parameter `first` might be preserved in the return value.
+// The reference to the parameter `first` might be preserved in the constructed object.
 // Parameter `second` can not be null. It is a single object.
 // In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
 //   but if your pointer is owning, you must still destroy it manually later.
-// The reference to the parameter `second` might be preserved in the return value.
+// The reference to the parameter `second` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref *MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref_Construct(const int32_t *first, const float *second);
 
 // The first of the two elements, read-only.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 // In C++ returns an rvalue reference.
 MR_C_API const int32_t *MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref_First(const MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this);
 
 // The second of the two elements, read-only.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 // In C++ returns an rvalue reference.
 MR_C_API const float *MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref_Second(const MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref *_this);

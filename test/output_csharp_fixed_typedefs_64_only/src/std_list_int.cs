@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from C++ container `std::list<int>`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_List_Int : MR.CS.Misc.Object, System.IDisposable
+            public class Const_List_Int : MR.CS.Misc.Object<Const_List_Int>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -46,6 +46,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.List_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_list_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// <summary>
@@ -86,8 +87,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_Front", ExactSpelling = true)]
                     extern static int *__MR_C_std_list_int_Front(_Underlying *_this);
-                    var __ret = __MR_C_std_list_int_Front(_UnderlyingPtr);
-                    return __ret is not null ? *__ret : null;
+                    var __c_ret = __MR_C_std_list_int_Front(_UnderlyingPtr);
+                    return __c_ret is not null ? *__c_ret : null;
                 }
 
                 /// <summary>
@@ -97,8 +98,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_Back", ExactSpelling = true)]
                     extern static int *__MR_C_std_list_int_Back(_Underlying *_this);
-                    var __ret = __MR_C_std_list_int_Back(_UnderlyingPtr);
-                    return __ret is not null ? *__ret : null;
+                    var __c_ret = __MR_C_std_list_int_Back(_UnderlyingPtr);
+                    return __c_ret is not null ? *__c_ret : null;
                 }
 
                 /// <summary>
@@ -108,7 +109,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_Begin", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_Begin(_Underlying *_this);
-                    return new(__MR_C_std_list_int_Begin(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.List_Int.ConstIterator __ret;
+                    __ret = new(__MR_C_std_list_int_Begin(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// <summary>
@@ -128,7 +132,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_End", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_End(_Underlying *_this);
-                    return new(__MR_C_std_list_int_End(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.List_Int.ConstIterator __ret;
+                    __ret = new(__MR_C_std_list_int_End(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// <summary>
@@ -145,7 +152,7 @@ public static partial class MR
                 /// Read-only iterator for `MR_C_std_list_int`.
                 /// This is the const half of the class.
                 /// </summary>
-                public class Const_ConstIterator : MR.CS.Misc.Object, System.IDisposable
+                public class Const_ConstIterator : MR.CS.Misc.Object<Const_ConstIterator>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -183,6 +190,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_const_iterator_ConstructFromAnother(MR.CS.Std.List_Int.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_list_int_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// <summary>
@@ -237,6 +245,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_const_iterator_ConstructFromAnother(MR.CS.Std.List_Int.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_list_int_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// <summary>
@@ -246,6 +255,8 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.List_Int.ConstIterator._Underlying *other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(other);
                         __MR_C_std_list_int_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
@@ -328,7 +339,7 @@ public static partial class MR
                 /// Mutable iterator for `MR_C_std_list_int`.
                 /// This is the const half of the class.
                 /// </summary>
-                public class Const_Iterator : MR.CS.Misc.Object, System.IDisposable
+                public class Const_Iterator : MR.CS.Misc.Object<Const_Iterator>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -366,6 +377,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.Iterator._Underlying *__MR_C_std_list_int_iterator_ConstructFromAnother(MR.CS.Std.List_Int.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_list_int_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// <summary>
@@ -405,6 +417,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.Iterator._Underlying *__MR_C_std_list_int_iterator_ConstructFromAnother(MR.CS.Std.List_Int.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_list_int_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// <summary>
@@ -414,6 +427,8 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.List_Int.Iterator._Underlying *other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(other);
                         __MR_C_std_list_int_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
@@ -499,6 +514,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.List_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_list_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// <summary>
@@ -508,6 +524,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.List_Int._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_list_int_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -560,6 +578,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_Clear", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_Clear(_Underlying *_this);
+                    _DiscardKeepAlive();
                     __MR_C_std_list_int_Clear(_UnderlyingPtr);
                 }
 
@@ -570,8 +589,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_MutableFront", ExactSpelling = true)]
                     extern static int *__MR_C_std_list_int_MutableFront(_Underlying *_this);
-                    var __ret = __MR_C_std_list_int_MutableFront(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Misc.Ref<int>(__ret) : null;
+                    var __c_ret = __MR_C_std_list_int_MutableFront(_UnderlyingPtr);
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
 
                 /// <summary>
@@ -581,8 +600,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_MutableBack", ExactSpelling = true)]
                     extern static int *__MR_C_std_list_int_MutableBack(_Underlying *_this);
-                    var __ret = __MR_C_std_list_int_MutableBack(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Misc.Ref<int>(__ret) : null;
+                    var __c_ret = __MR_C_std_list_int_MutableBack(_UnderlyingPtr);
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
 
                 /// <summary>
@@ -672,7 +691,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_MutableBegin", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int.Iterator._Underlying *__MR_C_std_list_int_MutableBegin(_Underlying *_this);
-                    return new(__MR_C_std_list_int_MutableBegin(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.List_Int.Iterator __ret;
+                    __ret = new(__MR_C_std_list_int_MutableBegin(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// <summary>
@@ -692,7 +714,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_MutableEnd", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int.Iterator._Underlying *__MR_C_std_list_int_MutableEnd(_Underlying *_this);
-                    return new(__MR_C_std_list_int_MutableEnd(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.List_Int.Iterator __ret;
+                    __ret = new(__MR_C_std_list_int_MutableEnd(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// <summary>

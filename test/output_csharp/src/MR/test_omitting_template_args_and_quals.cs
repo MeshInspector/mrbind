@@ -8,7 +8,7 @@ public static partial class MR
             //   and omit qualifiers for friend functions (since they are normally only accessible via ADL).
             /// Generated from class `MR::OmittingTargsAndQuals::A<int>`.
             /// This is the const half of the class.
-            public class Const_A_Int : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A_Int : MR.CS.Misc.Object<Const_A_Int>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -42,6 +42,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_A_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OmittingTargsAndQuals.A_Int._Underlying *__MR_OmittingTargsAndQuals_A_int_ConstructFromAnother(MR.CS.OmittingTargsAndQuals.A_Int._Underlying *_other);
                     _UnderlyingPtr = __MR_OmittingTargsAndQuals_A_int_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from function `MR::OmittingTargsAndQuals::operator*`.
@@ -83,6 +84,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_A_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OmittingTargsAndQuals.A_Int._Underlying *__MR_OmittingTargsAndQuals_A_int_ConstructFromAnother(MR.CS.OmittingTargsAndQuals.A_Int._Underlying *_other);
                     _UnderlyingPtr = __MR_OmittingTargsAndQuals_A_int_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator=`.
@@ -90,6 +92,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_A_int_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OmittingTargsAndQuals.A_Int._Underlying *__MR_OmittingTargsAndQuals_A_int_AssignFromAnother(_Underlying *_this, MR.CS.OmittingTargsAndQuals.A_Int._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_OmittingTargsAndQuals_A_int_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
@@ -144,7 +148,7 @@ public static partial class MR
             //   and omit qualifiers for friend functions (since they are normally only accessible via ADL).
             /// Generated from class `MR::OmittingTargsAndQuals::A<float>`.
             /// This is the const half of the class.
-            public class Const_A_Float : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A_Float : MR.CS.Misc.Object<Const_A_Float>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -178,6 +182,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_A_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OmittingTargsAndQuals.A_Float._Underlying *__MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(MR.CS.OmittingTargsAndQuals.A_Float._Underlying *_other);
                     _UnderlyingPtr = __MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -203,6 +208,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_A_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OmittingTargsAndQuals.A_Float._Underlying *__MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(MR.CS.OmittingTargsAndQuals.A_Float._Underlying *_other);
                     _UnderlyingPtr = __MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator=`.
@@ -210,6 +216,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OmittingTargsAndQuals_A_float_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OmittingTargsAndQuals.A_Float._Underlying *__MR_OmittingTargsAndQuals_A_float_AssignFromAnother(_Underlying *_this, MR.CS.OmittingTargsAndQuals.A_Float._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_OmittingTargsAndQuals_A_float_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 

@@ -8,7 +8,7 @@ public static partial class MR
             /// Wraps a pointer to a single heap-allocated `MR::StdUniquePtr::A`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_UniquePtr_MRStdUniquePtrA : MR.CS.Misc.Object, System.IDisposable
+            public class Const_UniquePtr_MRStdUniquePtrA : MR.CS.Misc.Object<Const_UniquePtr_MRStdUniquePtrA>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -46,6 +46,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// <summary>
@@ -70,8 +71,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get", ExactSpelling = true)]
                     extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get(_Underlying *_this);
-                    var __ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.StdUniquePtr.A(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get(_UnderlyingPtr);
+                    MR.CS.StdUniquePtr.A? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.StdUniquePtr.A(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
             }
 
@@ -101,6 +105,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// <summary>
@@ -125,6 +130,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFromAnother(_Underlying *_this, MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(other);
                     __MR_C_std_unique_ptr_MR_StdUniquePtr_A_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
@@ -146,8 +153,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release", ExactSpelling = true)]
                     extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release(_Underlying *_this);
-                    var __ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.StdUniquePtr.A(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release(_UnderlyingPtr);
+                    return __c_ret is not null ? new MR.CS.StdUniquePtr.A(__c_ret, is_owning: false) : null;
                 }
             }
 

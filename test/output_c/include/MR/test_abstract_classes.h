@@ -57,37 +57,31 @@ MR_C_API MR_AbstractClasses_B *MR_AbstractClasses_B_OffsetMutablePtr(MR_Abstract
 /// Downcasts an instance of `MR::AbstractClasses::B` to a derived class `MR::AbstractClasses::C`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
-/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_AbstractClasses_C *MR_AbstractClasses_B_StaticDowncastTo_MR_AbstractClasses_C(const MR_AbstractClasses_B *object);
 
 /// Downcasts an instance of `MR::AbstractClasses::B` to a derived class `MR::AbstractClasses::C`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_AbstractClasses_C *MR_AbstractClasses_B_MutableStaticDowncastTo_MR_AbstractClasses_C(MR_AbstractClasses_B *object);
 
 /// Downcasts an instance of `MR::AbstractClasses::B` to a derived class `MR::AbstractClasses::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// This version is acting on mutable pointers.
-/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_AbstractClasses_C *MR_AbstractClasses_B_DynamicDowncastTo_MR_AbstractClasses_C(const MR_AbstractClasses_B *object);
 
 /// Downcasts an instance of `MR::AbstractClasses::B` to a derived class `MR::AbstractClasses::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
-/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_AbstractClasses_C *MR_AbstractClasses_B_MutableDynamicDowncastTo_MR_AbstractClasses_C(MR_AbstractClasses_B *object);
 
 /// Downcasts an instance of `MR::AbstractClasses::B` to a derived class `MR::AbstractClasses::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// This version is acting on mutable pointers.
 /// Parameter `object` can not be null. It is a single object.
-/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_AbstractClasses_C *MR_AbstractClasses_B_DynamicDowncastToOrFail_MR_AbstractClasses_C(const MR_AbstractClasses_B *object);
 
 /// Downcasts an instance of `MR::AbstractClasses::B` to a derived class `MR::AbstractClasses::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// Parameter `object` can not be null. It is a single object.
-/// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_AbstractClasses_C *MR_AbstractClasses_B_MutableDynamicDowncastToOrFail_MR_AbstractClasses_C(MR_AbstractClasses_B *object);
 
@@ -111,11 +105,9 @@ MR_C_API MR_AbstractClasses_C *MR_AbstractClasses_C_OffsetMutablePtr(MR_Abstract
 
 /// Upcasts an instance of `MR::AbstractClasses::C` to its base class `MR::AbstractClasses::B`.
 /// This version is acting on mutable pointers.
-/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_AbstractClasses_B *MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(const MR_AbstractClasses_C *object);
 
 /// Upcasts an instance of `MR::AbstractClasses::C` to its base class `MR::AbstractClasses::B`.
-/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_AbstractClasses_B *MR_AbstractClasses_C_MutableUpcastTo_MR_AbstractClasses_B(MR_AbstractClasses_C *object);
 
 #ifdef __cplusplus

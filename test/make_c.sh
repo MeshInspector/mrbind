@@ -35,6 +35,7 @@ MRBIND_FLAGS=(
     -Itest
     -isystemtest/input/parallel-hashmap
     -Iinclude
+    -DPARSING_FOR_C_BINDINGS
 )
 
 MRBIND_GEN_C_FLAGS=(
@@ -88,8 +89,8 @@ mkdir -p test/output_c_fixed_typedefs_64_only
 build/mrbind \
     -o test/output_c/parsed.json \
     --copy-inherited-members \
-    --infer-lifetime-begin-end \
-    --infer-lifetime-ctors \
+    --infer-lifetime-iterators \
+    --infer-lifetime-constructors \
     "${MRBIND_FLAGS[@]}"
 
 build/mrbind_gen_c \
@@ -105,7 +106,7 @@ build/mrbind \
     -o test/output_c_fixed_typedefs/parsed.json \
     --canonicalize-to-fixed-size-typedefs \
     --canonicalize-size_t-to-uint64_t \
-    --infer-lifetime-begin-end \
+    --infer-lifetime-iterators \
     "${MRBIND_FLAGS[@]}" \
     -DDISABLE_LONG_LONG
 

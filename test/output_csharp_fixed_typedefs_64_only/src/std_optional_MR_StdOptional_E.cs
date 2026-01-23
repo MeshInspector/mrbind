@@ -8,7 +8,7 @@ public static partial class MR
             /// Stores either a single `MR::StdOptional::E` or nothing.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Optional_MRStdOptionalE : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Optional_MRStdOptionalE : MR.CS.Misc.Object<Const_Optional_MRStdOptionalE>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -46,6 +46,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(MR.CS.Std.Optional_MRStdOptionalE._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// <summary>
@@ -71,8 +72,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_Value", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.E *__MR_C_std_optional_MR_StdOptional_E_Value(_Underlying *_this);
-                    var __ret = __MR_C_std_optional_MR_StdOptional_E_Value(_UnderlyingPtr);
-                    return __ret is not null ? *__ret : null;
+                    var __c_ret = __MR_C_std_optional_MR_StdOptional_E_Value(_UnderlyingPtr);
+                    return __c_ret is not null ? *__c_ret : null;
                 }
             }
 
@@ -102,6 +103,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(MR.CS.Std.Optional_MRStdOptionalE._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_E_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// <summary>
@@ -127,6 +129,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_StdOptional_E_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRStdOptionalE._Underlying *other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(other);
                     __MR_C_std_optional_MR_StdOptional_E_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
@@ -148,8 +152,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_MutableValue", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.E *__MR_C_std_optional_MR_StdOptional_E_MutableValue(_Underlying *_this);
-                    var __ret = __MR_C_std_optional_MR_StdOptional_E_MutableValue(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.StdOptional.E>(__ret) : null;
+                    var __c_ret = __MR_C_std_optional_MR_StdOptional_E_MutableValue(_UnderlyingPtr);
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.StdOptional.E>(__c_ret) : null;
                 }
             }
 

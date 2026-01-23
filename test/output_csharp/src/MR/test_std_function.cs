@@ -10,7 +10,7 @@ public static partial class MR
 
             /// Generated from class `MR::StdFunction::A`.
             /// This is the const half of the class.
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -36,7 +36,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_Get_a", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_StdFunction_A_Get_a(_Underlying *_this);
-                        return new(__MR_StdFunction_A_Get_a(_UnderlyingPtr), is_owning: false);
+                        MR.CS.Std.Const_String __ret;
+                        __ret = new(__MR_StdFunction_A_Get_a(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
                     }
                 }
 
@@ -66,6 +69,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdFunction.A._Underlying *__MR_StdFunction_A_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdFunction.A._Underlying *_other);
                     _UnderlyingPtr = __MR_StdFunction_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
             }
 
@@ -81,7 +85,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_GetMutable_a", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_StdFunction_A_GetMutable_a(_Underlying *_this);
-                        return new(__MR_StdFunction_A_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                        MR.CS.Std.String __ret;
+                        __ret = new(__MR_StdFunction_A_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
                     }
                 }
 
@@ -111,6 +118,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdFunction.A._Underlying *__MR_StdFunction_A_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdFunction.A._Underlying *_other);
                     _UnderlyingPtr = __MR_StdFunction_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// Generated from method `MR::StdFunction::A::operator=`.
@@ -118,6 +126,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdFunction.A._Underlying *__MR_StdFunction_A_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdFunction.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_StdFunction_A_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
             }

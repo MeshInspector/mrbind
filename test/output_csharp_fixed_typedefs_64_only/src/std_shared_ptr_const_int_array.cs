@@ -9,7 +9,7 @@ public static partial class MR
             /// Doesn't store the size, it has to be obtained separately.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_SharedPtr_ConstIntArray : MR.CS.Misc.Object, System.IDisposable
+            public class Const_SharedPtr_ConstIntArray : MR.CS.Misc.Object<Const_SharedPtr_ConstIntArray>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -47,6 +47,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstIntArray._Underlying *__MR_C_std_shared_ptr_const_int_array_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_ConstIntArray._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_int_array_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// <summary>
@@ -56,18 +57,21 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_Get", ExactSpelling = true)]
                     extern static int *__MR_C_std_shared_ptr_const_int_array_Get(_Underlying *_this);
-                    var __ret = __MR_C_std_shared_ptr_const_int_array_Get(_UnderlyingPtr);
-                    return __ret is not null ? *__ret : null;
+                    var __c_ret = __MR_C_std_shared_ptr_const_int_array_Get(_UnderlyingPtr);
+                    return __c_ret is not null ? *__c_ret : null;
                 }
 
                 /// <summary>
                 /// Returns an element from the stored array. The stored pointer must not be null.
                 /// </summary>
-                public unsafe int at(long i)
+                public unsafe int this[long i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_At", ExactSpelling = true)]
-                    extern static int *__MR_C_std_shared_ptr_const_int_array_At(_Underlying *_this, long i);
-                    return *__MR_C_std_shared_ptr_const_int_array_At(_UnderlyingPtr, i);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_At", ExactSpelling = true)]
+                        extern static int *__MR_C_std_shared_ptr_const_int_array_At(_Underlying *_this, long i);
+                        return *__MR_C_std_shared_ptr_const_int_array_At(_UnderlyingPtr, i);
+                    }
                 }
 
                 /// <summary>
@@ -158,6 +162,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstIntArray._Underlying *__MR_C_std_shared_ptr_const_int_array_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_ConstIntArray._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_int_array_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// <summary>
@@ -167,6 +172,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int_array_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_ConstIntArray._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_shared_ptr_const_int_array_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -209,6 +216,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_AssignNonOwning", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int_array_AssignNonOwning(_Underlying *_this, int *ptr);
                     int __deref_ptr = ptr.GetValueOrDefault();
+                    _DiscardKeepAlive();
                     __MR_C_std_shared_ptr_const_int_array_AssignNonOwning(_UnderlyingPtr, ptr.HasValue ? &__deref_ptr : null);
                 }
 
@@ -258,6 +266,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_AssignAliasing", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int_array_AssignAliasing(_Underlying *_this, MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, int *ptr);
                     int __deref_ptr = ptr.GetValueOrDefault();
+                    _DiscardKeepAlive();
                     __MR_C_std_shared_ptr_const_int_array_AssignAliasing(_UnderlyingPtr, ownership.PassByMode, ownership.Value is not null ? ownership.Value._UnderlyingPtr : null, ptr.HasValue ? &__deref_ptr : null);
                 }
             }

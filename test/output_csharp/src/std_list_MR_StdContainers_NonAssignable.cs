@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from C++ container `std::list<MR::StdContainers::NonAssignable>`.
             /// This is the const half of the class.
-            public class Const_List_MRStdContainersNonAssignable : MR.CS.Misc.Object, System.IDisposable
+            public class Const_List_MRStdContainersNonAssignable : MR.CS.Misc.Object<Const_List_MRStdContainersNonAssignable>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.List_MRStdContainersNonAssignable._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.List_MRStdContainersNonAssignable._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_list_MR_StdContainers_NonAssignable_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// The number of elements.
@@ -63,8 +64,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_Front", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_Front(_Underlying *_this);
-                    var __ret = __MR_C_std_list_MR_StdContainers_NonAssignable_Front(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.StdContainers.Const_NonAssignable(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_list_MR_StdContainers_NonAssignable_Front(_UnderlyingPtr);
+                    MR.CS.StdContainers.Const_NonAssignable? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.StdContainers.Const_NonAssignable(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// The last element or null if empty, read-only.
@@ -72,8 +76,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_Back", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_Back(_Underlying *_this);
-                    var __ret = __MR_C_std_list_MR_StdContainers_NonAssignable_Back(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.StdContainers.Const_NonAssignable(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_list_MR_StdContainers_NonAssignable_Back(_UnderlyingPtr);
+                    MR.CS.StdContainers.Const_NonAssignable? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.StdContainers.Const_NonAssignable(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// The begin iterator, const.
@@ -81,7 +88,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_Begin", ExactSpelling = true)]
                     extern static MR.CS.Std.List_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_Begin(_Underlying *_this);
-                    return new(__MR_C_std_list_MR_StdContainers_NonAssignable_Begin(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.List_MRStdContainersNonAssignable.ConstIterator __ret;
+                    __ret = new(__MR_C_std_list_MR_StdContainers_NonAssignable_Begin(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a const iterator is the begin iterator.
@@ -97,7 +107,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_End", ExactSpelling = true)]
                     extern static MR.CS.Std.List_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_End(_Underlying *_this);
-                    return new(__MR_C_std_list_MR_StdContainers_NonAssignable_End(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.List_MRStdContainersNonAssignable.ConstIterator __ret;
+                    __ret = new(__MR_C_std_list_MR_StdContainers_NonAssignable_End(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a const iterator is the end iterator.
@@ -110,7 +123,7 @@ public static partial class MR
 
                 /// Read-only iterator for `MR_C_std_list_MR_StdContainers_NonAssignable`.
                 /// This is the const half of the class.
-                public class Const_ConstIterator : MR.CS.Misc.Object, System.IDisposable
+                public class Const_ConstIterator : MR.CS.Misc.Object<Const_ConstIterator>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -144,6 +157,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(MR.CS.Std.List_MRStdContainersNonAssignable.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Makes a const iterator from a mutable one.
@@ -162,7 +176,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_Deref", ExactSpelling = true)]
                         extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_Deref(_Underlying *_this);
-                        return new(__MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_Deref(_UnderlyingPtr), is_owning: false);
+                        MR.CS.StdContainers.Const_NonAssignable __ret;
+                        __ret = new(__MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_Deref(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
                     }
                 }
 
@@ -186,6 +203,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(MR.CS.Std.List_MRStdContainersNonAssignable.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -193,6 +211,8 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.List_MRStdContainersNonAssignable.ConstIterator._Underlying *other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(other);
                         __MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
@@ -259,7 +279,7 @@ public static partial class MR
 
                 /// Mutable iterator for `MR_C_std_list_MR_StdContainers_NonAssignable`.
                 /// This is the const half of the class.
-                public class Const_Iterator : MR.CS.Misc.Object, System.IDisposable
+                public class Const_Iterator : MR.CS.Misc.Object<Const_Iterator>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -293,6 +313,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother(MR.CS.Std.List_MRStdContainersNonAssignable.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_list_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Dereferences a mutable iterator.
@@ -300,7 +321,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_iterator_Deref", ExactSpelling = true)]
                         extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_iterator_Deref(_Underlying *_this);
-                        return new(__MR_C_std_list_MR_StdContainers_NonAssignable_iterator_Deref(_UnderlyingPtr), is_owning: false);
+                        MR.CS.StdContainers.NonAssignable __ret;
+                        __ret = new(__MR_C_std_list_MR_StdContainers_NonAssignable_iterator_Deref(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
                     }
                 }
 
@@ -324,6 +348,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother(MR.CS.Std.List_MRStdContainersNonAssignable.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_list_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -331,6 +356,8 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.List_MRStdContainersNonAssignable.Iterator._Underlying *other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(other);
                         __MR_C_std_list_MR_StdContainers_NonAssignable_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
@@ -402,6 +429,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.List_MRStdContainersNonAssignable._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.List_MRStdContainersNonAssignable._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_list_MR_StdContainers_NonAssignable_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -409,6 +437,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.List_MRStdContainersNonAssignable._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_list_MR_StdContainers_NonAssignable_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -433,6 +463,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_Clear", ExactSpelling = true)]
                     extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_Clear(_Underlying *_this);
+                    _DiscardKeepAlive();
                     __MR_C_std_list_MR_StdContainers_NonAssignable_Clear(_UnderlyingPtr);
                 }
 
@@ -441,8 +472,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_MutableFront", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_MutableFront(_Underlying *_this);
-                    var __ret = __MR_C_std_list_MR_StdContainers_NonAssignable_MutableFront(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.StdContainers.NonAssignable(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_list_MR_StdContainers_NonAssignable_MutableFront(_UnderlyingPtr);
+                    MR.CS.StdContainers.NonAssignable? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.StdContainers.NonAssignable(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// The last element or null if empty, mutable.
@@ -450,8 +484,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_MutableBack", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_MutableBack(_Underlying *_this);
-                    var __ret = __MR_C_std_list_MR_StdContainers_NonAssignable_MutableBack(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.StdContainers.NonAssignable(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_list_MR_StdContainers_NonAssignable_MutableBack(_UnderlyingPtr);
+                    MR.CS.StdContainers.NonAssignable? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.StdContainers.NonAssignable(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Inserts a new element at the end.
@@ -459,6 +496,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_PushBack", ExactSpelling = true)]
                     extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_PushBack(_Underlying *_this, MR.CS.Misc._PassBy new_elem_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *new_elem);
+                    if (new_elem.Value is not null) _KeepAlive(new_elem.Value);
                     __MR_C_std_list_MR_StdContainers_NonAssignable_PushBack(_UnderlyingPtr, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
@@ -475,6 +513,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_PushFront", ExactSpelling = true)]
                     extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_PushFront(_Underlying *_this, MR.CS.Misc._PassBy new_elem_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *new_elem);
+                    if (new_elem.Value is not null) _KeepAlive(new_elem.Value);
                     __MR_C_std_list_MR_StdContainers_NonAssignable_PushFront(_UnderlyingPtr, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
@@ -491,6 +530,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_InsertAtMutableIter", ExactSpelling = true)]
                     extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_InsertAtMutableIter(_Underlying *_this, MR.CS.Std.List_MRStdContainersNonAssignable.Iterator._Underlying *position, MR.CS.Misc._PassBy new_elem_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *new_elem);
+                    if (new_elem.Value is not null) _KeepAlive(new_elem.Value);
                     __MR_C_std_list_MR_StdContainers_NonAssignable_InsertAtMutableIter(_UnderlyingPtr, position._UnderlyingPtr, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
@@ -507,6 +547,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_InsertAtIter", ExactSpelling = true)]
                     extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_InsertAtIter(_Underlying *_this, MR.CS.Std.List_MRStdContainersNonAssignable.ConstIterator._Underlying *position, MR.CS.Misc._PassBy new_elem_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *new_elem);
+                    if (new_elem.Value is not null) _KeepAlive(new_elem.Value);
                     __MR_C_std_list_MR_StdContainers_NonAssignable_InsertAtIter(_UnderlyingPtr, position._UnderlyingPtr, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
@@ -523,7 +564,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_MutableBegin", ExactSpelling = true)]
                     extern static MR.CS.Std.List_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_MutableBegin(_Underlying *_this);
-                    return new(__MR_C_std_list_MR_StdContainers_NonAssignable_MutableBegin(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.List_MRStdContainersNonAssignable.Iterator __ret;
+                    __ret = new(__MR_C_std_list_MR_StdContainers_NonAssignable_MutableBegin(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a mutable iterator is the begin iterator.
@@ -539,7 +583,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_MutableEnd", ExactSpelling = true)]
                     extern static MR.CS.Std.List_MRStdContainersNonAssignable.Iterator._Underlying *__MR_C_std_list_MR_StdContainers_NonAssignable_MutableEnd(_Underlying *_this);
-                    return new(__MR_C_std_list_MR_StdContainers_NonAssignable_MutableEnd(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.List_MRStdContainersNonAssignable.Iterator __ret;
+                    __ret = new(__MR_C_std_list_MR_StdContainers_NonAssignable_MutableEnd(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a mutable iterator is the end iterator.

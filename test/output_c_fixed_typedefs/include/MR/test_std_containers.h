@@ -155,7 +155,7 @@ MR_C_API MR_StdContainers_A *MR_StdContainers_A_OffsetMutablePtr(MR_StdContainer
 
 // Generated from constructor `MR::StdContainers::A::A`.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdContainers_A *MR_StdContainers_A_ConstructFromAnother(const MR_StdContainers_A *_other);
 
@@ -168,9 +168,9 @@ MR_C_API void MR_StdContainers_A_DestroyArray(const MR_StdContainers_A *_this);
 // Generated from method `MR::StdContainers::A::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_StdContainers_A *MR_StdContainers_A_AssignFromAnother(MR_StdContainers_A *_this, const MR_StdContainers_A *_other);
 
 // Generated from function `MR::StdContainers::GetStdArray`.
@@ -202,7 +202,7 @@ MR_C_API MR_C_std_set_float_const_iterator *MR_StdContainers_GetMergedIterConst(
 
 // Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonDefaultConstructible_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(const MR_StdContainers_NonDefaultConstructible *_other);
 
@@ -227,9 +227,9 @@ MR_C_API void MR_StdContainers_NonDefaultConstructible_DestroyArray(const MR_Std
 // Generated from method `MR::StdContainers::NonDefaultConstructible::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_AssignFromAnother(MR_StdContainers_NonDefaultConstructible *_this, const MR_StdContainers_NonDefaultConstructible *_other);
 
 // Generated from function `MR::StdContainers::NonDefCon`.
@@ -254,7 +254,7 @@ MR_C_API const MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_Of
 MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_OffsetMutablePtr(MR_StdContainers_NonAssignable *ptr, ptrdiff_t i);
 
 // Generated from constructor `MR::StdContainers::NonAssignable::NonAssignable`.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
 MR_C_API MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdContainers_NonAssignable *_other);
 

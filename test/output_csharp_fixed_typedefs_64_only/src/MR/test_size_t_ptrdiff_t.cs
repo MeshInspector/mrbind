@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from class `MR::TestSizeT::A<MR_C_uint64_t>`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_A_MRCUint64T : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A_MRCUint64T : MR.CS.Misc.Object<Const_A_MRCUint64T>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -46,6 +46,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_ConstructFromAnother(MR.CS.TestSizeT.A_MRCUint64T._Underlying *_other);
                     _UnderlyingPtr = __MR_TestSizeT_A_uint64_t_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -75,6 +76,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_ConstructFromAnother(MR.CS.TestSizeT.A_MRCUint64T._Underlying *_other);
                     _UnderlyingPtr = __MR_TestSizeT_A_uint64_t_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -84,6 +86,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_uint64_t_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_MRCUint64T._Underlying *__MR_TestSizeT_A_uint64_t_AssignFromAnother(_Underlying *_this, MR.CS.TestSizeT.A_MRCUint64T._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_TestSizeT_A_uint64_t_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 

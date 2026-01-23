@@ -19,7 +19,7 @@ public static partial class MR
             ///     `MR::Bases::D2`
             ///     `MR::Bases::D3`
             /// This is the const half of the class.
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -53,6 +53,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.A._Underlying *__MR_Bases_A_ConstructFromAnother(MR.CS.Bases.A._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -89,6 +90,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.A._Underlying *__MR_Bases_A_ConstructFromAnother(MR.CS.Bases.A._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::Bases::A::operator=`.
@@ -96,6 +98,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.A._Underlying *__MR_Bases_A_AssignFromAnother(_Underlying *_this, MR.CS.Bases.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_Bases_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -141,7 +145,7 @@ public static partial class MR
             ///     `MR::Bases::D2`
             ///     `MR::Bases::D3`
             /// This is the const half of the class.
-            public class Const_B : MR.CS.Misc.Object, System.IDisposable
+            public class Const_B : MR.CS.Misc.Object<Const_B>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -185,6 +189,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.B._Underlying *__MR_Bases_B_ConstructFromAnother(MR.CS.Bases.B._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_B_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -227,6 +232,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.B._Underlying *__MR_Bases_B_ConstructFromAnother(MR.CS.Bases.B._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_B_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::Bases::B::operator=`.
@@ -234,6 +240,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.B._Underlying *__MR_Bases_B_AssignFromAnother(_Underlying *_this, MR.CS.Bases.B._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_Bases_B_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -275,7 +283,7 @@ public static partial class MR
             ///   Indirect: (non-virtual)
             ///     `MR::Bases::A`
             /// This is the const half of the class.
-            public class Const_B2 : MR.CS.Misc.Object, System.IDisposable
+            public class Const_B2 : MR.CS.Misc.Object<Const_B2>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -327,6 +335,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B2_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.B2._Underlying *__MR_Bases_B2_ConstructFromAnother(MR.CS.Bases.B2._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_B2_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -373,6 +382,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B2_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.B2._Underlying *__MR_Bases_B2_ConstructFromAnother(MR.CS.Bases.B2._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_B2_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::Bases::B2::operator=`.
@@ -380,6 +390,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B2_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.B2._Underlying *__MR_Bases_B2_AssignFromAnother(_Underlying *_this, MR.CS.Bases.B2._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_Bases_B2_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -422,7 +434,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::Bases::D`
             /// This is the const half of the class.
-            public class Const_C : MR.CS.Misc.Object, System.IDisposable
+            public class Const_C : MR.CS.Misc.Object<Const_C>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -466,6 +478,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_C_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.C._Underlying *__MR_Bases_C_ConstructFromAnother(MR.CS.Bases.C._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_C_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -505,6 +518,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_C_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.C._Underlying *__MR_Bases_C_ConstructFromAnother(MR.CS.Bases.C._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_C_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::Bases::C::operator=`.
@@ -512,6 +526,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_C_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.C._Underlying *__MR_Bases_C_AssignFromAnother(_Underlying *_this, MR.CS.Bases.C._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_Bases_C_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -554,7 +570,7 @@ public static partial class MR
             ///   Ambiguous:
             ///     `MR::Bases::A`
             /// This is the const half of the class.
-            public class Const_D : MR.CS.Misc.Object, System.IDisposable
+            public class Const_D : MR.CS.Misc.Object<Const_D>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -606,6 +622,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D._Underlying *__MR_Bases_D_ConstructFromAnother(MR.CS.Bases.D._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_D_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -653,6 +670,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D._Underlying *__MR_Bases_D_ConstructFromAnother(MR.CS.Bases.D._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_D_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::Bases::D::operator=`.
@@ -660,6 +678,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D._Underlying *__MR_Bases_D_AssignFromAnother(_Underlying *_this, MR.CS.Bases.D._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_Bases_D_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -701,7 +721,7 @@ public static partial class MR
             ///   Ambiguous:
             ///     `MR::Bases::A`
             /// This is the const half of the class.
-            public class Const_D2 : MR.CS.Misc.Object, System.IDisposable
+            public class Const_D2 : MR.CS.Misc.Object<Const_D2>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -745,6 +765,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D2_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D2._Underlying *__MR_Bases_D2_ConstructFromAnother(MR.CS.Bases.D2._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_D2_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -783,6 +804,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D2_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D2._Underlying *__MR_Bases_D2_ConstructFromAnother(MR.CS.Bases.D2._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_D2_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::Bases::D2::operator=`.
@@ -790,6 +812,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D2_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D2._Underlying *__MR_Bases_D2_AssignFromAnother(_Underlying *_this, MR.CS.Bases.D2._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_Bases_D2_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -831,7 +855,7 @@ public static partial class MR
             ///   Ambiguous:
             ///     `MR::Bases::A`
             /// This is the const half of the class.
-            public class Const_D3 : MR.CS.Misc.Object, System.IDisposable
+            public class Const_D3 : MR.CS.Misc.Object<Const_D3>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -875,6 +899,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D3_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D3._Underlying *__MR_Bases_D3_ConstructFromAnother(MR.CS.Bases.D3._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_D3_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -913,6 +938,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D3_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D3._Underlying *__MR_Bases_D3_ConstructFromAnother(MR.CS.Bases.D3._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_D3_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::Bases::D3::operator=`.
@@ -920,6 +946,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D3_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.D3._Underlying *__MR_Bases_D3_AssignFromAnother(_Underlying *_this, MR.CS.Bases.D3._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_Bases_D3_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -963,7 +991,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::Bases::F`
             /// This is the const half of the class.
-            public class Const_E : MR.CS.Misc.Object, System.IDisposable
+            public class Const_E : MR.CS.Misc.Object<Const_E>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -997,6 +1025,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_E_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.E._Underlying *__MR_Bases_E_ConstructFromAnother(MR.CS.Bases.E._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_E_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -1027,6 +1056,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_E_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.E._Underlying *__MR_Bases_E_ConstructFromAnother(MR.CS.Bases.E._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_E_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::Bases::E::operator=`.
@@ -1034,6 +1064,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_E_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.E._Underlying *__MR_Bases_E_AssignFromAnother(_Underlying *_this, MR.CS.Bases.E._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_Bases_E_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -1078,7 +1110,7 @@ public static partial class MR
             ///     `MR::Bases::H`
             ///     `MR::Bases::I`
             /// This is the const half of the class.
-            public class Const_F : MR.CS.Misc.Object, System.IDisposable
+            public class Const_F : MR.CS.Misc.Object<Const_F>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1122,6 +1154,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_F_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.F._Underlying *__MR_Bases_F_ConstructFromAnother(MR.CS.Bases.F._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_F_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -1163,6 +1196,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_F_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.F._Underlying *__MR_Bases_F_ConstructFromAnother(MR.CS.Bases.F._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_F_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::Bases::F::operator=`.
@@ -1170,6 +1204,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_F_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.F._Underlying *__MR_Bases_F_AssignFromAnother(_Underlying *_this, MR.CS.Bases.F._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_Bases_F_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -1211,7 +1247,7 @@ public static partial class MR
             ///   Non-virtual along a virtual path:
             ///     `MR::Bases::E`
             /// This is the const half of the class.
-            public class Const_G : MR.CS.Misc.Object, System.IDisposable
+            public class Const_G : MR.CS.Misc.Object<Const_G>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1263,6 +1299,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_G_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.G._Underlying *__MR_Bases_G_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.G._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
             }
 
@@ -1309,6 +1346,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_G_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.G._Underlying *__MR_Bases_G_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.G._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// Generated from method `MR::Bases::G::operator=`.
@@ -1316,6 +1354,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_G_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.G._Underlying *__MR_Bases_G_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.G._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_Bases_G_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
             }
@@ -1377,7 +1417,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::Bases::A`
             /// This is the const half of the class.
-            public class Const_H : MR.CS.Misc.Object, System.IDisposable
+            public class Const_H : MR.CS.Misc.Object<Const_H>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1437,6 +1477,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_H_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.H._Underlying *__MR_Bases_H_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.H._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
             }
 
@@ -1493,6 +1534,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_H_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.H._Underlying *__MR_Bases_H_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.H._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// Generated from method `MR::Bases::H::operator=`.
@@ -1500,6 +1542,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_H_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.H._Underlying *__MR_Bases_H_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.H._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_Bases_H_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
             }
@@ -1560,7 +1604,7 @@ public static partial class MR
             ///   Non-virtual along a virtual path:
             ///     `MR::Bases::E`
             /// This is the const half of the class.
-            public class Const_I : MR.CS.Misc.Object, System.IDisposable
+            public class Const_I : MR.CS.Misc.Object<Const_I>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1620,6 +1664,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_I_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.I._Underlying *__MR_Bases_I_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.I._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
             }
 
@@ -1675,6 +1720,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_I_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.I._Underlying *__MR_Bases_I_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.I._Underlying *_other);
                     _UnderlyingPtr = __MR_Bases_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// Generated from method `MR::Bases::I::operator=`.
@@ -1682,6 +1728,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_I_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Bases.I._Underlying *__MR_Bases_I_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.Bases.I._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_Bases_I_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
             }

@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from class `MR::NestedTypes::A`.
             /// This is the const half of the class.
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -32,7 +32,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_Get_b", ExactSpelling = true)]
                         extern static MR.CS.NestedTypes.A.Const_B._Underlying *__MR_NestedTypes_A_Get_b(_Underlying *_this);
-                        return new(__MR_NestedTypes_A_Get_b(_UnderlyingPtr), is_owning: false);
+                        MR.CS.NestedTypes.A.Const_B __ret;
+                        __ret = new(__MR_NestedTypes_A_Get_b(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
                     }
                 }
 
@@ -60,6 +63,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_ConstructFrom(MR.CS.NestedTypes.A.B._Underlying *b, MR.CS.NestedTypes.A.E e);
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFrom(b._UnderlyingPtr, e);
+                    _KeepAlive(b);
                 }
 
                 /// Generated from constructor `MR::NestedTypes::A::A`.
@@ -68,11 +72,12 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_ConstructFromAnother(MR.CS.NestedTypes.A._Underlying *_other);
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from class `MR::NestedTypes::A::B`.
                 /// This is the const half of the class.
-                public class Const_B : MR.CS.Misc.Object, System.IDisposable
+                public class Const_B : MR.CS.Misc.Object<Const_B>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -106,6 +111,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_B_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.NestedTypes.A.B._Underlying *__MR_NestedTypes_A_B_ConstructFromAnother(MR.CS.NestedTypes.A.B._Underlying *_other);
                         _UnderlyingPtr = __MR_NestedTypes_A_B_ConstructFromAnother(_other._UnderlyingPtr);
+                        _KeepAlive(_other);
                     }
                 }
 
@@ -129,6 +135,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_B_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.NestedTypes.A.B._Underlying *__MR_NestedTypes_A_B_ConstructFromAnother(MR.CS.NestedTypes.A.B._Underlying *_other);
                         _UnderlyingPtr = __MR_NestedTypes_A_B_ConstructFromAnother(_other._UnderlyingPtr);
+                        _KeepAlive(_other);
                     }
 
                     /// Generated from method `MR::NestedTypes::A::B::operator=`.
@@ -136,6 +143,8 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_B_AssignFromAnother", ExactSpelling = true)]
                         extern static MR.CS.NestedTypes.A.B._Underlying *__MR_NestedTypes_A_B_AssignFromAnother(_Underlying *_this, MR.CS.NestedTypes.A.B._Underlying *_other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(_other);
                         return new(__MR_NestedTypes_A_B_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                     }
                 }
@@ -187,7 +196,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_GetMutable_b", ExactSpelling = true)]
                         extern static MR.CS.NestedTypes.A.B._Underlying *__MR_NestedTypes_A_GetMutable_b(_Underlying *_this);
-                        return new(__MR_NestedTypes_A_GetMutable_b(_UnderlyingPtr), is_owning: false);
+                        MR.CS.NestedTypes.A.B __ret;
+                        __ret = new(__MR_NestedTypes_A_GetMutable_b(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
                     }
                 }
 
@@ -215,6 +227,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_ConstructFrom(MR.CS.NestedTypes.A.B._Underlying *b, MR.CS.NestedTypes.A.E e);
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFrom(b._UnderlyingPtr, e);
+                    _KeepAlive(b);
                 }
 
                 /// Generated from constructor `MR::NestedTypes::A::A`.
@@ -223,6 +236,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_ConstructFromAnother(MR.CS.NestedTypes.A._Underlying *_other);
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::NestedTypes::A::operator=`.
@@ -230,6 +244,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_AssignFromAnother(_Underlying *_this, MR.CS.NestedTypes.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_NestedTypes_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }

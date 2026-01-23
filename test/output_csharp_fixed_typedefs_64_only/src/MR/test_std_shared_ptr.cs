@@ -9,7 +9,7 @@ public static partial class MR
             /// Generated from class `MR::StdSharedPtr::A`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_A : MR.CS.Misc.SharedObject, System.IDisposable
+            public class Const_A : MR.CS.Misc.SharedObject<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
                 internal struct _UnderlyingShared {} // Represents the underlying shared pointer C++ type.
@@ -113,6 +113,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_ConstructFromAnother(MR.CS.StdSharedPtr.A._Underlying *_other);
                     _LateMakeShared(__MR_StdSharedPtr_A_ConstructFromAnother(_other._UnderlyingPtr));
+                    _KeepAlive(_other);
                 }
             }
 
@@ -145,6 +146,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_ConstructFromAnother(MR.CS.StdSharedPtr.A._Underlying *_other);
                     _LateMakeShared(__MR_StdSharedPtr_A_ConstructFromAnother(_other._UnderlyingPtr));
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -154,6 +156,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdSharedPtr_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdSharedPtr.A._Underlying *__MR_StdSharedPtr_A_AssignFromAnother(_Underlying *_this, MR.CS.StdSharedPtr.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_StdSharedPtr_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }

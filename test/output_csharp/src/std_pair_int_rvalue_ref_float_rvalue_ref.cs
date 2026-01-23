@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Stores two objects: `int &&` and `int &&`.
             /// This is the const half of the class.
-            public class Const_Pair_IntRvalueRef_FloatRvalueRef : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Pair_IntRvalueRef_FloatRvalueRef : MR.CS.Misc.Object<Const_Pair_IntRvalueRef_FloatRvalueRef>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -32,6 +32,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// Constructs the pair elementwise.
@@ -71,6 +72,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// Constructs the pair elementwise.

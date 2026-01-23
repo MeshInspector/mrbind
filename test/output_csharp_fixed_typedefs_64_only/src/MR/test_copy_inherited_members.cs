@@ -25,7 +25,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::L`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -93,6 +93,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFromAnother(MR.CS.CopyInheritedMembers.A._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -169,6 +170,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFromAnother(MR.CS.CopyInheritedMembers.A._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -188,6 +190,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_CopyInheritedMembers_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
@@ -247,7 +251,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::F`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_B : MR.CS.Misc.Object, System.IDisposable
+            public class Const_B : MR.CS.Misc.Object<Const_B>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -315,6 +319,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFromAnother(MR.CS.CopyInheritedMembers.B._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -381,6 +386,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFromAnother(MR.CS.CopyInheritedMembers.B._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -400,6 +406,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.B._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_CopyInheritedMembers_B_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
@@ -456,7 +464,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::B`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_C : MR.CS.Misc.Object, System.IDisposable
+            public class Const_C : MR.CS.Misc.Object<Const_C>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -512,6 +520,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_ConstructFromAnother(MR.CS.CopyInheritedMembers.C._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -563,6 +572,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_ConstructFromAnother(MR.CS.CopyInheritedMembers.C._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -572,6 +582,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_C_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.C._Underlying *__MR_CopyInheritedMembers_C_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.C._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_CopyInheritedMembers_C_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -621,7 +633,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::F`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_D : MR.CS.Misc.Object, System.IDisposable
+            public class Const_D : MR.CS.Misc.Object<Const_D>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -689,6 +701,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_ConstructFromAnother(MR.CS.CopyInheritedMembers.D._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -755,6 +768,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_ConstructFromAnother(MR.CS.CopyInheritedMembers.D._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -774,6 +788,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.D._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_CopyInheritedMembers_D_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
@@ -832,7 +848,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::B`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_E : MR.CS.Misc.Object, System.IDisposable
+            public class Const_E : MR.CS.Misc.Object<Const_E>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -896,6 +912,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_ConstructFromAnother(MR.CS.CopyInheritedMembers.E._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -957,6 +974,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_ConstructFromAnother(MR.CS.CopyInheritedMembers.E._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -966,6 +984,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_E_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.E._Underlying *__MR_CopyInheritedMembers_E_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.E._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_CopyInheritedMembers_E_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -1014,7 +1034,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::B`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_F : MR.CS.Misc.Object, System.IDisposable
+            public class Const_F : MR.CS.Misc.Object<Const_F>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1078,6 +1098,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_ConstructFromAnother(MR.CS.CopyInheritedMembers.F._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -1139,6 +1160,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_ConstructFromAnother(MR.CS.CopyInheritedMembers.F._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -1148,6 +1170,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_F_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.F._Underlying *__MR_CopyInheritedMembers_F_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.F._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_CopyInheritedMembers_F_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -1199,7 +1223,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::L`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_G : MR.CS.Misc.Object, System.IDisposable
+            public class Const_G : MR.CS.Misc.Object<Const_G>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1267,6 +1291,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.G._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -1335,6 +1360,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.G._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -1354,6 +1380,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.G._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_CopyInheritedMembers_G_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
@@ -1431,7 +1459,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::G`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_H : MR.CS.Misc.Object, System.IDisposable
+            public class Const_H : MR.CS.Misc.Object<Const_H>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1507,6 +1535,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.H._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -1579,6 +1608,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.H._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -1598,6 +1628,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.H._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_CopyInheritedMembers_H_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
@@ -1675,7 +1707,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::G`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_I : MR.CS.Misc.Object, System.IDisposable
+            public class Const_I : MR.CS.Misc.Object<Const_I>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1751,6 +1783,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.I._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -1823,6 +1856,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.I._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -1842,6 +1876,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.I._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_CopyInheritedMembers_I_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
@@ -1925,7 +1961,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::L`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_J : MR.CS.Misc.Object, System.IDisposable
+            public class Const_J : MR.CS.Misc.Object<Const_J>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1993,6 +2029,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_ConstructFromAnother(MR.CS.CopyInheritedMembers.J._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -2063,6 +2100,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_ConstructFromAnother(MR.CS.CopyInheritedMembers.J._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -2082,6 +2120,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_AssignFromAnother(_Underlying *_this, MR.CS.CopyInheritedMembers.J._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_CopyInheritedMembers_J_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
@@ -2140,7 +2180,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::A`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_K : MR.CS.Misc.Object, System.IDisposable
+            public class Const_K : MR.CS.Misc.Object<Const_K>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -2196,6 +2236,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.K._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
             }
 
@@ -2249,6 +2290,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.K._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -2258,6 +2300,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_K_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.K._Underlying *__MR_CopyInheritedMembers_K_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.K._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_CopyInheritedMembers_K_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
             }
@@ -2326,7 +2370,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::A`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_L : MR.CS.Misc.Object, System.IDisposable
+            public class Const_L : MR.CS.Misc.Object<Const_L>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -2382,6 +2426,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.L._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
             }
 
@@ -2435,6 +2480,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.L._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -2444,6 +2490,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_L_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.L._Underlying *__MR_CopyInheritedMembers_L_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.L._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_CopyInheritedMembers_L_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
             }
@@ -2517,7 +2565,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::O`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_M : MR.CS.Misc.Object, System.IDisposable
+            public class Const_M : MR.CS.Misc.Object<Const_M>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -2593,6 +2641,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.M._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -2671,6 +2720,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.M._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -2690,6 +2740,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.M._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_CopyInheritedMembers_M_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
@@ -2772,7 +2824,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::O`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_N : MR.CS.Misc.Object, System.IDisposable
+            public class Const_N : MR.CS.Misc.Object<Const_N>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -2856,6 +2908,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.N._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -2941,6 +2994,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.N._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -2960,6 +3014,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.N._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_CopyInheritedMembers_N_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 
@@ -3041,7 +3097,7 @@ public static partial class MR
             ///     `MR::CopyInheritedMembers::M`
             /// This is the const half of the class.
             /// </summary>
-            public class Const_O : MR.CS.Misc.Object, System.IDisposable
+            public class Const_O : MR.CS.Misc.Object<Const_O>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -3133,6 +3189,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.O._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -3225,6 +3282,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.O._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -3244,6 +3302,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.O._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_CopyInheritedMembers_O_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
 

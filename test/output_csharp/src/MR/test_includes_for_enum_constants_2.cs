@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from class `MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>`.
             /// This is the const half of the class.
-            public class Const_A_MRIncludesForEnumConstantsEE1 : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A_MRIncludesForEnumConstantsEE1 : MR.CS.Misc.Object<Const_A_MRIncludesForEnumConstantsEE1>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *_other);
                     _UnderlyingPtr = __MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -63,6 +64,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *_other);
                     _UnderlyingPtr = __MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>::operator=`.
@@ -70,6 +72,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother(_Underlying *_this, MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }

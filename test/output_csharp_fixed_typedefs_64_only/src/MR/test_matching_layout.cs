@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from class `MR::MatchingLayout::A`.
             /// This is the const reference to the struct.
             /// </summary>
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -260,7 +260,7 @@ public static partial class MR
             /// Generated from class `MR::MatchingLayout::B`.
             /// This is the const reference to the struct.
             /// </summary>
-            public class Const_B : MR.CS.Misc.Object, System.IDisposable
+            public class Const_B : MR.CS.Misc.Object<Const_B>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -522,9 +522,9 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_bleh", ExactSpelling = true)]
                 extern static MR.CS.MatchingLayout.B *__MR_MatchingLayout_bleh(MR.CS.MatchingLayout.B *_1);
                 MR.CS.MatchingLayout.B __value__1 = _1 is not null ? _1.Value : default(MR.CS.MatchingLayout.B);
-                var __ret = __MR_MatchingLayout_bleh(_1 is not null ? &__value__1 : null);
+                var __c_ret = __MR_MatchingLayout_bleh(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
-                return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.MatchingLayout.B>(__ret) : null;
+                return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.MatchingLayout.B>(__c_ret) : null;
             }
         }
     }

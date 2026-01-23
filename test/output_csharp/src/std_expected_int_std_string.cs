@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Stores either a `int` that represents success or a `std::string` that represents an error.
             /// This is the const half of the class.
-            public class Const_Expected_Int_StdString : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Expected_Int_StdString : MR.CS.Misc.Object<Const_Expected_Int_StdString>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Expected_Int_StdString._Underlying *__MR_C_std_expected_int_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_Int_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_expected_int_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Returns true if this instance represents success, or false if it represents an error.
@@ -55,8 +56,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetValue", ExactSpelling = true)]
                     extern static int *__MR_C_std_expected_int_std_string_GetValue(_Underlying *_this);
-                    var __ret = __MR_C_std_expected_int_std_string_GetValue(_UnderlyingPtr);
-                    return __ret is not null ? *__ret : null;
+                    var __c_ret = __MR_C_std_expected_int_std_string_GetValue(_UnderlyingPtr);
+                    return __c_ret is not null ? *__c_ret : null;
                 }
 
                 /// If this instance represents an error, returns the stored `std::string`. Otherwise null.
@@ -64,8 +65,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetError", ExactSpelling = true)]
                     extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_expected_int_std_string_GetError(_Underlying *_this);
-                    var __ret = __MR_C_std_expected_int_std_string_GetError(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Std.Const_String(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_expected_int_std_string_GetError(_UnderlyingPtr);
+                    MR.CS.Std.Const_String? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.Std.Const_String(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
             }
 
@@ -89,6 +93,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Expected_Int_StdString._Underlying *__MR_C_std_expected_int_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_Int_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_expected_int_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -96,6 +101,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_expected_int_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_Int_StdString._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_expected_int_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -104,8 +111,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetMutableValue", ExactSpelling = true)]
                     extern static int *__MR_C_std_expected_int_std_string_GetMutableValue(_Underlying *_this);
-                    var __ret = __MR_C_std_expected_int_std_string_GetMutableValue(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Misc.Ref<int>(__ret) : null;
+                    var __c_ret = __MR_C_std_expected_int_std_string_GetMutableValue(_UnderlyingPtr);
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
 
                 /// If this instance represents an error, returns the stored `std::string`. Otherwise null. This version returns a mutable pointer.
@@ -113,8 +120,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_std_string_GetMutableError", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_C_std_expected_int_std_string_GetMutableError(_Underlying *_this);
-                    var __ret = __MR_C_std_expected_int_std_string_GetMutableError(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Std.String(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_expected_int_std_string_GetMutableError(_UnderlyingPtr);
+                    MR.CS.Std.String? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.Std.String(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
             }
 

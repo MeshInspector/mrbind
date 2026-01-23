@@ -26,15 +26,16 @@ MR_C_API MR_C_std_array_MR_StdContainers_A_42 *MR_C_std_array_MR_StdContainers_A
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null. It is a single object.
-/// The reference to the parameter `other` might be preserved in the return value.
+/// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_array_MR_StdContainers_A_42_Destroy()` to free it when you're done using it.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_array_MR_StdContainers_A_42 *MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(const MR_C_std_array_MR_StdContainers_A_42 *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
-/// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// The reference to the parameter `other` might be preserved in this object.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_array_MR_StdContainers_A_42_AssignFromAnother(MR_C_std_array_MR_StdContainers_A_42 *_this, const MR_C_std_array_MR_StdContainers_A_42 *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_array_MR_StdContainers_A_42`. Does nothing if the pointer is null.
@@ -53,24 +54,20 @@ MR_C_API MR_C_std_array_MR_StdContainers_A_42 *MR_C_std_array_MR_StdContainers_A
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_At(const MR_C_std_array_MR_StdContainers_A_42 *_this, size_t i);
 
 /// The element at a specific index, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_MutableAt(MR_C_std_array_MR_StdContainers_A_42 *_this, size_t i);
 
 /// Returns a pointer to the continuous storage that holds all elements, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_Data(const MR_C_std_array_MR_StdContainers_A_42 *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_MutableData(MR_C_std_array_MR_StdContainers_A_42 *_this);
 
 #ifdef __cplusplus

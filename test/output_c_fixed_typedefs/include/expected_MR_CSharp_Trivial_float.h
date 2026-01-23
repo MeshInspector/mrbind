@@ -31,15 +31,16 @@ MR_C_API MR_C_expected_MR_CSharp_Trivial_float *MR_C_expected_MR_CSharp_Trivial_
 
 // Constructs a copy of another instance. The source remains alive.
 // Parameter `other` can not be null. It is a single object.
-// The reference to the parameter `other` might be preserved in the return value.
+// The reference to the parameter `other` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_expected_MR_CSharp_Trivial_float_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_expected_MR_CSharp_Trivial_float *MR_C_expected_MR_CSharp_Trivial_float_ConstructFromAnother(const MR_C_expected_MR_CSharp_Trivial_float *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
-// The reference to the parameter `other` might be preserved in the parameter `_this`.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// The reference to the parameter `other` might be preserved in this object.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_expected_MR_CSharp_Trivial_float_AssignFromAnother(MR_C_expected_MR_CSharp_Trivial_float *_this, const MR_C_expected_MR_CSharp_Trivial_float *other);
 
 // Destroys a heap-allocated instance of `MR_C_expected_MR_CSharp_Trivial_float`. Does nothing if the pointer is null.
@@ -62,22 +63,18 @@ MR_C_API bool MR_C_expected_MR_CSharp_Trivial_float_Success(const MR_C_expected_
 
 // If this instance represents success, returns the stored `MR::CSharp::Trivial`. Otherwise null.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_CSharp_Trivial *MR_C_expected_MR_CSharp_Trivial_float_GetValue(const MR_C_expected_MR_CSharp_Trivial_float *_this);
 
 // If this instance represents an error, returns the stored `float`. Otherwise null.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const float *MR_C_expected_MR_CSharp_Trivial_float_GetError(const MR_C_expected_MR_CSharp_Trivial_float *_this);
 
 // If this instance represents success, returns the stored `MR::CSharp::Trivial`. Otherwise null. This version returns a mutable pointer.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_CSharp_Trivial *MR_C_expected_MR_CSharp_Trivial_float_GetMutableValue(MR_C_expected_MR_CSharp_Trivial_float *_this);
 
 // If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API float *MR_C_expected_MR_CSharp_Trivial_float_GetMutableError(MR_C_expected_MR_CSharp_Trivial_float *_this);
 
 #ifdef __cplusplus

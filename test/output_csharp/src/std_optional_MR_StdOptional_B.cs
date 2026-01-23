@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Stores either a single `MR::StdOptional::B` or nothing.
             /// This is the const half of the class.
-            public class Const_Optional_MRStdOptionalB : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Optional_MRStdOptionalB : MR.CS.Misc.Object<Const_Optional_MRStdOptionalB>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRStdOptionalB._Underlying *__MR_C_std_optional_MR_StdOptional_B_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRStdOptionalB._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_B_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Constructs a new instance.
@@ -58,8 +59,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_B_Value", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.Const_B._Underlying *__MR_C_std_optional_MR_StdOptional_B_Value(_Underlying *_this);
-                    var __ret = __MR_C_std_optional_MR_StdOptional_B_Value(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.StdOptional.Const_B(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_optional_MR_StdOptional_B_Value(_UnderlyingPtr);
+                    MR.CS.StdOptional.Const_B? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.StdOptional.Const_B(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
             }
 
@@ -83,6 +87,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRStdOptionalB._Underlying *__MR_C_std_optional_MR_StdOptional_B_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRStdOptionalB._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_B_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Constructs a new instance.
@@ -101,6 +106,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_B_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_StdOptional_B_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_MRStdOptionalB._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_optional_MR_StdOptional_B_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -117,8 +124,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_B_MutableValue", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_C_std_optional_MR_StdOptional_B_MutableValue(_Underlying *_this);
-                    var __ret = __MR_C_std_optional_MR_StdOptional_B_MutableValue(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.StdOptional.B(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_optional_MR_StdOptional_B_MutableValue(_UnderlyingPtr);
+                    MR.CS.StdOptional.B? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.StdOptional.B(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
             }
 

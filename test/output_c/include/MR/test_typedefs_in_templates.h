@@ -42,7 +42,7 @@ MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_OffsetMutabl
 
 /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_A_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_ConstructFromAnother(const MR_TypedefsInTemplates_A_int *_other);
 
@@ -55,9 +55,9 @@ MR_C_API void MR_TypedefsInTemplates_A_int_DestroyArray(const MR_TypedefsInTempl
 /// Generated from method `MR::TypedefsInTemplates::A<int>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_TypedefsInTemplates_A_int *MR_TypedefsInTemplates_A_int_AssignFromAnother(MR_TypedefsInTemplates_A_int *_this, const MR_TypedefsInTemplates_A_int *_other);
 
 /// Generated from method `MR::TypedefsInTemplates::A<int>::foo`.
@@ -83,7 +83,7 @@ MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_OffsetMutabl
 
 /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_ConstructFromAnother(const MR_TypedefsInTemplates_B_int *_other);
 
@@ -96,9 +96,9 @@ MR_C_API void MR_TypedefsInTemplates_B_int_DestroyArray(const MR_TypedefsInTempl
 /// Generated from method `MR::TypedefsInTemplates::B<int>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_TypedefsInTemplates_B_int *MR_TypedefsInTemplates_B_int_AssignFromAnother(MR_TypedefsInTemplates_B_int *_this, const MR_TypedefsInTemplates_B_int *_other);
 
 /// Constructs an empty (default-constructed) instance.
@@ -120,7 +120,7 @@ MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_
 
 /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TypedefsInTemplates_B_int_BB_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(const MR_TypedefsInTemplates_B_int_BB_float *_other);
 
@@ -133,9 +133,9 @@ MR_C_API void MR_TypedefsInTemplates_B_int_BB_float_DestroyArray(const MR_Typede
 /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_TypedefsInTemplates_B_int_BB_float *MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(MR_TypedefsInTemplates_B_int_BB_float *_this, const MR_TypedefsInTemplates_B_int_BB_float *_other);
 
 /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::foo`.

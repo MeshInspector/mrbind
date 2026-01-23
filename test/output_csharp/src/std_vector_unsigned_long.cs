@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from C++ container `std::vector<unsigned long>`.
             /// This is the const half of the class.
-            public class Const_Vector_UnsignedLong : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Vector_UnsignedLong : MR.CS.Misc.Object<Const_Vector_UnsignedLong>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Vector_UnsignedLong._Underlying *__MR_C_std_vector_unsigned_long_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_UnsignedLong._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_vector_unsigned_long_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Construct from a range of elements.
@@ -91,8 +92,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_Front", ExactSpelling = true)]
                     extern static ulong *__MR_C_std_vector_unsigned_long_Front(_Underlying *_this);
-                    var __ret = __MR_C_std_vector_unsigned_long_Front(_UnderlyingPtr);
-                    return __ret is not null ? *__ret : null;
+                    var __c_ret = __MR_C_std_vector_unsigned_long_Front(_UnderlyingPtr);
+                    return __c_ret is not null ? *__c_ret : null;
                 }
 
                 /// The last element or null if empty, read-only.
@@ -100,8 +101,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_Back", ExactSpelling = true)]
                     extern static ulong *__MR_C_std_vector_unsigned_long_Back(_Underlying *_this);
-                    var __ret = __MR_C_std_vector_unsigned_long_Back(_UnderlyingPtr);
-                    return __ret is not null ? *__ret : null;
+                    var __c_ret = __MR_C_std_vector_unsigned_long_Back(_UnderlyingPtr);
+                    return __c_ret is not null ? *__c_ret : null;
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
@@ -118,7 +119,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_Begin", ExactSpelling = true)]
                     extern static MR.CS.Std.Vector_UnsignedLong.ConstIterator._Underlying *__MR_C_std_vector_unsigned_long_Begin(_Underlying *_this);
-                    return new(__MR_C_std_vector_unsigned_long_Begin(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.Vector_UnsignedLong.ConstIterator __ret;
+                    __ret = new(__MR_C_std_vector_unsigned_long_Begin(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a const iterator is the begin iterator.
@@ -134,7 +138,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_End", ExactSpelling = true)]
                     extern static MR.CS.Std.Vector_UnsignedLong.ConstIterator._Underlying *__MR_C_std_vector_unsigned_long_End(_Underlying *_this);
-                    return new(__MR_C_std_vector_unsigned_long_End(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.Vector_UnsignedLong.ConstIterator __ret;
+                    __ret = new(__MR_C_std_vector_unsigned_long_End(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a const iterator is the end iterator.
@@ -163,7 +170,7 @@ public static partial class MR
 
                 /// Read-only iterator for `MR_C_std_vector_unsigned_long`.
                 /// This is the const half of the class.
-                public class Const_ConstIterator : MR.CS.Misc.Object, System.IDisposable
+                public class Const_ConstIterator : MR.CS.Misc.Object<Const_ConstIterator>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -197,6 +204,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.Vector_UnsignedLong.ConstIterator._Underlying *__MR_C_std_vector_unsigned_long_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_UnsignedLong.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_unsigned_long_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Makes a const iterator from a mutable one.
@@ -247,6 +255,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.Vector_UnsignedLong.ConstIterator._Underlying *__MR_C_std_vector_unsigned_long_const_iterator_ConstructFromAnother(MR.CS.Std.Vector_UnsignedLong.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_unsigned_long_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -254,6 +263,8 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_const_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_vector_unsigned_long_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_UnsignedLong.ConstIterator._Underlying *other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(other);
                         __MR_C_std_vector_unsigned_long_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
@@ -328,7 +339,7 @@ public static partial class MR
 
                 /// Mutable iterator for `MR_C_std_vector_unsigned_long`.
                 /// This is the const half of the class.
-                public class Const_Iterator : MR.CS.Misc.Object, System.IDisposable
+                public class Const_Iterator : MR.CS.Misc.Object<Const_Iterator>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -362,6 +373,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.Vector_UnsignedLong.Iterator._Underlying *__MR_C_std_vector_unsigned_long_iterator_ConstructFromAnother(MR.CS.Std.Vector_UnsignedLong.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_unsigned_long_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Dereferences a mutable iterator.
@@ -401,6 +413,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.Vector_UnsignedLong.Iterator._Underlying *__MR_C_std_vector_unsigned_long_iterator_ConstructFromAnother(MR.CS.Std.Vector_UnsignedLong.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_vector_unsigned_long_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -408,6 +421,8 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_vector_unsigned_long_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.Vector_UnsignedLong.Iterator._Underlying *other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(other);
                         __MR_C_std_vector_unsigned_long_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
@@ -487,6 +502,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Vector_UnsignedLong._Underlying *__MR_C_std_vector_unsigned_long_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_UnsignedLong._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_vector_unsigned_long_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -494,6 +510,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_vector_unsigned_long_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Vector_UnsignedLong._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_vector_unsigned_long_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -536,6 +554,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_Clear", ExactSpelling = true)]
                     extern static void __MR_C_std_vector_unsigned_long_Clear(_Underlying *_this);
+                    _DiscardKeepAlive();
                     __MR_C_std_vector_unsigned_long_Clear(_UnderlyingPtr);
                 }
 
@@ -571,8 +590,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_MutableFront", ExactSpelling = true)]
                     extern static ulong *__MR_C_std_vector_unsigned_long_MutableFront(_Underlying *_this);
-                    var __ret = __MR_C_std_vector_unsigned_long_MutableFront(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Misc.Ref<ulong>(__ret) : null;
+                    var __c_ret = __MR_C_std_vector_unsigned_long_MutableFront(_UnderlyingPtr);
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<ulong>(__c_ret) : null;
                 }
 
                 /// The last element or null if empty, mutable.
@@ -580,8 +599,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_MutableBack", ExactSpelling = true)]
                     extern static ulong *__MR_C_std_vector_unsigned_long_MutableBack(_Underlying *_this);
-                    var __ret = __MR_C_std_vector_unsigned_long_MutableBack(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Misc.Ref<ulong>(__ret) : null;
+                    var __c_ret = __MR_C_std_vector_unsigned_long_MutableBack(_UnderlyingPtr);
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<ulong>(__c_ret) : null;
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
@@ -662,7 +681,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_MutableBegin", ExactSpelling = true)]
                     extern static MR.CS.Std.Vector_UnsignedLong.Iterator._Underlying *__MR_C_std_vector_unsigned_long_MutableBegin(_Underlying *_this);
-                    return new(__MR_C_std_vector_unsigned_long_MutableBegin(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.Vector_UnsignedLong.Iterator __ret;
+                    __ret = new(__MR_C_std_vector_unsigned_long_MutableBegin(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a mutable iterator is the begin iterator.
@@ -678,7 +700,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_MutableEnd", ExactSpelling = true)]
                     extern static MR.CS.Std.Vector_UnsignedLong.Iterator._Underlying *__MR_C_std_vector_unsigned_long_MutableEnd(_Underlying *_this);
-                    return new(__MR_C_std_vector_unsigned_long_MutableEnd(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.Vector_UnsignedLong.Iterator __ret;
+                    __ret = new(__MR_C_std_vector_unsigned_long_MutableEnd(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a mutable iterator is the end iterator.

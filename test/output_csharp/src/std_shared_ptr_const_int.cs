@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Wraps a pointer to a single shared reference-counted heap-allocated `const int`.
             /// This is the const half of the class.
-            public class Const_SharedPtr_ConstInt : MR.CS.Misc.Object, System.IDisposable
+            public class Const_SharedPtr_ConstInt : MR.CS.Misc.Object<Const_SharedPtr_ConstInt>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstInt._Underlying *__MR_C_std_shared_ptr_const_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_ConstInt._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Returns the stored pointer, possibly null.
@@ -47,8 +48,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_Get", ExactSpelling = true)]
                     extern static int *__MR_C_std_shared_ptr_const_int_Get(_Underlying *_this);
-                    var __ret = __MR_C_std_shared_ptr_const_int_Get(_UnderlyingPtr);
-                    return __ret is not null ? *__ret : null;
+                    var __c_ret = __MR_C_std_shared_ptr_const_int_Get(_UnderlyingPtr);
+                    return __c_ret is not null ? *__c_ret : null;
                 }
 
                 /// How many shared pointers share the managed object. Zero if no object is being managed.
@@ -120,6 +121,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstInt._Underlying *__MR_C_std_shared_ptr_const_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_ConstInt._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -127,6 +129,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.SharedPtr_ConstInt._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_shared_ptr_const_int_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -161,6 +165,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_AssignNonOwning", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int_AssignNonOwning(_Underlying *_this, int *ptr);
                     int __deref_ptr = ptr.GetValueOrDefault();
+                    _DiscardKeepAlive();
                     __MR_C_std_shared_ptr_const_int_AssignNonOwning(_UnderlyingPtr, ptr.HasValue ? &__deref_ptr : null);
                 }
 
@@ -200,6 +205,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_AssignAliasing", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int_AssignAliasing(_Underlying *_this, MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, int *ptr);
                     int __deref_ptr = ptr.GetValueOrDefault();
+                    _DiscardKeepAlive();
                     __MR_C_std_shared_ptr_const_int_AssignAliasing(_UnderlyingPtr, ownership.PassByMode, ownership.Value is not null ? ownership.Value._UnderlyingPtr : null, ptr.HasValue ? &__deref_ptr : null);
                 }
             }

@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Stores either a single `MR::CSharp::ExposedLayoutSh` or nothing.
             /// This is the const half of the class.
-            public class Const_Optional_MRCSharpExposedLayoutSh : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Optional_MRCSharpExposedLayoutSh : MR.CS.Misc.Object<Const_Optional_MRCSharpExposedLayoutSh>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// Constructs a new instance.
@@ -58,8 +59,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutSh *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value(_Underlying *_this);
-                    var __ret = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value(_UnderlyingPtr);
-                    if (__ret is not null) return *__ret; else return null;
+                    var __c_ret = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value(_UnderlyingPtr);
+                    if (__c_ret is not null) return *__c_ret; else return null;
                 }
             }
 
@@ -83,6 +84,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// Constructs a new instance.
@@ -101,6 +103,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRCSharpExposedLayoutSh._Underlying *other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(other);
                     __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
@@ -117,8 +121,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutSh *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue(_Underlying *_this);
-                    var __ret = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayoutSh>(__ret) : null;
+                    var __c_ret = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue(_UnderlyingPtr);
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayoutSh>(__c_ret) : null;
                 }
             }
 

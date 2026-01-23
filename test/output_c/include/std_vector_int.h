@@ -33,14 +33,15 @@ MR_C_API MR_C_std_vector_int *MR_C_std_vector_int_DefaultConstruct(void);
 MR_C_API MR_C_std_vector_int *MR_C_std_vector_int_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// The reference to the parameter `other` might be preserved in the return value.
+/// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_Destroy()` to free it when you're done using it.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_vector_int *MR_C_std_vector_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_int *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// The reference to the parameter `other` might be preserved in this object.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_int_AssignFromAnother(MR_C_std_vector_int *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_int *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_int`. Does nothing if the pointer is null.
@@ -83,7 +84,7 @@ MR_C_API void MR_C_std_vector_int_ResizeWithDefaultValue(MR_C_std_vector_int *_t
 
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_int_Clear(MR_C_std_vector_int *_this);
 
 /// The memory capacity, measued in the number of elements.
@@ -100,44 +101,36 @@ MR_C_API void MR_C_std_vector_int_ShrinkToFit(MR_C_std_vector_int *_this);
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_C_std_vector_int_At(const MR_C_std_vector_int *_this, size_t i);
 
 /// The element at a specific index, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_C_std_vector_int_MutableAt(MR_C_std_vector_int *_this, size_t i);
 
 /// The first element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const int *MR_C_std_vector_int_Front(const MR_C_std_vector_int *_this);
 
 /// The first element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API int *MR_C_std_vector_int_MutableFront(MR_C_std_vector_int *_this);
 
 /// The last element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const int *MR_C_std_vector_int_Back(const MR_C_std_vector_int *_this);
 
 /// The last element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API int *MR_C_std_vector_int_MutableBack(MR_C_std_vector_int *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const int *MR_C_std_vector_int_Data(const MR_C_std_vector_int *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API int *MR_C_std_vector_int_MutableData(MR_C_std_vector_int *_this);
 
 /// Inserts a new element at the end.
@@ -178,7 +171,6 @@ MR_C_API void MR_C_std_vector_int_EraseAtIter(MR_C_std_vector_int *_this, const 
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_Begin(const MR_C_std_vector_int *_this);
 
@@ -189,7 +181,6 @@ MR_C_API bool MR_C_std_vector_int_IsBegin(const MR_C_std_vector_int *_this, cons
 
 /// The begin iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_MutableBegin(MR_C_std_vector_int *_this);
 
@@ -200,7 +191,6 @@ MR_C_API bool MR_C_std_vector_int_IsMutableBegin(MR_C_std_vector_int *_this, con
 
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_End(const MR_C_std_vector_int *_this);
 
@@ -211,7 +201,6 @@ MR_C_API bool MR_C_std_vector_int_IsEnd(const MR_C_std_vector_int *_this, const 
 
 /// The end iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_MutableEnd(MR_C_std_vector_int *_this);
 
@@ -241,15 +230,16 @@ MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null. It is a single object.
-/// The reference to the parameter `other` might be preserved in the return value.
+/// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_const_iterator_ConstructFromAnother(const MR_C_std_vector_int_const_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
-/// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// The reference to the parameter `other` might be preserved in this object.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_int_const_iterator_AssignFromAnother(MR_C_std_vector_int_const_iterator *_this, const MR_C_std_vector_int_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_int_const_iterator`. Does nothing if the pointer is null.
@@ -282,15 +272,16 @@ MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_DefaultConst
 
 /// Constructs a copy of another instance. The source remains alive.
 /// Parameter `other` can not be null. It is a single object.
-/// The reference to the parameter `other` might be preserved in the return value.
+/// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_ConstructFromAnother(const MR_C_std_vector_int_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
-/// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// The reference to the parameter `other` might be preserved in this object.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_int_iterator_AssignFromAnother(MR_C_std_vector_int_iterator *_this, const MR_C_std_vector_int_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_int_iterator`. Does nothing if the pointer is null.
@@ -309,7 +300,6 @@ MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_OffsetMutabl
 
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int *MR_C_std_vector_int_const_iterator_Deref(const MR_C_std_vector_int_const_iterator *_this);
 
@@ -332,7 +322,6 @@ MR_C_API ptrdiff_t MR_C_std_vector_int_const_iterator_Distance(const MR_C_std_ve
 
 /// Dereferences a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int *MR_C_std_vector_int_iterator_Deref(const MR_C_std_vector_int_iterator *_this);
 

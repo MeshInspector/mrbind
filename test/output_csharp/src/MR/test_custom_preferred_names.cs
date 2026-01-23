@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from class `MR::CustomPrefNames::Ai`.
             /// This is the const half of the class.
-            public class Const_Ai : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Ai : MR.CS.Misc.Object<Const_Ai>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Ai_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_ConstructFromAnother(MR.CS.CustomPrefNames.Ai._Underlying *_other);
                     _UnderlyingPtr = __MR_CustomPrefNames_Ai_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -63,6 +64,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Ai_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_ConstructFromAnother(MR.CS.CustomPrefNames.Ai._Underlying *_other);
                     _UnderlyingPtr = __MR_CustomPrefNames_Ai_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::CustomPrefNames::Ai::operator=`.
@@ -70,6 +72,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Ai_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CustomPrefNames.Ai._Underlying *__MR_CustomPrefNames_Ai_AssignFromAnother(_Underlying *_this, MR.CS.CustomPrefNames.Ai._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_CustomPrefNames_Ai_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -106,7 +110,7 @@ public static partial class MR
 
             /// Generated from class `MR::CustomPrefNames::Af`.
             /// This is the const half of the class.
-            public class Const_Af : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Af : MR.CS.Misc.Object<Const_Af>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -140,6 +144,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Af_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_ConstructFromAnother(MR.CS.CustomPrefNames.Af._Underlying *_other);
                     _UnderlyingPtr = __MR_CustomPrefNames_Af_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -163,6 +168,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Af_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_ConstructFromAnother(MR.CS.CustomPrefNames.Af._Underlying *_other);
                     _UnderlyingPtr = __MR_CustomPrefNames_Af_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::CustomPrefNames::Af::operator=`.
@@ -170,6 +176,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CustomPrefNames_Af_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.CustomPrefNames.Af._Underlying *__MR_CustomPrefNames_Af_AssignFromAnother(_Underlying *_this, MR.CS.CustomPrefNames.Af._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_CustomPrefNames_Af_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }

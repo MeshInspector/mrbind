@@ -7,7 +7,7 @@ public static partial class MR
             /// <summary>
             /// This is the base class for all our classes.
             /// </summary>
-            public abstract class Object
+            public abstract class Object<T> : MR.CS.Misc.KeepAliveHolder<T>
             {
                 protected bool _IsOwningVal;
                 /// <summary>
@@ -16,24 +16,13 @@ public static partial class MR
                 /// </summary>
                 public virtual bool _IsOwning => _IsOwningVal;
 
-                /// <summary>
-                /// Which objects need to be kept alive while this object exists? This is public just in case.
-                /// </summary>
-                public List<object>? _KeepAliveList;
-                public void _KeepAlive(object obj)
-                {
-                    if (_KeepAliveList is null)
-                        _KeepAliveList = new();
-                    _KeepAliveList.Add(obj);
-                }
-
                 internal Object(bool is_owning) {_IsOwningVal = is_owning;}
             }
 
             /// <summary>
             /// This is the base class for those of our classes that are backed by `std::shared_ptr`.
             /// </summary>
-            public abstract class SharedObject : Object
+            public abstract class SharedObject<T> : Object<T>
             {
                 /// <summary>
                 /// This checks if the `shared_ptr` itself is owning or not, rather than whether we own our `shared_ptr`, which isn't a given.
@@ -227,7 +216,7 @@ public static partial class MR
             /// * To modify the property, either assign a value of type `T`, or assign `null`.
             ///   Assigning a value will allocate its copy and make the underlying pointer point to it.
             /// </summary>
-            public class Const_Box<T> : System.IDisposable where T: unmanaged
+            public class Const_Box<T> : MR.CS.Misc.KeepAliveHolder<Const_Box<T>>, System.IDisposable where T: unmanaged
             {
                 internal unsafe T *_UnderlyingPtr;
                 bool _IsOwning;
@@ -292,6 +281,67 @@ public static partial class MR
                 /// Store a non-owning pointer.
                 /// </summary>
                 unsafe public Box(T *ptr) : base(ptr) {}
+            }
+
+            /// <summary>
+            /// This is the base classes that keep other classes alive.
+            /// This is generic to keep static fields separate.
+            /// </summary>
+            public abstract class KeepAliveHolder<T>
+            {
+                /// <summary>
+                /// Which objects need to be kept alive while this object exists?
+                /// </summary>
+                Dictionary<string, HashSet<object>>? _KeepAliveData;
+                static Dictionary<string, HashSet<object>>? _StaticKeepAliveData;
+
+                /// <summary>
+                /// Keeps `obj` alive as long as this object exists.
+                /// If `key` is specified, it's an optional tag for this object.
+                /// </summary>
+                public void _KeepAlive(object obj, string key = "")
+                {
+                    if (_KeepAliveData is null)
+                        _KeepAliveData = new();
+                    if (!_KeepAliveData.ContainsKey(key))
+                        _KeepAliveData[key] = new();
+                    _KeepAliveData[key].Add(obj);
+                }
+                public static void _StaticKeepAlive(object obj, string key = "")
+                {
+                    if (_StaticKeepAliveData is null)
+                        _StaticKeepAliveData = new();
+                    if (!_StaticKeepAliveData.ContainsKey(key))
+                        _StaticKeepAliveData[key] = new();
+                    _StaticKeepAliveData[key].Add(obj);
+                }
+
+                /// <summary>
+                /// Discards the objects kept alive by this object.
+                /// If `key` is not empty, only discards the objects with the same key. Otherwise discards all of them.
+                /// </summary>
+                public void _DiscardKeepAlive(string key = "")
+                {
+                    if (_KeepAliveData is null)
+                        return;
+                    if (key == "")
+                    {
+                        _KeepAliveData.Clear(); // I could also make it null, but I don't think it's worth it.
+                        return;
+                    }
+                    _KeepAliveData[key].Clear(); // Or we could `.Remove(key)`, but keeping a slot in the map looks better to me.
+                }
+                public static void _StaticDiscardKeepAlive(string key = "")
+                {
+                    if (_StaticKeepAliveData is null)
+                        return;
+                    if (key == "")
+                    {
+                        _StaticKeepAliveData.Clear(); // I could also make it null, but I don't think it's worth it.
+                        return;
+                    }
+                    _StaticKeepAliveData[key].Clear(); // Or we could `.Remove(key)`, but keeping a slot in the map looks better to me.
+                }
             }
 
             /// <summary>

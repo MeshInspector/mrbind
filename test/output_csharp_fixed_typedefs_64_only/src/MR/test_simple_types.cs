@@ -35,7 +35,7 @@ public static partial class MR
             /// Generated from class `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_ClassTemplate_MRCUint64T : MR.CS.Misc.Object, System.IDisposable
+            public class Const_ClassTemplate_MRCUint64T : MR.CS.Misc.Object<Const_ClassTemplate_MRCUint64T>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -73,6 +73,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSimpleTypes.ClassTemplate_MRCUint64T._Underlying *__MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother(MR.CS.TestSimpleTypes.ClassTemplate_MRCUint64T._Underlying *_other);
                     _UnderlyingPtr = __MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 // Constructors.
@@ -132,6 +133,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSimpleTypes.ClassTemplate_MRCUint64T._Underlying *__MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother(MR.CS.TestSimpleTypes.ClassTemplate_MRCUint64T._Underlying *_other);
                     _UnderlyingPtr = __MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 // Constructors.
@@ -175,6 +177,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSimpleTypes.ClassTemplate_MRCUint64T._Underlying *__MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother(_Underlying *_this, MR.CS.TestSimpleTypes.ClassTemplate_MRCUint64T._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_TestSimpleTypes_ClassTemplate_uint64_t_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 
@@ -286,8 +290,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetIntPtr", ExactSpelling = true)]
                 extern static int *__MR_TestSimpleTypes_GetIntPtr();
-                var __ret = __MR_TestSimpleTypes_GetIntPtr();
-                return __ret is not null ? new MR.CS.Misc.Ref<int>(__ret) : null;
+                var __c_ret = __MR_TestSimpleTypes_GetIntPtr();
+                return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
             }
 
             /// <summary>
@@ -298,8 +302,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetIntPtr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetIntPtr(int *_1);
                 int __value__1 = _1 is not null ? _1.Value : default(int);
-                __MR_TestSimpleTypes_SetIntPtr(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_SetIntPtr(_1 is not null ? &__value__1 : null);
             }
 
             /// <summary>
@@ -312,8 +316,8 @@ public static partial class MR
                 extern static void __MR_TestSimpleTypes_SetIntPtrDef(int **_1);
                 int __value__1 = _1 is not null && _1.Opt is not null ? _1.Opt.Value : default(int);
                 int *__valueptr__1 = _1 is not null && _1.Opt is not null ? &__value__1 : null;
-                __MR_TestSimpleTypes_SetIntPtrDef(_1 is not null ? &__valueptr__1 : null);
                 if (_1 is not null && _1.Opt is not null) _1.Opt.Value = __value__1;
+                __MR_TestSimpleTypes_SetIntPtrDef(_1 is not null ? &__valueptr__1 : null);
             }
 
             /// <summary>
@@ -324,8 +328,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetIntPtrDefNull", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetIntPtrDefNull(int *_1);
                 int __value__1 = _1 is not null ? _1.Value : default(int);
-                __MR_TestSimpleTypes_SetIntPtrDefNull(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_SetIntPtrDefNull(_1 is not null ? &__value__1 : null);
             }
 
             /// <summary>
@@ -360,8 +364,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetIntRefDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetIntRefDef(int *_1);
                 int __value__1 = _1 is not null ? _1.Value : default(int);
-                __MR_TestSimpleTypes_SetIntRefDef(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_SetIntRefDef(_1 is not null ? &__value__1 : null);
             }
 
             /// <summary>
@@ -534,8 +538,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetEnumPtr", ExactSpelling = true)]
                 extern static MR.CS.TestSimpleTypes.E *__MR_TestSimpleTypes_GetEnumPtr();
-                var __ret = __MR_TestSimpleTypes_GetEnumPtr();
-                return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.TestSimpleTypes.E>(__ret) : null;
+                var __c_ret = __MR_TestSimpleTypes_GetEnumPtr();
+                return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.TestSimpleTypes.E>(__c_ret) : null;
             }
 
             /// <summary>
@@ -546,8 +550,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnumPtr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnumPtr(MR.CS.TestSimpleTypes.E *_1);
                 MR.CS.TestSimpleTypes.E __value__1 = _1 is not null ? _1.Value : default(MR.CS.TestSimpleTypes.E);
-                __MR_TestSimpleTypes_SetEnumPtr(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_SetEnumPtr(_1 is not null ? &__value__1 : null);
             }
 
             /// <summary>
@@ -560,8 +564,8 @@ public static partial class MR
                 extern static void __MR_TestSimpleTypes_SetEnumPtrDef(MR.CS.TestSimpleTypes.E **_1);
                 MR.CS.TestSimpleTypes.E __value__1 = _1 is not null && _1.Opt is not null ? _1.Opt.Value : default(MR.CS.TestSimpleTypes.E);
                 MR.CS.TestSimpleTypes.E *__valueptr__1 = _1 is not null && _1.Opt is not null ? &__value__1 : null;
-                __MR_TestSimpleTypes_SetEnumPtrDef(_1 is not null ? &__valueptr__1 : null);
                 if (_1 is not null && _1.Opt is not null) _1.Opt.Value = __value__1;
+                __MR_TestSimpleTypes_SetEnumPtrDef(_1 is not null ? &__valueptr__1 : null);
             }
 
             /// <summary>
@@ -572,8 +576,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnumPtrDefNull", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnumPtrDefNull(MR.CS.TestSimpleTypes.E *_1);
                 MR.CS.TestSimpleTypes.E __value__1 = _1 is not null ? _1.Value : default(MR.CS.TestSimpleTypes.E);
-                __MR_TestSimpleTypes_SetEnumPtrDefNull(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_SetEnumPtrDefNull(_1 is not null ? &__value__1 : null);
             }
 
             /// <summary>
@@ -608,8 +612,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnumRefDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnumRefDef(MR.CS.TestSimpleTypes.E *_1);
                 MR.CS.TestSimpleTypes.E __value__1 = _1 is not null ? _1.Value : default(MR.CS.TestSimpleTypes.E);
-                __MR_TestSimpleTypes_SetEnumRefDef(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_SetEnumRefDef(_1 is not null ? &__value__1 : null);
             }
 
             /// <summary>
@@ -651,8 +655,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_GetEnum2Ptr", ExactSpelling = true)]
                 extern static MR.CS.TestSimpleTypes.E2 *__MR_TestSimpleTypes_GetEnum2Ptr();
-                var __ret = __MR_TestSimpleTypes_GetEnum2Ptr();
-                return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.TestSimpleTypes.E2>(__ret) : null;
+                var __c_ret = __MR_TestSimpleTypes_GetEnum2Ptr();
+                return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.TestSimpleTypes.E2>(__c_ret) : null;
             }
 
             /// <summary>
@@ -663,8 +667,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum2Ptr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnum2Ptr(MR.CS.TestSimpleTypes.E2 *_1);
                 MR.CS.TestSimpleTypes.E2 __value__1 = _1 is not null ? _1.Value : default(MR.CS.TestSimpleTypes.E2);
-                __MR_TestSimpleTypes_SetEnum2Ptr(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_SetEnum2Ptr(_1 is not null ? &__value__1 : null);
             }
 
             /// <summary>
@@ -677,8 +681,8 @@ public static partial class MR
                 extern static void __MR_TestSimpleTypes_SetEnum2PtrDef(MR.CS.TestSimpleTypes.E2 **_1);
                 MR.CS.TestSimpleTypes.E2 __value__1 = _1 is not null && _1.Opt is not null ? _1.Opt.Value : default(MR.CS.TestSimpleTypes.E2);
                 MR.CS.TestSimpleTypes.E2 *__valueptr__1 = _1 is not null && _1.Opt is not null ? &__value__1 : null;
-                __MR_TestSimpleTypes_SetEnum2PtrDef(_1 is not null ? &__valueptr__1 : null);
                 if (_1 is not null && _1.Opt is not null) _1.Opt.Value = __value__1;
+                __MR_TestSimpleTypes_SetEnum2PtrDef(_1 is not null ? &__valueptr__1 : null);
             }
 
             /// <summary>
@@ -689,8 +693,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum2PtrDefNull", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnum2PtrDefNull(MR.CS.TestSimpleTypes.E2 *_1);
                 MR.CS.TestSimpleTypes.E2 __value__1 = _1 is not null ? _1.Value : default(MR.CS.TestSimpleTypes.E2);
-                __MR_TestSimpleTypes_SetEnum2PtrDefNull(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_SetEnum2PtrDefNull(_1 is not null ? &__value__1 : null);
             }
 
             /// <summary>
@@ -725,8 +729,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum2RefDef", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_SetEnum2RefDef(MR.CS.TestSimpleTypes.E2 *_1);
                 MR.CS.TestSimpleTypes.E2 __value__1 = _1 is not null ? _1.Value : default(MR.CS.TestSimpleTypes.E2);
-                __MR_TestSimpleTypes_SetEnum2RefDef(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_SetEnum2RefDef(_1 is not null ? &__value__1 : null);
             }
 
             // Test all kinds of `char`.
@@ -738,8 +742,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_CheckCharMaybeUnsigned", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_CheckCharMaybeUnsigned(byte *_1);
                 byte __value__1 = _1 is not null ? _1.Value : default(byte);
-                __MR_TestSimpleTypes_CheckCharMaybeUnsigned(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_CheckCharMaybeUnsigned(_1 is not null ? &__value__1 : null);
             }
 
             /// <summary>
@@ -750,8 +754,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_CheckChar_unsigned_char_ptr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(byte *_1);
                 byte __value__1 = _1 is not null ? _1.Value : default(byte);
-                __MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_CheckChar_unsigned_char_ptr(_1 is not null ? &__value__1 : null);
             }
 
             /// <summary>
@@ -762,8 +766,8 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_CheckChar_signed_char_ptr", ExactSpelling = true)]
                 extern static void __MR_TestSimpleTypes_CheckChar_signed_char_ptr(sbyte *_1);
                 sbyte __value__1 = _1 is not null ? _1.Value : default(sbyte);
-                __MR_TestSimpleTypes_CheckChar_signed_char_ptr(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                __MR_TestSimpleTypes_CheckChar_signed_char_ptr(_1 is not null ? &__value__1 : null);
             }
 
             /// <summary>

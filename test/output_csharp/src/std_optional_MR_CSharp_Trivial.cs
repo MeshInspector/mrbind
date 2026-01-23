@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Stores either a single `MR::CSharp::Trivial` or nothing.
             /// This is the const half of the class.
-            public class Const_Optional_MRCSharpTrivial : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Optional_MRCSharpTrivial : MR.CS.Misc.Object<Const_Optional_MRCSharpTrivial>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// Constructs a new instance.
@@ -58,8 +59,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_Value", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_Trivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_Value(_Underlying *_this);
-                    var __ret = __MR_C_std_optional_MR_CSharp_Trivial_Value(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.Const_Trivial(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_optional_MR_CSharp_Trivial_Value(_UnderlyingPtr);
+                    MR.CS.CSharp.Const_Trivial? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.CSharp.Const_Trivial(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
             }
 
@@ -83,6 +87,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// Constructs a new instance.
@@ -101,6 +106,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(other);
                     __MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
@@ -117,8 +124,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_MutableValue", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Trivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_MutableValue(_Underlying *_this);
-                    var __ret = __MR_C_std_optional_MR_CSharp_Trivial_MutableValue(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.Trivial(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_optional_MR_CSharp_Trivial_MutableValue(_UnderlyingPtr);
+                    MR.CS.CSharp.Trivial? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.CSharp.Trivial(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
             }
 

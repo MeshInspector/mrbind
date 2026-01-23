@@ -25,14 +25,15 @@ MR_C_API MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *MR_C_std_
 MR_C_API MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// The reference to the parameter `other` might be preserved in the return value.
+/// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Destroy()` to free it when you're done using it.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// The reference to the parameter `other` might be preserved in this object.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother(MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_this, MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E`. Does nothing if the pointer is null.
@@ -62,8 +63,9 @@ MR_C_API MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *MR_C_std_
 MR_C_API void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Assign(MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int _1, MR_StdFunction_E *_2));
 
 /// Construct a function with an extra user data pointer.
-/// The reference to the parameter `userdata` might be preserved in the return value.
+/// The reference to the parameter `userdata` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_Destroy()` to free it when you're done using it.
+/// When this function is called, this object will drop any object references it had previously.
 /// Callback parameter `_2` will never be null. It is non-owning, do NOT destroy it.
 /// In C++ that parameter is an rvalue reference.
 /// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.
@@ -76,8 +78,8 @@ MR_C_API MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *MR_C_std_
 
 /// Assign a function with an extra user data pointer.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `userdata` might be preserved in the parameter `_this`.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// The reference to the parameter `userdata` might be preserved in this object.
+/// When this function is called, this object will drop any object references it had previously.
 /// Callback parameter `_2` will never be null. It is non-owning, do NOT destroy it.
 /// In C++ that parameter is an rvalue reference.
 /// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.

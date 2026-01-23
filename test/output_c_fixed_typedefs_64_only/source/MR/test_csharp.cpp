@@ -9118,6 +9118,385 @@ void MR_CSharp_ClassMemberPointersBool_DestroyArray(const MR_CSharp_ClassMemberP
     delete[] ((const MR::CSharp::ClassMemberPointersBool *)_this);
 }
 
+const int *MR_CSharp_LifetimesA_Get_x(const MR_CSharp_LifetimesA *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::LifetimesA *)(_this)).x);
+}
+
+void MR_CSharp_LifetimesA_Set_x(MR_CSharp_LifetimesA *_this, int value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesA *)(_this)).x = value;
+}
+
+int *MR_CSharp_LifetimesA_GetMutable_x(MR_CSharp_LifetimesA *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesA *)(_this)).x);
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesA_DefaultConstruct(void)
+{
+    return (MR_CSharp_LifetimesA *)new MR::CSharp::LifetimesA(MR::CSharp::LifetimesA());
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesA_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_LifetimesA *)(new MR::CSharp::LifetimesA[num_elems]{});
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesA_ConstructFrom(int x)
+{
+    return (MR_CSharp_LifetimesA *)new MR::CSharp::LifetimesA(MR::CSharp::LifetimesA{
+        x
+    });
+}
+
+const MR_CSharp_LifetimesA *MR_CSharp_LifetimesA_OffsetPtr(const MR_CSharp_LifetimesA *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_LifetimesA *)(((const MR::CSharp::LifetimesA *)ptr) + i);
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesA_OffsetMutablePtr(MR_CSharp_LifetimesA *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_LifetimesA *)(((MR::CSharp::LifetimesA *)ptr) + i);
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesA_ConstructFromAnother(const MR_CSharp_LifetimesA *_other)
+{
+    return (MR_CSharp_LifetimesA *)new MR::CSharp::LifetimesA(MR::CSharp::LifetimesA(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)_other))
+    ));
+}
+
+void MR_CSharp_LifetimesA_Destroy(const MR_CSharp_LifetimesA *_this)
+{
+    delete ((const MR::CSharp::LifetimesA *)_this);
+}
+
+void MR_CSharp_LifetimesA_DestroyArray(const MR_CSharp_LifetimesA *_this)
+{
+    delete[] ((const MR::CSharp::LifetimesA *)_this);
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesA_AssignFromAnother(MR_CSharp_LifetimesA *_this, const MR_CSharp_LifetimesA *_other)
+{
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesA *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)_other))
+    ));
+}
+
+int *MR_CSharp_LifetimesA_foo(MR_CSharp_LifetimesA *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesA *)(_this)).foo());
+}
+
+void MR_CSharp_LifetimesA_bar(MR_CSharp_LifetimesA *_this, int *ref)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesA *)(_this)).bar(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *ref)
+    );
+}
+
+const MR_CSharp_LifetimesA *MR_CSharp_LifetimesB_Get_a(const MR_CSharp_LifetimesB *_this)
+{
+    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::LifetimesB *)(_this)).a);
+}
+
+void MR_CSharp_LifetimesB_Set_a(MR_CSharp_LifetimesB *_this, const MR_CSharp_LifetimesA *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesB_GetMutable_a(MR_CSharp_LifetimesB *_this)
+{
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).a);
+}
+
+MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_DefaultConstruct(void)
+{
+    return (MR_CSharp_LifetimesB *)new MR::CSharp::LifetimesB(MR::CSharp::LifetimesB());
+}
+
+MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_LifetimesB *)(new MR::CSharp::LifetimesB[num_elems]{});
+}
+
+MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_ConstructFrom(const MR_CSharp_LifetimesA *a)
+{
+    return (MR_CSharp_LifetimesB *)new MR::CSharp::LifetimesB(MR::CSharp::LifetimesB{
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)a))
+    });
+}
+
+const MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_OffsetPtr(const MR_CSharp_LifetimesB *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_LifetimesB *)(((const MR::CSharp::LifetimesB *)ptr) + i);
+}
+
+MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_OffsetMutablePtr(MR_CSharp_LifetimesB *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_LifetimesB *)(((MR::CSharp::LifetimesB *)ptr) + i);
+}
+
+MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_ConstructFromAnother(const MR_CSharp_LifetimesB *_other)
+{
+    return (MR_CSharp_LifetimesB *)new MR::CSharp::LifetimesB(MR::CSharp::LifetimesB(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesB(*(MR::CSharp::LifetimesB *)_other))
+    ));
+}
+
+void MR_CSharp_LifetimesB_Destroy(const MR_CSharp_LifetimesB *_this)
+{
+    delete ((const MR::CSharp::LifetimesB *)_this);
+}
+
+void MR_CSharp_LifetimesB_DestroyArray(const MR_CSharp_LifetimesB *_this)
+{
+    delete[] ((const MR::CSharp::LifetimesB *)_this);
+}
+
+MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_AssignFromAnother(MR_CSharp_LifetimesB *_this, const MR_CSharp_LifetimesB *_other)
+{
+    return (MR_CSharp_LifetimesB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesB(*(MR::CSharp::LifetimesB *)_other))
+    ));
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesB_begin(MR_CSharp_LifetimesB *_this)
+{
+    return (MR_CSharp_LifetimesA *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).begin());
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesB_end(MR_CSharp_LifetimesB *_this)
+{
+    return (MR_CSharp_LifetimesA *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).end());
+}
+
+MR_CSharp_LifetimesA *MR_C_deref_MR_CSharp_LifetimesB_ref(MR_CSharp_LifetimesB *_this)
+{
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).operator*());
+}
+
+const MR_CSharp_LifetimesA *MR_CSharp_begin_MR_CSharp_LifetimesB(const MR_CSharp_LifetimesB *b)
+{
+    return (const MR_CSharp_LifetimesA *)(::MR::CSharp::begin(
+        ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), *(const MR::CSharp::LifetimesB *)(b))
+    ));
+}
+
+const MR_CSharp_LifetimesA *MR_CSharp_end_MR_CSharp_LifetimesB(const MR_CSharp_LifetimesB *b)
+{
+    return (const MR_CSharp_LifetimesA *)(::MR::CSharp::end(
+        ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), *(const MR::CSharp::LifetimesB *)(b))
+    ));
+}
+
+const MR_CSharp_LifetimesA *MR_C_deref_const_MR_CSharp_LifetimesB_ref(const MR_CSharp_LifetimesB *b)
+{
+    return (const MR_CSharp_LifetimesA *)std::addressof(MR::CSharp::operator*(
+        ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), *(const MR::CSharp::LifetimesB *)(b))
+    ));
+}
+
+const MR_CSharp_LifetimesA *MR_CSharp_LifetimesC_Get_a(const MR_CSharp_LifetimesC *_this)
+{
+    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::LifetimesC *)(_this)).a);
+}
+
+void MR_CSharp_LifetimesC_Set_a(MR_CSharp_LifetimesC *_this, const MR_CSharp_LifetimesA *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesC *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesC_GetMutable_a(MR_CSharp_LifetimesC *_this)
+{
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesC *)(_this)).a);
+}
+
+MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_DefaultConstruct(void)
+{
+    return (MR_CSharp_LifetimesC *)new MR::CSharp::LifetimesC(MR::CSharp::LifetimesC());
+}
+
+MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_LifetimesC *)(new MR::CSharp::LifetimesC[num_elems]{});
+}
+
+MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_ConstructFrom(const MR_CSharp_LifetimesA *a)
+{
+    return (MR_CSharp_LifetimesC *)new MR::CSharp::LifetimesC(MR::CSharp::LifetimesC{
+        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)a))
+    });
+}
+
+const MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_OffsetPtr(const MR_CSharp_LifetimesC *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_LifetimesC *)(((const MR::CSharp::LifetimesC *)ptr) + i);
+}
+
+MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_OffsetMutablePtr(MR_CSharp_LifetimesC *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_LifetimesC *)(((MR::CSharp::LifetimesC *)ptr) + i);
+}
+
+MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_ConstructFromAnother(const MR_CSharp_LifetimesC *_other)
+{
+    return (MR_CSharp_LifetimesC *)new MR::CSharp::LifetimesC(MR::CSharp::LifetimesC(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesC(*(MR::CSharp::LifetimesC *)_other))
+    ));
+}
+
+void MR_CSharp_LifetimesC_Destroy(const MR_CSharp_LifetimesC *_this)
+{
+    delete ((const MR::CSharp::LifetimesC *)_this);
+}
+
+void MR_CSharp_LifetimesC_DestroyArray(const MR_CSharp_LifetimesC *_this)
+{
+    delete[] ((const MR::CSharp::LifetimesC *)_this);
+}
+
+MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_AssignFromAnother(MR_CSharp_LifetimesC *_this, const MR_CSharp_LifetimesC *_other)
+{
+    return (MR_CSharp_LifetimesC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesC *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesC(*(MR::CSharp::LifetimesC *)_other))
+    ));
+}
+
+const MR_CSharp_LifetimesA *MR_CSharp_begin_MR_CSharp_LifetimesC(const MR_CSharp_LifetimesC *c)
+{
+    return (const MR_CSharp_LifetimesA *)(begin(
+        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(const MR::CSharp::LifetimesC *)(c))
+    ));
+}
+
+const MR_CSharp_LifetimesA *MR_CSharp_end_MR_CSharp_LifetimesC(const MR_CSharp_LifetimesC *c)
+{
+    return (const MR_CSharp_LifetimesA *)(end(
+        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(const MR::CSharp::LifetimesC *)(c))
+    ));
+}
+
+const MR_CSharp_LifetimesA *MR_C_deref_MR_CSharp_LifetimesC(const MR_CSharp_LifetimesC *c)
+{
+    return (const MR_CSharp_LifetimesA *)std::addressof(operator*(
+        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(const MR::CSharp::LifetimesC *)(c))
+    ));
+}
+
+const MR_CSharp_LifetimesA *MR_CSharp_LifetimesD_Get_a(const MR_CSharp_LifetimesD *_this)
+{
+    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::LifetimesD *)(_this)).a);
+}
+
+void MR_CSharp_LifetimesD_Set_a(MR_CSharp_LifetimesD *_this, const MR_CSharp_LifetimesA *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesD_GetMutable_a(MR_CSharp_LifetimesD *_this)
+{
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).a);
+}
+
+MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_ConstructFromAnother(const MR_CSharp_LifetimesD *_other)
+{
+    return (MR_CSharp_LifetimesD *)new MR::CSharp::LifetimesD(MR::CSharp::LifetimesD(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesD(*(MR::CSharp::LifetimesD *)_other))
+    ));
+}
+
+const MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_OffsetPtr(const MR_CSharp_LifetimesD *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_LifetimesD *)(((const MR::CSharp::LifetimesD *)ptr) + i);
+}
+
+MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_OffsetMutablePtr(MR_CSharp_LifetimesD *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_LifetimesD *)(((MR::CSharp::LifetimesD *)ptr) + i);
+}
+
+MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_Construct_2(MR_CSharp_LifetimesA *ref, MR_CSharp_LifetimesB *other_ref)
+{
+    return (MR_CSharp_LifetimesD *)new MR::CSharp::LifetimesD(MR::CSharp::LifetimesD(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref)),
+        ((other_ref ? void() : throw std::runtime_error("Parameter `other_ref` can not be null.")), *(MR::CSharp::LifetimesB *)(other_ref))
+    ));
+}
+
+MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesA(MR_CSharp_LifetimesA *ref)
+{
+    return (MR_CSharp_LifetimesD *)new MR::CSharp::LifetimesD(MR::CSharp::LifetimesD(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    ));
+}
+
+MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesB(MR_CSharp_LifetimesB *ref)
+{
+    return (MR_CSharp_LifetimesD *)new MR::CSharp::LifetimesD(MR::CSharp::LifetimesD(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesB *)(ref))
+    ));
+}
+
+void MR_CSharp_LifetimesD_Destroy(const MR_CSharp_LifetimesD *_this)
+{
+    delete ((const MR::CSharp::LifetimesD *)_this);
+}
+
+void MR_CSharp_LifetimesD_DestroyArray(const MR_CSharp_LifetimesD *_this)
+{
+    delete[] ((const MR::CSharp::LifetimesD *)_this);
+}
+
+MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_AssignFromAnother(MR_CSharp_LifetimesD *_this, const MR_CSharp_LifetimesD *_other)
+{
+    return (MR_CSharp_LifetimesD *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesD(*(MR::CSharp::LifetimesD *)_other))
+    ));
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesD_get(MR_CSharp_LifetimesD *_this)
+{
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).get());
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesD_return_ref(MR_CSharp_LifetimesD *_this, MR_CSharp_LifetimesA *ref)
+{
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).return_ref(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    ));
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesD_return_ref_static(MR_CSharp_LifetimesA *ref)
+{
+    return (MR_CSharp_LifetimesA *)std::addressof(MR::CSharp::LifetimesD::return_ref_static(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    ));
+}
+
+void MR_CSharp_LifetimesD_store_ref_in_this(MR_CSharp_LifetimesD *_this, MR_CSharp_LifetimesA *ref)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).store_ref_in_this(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    );
+}
+
+void MR_CSharp_LifetimesD_store_ref_in_param(MR_CSharp_LifetimesD *_this, MR_CSharp_LifetimesA *ref, MR_CSharp_LifetimesB *other_ref)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).store_ref_in_param(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref)),
+        ((other_ref ? void() : throw std::runtime_error("Parameter `other_ref` can not be null.")), *(MR::CSharp::LifetimesB *)(other_ref))
+    );
+}
+
+void MR_CSharp_LifetimesD_store_this_in_param(MR_CSharp_LifetimesD *_this, MR_CSharp_LifetimesA *ref)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).store_this_in_param(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    );
+}
+
 MR_C_std_expected_int_float *MR_CSharp_test_expected_int(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b)
 {
     using namespace MR;

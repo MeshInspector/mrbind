@@ -8,7 +8,7 @@ public static partial class MR
             /// Stores two objects: `int &` and `int &`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Pair_IntRef_FloatRef : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Pair_IntRef_FloatRef : MR.CS.Misc.Object<Const_Pair_IntRef_FloatRef>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 

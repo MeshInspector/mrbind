@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from class `MR::ConvOps::A`.
             /// This is the const half of the class.
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_ConstructFromAnother(MR.CS.ConvOps.A._Underlying *_other);
                     _UnderlyingPtr = __MR_ConvOps_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from conversion operator `MR::ConvOps::A::operator bool`.
@@ -71,6 +72,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_ConstructFromAnother(MR.CS.ConvOps.A._Underlying *_other);
                     _UnderlyingPtr = __MR_ConvOps_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::ConvOps::A::operator=`.
@@ -78,6 +80,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_ConvOps_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.ConvOps.A._Underlying *__MR_ConvOps_A_AssignFromAnother(_Underlying *_this, MR.CS.ConvOps.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_ConvOps_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }

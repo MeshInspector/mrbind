@@ -232,8 +232,8 @@ MR_C_API int MR_TestSimpleTypes_FuncTemplate_int(int _1);
 MR_C_API const unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Get_var_unsigned_long(void);
 
 /// Modifies a member variable of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `var<unsigned long>`.
-/// The reference to the parameter `value` might be preserved in the parameter `_this` in element `var<unsigned long>`.
-/// When this function is called, the parameter `_this` will drop object references it had previously in `var<unsigned long>`.
+/// The reference to the parameter `value` might be preserved in this object in element `var<unsigned long>`.
+/// When this function is called, this object will drop object references it had previously in `var<unsigned long>`.
 MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_Set_var_unsigned_long(unsigned long value);
 
 /// Returns a mutable pointer to a member variable of class `MR::TestSimpleTypes::ClassTemplate<unsigned long>` named `var<unsigned long>`.
@@ -242,7 +242,7 @@ MR_C_API unsigned long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutabl
 
 /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_ConstructFromAnother(const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other);
 
@@ -256,7 +256,7 @@ MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_Clas
 
 // Constructors.
 /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.
-/// The reference to the parameter `_1` might be preserved in the return value.
+/// The reference to the parameter `_1` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_TestSimpleTypes_ClassTemplate_unsigned_long_Destroy()` to free it when you're done using it.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_Construct_unsigned_long(unsigned long _1);
 
@@ -274,9 +274,9 @@ MR_C_API void MR_TestSimpleTypes_ClassTemplate_unsigned_long_DestroyArray(const 
 /// Generated from method `MR::TestSimpleTypes::ClassTemplate<unsigned long>::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this, const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other);
 
 // Methods.

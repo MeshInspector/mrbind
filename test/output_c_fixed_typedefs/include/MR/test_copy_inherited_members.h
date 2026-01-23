@@ -199,8 +199,8 @@ typedef struct MR_CopyInheritedMembers_O MR_CopyInheritedMembers_O;
 MR_C_API const int32_t *MR_CopyInheritedMembers_A_Get_StaticField(void);
 
 // Modifies a member variable of class `MR::CopyInheritedMembers::A` named `StaticField`.
-// The reference to the parameter `value` might be preserved in the parameter `_this` in element `StaticField`.
-// When this function is called, the parameter `_this` will drop object references it had previously in `StaticField`.
+// The reference to the parameter `value` might be preserved in this object in element `StaticField`.
+// When this function is called, this object will drop object references it had previously in `StaticField`.
 MR_C_API void MR_CopyInheritedMembers_A_Set_StaticField(int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CopyInheritedMembers::A` named `StaticField`.
@@ -209,19 +209,17 @@ MR_C_API int32_t *MR_CopyInheritedMembers_A_GetMutable_StaticField(void);
 
 // Returns a pointer to a member variable of class `MR::CopyInheritedMembers::A` named `Field`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int32_t *MR_CopyInheritedMembers_A_Get_Field(const MR_CopyInheritedMembers_A *_this);
 
 // Modifies a member variable of class `MR::CopyInheritedMembers::A` named `Field`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `value` might be preserved in the parameter `_this` in element `Field`.
-// When this function is called, the parameter `_this` will drop object references it had previously in `Field`.
+// The reference to the parameter `value` might be preserved in this object in element `Field`.
+// When this function is called, this object will drop object references it had previously in `Field`.
 MR_C_API void MR_CopyInheritedMembers_A_Set_Field(MR_CopyInheritedMembers_A *_this, int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CopyInheritedMembers::A` named `Field`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int32_t *MR_CopyInheritedMembers_A_GetMutable_Field(MR_CopyInheritedMembers_A *_this);
 
@@ -235,8 +233,9 @@ MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_A_DefaultConstruct(v
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_A_DefaultConstructArray(size_t num_elems);
 
 // Constructs `MR::CopyInheritedMembers::A` elementwise.
-// The reference to the parameter `Field` might be preserved in the return value.
+// The reference to the parameter `Field` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_A_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_A_ConstructFrom(int32_t Field);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
@@ -250,50 +249,42 @@ MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_A_OffsetMutablePtr(M
 // Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::C`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_A_StaticDowncastTo_MR_CopyInheritedMembers_C(const MR_CopyInheritedMembers_A *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::C`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_A_MutableStaticDowncastTo_MR_CopyInheritedMembers_C(MR_CopyInheritedMembers_A *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::E`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_A_StaticDowncastTo_MR_CopyInheritedMembers_E(const MR_CopyInheritedMembers_A *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::E`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_A_MutableStaticDowncastTo_MR_CopyInheritedMembers_E(MR_CopyInheritedMembers_A *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::F`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_A_StaticDowncastTo_MR_CopyInheritedMembers_F(const MR_CopyInheritedMembers_A *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::F`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_A_MutableStaticDowncastTo_MR_CopyInheritedMembers_F(MR_CopyInheritedMembers_A *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::J`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_A_StaticDowncastTo_MR_CopyInheritedMembers_J(const MR_CopyInheritedMembers_A *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::J`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_A_MutableStaticDowncastTo_MR_CopyInheritedMembers_J(MR_CopyInheritedMembers_A *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::A::A`.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_A_ConstructFromAnother(const MR_CopyInheritedMembers_A *_other);
 
@@ -310,9 +301,9 @@ MR_C_API int32_t MR_CopyInheritedMembers_A_ConvertTo_int32_t(MR_CopyInheritedMem
 // Generated from method `MR::CopyInheritedMembers::A::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_A_AssignFromAnother(MR_CopyInheritedMembers_A *_this, const MR_CopyInheritedMembers_A *_other);
 
 // Generated from method `MR::CopyInheritedMembers::A::Method`.
@@ -327,8 +318,8 @@ MR_C_API void MR_CopyInheritedMembers_A_StaticFunc(void);
 MR_C_API const int32_t *MR_CopyInheritedMembers_B_Get_StaticField(void);
 
 // Modifies a member variable of class `MR::CopyInheritedMembers::B` named `StaticField`.
-// The reference to the parameter `value` might be preserved in the parameter `_this` in element `StaticField`.
-// When this function is called, the parameter `_this` will drop object references it had previously in `StaticField`.
+// The reference to the parameter `value` might be preserved in this object in element `StaticField`.
+// When this function is called, this object will drop object references it had previously in `StaticField`.
 MR_C_API void MR_CopyInheritedMembers_B_Set_StaticField(int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CopyInheritedMembers::B` named `StaticField`.
@@ -337,19 +328,17 @@ MR_C_API int32_t *MR_CopyInheritedMembers_B_GetMutable_StaticField(void);
 
 // Returns a pointer to a member variable of class `MR::CopyInheritedMembers::B` named `Field`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const int32_t *MR_CopyInheritedMembers_B_Get_Field(const MR_CopyInheritedMembers_B *_this);
 
 // Modifies a member variable of class `MR::CopyInheritedMembers::B` named `Field`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `value` might be preserved in the parameter `_this` in element `Field`.
-// When this function is called, the parameter `_this` will drop object references it had previously in `Field`.
+// The reference to the parameter `value` might be preserved in this object in element `Field`.
+// When this function is called, this object will drop object references it had previously in `Field`.
 MR_C_API void MR_CopyInheritedMembers_B_Set_Field(MR_CopyInheritedMembers_B *_this, int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::CopyInheritedMembers::B` named `Field`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int32_t *MR_CopyInheritedMembers_B_GetMutable_Field(MR_CopyInheritedMembers_B *_this);
 
@@ -363,8 +352,9 @@ MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_B_DefaultConstruct(v
 MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_B_DefaultConstructArray(size_t num_elems);
 
 // Constructs `MR::CopyInheritedMembers::B` elementwise.
-// The reference to the parameter `Field` might be preserved in the return value.
+// The reference to the parameter `Field` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_B_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_B_ConstructFrom(int32_t Field);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
@@ -378,50 +368,42 @@ MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_B_OffsetMutablePtr(M
 // Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::C`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_B_StaticDowncastTo_MR_CopyInheritedMembers_C(const MR_CopyInheritedMembers_B *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::C`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_B_MutableStaticDowncastTo_MR_CopyInheritedMembers_C(MR_CopyInheritedMembers_B *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::D`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_B_StaticDowncastTo_MR_CopyInheritedMembers_D(const MR_CopyInheritedMembers_B *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::D`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_B_MutableStaticDowncastTo_MR_CopyInheritedMembers_D(MR_CopyInheritedMembers_B *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::E`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_B_StaticDowncastTo_MR_CopyInheritedMembers_E(const MR_CopyInheritedMembers_B *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::E`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_B_MutableStaticDowncastTo_MR_CopyInheritedMembers_E(MR_CopyInheritedMembers_B *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::F`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_B_StaticDowncastTo_MR_CopyInheritedMembers_F(const MR_CopyInheritedMembers_B *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::F`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_B_MutableStaticDowncastTo_MR_CopyInheritedMembers_F(MR_CopyInheritedMembers_B *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::B::B`.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_B_ConstructFromAnother(const MR_CopyInheritedMembers_B *_other);
 
@@ -438,9 +420,9 @@ MR_C_API int32_t MR_CopyInheritedMembers_B_ConvertTo_int32_t(MR_CopyInheritedMem
 // Generated from method `MR::CopyInheritedMembers::B::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_B_AssignFromAnother(MR_CopyInheritedMembers_B *_this, const MR_CopyInheritedMembers_B *_other);
 
 // Generated from method `MR::CopyInheritedMembers::B::Method`.
@@ -469,25 +451,21 @@ MR_C_API MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_C_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::C` to its base class `MR::CopyInheritedMembers::A`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_C *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::C` to its base class `MR::CopyInheritedMembers::A`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_C_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_C *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::C` to its base class `MR::CopyInheritedMembers::B`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_C_UpcastTo_MR_CopyInheritedMembers_B(const MR_CopyInheritedMembers_C *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::C` to its base class `MR::CopyInheritedMembers::B`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_C_MutableUpcastTo_MR_CopyInheritedMembers_B(MR_CopyInheritedMembers_C *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::C::C`.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_C_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_C_ConstructFromAnother(const MR_CopyInheritedMembers_C *_other);
 
@@ -500,9 +478,9 @@ MR_C_API void MR_CopyInheritedMembers_C_DestroyArray(const MR_CopyInheritedMembe
 // Generated from method `MR::CopyInheritedMembers::C::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_C_AssignFromAnother(MR_CopyInheritedMembers_C *_this, const MR_CopyInheritedMembers_C *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -524,38 +502,32 @@ MR_C_API MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_D_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::D` to its base class `MR::CopyInheritedMembers::B`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_D_UpcastTo_MR_CopyInheritedMembers_B(const MR_CopyInheritedMembers_D *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::D` to its base class `MR::CopyInheritedMembers::B`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_D_MutableUpcastTo_MR_CopyInheritedMembers_B(MR_CopyInheritedMembers_D *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::D` to a derived class `MR::CopyInheritedMembers::E`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_D_StaticDowncastTo_MR_CopyInheritedMembers_E(const MR_CopyInheritedMembers_D *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::D` to a derived class `MR::CopyInheritedMembers::E`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_D_MutableStaticDowncastTo_MR_CopyInheritedMembers_E(MR_CopyInheritedMembers_D *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::D` to a derived class `MR::CopyInheritedMembers::F`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_D_StaticDowncastTo_MR_CopyInheritedMembers_F(const MR_CopyInheritedMembers_D *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::D` to a derived class `MR::CopyInheritedMembers::F`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_D_MutableStaticDowncastTo_MR_CopyInheritedMembers_F(MR_CopyInheritedMembers_D *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::D::D`.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_D_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_D_ConstructFromAnother(const MR_CopyInheritedMembers_D *_other);
 
@@ -568,9 +540,9 @@ MR_C_API void MR_CopyInheritedMembers_D_DestroyArray(const MR_CopyInheritedMembe
 // Generated from method `MR::CopyInheritedMembers::D::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_D_AssignFromAnother(MR_CopyInheritedMembers_D *_this, const MR_CopyInheritedMembers_D *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -592,34 +564,28 @@ MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::E` to its base class `MR::CopyInheritedMembers::A`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_E *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::E` to its base class `MR::CopyInheritedMembers::A`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_E_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_E *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::E` to its base class `MR::CopyInheritedMembers::B`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_B(const MR_CopyInheritedMembers_E *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::E` to its base class `MR::CopyInheritedMembers::B`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_E_MutableUpcastTo_MR_CopyInheritedMembers_B(MR_CopyInheritedMembers_E *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::E` to its base class `MR::CopyInheritedMembers::D`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_E_UpcastTo_MR_CopyInheritedMembers_D(const MR_CopyInheritedMembers_E *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::E` to its base class `MR::CopyInheritedMembers::D`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_E_MutableUpcastTo_MR_CopyInheritedMembers_D(MR_CopyInheritedMembers_E *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::E::E`.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_E_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_ConstructFromAnother(const MR_CopyInheritedMembers_E *_other);
 
@@ -632,9 +598,9 @@ MR_C_API void MR_CopyInheritedMembers_E_DestroyArray(const MR_CopyInheritedMembe
 // Generated from method `MR::CopyInheritedMembers::E::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_AssignFromAnother(MR_CopyInheritedMembers_E *_this, const MR_CopyInheritedMembers_E *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -656,34 +622,28 @@ MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::F` to its base class `MR::CopyInheritedMembers::B`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_B(const MR_CopyInheritedMembers_F *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::F` to its base class `MR::CopyInheritedMembers::B`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_F_MutableUpcastTo_MR_CopyInheritedMembers_B(MR_CopyInheritedMembers_F *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::F` to its base class `MR::CopyInheritedMembers::D`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_D(const MR_CopyInheritedMembers_F *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::F` to its base class `MR::CopyInheritedMembers::D`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_F_MutableUpcastTo_MR_CopyInheritedMembers_D(MR_CopyInheritedMembers_F *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::F` to its base class `MR::CopyInheritedMembers::A`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_F_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_F *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::F` to its base class `MR::CopyInheritedMembers::A`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_F_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_F *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::F::F`.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_F_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_ConstructFromAnother(const MR_CopyInheritedMembers_F *_other);
 
@@ -696,9 +656,9 @@ MR_C_API void MR_CopyInheritedMembers_F_DestroyArray(const MR_CopyInheritedMembe
 // Generated from method `MR::CopyInheritedMembers::F::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_AssignFromAnother(MR_CopyInheritedMembers_F *_this, const MR_CopyInheritedMembers_F *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -720,59 +680,49 @@ MR_C_API MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_G_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::G` to its base class `MR::CopyInheritedMembers::A`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_G_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_G *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::G` to its base class `MR::CopyInheritedMembers::A`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_G_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_G *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::G` to a derived class `MR::CopyInheritedMembers::H`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_H *MR_CopyInheritedMembers_G_StaticDowncastTo_MR_CopyInheritedMembers_H(const MR_CopyInheritedMembers_G *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::G` to a derived class `MR::CopyInheritedMembers::H`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_H *MR_CopyInheritedMembers_G_MutableStaticDowncastTo_MR_CopyInheritedMembers_H(MR_CopyInheritedMembers_G *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::G` to a derived class `MR::CopyInheritedMembers::I`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_I *MR_CopyInheritedMembers_G_StaticDowncastTo_MR_CopyInheritedMembers_I(const MR_CopyInheritedMembers_G *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::G` to a derived class `MR::CopyInheritedMembers::I`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_I *MR_CopyInheritedMembers_G_MutableStaticDowncastTo_MR_CopyInheritedMembers_I(MR_CopyInheritedMembers_G *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::G` to a derived class `MR::CopyInheritedMembers::K`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_K *MR_CopyInheritedMembers_G_StaticDowncastTo_MR_CopyInheritedMembers_K(const MR_CopyInheritedMembers_G *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::G` to a derived class `MR::CopyInheritedMembers::K`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_K *MR_CopyInheritedMembers_G_MutableStaticDowncastTo_MR_CopyInheritedMembers_K(MR_CopyInheritedMembers_G *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::G` to a derived class `MR::CopyInheritedMembers::L`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_L *MR_CopyInheritedMembers_G_StaticDowncastTo_MR_CopyInheritedMembers_L(const MR_CopyInheritedMembers_G *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::G` to a derived class `MR::CopyInheritedMembers::L`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_L *MR_CopyInheritedMembers_G_MutableStaticDowncastTo_MR_CopyInheritedMembers_L(MR_CopyInheritedMembers_G *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::G::G`.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_G_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_G_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_G *_other);
 
@@ -784,9 +734,9 @@ MR_C_API void MR_CopyInheritedMembers_G_DestroyArray(const MR_CopyInheritedMembe
 
 // Generated from method `MR::CopyInheritedMembers::G::operator=`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_G_AssignFromAnother(MR_CopyInheritedMembers_G *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_G *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -808,24 +758,20 @@ MR_C_API MR_CopyInheritedMembers_H *MR_CopyInheritedMembers_H_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::H` to its base class `MR::CopyInheritedMembers::A`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_H *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::H` to its base class `MR::CopyInheritedMembers::A`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_H_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_H *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::H` to its base class `MR::CopyInheritedMembers::G`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_H_UpcastTo_MR_CopyInheritedMembers_G(const MR_CopyInheritedMembers_H *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::H` to its base class `MR::CopyInheritedMembers::G`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_H_MutableUpcastTo_MR_CopyInheritedMembers_G(MR_CopyInheritedMembers_H *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::H::H`.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_H_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_H *MR_CopyInheritedMembers_H_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_H *_other);
 
@@ -837,9 +783,9 @@ MR_C_API void MR_CopyInheritedMembers_H_DestroyArray(const MR_CopyInheritedMembe
 
 // Generated from method `MR::CopyInheritedMembers::H::operator=`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_H *MR_CopyInheritedMembers_H_AssignFromAnother(MR_CopyInheritedMembers_H *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_H *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -861,24 +807,20 @@ MR_C_API MR_CopyInheritedMembers_I *MR_CopyInheritedMembers_I_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::I` to its base class `MR::CopyInheritedMembers::A`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_I *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::I` to its base class `MR::CopyInheritedMembers::A`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_I_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_I *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::I` to its base class `MR::CopyInheritedMembers::G`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_I_UpcastTo_MR_CopyInheritedMembers_G(const MR_CopyInheritedMembers_I *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::I` to its base class `MR::CopyInheritedMembers::G`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_I_MutableUpcastTo_MR_CopyInheritedMembers_G(MR_CopyInheritedMembers_I *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::I::I`.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_I_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_I *MR_CopyInheritedMembers_I_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_I *_other);
 
@@ -890,9 +832,9 @@ MR_C_API void MR_CopyInheritedMembers_I_DestroyArray(const MR_CopyInheritedMembe
 
 // Generated from method `MR::CopyInheritedMembers::I::operator=`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_I *MR_CopyInheritedMembers_I_AssignFromAnother(MR_CopyInheritedMembers_I *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_I *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -914,38 +856,32 @@ MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_J_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::J` to its base class `MR::CopyInheritedMembers::A`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_J_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_J *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::J` to its base class `MR::CopyInheritedMembers::A`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_J_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_J *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::J` to a derived class `MR::CopyInheritedMembers::K`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_K *MR_CopyInheritedMembers_J_StaticDowncastTo_MR_CopyInheritedMembers_K(const MR_CopyInheritedMembers_J *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::J` to a derived class `MR::CopyInheritedMembers::K`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_K *MR_CopyInheritedMembers_J_MutableStaticDowncastTo_MR_CopyInheritedMembers_K(MR_CopyInheritedMembers_J *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::J` to a derived class `MR::CopyInheritedMembers::L`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_L *MR_CopyInheritedMembers_J_StaticDowncastTo_MR_CopyInheritedMembers_L(const MR_CopyInheritedMembers_J *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::J` to a derived class `MR::CopyInheritedMembers::L`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_L *MR_CopyInheritedMembers_J_MutableStaticDowncastTo_MR_CopyInheritedMembers_L(MR_CopyInheritedMembers_J *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::J::J`.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_J_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_J_ConstructFromAnother(const MR_CopyInheritedMembers_J *_other);
 
@@ -958,9 +894,9 @@ MR_C_API void MR_CopyInheritedMembers_J_DestroyArray(const MR_CopyInheritedMembe
 // Generated from method `MR::CopyInheritedMembers::J::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_J_AssignFromAnother(MR_CopyInheritedMembers_J *_this, const MR_CopyInheritedMembers_J *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -982,24 +918,20 @@ MR_C_API MR_CopyInheritedMembers_K *MR_CopyInheritedMembers_K_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::K` to its base class `MR::CopyInheritedMembers::G`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_G(const MR_CopyInheritedMembers_K *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::K` to its base class `MR::CopyInheritedMembers::G`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_K_MutableUpcastTo_MR_CopyInheritedMembers_G(MR_CopyInheritedMembers_K *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::K` to its base class `MR::CopyInheritedMembers::J`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_K_UpcastTo_MR_CopyInheritedMembers_J(const MR_CopyInheritedMembers_K *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::K` to its base class `MR::CopyInheritedMembers::J`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_K_MutableUpcastTo_MR_CopyInheritedMembers_J(MR_CopyInheritedMembers_K *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::K::K`.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_K_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_K *MR_CopyInheritedMembers_K_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_K *_other);
 
@@ -1011,9 +943,9 @@ MR_C_API void MR_CopyInheritedMembers_K_DestroyArray(const MR_CopyInheritedMembe
 
 // Generated from method `MR::CopyInheritedMembers::K::operator=`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_K *MR_CopyInheritedMembers_K_AssignFromAnother(MR_CopyInheritedMembers_K *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_K *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1035,24 +967,20 @@ MR_C_API MR_CopyInheritedMembers_L *MR_CopyInheritedMembers_L_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::L` to its base class `MR::CopyInheritedMembers::J`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_J(const MR_CopyInheritedMembers_L *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::L` to its base class `MR::CopyInheritedMembers::J`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_L_MutableUpcastTo_MR_CopyInheritedMembers_J(MR_CopyInheritedMembers_L *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::L` to its base class `MR::CopyInheritedMembers::G`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_L_UpcastTo_MR_CopyInheritedMembers_G(const MR_CopyInheritedMembers_L *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::L` to its base class `MR::CopyInheritedMembers::G`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_L_MutableUpcastTo_MR_CopyInheritedMembers_G(MR_CopyInheritedMembers_L *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::L::L`.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_L_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_L *MR_CopyInheritedMembers_L_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_L *_other);
 
@@ -1064,9 +992,9 @@ MR_C_API void MR_CopyInheritedMembers_L_DestroyArray(const MR_CopyInheritedMembe
 
 // Generated from method `MR::CopyInheritedMembers::L::operator=`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_L *MR_CopyInheritedMembers_L_AssignFromAnother(MR_CopyInheritedMembers_L *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_L *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1088,46 +1016,38 @@ MR_C_API MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_M_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::M` to its base class `MR::CopyInheritedMembers::A`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_M *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::M` to its base class `MR::CopyInheritedMembers::A`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_M_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_M *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::M` to its base class `MR::CopyInheritedMembers::J`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_M_UpcastTo_MR_CopyInheritedMembers_J(const MR_CopyInheritedMembers_M *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::M` to its base class `MR::CopyInheritedMembers::J`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_M_MutableUpcastTo_MR_CopyInheritedMembers_J(MR_CopyInheritedMembers_M *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::M` to a derived class `MR::CopyInheritedMembers::N`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_M_StaticDowncastTo_MR_CopyInheritedMembers_N(const MR_CopyInheritedMembers_M *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::M` to a derived class `MR::CopyInheritedMembers::N`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_M_MutableStaticDowncastTo_MR_CopyInheritedMembers_N(MR_CopyInheritedMembers_M *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::M` to a derived class `MR::CopyInheritedMembers::O`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_M_StaticDowncastTo_MR_CopyInheritedMembers_O(const MR_CopyInheritedMembers_M *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::M` to a derived class `MR::CopyInheritedMembers::O`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_M_MutableStaticDowncastTo_MR_CopyInheritedMembers_O(MR_CopyInheritedMembers_M *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::M::M`.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_M_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_M_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_M *_other);
 
@@ -1139,9 +1059,9 @@ MR_C_API void MR_CopyInheritedMembers_M_DestroyArray(const MR_CopyInheritedMembe
 
 // Generated from method `MR::CopyInheritedMembers::M::operator=`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_M_AssignFromAnother(MR_CopyInheritedMembers_M *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_M *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1163,44 +1083,36 @@ MR_C_API MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::N` to its base class `MR::CopyInheritedMembers::A`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_N *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::N` to its base class `MR::CopyInheritedMembers::A`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_N_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_N *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::N` to its base class `MR::CopyInheritedMembers::J`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_J(const MR_CopyInheritedMembers_N *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::N` to its base class `MR::CopyInheritedMembers::J`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_N_MutableUpcastTo_MR_CopyInheritedMembers_J(MR_CopyInheritedMembers_N *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::N` to its base class `MR::CopyInheritedMembers::M`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_N_UpcastTo_MR_CopyInheritedMembers_M(const MR_CopyInheritedMembers_N *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::N` to its base class `MR::CopyInheritedMembers::M`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_N_MutableUpcastTo_MR_CopyInheritedMembers_M(MR_CopyInheritedMembers_N *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::N` to a derived class `MR::CopyInheritedMembers::O`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_N_StaticDowncastTo_MR_CopyInheritedMembers_O(const MR_CopyInheritedMembers_N *object);
 
 // Downcasts an instance of `MR::CopyInheritedMembers::N` to a derived class `MR::CopyInheritedMembers::O`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_N_MutableStaticDowncastTo_MR_CopyInheritedMembers_O(MR_CopyInheritedMembers_N *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::N::N`.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_N_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_N *_other);
 
@@ -1212,9 +1124,9 @@ MR_C_API void MR_CopyInheritedMembers_N_DestroyArray(const MR_CopyInheritedMembe
 
 // Generated from method `MR::CopyInheritedMembers::N::operator=`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_AssignFromAnother(MR_CopyInheritedMembers_N *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_N *_other);
 
 // Constructs an empty (default-constructed) instance.
@@ -1236,42 +1148,34 @@ MR_C_API MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_OffsetMutablePtr(M
 
 // Upcasts an instance of `MR::CopyInheritedMembers::O` to its base class `MR::CopyInheritedMembers::A`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_O *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::O` to its base class `MR::CopyInheritedMembers::A`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_O_MutableUpcastTo_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_O *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::O` to its base class `MR::CopyInheritedMembers::J`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_J(const MR_CopyInheritedMembers_O *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::O` to its base class `MR::CopyInheritedMembers::J`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_O_MutableUpcastTo_MR_CopyInheritedMembers_J(MR_CopyInheritedMembers_O *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::O` to its base class `MR::CopyInheritedMembers::M`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_M(const MR_CopyInheritedMembers_O *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::O` to its base class `MR::CopyInheritedMembers::M`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_O_MutableUpcastTo_MR_CopyInheritedMembers_M(MR_CopyInheritedMembers_O *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::O` to its base class `MR::CopyInheritedMembers::N`.
 // This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_O_UpcastTo_MR_CopyInheritedMembers_N(const MR_CopyInheritedMembers_O *object);
 
 // Upcasts an instance of `MR::CopyInheritedMembers::O` to its base class `MR::CopyInheritedMembers::N`.
-// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_O_MutableUpcastTo_MR_CopyInheritedMembers_N(MR_CopyInheritedMembers_O *object);
 
 // Generated from constructor `MR::CopyInheritedMembers::O::O`.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CopyInheritedMembers_O_Destroy()` to free it when you're done using it.
 MR_C_API MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_O *_other);
 
@@ -1283,9 +1187,9 @@ MR_C_API void MR_CopyInheritedMembers_O_DestroyArray(const MR_CopyInheritedMembe
 
 // Generated from method `MR::CopyInheritedMembers::O::operator=`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_AssignFromAnother(MR_CopyInheritedMembers_O *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_O *_other);
 
 #ifdef __cplusplus

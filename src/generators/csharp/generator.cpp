@@ -3639,8 +3639,11 @@ namespace mrbind::CSharp
                     expr += ")";
                 }
 
-                auto MakeReturnStatements = [&](const std::string &expr) -> std::string
+                auto MakeReturnStatements = [&](const std::string &expr, bool *returns_void = nullptr) -> std::string
                 {
+                    if (returns_void)
+                        *returns_void = false;
+
                     if (force_void_return_type || acts_on_copy_of_this || need_result_in_variable_for_lifetimes)
                     {
                         // Note, this `__ret` variable doesn't duplicate `__c_ret`.
@@ -3687,7 +3690,10 @@ namespace mrbind::CSharp
                         }
 
                         // If `ret_binding->csharp_return_type == "void"`, then `MakeReturnStatements()` should ignore the first argument anyway.
-                        ret += ret_binding->MakeReturnStatements(ret_target, expr);
+                        std::string ret_statements = ret_binding->MakeReturnStatements(ret_target, expr);
+                        if (returns_void && ret_statements == expr + ";")
+                            *returns_void = true;
+                        ret += ret_statements;
                         ret += '\n';
 
                         // Run the lifetime stuff.
@@ -3696,16 +3702,33 @@ namespace mrbind::CSharp
                         ret += extra_statements_after;
 
                         if (acts_on_copy_of_this)
+                        {
                             ret += "return " + std::string(ret_var_is_ref ? "ref " : "") + "__this_copy;";
+                        }
                         else if (need_result_in_variable_for_lifetimes)
+                        {
                             ret += "return " + std::string(ret_var_is_ref ? "ref " : "") + "__ret;";
+                        }
+                        else
+                        {
+                            assert(ret.ends_with('\n'));
+                            ret.pop_back(); // Eh.
+                        }
 
                         return ret;
                     }
 
+                    std::string ret_statements = ret_binding->MakeReturnStatements("return", expr);
+                    if (returns_void && ret_statements == expr + ";")
+                        *returns_void = true;
+
+                    // This is a bit jank. Make sure we aren't returning before running the additional statements.
+                    assert(extra_statements_after.empty() || !ret_statements.starts_with("return ") || ret_statements.contains("__c_ret"));
+
                     return
                         lifetime_statements +
-                        ret_binding->MakeReturnStatements("return", expr);
+                        extra_statements_after + // Note that this goes before `ret_statements`. This is a bit jank. Notice the assert above that ensures that this makes sense.
+                        ret_statements;
                 };
 
                 // Call the function.
@@ -3758,16 +3781,20 @@ namespace mrbind::CSharp
                 }
                 else if (extra_statements_after.empty() && !ret_binding->needs_temporary_variable)
                 {
-                    // Return the call directly.
+                    // If we don't need to run any extra statements after calling the C function, `return` result immediately.
+
                     file.WriteString(extra_statements);
                     file.WriteString(MakeReturnStatements(expr) + '\n');
                 }
                 else
                 {
-                    // Store the result to a temporary variable (if not void), run some custom code, and then return.
-                    std::string ret_expr = MakeReturnStatements("__c_ret");
+                    // Maybe we need to store the C result in a temporary variable to run extra statements after the C call.
+                    // But check the C function returns `void` first, because if it does, we don't actually need a variable.
 
-                    if (ret_expr == "__c_ret;")
+                    bool c_returns_void = false;
+                    std::string ret_expr = MakeReturnStatements("__c_ret", &c_returns_void);
+
+                    if (c_returns_void)
                     {
                         // Likely returning void, don't need to actually store the result in a variable.
                         file.WriteString(extra_statements);
@@ -3775,7 +3802,10 @@ namespace mrbind::CSharp
                     }
                     else
                     {
+                        // Store the result in a variable, run some custom code, and then return.
+
                         file.WriteString(extra_statements);
+
                         // Note the untyped `var`. `expr` here doesn't contains the result of `make_return_expr()` (which itself could be
                         //   an untyped `new()`, which wouldn't work with `var`), but instead contains the result of calling
                         //   a dllimported function, which always return a fixed type.

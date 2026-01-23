@@ -9,7 +9,7 @@ public static partial class MR
             /// Generated from class `MR::StdContainers::A`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -47,6 +47,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_ConstructFromAnother(MR.CS.StdContainers.A._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -77,6 +78,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_ConstructFromAnother(MR.CS.StdContainers.A._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -86,6 +88,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.A._Underlying *__MR_StdContainers_A_AssignFromAnother(_Underlying *_this, MR.CS.StdContainers.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_StdContainers_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -129,7 +133,7 @@ public static partial class MR
             /// Generated from class `MR::StdContainers::NonDefaultConstructible`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_NonDefaultConstructible : MR.CS.Misc.Object, System.IDisposable
+            public class Const_NonDefaultConstructible : MR.CS.Misc.Object<Const_NonDefaultConstructible>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -157,6 +161,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(MR.CS.StdContainers.NonDefaultConstructible._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -192,6 +197,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(MR.CS.StdContainers.NonDefaultConstructible._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -216,6 +222,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_StdContainers_NonDefaultConstructible_AssignFromAnother(_Underlying *_this, MR.CS.StdContainers.NonDefaultConstructible._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_StdContainers_NonDefaultConstructible_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -264,7 +272,7 @@ public static partial class MR
             /// Generated from class `MR::StdContainers::NonAssignable`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_NonAssignable : MR.CS.Misc.Object, System.IDisposable, System.IEquatable<MR.CS.StdContainers._ByValue_NonAssignable>
+            public class Const_NonAssignable : MR.CS.Misc.Object<Const_NonAssignable>, System.IDisposable, System.IEquatable<MR.CS.StdContainers._ByValue_NonAssignable>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -302,6 +310,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_NonAssignable_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// <summary>
@@ -375,6 +384,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonAssignable_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_StdContainers_NonAssignable_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *_other);
                     _UnderlyingPtr = __MR_StdContainers_NonAssignable_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
             }
 
@@ -649,9 +659,9 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_StdArraySimplePtr", ExactSpelling = true)]
                 extern static MR.CS.Std.Array_Int_43 *__MR_StdContainers_StdArraySimplePtr(MR.CS.Std.Array_Int_43 *param);
                 MR.CS.Std.Array_Int_43 __value_param = param is not null ? param.Value : default(MR.CS.Std.Array_Int_43);
-                var __ret = __MR_StdContainers_StdArraySimplePtr(param is not null ? &__value_param : null);
+                var __c_ret = __MR_StdContainers_StdArraySimplePtr(param is not null ? &__value_param : null);
                 if (param is not null) param.Value = __value_param;
-                return __ret is not null ? new MR.CS.Misc.Ref<MR.CS.Std.Array_Int_43>(__ret) : null;
+                return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.Std.Array_Int_43>(__c_ret) : null;
             }
 
             // For this `std::multiset` specialization, mention all iterators so that they get merged.

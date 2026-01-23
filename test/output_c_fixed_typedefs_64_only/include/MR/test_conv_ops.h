@@ -33,7 +33,7 @@ MR_C_API MR_ConvOps_A *MR_ConvOps_A_OffsetMutablePtr(MR_ConvOps_A *ptr, ptrdiff_
 
 /// Generated from constructor `MR::ConvOps::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_ConvOps_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_ConvOps_A *MR_ConvOps_A_ConstructFromAnother(const MR_ConvOps_A *_other);
 
@@ -50,9 +50,9 @@ MR_C_API bool MR_ConvOps_A_ConvertTo_bool(const MR_ConvOps_A *_this);
 /// Generated from method `MR::ConvOps::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_ConvOps_A *MR_ConvOps_A_AssignFromAnother(MR_ConvOps_A *_this, const MR_ConvOps_A *_other);
 
 #ifdef __cplusplus

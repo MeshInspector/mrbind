@@ -38,14 +38,15 @@ MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_Expo
 MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_DefaultConstructArray(size_t num_elems);
 
 // Constructs a copy of another instance. The source remains alive.
-// The reference to the parameter `other` might be preserved in the return value.
+// The reference to the parameter `other` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_CSharp_ExposedLayout_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_MR_CSharp_ExposedLayout *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `other` might be preserved in the parameter `_this`.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// The reference to the parameter `other` might be preserved in this object.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_AssignFromAnother(MR_C_std_vector_MR_CSharp_ExposedLayout *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_MR_CSharp_ExposedLayout *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_vector_MR_CSharp_ExposedLayout`. Does nothing if the pointer is null.
@@ -89,7 +90,7 @@ MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_ResizeWithDefaultValue(MR_
 
 // Removes all elements from the container.
 // Parameter `_this` can not be null. It is a single object.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_Clear(MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
 // The memory capacity, measued in the number of elements.
@@ -106,49 +107,41 @@ MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_ShrinkToFit(MR_C_std_vecto
 
 // The element at a specific index, read-only.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_At(const MR_C_std_vector_MR_CSharp_ExposedLayout *_this, size_t i);
 
 // The element at a specific index, mutable.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_MutableAt(MR_C_std_vector_MR_CSharp_ExposedLayout *_this, size_t i);
 
 // The first element or null if empty, read-only.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_Front(const MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
 // The first element or null if empty, mutable.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_MutableFront(MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
 // The last element or null if empty, read-only.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_Back(const MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
 // The last element or null if empty, mutable.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_MutableBack(MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
 // Returns a pointer to the continuous storage that holds all elements, read-only.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_Data(const MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
 // Returns a pointer to the continuous storage that holds all elements, mutable.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_MutableData(MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
 // Inserts a new element at the end.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
+// The reference to the parameter `new_elem` might be preserved in this object.
 MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_PushBack(MR_C_std_vector_MR_CSharp_ExposedLayout *_this, MR_CSharp_ExposedLayout new_elem);
 
 // Removes one element from the end.
@@ -157,7 +150,7 @@ MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_PopBack(MR_C_std_vector_MR
 
 // Inserts a new element right before the specified position.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
+// The reference to the parameter `new_elem` might be preserved in this object.
 MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_Insert(MR_C_std_vector_MR_CSharp_ExposedLayout *_this, size_t position, MR_CSharp_ExposedLayout new_elem);
 
 // Erases the element at the specified position.
@@ -167,7 +160,7 @@ MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_Erase(MR_C_std_vector_MR_C
 // Inserts a new element right before the specified position.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `position` can not be null. It is a single object.
-// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
+// The reference to the parameter `new_elem` might be preserved in this object.
 MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_InsertAtMutableIter(MR_C_std_vector_MR_CSharp_ExposedLayout *_this, const MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *position, MR_CSharp_ExposedLayout new_elem);
 
 // Erases the element at the specified position.
@@ -178,7 +171,7 @@ MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_EraseAtMutableIter(MR_C_st
 // Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `position` can not be null. It is a single object.
-// The reference to the parameter `new_elem` might be preserved in the parameter `_this`.
+// The reference to the parameter `new_elem` might be preserved in this object.
 MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_InsertAtIter(MR_C_std_vector_MR_CSharp_ExposedLayout *_this, const MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator *position, MR_CSharp_ExposedLayout new_elem);
 
 // Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
@@ -188,7 +181,6 @@ MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_EraseAtIter(MR_C_std_vecto
 
 // The begin iterator, const.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator *MR_C_std_vector_MR_CSharp_ExposedLayout_Begin(const MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
@@ -199,7 +191,6 @@ MR_C_API bool MR_C_std_vector_MR_CSharp_ExposedLayout_IsBegin(const MR_C_std_vec
 
 // The begin iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *MR_C_std_vector_MR_CSharp_ExposedLayout_MutableBegin(MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
@@ -210,7 +201,6 @@ MR_C_API bool MR_C_std_vector_MR_CSharp_ExposedLayout_IsMutableBegin(MR_C_std_ve
 
 // The end iterator, const.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator *MR_C_std_vector_MR_CSharp_ExposedLayout_End(const MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
@@ -221,7 +211,6 @@ MR_C_API bool MR_C_std_vector_MR_CSharp_ExposedLayout_IsEnd(const MR_C_std_vecto
 
 // The end iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *MR_C_std_vector_MR_CSharp_ExposedLayout_MutableEnd(MR_C_std_vector_MR_CSharp_ExposedLayout *_this);
 
@@ -251,15 +240,16 @@ MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator *MR_C_std_vector
 
 // Constructs a copy of another instance. The source remains alive.
 // Parameter `other` can not be null. It is a single object.
-// The reference to the parameter `other` might be preserved in the return value.
+// The reference to the parameter `other` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator *MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_ConstructFromAnother(const MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
-// The reference to the parameter `other` might be preserved in the parameter `_this`.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// The reference to the parameter `other` might be preserved in this object.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_AssignFromAnother(MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator *_this, const MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator`. Does nothing if the pointer is null.
@@ -292,15 +282,16 @@ MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *MR_C_std_vector_MR_CS
 
 // Constructs a copy of another instance. The source remains alive.
 // Parameter `other` can not be null. It is a single object.
-// The reference to the parameter `other` might be preserved in the return value.
+// The reference to the parameter `other` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_ConstructFromAnother(const MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
-// The reference to the parameter `other` might be preserved in the parameter `_this`.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// The reference to the parameter `other` might be preserved in this object.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_AssignFromAnother(MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *_this, const MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_vector_MR_CSharp_ExposedLayout_iterator`. Does nothing if the pointer is null.
@@ -319,7 +310,6 @@ MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *MR_C_std_vector_MR_CS
 
 // Dereferences a const iterator.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Deref(const MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator *_this);
 
@@ -342,7 +332,6 @@ MR_C_API ptrdiff_t MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator_Distan
 
 // Dereferences a mutable iterator.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_this` (if any) might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_Deref(const MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *_this);
 

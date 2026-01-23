@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// This is the const half of the class.
-            public class Const_Ostream : MR.CS.Misc.Object
+            public class Const_Ostream : MR.CS.Misc.Object<Const_Ostream>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -59,7 +59,7 @@ public static partial class MR
             }
 
             /// This is the const half of the class.
-            public class Const_Istream : MR.CS.Misc.Object
+            public class Const_Istream : MR.CS.Misc.Object<Const_Istream>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 

@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Stores a functor of type: `MR::StdFunction::E(int, MR::StdFunction::E)`. Possibly stateful.
             /// This is the const half of the class.
-            public class Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE : MR.CS.Misc.Object<Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_MRStdFunctionEFuncFromIntMRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionEFuncFromIntMRStdFunctionE._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
             }
 
@@ -63,6 +64,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_MRStdFunctionEFuncFromIntMRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionEFuncFromIntMRStdFunctionE._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -70,6 +72,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionEFuncFromIntMRStdFunctionE._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
             }

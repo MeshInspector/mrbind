@@ -10,7 +10,7 @@ public static partial class MR
             /// Generated from class `MR::AdjustingNames::A`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -58,6 +58,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_ConstructFromAnother(MR.CS.AdjustingNames.A._Underlying *_other);
                     _UnderlyingPtr = __MR_AdjustingNames_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -89,6 +90,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_ConstructFromAnother(MR.CS.AdjustingNames.A._Underlying *_other);
                     _UnderlyingPtr = __MR_AdjustingNames_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -108,6 +110,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.AdjustingNames.A._Underlying *__MR_AdjustingNames_A_AssignFromAnother(_Underlying *_this, MR.CS.AdjustingNames.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_AdjustingNames_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 

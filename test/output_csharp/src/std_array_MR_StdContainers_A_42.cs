@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// A fixed-size array of `MR::StdContainers::A` of size 42.
             /// This is the const half of the class.
-            public class Const_Array_MRStdContainersA_42 : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Array_MRStdContainersA_42 : MR.CS.Misc.Object<Const_Array_MRStdContainersA_42>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,14 +40,21 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(MR.CS.Std.Array_MRStdContainersA_42._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// The element at a specific index, read-only.
-                public unsafe MR.CS.StdContainers.Const_A At(ulong i)
+                public unsafe MR.CS.StdContainers.Const_A this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_At", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_At(_Underlying *_this, ulong i);
-                    return new(__MR_C_std_array_MR_StdContainers_A_42_At(_UnderlyingPtr, i), is_owning: false);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_At", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_At(_Underlying *_this, ulong i);
+                        MR.CS.StdContainers.Const_A __ret;
+                        __ret = new(__MR_C_std_array_MR_StdContainers_A_42_At(_UnderlyingPtr, i), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
+                    }
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
@@ -55,8 +62,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_Data", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_Data(_Underlying *_this);
-                    var __ret = __MR_C_std_array_MR_StdContainers_A_42_Data(_UnderlyingPtr);
-                    return new(__ret);
+                    var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_Data(_UnderlyingPtr);
+                    return new(__c_ret);
                 }
             }
 
@@ -80,6 +87,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Array_MRStdContainersA_42._Underlying *__MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(MR.CS.Std.Array_MRStdContainersA_42._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -87,15 +95,23 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_array_MR_StdContainers_A_42_AssignFromAnother(_Underlying *_this, MR.CS.Std.Array_MRStdContainersA_42._Underlying *other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(other);
                     __MR_C_std_array_MR_StdContainers_A_42_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe new MR.CS.StdContainers.A At(ulong i)
+                public unsafe new MR.CS.StdContainers.A this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_MutableAt", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_MutableAt(_Underlying *_this, ulong i);
-                    return new(__MR_C_std_array_MR_StdContainers_A_42_MutableAt(_UnderlyingPtr, i), is_owning: false);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_MutableAt", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_MutableAt(_Underlying *_this, ulong i);
+                        MR.CS.StdContainers.A __ret;
+                        __ret = new(__MR_C_std_array_MR_StdContainers_A_42_MutableAt(_UnderlyingPtr, i), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
+                    }
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
@@ -103,8 +119,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_MutableData", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_MutableData(_Underlying *_this);
-                    var __ret = __MR_C_std_array_MR_StdContainers_A_42_MutableData(_UnderlyingPtr);
-                    return new(__ret);
+                    var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_MutableData(_UnderlyingPtr);
+                    return new(__c_ret);
                 }
             }
 

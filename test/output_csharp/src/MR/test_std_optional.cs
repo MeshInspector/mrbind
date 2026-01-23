@@ -11,7 +11,7 @@ public static partial class MR
 
             /// Generated from class `MR::StdOptional::A`.
             /// This is the const half of the class.
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -63,6 +63,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.A._Underlying *__MR_StdOptional_A_ConstructFromAnother(MR.CS.StdOptional.A._Underlying *_other);
                     _UnderlyingPtr = __MR_StdOptional_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -104,6 +105,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.A._Underlying *__MR_StdOptional_A_ConstructFromAnother(MR.CS.StdOptional.A._Underlying *_other);
                     _UnderlyingPtr = __MR_StdOptional_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::StdOptional::A::operator=`.
@@ -111,6 +113,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.A._Underlying *__MR_StdOptional_A_AssignFromAnother(_Underlying *_this, MR.CS.StdOptional.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_StdOptional_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -147,7 +151,7 @@ public static partial class MR
 
             /// Generated from class `MR::StdOptional::B`.
             /// This is the const half of the class.
-            public class Const_B : MR.CS.Misc.Object, System.IDisposable
+            public class Const_B : MR.CS.Misc.Object<Const_B>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -173,7 +177,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_Get_s", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_StdOptional_B_Get_s(_Underlying *_this);
-                        return new(__MR_StdOptional_B_Get_s(_UnderlyingPtr), is_owning: false);
+                        MR.CS.Std.Const_String __ret;
+                        __ret = new(__MR_StdOptional_B_Get_s(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
                     }
                 }
 
@@ -203,6 +210,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_StdOptional_B_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdOptional.B._Underlying *_other);
                     _UnderlyingPtr = __MR_StdOptional_B_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
             }
 
@@ -218,7 +226,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_StdOptional_B_GetMutable_s(_Underlying *_this);
-                        return new(__MR_StdOptional_B_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        MR.CS.Std.String __ret;
+                        __ret = new(__MR_StdOptional_B_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
                     }
                 }
 
@@ -248,6 +259,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_StdOptional_B_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdOptional.B._Underlying *_other);
                     _UnderlyingPtr = __MR_StdOptional_B_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
                 /// Generated from method `MR::StdOptional::B::operator=`.
@@ -255,6 +267,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_StdOptional_B_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdOptional.B._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
                     return new(__MR_StdOptional_B_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
                 }
             }

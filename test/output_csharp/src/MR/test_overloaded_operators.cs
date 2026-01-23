@@ -7,7 +7,7 @@ public static partial class MR
             // Member functions.
             /// Generated from class `MR::OverloadedOps::A`.
             /// This is the const half of the class.
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -34,6 +34,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OverloadedOps.A._Underlying *__MR_OverloadedOps_A_ConstructFromAnother(MR.CS.OverloadedOps.A._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 // Pre-increment.
@@ -43,7 +44,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_A", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_OverloadedOps_A(MR.CS.OverloadedOps.Const_A._Underlying *_this);
                     A __this_copy = new(_this);
-                    int __unused_ret = __MR_C_incr_MR_OverloadedOps_A(__this_copy._UnderlyingPtr);
+                    int __ret = __MR_C_incr_MR_OverloadedOps_A(__this_copy._UnderlyingPtr);
                     return __this_copy;
                 }
 
@@ -54,7 +55,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_A", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_OverloadedOps_A(MR.CS.OverloadedOps.Const_A._Underlying *_this);
                     A __this_copy = new(_this);
-                    int __unused_ret = __MR_C_decr_MR_OverloadedOps_A(__this_copy._UnderlyingPtr);
+                    int __ret = __MR_C_decr_MR_OverloadedOps_A(__this_copy._UnderlyingPtr);
                     return __this_copy;
                 }
             }
@@ -73,6 +74,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OverloadedOps.A._Underlying *__MR_OverloadedOps_A_ConstructFromAnother(MR.CS.OverloadedOps.A._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 // Assign.
@@ -81,6 +83,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_A_AssignFromAnother", ExactSpelling = true)]
                     extern static int __MR_OverloadedOps_A_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return __MR_OverloadedOps_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                 }
 
@@ -396,7 +400,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_A", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_OverloadedOps_A(_Underlying *_this);
-                    int __unused_ret = __MR_C_incr_MR_OverloadedOps_A(_UnderlyingPtr);
+                    int __ret = __MR_C_incr_MR_OverloadedOps_A(_UnderlyingPtr);
                 }
 
                 // Pre-decrement.
@@ -405,7 +409,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_A", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_OverloadedOps_A(_Underlying *_this);
-                    int __unused_ret = __MR_C_decr_MR_OverloadedOps_A(_UnderlyingPtr);
+                    int __ret = __MR_C_decr_MR_OverloadedOps_A(_UnderlyingPtr);
                 }
 
                 // Comma.
@@ -490,7 +494,7 @@ public static partial class MR
             // Free functions.
             /// Generated from class `MR::OverloadedOps::B`.
             /// This is the const half of the class.
-            public class Const_B : MR.CS.Misc.Object, System.IDisposable
+            public class Const_B : MR.CS.Misc.Object<Const_B>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -524,6 +528,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_ConstructFromAnother(MR.CS.OverloadedOps.B._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_B_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 // Unary plus.
@@ -840,7 +845,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_B", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_OverloadedOps_B(_Underlying *_1);
-                    int __unused_ret = __MR_C_incr_MR_OverloadedOps_B(_UnderlyingPtr);
+                    int __ret = __MR_C_incr_MR_OverloadedOps_B(_UnderlyingPtr);
                 }
 
                 // Pre-increment.
@@ -850,7 +855,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_B", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_OverloadedOps_B(MR.CS.OverloadedOps.Const_B._Underlying *_1);
                     B __this_copy = new(_1);
-                    int __unused_ret = __MR_C_incr_MR_OverloadedOps_B(__this_copy._UnderlyingPtr);
+                    int __ret = __MR_C_incr_MR_OverloadedOps_B(__this_copy._UnderlyingPtr);
                     return __this_copy;
                 }
 
@@ -860,7 +865,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_B", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_OverloadedOps_B(_Underlying *_1);
-                    int __unused_ret = __MR_C_decr_MR_OverloadedOps_B(_UnderlyingPtr);
+                    int __ret = __MR_C_decr_MR_OverloadedOps_B(_UnderlyingPtr);
                 }
 
                 // Pre-decrement.
@@ -870,7 +875,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_B", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_OverloadedOps_B(MR.CS.OverloadedOps.Const_B._Underlying *_1);
                     B __this_copy = new(_1);
-                    int __unused_ret = __MR_C_decr_MR_OverloadedOps_B(__this_copy._UnderlyingPtr);
+                    int __ret = __MR_C_decr_MR_OverloadedOps_B(__this_copy._UnderlyingPtr);
                     return __this_copy;
                 }
 
@@ -914,6 +919,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_ConstructFromAnother(MR.CS.OverloadedOps.B._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_B_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::OverloadedOps::B::operator=`.
@@ -921,6 +927,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_B_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OverloadedOps.B._Underlying *__MR_OverloadedOps_B_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.B._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_OverloadedOps_B_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -958,7 +966,7 @@ public static partial class MR
             // Test how the names are generated.
             /// Generated from class `MR::OverloadedOps::C`.
             /// This is the const half of the class.
-            public class Const_C : MR.CS.Misc.Object, System.IDisposable
+            public class Const_C : MR.CS.Misc.Object<Const_C>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -992,6 +1000,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_C_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_ConstructFromAnother(MR.CS.OverloadedOps.C._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_C_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 // If rhs type is same as the lhs one (ignoring cvref), it's not emitted.
@@ -1034,6 +1043,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_C_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_ConstructFromAnother(MR.CS.OverloadedOps.C._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_C_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::OverloadedOps::C::operator=`.
@@ -1041,6 +1051,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_C_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OverloadedOps.C._Underlying *__MR_OverloadedOps_C_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.C._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_OverloadedOps_C_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -1077,7 +1089,7 @@ public static partial class MR
 
             /// Generated from class `MR::OverloadedOps::D`.
             /// This is the const half of the class.
-            public class Const_D : MR.CS.Misc.Object, System.IDisposable
+            public class Const_D : MR.CS.Misc.Object<Const_D>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -1111,6 +1123,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_D_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_ConstructFromAnother(MR.CS.OverloadedOps.D._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_D_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::OverloadedOps::D::operator*`.
@@ -1150,6 +1163,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_D_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_ConstructFromAnother(MR.CS.OverloadedOps.D._Underlying *_other);
                     _UnderlyingPtr = __MR_OverloadedOps_D_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::OverloadedOps::D::operator=`.
@@ -1157,6 +1171,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_OverloadedOps_D_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.OverloadedOps.D._Underlying *__MR_OverloadedOps_D_AssignFromAnother(_Underlying *_this, MR.CS.OverloadedOps.D._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_OverloadedOps_D_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 

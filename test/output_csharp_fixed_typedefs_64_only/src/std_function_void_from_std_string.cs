@@ -8,7 +8,7 @@ public static partial class MR
             /// Stores a functor of type: `void(std::string)`. Possibly stateful.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Function_VoidFuncFromStdString : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Function_VoidFuncFromStdString : MR.CS.Misc.Object<Const_Function_VoidFuncFromStdString>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -46,6 +46,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_VoidFuncFromStdString._Underlying *__MR_C_std_function_void_from_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_VoidFuncFromStdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_void_from_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
             }
 
@@ -75,6 +76,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_VoidFuncFromStdString._Underlying *__MR_C_std_function_void_from_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_VoidFuncFromStdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_void_from_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// <summary>
@@ -84,6 +86,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_void_from_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_VoidFuncFromStdString._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_function_void_from_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
             }

@@ -9,7 +9,7 @@ public static partial class MR
             /// Generated from class `MR::DeclOrder::A`.
             /// This is the const reference to the struct.
             /// </summary>
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -178,7 +178,7 @@ public static partial class MR
                 /// Generated from class `MR::DeclOrder::A::B`.
                 /// This is the const reference to the struct.
                 /// </summary>
-                public class Const_B : MR.CS.Misc.Object, System.IDisposable
+                public class Const_B : MR.CS.Misc.Object<Const_B>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -501,7 +501,7 @@ public static partial class MR
             /// Generated from class `MR::DeclOrder::C<false>`.
             /// This is the const reference to the struct.
             /// </summary>
-            public class Const_C_False : MR.CS.Misc.Object, System.IDisposable
+            public class Const_C_False : MR.CS.Misc.Object<Const_C_False>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -721,7 +721,7 @@ public static partial class MR
             /// Generated from class `MR::DeclOrder::C<true>`.
             /// This is the const reference to the struct.
             /// </summary>
-            public class Const_C_True : MR.CS.Misc.Object, System.IDisposable
+            public class Const_C_True : MR.CS.Misc.Object<Const_C_True>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 

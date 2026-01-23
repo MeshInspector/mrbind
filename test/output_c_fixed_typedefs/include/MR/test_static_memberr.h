@@ -23,8 +23,8 @@ typedef struct MR_StaticFuncs_A MR_StaticFuncs_A;
 MR_C_API const int32_t *MR_StaticFuncs_A_Get_x(void);
 
 // Modifies a member variable of class `MR::StaticFuncs::A` named `x`.
-// The reference to the parameter `value` might be preserved in the parameter `_this` in element `x`.
-// When this function is called, the parameter `_this` will drop object references it had previously in `x`.
+// The reference to the parameter `value` might be preserved in this object in element `x`.
+// When this function is called, this object will drop object references it had previously in `x`.
 MR_C_API void MR_StaticFuncs_A_Set_x(int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::StaticFuncs::A` named `x`.
@@ -50,7 +50,7 @@ MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_OffsetMutablePtr(MR_StaticFuncs_A *p
 
 // Generated from constructor `MR::StaticFuncs::A::A`.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_StaticFuncs_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_ConstructFromAnother(const MR_StaticFuncs_A *_other);
 
@@ -63,9 +63,9 @@ MR_C_API void MR_StaticFuncs_A_DestroyArray(const MR_StaticFuncs_A *_this);
 // Generated from method `MR::StaticFuncs::A::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_StaticFuncs_A *MR_StaticFuncs_A_AssignFromAnother(MR_StaticFuncs_A *_this, const MR_StaticFuncs_A *_other);
 
 // Generated from method `MR::StaticFuncs::A::blah`.

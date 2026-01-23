@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from class `MR::AbstractClasses::A`.
             /// This is the const half of the class.
-            public class Const_A : MR.CS.Misc.Object
+            public class Const_A : MR.CS.Misc.Object<Const_A>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -65,7 +65,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::AbstractClasses::C`
             /// This is the const half of the class.
-            public class Const_B : MR.CS.Misc.Object, System.IDisposable
+            public class Const_B : MR.CS.Misc.Object<Const_B>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -139,7 +139,7 @@ public static partial class MR
             ///   Direct: (non-virtual)
             ///     `MR::AbstractClasses::B`
             /// This is the const half of the class.
-            public class Const_C : MR.CS.Misc.Object, System.IDisposable
+            public class Const_C : MR.CS.Misc.Object<Const_C>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 

@@ -8,7 +8,7 @@ public static partial class MR
             /// Stores either a single `std::string` or nothing.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Optional_StdString : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Optional_StdString : MR.CS.Misc.Object<Const_Optional_StdString>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -46,6 +46,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// <summary>
@@ -80,8 +81,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_Value", ExactSpelling = true)]
                     extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_optional_std_string_Value(_Underlying *_this);
-                    var __ret = __MR_C_std_optional_std_string_Value(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Std.Const_String(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_optional_std_string_Value(_UnderlyingPtr);
+                    MR.CS.Std.Const_String? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.Std.Const_String(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
             }
 
@@ -111,6 +115,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_StdString._Underlying *__MR_C_std_optional_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_optional_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// <summary>
@@ -145,6 +150,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Optional_StdString._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_optional_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -175,8 +182,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_MutableValue", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_C_std_optional_std_string_MutableValue(_Underlying *_this);
-                    var __ret = __MR_C_std_optional_std_string_MutableValue(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Std.String(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_optional_std_string_MutableValue(_UnderlyingPtr);
+                    MR.CS.Std.String? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.Std.String(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
             }
 

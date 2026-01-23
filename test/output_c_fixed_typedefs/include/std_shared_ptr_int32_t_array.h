@@ -33,14 +33,15 @@ MR_C_API MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_De
 MR_C_API MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_DefaultConstructArray(size_t num_elems);
 
 // Constructs a copy of another instance. The source remains alive.
-// The reference to the parameter `other` might be preserved in the return value.
+// The reference to the parameter `other` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int32_t_array_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_int32_t_array *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `other` might be preserved in the parameter `_this`.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// The reference to the parameter `other` might be preserved in this object.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_int32_t_array_AssignFromAnother(MR_C_std_shared_ptr_int32_t_array *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_int32_t_array *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_shared_ptr_int32_t_array`. Does nothing if the pointer is null.
@@ -59,12 +60,10 @@ MR_C_API MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_Of
 
 // Returns the stored pointer, possibly null.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API int32_t *MR_C_std_shared_ptr_int32_t_array_Get(const MR_C_std_shared_ptr_int32_t_array *_this);
 
 // Returns an element from the stored array. The stored pointer must not be null.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `_this` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API int32_t *MR_C_std_shared_ptr_int32_t_array_At(const MR_C_std_shared_ptr_int32_t_array *_this, ptrdiff_t i);
 
@@ -87,27 +86,29 @@ MR_C_API MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_Co
 MR_C_API void MR_C_std_shared_ptr_int32_t_array_Assign(MR_C_std_shared_ptr_int32_t_array *_this, int32_t *ptr);
 
 // Create a new instance, storing a non-owning pointer.
-// The reference to the parameter `ptr` might be preserved in the return value.
+// The reference to the parameter `ptr` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int32_t_array_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_ConstructNonOwning(int32_t *ptr);
 
 // Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `ptr` might be preserved in the parameter `_this`.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// The reference to the parameter `ptr` might be preserved in this object.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_int32_t_array_AssignNonOwning(MR_C_std_shared_ptr_int32_t_array *_this, int32_t *ptr);
 
 // The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
 // The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
-// The reference to the parameter `ptr` might be preserved in the return value.
+// The reference to the parameter `ptr` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int32_t_array_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_ConstructAliasing(MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, int32_t *ptr);
 
 // The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
 // The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
 // Parameter `_this` can not be null. It is a single object.
-// The reference to the parameter `ptr` might be preserved in the parameter `_this`.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// The reference to the parameter `ptr` might be preserved in this object.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_int32_t_array_AssignAliasing(MR_C_std_shared_ptr_int32_t_array *_this, MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, int32_t *ptr);
 
 // Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.

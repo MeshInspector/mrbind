@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from class `MR::StaticFuncs::A`.
             /// This is the const half of the class.
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -50,6 +50,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_ConstructFromAnother(MR.CS.StaticFuncs.A._Underlying *_other);
                     _UnderlyingPtr = __MR_StaticFuncs_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::StaticFuncs::A::blah`.
@@ -81,6 +82,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_ConstructFromAnother(MR.CS.StaticFuncs.A._Underlying *_other);
                     _UnderlyingPtr = __MR_StaticFuncs_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::StaticFuncs::A::operator=`.
@@ -88,6 +90,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StaticFuncs.A._Underlying *__MR_StaticFuncs_A_AssignFromAnother(_Underlying *_this, MR.CS.StaticFuncs.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_StaticFuncs_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }

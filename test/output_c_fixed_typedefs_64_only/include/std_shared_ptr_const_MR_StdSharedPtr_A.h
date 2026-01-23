@@ -28,14 +28,15 @@ MR_C_API MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *MR_C_std_shared_ptr_const_
 MR_C_API MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_DefaultConstructArray(size_t num_elems);
 
 /// Constructs a copy of another instance. The source remains alive.
-/// The reference to the parameter `other` might be preserved in the return value.
+/// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `other` might be preserved in the parameter `_this`.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// The reference to the parameter `other` might be preserved in this object.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_AssignFromAnother(MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_shared_ptr_const_MR_StdSharedPtr_A`. Does nothing if the pointer is null.
@@ -54,7 +55,6 @@ MR_C_API MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *MR_C_std_shared_ptr_const_
 
 /// Returns the stored pointer, possibly null.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `_this` might be preserved in the return value.
 MR_C_API const MR_StdSharedPtr_A *MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Get(const MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *_this);
 
 /// How many shared pointers share the managed object. Zero if no object is being managed.
@@ -76,14 +76,15 @@ MR_C_API MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *MR_C_std_shared_ptr_const_
 MR_C_API void MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Assign(MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *_this, const MR_StdSharedPtr_A *ptr);
 
 /// Create a new instance, storing a non-owning pointer.
-/// The reference to the parameter `ptr` might be preserved in the return value.
+/// The reference to the parameter `ptr` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_ConstructNonOwning(const MR_StdSharedPtr_A *ptr);
 
 /// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `ptr` might be preserved in the parameter `_this`.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// The reference to the parameter `ptr` might be preserved in this object.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_AssignNonOwning(MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *_this, const MR_StdSharedPtr_A *ptr);
 
 /// Create a new instance from a non-const pointer to the same type.
@@ -96,15 +97,16 @@ MR_C_API void MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_AssignFromMutable(MR_C
 
 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
-/// The reference to the parameter `ptr` might be preserved in the return value.
+/// The reference to the parameter `ptr` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_Destroy()` to free it when you're done using it.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_ConstructAliasing(MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, const MR_StdSharedPtr_A *ptr);
 
 /// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
 /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
 /// Parameter `_this` can not be null. It is a single object.
-/// The reference to the parameter `ptr` might be preserved in the parameter `_this`.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// The reference to the parameter `ptr` might be preserved in this object.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API void MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_AssignAliasing(MR_C_std_shared_ptr_const_MR_StdSharedPtr_A *_this, MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, const MR_StdSharedPtr_A *ptr);
 
 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.

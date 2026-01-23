@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// A fixed-size array of `int[3][4]` of size 5.
             /// This is the const reference to the struct.
-            public class Const_Array_IntArray4Array3_5 : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Array_IntArray4Array3_5 : MR.CS.Misc.Object<Const_Array_IntArray4Array3_5>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 

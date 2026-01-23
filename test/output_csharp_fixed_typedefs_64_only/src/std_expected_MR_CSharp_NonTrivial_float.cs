@@ -8,7 +8,7 @@ public static partial class MR
             /// Stores either a `MR::CSharp::NonTrivial` that represents success or a `float` that represents an error.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Expected_MRCSharpNonTrivial_Float : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Expected_MRCSharpNonTrivial_Float : MR.CS.Misc.Object<Const_Expected_MRCSharpNonTrivial_Float>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -46,6 +46,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// <summary>
@@ -65,8 +66,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_GetValue", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_NonTrivial._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_GetValue(_Underlying *_this);
-                    var __ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_GetValue(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.Const_NonTrivial(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_GetValue(_UnderlyingPtr);
+                    MR.CS.CSharp.Const_NonTrivial? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.CSharp.Const_NonTrivial(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// <summary>
@@ -76,8 +80,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_GetError", ExactSpelling = true)]
                     extern static float *__MR_C_std_expected_MR_CSharp_NonTrivial_float_GetError(_Underlying *_this);
-                    var __ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_GetError(_UnderlyingPtr);
-                    return __ret is not null ? *__ret : null;
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_GetError(_UnderlyingPtr);
+                    return __c_ret is not null ? *__c_ret : null;
                 }
             }
 
@@ -107,6 +111,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// <summary>
@@ -116,6 +121,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_expected_MR_CSharp_NonTrivial_float_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_expected_MR_CSharp_NonTrivial_float_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -126,8 +133,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_GetMutableValue", ExactSpelling = true)]
                     extern static MR.CS.CSharp.NonTrivial._Underlying *__MR_C_std_expected_MR_CSharp_NonTrivial_float_GetMutableValue(_Underlying *_this);
-                    var __ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_GetMutableValue(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.CSharp.NonTrivial(__ret, is_owning: false) : null;
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_GetMutableValue(_UnderlyingPtr);
+                    MR.CS.CSharp.NonTrivial? __ret;
+                    __ret = __c_ret is not null ? new MR.CS.CSharp.NonTrivial(__c_ret, is_owning: false) : null;
+                    if (__ret is not null) __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// <summary>
@@ -137,8 +147,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_NonTrivial_float_GetMutableError", ExactSpelling = true)]
                     extern static float *__MR_C_std_expected_MR_CSharp_NonTrivial_float_GetMutableError(_Underlying *_this);
-                    var __ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_GetMutableError(_UnderlyingPtr);
-                    return __ret is not null ? new MR.CS.Misc.Ref<float>(__ret) : null;
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_NonTrivial_float_GetMutableError(_UnderlyingPtr);
+                    return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
                 }
             }
 

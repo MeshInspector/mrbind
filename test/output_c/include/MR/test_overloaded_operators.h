@@ -31,7 +31,7 @@ typedef struct MR_OverloadedOps_D MR_OverloadedOps_D;
 // Since we have a custom assignment, we also need a custom copy ctor to avoid the deprecation warning.
 /// Generated from constructor `MR::OverloadedOps::A::A`.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_OverloadedOps_A *MR_OverloadedOps_A_ConstructFromAnother(const MR_OverloadedOps_A *_other);
 
@@ -53,8 +53,8 @@ MR_C_API void MR_OverloadedOps_A_DestroyArray(const MR_OverloadedOps_A *_this);
 /// Generated from method `MR::OverloadedOps::A::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API int MR_OverloadedOps_A_AssignFromAnother(MR_OverloadedOps_A *_this, const MR_OverloadedOps_A *_other);
 
 // Unary plus.
@@ -324,7 +324,7 @@ MR_C_API MR_OverloadedOps_B *MR_OverloadedOps_B_OffsetMutablePtr(MR_OverloadedOp
 
 /// Generated from constructor `MR::OverloadedOps::B::B`.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_B_Destroy()` to free it when you're done using it.
 MR_C_API MR_OverloadedOps_B *MR_OverloadedOps_B_ConstructFromAnother(const MR_OverloadedOps_B *_other);
 
@@ -337,9 +337,9 @@ MR_C_API void MR_OverloadedOps_B_DestroyArray(const MR_OverloadedOps_B *_this);
 /// Generated from method `MR::OverloadedOps::B::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_OverloadedOps_B *MR_OverloadedOps_B_AssignFromAnother(MR_OverloadedOps_B *_this, const MR_OverloadedOps_B *_other);
 
 // Unary plus.
@@ -594,7 +594,7 @@ MR_C_API MR_OverloadedOps_C *MR_OverloadedOps_C_OffsetMutablePtr(MR_OverloadedOp
 
 /// Generated from constructor `MR::OverloadedOps::C::C`.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_C_Destroy()` to free it when you're done using it.
 MR_C_API MR_OverloadedOps_C *MR_OverloadedOps_C_ConstructFromAnother(const MR_OverloadedOps_C *_other);
 
@@ -607,9 +607,9 @@ MR_C_API void MR_OverloadedOps_C_DestroyArray(const MR_OverloadedOps_C *_this);
 /// Generated from method `MR::OverloadedOps::C::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_OverloadedOps_C *MR_OverloadedOps_C_AssignFromAnother(MR_OverloadedOps_C *_this, const MR_OverloadedOps_C *_other);
 
 // If rhs type is same as the lhs one (ignoring cvref), it's not emitted.
@@ -643,7 +643,7 @@ MR_C_API MR_OverloadedOps_D *MR_OverloadedOps_D_OffsetMutablePtr(MR_OverloadedOp
 
 /// Generated from constructor `MR::OverloadedOps::D::D`.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_OverloadedOps_D_Destroy()` to free it when you're done using it.
 MR_C_API MR_OverloadedOps_D *MR_OverloadedOps_D_ConstructFromAnother(const MR_OverloadedOps_D *_other);
 
@@ -656,9 +656,9 @@ MR_C_API void MR_OverloadedOps_D_DestroyArray(const MR_OverloadedOps_D *_this);
 /// Generated from method `MR::OverloadedOps::D::operator=`.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `_other` can not be null. It is a single object.
-/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, the parameter `_this` will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_OverloadedOps_D *MR_OverloadedOps_D_AssignFromAnother(MR_OverloadedOps_D *_this, const MR_OverloadedOps_D *_other);
 
 // Disambiguating the names.

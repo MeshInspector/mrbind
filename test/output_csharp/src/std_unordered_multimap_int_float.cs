@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from C++ container `std::unordered_multimap<int, float>`.
             /// This is the const half of the class.
-            public class Const_UnorderedMultimap_Int_Float : MR.CS.Misc.Object, System.IDisposable
+            public class Const_UnorderedMultimap_Int_Float : MR.CS.Misc.Object<Const_UnorderedMultimap_Int_Float>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float._Underlying *__MR_C_std_unordered_multimap_int_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.UnorderedMultimap_Int_Float._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_unordered_multimap_int_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// The number of elements.
@@ -71,7 +72,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_Find", ExactSpelling = true)]
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator._Underlying *__MR_C_std_unordered_multimap_int_float_Find(_Underlying *_this, int *key);
-                    return new(__MR_C_std_unordered_multimap_int_float_Find(_UnderlyingPtr, &key), is_owning: true);
+                    MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator __ret;
+                    __ret = new(__MR_C_std_unordered_multimap_int_float_Find(_UnderlyingPtr, &key), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// The begin iterator, const.
@@ -79,7 +83,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_Begin", ExactSpelling = true)]
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator._Underlying *__MR_C_std_unordered_multimap_int_float_Begin(_Underlying *_this);
-                    return new(__MR_C_std_unordered_multimap_int_float_Begin(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator __ret;
+                    __ret = new(__MR_C_std_unordered_multimap_int_float_Begin(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a const iterator is the begin iterator.
@@ -95,7 +102,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_End", ExactSpelling = true)]
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator._Underlying *__MR_C_std_unordered_multimap_int_float_End(_Underlying *_this);
-                    return new(__MR_C_std_unordered_multimap_int_float_End(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator __ret;
+                    __ret = new(__MR_C_std_unordered_multimap_int_float_End(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a const iterator is the end iterator.
@@ -108,7 +118,7 @@ public static partial class MR
 
                 /// Read-only iterator for `MR_C_std_unordered_multimap_int_float`.
                 /// This is the const half of the class.
-                public class Const_ConstIterator : MR.CS.Misc.Object, System.IDisposable
+                public class Const_ConstIterator : MR.CS.Misc.Object<Const_ConstIterator>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -142,6 +152,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator._Underlying *__MR_C_std_unordered_multimap_int_float_const_iterator_ConstructFromAnother(MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_int_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Makes a const iterator from a mutable one.
@@ -192,6 +203,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator._Underlying *__MR_C_std_unordered_multimap_int_float_const_iterator_ConstructFromAnother(MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_int_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -199,6 +211,8 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_const_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_unordered_multimap_int_float_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator._Underlying *other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(other);
                         __MR_C_std_unordered_multimap_int_float_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
@@ -257,7 +271,7 @@ public static partial class MR
 
                 /// Mutable iterator for `MR_C_std_unordered_multimap_int_float`.
                 /// This is the const half of the class.
-                public class Const_Iterator : MR.CS.Misc.Object, System.IDisposable
+                public class Const_Iterator : MR.CS.Misc.Object<Const_Iterator>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -291,6 +305,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.UnorderedMultimap_Int_Float.Iterator._Underlying *__MR_C_std_unordered_multimap_int_float_iterator_ConstructFromAnother(MR.CS.Std.UnorderedMultimap_Int_Float.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_int_float_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Dereferences a mutable iterator, returning the key.
@@ -330,6 +345,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.UnorderedMultimap_Int_Float.Iterator._Underlying *__MR_C_std_unordered_multimap_int_float_iterator_ConstructFromAnother(MR.CS.Std.UnorderedMultimap_Int_Float.Iterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_int_float_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -337,6 +353,8 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_unordered_multimap_int_float_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.UnorderedMultimap_Int_Float.Iterator._Underlying *other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(other);
                         __MR_C_std_unordered_multimap_int_float_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
@@ -400,6 +418,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float._Underlying *__MR_C_std_unordered_multimap_int_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.UnorderedMultimap_Int_Float._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_unordered_multimap_int_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -407,6 +426,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_unordered_multimap_int_float_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.UnorderedMultimap_Int_Float._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_unordered_multimap_int_float_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -415,6 +436,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_Clear", ExactSpelling = true)]
                     extern static void __MR_C_std_unordered_multimap_int_float_Clear(_Underlying *_this);
+                    _DiscardKeepAlive();
                     __MR_C_std_unordered_multimap_int_float_Clear(_UnderlyingPtr);
                 }
 
@@ -423,7 +445,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_FindMutable", ExactSpelling = true)]
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.Iterator._Underlying *__MR_C_std_unordered_multimap_int_float_FindMutable(_Underlying *_this, int *key);
-                    return new(__MR_C_std_unordered_multimap_int_float_FindMutable(_UnderlyingPtr, &key), is_owning: true);
+                    MR.CS.Std.UnorderedMultimap_Int_Float.Iterator __ret;
+                    __ret = new(__MR_C_std_unordered_multimap_int_float_FindMutable(_UnderlyingPtr, &key), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// The begin iterator, mutable.
@@ -431,7 +456,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_MutableBegin", ExactSpelling = true)]
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.Iterator._Underlying *__MR_C_std_unordered_multimap_int_float_MutableBegin(_Underlying *_this);
-                    return new(__MR_C_std_unordered_multimap_int_float_MutableBegin(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.UnorderedMultimap_Int_Float.Iterator __ret;
+                    __ret = new(__MR_C_std_unordered_multimap_int_float_MutableBegin(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a mutable iterator is the begin iterator.
@@ -447,7 +475,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_int_float_MutableEnd", ExactSpelling = true)]
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.Iterator._Underlying *__MR_C_std_unordered_multimap_int_float_MutableEnd(_Underlying *_this);
-                    return new(__MR_C_std_unordered_multimap_int_float_MutableEnd(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Std.UnorderedMultimap_Int_Float.Iterator __ret;
+                    __ret = new(__MR_C_std_unordered_multimap_int_float_MutableEnd(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a mutable iterator is the end iterator.

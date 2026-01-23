@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from C++ container `phmap::flat_hash_set<int>`.
             /// This is the const half of the class.
-            public class Const_FlatHashSet_Int : MR.CS.Misc.Object, System.IDisposable
+            public class Const_FlatHashSet_Int : MR.CS.Misc.Object<Const_FlatHashSet_Int>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_flat_hash_set_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Phmap.FlatHashSet_Int._Underlying *__MR_C_phmap_flat_hash_set_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Phmap.FlatHashSet_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_phmap_flat_hash_set_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Construct from a range of elements.
@@ -80,7 +81,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_flat_hash_set_int_Find", ExactSpelling = true)]
                     extern static MR.CS.Phmap.FlatHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_flat_hash_set_int_Find(_Underlying *_this, int *key);
-                    return new(__MR_C_phmap_flat_hash_set_int_Find(_UnderlyingPtr, &key), is_owning: true);
+                    MR.CS.Phmap.FlatHashSet_Int.ConstIterator __ret;
+                    __ret = new(__MR_C_phmap_flat_hash_set_int_Find(_UnderlyingPtr, &key), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// The begin iterator, const.
@@ -88,7 +92,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_flat_hash_set_int_Begin", ExactSpelling = true)]
                     extern static MR.CS.Phmap.FlatHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_flat_hash_set_int_Begin(_Underlying *_this);
-                    return new(__MR_C_phmap_flat_hash_set_int_Begin(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Phmap.FlatHashSet_Int.ConstIterator __ret;
+                    __ret = new(__MR_C_phmap_flat_hash_set_int_Begin(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a const iterator is the begin iterator.
@@ -104,7 +111,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_flat_hash_set_int_End", ExactSpelling = true)]
                     extern static MR.CS.Phmap.FlatHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_flat_hash_set_int_End(_Underlying *_this);
-                    return new(__MR_C_phmap_flat_hash_set_int_End(_UnderlyingPtr), is_owning: true);
+                    MR.CS.Phmap.FlatHashSet_Int.ConstIterator __ret;
+                    __ret = new(__MR_C_phmap_flat_hash_set_int_End(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
                 }
 
                 /// Tests whether a const iterator is the end iterator.
@@ -117,7 +127,7 @@ public static partial class MR
 
                 /// Read-only iterator for `MR_C_phmap_flat_hash_set_int`.
                 /// This is the const half of the class.
-                public class Const_ConstIterator : MR.CS.Misc.Object, System.IDisposable
+                public class Const_ConstIterator : MR.CS.Misc.Object<Const_ConstIterator>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -151,6 +161,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_flat_hash_set_int_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Phmap.FlatHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_flat_hash_set_int_const_iterator_ConstructFromAnother(MR.CS.Phmap.FlatHashSet_Int.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_phmap_flat_hash_set_int_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Dereferences a const iterator.
@@ -182,6 +193,7 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_flat_hash_set_int_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Phmap.FlatHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_flat_hash_set_int_const_iterator_ConstructFromAnother(MR.CS.Phmap.FlatHashSet_Int.ConstIterator._Underlying *other);
                         _UnderlyingPtr = __MR_C_phmap_flat_hash_set_int_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
+                        _KeepAlive(other);
                     }
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -189,6 +201,8 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_flat_hash_set_int_const_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_phmap_flat_hash_set_int_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Phmap.FlatHashSet_Int.ConstIterator._Underlying *other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(other);
                         __MR_C_phmap_flat_hash_set_int_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
@@ -252,6 +266,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_flat_hash_set_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Phmap.FlatHashSet_Int._Underlying *__MR_C_phmap_flat_hash_set_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Phmap.FlatHashSet_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_phmap_flat_hash_set_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -259,6 +274,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_flat_hash_set_int_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_phmap_flat_hash_set_int_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Phmap.FlatHashSet_Int._Underlying *other);
+                    _DiscardKeepAlive();
+                    if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_phmap_flat_hash_set_int_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -285,6 +302,7 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_flat_hash_set_int_Clear", ExactSpelling = true)]
                     extern static void __MR_C_phmap_flat_hash_set_int_Clear(_Underlying *_this);
+                    _DiscardKeepAlive();
                     __MR_C_phmap_flat_hash_set_int_Clear(_UnderlyingPtr);
                 }
 

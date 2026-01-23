@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Stores 4 objects: `float`, `double`, `int`, `int`.
             /// This is the const half of the class.
-            public class Const_Tuple_Float_Double_Int_Int : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Tuple_Float_Double_Int_Int : MR.CS.Misc.Object<Const_Tuple_Float_Double_Int_Int>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_ConstructFromAnother(MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_tuple_float_double_int_int_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// Constructs the tuple elementwise.
@@ -103,6 +104,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *__MR_C_std_tuple_float_double_int_int_ConstructFromAnother(MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_tuple_float_double_int_int_ConstructFromAnother(other._UnderlyingPtr);
+                    _KeepAlive(other);
                 }
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -110,6 +112,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_tuple_float_double_int_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.Tuple_Float_Double_Int_Int._Underlying *other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(other);
                     __MR_C_std_tuple_float_double_int_int_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 

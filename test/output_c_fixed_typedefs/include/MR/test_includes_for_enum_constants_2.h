@@ -36,7 +36,7 @@ MR_C_API MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *MR_Incl
 
 // Generated from constructor `MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>::A`.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the return value.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_Destroy()` to free it when you're done using it.
 MR_C_API MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(const MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *_other);
 
@@ -49,9 +49,9 @@ MR_C_API void MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_Des
 // Generated from method `MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>::operator=`.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `_other` can not be null. It is a single object.
-// The reference to things referred to by the parameter `_other` (if any) might be preserved in the parameter `_this`.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, the parameter `_this` will drop any object references it had previously.
+// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother(MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *_this, const MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *_other);
 
 #ifdef __cplusplus

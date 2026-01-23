@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from class `MR::TestSizeT::A<unsigned long>`.
             /// This is the const half of the class.
-            public class Const_A_UnsignedLong : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A_UnsignedLong : MR.CS.Misc.Object<Const_A_UnsignedLong>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -40,6 +40,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_unsigned_long_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_UnsignedLong._Underlying *__MR_TestSizeT_A_unsigned_long_ConstructFromAnother(MR.CS.TestSizeT.A_UnsignedLong._Underlying *_other);
                     _UnderlyingPtr = __MR_TestSizeT_A_unsigned_long_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -63,6 +64,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_unsigned_long_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_UnsignedLong._Underlying *__MR_TestSizeT_A_unsigned_long_ConstructFromAnother(MR.CS.TestSizeT.A_UnsignedLong._Underlying *_other);
                     _UnderlyingPtr = __MR_TestSizeT_A_unsigned_long_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// Generated from method `MR::TestSizeT::A<unsigned long>::operator=`.
@@ -70,6 +72,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_unsigned_long_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_UnsignedLong._Underlying *__MR_TestSizeT_A_unsigned_long_AssignFromAnother(_Underlying *_this, MR.CS.TestSizeT.A_UnsignedLong._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_TestSizeT_A_unsigned_long_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
 

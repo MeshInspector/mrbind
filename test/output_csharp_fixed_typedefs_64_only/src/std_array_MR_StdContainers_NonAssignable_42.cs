@@ -8,7 +8,7 @@ public static partial class MR
             /// A fixed-size array of `MR::StdContainers::NonAssignable` of size 42.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Array_MRStdContainersNonAssignable_42 : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Array_MRStdContainersNonAssignable_42 : MR.CS.Misc.Object<Const_Array_MRStdContainersNonAssignable_42>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -41,11 +41,17 @@ public static partial class MR
                 /// <summary>
                 /// The element at a specific index, read-only.
                 /// </summary>
-                public unsafe MR.CS.StdContainers.Const_NonAssignable at(ulong i)
+                public unsafe MR.CS.StdContainers.Const_NonAssignable this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_At", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_At(_Underlying *_this, ulong i);
-                    return new(__MR_C_std_array_MR_StdContainers_NonAssignable_42_At(_UnderlyingPtr, i), is_owning: false);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_At", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_At(_Underlying *_this, ulong i);
+                        MR.CS.StdContainers.Const_NonAssignable __ret;
+                        __ret = new(__MR_C_std_array_MR_StdContainers_NonAssignable_42_At(_UnderlyingPtr, i), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
+                    }
                 }
 
                 /// <summary>
@@ -55,8 +61,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_Data", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_Data(_Underlying *_this);
-                    var __ret = __MR_C_std_array_MR_StdContainers_NonAssignable_42_Data(_UnderlyingPtr);
-                    return new(__ret);
+                    var __c_ret = __MR_C_std_array_MR_StdContainers_NonAssignable_42_Data(_UnderlyingPtr);
+                    return new(__c_ret);
                 }
             }
 
@@ -81,11 +87,17 @@ public static partial class MR
                 /// <summary>
                 /// The element at a specific index, mutable.
                 /// </summary>
-                public unsafe new MR.CS.StdContainers.NonAssignable at(ulong i)
+                public unsafe new MR.CS.StdContainers.NonAssignable this[ulong i]
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableAt", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableAt(_Underlying *_this, ulong i);
-                    return new(__MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableAt(_UnderlyingPtr, i), is_owning: false);
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableAt", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableAt(_Underlying *_this, ulong i);
+                        MR.CS.StdContainers.NonAssignable __ret;
+                        __ret = new(__MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableAt(_UnderlyingPtr, i), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
+                    }
                 }
 
                 /// <summary>
@@ -95,8 +107,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableData", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableData(_Underlying *_this);
-                    var __ret = __MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableData(_UnderlyingPtr);
-                    return new(__ret);
+                    var __c_ret = __MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableData(_UnderlyingPtr);
+                    return new(__c_ret);
                 }
             }
 

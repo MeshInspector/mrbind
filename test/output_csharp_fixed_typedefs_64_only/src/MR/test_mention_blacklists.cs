@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from class `MR::SignatureFilters::A`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_A : MR.CS.Misc.Object, System.IDisposable
+            public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -46,6 +46,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_ConstructFromAnother(MR.CS.SignatureFilters.A._Underlying *_other);
                     _UnderlyingPtr = __MR_SignatureFilters_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -75,6 +76,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_ConstructFromAnother(MR.CS.SignatureFilters.A._Underlying *_other);
                     _UnderlyingPtr = __MR_SignatureFilters_A_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -84,6 +86,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_A_AssignFromAnother(_Underlying *_this, MR.CS.SignatureFilters.A._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_SignatureFilters_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
@@ -126,7 +130,7 @@ public static partial class MR
             /// Generated from class `MR::SignatureFilters::Blah`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Blah : MR.CS.Misc.Object, System.IDisposable
+            public class Const_Blah : MR.CS.Misc.Object<Const_Blah>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -152,7 +156,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_Get_a", ExactSpelling = true)]
                         extern static MR.CS.SignatureFilters.Const_A._Underlying *__MR_SignatureFilters_Blah_Get_a(_Underlying *_this);
-                        return new(__MR_SignatureFilters_Blah_Get_a(_UnderlyingPtr), is_owning: false);
+                        MR.CS.SignatureFilters.Const_A __ret;
+                        __ret = new(__MR_SignatureFilters_Blah_Get_a(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
                     }
                 }
 
@@ -174,6 +181,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_ConstructFromAnother(MR.CS.SignatureFilters.Blah._Underlying *_other);
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
             }
 
@@ -191,7 +199,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_GetMutable_a", ExactSpelling = true)]
                         extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_Blah_GetMutable_a(_Underlying *_this);
-                        return new(__MR_SignatureFilters_Blah_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                        MR.CS.SignatureFilters.A __ret;
+                        __ret = new(__MR_SignatureFilters_Blah_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAlive(this);
+                        return __ret;
                     }
                 }
 
@@ -213,6 +224,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_ConstructFromAnother(MR.CS.SignatureFilters.Blah._Underlying *_other);
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
                 }
 
                 /// <summary>
@@ -222,6 +234,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_AssignFromAnother(_Underlying *_this, MR.CS.SignatureFilters.Blah._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
                     return new(__MR_SignatureFilters_Blah_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
                 }
             }
