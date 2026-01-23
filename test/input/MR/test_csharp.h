@@ -9,6 +9,19 @@
 
 // This is a mixed bag of tests primarily intended for testing the C# bindings.
 
+#if PARSING_FOR_C_BINDINGS
+#  define MBTEST_LIFETIMEBOUND [[clang::lifetimebound]]
+#  if __clang_major__ >= 20 // Added in Clang 20.
+#    define MBTEST_LIFETIME_CAPTURE_BY(x) [[clang::lifetime_capture_by(x)]]
+#  else
+#    define MBTEST_LIFETIME_CAPTURE_BY(x)
+#  endif
+#else
+// Define those to nothing when compiling the C bindings, since my Clang 21 ICEs when doing lifetime-based warning checks. `-w` also fixes those ICEs.
+#  define MBTEST_LIFETIMEBOUND
+#  define MBTEST_LIFETIME_CAPTURE_BY(x)
+#endif
+
 namespace MR::CSharp
 {
     inline void foo() {std::cout << "Hello!\n";}
@@ -937,6 +950,9 @@ namespace MR::CSharp
     // This broke at one point, so testing it too.
     inline std::vector<ExposedLayout> test_exposed_vec() {return {};}
 
+    // Test that capturing lifetime of an exposed struct is a no-op.
+    inline NonTrivial &asave_ref_in_exposed_layout(ExposedLayout &ref MBTEST_LIFETIMEBOUND) {(void)ref; return default_nontrivial;}
+
 
     // This one is backed by a shared pointer.
     struct ExposedLayoutSh
@@ -991,6 +1007,9 @@ namespace MR::CSharp
 
         // Some random ctor.
         ExposedLayoutB(int, int) {}
+
+        // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
+        ExposedLayoutB(const A &) {}
 
         // And try an equality comparison!
         friend bool operator==(const ExposedLayoutB &, const ExposedLayoutB &) {return true;}
@@ -1371,19 +1390,6 @@ namespace MR::CSharp
 
 
     // Keep-alive sorcery:
-
-    #if PARSING_FOR_C_BINDINGS
-    #  define MBTEST_LIFETIMEBOUND [[clang::lifetimebound]]
-    #  if __clang_major__ >= 20 // Added in Clang 20.
-    #    define MBTEST_LIFETIME_CAPTURE_BY(x) [[clang::lifetime_capture_by(x)]]
-    #  else
-    #    define MBTEST_LIFETIME_CAPTURE_BY(x)
-    #  endif
-    #else
-    // Define those to nothing when compiling the C bindings, since my Clang 21 ICEs when doing lifetime-based warning checks. `-w` also fixes them.
-    #  define MBTEST_LIFETIMEBOUND
-    #  define MBTEST_LIFETIME_CAPTURE_BY(x)
-    #endif
 
     struct LifetimesA
     {

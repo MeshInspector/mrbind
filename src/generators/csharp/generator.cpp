@@ -3510,6 +3510,11 @@ namespace mrbind::CSharp
             // Handle the annotations.
             for (const LifetimeRelation &lifetime : func_like.lifetimes.relations)
             {
+                // An exposed struct can't be a holder for obvious reasons (no space in the struct for a keep-alive list, we must maintain a specific layout).
+                // An exposed struct can't be a target right now, because it might not be on the heap, and copying it onto the heap doesn't look like it would work.
+                if (in_exposed_struct && lifetime.ContainsVariant(LifetimeRelation::ThisObject{}))
+                    continue;
+
                 auto VariantUsage = [&](const LifetimeRelation::Variant &var, bool is_holder) -> std::optional<TypeBinding::KeepAliveUsage>
                 {
                     return std::visit(Overload{

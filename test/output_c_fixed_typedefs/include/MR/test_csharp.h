@@ -592,6 +592,7 @@ typedef struct MR_CSharp_ClassMemberPointersUshort MR_CSharp_ClassMemberPointers
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_ClassMemberPointersBool MR_CSharp_ClassMemberPointersBool;
 
+// Keep-alive sorcery:
 // Generated from class `MR::CSharp::LifetimesA`.
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_LifetimesA MR_CSharp_LifetimesA;
@@ -5699,6 +5700,13 @@ MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cptr_const_MR_CSh
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_CSharp_ExposedLayout_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_vec(void);
 
+// Test that capturing lifetime of an exposed struct is a no-op.
+// Generated from function `MR::CSharp::asave_ref_in_exposed_layout`.
+// Parameter `ref` can not be null. It is a single object.
+// The reference to the parameter `ref` might be preserved in the return value.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_NonTrivial *MR_CSharp_asave_ref_in_exposed_layout(MR_CSharp_ExposedLayout *ref);
+
 // Generated from method `MR::CSharp::ExposedLayoutSh::foo`.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_CSharp_ExposedLayoutSh_foo(MR_CSharp_ExposedLayoutSh *_this);
@@ -5796,7 +5804,12 @@ MR_C_API const MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_cptr_const_MR_C
 
 // Some random ctor.
 // Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
-MR_C_API MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB_Construct(int32_t _1, int32_t _2);
+MR_C_API MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB_Construct_2(int32_t _1, int32_t _2);
+
+// This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
+// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+// Parameter `_1` can not be null. It is a single object.
+MR_C_API MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB_Construct_1(const MR_CSharp_A *_1);
 
 // And try an equality comparison!
 // Generated from function `MR::CSharp::operator==`.

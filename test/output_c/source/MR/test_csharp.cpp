@@ -6954,6 +6954,13 @@ MR_C_std_vector_MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_vec(void)
     return (MR_C_std_vector_MR_CSharp_ExposedLayout *)new std::vector<MR::CSharp::ExposedLayout>(::MR::CSharp::test_exposed_vec());
 }
 
+MR_CSharp_NonTrivial *MR_CSharp_asave_ref_in_exposed_layout(MR_CSharp_ExposedLayout *ref)
+{
+    return (MR_CSharp_NonTrivial *)std::addressof(::MR::CSharp::asave_ref_in_exposed_layout(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::ExposedLayout *)(ref))
+    ));
+}
+
 void MR_CSharp_ExposedLayoutSh_foo(MR_CSharp_ExposedLayoutSh *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayoutSh *)(_this)).foo();
@@ -7111,11 +7118,18 @@ const MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_cptr_const_MR_CSharp_Exp
     ));
 }
 
-MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB_Construct(int _1, int _2)
+MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2)
 {
     return MRBINDC_BIT_CAST((MR_CSharp_ExposedLayoutB), MR::CSharp::ExposedLayoutB(
         _1,
         _2
+    ));
+}
+
+MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB_Construct_1(const MR_CSharp_A *_1)
+{
+    return MRBINDC_BIT_CAST((MR_CSharp_ExposedLayoutB), MR::CSharp::ExposedLayoutB(
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::A *)(_1))
     ));
 }
 

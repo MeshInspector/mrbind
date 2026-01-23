@@ -13793,12 +13793,28 @@ public static partial class MR
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
                 public unsafe Const_ExposedLayoutB(int _1, int _2) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct(int _1, int _2);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct(_1, _2);
+                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
                 }
+
+                // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
+                /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+                public unsafe Const_ExposedLayoutB(MR.CS.CSharp.Const_A _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
+                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
+                    _KeepAlive(_1);
+                }
+
+                // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
+                /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+                public static unsafe implicit operator Const_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new(_1);}
 
                 // And try an equality comparison!
                 /// Generated from function `MR::CSharp::operator==`.
@@ -13861,12 +13877,28 @@ public static partial class MR
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
                 public unsafe Mut_ExposedLayoutB(int _1, int _2) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct(int _1, int _2);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct(_1, _2);
+                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
                 }
+
+                // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
+                /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+                public unsafe Mut_ExposedLayoutB(MR.CS.CSharp.Const_A _1) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
+                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
+                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
+                    _KeepAlive(_1);
+                }
+
+                // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
+                /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+                public static unsafe implicit operator Mut_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new(_1);}
             }
 
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
@@ -13887,10 +13919,23 @@ public static partial class MR
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
                 public unsafe ExposedLayoutB(int _1, int _2)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct(int _1, int _2);
-                    this = __MR_CSharp_ExposedLayoutB_Construct(_1, _2);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
+                    this = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
                 }
+
+                // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
+                /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+                public unsafe ExposedLayoutB(MR.CS.CSharp.Const_A _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
+                    this = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
+                }
+
+                // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
+                /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+                public static unsafe implicit operator ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new(_1);}
 
                 // And try an equality comparison!
                 /// Generated from function `MR::CSharp::operator==`.
@@ -13944,6 +13989,10 @@ public static partial class MR
                 public static implicit operator _InOpt_ExposedLayoutB(ExposedLayoutB new_value) {return new(new_value);}
                 public _InOpt_ExposedLayoutB(Const_ExposedLayoutB new_value) {HasValue = true; Object = new_value._Ref;}
                 public static implicit operator _InOpt_ExposedLayoutB(Const_ExposedLayoutB new_value) {return new(new_value);}
+
+                // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
+                /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+                public static unsafe implicit operator _InOpt_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new Const_ExposedLayoutB(_1);}
             }
 
             /// This is used for optional parameters of class `Mut_ExposedLayoutB` with default arguments.
@@ -13990,6 +14039,10 @@ public static partial class MR
                         Opt = new((Const_ExposedLayoutB._Underlying *)value_ptr, is_owning: false);
                     }
                 }
+
+                // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
+                /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
+                public static unsafe implicit operator _InOptConst_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new Const_ExposedLayoutB(_1);}
             }
 
             // Test various array members.
@@ -16478,6 +16531,7 @@ public static partial class MR
                 public static implicit operator _InOptConst_ClassMemberPointersBool(Const_ClassMemberPointersBool value) {return new(value);}
             }
 
+            // Keep-alive sorcery:
             /// Generated from class `MR::CSharp::LifetimesA`.
             /// This is the const half of the class.
             public class Const_LifetimesA : MR.CS.Misc.Object<Const_LifetimesA>, System.IDisposable
@@ -16536,6 +16590,7 @@ public static partial class MR
                 }
             }
 
+            // Keep-alive sorcery:
             /// Generated from class `MR::CSharp::LifetimesA`.
             /// This is the non-const half of the class.
             public class LifetimesA : Const_LifetimesA
@@ -18574,6 +18629,20 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_exposed_vec", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_MRCSharpExposedLayout._Underlying *__MR_CSharp_test_exposed_vec();
                 return new(__MR_CSharp_test_exposed_vec(), is_owning: true);
+            }
+
+            // Test that capturing lifetime of an exposed struct is a no-op.
+            /// Generated from function `MR::CSharp::asave_ref_in_exposed_layout`.
+            public static unsafe MR.CS.CSharp.NonTrivial AsaveRefInExposedLayout(ref MR.CS.CSharp.ExposedLayout ref_)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_asave_ref_in_exposed_layout", ExactSpelling = true)]
+                extern static MR.CS.CSharp.NonTrivial._Underlying *__MR_CSharp_asave_ref_in_exposed_layout(MR.CS.CSharp.ExposedLayout *ref_);
+                fixed (MR.CS.CSharp.ExposedLayout *__ptr_ref_ = &ref_)
+                {
+                    MR.CS.CSharp.NonTrivial __ret;
+                    __ret = new(__MR_CSharp_asave_ref_in_exposed_layout(__ptr_ref_), is_owning: false);
+                    return __ret;
+                }
             }
 
             /// Generated from function `MR::CSharp::make_exposed_sh`.

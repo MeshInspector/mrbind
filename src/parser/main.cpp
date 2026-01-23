@@ -1386,6 +1386,8 @@ namespace mrbind
                         return isNormalAssignmentOperator(FD);
                     };
 
+                    // This attribute seems to only exist in Clang 20 and newer.
+                    #if CLANG_VERSION_MAJOR >= 20
                     // Calls `func` which is `(int attr_param) -> void` for every parameter of `[[clang::lifetime_capture_by(...)]]` attribute specified on this function, after its parameter list and cvref-qualifiers,
                     //   which in case of this attribute makes it act on `this`.
                     auto ForEachLifetimeCapturedByParamOfImplicitThisParam = [&](auto &&func)
@@ -1410,6 +1412,7 @@ namespace mrbind
                             }
                         }
                     };
+                    #endif
 
                     const bool is_implicit_this_param = std::holds_alternative<LifetimeRelation::ThisObject>(this_entity_var);
                     assert(is_implicit_this_param != bool(this_param_decl));
