@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// A fixed-size array of `int[3][4]` of size 5.
             /// This is the const reference to the struct.
-            public class Const_Array_IntArray4Array3_5 : MR.CS.Misc.Object<Const_Array_IntArray4Array3_5>, System.IDisposable
+            public class ConstBox_Array_IntArray4Array3_5 : MR.CS.Misc.Object<ConstBox_Array_IntArray4Array3_5>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -16,11 +16,11 @@ public static partial class MR
                 public unsafe ref readonly Array_IntArray4Array3_5 _Ref => ref *(Array_IntArray4Array3_5 *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Const_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) : this(new Const_Array_IntArray4Array3_5((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `Const_Array_IntArray4Array3_5` has this conversion, `Mut_Array_IntArray4Array3_5` intentionally doesn't.
-                public static implicit operator Const_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) {return new(other);}
+                public unsafe ConstBox_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) : this(new ConstBox_Array_IntArray4Array3_5((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_Array_IntArray4Array3_5` has this conversion, `Box_Array_IntArray4Array3_5` intentionally doesn't.
+                public static implicit operator ConstBox_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) {return new(other);}
 
-                internal unsafe Const_Array_IntArray4Array3_5(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe ConstBox_Array_IntArray4Array3_5(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -30,19 +30,19 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_Array_IntArray4Array3_5() {Dispose(false);}
+                ~ConstBox_Array_IntArray4Array3_5() {Dispose(false);}
 
                 public ref readonly MR.CS.ArrayInt5_3_4 elems => ref _Ref.elems;
 
                 /// Generated default constructor.
-                public unsafe Const_Array_IntArray4Array3_5() : this(null, is_owning: true)
+                public unsafe ConstBox_Array_IntArray4Array3_5() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(240);
                     for (nuint _i = 0; _i < 240; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
-                public unsafe Const_Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 _other) : this(null, is_owning: true)
+                public unsafe ConstBox_Array_IntArray4Array3_5(ConstBox_Array_IntArray4Array3_5 _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(240);
                     for (nuint _i = 0; _i < 240; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
@@ -51,34 +51,34 @@ public static partial class MR
 
             /// A fixed-size array of `int[3][4]` of size 5.
             /// This is the non-const reference to the struct.
-            public class Mut_Array_IntArray4Array3_5 : Const_Array_IntArray4Array3_5
+            public class Box_Array_IntArray4Array3_5 : ConstBox_Array_IntArray4Array3_5
             {
                 /// Get the underlying struct.
                 public unsafe new ref Array_IntArray4Array3_5 _Ref => ref *(Array_IntArray4Array3_5 *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Mut_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) : this(new Const_Array_IntArray4Array3_5((_Underlying *)&other, is_owning: false)) {}
+                public unsafe Box_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) : this(new ConstBox_Array_IntArray4Array3_5((_Underlying *)&other, is_owning: false)) {}
 
-                internal unsafe Mut_Array_IntArray4Array3_5(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe Box_Array_IntArray4Array3_5(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 public new ref MR.CS.ArrayInt5_3_4 elems => ref _Ref.elems;
 
                 /// Generated default constructor.
-                public unsafe Mut_Array_IntArray4Array3_5() : this(null, is_owning: true)
+                public unsafe Box_Array_IntArray4Array3_5() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(240);
                     for (nuint _i = 0; _i < 240; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
-                public unsafe Mut_Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 _other) : this(null, is_owning: true)
+                public unsafe Box_Array_IntArray4Array3_5(ConstBox_Array_IntArray4Array3_5 _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(240);
                     for (nuint _i = 0; _i < 240; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated copy assignment.
-                public void Assign(Const_Array_IntArray4Array3_5 _other) {_Ref = _other._Ref;}
+                public void Assign(ConstBox_Array_IntArray4Array3_5 _other) {_Ref = _other._Ref;}
             }
 
             /// A fixed-size array of `int[3][4]` of size 5.
@@ -87,7 +87,7 @@ public static partial class MR
             public struct Array_IntArray4Array3_5
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 other) => other._Ref;
+                public static implicit operator Array_IntArray4Array3_5(ConstBox_Array_IntArray4Array3_5 other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public MR.CS.ArrayInt5_3_4 elems;
@@ -96,9 +96,9 @@ public static partial class MR
                 public Array_IntArray4Array3_5(Array_IntArray4Array3_5 _other) {this = _other;}
             }
 
-            /// This is used as a function parameter when passing `Mut_Array_IntArray4Array3_5` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
+            /// This is used as a function parameter when passing `Box_Array_IntArray4Array3_5` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
-            /// * Pass an instance of `Mut_Array_IntArray4Array3_5`/`Const_Array_IntArray4Array3_5` to copy it into the function.
+            /// * Pass an instance of `Box_Array_IntArray4Array3_5`/`ConstBox_Array_IntArray4Array3_5` to copy it into the function.
             /// * Pass `null` to use the default argument
             public readonly ref struct _InOpt_Array_IntArray4Array3_5
             {
@@ -115,52 +115,52 @@ public static partial class MR
                 public _InOpt_Array_IntArray4Array3_5() {HasValue = false;}
                 public _InOpt_Array_IntArray4Array3_5(Array_IntArray4Array3_5 new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator _InOpt_Array_IntArray4Array3_5(Array_IntArray4Array3_5 new_value) {return new(new_value);}
-                public _InOpt_Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 new_value) {HasValue = true; Object = new_value._Ref;}
-                public static implicit operator _InOpt_Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 new_value) {return new(new_value);}
+                public _InOpt_Array_IntArray4Array3_5(ConstBox_Array_IntArray4Array3_5 new_value) {HasValue = true; Object = new_value._Ref;}
+                public static implicit operator _InOpt_Array_IntArray4Array3_5(ConstBox_Array_IntArray4Array3_5 new_value) {return new(new_value);}
             }
 
-            /// This is used for optional parameters of class `Mut_Array_IntArray4Array3_5` with default arguments.
+            /// This is used for optional parameters of class `Box_Array_IntArray4Array3_5` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Array_IntArray4Array3_5`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_Array_IntArray4Array3_5`/`Const_Array_IntArray4Array3_5` directly.
+            /// * Pass an instance of `Box_Array_IntArray4Array3_5`/`ConstBox_Array_IntArray4Array3_5` directly.
             /// * Pass `new(ref ...)` to pass a reference to `Array_IntArray4Array3_5`.
             public class _InOptMut_Array_IntArray4Array3_5
             {
-                public Mut_Array_IntArray4Array3_5? Opt;
+                public Box_Array_IntArray4Array3_5? Opt;
 
                 public _InOptMut_Array_IntArray4Array3_5() {}
-                public _InOptMut_Array_IntArray4Array3_5(Mut_Array_IntArray4Array3_5 value) {Opt = value;}
-                public static implicit operator _InOptMut_Array_IntArray4Array3_5(Mut_Array_IntArray4Array3_5 value) {return new(value);}
+                public _InOptMut_Array_IntArray4Array3_5(Box_Array_IntArray4Array3_5 value) {Opt = value;}
+                public static implicit operator _InOptMut_Array_IntArray4Array3_5(Box_Array_IntArray4Array3_5 value) {return new(value);}
                 public unsafe _InOptMut_Array_IntArray4Array3_5(ref Array_IntArray4Array3_5 value)
                 {
                     fixed (Array_IntArray4Array3_5 *value_ptr = &value)
                     {
-                        Opt = new((Const_Array_IntArray4Array3_5._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_Array_IntArray4Array3_5._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
 
-            /// This is used for optional parameters of class `Mut_Array_IntArray4Array3_5` with default arguments.
+            /// This is used for optional parameters of class `Box_Array_IntArray4Array3_5` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Array_IntArray4Array3_5`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_Array_IntArray4Array3_5`/`Const_Array_IntArray4Array3_5` to pass it to the function.
+            /// * Pass an instance of `Box_Array_IntArray4Array3_5`/`ConstBox_Array_IntArray4Array3_5` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `Array_IntArray4Array3_5`.
             public class _InOptConst_Array_IntArray4Array3_5
             {
-                public Const_Array_IntArray4Array3_5? Opt;
+                public ConstBox_Array_IntArray4Array3_5? Opt;
 
                 public _InOptConst_Array_IntArray4Array3_5() {}
-                public _InOptConst_Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 value) {Opt = value;}
-                public static implicit operator _InOptConst_Array_IntArray4Array3_5(Const_Array_IntArray4Array3_5 value) {return new(value);}
+                public _InOptConst_Array_IntArray4Array3_5(ConstBox_Array_IntArray4Array3_5 value) {Opt = value;}
+                public static implicit operator _InOptConst_Array_IntArray4Array3_5(ConstBox_Array_IntArray4Array3_5 value) {return new(value);}
                 public unsafe _InOptConst_Array_IntArray4Array3_5(ref readonly Array_IntArray4Array3_5 value)
                 {
                     fixed (Array_IntArray4Array3_5 *value_ptr = &value)
                     {
-                        Opt = new((Const_Array_IntArray4Array3_5._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_Array_IntArray4Array3_5._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }

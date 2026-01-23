@@ -753,17 +753,15 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpUnqualClassName(const cppdecl::QualifiedName &name, bool is_const)
     {
-        // You can't trivially remove `_` from `Const_`, since we need `ConstIterator` (from `const_iterator`) to be different from the result
-        //   of this function applied to `iterator` (resulting in `Const_Iterator`).
-        if (is_const)
-            return "Const_" + CppToCSharpIdentifier(name.parts.back());
-
-        // For exposed structs, the non-const half is named with the `Mut...` prefix, because there's also a `struct` that stores the thing by value.
+        // Custom names for exposed structs.
+        // Eventually we might want to remove those wrappers entirely.
         const auto &class_info = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(name))->var);
         if (class_info.kind == CInterop::ClassKind::exposed_struct)
-            return "Mut_" + CppToCSharpIdentifier(name.parts.back());
+            return (is_const ? "ConstBox_" : "Box_") + CppToCSharpIdentifier(name.parts.back());
 
-        return CppToCSharpIdentifier(name.parts.back());
+        // You can't trivially remove `_` from `Const_`, since we need `ConstIterator` (from `const_iterator`) to be different from the result
+        //   of this function applied to `iterator` (resulting in `Const_Iterator`).
+        return (is_const ? "Const_" : "") + CppToCSharpIdentifier(name.parts.back());
     }
 
     std::string Generator::CppToCSharpExposedStructName(cppdecl::QualifiedName name)

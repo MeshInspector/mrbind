@@ -191,7 +191,7 @@ public static partial class MR
                 public unsafe Const_SharedPtr_Void(MR.CS.CSharp._ByValueShared_ExposedLayoutSh _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.Mut_ExposedLayoutSh._UnderlyingShared *_other);
+                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.Box_ExposedLayoutSh._UnderlyingShared *_other);
                     _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
                 }
 
@@ -536,7 +536,7 @@ public static partial class MR
                 public unsafe SharedPtr_Void(MR.CS.CSharp._ByValueShared_ExposedLayoutSh _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.Mut_ExposedLayoutSh._UnderlyingShared *_other);
+                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.Box_ExposedLayoutSh._UnderlyingShared *_other);
                     _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
                 }
 
@@ -551,7 +551,7 @@ public static partial class MR
                 public unsafe void assign(MR.CS.CSharp._ByValueShared_ExposedLayoutSh _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.Mut_ExposedLayoutSh._UnderlyingShared *_other);
+                    extern static void __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.Box_ExposedLayoutSh._UnderlyingShared *_other);
                     __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
                 }
 

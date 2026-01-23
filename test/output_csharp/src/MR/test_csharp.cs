@@ -11843,7 +11843,7 @@ public static partial class MR
             // A converting ctor in an exposed struct.
             /// Generated from class `MR::CSharp::ConvCtorExposed`.
             /// This is the const reference to the struct.
-            public class Const_ConvCtorExposed : MR.CS.Misc.Object<Const_ConvCtorExposed>, System.IDisposable
+            public class ConstBox_ConvCtorExposed : MR.CS.Misc.Object<ConstBox_ConvCtorExposed>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -11853,11 +11853,11 @@ public static partial class MR
                 public unsafe ref readonly ConvCtorExposed _Ref => ref *(ConvCtorExposed *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Const_ConvCtorExposed(ConvCtorExposed other) : this(new Const_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `Const_ConvCtorExposed` has this conversion, `Mut_ConvCtorExposed` intentionally doesn't.
-                public static implicit operator Const_ConvCtorExposed(ConvCtorExposed other) {return new(other);}
+                public unsafe ConstBox_ConvCtorExposed(ConvCtorExposed other) : this(new ConstBox_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_ConvCtorExposed` has this conversion, `Box_ConvCtorExposed` intentionally doesn't.
+                public static implicit operator ConstBox_ConvCtorExposed(ConvCtorExposed other) {return new(other);}
 
-                internal unsafe Const_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe ConstBox_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -11867,19 +11867,19 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_ConvCtorExposed() {Dispose(false);}
+                ~ConstBox_ConvCtorExposed() {Dispose(false);}
 
                 public ref readonly int x => ref _Ref.x;
 
                 /// Generated copy constructor.
-                public unsafe Const_ConvCtorExposed(Const_ConvCtorExposed _other) : this(null, is_owning: true)
+                public unsafe ConstBox_ConvCtorExposed(ConstBox_ConvCtorExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
-                public unsafe Const_ConvCtorExposed(int _1) : this(null, is_owning: true)
+                public unsafe ConstBox_ConvCtorExposed(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
@@ -11889,36 +11889,36 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
-                public static unsafe implicit operator Const_ConvCtorExposed(int _1) {return new(_1);}
+                public static unsafe implicit operator ConstBox_ConvCtorExposed(int _1) {return new(_1);}
             }
 
             // A converting ctor in an exposed struct.
             /// Generated from class `MR::CSharp::ConvCtorExposed`.
             /// This is the non-const reference to the struct.
-            public class Mut_ConvCtorExposed : Const_ConvCtorExposed
+            public class Box_ConvCtorExposed : ConstBox_ConvCtorExposed
             {
                 /// Get the underlying struct.
                 public unsafe new ref ConvCtorExposed _Ref => ref *(ConvCtorExposed *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Mut_ConvCtorExposed(ConvCtorExposed other) : this(new Const_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
+                public unsafe Box_ConvCtorExposed(ConvCtorExposed other) : this(new ConstBox_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
 
-                internal unsafe Mut_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe Box_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 public new ref int x => ref _Ref.x;
 
                 /// Generated copy constructor.
-                public unsafe Mut_ConvCtorExposed(Const_ConvCtorExposed _other) : this(null, is_owning: true)
+                public unsafe Box_ConvCtorExposed(ConstBox_ConvCtorExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated copy assignment.
-                public void Assign(Const_ConvCtorExposed _other) {_Ref = _other._Ref;}
+                public void Assign(ConstBox_ConvCtorExposed _other) {_Ref = _other._Ref;}
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
-                public unsafe Mut_ConvCtorExposed(int _1) : this(null, is_owning: true)
+                public unsafe Box_ConvCtorExposed(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
@@ -11928,7 +11928,7 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
-                public static unsafe implicit operator Mut_ConvCtorExposed(int _1) {return new(_1);}
+                public static unsafe implicit operator Box_ConvCtorExposed(int _1) {return new(_1);}
             }
 
             // A converting ctor in an exposed struct.
@@ -11938,7 +11938,7 @@ public static partial class MR
             public struct ConvCtorExposed
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator ConvCtorExposed(Const_ConvCtorExposed other) => other._Ref;
+                public static implicit operator ConvCtorExposed(ConstBox_ConvCtorExposed other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
@@ -11958,9 +11958,9 @@ public static partial class MR
                 public static unsafe implicit operator ConvCtorExposed(int _1) {return new(_1);}
             }
 
-            /// This is used as a function parameter when passing `Mut_ConvCtorExposed` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
+            /// This is used as a function parameter when passing `Box_ConvCtorExposed` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
-            /// * Pass an instance of `Mut_ConvCtorExposed`/`Const_ConvCtorExposed` to copy it into the function.
+            /// * Pass an instance of `Box_ConvCtorExposed`/`ConstBox_ConvCtorExposed` to copy it into the function.
             /// * Pass `null` to use the default argument
             public readonly ref struct _InOpt_ConvCtorExposed
             {
@@ -11977,60 +11977,60 @@ public static partial class MR
                 public _InOpt_ConvCtorExposed() {HasValue = false;}
                 public _InOpt_ConvCtorExposed(ConvCtorExposed new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator _InOpt_ConvCtorExposed(ConvCtorExposed new_value) {return new(new_value);}
-                public _InOpt_ConvCtorExposed(Const_ConvCtorExposed new_value) {HasValue = true; Object = new_value._Ref;}
-                public static implicit operator _InOpt_ConvCtorExposed(Const_ConvCtorExposed new_value) {return new(new_value);}
+                public _InOpt_ConvCtorExposed(ConstBox_ConvCtorExposed new_value) {HasValue = true; Object = new_value._Ref;}
+                public static implicit operator _InOpt_ConvCtorExposed(ConstBox_ConvCtorExposed new_value) {return new(new_value);}
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
-                public static unsafe implicit operator _InOpt_ConvCtorExposed(int _1) {return new Const_ConvCtorExposed(_1);}
+                public static unsafe implicit operator _InOpt_ConvCtorExposed(int _1) {return new ConstBox_ConvCtorExposed(_1);}
             }
 
-            /// This is used for optional parameters of class `Mut_ConvCtorExposed` with default arguments.
+            /// This is used for optional parameters of class `Box_ConvCtorExposed` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConvCtorExposed`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ConvCtorExposed`/`Const_ConvCtorExposed` directly.
+            /// * Pass an instance of `Box_ConvCtorExposed`/`ConstBox_ConvCtorExposed` directly.
             /// * Pass `new(ref ...)` to pass a reference to `ConvCtorExposed`.
             public class _InOptMut_ConvCtorExposed
             {
-                public Mut_ConvCtorExposed? Opt;
+                public Box_ConvCtorExposed? Opt;
 
                 public _InOptMut_ConvCtorExposed() {}
-                public _InOptMut_ConvCtorExposed(Mut_ConvCtorExposed value) {Opt = value;}
-                public static implicit operator _InOptMut_ConvCtorExposed(Mut_ConvCtorExposed value) {return new(value);}
+                public _InOptMut_ConvCtorExposed(Box_ConvCtorExposed value) {Opt = value;}
+                public static implicit operator _InOptMut_ConvCtorExposed(Box_ConvCtorExposed value) {return new(value);}
                 public unsafe _InOptMut_ConvCtorExposed(ref ConvCtorExposed value)
                 {
                     fixed (ConvCtorExposed *value_ptr = &value)
                     {
-                        Opt = new((Const_ConvCtorExposed._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_ConvCtorExposed._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
 
-            /// This is used for optional parameters of class `Mut_ConvCtorExposed` with default arguments.
+            /// This is used for optional parameters of class `Box_ConvCtorExposed` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConvCtorExposed`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ConvCtorExposed`/`Const_ConvCtorExposed` to pass it to the function.
+            /// * Pass an instance of `Box_ConvCtorExposed`/`ConstBox_ConvCtorExposed` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `ConvCtorExposed`.
             public class _InOptConst_ConvCtorExposed
             {
-                public Const_ConvCtorExposed? Opt;
+                public ConstBox_ConvCtorExposed? Opt;
 
                 public _InOptConst_ConvCtorExposed() {}
-                public _InOptConst_ConvCtorExposed(Const_ConvCtorExposed value) {Opt = value;}
-                public static implicit operator _InOptConst_ConvCtorExposed(Const_ConvCtorExposed value) {return new(value);}
+                public _InOptConst_ConvCtorExposed(ConstBox_ConvCtorExposed value) {Opt = value;}
+                public static implicit operator _InOptConst_ConvCtorExposed(ConstBox_ConvCtorExposed value) {return new(value);}
                 public unsafe _InOptConst_ConvCtorExposed(ref readonly ConvCtorExposed value)
                 {
                     fixed (ConvCtorExposed *value_ptr = &value)
                     {
-                        Opt = new((Const_ConvCtorExposed._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_ConvCtorExposed._Underlying *)value_ptr, is_owning: false);
                     }
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
-                public static unsafe implicit operator _InOptConst_ConvCtorExposed(int _1) {return new Const_ConvCtorExposed(_1);}
+                public static unsafe implicit operator _InOptConst_ConvCtorExposed(int _1) {return new ConstBox_ConvCtorExposed(_1);}
             }
 
             // A sad class that's copyable but not movable.
@@ -12454,7 +12454,7 @@ public static partial class MR
             // Exposed structs:
             /// Generated from class `MR::CSharp::ExposedLayout`.
             /// This is the const reference to the struct.
-            public class Const_ExposedLayout : MR.CS.Misc.Object<Const_ExposedLayout>, System.IDisposable
+            public class ConstBox_ExposedLayout : MR.CS.Misc.Object<ConstBox_ExposedLayout>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -12464,11 +12464,11 @@ public static partial class MR
                 public unsafe ref readonly ExposedLayout _Ref => ref *(ExposedLayout *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Const_ExposedLayout(ExposedLayout other) : this(new Const_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `Const_ExposedLayout` has this conversion, `Mut_ExposedLayout` intentionally doesn't.
-                public static implicit operator Const_ExposedLayout(ExposedLayout other) {return new(other);}
+                public unsafe ConstBox_ExposedLayout(ExposedLayout other) : this(new ConstBox_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayout` has this conversion, `Box_ExposedLayout` intentionally doesn't.
+                public static implicit operator ConstBox_ExposedLayout(ExposedLayout other) {return new(other);}
 
-                internal unsafe Const_ExposedLayout(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe ConstBox_ExposedLayout(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -12478,7 +12478,7 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_ExposedLayout() {Dispose(false);}
+                ~ConstBox_ExposedLayout() {Dispose(false);}
 
                 public ref readonly ushort x => ref _Ref.x;
 
@@ -12494,14 +12494,14 @@ public static partial class MR
                 public ref readonly MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
                 /// Generated default constructor.
-                public unsafe Const_ExposedLayout() : this(null, is_owning: true)
+                public unsafe ConstBox_ExposedLayout() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
                     for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
-                public unsafe Const_ExposedLayout(Const_ExposedLayout _other) : this(null, is_owning: true)
+                public unsafe ConstBox_ExposedLayout(ConstBox_ExposedLayout _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
                     for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
@@ -12525,11 +12525,11 @@ public static partial class MR
 
                 // Try some jank operators.
                 /// Generated from method `MR::CSharp::ExposedLayout::operator++`.
-                public static unsafe Mut_ExposedLayout operator++(MR.CS.CSharp.Const_ExposedLayout _this)
+                public static unsafe Box_ExposedLayout operator++(MR.CS.CSharp.ConstBox_ExposedLayout _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
-                    extern static void __MR_C_incr_MR_CSharp_ExposedLayout(MR.CS.CSharp.Const_ExposedLayout._Underlying *_this);
-                    Mut_ExposedLayout __this_copy = new(_this);
+                    extern static void __MR_C_incr_MR_CSharp_ExposedLayout(MR.CS.CSharp.ConstBox_ExposedLayout._Underlying *_this);
+                    Box_ExposedLayout __this_copy = new(_this);
                     __MR_C_incr_MR_CSharp_ExposedLayout(__this_copy._UnderlyingPtr);
                     return __this_copy;
                 }
@@ -12537,46 +12537,46 @@ public static partial class MR
                 // Test how returning references to an exposed struct works, since C# overloaded operators can't return `ref`.
                 // Note that this operator must be `const` to test this correctly, since we turn non-const operators in exposed structs into functions.
                 /// Generated from method `MR::CSharp::ExposedLayout::operator*`.
-                public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout> operator*(MR.CS.CSharp.Const_ExposedLayout _this, int _1)
+                public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout> operator*(MR.CS.CSharp.ConstBox_ExposedLayout _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_CSharp_ExposedLayout_int", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_mul_MR_CSharp_ExposedLayout_int(MR.CS.CSharp.Const_ExposedLayout._Underlying *_this, int _1);
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_mul_MR_CSharp_ExposedLayout_int(MR.CS.CSharp.ConstBox_ExposedLayout._Underlying *_this, int _1);
                     return new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>(__MR_C_mul_MR_CSharp_ExposedLayout_int(_this._UnderlyingPtr, _1));
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayout::operator+`.
-                public static unsafe MR.CS.Misc.ConstRef<MR.CS.CSharp.ExposedLayout> operator+(MR.CS.CSharp.Const_ExposedLayout _this, int _1)
+                public static unsafe MR.CS.Misc.ConstRef<MR.CS.CSharp.ExposedLayout> operator+(MR.CS.CSharp.ConstBox_ExposedLayout _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_const_MR_CSharp_ExposedLayout_ref_int", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_add_const_MR_CSharp_ExposedLayout_ref_int(MR.CS.CSharp.Const_ExposedLayout._Underlying *_this, int _1);
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_C_add_const_MR_CSharp_ExposedLayout_ref_int(MR.CS.CSharp.ConstBox_ExposedLayout._Underlying *_this, int _1);
                     return new(__MR_C_add_const_MR_CSharp_ExposedLayout_ref_int(_this._UnderlyingPtr, _1));
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayout::operator<`.
-                public static unsafe bool operator<(MR.CS.CSharp.Const_ExposedLayout _this, MR.CS.CSharp.Const_ExposedLayout _1)
+                public static unsafe bool operator<(MR.CS.CSharp.ConstBox_ExposedLayout _this, MR.CS.CSharp.ConstBox_ExposedLayout _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_ExposedLayout", ExactSpelling = true)]
-                    extern static byte __MR_C_less_MR_CSharp_ExposedLayout(MR.CS.CSharp.Const_ExposedLayout._Underlying *_this, MR.CS.CSharp.Const_ExposedLayout._Underlying *_1);
+                    extern static byte __MR_C_less_MR_CSharp_ExposedLayout(MR.CS.CSharp.ConstBox_ExposedLayout._Underlying *_this, MR.CS.CSharp.ConstBox_ExposedLayout._Underlying *_1);
                     return __MR_C_less_MR_CSharp_ExposedLayout(_this._UnderlyingPtr, _1._UnderlyingPtr) != 0;
                 }
 
-                public static unsafe bool operator>(MR.CS.CSharp.Const_ExposedLayout _this, MR.CS.CSharp.Const_ExposedLayout _1)
+                public static unsafe bool operator>(MR.CS.CSharp.ConstBox_ExposedLayout _this, MR.CS.CSharp.ConstBox_ExposedLayout _1)
                 {
                     return _1 < _this;
                 }
 
-                public static unsafe bool operator<=(MR.CS.CSharp.Const_ExposedLayout _this, MR.CS.CSharp.Const_ExposedLayout _1)
+                public static unsafe bool operator<=(MR.CS.CSharp.ConstBox_ExposedLayout _this, MR.CS.CSharp.ConstBox_ExposedLayout _1)
                 {
                     return !(_1 < _this);
                 }
 
-                public static unsafe bool operator>=(MR.CS.CSharp.Const_ExposedLayout _this, MR.CS.CSharp.Const_ExposedLayout _1)
+                public static unsafe bool operator>=(MR.CS.CSharp.ConstBox_ExposedLayout _this, MR.CS.CSharp.ConstBox_ExposedLayout _1)
                 {
                     return !(_this < _1);
                 }
 
                 /// Generated from function `MR::CSharp::operator-`.
-                public static unsafe int operator-(int _1, Const_ExposedLayout _2)
+                public static unsafe int operator-(int _1, ConstBox_ExposedLayout _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_int_MR_CSharp_ExposedLayout", ExactSpelling = true)]
                     extern static int __MR_C_sub_int_MR_CSharp_ExposedLayout(int _1, MR.CS.CSharp.ExposedLayout _2);
@@ -12584,10 +12584,10 @@ public static partial class MR
                 }
 
                 /// Generated from function `MR::CSharp::operator%`.
-                public static unsafe int operator%(int _1, MR.CS.CSharp.Const_ExposedLayout _2)
+                public static unsafe int operator%(int _1, MR.CS.CSharp.ConstBox_ExposedLayout _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_int_MR_CSharp_ExposedLayout", ExactSpelling = true)]
-                    extern static int __MR_C_mod_int_MR_CSharp_ExposedLayout(int _1, MR.CS.CSharp.Const_ExposedLayout._Underlying *_2);
+                    extern static int __MR_C_mod_int_MR_CSharp_ExposedLayout(int _1, MR.CS.CSharp.ConstBox_ExposedLayout._Underlying *_2);
                     return __MR_C_mod_int_MR_CSharp_ExposedLayout(_1, _2._UnderlyingPtr);
                 }
 
@@ -12600,11 +12600,11 @@ public static partial class MR
                 }
 
                 /// Generated from function `MR::CSharp::operator--`.
-                public static unsafe Mut_ExposedLayout operator--(MR.CS.CSharp.Const_ExposedLayout _1)
+                public static unsafe Box_ExposedLayout operator--(MR.CS.CSharp.ConstBox_ExposedLayout _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
-                    extern static void __MR_C_decr_MR_CSharp_ExposedLayout(MR.CS.CSharp.Const_ExposedLayout._Underlying *_1);
-                    Mut_ExposedLayout __this_copy = new(_1);
+                    extern static void __MR_C_decr_MR_CSharp_ExposedLayout(MR.CS.CSharp.ConstBox_ExposedLayout._Underlying *_1);
+                    Box_ExposedLayout __this_copy = new(_1);
                     __MR_C_decr_MR_CSharp_ExposedLayout(__this_copy._UnderlyingPtr);
                     return __this_copy;
                 }
@@ -12613,15 +12613,15 @@ public static partial class MR
             // Exposed structs:
             /// Generated from class `MR::CSharp::ExposedLayout`.
             /// This is the non-const reference to the struct.
-            public class Mut_ExposedLayout : Const_ExposedLayout, System.IEquatable<float>
+            public class Box_ExposedLayout : ConstBox_ExposedLayout, System.IEquatable<float>
             {
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayout _Ref => ref *(ExposedLayout *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Mut_ExposedLayout(ExposedLayout other) : this(new Const_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
+                public unsafe Box_ExposedLayout(ExposedLayout other) : this(new ConstBox_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
 
-                internal unsafe Mut_ExposedLayout(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe Box_ExposedLayout(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 public new ref ushort x => ref _Ref.x;
 
@@ -12637,21 +12637,21 @@ public static partial class MR
                 public new ref MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
                 /// Generated default constructor.
-                public unsafe Mut_ExposedLayout() : this(null, is_owning: true)
+                public unsafe Box_ExposedLayout() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
                     for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
-                public unsafe Mut_ExposedLayout(Const_ExposedLayout _other) : this(null, is_owning: true)
+                public unsafe Box_ExposedLayout(ConstBox_ExposedLayout _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
                     for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated copy assignment.
-                public void Assign(Const_ExposedLayout _other) {_Ref = _other._Ref;}
+                public void Assign(ConstBox_ExposedLayout _other) {_Ref = _other._Ref;}
 
                 /// Generated from method `MR::CSharp::ExposedLayout::foo`.
                 public unsafe void Foo()
@@ -12671,22 +12671,22 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayout::operator+`.
-                public static unsafe int operator+(MR.CS.CSharp.Mut_ExposedLayout _this, int _1)
+                public static unsafe int operator+(MR.CS.CSharp.Box_ExposedLayout _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_ExposedLayout_ref_int", ExactSpelling = true)]
-                    extern static int __MR_C_add_MR_CSharp_ExposedLayout_ref_int(MR.CS.CSharp.Mut_ExposedLayout._Underlying *_this, int _1);
+                    extern static int __MR_C_add_MR_CSharp_ExposedLayout_ref_int(MR.CS.CSharp.Box_ExposedLayout._Underlying *_this, int _1);
                     return __MR_C_add_MR_CSharp_ExposedLayout_ref_int(_this._UnderlyingPtr, _1);
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayout::operator==`.
-                public static unsafe bool operator==(MR.CS.CSharp.Mut_ExposedLayout _this, float _1)
+                public static unsafe bool operator==(MR.CS.CSharp.Box_ExposedLayout _this, float _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayout_float", ExactSpelling = true)]
-                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayout_float(MR.CS.CSharp.Mut_ExposedLayout._Underlying *_this, float _1);
+                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayout_float(MR.CS.CSharp.Box_ExposedLayout._Underlying *_this, float _1);
                     return __MR_C_equal_MR_CSharp_ExposedLayout_float(_this._UnderlyingPtr, _1) != 0;
                 }
 
-                public static unsafe bool operator!=(MR.CS.CSharp.Mut_ExposedLayout _this, float _1)
+                public static unsafe bool operator!=(MR.CS.CSharp.Box_ExposedLayout _this, float _1)
                 {
                     return !(_this == _1);
                 }
@@ -12700,10 +12700,10 @@ public static partial class MR
                 }
 
                 /// Generated from function `MR::CSharp::operator/`.
-                public static unsafe int operator/(int _1, MR.CS.CSharp.Mut_ExposedLayout _2)
+                public static unsafe int operator/(int _1, MR.CS.CSharp.Box_ExposedLayout _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_int_MR_CSharp_ExposedLayout", ExactSpelling = true)]
-                    extern static int __MR_C_div_int_MR_CSharp_ExposedLayout(int _1, MR.CS.CSharp.Mut_ExposedLayout._Underlying *_2);
+                    extern static int __MR_C_div_int_MR_CSharp_ExposedLayout(int _1, MR.CS.CSharp.Box_ExposedLayout._Underlying *_2);
                     return __MR_C_div_int_MR_CSharp_ExposedLayout(_1, _2._UnderlyingPtr);
                 }
 
@@ -12731,7 +12731,7 @@ public static partial class MR
             public struct ExposedLayout : System.IEquatable<float>
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator ExposedLayout(Const_ExposedLayout other) => other._Ref;
+                public static implicit operator ExposedLayout(ConstBox_ExposedLayout other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort x;
@@ -12950,9 +12950,9 @@ public static partial class MR
                 }
             }
 
-            /// This is used as a function parameter when passing `Mut_ExposedLayout` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
+            /// This is used as a function parameter when passing `Box_ExposedLayout` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
-            /// * Pass an instance of `Mut_ExposedLayout`/`Const_ExposedLayout` to copy it into the function.
+            /// * Pass an instance of `Box_ExposedLayout`/`ConstBox_ExposedLayout` to copy it into the function.
             /// * Pass `null` to use the default argument
             public readonly ref struct _InOpt_ExposedLayout
             {
@@ -12969,52 +12969,52 @@ public static partial class MR
                 public _InOpt_ExposedLayout() {HasValue = false;}
                 public _InOpt_ExposedLayout(ExposedLayout new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator _InOpt_ExposedLayout(ExposedLayout new_value) {return new(new_value);}
-                public _InOpt_ExposedLayout(Const_ExposedLayout new_value) {HasValue = true; Object = new_value._Ref;}
-                public static implicit operator _InOpt_ExposedLayout(Const_ExposedLayout new_value) {return new(new_value);}
+                public _InOpt_ExposedLayout(ConstBox_ExposedLayout new_value) {HasValue = true; Object = new_value._Ref;}
+                public static implicit operator _InOpt_ExposedLayout(ConstBox_ExposedLayout new_value) {return new(new_value);}
             }
 
-            /// This is used for optional parameters of class `Mut_ExposedLayout` with default arguments.
+            /// This is used for optional parameters of class `Box_ExposedLayout` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ExposedLayout`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ExposedLayout`/`Const_ExposedLayout` directly.
+            /// * Pass an instance of `Box_ExposedLayout`/`ConstBox_ExposedLayout` directly.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayout`.
             public class _InOptMut_ExposedLayout
             {
-                public Mut_ExposedLayout? Opt;
+                public Box_ExposedLayout? Opt;
 
                 public _InOptMut_ExposedLayout() {}
-                public _InOptMut_ExposedLayout(Mut_ExposedLayout value) {Opt = value;}
-                public static implicit operator _InOptMut_ExposedLayout(Mut_ExposedLayout value) {return new(value);}
+                public _InOptMut_ExposedLayout(Box_ExposedLayout value) {Opt = value;}
+                public static implicit operator _InOptMut_ExposedLayout(Box_ExposedLayout value) {return new(value);}
                 public unsafe _InOptMut_ExposedLayout(ref ExposedLayout value)
                 {
                     fixed (ExposedLayout *value_ptr = &value)
                     {
-                        Opt = new((Const_ExposedLayout._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_ExposedLayout._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
 
-            /// This is used for optional parameters of class `Mut_ExposedLayout` with default arguments.
+            /// This is used for optional parameters of class `Box_ExposedLayout` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ExposedLayout`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ExposedLayout`/`Const_ExposedLayout` to pass it to the function.
+            /// * Pass an instance of `Box_ExposedLayout`/`ConstBox_ExposedLayout` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayout`.
             public class _InOptConst_ExposedLayout
             {
-                public Const_ExposedLayout? Opt;
+                public ConstBox_ExposedLayout? Opt;
 
                 public _InOptConst_ExposedLayout() {}
-                public _InOptConst_ExposedLayout(Const_ExposedLayout value) {Opt = value;}
-                public static implicit operator _InOptConst_ExposedLayout(Const_ExposedLayout value) {return new(value);}
+                public _InOptConst_ExposedLayout(ConstBox_ExposedLayout value) {Opt = value;}
+                public static implicit operator _InOptConst_ExposedLayout(ConstBox_ExposedLayout value) {return new(value);}
                 public unsafe _InOptConst_ExposedLayout(ref readonly ExposedLayout value)
                 {
                     fixed (ExposedLayout *value_ptr = &value)
                     {
-                        Opt = new((Const_ExposedLayout._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_ExposedLayout._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
@@ -13022,7 +13022,7 @@ public static partial class MR
             // This one is backed by a shared pointer.
             /// Generated from class `MR::CSharp::ExposedLayoutSh`.
             /// This is the const reference to the struct.
-            public class Const_ExposedLayoutSh : MR.CS.Misc.SharedObject<Const_ExposedLayoutSh>, System.IDisposable, System.IEquatable<MR.CS.CSharp.ExposedLayout>, System.IEquatable<MR.CS.CSharp.Const_ExposedLayoutSh>
+            public class ConstBox_ExposedLayoutSh : MR.CS.Misc.SharedObject<ConstBox_ExposedLayoutSh>, System.IDisposable, System.IEquatable<MR.CS.CSharp.ExposedLayout>, System.IEquatable<MR.CS.CSharp.ConstBox_ExposedLayoutSh>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
                 internal struct _UnderlyingShared {} // Represents the underlying shared pointer C++ type.
@@ -13066,11 +13066,11 @@ public static partial class MR
                 public unsafe ref readonly ExposedLayoutSh _Ref => ref *(ExposedLayoutSh *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Const_ExposedLayoutSh(ExposedLayoutSh other) : this(new Const_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `Const_ExposedLayoutSh` has this conversion, `Mut_ExposedLayoutSh` intentionally doesn't.
-                public static implicit operator Const_ExposedLayoutSh(ExposedLayoutSh other) {return new(other);}
+                public unsafe ConstBox_ExposedLayoutSh(ExposedLayoutSh other) : this(new ConstBox_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayoutSh` has this conversion, `Box_ExposedLayoutSh` intentionally doesn't.
+                public static implicit operator ConstBox_ExposedLayoutSh(ExposedLayoutSh other) {return new(other);}
 
-                internal unsafe Const_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(true)
+                internal unsafe ConstBox_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct", ExactSpelling = true)]
                     extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(_Underlying *other);
@@ -13082,9 +13082,9 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning(ptr);
                 }
 
-                internal unsafe Const_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+                internal unsafe ConstBox_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
 
-                internal static unsafe Mut_ExposedLayoutSh _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
+                internal static unsafe Box_ExposedLayoutSh _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing", ExactSpelling = true)]
                     extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
@@ -13110,7 +13110,7 @@ public static partial class MR
                     _UnderlyingSharedPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_ExposedLayoutSh() {Dispose(false);}
+                ~ConstBox_ExposedLayoutSh() {Dispose(false);}
 
                 public ref readonly ushort x => ref _Ref.x;
 
@@ -13126,14 +13126,14 @@ public static partial class MR
                 public ref readonly MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
                 /// Generated default constructor.
-                public unsafe Const_ExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
+                public unsafe ConstBox_ExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
                     for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
-                public unsafe Const_ExposedLayoutSh(Const_ExposedLayoutSh _other) : this(shared_ptr: null, is_owning: true)
+                public unsafe ConstBox_ExposedLayoutSh(ConstBox_ExposedLayoutSh _other) : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
                     for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
@@ -13157,79 +13157,79 @@ public static partial class MR
 
                 // Try some jank operators.
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator++`.
-                public static unsafe Mut_ExposedLayoutSh operator++(MR.CS.CSharp.Const_ExposedLayoutSh _this)
+                public static unsafe Box_ExposedLayoutSh operator++(MR.CS.CSharp.ConstBox_ExposedLayoutSh _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static void __MR_C_incr_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *_this);
-                    Mut_ExposedLayoutSh __this_copy = new(_this);
+                    extern static void __MR_C_incr_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.ConstBox_ExposedLayoutSh._Underlying *_this);
+                    Box_ExposedLayoutSh __this_copy = new(_this);
                     __MR_C_incr_MR_CSharp_ExposedLayoutSh(__this_copy._UnderlyingPtr);
                     return __this_copy;
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator*`.
-                public static unsafe int operator*(MR.CS.CSharp.Const_ExposedLayoutSh _this, int _1)
+                public static unsafe int operator*(MR.CS.CSharp.ConstBox_ExposedLayoutSh _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mul_MR_CSharp_ExposedLayoutSh_int", ExactSpelling = true)]
-                    extern static int __MR_C_mul_MR_CSharp_ExposedLayoutSh_int(MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *_this, int _1);
+                    extern static int __MR_C_mul_MR_CSharp_ExposedLayoutSh_int(MR.CS.CSharp.ConstBox_ExposedLayoutSh._Underlying *_this, int _1);
                     return __MR_C_mul_MR_CSharp_ExposedLayoutSh_int(_this._UnderlyingPtr, _1);
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator<`.
-                public static unsafe bool operator<(MR.CS.CSharp.Const_ExposedLayoutSh _this, MR.CS.CSharp.Const_ExposedLayoutSh _1)
+                public static unsafe bool operator<(MR.CS.CSharp.ConstBox_ExposedLayoutSh _this, MR.CS.CSharp.ConstBox_ExposedLayoutSh _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_less_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static byte __MR_C_less_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *_this, MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *_1);
+                    extern static byte __MR_C_less_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.ConstBox_ExposedLayoutSh._Underlying *_this, MR.CS.CSharp.ConstBox_ExposedLayoutSh._Underlying *_1);
                     return __MR_C_less_MR_CSharp_ExposedLayoutSh(_this._UnderlyingPtr, _1._UnderlyingPtr) != 0;
                 }
 
-                public static unsafe bool operator>(MR.CS.CSharp.Const_ExposedLayoutSh _this, MR.CS.CSharp.Const_ExposedLayoutSh _1)
+                public static unsafe bool operator>(MR.CS.CSharp.ConstBox_ExposedLayoutSh _this, MR.CS.CSharp.ConstBox_ExposedLayoutSh _1)
                 {
                     return _1 < _this;
                 }
 
-                public static unsafe bool operator<=(MR.CS.CSharp.Const_ExposedLayoutSh _this, MR.CS.CSharp.Const_ExposedLayoutSh _1)
+                public static unsafe bool operator<=(MR.CS.CSharp.ConstBox_ExposedLayoutSh _this, MR.CS.CSharp.ConstBox_ExposedLayoutSh _1)
                 {
                     return !(_1 < _this);
                 }
 
-                public static unsafe bool operator>=(MR.CS.CSharp.Const_ExposedLayoutSh _this, MR.CS.CSharp.Const_ExposedLayoutSh _1)
+                public static unsafe bool operator>=(MR.CS.CSharp.ConstBox_ExposedLayoutSh _this, MR.CS.CSharp.ConstBox_ExposedLayoutSh _1)
                 {
                     return !(_this < _1);
                 }
 
                 // While we're at it, test comparison against another exposed struct, since this is apparently non-trivial.
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
-                public static unsafe bool operator==(MR.CS.CSharp.Const_ExposedLayoutSh _this, in MR.CS.CSharp.ExposedLayout _1)
+                public static unsafe bool operator==(MR.CS.CSharp.ConstBox_ExposedLayoutSh _this, in MR.CS.CSharp.ExposedLayout _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout", ExactSpelling = true)]
-                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *_this, MR.CS.CSharp.ExposedLayout *_1);
+                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(MR.CS.CSharp.ConstBox_ExposedLayoutSh._Underlying *_this, MR.CS.CSharp.ExposedLayout *_1);
                     fixed (MR.CS.CSharp.ExposedLayout *__ptr__1 = &_1)
                     {
                         return __MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(_this._UnderlyingPtr, __ptr__1) != 0;
                     }
                 }
 
-                public static unsafe bool operator!=(MR.CS.CSharp.Const_ExposedLayoutSh _this, in MR.CS.CSharp.ExposedLayout _1)
+                public static unsafe bool operator!=(MR.CS.CSharp.ConstBox_ExposedLayoutSh _this, in MR.CS.CSharp.ExposedLayout _1)
                 {
                     return !(_this == _1);
                 }
 
                 // And against itself, too.
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
-                public static unsafe bool operator==(MR.CS.CSharp.Const_ExposedLayoutSh _this, MR.CS.CSharp.Const_ExposedLayoutSh _1)
+                public static unsafe bool operator==(MR.CS.CSharp.ConstBox_ExposedLayoutSh _this, MR.CS.CSharp.ConstBox_ExposedLayoutSh _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *_this, MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *_1);
+                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.ConstBox_ExposedLayoutSh._Underlying *_this, MR.CS.CSharp.ConstBox_ExposedLayoutSh._Underlying *_1);
                     return __MR_C_equal_MR_CSharp_ExposedLayoutSh(_this._UnderlyingPtr, _1._UnderlyingPtr) != 0;
                 }
 
-                public static unsafe bool operator!=(MR.CS.CSharp.Const_ExposedLayoutSh _this, MR.CS.CSharp.Const_ExposedLayoutSh _1)
+                public static unsafe bool operator!=(MR.CS.CSharp.ConstBox_ExposedLayoutSh _this, MR.CS.CSharp.ConstBox_ExposedLayoutSh _1)
                 {
                     return !(_this == _1);
                 }
 
                 /// Generated from function `MR::CSharp::operator-`.
-                public static unsafe int operator-(int _1, Const_ExposedLayoutSh _2)
+                public static unsafe int operator-(int _1, ConstBox_ExposedLayoutSh _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_int_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
                     extern static int __MR_C_sub_int_MR_CSharp_ExposedLayoutSh(int _1, MR.CS.CSharp.ExposedLayoutSh _2);
@@ -13237,10 +13237,10 @@ public static partial class MR
                 }
 
                 /// Generated from function `MR::CSharp::operator%`.
-                public static unsafe int operator%(int _1, MR.CS.CSharp.Const_ExposedLayoutSh _2)
+                public static unsafe int operator%(int _1, MR.CS.CSharp.ConstBox_ExposedLayoutSh _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_mod_int_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static int __MR_C_mod_int_MR_CSharp_ExposedLayoutSh(int _1, MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *_2);
+                    extern static int __MR_C_mod_int_MR_CSharp_ExposedLayoutSh(int _1, MR.CS.CSharp.ConstBox_ExposedLayoutSh._Underlying *_2);
                     return __MR_C_mod_int_MR_CSharp_ExposedLayoutSh(_1, _2._UnderlyingPtr);
                 }
 
@@ -13253,11 +13253,11 @@ public static partial class MR
                 }
 
                 /// Generated from function `MR::CSharp::operator--`.
-                public static unsafe Mut_ExposedLayoutSh operator--(MR.CS.CSharp.Const_ExposedLayoutSh _1)
+                public static unsafe Box_ExposedLayoutSh operator--(MR.CS.CSharp.ConstBox_ExposedLayoutSh _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static void __MR_C_decr_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.Const_ExposedLayoutSh._Underlying *_1);
-                    Mut_ExposedLayoutSh __this_copy = new(_1);
+                    extern static void __MR_C_decr_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.ConstBox_ExposedLayoutSh._Underlying *_1);
+                    Box_ExposedLayoutSh __this_copy = new(_1);
                     __MR_C_decr_MR_CSharp_ExposedLayoutSh(__this_copy._UnderlyingPtr);
                     return __this_copy;
                 }
@@ -13269,7 +13269,7 @@ public static partial class MR
                     return this == (MR.CS.CSharp.ExposedLayout)_1;
                 }
 
-                public bool Equals(MR.CS.CSharp.Const_ExposedLayoutSh? _1)
+                public bool Equals(MR.CS.CSharp.ConstBox_ExposedLayoutSh? _1)
                 {
                     if (_1 is null)
                         return false;
@@ -13282,8 +13282,8 @@ public static partial class MR
                         return false;
                     if (other is MR.CS.CSharp.ExposedLayout)
                         return this == (MR.CS.CSharp.ExposedLayout)other;
-                    if (other is MR.CS.CSharp.Const_ExposedLayoutSh)
-                        return this == (MR.CS.CSharp.Const_ExposedLayoutSh)other;
+                    if (other is MR.CS.CSharp.ConstBox_ExposedLayoutSh)
+                        return this == (MR.CS.CSharp.ConstBox_ExposedLayoutSh)other;
                     return false;
                 }
             }
@@ -13291,17 +13291,17 @@ public static partial class MR
             // This one is backed by a shared pointer.
             /// Generated from class `MR::CSharp::ExposedLayoutSh`.
             /// This is the non-const reference to the struct.
-            public class Mut_ExposedLayoutSh : Const_ExposedLayoutSh, System.IEquatable<float>
+            public class Box_ExposedLayoutSh : ConstBox_ExposedLayoutSh, System.IEquatable<float>
             {
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayoutSh _Ref => ref *(ExposedLayoutSh *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Mut_ExposedLayoutSh(ExposedLayoutSh other) : this(new Const_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
+                public unsafe Box_ExposedLayoutSh(ExposedLayoutSh other) : this(new ConstBox_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
 
-                internal unsafe Mut_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe Box_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                internal unsafe Mut_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
+                internal unsafe Box_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
                 public new ref ushort x => ref _Ref.x;
 
@@ -13317,21 +13317,21 @@ public static partial class MR
                 public new ref MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
                 /// Generated default constructor.
-                public unsafe Mut_ExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
+                public unsafe Box_ExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
                     for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
-                public unsafe Mut_ExposedLayoutSh(Const_ExposedLayoutSh _other) : this(shared_ptr: null, is_owning: true)
+                public unsafe Box_ExposedLayoutSh(ConstBox_ExposedLayoutSh _other) : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
                     for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated copy assignment.
-                public void Assign(Const_ExposedLayoutSh _other) {_Ref = _other._Ref;}
+                public void Assign(ConstBox_ExposedLayoutSh _other) {_Ref = _other._Ref;}
 
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::foo`.
                 public unsafe void Foo()
@@ -13351,22 +13351,22 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator+`.
-                public static unsafe int operator+(MR.CS.CSharp.Mut_ExposedLayoutSh _this, int _1)
+                public static unsafe int operator+(MR.CS.CSharp.Box_ExposedLayoutSh _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_add_MR_CSharp_ExposedLayoutSh_int", ExactSpelling = true)]
-                    extern static int __MR_C_add_MR_CSharp_ExposedLayoutSh_int(MR.CS.CSharp.Mut_ExposedLayoutSh._Underlying *_this, int _1);
+                    extern static int __MR_C_add_MR_CSharp_ExposedLayoutSh_int(MR.CS.CSharp.Box_ExposedLayoutSh._Underlying *_this, int _1);
                     return __MR_C_add_MR_CSharp_ExposedLayoutSh_int(_this._UnderlyingPtr, _1);
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator==`.
-                public static unsafe bool operator==(MR.CS.CSharp.Mut_ExposedLayoutSh _this, float _1)
+                public static unsafe bool operator==(MR.CS.CSharp.Box_ExposedLayoutSh _this, float _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutSh_float", ExactSpelling = true)]
-                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayoutSh_float(MR.CS.CSharp.Mut_ExposedLayoutSh._Underlying *_this, float _1);
+                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayoutSh_float(MR.CS.CSharp.Box_ExposedLayoutSh._Underlying *_this, float _1);
                     return __MR_C_equal_MR_CSharp_ExposedLayoutSh_float(_this._UnderlyingPtr, _1) != 0;
                 }
 
-                public static unsafe bool operator!=(MR.CS.CSharp.Mut_ExposedLayoutSh _this, float _1)
+                public static unsafe bool operator!=(MR.CS.CSharp.Box_ExposedLayoutSh _this, float _1)
                 {
                     return !(_this == _1);
                 }
@@ -13380,10 +13380,10 @@ public static partial class MR
                 }
 
                 /// Generated from function `MR::CSharp::operator/`.
-                public static unsafe int operator/(int _1, MR.CS.CSharp.Mut_ExposedLayoutSh _2)
+                public static unsafe int operator/(int _1, MR.CS.CSharp.Box_ExposedLayoutSh _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_int_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static int __MR_C_div_int_MR_CSharp_ExposedLayoutSh(int _1, MR.CS.CSharp.Mut_ExposedLayoutSh._Underlying *_2);
+                    extern static int __MR_C_div_int_MR_CSharp_ExposedLayoutSh(int _1, MR.CS.CSharp.Box_ExposedLayoutSh._Underlying *_2);
                     return __MR_C_div_int_MR_CSharp_ExposedLayoutSh(_1, _2._UnderlyingPtr);
                 }
 
@@ -13411,7 +13411,7 @@ public static partial class MR
             public struct ExposedLayoutSh : System.IEquatable<float>, System.IEquatable<MR.CS.CSharp.ExposedLayout>, System.IEquatable<MR.CS.CSharp.ExposedLayoutSh>
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator ExposedLayoutSh(Const_ExposedLayoutSh other) => other._Ref;
+                public static implicit operator ExposedLayoutSh(ConstBox_ExposedLayoutSh other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort x;
@@ -13665,27 +13665,27 @@ public static partial class MR
                 }
             }
 
-            /// This is used as a function parameter when the underlying function receives `Mut_ExposedLayoutSh` by value.
+            /// This is used as a function parameter when the underlying function receives `Box_ExposedLayoutSh` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `Mut_ExposedLayoutSh`/`Const_ExposedLayoutSh` to copy it into the function.
+            /// * Pass an instance of `Box_ExposedLayoutSh`/`ConstBox_ExposedLayoutSh` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class _ByValueShared_ExposedLayoutSh
             {
-                internal readonly Const_ExposedLayoutSh? Value;
+                internal readonly ConstBox_ExposedLayoutSh? Value;
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValueShared_ExposedLayoutSh() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValueShared_ExposedLayoutSh(Const_ExposedLayoutSh new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValueShared_ExposedLayoutSh(Const_ExposedLayoutSh arg) {return new(arg);}
-                public _ByValueShared_ExposedLayoutSh(MR.CS.Misc._Moved<Mut_ExposedLayoutSh> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValueShared_ExposedLayoutSh(MR.CS.Misc._Moved<Mut_ExposedLayoutSh> arg) {return new(arg);}
+                public _ByValueShared_ExposedLayoutSh(ConstBox_ExposedLayoutSh new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValueShared_ExposedLayoutSh(ConstBox_ExposedLayoutSh arg) {return new(arg);}
+                public _ByValueShared_ExposedLayoutSh(MR.CS.Misc._Moved<Box_ExposedLayoutSh> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValueShared_ExposedLayoutSh(MR.CS.Misc._Moved<Box_ExposedLayoutSh> arg) {return new(arg);}
             }
 
-            /// This is used as a function parameter when passing `Mut_ExposedLayoutSh` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
+            /// This is used as a function parameter when passing `Box_ExposedLayoutSh` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
-            /// * Pass an instance of `Mut_ExposedLayoutSh`/`Const_ExposedLayoutSh` to copy it into the function.
+            /// * Pass an instance of `Box_ExposedLayoutSh`/`ConstBox_ExposedLayoutSh` to copy it into the function.
             /// * Pass `null` to use the default argument
             public readonly ref struct _InOpt_ExposedLayoutSh
             {
@@ -13702,59 +13702,59 @@ public static partial class MR
                 public _InOpt_ExposedLayoutSh() {HasValue = false;}
                 public _InOpt_ExposedLayoutSh(ExposedLayoutSh new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator _InOpt_ExposedLayoutSh(ExposedLayoutSh new_value) {return new(new_value);}
-                public _InOpt_ExposedLayoutSh(Const_ExposedLayoutSh new_value) {HasValue = true; Object = new_value._Ref;}
-                public static implicit operator _InOpt_ExposedLayoutSh(Const_ExposedLayoutSh new_value) {return new(new_value);}
+                public _InOpt_ExposedLayoutSh(ConstBox_ExposedLayoutSh new_value) {HasValue = true; Object = new_value._Ref;}
+                public static implicit operator _InOpt_ExposedLayoutSh(ConstBox_ExposedLayoutSh new_value) {return new(new_value);}
             }
 
-            /// This is used for optional parameters of class `Mut_ExposedLayoutSh` with default arguments.
+            /// This is used for optional parameters of class `Box_ExposedLayoutSh` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ExposedLayoutSh`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ExposedLayoutSh`/`Const_ExposedLayoutSh` directly.
+            /// * Pass an instance of `Box_ExposedLayoutSh`/`ConstBox_ExposedLayoutSh` directly.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutSh`.
             public class _InOptMut_ExposedLayoutSh
             {
-                public Mut_ExposedLayoutSh? Opt;
+                public Box_ExposedLayoutSh? Opt;
 
                 public _InOptMut_ExposedLayoutSh() {}
-                public _InOptMut_ExposedLayoutSh(Mut_ExposedLayoutSh value) {Opt = value;}
-                public static implicit operator _InOptMut_ExposedLayoutSh(Mut_ExposedLayoutSh value) {return new(value);}
+                public _InOptMut_ExposedLayoutSh(Box_ExposedLayoutSh value) {Opt = value;}
+                public static implicit operator _InOptMut_ExposedLayoutSh(Box_ExposedLayoutSh value) {return new(value);}
                 public unsafe _InOptMut_ExposedLayoutSh(ref ExposedLayoutSh value)
                 {
                     fixed (ExposedLayoutSh *value_ptr = &value)
                     {
-                        Opt = new((Const_ExposedLayoutSh._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_ExposedLayoutSh._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
 
-            /// This is used for optional parameters of class `Mut_ExposedLayoutSh` with default arguments.
+            /// This is used for optional parameters of class `Box_ExposedLayoutSh` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ExposedLayoutSh`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ExposedLayoutSh`/`Const_ExposedLayoutSh` to pass it to the function.
+            /// * Pass an instance of `Box_ExposedLayoutSh`/`ConstBox_ExposedLayoutSh` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutSh`.
             public class _InOptConst_ExposedLayoutSh
             {
-                public Const_ExposedLayoutSh? Opt;
+                public ConstBox_ExposedLayoutSh? Opt;
 
                 public _InOptConst_ExposedLayoutSh() {}
-                public _InOptConst_ExposedLayoutSh(Const_ExposedLayoutSh value) {Opt = value;}
-                public static implicit operator _InOptConst_ExposedLayoutSh(Const_ExposedLayoutSh value) {return new(value);}
+                public _InOptConst_ExposedLayoutSh(ConstBox_ExposedLayoutSh value) {Opt = value;}
+                public static implicit operator _InOptConst_ExposedLayoutSh(ConstBox_ExposedLayoutSh value) {return new(value);}
                 public unsafe _InOptConst_ExposedLayoutSh(ref readonly ExposedLayoutSh value)
                 {
                     fixed (ExposedLayoutSh *value_ptr = &value)
                     {
-                        Opt = new((Const_ExposedLayoutSh._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_ExposedLayoutSh._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
 
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
             /// This is the const reference to the struct.
-            public class Const_ExposedLayoutB : MR.CS.Misc.Object<Const_ExposedLayoutB>, System.IDisposable, System.IEquatable<MR.CS.CSharp.Const_ExposedLayoutB>
+            public class ConstBox_ExposedLayoutB : MR.CS.Misc.Object<ConstBox_ExposedLayoutB>, System.IDisposable, System.IEquatable<MR.CS.CSharp.ConstBox_ExposedLayoutB>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -13764,11 +13764,11 @@ public static partial class MR
                 public unsafe ref readonly ExposedLayoutB _Ref => ref *(ExposedLayoutB *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Const_ExposedLayoutB(ExposedLayoutB other) : this(new Const_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `Const_ExposedLayoutB` has this conversion, `Mut_ExposedLayoutB` intentionally doesn't.
-                public static implicit operator Const_ExposedLayoutB(ExposedLayoutB other) {return new(other);}
+                public unsafe ConstBox_ExposedLayoutB(ExposedLayoutB other) : this(new ConstBox_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayoutB` has this conversion, `Box_ExposedLayoutB` intentionally doesn't.
+                public static implicit operator ConstBox_ExposedLayoutB(ExposedLayoutB other) {return new(other);}
 
-                internal unsafe Const_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe ConstBox_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -13778,12 +13778,12 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_ExposedLayoutB() {Dispose(false);}
+                ~ConstBox_ExposedLayoutB() {Dispose(false);}
 
                 public ref readonly int x => ref _Ref.x;
 
                 /// Generated copy constructor.
-                public unsafe Const_ExposedLayoutB(Const_ExposedLayoutB _other) : this(null, is_owning: true)
+                public unsafe ConstBox_ExposedLayoutB(ConstBox_ExposedLayoutB _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
@@ -13791,7 +13791,7 @@ public static partial class MR
 
                 // Some random ctor.
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
-                public unsafe Const_ExposedLayoutB(int _1, int _2) : this(null, is_owning: true)
+                public unsafe ConstBox_ExposedLayoutB(int _1, int _2) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
@@ -13802,7 +13802,7 @@ public static partial class MR
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
-                public unsafe Const_ExposedLayoutB(MR.CS.CSharp.Const_A _1) : this(null, is_owning: true)
+                public unsafe ConstBox_ExposedLayoutB(MR.CS.CSharp.Const_A _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
@@ -13814,25 +13814,25 @@ public static partial class MR
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
-                public static unsafe implicit operator Const_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new(_1);}
+                public static unsafe implicit operator ConstBox_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new(_1);}
 
                 // And try an equality comparison!
                 /// Generated from function `MR::CSharp::operator==`.
-                public static unsafe bool operator==(MR.CS.CSharp.Const_ExposedLayoutB _1, MR.CS.CSharp.Const_ExposedLayoutB _2)
+                public static unsafe bool operator==(MR.CS.CSharp.ConstBox_ExposedLayoutB _1, MR.CS.CSharp.ConstBox_ExposedLayoutB _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_ExposedLayoutB", ExactSpelling = true)]
-                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayoutB(MR.CS.CSharp.Const_ExposedLayoutB._Underlying *_1, MR.CS.CSharp.Const_ExposedLayoutB._Underlying *_2);
+                    extern static byte __MR_C_equal_MR_CSharp_ExposedLayoutB(MR.CS.CSharp.ConstBox_ExposedLayoutB._Underlying *_1, MR.CS.CSharp.ConstBox_ExposedLayoutB._Underlying *_2);
                     return __MR_C_equal_MR_CSharp_ExposedLayoutB(_1._UnderlyingPtr, _2._UnderlyingPtr) != 0;
                 }
 
-                public static unsafe bool operator!=(MR.CS.CSharp.Const_ExposedLayoutB _1, MR.CS.CSharp.Const_ExposedLayoutB _2)
+                public static unsafe bool operator!=(MR.CS.CSharp.ConstBox_ExposedLayoutB _1, MR.CS.CSharp.ConstBox_ExposedLayoutB _2)
                 {
                     return !(_1 == _2);
                 }
 
                 // IEquatable:
 
-                public bool Equals(MR.CS.CSharp.Const_ExposedLayoutB? _2)
+                public bool Equals(MR.CS.CSharp.ConstBox_ExposedLayoutB? _2)
                 {
                     if (_2 is null)
                         return false;
@@ -13843,39 +13843,39 @@ public static partial class MR
                 {
                     if (other is null)
                         return false;
-                    if (other is MR.CS.CSharp.Const_ExposedLayoutB)
-                        return this == (MR.CS.CSharp.Const_ExposedLayoutB)other;
+                    if (other is MR.CS.CSharp.ConstBox_ExposedLayoutB)
+                        return this == (MR.CS.CSharp.ConstBox_ExposedLayoutB)other;
                     return false;
                 }
             }
 
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
             /// This is the non-const reference to the struct.
-            public class Mut_ExposedLayoutB : Const_ExposedLayoutB
+            public class Box_ExposedLayoutB : ConstBox_ExposedLayoutB
             {
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayoutB _Ref => ref *(ExposedLayoutB *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Mut_ExposedLayoutB(ExposedLayoutB other) : this(new Const_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
+                public unsafe Box_ExposedLayoutB(ExposedLayoutB other) : this(new ConstBox_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
 
-                internal unsafe Mut_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe Box_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 public new ref int x => ref _Ref.x;
 
                 /// Generated copy constructor.
-                public unsafe Mut_ExposedLayoutB(Const_ExposedLayoutB _other) : this(null, is_owning: true)
+                public unsafe Box_ExposedLayoutB(ConstBox_ExposedLayoutB _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated copy assignment.
-                public void Assign(Const_ExposedLayoutB _other) {_Ref = _other._Ref;}
+                public void Assign(ConstBox_ExposedLayoutB _other) {_Ref = _other._Ref;}
 
                 // Some random ctor.
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
-                public unsafe Mut_ExposedLayoutB(int _1, int _2) : this(null, is_owning: true)
+                public unsafe Box_ExposedLayoutB(int _1, int _2) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
@@ -13886,7 +13886,7 @@ public static partial class MR
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
-                public unsafe Mut_ExposedLayoutB(MR.CS.CSharp.Const_A _1) : this(null, is_owning: true)
+                public unsafe Box_ExposedLayoutB(MR.CS.CSharp.Const_A _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
@@ -13898,7 +13898,7 @@ public static partial class MR
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
-                public static unsafe implicit operator Mut_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new(_1);}
+                public static unsafe implicit operator Box_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new(_1);}
             }
 
             /// Generated from class `MR::CSharp::ExposedLayoutB`.
@@ -13907,7 +13907,7 @@ public static partial class MR
             public struct ExposedLayoutB : System.IEquatable<MR.CS.CSharp.ExposedLayoutB>
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator ExposedLayoutB(Const_ExposedLayoutB other) => other._Ref;
+                public static implicit operator ExposedLayoutB(ConstBox_ExposedLayoutB other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
@@ -13968,9 +13968,9 @@ public static partial class MR
                 }
             }
 
-            /// This is used as a function parameter when passing `Mut_ExposedLayoutB` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
+            /// This is used as a function parameter when passing `Box_ExposedLayoutB` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
-            /// * Pass an instance of `Mut_ExposedLayoutB`/`Const_ExposedLayoutB` to copy it into the function.
+            /// * Pass an instance of `Box_ExposedLayoutB`/`ConstBox_ExposedLayoutB` to copy it into the function.
             /// * Pass `null` to use the default argument
             public readonly ref struct _InOpt_ExposedLayoutB
             {
@@ -13987,62 +13987,62 @@ public static partial class MR
                 public _InOpt_ExposedLayoutB() {HasValue = false;}
                 public _InOpt_ExposedLayoutB(ExposedLayoutB new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator _InOpt_ExposedLayoutB(ExposedLayoutB new_value) {return new(new_value);}
-                public _InOpt_ExposedLayoutB(Const_ExposedLayoutB new_value) {HasValue = true; Object = new_value._Ref;}
-                public static implicit operator _InOpt_ExposedLayoutB(Const_ExposedLayoutB new_value) {return new(new_value);}
+                public _InOpt_ExposedLayoutB(ConstBox_ExposedLayoutB new_value) {HasValue = true; Object = new_value._Ref;}
+                public static implicit operator _InOpt_ExposedLayoutB(ConstBox_ExposedLayoutB new_value) {return new(new_value);}
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
-                public static unsafe implicit operator _InOpt_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new Const_ExposedLayoutB(_1);}
+                public static unsafe implicit operator _InOpt_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new ConstBox_ExposedLayoutB(_1);}
             }
 
-            /// This is used for optional parameters of class `Mut_ExposedLayoutB` with default arguments.
+            /// This is used for optional parameters of class `Box_ExposedLayoutB` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ExposedLayoutB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ExposedLayoutB`/`Const_ExposedLayoutB` directly.
+            /// * Pass an instance of `Box_ExposedLayoutB`/`ConstBox_ExposedLayoutB` directly.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutB`.
             public class _InOptMut_ExposedLayoutB
             {
-                public Mut_ExposedLayoutB? Opt;
+                public Box_ExposedLayoutB? Opt;
 
                 public _InOptMut_ExposedLayoutB() {}
-                public _InOptMut_ExposedLayoutB(Mut_ExposedLayoutB value) {Opt = value;}
-                public static implicit operator _InOptMut_ExposedLayoutB(Mut_ExposedLayoutB value) {return new(value);}
+                public _InOptMut_ExposedLayoutB(Box_ExposedLayoutB value) {Opt = value;}
+                public static implicit operator _InOptMut_ExposedLayoutB(Box_ExposedLayoutB value) {return new(value);}
                 public unsafe _InOptMut_ExposedLayoutB(ref ExposedLayoutB value)
                 {
                     fixed (ExposedLayoutB *value_ptr = &value)
                     {
-                        Opt = new((Const_ExposedLayoutB._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_ExposedLayoutB._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
 
-            /// This is used for optional parameters of class `Mut_ExposedLayoutB` with default arguments.
+            /// This is used for optional parameters of class `Box_ExposedLayoutB` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ExposedLayoutB`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ExposedLayoutB`/`Const_ExposedLayoutB` to pass it to the function.
+            /// * Pass an instance of `Box_ExposedLayoutB`/`ConstBox_ExposedLayoutB` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutB`.
             public class _InOptConst_ExposedLayoutB
             {
-                public Const_ExposedLayoutB? Opt;
+                public ConstBox_ExposedLayoutB? Opt;
 
                 public _InOptConst_ExposedLayoutB() {}
-                public _InOptConst_ExposedLayoutB(Const_ExposedLayoutB value) {Opt = value;}
-                public static implicit operator _InOptConst_ExposedLayoutB(Const_ExposedLayoutB value) {return new(value);}
+                public _InOptConst_ExposedLayoutB(ConstBox_ExposedLayoutB value) {Opt = value;}
+                public static implicit operator _InOptConst_ExposedLayoutB(ConstBox_ExposedLayoutB value) {return new(value);}
                 public unsafe _InOptConst_ExposedLayoutB(ref readonly ExposedLayoutB value)
                 {
                     fixed (ExposedLayoutB *value_ptr = &value)
                     {
-                        Opt = new((Const_ExposedLayoutB._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_ExposedLayoutB._Underlying *)value_ptr, is_owning: false);
                     }
                 }
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
                 /// Generated from constructor `MR::CSharp::ExposedLayoutB::ExposedLayoutB`.
-                public static unsafe implicit operator _InOptConst_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new Const_ExposedLayoutB(_1);}
+                public static unsafe implicit operator _InOptConst_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new ConstBox_ExposedLayoutB(_1);}
             }
 
             // Test various array members.
@@ -14603,7 +14603,7 @@ public static partial class MR
 
             /// Generated from class `MR::CSharp::NameConflictsExposed`.
             /// This is the const reference to the struct.
-            public class Const_NameConflictsExposed : MR.CS.Misc.Object<Const_NameConflictsExposed>, System.IDisposable
+            public class ConstBox_NameConflictsExposed : MR.CS.Misc.Object<ConstBox_NameConflictsExposed>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -14613,11 +14613,11 @@ public static partial class MR
                 public unsafe ref readonly NameConflictsExposed _Ref => ref *(NameConflictsExposed *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Const_NameConflictsExposed(NameConflictsExposed other) : this(new Const_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `Const_NameConflictsExposed` has this conversion, `Mut_NameConflictsExposed` intentionally doesn't.
-                public static implicit operator Const_NameConflictsExposed(NameConflictsExposed other) {return new(other);}
+                public unsafe ConstBox_NameConflictsExposed(NameConflictsExposed other) : this(new ConstBox_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_NameConflictsExposed` has this conversion, `Box_NameConflictsExposed` intentionally doesn't.
+                public static implicit operator ConstBox_NameConflictsExposed(NameConflictsExposed other) {return new(other);}
 
-                internal unsafe Const_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe ConstBox_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -14627,21 +14627,21 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_NameConflictsExposed() {Dispose(false);}
+                ~ConstBox_NameConflictsExposed() {Dispose(false);}
 
                 public ref readonly int nameConflictsExposed => ref _Ref.nameConflictsExposed;
 
                 public ref readonly MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
 
                 /// Generated default constructor.
-                public unsafe Const_NameConflictsExposed() : this(null, is_owning: true)
+                public unsafe ConstBox_NameConflictsExposed() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
                     for (nuint _i = 0; _i < 8; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
-                public unsafe Const_NameConflictsExposed(Const_NameConflictsExposed _other) : this(null, is_owning: true)
+                public unsafe ConstBox_NameConflictsExposed(ConstBox_NameConflictsExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
                     for (nuint _i = 0; _i < 8; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
@@ -14650,36 +14650,36 @@ public static partial class MR
 
             /// Generated from class `MR::CSharp::NameConflictsExposed`.
             /// This is the non-const reference to the struct.
-            public class Mut_NameConflictsExposed : Const_NameConflictsExposed
+            public class Box_NameConflictsExposed : ConstBox_NameConflictsExposed
             {
                 /// Get the underlying struct.
                 public unsafe new ref NameConflictsExposed _Ref => ref *(NameConflictsExposed *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Mut_NameConflictsExposed(NameConflictsExposed other) : this(new Const_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
+                public unsafe Box_NameConflictsExposed(NameConflictsExposed other) : this(new ConstBox_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
 
-                internal unsafe Mut_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe Box_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 public new ref int nameConflictsExposed => ref _Ref.nameConflictsExposed;
 
                 public new ref MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
 
                 /// Generated default constructor.
-                public unsafe Mut_NameConflictsExposed() : this(null, is_owning: true)
+                public unsafe Box_NameConflictsExposed() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
                     for (nuint _i = 0; _i < 8; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
-                public unsafe Mut_NameConflictsExposed(Const_NameConflictsExposed _other) : this(null, is_owning: true)
+                public unsafe Box_NameConflictsExposed(ConstBox_NameConflictsExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
                     for (nuint _i = 0; _i < 8; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated copy assignment.
-                public void Assign(Const_NameConflictsExposed _other) {_Ref = _other._Ref;}
+                public void Assign(ConstBox_NameConflictsExposed _other) {_Ref = _other._Ref;}
 
                 /// Generated from method `MR::CSharp::NameConflictsExposed::name_Conflicts_exposed`.
                 public unsafe void NameConflictsExposed_()
@@ -14696,7 +14696,7 @@ public static partial class MR
             public struct NameConflictsExposed
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator NameConflictsExposed(Const_NameConflictsExposed other) => other._Ref;
+                public static implicit operator NameConflictsExposed(ConstBox_NameConflictsExposed other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int nameConflictsExposed;
@@ -14720,7 +14720,7 @@ public static partial class MR
 
                 /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
                 /// This is the const reference to the struct.
-                public class Const_A : MR.CS.Misc.Object<Const_A>, System.IDisposable
+                public class ConstBox_A : MR.CS.Misc.Object<ConstBox_A>, System.IDisposable
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -14730,11 +14730,11 @@ public static partial class MR
                     public unsafe ref readonly A _Ref => ref *(A *)_UnderlyingPtr;
 
                     /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                    public unsafe Const_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
-                    /// Convert from a struct by copying it. Note that only `Const_A` has this conversion, `Mut_A` intentionally doesn't.
-                    public static implicit operator Const_A(A other) {return new(other);}
+                    public unsafe ConstBox_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
+                    /// Convert from a struct by copying it. Note that only `ConstBox_A` has this conversion, `Box_A` intentionally doesn't.
+                    public static implicit operator ConstBox_A(A other) {return new(other);}
 
-                    internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                    internal unsafe ConstBox_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                     protected virtual unsafe void Dispose(bool disposing)
                     {
@@ -14744,19 +14744,19 @@ public static partial class MR
                         _UnderlyingPtr = null;
                     }
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                    ~Const_A() {Dispose(false);}
+                    ~ConstBox_A() {Dispose(false);}
 
                     public ref readonly int x => ref _Ref.x;
 
                     /// Generated default constructor.
-                    public unsafe Const_A() : this(null, is_owning: true)
+                    public unsafe ConstBox_A() : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                         for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                     }
 
                     /// Generated copy constructor.
-                    public unsafe Const_A(Const_A _other) : this(null, is_owning: true)
+                    public unsafe ConstBox_A(ConstBox_A _other) : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                         for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
@@ -14765,34 +14765,34 @@ public static partial class MR
 
                 /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
                 /// This is the non-const reference to the struct.
-                public class Mut_A : Const_A
+                public class Box_A : ConstBox_A
                 {
                     /// Get the underlying struct.
                     public unsafe new ref A _Ref => ref *(A *)_UnderlyingPtr;
 
                     /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                    public unsafe Mut_A(A other) : this(new Const_A((_Underlying *)&other, is_owning: false)) {}
+                    public unsafe Box_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
 
-                    internal unsafe Mut_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                    internal unsafe Box_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                     public new ref int x => ref _Ref.x;
 
                     /// Generated default constructor.
-                    public unsafe Mut_A() : this(null, is_owning: true)
+                    public unsafe Box_A() : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                         for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                     }
 
                     /// Generated copy constructor.
-                    public unsafe Mut_A(Const_A _other) : this(null, is_owning: true)
+                    public unsafe Box_A(ConstBox_A _other) : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                         for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                     }
 
                     /// Generated copy assignment.
-                    public void Assign(Const_A _other) {_Ref = _other._Ref;}
+                    public void Assign(ConstBox_A _other) {_Ref = _other._Ref;}
                 }
 
                 /// Generated from class `MR::CSharp::NameConflictsExposed::A`.
@@ -14801,7 +14801,7 @@ public static partial class MR
                 public struct A
                 {
                     /// Copy contents from a wrapper class to this struct.
-                    public static implicit operator A(Const_A other) => other._Ref;
+                    public static implicit operator A(ConstBox_A other) => other._Ref;
 
                     [System.Runtime.InteropServices.FieldOffset(0)]
                     public int x;
@@ -14810,9 +14810,9 @@ public static partial class MR
                     public A(A _other) {this = _other;}
                 }
 
-                /// This is used as a function parameter when passing `Mut_A` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
+                /// This is used as a function parameter when passing `Box_A` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
                 /// Usage:
-                /// * Pass an instance of `Mut_A`/`Const_A` to copy it into the function.
+                /// * Pass an instance of `Box_A`/`ConstBox_A` to copy it into the function.
                 /// * Pass `null` to use the default argument
                 public readonly ref struct _InOpt_A
                 {
@@ -14829,60 +14829,60 @@ public static partial class MR
                     public _InOpt_A() {HasValue = false;}
                     public _InOpt_A(A new_value) {HasValue = true; Object = new_value;}
                     public static implicit operator _InOpt_A(A new_value) {return new(new_value);}
-                    public _InOpt_A(Const_A new_value) {HasValue = true; Object = new_value._Ref;}
-                    public static implicit operator _InOpt_A(Const_A new_value) {return new(new_value);}
+                    public _InOpt_A(ConstBox_A new_value) {HasValue = true; Object = new_value._Ref;}
+                    public static implicit operator _InOpt_A(ConstBox_A new_value) {return new(new_value);}
                 }
 
-                /// This is used for optional parameters of class `Mut_A` with default arguments.
+                /// This is used for optional parameters of class `Box_A` with default arguments.
                 /// This is only used mutable parameters. For const ones we have `_InOptConst_A`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
-                /// * Pass an instance of `Mut_A`/`Const_A` directly.
+                /// * Pass an instance of `Box_A`/`ConstBox_A` directly.
                 /// * Pass `new(ref ...)` to pass a reference to `A`.
                 public class _InOptMut_A
                 {
-                    public Mut_A? Opt;
+                    public Box_A? Opt;
 
                     public _InOptMut_A() {}
-                    public _InOptMut_A(Mut_A value) {Opt = value;}
-                    public static implicit operator _InOptMut_A(Mut_A value) {return new(value);}
+                    public _InOptMut_A(Box_A value) {Opt = value;}
+                    public static implicit operator _InOptMut_A(Box_A value) {return new(value);}
                     public unsafe _InOptMut_A(ref A value)
                     {
                         fixed (A *value_ptr = &value)
                         {
-                            Opt = new((Const_A._Underlying *)value_ptr, is_owning: false);
+                            Opt = new((ConstBox_A._Underlying *)value_ptr, is_owning: false);
                         }
                     }
                 }
 
-                /// This is used for optional parameters of class `Mut_A` with default arguments.
+                /// This is used for optional parameters of class `Box_A` with default arguments.
                 /// This is only used const parameters. For non-const ones we have `_InOptMut_A`.
                 /// Usage:
                 /// * Pass `null` to use the default argument.
                 /// * Pass `new()` to pass no object.
-                /// * Pass an instance of `Mut_A`/`Const_A` to pass it to the function.
+                /// * Pass an instance of `Box_A`/`ConstBox_A` to pass it to the function.
                 /// * Pass `new(ref ...)` to pass a reference to `A`.
                 public class _InOptConst_A
                 {
-                    public Const_A? Opt;
+                    public ConstBox_A? Opt;
 
                     public _InOptConst_A() {}
-                    public _InOptConst_A(Const_A value) {Opt = value;}
-                    public static implicit operator _InOptConst_A(Const_A value) {return new(value);}
+                    public _InOptConst_A(ConstBox_A value) {Opt = value;}
+                    public static implicit operator _InOptConst_A(ConstBox_A value) {return new(value);}
                     public unsafe _InOptConst_A(ref readonly A value)
                     {
                         fixed (A *value_ptr = &value)
                         {
-                            Opt = new((Const_A._Underlying *)value_ptr, is_owning: false);
+                            Opt = new((ConstBox_A._Underlying *)value_ptr, is_owning: false);
                         }
                     }
                 }
             }
 
-            /// This is used as a function parameter when passing `Mut_NameConflictsExposed` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
+            /// This is used as a function parameter when passing `Box_NameConflictsExposed` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
-            /// * Pass an instance of `Mut_NameConflictsExposed`/`Const_NameConflictsExposed` to copy it into the function.
+            /// * Pass an instance of `Box_NameConflictsExposed`/`ConstBox_NameConflictsExposed` to copy it into the function.
             /// * Pass `null` to use the default argument
             public readonly ref struct _InOpt_NameConflictsExposed
             {
@@ -14899,52 +14899,52 @@ public static partial class MR
                 public _InOpt_NameConflictsExposed() {HasValue = false;}
                 public _InOpt_NameConflictsExposed(NameConflictsExposed new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator _InOpt_NameConflictsExposed(NameConflictsExposed new_value) {return new(new_value);}
-                public _InOpt_NameConflictsExposed(Const_NameConflictsExposed new_value) {HasValue = true; Object = new_value._Ref;}
-                public static implicit operator _InOpt_NameConflictsExposed(Const_NameConflictsExposed new_value) {return new(new_value);}
+                public _InOpt_NameConflictsExposed(ConstBox_NameConflictsExposed new_value) {HasValue = true; Object = new_value._Ref;}
+                public static implicit operator _InOpt_NameConflictsExposed(ConstBox_NameConflictsExposed new_value) {return new(new_value);}
             }
 
-            /// This is used for optional parameters of class `Mut_NameConflictsExposed` with default arguments.
+            /// This is used for optional parameters of class `Box_NameConflictsExposed` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_NameConflictsExposed`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_NameConflictsExposed`/`Const_NameConflictsExposed` directly.
+            /// * Pass an instance of `Box_NameConflictsExposed`/`ConstBox_NameConflictsExposed` directly.
             /// * Pass `new(ref ...)` to pass a reference to `NameConflictsExposed`.
             public class _InOptMut_NameConflictsExposed
             {
-                public Mut_NameConflictsExposed? Opt;
+                public Box_NameConflictsExposed? Opt;
 
                 public _InOptMut_NameConflictsExposed() {}
-                public _InOptMut_NameConflictsExposed(Mut_NameConflictsExposed value) {Opt = value;}
-                public static implicit operator _InOptMut_NameConflictsExposed(Mut_NameConflictsExposed value) {return new(value);}
+                public _InOptMut_NameConflictsExposed(Box_NameConflictsExposed value) {Opt = value;}
+                public static implicit operator _InOptMut_NameConflictsExposed(Box_NameConflictsExposed value) {return new(value);}
                 public unsafe _InOptMut_NameConflictsExposed(ref NameConflictsExposed value)
                 {
                     fixed (NameConflictsExposed *value_ptr = &value)
                     {
-                        Opt = new((Const_NameConflictsExposed._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_NameConflictsExposed._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
 
-            /// This is used for optional parameters of class `Mut_NameConflictsExposed` with default arguments.
+            /// This is used for optional parameters of class `Box_NameConflictsExposed` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_NameConflictsExposed`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_NameConflictsExposed`/`Const_NameConflictsExposed` to pass it to the function.
+            /// * Pass an instance of `Box_NameConflictsExposed`/`ConstBox_NameConflictsExposed` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `NameConflictsExposed`.
             public class _InOptConst_NameConflictsExposed
             {
-                public Const_NameConflictsExposed? Opt;
+                public ConstBox_NameConflictsExposed? Opt;
 
                 public _InOptConst_NameConflictsExposed() {}
-                public _InOptConst_NameConflictsExposed(Const_NameConflictsExposed value) {Opt = value;}
-                public static implicit operator _InOptConst_NameConflictsExposed(Const_NameConflictsExposed value) {return new(value);}
+                public _InOptConst_NameConflictsExposed(ConstBox_NameConflictsExposed value) {Opt = value;}
+                public static implicit operator _InOptConst_NameConflictsExposed(ConstBox_NameConflictsExposed value) {return new(value);}
                 public unsafe _InOptConst_NameConflictsExposed(ref readonly NameConflictsExposed value)
                 {
                     fixed (NameConflictsExposed *value_ptr = &value)
                     {
-                        Opt = new((Const_NameConflictsExposed._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_NameConflictsExposed._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
@@ -15112,7 +15112,7 @@ public static partial class MR
             // Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
             /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
             /// This is the const reference to the struct.
-            public class Const_ConstNonconstConflicts : MR.CS.Misc.Object<Const_ConstNonconstConflicts>, System.IDisposable
+            public class ConstBox_ConstNonconstConflicts : MR.CS.Misc.Object<ConstBox_ConstNonconstConflicts>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -15122,11 +15122,11 @@ public static partial class MR
                 public unsafe ref readonly ConstNonconstConflicts _Ref => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Const_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new Const_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `Const_ConstNonconstConflicts` has this conversion, `Mut_ConstNonconstConflicts` intentionally doesn't.
-                public static implicit operator Const_ConstNonconstConflicts(ConstNonconstConflicts other) {return new(other);}
+                public unsafe ConstBox_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new ConstBox_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_ConstNonconstConflicts` has this conversion, `Box_ConstNonconstConflicts` intentionally doesn't.
+                public static implicit operator ConstBox_ConstNonconstConflicts(ConstNonconstConflicts other) {return new(other);}
 
-                internal unsafe Const_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe ConstBox_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -15136,19 +15136,19 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_ConstNonconstConflicts() {Dispose(false);}
+                ~ConstBox_ConstNonconstConflicts() {Dispose(false);}
 
                 public ref readonly int x => ref _Ref.x;
 
                 /// Generated default constructor.
-                public unsafe Const_ConstNonconstConflicts() : this(null, is_owning: true)
+                public unsafe ConstBox_ConstNonconstConflicts() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
-                public unsafe Const_ConstNonconstConflicts(Const_ConstNonconstConflicts _other) : this(null, is_owning: true)
+                public unsafe ConstBox_ConstNonconstConflicts(ConstBox_ConstNonconstConflicts _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
@@ -15171,10 +15171,10 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
-                public static unsafe int operator+(MR.CS.CSharp.Const_ConstNonconstConflicts _this)
+                public static unsafe int operator+(MR.CS.CSharp.ConstBox_ConstNonconstConflicts _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
-                    extern static int __MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_this);
+                    extern static int __MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.ConstBox_ConstNonconstConflicts._Underlying *_this);
                     return __MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref(_this._UnderlyingPtr);
                 }
 
@@ -15187,18 +15187,18 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
-                public static unsafe int operator/(MR.CS.CSharp.Const_ConstNonconstConflicts _this, int _1)
+                public static unsafe int operator/(MR.CS.CSharp.ConstBox_ConstNonconstConflicts _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int", ExactSpelling = true)]
-                    extern static int __MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int(MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_this, int _1);
+                    extern static int __MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int(MR.CS.CSharp.ConstBox_ConstNonconstConflicts._Underlying *_this, int _1);
                     return __MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int(_this._UnderlyingPtr, _1);
                 }
 
                 /// Generated from function `MR::CSharp::operator-`.
-                public static unsafe int operator-(MR.CS.CSharp.Const_ConstNonconstConflicts _1)
+                public static unsafe int operator-(MR.CS.CSharp.ConstBox_ConstNonconstConflicts _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
-                    extern static int __MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_1);
+                    extern static int __MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.ConstBox_ConstNonconstConflicts._Underlying *_1);
                     return __MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref(_1._UnderlyingPtr);
                 }
 
@@ -15211,10 +15211,10 @@ public static partial class MR
                 }
 
                 /// Generated from function `MR::CSharp::operator&`.
-                public static unsafe int operator&(int _1, MR.CS.CSharp.Const_ConstNonconstConflicts _2)
+                public static unsafe int operator&(int _1, MR.CS.CSharp.ConstBox_ConstNonconstConflicts _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
-                    extern static int __MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref(int _1, MR.CS.CSharp.Const_ConstNonconstConflicts._Underlying *_2);
+                    extern static int __MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref(int _1, MR.CS.CSharp.ConstBox_ConstNonconstConflicts._Underlying *_2);
                     return __MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref(_1, _2._UnderlyingPtr);
                 }
             }
@@ -15222,34 +15222,34 @@ public static partial class MR
             // Test that we don't produce the const and non-const overloads of the same function under the same name in C#, as that would be a compilation error in C#.
             /// Generated from class `MR::CSharp::ConstNonconstConflicts`.
             /// This is the non-const reference to the struct.
-            public class Mut_ConstNonconstConflicts : Const_ConstNonconstConflicts
+            public class Box_ConstNonconstConflicts : ConstBox_ConstNonconstConflicts
             {
                 /// Get the underlying struct.
                 public unsafe new ref ConstNonconstConflicts _Ref => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
 
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Mut_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new Const_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
+                public unsafe Box_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new ConstBox_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
 
-                internal unsafe Mut_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe Box_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 public new ref int x => ref _Ref.x;
 
                 /// Generated default constructor.
-                public unsafe Mut_ConstNonconstConflicts() : this(null, is_owning: true)
+                public unsafe Box_ConstNonconstConflicts() : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = 0;
                 }
 
                 /// Generated copy constructor.
-                public unsafe Mut_ConstNonconstConflicts(Const_ConstNonconstConflicts _other) : this(null, is_owning: true)
+                public unsafe Box_ConstNonconstConflicts(ConstBox_ConstNonconstConflicts _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
                     for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
                 }
 
                 /// Generated copy assignment.
-                public void Assign(Const_ConstNonconstConflicts _other) {_Ref = _other._Ref;}
+                public void Assign(ConstBox_ConstNonconstConflicts _other) {_Ref = _other._Ref;}
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
                 public unsafe void Foo(int _1)
@@ -15268,10 +15268,10 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
-                public static unsafe int operator+(MR.CS.CSharp.Mut_ConstNonconstConflicts _this)
+                public static unsafe int operator+(MR.CS.CSharp.Box_ConstNonconstConflicts _this)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
-                    extern static int __MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *_this);
+                    extern static int __MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Box_ConstNonconstConflicts._Underlying *_this);
                     return __MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref(_this._UnderlyingPtr);
                 }
 
@@ -15285,18 +15285,18 @@ public static partial class MR
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator/`.
-                public static unsafe int operator/(MR.CS.CSharp.Mut_ConstNonconstConflicts _this, int _1)
+                public static unsafe int operator/(MR.CS.CSharp.Box_ConstNonconstConflicts _this, int _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int", ExactSpelling = true)]
-                    extern static int __MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int(MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *_this, int _1);
+                    extern static int __MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int(MR.CS.CSharp.Box_ConstNonconstConflicts._Underlying *_this, int _1);
                     return __MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int(_this._UnderlyingPtr, _1);
                 }
 
                 /// Generated from function `MR::CSharp::operator-`.
-                public static unsafe int operator-(MR.CS.CSharp.Mut_ConstNonconstConflicts _1)
+                public static unsafe int operator-(MR.CS.CSharp.Box_ConstNonconstConflicts _1)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
-                    extern static int __MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *_1);
+                    extern static int __MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref(MR.CS.CSharp.Box_ConstNonconstConflicts._Underlying *_1);
                     return __MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref(_1._UnderlyingPtr);
                 }
 
@@ -15310,10 +15310,10 @@ public static partial class MR
                 }
 
                 /// Generated from function `MR::CSharp::operator&`.
-                public static unsafe int operator&(int _1, MR.CS.CSharp.Mut_ConstNonconstConflicts _2)
+                public static unsafe int operator&(int _1, MR.CS.CSharp.Box_ConstNonconstConflicts _2)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref", ExactSpelling = true)]
-                    extern static int __MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref(int _1, MR.CS.CSharp.Mut_ConstNonconstConflicts._Underlying *_2);
+                    extern static int __MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref(int _1, MR.CS.CSharp.Box_ConstNonconstConflicts._Underlying *_2);
                     return __MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref(_1, _2._UnderlyingPtr);
                 }
             }
@@ -15325,7 +15325,7 @@ public static partial class MR
             public struct ConstNonconstConflicts
             {
                 /// Copy contents from a wrapper class to this struct.
-                public static implicit operator ConstNonconstConflicts(Const_ConstNonconstConflicts other) => other._Ref;
+                public static implicit operator ConstNonconstConflicts(ConstBox_ConstNonconstConflicts other) => other._Ref;
 
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
@@ -15500,9 +15500,9 @@ public static partial class MR
                 }
             }
 
-            /// This is used as a function parameter when passing `Mut_ConstNonconstConflicts` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
+            /// This is used as a function parameter when passing `Box_ConstNonconstConflicts` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
             /// Usage:
-            /// * Pass an instance of `Mut_ConstNonconstConflicts`/`Const_ConstNonconstConflicts` to copy it into the function.
+            /// * Pass an instance of `Box_ConstNonconstConflicts`/`ConstBox_ConstNonconstConflicts` to copy it into the function.
             /// * Pass `null` to use the default argument
             public readonly ref struct _InOpt_ConstNonconstConflicts
             {
@@ -15519,52 +15519,52 @@ public static partial class MR
                 public _InOpt_ConstNonconstConflicts() {HasValue = false;}
                 public _InOpt_ConstNonconstConflicts(ConstNonconstConflicts new_value) {HasValue = true; Object = new_value;}
                 public static implicit operator _InOpt_ConstNonconstConflicts(ConstNonconstConflicts new_value) {return new(new_value);}
-                public _InOpt_ConstNonconstConflicts(Const_ConstNonconstConflicts new_value) {HasValue = true; Object = new_value._Ref;}
-                public static implicit operator _InOpt_ConstNonconstConflicts(Const_ConstNonconstConflicts new_value) {return new(new_value);}
+                public _InOpt_ConstNonconstConflicts(ConstBox_ConstNonconstConflicts new_value) {HasValue = true; Object = new_value._Ref;}
+                public static implicit operator _InOpt_ConstNonconstConflicts(ConstBox_ConstNonconstConflicts new_value) {return new(new_value);}
             }
 
-            /// This is used for optional parameters of class `Mut_ConstNonconstConflicts` with default arguments.
+            /// This is used for optional parameters of class `Box_ConstNonconstConflicts` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_ConstNonconstConflicts`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ConstNonconstConflicts`/`Const_ConstNonconstConflicts` directly.
+            /// * Pass an instance of `Box_ConstNonconstConflicts`/`ConstBox_ConstNonconstConflicts` directly.
             /// * Pass `new(ref ...)` to pass a reference to `ConstNonconstConflicts`.
             public class _InOptMut_ConstNonconstConflicts
             {
-                public Mut_ConstNonconstConflicts? Opt;
+                public Box_ConstNonconstConflicts? Opt;
 
                 public _InOptMut_ConstNonconstConflicts() {}
-                public _InOptMut_ConstNonconstConflicts(Mut_ConstNonconstConflicts value) {Opt = value;}
-                public static implicit operator _InOptMut_ConstNonconstConflicts(Mut_ConstNonconstConflicts value) {return new(value);}
+                public _InOptMut_ConstNonconstConflicts(Box_ConstNonconstConflicts value) {Opt = value;}
+                public static implicit operator _InOptMut_ConstNonconstConflicts(Box_ConstNonconstConflicts value) {return new(value);}
                 public unsafe _InOptMut_ConstNonconstConflicts(ref ConstNonconstConflicts value)
                 {
                     fixed (ConstNonconstConflicts *value_ptr = &value)
                     {
-                        Opt = new((Const_ConstNonconstConflicts._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_ConstNonconstConflicts._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
 
-            /// This is used for optional parameters of class `Mut_ConstNonconstConflicts` with default arguments.
+            /// This is used for optional parameters of class `Box_ConstNonconstConflicts` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_ConstNonconstConflicts`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Mut_ConstNonconstConflicts`/`Const_ConstNonconstConflicts` to pass it to the function.
+            /// * Pass an instance of `Box_ConstNonconstConflicts`/`ConstBox_ConstNonconstConflicts` to pass it to the function.
             /// * Pass `new(ref ...)` to pass a reference to `ConstNonconstConflicts`.
             public class _InOptConst_ConstNonconstConflicts
             {
-                public Const_ConstNonconstConflicts? Opt;
+                public ConstBox_ConstNonconstConflicts? Opt;
 
                 public _InOptConst_ConstNonconstConflicts() {}
-                public _InOptConst_ConstNonconstConflicts(Const_ConstNonconstConflicts value) {Opt = value;}
-                public static implicit operator _InOptConst_ConstNonconstConflicts(Const_ConstNonconstConflicts value) {return new(value);}
+                public _InOptConst_ConstNonconstConflicts(ConstBox_ConstNonconstConflicts value) {Opt = value;}
+                public static implicit operator _InOptConst_ConstNonconstConflicts(ConstBox_ConstNonconstConflicts value) {return new(value);}
                 public unsafe _InOptConst_ConstNonconstConflicts(ref readonly ConstNonconstConflicts value)
                 {
                     fixed (ConstNonconstConflicts *value_ptr = &value)
                     {
-                        Opt = new((Const_ConstNonconstConflicts._Underlying *)value_ptr, is_owning: false);
+                        Opt = new((ConstBox_ConstNonconstConflicts._Underlying *)value_ptr, is_owning: false);
                     }
                 }
             }
@@ -15833,28 +15833,28 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ClassMemberPointersExposed() {Dispose(false);}
 
-                public static unsafe MR.CS.CSharp.Mut_ExposedLayout? Sa
+                public static unsafe MR.CS.CSharp.Box_ExposedLayout? Sa
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sa", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_sa();
+                        extern static MR.CS.CSharp.Box_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_sa();
                         var ptr = __MR_CSharp_ClassMemberPointersExposed_Get_sa();
-                        MR.CS.CSharp.Mut_ExposedLayout? value = null;
+                        MR.CS.CSharp.Box_ExposedLayout? value = null;
                         if (*ptr is not null)
                             value = new(*ptr, is_owning: false);
                         return value;
                     }
                 }
 
-                public static unsafe MR.CS.CSharp.Const_ExposedLayout? Sb
+                public static unsafe MR.CS.CSharp.ConstBox_ExposedLayout? Sb
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sb", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_sb();
+                        extern static MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_sb();
                         var ptr = __MR_CSharp_ClassMemberPointersExposed_Get_sb();
-                        MR.CS.CSharp.Const_ExposedLayout? value = null;
+                        MR.CS.CSharp.ConstBox_ExposedLayout? value = null;
                         if (*ptr is not null)
                             value = new(*ptr, is_owning: false);
                         return value;
@@ -15881,14 +15881,14 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.CSharp.Mut_ExposedLayout? a
+                public unsafe MR.CS.CSharp.Box_ExposedLayout? a
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_a(Const_ClassMemberPointersExposed._Underlying *_this);
+                        extern static MR.CS.CSharp.Box_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_a(Const_ClassMemberPointersExposed._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersExposed_Get_a(_UnderlyingPtr);
-                        MR.CS.CSharp.Mut_ExposedLayout? value = null;
+                        MR.CS.CSharp.Box_ExposedLayout? value = null;
                         if (*ptr is not null)
                         {
                             value = new(*ptr, is_owning: false);
@@ -15898,14 +15898,14 @@ public static partial class MR
                     }
                 }
 
-                public unsafe MR.CS.CSharp.Const_ExposedLayout? b
+                public unsafe MR.CS.CSharp.ConstBox_ExposedLayout? b
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_b", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_b(Const_ClassMemberPointersExposed._Underlying *_this);
+                        extern static MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_b(Const_ClassMemberPointersExposed._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersExposed_Get_b(_UnderlyingPtr);
-                        MR.CS.CSharp.Const_ExposedLayout? value = null;
+                        MR.CS.CSharp.ConstBox_ExposedLayout? value = null;
                         if (*ptr is not null)
                         {
                             value = new(*ptr, is_owning: false);
@@ -15968,13 +15968,13 @@ public static partial class MR
             {
                 internal unsafe ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new unsafe MR.CS.CSharp.Mut_ExposedLayout? a
+                public new unsafe MR.CS.CSharp.Box_ExposedLayout? a
                 {
                     get => base.a;
                     set
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_GetMutable_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Mut_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_GetMutable_a(ClassMemberPointersExposed._Underlying *_this);
+                        extern static MR.CS.CSharp.Box_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_GetMutable_a(ClassMemberPointersExposed._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersExposed_GetMutable_a(_UnderlyingPtr);
                         _DiscardKeepAlive("a");
                         if (value is not null)
@@ -15983,13 +15983,13 @@ public static partial class MR
                     }
                 }
 
-                public new unsafe MR.CS.CSharp.Const_ExposedLayout? b
+                public new unsafe MR.CS.CSharp.ConstBox_ExposedLayout? b
                 {
                     get => base.b;
                     set
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_GetMutable_b", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_GetMutable_b(ClassMemberPointersExposed._Underlying *_this);
+                        extern static MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_GetMutable_b(ClassMemberPointersExposed._Underlying *_this);
                         var ptr = __MR_CSharp_ClassMemberPointersExposed_GetMutable_b(_UnderlyingPtr);
                         _DiscardKeepAlive("b");
                         if (value is not null)
@@ -18646,10 +18646,10 @@ public static partial class MR
             }
 
             /// Generated from function `MR::CSharp::make_exposed_sh`.
-            public static unsafe MR.CS.CSharp.Mut_ExposedLayoutSh MakeExposedSh()
+            public static unsafe MR.CS.CSharp.Box_ExposedLayoutSh MakeExposedSh()
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_make_exposed_sh", ExactSpelling = true)]
-                extern static MR.CS.CSharp.Mut_ExposedLayoutSh._UnderlyingShared *__MR_CSharp_make_exposed_sh();
+                extern static MR.CS.CSharp.Box_ExposedLayoutSh._UnderlyingShared *__MR_CSharp_make_exposed_sh();
                 return new(__MR_CSharp_make_exposed_sh(), is_owning: true);
             }
 
