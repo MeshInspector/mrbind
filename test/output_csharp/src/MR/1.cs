@@ -32,7 +32,7 @@ public static partial class MR
                     extern static MR.CS.Std.Const_String._Underlying *__MR_A_Get_x(_Underlying *_this);
                     MR.CS.Std.Const_String __ret;
                     __ret = new(__MR_A_Get_x(_UnderlyingPtr), is_owning: false);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
             }
@@ -69,7 +69,7 @@ public static partial class MR
                     extern static MR.CS.Std.String._Underlying *__MR_A_GetMutable_x(_Underlying *_this);
                     MR.CS.Std.String __ret;
                     __ret = new(__MR_A_GetMutable_x(_UnderlyingPtr), is_owning: false);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
             }

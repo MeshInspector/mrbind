@@ -69,7 +69,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_expected_MR_CSharp_Trivial_float_GetValue(_UnderlyingPtr);
                     MR.CS.CSharp.Const_Trivial? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.Const_Trivial(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -136,7 +136,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_expected_MR_CSharp_Trivial_float_GetMutableValue(_UnderlyingPtr);
                     MR.CS.CSharp.Trivial? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.Trivial(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

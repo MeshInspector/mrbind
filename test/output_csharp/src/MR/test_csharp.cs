@@ -3748,7 +3748,7 @@ public static partial class MR
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_s(_Underlying *_this);
                         MR.CS.Std.Const_String __ret;
                         __ret = new(__MR_CSharp_TestFields_Get_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -3761,7 +3761,7 @@ public static partial class MR
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_const_s(_Underlying *_this);
                         MR.CS.Std.Const_String __ret;
                         __ret = new(__MR_CSharp_TestFields_Get_const_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -3774,7 +3774,7 @@ public static partial class MR
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_Get_s_ref(_Underlying *_this);
                         MR.CS.Std.String __ret;
                         __ret = new(__MR_CSharp_TestFields_Get_s_ref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -3787,7 +3787,7 @@ public static partial class MR
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_const_s_ref(_Underlying *_this);
                         MR.CS.Std.Const_String __ret;
                         __ret = new(__MR_CSharp_TestFields_Get_const_s_ref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -3850,7 +3850,7 @@ public static partial class MR
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_GetMutable_s(_Underlying *_this);
                         MR.CS.Std.String __ret;
                         __ret = new(__MR_CSharp_TestFields_GetMutable_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -10511,7 +10511,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.Const_IndexerA._Underlying *__MR_CSharp_IndexerB_Get_a(_Underlying *_this);
                         MR.CS.CSharp.Const_IndexerA __ret;
                         __ret = new(__MR_CSharp_IndexerB_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -10587,7 +10587,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerB_GetMutable_a(_Underlying *_this);
                         MR.CS.CSharp.IndexerA __ret;
                         __ret = new(__MR_CSharp_IndexerB_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -14136,7 +14136,7 @@ public static partial class MR
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_ArrayMembers_Get_s(_Underlying *_this);
                         MR.CS.Std.Const_String __ret;
                         __ret = new(__MR_CSharp_ArrayMembers_Get_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -14160,7 +14160,7 @@ public static partial class MR
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_ArrayMembers_Get_cs(_Underlying *_this);
                         MR.CS.Std.Const_String __ret;
                         __ret = new(__MR_CSharp_ArrayMembers_Get_cs(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -14238,7 +14238,7 @@ public static partial class MR
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_GetMutable_s(_Underlying *_this);
                         MR.CS.Std.String __ret;
                         __ret = new(__MR_CSharp_ArrayMembers_GetMutable_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -14360,7 +14360,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.NameConflicts.Const_A._Underlying *__MR_CSharp_NameConflicts_Get_a(_Underlying *_this);
                         MR.CS.CSharp.NameConflicts.Const_A __ret;
                         __ret = new(__MR_CSharp_NameConflicts_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -14521,7 +14521,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.NameConflicts.A._Underlying *__MR_CSharp_NameConflicts_GetMutable_a(_Underlying *_this);
                         MR.CS.CSharp.NameConflicts.A __ret;
                         __ret = new(__MR_CSharp_NameConflicts_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -15682,7 +15682,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_c(_Underlying *_this);
                         MR.CS.CSharp.A __ret;
                         __ret = new(__MR_CSharp_ClassMemberPointersClass_Get_c(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -15695,7 +15695,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_d(_Underlying *_this);
                         MR.CS.CSharp.Const_A __ret;
                         __ret = new(__MR_CSharp_ClassMemberPointersClass_Get_d(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -16723,7 +16723,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesB_Get_a(_Underlying *_this);
                         MR.CS.CSharp.Const_LifetimesA __ret;
                         __ret = new(__MR_CSharp_LifetimesB_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -16780,7 +16780,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesB_GetMutable_a(_Underlying *_this);
                         MR.CS.CSharp.LifetimesA __ret;
                         __ret = new(__MR_CSharp_LifetimesB_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -16918,7 +16918,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesC_Get_a(_Underlying *_this);
                         MR.CS.CSharp.Const_LifetimesA __ret;
                         __ret = new(__MR_CSharp_LifetimesC_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -16975,7 +16975,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesC_GetMutable_a(_Underlying *_this);
                         MR.CS.CSharp.LifetimesA __ret;
                         __ret = new(__MR_CSharp_LifetimesC_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -17077,7 +17077,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesD_Get_a(_Underlying *_this);
                         MR.CS.CSharp.Const_LifetimesA __ret;
                         __ret = new(__MR_CSharp_LifetimesD_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -17158,7 +17158,7 @@ public static partial class MR
                         extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesD_GetMutable_a(_Underlying *_this);
                         MR.CS.CSharp.LifetimesA __ret;
                         __ret = new(__MR_CSharp_LifetimesD_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }

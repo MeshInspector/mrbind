@@ -83,7 +83,7 @@ public static partial class MR
                     extern static MR.CS.Std.Multiset_Int.ConstIterator._Underlying *__MR_C_std_multiset_int_Find(_Underlying *_this, int *key);
                     MR.CS.Std.Multiset_Int.ConstIterator __ret;
                     __ret = new(__MR_C_std_multiset_int_Find(_UnderlyingPtr, &key), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -94,7 +94,7 @@ public static partial class MR
                     extern static MR.CS.Std.Multiset_Int.ConstIterator._Underlying *__MR_C_std_multiset_int_Begin(_Underlying *_this);
                     MR.CS.Std.Multiset_Int.ConstIterator __ret;
                     __ret = new(__MR_C_std_multiset_int_Begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -113,7 +113,7 @@ public static partial class MR
                     extern static MR.CS.Std.Multiset_Int.ConstIterator._Underlying *__MR_C_std_multiset_int_End(_Underlying *_this);
                     MR.CS.Std.Multiset_Int.ConstIterator __ret;
                     __ret = new(__MR_C_std_multiset_int_End(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

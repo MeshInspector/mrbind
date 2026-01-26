@@ -36,7 +36,7 @@ public static partial class MR
                         extern static MR.CS.NestedTypes.A.Const_B._Underlying *__MR_NestedTypes_A_Get_b(_Underlying *_this);
                         MR.CS.NestedTypes.A.Const_B __ret;
                         __ret = new(__MR_NestedTypes_A_Get_b(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -226,7 +226,7 @@ public static partial class MR
                         extern static MR.CS.NestedTypes.A.B._Underlying *__MR_NestedTypes_A_GetMutable_b(_Underlying *_this);
                         MR.CS.NestedTypes.A.B __ret;
                         __ret = new(__MR_NestedTypes_A_GetMutable_b(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }

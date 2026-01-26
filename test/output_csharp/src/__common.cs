@@ -210,6 +210,9 @@ public static partial class MR
                 Dictionary<string, HashSet<object>>? _KeepAliveData;
                 static Dictionary<string, HashSet<object>>? _StaticKeepAliveData;
 
+                /// A special holder for the enclosing object when returning a reference to its subobject.
+                public object? _KeepAliveEnclosingObject = null;
+
                 /// Keeps `obj` alive as long as this object exists.
                 /// If `key` is specified, it's an optional tag for this object.
                 public void _KeepAlive(object obj, string key = "")
@@ -231,6 +234,7 @@ public static partial class MR
 
                 /// Discards the objects kept alive by this object.
                 /// If `key` is not empty, only discards the objects with the same key. Otherwise discards all of them.
+                /// This intentionally doesn't discard `_KeepAliveEnclosingObject`.
                 public void _DiscardKeepAlive(string key = "")
                 {
                     if (_KeepAliveData is null)

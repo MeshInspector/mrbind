@@ -63,7 +63,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Get(_UnderlyingPtr);
                     MR.CS.StdUniquePtr.A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdUniquePtr.A(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -76,7 +76,7 @@ public static partial class MR
                         extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_At(_Underlying *_this, ulong i);
                         MR.CS.StdUniquePtr.A __ret;
                         __ret = new(__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_At(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }

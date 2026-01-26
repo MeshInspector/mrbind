@@ -76,7 +76,7 @@ public static partial class MR
                         extern static MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_At(_Underlying *_this, ulong i);
                         MR.CS.StdContainers.Const_NonDefaultConstructible __ret;
                         __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_At(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -89,7 +89,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Front(_UnderlyingPtr);
                     MR.CS.StdContainers.Const_NonDefaultConstructible? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdContainers.Const_NonDefaultConstructible(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -101,7 +101,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Back(_UnderlyingPtr);
                     MR.CS.StdContainers.Const_NonDefaultConstructible? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdContainers.Const_NonDefaultConstructible(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -112,7 +112,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Begin(_Underlying *_this);
                     MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -131,7 +131,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_End(_Underlying *_this);
                     MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_End(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -216,7 +216,7 @@ public static partial class MR
                         extern static MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Deref(_Underlying *_this);
                         MR.CS.StdContainers.Const_NonDefaultConstructible __ret;
                         __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Deref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
 
@@ -377,7 +377,7 @@ public static partial class MR
                         extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Deref(_Underlying *_this);
                         MR.CS.StdContainers.NonDefaultConstructible __ret;
                         __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Deref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
 
@@ -554,7 +554,7 @@ public static partial class MR
                         extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableAt(_Underlying *_this, ulong i);
                         MR.CS.StdContainers.NonDefaultConstructible __ret;
                         __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableAt(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -567,7 +567,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableFront(_UnderlyingPtr);
                     MR.CS.StdContainers.NonDefaultConstructible? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdContainers.NonDefaultConstructible(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -579,7 +579,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBack(_UnderlyingPtr);
                     MR.CS.StdContainers.NonDefaultConstructible? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdContainers.NonDefaultConstructible(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -658,7 +658,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBegin(_Underlying *_this);
                     MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator __ret;
                     __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBegin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -677,7 +677,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableEnd(_Underlying *_this);
                     MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator __ret;
                     __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableEnd(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

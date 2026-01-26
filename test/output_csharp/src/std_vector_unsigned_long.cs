@@ -121,7 +121,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_UnsignedLong.ConstIterator._Underlying *__MR_C_std_vector_unsigned_long_Begin(_Underlying *_this);
                     MR.CS.Std.Vector_UnsignedLong.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_unsigned_long_Begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -140,7 +140,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_UnsignedLong.ConstIterator._Underlying *__MR_C_std_vector_unsigned_long_End(_Underlying *_this);
                     MR.CS.Std.Vector_UnsignedLong.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_unsigned_long_End(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -683,7 +683,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_UnsignedLong.Iterator._Underlying *__MR_C_std_vector_unsigned_long_MutableBegin(_Underlying *_this);
                     MR.CS.Std.Vector_UnsignedLong.Iterator __ret;
                     __ret = new(__MR_C_std_vector_unsigned_long_MutableBegin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -702,7 +702,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_UnsignedLong.Iterator._Underlying *__MR_C_std_vector_unsigned_long_MutableEnd(_Underlying *_this);
                     MR.CS.Std.Vector_UnsignedLong.Iterator __ret;
                     __ret = new(__MR_C_std_vector_unsigned_long_MutableEnd(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

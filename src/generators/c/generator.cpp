@@ -2162,7 +2162,7 @@ namespace mrbind::CBindings
         else
         {
             if (!new_field.is_static)
-                lifetimes.ReturnsReferenceToThis();
+                lifetimes.ReturnsReferenceToSubobject();
 
             // Replace arrays with references to their first elements.
             // Using a reference instead of a pointer here to get a nice comment telling the user that it'll never be null (which is true).
@@ -2228,12 +2228,12 @@ namespace mrbind::CBindings
             ret.lifetimes = params.lifetimes;
             for (int i = 0; const auto &param : params.params)
             {
-                if (std::holds_alternative<std::string>(param.reference_returned) || (std::holds_alternative<bool>(param.reference_returned) && std::get<bool>(param.reference_returned)))
+                if (param.reference_returned)
                 {
                     if (param.kind != EmitFuncParams::Param::Kind::normal)
-                        ret.lifetimes.ReturnsReferenceToThis(std::holds_alternative<std::string>(param.reference_returned) ? std::get<std::string>(param.reference_returned) : "");
+                        ret.lifetimes.ReturnsReferenceToSubobject();
                     else
-                        ret.lifetimes.ReturnsReferenceToParam(i, std::holds_alternative<std::string>(param.reference_returned) ? std::get<std::string>(param.reference_returned) : "");
+                        ret.lifetimes.ReturnsReferenceToParam(i);
                 }
                 if (std::holds_alternative<std::string>(param.reference_assigned) || (std::holds_alternative<bool>(param.reference_assigned) && std::get<bool>(param.reference_assigned)))
                 {
@@ -2472,7 +2472,8 @@ namespace mrbind::CBindings
                                 if (lifetime.only_nested)
                                     WriteLifetimeComment("(if any) ");
 
-                                WriteLifetimeComment("might be preserved in ");
+                                WriteLifetimeComment("might be preserved ");
+                                WriteLifetimeComment(std::holds_alternative<LifetimeRelation::ClassSubobject>(lifetime.key) ? "as " : "in ");
 
                                 std::visit(Overload{
                                     [&](const LifetimeRelation::ThisObject &)
@@ -2499,8 +2500,8 @@ namespace mrbind::CBindings
                                     },
                                 }, lifetime.holder);
 
-                                if (!lifetime.key.empty())
-                                    WriteLifetimeComment(" in element `" + lifetime.key + "`");
+                                if (auto key = std::get_if<std::string>(&lifetime.key); key && !key->empty())
+                                    WriteLifetimeComment(" in element `" + *key + "`");
 
                                 WriteLifetimeComment(".\n");
 
@@ -4582,7 +4583,7 @@ namespace mrbind::CBindings
                                             // Hide from interop. Call those functions directly by their names if you need them.
                                             emit.name.ignore_in_interop = true;
 
-                                            emit.lifetimes.ReturnsReferenceToThis();
+                                            emit.lifetimes.ReturnsReferenceToSubobject();
 
                                             // Will add a pointer or a reference later.
                                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(target_cpp_qual_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_);

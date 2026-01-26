@@ -60,7 +60,7 @@ public static partial class MR
                         extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_At(_Underlying *_this, ulong i);
                         MR.CS.StdContainers.Const_A __ret;
                         __ret = new(__MR_C_std_array_MR_StdContainers_A_42_At(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -129,7 +129,7 @@ public static partial class MR
                         extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_MutableAt(_Underlying *_this, ulong i);
                         MR.CS.StdContainers.A __ret;
                         __ret = new(__MR_C_std_array_MR_StdContainers_A_42_MutableAt(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }

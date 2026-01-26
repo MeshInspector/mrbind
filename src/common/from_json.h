@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common/json_common.h"
 #include "common/meta.h"
 #include "common/ordered_set_and_map.h"
 #include "common/reflection.h"
@@ -689,7 +690,7 @@ namespace mrbind
 
             const std::unordered_map<std::string, void(*)(JsonParser &, std::variant<P...> &)> name_to_func = {
                 {
-                    std::string(P::name_in_variant),
+                    std::string(detail::Json::NameInVariant<P>::value),
                     +[](JsonParser &self, std::variant<P...> &v)
                     {
                         P &elem = v.template emplace<P>();

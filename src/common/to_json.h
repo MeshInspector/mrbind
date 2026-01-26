@@ -1,5 +1,6 @@
 #pragma once
 
+#include "common/json_common.h"
 #include "common/meta.h"
 #include "common/ordered_set_and_map.h"
 #include "common/reflection.h"
@@ -279,7 +280,7 @@ namespace mrbind
         {
             json.BeginObject();
 
-            json.WriteField("kind", std::visit([]<typename T>(const T &) -> std::string_view {return T::name_in_variant;}, value));
+            json.WriteField("kind", std::visit([]<typename T>(const T &) -> std::string_view {return detail::Json::NameInVariant<T>::value;}, value));
             std::visit([&](const auto &elem){json.WriteField("value", elem);}, value);
 
             json.EndObject();

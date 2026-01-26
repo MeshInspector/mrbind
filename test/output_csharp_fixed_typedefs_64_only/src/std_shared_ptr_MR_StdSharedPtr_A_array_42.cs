@@ -59,7 +59,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42_Get(_UnderlyingPtr);
                     MR.CS.StdSharedPtr.A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdSharedPtr.A(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

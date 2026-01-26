@@ -62,7 +62,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_optional_MR_CSharp_NonTrivial_Value(_UnderlyingPtr);
                     MR.CS.CSharp.Const_NonTrivial? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.Const_NonTrivial(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
             }
@@ -127,7 +127,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_optional_MR_CSharp_NonTrivial_MutableValue(_UnderlyingPtr);
                     MR.CS.CSharp.NonTrivial? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.NonTrivial(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
             }

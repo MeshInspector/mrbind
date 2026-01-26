@@ -74,7 +74,7 @@ public static partial class MR
                     extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Find(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Find(_UnderlyingPtr, key._UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -85,7 +85,7 @@ public static partial class MR
                     extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Begin(_Underlying *_this);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_Begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -104,7 +104,7 @@ public static partial class MR
                     extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_End(_Underlying *_this);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.ConstIterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_End(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -173,7 +173,7 @@ public static partial class MR
                         extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DerefKey(_Underlying *_this);
                         MR.CS.StdContainers.Const_NonAssignable __ret;
                         __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_const_iterator_DerefKey(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
 
@@ -326,7 +326,7 @@ public static partial class MR
                         extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DerefKey(_Underlying *_this);
                         MR.CS.StdContainers.Const_NonAssignable __ret;
                         __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_iterator_DerefKey(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
 
@@ -469,7 +469,7 @@ public static partial class MR
                     extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_FindMutable(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_FindMutable(_UnderlyingPtr, key._UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -480,7 +480,7 @@ public static partial class MR
                     extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_MutableBegin(_Underlying *_this);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_MutableBegin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -499,7 +499,7 @@ public static partial class MR
                     extern static MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_MutableEnd(_Underlying *_this);
                     MR.CS.Std.Multimap_MRStdContainersNonAssignable_Float.Iterator __ret;
                     __ret = new(__MR_C_std_multimap_MR_StdContainers_NonAssignable_float_MutableEnd(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

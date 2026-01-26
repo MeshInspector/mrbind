@@ -76,7 +76,7 @@ public static partial class MR
                         extern static MR.CS.Const_A._Underlying *__MR_C_std_vector_MR_A_At(_Underlying *_this, ulong i);
                         MR.CS.Const_A __ret;
                         __ret = new(__MR_C_std_vector_MR_A_At(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -89,7 +89,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_MR_A_Front(_UnderlyingPtr);
                     MR.CS.Const_A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Const_A(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -101,7 +101,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_MR_A_Back(_UnderlyingPtr);
                     MR.CS.Const_A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Const_A(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -112,7 +112,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRA.ConstIterator._Underlying *__MR_C_std_vector_MR_A_Begin(_Underlying *_this);
                     MR.CS.Std.Vector_MRA.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_MR_A_Begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -131,7 +131,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRA.ConstIterator._Underlying *__MR_C_std_vector_MR_A_End(_Underlying *_this);
                     MR.CS.Std.Vector_MRA.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_MR_A_End(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -216,7 +216,7 @@ public static partial class MR
                         extern static MR.CS.Const_A._Underlying *__MR_C_std_vector_MR_A_const_iterator_Deref(_Underlying *_this);
                         MR.CS.Const_A __ret;
                         __ret = new(__MR_C_std_vector_MR_A_const_iterator_Deref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
 
@@ -377,7 +377,7 @@ public static partial class MR
                         extern static MR.CS.A._Underlying *__MR_C_std_vector_MR_A_iterator_Deref(_Underlying *_this);
                         MR.CS.A __ret;
                         __ret = new(__MR_C_std_vector_MR_A_iterator_Deref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
 
@@ -562,7 +562,7 @@ public static partial class MR
                         extern static MR.CS.A._Underlying *__MR_C_std_vector_MR_A_MutableAt(_Underlying *_this, ulong i);
                         MR.CS.A __ret;
                         __ret = new(__MR_C_std_vector_MR_A_MutableAt(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -575,7 +575,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_MR_A_MutableFront(_UnderlyingPtr);
                     MR.CS.A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.A(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -587,7 +587,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_MR_A_MutableBack(_UnderlyingPtr);
                     MR.CS.A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.A(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -666,7 +666,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRA.Iterator._Underlying *__MR_C_std_vector_MR_A_MutableBegin(_Underlying *_this);
                     MR.CS.Std.Vector_MRA.Iterator __ret;
                     __ret = new(__MR_C_std_vector_MR_A_MutableBegin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -685,7 +685,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRA.Iterator._Underlying *__MR_C_std_vector_MR_A_MutableEnd(_Underlying *_this);
                     MR.CS.Std.Vector_MRA.Iterator __ret;
                     __ret = new(__MR_C_std_vector_MR_A_MutableEnd(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

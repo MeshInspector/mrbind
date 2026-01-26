@@ -138,7 +138,7 @@ public static partial class MR
                         extern static MR.CS.SignatureFilters.Const_A._Underlying *__MR_SignatureFilters_Blah_Get_a(_Underlying *_this);
                         MR.CS.SignatureFilters.Const_A __ret;
                         __ret = new(__MR_SignatureFilters_Blah_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -175,7 +175,7 @@ public static partial class MR
                         extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_Blah_GetMutable_a(_Underlying *_this);
                         MR.CS.SignatureFilters.A __ret;
                         __ret = new(__MR_SignatureFilters_Blah_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }

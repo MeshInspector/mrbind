@@ -145,7 +145,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_Begin(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_ExposedLayout_Begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -168,7 +168,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_End(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpExposedLayout.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_ExposedLayout_End(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -834,7 +834,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableBegin(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableBegin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -857,7 +857,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator._Underlying *__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableEnd(_Underlying *_this);
                     MR.CS.Std.Vector_MRCSharpExposedLayout.Iterator __ret;
                     __ret = new(__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableEnd(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

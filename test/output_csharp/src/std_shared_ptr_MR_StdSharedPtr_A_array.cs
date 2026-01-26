@@ -52,7 +52,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Get(_UnderlyingPtr);
                     MR.CS.StdSharedPtr.A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdSharedPtr.A(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -65,7 +65,7 @@ public static partial class MR
                         extern static MR.CS.StdSharedPtr.A._Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_At(_Underlying *_this, long i);
                         MR.CS.StdSharedPtr.A __ret;
                         __ret = new(__MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_At(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }

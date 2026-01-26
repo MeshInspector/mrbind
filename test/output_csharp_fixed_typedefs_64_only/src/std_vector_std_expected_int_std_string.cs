@@ -90,7 +90,7 @@ public static partial class MR
                         extern static MR.CS.Std.Const_Expected_Int_StdString._Underlying *__MR_C_std_vector_std_expected_int_std_string_At(_Underlying *_this, ulong i);
                         MR.CS.Std.Const_Expected_Int_StdString __ret;
                         __ret = new(__MR_C_std_vector_std_expected_int_std_string_At(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -105,7 +105,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_std_expected_int_std_string_Front(_UnderlyingPtr);
                     MR.CS.Std.Const_Expected_Int_StdString? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.Const_Expected_Int_StdString(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -119,7 +119,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_std_expected_int_std_string_Back(_UnderlyingPtr);
                     MR.CS.Std.Const_Expected_Int_StdString? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.Const_Expected_Int_StdString(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -132,7 +132,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_StdExpectedIntStdString.ConstIterator._Underlying *__MR_C_std_vector_std_expected_int_std_string_Begin(_Underlying *_this);
                     MR.CS.Std.Vector_StdExpectedIntStdString.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_std_expected_int_std_string_Begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -155,7 +155,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_StdExpectedIntStdString.ConstIterator._Underlying *__MR_C_std_vector_std_expected_int_std_string_End(_Underlying *_this);
                     MR.CS.Std.Vector_StdExpectedIntStdString.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_std_expected_int_std_string_End(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -258,7 +258,7 @@ public static partial class MR
                         extern static MR.CS.Std.Const_Expected_Int_StdString._Underlying *__MR_C_std_vector_std_expected_int_std_string_const_iterator_Deref(_Underlying *_this);
                         MR.CS.Std.Const_Expected_Int_StdString __ret;
                         __ret = new(__MR_C_std_vector_std_expected_int_std_string_const_iterator_Deref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
 
@@ -453,7 +453,7 @@ public static partial class MR
                         extern static MR.CS.Std.Expected_Int_StdString._Underlying *__MR_C_std_vector_std_expected_int_std_string_iterator_Deref(_Underlying *_this);
                         MR.CS.Std.Expected_Int_StdString __ret;
                         __ret = new(__MR_C_std_vector_std_expected_int_std_string_iterator_Deref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
 
@@ -678,7 +678,7 @@ public static partial class MR
                         extern static MR.CS.Std.Expected_Int_StdString._Underlying *__MR_C_std_vector_std_expected_int_std_string_MutableAt(_Underlying *_this, ulong i);
                         MR.CS.Std.Expected_Int_StdString __ret;
                         __ret = new(__MR_C_std_vector_std_expected_int_std_string_MutableAt(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -693,7 +693,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_std_expected_int_std_string_MutableFront(_UnderlyingPtr);
                     MR.CS.Std.Expected_Int_StdString? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.Expected_Int_StdString(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -707,7 +707,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_vector_std_expected_int_std_string_MutableBack(_UnderlyingPtr);
                     MR.CS.Std.Expected_Int_StdString? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.Expected_Int_StdString(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -804,7 +804,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_StdExpectedIntStdString.Iterator._Underlying *__MR_C_std_vector_std_expected_int_std_string_MutableBegin(_Underlying *_this);
                     MR.CS.Std.Vector_StdExpectedIntStdString.Iterator __ret;
                     __ret = new(__MR_C_std_vector_std_expected_int_std_string_MutableBegin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -827,7 +827,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_StdExpectedIntStdString.Iterator._Underlying *__MR_C_std_vector_std_expected_int_std_string_MutableEnd(_Underlying *_this);
                     MR.CS.Std.Vector_StdExpectedIntStdString.Iterator __ret;
                     __ret = new(__MR_C_std_vector_std_expected_int_std_string_MutableEnd(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

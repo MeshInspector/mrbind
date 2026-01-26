@@ -145,7 +145,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *__MR_C_std_vector_uint64_t_Begin(_Underlying *_this);
                     MR.CS.Std.Vector_MRCUint64T.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_uint64_t_Begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -168,7 +168,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *__MR_C_std_vector_uint64_t_End(_Underlying *_this);
                     MR.CS.Std.Vector_MRCUint64T.ConstIterator __ret;
                     __ret = new(__MR_C_std_vector_uint64_t_End(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -831,7 +831,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *__MR_C_std_vector_uint64_t_MutableBegin(_Underlying *_this);
                     MR.CS.Std.Vector_MRCUint64T.Iterator __ret;
                     __ret = new(__MR_C_std_vector_uint64_t_MutableBegin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -854,7 +854,7 @@ public static partial class MR
                     extern static MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *__MR_C_std_vector_uint64_t_MutableEnd(_Underlying *_this);
                     MR.CS.Std.Vector_MRCUint64T.Iterator __ret;
                     __ret = new(__MR_C_std_vector_uint64_t_MutableEnd(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

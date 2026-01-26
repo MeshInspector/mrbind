@@ -105,7 +105,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_variant_int_float_std_string_Get_std_string(_UnderlyingPtr);
                     MR.CS.Std.Const_String? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.Const_String(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
             }
@@ -228,7 +228,7 @@ public static partial class MR
                     var __c_ret = __MR_C_std_variant_int_float_std_string_GetMutable_std_string(_UnderlyingPtr);
                     MR.CS.Std.String? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.String(__c_ret, is_owning: false) : null;
-                    if (__ret is not null) __ret._KeepAlive(this);
+                    if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
             }

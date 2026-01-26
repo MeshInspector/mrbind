@@ -74,7 +74,7 @@ public static partial class MR
                     extern static MR.CS.Std.Set_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_set_MR_StdContainers_NonAssignable_Find(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
                     MR.CS.Std.Set_MRStdContainersNonAssignable.ConstIterator __ret;
                     __ret = new(__MR_C_std_set_MR_StdContainers_NonAssignable_Find(_UnderlyingPtr, key._UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -85,7 +85,7 @@ public static partial class MR
                     extern static MR.CS.Std.Set_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_set_MR_StdContainers_NonAssignable_Begin(_Underlying *_this);
                     MR.CS.Std.Set_MRStdContainersNonAssignable.ConstIterator __ret;
                     __ret = new(__MR_C_std_set_MR_StdContainers_NonAssignable_Begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -104,7 +104,7 @@ public static partial class MR
                     extern static MR.CS.Std.Set_MRStdContainersNonAssignable.ConstIterator._Underlying *__MR_C_std_set_MR_StdContainers_NonAssignable_End(_Underlying *_this);
                     MR.CS.Std.Set_MRStdContainersNonAssignable.ConstIterator __ret;
                     __ret = new(__MR_C_std_set_MR_StdContainers_NonAssignable_End(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -162,7 +162,7 @@ public static partial class MR
                         extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_Deref(_Underlying *_this);
                         MR.CS.StdContainers.Const_NonAssignable __ret;
                         __ret = new(__MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_Deref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }

@@ -49,7 +49,7 @@ public static partial class MR
                         extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_At(_Underlying *_this, ulong i);
                         MR.CS.StdContainers.Const_NonAssignable __ret;
                         __ret = new(__MR_C_std_array_MR_StdContainers_NonAssignable_42_At(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -95,7 +95,7 @@ public static partial class MR
                         extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableAt(_Underlying *_this, ulong i);
                         MR.CS.StdContainers.NonAssignable __ret;
                         __ret = new(__MR_C_std_array_MR_StdContainers_NonAssignable_42_MutableAt(_UnderlyingPtr, i), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }

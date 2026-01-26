@@ -99,7 +99,7 @@ public static partial class MR
                     extern static MR.CS.Phmap.ParallelNodeHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_set_int_Find(_Underlying *_this, int *key);
                     MR.CS.Phmap.ParallelNodeHashSet_Int.ConstIterator __ret;
                     __ret = new(__MR_C_phmap_parallel_node_hash_set_int_Find(_UnderlyingPtr, &key), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -112,7 +112,7 @@ public static partial class MR
                     extern static MR.CS.Phmap.ParallelNodeHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_set_int_Begin(_Underlying *_this);
                     MR.CS.Phmap.ParallelNodeHashSet_Int.ConstIterator __ret;
                     __ret = new(__MR_C_phmap_parallel_node_hash_set_int_Begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -135,7 +135,7 @@ public static partial class MR
                     extern static MR.CS.Phmap.ParallelNodeHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_set_int_End(_Underlying *_this);
                     MR.CS.Phmap.ParallelNodeHashSet_Int.ConstIterator __ret;
                     __ret = new(__MR_C_phmap_parallel_node_hash_set_int_End(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

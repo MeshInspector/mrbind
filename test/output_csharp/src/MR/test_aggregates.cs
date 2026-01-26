@@ -46,7 +46,7 @@ public static partial class MR
                         extern static MR.CS.Std.Const_String._Underlying *__MR_Aggregates_A_Get_y(_Underlying *_this);
                         MR.CS.Std.Const_String __ret;
                         __ret = new(__MR_Aggregates_A_Get_y(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -107,7 +107,7 @@ public static partial class MR
                         extern static MR.CS.Std.String._Underlying *__MR_Aggregates_A_GetMutable_y(_Underlying *_this);
                         MR.CS.Std.String __ret;
                         __ret = new(__MR_Aggregates_A_GetMutable_y(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -1106,7 +1106,7 @@ public static partial class MR
                         extern static MR.CS.Aggregates.Const_NonDefaultConstructible._Underlying *__MR_Aggregates_E_Get_j(_Underlying *_this);
                         MR.CS.Aggregates.Const_NonDefaultConstructible __ret;
                         __ret = new(__MR_Aggregates_E_Get_j(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -1244,7 +1244,7 @@ public static partial class MR
                         extern static MR.CS.Aggregates.NonDefaultConstructible._Underlying *__MR_Aggregates_E_GetMutable_j(_Underlying *_this);
                         MR.CS.Aggregates.NonDefaultConstructible __ret;
                         __ret = new(__MR_Aggregates_E_GetMutable_j(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }

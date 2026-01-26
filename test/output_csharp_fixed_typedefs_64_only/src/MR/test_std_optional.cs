@@ -203,7 +203,7 @@ public static partial class MR
                         extern static MR.CS.Std.Const_String._Underlying *__MR_StdOptional_B_Get_s(_Underlying *_this);
                         MR.CS.Std.Const_String __ret;
                         __ret = new(__MR_StdOptional_B_Get_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }
@@ -261,7 +261,7 @@ public static partial class MR
                         extern static MR.CS.Std.String._Underlying *__MR_StdOptional_B_GetMutable_s(_Underlying *_this);
                         MR.CS.Std.String __ret;
                         __ret = new(__MR_StdOptional_B_GetMutable_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAlive(this);
+                        __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
                 }

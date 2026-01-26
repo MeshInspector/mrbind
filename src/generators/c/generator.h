@@ -1323,10 +1323,10 @@ namespace mrbind::CBindings
                 cppdecl::Type cpp_type;
 
                 // Indicates that this function can return a reference to this parameter.
-                // This is a shorthand for `lifetimes.ReturnsReferenceToParam(i, "...")`.
-                // If true or a string, indicates that this function can store a reference to this parameter in the returned object. If it's a string, then the reference is marked with this string (see `reference_assigned` for what this does).
+                // This is a shorthand for `lifetimes.ReturnsReferenceToParam(i)` or `lifetimes.ReturnsReferenceToSubobject()` if this is the `this` parameter.s
+                // If true, indicates that this function can store a reference to this parameter in the returned object.
                 // Must not use this for constructors! Use `reference_assigned` instead.
-                std::variant<bool, std::string> reference_returned = false;
+                bool reference_returned = false;
                 // If false, has no effect.
                 // If true or a string, indicates that this function can store a reference to this parameter in the current object (in `this`).
                 // If true, this erases all existing references in the object. If this is a string, then only erases references marked with the same string. An empty string erases all references, it has the same effect as `true`.

@@ -88,7 +88,7 @@ public static partial class MR
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator._Underlying *__MR_C_std_unordered_multimap_int_float_Find(_Underlying *_this, int *key);
                     MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator __ret;
                     __ret = new(__MR_C_std_unordered_multimap_int_float_Find(_UnderlyingPtr, &key), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -101,7 +101,7 @@ public static partial class MR
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator._Underlying *__MR_C_std_unordered_multimap_int_float_Begin(_Underlying *_this);
                     MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator __ret;
                     __ret = new(__MR_C_std_unordered_multimap_int_float_Begin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -124,7 +124,7 @@ public static partial class MR
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator._Underlying *__MR_C_std_unordered_multimap_int_float_End(_Underlying *_this);
                     MR.CS.Std.UnorderedMultimap_Int_Float.ConstIterator __ret;
                     __ret = new(__MR_C_std_unordered_multimap_int_float_End(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -539,7 +539,7 @@ public static partial class MR
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.Iterator._Underlying *__MR_C_std_unordered_multimap_int_float_FindMutable(_Underlying *_this, int *key);
                     MR.CS.Std.UnorderedMultimap_Int_Float.Iterator __ret;
                     __ret = new(__MR_C_std_unordered_multimap_int_float_FindMutable(_UnderlyingPtr, &key), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -552,7 +552,7 @@ public static partial class MR
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.Iterator._Underlying *__MR_C_std_unordered_multimap_int_float_MutableBegin(_Underlying *_this);
                     MR.CS.Std.UnorderedMultimap_Int_Float.Iterator __ret;
                     __ret = new(__MR_C_std_unordered_multimap_int_float_MutableBegin(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 
@@ -575,7 +575,7 @@ public static partial class MR
                     extern static MR.CS.Std.UnorderedMultimap_Int_Float.Iterator._Underlying *__MR_C_std_unordered_multimap_int_float_MutableEnd(_Underlying *_this);
                     MR.CS.Std.UnorderedMultimap_Int_Float.Iterator __ret;
                     __ret = new(__MR_C_std_unordered_multimap_int_float_MutableEnd(_UnderlyingPtr), is_owning: true);
-                    __ret._KeepAlive(this);
+                    __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
 

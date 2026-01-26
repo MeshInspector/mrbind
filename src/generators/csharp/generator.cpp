@@ -3572,14 +3572,36 @@ namespace mrbind::CSharp
                     lifetime_statements += holder_usage->object;
                     if (!holder_usage->object.empty()) // The empty string here indicates `this`.
                         lifetime_statements += '.';
-                    if (holder_usage->object.empty() && !is_ctor && method_like->is_static) // ^
-                        lifetime_statements += "_StaticKeepAlive";
-                    else
-                        lifetime_statements += "_KeepAlive";
 
-                    lifetime_statements += "(";
+                    const bool is_subobject = std::holds_alternative<LifetimeRelation::ClassSubobject>(lifetime.key);
+
+                    if (holder_usage->object.empty() && !is_ctor && method_like->is_static) // ^
+                    {
+                        if (is_subobject)
+                            throw std::runtime_error("The lifetime annotation on this static method claims to refer to a subobject of this, which makes no sense for static methods.");
+                        lifetime_statements += "_StaticKeepAlive";
+                    }
+                    else
+                    {
+                        if (is_subobject)
+                            lifetime_statements += "_KeepAliveEnclosingObject = ";
+                        else
+                            lifetime_statements += "_KeepAlive(";
+                    }
+
                     lifetime_statements += target_usage->object;
-                    lifetime_statements += ");\n";
+                    if (!is_subobject)
+                    {
+                        const auto &key = std::get<std::string>(lifetime.key);
+                        if (!key.empty())
+                        {
+                            lifetime_statements += ", ";
+                            lifetime_statements += EscapeQuoteString(key);
+                        }
+
+                        lifetime_statements += ")";
+                    }
+                    lifetime_statements += ";\n";
                 }
             }
 
@@ -7005,6 +7027,13 @@ namespace mrbind::CSharp
                         "\n"
                     );
                     WriteComment(file,
+                        "    /// A special holder for the enclosing object when returning a reference to its subobject.\n"
+                    , 1);
+                    file.WriteString(
+                        "    public object? _KeepAliveEnclosingObject = null;\n"
+                        "\n"
+                    );
+                    WriteComment(file,
                         "    /// Keeps `obj` alive as long as this object exists.\n"
                         "    /// If `key` is specified, it's an optional tag for this object.\n"
                     , 1);
@@ -7030,6 +7059,7 @@ namespace mrbind::CSharp
                     WriteComment(file,
                         "    /// Discards the objects kept alive by this object.\n"
                         "    /// If `key` is not empty, only discards the objects with the same key. Otherwise discards all of them.\n"
+                        "    /// This intentionally doesn't discard `_KeepAliveEnclosingObject`.\n"
                     , 1);
                     file.WriteString(
                         "    public void _DiscardKeepAlive(string key = \"\")\n"

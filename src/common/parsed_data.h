@@ -184,8 +184,24 @@ namespace mrbind
             friend auto operator<=>(const ReturnValue &, const ReturnValue &) = default;
         };
 
+        // This describes an object that either keeps another alive, or is itself kept alive.
         // Not placing `Param` first to avoid the dumb Clang bug making the variant not default-constructible.
         using Variant = std::variant<ThisObject, Param, ReturnValue>;
+
+
+        // The special key type for functions that return a reference or pointer to the subobject of some other object.
+        // Basically, every time you return a reference, you really should be using this, instead of `key == ""`.
+        struct ClassSubobject
+        {
+            static constexpr std::string_view name_in_variant = "class_subobject";
+            MBREFL_STRUCT()
+
+            friend auto operator<=>(const ClassSubobject &, const ClassSubobject &) = default;
+        };
+
+        // This describes the key of a lifetime relation. See the `key` field below for an explanation.
+        using KeyVariant = std::variant<std::string, ClassSubobject>;
+
 
         MBREFL_STRUCT(
             (Variant)(holder)
@@ -197,10 +213,12 @@ namespace mrbind
             (bool)(only_nested, false)
 
             // Handling this isn't strictly needed for correctness.
-            // If not empty, then the newly inserted target is marked with this key.
-            // You should keep a separate set of objects per key (or equivalently a set of object-key pairs).
-            // Currently the parser will never set this.
-            (std::string)(key, "")
+            // If holds an empty string, does nothing. If holds non-empty string, then the newly inserted target is marked with this key,
+            //   and then all targets with a certain key can be deleted without touching the other targets.
+            // If this holds `ClassSubobject`, then this is the relationship between a class object and its field returned by its getter. This keep-alive relation should never be reset.
+            // To implement this, you should keep a separate set of objects per key (or equivalently a set of object-key pairs), and plus a single separate field for `ClassSubobject`.
+            // Currently the parser doesn't set this field. But the C generator does set this.
+            (KeyVariant)(key, "")
         )
 
         // Returns a copy of this object, with all `Variant`s modified using `func`.
@@ -234,9 +252,10 @@ namespace mrbind
             (std::set<LifetimeRelation>)(relations)
 
             // Handling this isn't strictly needed for correctness.
-            // This should always be empty on constructors.
+            // For constructors, this will never hold `ThisObject` and `ReturnValue` keys. (For constructors, `ThisObject` can appear in `relations`, but `ReturnValue` can't appear at all.)
             // If specified, then any existing targets marked with those keys (the mapped values) are removed from the object (described by the map key) before doing anything else.
-            // If an empty string is specified there, then all targets are removed. (This API design is a bit jank, but it's nice that appending more elements when there's an empty one preserves the empty one (the "erase all keys" property).)
+            // If an empty string is specified there, then all targets are removed, except the one marked with `ClassSubobject` (that is never removed, so we don't ever use `KeyVariant` here).
+            // (This API design is a bit jank, but it's nice that appending more elements when there's an empty one preserves the empty one, i.e. it preserves the "erase all keys" property.)
             // Currently the parser can only set this to `{""}` (for copy/move ctors/assignments), or leave empty.
             // Using an ordered map to get a consistent serialization.
             (std::map<LifetimeRelation::Variant, std::set<std::string>>)(removed_keys)
@@ -277,16 +296,16 @@ namespace mrbind
 
         // Don't use any of `Returns...()` for constructors, use `Assigns...()` for them instead.
 
-        // This function returns a reference to `this` or its subobject.
-        void ReturnsReferenceToThis(std::string key = "")
+        // This function returns a reference to a class field, or some other sort of a subobject (such as a vector element).
+        void ReturnsReferenceToSubobject()
         {
-            relations.insert({.holder = LifetimeRelation::ReturnValue{}, .target = LifetimeRelation::ThisObject{}, .key = std::move(key)});
+            relations.insert({.holder = LifetimeRelation::ReturnValue{}, .target = LifetimeRelation::ThisObject{}, .key = LifetimeRelation::ClassSubobject{}});
         }
 
         // This is e.g. for iterators, where we're not interested in keeping `this` alive, but are interested in keeping alive whatever `this` has been keeping alive.
-        void ReturnsReferenceToTargetOfThis(std::string key = "")
+        void ReturnsReferenceToTargetOfThis()
         {
-            relations.insert({.holder = LifetimeRelation::ReturnValue{}, .target = LifetimeRelation::ThisObject{}, .only_nested = true, .key = std::move(key)});
+            relations.insert({.holder = LifetimeRelation::ReturnValue{}, .target = LifetimeRelation::ThisObject{}, .only_nested = true, .key = LifetimeRelation::ClassSubobject{}});
         }
 
         // Don't use for constructors, use `AssignsReferenceToParam()` instead.
