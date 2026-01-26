@@ -256,7 +256,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A", ExactSpelling = true)]
                     extern static MR.CS.UsingDecls.Const_A._Underlying *__MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(_Underlying *_this);
                     MR.CS.UsingDecls.Const_A ret = new(__MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -319,7 +319,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A", ExactSpelling = true)]
                     extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(_Underlying *_this);
                     MR.CS.UsingDecls.A ret = new(__MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 

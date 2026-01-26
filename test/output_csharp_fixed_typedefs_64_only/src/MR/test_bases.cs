@@ -191,7 +191,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B_UpcastTo_MR_Bases_A", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_A._Underlying *__MR_Bases_B_UpcastTo_MR_Bases_A(_Underlying *_this);
                     MR.CS.Bases.Const_A ret = new(__MR_Bases_B_UpcastTo_MR_Bases_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -240,7 +240,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B_UpcastTo_MR_Bases_A", ExactSpelling = true)]
                     extern static MR.CS.Bases.A._Underlying *__MR_Bases_B_UpcastTo_MR_Bases_A(_Underlying *_this);
                     MR.CS.Bases.A ret = new(__MR_Bases_B_UpcastTo_MR_Bases_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -347,7 +347,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B2_UpcastTo_MR_Bases_A", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_A._Underlying *__MR_Bases_B2_UpcastTo_MR_Bases_A(_Underlying *_this);
                     MR.CS.Bases.Const_A ret = new(__MR_Bases_B2_UpcastTo_MR_Bases_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.Const_B(Const_B2 self)
@@ -355,7 +355,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B2_UpcastTo_MR_Bases_B", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_B._Underlying *__MR_Bases_B2_UpcastTo_MR_Bases_B(_Underlying *_this);
                     MR.CS.Bases.Const_B ret = new(__MR_Bases_B2_UpcastTo_MR_Bases_B(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -400,7 +400,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B2_UpcastTo_MR_Bases_A", ExactSpelling = true)]
                     extern static MR.CS.Bases.A._Underlying *__MR_Bases_B2_UpcastTo_MR_Bases_A(_Underlying *_this);
                     MR.CS.Bases.A ret = new(__MR_Bases_B2_UpcastTo_MR_Bases_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.B(B2 self)
@@ -408,7 +408,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_B2_UpcastTo_MR_Bases_B", ExactSpelling = true)]
                     extern static MR.CS.Bases.B._Underlying *__MR_Bases_B2_UpcastTo_MR_Bases_B(_Underlying *_this);
                     MR.CS.Bases.B ret = new(__MR_Bases_B2_UpcastTo_MR_Bases_B(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -516,7 +516,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_C_UpcastTo_MR_Bases_A", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_A._Underlying *__MR_Bases_C_UpcastTo_MR_Bases_A(_Underlying *_this);
                     MR.CS.Bases.Const_A ret = new(__MR_Bases_C_UpcastTo_MR_Bases_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -562,7 +562,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_C_UpcastTo_MR_Bases_A", ExactSpelling = true)]
                     extern static MR.CS.Bases.A._Underlying *__MR_Bases_C_UpcastTo_MR_Bases_A(_Underlying *_this);
                     MR.CS.Bases.A ret = new(__MR_Bases_C_UpcastTo_MR_Bases_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -670,7 +670,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D_UpcastTo_MR_Bases_B", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_B._Underlying *__MR_Bases_D_UpcastTo_MR_Bases_B(_Underlying *_this);
                     MR.CS.Bases.Const_B ret = new(__MR_Bases_D_UpcastTo_MR_Bases_B(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.Const_C(Const_D self)
@@ -678,7 +678,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D_UpcastTo_MR_Bases_C", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_C._Underlying *__MR_Bases_D_UpcastTo_MR_Bases_C(_Underlying *_this);
                     MR.CS.Bases.Const_C ret = new(__MR_Bases_D_UpcastTo_MR_Bases_C(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -724,7 +724,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D_UpcastTo_MR_Bases_B", ExactSpelling = true)]
                     extern static MR.CS.Bases.B._Underlying *__MR_Bases_D_UpcastTo_MR_Bases_B(_Underlying *_this);
                     MR.CS.Bases.B ret = new(__MR_Bases_D_UpcastTo_MR_Bases_B(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.C(D self)
@@ -732,7 +732,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D_UpcastTo_MR_Bases_C", ExactSpelling = true)]
                     extern static MR.CS.Bases.C._Underlying *__MR_Bases_D_UpcastTo_MR_Bases_C(_Underlying *_this);
                     MR.CS.Bases.C ret = new(__MR_Bases_D_UpcastTo_MR_Bases_C(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -839,7 +839,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D2_UpcastTo_MR_Bases_B", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_B._Underlying *__MR_Bases_D2_UpcastTo_MR_Bases_B(_Underlying *_this);
                     MR.CS.Bases.Const_B ret = new(__MR_Bases_D2_UpcastTo_MR_Bases_B(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -884,7 +884,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D2_UpcastTo_MR_Bases_B", ExactSpelling = true)]
                     extern static MR.CS.Bases.B._Underlying *__MR_Bases_D2_UpcastTo_MR_Bases_B(_Underlying *_this);
                     MR.CS.Bases.B ret = new(__MR_Bases_D2_UpcastTo_MR_Bases_B(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -991,7 +991,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D3_UpcastTo_MR_Bases_B", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_B._Underlying *__MR_Bases_D3_UpcastTo_MR_Bases_B(_Underlying *_this);
                     MR.CS.Bases.Const_B ret = new(__MR_Bases_D3_UpcastTo_MR_Bases_B(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1036,7 +1036,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_D3_UpcastTo_MR_Bases_B", ExactSpelling = true)]
                     extern static MR.CS.Bases.B._Underlying *__MR_Bases_D3_UpcastTo_MR_Bases_B(_Underlying *_this);
                     MR.CS.Bases.B ret = new(__MR_Bases_D3_UpcastTo_MR_Bases_B(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1282,7 +1282,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_F_UpcastTo_MR_Bases_E", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_E._Underlying *__MR_Bases_F_UpcastTo_MR_Bases_E(_Underlying *_this);
                     MR.CS.Bases.Const_E ret = new(__MR_Bases_F_UpcastTo_MR_Bases_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1330,7 +1330,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_F_UpcastTo_MR_Bases_E", ExactSpelling = true)]
                     extern static MR.CS.Bases.E._Underlying *__MR_Bases_F_UpcastTo_MR_Bases_E(_Underlying *_this);
                     MR.CS.Bases.E ret = new(__MR_Bases_F_UpcastTo_MR_Bases_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1437,7 +1437,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_G_UpcastTo_MR_Bases_E", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_E._Underlying *__MR_Bases_G_UpcastTo_MR_Bases_E(_Underlying *_this);
                     MR.CS.Bases.Const_E ret = new(__MR_Bases_G_UpcastTo_MR_Bases_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.Const_F(Const_G self)
@@ -1445,7 +1445,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_G_UpcastTo_MR_Bases_F", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_F._Underlying *__MR_Bases_G_UpcastTo_MR_Bases_F(_Underlying *_this);
                     MR.CS.Bases.Const_F ret = new(__MR_Bases_G_UpcastTo_MR_Bases_F(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1490,7 +1490,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_G_UpcastTo_MR_Bases_E", ExactSpelling = true)]
                     extern static MR.CS.Bases.E._Underlying *__MR_Bases_G_UpcastTo_MR_Bases_E(_Underlying *_this);
                     MR.CS.Bases.E ret = new(__MR_Bases_G_UpcastTo_MR_Bases_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.F(G self)
@@ -1498,7 +1498,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_G_UpcastTo_MR_Bases_F", ExactSpelling = true)]
                     extern static MR.CS.Bases.F._Underlying *__MR_Bases_G_UpcastTo_MR_Bases_F(_Underlying *_this);
                     MR.CS.Bases.F ret = new(__MR_Bases_G_UpcastTo_MR_Bases_F(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1627,7 +1627,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_H_UpcastTo_MR_Bases_E", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_E._Underlying *__MR_Bases_H_UpcastTo_MR_Bases_E(_Underlying *_this);
                     MR.CS.Bases.Const_E ret = new(__MR_Bases_H_UpcastTo_MR_Bases_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.Const_F(Const_H self)
@@ -1635,7 +1635,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_H_UpcastTo_MR_Bases_F", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_F._Underlying *__MR_Bases_H_UpcastTo_MR_Bases_F(_Underlying *_this);
                     MR.CS.Bases.Const_F ret = new(__MR_Bases_H_UpcastTo_MR_Bases_F(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.Const_A(Const_H self)
@@ -1643,7 +1643,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_H_UpcastTo_MR_Bases_A", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_A._Underlying *__MR_Bases_H_UpcastTo_MR_Bases_A(_Underlying *_this);
                     MR.CS.Bases.Const_A ret = new(__MR_Bases_H_UpcastTo_MR_Bases_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1690,7 +1690,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_H_UpcastTo_MR_Bases_E", ExactSpelling = true)]
                     extern static MR.CS.Bases.E._Underlying *__MR_Bases_H_UpcastTo_MR_Bases_E(_Underlying *_this);
                     MR.CS.Bases.E ret = new(__MR_Bases_H_UpcastTo_MR_Bases_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.F(H self)
@@ -1698,7 +1698,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_H_UpcastTo_MR_Bases_F", ExactSpelling = true)]
                     extern static MR.CS.Bases.F._Underlying *__MR_Bases_H_UpcastTo_MR_Bases_F(_Underlying *_this);
                     MR.CS.Bases.F ret = new(__MR_Bases_H_UpcastTo_MR_Bases_F(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.A(H self)
@@ -1706,7 +1706,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_H_UpcastTo_MR_Bases_A", ExactSpelling = true)]
                     extern static MR.CS.Bases.A._Underlying *__MR_Bases_H_UpcastTo_MR_Bases_A(_Underlying *_this);
                     MR.CS.Bases.A ret = new(__MR_Bases_H_UpcastTo_MR_Bases_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1834,7 +1834,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_I_UpcastTo_MR_Bases_E", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_E._Underlying *__MR_Bases_I_UpcastTo_MR_Bases_E(_Underlying *_this);
                     MR.CS.Bases.Const_E ret = new(__MR_Bases_I_UpcastTo_MR_Bases_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.Const_F(Const_I self)
@@ -1842,7 +1842,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_I_UpcastTo_MR_Bases_F", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_F._Underlying *__MR_Bases_I_UpcastTo_MR_Bases_F(_Underlying *_this);
                     MR.CS.Bases.Const_F ret = new(__MR_Bases_I_UpcastTo_MR_Bases_F(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.Const_A(Const_I self)
@@ -1850,7 +1850,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_I_UpcastTo_MR_Bases_A", ExactSpelling = true)]
                     extern static MR.CS.Bases.Const_A._Underlying *__MR_Bases_I_UpcastTo_MR_Bases_A(_Underlying *_this);
                     MR.CS.Bases.Const_A ret = new(__MR_Bases_I_UpcastTo_MR_Bases_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1896,7 +1896,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_I_UpcastTo_MR_Bases_E", ExactSpelling = true)]
                     extern static MR.CS.Bases.E._Underlying *__MR_Bases_I_UpcastTo_MR_Bases_E(_Underlying *_this);
                     MR.CS.Bases.E ret = new(__MR_Bases_I_UpcastTo_MR_Bases_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.F(I self)
@@ -1904,7 +1904,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_I_UpcastTo_MR_Bases_F", ExactSpelling = true)]
                     extern static MR.CS.Bases.F._Underlying *__MR_Bases_I_UpcastTo_MR_Bases_F(_Underlying *_this);
                     MR.CS.Bases.F ret = new(__MR_Bases_I_UpcastTo_MR_Bases_F(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.Bases.A(I self)
@@ -1912,7 +1912,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Bases_I_UpcastTo_MR_Bases_A", ExactSpelling = true)]
                     extern static MR.CS.Bases.A._Underlying *__MR_Bases_I_UpcastTo_MR_Bases_A(_Underlying *_this);
                     MR.CS.Bases.A ret = new(__MR_Bases_I_UpcastTo_MR_Bases_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 

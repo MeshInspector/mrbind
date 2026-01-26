@@ -1553,14 +1553,6 @@ namespace mrbind::CSharp
                                     assert(!success_type.Is<cppdecl::Reference>());
                                     assert(!success_type.Is<cppdecl::Array>());
 
-                                    // If true, the success type is a class type that needs to keep-alive the entire `expected`.
-                                    // Note that exposed structs get `false` here, since we copy then when returning without a wrapper.
-                                    bool need_keep_alive = false;
-                                    // Set to true if this is a class other than an exposed struct.
-                                    if (auto cl = std::get_if<CInterop::TypeKinds::Class>(&c_desc.FindTypeOpt(success_type_str)->var))
-                                        need_keep_alive = cl->kind != CInterop::ClassKind::exposed_struct;
-
-
                                     const std::string csharp_success_type = GetTypeBinding(success_type, flags).return_usage.value().csharp_return_type;
                                     const std::string csharp_success_type_nomove = GetTypeBinding(success_type, flags | TypeBindingFlags::no_move_in_by_value_return).return_usage.value().csharp_return_type;
 
@@ -1576,8 +1568,7 @@ namespace mrbind::CSharp
                                         // So instead get the class name manually.
                                         csharp_expected_type = CppToCSharpClassName(cpp_type.simple_type.name, false),
                                         csharp_success_type,
-                                        csharp_success_type_nomove,
-                                        need_keep_alive
+                                        csharp_success_type_nomove
                                     ](const std::string &target, const std::string &expr)
                                     {
                                         // Collect the C# `expected` object into a variable instead of returning it.
@@ -1594,23 +1585,10 @@ namespace mrbind::CSharp
                                         {
                                             // Nothing to return.
                                         }
-                                        else if (need_keep_alive)
-                                        {
-                                            // Need to keep-alive the expected!
-                                            ret +=
-                                                "\n" +
-                                                csharp_success_type_nomove + " __expected_success = __expected_ret." + AdjustCalledFuncName("GetValue") + "()!;\n"
-                                                "__expected_success._KeepAlive(__expected_ret);\n";
-
-                                            // A crude check to see if we need to move or not.
-                                            if (csharp_success_type != csharp_success_type_nomove)
-                                                ret += target + " " + RequestHelper("Move") + "(__expected_success);";
-                                            else
-                                                ret += target + " __expected_success;";
-                                        }
                                         else
                                         {
                                             // Just this.
+                                            // Don't need to keep-alive anything here, since `GetValue()` should do that automatically.
                                             ret += "\n" + target + " __expected_ret." + AdjustCalledFuncName("GetValue") + "()!;";
                                         }
 
@@ -5259,7 +5237,7 @@ namespace mrbind::CSharp
                                 {
                                     file.WriteString(
                                         csharp_base_name + " ret = new(" + dllimport_decl.csharp_name + "(self._UnderlyingPtr), is_owning: false);\n"
-                                        "ret._KeepAlive(self);\n"
+                                        "ret._KeepAliveEnclosingObject = self;\n"
                                         "return ret;\n"
                                     );
                                 }
@@ -5312,7 +5290,7 @@ namespace mrbind::CSharp
                                 {
                                     file.WriteString(
                                         unqual_csharp_name + " ret = new(ptr, is_owning: false);\n"
-                                        "ret._KeepAlive(parent);\n"
+                                        "ret._KeepAliveEnclosingObject = parent;\n"
                                         "return ret;\n"
                                     );
                                 }
@@ -6149,7 +6127,7 @@ namespace mrbind::CSharp
                                     "if (*ptr is not null)\n" +
                                     (field.is_static ? "" : "{\n") +
                                     "    value = new" + (is_class ? "(*ptr, is_owning: false)" : "(*ptr)") + ";\n" +
-                                    (field.is_static ? "" : "    value._KeepAlive(this);\n}\n") +
+                                    (field.is_static ? "" : "    value._KeepAliveEnclosingObject = this;\n}\n") +
                                     "return value;\n"
                                 );
 

@@ -165,7 +165,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B", ExactSpelling = true)]
                     extern static MR.CS.AbstractClasses.Const_B._Underlying *__MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(_Underlying *_this);
                     MR.CS.AbstractClasses.Const_B ret = new(__MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -177,7 +177,7 @@ public static partial class MR
                     var ptr = __MR_AbstractClasses_B_DynamicDowncastTo_MR_AbstractClasses_C(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     Const_C ret = new(ptr, is_owning: false);
-                    ret._KeepAlive(parent);
+                    ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
             }
@@ -197,7 +197,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B", ExactSpelling = true)]
                     extern static MR.CS.AbstractClasses.B._Underlying *__MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(_Underlying *_this);
                     MR.CS.AbstractClasses.B ret = new(__MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -209,7 +209,7 @@ public static partial class MR
                     var ptr = __MR_AbstractClasses_B_DynamicDowncastTo_MR_AbstractClasses_C(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     C ret = new(ptr, is_owning: false);
-                    ret._KeepAlive(parent);
+                    ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
 

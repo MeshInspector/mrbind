@@ -254,7 +254,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_B_UpcastTo_MR_CSharp_A(_Underlying *_this);
                     MR.CS.CSharp.Const_A ret = new(__MR_CSharp_B_UpcastTo_MR_CSharp_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -266,7 +266,7 @@ public static partial class MR
                     var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     Const_B ret = new(ptr, is_owning: false);
-                    ret._KeepAlive(parent);
+                    ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
 
@@ -343,7 +343,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
                     extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_B_UpcastTo_MR_CSharp_A(_Underlying *_this);
                     MR.CS.CSharp.A ret = new(__MR_CSharp_B_UpcastTo_MR_CSharp_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -355,7 +355,7 @@ public static partial class MR
                     var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     B ret = new(ptr, is_owning: false);
-                    ret._KeepAlive(parent);
+                    ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
 
@@ -504,7 +504,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_C_UpcastTo_MR_CSharp_A(_Underlying *_this);
                     MR.CS.CSharp.Const_A ret = new(__MR_CSharp_C_UpcastTo_MR_CSharp_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -516,7 +516,7 @@ public static partial class MR
                     var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     Const_C ret = new(ptr, is_owning: false);
-                    ret._KeepAlive(parent);
+                    ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
 
@@ -585,7 +585,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
                     extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_C_UpcastTo_MR_CSharp_A(_Underlying *_this);
                     MR.CS.CSharp.A ret = new(__MR_CSharp_C_UpcastTo_MR_CSharp_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -597,7 +597,7 @@ public static partial class MR
                     var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     C ret = new(ptr, is_owning: false);
-                    ret._KeepAlive(parent);
+                    ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
 
@@ -998,7 +998,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_F_UpcastTo_MR_CSharp_A(_Underlying *_this);
                     MR.CS.CSharp.Const_A ret = new(__MR_CSharp_F_UpcastTo_MR_CSharp_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CSharp.Const_D(Const_F self)
@@ -1006,7 +1006,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_UpcastTo_MR_CSharp_D", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_D._Underlying *__MR_CSharp_F_UpcastTo_MR_CSharp_D(_Underlying *_this);
                     MR.CS.CSharp.Const_D ret = new(__MR_CSharp_F_UpcastTo_MR_CSharp_D(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CSharp.Const_E(Const_F self)
@@ -1014,7 +1014,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_UpcastTo_MR_CSharp_E", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_E._Underlying *__MR_CSharp_F_UpcastTo_MR_CSharp_E(_Underlying *_this);
                     MR.CS.CSharp.Const_E ret = new(__MR_CSharp_F_UpcastTo_MR_CSharp_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1026,7 +1026,7 @@ public static partial class MR
                     var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     Const_F ret = new(ptr, is_owning: false);
-                    ret._KeepAlive(parent);
+                    ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
 
@@ -1113,7 +1113,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
                     extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_F_UpcastTo_MR_CSharp_A(_Underlying *_this);
                     MR.CS.CSharp.A ret = new(__MR_CSharp_F_UpcastTo_MR_CSharp_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CSharp.D(F self)
@@ -1121,7 +1121,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_UpcastTo_MR_CSharp_D", ExactSpelling = true)]
                     extern static MR.CS.CSharp.D._Underlying *__MR_CSharp_F_UpcastTo_MR_CSharp_D(_Underlying *_this);
                     MR.CS.CSharp.D ret = new(__MR_CSharp_F_UpcastTo_MR_CSharp_D(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CSharp.E(F self)
@@ -1129,7 +1129,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_UpcastTo_MR_CSharp_E", ExactSpelling = true)]
                     extern static MR.CS.CSharp.E._Underlying *__MR_CSharp_F_UpcastTo_MR_CSharp_E(_Underlying *_this);
                     MR.CS.CSharp.E ret = new(__MR_CSharp_F_UpcastTo_MR_CSharp_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1141,7 +1141,7 @@ public static partial class MR
                     var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     F ret = new(ptr, is_owning: false);
-                    ret._KeepAlive(parent);
+                    ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
 
@@ -1302,7 +1302,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_G_UpcastTo_MR_CSharp_A(_Underlying *_this);
                     MR.CS.CSharp.Const_A ret = new(__MR_CSharp_G_UpcastTo_MR_CSharp_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CSharp.Const_D(Const_G self)
@@ -1310,7 +1310,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_UpcastTo_MR_CSharp_D", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_D._Underlying *__MR_CSharp_G_UpcastTo_MR_CSharp_D(_Underlying *_this);
                     MR.CS.CSharp.Const_D ret = new(__MR_CSharp_G_UpcastTo_MR_CSharp_D(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CSharp.Const_E(Const_G self)
@@ -1318,7 +1318,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_UpcastTo_MR_CSharp_E", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_E._Underlying *__MR_CSharp_G_UpcastTo_MR_CSharp_E(_Underlying *_this);
                     MR.CS.CSharp.Const_E ret = new(__MR_CSharp_G_UpcastTo_MR_CSharp_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1330,7 +1330,7 @@ public static partial class MR
                     var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     Const_G ret = new(ptr, is_owning: false);
-                    ret._KeepAlive(parent);
+                    ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
 
@@ -1419,7 +1419,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_UpcastTo_MR_CSharp_A", ExactSpelling = true)]
                     extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_G_UpcastTo_MR_CSharp_A(_Underlying *_this);
                     MR.CS.CSharp.A ret = new(__MR_CSharp_G_UpcastTo_MR_CSharp_A(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CSharp.D(G self)
@@ -1427,7 +1427,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_UpcastTo_MR_CSharp_D", ExactSpelling = true)]
                     extern static MR.CS.CSharp.D._Underlying *__MR_CSharp_G_UpcastTo_MR_CSharp_D(_Underlying *_this);
                     MR.CS.CSharp.D ret = new(__MR_CSharp_G_UpcastTo_MR_CSharp_D(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
                 public static unsafe implicit operator MR.CS.CSharp.E(G self)
@@ -1435,7 +1435,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_UpcastTo_MR_CSharp_E", ExactSpelling = true)]
                     extern static MR.CS.CSharp.E._Underlying *__MR_CSharp_G_UpcastTo_MR_CSharp_E(_Underlying *_this);
                     MR.CS.CSharp.E ret = new(__MR_CSharp_G_UpcastTo_MR_CSharp_E(self._UnderlyingPtr), is_owning: false);
-                    ret._KeepAlive(self);
+                    ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
 
@@ -1447,7 +1447,7 @@ public static partial class MR
                     var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     G ret = new(ptr, is_owning: false);
-                    ret._KeepAlive(parent);
+                    ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
 
@@ -15651,7 +15651,7 @@ public static partial class MR
                         if (*ptr is not null)
                         {
                             value = new(*ptr, is_owning: false);
-                            value._KeepAlive(this);
+                            value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
@@ -15668,7 +15668,7 @@ public static partial class MR
                         if (*ptr is not null)
                         {
                             value = new(*ptr, is_owning: false);
-                            value._KeepAlive(this);
+                            value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
@@ -15892,7 +15892,7 @@ public static partial class MR
                         if (*ptr is not null)
                         {
                             value = new(*ptr, is_owning: false);
-                            value._KeepAlive(this);
+                            value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
@@ -15909,7 +15909,7 @@ public static partial class MR
                         if (*ptr is not null)
                         {
                             value = new(*ptr, is_owning: false);
-                            value._KeepAlive(this);
+                            value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
@@ -16136,7 +16136,7 @@ public static partial class MR
                         if (*ptr is not null)
                         {
                             value = new(*ptr);
-                            value._KeepAlive(this);
+                            value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
@@ -16153,7 +16153,7 @@ public static partial class MR
                         if (*ptr is not null)
                         {
                             value = new(*ptr);
-                            value._KeepAlive(this);
+                            value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
@@ -16374,7 +16374,7 @@ public static partial class MR
                         if (*ptr is not null)
                         {
                             value = new(*ptr);
-                            value._KeepAlive(this);
+                            value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
@@ -16391,7 +16391,7 @@ public static partial class MR
                         if (*ptr is not null)
                         {
                             value = new(*ptr);
-                            value._KeepAlive(this);
+                            value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
@@ -20064,9 +20064,7 @@ public static partial class MR
                 MR.CS.Std.Expected_MRCSharpTrivial_Float __expected_ret;
                 __expected_ret = new(__MR_CSharp_test_expected_triv(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
                 if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
-                MR.CS.CSharp.Trivial __expected_success = __expected_ret.GetValue()!;
-                __expected_success._KeepAlive(__expected_ret);
-                return __expected_success;
+                return __expected_ret.GetValue()!;
             }
 
             /// Generated from function `MR::CSharp::test_expected_triv_ref`.
@@ -20118,9 +20116,7 @@ public static partial class MR
                 MR.CS.Std.Expected_MRCSharpNonTrivial_Float __expected_ret;
                 __expected_ret = new(__MR_CSharp_test_expected_nontriv(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true);
                 if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
-                MR.CS.CSharp.NonTrivial __expected_success = __expected_ret.GetValue()!;
-                __expected_success._KeepAlive(__expected_ret);
-                return __expected_success;
+                return __expected_ret.GetValue()!;
             }
 
             /// Generated from function `MR::CSharp::test_expected_nontriv_ref`.
@@ -20172,9 +20168,7 @@ public static partial class MR
                 MR.CS.Std.Expected_MRCSharpSA_Float __expected_ret;
                 __expected_ret = new(__MR_CSharp_test_expected_shared(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
                 if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
-                MR.CS.CSharp.SA __expected_success = __expected_ret.GetValue()!;
-                __expected_success._KeepAlive(__expected_ret);
-                return __expected_success;
+                return __expected_ret.GetValue()!;
             }
 
             /// Generated from function `MR::CSharp::test_expected_shared_ref`.
