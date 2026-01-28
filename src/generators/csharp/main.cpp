@@ -88,6 +88,15 @@ int main(int argc, char **argv)
             generator.forced_namespace = generator.ParseNameOrThrow(std::string(args.front()));
         },
     });
+    args_parser.AddFlag("--fat-objects", {
+        .arg_names = {},
+        .desc = "Emit C++ class fields as C# class fields, instead of C# properties. This should make field access faster, but make C# objects larger and slower to construct.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            generator.fat_objects = true;
+        },
+    });
     args_parser.AddFlag("--begin-func-names-with-lowercase", {
         .desc = "Name C# functions in the style `fooBar()` instead of the default `FooBar()`.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)

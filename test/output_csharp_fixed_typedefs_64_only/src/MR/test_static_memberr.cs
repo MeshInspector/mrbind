@@ -14,8 +14,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -28,15 +26,19 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
 
-                public static unsafe ref int X
+                public static unsafe ref int X => ref *__ref_storage_X;
+                private protected static unsafe int *__ref_storage_X;
+
+                unsafe static Const_A()
                 {
-                    get
-                    {
+                    { // X (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_GetMutable_x", ExactSpelling = true)]
                         extern static int *__MR_StaticFuncs_A_GetMutable_x();
-                        return ref *__MR_StaticFuncs_A_GetMutable_x();
+                        Const_A.__ref_storage_X = __MR_StaticFuncs_A_GetMutable_x();
                     }
                 }
+
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.

@@ -12,8 +12,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -35,6 +33,8 @@ public static partial class MR
                         return ref *__MR_StaticFuncs_A_GetMutable_x();
                     }
                 }
+
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_A() : this(null, is_owning: true)

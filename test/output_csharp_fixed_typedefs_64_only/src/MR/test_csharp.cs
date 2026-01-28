@@ -43,8 +43,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -56,6 +54,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
+
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -274,8 +274,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -309,6 +307,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -391,8 +391,6 @@ public static partial class MR
             /// </summary>
             public class B : Const_B
             {
-                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.A(B self)
                 {
@@ -414,6 +412,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -562,8 +562,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -597,6 +595,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -669,8 +669,6 @@ public static partial class MR
             /// </summary>
             public class C : Const_C
             {
-                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.A(C self)
                 {
@@ -692,6 +690,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -831,8 +831,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_D(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -844,6 +842,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_D() {Dispose(false);}
+
+                internal unsafe Const_D(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -982,8 +982,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_E(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -995,6 +993,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_E() {Dispose(false);}
+
+                internal unsafe Const_E(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -1134,8 +1134,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_F(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1185,6 +1183,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe Const_F(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -1279,8 +1279,6 @@ public static partial class MR
             /// </summary>
             public class F : Const_F
             {
-                internal unsafe F(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.A(F self)
                 {
@@ -1318,6 +1316,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe F(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -1480,8 +1480,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_G(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1531,6 +1529,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe Const_G(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -1627,8 +1627,6 @@ public static partial class MR
             /// </summary>
             public class G : Const_G
             {
-                internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.A(G self)
                 {
@@ -1666,6 +1664,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -1821,8 +1821,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_Trivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1834,6 +1832,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Trivial() {Dispose(false);}
+
+                internal unsafe Const_Trivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -1943,8 +1943,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_TrivialDerived(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1956,6 +1954,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TrivialDerived() {Dispose(false);}
+
+                internal unsafe Const_TrivialDerived(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -2065,8 +2065,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NonTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -2078,6 +2076,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonTrivial() {Dispose(false);}
+
+                internal unsafe Const_NonTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -2231,8 +2231,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NonTrivialDerived(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -2244,6 +2242,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonTrivialDerived() {Dispose(false);}
+
+                internal unsafe Const_NonTrivialDerived(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -2414,6 +2414,18 @@ public static partial class MR
                     }
                 }
 
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SA_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_CSharp_SA_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SA() {Dispose(false);}
+
                 internal unsafe Const_SA(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Construct", ExactSpelling = true)]
@@ -2424,6 +2436,9 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
                 }
 
                 internal unsafe Const_SA(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -2443,18 +2458,6 @@ public static partial class MR
                     extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_Construct(_Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_Construct(ptr);
                 }
-
-                protected virtual unsafe void Dispose(bool disposing)
-                {
-                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
-                        return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SA_Destroy(_UnderlyingShared *_this);
-                    __MR_C_std_shared_ptr_MR_CSharp_SA_Destroy(_UnderlyingSharedPtr);
-                    _UnderlyingSharedPtr = null;
-                }
-                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_SA() {Dispose(false);}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -2630,6 +2633,18 @@ public static partial class MR
                     }
                 }
 
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SB_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_CSharp_SB_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SB() {Dispose(false);}
+
                 internal unsafe Const_SB(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Construct", ExactSpelling = true)]
@@ -2640,6 +2655,9 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
                 }
 
                 internal unsafe Const_SB(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -2659,18 +2677,6 @@ public static partial class MR
                     extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_Construct(_Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_Construct(ptr);
                 }
-
-                protected virtual unsafe void Dispose(bool disposing)
-                {
-                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
-                        return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SB_Destroy(_UnderlyingShared *_this);
-                    __MR_C_std_shared_ptr_MR_CSharp_SB_Destroy(_UnderlyingSharedPtr);
-                    _UnderlyingSharedPtr = null;
-                }
-                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_SB() {Dispose(false);}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -2867,36 +2873,6 @@ public static partial class MR
                     }
                 }
 
-                internal unsafe Const_SC(_Underlying *ptr, bool is_owning) : base(true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(_Underlying *other);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(_Underlying *other);
-                    if (is_owning)
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
-                    else
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(ptr);
-                }
-
-                internal unsafe Const_SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
-
-                internal static unsafe SC _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
-                    return new(__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
-                }
-
-                private protected unsafe void _LateMakeShared(_Underlying *ptr)
-                {
-                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
-                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(_Underlying *other);
-                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
-                }
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingSharedPtr is null || !_IsOwningVal)
@@ -2921,6 +2897,39 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_UpcastTo_MR_CSharp_SB", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_SB._Underlying *__MR_CSharp_SC_UpcastTo_MR_CSharp_SB(_Underlying *_this);
                     return MR.CS.CSharp.Const_SB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SC_UpcastTo_MR_CSharp_SB(self._UnderlyingPtr));
+                }
+
+                internal unsafe Const_SC(_Underlying *ptr, bool is_owning) : base(true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(_Underlying *other);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(_Underlying *other);
+                    if (is_owning)
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
+                    else
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
+                }
+
+                internal unsafe Const_SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+
+                internal static unsafe SC _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
+                    return new(__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
+                }
+
+                private protected unsafe void _LateMakeShared(_Underlying *ptr)
+                {
+                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
+                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(_Underlying *other);
+                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
                 }
 
                 /// <summary>
@@ -2955,10 +2964,6 @@ public static partial class MR
             /// </summary>
             public class SC : Const_SC
             {
-                internal unsafe SC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                internal unsafe SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.SA(SC self)
                 {
@@ -2972,6 +2977,10 @@ public static partial class MR
                     extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SC_UpcastTo_MR_CSharp_SB(_Underlying *_this);
                     return MR.CS.CSharp.SB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SC_UpcastTo_MR_CSharp_SB(self._UnderlyingPtr));
                 }
+
+                internal unsafe SC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                internal unsafe SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -3132,6 +3141,18 @@ public static partial class MR
                     }
                 }
 
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SD_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_CSharp_SD_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SD() {Dispose(false);}
+
                 internal unsafe Const_SD(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Construct", ExactSpelling = true)]
@@ -3142,6 +3163,9 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
                 }
 
                 internal unsafe Const_SD(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -3161,18 +3185,6 @@ public static partial class MR
                     extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SD_Construct(_Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_Construct(ptr);
                 }
-
-                protected virtual unsafe void Dispose(bool disposing)
-                {
-                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
-                        return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SD_Destroy(_UnderlyingShared *_this);
-                    __MR_C_std_shared_ptr_MR_CSharp_SD_Destroy(_UnderlyingSharedPtr);
-                    _UnderlyingSharedPtr = null;
-                }
-                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_SD() {Dispose(false);}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -3371,6 +3383,18 @@ public static partial class MR
                     }
                 }
 
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SE_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_CSharp_SE_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SE() {Dispose(false);}
+
                 internal unsafe Const_SE(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Construct", ExactSpelling = true)]
@@ -3381,6 +3405,9 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
                 }
 
                 internal unsafe Const_SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -3400,18 +3427,6 @@ public static partial class MR
                     extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SE_Construct(_Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_Construct(ptr);
                 }
-
-                protected virtual unsafe void Dispose(bool disposing)
-                {
-                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
-                        return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SE_Destroy(_UnderlyingShared *_this);
-                    __MR_C_std_shared_ptr_MR_CSharp_SE_Destroy(_UnderlyingSharedPtr);
-                    _UnderlyingSharedPtr = null;
-                }
-                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_SE() {Dispose(false);}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -3608,36 +3623,6 @@ public static partial class MR
                     }
                 }
 
-                internal unsafe Const_SF(_Underlying *ptr, bool is_owning) : base(true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_Construct(_Underlying *other);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(_Underlying *other);
-                    if (is_owning)
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr);
-                    else
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(ptr);
-                }
-
-                internal unsafe Const_SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
-
-                internal static unsafe SF _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
-                    return new(__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
-                }
-
-                private protected unsafe void _LateMakeShared(_Underlying *ptr)
-                {
-                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
-                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_Construct(_Underlying *other);
-                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr);
-                }
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingSharedPtr is null || !_IsOwningVal)
@@ -3674,6 +3659,39 @@ public static partial class MR
                     return Const_SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
                 }
 
+                internal unsafe Const_SF(_Underlying *ptr, bool is_owning) : base(true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_Construct(_Underlying *other);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(_Underlying *other);
+                    if (is_owning)
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr);
+                    else
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
+                }
+
+                internal unsafe Const_SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+
+                internal static unsafe SF _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
+                    return new(__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
+                }
+
+                private protected unsafe void _LateMakeShared(_Underlying *ptr)
+                {
+                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
+                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_Construct(_Underlying *other);
+                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr);
+                }
+
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
                 /// </summary>
@@ -3706,10 +3724,6 @@ public static partial class MR
             /// </summary>
             public class SF : Const_SF
             {
-                internal unsafe SF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                internal unsafe SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.SD(SF self)
                 {
@@ -3733,6 +3747,10 @@ public static partial class MR
                     if (ptr is null) return null;
                     return SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
                 }
+
+                internal unsafe SF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                internal unsafe SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -3853,8 +3871,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_Outer(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -3866,6 +3882,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Outer() {Dispose(false);}
+
+                internal unsafe Const_Outer(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -3898,8 +3916,6 @@ public static partial class MR
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
-                    internal unsafe Const_Inner(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                     protected virtual unsafe void Dispose(bool disposing)
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -3911,6 +3927,8 @@ public static partial class MR
                     }
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_Inner() {Dispose(false);}
+
+                    internal unsafe Const_Inner(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                     /// <summary>
                     /// Constructs an empty (default-constructed) instance.
@@ -4118,8 +4136,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_TestFields(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4132,177 +4148,166 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestFields() {Dispose(false);}
 
-                public static unsafe ref int StaticI
+                public static unsafe ref int StaticI => ref *__ref_storage_StaticI;
+                private protected static unsafe int *__ref_storage_StaticI;
+
+                public static unsafe int StaticConstI => *__ref_storage_StaticConstI;
+                private protected static unsafe int *__ref_storage_StaticConstI;
+
+                public static unsafe ref int StaticIRef => ref *__ref_storage_StaticIRef;
+                private protected static unsafe int *__ref_storage_StaticIRef;
+
+                public static unsafe int StaticConstIRef => *__ref_storage_StaticConstIRef;
+                private protected static unsafe int *__ref_storage_StaticConstIRef;
+
+                public static unsafe MR.CS.Std.String StaticS {get; private protected set;}
+
+                public static unsafe MR.CS.Std.Const_String StaticConstS {get; private protected set;}
+
+                public static unsafe MR.CS.Std.String StaticSRef {get; private protected set;}
+
+                public static unsafe MR.CS.Std.Const_String StaticConstSRef {get; private protected set;}
+
+                public unsafe int i => *__ref_storage_i;
+                private protected unsafe int *__ref_storage_i;
+
+                public unsafe int constI => *__ref_storage_constI;
+                private protected unsafe int *__ref_storage_constI;
+
+                public unsafe ref int iRef => ref *__ref_storage_iRef;
+                private protected unsafe int *__ref_storage_iRef;
+
+                public unsafe int constIRef => *__ref_storage_constIRef;
+                private protected unsafe int *__ref_storage_constIRef;
+
+                public unsafe MR.CS.Std.Const_String s {get; private protected set;}
+
+                public unsafe MR.CS.Std.Const_String constS {get; private protected set;}
+
+                public unsafe MR.CS.Std.String sRef {get; private protected set;}
+
+                public unsafe MR.CS.Std.Const_String constSRef {get; private protected set;}
+
+                unsafe static Const_TestFields()
                 {
-                    get
-                    {
+                    { // StaticI (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_static_i", ExactSpelling = true)]
                         extern static int *__MR_CSharp_TestFields_GetMutable_static_i();
-                        return ref *__MR_CSharp_TestFields_GetMutable_static_i();
+                        Const_TestFields.__ref_storage_StaticI = __MR_CSharp_TestFields_GetMutable_static_i();
                     }
-                }
 
-                public static unsafe int StaticConstI
-                {
-                    get
-                    {
+                    { // StaticConstI (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_const_i", ExactSpelling = true)]
                         extern static int *__MR_CSharp_TestFields_Get_static_const_i();
-                        return *__MR_CSharp_TestFields_Get_static_const_i();
+                        Const_TestFields.__ref_storage_StaticConstI = __MR_CSharp_TestFields_Get_static_const_i();
                     }
-                }
 
-                public static unsafe ref int StaticIRef
-                {
-                    get
-                    {
+                    { // StaticIRef (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_i_ref", ExactSpelling = true)]
                         extern static int *__MR_CSharp_TestFields_Get_static_i_ref();
-                        return ref *__MR_CSharp_TestFields_Get_static_i_ref();
+                        Const_TestFields.__ref_storage_StaticIRef = __MR_CSharp_TestFields_Get_static_i_ref();
                     }
-                }
 
-                public static unsafe int StaticConstIRef
-                {
-                    get
-                    {
+                    { // StaticConstIRef (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_const_i_ref", ExactSpelling = true)]
                         extern static int *__MR_CSharp_TestFields_Get_static_const_i_ref();
-                        return *__MR_CSharp_TestFields_Get_static_const_i_ref();
+                        Const_TestFields.__ref_storage_StaticConstIRef = __MR_CSharp_TestFields_Get_static_const_i_ref();
                     }
-                }
 
-                public static unsafe MR.CS.Std.String StaticS
-                {
-                    get
-                    {
+                    { // StaticS
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_static_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_GetMutable_static_s();
-                        return new(__MR_CSharp_TestFields_GetMutable_static_s(), is_owning: false);
+                        Const_TestFields.StaticS = new(__MR_CSharp_TestFields_GetMutable_static_s(), is_owning: false);
                     }
-                }
 
-                public static unsafe MR.CS.Std.Const_String StaticConstS
-                {
-                    get
-                    {
+                    { // StaticConstS
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_const_s", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_static_const_s();
-                        return new(__MR_CSharp_TestFields_Get_static_const_s(), is_owning: false);
+                        Const_TestFields.StaticConstS = new(__MR_CSharp_TestFields_Get_static_const_s(), is_owning: false);
                     }
-                }
 
-                public static unsafe MR.CS.Std.String StaticSRef
-                {
-                    get
-                    {
+                    { // StaticSRef
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_s_ref", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_Get_static_s_ref();
-                        return new(__MR_CSharp_TestFields_Get_static_s_ref(), is_owning: false);
+                        Const_TestFields.StaticSRef = new(__MR_CSharp_TestFields_Get_static_s_ref(), is_owning: false);
                     }
-                }
 
-                public static unsafe MR.CS.Std.Const_String StaticConstSRef
-                {
-                    get
-                    {
+                    { // StaticConstSRef
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_static_const_s_ref", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_static_const_s_ref();
-                        return new(__MR_CSharp_TestFields_Get_static_const_s_ref(), is_owning: false);
+                        Const_TestFields.StaticConstSRef = new(__MR_CSharp_TestFields_Get_static_const_s_ref(), is_owning: false);
                     }
                 }
 
-                public unsafe int i
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // i (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_i", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_TestFields_Get_i(_Underlying *_this);
-                        return *__MR_CSharp_TestFields_Get_i(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_TestFields_Get_i(MR.CS.CSharp.Const_TestFields._Underlying *_this);
+                        this.__ref_storage_i = __MR_CSharp_TestFields_Get_i(_UnderlyingPtr);
                     }
-                }
 
-                public unsafe int constI
-                {
-                    get
-                    {
+                    { // constI (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_i", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_TestFields_Get_const_i(_Underlying *_this);
-                        return *__MR_CSharp_TestFields_Get_const_i(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_TestFields_Get_const_i(MR.CS.CSharp.Const_TestFields._Underlying *_this);
+                        this.__ref_storage_constI = __MR_CSharp_TestFields_Get_const_i(_UnderlyingPtr);
                     }
-                }
 
-                public unsafe ref int iRef
-                {
-                    get
-                    {
+                    { // iRef (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_i_ref", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_TestFields_Get_i_ref(_Underlying *_this);
-                        return ref *__MR_CSharp_TestFields_Get_i_ref(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_TestFields_Get_i_ref(MR.CS.CSharp.Const_TestFields._Underlying *_this);
+                        this.__ref_storage_iRef = __MR_CSharp_TestFields_Get_i_ref(_UnderlyingPtr);
                     }
-                }
 
-                public unsafe int constIRef
-                {
-                    get
-                    {
+                    { // constIRef (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_i_ref", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_TestFields_Get_const_i_ref(_Underlying *_this);
-                        return *__MR_CSharp_TestFields_Get_const_i_ref(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_TestFields_Get_const_i_ref(MR.CS.CSharp.Const_TestFields._Underlying *_this);
+                        this.__ref_storage_constIRef = __MR_CSharp_TestFields_Get_const_i_ref(_UnderlyingPtr);
                     }
-                }
 
-                public unsafe MR.CS.Std.Const_String s
-                {
-                    get
-                    {
+                    { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_s", ExactSpelling = true)]
-                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_s(_Underlying *_this);
-                        MR.CS.Std.Const_String __ret;
-                        __ret = new(__MR_CSharp_TestFields_Get_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_s(MR.CS.CSharp.Const_TestFields._Underlying *_this);
+                        this.s = new(__MR_CSharp_TestFields_Get_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
                     }
-                }
 
-                public unsafe MR.CS.Std.Const_String constS
-                {
-                    get
-                    {
+                    { // constS
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_s", ExactSpelling = true)]
-                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_const_s(_Underlying *_this);
-                        MR.CS.Std.Const_String __ret;
-                        __ret = new(__MR_CSharp_TestFields_Get_const_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_const_s(MR.CS.CSharp.Const_TestFields._Underlying *_this);
+                        this.constS = new(__MR_CSharp_TestFields_Get_const_s(_UnderlyingPtr), is_owning: false);
+                        this.constS._KeepAliveEnclosingObject = this;
                     }
-                }
 
-                public unsafe MR.CS.Std.String sRef
-                {
-                    get
-                    {
+                    { // sRef
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_s_ref", ExactSpelling = true)]
-                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_Get_s_ref(_Underlying *_this);
-                        MR.CS.Std.String __ret;
-                        __ret = new(__MR_CSharp_TestFields_Get_s_ref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_Get_s_ref(MR.CS.CSharp.Const_TestFields._Underlying *_this);
+                        this.sRef = new(__MR_CSharp_TestFields_Get_s_ref(_UnderlyingPtr), is_owning: false);
+                        this.sRef._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // constSRef
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_s_ref", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_const_s_ref(MR.CS.CSharp.Const_TestFields._Underlying *_this);
+                        this.constSRef = new(__MR_CSharp_TestFields_Get_const_s_ref(_UnderlyingPtr), is_owning: false);
+                        this.constSRef._KeepAliveEnclosingObject = this;
                     }
                 }
 
-                public unsafe MR.CS.Std.Const_String constSRef
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_TestFields(_Underlying *ptr, bool is_owning) : base(is_owning)
                 {
-                    get
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_s_ref", ExactSpelling = true)]
-                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_const_s_ref(_Underlying *_this);
-                        MR.CS.Std.Const_String __ret;
-                        __ret = new(__MR_CSharp_TestFields_Get_const_s_ref(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
@@ -4313,6 +4318,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.TestFields._Underlying *__MR_CSharp_TestFields_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestFields._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_TestFields_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -4338,6 +4344,7 @@ public static partial class MR
                                 {
                                     _UnderlyingPtr = __MR_CSharp_TestFields_ConstructFrom(i, const_i, __ptr_i_ref, &const_i_ref, __ptr_s, __ptr_s + __len_s, __ptr_const_s, __ptr_const_s + __len_const_s, s_ref._UnderlyingPtr, __ptr_const_s_ref, __ptr_const_s_ref + __len_const_s_ref);
                                     _KeepAlive(s_ref);
+                                    _FinalizeFields();
                                 }
                             }
                         }
@@ -4351,30 +4358,40 @@ public static partial class MR
             /// </summary>
             public class TestFields : Const_TestFields
             {
-                internal unsafe TestFields(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe ref int i => ref *__ref_storage_i;
 
-                public new unsafe ref int i
+                public new unsafe MR.CS.Std.String s {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // i (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_i", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_TestFields_GetMutable_i(_Underlying *_this);
-                        return ref *__MR_CSharp_TestFields_GetMutable_i(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_TestFields_GetMutable_i(MR.CS.CSharp.TestFields._Underlying *_this);
+                        this.__ref_storage_i = __MR_CSharp_TestFields_GetMutable_i(_UnderlyingPtr);
+                    }
+
+                    { // s
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_GetMutable_s(MR.CS.CSharp.TestFields._Underlying *_this);
+                        this.s = new(__MR_CSharp_TestFields_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
+                        base.s = this.s;
                     }
                 }
 
-                public new unsafe MR.CS.Std.String s
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe TestFields(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
-                    get
+                    if (ptr is not null)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_s", ExactSpelling = true)]
-                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_GetMutable_s(_Underlying *_this);
-                        MR.CS.Std.String __ret;
-                        __ret = new(__MR_CSharp_TestFields_GetMutable_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
@@ -4385,6 +4402,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.TestFields._Underlying *__MR_CSharp_TestFields_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestFields._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_TestFields_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -4410,6 +4428,7 @@ public static partial class MR
                                 {
                                     _UnderlyingPtr = __MR_CSharp_TestFields_ConstructFrom(i, const_i, __ptr_i_ref, &const_i_ref, __ptr_s, __ptr_s + __len_s, __ptr_const_s, __ptr_const_s + __len_const_s, s_ref._UnderlyingPtr, __ptr_const_s_ref, __ptr_const_s_ref + __len_const_s_ref);
                                     _KeepAlive(s_ref);
+                                    _FinalizeFields();
                                 }
                             }
                         }
@@ -4479,8 +4498,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_TestConstness(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4492,6 +4509,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestConstness() {Dispose(false);}
+
+                internal unsafe Const_TestConstness(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -4623,8 +4642,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4636,6 +4653,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrA() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -4792,8 +4811,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4805,6 +4822,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrB() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -4961,8 +4980,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4974,6 +4991,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrC() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -5131,8 +5150,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5144,6 +5161,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrD() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -5300,8 +5319,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5313,6 +5330,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrE() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -5449,8 +5468,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5462,6 +5479,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrF() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -5598,8 +5617,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5611,6 +5628,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrG() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -5754,8 +5773,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5767,6 +5784,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrH() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -5910,8 +5929,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrI(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5923,6 +5940,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrI() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrI(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -6078,8 +6097,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_EqualityA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6091,6 +6108,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityA() {Dispose(false);}
+
+                internal unsafe Const_EqualityA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -6266,8 +6285,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_EqualityB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6279,6 +6296,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityB() {Dispose(false);}
+
+                internal unsafe Const_EqualityB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -6420,8 +6439,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_EqualityC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6433,6 +6450,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityC() {Dispose(false);}
+
+                internal unsafe Const_EqualityC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -6574,8 +6593,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_EqualityD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6587,6 +6604,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityD() {Dispose(false);}
+
+                internal unsafe Const_EqualityD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -6730,8 +6749,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_EqualityE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6743,6 +6760,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityE() {Dispose(false);}
+
+                internal unsafe Const_EqualityE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -6885,8 +6904,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6898,6 +6915,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalA() {Dispose(false);}
+
+                internal unsafe Const_RelationalA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -7034,8 +7053,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7047,6 +7064,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalB() {Dispose(false);}
+
+                internal unsafe Const_RelationalB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -7183,8 +7202,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7196,6 +7213,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalC() {Dispose(false);}
+
+                internal unsafe Const_RelationalC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -7338,8 +7357,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7351,6 +7368,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalD() {Dispose(false);}
+
+                internal unsafe Const_RelationalD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -7502,8 +7521,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7515,6 +7532,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalE() {Dispose(false);}
+
+                internal unsafe Const_RelationalE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -7666,8 +7685,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7679,6 +7696,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalF() {Dispose(false);}
+
+                internal unsafe Const_RelationalF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -7830,8 +7849,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7843,6 +7860,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsA() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -7964,8 +7983,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7977,6 +7994,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsB() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -8098,8 +8117,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8111,6 +8128,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsC() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -8227,8 +8246,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8240,6 +8257,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsD() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -8349,8 +8368,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8362,6 +8379,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsE() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -8486,8 +8505,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8499,6 +8516,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsF() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -8623,8 +8642,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8636,6 +8653,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsG() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -8758,8 +8777,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8771,6 +8788,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsH() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -8893,8 +8912,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8906,6 +8923,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsA() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -9027,8 +9046,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9040,6 +9057,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsB() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -9161,8 +9180,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9174,6 +9191,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsC() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -9290,8 +9309,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9303,6 +9320,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsD() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -9412,8 +9431,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9425,6 +9442,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsE() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -9549,8 +9568,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9562,6 +9579,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsF() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -9686,8 +9705,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9699,6 +9716,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsG() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -9821,8 +9840,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9834,6 +9851,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsH() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -9960,8 +9979,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsMixedLhs(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9973,6 +9990,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsMixedLhs() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsMixedLhs(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -10093,8 +10112,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsMixedRhs(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -10106,6 +10123,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsMixedRhs() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsMixedRhs(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -10216,8 +10235,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NonTrivialClassOps(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -10229,6 +10246,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonTrivialClassOps() {Dispose(false);}
+
+                internal unsafe Const_NonTrivialClassOps(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -10390,8 +10409,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NonCopyableClassByValueOps(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -10403,6 +10420,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonCopyableClassByValueOps() {Dispose(false);}
+
+                internal unsafe Const_NonCopyableClassByValueOps(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -10538,8 +10557,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_CallOp(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -10551,6 +10568,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_CallOp() {Dispose(false);}
+
+                internal unsafe Const_CallOp(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -10682,8 +10701,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_TestOpsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -10695,6 +10712,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestOpsA() {Dispose(false);}
+
+                internal unsafe Const_TestOpsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::TestOpsA::TestOpsA`.
@@ -11127,8 +11146,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_TestOpsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -11140,6 +11157,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestOpsB() {Dispose(false);}
+
+                internal unsafe Const_TestOpsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
@@ -11586,8 +11605,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_TestOpsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -11599,6 +11616,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestOpsC() {Dispose(false);}
+
+                internal unsafe Const_TestOpsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::TestOpsC::TestOpsC`.
@@ -12039,8 +12058,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IndexerA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -12053,15 +12070,32 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IndexerA() {Dispose(false);}
 
-                public unsafe int x
+                public unsafe int x => *__ref_storage_x;
+                private protected unsafe int *__ref_storage_x;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // x (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_Get_x", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_IndexerA_Get_x(_Underlying *_this);
-                        return *__MR_CSharp_IndexerA_Get_x(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_IndexerA_Get_x(MR.CS.CSharp.Const_IndexerA._Underlying *_this);
+                        this.__ref_storage_x = __MR_CSharp_IndexerA_Get_x(_UnderlyingPtr);
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IndexerA(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -12071,6 +12105,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_IndexerA_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12081,6 +12116,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_ConstructFrom(int x);
                     _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFrom(x);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12092,6 +12128,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_ConstructFromAnother(MR.CS.CSharp.IndexerA._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
             }
 
@@ -12102,17 +12139,30 @@ public static partial class MR
             /// </summary>
             public class IndexerA : Const_IndexerA
             {
-                internal unsafe IndexerA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe ref int x => ref *__ref_storage_x;
 
-                public new unsafe ref int x
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // x (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_GetMutable_x", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_IndexerA_GetMutable_x(_Underlying *_this);
-                        return ref *__MR_CSharp_IndexerA_GetMutable_x(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_IndexerA_GetMutable_x(MR.CS.CSharp.IndexerA._Underlying *_this);
+                        this.__ref_storage_x = __MR_CSharp_IndexerA_GetMutable_x(_UnderlyingPtr);
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IndexerA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -12122,6 +12172,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_IndexerA_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12132,6 +12183,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_ConstructFrom(int x);
                     _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFrom(x);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12143,6 +12195,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_ConstructFromAnother(MR.CS.CSharp.IndexerA._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12215,8 +12268,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IndexerB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -12229,18 +12280,32 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IndexerB() {Dispose(false);}
 
-                public unsafe MR.CS.CSharp.Const_IndexerA a
+                public unsafe MR.CS.CSharp.Const_IndexerA a {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_IndexerA._Underlying *__MR_CSharp_IndexerB_Get_a(_Underlying *_this);
-                        MR.CS.CSharp.Const_IndexerA __ret;
-                        __ret = new(__MR_CSharp_IndexerB_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.CSharp.Const_IndexerA._Underlying *__MR_CSharp_IndexerB_Get_a(MR.CS.CSharp.Const_IndexerB._Underlying *_this);
+                        this.a = new(__MR_CSharp_IndexerB_Get_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IndexerB(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -12250,6 +12315,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_IndexerB_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12261,6 +12327,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_ConstructFrom(MR.CS.CSharp.IndexerA._Underlying *a);
                     _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFrom(a._UnderlyingPtr);
                     _KeepAlive(a);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12272,6 +12339,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_ConstructFromAnother(MR.CS.CSharp.IndexerB._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12317,20 +12385,32 @@ public static partial class MR
             /// </summary>
             public class IndexerB : Const_IndexerB
             {
-                internal unsafe IndexerB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe MR.CS.CSharp.IndexerA a {get; private protected set;}
 
-                public new unsafe MR.CS.CSharp.IndexerA a
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_GetMutable_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerB_GetMutable_a(_Underlying *_this);
-                        MR.CS.CSharp.IndexerA __ret;
-                        __ret = new(__MR_CSharp_IndexerB_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerB_GetMutable_a(MR.CS.CSharp.IndexerB._Underlying *_this);
+                        this.a = new(__MR_CSharp_IndexerB_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
+                        base.a = this.a;
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IndexerB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -12340,6 +12420,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_IndexerB_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12351,6 +12432,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_ConstructFrom(MR.CS.CSharp.IndexerA._Underlying *a);
                     _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFrom(a._UnderlyingPtr);
                     _KeepAlive(a);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12362,6 +12444,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.IndexerB._Underlying *__MR_CSharp_IndexerB_ConstructFromAnother(MR.CS.CSharp.IndexerB._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_IndexerB_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12421,8 +12504,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IndexerC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -12434,6 +12515,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IndexerC() {Dispose(false);}
+
+                internal unsafe Const_IndexerC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -12570,8 +12653,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvOp(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -12583,6 +12664,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvOp() {Dispose(false);}
+
+                internal unsafe Const_ConvOp(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -12714,8 +12797,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvOpToRef(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -12727,6 +12808,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvOpToRef() {Dispose(false);}
+
+                internal unsafe Const_ConvOpToRef(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -12872,8 +12955,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StringConvString(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -12885,6 +12966,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StringConvString() {Dispose(false);}
+
+                internal unsafe Const_StringConvString(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -13016,8 +13099,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StringConvStringView(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -13029,6 +13110,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StringConvStringView() {Dispose(false);}
+
+                internal unsafe Const_StringConvStringView(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -13161,8 +13244,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StringConvFsPath(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -13174,6 +13255,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StringConvFsPath() {Dispose(false);}
+
+                internal unsafe Const_StringConvFsPath(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -13305,8 +13388,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtor(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -13318,6 +13399,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtor() {Dispose(false);}
+
+                internal unsafe Const_ConvCtor(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -13525,8 +13608,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtorWithDefArg(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -13538,6 +13619,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorWithDefArg() {Dispose(false);}
+
+                internal unsafe Const_ConvCtorWithDefArg(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
@@ -13672,8 +13755,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtorNonTrivialRestricted(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -13685,6 +13766,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorNonTrivialRestricted() {Dispose(false);}
+
+                internal unsafe Const_ConvCtorNonTrivialRestricted(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
@@ -13840,17 +13923,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe ref readonly ConvCtorExposed _Ref => ref *(ConvCtorExposed *)_UnderlyingPtr;
 
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe ConstBox_ConvCtorExposed(ConvCtorExposed other) : this(new ConstBox_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
-                /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_ConvCtorExposed` has this conversion, `Box_ConvCtorExposed` intentionally doesn't.
-                /// </summary>
-                public static implicit operator ConstBox_ConvCtorExposed(ConvCtorExposed other) {return new(other);}
-
-                internal unsafe ConstBox_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -13864,12 +13936,23 @@ public static partial class MR
                 public ref readonly int x => ref _Ref.x;
 
                 /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe ConstBox_ConvCtorExposed(ConvCtorExposed other) : this(new ConstBox_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
+                /// Convert from a struct by copying it. Note that only `ConstBox_ConvCtorExposed` has this conversion, `Box_ConvCtorExposed` intentionally doesn't.
+                /// </summary>
+                public static implicit operator ConstBox_ConvCtorExposed(ConvCtorExposed other) {return new(other);}
+
+                internal unsafe ConstBox_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// <summary>
                 /// Generated copy constructor.
                 /// </summary>
                 public unsafe ConstBox_ConvCtorExposed(ConstBox_ConvCtorExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = *(MR.CS.CSharp.ConvCtorExposed *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -13880,8 +13963,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ConvCtorExposed _ctor_result = __MR_CSharp_ConvCtorExposed_Construct(_1);
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = __MR_CSharp_ConvCtorExposed_Construct(_1);
                 }
 
                 /// <summary>
@@ -13902,6 +13984,8 @@ public static partial class MR
                 /// </summary>
                 public unsafe new ref ConvCtorExposed _Ref => ref *(ConvCtorExposed *)_UnderlyingPtr;
 
+                public new ref int x => ref _Ref.x;
+
                 /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 /// </summary>
@@ -13909,15 +13993,13 @@ public static partial class MR
 
                 internal unsafe Box_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int x => ref _Ref.x;
-
                 /// <summary>
                 /// Generated copy constructor.
                 /// </summary>
                 public unsafe Box_ConvCtorExposed(ConstBox_ConvCtorExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = *(MR.CS.CSharp.ConvCtorExposed *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -13933,8 +14015,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ConvCtorExposed _ctor_result = __MR_CSharp_ConvCtorExposed_Construct(_1);
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = __MR_CSharp_ConvCtorExposed_Construct(_1);
                 }
 
                 /// <summary>
@@ -13951,13 +14032,13 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
             public struct ConvCtorExposed
             {
+                [System.Runtime.InteropServices.FieldOffset(0)]
+                public int x;
+
                 /// <summary>
                 /// Copy contents from a wrapper class to this struct.
                 /// </summary>
                 public static implicit operator ConvCtorExposed(ConstBox_ConvCtorExposed other) => other._Ref;
-
-                [System.Runtime.InteropServices.FieldOffset(0)]
-                public int x;
 
                 /// <summary>
                 /// Generated copy constructor.
@@ -14077,8 +14158,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtorCopyButNoMove(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -14090,6 +14169,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorCopyButNoMove() {Dispose(false);}
+
+                internal unsafe Const_ConvCtorCopyButNoMove(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
@@ -14239,8 +14320,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtorTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -14252,6 +14331,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorTrivial() {Dispose(false);}
+
+                internal unsafe Const_ConvCtorTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -14398,8 +14479,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtorNonTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -14411,6 +14490,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorNonTrivial() {Dispose(false);}
+
+                internal unsafe Const_ConvCtorNonTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -14587,17 +14668,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe ref readonly ExposedLayout _Ref => ref *(ExposedLayout *)_UnderlyingPtr;
 
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe ConstBox_ExposedLayout(ExposedLayout other) : this(new ConstBox_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
-                /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayout` has this conversion, `Box_ExposedLayout` intentionally doesn't.
-                /// </summary>
-                public static implicit operator ConstBox_ExposedLayout(ExposedLayout other) {return new(other);}
-
-                internal unsafe ConstBox_ExposedLayout(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -14622,6 +14692,17 @@ public static partial class MR
                 public ref readonly MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
                 /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe ConstBox_ExposedLayout(ExposedLayout other) : this(new ConstBox_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
+                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayout` has this conversion, `Box_ExposedLayout` intentionally doesn't.
+                /// </summary>
+                public static implicit operator ConstBox_ExposedLayout(ExposedLayout other) {return new(other);}
+
+                internal unsafe ConstBox_ExposedLayout(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// <summary>
                 /// Generated default constructor.
                 /// </summary>
                 public unsafe ConstBox_ExposedLayout() : this(null, is_owning: true)
@@ -14636,7 +14717,7 @@ public static partial class MR
                 public unsafe ConstBox_ExposedLayout(ConstBox_ExposedLayout _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
+                    *(MR.CS.CSharp.ExposedLayout *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayout *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -14774,13 +14855,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe new ref ExposedLayout _Ref => ref *(ExposedLayout *)_UnderlyingPtr;
 
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe Box_ExposedLayout(ExposedLayout other) : this(new ConstBox_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
-
-                internal unsafe Box_ExposedLayout(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new ref ushort x => ref _Ref.x;
 
                 // This is field `y`!
@@ -14793,6 +14867,13 @@ public static partial class MR
                 public new bool b {get => _Ref.b; set => _Ref.b = value;}
 
                 public new ref MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
+
+                /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe Box_ExposedLayout(ExposedLayout other) : this(new ConstBox_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
+
+                internal unsafe Box_ExposedLayout(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Generated default constructor.
@@ -14809,7 +14890,7 @@ public static partial class MR
                 public unsafe Box_ExposedLayout(ConstBox_ExposedLayout _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
+                    *(MR.CS.CSharp.ExposedLayout *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayout *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -14908,11 +14989,6 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
             public struct ExposedLayout : System.IEquatable<float>
             {
-                /// <summary>
-                /// Copy contents from a wrapper class to this struct.
-                /// </summary>
-                public static implicit operator ExposedLayout(ConstBox_ExposedLayout other) => other._Ref;
-
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort x;
 
@@ -14932,6 +15008,11 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.FieldOffset(29)]
                 public MR.CS.ArrayBool4_5 ba;
+
+                /// <summary>
+                /// Copy contents from a wrapper class to this struct.
+                /// </summary>
+                public static implicit operator ExposedLayout(ConstBox_ExposedLayout other) => other._Ref;
 
                 /// <summary>
                 /// Generated copy constructor.
@@ -15293,45 +15374,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe ref readonly ExposedLayoutSh _Ref => ref *(ExposedLayoutSh *)_UnderlyingPtr;
 
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe ConstBox_ExposedLayoutSh(ExposedLayoutSh other) : this(new ConstBox_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
-                /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayoutSh` has this conversion, `Box_ExposedLayoutSh` intentionally doesn't.
-                /// </summary>
-                public static implicit operator ConstBox_ExposedLayoutSh(ExposedLayoutSh other) {return new(other);}
-
-                internal unsafe ConstBox_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(_Underlying *other);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning(_Underlying *other);
-                    if (is_owning)
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(ptr);
-                    else
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning(ptr);
-                }
-
-                internal unsafe ConstBox_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
-
-                internal static unsafe Box_ExposedLayoutSh _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
-                    return new(__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
-                }
-
-                private protected unsafe void _LateMakeShared(_Underlying *ptr)
-                {
-                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
-                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(_Underlying *other);
-                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(ptr);
-                }
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingSharedPtr is null || !_IsOwningVal)
@@ -15358,6 +15400,48 @@ public static partial class MR
                 public ref readonly MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
                 /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe ConstBox_ExposedLayoutSh(ExposedLayoutSh other) : this(new ConstBox_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
+                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayoutSh` has this conversion, `Box_ExposedLayoutSh` intentionally doesn't.
+                /// </summary>
+                public static implicit operator ConstBox_ExposedLayoutSh(ExposedLayoutSh other) {return new(other);}
+
+                internal unsafe ConstBox_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(_Underlying *other);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning(_Underlying *other);
+                    if (is_owning)
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(ptr);
+                    else
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
+                }
+
+                internal unsafe ConstBox_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+
+                internal static unsafe Box_ExposedLayoutSh _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
+                    return new(__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
+                }
+
+                private protected unsafe void _LateMakeShared(_Underlying *ptr)
+                {
+                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
+                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(_Underlying *other);
+                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(ptr);
+                }
+
+                /// <summary>
                 /// Generated default constructor.
                 /// </summary>
                 public unsafe ConstBox_ExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
@@ -15372,7 +15456,7 @@ public static partial class MR
                 public unsafe ConstBox_ExposedLayoutSh(ConstBox_ExposedLayoutSh _other) : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
+                    *(MR.CS.CSharp.ExposedLayoutSh *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayoutSh *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -15558,15 +15642,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe new ref ExposedLayoutSh _Ref => ref *(ExposedLayoutSh *)_UnderlyingPtr;
 
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe Box_ExposedLayoutSh(ExposedLayoutSh other) : this(new ConstBox_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
-
-                internal unsafe Box_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                internal unsafe Box_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
-
                 public new ref ushort x => ref _Ref.x;
 
                 // This is field `y`!
@@ -15579,6 +15654,15 @@ public static partial class MR
                 public new bool b {get => _Ref.b; set => _Ref.b = value;}
 
                 public new ref MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
+
+                /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe Box_ExposedLayoutSh(ExposedLayoutSh other) : this(new ConstBox_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
+
+                internal unsafe Box_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                internal unsafe Box_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
                 /// <summary>
                 /// Generated default constructor.
@@ -15595,7 +15679,7 @@ public static partial class MR
                 public unsafe Box_ExposedLayoutSh(ConstBox_ExposedLayoutSh _other) : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 56);
+                    *(MR.CS.CSharp.ExposedLayoutSh *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayoutSh *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -15694,11 +15778,6 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
             public struct ExposedLayoutSh : System.IEquatable<float>, System.IEquatable<MR.CS.CSharp.ExposedLayout>, System.IEquatable<MR.CS.CSharp.ExposedLayoutSh>
             {
-                /// <summary>
-                /// Copy contents from a wrapper class to this struct.
-                /// </summary>
-                public static implicit operator ExposedLayoutSh(ConstBox_ExposedLayoutSh other) => other._Ref;
-
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort x;
 
@@ -15718,6 +15797,11 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.FieldOffset(29)]
                 public MR.CS.ArrayBool4_5 ba;
+
+                /// <summary>
+                /// Copy contents from a wrapper class to this struct.
+                /// </summary>
+                public static implicit operator ExposedLayoutSh(ConstBox_ExposedLayoutSh other) => other._Ref;
 
                 /// <summary>
                 /// Generated copy constructor.
@@ -16097,17 +16181,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe ref readonly ExposedLayoutB _Ref => ref *(ExposedLayoutB *)_UnderlyingPtr;
 
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe ConstBox_ExposedLayoutB(ExposedLayoutB other) : this(new ConstBox_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
-                /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayoutB` has this conversion, `Box_ExposedLayoutB` intentionally doesn't.
-                /// </summary>
-                public static implicit operator ConstBox_ExposedLayoutB(ExposedLayoutB other) {return new(other);}
-
-                internal unsafe ConstBox_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -16121,12 +16194,23 @@ public static partial class MR
                 public ref readonly int x => ref _Ref.x;
 
                 /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe ConstBox_ExposedLayoutB(ExposedLayoutB other) : this(new ConstBox_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
+                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayoutB` has this conversion, `Box_ExposedLayoutB` intentionally doesn't.
+                /// </summary>
+                public static implicit operator ConstBox_ExposedLayoutB(ExposedLayoutB other) {return new(other);}
+
+                internal unsafe ConstBox_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// <summary>
                 /// Generated copy constructor.
                 /// </summary>
                 public unsafe ConstBox_ExposedLayoutB(ConstBox_ExposedLayoutB _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayoutB *)_other._UnderlyingPtr;
                 }
 
                 // Some random ctor.
@@ -16138,8 +16222,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
                 }
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
@@ -16151,8 +16234,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
                 }
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
@@ -16207,6 +16289,8 @@ public static partial class MR
                 /// </summary>
                 public unsafe new ref ExposedLayoutB _Ref => ref *(ExposedLayoutB *)_UnderlyingPtr;
 
+                public new ref int x => ref _Ref.x;
+
                 /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 /// </summary>
@@ -16214,15 +16298,13 @@ public static partial class MR
 
                 internal unsafe Box_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int x => ref _Ref.x;
-
                 /// <summary>
                 /// Generated copy constructor.
                 /// </summary>
                 public unsafe Box_ExposedLayoutB(ConstBox_ExposedLayoutB _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayoutB *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -16239,8 +16321,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
                 }
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
@@ -16252,8 +16333,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
                 }
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
@@ -16270,13 +16350,13 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
             public struct ExposedLayoutB : System.IEquatable<MR.CS.CSharp.ExposedLayoutB>
             {
+                [System.Runtime.InteropServices.FieldOffset(0)]
+                public int x;
+
                 /// <summary>
                 /// Copy contents from a wrapper class to this struct.
                 /// </summary>
                 public static implicit operator ExposedLayoutB(ConstBox_ExposedLayoutB other) => other._Ref;
-
-                [System.Runtime.InteropServices.FieldOffset(0)]
-                public int x;
 
                 /// <summary>
                 /// Generated copy constructor.
@@ -16442,8 +16522,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ArrayMembers(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -16456,112 +16534,112 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ArrayMembers() {Dispose(false);}
 
-                public unsafe int i
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_i", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_ArrayMembers_Get_i(_Underlying *_this);
-                        return *__MR_CSharp_ArrayMembers_Get_i(_UnderlyingPtr);
-                    }
-                }
+                public unsafe int i => *__ref_storage_i;
+                private protected unsafe int *__ref_storage_i;
 
-                public unsafe ref MR.CS.ArrayInt2 ia
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_ia", ExactSpelling = true)]
-                        extern static MR.CS.ArrayInt2 *__MR_CSharp_ArrayMembers_Get_ia(_Underlying *_this);
-                        return ref *(__MR_CSharp_ArrayMembers_Get_ia(_UnderlyingPtr));
-                    }
-                }
+                public unsafe ref MR.CS.ArrayInt2 ia => ref *(__array_storage_ia);
+                private protected unsafe MR.CS.ArrayInt2 *__array_storage_ia;
 
-                public unsafe ref MR.CS.ArrayInt3_4 iaa
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_iaa", ExactSpelling = true)]
-                        extern static MR.CS.ArrayInt3_4 *__MR_CSharp_ArrayMembers_Get_iaa(_Underlying *_this);
-                        return ref *(__MR_CSharp_ArrayMembers_Get_iaa(_UnderlyingPtr));
-                    }
-                }
+                public unsafe ref MR.CS.ArrayInt3_4 iaa => ref *(__array_storage_iaa);
+                private protected unsafe MR.CS.ArrayInt3_4 *__array_storage_iaa;
 
-                public unsafe int ci
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_ci", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_ArrayMembers_Get_ci(_Underlying *_this);
-                        return *__MR_CSharp_ArrayMembers_Get_ci(_UnderlyingPtr);
-                    }
-                }
+                public unsafe int ci => *__ref_storage_ci;
+                private protected unsafe int *__ref_storage_ci;
 
-                public unsafe ref readonly MR.CS.ConstArrayInt2 cia
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_cia", ExactSpelling = true)]
-                        extern static MR.CS.ConstArrayInt2 *__MR_CSharp_ArrayMembers_Get_cia(_Underlying *_this);
-                        return ref *(__MR_CSharp_ArrayMembers_Get_cia(_UnderlyingPtr));
-                    }
-                }
+                public unsafe ref readonly MR.CS.ConstArrayInt2 cia => ref *(__array_storage_cia);
+                private protected unsafe MR.CS.ConstArrayInt2 *__array_storage_cia;
 
-                public unsafe ref readonly MR.CS.ConstArrayInt3_4 ciaa
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_ciaa", ExactSpelling = true)]
-                        extern static MR.CS.ConstArrayInt3_4 *__MR_CSharp_ArrayMembers_Get_ciaa(_Underlying *_this);
-                        return ref *(__MR_CSharp_ArrayMembers_Get_ciaa(_UnderlyingPtr));
-                    }
-                }
+                public unsafe ref readonly MR.CS.ConstArrayInt3_4 ciaa => ref *(__array_storage_ciaa);
+                private protected unsafe MR.CS.ConstArrayInt3_4 *__array_storage_ciaa;
 
-                public unsafe MR.CS.Std.Const_String s
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_s", ExactSpelling = true)]
-                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_ArrayMembers_Get_s(_Underlying *_this);
-                        MR.CS.Std.Const_String __ret;
-                        __ret = new(__MR_CSharp_ArrayMembers_Get_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
-                    }
-                }
+                public unsafe MR.CS.Std.Const_String s {get; private protected set;}
 
-                public unsafe MR.CS.Std.ArrayString2 sa
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_sa", ExactSpelling = true)]
-                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_Get_sa(_Underlying *_this);
-                        return new(__MR_CSharp_ArrayMembers_Get_sa(_UnderlyingPtr));
-                    }
-                }
+                public unsafe MR.CS.Std.ArrayString2 sa {get; private protected set;}
 
                 // std::string saa[3][4]; // The C generator doesn't support those yet. We'd need to expose them as flat arrays, with N size getters, I think?
-                public unsafe MR.CS.Std.Const_String cs
+                public unsafe MR.CS.Std.Const_String cs {get; private protected set;}
+
+                public unsafe MR.CS.Std.ConstArrayString2 csa {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // i (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_i", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_ArrayMembers_Get_i(MR.CS.CSharp.Const_ArrayMembers._Underlying *_this);
+                        this.__ref_storage_i = __MR_CSharp_ArrayMembers_Get_i(_UnderlyingPtr);
+                    }
+
+                    { // ia (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_ia", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt2 *__MR_CSharp_ArrayMembers_Get_ia(_Underlying *_this);
+                        this.__array_storage_ia = __MR_CSharp_ArrayMembers_Get_ia(_UnderlyingPtr);
+                    }
+
+                    { // iaa (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_iaa", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt3_4 *__MR_CSharp_ArrayMembers_Get_iaa(_Underlying *_this);
+                        this.__array_storage_iaa = __MR_CSharp_ArrayMembers_Get_iaa(_UnderlyingPtr);
+                    }
+
+                    { // ci (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_ci", ExactSpelling = true)]
+                        extern static int *__MR_CSharp_ArrayMembers_Get_ci(MR.CS.CSharp.Const_ArrayMembers._Underlying *_this);
+                        this.__ref_storage_ci = __MR_CSharp_ArrayMembers_Get_ci(_UnderlyingPtr);
+                    }
+
+                    { // cia (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_cia", ExactSpelling = true)]
+                        extern static MR.CS.ConstArrayInt2 *__MR_CSharp_ArrayMembers_Get_cia(_Underlying *_this);
+                        this.__array_storage_cia = __MR_CSharp_ArrayMembers_Get_cia(_UnderlyingPtr);
+                    }
+
+                    { // ciaa (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_ciaa", ExactSpelling = true)]
+                        extern static MR.CS.ConstArrayInt3_4 *__MR_CSharp_ArrayMembers_Get_ciaa(_Underlying *_this);
+                        this.__array_storage_ciaa = __MR_CSharp_ArrayMembers_Get_ciaa(_UnderlyingPtr);
+                    }
+
+                    { // s
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_ArrayMembers_Get_s(MR.CS.CSharp.Const_ArrayMembers._Underlying *_this);
+                        this.s = new(__MR_CSharp_ArrayMembers_Get_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // sa (array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_sa", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_Get_sa(_Underlying *_this);
+                        this.sa = new(__MR_CSharp_ArrayMembers_Get_sa(_UnderlyingPtr));
+                    }
+
+                    { // cs
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_cs", ExactSpelling = true)]
-                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_ArrayMembers_Get_cs(_Underlying *_this);
-                        MR.CS.Std.Const_String __ret;
-                        __ret = new(__MR_CSharp_ArrayMembers_Get_cs(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_ArrayMembers_Get_cs(MR.CS.CSharp.Const_ArrayMembers._Underlying *_this);
+                        this.cs = new(__MR_CSharp_ArrayMembers_Get_cs(_UnderlyingPtr), is_owning: false);
+                        this.cs._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // csa (array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_csa", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_ArrayMembers_Get_csa(_Underlying *_this);
+                        this.csa = new(__MR_CSharp_ArrayMembers_Get_csa(_UnderlyingPtr));
                     }
                 }
 
-                public unsafe MR.CS.Std.ConstArrayString2 csa
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_ArrayMembers(_Underlying *ptr, bool is_owning) : base(is_owning)
                 {
-                    get
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_csa", ExactSpelling = true)]
-                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_ArrayMembers_Get_csa(_Underlying *_this);
-                        return new(__MR_CSharp_ArrayMembers_Get_csa(_UnderlyingPtr));
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -16571,6 +16649,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ArrayMembers._Underlying *__MR_CSharp_ArrayMembers_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_ArrayMembers_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -16582,6 +16661,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.ArrayMembers._Underlying *__MR_CSharp_ArrayMembers_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.ArrayMembers._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ArrayMembers_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
             }
 
@@ -16592,60 +16672,65 @@ public static partial class MR
             /// </summary>
             public class ArrayMembers : Const_ArrayMembers
             {
-                internal unsafe ArrayMembers(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe ref int i => ref *__ref_storage_i;
 
-                public new unsafe ref int i
+                new public unsafe ref MR.CS.ArrayInt2 ia => ref *(__array_storage_ia);
+
+                new public unsafe ref MR.CS.ArrayInt3_4 iaa => ref *(__array_storage_iaa);
+
+                public new unsafe MR.CS.Std.String s {get; private protected set;}
+
+                new public unsafe MR.CS.Std.ArrayString2 sa {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // i (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_i", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_ArrayMembers_GetMutable_i(_Underlying *_this);
-                        return ref *__MR_CSharp_ArrayMembers_GetMutable_i(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_ArrayMembers_GetMutable_i(MR.CS.CSharp.ArrayMembers._Underlying *_this);
+                        this.__ref_storage_i = __MR_CSharp_ArrayMembers_GetMutable_i(_UnderlyingPtr);
                     }
-                }
 
-                new public unsafe ref MR.CS.ArrayInt2 ia
-                {
-                    get
-                    {
+                    { // ia (ref array)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_ia", ExactSpelling = true)]
                         extern static MR.CS.ArrayInt2 *__MR_CSharp_ArrayMembers_GetMutable_ia(_Underlying *_this);
-                        return ref *(__MR_CSharp_ArrayMembers_GetMutable_ia(_UnderlyingPtr));
+                        this.__array_storage_ia = __MR_CSharp_ArrayMembers_GetMutable_ia(_UnderlyingPtr);
                     }
-                }
 
-                new public unsafe ref MR.CS.ArrayInt3_4 iaa
-                {
-                    get
-                    {
+                    { // iaa (ref array)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_iaa", ExactSpelling = true)]
                         extern static MR.CS.ArrayInt3_4 *__MR_CSharp_ArrayMembers_GetMutable_iaa(_Underlying *_this);
-                        return ref *(__MR_CSharp_ArrayMembers_GetMutable_iaa(_UnderlyingPtr));
+                        this.__array_storage_iaa = __MR_CSharp_ArrayMembers_GetMutable_iaa(_UnderlyingPtr);
                     }
-                }
 
-                public new unsafe MR.CS.Std.String s
-                {
-                    get
-                    {
+                    { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_s", ExactSpelling = true)]
-                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_GetMutable_s(_Underlying *_this);
-                        MR.CS.Std.String __ret;
-                        __ret = new(__MR_CSharp_ArrayMembers_GetMutable_s(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_GetMutable_s(MR.CS.CSharp.ArrayMembers._Underlying *_this);
+                        this.s = new(__MR_CSharp_ArrayMembers_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
+                        base.s = this.s;
                     }
-                }
 
-                new public unsafe MR.CS.Std.ArrayString2 sa
-                {
-                    get
-                    {
+                    { // sa (array)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_sa", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_GetMutable_sa(_Underlying *_this);
-                        return new(__MR_CSharp_ArrayMembers_GetMutable_sa(_UnderlyingPtr));
+                        this.sa = new(__MR_CSharp_ArrayMembers_GetMutable_sa(_UnderlyingPtr));
+                        base.sa = this.sa;
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe ArrayMembers(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -16655,6 +16740,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ArrayMembers._Underlying *__MR_CSharp_ArrayMembers_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_ArrayMembers_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -16666,6 +16752,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.ArrayMembers._Underlying *__MR_CSharp_ArrayMembers_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.ArrayMembers._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ArrayMembers_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
             }
 
@@ -16734,8 +16821,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NameConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -16748,28 +16833,41 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NameConflicts() {Dispose(false);}
 
-                public unsafe int nameConflicts
+                public unsafe int nameConflicts => *__ref_storage_nameConflicts;
+                private protected unsafe int *__ref_storage_nameConflicts;
+
+                public unsafe MR.CS.CSharp.NameConflicts.Const_A a {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // nameConflicts (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_Get_name_conflicts", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_NameConflicts_Get_name_conflicts(_Underlying *_this);
-                        return *__MR_CSharp_NameConflicts_Get_name_conflicts(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_NameConflicts_Get_name_conflicts(MR.CS.CSharp.Const_NameConflicts._Underlying *_this);
+                        this.__ref_storage_nameConflicts = __MR_CSharp_NameConflicts_Get_name_conflicts(_UnderlyingPtr);
+                    }
+
+                    { // a
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_Get_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.NameConflicts.Const_A._Underlying *__MR_CSharp_NameConflicts_Get_a(MR.CS.CSharp.Const_NameConflicts._Underlying *_this);
+                        this.a = new(__MR_CSharp_NameConflicts_Get_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
                     }
                 }
 
-                public unsafe MR.CS.CSharp.NameConflicts.Const_A a
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_NameConflicts(_Underlying *ptr, bool is_owning) : base(is_owning)
                 {
-                    get
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.NameConflicts.Const_A._Underlying *__MR_CSharp_NameConflicts_Get_a(_Underlying *_this);
-                        MR.CS.CSharp.NameConflicts.Const_A __ret;
-                        __ret = new(__MR_CSharp_NameConflicts_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -16779,6 +16877,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -16790,6 +16889,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_ConstructFrom(int name_conflicts, MR.CS.CSharp.NameConflicts.A._Underlying *a);
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFrom(name_conflicts, a._UnderlyingPtr);
                     _KeepAlive(a);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -16801,6 +16901,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_ConstructFromAnother(MR.CS.CSharp.NameConflicts._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -16813,8 +16914,6 @@ public static partial class MR
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
-                    internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                     protected virtual unsafe void Dispose(bool disposing)
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -16826,6 +16925,8 @@ public static partial class MR
                     }
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_A() {Dispose(false);}
+
+                    internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                     /// <summary>
                     /// Constructs an empty (default-constructed) instance.
@@ -16933,30 +17034,40 @@ public static partial class MR
             /// </summary>
             public class NameConflicts : Const_NameConflicts
             {
-                internal unsafe NameConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe ref int nameConflicts => ref *__ref_storage_nameConflicts;
 
-                public new unsafe ref int nameConflicts
+                public new unsafe MR.CS.CSharp.NameConflicts.A a {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // nameConflicts (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_GetMutable_name_conflicts", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_NameConflicts_GetMutable_name_conflicts(_Underlying *_this);
-                        return ref *__MR_CSharp_NameConflicts_GetMutable_name_conflicts(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_NameConflicts_GetMutable_name_conflicts(MR.CS.CSharp.NameConflicts._Underlying *_this);
+                        this.__ref_storage_nameConflicts = __MR_CSharp_NameConflicts_GetMutable_name_conflicts(_UnderlyingPtr);
+                    }
+
+                    { // a
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_GetMutable_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.NameConflicts.A._Underlying *__MR_CSharp_NameConflicts_GetMutable_a(MR.CS.CSharp.NameConflicts._Underlying *_this);
+                        this.a = new(__MR_CSharp_NameConflicts_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
+                        base.a = this.a;
                     }
                 }
 
-                public new unsafe MR.CS.CSharp.NameConflicts.A a
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe NameConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
-                    get
+                    if (ptr is not null)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_GetMutable_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.NameConflicts.A._Underlying *__MR_CSharp_NameConflicts_GetMutable_a(_Underlying *_this);
-                        MR.CS.CSharp.NameConflicts.A __ret;
-                        __ret = new(__MR_CSharp_NameConflicts_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -16966,6 +17077,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -16977,6 +17089,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_ConstructFrom(int name_conflicts, MR.CS.CSharp.NameConflicts.A._Underlying *a);
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFrom(name_conflicts, a._UnderlyingPtr);
                     _KeepAlive(a);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -16988,6 +17101,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.NameConflicts._Underlying *__MR_CSharp_NameConflicts_ConstructFromAnother(MR.CS.CSharp.NameConflicts._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_NameConflicts_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -17062,17 +17176,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe ref readonly NameConflictsExposed _Ref => ref *(NameConflictsExposed *)_UnderlyingPtr;
 
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe ConstBox_NameConflictsExposed(NameConflictsExposed other) : this(new ConstBox_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
-                /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_NameConflictsExposed` has this conversion, `Box_NameConflictsExposed` intentionally doesn't.
-                /// </summary>
-                public static implicit operator ConstBox_NameConflictsExposed(NameConflictsExposed other) {return new(other);}
-
-                internal unsafe ConstBox_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -17086,6 +17189,17 @@ public static partial class MR
                 public ref readonly int nameConflictsExposed => ref _Ref.nameConflictsExposed;
 
                 public ref readonly MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
+
+                /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe ConstBox_NameConflictsExposed(NameConflictsExposed other) : this(new ConstBox_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
+                /// Convert from a struct by copying it. Note that only `ConstBox_NameConflictsExposed` has this conversion, `Box_NameConflictsExposed` intentionally doesn't.
+                /// </summary>
+                public static implicit operator ConstBox_NameConflictsExposed(NameConflictsExposed other) {return new(other);}
+
+                internal unsafe ConstBox_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Generated default constructor.
@@ -17102,7 +17216,7 @@ public static partial class MR
                 public unsafe ConstBox_NameConflictsExposed(ConstBox_NameConflictsExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 8);
+                    *(MR.CS.CSharp.NameConflictsExposed *)_UnderlyingPtr = *(MR.CS.CSharp.NameConflictsExposed *)_other._UnderlyingPtr;
                 }
             }
 
@@ -17117,16 +17231,16 @@ public static partial class MR
                 /// </summary>
                 public unsafe new ref NameConflictsExposed _Ref => ref *(NameConflictsExposed *)_UnderlyingPtr;
 
+                public new ref int nameConflictsExposed => ref _Ref.nameConflictsExposed;
+
+                public new ref MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
+
                 /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 /// </summary>
                 public unsafe Box_NameConflictsExposed(NameConflictsExposed other) : this(new ConstBox_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Box_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                public new ref int nameConflictsExposed => ref _Ref.nameConflictsExposed;
-
-                public new ref MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
 
                 /// <summary>
                 /// Generated default constructor.
@@ -17143,7 +17257,7 @@ public static partial class MR
                 public unsafe Box_NameConflictsExposed(ConstBox_NameConflictsExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 8);
+                    *(MR.CS.CSharp.NameConflictsExposed *)_UnderlyingPtr = *(MR.CS.CSharp.NameConflictsExposed *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -17169,16 +17283,16 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 8)]
             public struct NameConflictsExposed
             {
-                /// <summary>
-                /// Copy contents from a wrapper class to this struct.
-                /// </summary>
-                public static implicit operator NameConflictsExposed(ConstBox_NameConflictsExposed other) => other._Ref;
-
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int nameConflictsExposed;
 
                 [System.Runtime.InteropServices.FieldOffset(4)]
                 public MR.CS.CSharp.NameConflictsExposed.A a;
+
+                /// <summary>
+                /// Copy contents from a wrapper class to this struct.
+                /// </summary>
+                public static implicit operator NameConflictsExposed(ConstBox_NameConflictsExposed other) => other._Ref;
 
                 /// <summary>
                 /// Generated copy constructor.
@@ -17213,17 +17327,6 @@ public static partial class MR
                     /// </summary>
                     public unsafe ref readonly A _Ref => ref *(A *)_UnderlyingPtr;
 
-                    /// <summary>
-                    /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                    /// </summary>
-                    public unsafe ConstBox_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
-                    /// <summary>
-                    /// Convert from a struct by copying it. Note that only `ConstBox_A` has this conversion, `Box_A` intentionally doesn't.
-                    /// </summary>
-                    public static implicit operator ConstBox_A(A other) {return new(other);}
-
-                    internal unsafe ConstBox_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                     protected virtual unsafe void Dispose(bool disposing)
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -17235,6 +17338,17 @@ public static partial class MR
                     ~ConstBox_A() {Dispose(false);}
 
                     public ref readonly int x => ref _Ref.x;
+
+                    /// <summary>
+                    /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                    /// </summary>
+                    public unsafe ConstBox_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
+                    /// <summary>
+                    /// Convert from a struct by copying it. Note that only `ConstBox_A` has this conversion, `Box_A` intentionally doesn't.
+                    /// </summary>
+                    public static implicit operator ConstBox_A(A other) {return new(other);}
+
+                    internal unsafe ConstBox_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                     /// <summary>
                     /// Generated default constructor.
@@ -17251,7 +17365,7 @@ public static partial class MR
                     public unsafe ConstBox_A(ConstBox_A _other) : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                        System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                        *(MR.CS.CSharp.NameConflictsExposed.A *)_UnderlyingPtr = *(MR.CS.CSharp.NameConflictsExposed.A *)_other._UnderlyingPtr;
                     }
                 }
 
@@ -17266,14 +17380,14 @@ public static partial class MR
                     /// </summary>
                     public unsafe new ref A _Ref => ref *(A *)_UnderlyingPtr;
 
+                    public new ref int x => ref _Ref.x;
+
                     /// <summary>
                     /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                     /// </summary>
                     public unsafe Box_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
 
                     internal unsafe Box_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                    public new ref int x => ref _Ref.x;
 
                     /// <summary>
                     /// Generated default constructor.
@@ -17290,7 +17404,7 @@ public static partial class MR
                     public unsafe Box_A(ConstBox_A _other) : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                        System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                        *(MR.CS.CSharp.NameConflictsExposed.A *)_UnderlyingPtr = *(MR.CS.CSharp.NameConflictsExposed.A *)_other._UnderlyingPtr;
                     }
 
                     /// <summary>
@@ -17306,13 +17420,13 @@ public static partial class MR
                 [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
                 public struct A
                 {
+                    [System.Runtime.InteropServices.FieldOffset(0)]
+                    public int x;
+
                     /// <summary>
                     /// Copy contents from a wrapper class to this struct.
                     /// </summary>
                     public static implicit operator A(ConstBox_A other) => other._Ref;
-
-                    [System.Runtime.InteropServices.FieldOffset(0)]
-                    public int x;
 
                     /// <summary>
                     /// Generated copy constructor.
@@ -17481,8 +17595,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_AmbiguousTemplates(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -17494,6 +17606,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_AmbiguousTemplates() {Dispose(false);}
+
+                internal unsafe Const_AmbiguousTemplates(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -17679,17 +17793,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe ref readonly ConstNonconstConflicts _Ref => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
 
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe ConstBox_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new ConstBox_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
-                /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_ConstNonconstConflicts` has this conversion, `Box_ConstNonconstConflicts` intentionally doesn't.
-                /// </summary>
-                public static implicit operator ConstBox_ConstNonconstConflicts(ConstNonconstConflicts other) {return new(other);}
-
-                internal unsafe ConstBox_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -17701,6 +17804,17 @@ public static partial class MR
                 ~ConstBox_ConstNonconstConflicts() {Dispose(false);}
 
                 public ref readonly int x => ref _Ref.x;
+
+                /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe ConstBox_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new ConstBox_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
+                /// Convert from a struct by copying it. Note that only `ConstBox_ConstNonconstConflicts` has this conversion, `Box_ConstNonconstConflicts` intentionally doesn't.
+                /// </summary>
+                public static implicit operator ConstBox_ConstNonconstConflicts(ConstNonconstConflicts other) {return new(other);}
+
+                internal unsafe ConstBox_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Generated default constructor.
@@ -17717,7 +17831,7 @@ public static partial class MR
                 public unsafe ConstBox_ConstNonconstConflicts(ConstBox_ConstNonconstConflicts _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ConstNonconstConflicts *)_UnderlyingPtr = *(MR.CS.CSharp.ConstNonconstConflicts *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -17813,14 +17927,14 @@ public static partial class MR
                 /// </summary>
                 public unsafe new ref ConstNonconstConflicts _Ref => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
 
+                public new ref int x => ref _Ref.x;
+
                 /// <summary>
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 /// </summary>
                 public unsafe Box_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new ConstBox_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Box_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                public new ref int x => ref _Ref.x;
 
                 /// <summary>
                 /// Generated default constructor.
@@ -17837,7 +17951,7 @@ public static partial class MR
                 public unsafe Box_ConstNonconstConflicts(ConstBox_ConstNonconstConflicts _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 4);
+                    *(MR.CS.CSharp.ConstNonconstConflicts *)_UnderlyingPtr = *(MR.CS.CSharp.ConstNonconstConflicts *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -17936,13 +18050,13 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
             public struct ConstNonconstConflicts
             {
+                [System.Runtime.InteropServices.FieldOffset(0)]
+                public int x;
+
                 /// <summary>
                 /// Copy contents from a wrapper class to this struct.
                 /// </summary>
                 public static implicit operator ConstNonconstConflicts(ConstBox_ConstNonconstConflicts other) => other._Ref;
-
-                [System.Runtime.InteropServices.FieldOffset(0)]
-                public int x;
 
                 /// <summary>
                 /// Generated copy constructor.
@@ -18234,8 +18348,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -18252,109 +18364,134 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_sa", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_sa();
-                        var ptr = __MR_CSharp_ClassMemberPointersClass_Get_sa();
                         MR.CS.CSharp.A? value = null;
-                        if (*ptr is not null)
-                            value = new(*ptr, is_owning: false);
+                        if (*__ptr_storage_Sa is not null)
+                            value = new(*__ptr_storage_Sa, is_owning: false);
                         return value;
                     }
                 }
+                private protected static unsafe MR.CS.CSharp.A._Underlying **__ptr_storage_Sa;
 
                 public static unsafe MR.CS.CSharp.Const_A? Sb
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_sb", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_sb();
-                        var ptr = __MR_CSharp_ClassMemberPointersClass_Get_sb();
                         MR.CS.CSharp.Const_A? value = null;
-                        if (*ptr is not null)
-                            value = new(*ptr, is_owning: false);
+                        if (*__ptr_storage_Sb is not null)
+                            value = new(*__ptr_storage_Sb, is_owning: false);
                         return value;
                     }
                 }
+                private protected static unsafe MR.CS.CSharp.Const_A._Underlying **__ptr_storage_Sb;
 
-                public static unsafe MR.CS.CSharp.A Sc
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_sc", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_sc();
-                        return new(__MR_CSharp_ClassMemberPointersClass_Get_sc(), is_owning: false);
-                    }
-                }
+                public static unsafe MR.CS.CSharp.A Sc {get; private protected set;}
 
-                public static unsafe MR.CS.CSharp.Const_A Sd
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_sd", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_sd();
-                        return new(__MR_CSharp_ClassMemberPointersClass_Get_sd(), is_owning: false);
-                    }
-                }
+                public static unsafe MR.CS.CSharp.Const_A Sd {get; private protected set;}
 
                 public unsafe MR.CS.CSharp.A? a
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_a(Const_ClassMemberPointersClass._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersClass_Get_a(_UnderlyingPtr);
                         MR.CS.CSharp.A? value = null;
-                        if (*ptr is not null)
+                        if (*__ptr_storage_a is not null)
                         {
-                            value = new(*ptr, is_owning: false);
+                            value = new(*__ptr_storage_a, is_owning: false);
                             value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
                 }
+                private protected unsafe MR.CS.CSharp.A._Underlying **__ptr_storage_a;
 
                 public unsafe MR.CS.CSharp.Const_A? b
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_b", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_b(Const_ClassMemberPointersClass._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersClass_Get_b(_UnderlyingPtr);
                         MR.CS.CSharp.Const_A? value = null;
-                        if (*ptr is not null)
+                        if (*__ptr_storage_b is not null)
                         {
-                            value = new(*ptr, is_owning: false);
+                            value = new(*__ptr_storage_b, is_owning: false);
                             value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
                 }
+                private protected unsafe MR.CS.CSharp.Const_A._Underlying **__ptr_storage_b;
 
-                public unsafe MR.CS.CSharp.A c
+                public unsafe MR.CS.CSharp.A c {get; private protected set;}
+
+                public unsafe MR.CS.CSharp.Const_A d {get; private protected set;}
+
+                unsafe static Const_ClassMemberPointersClass()
                 {
-                    get
-                    {
+                    { // Sa (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_sa", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_sa();
+                        Const_ClassMemberPointersClass.__ptr_storage_Sa = __MR_CSharp_ClassMemberPointersClass_Get_sa();
+                    }
+
+                    { // Sb (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_sb", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_sb();
+                        Const_ClassMemberPointersClass.__ptr_storage_Sb = __MR_CSharp_ClassMemberPointersClass_Get_sb();
+                    }
+
+                    { // Sc
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_sc", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_sc();
+                        Const_ClassMemberPointersClass.Sc = new(__MR_CSharp_ClassMemberPointersClass_Get_sc(), is_owning: false);
+                    }
+
+                    { // Sd
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_sd", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_sd();
+                        Const_ClassMemberPointersClass.Sd = new(__MR_CSharp_ClassMemberPointersClass_Get_sd(), is_owning: false);
+                    }
+                }
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // a (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_a(Const_ClassMemberPointersClass._Underlying *_this);
+                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersClass_Get_a(_UnderlyingPtr);
+                    }
+
+                    { // b (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_b", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_b(Const_ClassMemberPointersClass._Underlying *_this);
+                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersClass_Get_b(_UnderlyingPtr);
+                    }
+
+                    { // c
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_c", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_c(_Underlying *_this);
-                        MR.CS.CSharp.A __ret;
-                        __ret = new(__MR_CSharp_ClassMemberPointersClass_Get_c(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_c(MR.CS.CSharp.Const_ClassMemberPointersClass._Underlying *_this);
+                        this.c = new(__MR_CSharp_ClassMemberPointersClass_Get_c(_UnderlyingPtr), is_owning: false);
+                        this.c._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // d
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_d", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_d(MR.CS.CSharp.Const_ClassMemberPointersClass._Underlying *_this);
+                        this.d = new(__MR_CSharp_ClassMemberPointersClass_Get_d(_UnderlyingPtr), is_owning: false);
+                        this.d._KeepAliveEnclosingObject = this;
                     }
                 }
 
-                public unsafe MR.CS.CSharp.Const_A d
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(is_owning)
                 {
-                    get
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_d", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_d(_Underlying *_this);
-                        MR.CS.CSharp.Const_A __ret;
-                        __ret = new(__MR_CSharp_ClassMemberPointersClass_Get_d(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersClass::ClassMemberPointersClass`.
@@ -18365,6 +18502,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersClass._Underlying *__MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersClass._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -18379,6 +18517,7 @@ public static partial class MR
                     if (b is not null) _KeepAlive(b);
                     _KeepAlive(c);
                     _KeepAlive(d);
+                    _FinalizeFields();
                 }
             }
 
@@ -18389,20 +18528,15 @@ public static partial class MR
             /// </summary>
             public class ClassMemberPointersClass : Const_ClassMemberPointersClass
             {
-                internal unsafe ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.CSharp.A? a
                 {
                     get => base.a;
                     set
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_GetMutable_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointersClass_GetMutable_a(ClassMemberPointersClass._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersClass_GetMutable_a(_UnderlyingPtr);
                         _DiscardKeepAlive("a");
                         if (value is not null)
                             _KeepAlive(value, "a");
-                        *ptr = (value is not null ? value._UnderlyingPtr : null);
+                        *__ptr_storage_a = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
 
@@ -18411,15 +18545,41 @@ public static partial class MR
                     get => base.b;
                     set
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_GetMutable_b", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointersClass_GetMutable_b(ClassMemberPointersClass._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersClass_GetMutable_b(_UnderlyingPtr);
                         _DiscardKeepAlive("b");
                         if (value is not null)
                             _KeepAlive(value, "b");
-                        *ptr = (value is not null ? value._UnderlyingPtr : null);
+                        *__ptr_storage_b = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // a (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_a(ClassMemberPointersClass._Underlying *_this);
+                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersClass_Get_a(_UnderlyingPtr);
+                    }
+
+                    { // b (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_b", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_b(ClassMemberPointersClass._Underlying *_this);
+                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersClass_Get_b(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersClass::ClassMemberPointersClass`.
@@ -18430,6 +18590,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersClass._Underlying *__MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersClass._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -18444,6 +18605,7 @@ public static partial class MR
                     if (b is not null) _KeepAlive(b);
                     _KeepAlive(c);
                     _KeepAlive(d);
+                    _FinalizeFields();
                 }
             }
 
@@ -18491,8 +18653,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -18509,103 +18669,136 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sa", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Box_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_sa();
-                        var ptr = __MR_CSharp_ClassMemberPointersExposed_Get_sa();
                         MR.CS.CSharp.Box_ExposedLayout? value = null;
-                        if (*ptr is not null)
-                            value = new(*ptr, is_owning: false);
+                        if (*__ptr_storage_Sa is not null)
+                            value = new(*__ptr_storage_Sa, is_owning: false);
                         return value;
                     }
                 }
+                private protected static unsafe MR.CS.CSharp.Box_ExposedLayout._Underlying **__ptr_storage_Sa;
 
                 public static unsafe MR.CS.CSharp.ConstBox_ExposedLayout? Sb
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sb", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_sb();
-                        var ptr = __MR_CSharp_ClassMemberPointersExposed_Get_sb();
                         MR.CS.CSharp.ConstBox_ExposedLayout? value = null;
-                        if (*ptr is not null)
-                            value = new(*ptr, is_owning: false);
+                        if (*__ptr_storage_Sb is not null)
+                            value = new(*__ptr_storage_Sb, is_owning: false);
                         return value;
                     }
                 }
+                private protected static unsafe MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__ptr_storage_Sb;
 
-                public static unsafe ref MR.CS.CSharp.ExposedLayout Sc
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sc", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_sc();
-                        return ref *__MR_CSharp_ClassMemberPointersExposed_Get_sc();
-                    }
-                }
+                public static unsafe ref MR.CS.CSharp.ExposedLayout Sc => ref *__ref_storage_Sc;
+                private protected static unsafe MR.CS.CSharp.ExposedLayout *__ref_storage_Sc;
 
-                public static unsafe ref readonly MR.CS.CSharp.ExposedLayout Sd
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sd", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_sd();
-                        return ref *__MR_CSharp_ClassMemberPointersExposed_Get_sd();
-                    }
-                }
+                public static unsafe ref readonly MR.CS.CSharp.ExposedLayout Sd => ref *__ref_storage_Sd;
+                private protected static unsafe MR.CS.CSharp.ExposedLayout *__ref_storage_Sd;
 
                 public unsafe MR.CS.CSharp.Box_ExposedLayout? a
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Box_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_a(Const_ClassMemberPointersExposed._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersExposed_Get_a(_UnderlyingPtr);
                         MR.CS.CSharp.Box_ExposedLayout? value = null;
-                        if (*ptr is not null)
+                        if (*__ptr_storage_a is not null)
                         {
-                            value = new(*ptr, is_owning: false);
+                            value = new(*__ptr_storage_a, is_owning: false);
                             value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
                 }
+                private protected unsafe MR.CS.CSharp.Box_ExposedLayout._Underlying **__ptr_storage_a;
 
                 public unsafe MR.CS.CSharp.ConstBox_ExposedLayout? b
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_b", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_b(Const_ClassMemberPointersExposed._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersExposed_Get_b(_UnderlyingPtr);
                         MR.CS.CSharp.ConstBox_ExposedLayout? value = null;
-                        if (*ptr is not null)
+                        if (*__ptr_storage_b is not null)
                         {
-                            value = new(*ptr, is_owning: false);
+                            value = new(*__ptr_storage_b, is_owning: false);
                             value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
                 }
+                private protected unsafe MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__ptr_storage_b;
 
-                public unsafe ref MR.CS.CSharp.ExposedLayout c
+                public unsafe ref MR.CS.CSharp.ExposedLayout c => ref *__ref_storage_c;
+                private protected unsafe MR.CS.CSharp.ExposedLayout *__ref_storage_c;
+
+                public unsafe ref readonly MR.CS.CSharp.ExposedLayout d => ref *__ref_storage_d;
+                private protected unsafe MR.CS.CSharp.ExposedLayout *__ref_storage_d;
+
+                unsafe static Const_ClassMemberPointersExposed()
                 {
-                    get
-                    {
+                    { // Sa (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sa", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Box_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_sa();
+                        Const_ClassMemberPointersExposed.__ptr_storage_Sa = __MR_CSharp_ClassMemberPointersExposed_Get_sa();
+                    }
+
+                    { // Sb (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sb", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_sb();
+                        Const_ClassMemberPointersExposed.__ptr_storage_Sb = __MR_CSharp_ClassMemberPointersExposed_Get_sb();
+                    }
+
+                    { // Sc (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sc", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_sc();
+                        Const_ClassMemberPointersExposed.__ref_storage_Sc = __MR_CSharp_ClassMemberPointersExposed_Get_sc();
+                    }
+
+                    { // Sd (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_sd", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_sd();
+                        Const_ClassMemberPointersExposed.__ref_storage_Sd = __MR_CSharp_ClassMemberPointersExposed_Get_sd();
+                    }
+                }
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // a (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Box_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_a(Const_ClassMemberPointersExposed._Underlying *_this);
+                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersExposed_Get_a(_UnderlyingPtr);
+                    }
+
+                    { // b (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_b", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_b(Const_ClassMemberPointersExposed._Underlying *_this);
+                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersExposed_Get_b(_UnderlyingPtr);
+                    }
+
+                    { // c (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_c", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_c(_Underlying *_this);
-                        return ref *__MR_CSharp_ClassMemberPointersExposed_Get_c(_UnderlyingPtr);
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_c(MR.CS.CSharp.Const_ClassMemberPointersExposed._Underlying *_this);
+                        this.__ref_storage_c = __MR_CSharp_ClassMemberPointersExposed_Get_c(_UnderlyingPtr);
+                    }
+
+                    { // d (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_d", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_d(MR.CS.CSharp.Const_ClassMemberPointersExposed._Underlying *_this);
+                        this.__ref_storage_d = __MR_CSharp_ClassMemberPointersExposed_Get_d(_UnderlyingPtr);
                     }
                 }
 
-                public unsafe ref readonly MR.CS.CSharp.ExposedLayout d
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(is_owning)
                 {
-                    get
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_d", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_d(_Underlying *_this);
-                        return ref *__MR_CSharp_ClassMemberPointersExposed_Get_d(_UnderlyingPtr);
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersExposed::ClassMemberPointersExposed`.
@@ -18616,6 +18809,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersExposed._Underlying *__MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersExposed._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -18633,6 +18827,7 @@ public static partial class MR
                             MR.CS.CSharp.ExposedLayout __deref_b = b.GetValueOrDefault();
                             _UnderlyingPtr = __MR_CSharp_ClassMemberPointersExposed_ConstructFrom(a is not null ? &__value_a : null, b.HasValue ? &__deref_b : null, __ptr_c, __ptr_d);
                             if (a is not null) a.Value = __value_a;
+                            _FinalizeFields();
                         }
                     }
                 }
@@ -18644,20 +18839,15 @@ public static partial class MR
             /// </summary>
             public class ClassMemberPointersExposed : Const_ClassMemberPointersExposed
             {
-                internal unsafe ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.CSharp.Box_ExposedLayout? a
                 {
                     get => base.a;
                     set
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_GetMutable_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Box_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_GetMutable_a(ClassMemberPointersExposed._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersExposed_GetMutable_a(_UnderlyingPtr);
                         _DiscardKeepAlive("a");
                         if (value is not null)
                             _KeepAlive(value, "a");
-                        *ptr = (value is not null ? value._UnderlyingPtr : null);
+                        *__ptr_storage_a = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
 
@@ -18666,15 +18856,41 @@ public static partial class MR
                     get => base.b;
                     set
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_GetMutable_b", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_GetMutable_b(ClassMemberPointersExposed._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersExposed_GetMutable_b(_UnderlyingPtr);
                         _DiscardKeepAlive("b");
                         if (value is not null)
                             _KeepAlive(value, "b");
-                        *ptr = (value is not null ? value._UnderlyingPtr : null);
+                        *__ptr_storage_b = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // a (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Box_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_a(ClassMemberPointersExposed._Underlying *_this);
+                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersExposed_Get_a(_UnderlyingPtr);
+                    }
+
+                    { // b (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_b", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_b(ClassMemberPointersExposed._Underlying *_this);
+                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersExposed_Get_b(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersExposed::ClassMemberPointersExposed`.
@@ -18685,6 +18901,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersExposed._Underlying *__MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersExposed._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -18702,6 +18919,7 @@ public static partial class MR
                             MR.CS.CSharp.ExposedLayout __deref_b = b.GetValueOrDefault();
                             _UnderlyingPtr = __MR_CSharp_ClassMemberPointersExposed_ConstructFrom(a is not null ? &__value_a : null, b.HasValue ? &__deref_b : null, __ptr_c, __ptr_d);
                             if (a is not null) a.Value = __value_a;
+                            _FinalizeFields();
                         }
                     }
                 }
@@ -18751,8 +18969,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -18769,103 +18985,136 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_sa", ExactSpelling = true)]
-                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_sa();
-                        var ptr = __MR_CSharp_ClassMemberPointersUshort_Get_sa();
                         MR.CS.Misc.Box<ushort>? value = null;
-                        if (*ptr is not null)
-                            value = new(*ptr);
+                        if (*__ptr_storage_Sa is not null)
+                            value = new(*__ptr_storage_Sa);
                         return value;
                     }
                 }
+                private protected static unsafe ushort **__ptr_storage_Sa;
 
                 public static unsafe MR.CS.Misc.Const_Box<ushort>? Sb
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_sb", ExactSpelling = true)]
-                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_sb();
-                        var ptr = __MR_CSharp_ClassMemberPointersUshort_Get_sb();
                         MR.CS.Misc.Const_Box<ushort>? value = null;
-                        if (*ptr is not null)
-                            value = new(*ptr);
+                        if (*__ptr_storage_Sb is not null)
+                            value = new(*__ptr_storage_Sb);
                         return value;
                     }
                 }
+                private protected static unsafe ushort **__ptr_storage_Sb;
 
-                public static unsafe ref ushort Sc
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_sc", ExactSpelling = true)]
-                        extern static ushort *__MR_CSharp_ClassMemberPointersUshort_Get_sc();
-                        return ref *__MR_CSharp_ClassMemberPointersUshort_Get_sc();
-                    }
-                }
+                public static unsafe ref ushort Sc => ref *__ref_storage_Sc;
+                private protected static unsafe ushort *__ref_storage_Sc;
 
-                public static unsafe ushort Sd
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_sd", ExactSpelling = true)]
-                        extern static ushort *__MR_CSharp_ClassMemberPointersUshort_Get_sd();
-                        return *__MR_CSharp_ClassMemberPointersUshort_Get_sd();
-                    }
-                }
+                public static unsafe ushort Sd => *__ref_storage_Sd;
+                private protected static unsafe ushort *__ref_storage_Sd;
 
                 public unsafe MR.CS.Misc.Box<ushort>? a
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_a", ExactSpelling = true)]
-                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_a(Const_ClassMemberPointersUshort._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersUshort_Get_a(_UnderlyingPtr);
                         MR.CS.Misc.Box<ushort>? value = null;
-                        if (*ptr is not null)
+                        if (*__ptr_storage_a is not null)
                         {
-                            value = new(*ptr);
+                            value = new(*__ptr_storage_a);
                             value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
                 }
+                private protected unsafe ushort **__ptr_storage_a;
 
                 public unsafe MR.CS.Misc.Const_Box<ushort>? b
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_b", ExactSpelling = true)]
-                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_b(Const_ClassMemberPointersUshort._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersUshort_Get_b(_UnderlyingPtr);
                         MR.CS.Misc.Const_Box<ushort>? value = null;
-                        if (*ptr is not null)
+                        if (*__ptr_storage_b is not null)
                         {
-                            value = new(*ptr);
+                            value = new(*__ptr_storage_b);
                             value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
                 }
+                private protected unsafe ushort **__ptr_storage_b;
 
-                public unsafe ref ushort c
+                public unsafe ref ushort c => ref *__ref_storage_c;
+                private protected unsafe ushort *__ref_storage_c;
+
+                public unsafe ushort d => *__ref_storage_d;
+                private protected unsafe ushort *__ref_storage_d;
+
+                unsafe static Const_ClassMemberPointersUshort()
                 {
-                    get
-                    {
+                    { // Sa (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_sa", ExactSpelling = true)]
+                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_sa();
+                        Const_ClassMemberPointersUshort.__ptr_storage_Sa = __MR_CSharp_ClassMemberPointersUshort_Get_sa();
+                    }
+
+                    { // Sb (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_sb", ExactSpelling = true)]
+                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_sb();
+                        Const_ClassMemberPointersUshort.__ptr_storage_Sb = __MR_CSharp_ClassMemberPointersUshort_Get_sb();
+                    }
+
+                    { // Sc (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_sc", ExactSpelling = true)]
+                        extern static ushort *__MR_CSharp_ClassMemberPointersUshort_Get_sc();
+                        Const_ClassMemberPointersUshort.__ref_storage_Sc = __MR_CSharp_ClassMemberPointersUshort_Get_sc();
+                    }
+
+                    { // Sd (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_sd", ExactSpelling = true)]
+                        extern static ushort *__MR_CSharp_ClassMemberPointersUshort_Get_sd();
+                        Const_ClassMemberPointersUshort.__ref_storage_Sd = __MR_CSharp_ClassMemberPointersUshort_Get_sd();
+                    }
+                }
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // a (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_a", ExactSpelling = true)]
+                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_a(Const_ClassMemberPointersUshort._Underlying *_this);
+                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersUshort_Get_a(_UnderlyingPtr);
+                    }
+
+                    { // b (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_b", ExactSpelling = true)]
+                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_b(Const_ClassMemberPointersUshort._Underlying *_this);
+                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersUshort_Get_b(_UnderlyingPtr);
+                    }
+
+                    { // c (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_c", ExactSpelling = true)]
-                        extern static ushort *__MR_CSharp_ClassMemberPointersUshort_Get_c(_Underlying *_this);
-                        return ref *__MR_CSharp_ClassMemberPointersUshort_Get_c(_UnderlyingPtr);
+                        extern static ushort *__MR_CSharp_ClassMemberPointersUshort_Get_c(MR.CS.CSharp.Const_ClassMemberPointersUshort._Underlying *_this);
+                        this.__ref_storage_c = __MR_CSharp_ClassMemberPointersUshort_Get_c(_UnderlyingPtr);
+                    }
+
+                    { // d (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_d", ExactSpelling = true)]
+                        extern static ushort *__MR_CSharp_ClassMemberPointersUshort_Get_d(MR.CS.CSharp.Const_ClassMemberPointersUshort._Underlying *_this);
+                        this.__ref_storage_d = __MR_CSharp_ClassMemberPointersUshort_Get_d(_UnderlyingPtr);
                     }
                 }
 
-                public unsafe ushort d
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(is_owning)
                 {
-                    get
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_d", ExactSpelling = true)]
-                        extern static ushort *__MR_CSharp_ClassMemberPointersUshort_Get_d(_Underlying *_this);
-                        return *__MR_CSharp_ClassMemberPointersUshort_Get_d(_UnderlyingPtr);
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersUshort::ClassMemberPointersUshort`.
@@ -18876,6 +19125,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersUshort._Underlying *__MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersUshort._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -18891,6 +19141,7 @@ public static partial class MR
                         ushort __deref_b = b.GetValueOrDefault();
                         _UnderlyingPtr = __MR_CSharp_ClassMemberPointersUshort_ConstructFrom(a is not null ? &__value_a : null, b.HasValue ? &__deref_b : null, __ptr_c, &d);
                         if (a is not null) a.Value = __value_a;
+                        _FinalizeFields();
                     }
                 }
             }
@@ -18901,20 +19152,15 @@ public static partial class MR
             /// </summary>
             public class ClassMemberPointersUshort : Const_ClassMemberPointersUshort
             {
-                internal unsafe ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.Misc.Box<ushort>? a
                 {
                     get => base.a;
                     set
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_GetMutable_a", ExactSpelling = true)]
-                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_GetMutable_a(ClassMemberPointersUshort._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersUshort_GetMutable_a(_UnderlyingPtr);
                         _DiscardKeepAlive("a");
                         if (value is not null)
                             _KeepAlive(value, "a");
-                        *ptr = (value is not null ? value._UnderlyingPtr : null);
+                        *__ptr_storage_a = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
 
@@ -18923,15 +19169,41 @@ public static partial class MR
                     get => base.b;
                     set
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_GetMutable_b", ExactSpelling = true)]
-                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_GetMutable_b(ClassMemberPointersUshort._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersUshort_GetMutable_b(_UnderlyingPtr);
                         _DiscardKeepAlive("b");
                         if (value is not null)
                             _KeepAlive(value, "b");
-                        *ptr = (value is not null ? value._UnderlyingPtr : null);
+                        *__ptr_storage_b = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // a (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_a", ExactSpelling = true)]
+                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_a(ClassMemberPointersUshort._Underlying *_this);
+                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersUshort_Get_a(_UnderlyingPtr);
+                    }
+
+                    { // b (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_b", ExactSpelling = true)]
+                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_b(ClassMemberPointersUshort._Underlying *_this);
+                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersUshort_Get_b(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersUshort::ClassMemberPointersUshort`.
@@ -18942,6 +19214,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersUshort._Underlying *__MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersUshort._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -18957,6 +19230,7 @@ public static partial class MR
                         ushort __deref_b = b.GetValueOrDefault();
                         _UnderlyingPtr = __MR_CSharp_ClassMemberPointersUshort_ConstructFrom(a is not null ? &__value_a : null, b.HasValue ? &__deref_b : null, __ptr_c, &d);
                         if (a is not null) a.Value = __value_a;
+                        _FinalizeFields();
                     }
                 }
             }
@@ -19005,8 +19279,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -19023,103 +19295,136 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_sa", ExactSpelling = true)]
-                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_sa();
-                        var ptr = __MR_CSharp_ClassMemberPointersBool_Get_sa();
                         MR.CS.Misc.Box<byte>? value = null;
-                        if (*ptr is not null)
-                            value = new(*ptr);
+                        if (*__ptr_storage_Sa is not null)
+                            value = new(*__ptr_storage_Sa);
                         return value;
                     }
                 }
+                private protected static unsafe byte **__ptr_storage_Sa;
 
                 public static unsafe MR.CS.Misc.Const_Box<byte>? Sb
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_sb", ExactSpelling = true)]
-                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_sb();
-                        var ptr = __MR_CSharp_ClassMemberPointersBool_Get_sb();
                         MR.CS.Misc.Const_Box<byte>? value = null;
-                        if (*ptr is not null)
-                            value = new(*ptr);
+                        if (*__ptr_storage_Sb is not null)
+                            value = new(*__ptr_storage_Sb);
                         return value;
                     }
                 }
+                private protected static unsafe byte **__ptr_storage_Sb;
 
-                public static unsafe ref bool Sc
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_sc", ExactSpelling = true)]
-                        extern static bool *__MR_CSharp_ClassMemberPointersBool_Get_sc();
-                        return ref *__MR_CSharp_ClassMemberPointersBool_Get_sc();
-                    }
-                }
+                public static unsafe ref bool Sc => ref *__ref_storage_Sc;
+                private protected static unsafe bool *__ref_storage_Sc;
 
-                public static unsafe bool Sd
-                {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_sd", ExactSpelling = true)]
-                        extern static bool *__MR_CSharp_ClassMemberPointersBool_Get_sd();
-                        return *__MR_CSharp_ClassMemberPointersBool_Get_sd();
-                    }
-                }
+                public static unsafe bool Sd => *__ref_storage_Sd;
+                private protected static unsafe bool *__ref_storage_Sd;
 
                 public unsafe MR.CS.Misc.Box<byte>? a
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_a", ExactSpelling = true)]
-                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_a(Const_ClassMemberPointersBool._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersBool_Get_a(_UnderlyingPtr);
                         MR.CS.Misc.Box<byte>? value = null;
-                        if (*ptr is not null)
+                        if (*__ptr_storage_a is not null)
                         {
-                            value = new(*ptr);
+                            value = new(*__ptr_storage_a);
                             value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
                 }
+                private protected unsafe byte **__ptr_storage_a;
 
                 public unsafe MR.CS.Misc.Const_Box<byte>? b
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_b", ExactSpelling = true)]
-                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_b(Const_ClassMemberPointersBool._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersBool_Get_b(_UnderlyingPtr);
                         MR.CS.Misc.Const_Box<byte>? value = null;
-                        if (*ptr is not null)
+                        if (*__ptr_storage_b is not null)
                         {
-                            value = new(*ptr);
+                            value = new(*__ptr_storage_b);
                             value._KeepAliveEnclosingObject = this;
                         }
                         return value;
                     }
                 }
+                private protected unsafe byte **__ptr_storage_b;
 
-                public unsafe ref bool c
+                public unsafe ref bool c => ref *__ref_storage_c;
+                private protected unsafe bool *__ref_storage_c;
+
+                public unsafe bool d => *__ref_storage_d;
+                private protected unsafe bool *__ref_storage_d;
+
+                unsafe static Const_ClassMemberPointersBool()
                 {
-                    get
-                    {
+                    { // Sa (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_sa", ExactSpelling = true)]
+                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_sa();
+                        Const_ClassMemberPointersBool.__ptr_storage_Sa = __MR_CSharp_ClassMemberPointersBool_Get_sa();
+                    }
+
+                    { // Sb (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_sb", ExactSpelling = true)]
+                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_sb();
+                        Const_ClassMemberPointersBool.__ptr_storage_Sb = __MR_CSharp_ClassMemberPointersBool_Get_sb();
+                    }
+
+                    { // Sc (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_sc", ExactSpelling = true)]
+                        extern static bool *__MR_CSharp_ClassMemberPointersBool_Get_sc();
+                        Const_ClassMemberPointersBool.__ref_storage_Sc = __MR_CSharp_ClassMemberPointersBool_Get_sc();
+                    }
+
+                    { // Sd (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_sd", ExactSpelling = true)]
+                        extern static bool *__MR_CSharp_ClassMemberPointersBool_Get_sd();
+                        Const_ClassMemberPointersBool.__ref_storage_Sd = __MR_CSharp_ClassMemberPointersBool_Get_sd();
+                    }
+                }
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // a (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_a", ExactSpelling = true)]
+                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_a(Const_ClassMemberPointersBool._Underlying *_this);
+                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersBool_Get_a(_UnderlyingPtr);
+                    }
+
+                    { // b (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_b", ExactSpelling = true)]
+                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_b(Const_ClassMemberPointersBool._Underlying *_this);
+                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersBool_Get_b(_UnderlyingPtr);
+                    }
+
+                    { // c (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_c", ExactSpelling = true)]
-                        extern static bool *__MR_CSharp_ClassMemberPointersBool_Get_c(_Underlying *_this);
-                        return ref *__MR_CSharp_ClassMemberPointersBool_Get_c(_UnderlyingPtr);
+                        extern static bool *__MR_CSharp_ClassMemberPointersBool_Get_c(MR.CS.CSharp.Const_ClassMemberPointersBool._Underlying *_this);
+                        this.__ref_storage_c = __MR_CSharp_ClassMemberPointersBool_Get_c(_UnderlyingPtr);
+                    }
+
+                    { // d (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_d", ExactSpelling = true)]
+                        extern static bool *__MR_CSharp_ClassMemberPointersBool_Get_d(MR.CS.CSharp.Const_ClassMemberPointersBool._Underlying *_this);
+                        this.__ref_storage_d = __MR_CSharp_ClassMemberPointersBool_Get_d(_UnderlyingPtr);
                     }
                 }
 
-                public unsafe bool d
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(is_owning)
                 {
-                    get
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_d", ExactSpelling = true)]
-                        extern static bool *__MR_CSharp_ClassMemberPointersBool_Get_d(_Underlying *_this);
-                        return *__MR_CSharp_ClassMemberPointersBool_Get_d(_UnderlyingPtr);
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersBool::ClassMemberPointersBool`.
@@ -19130,6 +19435,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersBool._Underlying *__MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersBool._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19145,6 +19451,7 @@ public static partial class MR
                         bool __deref_b = b.GetValueOrDefault();
                         _UnderlyingPtr = __MR_CSharp_ClassMemberPointersBool_ConstructFrom(a is not null ? &__value_a : null, b.HasValue ? &__deref_b : null, __ptr_c, &d);
                         if (a is not null) a.Value = __value_a;
+                        _FinalizeFields();
                     }
                 }
             }
@@ -19155,20 +19462,15 @@ public static partial class MR
             /// </summary>
             public class ClassMemberPointersBool : Const_ClassMemberPointersBool
             {
-                internal unsafe ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.Misc.Box<byte>? a
                 {
                     get => base.a;
                     set
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_GetMutable_a", ExactSpelling = true)]
-                        extern static byte **__MR_CSharp_ClassMemberPointersBool_GetMutable_a(ClassMemberPointersBool._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersBool_GetMutable_a(_UnderlyingPtr);
                         _DiscardKeepAlive("a");
                         if (value is not null)
                             _KeepAlive(value, "a");
-                        *ptr = (value is not null ? value._UnderlyingPtr : null);
+                        *__ptr_storage_a = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
 
@@ -19177,15 +19479,41 @@ public static partial class MR
                     get => base.b;
                     set
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_GetMutable_b", ExactSpelling = true)]
-                        extern static byte **__MR_CSharp_ClassMemberPointersBool_GetMutable_b(ClassMemberPointersBool._Underlying *_this);
-                        var ptr = __MR_CSharp_ClassMemberPointersBool_GetMutable_b(_UnderlyingPtr);
                         _DiscardKeepAlive("b");
                         if (value is not null)
                             _KeepAlive(value, "b");
-                        *ptr = (value is not null ? value._UnderlyingPtr : null);
+                        *__ptr_storage_b = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // a (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_a", ExactSpelling = true)]
+                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_a(ClassMemberPointersBool._Underlying *_this);
+                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersBool_Get_a(_UnderlyingPtr);
+                    }
+
+                    { // b (raw pointer)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_b", ExactSpelling = true)]
+                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_b(ClassMemberPointersBool._Underlying *_this);
+                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersBool_Get_b(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersBool::ClassMemberPointersBool`.
@@ -19196,6 +19524,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersBool._Underlying *__MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersBool._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19211,6 +19540,7 @@ public static partial class MR
                         bool __deref_b = b.GetValueOrDefault();
                         _UnderlyingPtr = __MR_CSharp_ClassMemberPointersBool_ConstructFrom(a is not null ? &__value_a : null, b.HasValue ? &__deref_b : null, __ptr_c, &d);
                         if (a is not null) a.Value = __value_a;
+                        _FinalizeFields();
                     }
                 }
             }
@@ -19260,8 +19590,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_LifetimesA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -19274,15 +19602,32 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_LifetimesA() {Dispose(false);}
 
-                public unsafe int x
+                public unsafe int x => *__ref_storage_x;
+                private protected unsafe int *__ref_storage_x;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // x (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_Get_x", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_LifetimesA_Get_x(_Underlying *_this);
-                        return *__MR_CSharp_LifetimesA_Get_x(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_LifetimesA_Get_x(MR.CS.CSharp.Const_LifetimesA._Underlying *_this);
+                        this.__ref_storage_x = __MR_CSharp_LifetimesA_Get_x(_UnderlyingPtr);
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_LifetimesA(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -19292,6 +19637,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_LifetimesA_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19302,6 +19648,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_ConstructFrom(int x);
                     _UnderlyingPtr = __MR_CSharp_LifetimesA_ConstructFrom(x);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19313,6 +19660,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_ConstructFromAnother(MR.CS.CSharp.LifetimesA._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_LifetimesA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
             }
 
@@ -19323,17 +19671,30 @@ public static partial class MR
             /// </summary>
             public class LifetimesA : Const_LifetimesA
             {
-                internal unsafe LifetimesA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe ref int x => ref *__ref_storage_x;
 
-                public new unsafe ref int x
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // x (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_GetMutable_x", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_LifetimesA_GetMutable_x(_Underlying *_this);
-                        return ref *__MR_CSharp_LifetimesA_GetMutable_x(_UnderlyingPtr);
+                        extern static int *__MR_CSharp_LifetimesA_GetMutable_x(MR.CS.CSharp.LifetimesA._Underlying *_this);
+                        this.__ref_storage_x = __MR_CSharp_LifetimesA_GetMutable_x(_UnderlyingPtr);
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe LifetimesA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -19343,6 +19704,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_LifetimesA_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19353,6 +19715,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_ConstructFrom(int x);
                     _UnderlyingPtr = __MR_CSharp_LifetimesA_ConstructFrom(x);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19364,6 +19727,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_ConstructFromAnother(MR.CS.CSharp.LifetimesA._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_LifetimesA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19447,8 +19811,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_LifetimesB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -19461,18 +19823,32 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_LifetimesB() {Dispose(false);}
 
-                public unsafe MR.CS.CSharp.Const_LifetimesA a
+                public unsafe MR.CS.CSharp.Const_LifetimesA a {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesB_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesB_Get_a(_Underlying *_this);
-                        MR.CS.CSharp.Const_LifetimesA __ret;
-                        __ret = new(__MR_CSharp_LifetimesB_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesB_Get_a(MR.CS.CSharp.Const_LifetimesB._Underlying *_this);
+                        this.a = new(__MR_CSharp_LifetimesB_Get_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_LifetimesB(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -19482,6 +19858,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesB_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesB._Underlying *__MR_CSharp_LifetimesB_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_LifetimesB_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19493,6 +19870,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesB._Underlying *__MR_CSharp_LifetimesB_ConstructFrom(MR.CS.CSharp.LifetimesA._Underlying *a);
                     _UnderlyingPtr = __MR_CSharp_LifetimesB_ConstructFrom(a._UnderlyingPtr);
                     _KeepAlive(a);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19504,6 +19882,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesB._Underlying *__MR_CSharp_LifetimesB_ConstructFromAnother(MR.CS.CSharp.LifetimesB._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_LifetimesB_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19523,20 +19902,32 @@ public static partial class MR
             /// </summary>
             public class LifetimesB : Const_LifetimesB
             {
-                internal unsafe LifetimesB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe MR.CS.CSharp.LifetimesA a {get; private protected set;}
 
-                public new unsafe MR.CS.CSharp.LifetimesA a
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesB_GetMutable_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesB_GetMutable_a(_Underlying *_this);
-                        MR.CS.CSharp.LifetimesA __ret;
-                        __ret = new(__MR_CSharp_LifetimesB_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesB_GetMutable_a(MR.CS.CSharp.LifetimesB._Underlying *_this);
+                        this.a = new(__MR_CSharp_LifetimesB_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
+                        base.a = this.a;
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe LifetimesB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -19546,6 +19937,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesB_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesB._Underlying *__MR_CSharp_LifetimesB_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_LifetimesB_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19557,6 +19949,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesB._Underlying *__MR_CSharp_LifetimesB_ConstructFrom(MR.CS.CSharp.LifetimesA._Underlying *a);
                     _UnderlyingPtr = __MR_CSharp_LifetimesB_ConstructFrom(a._UnderlyingPtr);
                     _KeepAlive(a);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19568,6 +19961,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesB._Underlying *__MR_CSharp_LifetimesB_ConstructFromAnother(MR.CS.CSharp.LifetimesB._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_LifetimesB_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19660,8 +20054,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_LifetimesC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -19674,18 +20066,32 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_LifetimesC() {Dispose(false);}
 
-                public unsafe MR.CS.CSharp.Const_LifetimesA a
+                public unsafe MR.CS.CSharp.Const_LifetimesA a {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesC_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesC_Get_a(_Underlying *_this);
-                        MR.CS.CSharp.Const_LifetimesA __ret;
-                        __ret = new(__MR_CSharp_LifetimesC_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesC_Get_a(MR.CS.CSharp.Const_LifetimesC._Underlying *_this);
+                        this.a = new(__MR_CSharp_LifetimesC_Get_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_LifetimesC(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -19695,6 +20101,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesC_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesC._Underlying *__MR_CSharp_LifetimesC_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_LifetimesC_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19706,6 +20113,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesC._Underlying *__MR_CSharp_LifetimesC_ConstructFrom(MR.CS.CSharp.LifetimesA._Underlying *a);
                     _UnderlyingPtr = __MR_CSharp_LifetimesC_ConstructFrom(a._UnderlyingPtr);
                     _KeepAlive(a);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19717,6 +20125,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesC._Underlying *__MR_CSharp_LifetimesC_ConstructFromAnother(MR.CS.CSharp.LifetimesC._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_LifetimesC_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19736,20 +20145,32 @@ public static partial class MR
             /// </summary>
             public class LifetimesC : Const_LifetimesC
             {
-                internal unsafe LifetimesC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe MR.CS.CSharp.LifetimesA a {get; private protected set;}
 
-                public new unsafe MR.CS.CSharp.LifetimesA a
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesC_GetMutable_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesC_GetMutable_a(_Underlying *_this);
-                        MR.CS.CSharp.LifetimesA __ret;
-                        __ret = new(__MR_CSharp_LifetimesC_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesC_GetMutable_a(MR.CS.CSharp.LifetimesC._Underlying *_this);
+                        this.a = new(__MR_CSharp_LifetimesC_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
+                        base.a = this.a;
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe LifetimesC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -19759,6 +20180,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesC_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesC._Underlying *__MR_CSharp_LifetimesC_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_LifetimesC_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19770,6 +20192,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesC._Underlying *__MR_CSharp_LifetimesC_ConstructFrom(MR.CS.CSharp.LifetimesA._Underlying *a);
                     _UnderlyingPtr = __MR_CSharp_LifetimesC_ConstructFrom(a._UnderlyingPtr);
                     _KeepAlive(a);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19781,6 +20204,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesC._Underlying *__MR_CSharp_LifetimesC_ConstructFromAnother(MR.CS.CSharp.LifetimesC._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_LifetimesC_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19840,8 +20264,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_LifetimesD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -19854,18 +20276,32 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_LifetimesD() {Dispose(false);}
 
-                public unsafe MR.CS.CSharp.Const_LifetimesA a
+                public unsafe MR.CS.CSharp.Const_LifetimesA a {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesD_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesD_Get_a(_Underlying *_this);
-                        MR.CS.CSharp.Const_LifetimesA __ret;
-                        __ret = new(__MR_CSharp_LifetimesD_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesD_Get_a(MR.CS.CSharp.Const_LifetimesD._Underlying *_this);
+                        this.a = new(__MR_CSharp_LifetimesD_Get_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_LifetimesD(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::LifetimesD::LifetimesD`.
@@ -19876,6 +20312,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesD._Underlying *__MR_CSharp_LifetimesD_ConstructFromAnother(MR.CS.CSharp.LifetimesD._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_LifetimesD_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 // Store param references in this. The two annotation styles are equivalent for constructors.
@@ -19889,6 +20326,7 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_LifetimesD_Construct_2(ref_._UnderlyingPtr, other_ref._UnderlyingPtr);
                     _KeepAlive(ref_);
                     _KeepAlive(other_ref);
+                    _FinalizeFields();
                 }
 
                 // `--infer-lifetime-constructors` should act on this.
@@ -19900,6 +20338,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesA", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesD._Underlying *__MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesA(MR.CS.CSharp.LifetimesA._Underlying *ref_);
                     _UnderlyingPtr = __MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesA(ref_._UnderlyingPtr);
+                    _FinalizeFields();
                 }
 
                 // `--infer-lifetime-constructors` should act on this.
@@ -19919,6 +20358,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesD._Underlying *__MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesB(MR.CS.CSharp.LifetimesB._Underlying *ref_);
                     _UnderlyingPtr = __MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesB(ref_._UnderlyingPtr);
                     ref_._KeepAlive(this);
+                    _FinalizeFields();
                 }
 
                 // Store reference to this in param.
@@ -19948,20 +20388,32 @@ public static partial class MR
             /// </summary>
             public class LifetimesD : Const_LifetimesD
             {
-                internal unsafe LifetimesD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe MR.CS.CSharp.LifetimesA a {get; private protected set;}
 
-                public new unsafe MR.CS.CSharp.LifetimesA a
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesD_GetMutable_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesD_GetMutable_a(_Underlying *_this);
-                        MR.CS.CSharp.LifetimesA __ret;
-                        __ret = new(__MR_CSharp_LifetimesD_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesD_GetMutable_a(MR.CS.CSharp.LifetimesD._Underlying *_this);
+                        this.a = new(__MR_CSharp_LifetimesD_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
+                        base.a = this.a;
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe LifetimesD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::LifetimesD::LifetimesD`.
@@ -19972,6 +20424,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesD._Underlying *__MR_CSharp_LifetimesD_ConstructFromAnother(MR.CS.CSharp.LifetimesD._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_LifetimesD_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 // Store param references in this. The two annotation styles are equivalent for constructors.
@@ -19985,6 +20438,7 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_LifetimesD_Construct_2(ref_._UnderlyingPtr, other_ref._UnderlyingPtr);
                     _KeepAlive(ref_);
                     _KeepAlive(other_ref);
+                    _FinalizeFields();
                 }
 
                 // `--infer-lifetime-constructors` should act on this.
@@ -19996,6 +20450,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesA", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesD._Underlying *__MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesA(MR.CS.CSharp.LifetimesA._Underlying *ref_);
                     _UnderlyingPtr = __MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesA(ref_._UnderlyingPtr);
+                    _FinalizeFields();
                 }
 
                 // `--infer-lifetime-constructors` should act on this.
@@ -20015,6 +20470,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesD._Underlying *__MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesB(MR.CS.CSharp.LifetimesB._Underlying *ref_);
                     _UnderlyingPtr = __MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesB(ref_._UnderlyingPtr);
                     ref_._KeepAlive(this);
+                    _FinalizeFields();
                 }
 
                 // Store reference to this in param.

@@ -16,8 +16,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A_Int(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -29,6 +27,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A_Int() {Dispose(false);}
+
+                internal unsafe Const_A_Int(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -150,8 +150,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_B_Int(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -163,6 +161,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_B_Int() {Dispose(false);}
+
+                internal unsafe Const_B_Int(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -195,8 +195,6 @@ public static partial class MR
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
-                    internal unsafe Const_BB_Float(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                     protected virtual unsafe void Dispose(bool disposing)
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -208,6 +206,8 @@ public static partial class MR
                     }
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_BB_Float() {Dispose(false);}
+
+                    internal unsafe Const_BB_Float(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                     /// <summary>
                     /// Constructs an empty (default-constructed) instance.

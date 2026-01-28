@@ -19,17 +19,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe ref readonly A _Ref => ref *(A *)_UnderlyingPtr;
 
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe ConstBox_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
-                /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_A` has this conversion, `Box_A` intentionally doesn't.
-                /// </summary>
-                public static implicit operator ConstBox_A(A other) {return new(other);}
-
-                internal unsafe ConstBox_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -56,15 +45,28 @@ public static partial class MR
                 public ref readonly MR.CS.ArrayInt4_5 arr2d => ref _Ref.arr2d;
 
                 // Having static fields is not an error! Those get their normal getters and setters.
-                public static unsafe ref int X
+                public static unsafe ref int X => ref *__ref_storage_X;
+                private protected static unsafe int *__ref_storage_X;
+
+                unsafe static ConstBox_A()
                 {
-                    get
-                    {
+                    { // X (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_A_GetMutable_x", ExactSpelling = true)]
                         extern static int *__MR_MatchingLayout_A_GetMutable_x();
-                        return ref *__MR_MatchingLayout_A_GetMutable_x();
+                        ConstBox_A.__ref_storage_X = __MR_MatchingLayout_A_GetMutable_x();
                     }
                 }
+
+                /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe ConstBox_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
+                /// Convert from a struct by copying it. Note that only `ConstBox_A` has this conversion, `Box_A` intentionally doesn't.
+                /// </summary>
+                public static implicit operator ConstBox_A(A other) {return new(other);}
+
+                internal unsafe ConstBox_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Generated default constructor.
@@ -81,7 +83,7 @@ public static partial class MR
                 public unsafe ConstBox_A(ConstBox_A _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(120);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 120);
+                    *(MR.CS.MatchingLayout.A *)_UnderlyingPtr = *(MR.CS.MatchingLayout.A *)_other._UnderlyingPtr;
                 }
             }
 
@@ -95,13 +97,6 @@ public static partial class MR
                 /// Get the underlying struct.
                 /// </summary>
                 public unsafe new ref A _Ref => ref *(A *)_UnderlyingPtr;
-
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe Box_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
-
-                internal unsafe Box_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 // first
                 public new ref int a => ref _Ref.a;
@@ -119,6 +114,13 @@ public static partial class MR
                 public new ref MR.CS.ArrayInt4_5 arr2d => ref _Ref.arr2d;
 
                 /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe Box_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
+
+                internal unsafe Box_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// <summary>
                 /// Generated default constructor.
                 /// </summary>
                 public unsafe Box_A() : this(null, is_owning: true)
@@ -133,7 +135,7 @@ public static partial class MR
                 public unsafe Box_A(ConstBox_A _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(120);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 120);
+                    *(MR.CS.MatchingLayout.A *)_UnderlyingPtr = *(MR.CS.MatchingLayout.A *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -149,11 +151,6 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 120)]
             public struct A
             {
-                /// <summary>
-                /// Copy contents from a wrapper class to this struct.
-                /// </summary>
-                public static implicit operator A(ConstBox_A other) => other._Ref;
-
                 // first
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int a;
@@ -174,6 +171,11 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.FieldOffset(36)]
                 public MR.CS.ArrayInt4_5 arr2d;
+
+                /// <summary>
+                /// Copy contents from a wrapper class to this struct.
+                /// </summary>
+                public static implicit operator A(ConstBox_A other) => other._Ref;
 
                 /// <summary>
                 /// Generated copy constructor.
@@ -271,17 +273,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe ref readonly B _Ref => ref *(B *)_UnderlyingPtr;
 
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe ConstBox_B(B other) : this(new ConstBox_B((_Underlying *)&other, is_owning: false)) {}
-                /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_B` has this conversion, `Box_B` intentionally doesn't.
-                /// </summary>
-                public static implicit operator ConstBox_B(B other) {return new(other);}
-
-                internal unsafe ConstBox_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -299,12 +290,23 @@ public static partial class MR
                 public ref readonly byte y => ref _Ref.y;
 
                 /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe ConstBox_B(B other) : this(new ConstBox_B((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
+                /// Convert from a struct by copying it. Note that only `ConstBox_B` has this conversion, `Box_B` intentionally doesn't.
+                /// </summary>
+                public static implicit operator ConstBox_B(B other) {return new(other);}
+
+                internal unsafe ConstBox_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// <summary>
                 /// Generated copy constructor.
                 /// </summary>
                 public unsafe ConstBox_B(ConstBox_B _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 136);
+                    *(MR.CS.MatchingLayout.B *)_UnderlyingPtr = *(MR.CS.MatchingLayout.B *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -315,8 +317,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
-                    MR.CS.MatchingLayout.B _ctor_result = __MR_MatchingLayout_B_DefaultConstruct();
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 136);
+                    *(MR.CS.MatchingLayout.B *)_UnderlyingPtr = __MR_MatchingLayout_B_DefaultConstruct();
                 }
             }
 
@@ -331,13 +332,6 @@ public static partial class MR
                 /// </summary>
                 public unsafe new ref B _Ref => ref *(B *)_UnderlyingPtr;
 
-                /// <summary>
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                /// </summary>
-                public unsafe Box_B(B other) : this(new ConstBox_B((_Underlying *)&other, is_owning: false)) {}
-
-                internal unsafe Box_B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new ref short x => ref _Ref.x;
 
                 public new ref MR.CS.MatchingLayout.A a => ref _Ref.a;
@@ -345,12 +339,19 @@ public static partial class MR
                 public new ref byte y => ref _Ref.y;
 
                 /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe Box_B(B other) : this(new ConstBox_B((_Underlying *)&other, is_owning: false)) {}
+
+                internal unsafe Box_B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// <summary>
                 /// Generated copy constructor.
                 /// </summary>
                 public unsafe Box_B(ConstBox_B _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
-                    System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, 136);
+                    *(MR.CS.MatchingLayout.B *)_UnderlyingPtr = *(MR.CS.MatchingLayout.B *)_other._UnderlyingPtr;
                 }
 
                 /// <summary>
@@ -366,8 +367,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
-                    MR.CS.MatchingLayout.B _ctor_result = __MR_MatchingLayout_B_DefaultConstruct();
-                    System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, 136);
+                    *(MR.CS.MatchingLayout.B *)_UnderlyingPtr = __MR_MatchingLayout_B_DefaultConstruct();
                 }
             }
 
@@ -378,11 +378,6 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 136)]
             public struct B
             {
-                /// <summary>
-                /// Copy contents from a wrapper class to this struct.
-                /// </summary>
-                public static implicit operator B(ConstBox_B other) => other._Ref;
-
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public short x;
 
@@ -391,6 +386,11 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.FieldOffset(128)]
                 public byte y;
+
+                /// <summary>
+                /// Copy contents from a wrapper class to this struct.
+                /// </summary>
+                public static implicit operator B(ConstBox_B other) => other._Ref;
 
                 /// <summary>
                 /// Generated copy constructor.

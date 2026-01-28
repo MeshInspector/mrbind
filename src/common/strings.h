@@ -70,4 +70,30 @@ namespace mrbind::Strings
 
         return ret;
     }
+
+    // Indents a string by this many 4-spaces blocks.
+    [[nodiscard]] inline std::string Indent(std::string_view input, int levels = 1)
+    {
+        std::string ret;
+        bool first = true;
+        Strings::Split(input, "\n", [&](std::string_view part)
+        {
+            if (first)
+                first = false;
+            else
+                ret += '\n';
+
+            // Only indent non-empty strings, and only when starting a new line in the file.
+            if (!part.empty() && (ret.empty() || ret.ends_with('\n')))
+            {
+                for (int i = 0; i < levels; i++)
+                    ret += "    ";
+            }
+
+            ret += part;
+
+            return false;
+        });
+        return ret;
+    }
 }

@@ -39,8 +39,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ClassTemplate_UnsignedLong(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -62,6 +60,8 @@ public static partial class MR
                         return ref *__MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutable_var_unsigned_long();
                     }
                 }
+
+                internal unsafe Const_ClassTemplate_UnsignedLong(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.
                 public unsafe Const_ClassTemplate_UnsignedLong(MR.CS.TestSimpleTypes.Const_ClassTemplate_UnsignedLong _other) : this(null, is_owning: true)

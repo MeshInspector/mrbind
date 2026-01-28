@@ -14,8 +14,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -27,6 +25,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
+
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -136,8 +136,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_Blah(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -150,18 +148,32 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Blah() {Dispose(false);}
 
-                public unsafe MR.CS.SignatureFilters.Const_A a
+                public unsafe MR.CS.SignatureFilters.Const_A a {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.SignatureFilters.Const_A._Underlying *__MR_SignatureFilters_Blah_Get_a(_Underlying *_this);
-                        MR.CS.SignatureFilters.Const_A __ret;
-                        __ret = new(__MR_SignatureFilters_Blah_Get_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.SignatureFilters.Const_A._Underlying *__MR_SignatureFilters_Blah_Get_a(MR.CS.SignatureFilters.Const_Blah._Underlying *_this);
+                        this.a = new(__MR_SignatureFilters_Blah_Get_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_Blah(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -171,6 +183,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_DefaultConstruct();
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -182,6 +195,7 @@ public static partial class MR
                     extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_ConstructFromAnother(MR.CS.SignatureFilters.Blah._Underlying *_other);
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
             }
 
@@ -191,20 +205,32 @@ public static partial class MR
             /// </summary>
             public class Blah : Const_Blah
             {
-                internal unsafe Blah(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe MR.CS.SignatureFilters.A a {get; private protected set;}
 
-                public new unsafe MR.CS.SignatureFilters.A a
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_GetMutable_a", ExactSpelling = true)]
-                        extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_Blah_GetMutable_a(_Underlying *_this);
-                        MR.CS.SignatureFilters.A __ret;
-                        __ret = new(__MR_SignatureFilters_Blah_GetMutable_a(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_Blah_GetMutable_a(MR.CS.SignatureFilters.Blah._Underlying *_this);
+                        this.a = new(__MR_SignatureFilters_Blah_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                        this.a._KeepAliveEnclosingObject = this;
+                        base.a = this.a;
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Blah(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -214,6 +240,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_DefaultConstruct();
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -225,6 +252,7 @@ public static partial class MR
                     extern static MR.CS.SignatureFilters.Blah._Underlying *__MR_SignatureFilters_Blah_ConstructFromAnother(MR.CS.SignatureFilters.Blah._Underlying *_other);
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>

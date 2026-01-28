@@ -25,8 +25,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -38,6 +36,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
+
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_A() : this(null, is_owning: true)
@@ -151,8 +151,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -174,6 +172,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_B() : this(null, is_owning: true)
@@ -206,8 +206,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class B : Const_B
             {
-                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.Bases.A(B self)
                 {
@@ -217,6 +215,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe B() : this(null, is_owning: true)
@@ -289,8 +289,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_B2(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -321,6 +319,8 @@ public static partial class MR
                     return ret;
                 }
 
+                internal unsafe Const_B2(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_B2() : this(null, is_owning: true)
                 {
@@ -348,8 +348,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class B2 : Const_B2
             {
-                internal unsafe B2(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.Bases.A(B2 self)
                 {
@@ -367,6 +365,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe B2(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe B2() : this(null, is_owning: true)
@@ -440,8 +440,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -463,6 +461,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_C() : this(null, is_owning: true)
@@ -492,8 +492,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class C : Const_C
             {
-                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.Bases.A(C self)
                 {
@@ -503,6 +501,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe C() : this(null, is_owning: true)
@@ -576,8 +576,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_D(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -608,6 +606,8 @@ public static partial class MR
                     return ret;
                 }
 
+                internal unsafe Const_D(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_D() : this(null, is_owning: true)
                 {
@@ -636,8 +636,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class D : Const_D
             {
-                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.Bases.B(D self)
                 {
@@ -655,6 +653,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe D() : this(null, is_owning: true)
@@ -727,8 +727,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_D2(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -750,6 +748,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe Const_D2(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_D2() : this(null, is_owning: true)
@@ -778,8 +778,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class D2 : Const_D2
             {
-                internal unsafe D2(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.Bases.B(D2 self)
                 {
@@ -789,6 +787,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe D2(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe D2() : this(null, is_owning: true)
@@ -861,8 +861,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_D3(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -884,6 +882,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe Const_D3(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_D3() : this(null, is_owning: true)
@@ -912,8 +912,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class D3 : Const_D3
             {
-                internal unsafe D3(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.Bases.B(D3 self)
                 {
@@ -923,6 +921,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe D3(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe D3() : this(null, is_owning: true)
@@ -997,8 +997,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_E(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1010,6 +1008,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_E() {Dispose(false);}
+
+                internal unsafe Const_E(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_E() : this(null, is_owning: true)
@@ -1116,8 +1116,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_F(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1139,6 +1137,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe Const_F(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_F() : this(null, is_owning: true)
@@ -1170,8 +1170,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class F : Const_F
             {
-                internal unsafe F(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.Bases.E(F self)
                 {
@@ -1181,6 +1179,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe F(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe F() : this(null, is_owning: true)
@@ -1253,8 +1253,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_G(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1285,6 +1283,8 @@ public static partial class MR
                     return ret;
                 }
 
+                internal unsafe Const_G(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_G() : this(null, is_owning: true)
                 {
@@ -1312,8 +1312,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class G : Const_G
             {
-                internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.Bases.E(G self)
                 {
@@ -1331,6 +1329,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe G() : this(null, is_owning: true)
@@ -1423,8 +1423,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_H(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1463,6 +1461,8 @@ public static partial class MR
                     return ret;
                 }
 
+                internal unsafe Const_H(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_H() : this(null, is_owning: true)
                 {
@@ -1492,8 +1492,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class H : Const_H
             {
-                internal unsafe H(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.Bases.E(H self)
                 {
@@ -1519,6 +1517,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe H(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe H() : this(null, is_owning: true)
@@ -1610,8 +1610,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_I(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1650,6 +1648,8 @@ public static partial class MR
                     return ret;
                 }
 
+                internal unsafe Const_I(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_I() : this(null, is_owning: true)
                 {
@@ -1678,8 +1678,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class I : Const_I
             {
-                internal unsafe I(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.Bases.E(I self)
                 {
@@ -1705,6 +1703,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe I(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe I() : this(null, is_owning: true)

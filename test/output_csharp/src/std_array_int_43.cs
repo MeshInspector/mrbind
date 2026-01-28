@@ -15,13 +15,6 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe ref readonly Array_Int_43 _Ref => ref *(Array_Int_43 *)_UnderlyingPtr;
 
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe ConstBox_Array_Int_43(Array_Int_43 other) : this(new ConstBox_Array_Int_43((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `ConstBox_Array_Int_43` has this conversion, `Box_Array_Int_43` intentionally doesn't.
-                public static implicit operator ConstBox_Array_Int_43(Array_Int_43 other) {return new(other);}
-
-                internal unsafe ConstBox_Array_Int_43(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -34,6 +27,13 @@ public static partial class MR
 
                 public ref readonly MR.CS.ArrayInt43 elems => ref _Ref.elems;
 
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe ConstBox_Array_Int_43(Array_Int_43 other) : this(new ConstBox_Array_Int_43((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_Array_Int_43` has this conversion, `Box_Array_Int_43` intentionally doesn't.
+                public static implicit operator ConstBox_Array_Int_43(Array_Int_43 other) {return new(other);}
+
+                internal unsafe ConstBox_Array_Int_43(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated default constructor.
                 public unsafe ConstBox_Array_Int_43() : this(null, is_owning: true)
                 {
@@ -45,7 +45,7 @@ public static partial class MR
                 public unsafe ConstBox_Array_Int_43(ConstBox_Array_Int_43 _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(172);
-                    for (nuint _i = 0; _i < 172; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.Std.Array_Int_43 *)_UnderlyingPtr = *(MR.CS.Std.Array_Int_43 *)_other._UnderlyingPtr;
                 }
             }
 
@@ -56,12 +56,12 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe new ref Array_Int_43 _Ref => ref *(Array_Int_43 *)_UnderlyingPtr;
 
+                public new ref MR.CS.ArrayInt43 elems => ref _Ref.elems;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Box_Array_Int_43(Array_Int_43 other) : this(new ConstBox_Array_Int_43((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Box_Array_Int_43(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                public new ref MR.CS.ArrayInt43 elems => ref _Ref.elems;
 
                 /// Generated default constructor.
                 public unsafe Box_Array_Int_43() : this(null, is_owning: true)
@@ -74,7 +74,7 @@ public static partial class MR
                 public unsafe Box_Array_Int_43(ConstBox_Array_Int_43 _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(172);
-                    for (nuint _i = 0; _i < 172; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.Std.Array_Int_43 *)_UnderlyingPtr = *(MR.CS.Std.Array_Int_43 *)_other._UnderlyingPtr;
                 }
 
                 /// Generated copy assignment.
@@ -86,11 +86,11 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 172)]
             public struct Array_Int_43
             {
-                /// Copy contents from a wrapper class to this struct.
-                public static implicit operator Array_Int_43(ConstBox_Array_Int_43 other) => other._Ref;
-
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public MR.CS.ArrayInt43 elems;
+
+                /// Copy contents from a wrapper class to this struct.
+                public static implicit operator Array_Int_43(ConstBox_Array_Int_43 other) => other._Ref;
 
                 /// Generated copy constructor.
                 public Array_Int_43(Array_Int_43 _other) {this = _other;}

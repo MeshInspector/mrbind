@@ -12,8 +12,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_Deque_Int(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -25,6 +23,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Deque_Int() {Dispose(false);}
+
+                internal unsafe Const_Deque_Int(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_Deque_Int() : this(null, is_owning: true)
@@ -159,8 +159,6 @@ public static partial class MR
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
-                    internal unsafe Const_ConstIterator(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                     protected virtual unsafe void Dispose(bool disposing)
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -172,6 +170,8 @@ public static partial class MR
                     }
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_ConstIterator() {Dispose(false);}
+
+                    internal unsafe Const_ConstIterator(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                     /// Constructs an empty (default-constructed) instance.
                     public unsafe Const_ConstIterator() : this(null, is_owning: true)
@@ -328,8 +328,6 @@ public static partial class MR
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
-                    internal unsafe Const_Iterator(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                     protected virtual unsafe void Dispose(bool disposing)
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -341,6 +339,8 @@ public static partial class MR
                     }
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_Iterator() {Dispose(false);}
+
+                    internal unsafe Const_Iterator(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                     /// Constructs an empty (default-constructed) instance.
                     public unsafe Const_Iterator() : this(null, is_owning: true)

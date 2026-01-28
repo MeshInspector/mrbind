@@ -12,8 +12,6 @@ public static partial class MR
 
             internal unsafe _Underlying *_UnderlyingPtr;
 
-            internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
             protected virtual unsafe void Dispose(bool disposing)
             {
                 if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -26,18 +24,32 @@ public static partial class MR
             public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
             ~Const_A() {Dispose(false);}
 
-            public unsafe MR.CS.Std.Const_String x
+            public unsafe MR.CS.Std.Const_String x {get; private protected set;}
+
+            /// <summary>
+            /// Constructors call this at the end to initialize class fields.
+            /// </summary>
+            unsafe void _FinalizeFields()
             {
-                get
-                {
+                { // x
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_Get_x", ExactSpelling = true)]
-                    extern static MR.CS.Std.Const_String._Underlying *__MR_A_Get_x(_Underlying *_this);
-                    MR.CS.Std.Const_String __ret;
-                    __ret = new(__MR_A_Get_x(_UnderlyingPtr), is_owning: false);
-                    __ret._KeepAliveEnclosingObject = this;
-                    return __ret;
+                    extern static MR.CS.Std.Const_String._Underlying *__MR_A_Get_x(MR.CS.Const_A._Underlying *_this);
+                    this.x = new(__MR_A_Get_x(_UnderlyingPtr), is_owning: false);
+                    this.x._KeepAliveEnclosingObject = this;
                 }
             }
+
+            // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+            #pragma warning disable CS8618
+            internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning)
+            {
+                _UnderlyingPtr = ptr;
+                if (ptr is not null)
+                {
+                    _FinalizeFields();
+                }
+            }
+            #pragma warning restore CS8618
 
             /// <summary>
             /// Constructs an empty (default-constructed) instance.
@@ -47,6 +59,7 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_DefaultConstruct", ExactSpelling = true)]
                 extern static MR.CS.A._Underlying *__MR_A_DefaultConstruct();
                 _UnderlyingPtr = __MR_A_DefaultConstruct();
+                _FinalizeFields();
             }
 
             /// <summary>
@@ -58,6 +71,7 @@ public static partial class MR
                 extern static MR.CS.A._Underlying *__MR_A_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.A._Underlying *_other);
                 _UnderlyingPtr = __MR_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
+                _FinalizeFields();
             }
         }
 
@@ -67,20 +81,32 @@ public static partial class MR
         /// </summary>
         public class A : Const_A
         {
-            internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+            public new unsafe MR.CS.Std.String x {get; private protected set;}
 
-            public new unsafe MR.CS.Std.String x
+            /// <summary>
+            /// Constructors call this at the end to initialize class fields.
+            /// </summary>
+            unsafe void _FinalizeFields()
             {
-                get
-                {
+                { // x
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_GetMutable_x", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_A_GetMutable_x(_Underlying *_this);
-                    MR.CS.Std.String __ret;
-                    __ret = new(__MR_A_GetMutable_x(_UnderlyingPtr), is_owning: false);
-                    __ret._KeepAliveEnclosingObject = this;
-                    return __ret;
+                    extern static MR.CS.Std.String._Underlying *__MR_A_GetMutable_x(MR.CS.A._Underlying *_this);
+                    this.x = new(__MR_A_GetMutable_x(_UnderlyingPtr), is_owning: false);
+                    this.x._KeepAliveEnclosingObject = this;
+                    base.x = this.x;
                 }
             }
+
+            // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+            #pragma warning disable CS8618
+            internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+            {
+                if (ptr is not null)
+                {
+                    _FinalizeFields();
+                }
+            }
+            #pragma warning restore CS8618
 
             /// <summary>
             /// Constructs an empty (default-constructed) instance.
@@ -90,6 +116,7 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_DefaultConstruct", ExactSpelling = true)]
                 extern static MR.CS.A._Underlying *__MR_A_DefaultConstruct();
                 _UnderlyingPtr = __MR_A_DefaultConstruct();
+                _FinalizeFields();
             }
 
             /// <summary>
@@ -101,6 +128,7 @@ public static partial class MR
                 extern static MR.CS.A._Underlying *__MR_A_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.A._Underlying *_other);
                 _UnderlyingPtr = __MR_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
+                _FinalizeFields();
             }
 
             /// <summary>

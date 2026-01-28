@@ -16,8 +16,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -49,6 +47,8 @@ public static partial class MR
                         return *__MR_UsingDecls_A_Get_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Generated from constructor `MR::UsingDecls::A::A`.
                 public unsafe Const_A(MR.CS.UsingDecls.Const_A _other) : this(null, is_owning: true)
@@ -91,8 +91,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class A : Const_A
             {
-                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int field
                 {
                     get
@@ -102,6 +100,8 @@ public static partial class MR
                         return ref *__MR_UsingDecls_A_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from constructor `MR::UsingDecls::A::A`.
                 public unsafe A(MR.CS.UsingDecls.Const_A _other) : this(null, is_owning: true)
@@ -202,8 +202,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -246,6 +244,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated from constructor `MR::UsingDecls::B::B`.
                 public unsafe Const_B(MR.CS.UsingDecls.Const_B _other) : this(null, is_owning: true)
                 {
@@ -271,8 +271,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class B : Const_B
             {
-                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.UsingDecls.A(B self)
                 {
@@ -292,6 +290,8 @@ public static partial class MR
                         return ref *__MR_UsingDecls_B_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from constructor `MR::UsingDecls::B::B`.
                 public unsafe B(MR.CS.UsingDecls.Const_B _other) : this(null, is_owning: true)

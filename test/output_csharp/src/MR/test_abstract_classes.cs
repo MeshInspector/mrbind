@@ -71,8 +71,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -84,6 +82,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_B() {Dispose(false);}
+
+                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
             }
 
             /// Generated from class `MR::AbstractClasses::B`.
@@ -145,8 +145,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -180,6 +178,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
             }
 
             /// Generated from class `MR::AbstractClasses::C`.
@@ -189,8 +189,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class C : Const_C
             {
-                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.AbstractClasses.B(C self)
                 {
@@ -212,6 +210,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from method `MR::AbstractClasses::C::foo`.
                 public unsafe void Foo()

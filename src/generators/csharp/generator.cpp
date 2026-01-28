@@ -676,6 +676,19 @@ namespace mrbind::CSharp
         return ret;
     }
 
+    std::string_view Generator::GetCtorFinalizationStatements(const cppdecl::QualifiedName &cpp_class, bool is_const)
+    {
+        if (!fat_objects)
+            return "";
+
+        std::pair<std::string, bool> key(CppdeclToCode(cpp_class), is_const);
+        auto iter = class_name_to_fat_object_init_code.find(key);
+        if (iter == class_name_to_fat_object_init_code.end())
+            throw std::logic_error("Internal error: `GetCtorFinalizationStatements()` was either called on an unknown class, or called too early, before the fields of this class were emitted. The class name was `" + key.first + "` (" + (is_const ? "const" : "non-const") + ").");
+
+        return iter->second;
+    }
+
     cppdecl::QualifiedName Generator::AdjustCppNamespaces(cppdecl::QualifiedName name) const
     {
         // Apply any replacements.
@@ -1102,6 +1115,11 @@ namespace mrbind::CSharp
         std::string ret;
         ret += bool(flags & TypeBindingFlags::enable_sugar) ? " (with sugar enabled)" : "";
         ret += bool(flags & TypeBindingFlags::pointer_to_array) ? " (pointer to array)" : "";
+        ret += bool(flags & TypeBindingFlags::replace_ref_with_ptr) ? " (replacing `ref` with pointers)" : "";
+        ret += bool(flags & TypeBindingFlags::return_ref_instead_of_copying_small_types) ? " (using `in`/`ref readonly` instead of copying small types)" : "";
+        ret += bool(flags & TypeBindingFlags::no_move_in_by_value_return) ? " (no move in by-value return)" : "";
+        ret += bool(flags & TypeBindingFlags::return_ref_wrapper) ? " (returning a ref wrapper)" : "";
+        ret += bool(flags & TypeBindingFlags::use_heap_wrappers_for_exposed_structs) ? " (using heap wrappers for exposed structs)" : "";
         return ret;
     }
 
@@ -1638,8 +1656,17 @@ namespace mrbind::CSharp
                             // NOTE: The `fix_input` lambda is preserved, make sure it doesn't dangle.
                             auto MakeScalarRefBinding = [&](const std::string &csharp_type, std::function<std::string(const std::string &name)> fix_input = nullptr, bool is_exposed_struct = false) -> TypeBinding
                             {
+                                // If we want a pointer binding, adjust the type to be a pointer instead of a reference, and recurse.
+                                if (bool(flags & TypeBindingFlags::replace_ref_with_ptr))
+                                {
+                                    cppdecl::Type ptr_type = cpp_type;
+                                    ptr_type.RemoveModifier(); // Remove the reference-ness.
+                                    ptr_type.AddModifier(cppdecl::Pointer{});
+                                    return *GetTypeBindingOpt(ptr_type, flags);
+                                }
+
                                 const bool add_in = is_exposed_struct;
-                                const bool return_ref_instead_of_by_value = is_exposed_struct; // Otherwise return by value.
+                                const bool return_ref_instead_of_by_value = is_exposed_struct || bool(flags & TypeBindingFlags::return_ref_instead_of_copying_small_types); // Otherwise return by value.
                                 const bool return_ref_wrapper = bool(flags & TypeBindingFlags::return_ref_wrapper);
 
                                 if (!is_const && !is_rvalue_ref)
@@ -1997,7 +2024,7 @@ namespace mrbind::CSharp
                             // NOTE: The `fix_input` lambda is preserved, make sure it doesn't dangle.
                             auto MakeScalarPtrBinding = [&](const std::string &csharp_type, std::function<std::string(const std::string &name)> fix_input = nullptr, bool is_exposed_struct = false) -> TypeBinding
                             {
-                                if (bool(flags & TypeBindingFlags::pointer_to_array))
+                                if (bool(flags & (TypeBindingFlags::pointer_to_array | TypeBindingFlags::replace_ref_with_ptr)))
                                 {
                                     std::string csharp_ptr_type = csharp_type;
                                     if (!csharp_ptr_type.ends_with('*'))
@@ -2198,6 +2225,8 @@ namespace mrbind::CSharp
                                         throw std::runtime_error("The referenced type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
 
                                     // Special handling for pointers marked as pointers to arrays.
+                                    // Note that we don't include `replace_ref_with_ptr` here, since this uses our unbounded array wrappers instead of raw pointers.
+                                    // Instead for exposed structs we let this fall through to `MakeScalarPtrBinding()`, which handles this properly.
                                     if (bool(flags & TypeBindingFlags::pointer_to_array))
                                     {
                                         // We bind those pointers as unbounded arrays.
@@ -2791,7 +2820,7 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    Generator::FuncLikeEmitter::FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string new_csharp_name, bool in_exposed_struct, EmitVariant emit_variant)
+    Generator::FuncLikeEmitter::FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string new_csharp_name, std::optional<bool> class_part_kind, EmitVariant emit_variant)
     try
         : generator(generator),
         any_func_like(any_func_like),
@@ -2820,7 +2849,8 @@ namespace mrbind::CSharp
             assert(!is_ctor || generator.ParseTypeOrThrow(func_like.ret.cpp_type).IsOnlyQualifiedName());
             return is_ctor && generator.GetSharedPtrTypeDescForCppTypeOpt(func_like.ret.cpp_type);
         }()),
-        in_exposed_struct(in_exposed_struct),
+        in_exposed_struct(!class_part_kind),
+        class_part_kind(class_part_kind),
         is_overloaded_subscript_op(csharp_name == "operator[]"), // This should imply `IsOverloadableOpOrConvOp(...) == true`. This is false if the operator is not overloadable.
         // Here we only allow methods and not free functions, since all valid operators would've been moved to methods by this point,
         //   and all invalid ones (that C# doesn't support, that we must emit as functions) shouldn't be covered by this.
@@ -3757,15 +3787,7 @@ namespace mrbind::CSharp
 
                             ctor_expr = "(_Underlying *)" + generator.RequestHelper("_Alloc") + "(" + class_size_str + ")";
 
-                            post_ctor_statements =
-                                ret_binding->csharp_return_type + " _ctor_result = " + expr + ";\n" +
-                                (
-                                    generator.HaveCSharpFeatureNativeMemoryCopyAndFill()
-                                    ?
-                                        "System.Runtime.InteropServices.NativeMemory.Copy(&_ctor_result, _UnderlyingPtr, " + class_size_str + ");\n"
-                                    :
-                                        "for (nuint _i = 0; _i < " + class_size_str + "; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];\n"
-                                );
+                            post_ctor_statements = "*(" + generator.CppToCSharpExposedStructName(generator.ParseNameOrThrow(func_like.ret.cpp_type)) + " *)_UnderlyingPtr = " + expr + ";\n";
                         }
                         else
                         {
@@ -3781,6 +3803,10 @@ namespace mrbind::CSharp
 
                     file.WriteString(lifetime_statements);
                     file.WriteString(extra_statements_after);
+
+                    // `--fat-objects` initialization.
+                    if (!in_exposed_struct)
+                        file.WriteString(generator.GetCtorFinalizationStatements(generator.ParseNameOrThrow(func_like.ret.cpp_type), InConstHalf()));
                 }
                 else if (extra_statements_after.empty() && !ret_binding->needs_temporary_variable)
                 {
@@ -4842,7 +4868,7 @@ namespace mrbind::CSharp
                         {
                             if (ShouldEmitMethodHere(method, class_part_kind, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
                             {
-                                FuncLikeEmitter dummy_emitter(*this, &method, MakeUnqualCSharpMethodName(method, class_part_kind, EmitVariant::regular), is_exposed_struct_by_value, EmitVariant::regular);
+                                FuncLikeEmitter dummy_emitter(*this, &method, MakeUnqualCSharpMethodName(method, class_part_kind, EmitVariant::regular), class_part_kind, EmitVariant::regular);
 
                                 const ManagedKind param_managed_kind =
                                     is_exposed_struct_by_value && dummy_emitter.is_op_with_symmetric_self_args
@@ -5031,136 +5057,6 @@ namespace mrbind::CSharp
                         );
                     }
 
-                    // Conversion operator from the class wrapper to the exposed struct.
-                    if (is_exposed_struct_by_value)
-                    {
-                        const std::string mut_name = CppToCSharpUnqualClassName(cpp_qual_name, false);
-                        const std::string const_name = CppToCSharpUnqualClassName(cpp_qual_name, true);
-
-                        file.WriteSeparatingNewline();
-                        WriteComment(file,
-                            "/// Copy contents from a wrapper class to this struct.\n"
-                        );
-                        file.WriteString(
-                            "public static implicit operator " + unqual_csharp_name + "(" + const_name + " other) => other._Ref;\n"
-                        );
-                    }
-                    // Constructor of the class wrapper from the exposed struct.
-                    else if (class_desc.kind == CInterop::ClassKind::exposed_struct)
-                    {
-                        file.WriteSeparatingNewline();
-                        WriteComment(file,
-                            "/// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)\n"
-                        );
-                        file.WriteString(
-                            // Note, we must respect `copy_constructor_takes_nonconst_ref` here. Attempting to always use `is_const = false` sometimes causes ambiguities.
-                            "public unsafe " + unqual_csharp_name + "(" + CppToCSharpUnqualExposedStructName(cpp_qual_name) + " other) : this(new " + CppToCSharpUnqualClassName(cpp_qual_name, !type_desc.traits.value().copy_constructor_takes_nonconst_ref) + "((_Underlying *)&other, is_owning: false)) {}\n"
-                        );
-
-                        // In the const half, also add an implicit conversion.
-                        // Note that this behavior should be synced with how `Box<T>` and `Const_Box<T>` implicitly convert from `T`.
-                        if (IsConst())
-                        {
-                            WriteComment(file,
-                                "/// Convert from a struct by copying it. Note that only `" + unqual_csharp_name + "` has this conversion, `" + CppToCSharpUnqualClassName(cpp_qual_name, false) + "` intentionally doesn't.\n"
-                            );
-                            file.WriteString(
-                                "public static implicit operator " + unqual_csharp_name + "(" + CppToCSharpUnqualExposedStructName(cpp_qual_name) + " other) {return new(other);}\n"
-                            );
-                        }
-                    }
-
-                    // The constructor from a pointer.
-                    if (!is_exposed_struct_by_value)
-                    {
-                        file.WriteSeparatingNewline();
-                        file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(_Underlying *ptr, bool is_owning)");
-                        if (!IsConst())
-                        {
-                            file.WriteString(" : base(ptr, is_owning) {}\n");
-                        }
-                        else if (!shared_ptr_desc)
-                        {
-                            file.WriteString(" : base(is_owning) {_UnderlyingPtr = ptr;}\n");
-                        }
-                        else
-                        {
-                            // Here we must create either an owning or a non-owning shared pointer.
-
-                            // We own our shared pointer regardless, so this is unconditionally true.
-                            file.WriteString(" : base(true)\n");
-
-                            file.PushScope({}, "{\n", "}\n");
-
-                            auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
-                            file.WriteString(dllimport_construct_owning.dllimport_decl);
-
-                            auto dllimport_construct_nonowning = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructNonOwning", "_UnderlyingShared *", "_Underlying *other");
-                            file.WriteString(dllimport_construct_nonowning.dllimport_decl);
-
-                            file.WriteString(
-                                "if (is_owning)\n"
-                                "    _UnderlyingSharedPtr = " + dllimport_construct_owning.csharp_name + "(ptr);\n"
-                                "else\n"
-                                "    _UnderlyingSharedPtr = " + dllimport_construct_nonowning.csharp_name + "(ptr);\n"
-                            );
-                            file.PopScope();
-                        }
-                    }
-
-                    // Some shared-pointer-specific constructors and factory functions.
-                    if (!is_exposed_struct_by_value && shared_ptr_desc)
-                    {
-                        // A simple constructor from an existing shared pointer, either owning or not.
-                        // Note, the parameter name here is `shared_ptr` instead of `ptr` for overload disambiguation when passing null.
-                        file.WriteSeparatingNewline();
-                        file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(_UnderlyingShared *shared_ptr, bool is_owning)");
-                        if (IsConst())
-                            file.WriteString(" : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}\n");
-                        else
-                            file.WriteString(" : base(shared_ptr, is_owning) {}\n");
-
-                        // An aliasing constructor.
-                        if (IsConst())
-                        {
-                            file.WriteSeparatingNewline();
-
-                            // Notice that this returns a non-const type. This allows us to avoid overriding it in the non-const half, and otherwise shouldn't change anything.
-                            file.WriteString("internal static unsafe " + CppToCSharpUnqualClassName(cpp_qual_name, false) + " _MakeAliasing(" + sharedptr_constvoid_underlying_ptr_type + "ownership, _Underlying *ptr)\n");
-                            file.PushScope({}, "{\n", "}\n");
-
-                            auto dllimport_construct_aliasing = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructAliasing", "_UnderlyingShared *", RequestHelper("_PassBy") + " ownership_pass_by, " + sharedptr_constvoid_underlying_ptr_type + "ownership, _Underlying *ptr");
-                            file.WriteString(dllimport_construct_aliasing.dllimport_decl);
-                            file.WriteString("return new(" + dllimport_construct_aliasing.csharp_name + "(" + RequestHelper("_PassBy") + ".copy, ownership, ptr), is_owning: true);\n");
-
-                            file.PopScope();
-                        }
-
-                        // `_LateMakeShared()`, a helper for parsed constructors.
-                        if (IsConst())
-                        {
-                            // This function is used in generated parsed constructors.
-                            // First you put `: this(shared_ptr: null, is_owning: true)` in the member init list (calling the ctor from a `shared_ptr` pointer, rather than a raw pointer),
-                            //   and then call `_LateMakeShared()` to lazily construct a new shared pointer.
-
-                            file.WriteSeparatingNewline();
-                            // `private protected` = must satisfy both `internal` and `protected`.
-                            file.WriteString("private protected unsafe void _LateMakeShared(_Underlying *ptr)\n");
-                            file.PushScope({}, "{\n", "}\n");
-
-                            // Make sure the usage is correct, i.e. that the owning bool was set to true, and the pointer is still false.
-                            file.WriteString("System.Diagnostics.Trace.Assert(_IsOwningVal == true);\n");
-                            file.WriteString("System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);\n");
-
-                            auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
-                            file.WriteString(dllimport_construct_owning.dllimport_decl);
-
-                            file.WriteString("_UnderlyingSharedPtr = " + dllimport_construct_owning.csharp_name + "(ptr);\n");
-
-                            file.PopScope();
-                        }
-                    }
-
                     // The `IDisposable` implementation and the destructor.
                     // We don't need this and can't emit this if the underlying type isn't destructible. In that case we don't emit the constructors as well.
                     // Except if we're also using a shared pointer; then we DO need this, as we must destroy the shared pointer even if it's non-owning.
@@ -5307,93 +5203,375 @@ namespace mrbind::CSharp
                         }
                     }
 
-                    { // Emit the fields.
-                        for (const auto &field : class_desc.fields)
-                        {
-                            // Custom for non-static fields in exposed fields.
-                            if (!field.is_static && class_desc.kind == CInterop::ClassKind::exposed_struct)
+                    { // Handle the fields.
+                        // Those strings are only used with `--fat-objects`.
+                        std::string field_init_nonstatic;
+                        std::string field_init_static;
+
+                        { // Emit the fields themselves.
+                            for (const auto &field : class_desc.fields)
                             {
-                                const cppdecl::Type cpp_type = ParseTypeOrThrow(field.type);
-
-                                auto csharp_type = CppToCSharpKnownSizeType(cpp_type);
-                                if (!csharp_type)
-                                    throw std::runtime_error("Don't know how to bind field `" + field.full_name + "` of type `" + field.type + "` in an exposed struct.");
-
-                                const bool is_bool = cpp_type.AsSingleWord() == "bool";
-
-                                const std::string csharp_field_name = CppToCSharpFieldName(cpp_qual_name, field.is_static, field.full_name);
-
-                                file.WriteSeparatingNewline();
-
-                                // Write comment.
-                                file.WriteString(field.comment.c_style);
-
-                                // Write the field by value, if we're in the by-value part.
-                                if (is_exposed_struct_by_value)
+                                // Custom for non-static fields in exposed fields.
+                                if (!field.is_static && class_desc.kind == CInterop::ClassKind::exposed_struct)
                                 {
-                                    const std::string offset_attr = "[System.Runtime.InteropServices.FieldOffset(" + std::to_string(field.layout.value().byte_offset) + ")]\n";
+                                    const cppdecl::Type cpp_type = ParseTypeOrThrow(field.type);
 
-                                    // Write the field itself.
-                                    if (is_bool)
+                                    auto csharp_type = CppToCSharpKnownSizeType(cpp_type);
+                                    if (!csharp_type)
+                                        throw std::runtime_error("Don't know how to bind field `" + field.full_name + "` of type `" + field.type + "` in an exposed struct.");
+
+                                    const bool is_bool = cpp_type.AsSingleWord() == "bool";
+
+                                    const std::string csharp_field_name = CppToCSharpFieldName(cpp_qual_name, field.is_static, field.full_name);
+
+                                    file.WriteSeparatingNewline();
+
+                                    // Write comment.
+                                    file.WriteString(field.comment.c_style);
+
+                                    // Write the field by value, if we're in the by-value part.
+                                    if (is_exposed_struct_by_value)
                                     {
-                                        // We hide bools behind properties, since they're stores as `byte`s.
-                                        // We could try `bool` + `MarshalAs()`, but I heard that even then `bool`s in C# are "not blittable",
-                                        //   which roughly means "not trivially copyable" (apparently in the sense that they can be corrupted by writing bad bytes to them),
-                                        //   and as such don't work as return values: https://stackoverflow.com/a/32115697/2752075
-                                        file.WriteString(
-                                            // Put the field first, so that the emitted comment above gets attached to it.
-                                            "public bool " + csharp_field_name + " {get => __storage_" + csharp_field_name + " != 0; set => __storage_" + csharp_field_name + " = value ? (byte)1 : (byte)0;}\n"
-                                            + offset_attr +
-                                            "byte __storage_" + csharp_field_name + ";\n"
-                                        );
+                                        const std::string offset_attr = "[System.Runtime.InteropServices.FieldOffset(" + std::to_string(field.layout.value().byte_offset) + ")]\n";
+
+                                        // Write the field itself.
+                                        if (is_bool)
+                                        {
+                                            // We hide bools behind properties, since they're stores as `byte`s.
+                                            // We could try `bool` + `MarshalAs()`, but I heard that even then `bool`s in C# are "not blittable",
+                                            //   which roughly means "not trivially copyable" (apparently in the sense that they can be corrupted by writing bad bytes to them),
+                                            //   and as such don't work as return values: https://stackoverflow.com/a/32115697/2752075
+                                            file.WriteString(
+                                                // Put the field first, so that the emitted comment above gets attached to it.
+                                                "public bool " + csharp_field_name + " {get => __storage_" + csharp_field_name + " != 0; set => __storage_" + csharp_field_name + " = value ? (byte)1 : (byte)0;}\n"
+                                                + offset_attr +
+                                                "byte __storage_" + csharp_field_name + ";\n"
+                                            );
+                                        }
+                                        else
+                                        {
+                                            file.WriteString(
+                                                offset_attr +
+                                                "public " +
+                                                *csharp_type + " " + csharp_field_name + ";\n"
+                                            );
+                                        }
                                     }
+                                    // Or emit a property returning a reference to it, if we're in a wrapper class.
                                     else
                                     {
-                                        file.WriteString(
-                                            offset_attr +
-                                            "public " +
-                                            *csharp_type + " " + csharp_field_name + ";\n"
-                                        );
+                                        if (is_bool)
+                                        {
+                                            file.WriteString(
+                                                "public " +
+                                                std::string(IsConst() ? "" : "new ") +
+                                                "bool " +
+                                                csharp_field_name + " " +
+                                                (IsConst() ? "" : "{get ") +
+                                                "=> _Ref." + csharp_field_name + ";" +
+                                                (IsConst() ? "" : " set => _Ref." + csharp_field_name + " = value;}") +
+                                                "\n"
+                                            );
+                                        }
+                                        else
+                                        {
+                                            file.WriteString(
+                                                "public " +
+                                                std::string(IsConst() ? "" : "new ") +
+                                                (IsConst() ? "ref readonly " : "ref ") +
+                                                *csharp_type + " " +
+                                                csharp_field_name +
+                                                " => ref _Ref." + csharp_field_name + ";\n"
+                                            );
+                                        }
                                     }
                                 }
-                                // Or emit a property returning a reference to it, if we're in a wrapper class.
                                 else
                                 {
-                                    if (is_bool)
-                                    {
-                                        file.WriteString(
-                                            "public " +
-                                            std::string(IsConst() ? "" : "new ") +
-                                            "bool " +
-                                            csharp_field_name + " " +
-                                            (IsConst() ? "" : "{get ") +
-                                            "=> _Ref." + csharp_field_name + ";" +
-                                            (IsConst() ? "" : " set => _Ref." + csharp_field_name + " = value;}") +
-                                            "\n"
-                                        );
-                                    }
-                                    else
-                                    {
-                                        file.WriteString(
-                                            "public " +
-                                            std::string(IsConst() ? "" : "new ") +
-                                            (IsConst() ? "ref readonly " : "ref ") +
-                                            *csharp_type + " " +
-                                            csharp_field_name +
-                                            " => ref _Ref." + csharp_field_name + ";\n"
-                                        );
-                                    }
+                                    // Just the normal field.
+                                    EmitCppField(file, cpp_qual_name, field, is_exposed_struct_by_value ? false : IsConst(), fat_objects ? (field.is_static ? &field_init_static : &field_init_nonstatic) : nullptr);
                                 }
                             }
-                            else
+                        }
+
+                        // A static constructor?
+                        if (!field_init_static.empty())
+                        {
+                            assert(fat_objects);
+
+                            file.WriteSeparatingNewline();
+                            file.WriteString("unsafe static " + unqual_csharp_name + "()\n");
+                            file.PushScope({}, "{\n", "}\n");
+                            std::string_view view = field_init_static;
+                            cppdecl::TrimLeadingWhitespace(view);
+                            file.WriteString(view);
+                            file.PopScope();
+                        }
+
+                        // Register the non-static init code.
+                        if (!is_exposed_struct_by_value)
+                        {
+                            // We used to paste this code directly into the constructors, but it was moved to a function.
+                            // The function isn't very convenient because it prevents `readonly` fields (those must be assigned in constructors),
+                            //   but we happen to not use readonly fields anymore either, because we couldn't set them from the constructors of derived classes.
+                            class_name_to_fat_object_init_code.try_emplace(std::pair(cpp_type, IsConst()), field_init_nonstatic.empty() ? "" : "_FinalizeFields();\n");
+
+                            if (!field_init_nonstatic.empty())
                             {
-                                // Just the normal field.
-                                EmitCppField(file, cpp_qual_name, field, is_exposed_struct_by_value ? false : IsConst());
+                                file.WriteSeparatingNewline();
+                                WriteComment(file, "/// Constructors call this at the end to initialize class fields.\n");
+                                file.WriteString("unsafe void _FinalizeFields()\n");
+                                file.PushScope({}, "{\n", "}\n");
+
+                                // We aren't calling the parent function, it was easier to repeat the work in the derived class.
+
+                                std::string_view view = field_init_nonstatic;
+                                cppdecl::TrimLeadingWhitespace(view);
+                                file.WriteString(view);
+
+                                file.PopScope();
                             }
                         }
                     }
 
-                    // For exposed structs (and their ref wrappers!), we must manually emit the constructors that are trivial in C++,
+                    // Conversion operator from the class wrapper to the exposed struct.
+                    if (is_exposed_struct_by_value)
+                    {
+                        const std::string mut_name = CppToCSharpUnqualClassName(cpp_qual_name, false);
+                        const std::string const_name = CppToCSharpUnqualClassName(cpp_qual_name, true);
+
+                        file.WriteSeparatingNewline();
+                        WriteComment(file,
+                            "/// Copy contents from a wrapper class to this struct.\n"
+                        );
+                        file.WriteString(
+                            "public static implicit operator " + unqual_csharp_name + "(" + const_name + " other) => other._Ref;\n"
+                        );
+                    }
+                    // Constructor of the class wrapper from the exposed struct.
+                    else if (class_desc.kind == CInterop::ClassKind::exposed_struct)
+                    {
+                        file.WriteSeparatingNewline();
+                        WriteComment(file,
+                            "/// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)\n"
+                        );
+                        file.WriteString(
+                            // Note, we must respect `copy_constructor_takes_nonconst_ref` here. Attempting to always use `is_const = false` sometimes causes ambiguities.
+                            "public unsafe " + unqual_csharp_name + "(" + CppToCSharpUnqualExposedStructName(cpp_qual_name) + " other) : this(new " + CppToCSharpUnqualClassName(cpp_qual_name, !type_desc.traits.value().copy_constructor_takes_nonconst_ref) + "((_Underlying *)&other, is_owning: false))"
+                        );
+                        std::string_view extra_code = GetCtorFinalizationStatements(cpp_qual_name, IsConst());
+                        if (!extra_code.empty())
+                        {
+                            file.PushScope({}, "{\n", "}\n");
+                            cppdecl::TrimLeadingWhitespace(extra_code);
+                            file.WriteString(extra_code);
+                            file.PopScope();
+                        }
+                        else
+                        {
+                            file.WriteString(" {}\n");
+                        }
+
+                        // In the const half, also add an implicit conversion.
+                        // Note that this behavior should be synced with how `Box<T>` and `Const_Box<T>` implicitly convert from `T`.
+                        if (IsConst())
+                        {
+                            WriteComment(file,
+                                "/// Convert from a struct by copying it. Note that only `" + unqual_csharp_name + "` has this conversion, `" + CppToCSharpUnqualClassName(cpp_qual_name, false) + "` intentionally doesn't.\n"
+                            );
+                            file.WriteString(
+                                "public static implicit operator " + unqual_csharp_name + "(" + CppToCSharpUnqualExposedStructName(cpp_qual_name) + " other) {return new(other);}\n"
+                            );
+                        }
+                    }
+
+                    // The constructor from a pointer.
+                    if (!is_exposed_struct_by_value)
+                    {
+                        file.WriteSeparatingNewline();
+
+                        std::string_view extra_code = GetCtorFinalizationStatements(cpp_qual_name, IsConst());
+
+                        // Push silencing warnings about non-nullable fields not being initialized. Need this for `--fat-objects`.
+                        if (!extra_code.empty())
+                        {
+                            // Putting this on the same line as the pragma (after it) trips the VSCode C# syntax highlighter.
+                            file.WriteString("// Don't warn about some fields remaining conditionally uninitialized. We initialize them later.\n");
+                            file.WriteString("#pragma warning disable CS8618\n");
+                        }
+
+                        file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(_Underlying *ptr, bool is_owning)");
+
+                        if (!IsConst())
+                        {
+                            file.WriteString(" : base(ptr, is_owning)");
+
+                            if (!extra_code.empty())
+                            {
+                                file.PushScope({}, "\n{\n", "}\n");
+                                file.WriteString("if (ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
+                                file.PushScope({}, "{\n", "}\n");
+                                cppdecl::TrimLeadingWhitespace(extra_code);
+                                file.WriteString(extra_code);
+                                file.PopScope();
+                                file.PopScope();
+                            }
+                            else
+                            {
+                                file.WriteString(" {}\n");
+                            }
+                        }
+                        else if (!shared_ptr_desc)
+                        {
+                            file.WriteString(" : base(is_owning)");
+
+                            if (!extra_code.empty())
+                            {
+                                file.PushScope({}, "\n{\n", "}\n");
+                                file.WriteString("_UnderlyingPtr = ptr;\n");
+                                file.WriteString("if (ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
+                                file.PushScope({}, "{\n", "}\n");
+                                file.WriteString(extra_code);
+                                file.PopScope();
+                                file.PopScope();
+                            }
+                            else
+                            {
+                                file.WriteString(" {_UnderlyingPtr = ptr;}\n");
+                            }
+                        }
+                        else
+                        {
+                            // Here we must create either an owning or a non-owning shared pointer.
+
+                            // We own our shared pointer regardless, so this is unconditionally true.
+                            file.WriteString(" : base(true)\n");
+
+                            file.PushScope({}, "{\n", "}\n");
+
+                            auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
+                            file.WriteString(dllimport_construct_owning.dllimport_decl);
+
+                            auto dllimport_construct_nonowning = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructNonOwning", "_UnderlyingShared *", "_Underlying *other");
+                            file.WriteString(dllimport_construct_nonowning.dllimport_decl);
+
+                            file.WriteString(
+                                "if (is_owning)\n"
+                                "    _UnderlyingSharedPtr = " + dllimport_construct_owning.csharp_name + "(ptr);\n"
+                                "else\n"
+                                "    _UnderlyingSharedPtr = " + dllimport_construct_nonowning.csharp_name + "(ptr);\n"
+                            );
+
+                            file.WriteString("if (ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
+                            file.PushScope({}, "{\n", "}\n");
+                            file.WriteString(extra_code);
+                            file.PopScope();
+
+                            file.PopScope();
+                        }
+
+                        if (!extra_code.empty())
+                            file.WriteString("#pragma warning restore CS8618\n");
+                    }
+
+                    // Some shared-pointer-specific constructors and factory functions.
+                    if (!is_exposed_struct_by_value && shared_ptr_desc)
+                    {
+                        // A simple constructor from an existing shared pointer, either owning or not.
+                        // Note, the parameter name here is `shared_ptr` instead of `ptr` for overload disambiguation when passing null.
+                        {
+                            file.WriteSeparatingNewline();
+
+                            std::string_view extra_code = GetCtorFinalizationStatements(cpp_qual_name, IsConst());
+
+                            // Push silencing warnings about non-nullable fields not being initialized. Need this for `--fat-objects`.
+                            if (!extra_code.empty())
+                            {
+                                // Putting this on the same line as the pragma (after it) trips the VSCode C# syntax highlighter.
+                                file.WriteString("// Don't warn about some fields remaining conditionally uninitialized. We initialize them later.\n");
+                                file.WriteString("#pragma warning disable CS8618\n");
+                            }
+
+                            file.WriteString("internal unsafe " + std::string(unqual_csharp_name) + "(_UnderlyingShared *shared_ptr, bool is_owning)");
+                            if (IsConst())
+                            {
+                                if (extra_code.empty())
+                                {
+                                    file.WriteString(" : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}\n");
+                                }
+                                else
+                                {
+                                    file.WriteString(" : base(is_owning)\n");
+                                    file.PushScope({}, "{\n", "}\n");
+                                    file.WriteString("_UnderlyingSharedPtr = shared_ptr;\n");
+                                    file.WriteString(extra_code);
+                                    file.PopScope();
+                                }
+                            }
+                            else
+                            {
+                                if (extra_code.empty())
+                                {
+                                    file.WriteString(" : base(shared_ptr, is_owning) {}\n");
+                                }
+                                else
+                                {
+                                    file.WriteString(" : base(shared_ptr, is_owning)\n");
+                                    file.PushScope({}, "{\n", "}\n");
+                                    cppdecl::TrimLeadingWhitespace(extra_code);
+                                    file.WriteString(extra_code);
+                                    file.PopScope();
+                                }
+                            }
+
+                            if (!extra_code.empty())
+                                file.WriteString("#pragma warning restore CS8618\n");
+                        }
+
+                        // An aliasing factory function.
+                        if (IsConst())
+                        {
+                            file.WriteSeparatingNewline();
+
+                            // Notice that this returns a non-const type. This allows us to avoid overriding it in the non-const half, and otherwise shouldn't change anything.
+                            file.WriteString("internal static unsafe " + CppToCSharpUnqualClassName(cpp_qual_name, false) + " _MakeAliasing(" + sharedptr_constvoid_underlying_ptr_type + "ownership, _Underlying *ptr)\n");
+                            file.PushScope({}, "{\n", "}\n");
+
+                            auto dllimport_construct_aliasing = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructAliasing", "_UnderlyingShared *", RequestHelper("_PassBy") + " ownership_pass_by, " + sharedptr_constvoid_underlying_ptr_type + "ownership, _Underlying *ptr");
+                            file.WriteString(dllimport_construct_aliasing.dllimport_decl);
+                            file.WriteString("return new(" + dllimport_construct_aliasing.csharp_name + "(" + RequestHelper("_PassBy") + ".copy, ownership, ptr), is_owning: true);\n");
+
+                            file.PopScope();
+                        }
+
+                        // `_LateMakeShared()`, a helper for parsed constructors.
+                        if (IsConst())
+                        {
+                            // This function is used in generated parsed constructors.
+                            // First you put `: this(shared_ptr: null, is_owning: true)` in the member init list (calling the ctor from a `shared_ptr` pointer, rather than a raw pointer),
+                            //   and then call `_LateMakeShared()` to lazily construct a new shared pointer.
+
+                            file.WriteSeparatingNewline();
+                            // `private protected` = must satisfy both `internal` and `protected`.
+                            file.WriteString("private protected unsafe void _LateMakeShared(_Underlying *ptr)\n");
+                            file.PushScope({}, "{\n", "}\n");
+
+                            // Make sure the usage is correct, i.e. that the owning bool was set to true, and the pointer is still false.
+                            file.WriteString("System.Diagnostics.Trace.Assert(_IsOwningVal == true);\n");
+                            file.WriteString("System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);\n");
+
+                            auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
+                            file.WriteString(dllimport_construct_owning.dllimport_decl);
+
+                            file.WriteString("_UnderlyingSharedPtr = " + dllimport_construct_owning.csharp_name + "(ptr);\n");
+
+                            // Not calling the finalization code here, the constructors will do it themselves.
+
+                            file.PopScope();
+                        }
+                    }
+
+                    // For exposed structs (and their heap-allocating wrappers!), we must manually emit the constructors that are trivial in C++,
                     //   since we don't emit them in C.
                     if (class_desc.kind == CInterop::ClassKind::exposed_struct) // Sic, not `in_exposed_struct`, see above.
                     {
@@ -5471,14 +5649,8 @@ namespace mrbind::CSharp
                                     file.WriteString("_UnderlyingPtr = " + expr + ";\n");
 
                                 // Bytewise copy.
-                                if (HaveCSharpFeatureNativeMemoryCopyAndFill())
-                                {
-                                    file.WriteString("System.Runtime.InteropServices.NativeMemory.Copy(_other._UnderlyingPtr, _UnderlyingPtr, " + std::to_string(class_desc.size_and_alignment.value().size) + ");\n");
-                                }
-                                else
-                                {
-                                    file.WriteString("for (nuint _i = 0; _i < " + std::to_string(class_desc.size_and_alignment.value().size) + "; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];\n");
-                                }
+                                const std::string csharp_exposed_struct_name = CppToCSharpExposedStructName(cpp_qual_name);
+                                file.WriteString("*(" + csharp_exposed_struct_name + " *)_UnderlyingPtr = *(" + csharp_exposed_struct_name + " *)_other._UnderlyingPtr;\n");
 
                                 file.PopScope();
                             }
@@ -5534,7 +5706,7 @@ namespace mrbind::CSharp
                                     }
                                 }
 
-                                FuncLikeEmitter emit(*this, &method, unqual_method_name, is_exposed_struct_by_value, emit_variant);
+                                FuncLikeEmitter emit(*this, &method, unqual_method_name, class_part_kind, emit_variant);
 
                                 emit.Emit(file, is_exposed_struct_by_value ? std::nullopt : std::optional(FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = IsConst()}));
                             }
@@ -5985,7 +6157,7 @@ namespace mrbind::CSharp
         return true;
     }
 
-    void Generator::EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class, const CInterop::ClassField &field, bool is_const)
+    void Generator::EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class, const CInterop::ClassField &field, bool is_const, std::string *init_code)
     {
         try
         {
@@ -5995,6 +6167,9 @@ namespace mrbind::CSharp
 
             const std::string csharp_enclosing_class_name = CppToCSharpUnqualClassName(cpp_class, is_const);
             const std::string csharp_field_name = CppToCSharpFieldName(cpp_class, field.is_static, field.full_name);
+
+            // Need this in a few places to avoid conflicts with function parameters with the same name.
+            const std::string this_or_enclosing_class_prefix = field.is_static ? csharp_enclosing_class_name + "." : "this.";
 
             // Special-case array fields.
             if (field.getter_array_size)
@@ -6025,25 +6200,72 @@ namespace mrbind::CSharp
 
                 ArrayStrings arr_strings = RequestCSharpArrayType(ParseTypeOrThrow(field.type));
 
+                // Special-case refs to arrays for `--fat-objects`.
+                if (init_code && arr_strings.csharp_type.starts_with("ref "))
+                {
+                    const std::string csharp_storage_field_name = "__array_storage_" + csharp_field_name;
+
+                    file.WriteSeparatingNewline();
+                    file.WriteString(field.comment.c_style);
+                    if (!is_const)
+                        file.WriteString("new ");
+
+                    file.WriteString(
+                        "public " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_type + " " + csharp_field_name +
+                        " => " + arr_strings.construct(csharp_storage_field_name) + ";\n"
+                    );
+
+                    // The backing pointer.
+                    if (is_const)
+                    {
+                        file.WriteString(
+                            "private protected " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_underlying_ptr_target_type + " *" + csharp_storage_field_name + ";\n"
+                        );
+                    }
+
+                    auto dllimport_decl = MakeDllImportDecl(getter->c_name, arr_strings.csharp_underlying_ptr_target_type + " *", getter->is_static ? "" : GetParameterBinding(getter->params.at(0), getter->is_static).dllimport_decl_params);
+                    *init_code +=
+                        "\n{" + (init_code ? " // " + csharp_field_name + " (ref array)" : "") + "\n" +
+                        Strings::Indent(
+                            dllimport_decl.dllimport_decl +
+                            this_or_enclosing_class_prefix + csharp_storage_field_name + " = " + dllimport_decl.csharp_name + "(_UnderlyingPtr);\n"
+                        ) +
+                        "}\n";
+
+                    return;
+                }
+
                 file.WriteSeparatingNewline();
                 file.WriteString(field.comment.c_style);
                 if (!is_const)
                     file.WriteString("new ");
-                file.WriteString("public " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_type + (arr_strings.csharp_type.ends_with('*') ? "" : " ") + csharp_field_name + "\n");
-                file.PushScope({}, "{\n", "}\n");
-
-                file.WriteString("get\n");
-                file.PushScope({}, "{\n", "}\n");
+                // Using `get; private protected set;` to allow the derived class to modify this.
+                file.WriteString("public " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_type + " " + csharp_field_name + (init_code ? " {get; private protected set;}" : "") + "\n");
 
                 auto dllimport_decl = MakeDllImportDecl(getter->c_name, arr_strings.csharp_underlying_ptr_target_type + " *", getter->is_static ? "" : GetParameterBinding(getter->params.at(0), getter->is_static).dllimport_decl_params);
-                file.WriteString(dllimport_decl.dllimport_decl);
+                std::string body =
+                    dllimport_decl.dllimport_decl +
+                    (init_code ? this_or_enclosing_class_prefix + csharp_field_name + " = " : "return ") + arr_strings.construct(dllimport_decl.csharp_name + "(_UnderlyingPtr)") + ";\n";
 
-                file.WriteString(
-                    "return " + arr_strings.construct(dllimport_decl.csharp_name + "(_UnderlyingPtr)") + ";\n"
-                );
-
-                file.PopScope();
-                file.PopScope();
+                if (init_code)
+                {
+                    *init_code +=
+                        "\n{" + (init_code ? " // " + csharp_field_name + " (array)" : "") + "\n" +
+                        Strings::Indent(
+                            body +
+                            // Propagate to the const base, if needed.
+                            (!is_const && !field.is_static ? "base." + csharp_field_name + " = this." + csharp_field_name + ";\n" : "")
+                        ) +
+                        "}\n";
+                }
+                else
+                {
+                    file.PushScope({}, "{\n", "}\n");
+                    file.PushScope({}, "get\n{\n", "}\n");
+                    file.WriteString(body);
+                    file.PopScope();
+                    file.PopScope();
+                }
 
                 return;
             }
@@ -6058,6 +6280,8 @@ namespace mrbind::CSharp
             // Special-case pointer fields to some types.
             // Since the getters return references to pointers for those, and we don't bind those properly (we emit them as raw pointers),
             //   we have to do a bunch of special-casing here.
+            // Also this handles `init_code` differently from other fields, since we can't really cache the C# object here, because our C# classes hold stable pointers.
+            // So instead we cache the raw pointer to the field (pointer-to-pointer in this case), so at least we don't need to call getters/setters every time.
             if (cpp_field_type.Is<cppdecl::Pointer>())
             {
                 cppdecl::Type cpp_underlying_type = cpp_field_type;
@@ -6092,6 +6316,8 @@ namespace mrbind::CSharp
                             ? CppToCSharpClassName(cpp_underlying_type.simple_type.name, field_is_const)
                             : RequestHelper(field_is_const ? "Const_Box" : "Box") + "<" + *csharp_nonclass_type + ">";
 
+                        const std::string csharp_underlying_double_pointer_type = (is_class ? csharp_field_wrapper_type + "._Underlying" : *csharp_nonclass_type) + " **";
+
                         // The property type.
                         file.WriteString(csharp_field_wrapper_type);
 
@@ -6103,6 +6329,22 @@ namespace mrbind::CSharp
                         file.PushScope({}, "{\n", "}\n");
 
                         const std::string maybe_static_str = field.is_static ? "Static" : "";
+                        const std::string csharp_storage_field_name = "__ptr_storage_" + csharp_field_name;
+
+                        auto dllimport_getter = MakeDllImportDecl(field.getter_const->c_name, (is_class ? csharp_field_wrapper_type + "._Underlying" : *csharp_nonclass_type) + " **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
+
+                        // The init code gets emitted always for non-static fields, and only in the const half for static ones.
+                        // This is because the backing field exists only in the const half, and only non-static field initialization doesn't propagate to the base class.
+                        if (init_code && (!field.is_static || is_const))
+                        {
+                            *init_code +=
+                                "\n{" + (init_code ? " // " + csharp_field_name + " (raw pointer)" : "") + "\n" +
+                                Strings::Indent(
+                                    dllimport_getter.dllimport_decl +
+                                    this_or_enclosing_class_prefix + csharp_storage_field_name + " = " + dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n"
+                                ) +
+                                "}\n";
+                        }
 
                         { // Getter.
                             if (!is_const)
@@ -6112,26 +6354,36 @@ namespace mrbind::CSharp
                             }
                             else
                             {
-                                // Begin getter.
                                 file.PushScope({}, "get\n{\n", "}\n");
 
-                                auto dllimport_getter = MakeDllImportDecl(field.getter_const->c_name, (is_class ? csharp_field_wrapper_type + "._Underlying" : *csharp_nonclass_type) + " **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
-
-                                file.WriteString(
-                                    dllimport_getter.dllimport_decl +
-                                    "var ptr = " + dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n" +
-                                    csharp_field_wrapper_type + "? value = null;\n"
-                                    // Note `*ptr` in the `is not null` condition! `ptr` itself should never be null, as it represents a reference.
-                                    // Note that non-class wrapper is constructed from `*ptr` here, but since `ptr` is a pointer-to-pointer, it resolves to `T *`,
-                                    //   which is the non-owning constructor, which is what we want.
-                                    "if (*ptr is not null)\n" +
-                                    (field.is_static ? "" : "{\n") +
-                                    "    value = new" + (is_class ? "(*ptr, is_owning: false)" : "(*ptr)") + ";\n" +
-                                    (field.is_static ? "" : "    value._KeepAliveEnclosingObject = this;\n}\n") +
-                                    "return value;\n"
-                                );
-
-                                // End getter.
+                                if (init_code)
+                                {
+                                    // This is the same code as in the `else` branch, but with `ptr` replaced by the cached `csharp_storage_field_name`, with the function call removed.
+                                    file.WriteString(
+                                        csharp_field_wrapper_type + "? value = null;\n"
+                                        "if (*" + csharp_storage_field_name + " is not null)\n" +
+                                        (field.is_static ? "" : "{\n") +
+                                        "    value = new" + (is_class ? "(*" + csharp_storage_field_name + ", is_owning: false)" : "(*" + csharp_storage_field_name + ")") + ";\n" +
+                                        (field.is_static ? "" : "    value._KeepAliveEnclosingObject = this;\n}\n") +
+                                        "return value;\n"
+                                    );
+                                }
+                                else
+                                {
+                                    file.WriteString(
+                                        dllimport_getter.dllimport_decl +
+                                        "var ptr = " + dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n" +
+                                        csharp_field_wrapper_type + "? value = null;\n"
+                                        // Note `*ptr` in the `is not null` condition! `ptr` itself should never be null, as it represents a reference.
+                                        // Note that non-class wrapper is constructed from `*ptr` here, but since `ptr` is a pointer-to-pointer, it resolves to `T *`,
+                                        //   which is the non-owning constructor, which is what we want.
+                                        "if (*ptr is not null)\n" +
+                                        (field.is_static ? "" : "{\n") +
+                                        "    value = new" + (is_class ? "(*ptr, is_owning: false)" : "(*ptr)") + ";\n" +
+                                        (field.is_static ? "" : "    value._KeepAliveEnclosingObject = this;\n}\n") +
+                                        "return value;\n"
+                                    );
+                                }
                                 file.PopScope();
                             }
                         }
@@ -6142,15 +6394,17 @@ namespace mrbind::CSharp
                             // Begin getter.
                             file.PushScope({}, "set\n{\n", "}\n");
 
-                            auto dllimport_setter = MakeDllImportDecl(field.getter_mutable->c_name, (is_class ? csharp_field_wrapper_type + "._Underlying" : *csharp_nonclass_type) + " **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
+                            auto dllimport_setter = MakeDllImportDecl(field.getter_mutable->c_name, csharp_underlying_double_pointer_type, field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
 
                             file.WriteString(
-                                dllimport_setter.dllimport_decl +
-                                "var ptr = " + dllimport_setter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n" +
+                                (init_code ? "" :
+                                    dllimport_setter.dllimport_decl +
+                                    "var ptr = " + dllimport_setter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ");\n"
+                                ) +
                                 "_" + maybe_static_str + "DiscardKeepAlive(" + EscapeQuoteString(field.full_name) + ");\n" // Using the C++ field name, for consistency with the keys used by the C bindings, even though we don't even use those keys, so it shouldn't really matter.
                                 "if (value is not null)\n"
                                 "    _" + maybe_static_str + "KeepAlive(value, " + EscapeQuoteString(field.full_name) + ");\n" // ^
-                                "*ptr = (value is not null ? value._UnderlyingPtr : null);\n"
+                                "*" + (init_code ? csharp_storage_field_name : "ptr") + " = (value is not null ? value._UnderlyingPtr : null);\n"
                             );
 
                             // End getter.
@@ -6159,6 +6413,12 @@ namespace mrbind::CSharp
 
                         // End property.
                         file.PopScope();
+
+                        // The private backing field. This is a raw pointer-to-pointer.
+                        if (init_code && is_const)
+                        {
+                            file.WriteString("private protected " + std::string(field.is_static ? "static " : "") + "unsafe " + csharp_underlying_double_pointer_type + csharp_storage_field_name + ";\n");
+                        }
 
                         return;
                     }
@@ -6171,7 +6431,68 @@ namespace mrbind::CSharp
             // Determine the C# property type.
             // This can be different for const and mutable halves, but this is fine.
             // Note that this must match how `FuncLikeEmitter` determines the return type binding for properties.
-            const std::string csharp_property_type = GetReturnBinding(maybe_const_getter->ret).csharp_return_type;
+            const auto &ret_binding = GetReturnBinding(maybe_const_getter->ret);
+            const std::string csharp_property_type = ret_binding.csharp_return_type;
+
+            // Special-case caching types that map to C# refs. We can't have `ref` fields in classes (only in `ref struct`s), so we have to store a private pointer instead.
+            // Note that instead of `ret_binding`, we check a separate binding that emits `ref` in more cases. We then don't need that binding anymore.
+            if (init_code && (GetReturnBinding(maybe_const_getter->ret, TypeBindingFlags::return_ref_instead_of_copying_small_types).csharp_return_type.starts_with("ref ")))
+            {
+                // This is best-effort.
+
+                // To get a nicely looking C# pointers, we use `replace_ref_with_ptr`.
+                const auto &ret_binding_ptr = GetReturnBinding(maybe_const_getter->ret, TypeBindingFlags::replace_ref_with_ptr);
+                if (!ret_binding_ptr.csharp_return_type.ends_with('*'))
+                    throw std::logic_error("Internal error: Requested a `replace_ref_with_ptr` binding for type `" + maybe_const_getter->ret.cpp_type + "`, but got something other than a raw pointer.");
+
+                const std::string csharp_storage_field_name = "__ref_storage_" + csharp_field_name;
+
+
+                file.WriteSeparatingNewline();
+                file.WriteString(field.comment.c_style);
+                file.WriteString("public ");
+
+                if (field.is_static)
+                    file.WriteString("static ");
+
+                // Be explicit about the shadowing.
+                if (!is_const)
+                    file.WriteString("new ");
+
+                file.WriteString("unsafe ");
+
+                // The type.
+                file.WriteString(csharp_property_type);
+                if (!csharp_property_type.ends_with('*'))
+                    file.WriteString(" ");
+
+                // The name.
+                file.WriteString(csharp_field_name);
+
+                file.WriteString(" => " + std::string(csharp_property_type.starts_with("ref ") ? "ref " : "") + "*" + csharp_storage_field_name + ";\n");
+
+                // The backing pointer.
+                if (is_const)
+                {
+                    // Not `readonly` because the derived mutable half will assign to this.
+                    // Don't need `{get; private protected set;}` because this is already not public.
+                    file.WriteString("private protected " + std::string(field.is_static ? "static " : "") + "unsafe " + ret_binding_ptr.csharp_return_type + csharp_storage_field_name + ";\n");
+                }
+
+                // It's easier to assemble the dllimport declaration by hand here.
+                auto dllimport_getter = MakeDllImportDecl(maybe_const_getter->c_name, ret_binding.dllimport_return_type, field.is_static ? "" : CppToCSharpClassName(cpp_class, is_const) + "._Underlying *_this");
+
+                *init_code +=
+                    "\n{ // " + csharp_field_name + " (ref)\n" +
+                    Strings::Indent(
+                        dllimport_getter.dllimport_decl +
+                        ret_binding_ptr.MakeReturnStatements(this_or_enclosing_class_prefix + csharp_storage_field_name + " =", dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ")") + "\n"
+                        // Impossible to keep-alive this.
+                    ) +
+                    "}\n";
+
+                return;
+            }
 
             // Emit the property.
             // We only emit the `get` half, never the `set` half.
@@ -6179,8 +6500,6 @@ namespace mrbind::CSharp
             // If the property returns something else (aka a class wrapper), then we wouldn't be able to provide a setter anyway,
             //   since its parameter type (the by-value wrapper) needs to be different from what the getter returns, and C# requires those types to match.
             // But this isn't an issue, since we have `.Assign()` in our class wrappers.
-
-            FuncLikeEmitter emit_getter(*this, &maybe_const_getter.value(), "get{}", false/*doesn't matter since we're not in a ctor*/);
 
             file.WriteSeparatingNewline();
 
@@ -6195,24 +6514,48 @@ namespace mrbind::CSharp
             if (!is_const)
                 file.WriteString("new ");
 
+            FuncLikeEmitter emit_getter(*this, &maybe_const_getter.value(), "get{}", false/*doesn't matter since we're not in a ctor*/);
             if (emit_getter.IsUnsafe())
                 file.WriteString("unsafe ");
 
-            // The property type.
+            // The type.
             file.WriteString(csharp_property_type);
             if (!csharp_property_type.ends_with('*'))
                 file.WriteString(" ");
 
-            // The property name.
+            // The name.
             file.WriteString(csharp_field_name);
-            file.WriteString("\n");
 
-            file.PushScope({}, "{\n", "}\n");
+            if (init_code)
+            {
+                // This instead of `readonly` to allow derived classes to set this.
+                file.WriteString(" {get; private protected set;}\n");
 
-            // The getter.
-            emit_getter.Emit(file);
+                // We have to assemble the dllimport declaration by hand here. While we could `.Emit()` to a fake file, that would produce the function header too, and we only need the body, so it's easier to just do this.
+                auto dllimport_getter = MakeDllImportDecl(maybe_const_getter->c_name, ret_binding.dllimport_return_type, field.is_static ? "" : CppToCSharpClassName(cpp_class, is_const) + "._Underlying *_this");
 
-            file.PopScope();
+                *init_code +=
+                    "\n{ // " + csharp_field_name + "\n" +
+                    Strings::Indent(
+                        dllimport_getter.dllimport_decl +
+                        ret_binding.MakeReturnStatements(this_or_enclosing_class_prefix + csharp_field_name + " =", dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ")") + "\n" +
+                        (field.is_static ? "" : "this." + csharp_field_name + "._KeepAliveEnclosingObject = this;\n") +
+                        // Propagate to the const base, if needed.
+                        (!is_const && !field.is_static ? "base." + csharp_field_name + " = this." + csharp_field_name + ";\n" : "")
+                    ) +
+                    "}\n";
+            }
+            else
+            {
+                file.WriteString("\n");
+
+                file.PushScope({}, "{\n", "}\n");
+
+                // The getter.
+                emit_getter.Emit(file);
+
+                file.PopScope();
+            }
         }
         catch (...)
         {
@@ -6528,7 +6871,7 @@ namespace mrbind::CSharp
                 free_func.var
             );
 
-            FuncLikeEmitter(*this, &free_func, unqual_csharp_name, false).Emit(file);
+            FuncLikeEmitter(*this, &free_func, unqual_csharp_name, false/*Doesn't really matter, we're not in a class.*/).Emit(file);
         }
 
         // Generate the requested helpers. This must be after all user code generation, but before closing the namespaces.

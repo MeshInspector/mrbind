@@ -18,8 +18,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -32,25 +30,44 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
 
-                public static unsafe ref int StaticVar
+                public static unsafe ref int StaticVar => ref *__ref_storage_StaticVar;
+                private protected static unsafe int *__ref_storage_StaticVar;
+
+                public unsafe int field => *__ref_storage_field;
+                private protected unsafe int *__ref_storage_field;
+
+                unsafe static Const_A()
                 {
-                    get
-                    {
+                    { // StaticVar (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_GetMutable_StaticVar", ExactSpelling = true)]
                         extern static int *__MR_UsingDecls_A_GetMutable_StaticVar();
-                        return ref *__MR_UsingDecls_A_GetMutable_StaticVar();
+                        Const_A.__ref_storage_StaticVar = __MR_UsingDecls_A_GetMutable_StaticVar();
                     }
                 }
 
-                public unsafe int field
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_UsingDecls_A_Get_Field(_Underlying *_this);
-                        return *__MR_UsingDecls_A_Get_Field(_UnderlyingPtr);
+                        extern static int *__MR_UsingDecls_A_Get_Field(MR.CS.UsingDecls.Const_A._Underlying *_this);
+                        this.__ref_storage_field = __MR_UsingDecls_A_Get_Field(_UnderlyingPtr);
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::UsingDecls::A::A`.
@@ -61,6 +78,7 @@ public static partial class MR
                     extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_ConstructFromAnother(MR.CS.UsingDecls.A._Underlying *_other);
                     _UnderlyingPtr = __MR_UsingDecls_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -71,6 +89,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Construct", ExactSpelling = true)]
                     extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_Construct(int _1);
                     _UnderlyingPtr = __MR_UsingDecls_A_Construct(_1);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -103,17 +122,30 @@ public static partial class MR
             /// </summary>
             public class A : Const_A
             {
-                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe ref int field => ref *__ref_storage_field;
 
-                public new unsafe ref int field
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_UsingDecls_A_GetMutable_Field(_Underlying *_this);
-                        return ref *__MR_UsingDecls_A_GetMutable_Field(_UnderlyingPtr);
+                        extern static int *__MR_UsingDecls_A_GetMutable_Field(MR.CS.UsingDecls.A._Underlying *_this);
+                        this.__ref_storage_field = __MR_UsingDecls_A_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::UsingDecls::A::A`.
@@ -124,6 +156,7 @@ public static partial class MR
                     extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_ConstructFromAnother(MR.CS.UsingDecls.A._Underlying *_other);
                     _UnderlyingPtr = __MR_UsingDecls_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -134,6 +167,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Construct", ExactSpelling = true)]
                     extern static MR.CS.UsingDecls.A._Underlying *__MR_UsingDecls_A_Construct(int _1);
                     _UnderlyingPtr = __MR_UsingDecls_A_Construct(_1);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -236,8 +270,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -260,25 +292,44 @@ public static partial class MR
                     return ret;
                 }
 
-                public unsafe int field
+                public unsafe int field => *__ref_storage_field;
+                private protected unsafe int *__ref_storage_field;
+
+                public static unsafe ref int StaticVar => ref *__ref_storage_StaticVar;
+                private protected static unsafe int *__ref_storage_StaticVar;
+
+                unsafe static Const_B()
                 {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_Get_Field", ExactSpelling = true)]
-                        extern static int *__MR_UsingDecls_B_Get_Field(_Underlying *_this);
-                        return *__MR_UsingDecls_B_Get_Field(_UnderlyingPtr);
+                    { // StaticVar (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_GetMutable_StaticVar", ExactSpelling = true)]
+                        extern static int *__MR_UsingDecls_B_GetMutable_StaticVar();
+                        Const_B.__ref_storage_StaticVar = __MR_UsingDecls_B_GetMutable_StaticVar();
                     }
                 }
 
-                public static unsafe ref int StaticVar
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_GetMutable_StaticVar", ExactSpelling = true)]
-                        extern static int *__MR_UsingDecls_B_GetMutable_StaticVar();
-                        return ref *__MR_UsingDecls_B_GetMutable_StaticVar();
+                    { // field (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_Get_Field", ExactSpelling = true)]
+                        extern static int *__MR_UsingDecls_B_Get_Field(MR.CS.UsingDecls.Const_B._Underlying *_this);
+                        this.__ref_storage_field = __MR_UsingDecls_B_Get_Field(_UnderlyingPtr);
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::UsingDecls::B::B`.
@@ -289,6 +340,7 @@ public static partial class MR
                     extern static MR.CS.UsingDecls.B._Underlying *__MR_UsingDecls_B_ConstructFromAnother(MR.CS.UsingDecls.B._Underlying *_other);
                     _UnderlyingPtr = __MR_UsingDecls_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -311,8 +363,6 @@ public static partial class MR
             /// </summary>
             public class B : Const_B
             {
-                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.UsingDecls.A(B self)
                 {
@@ -323,15 +373,30 @@ public static partial class MR
                     return ret;
                 }
 
-                public new unsafe ref int field
+                public new unsafe ref int field => ref *__ref_storage_field;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_B_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_UsingDecls_B_GetMutable_Field(_Underlying *_this);
-                        return ref *__MR_UsingDecls_B_GetMutable_Field(_UnderlyingPtr);
+                        extern static int *__MR_UsingDecls_B_GetMutable_Field(MR.CS.UsingDecls.B._Underlying *_this);
+                        this.__ref_storage_field = __MR_UsingDecls_B_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::UsingDecls::B::B`.
@@ -342,6 +407,7 @@ public static partial class MR
                     extern static MR.CS.UsingDecls.B._Underlying *__MR_UsingDecls_B_ConstructFromAnother(MR.CS.UsingDecls.B._Underlying *_other);
                     _UnderlyingPtr = __MR_UsingDecls_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>

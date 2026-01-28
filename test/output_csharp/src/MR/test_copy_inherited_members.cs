@@ -29,8 +29,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -62,6 +60,8 @@ public static partial class MR
                         return *__MR_CopyInheritedMembers_A_Get_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_A() : this(null, is_owning: true)
@@ -118,8 +118,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class A : Const_A
             {
-                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int field
                 {
                     get
@@ -129,6 +127,8 @@ public static partial class MR
                         return ref *__MR_CopyInheritedMembers_A_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe A() : this(null, is_owning: true)
@@ -227,8 +227,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -260,6 +258,8 @@ public static partial class MR
                         return *__MR_CopyInheritedMembers_B_Get_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_B() : this(null, is_owning: true)
@@ -306,8 +306,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class B : Const_B
             {
-                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int field
                 {
                     get
@@ -317,6 +315,8 @@ public static partial class MR
                         return ref *__MR_CopyInheritedMembers_B_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe B() : this(null, is_owning: true)
@@ -412,8 +412,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -444,6 +442,8 @@ public static partial class MR
                     return ret;
                 }
 
+                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_C() : this(null, is_owning: true)
                 {
@@ -470,8 +470,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class C : Const_C
             {
-                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(C self)
                 {
@@ -489,6 +487,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe C() : this(null, is_owning: true)
@@ -563,8 +563,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_D(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -607,6 +605,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_D(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_D() : this(null, is_owning: true)
                 {
@@ -644,8 +644,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class D : Const_D
             {
-                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.B(D self)
                 {
@@ -665,6 +663,8 @@ public static partial class MR
                         return ref *__MR_CopyInheritedMembers_D_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe D() : this(null, is_owning: true)
@@ -754,8 +754,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_E(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -794,6 +792,8 @@ public static partial class MR
                     return ret;
                 }
 
+                internal unsafe Const_E(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_E() : this(null, is_owning: true)
                 {
@@ -822,8 +822,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class E : Const_E
             {
-                internal unsafe E(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(E self)
                 {
@@ -849,6 +847,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe E(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe E() : this(null, is_owning: true)
@@ -922,8 +922,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_F(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -962,6 +960,8 @@ public static partial class MR
                     return ret;
                 }
 
+                internal unsafe Const_F(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_F() : this(null, is_owning: true)
                 {
@@ -990,8 +990,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class F : Const_F
             {
-                internal unsafe F(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.B(F self)
                 {
@@ -1017,6 +1015,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe F(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe F() : this(null, is_owning: true)
@@ -1093,8 +1093,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_G(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1137,6 +1135,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_G(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_G() : this(null, is_owning: true)
                 {
@@ -1176,8 +1176,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class G : Const_G
             {
-                internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(G self)
                 {
@@ -1197,6 +1195,8 @@ public static partial class MR
                         return ref *__MR_CopyInheritedMembers_G_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe G() : this(null, is_owning: true)
@@ -1303,8 +1303,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_H(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1355,6 +1353,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_H(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_H() : this(null, is_owning: true)
                 {
@@ -1390,8 +1390,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class H : Const_H
             {
-                internal unsafe H(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(H self)
                 {
@@ -1419,6 +1417,8 @@ public static partial class MR
                         return ref *__MR_CopyInheritedMembers_H_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe H(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe H() : this(null, is_owning: true)
@@ -1525,8 +1525,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_I(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1577,6 +1575,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_I(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_I() : this(null, is_owning: true)
                 {
@@ -1612,8 +1612,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class I : Const_I
             {
-                internal unsafe I(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(I self)
                 {
@@ -1641,6 +1639,8 @@ public static partial class MR
                         return ref *__MR_CopyInheritedMembers_I_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe I(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe I() : this(null, is_owning: true)
@@ -1753,8 +1753,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_J(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1797,6 +1795,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_J(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_J() : this(null, is_owning: true)
                 {
@@ -1838,8 +1838,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class J : Const_J
             {
-                internal unsafe J(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(J self)
                 {
@@ -1859,6 +1857,8 @@ public static partial class MR
                         return ref *__MR_CopyInheritedMembers_J_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe J(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe J() : this(null, is_owning: true)
@@ -1948,8 +1948,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_K(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1980,6 +1978,8 @@ public static partial class MR
                     return ret;
                 }
 
+                internal unsafe Const_K(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_K() : this(null, is_owning: true)
                 {
@@ -2008,8 +2008,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class K : Const_K
             {
-                internal unsafe K(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.G(K self)
                 {
@@ -2027,6 +2025,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe K(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe K() : this(null, is_owning: true)
@@ -2118,8 +2118,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_L(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -2150,6 +2148,8 @@ public static partial class MR
                     return ret;
                 }
 
+                internal unsafe Const_L(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_L() : this(null, is_owning: true)
                 {
@@ -2178,8 +2178,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class L : Const_L
             {
-                internal unsafe L(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.J(L self)
                 {
@@ -2197,6 +2195,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = self;
                     return ret;
                 }
+
+                internal unsafe L(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe L() : this(null, is_owning: true)
@@ -2293,8 +2293,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_M(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -2345,6 +2343,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_M(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_M() : this(null, is_owning: true)
                 {
@@ -2386,8 +2386,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class M : Const_M
             {
-                internal unsafe M(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(M self)
                 {
@@ -2415,6 +2413,8 @@ public static partial class MR
                         return ref *__MR_CopyInheritedMembers_M_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe M(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe M() : this(null, is_owning: true)
@@ -2526,8 +2526,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_N(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -2586,6 +2584,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_N(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_N() : this(null, is_owning: true)
                 {
@@ -2626,8 +2626,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class N : Const_N
             {
-                internal unsafe N(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(N self)
                 {
@@ -2663,6 +2661,8 @@ public static partial class MR
                         return ref *__MR_CopyInheritedMembers_N_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe N(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe N() : this(null, is_owning: true)
@@ -2773,8 +2773,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_O(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -2841,6 +2839,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_O(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_O() : this(null, is_owning: true)
                 {
@@ -2880,8 +2880,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class O : Const_O
             {
-                internal unsafe O(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CopyInheritedMembers.A(O self)
                 {
@@ -2925,6 +2923,8 @@ public static partial class MR
                         return ref *__MR_CopyInheritedMembers_O_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe O(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe O() : this(null, is_owning: true)

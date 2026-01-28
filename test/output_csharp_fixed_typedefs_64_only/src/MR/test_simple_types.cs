@@ -41,8 +41,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ClassTemplate_MRCUint64T(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -55,15 +53,19 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ClassTemplate_MRCUint64T() {Dispose(false);}
 
-                public static unsafe ref ulong Var_MRCUint64T
+                public static unsafe ref ulong Var_MRCUint64T => ref *__ref_storage_Var_MRCUint64T;
+                private protected static unsafe ulong *__ref_storage_Var_MRCUint64T;
+
+                unsafe static Const_ClassTemplate_MRCUint64T()
                 {
-                    get
-                    {
+                    { // Var_MRCUint64T (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t", ExactSpelling = true)]
                         extern static ulong *__MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t();
-                        return ref *__MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t();
+                        Const_ClassTemplate_MRCUint64T.__ref_storage_Var_MRCUint64T = __MR_TestSimpleTypes_ClassTemplate_uint64_t_GetMutable_var_uint64_t();
                     }
                 }
+
+                internal unsafe Const_ClassTemplate_MRCUint64T(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::ClassTemplate`.

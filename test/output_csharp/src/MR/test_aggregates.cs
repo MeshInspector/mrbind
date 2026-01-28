@@ -14,8 +14,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -50,6 +48,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_A() : this(null, is_owning: true)
@@ -87,8 +87,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class A : Const_A
             {
-                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int x
                 {
                     get
@@ -111,6 +109,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe A() : this(null, is_owning: true)
@@ -209,8 +209,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -222,6 +220,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_B() {Dispose(false);}
+
+                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_B() : this(null, is_owning: true)
@@ -314,8 +314,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NonDefaultConstructible(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -327,6 +325,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonDefaultConstructible() {Dispose(false);}
+
+                internal unsafe Const_NonDefaultConstructible(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Generated from constructor `MR::Aggregates::NonDefaultConstructible::NonDefaultConstructible`.
                 public unsafe Const_NonDefaultConstructible(MR.CS.Aggregates.Const_NonDefaultConstructible _other) : this(null, is_owning: true)
@@ -402,8 +402,6 @@ public static partial class MR
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
-
-                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -497,6 +495,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_C() : this(null, is_owning: true)
                 {
@@ -528,8 +528,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class C : Const_C
             {
-                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int a
                 {
                     get
@@ -610,6 +608,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe C() : this(null, is_owning: true)
                 {
@@ -683,8 +683,6 @@ public static partial class MR
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
-
-                internal unsafe Const_D(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -788,6 +786,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_D(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_D() : this(null, is_owning: true)
                 {
@@ -818,8 +818,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class D : Const_D
             {
-                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int a
                 {
                     get
@@ -910,6 +908,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe D() : this(null, is_owning: true)
                 {
@@ -983,8 +983,6 @@ public static partial class MR
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
-
-                internal unsafe Const_E(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -1111,6 +1109,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_E(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated from constructor `MR::Aggregates::E::E`.
                 public unsafe Const_E(MR.CS.Aggregates.Const_E _other) : this(null, is_owning: true)
                 {
@@ -1134,8 +1134,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class E : Const_E
             {
-                internal unsafe E(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
                 public new unsafe ref int a
                 {
@@ -1248,6 +1246,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe E(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from constructor `MR::Aggregates::E::E`.
                 public unsafe E(MR.CS.Aggregates.Const_E _other) : this(null, is_owning: true)

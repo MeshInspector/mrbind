@@ -47,6 +47,18 @@ public static partial class MR
                     }
                 }
 
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_A() {Dispose(false);}
+
                 internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct", ExactSpelling = true)]
@@ -57,6 +69,9 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
                 }
 
                 internal unsafe Const_A(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -76,18 +91,6 @@ public static partial class MR
                     extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct(_Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct(ptr);
                 }
-
-                protected virtual unsafe void Dispose(bool disposing)
-                {
-                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
-                        return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy(_UnderlyingShared *_this);
-                    __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Destroy(_UnderlyingSharedPtr);
-                    _UnderlyingSharedPtr = null;
-                }
-                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_A() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_A() : this(shared_ptr: null, is_owning: true)

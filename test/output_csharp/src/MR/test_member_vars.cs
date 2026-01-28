@@ -12,8 +12,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -88,6 +86,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated from constructor `MR::MemberVars::A::A`.
                 public unsafe Const_A(MR.CS.MemberVars.Const_A _other) : this(null, is_owning: true)
                 {
@@ -102,8 +102,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class A : Const_A
             {
-                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int x
                 {
                     get
@@ -124,6 +122,8 @@ public static partial class MR
                         return ref *(__MR_MemberVars_A_GetMutable_arr(_UnderlyingPtr));
                     }
                 }
+
+                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from constructor `MR::MemberVars::A::A`.
                 public unsafe A(MR.CS.MemberVars.Const_A _other) : this(null, is_owning: true)

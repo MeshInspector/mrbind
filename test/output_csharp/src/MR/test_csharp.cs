@@ -37,8 +37,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -50,6 +48,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
+
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_A() : this(null, is_owning: true)
@@ -234,8 +234,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -269,6 +267,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_B() : this(null, is_owning: true)
@@ -335,8 +335,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class B : Const_B
             {
-                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.A(B self)
                 {
@@ -358,6 +356,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe B() : this(null, is_owning: true)
@@ -484,8 +484,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -519,6 +517,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe Const_C(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_C() : this(null, is_owning: true)
@@ -577,8 +577,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class C : Const_C
             {
-                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.A(C self)
                 {
@@ -600,6 +598,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe C() : this(null, is_owning: true)
@@ -719,8 +719,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_D(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -732,6 +730,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_D() {Dispose(false);}
+
+                internal unsafe Const_D(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_D() : this(null, is_owning: true)
@@ -848,8 +848,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_E(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -861,6 +859,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_E() {Dispose(false);}
+
+                internal unsafe Const_E(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_E() : this(null, is_owning: true)
@@ -978,8 +978,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_F(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1029,6 +1027,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe Const_F(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_F() : this(null, is_owning: true)
@@ -1105,8 +1105,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class F : Const_F
             {
-                internal unsafe F(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.A(F self)
                 {
@@ -1144,6 +1142,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe F(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe F() : this(null, is_owning: true)
@@ -1282,8 +1282,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_G(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1333,6 +1331,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe Const_G(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_G() : this(null, is_owning: true)
@@ -1411,8 +1411,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class G : Const_G
             {
-                internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.A(G self)
                 {
@@ -1450,6 +1448,8 @@ public static partial class MR
                     ret._KeepAliveEnclosingObject = parent;
                     return ret;
                 }
+
+                internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe G() : this(null, is_owning: true)
@@ -1581,8 +1581,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_Trivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1594,6 +1592,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Trivial() {Dispose(false);}
+
+                internal unsafe Const_Trivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_Trivial() : this(null, is_owning: true)
@@ -1685,8 +1685,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_TrivialDerived(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1698,6 +1696,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TrivialDerived() {Dispose(false);}
+
+                internal unsafe Const_TrivialDerived(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_TrivialDerived() : this(null, is_owning: true)
@@ -1789,8 +1789,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NonTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1802,6 +1800,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonTrivial() {Dispose(false);}
+
+                internal unsafe Const_NonTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_NonTrivial() : this(null, is_owning: true)
@@ -1933,8 +1933,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NonTrivialDerived(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -1946,6 +1944,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonTrivialDerived() {Dispose(false);}
+
+                internal unsafe Const_NonTrivialDerived(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_NonTrivialDerived() : this(null, is_owning: true)
@@ -2092,6 +2092,18 @@ public static partial class MR
                     }
                 }
 
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SA_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_CSharp_SA_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SA() {Dispose(false);}
+
                 internal unsafe Const_SA(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Construct", ExactSpelling = true)]
@@ -2102,6 +2114,9 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
                 }
 
                 internal unsafe Const_SA(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -2121,18 +2136,6 @@ public static partial class MR
                     extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SA_Construct(_Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_Construct(ptr);
                 }
-
-                protected virtual unsafe void Dispose(bool disposing)
-                {
-                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
-                        return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SA_Destroy(_UnderlyingShared *_this);
-                    __MR_C_std_shared_ptr_MR_CSharp_SA_Destroy(_UnderlyingSharedPtr);
-                    _UnderlyingSharedPtr = null;
-                }
-                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_SA() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_SA() : this(shared_ptr: null, is_owning: true)
@@ -2284,6 +2287,18 @@ public static partial class MR
                     }
                 }
 
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SB_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_CSharp_SB_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SB() {Dispose(false);}
+
                 internal unsafe Const_SB(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Construct", ExactSpelling = true)]
@@ -2294,6 +2309,9 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
                 }
 
                 internal unsafe Const_SB(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -2313,18 +2331,6 @@ public static partial class MR
                     extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SB_Construct(_Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_Construct(ptr);
                 }
-
-                protected virtual unsafe void Dispose(bool disposing)
-                {
-                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
-                        return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SB_Destroy(_UnderlyingShared *_this);
-                    __MR_C_std_shared_ptr_MR_CSharp_SB_Destroy(_UnderlyingSharedPtr);
-                    _UnderlyingSharedPtr = null;
-                }
-                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_SB() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_SB() : this(shared_ptr: null, is_owning: true)
@@ -2495,36 +2501,6 @@ public static partial class MR
                     }
                 }
 
-                internal unsafe Const_SC(_Underlying *ptr, bool is_owning) : base(true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(_Underlying *other);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(_Underlying *other);
-                    if (is_owning)
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
-                    else
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(ptr);
-                }
-
-                internal unsafe Const_SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
-
-                internal static unsafe SC _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
-                    return new(__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
-                }
-
-                private protected unsafe void _LateMakeShared(_Underlying *ptr)
-                {
-                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
-                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(_Underlying *other);
-                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
-                }
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingSharedPtr is null || !_IsOwningVal)
@@ -2549,6 +2525,39 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_UpcastTo_MR_CSharp_SB", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_SB._Underlying *__MR_CSharp_SC_UpcastTo_MR_CSharp_SB(_Underlying *_this);
                     return MR.CS.CSharp.Const_SB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SC_UpcastTo_MR_CSharp_SB(self._UnderlyingPtr));
+                }
+
+                internal unsafe Const_SC(_Underlying *ptr, bool is_owning) : base(true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(_Underlying *other);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(_Underlying *other);
+                    if (is_owning)
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
+                    else
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
+                }
+
+                internal unsafe Const_SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+
+                internal static unsafe SC _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
+                    return new(__MR_C_std_shared_ptr_MR_CSharp_SC_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
+                }
+
+                private protected unsafe void _LateMakeShared(_Underlying *ptr)
+                {
+                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
+                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SC_Construct(_Underlying *other);
+                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
                 }
 
                 /// Constructs an empty (default-constructed) instance.
@@ -2577,10 +2586,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class SC : Const_SC
             {
-                internal unsafe SC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                internal unsafe SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.SA(SC self)
                 {
@@ -2594,6 +2599,10 @@ public static partial class MR
                     extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SC_UpcastTo_MR_CSharp_SB(_Underlying *_this);
                     return MR.CS.CSharp.SB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SC_UpcastTo_MR_CSharp_SB(self._UnderlyingPtr));
                 }
+
+                internal unsafe SC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                internal unsafe SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe SC() : this(shared_ptr: null, is_owning: true)
@@ -2734,6 +2743,18 @@ public static partial class MR
                     }
                 }
 
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SD_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_CSharp_SD_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SD() {Dispose(false);}
+
                 internal unsafe Const_SD(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Construct", ExactSpelling = true)]
@@ -2744,6 +2765,9 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
                 }
 
                 internal unsafe Const_SD(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -2763,18 +2787,6 @@ public static partial class MR
                     extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SD_Construct(_Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_Construct(ptr);
                 }
-
-                protected virtual unsafe void Dispose(bool disposing)
-                {
-                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
-                        return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SD_Destroy(_UnderlyingShared *_this);
-                    __MR_C_std_shared_ptr_MR_CSharp_SD_Destroy(_UnderlyingSharedPtr);
-                    _UnderlyingSharedPtr = null;
-                }
-                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_SD() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_SD() : this(shared_ptr: null, is_owning: true)
@@ -2947,6 +2959,18 @@ public static partial class MR
                     }
                 }
 
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SE_Destroy(_UnderlyingShared *_this);
+                    __MR_C_std_shared_ptr_MR_CSharp_SE_Destroy(_UnderlyingSharedPtr);
+                    _UnderlyingSharedPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SE() {Dispose(false);}
+
                 internal unsafe Const_SE(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Construct", ExactSpelling = true)]
@@ -2957,6 +2981,9 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
                 }
 
                 internal unsafe Const_SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -2976,18 +3003,6 @@ public static partial class MR
                     extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SE_Construct(_Underlying *other);
                     _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_Construct(ptr);
                 }
-
-                protected virtual unsafe void Dispose(bool disposing)
-                {
-                    if (_UnderlyingSharedPtr is null || !_IsOwningVal)
-                        return;
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Destroy", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_MR_CSharp_SE_Destroy(_UnderlyingShared *_this);
-                    __MR_C_std_shared_ptr_MR_CSharp_SE_Destroy(_UnderlyingSharedPtr);
-                    _UnderlyingSharedPtr = null;
-                }
-                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_SE() {Dispose(false);}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_SE() : this(shared_ptr: null, is_owning: true)
@@ -3158,36 +3173,6 @@ public static partial class MR
                     }
                 }
 
-                internal unsafe Const_SF(_Underlying *ptr, bool is_owning) : base(true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_Construct(_Underlying *other);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(_Underlying *other);
-                    if (is_owning)
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr);
-                    else
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(ptr);
-                }
-
-                internal unsafe Const_SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
-
-                internal static unsafe SF _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
-                    return new(__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
-                }
-
-                private protected unsafe void _LateMakeShared(_Underlying *ptr)
-                {
-                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
-                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_Construct(_Underlying *other);
-                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr);
-                }
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingSharedPtr is null || !_IsOwningVal)
@@ -3224,6 +3209,39 @@ public static partial class MR
                     return Const_SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
                 }
 
+                internal unsafe Const_SF(_Underlying *ptr, bool is_owning) : base(true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_Construct(_Underlying *other);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(_Underlying *other);
+                    if (is_owning)
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr);
+                    else
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
+                }
+
+                internal unsafe Const_SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+
+                internal static unsafe SF _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
+                    return new(__MR_C_std_shared_ptr_MR_CSharp_SF_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
+                }
+
+                private protected unsafe void _LateMakeShared(_Underlying *ptr)
+                {
+                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
+                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_SF_Construct(_Underlying *other);
+                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr);
+                }
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_SF() : this(shared_ptr: null, is_owning: true)
                 {
@@ -3250,10 +3268,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class SF : Const_SF
             {
-                internal unsafe SF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                internal unsafe SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
-
                 // Upcasts:
                 public static unsafe implicit operator MR.CS.CSharp.SD(SF self)
                 {
@@ -3277,6 +3291,10 @@ public static partial class MR
                     if (ptr is null) return null;
                     return SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
                 }
+
+                internal unsafe SF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                internal unsafe SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe SF() : this(shared_ptr: null, is_owning: true)
@@ -3381,8 +3399,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_Outer(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -3394,6 +3410,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Outer() {Dispose(false);}
+
+                internal unsafe Const_Outer(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_Outer() : this(null, is_owning: true)
@@ -3420,8 +3438,6 @@ public static partial class MR
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
-                    internal unsafe Const_Inner(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                     protected virtual unsafe void Dispose(bool disposing)
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -3433,6 +3449,8 @@ public static partial class MR
                     }
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_Inner() {Dispose(false);}
+
+                    internal unsafe Const_Inner(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                     /// Constructs an empty (default-constructed) instance.
                     public unsafe Const_Inner() : this(null, is_owning: true)
@@ -3605,8 +3623,6 @@ public static partial class MR
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
-
-                internal unsafe Const_TestFields(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -3792,6 +3808,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_TestFields(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
                 public unsafe Const_TestFields(MR.CS.CSharp._ByValue_TestFields _other) : this(null, is_owning: true)
                 {
@@ -3830,8 +3848,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class TestFields : Const_TestFields
             {
-                internal unsafe TestFields(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int i
                 {
                     get
@@ -3854,6 +3870,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe TestFields(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
                 public unsafe TestFields(MR.CS.CSharp._ByValue_TestFields _other) : this(null, is_owning: true)
@@ -3943,8 +3961,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_TestConstness(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -3956,6 +3972,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestConstness() {Dispose(false);}
+
+                internal unsafe Const_TestConstness(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_TestConstness() : this(null, is_owning: true)
@@ -4065,8 +4083,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4078,6 +4094,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrA() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IncrDecrA() : this(null, is_owning: true)
@@ -4208,8 +4226,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4221,6 +4237,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrB() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IncrDecrB() : this(null, is_owning: true)
@@ -4351,8 +4369,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4364,6 +4380,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrC() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IncrDecrC() : this(null, is_owning: true)
@@ -4495,8 +4513,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4508,6 +4524,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrD() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IncrDecrD() : this(null, is_owning: true)
@@ -4638,8 +4656,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4651,6 +4667,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrE() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IncrDecrE() : this(null, is_owning: true)
@@ -4765,8 +4783,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4778,6 +4794,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrF() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IncrDecrF() : this(null, is_owning: true)
@@ -4892,8 +4910,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -4905,6 +4921,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrG() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IncrDecrG() : this(null, is_owning: true)
@@ -5024,8 +5042,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5037,6 +5053,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrH() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IncrDecrH() : this(null, is_owning: true)
@@ -5156,8 +5174,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IncrDecrI(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5169,6 +5185,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IncrDecrI() {Dispose(false);}
+
+                internal unsafe Const_IncrDecrI(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IncrDecrI() : this(null, is_owning: true)
@@ -5298,8 +5316,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_EqualityA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5311,6 +5327,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityA() {Dispose(false);}
+
+                internal unsafe Const_EqualityA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_EqualityA() : this(null, is_owning: true)
@@ -5464,8 +5482,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_EqualityB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5477,6 +5493,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityB() {Dispose(false);}
+
+                internal unsafe Const_EqualityB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_EqualityB() : this(null, is_owning: true)
@@ -5594,8 +5612,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_EqualityC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5607,6 +5623,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityC() {Dispose(false);}
+
+                internal unsafe Const_EqualityC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_EqualityC() : this(null, is_owning: true)
@@ -5724,8 +5742,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_EqualityD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5737,6 +5753,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityD() {Dispose(false);}
+
+                internal unsafe Const_EqualityD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_EqualityD() : this(null, is_owning: true)
@@ -5860,8 +5878,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_EqualityE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -5873,6 +5889,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_EqualityE() {Dispose(false);}
+
+                internal unsafe Const_EqualityE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_EqualityE() : this(null, is_owning: true)
@@ -5995,8 +6013,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6008,6 +6024,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalA() {Dispose(false);}
+
+                internal unsafe Const_RelationalA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_RelationalA() : this(null, is_owning: true)
@@ -6124,8 +6142,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6137,6 +6153,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalB() {Dispose(false);}
+
+                internal unsafe Const_RelationalB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_RelationalB() : this(null, is_owning: true)
@@ -6253,8 +6271,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6266,6 +6282,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalC() {Dispose(false);}
+
+                internal unsafe Const_RelationalC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_RelationalC() : this(null, is_owning: true)
@@ -6384,8 +6402,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6397,6 +6413,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalD() {Dispose(false);}
+
+                internal unsafe Const_RelationalD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_RelationalD() : this(null, is_owning: true)
@@ -6522,8 +6540,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6535,6 +6551,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalE() {Dispose(false);}
+
+                internal unsafe Const_RelationalE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_RelationalE() : this(null, is_owning: true)
@@ -6660,8 +6678,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_RelationalF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6673,6 +6689,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_RelationalF() {Dispose(false);}
+
+                internal unsafe Const_RelationalF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_RelationalF() : this(null, is_owning: true)
@@ -6798,8 +6816,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6811,6 +6827,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsA() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsLhsA() : this(null, is_owning: true)
@@ -6912,8 +6930,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -6925,6 +6941,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsB() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsLhsB() : this(null, is_owning: true)
@@ -7026,8 +7044,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7039,6 +7055,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsC() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsLhsC() : this(null, is_owning: true)
@@ -7137,8 +7155,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7150,6 +7166,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsD() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsLhsD() : this(null, is_owning: true)
@@ -7241,8 +7259,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7254,6 +7270,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsE() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsLhsE() : this(null, is_owning: true)
@@ -7358,8 +7376,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7371,6 +7387,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsF() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsLhsF() : this(null, is_owning: true)
@@ -7475,8 +7493,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7488,6 +7504,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsG() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsLhsG() : this(null, is_owning: true)
@@ -7590,8 +7608,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsLhsH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7603,6 +7619,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsLhsH() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsLhsH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsLhsH() : this(null, is_owning: true)
@@ -7705,8 +7723,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7718,6 +7734,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsA() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsRhsA() : this(null, is_owning: true)
@@ -7819,8 +7837,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7832,6 +7848,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsB() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsRhsB() : this(null, is_owning: true)
@@ -7933,8 +7951,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -7946,6 +7962,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsC() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsRhsC() : this(null, is_owning: true)
@@ -8044,8 +8062,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8057,6 +8073,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsD() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsRhsD() : this(null, is_owning: true)
@@ -8148,8 +8166,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8161,6 +8177,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsE() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsRhsE() : this(null, is_owning: true)
@@ -8265,8 +8283,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8278,6 +8294,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsF() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsF(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsRhsF() : this(null, is_owning: true)
@@ -8382,8 +8400,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8395,6 +8411,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsG() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsRhsG() : this(null, is_owning: true)
@@ -8497,8 +8515,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsRhsH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8510,6 +8526,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsRhsH() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsRhsH(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsRhsH() : this(null, is_owning: true)
@@ -8616,8 +8634,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsMixedLhs(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8629,6 +8645,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsMixedLhs() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsMixedLhs(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsMixedLhs() : this(null, is_owning: true)
@@ -8729,8 +8747,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StaticOpsMixedRhs(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8742,6 +8758,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StaticOpsMixedRhs() {Dispose(false);}
+
+                internal unsafe Const_StaticOpsMixedRhs(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StaticOpsMixedRhs() : this(null, is_owning: true)
@@ -8834,8 +8852,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NonTrivialClassOps(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8847,6 +8863,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonTrivialClassOps() {Dispose(false);}
+
+                internal unsafe Const_NonTrivialClassOps(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_NonTrivialClassOps() : this(null, is_owning: true)
@@ -8982,8 +9000,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NonCopyableClassByValueOps(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -8995,6 +9011,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NonCopyableClassByValueOps() {Dispose(false);}
+
+                internal unsafe Const_NonCopyableClassByValueOps(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_NonCopyableClassByValueOps() : this(null, is_owning: true)
@@ -9108,8 +9126,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_CallOp(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9121,6 +9137,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_CallOp() {Dispose(false);}
+
+                internal unsafe Const_CallOp(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_CallOp() : this(null, is_owning: true)
@@ -9230,8 +9248,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_TestOpsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9243,6 +9259,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestOpsA() {Dispose(false);}
+
+                internal unsafe Const_TestOpsA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Generated from constructor `MR::CSharp::TestOpsA::TestOpsA`.
                 public unsafe Const_TestOpsA(MR.CS.CSharp.Const_TestOpsA _other) : this(null, is_owning: true)
@@ -9593,8 +9611,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_TestOpsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9606,6 +9622,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestOpsB() {Dispose(false);}
+
+                internal unsafe Const_TestOpsB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
                 public unsafe Const_TestOpsB(MR.CS.CSharp._ByValue_TestOpsB _other) : this(null, is_owning: true)
@@ -9968,8 +9986,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_TestOpsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -9981,6 +9997,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_TestOpsC() {Dispose(false);}
+
+                internal unsafe Const_TestOpsC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Generated from constructor `MR::CSharp::TestOpsC::TestOpsC`.
                 public unsafe Const_TestOpsC(MR.CS.CSharp.Const_TestOpsC _other) : this(null, is_owning: true)
@@ -10337,8 +10355,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IndexerA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -10360,6 +10376,8 @@ public static partial class MR
                         return *__MR_CSharp_IndexerA_Get_x(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe Const_IndexerA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IndexerA() : this(null, is_owning: true)
@@ -10392,8 +10410,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class IndexerA : Const_IndexerA
             {
-                internal unsafe IndexerA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int x
                 {
                     get
@@ -10403,6 +10419,8 @@ public static partial class MR
                         return ref *__MR_CSharp_IndexerA_GetMutable_x(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe IndexerA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe IndexerA() : this(null, is_owning: true)
@@ -10489,8 +10507,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IndexerB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -10515,6 +10531,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe Const_IndexerB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IndexerB() : this(null, is_owning: true)
@@ -10577,8 +10595,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class IndexerB : Const_IndexerB
             {
-                internal unsafe IndexerB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.CSharp.IndexerA a
                 {
                     get
@@ -10591,6 +10607,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe IndexerB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe IndexerB() : this(null, is_owning: true)
@@ -10667,8 +10685,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_IndexerC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -10680,6 +10696,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_IndexerC() {Dispose(false);}
+
+                internal unsafe Const_IndexerC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_IndexerC() : this(null, is_owning: true)
@@ -10794,8 +10812,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvOp(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -10807,6 +10823,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvOp() {Dispose(false);}
+
+                internal unsafe Const_ConvOp(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_ConvOp() : this(null, is_owning: true)
@@ -10916,8 +10934,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvOpToRef(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -10929,6 +10945,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvOpToRef() {Dispose(false);}
+
+                internal unsafe Const_ConvOpToRef(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_ConvOpToRef() : this(null, is_owning: true)
@@ -11050,8 +11068,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StringConvString(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -11063,6 +11079,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StringConvString() {Dispose(false);}
+
+                internal unsafe Const_StringConvString(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StringConvString() : this(null, is_owning: true)
@@ -11170,8 +11188,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StringConvStringView(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -11183,6 +11199,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StringConvStringView() {Dispose(false);}
+
+                internal unsafe Const_StringConvStringView(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StringConvStringView() : this(null, is_owning: true)
@@ -11291,8 +11309,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_StringConvFsPath(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -11304,6 +11320,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_StringConvFsPath() {Dispose(false);}
+
+                internal unsafe Const_StringConvFsPath(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_StringConvFsPath() : this(null, is_owning: true)
@@ -11411,8 +11429,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtor(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -11424,6 +11440,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtor() {Dispose(false);}
+
+                internal unsafe Const_ConvCtor(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_ConvCtor() : this(null, is_owning: true)
@@ -11591,8 +11609,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtorWithDefArg(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -11604,6 +11620,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorWithDefArg() {Dispose(false);}
+
+                internal unsafe Const_ConvCtorWithDefArg(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
                 /// Parameter `_1` defaults to `42`.
@@ -11714,8 +11732,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtorNonTrivialRestricted(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -11727,6 +11743,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorNonTrivialRestricted() {Dispose(false);}
+
+                internal unsafe Const_ConvCtorNonTrivialRestricted(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivialRestricted::ConvCtorNonTrivialRestricted`.
                 public unsafe Const_ConvCtorNonTrivialRestricted(MR.CS.CSharp._ByValue_ConvCtorNonTrivialRestricted _other) : this(null, is_owning: true)
@@ -11852,13 +11870,6 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe ref readonly ConvCtorExposed _Ref => ref *(ConvCtorExposed *)_UnderlyingPtr;
 
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe ConstBox_ConvCtorExposed(ConvCtorExposed other) : this(new ConstBox_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `ConstBox_ConvCtorExposed` has this conversion, `Box_ConvCtorExposed` intentionally doesn't.
-                public static implicit operator ConstBox_ConvCtorExposed(ConvCtorExposed other) {return new(other);}
-
-                internal unsafe ConstBox_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -11871,11 +11882,18 @@ public static partial class MR
 
                 public ref readonly int x => ref _Ref.x;
 
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe ConstBox_ConvCtorExposed(ConvCtorExposed other) : this(new ConstBox_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_ConvCtorExposed` has this conversion, `Box_ConvCtorExposed` intentionally doesn't.
+                public static implicit operator ConstBox_ConvCtorExposed(ConvCtorExposed other) {return new(other);}
+
+                internal unsafe ConstBox_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated copy constructor.
                 public unsafe ConstBox_ConvCtorExposed(ConstBox_ConvCtorExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = *(MR.CS.CSharp.ConvCtorExposed *)_other._UnderlyingPtr;
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
@@ -11884,8 +11902,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ConvCtorExposed _ctor_result = __MR_CSharp_ConvCtorExposed_Construct(_1);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
+                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = __MR_CSharp_ConvCtorExposed_Construct(_1);
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
@@ -11900,18 +11917,18 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe new ref ConvCtorExposed _Ref => ref *(ConvCtorExposed *)_UnderlyingPtr;
 
+                public new ref int x => ref _Ref.x;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Box_ConvCtorExposed(ConvCtorExposed other) : this(new ConstBox_ConvCtorExposed((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Box_ConvCtorExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int x => ref _Ref.x;
-
                 /// Generated copy constructor.
                 public unsafe Box_ConvCtorExposed(ConstBox_ConvCtorExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = *(MR.CS.CSharp.ConvCtorExposed *)_other._UnderlyingPtr;
                 }
 
                 /// Generated copy assignment.
@@ -11923,8 +11940,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorExposed_Construct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ConvCtorExposed __MR_CSharp_ConvCtorExposed_Construct(int _1);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ConvCtorExposed _ctor_result = __MR_CSharp_ConvCtorExposed_Construct(_1);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
+                    *(MR.CS.CSharp.ConvCtorExposed *)_UnderlyingPtr = __MR_CSharp_ConvCtorExposed_Construct(_1);
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtorExposed::ConvCtorExposed`.
@@ -11937,11 +11953,11 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
             public struct ConvCtorExposed
             {
-                /// Copy contents from a wrapper class to this struct.
-                public static implicit operator ConvCtorExposed(ConstBox_ConvCtorExposed other) => other._Ref;
-
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
+
+                /// Copy contents from a wrapper class to this struct.
+                public static implicit operator ConvCtorExposed(ConstBox_ConvCtorExposed other) => other._Ref;
 
                 /// Generated copy constructor.
                 public ConvCtorExposed(ConvCtorExposed _other) {this = _other;}
@@ -12043,8 +12059,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtorCopyButNoMove(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -12056,6 +12070,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorCopyButNoMove() {Dispose(false);}
+
+                internal unsafe Const_ConvCtorCopyButNoMove(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
                 public unsafe Const_ConvCtorCopyButNoMove(MR.CS.CSharp._ByValue_ConvCtorCopyButNoMove _other) : this(null, is_owning: true)
@@ -12177,8 +12193,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtorTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -12190,6 +12204,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorTrivial() {Dispose(false);}
+
+                internal unsafe Const_ConvCtorTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_ConvCtorTrivial() : this(null, is_owning: true)
@@ -12308,8 +12324,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ConvCtorNonTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -12321,6 +12335,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ConvCtorNonTrivial() {Dispose(false);}
+
+                internal unsafe Const_ConvCtorNonTrivial(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_ConvCtorNonTrivial() : this(null, is_owning: true)
@@ -12463,13 +12479,6 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe ref readonly ExposedLayout _Ref => ref *(ExposedLayout *)_UnderlyingPtr;
 
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe ConstBox_ExposedLayout(ExposedLayout other) : this(new ConstBox_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayout` has this conversion, `Box_ExposedLayout` intentionally doesn't.
-                public static implicit operator ConstBox_ExposedLayout(ExposedLayout other) {return new(other);}
-
-                internal unsafe ConstBox_ExposedLayout(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -12493,6 +12502,13 @@ public static partial class MR
 
                 public ref readonly MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe ConstBox_ExposedLayout(ExposedLayout other) : this(new ConstBox_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayout` has this conversion, `Box_ExposedLayout` intentionally doesn't.
+                public static implicit operator ConstBox_ExposedLayout(ExposedLayout other) {return new(other);}
+
+                internal unsafe ConstBox_ExposedLayout(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated default constructor.
                 public unsafe ConstBox_ExposedLayout() : this(null, is_owning: true)
                 {
@@ -12504,7 +12520,7 @@ public static partial class MR
                 public unsafe ConstBox_ExposedLayout(ConstBox_ExposedLayout _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
-                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.ExposedLayout *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayout *)_other._UnderlyingPtr;
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayout::bar`.
@@ -12618,11 +12634,6 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayout _Ref => ref *(ExposedLayout *)_UnderlyingPtr;
 
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Box_ExposedLayout(ExposedLayout other) : this(new ConstBox_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
-
-                internal unsafe Box_ExposedLayout(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new ref ushort x => ref _Ref.x;
 
                 // This is field `y`!
@@ -12636,6 +12647,11 @@ public static partial class MR
 
                 public new ref MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Box_ExposedLayout(ExposedLayout other) : this(new ConstBox_ExposedLayout((_Underlying *)&other, is_owning: false)) {}
+
+                internal unsafe Box_ExposedLayout(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
                 /// Generated default constructor.
                 public unsafe Box_ExposedLayout() : this(null, is_owning: true)
                 {
@@ -12647,7 +12663,7 @@ public static partial class MR
                 public unsafe Box_ExposedLayout(ConstBox_ExposedLayout _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(56);
-                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.ExposedLayout *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayout *)_other._UnderlyingPtr;
                 }
 
                 /// Generated copy assignment.
@@ -12730,9 +12746,6 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
             public struct ExposedLayout : System.IEquatable<float>
             {
-                /// Copy contents from a wrapper class to this struct.
-                public static implicit operator ExposedLayout(ConstBox_ExposedLayout other) => other._Ref;
-
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort x;
 
@@ -12752,6 +12765,9 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.FieldOffset(29)]
                 public MR.CS.ArrayBool4_5 ba;
+
+                /// Copy contents from a wrapper class to this struct.
+                public static implicit operator ExposedLayout(ConstBox_ExposedLayout other) => other._Ref;
 
                 /// Generated copy constructor.
                 public ExposedLayout(ExposedLayout _other) {this = _other;}
@@ -13065,41 +13081,6 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe ref readonly ExposedLayoutSh _Ref => ref *(ExposedLayoutSh *)_UnderlyingPtr;
 
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe ConstBox_ExposedLayoutSh(ExposedLayoutSh other) : this(new ConstBox_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayoutSh` has this conversion, `Box_ExposedLayoutSh` intentionally doesn't.
-                public static implicit operator ConstBox_ExposedLayoutSh(ExposedLayoutSh other) {return new(other);}
-
-                internal unsafe ConstBox_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(_Underlying *other);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning(_Underlying *other);
-                    if (is_owning)
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(ptr);
-                    else
-                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning(ptr);
-                }
-
-                internal unsafe ConstBox_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
-
-                internal static unsafe Box_ExposedLayoutSh _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
-                    return new(__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
-                }
-
-                private protected unsafe void _LateMakeShared(_Underlying *ptr)
-                {
-                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
-                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct", ExactSpelling = true)]
-                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(_Underlying *other);
-                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(ptr);
-                }
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingSharedPtr is null || !_IsOwningVal)
@@ -13125,6 +13106,44 @@ public static partial class MR
 
                 public ref readonly MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe ConstBox_ExposedLayoutSh(ExposedLayoutSh other) : this(new ConstBox_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayoutSh` has this conversion, `Box_ExposedLayoutSh` intentionally doesn't.
+                public static implicit operator ConstBox_ExposedLayoutSh(ExposedLayoutSh other) {return new(other);}
+
+                internal unsafe ConstBox_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(_Underlying *other);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning(_Underlying *other);
+                    if (is_owning)
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(ptr);
+                    else
+                        _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning(ptr);
+                    if (ptr is not null)
+                    {
+                    }
+                }
+
+                internal unsafe ConstBox_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+
+                internal static unsafe Box_ExposedLayoutSh _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr);
+                    return new(__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructAliasing(MR.CS.Misc._PassBy.copy, ownership, ptr), is_owning: true);
+                }
+
+                private protected unsafe void _LateMakeShared(_Underlying *ptr)
+                {
+                    System.Diagnostics.Trace.Assert(_IsOwningVal == true);
+                    System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct", ExactSpelling = true)]
+                    extern static _UnderlyingShared *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(_Underlying *other);
+                    _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(ptr);
+                }
+
                 /// Generated default constructor.
                 public unsafe ConstBox_ExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
                 {
@@ -13136,7 +13155,7 @@ public static partial class MR
                 public unsafe ConstBox_ExposedLayoutSh(ConstBox_ExposedLayoutSh _other) : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
-                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.ExposedLayoutSh *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayoutSh *)_other._UnderlyingPtr;
                 }
 
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::bar`.
@@ -13296,13 +13315,6 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayoutSh _Ref => ref *(ExposedLayoutSh *)_UnderlyingPtr;
 
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe Box_ExposedLayoutSh(ExposedLayoutSh other) : this(new ConstBox_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
-
-                internal unsafe Box_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                internal unsafe Box_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
-
                 public new ref ushort x => ref _Ref.x;
 
                 // This is field `y`!
@@ -13316,6 +13328,13 @@ public static partial class MR
 
                 public new ref MR.CS.ArrayBool4_5 ba => ref _Ref.ba;
 
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe Box_ExposedLayoutSh(ExposedLayoutSh other) : this(new ConstBox_ExposedLayoutSh((_Underlying *)&other, is_owning: false)) {}
+
+                internal unsafe Box_ExposedLayoutSh(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                internal unsafe Box_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
+
                 /// Generated default constructor.
                 public unsafe Box_ExposedLayoutSh() : this(shared_ptr: null, is_owning: true)
                 {
@@ -13327,7 +13346,7 @@ public static partial class MR
                 public unsafe Box_ExposedLayoutSh(ConstBox_ExposedLayoutSh _other) : this(shared_ptr: null, is_owning: true)
                 {
                     _LateMakeShared((_Underlying *)MR.CS.Misc._Alloc(56));
-                    for (nuint _i = 0; _i < 56; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.ExposedLayoutSh *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayoutSh *)_other._UnderlyingPtr;
                 }
 
                 /// Generated copy assignment.
@@ -13410,9 +13429,6 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 56)]
             public struct ExposedLayoutSh : System.IEquatable<float>, System.IEquatable<MR.CS.CSharp.ExposedLayout>, System.IEquatable<MR.CS.CSharp.ExposedLayoutSh>
             {
-                /// Copy contents from a wrapper class to this struct.
-                public static implicit operator ExposedLayoutSh(ConstBox_ExposedLayoutSh other) => other._Ref;
-
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public ushort x;
 
@@ -13432,6 +13448,9 @@ public static partial class MR
 
                 [System.Runtime.InteropServices.FieldOffset(29)]
                 public MR.CS.ArrayBool4_5 ba;
+
+                /// Copy contents from a wrapper class to this struct.
+                public static implicit operator ExposedLayoutSh(ConstBox_ExposedLayoutSh other) => other._Ref;
 
                 /// Generated copy constructor.
                 public ExposedLayoutSh(ExposedLayoutSh _other) {this = _other;}
@@ -13763,13 +13782,6 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe ref readonly ExposedLayoutB _Ref => ref *(ExposedLayoutB *)_UnderlyingPtr;
 
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe ConstBox_ExposedLayoutB(ExposedLayoutB other) : this(new ConstBox_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayoutB` has this conversion, `Box_ExposedLayoutB` intentionally doesn't.
-                public static implicit operator ConstBox_ExposedLayoutB(ExposedLayoutB other) {return new(other);}
-
-                internal unsafe ConstBox_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -13782,11 +13794,18 @@ public static partial class MR
 
                 public ref readonly int x => ref _Ref.x;
 
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe ConstBox_ExposedLayoutB(ExposedLayoutB other) : this(new ConstBox_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayoutB` has this conversion, `Box_ExposedLayoutB` intentionally doesn't.
+                public static implicit operator ConstBox_ExposedLayoutB(ExposedLayoutB other) {return new(other);}
+
+                internal unsafe ConstBox_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated copy constructor.
                 public unsafe ConstBox_ExposedLayoutB(ConstBox_ExposedLayoutB _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayoutB *)_other._UnderlyingPtr;
                 }
 
                 // Some random ctor.
@@ -13796,8 +13815,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
                 }
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
@@ -13807,8 +13825,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
                     _KeepAlive(_1);
                 }
 
@@ -13856,18 +13873,18 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe new ref ExposedLayoutB _Ref => ref *(ExposedLayoutB *)_UnderlyingPtr;
 
+                public new ref int x => ref _Ref.x;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Box_ExposedLayoutB(ExposedLayoutB other) : this(new ConstBox_ExposedLayoutB((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Box_ExposedLayoutB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                public new ref int x => ref _Ref.x;
-
                 /// Generated copy constructor.
                 public unsafe Box_ExposedLayoutB(ConstBox_ExposedLayoutB _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayoutB *)_other._UnderlyingPtr;
                 }
 
                 /// Generated copy assignment.
@@ -13880,8 +13897,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_2", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_2(_1, _2);
                 }
 
                 // This gets a lifetime annotation from `--infer-lifetime-constructors`, but it should be a no-op in an exposed struct.
@@ -13891,8 +13907,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ExposedLayoutB_Construct_1", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayoutB __MR_CSharp_ExposedLayoutB_Construct_1(MR.CS.CSharp.Const_A._Underlying *_1);
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    MR.CS.CSharp.ExposedLayoutB _ctor_result = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)&_ctor_result)[_i];
+                    *(MR.CS.CSharp.ExposedLayoutB *)_UnderlyingPtr = __MR_CSharp_ExposedLayoutB_Construct_1(_1._UnderlyingPtr);
                     _KeepAlive(_1);
                 }
 
@@ -13906,11 +13921,11 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
             public struct ExposedLayoutB : System.IEquatable<MR.CS.CSharp.ExposedLayoutB>
             {
-                /// Copy contents from a wrapper class to this struct.
-                public static implicit operator ExposedLayoutB(ConstBox_ExposedLayoutB other) => other._Ref;
-
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
+
+                /// Copy contents from a wrapper class to this struct.
+                public static implicit operator ExposedLayoutB(ConstBox_ExposedLayoutB other) => other._Ref;
 
                 /// Generated copy constructor.
                 public ExposedLayoutB(ExposedLayoutB _other) {this = _other;}
@@ -14054,8 +14069,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ArrayMembers(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -14175,6 +14188,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_ArrayMembers(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_ArrayMembers() : this(null, is_owning: true)
                 {
@@ -14198,8 +14213,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class ArrayMembers : Const_ArrayMembers
             {
-                internal unsafe ArrayMembers(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int i
                 {
                     get
@@ -14252,6 +14265,8 @@ public static partial class MR
                         return new(__MR_CSharp_ArrayMembers_GetMutable_sa(_UnderlyingPtr));
                     }
                 }
+
+                internal unsafe ArrayMembers(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe ArrayMembers() : this(null, is_owning: true)
@@ -14328,8 +14343,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_NameConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -14365,6 +14378,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_NameConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_NameConflicts() : this(null, is_owning: true)
                 {
@@ -14399,8 +14414,6 @@ public static partial class MR
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
-                    internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                     protected virtual unsafe void Dispose(bool disposing)
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -14412,6 +14425,8 @@ public static partial class MR
                     }
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_A() {Dispose(false);}
+
+                    internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                     /// Constructs an empty (default-constructed) instance.
                     public unsafe Const_A() : this(null, is_owning: true)
@@ -14501,8 +14516,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class NameConflicts : Const_NameConflicts
             {
-                internal unsafe NameConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int nameConflicts
                 {
                     get
@@ -14525,6 +14538,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe NameConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe NameConflicts() : this(null, is_owning: true)
@@ -14612,13 +14627,6 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe ref readonly NameConflictsExposed _Ref => ref *(NameConflictsExposed *)_UnderlyingPtr;
 
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe ConstBox_NameConflictsExposed(NameConflictsExposed other) : this(new ConstBox_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `ConstBox_NameConflictsExposed` has this conversion, `Box_NameConflictsExposed` intentionally doesn't.
-                public static implicit operator ConstBox_NameConflictsExposed(NameConflictsExposed other) {return new(other);}
-
-                internal unsafe ConstBox_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -14633,6 +14641,13 @@ public static partial class MR
 
                 public ref readonly MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
 
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe ConstBox_NameConflictsExposed(NameConflictsExposed other) : this(new ConstBox_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_NameConflictsExposed` has this conversion, `Box_NameConflictsExposed` intentionally doesn't.
+                public static implicit operator ConstBox_NameConflictsExposed(NameConflictsExposed other) {return new(other);}
+
+                internal unsafe ConstBox_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated default constructor.
                 public unsafe ConstBox_NameConflictsExposed() : this(null, is_owning: true)
                 {
@@ -14644,7 +14659,7 @@ public static partial class MR
                 public unsafe ConstBox_NameConflictsExposed(ConstBox_NameConflictsExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
-                    for (nuint _i = 0; _i < 8; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.NameConflictsExposed *)_UnderlyingPtr = *(MR.CS.CSharp.NameConflictsExposed *)_other._UnderlyingPtr;
                 }
             }
 
@@ -14655,14 +14670,14 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe new ref NameConflictsExposed _Ref => ref *(NameConflictsExposed *)_UnderlyingPtr;
 
+                public new ref int nameConflictsExposed => ref _Ref.nameConflictsExposed;
+
+                public new ref MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Box_NameConflictsExposed(NameConflictsExposed other) : this(new ConstBox_NameConflictsExposed((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Box_NameConflictsExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                public new ref int nameConflictsExposed => ref _Ref.nameConflictsExposed;
-
-                public new ref MR.CS.CSharp.NameConflictsExposed.A a => ref _Ref.a;
 
                 /// Generated default constructor.
                 public unsafe Box_NameConflictsExposed() : this(null, is_owning: true)
@@ -14675,7 +14690,7 @@ public static partial class MR
                 public unsafe Box_NameConflictsExposed(ConstBox_NameConflictsExposed _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(8);
-                    for (nuint _i = 0; _i < 8; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.NameConflictsExposed *)_UnderlyingPtr = *(MR.CS.CSharp.NameConflictsExposed *)_other._UnderlyingPtr;
                 }
 
                 /// Generated copy assignment.
@@ -14695,14 +14710,14 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 8)]
             public struct NameConflictsExposed
             {
-                /// Copy contents from a wrapper class to this struct.
-                public static implicit operator NameConflictsExposed(ConstBox_NameConflictsExposed other) => other._Ref;
-
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int nameConflictsExposed;
 
                 [System.Runtime.InteropServices.FieldOffset(4)]
                 public MR.CS.CSharp.NameConflictsExposed.A a;
+
+                /// Copy contents from a wrapper class to this struct.
+                public static implicit operator NameConflictsExposed(ConstBox_NameConflictsExposed other) => other._Ref;
 
                 /// Generated copy constructor.
                 public NameConflictsExposed(NameConflictsExposed _other) {this = _other;}
@@ -14729,13 +14744,6 @@ public static partial class MR
                     /// Get the underlying struct.
                     public unsafe ref readonly A _Ref => ref *(A *)_UnderlyingPtr;
 
-                    /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                    public unsafe ConstBox_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
-                    /// Convert from a struct by copying it. Note that only `ConstBox_A` has this conversion, `Box_A` intentionally doesn't.
-                    public static implicit operator ConstBox_A(A other) {return new(other);}
-
-                    internal unsafe ConstBox_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                     protected virtual unsafe void Dispose(bool disposing)
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -14748,6 +14756,13 @@ public static partial class MR
 
                     public ref readonly int x => ref _Ref.x;
 
+                    /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                    public unsafe ConstBox_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
+                    /// Convert from a struct by copying it. Note that only `ConstBox_A` has this conversion, `Box_A` intentionally doesn't.
+                    public static implicit operator ConstBox_A(A other) {return new(other);}
+
+                    internal unsafe ConstBox_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                     /// Generated default constructor.
                     public unsafe ConstBox_A() : this(null, is_owning: true)
                     {
@@ -14759,7 +14774,7 @@ public static partial class MR
                     public unsafe ConstBox_A(ConstBox_A _other) : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                        for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                        *(MR.CS.CSharp.NameConflictsExposed.A *)_UnderlyingPtr = *(MR.CS.CSharp.NameConflictsExposed.A *)_other._UnderlyingPtr;
                     }
                 }
 
@@ -14770,12 +14785,12 @@ public static partial class MR
                     /// Get the underlying struct.
                     public unsafe new ref A _Ref => ref *(A *)_UnderlyingPtr;
 
+                    public new ref int x => ref _Ref.x;
+
                     /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                     public unsafe Box_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
 
                     internal unsafe Box_A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                    public new ref int x => ref _Ref.x;
 
                     /// Generated default constructor.
                     public unsafe Box_A() : this(null, is_owning: true)
@@ -14788,7 +14803,7 @@ public static partial class MR
                     public unsafe Box_A(ConstBox_A _other) : this(null, is_owning: true)
                     {
                         _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                        for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                        *(MR.CS.CSharp.NameConflictsExposed.A *)_UnderlyingPtr = *(MR.CS.CSharp.NameConflictsExposed.A *)_other._UnderlyingPtr;
                     }
 
                     /// Generated copy assignment.
@@ -14800,11 +14815,11 @@ public static partial class MR
                 [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
                 public struct A
                 {
-                    /// Copy contents from a wrapper class to this struct.
-                    public static implicit operator A(ConstBox_A other) => other._Ref;
-
                     [System.Runtime.InteropServices.FieldOffset(0)]
                     public int x;
+
+                    /// Copy contents from a wrapper class to this struct.
+                    public static implicit operator A(ConstBox_A other) => other._Ref;
 
                     /// Generated copy constructor.
                     public A(A _other) {this = _other;}
@@ -14957,8 +14972,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_AmbiguousTemplates(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -14970,6 +14983,8 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_AmbiguousTemplates() {Dispose(false);}
+
+                internal unsafe Const_AmbiguousTemplates(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_AmbiguousTemplates() : this(null, is_owning: true)
@@ -15121,13 +15136,6 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe ref readonly ConstNonconstConflicts _Ref => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
 
-                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
-                public unsafe ConstBox_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new ConstBox_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
-                /// Convert from a struct by copying it. Note that only `ConstBox_ConstNonconstConflicts` has this conversion, `Box_ConstNonconstConflicts` intentionally doesn't.
-                public static implicit operator ConstBox_ConstNonconstConflicts(ConstNonconstConflicts other) {return new(other);}
-
-                internal unsafe ConstBox_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -15140,6 +15148,13 @@ public static partial class MR
 
                 public ref readonly int x => ref _Ref.x;
 
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                public unsafe ConstBox_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new ConstBox_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
+                /// Convert from a struct by copying it. Note that only `ConstBox_ConstNonconstConflicts` has this conversion, `Box_ConstNonconstConflicts` intentionally doesn't.
+                public static implicit operator ConstBox_ConstNonconstConflicts(ConstNonconstConflicts other) {return new(other);}
+
+                internal unsafe ConstBox_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated default constructor.
                 public unsafe ConstBox_ConstNonconstConflicts() : this(null, is_owning: true)
                 {
@@ -15151,7 +15166,7 @@ public static partial class MR
                 public unsafe ConstBox_ConstNonconstConflicts(ConstBox_ConstNonconstConflicts _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.ConstNonconstConflicts *)_UnderlyingPtr = *(MR.CS.CSharp.ConstNonconstConflicts *)_other._UnderlyingPtr;
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
@@ -15227,12 +15242,12 @@ public static partial class MR
                 /// Get the underlying struct.
                 public unsafe new ref ConstNonconstConflicts _Ref => ref *(ConstNonconstConflicts *)_UnderlyingPtr;
 
+                public new ref int x => ref _Ref.x;
+
                 /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
                 public unsafe Box_ConstNonconstConflicts(ConstNonconstConflicts other) : this(new ConstBox_ConstNonconstConflicts((_Underlying *)&other, is_owning: false)) {}
 
                 internal unsafe Box_ConstNonconstConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
-                public new ref int x => ref _Ref.x;
 
                 /// Generated default constructor.
                 public unsafe Box_ConstNonconstConflicts() : this(null, is_owning: true)
@@ -15245,7 +15260,7 @@ public static partial class MR
                 public unsafe Box_ConstNonconstConflicts(ConstBox_ConstNonconstConflicts _other) : this(null, is_owning: true)
                 {
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
-                    for (nuint _i = 0; _i < 4; _i++) ((byte *)_UnderlyingPtr)[_i] = ((byte *)_other._UnderlyingPtr)[_i];
+                    *(MR.CS.CSharp.ConstNonconstConflicts *)_UnderlyingPtr = *(MR.CS.CSharp.ConstNonconstConflicts *)_other._UnderlyingPtr;
                 }
 
                 /// Generated copy assignment.
@@ -15324,11 +15339,11 @@ public static partial class MR
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
             public struct ConstNonconstConflicts
             {
-                /// Copy contents from a wrapper class to this struct.
-                public static implicit operator ConstNonconstConflicts(ConstBox_ConstNonconstConflicts other) => other._Ref;
-
                 [System.Runtime.InteropServices.FieldOffset(0)]
                 public int x;
+
+                /// Copy contents from a wrapper class to this struct.
+                public static implicit operator ConstNonconstConflicts(ConstBox_ConstNonconstConflicts other) => other._Ref;
 
                 /// Generated copy constructor.
                 public ConstNonconstConflicts(ConstNonconstConflicts _other) {this = _other;}
@@ -15578,8 +15593,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -15700,6 +15713,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersClass::ClassMemberPointersClass`.
                 public unsafe Const_ClassMemberPointersClass(MR.CS.CSharp.Const_ClassMemberPointersClass _other) : this(null, is_owning: true)
                 {
@@ -15727,8 +15742,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class ClassMemberPointersClass : Const_ClassMemberPointersClass
             {
-                internal unsafe ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.CSharp.A? a
                 {
                     get => base.a;
@@ -15758,6 +15771,8 @@ public static partial class MR
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
+
+                internal unsafe ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersClass::ClassMemberPointersClass`.
                 public unsafe ClassMemberPointersClass(MR.CS.CSharp.Const_ClassMemberPointersClass _other) : this(null, is_owning: true)
@@ -15818,8 +15833,6 @@ public static partial class MR
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
-
-                internal unsafe Const_ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -15935,6 +15948,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersExposed::ClassMemberPointersExposed`.
                 public unsafe Const_ClassMemberPointersExposed(MR.CS.CSharp.Const_ClassMemberPointersExposed _other) : this(null, is_owning: true)
                 {
@@ -15966,8 +15981,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class ClassMemberPointersExposed : Const_ClassMemberPointersExposed
             {
-                internal unsafe ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.CSharp.Box_ExposedLayout? a
                 {
                     get => base.a;
@@ -15997,6 +16010,8 @@ public static partial class MR
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
+
+                internal unsafe ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersExposed::ClassMemberPointersExposed`.
                 public unsafe ClassMemberPointersExposed(MR.CS.CSharp.Const_ClassMemberPointersExposed _other) : this(null, is_owning: true)
@@ -16062,8 +16077,6 @@ public static partial class MR
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
-
-                internal unsafe Const_ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -16179,6 +16192,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersUshort::ClassMemberPointersUshort`.
                 public unsafe Const_ClassMemberPointersUshort(MR.CS.CSharp.Const_ClassMemberPointersUshort _other) : this(null, is_owning: true)
                 {
@@ -16207,8 +16222,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class ClassMemberPointersUshort : Const_ClassMemberPointersUshort
             {
-                internal unsafe ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.Misc.Box<ushort>? a
                 {
                     get => base.a;
@@ -16238,6 +16251,8 @@ public static partial class MR
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
+
+                internal unsafe ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersUshort::ClassMemberPointersUshort`.
                 public unsafe ClassMemberPointersUshort(MR.CS.CSharp.Const_ClassMemberPointersUshort _other) : this(null, is_owning: true)
@@ -16300,8 +16315,6 @@ public static partial class MR
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
                 internal unsafe _Underlying *_UnderlyingPtr;
-
-                internal unsafe Const_ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 protected virtual unsafe void Dispose(bool disposing)
                 {
@@ -16417,6 +16430,8 @@ public static partial class MR
                     }
                 }
 
+                internal unsafe Const_ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersBool::ClassMemberPointersBool`.
                 public unsafe Const_ClassMemberPointersBool(MR.CS.CSharp.Const_ClassMemberPointersBool _other) : this(null, is_owning: true)
                 {
@@ -16445,8 +16460,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class ClassMemberPointersBool : Const_ClassMemberPointersBool
             {
-                internal unsafe ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.Misc.Box<byte>? a
                 {
                     get => base.a;
@@ -16476,6 +16489,8 @@ public static partial class MR
                         *ptr = (value is not null ? value._UnderlyingPtr : null);
                     }
                 }
+
+                internal unsafe ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersBool::ClassMemberPointersBool`.
                 public unsafe ClassMemberPointersBool(MR.CS.CSharp.Const_ClassMemberPointersBool _other) : this(null, is_owning: true)
@@ -16540,8 +16555,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_LifetimesA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -16563,6 +16576,8 @@ public static partial class MR
                         return *__MR_CSharp_LifetimesA_Get_x(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe Const_LifetimesA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_LifetimesA() : this(null, is_owning: true)
@@ -16595,8 +16610,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class LifetimesA : Const_LifetimesA
             {
-                internal unsafe LifetimesA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe ref int x
                 {
                     get
@@ -16606,6 +16619,8 @@ public static partial class MR
                         return ref *__MR_CSharp_LifetimesA_GetMutable_x(_UnderlyingPtr);
                     }
                 }
+
+                internal unsafe LifetimesA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe LifetimesA() : this(null, is_owning: true)
@@ -16701,8 +16716,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_LifetimesB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -16727,6 +16740,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe Const_LifetimesB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_LifetimesB() : this(null, is_owning: true)
@@ -16770,8 +16785,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class LifetimesB : Const_LifetimesB
             {
-                internal unsafe LifetimesB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.CSharp.LifetimesA a
                 {
                     get
@@ -16784,6 +16797,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe LifetimesB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe LifetimesB() : this(null, is_owning: true)
@@ -16896,8 +16911,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_LifetimesC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -16922,6 +16935,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe Const_LifetimesC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe Const_LifetimesC() : this(null, is_owning: true)
@@ -16965,8 +16980,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class LifetimesC : Const_LifetimesC
             {
-                internal unsafe LifetimesC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.CSharp.LifetimesA a
                 {
                     get
@@ -16979,6 +16992,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe LifetimesC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
                 public unsafe LifetimesC() : this(null, is_owning: true)
@@ -17055,8 +17070,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_LifetimesD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -17081,6 +17094,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe Const_LifetimesD(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// Generated from constructor `MR::CSharp::LifetimesD::LifetimesD`.
                 public unsafe Const_LifetimesD(MR.CS.CSharp.Const_LifetimesD _other) : this(null, is_owning: true)
@@ -17148,8 +17163,6 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class LifetimesD : Const_LifetimesD
             {
-                internal unsafe LifetimesD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
-
                 public new unsafe MR.CS.CSharp.LifetimesA a
                 {
                     get
@@ -17162,6 +17175,8 @@ public static partial class MR
                         return __ret;
                     }
                 }
+
+                internal unsafe LifetimesD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Generated from constructor `MR::CSharp::LifetimesD::LifetimesD`.
                 public unsafe LifetimesD(MR.CS.CSharp.Const_LifetimesD _other) : this(null, is_owning: true)

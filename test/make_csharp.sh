@@ -28,7 +28,8 @@ build/mrbind_gen_csharp \
     --no-deref-expected \
     --move-classes-returned-by-value \
     --begin-func-names-with-lowercase \
-    --wrap-doc-comments-in-summary-tag
+    --wrap-doc-comments-in-summary-tag \
+    --fat-objects
 
 dotnet build test/output_csharp
 dotnet build test/output_csharp_fixed_typedefs_64_only

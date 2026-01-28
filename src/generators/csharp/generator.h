@@ -329,6 +329,9 @@ namespace mrbind::CSharp
         // This C# namespace is added to the names that don't already start with the first unqualified part of it.
         std::optional<cppdecl::QualifiedName> forced_namespace;
 
+        // Emit C++ fields as C# fields prepared in the consturctors, as opposed to C# properties.
+        bool fat_objects = false;
+
         // If true, name C# functions `fooBar` instead of `FooBar`.
         bool begin_func_names_with_lowercase = false;
 
@@ -425,6 +428,7 @@ namespace mrbind::CSharp
 
         struct ArrayStrings
         {
+            // The type of the entire array.
             // This may include `ref` or `ref readonly`, but not necessarily.
             std::string csharp_type;
 
@@ -486,6 +490,18 @@ namespace mrbind::CSharp
         // Requests an empty tag type. Returns its C# name.
         // The C# names are determined as if by `CppToCSharpHelperName()`.
         [[nodiscard]] std::string RequestCSharpEmptyTagType(const cppdecl::QualifiedName &cpp_name);
+
+
+        // This is used by `--fat-objects`. This maps class names to the init code they must call in their constructors.
+        // Don't read directly, use `GetCtorFinalizationStatements()`.
+        // The keys are pairs of qualified C++ class names with `is_const` bools.
+        // The values are the init statements, with a trailing line break.
+        // If the class is known, it will always be in the map, even if the value is empty.
+        std::map<std::pair<std::string, bool>, std::string, std::less<>> class_name_to_fat_object_init_code;
+
+        // Returns the code that needs to be appended to the end of every constructor of this `cpp_class` (either const or non-const half, depending on `is_const`).
+        // Throws if called too early. This can only be called after all fields for this class are emitted (at least if `--fat-objects` is used, without this flag this is currently a no-op).
+        [[nodiscard]] std::string_view GetCtorFinalizationStatements(const cppdecl::QualifiedName &cpp_class, bool is_const);
 
 
         // Adjusts a name to apply any `--remove-namespace` and `--force-namespace` flags.
@@ -594,18 +610,26 @@ namespace mrbind::CSharp
             enable_sugar = 1 << 0,
             // Treat a pointer as a pointer to an array element.
             pointer_to_array = 1 << 1,
+            // If you would otherwise emit `ref`, instead emit a C# pointer to the same type.
+            // Currently this is only needed for the return types.
+            // Since our `pointer_to_array` is currently implemented as pointers, most of the time they can share implementations.
+            replace_ref_with_ptr = 1 << 2,
+            // If we're dealing with a returned const ref to a small type, use `ref readonly` instead of returning it by value.
+            return_ref_instead_of_copying_small_types = 1 << 3,
             // When returning stuff by value, don't wrap it in the "_Moved<...>" wrapper.
             // This is useful e.g. for binding the return types of constructors.
             // This flag is implied by default, unless `--move-classes-returned-by-value` is used.
-            no_move_in_by_value_return = 1 << 2,
+            no_move_in_by_value_return = 1 << 4,
             // This flag disables the implicit `no_move_in_by_value_return` caused by the lack of `--move-classes-returned-by-value`.
-            force_move_in_by_value_return = 1 << 3,
+            force_move_in_by_value_return = 1 << 5,
             // Don't return a true `ref`, instead return a wrapper class.
             // This is good for overloaded operators, which can't return `ref`s (or have them as parameters).
-            return_ref_wrapper = 1 << 4,
+            return_ref_wrapper = 1 << 6,
             // When dealing with references to exposed structs, use the heap-allocating wrapper classes, instead of `ref`, `ref readonly`, and `in`.
             // This is only useful for emitting operators in those wrappers themselves. When we eventually remove those (I hope), we can drop this flag too.
-            use_heap_wrappers_for_exposed_structs = 1 << 5,
+            use_heap_wrappers_for_exposed_structs = 1 << 7,
+
+            // When adding new flags here, update `TypeBindingFlagsToString()`!
         };
         MRBIND_FLAG_OPERATORS_IN_CLASS(TypeBindingFlags)
 
@@ -783,7 +807,10 @@ namespace mrbind::CSharp
             const bool is_property;
 
             const bool ctor_class_backed_by_shared_ptr;
+
             const bool in_exposed_struct;
+            const std::optional<bool> class_part_kind; // If not `in_exposed_struct`, this shows whether we're in the const half of the class or not.
+            [[nodiscard]] bool InConstHalf() const {return class_part_kind.value();}
 
             const bool is_overloaded_subscript_op;
             const bool is_overloaded_op_or_conv_op_from_this;
@@ -803,8 +830,8 @@ namespace mrbind::CSharp
             // `csharp_name` is used as the C# function name. Can be `operator ....` for an overloaded operator or a conversion operator.
             // `csharp_name` can be "get" or "set" if we're creating a property, in that case we won't emit the return type or the parameters,
             //   and the parameter name (of the setter) will be replaced with "value".
-            // Pass `in_exposed_struct == true` if this is a method inside an exposed struct. This only matters for constructors.
-            FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string csharp_name, bool in_exposed_struct, EmitVariant emit_variant = Generator::EmitVariant::regular);
+            // If `class_part_kind` is null, we're in an exposed struct.
+            FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string csharp_name, std::optional<bool> class_part_kind, EmitVariant emit_variant = Generator::EmitVariant::regular);
 
             struct ShadowingDesc
             {
@@ -916,10 +943,13 @@ namespace mrbind::CSharp
         // If this returns false, this C++ type (usually a class or enum) will not be emitted.
         [[nodiscard]] bool ShouldEmitCppType(const cppdecl::Type &cpp_type);
 
-        // Emits a single class field. Either as several accessor methods, or as a C# property if possible.
+        // Emits a single class field.
         // `is_const` determines if we're considered to be inside of a const half of a class or not.
         // This can't be applied to fields of exposed structs.
-        void EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class, const CInterop::ClassField &field, bool is_const);
+        // If `init_code` is specified, then this emits cached fields that are created all at once in the constructor.
+        // This appends to `*init_code`. Collect the resulting string and call it at the end of your constructors.
+        // Pass separate strings for static and non-static fields. The static strings go into so-called "static constructors".
+        void EmitCppField(OutputFile &file, const cppdecl::QualifiedName &cpp_class, const CInterop::ClassField &field, bool is_const, std::string *init_code);
 
         void Generate();
 

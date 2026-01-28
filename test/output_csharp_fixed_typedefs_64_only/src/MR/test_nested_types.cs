@@ -14,8 +14,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -28,28 +26,41 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
 
-                public unsafe MR.CS.NestedTypes.A.Const_B b
+                public unsafe MR.CS.NestedTypes.A.Const_B b {get; private protected set;}
+
+                public unsafe MR.CS.NestedTypes.A.E e => *__ref_storage_e;
+                private protected unsafe MR.CS.NestedTypes.A.E *__ref_storage_e;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // b
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_Get_b", ExactSpelling = true)]
-                        extern static MR.CS.NestedTypes.A.Const_B._Underlying *__MR_NestedTypes_A_Get_b(_Underlying *_this);
-                        MR.CS.NestedTypes.A.Const_B __ret;
-                        __ret = new(__MR_NestedTypes_A_Get_b(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.NestedTypes.A.Const_B._Underlying *__MR_NestedTypes_A_Get_b(MR.CS.NestedTypes.Const_A._Underlying *_this);
+                        this.b = new(__MR_NestedTypes_A_Get_b(_UnderlyingPtr), is_owning: false);
+                        this.b._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // e (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_Get_e", ExactSpelling = true)]
+                        extern static MR.CS.NestedTypes.A.E *__MR_NestedTypes_A_Get_e(MR.CS.NestedTypes.Const_A._Underlying *_this);
+                        this.__ref_storage_e = __MR_NestedTypes_A_Get_e(_UnderlyingPtr);
                     }
                 }
 
-                public unsafe MR.CS.NestedTypes.A.E e
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning)
                 {
-                    get
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_Get_e", ExactSpelling = true)]
-                        extern static MR.CS.NestedTypes.A.E *__MR_NestedTypes_A_Get_e(_Underlying *_this);
-                        return *__MR_NestedTypes_A_Get_e(_UnderlyingPtr);
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -59,6 +70,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_NestedTypes_A_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -70,6 +82,7 @@ public static partial class MR
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_ConstructFrom(MR.CS.NestedTypes.A.B._Underlying *b, MR.CS.NestedTypes.A.E e);
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFrom(b._UnderlyingPtr, e);
                     _KeepAlive(b);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -81,6 +94,7 @@ public static partial class MR
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_ConstructFromAnother(MR.CS.NestedTypes.A._Underlying *_other);
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -93,8 +107,6 @@ public static partial class MR
 
                     internal unsafe _Underlying *_UnderlyingPtr;
 
-                    internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                     protected virtual unsafe void Dispose(bool disposing)
                     {
                         if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -106,6 +118,8 @@ public static partial class MR
                     }
                     public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                     ~Const_B() {Dispose(false);}
+
+                    internal unsafe Const_B(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                     /// <summary>
                     /// Constructs an empty (default-constructed) instance.
@@ -216,30 +230,40 @@ public static partial class MR
             /// </summary>
             public class A : Const_A
             {
-                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                public new unsafe MR.CS.NestedTypes.A.B b {get; private protected set;}
 
-                public new unsafe MR.CS.NestedTypes.A.B b
+                public new unsafe ref MR.CS.NestedTypes.A.E e => ref *__ref_storage_e;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
                 {
-                    get
-                    {
+                    { // b
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_GetMutable_b", ExactSpelling = true)]
-                        extern static MR.CS.NestedTypes.A.B._Underlying *__MR_NestedTypes_A_GetMutable_b(_Underlying *_this);
-                        MR.CS.NestedTypes.A.B __ret;
-                        __ret = new(__MR_NestedTypes_A_GetMutable_b(_UnderlyingPtr), is_owning: false);
-                        __ret._KeepAliveEnclosingObject = this;
-                        return __ret;
+                        extern static MR.CS.NestedTypes.A.B._Underlying *__MR_NestedTypes_A_GetMutable_b(MR.CS.NestedTypes.A._Underlying *_this);
+                        this.b = new(__MR_NestedTypes_A_GetMutable_b(_UnderlyingPtr), is_owning: false);
+                        this.b._KeepAliveEnclosingObject = this;
+                        base.b = this.b;
+                    }
+
+                    { // e (ref)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_GetMutable_e", ExactSpelling = true)]
+                        extern static MR.CS.NestedTypes.A.E *__MR_NestedTypes_A_GetMutable_e(MR.CS.NestedTypes.A._Underlying *_this);
+                        this.__ref_storage_e = __MR_NestedTypes_A_GetMutable_e(_UnderlyingPtr);
                     }
                 }
 
-                public new unsafe ref MR.CS.NestedTypes.A.E e
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
-                    get
+                    if (ptr is not null)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_GetMutable_e", ExactSpelling = true)]
-                        extern static MR.CS.NestedTypes.A.E *__MR_NestedTypes_A_GetMutable_e(_Underlying *_this);
-                        return ref *__MR_NestedTypes_A_GetMutable_e(_UnderlyingPtr);
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -249,6 +273,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_NestedTypes_A_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -260,6 +285,7 @@ public static partial class MR
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_ConstructFrom(MR.CS.NestedTypes.A.B._Underlying *b, MR.CS.NestedTypes.A.E e);
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFrom(b._UnderlyingPtr, e);
                     _KeepAlive(b);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -271,6 +297,7 @@ public static partial class MR
                     extern static MR.CS.NestedTypes.A._Underlying *__MR_NestedTypes_A_ConstructFromAnother(MR.CS.NestedTypes.A._Underlying *_other);
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>

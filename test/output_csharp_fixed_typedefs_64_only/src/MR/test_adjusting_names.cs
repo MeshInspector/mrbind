@@ -16,8 +16,6 @@ public static partial class MR
 
                 internal unsafe _Underlying *_UnderlyingPtr;
 
-                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
-
                 protected virtual unsafe void Dispose(bool disposing)
                 {
                     if (_UnderlyingPtr is null || !_IsOwningVal)
@@ -30,15 +28,19 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_A() {Dispose(false);}
 
-                public static unsafe ref ulong Var_MRCUint64T
+                public static unsafe ref ulong Var_MRCUint64T => ref *__ref_storage_Var_MRCUint64T;
+                private protected static unsafe ulong *__ref_storage_Var_MRCUint64T;
+
+                unsafe static Const_A()
                 {
-                    get
-                    {
+                    { // Var_MRCUint64T (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AdjustingNames_A_GetMutable_var_uint64_t", ExactSpelling = true)]
                         extern static ulong *__MR_AdjustingNames_A_GetMutable_var_uint64_t();
-                        return ref *__MR_AdjustingNames_A_GetMutable_var_uint64_t();
+                        Const_A.__ref_storage_Var_MRCUint64T = __MR_AdjustingNames_A_GetMutable_var_uint64_t();
                     }
                 }
+
+                internal unsafe Const_A(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
