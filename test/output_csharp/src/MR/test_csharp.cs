@@ -2299,6 +2299,20 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_SB() {Dispose(false);}
 
+                // Make this non-trivial for a change.
+                public unsafe MR.CS.Std.Const_String s
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_Get_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SB_Get_s(_Underlying *_this);
+                        MR.CS.Std.Const_String __ret;
+                        __ret = new(__MR_CSharp_SB_Get_s(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
+                }
+
                 internal unsafe Const_SB(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Construct", ExactSpelling = true)]
@@ -2340,6 +2354,18 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SB_DefaultConstruct());
                 }
 
+                /// Constructs `MR::CSharp::SB` elementwise.
+                public unsafe Const_SB(string s) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SB_ConstructFrom(byte *s, byte *s_end);
+                    byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
+                    fixed (byte *__ptr_s = __bytes_s)
+                    {
+                        _LateMakeShared(__MR_CSharp_SB_ConstructFrom(__ptr_s, __ptr_s + __bytes_s.Length));
+                    }
+                }
+
                 /// Generated from constructor `MR::CSharp::SB::SB`.
                 public unsafe Const_SB(MR.CS.CSharp._ByValue_SB _other) : this(shared_ptr: null, is_owning: true)
                 {
@@ -2357,6 +2383,20 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class SB : Const_SB
             {
+                // Make this non-trivial for a change.
+                public new unsafe MR.CS.Std.String s
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_GetMutable_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_SB_GetMutable_s(_Underlying *_this);
+                        MR.CS.Std.String __ret;
+                        __ret = new(__MR_CSharp_SB_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
+                }
+
                 internal unsafe SB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 internal unsafe SB(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
@@ -2367,6 +2407,18 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SB_DefaultConstruct();
                     _LateMakeShared(__MR_CSharp_SB_DefaultConstruct());
+                }
+
+                /// Constructs `MR::CSharp::SB` elementwise.
+                public unsafe SB(string s) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SB_ConstructFrom(byte *s, byte *s_end);
+                    byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
+                    fixed (byte *__ptr_s = __bytes_s)
+                    {
+                        _LateMakeShared(__MR_CSharp_SB_ConstructFrom(__ptr_s, __ptr_s + __bytes_s.Length));
+                    }
                 }
 
                 /// Generated from constructor `MR::CSharp::SB::SB`.
@@ -2527,6 +2579,20 @@ public static partial class MR
                     return MR.CS.CSharp.Const_SB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SC_UpcastTo_MR_CSharp_SB(self._UnderlyingPtr));
                 }
 
+                // Make this non-trivial for a change.
+                public unsafe MR.CS.Std.Const_String s
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_Get_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SC_Get_s(_Underlying *_this);
+                        MR.CS.Std.Const_String __ret;
+                        __ret = new(__MR_CSharp_SC_Get_s(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
+                }
+
                 internal unsafe Const_SC(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
@@ -2598,6 +2664,20 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_UpcastTo_MR_CSharp_SB", ExactSpelling = true)]
                     extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SC_UpcastTo_MR_CSharp_SB(_Underlying *_this);
                     return MR.CS.CSharp.SB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SC_UpcastTo_MR_CSharp_SB(self._UnderlyingPtr));
+                }
+
+                // Make this non-trivial for a change.
+                public new unsafe MR.CS.Std.String s
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_GetMutable_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_SC_GetMutable_s(_Underlying *_this);
+                        MR.CS.Std.String __ret;
+                        __ret = new(__MR_CSharp_SC_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
                 }
 
                 internal unsafe SC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
@@ -2971,6 +3051,20 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_SE() {Dispose(false);}
 
+                // Make this non-trivial for a change.
+                public unsafe MR.CS.Std.Const_String s
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_Get_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SE_Get_s(_Underlying *_this);
+                        MR.CS.Std.Const_String __ret;
+                        __ret = new(__MR_CSharp_SE_Get_s(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
+                }
+
                 internal unsafe Const_SE(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Construct", ExactSpelling = true)]
@@ -3012,6 +3106,18 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SE_DefaultConstruct());
                 }
 
+                /// Constructs `MR::CSharp::SE` elementwise.
+                public unsafe Const_SE(string s) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_ConstructFrom(byte *s, byte *s_end);
+                    byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
+                    fixed (byte *__ptr_s = __bytes_s)
+                    {
+                        _LateMakeShared(__MR_CSharp_SE_ConstructFrom(__ptr_s, __ptr_s + __bytes_s.Length));
+                    }
+                }
+
                 /// Generated from constructor `MR::CSharp::SE::SE`.
                 public unsafe Const_SE(MR.CS.CSharp._ByValue_SE _other) : this(shared_ptr: null, is_owning: true)
                 {
@@ -3029,6 +3135,20 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class SE : Const_SE
             {
+                // Make this non-trivial for a change.
+                public new unsafe MR.CS.Std.String s
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_GetMutable_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_SE_GetMutable_s(_Underlying *_this);
+                        MR.CS.Std.String __ret;
+                        __ret = new(__MR_CSharp_SE_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
+                }
+
                 internal unsafe SE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 internal unsafe SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
@@ -3039,6 +3159,18 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_DefaultConstruct();
                     _LateMakeShared(__MR_CSharp_SE_DefaultConstruct());
+                }
+
+                /// Constructs `MR::CSharp::SE` elementwise.
+                public unsafe SE(string s) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_ConstructFrom(byte *s, byte *s_end);
+                    byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
+                    fixed (byte *__ptr_s = __bytes_s)
+                    {
+                        _LateMakeShared(__MR_CSharp_SE_ConstructFrom(__ptr_s, __ptr_s + __bytes_s.Length));
+                    }
                 }
 
                 /// Generated from constructor `MR::CSharp::SE::SE`.
@@ -3209,6 +3341,20 @@ public static partial class MR
                     return Const_SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
                 }
 
+                // Make this non-trivial for a change.
+                public unsafe MR.CS.Std.Const_String s
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_Get_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SF_Get_s(_Underlying *_this);
+                        MR.CS.Std.Const_String __ret;
+                        __ret = new(__MR_CSharp_SF_Get_s(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
+                }
+
                 internal unsafe Const_SF(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
@@ -3290,6 +3436,20 @@ public static partial class MR
                     var ptr = __MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     return SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
+                }
+
+                // Make this non-trivial for a change.
+                public new unsafe MR.CS.Std.String s
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_GetMutable_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_SF_GetMutable_s(_Underlying *_this);
+                        MR.CS.Std.String __ret;
+                        __ret = new(__MR_CSharp_SF_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
                 }
 
                 internal unsafe SF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}

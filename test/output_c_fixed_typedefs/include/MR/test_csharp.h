@@ -1654,6 +1654,27 @@ MR_C_API void MR_CSharp_SA_DestroyArray(const MR_CSharp_SA *_this);
 // When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CSharp_SA *MR_CSharp_SA_AssignFromAnother(MR_CSharp_SA *_this, const MR_CSharp_SA *_other);
 
+// Make this non-trivial for a change.
+// Returns a pointer to a member variable of class `MR::CSharp::SB` named `s`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_string *MR_CSharp_SB_Get_s(const MR_CSharp_SB *_this);
+
+// Make this non-trivial for a change.
+// Modifies a member variable of class `MR::CSharp::SB` named `s`.
+// Parameter `_this` can not be null. It is a single object.
+// Parameter `value` can not be null.
+// If `value_end` is null, then `value` is assumed to be null-terminated.
+// The reference to the parameter `value` might be preserved in this object in element `s`.
+// When this function is called, this object will drop object references it had previously in `s`.
+MR_C_API void MR_CSharp_SB_Set_s(MR_CSharp_SB *_this, const char *value, const char *value_end);
+
+// Make this non-trivial for a change.
+// Returns a mutable pointer to a member variable of class `MR::CSharp::SB` named `s`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_string *MR_CSharp_SB_GetMutable_s(MR_CSharp_SB *_this);
+
 // Constructs an empty (default-constructed) instance.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SB_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_SB *MR_CSharp_SB_DefaultConstruct(void);
@@ -1662,6 +1683,14 @@ MR_C_API MR_CSharp_SB *MR_CSharp_SB_DefaultConstruct(void);
 // The array must be destroyed using `MR_CSharp_SB_DestroyArray()`.
 // Use `MR_CSharp_SB_OffsetMutablePtr()` and `MR_CSharp_SB_OffsetPtr()` to access the array elements.
 MR_C_API MR_CSharp_SB *MR_CSharp_SB_DefaultConstructArray(size_t num_elems);
+
+// Constructs `MR::CSharp::SB` elementwise.
+// Parameter `s` can not be null.
+// If `s_end` is null, then `s` is assumed to be null-terminated.
+// The reference to the parameter `s` might be preserved in the constructed object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SB_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_SB *MR_CSharp_SB_ConstructFrom(const char *s, const char *s_end);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 // The reference to the parameter `ptr` might be preserved in the return value.
@@ -1813,6 +1842,27 @@ MR_C_API void MR_CSharp_SD_DestroyArray(const MR_CSharp_SD *_this);
 // When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_CSharp_SD *MR_CSharp_SD_AssignFromAnother(MR_CSharp_SD *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other);
 
+// Make this non-trivial for a change.
+// Returns a pointer to a member variable of class `MR::CSharp::SE` named `s`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_string *MR_CSharp_SE_Get_s(const MR_CSharp_SE *_this);
+
+// Make this non-trivial for a change.
+// Modifies a member variable of class `MR::CSharp::SE` named `s`.
+// Parameter `_this` can not be null. It is a single object.
+// Parameter `value` can not be null.
+// If `value_end` is null, then `value` is assumed to be null-terminated.
+// The reference to the parameter `value` might be preserved in this object in element `s`.
+// When this function is called, this object will drop object references it had previously in `s`.
+MR_C_API void MR_CSharp_SE_Set_s(MR_CSharp_SE *_this, const char *value, const char *value_end);
+
+// Make this non-trivial for a change.
+// Returns a mutable pointer to a member variable of class `MR::CSharp::SE` named `s`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_string *MR_CSharp_SE_GetMutable_s(MR_CSharp_SE *_this);
+
 // Constructs an empty (default-constructed) instance.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SE_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_SE *MR_CSharp_SE_DefaultConstruct(void);
@@ -1821,6 +1871,14 @@ MR_C_API MR_CSharp_SE *MR_CSharp_SE_DefaultConstruct(void);
 // The array must be destroyed using `MR_CSharp_SE_DestroyArray()`.
 // Use `MR_CSharp_SE_OffsetMutablePtr()` and `MR_CSharp_SE_OffsetPtr()` to access the array elements.
 MR_C_API MR_CSharp_SE *MR_CSharp_SE_DefaultConstructArray(size_t num_elems);
+
+// Constructs `MR::CSharp::SE` elementwise.
+// Parameter `s` can not be null.
+// If `s_end` is null, then `s` is assumed to be null-terminated.
+// The reference to the parameter `s` might be preserved in the constructed object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_SE_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_SE *MR_CSharp_SE_ConstructFrom(const char *s, const char *s_end);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 // The reference to the parameter `ptr` might be preserved in the return value.

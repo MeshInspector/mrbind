@@ -2645,6 +2645,24 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_SB() {Dispose(false);}
 
+                // Make this non-trivial for a change.
+                public unsafe MR.CS.Std.Const_String s {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // s
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_Get_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SB_Get_s(MR.CS.CSharp.Const_SB._Underlying *_this);
+                        this.s = new(__MR_CSharp_SB_Get_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
                 internal unsafe Const_SB(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Construct", ExactSpelling = true)]
@@ -2657,10 +2675,22 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_ConstructNonOwning(ptr);
                     if (ptr is not null)
                     {
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
-                internal unsafe Const_SB(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_SB(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingSharedPtr = shared_ptr;
+                    if (shared_ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 internal static unsafe SB _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
                 {
@@ -2686,6 +2716,23 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SB_DefaultConstruct();
                     _LateMakeShared(__MR_CSharp_SB_DefaultConstruct());
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Constructs `MR::CSharp::SB` elementwise.
+                /// </summary>
+                public unsafe Const_SB(ReadOnlySpan<char> s) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SB_ConstructFrom(byte *s, byte *s_end);
+                    byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
+                    int __len_s = System.Text.Encoding.UTF8.GetBytes(s, __bytes_s);
+                    fixed (byte *__ptr_s = __bytes_s)
+                    {
+                        _LateMakeShared(__MR_CSharp_SB_ConstructFrom(__ptr_s, __ptr_s + __len_s));
+                        _FinalizeFields();
+                    }
                 }
 
                 /// <summary>
@@ -2697,6 +2744,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SB._Underlying *_other);
                     _LateMakeShared(__MR_CSharp_SB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
             }
 
@@ -2709,9 +2757,44 @@ public static partial class MR
             /// </summary>
             public class SB : Const_SB
             {
-                internal unsafe SB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                // Make this non-trivial for a change.
+                public new unsafe MR.CS.Std.String s {get; private protected set;}
 
-                internal unsafe SB(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // s
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_GetMutable_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_SB_GetMutable_s(MR.CS.CSharp.SB._Underlying *_this);
+                        this.s = new(__MR_CSharp_SB_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
+                        base.s = this.s;
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe SB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe SB(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning)
+                {
+                    if (shared_ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -2721,6 +2804,23 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SB_DefaultConstruct();
                     _LateMakeShared(__MR_CSharp_SB_DefaultConstruct());
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Constructs `MR::CSharp::SB` elementwise.
+                /// </summary>
+                public unsafe SB(ReadOnlySpan<char> s) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SB_ConstructFrom(byte *s, byte *s_end);
+                    byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
+                    int __len_s = System.Text.Encoding.UTF8.GetBytes(s, __bytes_s);
+                    fixed (byte *__ptr_s = __bytes_s)
+                    {
+                        _LateMakeShared(__MR_CSharp_SB_ConstructFrom(__ptr_s, __ptr_s + __len_s));
+                        _FinalizeFields();
+                    }
                 }
 
                 /// <summary>
@@ -2732,6 +2832,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.SB._Underlying *__MR_CSharp_SB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SB._Underlying *_other);
                     _LateMakeShared(__MR_CSharp_SB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -2899,6 +3000,24 @@ public static partial class MR
                     return MR.CS.CSharp.Const_SB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SC_UpcastTo_MR_CSharp_SB(self._UnderlyingPtr));
                 }
 
+                // Make this non-trivial for a change.
+                public unsafe MR.CS.Std.Const_String s {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // s
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_Get_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SC_Get_s(MR.CS.CSharp.Const_SC._Underlying *_this);
+                        this.s = new(__MR_CSharp_SC_Get_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
                 internal unsafe Const_SC(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Construct", ExactSpelling = true)]
@@ -2911,10 +3030,22 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(ptr);
                     if (ptr is not null)
                     {
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
-                internal unsafe Const_SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingSharedPtr = shared_ptr;
+                    if (shared_ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 internal static unsafe SC _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
                 {
@@ -2940,6 +3071,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.SC._Underlying *__MR_CSharp_SC_DefaultConstruct();
                     _LateMakeShared(__MR_CSharp_SC_DefaultConstruct());
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -2951,6 +3083,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.SC._Underlying *__MR_CSharp_SC_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SC._Underlying *_other);
                     _LateMakeShared(__MR_CSharp_SC_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
             }
 
@@ -2978,9 +3111,44 @@ public static partial class MR
                     return MR.CS.CSharp.SB._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)self._UnderlyingSharedPtr, __MR_CSharp_SC_UpcastTo_MR_CSharp_SB(self._UnderlyingPtr));
                 }
 
-                internal unsafe SC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                // Make this non-trivial for a change.
+                public new unsafe MR.CS.Std.String s {get; private protected set;}
 
-                internal unsafe SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // s
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_GetMutable_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_SC_GetMutable_s(MR.CS.CSharp.SC._Underlying *_this);
+                        this.s = new(__MR_CSharp_SC_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
+                        base.s = this.s;
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe SC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning)
+                {
+                    if (shared_ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -2990,6 +3158,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.SC._Underlying *__MR_CSharp_SC_DefaultConstruct();
                     _LateMakeShared(__MR_CSharp_SC_DefaultConstruct());
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -3001,6 +3170,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.SC._Underlying *__MR_CSharp_SC_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SC._Underlying *_other);
                     _LateMakeShared(__MR_CSharp_SC_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -3395,6 +3565,24 @@ public static partial class MR
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_SE() {Dispose(false);}
 
+                // Make this non-trivial for a change.
+                public unsafe MR.CS.Std.Const_String s {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // s
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_Get_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SE_Get_s(MR.CS.CSharp.Const_SE._Underlying *_this);
+                        this.s = new(__MR_CSharp_SE_Get_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
                 internal unsafe Const_SE(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Construct", ExactSpelling = true)]
@@ -3407,10 +3595,22 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_ConstructNonOwning(ptr);
                     if (ptr is not null)
                     {
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
-                internal unsafe Const_SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingSharedPtr = shared_ptr;
+                    if (shared_ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 internal static unsafe SE _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
                 {
@@ -3436,6 +3636,23 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_DefaultConstruct();
                     _LateMakeShared(__MR_CSharp_SE_DefaultConstruct());
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Constructs `MR::CSharp::SE` elementwise.
+                /// </summary>
+                public unsafe Const_SE(ReadOnlySpan<char> s) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_ConstructFrom(byte *s, byte *s_end);
+                    byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
+                    int __len_s = System.Text.Encoding.UTF8.GetBytes(s, __bytes_s);
+                    fixed (byte *__ptr_s = __bytes_s)
+                    {
+                        _LateMakeShared(__MR_CSharp_SE_ConstructFrom(__ptr_s, __ptr_s + __len_s));
+                        _FinalizeFields();
+                    }
                 }
 
                 /// <summary>
@@ -3447,6 +3664,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SE._Underlying *_other);
                     _LateMakeShared(__MR_CSharp_SE_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
             }
 
@@ -3459,9 +3677,44 @@ public static partial class MR
             /// </summary>
             public class SE : Const_SE
             {
-                internal unsafe SE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                // Make this non-trivial for a change.
+                public new unsafe MR.CS.Std.String s {get; private protected set;}
 
-                internal unsafe SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // s
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_GetMutable_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_SE_GetMutable_s(MR.CS.CSharp.SE._Underlying *_this);
+                        this.s = new(__MR_CSharp_SE_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
+                        base.s = this.s;
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe SE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning)
+                {
+                    if (shared_ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -3471,6 +3724,23 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_DefaultConstruct();
                     _LateMakeShared(__MR_CSharp_SE_DefaultConstruct());
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Constructs `MR::CSharp::SE` elementwise.
+                /// </summary>
+                public unsafe SE(ReadOnlySpan<char> s) : this(shared_ptr: null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_ConstructFrom(byte *s, byte *s_end);
+                    byte[] __bytes_s = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(s.Length)];
+                    int __len_s = System.Text.Encoding.UTF8.GetBytes(s, __bytes_s);
+                    fixed (byte *__ptr_s = __bytes_s)
+                    {
+                        _LateMakeShared(__MR_CSharp_SE_ConstructFrom(__ptr_s, __ptr_s + __len_s));
+                        _FinalizeFields();
+                    }
                 }
 
                 /// <summary>
@@ -3482,6 +3752,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.SE._Underlying *__MR_CSharp_SE_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SE._Underlying *_other);
                     _LateMakeShared(__MR_CSharp_SE_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -3659,6 +3930,24 @@ public static partial class MR
                     return Const_SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
                 }
 
+                // Make this non-trivial for a change.
+                public unsafe MR.CS.Std.Const_String s {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // s
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_Get_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SF_Get_s(MR.CS.CSharp.Const_SF._Underlying *_this);
+                        this.s = new(__MR_CSharp_SF_Get_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
                 internal unsafe Const_SF(_Underlying *ptr, bool is_owning) : base(true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Construct", ExactSpelling = true)]
@@ -3671,10 +3960,22 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(ptr);
                     if (ptr is not null)
                     {
+                        _FinalizeFields();
                     }
                 }
+                #pragma warning restore CS8618
 
-                internal unsafe Const_SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingSharedPtr = shared_ptr;
+                    if (shared_ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 internal static unsafe SF _MakeAliasing(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *ownership, _Underlying *ptr)
                 {
@@ -3700,6 +4001,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.SF._Underlying *__MR_CSharp_SF_DefaultConstruct();
                     _LateMakeShared(__MR_CSharp_SF_DefaultConstruct());
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -3711,6 +4013,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.SF._Underlying *__MR_CSharp_SF_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SF._Underlying *_other);
                     _LateMakeShared(__MR_CSharp_SF_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
             }
 
@@ -3748,9 +4051,44 @@ public static partial class MR
                     return SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
                 }
 
-                internal unsafe SF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                // Make this non-trivial for a change.
+                public new unsafe MR.CS.Std.String s {get; private protected set;}
 
-                internal unsafe SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning) {}
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                unsafe void _FinalizeFields()
+                {
+                    { // s
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_GetMutable_s", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_SF_GetMutable_s(MR.CS.CSharp.SF._Underlying *_this);
+                        this.s = new(__MR_CSharp_SF_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        this.s._KeepAliveEnclosingObject = this;
+                        base.s = this.s;
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe SF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning)
+                {
+                    if (shared_ptr is not null)
+                    {
+                        _FinalizeFields();
+                    }
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -3760,6 +4098,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.SF._Underlying *__MR_CSharp_SF_DefaultConstruct();
                     _LateMakeShared(__MR_CSharp_SF_DefaultConstruct());
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -3771,6 +4110,7 @@ public static partial class MR
                     extern static MR.CS.CSharp.SF._Underlying *__MR_CSharp_SF_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SF._Underlying *_other);
                     _LateMakeShared(__MR_CSharp_SF_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
                 }
 
                 /// <summary>

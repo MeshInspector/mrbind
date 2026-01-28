@@ -5504,7 +5504,10 @@ namespace mrbind::CSharp
                                     file.WriteString(" : base(is_owning)\n");
                                     file.PushScope({}, "{\n", "}\n");
                                     file.WriteString("_UnderlyingSharedPtr = shared_ptr;\n");
+                                    file.WriteString("if (shared_ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
+                                    file.PushScope({}, "{\n", "}\n");
                                     file.WriteString(extra_code);
+                                    file.PopScope();
                                     file.PopScope();
                                 }
                             }
@@ -5518,8 +5521,11 @@ namespace mrbind::CSharp
                                 {
                                     file.WriteString(" : base(shared_ptr, is_owning)\n");
                                     file.PushScope({}, "{\n", "}\n");
+                                    file.WriteString("if (shared_ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
+                                    file.PushScope({}, "{\n", "}\n");
                                     cppdecl::TrimLeadingWhitespace(extra_code);
                                     file.WriteString(extra_code);
+                                    file.PopScope();
                                     file.PopScope();
                                 }
                             }

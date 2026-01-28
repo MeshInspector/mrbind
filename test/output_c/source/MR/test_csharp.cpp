@@ -1682,6 +1682,21 @@ MR_CSharp_SA *MR_CSharp_SA_AssignFromAnother(MR_CSharp_SA *_this, const MR_CShar
     ));
 }
 
+const MR_C_std_string *MR_CSharp_SB_Get_s(const MR_CSharp_SB *_this)
+{
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::SB *)(_this)).s);
+}
+
+void MR_CSharp_SB_Set_s(MR_CSharp_SB *_this, const char *value, const char *value_end)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SB *)(_this)).s = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+}
+
+MR_C_std_string *MR_CSharp_SB_GetMutable_s(MR_CSharp_SB *_this)
+{
+    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SB *)(_this)).s);
+}
+
 MR_CSharp_SB *MR_CSharp_SB_DefaultConstruct(void)
 {
     return (MR_CSharp_SB *)new MR::CSharp::SB(MR::CSharp::SB());
@@ -1690,6 +1705,13 @@ MR_CSharp_SB *MR_CSharp_SB_DefaultConstruct(void)
 MR_CSharp_SB *MR_CSharp_SB_DefaultConstructArray(size_t num_elems)
 {
     return (MR_CSharp_SB *)(new MR::CSharp::SB[num_elems]{});
+}
+
+MR_CSharp_SB *MR_CSharp_SB_ConstructFrom(const char *s, const char *s_end)
+{
+    return (MR_CSharp_SB *)new MR::CSharp::SB(MR::CSharp::SB{
+        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string(s, s_end) : std::string(s)))
+    });
 }
 
 const MR_CSharp_SB *MR_CSharp_SB_OffsetPtr(const MR_CSharp_SB *ptr, ptrdiff_t i)
@@ -1738,6 +1760,21 @@ MR_CSharp_SB *MR_CSharp_SB_AssignFromAnother(MR_CSharp_SB *_this, MR_C_PassBy _o
     return (MR_CSharp_SB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SB *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SB) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SB), MR::CSharp::SB) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SB), MR::CSharp::SB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SB) MRBINDC_CLASSARG_END(_other, MR::CSharp::SB))
     ));
+}
+
+const MR_C_std_string *MR_CSharp_SC_Get_s(const MR_CSharp_SC *_this)
+{
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::SC *)(_this)).s);
+}
+
+void MR_CSharp_SC_Set_s(MR_CSharp_SC *_this, const char *value, const char *value_end)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SC *)(_this)).s = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+}
+
+MR_C_std_string *MR_CSharp_SC_GetMutable_s(MR_CSharp_SC *_this)
+{
+    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SC *)(_this)).s);
 }
 
 MR_CSharp_SC *MR_CSharp_SC_DefaultConstruct(void)
@@ -1898,6 +1935,21 @@ MR_CSharp_SD *MR_CSharp_SD_AssignFromAnother(MR_CSharp_SD *_this, MR_C_PassBy _o
     ));
 }
 
+const MR_C_std_string *MR_CSharp_SE_Get_s(const MR_CSharp_SE *_this)
+{
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::SE *)(_this)).s);
+}
+
+void MR_CSharp_SE_Set_s(MR_CSharp_SE *_this, const char *value, const char *value_end)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SE *)(_this)).s = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+}
+
+MR_C_std_string *MR_CSharp_SE_GetMutable_s(MR_CSharp_SE *_this)
+{
+    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SE *)(_this)).s);
+}
+
 MR_CSharp_SE *MR_CSharp_SE_DefaultConstruct(void)
 {
     return (MR_CSharp_SE *)new MR::CSharp::SE(MR::CSharp::SE());
@@ -1906,6 +1958,13 @@ MR_CSharp_SE *MR_CSharp_SE_DefaultConstruct(void)
 MR_CSharp_SE *MR_CSharp_SE_DefaultConstructArray(size_t num_elems)
 {
     return (MR_CSharp_SE *)(new MR::CSharp::SE[num_elems]{});
+}
+
+MR_CSharp_SE *MR_CSharp_SE_ConstructFrom(const char *s, const char *s_end)
+{
+    return (MR_CSharp_SE *)new MR::CSharp::SE(MR::CSharp::SE{
+        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string(s, s_end) : std::string(s)))
+    });
 }
 
 const MR_CSharp_SE *MR_CSharp_SE_OffsetPtr(const MR_CSharp_SE *ptr, ptrdiff_t i)
@@ -1954,6 +2013,21 @@ MR_CSharp_SE *MR_CSharp_SE_AssignFromAnother(MR_CSharp_SE *_this, MR_C_PassBy _o
     return (MR_CSharp_SE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SE *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SE) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SE) MRBINDC_CLASSARG_END(_other, MR::CSharp::SE))
     ));
+}
+
+const MR_C_std_string *MR_CSharp_SF_Get_s(const MR_CSharp_SF *_this)
+{
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::SF *)(_this)).s);
+}
+
+void MR_CSharp_SF_Set_s(MR_CSharp_SF *_this, const char *value, const char *value_end)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SF *)(_this)).s = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+}
+
+MR_C_std_string *MR_CSharp_SF_GetMutable_s(MR_CSharp_SF *_this)
+{
+    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SF *)(_this)).s);
 }
 
 MR_CSharp_SF *MR_CSharp_SF_DefaultConstruct(void)

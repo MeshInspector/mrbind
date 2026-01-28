@@ -185,7 +185,7 @@ namespace MR::CSharp
     inline const void *test_void_cptr(const void *a, const void *b = nullptr, const void *c = (const void *)42) {(void)a; (void)b; (void)c; return nullptr;}
 
     struct SA {};
-    struct SB {private: std::string s;}; // Make this non-trivial for a change.
+    struct SB {std::string s;}; // Make this non-trivial for a change.
     struct SC : SA, SB {};
 
     struct SD
@@ -199,7 +199,7 @@ namespace MR::CSharp
         SD &operator=(const SD &) = default;
         SD &operator=(SD &&) = default;
     };
-    struct SE {private: std::string s;}; // Make this non-trivial for a change.
+    struct SE {std::string s;}; // Make this non-trivial for a change.
     struct SF : SD, SE {};
 
     inline std::shared_ptr<SE> mark_se_as_shared() {return nullptr;} // Mark this hierarchy as backed by `std::shared_ptr` as well.
