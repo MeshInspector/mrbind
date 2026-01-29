@@ -70,6 +70,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs the variant storing the element 0, of type `int`.
+                /// </summary>
+                public static unsafe implicit operator Const_Variant_Int_Float_StdString(int value) {return new(value);}
+
+                /// <summary>
                 /// Constructs the variant storing the element 1, of type `float`.
                 /// </summary>
                 public unsafe Const_Variant_Int_Float_StdString(float value, MR.CS.Std.VariantIndex_1 tag = default) : this(null, is_owning: true)
@@ -78,6 +83,11 @@ public static partial class MR
                     extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_float(float value);
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_float(value);
                 }
+
+                /// <summary>
+                /// Constructs the variant storing the element 1, of type `float`.
+                /// </summary>
+                public static unsafe implicit operator Const_Variant_Int_Float_StdString(float value) {return new(value);}
 
                 /// <summary>
                 /// Constructs the variant storing the element 2, of type `std::string`.
@@ -93,6 +103,12 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_std_string(__ptr_value, __ptr_value + __len_value);
                     }
                 }
+
+                /// <summary>
+                /// Constructs the variant storing the element 2, of type `std::string`.
+                /// </summary>
+                public static unsafe implicit operator Const_Variant_Int_Float_StdString(ReadOnlySpan<char> value) {return new(value);}
+                public static unsafe implicit operator Const_Variant_Int_Float_StdString(string other) {return new(other);}
 
                 /// <summary>
                 /// Returns the element 0, of type `int`, read-only. If it's not the active element, returns null.
@@ -183,6 +199,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs the variant storing the element 0, of type `int`.
+                /// </summary>
+                public static unsafe implicit operator Variant_Int_Float_StdString(int value) {return new(value);}
+
+                /// <summary>
                 /// Constructs the variant storing the element 1, of type `float`.
                 /// </summary>
                 public unsafe Variant_Int_Float_StdString(float value, MR.CS.Std.VariantIndex_1 tag = default) : this(null, is_owning: true)
@@ -191,6 +212,11 @@ public static partial class MR
                     extern static MR.CS.Std.Variant_Int_Float_StdString._Underlying *__MR_C_std_variant_int_float_std_string_ConstructAs_float(float value);
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_float(value);
                 }
+
+                /// <summary>
+                /// Constructs the variant storing the element 1, of type `float`.
+                /// </summary>
+                public static unsafe implicit operator Variant_Int_Float_StdString(float value) {return new(value);}
 
                 /// <summary>
                 /// Constructs the variant storing the element 2, of type `std::string`.
@@ -206,6 +232,12 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructAs_std_string(__ptr_value, __ptr_value + __len_value);
                     }
                 }
+
+                /// <summary>
+                /// Constructs the variant storing the element 2, of type `std::string`.
+                /// </summary>
+                public static unsafe implicit operator Variant_Int_Float_StdString(ReadOnlySpan<char> value) {return new(value);}
+                public static unsafe implicit operator Variant_Int_Float_StdString(string other) {return new(other);}
 
                 /// <summary>
                 /// Assigns to the variant, making it store the element 0, of type `int`.
@@ -300,6 +332,22 @@ public static partial class MR
                 public static implicit operator _ByValue_Variant_Int_Float_StdString(Const_Variant_Int_Float_StdString arg) {return new(arg);}
                 public _ByValue_Variant_Int_Float_StdString(MR.CS.Misc._Moved<Variant_Int_Float_StdString> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Variant_Int_Float_StdString(MR.CS.Misc._Moved<Variant_Int_Float_StdString> arg) {return new(arg);}
+
+                /// <summary>
+                /// Constructs the variant storing the element 0, of type `int`.
+                /// </summary>
+                public static unsafe implicit operator _ByValue_Variant_Int_Float_StdString(int value) {return new MR.CS.Misc._Moved<MR.CS.Std.Variant_Int_Float_StdString>(value);}
+
+                /// <summary>
+                /// Constructs the variant storing the element 1, of type `float`.
+                /// </summary>
+                public static unsafe implicit operator _ByValue_Variant_Int_Float_StdString(float value) {return new MR.CS.Misc._Moved<MR.CS.Std.Variant_Int_Float_StdString>(value);}
+
+                /// <summary>
+                /// Constructs the variant storing the element 2, of type `std::string`.
+                /// </summary>
+                public static unsafe implicit operator _ByValue_Variant_Int_Float_StdString(ReadOnlySpan<char> value) {return new MR.CS.Misc._Moved<MR.CS.Std.Variant_Int_Float_StdString>(value);}
+                public static unsafe implicit operator _ByValue_Variant_Int_Float_StdString(string other) {return new(other);}
             }
 
             /// <summary>
@@ -334,6 +382,22 @@ public static partial class MR
                 public _InOptConst_Variant_Int_Float_StdString() {}
                 public _InOptConst_Variant_Int_Float_StdString(Const_Variant_Int_Float_StdString value) {Opt = value;}
                 public static implicit operator _InOptConst_Variant_Int_Float_StdString(Const_Variant_Int_Float_StdString value) {return new(value);}
+
+                /// <summary>
+                /// Constructs the variant storing the element 0, of type `int`.
+                /// </summary>
+                public static unsafe implicit operator _InOptConst_Variant_Int_Float_StdString(int value) {return new Const_Variant_Int_Float_StdString(value);}
+
+                /// <summary>
+                /// Constructs the variant storing the element 1, of type `float`.
+                /// </summary>
+                public static unsafe implicit operator _InOptConst_Variant_Int_Float_StdString(float value) {return new Const_Variant_Int_Float_StdString(value);}
+
+                /// <summary>
+                /// Constructs the variant storing the element 2, of type `std::string`.
+                /// </summary>
+                public static unsafe implicit operator _InOptConst_Variant_Int_Float_StdString(ReadOnlySpan<char> value) {return new Const_Variant_Int_Float_StdString(value);}
+                public static unsafe implicit operator _InOptConst_Variant_Int_Float_StdString(string other) {return new(other);}
             }
         }
     }

@@ -70,6 +70,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs the variant storing the element 0, of type `int`.
+                /// </summary>
+                public static unsafe implicit operator Const_Variant_Int_Float(int value) {return new(value);}
+
+                /// <summary>
                 /// Constructs the variant storing the element 1, of type `float`.
                 /// </summary>
                 public unsafe Const_Variant_Int_Float(float value, MR.CS.Std.VariantIndex_1 tag = default) : this(null, is_owning: true)
@@ -78,6 +83,11 @@ public static partial class MR
                     extern static MR.CS.Std.Variant_Int_Float._Underlying *__MR_C_std_variant_int_float_ConstructAs_float(float value);
                     _UnderlyingPtr = __MR_C_std_variant_int_float_ConstructAs_float(value);
                 }
+
+                /// <summary>
+                /// Constructs the variant storing the element 1, of type `float`.
+                /// </summary>
+                public static unsafe implicit operator Const_Variant_Int_Float(float value) {return new(value);}
 
                 /// <summary>
                 /// Returns the element 0, of type `int`, read-only. If it's not the active element, returns null.
@@ -154,6 +164,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs the variant storing the element 0, of type `int`.
+                /// </summary>
+                public static unsafe implicit operator Variant_Int_Float(int value) {return new(value);}
+
+                /// <summary>
                 /// Constructs the variant storing the element 1, of type `float`.
                 /// </summary>
                 public unsafe Variant_Int_Float(float value, MR.CS.Std.VariantIndex_1 tag = default) : this(null, is_owning: true)
@@ -162,6 +177,11 @@ public static partial class MR
                     extern static MR.CS.Std.Variant_Int_Float._Underlying *__MR_C_std_variant_int_float_ConstructAs_float(float value);
                     _UnderlyingPtr = __MR_C_std_variant_int_float_ConstructAs_float(value);
                 }
+
+                /// <summary>
+                /// Constructs the variant storing the element 1, of type `float`.
+                /// </summary>
+                public static unsafe implicit operator Variant_Int_Float(float value) {return new(value);}
 
                 /// <summary>
                 /// Assigns to the variant, making it store the element 0, of type `int`.
@@ -240,6 +260,16 @@ public static partial class MR
                 public _InOptConst_Variant_Int_Float() {}
                 public _InOptConst_Variant_Int_Float(Const_Variant_Int_Float value) {Opt = value;}
                 public static implicit operator _InOptConst_Variant_Int_Float(Const_Variant_Int_Float value) {return new(value);}
+
+                /// <summary>
+                /// Constructs the variant storing the element 0, of type `int`.
+                /// </summary>
+                public static unsafe implicit operator _InOptConst_Variant_Int_Float(int value) {return new Const_Variant_Int_Float(value);}
+
+                /// <summary>
+                /// Constructs the variant storing the element 1, of type `float`.
+                /// </summary>
+                public static unsafe implicit operator _InOptConst_Variant_Int_Float(float value) {return new Const_Variant_Int_Float(value);}
             }
         }
     }

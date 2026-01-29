@@ -59,6 +59,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_std_monostate_int_float_ConstructAs_std_monostate();
                 }
 
+                /// Constructs the variant storing the element 0, of type `std::monostate`.
+                public static unsafe implicit operator Const_Variant_StdMonostate_Int_Float(MR.CS.Std.Monostate value) {return new(value);}
+
                 /// Constructs the variant storing the element 1, of type `int`.
                 public unsafe Const_Variant_StdMonostate_Int_Float(int value, MR.CS.Std.VariantIndex_1 tag = default) : this(null, is_owning: true)
                 {
@@ -67,6 +70,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_std_monostate_int_float_ConstructAs_int(value);
                 }
 
+                /// Constructs the variant storing the element 1, of type `int`.
+                public static unsafe implicit operator Const_Variant_StdMonostate_Int_Float(int value) {return new(value);}
+
                 /// Constructs the variant storing the element 2, of type `float`.
                 public unsafe Const_Variant_StdMonostate_Int_Float(float value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
@@ -74,6 +80,9 @@ public static partial class MR
                     extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_C_std_variant_std_monostate_int_float_ConstructAs_float(float value);
                     _UnderlyingPtr = __MR_C_std_variant_std_monostate_int_float_ConstructAs_float(value);
                 }
+
+                /// Constructs the variant storing the element 2, of type `float`.
+                public static unsafe implicit operator Const_Variant_StdMonostate_Int_Float(float value) {return new(value);}
 
                 /// Returns the element 0, of type `std::monostate`, read-only. If it's not the active element, returns null.
                 public unsafe MR.CS.Std.Monostate? GetStdMonostate()
@@ -143,6 +152,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_std_monostate_int_float_ConstructAs_std_monostate();
                 }
 
+                /// Constructs the variant storing the element 0, of type `std::monostate`.
+                public static unsafe implicit operator Variant_StdMonostate_Int_Float(MR.CS.Std.Monostate value) {return new(value);}
+
                 /// Constructs the variant storing the element 1, of type `int`.
                 public unsafe Variant_StdMonostate_Int_Float(int value, MR.CS.Std.VariantIndex_1 tag = default) : this(null, is_owning: true)
                 {
@@ -151,6 +163,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_std_monostate_int_float_ConstructAs_int(value);
                 }
 
+                /// Constructs the variant storing the element 1, of type `int`.
+                public static unsafe implicit operator Variant_StdMonostate_Int_Float(int value) {return new(value);}
+
                 /// Constructs the variant storing the element 2, of type `float`.
                 public unsafe Variant_StdMonostate_Int_Float(float value, MR.CS.Std.VariantIndex_2 tag = default) : this(null, is_owning: true)
                 {
@@ -158,6 +173,9 @@ public static partial class MR
                     extern static MR.CS.Std.Variant_StdMonostate_Int_Float._Underlying *__MR_C_std_variant_std_monostate_int_float_ConstructAs_float(float value);
                     _UnderlyingPtr = __MR_C_std_variant_std_monostate_int_float_ConstructAs_float(value);
                 }
+
+                /// Constructs the variant storing the element 2, of type `float`.
+                public static unsafe implicit operator Variant_StdMonostate_Int_Float(float value) {return new(value);}
 
                 /// Assigns to the variant, making it store the element 0, of type `std::monostate`.
                 public unsafe void AssignAsStdMonostate(MR.CS.Std.Monostate value)
@@ -233,6 +251,15 @@ public static partial class MR
                 public _InOptConst_Variant_StdMonostate_Int_Float() {}
                 public _InOptConst_Variant_StdMonostate_Int_Float(Const_Variant_StdMonostate_Int_Float value) {Opt = value;}
                 public static implicit operator _InOptConst_Variant_StdMonostate_Int_Float(Const_Variant_StdMonostate_Int_Float value) {return new(value);}
+
+                /// Constructs the variant storing the element 0, of type `std::monostate`.
+                public static unsafe implicit operator _InOptConst_Variant_StdMonostate_Int_Float(MR.CS.Std.Monostate value) {return new Const_Variant_StdMonostate_Int_Float(value);}
+
+                /// Constructs the variant storing the element 1, of type `int`.
+                public static unsafe implicit operator _InOptConst_Variant_StdMonostate_Int_Float(int value) {return new Const_Variant_StdMonostate_Int_Float(value);}
+
+                /// Constructs the variant storing the element 2, of type `float`.
+                public static unsafe implicit operator _InOptConst_Variant_StdMonostate_Int_Float(float value) {return new Const_Variant_StdMonostate_Int_Float(value);}
             }
         }
     }

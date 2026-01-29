@@ -824,6 +824,7 @@ namespace MR::CSharp
         ConvCtor() {}
         ConvCtor(int) {}
         ConvCtor(int, int) {}
+        ConvCtor(short, int = 42) {} // This counts as a conversion constructor.
         explicit ConvCtor(float) {}
         explicit ConvCtor(float, float) {}
     };

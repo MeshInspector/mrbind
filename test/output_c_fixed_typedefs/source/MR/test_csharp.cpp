@@ -6227,6 +6227,16 @@ MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_Construct_2_int32_t(int32_t _1, int32_t _
     ));
 }
 
+MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_Construct_2_int16_t(int16_t _1, const int32_t *_2)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_CSharp_ConvCtor *)new MR::CSharp::ConvCtor(MR::CSharp::ConvCtor(
+        _1,
+        (_2 ? *_2 : static_cast<int32_t>(42))
+    ));
+}
+
 MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_Construct_1_float(float _1)
 {
     return (MR_CSharp_ConvCtor *)new MR::CSharp::ConvCtor(MR::CSharp::ConvCtor(

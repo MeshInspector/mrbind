@@ -5561,6 +5561,11 @@ MR_C_API MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_Construct_1_int(int _1);
 MR_C_API MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_Construct_2_int(int _1, int _2);
 
 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+/// Parameter `_2` has a default argument: `42`, pass a null pointer to use it.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtor_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_Construct_2_short(short _1, const int *_2);
+
+/// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvCtor_Destroy()` to free it when you're done using it.
 MR_C_API MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_Construct_1_float(float _1);
 

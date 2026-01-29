@@ -110,6 +110,13 @@ namespace mrbind::CBindings::Modules
                                 ident += "_" + std::to_string(i);
                         }
 
+
+                        // Count how often each element type is repeated.
+                        std::unordered_map<std::string, int> elem_type_repetitions;
+                        for (const auto &type : elem_types)
+                            elem_type_repetitions[generator.CppdeclToCode(type)]++;
+
+
                         // Construct with the specified element.
                         for (std::size_t i = 0; i < elem_types.size(); i++)
                         {
@@ -135,6 +142,14 @@ namespace mrbind::CBindings::Modules
                                 });
                             }
                             emit.cpp_called_func = generator.CppdeclToCode(type) + "(std::in_place_index<" + std::to_string(i) + ">, @1@)";
+
+                            // When more than one constructor has the same parameter type, mark all of them (those having this parameter type) `explicit`, to avoid ambiguous implicit conversions in C#
+                            //   and in any other language that generates them.
+                            // I also considered keeping the first one for each type implicit, but this doesn't work, because when the conversion operator tries to call the constructor,
+                            //   it can't choose between them.
+                            if (elem_type_repetitions.at(generator.CppdeclToCode(elem_types[i])) > 1)
+                                std::get<CInterop::MethodKinds::Constructor>(std::get<CInterop::MethodKindVar>(emit.name.cpp_for_interop)).is_explicit = true;
+
                             generator.EmitFunction(file, emit);
                         }
 

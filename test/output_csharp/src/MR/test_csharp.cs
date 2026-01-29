@@ -11622,6 +11622,20 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// Parameter `_2` defaults to `42`.
+                public unsafe Const_ConvCtor(short _1, int? _2 = null) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_2_short", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtor._Underlying *__MR_CSharp_ConvCtor_Construct_2_short(short _1, int *_2);
+                    int __deref__2 = _2.GetValueOrDefault();
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_2_short(_1, _2.HasValue ? &__deref__2 : null);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// Parameter `_2` defaults to `42`.
+                public static unsafe implicit operator Const_ConvCtor(short _1) {return new(_1);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
                 public unsafe Const_ConvCtor(float _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_1_float", ExactSpelling = true)]
@@ -11683,6 +11697,20 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// Parameter `_2` defaults to `42`.
+                public unsafe ConvCtor(short _1, int? _2 = null) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_2_short", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ConvCtor._Underlying *__MR_CSharp_ConvCtor_Construct_2_short(short _1, int *_2);
+                    int __deref__2 = _2.GetValueOrDefault();
+                    _UnderlyingPtr = __MR_CSharp_ConvCtor_Construct_2_short(_1, _2.HasValue ? &__deref__2 : null);
+                }
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// Parameter `_2` defaults to `42`.
+                public static unsafe implicit operator ConvCtor(short _1) {return new(_1);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
                 public unsafe ConvCtor(float _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_1_float", ExactSpelling = true)]
@@ -11740,6 +11768,10 @@ public static partial class MR
 
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
                 public static unsafe implicit operator _InOptConst_ConvCtor(int _1) {return new Const_ConvCtor(_1);}
+
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// Parameter `_2` defaults to `42`.
+                public static unsafe implicit operator _InOptConst_ConvCtor(short _1) {return new Const_ConvCtor(_1);}
             }
 
             // Test that the default argument of the parameter of a converting constructor is stripped when rewriting it as a conversion operator.

@@ -2771,8 +2771,10 @@ namespace mrbind::CSharp
                 // A conversion from a type to itself is illegal. The copy ctor doesn't always take the exact same C# type,
                 //   but even when it doesn't, I doubt allowing such conversions would do any good.
                 !ctor->is_copying_ctor &&
-                // One actual parameter and one static `this` parameter.
-                (method.params.size() == 2) &&
+                // One static `this` parameter, one actual parameter, and 0+ parameters with default arguments.
+                (method.params.size() >= 2) &&
+                // Check that all parameters after the static `this` and the first one have default arguments.
+                std::all_of(method.params.begin() + 2, method.params.end(), [](const CInterop::FuncParam &param){return bool(param.default_arg_spelling);}) &&
                 // Just in case, exactly one C# parameter also.
                 GetParameterBinding(method.params.at(1), false).csharp_decl_params.size() == 1
             )
@@ -3295,13 +3297,25 @@ namespace mrbind::CSharp
                 bool first = true;
                 for (const auto &param : param_strings)
                 {
+                    bool should_break = false;
+
                     for (const auto &csharp_param : param.csharp_decl_params)
                     {
                         if (!std::exchange(first, false))
                             file.WriteString(", ");
 
                         file.WriteString(csharp_param.ToString());
+
+
+                        if (is_conv_op_rewritten_from_ctor)
+                        {
+                            should_break = true;
+                            break; // At most one parameter for conversion operators generated from constructors.
+                        }
                     }
+
+                    if (should_break)
+                        break;
                 }
 
                 file.WriteString(is_overloaded_subscript_op ? "]" : ")");
@@ -3513,7 +3527,7 @@ namespace mrbind::CSharp
                 }
             }
 
-            // Handle the annotations.
+            // Handle the lifetime relations.
             for (const LifetimeRelation &lifetime : func_like.lifetimes.relations)
             {
                 // An exposed struct can't be a holder for obvious reasons (no space in the struct for a keep-alive list, we must maintain a specific layout).
@@ -3612,6 +3626,7 @@ namespace mrbind::CSharp
                     lifetime_statements += ";\n";
                 }
             }
+
 
             std::string extra_statements;
             std::string extra_statements_after;
