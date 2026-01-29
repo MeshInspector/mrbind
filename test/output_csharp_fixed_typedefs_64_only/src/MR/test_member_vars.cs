@@ -125,7 +125,14 @@ public static partial class MR
                 // Arrays don't get setters, because they aren't assignable. But they still get mutable getters
                 new public unsafe ref MR.CS.ArrayInt4 arr => ref *(__array_storage_arr);
 
-                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Generated from constructor `MR::MemberVars::A::A`.
@@ -136,6 +143,7 @@ public static partial class MR
                     extern static MR.CS.MemberVars.A._Underlying *__MR_MemberVars_A_ConstructFromAnother(MR.CS.MemberVars.A._Underlying *_other);
                     _UnderlyingPtr = __MR_MemberVars_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
             }
 

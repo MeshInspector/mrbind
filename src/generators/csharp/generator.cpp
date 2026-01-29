@@ -5314,7 +5314,8 @@ namespace mrbind::CSharp
                             // We used to paste this code directly into the constructors, but it was moved to a function.
                             // The function isn't very convenient because it prevents `readonly` fields (those must be assigned in constructors),
                             //   but we happen to not use readonly fields anymore either, because we couldn't set them from the constructors of derived classes.
-                            class_name_to_fat_object_init_code.try_emplace(std::pair(cpp_type, IsConst()), field_init_nonstatic.empty() ? "" : "_FinalizeFields();\n");
+                            // Note the condition for non-const half checking the const half. If we don't do this, non-const halves that don't add new fields fail to initialize the fields in the const half.
+                            class_name_to_fat_object_init_code.try_emplace(std::pair(cpp_type, IsConst()), field_init_nonstatic.empty() && (IsConst() || GetCtorFinalizationStatements(cpp_qual_name, true).empty()) ? "" : "_FinalizeFields();\n");
 
                             if (!field_init_nonstatic.empty())
                             {

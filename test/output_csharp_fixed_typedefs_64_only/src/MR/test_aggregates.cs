@@ -639,7 +639,14 @@ public static partial class MR
 
                 public new unsafe ref int h => ref *__ref_storage_h;
 
-                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -649,6 +656,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.C._Underlying *__MR_Aggregates_C_DefaultConstruct();
                     _UnderlyingPtr = __MR_Aggregates_C_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -659,6 +667,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.C._Underlying *__MR_Aggregates_C_ConstructFrom(int a, int b, int c, int d, int e, int f, int g, int h);
                     _UnderlyingPtr = __MR_Aggregates_C_ConstructFrom(a, b, c, d, e, f, g, h);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -670,6 +679,7 @@ public static partial class MR
                     extern static MR.CS.Aggregates.C._Underlying *__MR_Aggregates_C_ConstructFromAnother(MR.CS.Aggregates.C._Underlying *_other);
                     _UnderlyingPtr = __MR_Aggregates_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -897,7 +907,14 @@ public static partial class MR
 
                 public new unsafe ref int i => ref *__ref_storage_i;
 
-                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -907,6 +924,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.D._Underlying *__MR_Aggregates_D_DefaultConstruct();
                     _UnderlyingPtr = __MR_Aggregates_D_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -917,6 +935,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.D._Underlying *__MR_Aggregates_D_ConstructFrom(int a, int b, int c, int d, int e, int f, int g, int h, int i);
                     _UnderlyingPtr = __MR_Aggregates_D_ConstructFrom(a, b, c, d, e, f, g, h, i);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -928,6 +947,7 @@ public static partial class MR
                     extern static MR.CS.Aggregates.D._Underlying *__MR_Aggregates_D_ConstructFromAnother(MR.CS.Aggregates.D._Underlying *_other);
                     _UnderlyingPtr = __MR_Aggregates_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>

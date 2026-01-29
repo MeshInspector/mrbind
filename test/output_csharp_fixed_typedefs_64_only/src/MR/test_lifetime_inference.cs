@@ -94,7 +94,14 @@ public static partial class MR
             {
                 public new unsafe ref int x => ref *__ref_storage_x;
 
-                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -104,6 +111,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_LifetimeInference_A_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -114,6 +122,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_ConstructFrom(int x);
                     _UnderlyingPtr = __MR_LifetimeInference_A_ConstructFrom(x);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -125,6 +134,7 @@ public static partial class MR
                     extern static MR.CS.LifetimeInference.A._Underlying *__MR_LifetimeInference_A_ConstructFromAnother(MR.CS.LifetimeInference.A._Underlying *_other);
                     _UnderlyingPtr = __MR_LifetimeInference_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -286,7 +296,14 @@ public static partial class MR
             {
                 public new unsafe ref int x => ref *__ref_storage_x;
 
-                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -296,6 +313,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_DefaultConstruct();
                     _UnderlyingPtr = __MR_LifetimeInference_B_DefaultConstruct();
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -306,6 +324,7 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_ConstructFrom(int x);
                     _UnderlyingPtr = __MR_LifetimeInference_B_ConstructFrom(x);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -317,6 +336,7 @@ public static partial class MR
                     extern static MR.CS.LifetimeInference.B._Underlying *__MR_LifetimeInference_B_ConstructFromAnother(MR.CS.LifetimeInference.B._Underlying *_other);
                     _UnderlyingPtr = __MR_LifetimeInference_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    _FinalizeFields();
                 }
 
                 /// <summary>
