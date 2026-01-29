@@ -2436,9 +2436,6 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_ConstructNonOwning(ptr);
-                    if (ptr is not null)
-                    {
-                    }
                 }
 
                 internal unsafe Const_SA(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -2651,7 +2648,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_Get_s", ExactSpelling = true)]
@@ -2674,9 +2671,7 @@ public static partial class MR
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_ConstructNonOwning(ptr);
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -2686,9 +2681,7 @@ public static partial class MR
                 {
                     _UnderlyingSharedPtr = shared_ptr;
                     if (shared_ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -2763,14 +2756,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
+                    base._FinalizeFields();
+
                     { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_SB_GetMutable_s(MR.CS.CSharp.SB._Underlying *_this);
                         this.s = new(__MR_CSharp_SB_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         this.s._KeepAliveEnclosingObject = this;
-                        base.s = this.s;
                     }
                 }
 
@@ -2779,9 +2773,7 @@ public static partial class MR
                 internal unsafe SB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -2790,9 +2782,7 @@ public static partial class MR
                 internal unsafe SB(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning)
                 {
                     if (shared_ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3006,7 +2996,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_Get_s", ExactSpelling = true)]
@@ -3029,9 +3019,7 @@ public static partial class MR
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(ptr);
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3041,9 +3029,7 @@ public static partial class MR
                 {
                     _UnderlyingSharedPtr = shared_ptr;
                     if (shared_ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3117,14 +3103,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
+                    base._FinalizeFields();
+
                     { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_SC_GetMutable_s(MR.CS.CSharp.SC._Underlying *_this);
                         this.s = new(__MR_CSharp_SC_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         this.s._KeepAliveEnclosingObject = this;
-                        base.s = this.s;
                     }
                 }
 
@@ -3133,9 +3120,7 @@ public static partial class MR
                 internal unsafe SC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3144,9 +3129,7 @@ public static partial class MR
                 internal unsafe SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning)
                 {
                     if (shared_ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3333,9 +3316,6 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_ConstructNonOwning(ptr);
-                    if (ptr is not null)
-                    {
-                    }
                 }
 
                 internal unsafe Const_SD(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -3571,7 +3551,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_Get_s", ExactSpelling = true)]
@@ -3594,9 +3574,7 @@ public static partial class MR
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_ConstructNonOwning(ptr);
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3606,9 +3584,7 @@ public static partial class MR
                 {
                     _UnderlyingSharedPtr = shared_ptr;
                     if (shared_ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3683,14 +3659,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
+                    base._FinalizeFields();
+
                     { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_SE_GetMutable_s(MR.CS.CSharp.SE._Underlying *_this);
                         this.s = new(__MR_CSharp_SE_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         this.s._KeepAliveEnclosingObject = this;
-                        base.s = this.s;
                     }
                 }
 
@@ -3699,9 +3676,7 @@ public static partial class MR
                 internal unsafe SE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3710,9 +3685,7 @@ public static partial class MR
                 internal unsafe SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning)
                 {
                     if (shared_ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3936,7 +3909,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_Get_s", ExactSpelling = true)]
@@ -3959,9 +3932,7 @@ public static partial class MR
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(ptr);
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3971,9 +3942,7 @@ public static partial class MR
                 {
                     _UnderlyingSharedPtr = shared_ptr;
                     if (shared_ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -4057,14 +4026,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
+                    base._FinalizeFields();
+
                     { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_SF_GetMutable_s(MR.CS.CSharp.SF._Underlying *_this);
                         this.s = new(__MR_CSharp_SF_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         this.s._KeepAliveEnclosingObject = this;
-                        base.s = this.s;
                     }
                 }
 
@@ -4073,9 +4043,7 @@ public static partial class MR
                 internal unsafe SF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -4084,9 +4052,7 @@ public static partial class MR
                 internal unsafe SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(shared_ptr, is_owning)
                 {
                     if (shared_ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -4582,7 +4548,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // i (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_i", ExactSpelling = true)]
@@ -4643,9 +4609,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -4705,20 +4669,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
-                    { // i (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_i", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_TestFields_GetMutable_i(MR.CS.CSharp.TestFields._Underlying *_this);
-                        this.__ref_storage_i = __MR_CSharp_TestFields_GetMutable_i(_UnderlyingPtr);
-                    }
+                    base._FinalizeFields();
 
                     { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_GetMutable_s(MR.CS.CSharp.TestFields._Underlying *_this);
                         this.s = new(__MR_CSharp_TestFields_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         this.s._KeepAliveEnclosingObject = this;
-                        base.s = this.s;
                     }
                 }
 
@@ -4727,9 +4686,7 @@ public static partial class MR
                 internal unsafe TestFields(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -12416,7 +12373,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // x (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_Get_x", ExactSpelling = true)]
@@ -12431,9 +12388,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -12481,28 +12436,7 @@ public static partial class MR
             {
                 public new unsafe ref int x => ref *__ref_storage_x;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // x (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_GetMutable_x", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_IndexerA_GetMutable_x(MR.CS.CSharp.IndexerA._Underlying *_this);
-                        this.__ref_storage_x = __MR_CSharp_IndexerA_GetMutable_x(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe IndexerA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe IndexerA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -12512,7 +12446,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_IndexerA_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12523,7 +12456,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_ConstructFrom(int x);
                     _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFrom(x);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12535,7 +12467,6 @@ public static partial class MR
                     extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerA_ConstructFromAnother(MR.CS.CSharp.IndexerA._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_IndexerA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -12625,7 +12556,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_Get_a", ExactSpelling = true)]
@@ -12641,9 +12572,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -12730,14 +12659,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
+                    base._FinalizeFields();
+
                     { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_GetMutable_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerB_GetMutable_a(MR.CS.CSharp.IndexerB._Underlying *_this);
                         this.a = new(__MR_CSharp_IndexerB_GetMutable_a(_UnderlyingPtr), is_owning: false);
                         this.a._KeepAliveEnclosingObject = this;
-                        base.a = this.a;
                     }
                 }
 
@@ -12746,9 +12676,7 @@ public static partial class MR
                 internal unsafe IndexerB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -15758,9 +15686,6 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning(ptr);
-                    if (ptr is not null)
-                    {
-                    }
                 }
 
                 internal unsafe ConstBox_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -16904,7 +16829,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // i (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_i", ExactSpelling = true)]
@@ -16975,9 +16900,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -17025,39 +16948,21 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
-                    { // i (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_i", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_ArrayMembers_GetMutable_i(MR.CS.CSharp.ArrayMembers._Underlying *_this);
-                        this.__ref_storage_i = __MR_CSharp_ArrayMembers_GetMutable_i(_UnderlyingPtr);
-                    }
-
-                    { // ia (ref array)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_ia", ExactSpelling = true)]
-                        extern static MR.CS.ArrayInt2 *__MR_CSharp_ArrayMembers_GetMutable_ia(_Underlying *_this);
-                        this.__array_storage_ia = __MR_CSharp_ArrayMembers_GetMutable_ia(_UnderlyingPtr);
-                    }
-
-                    { // iaa (ref array)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_iaa", ExactSpelling = true)]
-                        extern static MR.CS.ArrayInt3_4 *__MR_CSharp_ArrayMembers_GetMutable_iaa(_Underlying *_this);
-                        this.__array_storage_iaa = __MR_CSharp_ArrayMembers_GetMutable_iaa(_UnderlyingPtr);
-                    }
+                    base._FinalizeFields();
 
                     { // s
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_GetMutable_s(MR.CS.CSharp.ArrayMembers._Underlying *_this);
                         this.s = new(__MR_CSharp_ArrayMembers_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         this.s._KeepAliveEnclosingObject = this;
-                        base.s = this.s;
                     }
 
                     { // sa (array)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_sa", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_GetMutable_sa(_Underlying *_this);
                         this.sa = new(__MR_CSharp_ArrayMembers_GetMutable_sa(_UnderlyingPtr));
-                        base.sa = this.sa;
                     }
                 }
 
@@ -17066,9 +16971,7 @@ public static partial class MR
                 internal unsafe ArrayMembers(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -17181,7 +17084,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // nameConflicts (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_Get_name_conflicts", ExactSpelling = true)]
@@ -17203,9 +17106,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -17381,20 +17282,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
-                    { // nameConflicts (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_GetMutable_name_conflicts", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_NameConflicts_GetMutable_name_conflicts(MR.CS.CSharp.NameConflicts._Underlying *_this);
-                        this.__ref_storage_nameConflicts = __MR_CSharp_NameConflicts_GetMutable_name_conflicts(_UnderlyingPtr);
-                    }
+                    base._FinalizeFields();
 
                     { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_GetMutable_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.NameConflicts.A._Underlying *__MR_CSharp_NameConflicts_GetMutable_a(MR.CS.CSharp.NameConflicts._Underlying *_this);
                         this.a = new(__MR_CSharp_NameConflicts_GetMutable_a(_UnderlyingPtr), is_owning: false);
                         this.a._KeepAliveEnclosingObject = this;
-                        base.a = this.a;
                     }
                 }
 
@@ -17403,9 +17299,7 @@ public static partial class MR
                 internal unsafe NameConflicts(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -18792,7 +18686,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a (raw pointer)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_a", ExactSpelling = true)]
@@ -18827,9 +18721,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -18892,34 +18784,7 @@ public static partial class MR
                     }
                 }
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // a (raw pointer)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_a(ClassMemberPointersClass._Underlying *_this);
-                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersClass_Get_a(_UnderlyingPtr);
-                    }
-
-                    { // b (raw pointer)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_b", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Const_A._Underlying **__MR_CSharp_ClassMemberPointersClass_Get_b(ClassMemberPointersClass._Underlying *_this);
-                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersClass_Get_b(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe ClassMemberPointersClass(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersClass::ClassMemberPointersClass`.
@@ -18930,7 +18795,6 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersClass._Underlying *__MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersClass._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -18945,7 +18809,6 @@ public static partial class MR
                     if (b is not null) _KeepAlive(b);
                     _KeepAlive(c);
                     _KeepAlive(d);
-                    _FinalizeFields();
                 }
             }
 
@@ -19101,7 +18964,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a (raw pointer)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_a", ExactSpelling = true)]
@@ -19134,9 +18997,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -19203,34 +19064,7 @@ public static partial class MR
                     }
                 }
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // a (raw pointer)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_a", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.Box_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_a(ClassMemberPointersExposed._Underlying *_this);
-                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersExposed_Get_a(_UnderlyingPtr);
-                    }
-
-                    { // b (raw pointer)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_b", ExactSpelling = true)]
-                        extern static MR.CS.CSharp.ConstBox_ExposedLayout._Underlying **__MR_CSharp_ClassMemberPointersExposed_Get_b(ClassMemberPointersExposed._Underlying *_this);
-                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersExposed_Get_b(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe ClassMemberPointersExposed(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersExposed::ClassMemberPointersExposed`.
@@ -19241,7 +19075,6 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersExposed._Underlying *__MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersExposed._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19259,7 +19092,6 @@ public static partial class MR
                             MR.CS.CSharp.ExposedLayout __deref_b = b.GetValueOrDefault();
                             _UnderlyingPtr = __MR_CSharp_ClassMemberPointersExposed_ConstructFrom(a is not null ? &__value_a : null, b.HasValue ? &__deref_b : null, __ptr_c, __ptr_d);
                             if (a is not null) a.Value = __value_a;
-                            _FinalizeFields();
                         }
                     }
                 }
@@ -19417,7 +19249,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a (raw pointer)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_a", ExactSpelling = true)]
@@ -19450,9 +19282,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -19516,34 +19346,7 @@ public static partial class MR
                     }
                 }
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // a (raw pointer)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_a", ExactSpelling = true)]
-                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_a(ClassMemberPointersUshort._Underlying *_this);
-                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersUshort_Get_a(_UnderlyingPtr);
-                    }
-
-                    { // b (raw pointer)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_b", ExactSpelling = true)]
-                        extern static ushort **__MR_CSharp_ClassMemberPointersUshort_Get_b(ClassMemberPointersUshort._Underlying *_this);
-                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersUshort_Get_b(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe ClassMemberPointersUshort(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersUshort::ClassMemberPointersUshort`.
@@ -19554,7 +19357,6 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersUshort._Underlying *__MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersUshort._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19570,7 +19372,6 @@ public static partial class MR
                         ushort __deref_b = b.GetValueOrDefault();
                         _UnderlyingPtr = __MR_CSharp_ClassMemberPointersUshort_ConstructFrom(a is not null ? &__value_a : null, b.HasValue ? &__deref_b : null, __ptr_c, &d);
                         if (a is not null) a.Value = __value_a;
-                        _FinalizeFields();
                     }
                 }
             }
@@ -19727,7 +19528,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a (raw pointer)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_a", ExactSpelling = true)]
@@ -19760,9 +19561,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -19826,34 +19625,7 @@ public static partial class MR
                     }
                 }
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // a (raw pointer)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_a", ExactSpelling = true)]
-                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_a(ClassMemberPointersBool._Underlying *_this);
-                        this.__ptr_storage_a = __MR_CSharp_ClassMemberPointersBool_Get_a(_UnderlyingPtr);
-                    }
-
-                    { // b (raw pointer)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_b", ExactSpelling = true)]
-                        extern static byte **__MR_CSharp_ClassMemberPointersBool_Get_b(ClassMemberPointersBool._Underlying *_this);
-                        this.__ptr_storage_b = __MR_CSharp_ClassMemberPointersBool_Get_b(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe ClassMemberPointersBool(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ClassMemberPointersBool::ClassMemberPointersBool`.
@@ -19864,7 +19636,6 @@ public static partial class MR
                     extern static MR.CS.CSharp.ClassMemberPointersBool._Underlying *__MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(MR.CS.CSharp.ClassMemberPointersBool._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -19880,7 +19651,6 @@ public static partial class MR
                         bool __deref_b = b.GetValueOrDefault();
                         _UnderlyingPtr = __MR_CSharp_ClassMemberPointersBool_ConstructFrom(a is not null ? &__value_a : null, b.HasValue ? &__deref_b : null, __ptr_c, &d);
                         if (a is not null) a.Value = __value_a;
-                        _FinalizeFields();
                     }
                 }
             }
@@ -19948,7 +19718,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // x (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_Get_x", ExactSpelling = true)]
@@ -19963,9 +19733,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -20013,28 +19781,7 @@ public static partial class MR
             {
                 public new unsafe ref int x => ref *__ref_storage_x;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // x (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_GetMutable_x", ExactSpelling = true)]
-                        extern static int *__MR_CSharp_LifetimesA_GetMutable_x(MR.CS.CSharp.LifetimesA._Underlying *_this);
-                        this.__ref_storage_x = __MR_CSharp_LifetimesA_GetMutable_x(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe LifetimesA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe LifetimesA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -20044,7 +19791,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_DefaultConstruct();
                     _UnderlyingPtr = __MR_CSharp_LifetimesA_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -20055,7 +19801,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesA_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_ConstructFrom(int x);
                     _UnderlyingPtr = __MR_CSharp_LifetimesA_ConstructFrom(x);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -20067,7 +19812,6 @@ public static partial class MR
                     extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesA_ConstructFromAnother(MR.CS.CSharp.LifetimesA._Underlying *_other);
                     _UnderlyingPtr = __MR_CSharp_LifetimesA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -20168,7 +19912,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesB_Get_a", ExactSpelling = true)]
@@ -20184,9 +19928,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -20247,14 +19989,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
+                    base._FinalizeFields();
+
                     { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesB_GetMutable_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesB_GetMutable_a(MR.CS.CSharp.LifetimesB._Underlying *_this);
                         this.a = new(__MR_CSharp_LifetimesB_GetMutable_a(_UnderlyingPtr), is_owning: false);
                         this.a._KeepAliveEnclosingObject = this;
-                        base.a = this.a;
                     }
                 }
 
@@ -20263,9 +20006,7 @@ public static partial class MR
                 internal unsafe LifetimesB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -20411,7 +20152,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesC_Get_a", ExactSpelling = true)]
@@ -20427,9 +20168,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -20490,14 +20229,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
+                    base._FinalizeFields();
+
                     { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesC_GetMutable_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesC_GetMutable_a(MR.CS.CSharp.LifetimesC._Underlying *_this);
                         this.a = new(__MR_CSharp_LifetimesC_GetMutable_a(_UnderlyingPtr), is_owning: false);
                         this.a._KeepAliveEnclosingObject = this;
-                        base.a = this.a;
                     }
                 }
 
@@ -20506,9 +20246,7 @@ public static partial class MR
                 internal unsafe LifetimesC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -20621,7 +20359,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesD_Get_a", ExactSpelling = true)]
@@ -20637,9 +20375,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -20733,14 +20469,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
+                    base._FinalizeFields();
+
                     { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesD_GetMutable_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesD_GetMutable_a(MR.CS.CSharp.LifetimesD._Underlying *_this);
                         this.a = new(__MR_CSharp_LifetimesD_GetMutable_a(_UnderlyingPtr), is_owning: false);
                         this.a._KeepAliveEnclosingObject = this;
-                        base.a = this.a;
                     }
                 }
 
@@ -20749,9 +20486,7 @@ public static partial class MR
                 internal unsafe LifetimesD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 

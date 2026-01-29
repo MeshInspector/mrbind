@@ -34,7 +34,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // b
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_Get_b", ExactSpelling = true)]
@@ -56,9 +56,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -237,20 +235,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
+                    base._FinalizeFields();
+
                     { // b
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_GetMutable_b", ExactSpelling = true)]
                         extern static MR.CS.NestedTypes.A.B._Underlying *__MR_NestedTypes_A_GetMutable_b(MR.CS.NestedTypes.A._Underlying *_this);
                         this.b = new(__MR_NestedTypes_A_GetMutable_b(_UnderlyingPtr), is_owning: false);
                         this.b._KeepAliveEnclosingObject = this;
-                        base.b = this.b;
-                    }
-
-                    { // e (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_GetMutable_e", ExactSpelling = true)]
-                        extern static MR.CS.NestedTypes.A.E *__MR_NestedTypes_A_GetMutable_e(MR.CS.NestedTypes.A._Underlying *_this);
-                        this.__ref_storage_e = __MR_NestedTypes_A_GetMutable_e(_UnderlyingPtr);
                     }
                 }
 
@@ -259,9 +252,7 @@ public static partial class MR
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 

@@ -5320,13 +5320,16 @@ namespace mrbind::CSharp
                             {
                                 file.WriteSeparatingNewline();
                                 WriteComment(file, "/// Constructors call this at the end to initialize class fields.\n");
-                                file.WriteString("unsafe void _FinalizeFields()\n");
+                                file.WriteString("protected " + std::string(!IsConst() ? "new " : "") + "unsafe void _FinalizeFields()\n");
                                 file.PushScope({}, "{\n", "}\n");
 
-                                // We aren't calling the parent function, it was easier to repeat the work in the derived class.
-
                                 std::string_view view = field_init_nonstatic;
-                                cppdecl::TrimLeadingWhitespace(view);
+
+                                if (!IsConst())
+                                    file.WriteString("base._FinalizeFields();\n");
+                                else
+                                    cppdecl::TrimLeadingWhitespace(view);
+
                                 file.WriteString(view);
 
                                 file.PopScope();
@@ -5361,16 +5364,9 @@ namespace mrbind::CSharp
                         );
                         std::string_view extra_code = GetCtorFinalizationStatements(cpp_qual_name, IsConst());
                         if (!extra_code.empty())
-                        {
-                            file.PushScope({}, "{\n", "}\n");
-                            cppdecl::TrimLeadingWhitespace(extra_code);
                             file.WriteString(extra_code);
-                            file.PopScope();
-                        }
                         else
-                        {
                             file.WriteString(" {}\n");
-                        }
 
                         // In the const half, also add an implicit conversion.
                         // Note that this behavior should be synced with how `Box<T>` and `Const_Box<T>` implicitly convert from `T`.
@@ -5410,10 +5406,7 @@ namespace mrbind::CSharp
                             {
                                 file.PushScope({}, "\n{\n", "}\n");
                                 file.WriteString("if (ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
-                                file.PushScope({}, "{\n", "}\n");
-                                cppdecl::TrimLeadingWhitespace(extra_code);
-                                file.WriteString(extra_code);
-                                file.PopScope();
+                                file.WriteString(Strings::Indent(extra_code));
                                 file.PopScope();
                             }
                             else
@@ -5430,9 +5423,7 @@ namespace mrbind::CSharp
                                 file.PushScope({}, "\n{\n", "}\n");
                                 file.WriteString("_UnderlyingPtr = ptr;\n");
                                 file.WriteString("if (ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
-                                file.PushScope({}, "{\n", "}\n");
-                                file.WriteString(extra_code);
-                                file.PopScope();
+                                file.WriteString(Strings::Indent(extra_code));
                                 file.PopScope();
                             }
                             else
@@ -5462,10 +5453,11 @@ namespace mrbind::CSharp
                                 "    _UnderlyingSharedPtr = " + dllimport_construct_nonowning.csharp_name + "(ptr);\n"
                             );
 
-                            file.WriteString("if (ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
-                            file.PushScope({}, "{\n", "}\n");
-                            file.WriteString(extra_code);
-                            file.PopScope();
+                            if (!extra_code.empty())
+                            {
+                                file.WriteString("if (ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
+                                file.WriteString(Strings::Indent(extra_code));
+                            }
 
                             file.PopScope();
                         }
@@ -5505,9 +5497,7 @@ namespace mrbind::CSharp
                                     file.PushScope({}, "{\n", "}\n");
                                     file.WriteString("_UnderlyingSharedPtr = shared_ptr;\n");
                                     file.WriteString("if (shared_ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
-                                    file.PushScope({}, "{\n", "}\n");
-                                    file.WriteString(extra_code);
-                                    file.PopScope();
+                                    file.WriteString(Strings::Indent(extra_code));
                                     file.PopScope();
                                 }
                             }
@@ -5522,10 +5512,7 @@ namespace mrbind::CSharp
                                     file.WriteString(" : base(shared_ptr, is_owning)\n");
                                     file.PushScope({}, "{\n", "}\n");
                                     file.WriteString("if (shared_ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
-                                    file.PushScope({}, "{\n", "}\n");
-                                    cppdecl::TrimLeadingWhitespace(extra_code);
-                                    file.WriteString(extra_code);
-                                    file.PopScope();
+                                    file.WriteString(Strings::Indent(extra_code));
                                     file.PopScope();
                                 }
                             }
@@ -6227,16 +6214,16 @@ namespace mrbind::CSharp
                         file.WriteString(
                             "private protected " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_underlying_ptr_target_type + " *" + csharp_storage_field_name + ";\n"
                         );
-                    }
 
-                    auto dllimport_decl = MakeDllImportDecl(getter->c_name, arr_strings.csharp_underlying_ptr_target_type + " *", getter->is_static ? "" : GetParameterBinding(getter->params.at(0), getter->is_static).dllimport_decl_params);
-                    *init_code +=
-                        "\n{" + (init_code ? " // " + csharp_field_name + " (ref array)" : "") + "\n" +
-                        Strings::Indent(
-                            dllimport_decl.dllimport_decl +
-                            this_or_enclosing_class_prefix + csharp_storage_field_name + " = " + dllimport_decl.csharp_name + "(_UnderlyingPtr);\n"
-                        ) +
-                        "}\n";
+                        auto dllimport_decl = MakeDllImportDecl(getter->c_name, arr_strings.csharp_underlying_ptr_target_type + " *", getter->is_static ? "" : GetParameterBinding(getter->params.at(0), getter->is_static).dllimport_decl_params);
+                        *init_code +=
+                            "\n{ // " + csharp_field_name + " (ref array)\n" +
+                            Strings::Indent(
+                                dllimport_decl.dllimport_decl +
+                                this_or_enclosing_class_prefix + csharp_storage_field_name + " = " + dllimport_decl.csharp_name + "(_UnderlyingPtr);\n"
+                            ) +
+                            "}\n";
+                    }
 
                     return;
                 }
@@ -6257,11 +6244,7 @@ namespace mrbind::CSharp
                 {
                     *init_code +=
                         "\n{" + (init_code ? " // " + csharp_field_name + " (array)" : "") + "\n" +
-                        Strings::Indent(
-                            body +
-                            // Propagate to the const base, if needed.
-                            (!is_const && !field.is_static ? "base." + csharp_field_name + " = this." + csharp_field_name + ";\n" : "")
-                        ) +
+                        Strings::Indent(body) +
                         "}\n";
                 }
                 else
@@ -6339,9 +6322,8 @@ namespace mrbind::CSharp
 
                         auto dllimport_getter = MakeDllImportDecl(field.getter_const->c_name, (is_class ? csharp_field_wrapper_type + "._Underlying" : *csharp_nonclass_type) + " **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
 
-                        // The init code gets emitted always for non-static fields, and only in the const half for static ones.
-                        // This is because the backing field exists only in the const half, and only non-static field initialization doesn't propagate to the base class.
-                        if (init_code && (!field.is_static || is_const))
+                        // Only in the const half because the backing pointer is only emitted in the const half.
+                        if (init_code && is_const)
                         {
                             *init_code +=
                                 "\n{" + (init_code ? " // " + csharp_field_name + " (raw pointer)" : "") + "\n" +
@@ -6482,20 +6464,20 @@ namespace mrbind::CSharp
                 {
                     // Not `readonly` because the derived mutable half will assign to this.
                     // Don't need `{get; private protected set;}` because this is already not public.
-                    file.WriteString("private protected " + std::string(field.is_static ? "static " : "") + "unsafe " + ret_binding_ptr.csharp_return_type + csharp_storage_field_name + ";\n");
+                    file.WriteString("private protected " + std::string(field.is_static ? "static " : "") + "unsafe " + ret_binding_ptr.csharp_return_type + csharp_storage_field_name + ";\n");\
+
+                    // It's easier to assemble the dllimport declaration by hand here.
+                    auto dllimport_getter = MakeDllImportDecl(maybe_const_getter->c_name, ret_binding.dllimport_return_type, field.is_static ? "" : CppToCSharpClassName(cpp_class, is_const) + "._Underlying *_this");
+
+                    *init_code +=
+                        "\n{ // " + csharp_field_name + " (ref)\n" +
+                        Strings::Indent(
+                            dllimport_getter.dllimport_decl +
+                            ret_binding_ptr.MakeReturnStatements(this_or_enclosing_class_prefix + csharp_storage_field_name + " =", dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ")") + "\n"
+                            // Impossible to keep-alive this.
+                        ) +
+                        "}\n";
                 }
-
-                // It's easier to assemble the dllimport declaration by hand here.
-                auto dllimport_getter = MakeDllImportDecl(maybe_const_getter->c_name, ret_binding.dllimport_return_type, field.is_static ? "" : CppToCSharpClassName(cpp_class, is_const) + "._Underlying *_this");
-
-                *init_code +=
-                    "\n{ // " + csharp_field_name + " (ref)\n" +
-                    Strings::Indent(
-                        dllimport_getter.dllimport_decl +
-                        ret_binding_ptr.MakeReturnStatements(this_or_enclosing_class_prefix + csharp_storage_field_name + " =", dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ")") + "\n"
-                        // Impossible to keep-alive this.
-                    ) +
-                    "}\n";
 
                 return;
             }
@@ -6545,9 +6527,7 @@ namespace mrbind::CSharp
                     Strings::Indent(
                         dllimport_getter.dllimport_decl +
                         ret_binding.MakeReturnStatements(this_or_enclosing_class_prefix + csharp_field_name + " =", dllimport_getter.csharp_name + "(" + (field.is_static ? "" : "_UnderlyingPtr") + ")") + "\n" +
-                        (field.is_static ? "" : "this." + csharp_field_name + "._KeepAliveEnclosingObject = this;\n") +
-                        // Propagate to the const base, if needed.
-                        (!is_const && !field.is_static ? "base." + csharp_field_name + " = this." + csharp_field_name + ";\n" : "")
+                        (field.is_static ? "" : "this." + csharp_field_name + "._KeepAliveEnclosingObject = this;\n")
                     ) +
                     "}\n";
             }

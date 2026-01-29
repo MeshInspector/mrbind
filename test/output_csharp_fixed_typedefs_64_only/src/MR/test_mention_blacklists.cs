@@ -153,7 +153,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_Get_a", ExactSpelling = true)]
@@ -169,9 +169,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -210,14 +208,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
+                    base._FinalizeFields();
+
                     { // a
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SignatureFilters_Blah_GetMutable_a", ExactSpelling = true)]
                         extern static MR.CS.SignatureFilters.A._Underlying *__MR_SignatureFilters_Blah_GetMutable_a(MR.CS.SignatureFilters.Blah._Underlying *_this);
                         this.a = new(__MR_SignatureFilters_Blah_GetMutable_a(_UnderlyingPtr), is_owning: false);
                         this.a._KeepAliveEnclosingObject = this;
-                        base.a = this.a;
                     }
                 }
 
@@ -226,9 +225,7 @@ public static partial class MR
                 internal unsafe Blah(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 

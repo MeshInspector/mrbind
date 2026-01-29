@@ -61,7 +61,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_Get_Field", ExactSpelling = true)]
@@ -76,9 +76,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -152,28 +150,7 @@ public static partial class MR
             {
                 public new unsafe ref int field => ref *__ref_storage_field;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // field (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_A_GetMutable_Field(MR.CS.CopyInheritedMembers.A._Underlying *_this);
-                        this.__ref_storage_field = __MR_CopyInheritedMembers_A_GetMutable_Field(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -183,7 +160,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_DefaultConstruct();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -194,7 +170,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFrom(int Field);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFrom(Field);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -206,7 +181,6 @@ public static partial class MR
                     extern static MR.CS.CopyInheritedMembers.A._Underlying *__MR_CopyInheritedMembers_A_ConstructFromAnother(MR.CS.CopyInheritedMembers.A._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -323,7 +297,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_Get_Field", ExactSpelling = true)]
@@ -338,9 +312,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -404,28 +376,7 @@ public static partial class MR
             {
                 public new unsafe ref int field => ref *__ref_storage_field;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // field (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_B_GetMutable_Field(MR.CS.CopyInheritedMembers.B._Underlying *_this);
-                        this.__ref_storage_field = __MR_CopyInheritedMembers_B_GetMutable_Field(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe B(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -435,7 +386,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_DefaultConstruct();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -446,7 +396,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFrom(int Field);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFrom(Field);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -458,7 +407,6 @@ public static partial class MR
                     extern static MR.CS.CopyInheritedMembers.B._Underlying *__MR_CopyInheritedMembers_B_ConstructFromAnother(MR.CS.CopyInheritedMembers.B._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -751,7 +699,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_Get_Field", ExactSpelling = true)]
@@ -766,9 +714,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -831,28 +777,7 @@ public static partial class MR
 
                 public new unsafe ref int field => ref *__ref_storage_field;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // field (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_D_GetMutable_Field(MR.CS.CopyInheritedMembers.D._Underlying *_this);
-                        this.__ref_storage_field = __MR_CopyInheritedMembers_D_GetMutable_Field(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -862,7 +787,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_DefaultConstruct();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -874,7 +798,6 @@ public static partial class MR
                     extern static MR.CS.CopyInheritedMembers.D._Underlying *__MR_CopyInheritedMembers_D_ConstructFromAnother(MR.CS.CopyInheritedMembers.D._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -1375,7 +1298,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_Get_Field", ExactSpelling = true)]
@@ -1390,9 +1313,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -1457,28 +1378,7 @@ public static partial class MR
 
                 public new unsafe ref int field => ref *__ref_storage_field;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // field (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_G_GetMutable_Field(MR.CS.CopyInheritedMembers.G._Underlying *_this);
-                        this.__ref_storage_field = __MR_CopyInheritedMembers_G_GetMutable_Field(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe G(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -1488,7 +1388,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_DefaultConstruct();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -1500,7 +1399,6 @@ public static partial class MR
                     extern static MR.CS.CopyInheritedMembers.G._Underlying *__MR_CopyInheritedMembers_G_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.G._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -1653,7 +1551,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_Get_Field", ExactSpelling = true)]
@@ -1668,9 +1566,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -1739,28 +1635,7 @@ public static partial class MR
 
                 public new unsafe ref int field => ref *__ref_storage_field;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // field (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_H_GetMutable_Field(MR.CS.CopyInheritedMembers.H._Underlying *_this);
-                        this.__ref_storage_field = __MR_CopyInheritedMembers_H_GetMutable_Field(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe H(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe H(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -1770,7 +1645,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_DefaultConstruct();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -1782,7 +1656,6 @@ public static partial class MR
                     extern static MR.CS.CopyInheritedMembers.H._Underlying *__MR_CopyInheritedMembers_H_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.H._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -1935,7 +1808,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_Get_Field", ExactSpelling = true)]
@@ -1950,9 +1823,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -2021,28 +1892,7 @@ public static partial class MR
 
                 public new unsafe ref int field => ref *__ref_storage_field;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // field (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_I_GetMutable_Field(MR.CS.CopyInheritedMembers.I._Underlying *_this);
-                        this.__ref_storage_field = __MR_CopyInheritedMembers_I_GetMutable_Field(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe I(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe I(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -2052,7 +1902,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_DefaultConstruct();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -2064,7 +1913,6 @@ public static partial class MR
                     extern static MR.CS.CopyInheritedMembers.I._Underlying *__MR_CopyInheritedMembers_I_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.I._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -2215,7 +2063,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_Get_Field", ExactSpelling = true)]
@@ -2230,9 +2078,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -2299,28 +2145,7 @@ public static partial class MR
 
                 public new unsafe ref int field => ref *__ref_storage_field;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // field (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_J_GetMutable_Field(MR.CS.CopyInheritedMembers.J._Underlying *_this);
-                        this.__ref_storage_field = __MR_CopyInheritedMembers_J_GetMutable_Field(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe J(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe J(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -2330,7 +2155,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_DefaultConstruct();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -2342,7 +2166,6 @@ public static partial class MR
                     extern static MR.CS.CopyInheritedMembers.J._Underlying *__MR_CopyInheritedMembers_J_ConstructFromAnother(MR.CS.CopyInheritedMembers.J._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -2861,7 +2684,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_Get_Field", ExactSpelling = true)]
@@ -2876,9 +2699,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -2953,28 +2774,7 @@ public static partial class MR
 
                 public new unsafe ref int field => ref *__ref_storage_field;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // field (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_M_GetMutable_Field(MR.CS.CopyInheritedMembers.M._Underlying *_this);
-                        this.__ref_storage_field = __MR_CopyInheritedMembers_M_GetMutable_Field(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe M(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe M(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -2984,7 +2784,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_DefaultConstruct();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -2996,7 +2795,6 @@ public static partial class MR
                     extern static MR.CS.CopyInheritedMembers.M._Underlying *__MR_CopyInheritedMembers_M_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.M._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -3162,7 +2960,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_Get_Field", ExactSpelling = true)]
@@ -3177,9 +2975,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3261,28 +3057,7 @@ public static partial class MR
 
                 public new unsafe ref int field => ref *__ref_storage_field;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // field (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_N_GetMutable_Field(MR.CS.CopyInheritedMembers.N._Underlying *_this);
-                        this.__ref_storage_field = __MR_CopyInheritedMembers_N_GetMutable_Field(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe N(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe N(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -3292,7 +3067,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_DefaultConstruct();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -3304,7 +3078,6 @@ public static partial class MR
                     extern static MR.CS.CopyInheritedMembers.N._Underlying *__MR_CopyInheritedMembers_N_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.N._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -3477,7 +3250,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // field (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_Get_Field", ExactSpelling = true)]
@@ -3492,9 +3265,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -3583,28 +3354,7 @@ public static partial class MR
 
                 public new unsafe ref int field => ref *__ref_storage_field;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // field (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_GetMutable_Field", ExactSpelling = true)]
-                        extern static int *__MR_CopyInheritedMembers_O_GetMutable_Field(MR.CS.CopyInheritedMembers.O._Underlying *_this);
-                        this.__ref_storage_field = __MR_CopyInheritedMembers_O_GetMutable_Field(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe O(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe O(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -3614,7 +3364,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_DefaultConstruct();
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -3626,7 +3375,6 @@ public static partial class MR
                     extern static MR.CS.CopyInheritedMembers.O._Underlying *__MR_CopyInheritedMembers_O_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CopyInheritedMembers.O._Underlying *_other);
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
-                    _FinalizeFields();
                 }
 
                 /// <summary>

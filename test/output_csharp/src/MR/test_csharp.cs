@@ -2114,9 +2114,6 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SA_ConstructNonOwning(ptr);
-                    if (ptr is not null)
-                    {
-                    }
                 }
 
                 internal unsafe Const_SA(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -2323,9 +2320,6 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SB_ConstructNonOwning(ptr);
-                    if (ptr is not null)
-                    {
-                    }
                 }
 
                 internal unsafe Const_SB(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -2603,9 +2597,6 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SC_ConstructNonOwning(ptr);
-                    if (ptr is not null)
-                    {
-                    }
                 }
 
                 internal unsafe Const_SC(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -2845,9 +2836,6 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SD_ConstructNonOwning(ptr);
-                    if (ptr is not null)
-                    {
-                    }
                 }
 
                 internal unsafe Const_SD(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -3075,9 +3063,6 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SE_ConstructNonOwning(ptr);
-                    if (ptr is not null)
-                    {
-                    }
                 }
 
                 internal unsafe Const_SE(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -3365,9 +3350,6 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_SF_ConstructNonOwning(ptr);
-                    if (ptr is not null)
-                    {
-                    }
                 }
 
                 internal unsafe Const_SF(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}
@@ -13281,9 +13263,6 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructNonOwning(ptr);
-                    if (ptr is not null)
-                    {
-                    }
                 }
 
                 internal unsafe ConstBox_ExposedLayoutSh(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}

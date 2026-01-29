@@ -64,7 +64,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // x (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_x", ExactSpelling = true)]
@@ -97,9 +97,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -127,34 +125,7 @@ public static partial class MR
                 // Arrays don't get setters, because they aren't assignable. But they still get mutable getters
                 new public unsafe ref MR.CS.ArrayInt4 arr => ref *(__array_storage_arr);
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // x (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_GetMutable_x", ExactSpelling = true)]
-                        extern static int *__MR_MemberVars_A_GetMutable_x(MR.CS.MemberVars.A._Underlying *_this);
-                        this.__ref_storage_x = __MR_MemberVars_A_GetMutable_x(_UnderlyingPtr);
-                    }
-
-                    { // arr (ref array)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_GetMutable_arr", ExactSpelling = true)]
-                        extern static MR.CS.ArrayInt4 *__MR_MemberVars_A_GetMutable_arr(_Underlying *_this);
-                        this.__array_storage_arr = __MR_MemberVars_A_GetMutable_arr(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Generated from constructor `MR::MemberVars::A::A`.
@@ -165,7 +136,6 @@ public static partial class MR
                     extern static MR.CS.MemberVars.A._Underlying *__MR_MemberVars_A_ConstructFromAnother(MR.CS.MemberVars.A._Underlying *_other);
                     _UnderlyingPtr = __MR_MemberVars_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
             }
 

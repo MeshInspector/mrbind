@@ -29,7 +29,7 @@ public static partial class MR
             /// <summary>
             /// Constructors call this at the end to initialize class fields.
             /// </summary>
-            unsafe void _FinalizeFields()
+            protected unsafe void _FinalizeFields()
             {
                 { // x
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_Get_x", ExactSpelling = true)]
@@ -45,9 +45,7 @@ public static partial class MR
             {
                 _UnderlyingPtr = ptr;
                 if (ptr is not null)
-                {
                     _FinalizeFields();
-                }
             }
             #pragma warning restore CS8618
 
@@ -86,14 +84,15 @@ public static partial class MR
             /// <summary>
             /// Constructors call this at the end to initialize class fields.
             /// </summary>
-            unsafe void _FinalizeFields()
+            protected new unsafe void _FinalizeFields()
             {
+                base._FinalizeFields();
+
                 { // x
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_A_GetMutable_x", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_A_GetMutable_x(MR.CS.A._Underlying *_this);
                     this.x = new(__MR_A_GetMutable_x(_UnderlyingPtr), is_owning: false);
                     this.x._KeepAliveEnclosingObject = this;
-                    base.x = this.x;
                 }
             }
 
@@ -102,9 +101,7 @@ public static partial class MR
             internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
             {
                 if (ptr is not null)
-                {
                     _FinalizeFields();
-                }
             }
             #pragma warning restore CS8618
 

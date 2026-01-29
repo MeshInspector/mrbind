@@ -501,6 +501,7 @@ namespace mrbind::CSharp
 
         // Returns the code that needs to be appended to the end of every constructor of this `cpp_class` (either const or non-const half, depending on `is_const`).
         // Throws if called too early. This can only be called after all fields for this class are emitted (at least if `--fat-objects` is used, without this flag this is currently a no-op).
+        // The result is guaranteed to be sufficiently braced to be used as the body of an `if`.
         [[nodiscard]] std::string_view GetCtorFinalizationStatements(const cppdecl::QualifiedName &cpp_class, bool is_const);
 
 

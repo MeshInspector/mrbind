@@ -75,9 +75,6 @@ public static partial class MR
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct(ptr);
                     else
                         _UnderlyingSharedPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructNonOwning(ptr);
-                    if (ptr is not null)
-                    {
-                    }
                 }
 
                 internal unsafe Const_A(_UnderlyingShared *shared_ptr, bool is_owning) : base(is_owning) {_UnderlyingSharedPtr = shared_ptr;}

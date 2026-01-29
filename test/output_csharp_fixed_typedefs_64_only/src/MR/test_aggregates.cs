@@ -36,7 +36,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // x (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_Get_x", ExactSpelling = true)]
@@ -58,9 +58,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -119,20 +117,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
-                    { // x (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_GetMutable_x", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_A_GetMutable_x(MR.CS.Aggregates.A._Underlying *_this);
-                        this.__ref_storage_x = __MR_Aggregates_A_GetMutable_x(_UnderlyingPtr);
-                    }
+                    base._FinalizeFields();
 
                     { // y
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_GetMutable_y", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_Aggregates_A_GetMutable_y(MR.CS.Aggregates.A._Underlying *_this);
                         this.y = new(__MR_Aggregates_A_GetMutable_y(_UnderlyingPtr), is_owning: false);
                         this.y._KeepAliveEnclosingObject = this;
-                        base.y = this.y;
                     }
                 }
 
@@ -141,9 +134,7 @@ public static partial class MR
                 internal unsafe A(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -529,7 +520,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_Get_a", ExactSpelling = true)]
@@ -586,9 +577,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -650,70 +639,7 @@ public static partial class MR
 
                 public new unsafe ref int h => ref *__ref_storage_h;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // a (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_GetMutable_a", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_C_GetMutable_a(MR.CS.Aggregates.C._Underlying *_this);
-                        this.__ref_storage_a = __MR_Aggregates_C_GetMutable_a(_UnderlyingPtr);
-                    }
-
-                    { // b (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_GetMutable_b", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_C_GetMutable_b(MR.CS.Aggregates.C._Underlying *_this);
-                        this.__ref_storage_b = __MR_Aggregates_C_GetMutable_b(_UnderlyingPtr);
-                    }
-
-                    { // c (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_GetMutable_c", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_C_GetMutable_c(MR.CS.Aggregates.C._Underlying *_this);
-                        this.__ref_storage_c = __MR_Aggregates_C_GetMutable_c(_UnderlyingPtr);
-                    }
-
-                    { // d (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_GetMutable_d", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_C_GetMutable_d(MR.CS.Aggregates.C._Underlying *_this);
-                        this.__ref_storage_d = __MR_Aggregates_C_GetMutable_d(_UnderlyingPtr);
-                    }
-
-                    { // e (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_GetMutable_e", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_C_GetMutable_e(MR.CS.Aggregates.C._Underlying *_this);
-                        this.__ref_storage_e = __MR_Aggregates_C_GetMutable_e(_UnderlyingPtr);
-                    }
-
-                    { // f (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_GetMutable_f", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_C_GetMutable_f(MR.CS.Aggregates.C._Underlying *_this);
-                        this.__ref_storage_f = __MR_Aggregates_C_GetMutable_f(_UnderlyingPtr);
-                    }
-
-                    { // g (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_GetMutable_g", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_C_GetMutable_g(MR.CS.Aggregates.C._Underlying *_this);
-                        this.__ref_storage_g = __MR_Aggregates_C_GetMutable_g(_UnderlyingPtr);
-                    }
-
-                    { // h (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_GetMutable_h", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_C_GetMutable_h(MR.CS.Aggregates.C._Underlying *_this);
-                        this.__ref_storage_h = __MR_Aggregates_C_GetMutable_h(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe C(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -723,7 +649,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.C._Underlying *__MR_Aggregates_C_DefaultConstruct();
                     _UnderlyingPtr = __MR_Aggregates_C_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -734,7 +659,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.C._Underlying *__MR_Aggregates_C_ConstructFrom(int a, int b, int c, int d, int e, int f, int g, int h);
                     _UnderlyingPtr = __MR_Aggregates_C_ConstructFrom(a, b, c, d, e, f, g, h);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -746,7 +670,6 @@ public static partial class MR
                     extern static MR.CS.Aggregates.C._Underlying *__MR_Aggregates_C_ConstructFromAnother(MR.CS.Aggregates.C._Underlying *_other);
                     _UnderlyingPtr = __MR_Aggregates_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -848,7 +771,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_Get_a", ExactSpelling = true)]
@@ -911,9 +834,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -976,76 +897,7 @@ public static partial class MR
 
                 public new unsafe ref int i => ref *__ref_storage_i;
 
-                /// <summary>
-                /// Constructors call this at the end to initialize class fields.
-                /// </summary>
-                unsafe void _FinalizeFields()
-                {
-                    { // a (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_GetMutable_a", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_D_GetMutable_a(MR.CS.Aggregates.D._Underlying *_this);
-                        this.__ref_storage_a = __MR_Aggregates_D_GetMutable_a(_UnderlyingPtr);
-                    }
-
-                    { // b (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_GetMutable_b", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_D_GetMutable_b(MR.CS.Aggregates.D._Underlying *_this);
-                        this.__ref_storage_b = __MR_Aggregates_D_GetMutable_b(_UnderlyingPtr);
-                    }
-
-                    { // c (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_GetMutable_c", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_D_GetMutable_c(MR.CS.Aggregates.D._Underlying *_this);
-                        this.__ref_storage_c = __MR_Aggregates_D_GetMutable_c(_UnderlyingPtr);
-                    }
-
-                    { // d (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_GetMutable_d", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_D_GetMutable_d(MR.CS.Aggregates.D._Underlying *_this);
-                        this.__ref_storage_d = __MR_Aggregates_D_GetMutable_d(_UnderlyingPtr);
-                    }
-
-                    { // e (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_GetMutable_e", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_D_GetMutable_e(MR.CS.Aggregates.D._Underlying *_this);
-                        this.__ref_storage_e = __MR_Aggregates_D_GetMutable_e(_UnderlyingPtr);
-                    }
-
-                    { // f (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_GetMutable_f", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_D_GetMutable_f(MR.CS.Aggregates.D._Underlying *_this);
-                        this.__ref_storage_f = __MR_Aggregates_D_GetMutable_f(_UnderlyingPtr);
-                    }
-
-                    { // g (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_GetMutable_g", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_D_GetMutable_g(MR.CS.Aggregates.D._Underlying *_this);
-                        this.__ref_storage_g = __MR_Aggregates_D_GetMutable_g(_UnderlyingPtr);
-                    }
-
-                    { // h (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_GetMutable_h", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_D_GetMutable_h(MR.CS.Aggregates.D._Underlying *_this);
-                        this.__ref_storage_h = __MR_Aggregates_D_GetMutable_h(_UnderlyingPtr);
-                    }
-
-                    { // i (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_GetMutable_i", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_D_GetMutable_i(MR.CS.Aggregates.D._Underlying *_this);
-                        this.__ref_storage_i = __MR_Aggregates_D_GetMutable_i(_UnderlyingPtr);
-                    }
-                }
-
-                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
-                #pragma warning disable CS8618
-                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
-                {
-                    if (ptr is not null)
-                    {
-                        _FinalizeFields();
-                    }
-                }
-                #pragma warning restore CS8618
+                internal unsafe D(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
@@ -1055,7 +907,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.D._Underlying *__MR_Aggregates_D_DefaultConstruct();
                     _UnderlyingPtr = __MR_Aggregates_D_DefaultConstruct();
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -1066,7 +917,6 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Aggregates.D._Underlying *__MR_Aggregates_D_ConstructFrom(int a, int b, int c, int d, int e, int f, int g, int h, int i);
                     _UnderlyingPtr = __MR_Aggregates_D_ConstructFrom(a, b, c, d, e, f, g, h, i);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -1078,7 +928,6 @@ public static partial class MR
                     extern static MR.CS.Aggregates.D._Underlying *__MR_Aggregates_D_ConstructFromAnother(MR.CS.Aggregates.D._Underlying *_other);
                     _UnderlyingPtr = __MR_Aggregates_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
-                    _FinalizeFields();
                 }
 
                 /// <summary>
@@ -1192,7 +1041,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected unsafe void _FinalizeFields()
                 {
                     { // a (ref)
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_Get_a", ExactSpelling = true)]
@@ -1262,9 +1111,7 @@ public static partial class MR
                 {
                     _UnderlyingPtr = ptr;
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
@@ -1332,68 +1179,15 @@ public static partial class MR
                 /// <summary>
                 /// Constructors call this at the end to initialize class fields.
                 /// </summary>
-                unsafe void _FinalizeFields()
+                protected new unsafe void _FinalizeFields()
                 {
-                    { // a (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_GetMutable_a", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_E_GetMutable_a(MR.CS.Aggregates.E._Underlying *_this);
-                        this.__ref_storage_a = __MR_Aggregates_E_GetMutable_a(_UnderlyingPtr);
-                    }
-
-                    { // b (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_GetMutable_b", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_E_GetMutable_b(MR.CS.Aggregates.E._Underlying *_this);
-                        this.__ref_storage_b = __MR_Aggregates_E_GetMutable_b(_UnderlyingPtr);
-                    }
-
-                    { // c (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_GetMutable_c", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_E_GetMutable_c(MR.CS.Aggregates.E._Underlying *_this);
-                        this.__ref_storage_c = __MR_Aggregates_E_GetMutable_c(_UnderlyingPtr);
-                    }
-
-                    { // d (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_GetMutable_d", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_E_GetMutable_d(MR.CS.Aggregates.E._Underlying *_this);
-                        this.__ref_storage_d = __MR_Aggregates_E_GetMutable_d(_UnderlyingPtr);
-                    }
-
-                    { // e (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_GetMutable_e", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_E_GetMutable_e(MR.CS.Aggregates.E._Underlying *_this);
-                        this.__ref_storage_e = __MR_Aggregates_E_GetMutable_e(_UnderlyingPtr);
-                    }
-
-                    { // f (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_GetMutable_f", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_E_GetMutable_f(MR.CS.Aggregates.E._Underlying *_this);
-                        this.__ref_storage_f = __MR_Aggregates_E_GetMutable_f(_UnderlyingPtr);
-                    }
-
-                    { // g (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_GetMutable_g", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_E_GetMutable_g(MR.CS.Aggregates.E._Underlying *_this);
-                        this.__ref_storage_g = __MR_Aggregates_E_GetMutable_g(_UnderlyingPtr);
-                    }
-
-                    { // h (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_GetMutable_h", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_E_GetMutable_h(MR.CS.Aggregates.E._Underlying *_this);
-                        this.__ref_storage_h = __MR_Aggregates_E_GetMutable_h(_UnderlyingPtr);
-                    }
-
-                    { // i (ref)
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_GetMutable_i", ExactSpelling = true)]
-                        extern static int *__MR_Aggregates_E_GetMutable_i(MR.CS.Aggregates.E._Underlying *_this);
-                        this.__ref_storage_i = __MR_Aggregates_E_GetMutable_i(_UnderlyingPtr);
-                    }
+                    base._FinalizeFields();
 
                     { // j
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_GetMutable_j", ExactSpelling = true)]
                         extern static MR.CS.Aggregates.NonDefaultConstructible._Underlying *__MR_Aggregates_E_GetMutable_j(MR.CS.Aggregates.E._Underlying *_this);
                         this.j = new(__MR_Aggregates_E_GetMutable_j(_UnderlyingPtr), is_owning: false);
                         this.j._KeepAliveEnclosingObject = this;
-                        base.j = this.j;
                     }
                 }
 
@@ -1402,9 +1196,7 @@ public static partial class MR
                 internal unsafe E(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
                 {
                     if (ptr is not null)
-                    {
                         _FinalizeFields();
-                    }
                 }
                 #pragma warning restore CS8618
 
