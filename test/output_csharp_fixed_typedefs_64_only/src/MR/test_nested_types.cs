@@ -96,6 +96,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::NestedTypes::A::A`.
+                /// </summary>
+                public Const_A(A _other) : this((Const_A)_other) {}
+
+                /// <summary>
                 /// Generated from class `MR::NestedTypes::A::B`.
                 /// This is the const half of the class.
                 /// </summary>
@@ -139,6 +144,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_NestedTypes_A_B_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// <summary>
+                    /// Generated from constructor `MR::NestedTypes::A::B::B`.
+                    /// </summary>
+                    public Const_B(B _other) : this((Const_B)_other) {}
                 }
 
                 /// <summary>
@@ -169,6 +179,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_NestedTypes_A_B_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// <summary>
+                    /// Generated from constructor `MR::NestedTypes::A::B::B`.
+                    /// </summary>
+                    public B(B _other) : this((Const_B)_other) {}
 
                     /// <summary>
                     /// Generated from method `MR::NestedTypes::A::B::operator=`.
@@ -290,6 +305,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::NestedTypes::A::A`.
+                /// </summary>
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::NestedTypes::A::operator=`.

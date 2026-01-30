@@ -42,6 +42,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_std_string_from_int_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Function_StdStringFuncFromIntFloat(Const_Function_StdStringFuncFromIntFloat other) : this(new _ByValue_Function_StdStringFuncFromIntFloat(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Function_StdStringFuncFromIntFloat(Function_StdStringFuncFromIntFloat other) : this((Const_Function_StdStringFuncFromIntFloat)other) {}
             }
 
             /// Stores a functor of type: `std::string(int, float)`. Possibly stateful.
@@ -66,6 +72,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_std_string_from_int_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Function_StdStringFuncFromIntFloat(Const_Function_StdStringFuncFromIntFloat other) : this(new _ByValue_Function_StdStringFuncFromIntFloat(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Function_StdStringFuncFromIntFloat(Function_StdStringFuncFromIntFloat other) : this((Const_Function_StdStringFuncFromIntFloat)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std._ByValue_Function_StdStringFuncFromIntFloat other)

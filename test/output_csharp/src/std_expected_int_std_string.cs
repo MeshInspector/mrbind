@@ -43,6 +43,12 @@ public static partial class MR
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Expected_Int_StdString(Const_Expected_Int_StdString other) : this(new _ByValue_Expected_Int_StdString(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Expected_Int_StdString(Expected_Int_StdString other) : this((Const_Expected_Int_StdString)other) {}
+
                 /// Returns true if this instance represents success, or false if it represents an error.
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_Int_StdString _this)
                 {
@@ -95,6 +101,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_int_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Expected_Int_StdString(Const_Expected_Int_StdString other) : this(new _ByValue_Expected_Int_StdString(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Expected_Int_StdString(Expected_Int_StdString other) : this((Const_Expected_Int_StdString)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std._ByValue_Expected_Int_StdString other)

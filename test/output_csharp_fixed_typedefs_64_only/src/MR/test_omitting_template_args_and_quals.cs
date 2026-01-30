@@ -52,6 +52,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A<int>::A`.
+                /// </summary>
+                public Const_A_Int(A_Int _other) : this((Const_A_Int)_other) {}
+
+                /// <summary>
                 /// Generated from function `MR::OmittingTargsAndQuals::operator*`.
                 /// </summary>
                 public unsafe void deref()
@@ -102,6 +107,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OmittingTargsAndQuals_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A<int>::A`.
+                /// </summary>
+                public A_Int(A_Int _other) : this((Const_A_Int)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator=`.
@@ -216,6 +226,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A<float>::A`.
+                /// </summary>
+                public Const_A_Float(A_Float _other) : this((Const_A_Float)_other) {}
             }
 
             // Here the generated code will omit the template arguments for operators (to avoid unwanted instantiations),
@@ -248,6 +263,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A<float>::A`.
+                /// </summary>
+                public A_Float(A_Float _other) : this((Const_A_Float)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator=`.

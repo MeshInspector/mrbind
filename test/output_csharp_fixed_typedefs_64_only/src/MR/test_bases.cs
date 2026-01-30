@@ -61,6 +61,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::A::A`.
+                /// </summary>
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             /// <summary>
@@ -104,6 +109,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::A::A`.
+                /// </summary>
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::A::operator=`.
@@ -215,6 +225,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::B::B`.
+                /// </summary>
+                public Const_B(B _other) : this((Const_B)_other) {}
             }
 
             /// <summary>
@@ -264,6 +279,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::B::B`.
+                /// </summary>
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::B::operator=`.
@@ -379,6 +399,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_B2_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::B2::B2`.
+                /// </summary>
+                public Const_B2(B2 _other) : this((Const_B2)_other) {}
             }
 
             /// <summary>
@@ -432,6 +457,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_B2_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::B2::B2`.
+                /// </summary>
+                public B2(B2 _other) : this((Const_B2)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::B2::operator=`.
@@ -540,6 +570,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::C::C`.
+                /// </summary>
+                public Const_C(C _other) : this((Const_C)_other) {}
             }
 
             /// <summary>
@@ -586,6 +621,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::C::C`.
+                /// </summary>
+                public C(C _other) : this((Const_C)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::C::operator=`.
@@ -702,6 +742,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::D::D`.
+                /// </summary>
+                public Const_D(D _other) : this((Const_D)_other) {}
             }
 
             /// <summary>
@@ -756,6 +801,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::D::D`.
+                /// </summary>
+                public D(D _other) : this((Const_D)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::D::operator=`.
@@ -863,6 +913,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D2_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::D2::D2`.
+                /// </summary>
+                public Const_D2(D2 _other) : this((Const_D2)_other) {}
             }
 
             /// <summary>
@@ -908,6 +963,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D2_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::D2::D2`.
+                /// </summary>
+                public D2(D2 _other) : this((Const_D2)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::D2::operator=`.
@@ -1015,6 +1075,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D3_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::D3::D3`.
+                /// </summary>
+                public Const_D3(D3 _other) : this((Const_D3)_other) {}
             }
 
             /// <summary>
@@ -1060,6 +1125,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D3_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::D3::D3`.
+                /// </summary>
+                public D3(D3 _other) : this((Const_D3)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::D3::operator=`.
@@ -1159,6 +1229,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::E::E`.
+                /// </summary>
+                public Const_E(E _other) : this((Const_E)_other) {}
             }
 
             /// <summary>
@@ -1196,6 +1271,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::E::E`.
+                /// </summary>
+                public E(E _other) : this((Const_E)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::E::operator=`.
@@ -1306,6 +1386,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_F_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::F::F`.
+                /// </summary>
+                public Const_F(F _other) : this((Const_F)_other) {}
             }
 
             /// <summary>
@@ -1354,6 +1439,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_F_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::F::F`.
+                /// </summary>
+                public F(F _other) : this((Const_F)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::F::operator=`.
@@ -1469,6 +1559,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::G::G`.
+                /// </summary>
+                public Const_G(Const_G _other) : this(new _ByValue_G(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::G::G`.
+                /// </summary>
+                public Const_G(G _other) : this((Const_G)_other) {}
             }
 
             /// <summary>
@@ -1522,6 +1622,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::G::G`.
+                /// </summary>
+                public G(Const_G _other) : this(new _ByValue_G(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::G::G`.
+                /// </summary>
+                public G(G _other) : this((Const_G)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::G::operator=`.
@@ -1667,6 +1777,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::H::H`.
+                /// </summary>
+                public Const_H(Const_H _other) : this(new _ByValue_H(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::H::H`.
+                /// </summary>
+                public Const_H(H _other) : this((Const_H)_other) {}
             }
 
             /// <summary>
@@ -1730,6 +1850,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::H::H`.
+                /// </summary>
+                public H(Const_H _other) : this(new _ByValue_H(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::H::H`.
+                /// </summary>
+                public H(H _other) : this((Const_H)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::H::operator=`.
@@ -1874,6 +2004,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::I::I`.
+                /// </summary>
+                public Const_I(Const_I _other) : this(new _ByValue_I(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::I::I`.
+                /// </summary>
+                public Const_I(I _other) : this((Const_I)_other) {}
             }
 
             /// <summary>
@@ -1936,6 +2076,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::I::I`.
+                /// </summary>
+                public I(Const_I _other) : this(new _ByValue_I(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::Bases::I::I`.
+                /// </summary>
+                public I(I _other) : this((Const_I)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Bases::I::operator=`.

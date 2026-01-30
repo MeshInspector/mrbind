@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_SharedPtr_ConstVoid(Const_SharedPtr_ConstVoid other) : this(new _ByValue_SharedPtr_ConstVoid(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_SharedPtr_ConstVoid(SharedPtr_ConstVoid other) : this((Const_SharedPtr_ConstVoid)other) {}
+
+                /// <summary>
                 /// Returns the stored pointer, possibly null.
                 /// Returns a read-only pointer.
                 /// </summary>
@@ -244,6 +254,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_void_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public SharedPtr_ConstVoid(Const_SharedPtr_ConstVoid other) : this(new _ByValue_SharedPtr_ConstVoid(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public SharedPtr_ConstVoid(SharedPtr_ConstVoid other) : this((Const_SharedPtr_ConstVoid)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

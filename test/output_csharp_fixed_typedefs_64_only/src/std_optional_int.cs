@@ -50,6 +50,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Optional_Int(Optional_Int other) : this((Const_Optional_Int)other) {}
+
+                /// <summary>
                 /// Constructs a new instance.
                 /// </summary>
                 public unsafe Const_Optional_Int(int? other) : this(null, is_owning: true)
@@ -105,6 +110,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_optional_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Optional_Int(Optional_Int other) : this((Const_Optional_Int)other) {}
 
                 /// <summary>
                 /// Constructs a new instance.

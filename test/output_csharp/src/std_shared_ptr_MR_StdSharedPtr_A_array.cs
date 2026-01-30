@@ -44,6 +44,12 @@ public static partial class MR
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_SharedPtr_MRStdSharedPtrAArray(Const_SharedPtr_MRStdSharedPtrAArray other) : this(new _ByValue_SharedPtr_MRStdSharedPtrAArray(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_SharedPtr_MRStdSharedPtrAArray(SharedPtr_MRStdSharedPtrAArray other) : this((Const_SharedPtr_MRStdSharedPtrAArray)other) {}
+
                 /// Returns the stored pointer, possibly null.
                 public unsafe MR.CS.StdSharedPtr.A? Get()
                 {
@@ -131,6 +137,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public SharedPtr_MRStdSharedPtrAArray(Const_SharedPtr_MRStdSharedPtrAArray other) : this(new _ByValue_SharedPtr_MRStdSharedPtrAArray(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public SharedPtr_MRStdSharedPtrAArray(SharedPtr_MRStdSharedPtrAArray other) : this((Const_SharedPtr_MRStdSharedPtrAArray)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray other)

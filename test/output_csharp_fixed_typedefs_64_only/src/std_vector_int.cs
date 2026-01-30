@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Vector_Int(Const_Vector_Int other) : this(new _ByValue_Vector_Int(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Vector_Int(Vector_Int other) : this((Const_Vector_Int)other) {}
+
+                /// <summary>
                 /// Construct from a range of elements.
                 /// </summary>
                 public unsafe Const_Vector_Int(int? ptr, ulong size) : this(null, is_owning: true)
@@ -248,6 +258,11 @@ public static partial class MR
                     }
 
                     /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Const_ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
+
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
                     /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.Vector_Int.Const_Iterator iter) : this(null, is_owning: true)
@@ -311,6 +326,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_int_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
 
                     /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -455,6 +475,11 @@ public static partial class MR
                     }
 
                     /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Const_Iterator(Iterator other) : this((Const_Iterator)other) {}
+
+                    /// <summary>
                     /// Dereferences a mutable iterator.
                     /// </summary>
                     public unsafe ref int deref()
@@ -503,6 +528,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_int_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Iterator(Iterator other) : this((Const_Iterator)other) {}
 
                     /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -610,6 +640,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_vector_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Vector_Int(Const_Vector_Int other) : this(new _ByValue_Vector_Int(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Vector_Int(Vector_Int other) : this((Const_Vector_Int)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

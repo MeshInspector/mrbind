@@ -49,6 +49,11 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// <summary>
+                /// Generated from constructor `MR::NestedTemplateInst::A<int>::A`.
+                /// </summary>
+                public Const_A_Int(A_Int _other) : this((Const_A_Int)_other) {}
+
                 // This struct needs special care to be instantiated, even with the typedef below. Hmm.
                 /// <summary>
                 /// Generated from class `MR::NestedTemplateInst::A<int>::AA<float>`.
@@ -94,6 +99,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// <summary>
+                    /// Generated from constructor `MR::NestedTemplateInst::A<int>::AA<float>::AA`.
+                    /// </summary>
+                    public Const_AA_Float(AA_Float _other) : this((Const_AA_Float)_other) {}
                 }
 
                 // This struct needs special care to be instantiated, even with the typedef below. Hmm.
@@ -125,6 +135,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// <summary>
+                    /// Generated from constructor `MR::NestedTemplateInst::A<int>::AA<float>::AA`.
+                    /// </summary>
+                    public AA_Float(AA_Float _other) : this((Const_AA_Float)_other) {}
 
                     /// <summary>
                     /// Generated from method `MR::NestedTemplateInst::A<int>::AA<float>::operator=`.
@@ -202,6 +217,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_NestedTemplateInst_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::NestedTemplateInst::A<int>::A`.
+                /// </summary>
+                public A_Int(A_Int _other) : this((Const_A_Int)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::NestedTemplateInst::A<int>::operator=`.

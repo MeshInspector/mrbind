@@ -50,6 +50,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Expected_MRCSharpTrivial_Float(Expected_MRCSharpTrivial_Float other) : this((Const_Expected_MRCSharpTrivial_Float)other) {}
+
+                /// <summary>
                 /// Returns true if this instance represents success, or false if it represents an error.
                 /// </summary>
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float _this)
@@ -113,6 +118,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_Trivial_float_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Expected_MRCSharpTrivial_Float(Expected_MRCSharpTrivial_Float other) : this((Const_Expected_MRCSharpTrivial_Float)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

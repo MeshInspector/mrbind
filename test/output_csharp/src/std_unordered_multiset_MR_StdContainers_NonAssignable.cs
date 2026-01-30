@@ -43,6 +43,12 @@ public static partial class MR
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_UnorderedMultiset_MRStdContainersNonAssignable(Const_UnorderedMultiset_MRStdContainersNonAssignable other) : this(new _ByValue_UnorderedMultiset_MRStdContainersNonAssignable(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_UnorderedMultiset_MRStdContainersNonAssignable(UnorderedMultiset_MRStdContainersNonAssignable other) : this((Const_UnorderedMultiset_MRStdContainersNonAssignable)other) {}
+
                 /// The number of elements.
                 public unsafe ulong Size()
                 {
@@ -155,6 +161,9 @@ public static partial class MR
                         _KeepAlive(other);
                     }
 
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public Const_ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
+
                     /// Dereferences a const iterator.
                     public unsafe MR.CS.StdContainers.Const_NonAssignable Deref()
                     {
@@ -189,6 +198,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
                     public unsafe void Assign(MR.CS.Std.UnorderedMultiset_MRStdContainersNonAssignable.Const_ConstIterator other)
@@ -262,6 +274,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public UnorderedMultiset_MRStdContainersNonAssignable(Const_UnorderedMultiset_MRStdContainersNonAssignable other) : this(new _ByValue_UnorderedMultiset_MRStdContainersNonAssignable(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public UnorderedMultiset_MRStdContainersNonAssignable(UnorderedMultiset_MRStdContainersNonAssignable other) : this((Const_UnorderedMultiset_MRStdContainersNonAssignable)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std._ByValue_UnorderedMultiset_MRStdContainersNonAssignable other)

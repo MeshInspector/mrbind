@@ -54,6 +54,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_AdjustingNames_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::AdjustingNames::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             // And test that `uint64_t` is correctly adjusted in some other kinds of names.
@@ -80,6 +83,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_AdjustingNames_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::AdjustingNames::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from conversion operator `MR::AdjustingNames::A::operator unsigned long`.
                 public static unsafe implicit operator ulong(MR.CS.AdjustingNames.A _this)

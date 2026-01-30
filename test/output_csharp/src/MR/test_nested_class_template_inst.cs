@@ -43,6 +43,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::NestedTemplateInst::A<int>::A`.
+                public Const_A_Int(A_Int _other) : this((Const_A_Int)_other) {}
+
                 // This struct needs special care to be instantiated, even with the typedef below. Hmm.
                 /// Generated from class `MR::NestedTemplateInst::A<int>::AA<float>`.
                 /// This is the const half of the class.
@@ -82,6 +85,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// Generated from constructor `MR::NestedTemplateInst::A<int>::AA<float>::AA`.
+                    public Const_AA_Float(AA_Float _other) : this((Const_AA_Float)_other) {}
                 }
 
                 // This struct needs special care to be instantiated, even with the typedef below. Hmm.
@@ -107,6 +113,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// Generated from constructor `MR::NestedTemplateInst::A<int>::AA<float>::AA`.
+                    public AA_Float(AA_Float _other) : this((Const_AA_Float)_other) {}
 
                     /// Generated from method `MR::NestedTemplateInst::A<int>::AA<float>::operator=`.
                     public unsafe MR.CS.NestedTemplateInst.A_Int.AA_Float Assign(MR.CS.NestedTemplateInst.A_Int.Const_AA_Float _other)
@@ -172,6 +181,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_NestedTemplateInst_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::NestedTemplateInst::A<int>::A`.
+                public A_Int(A_Int _other) : this((Const_A_Int)_other) {}
 
                 /// Generated from method `MR::NestedTemplateInst::A<int>::operator=`.
                 public unsafe MR.CS.NestedTemplateInst.A_Int Assign(MR.CS.NestedTemplateInst.Const_A_Int _other)

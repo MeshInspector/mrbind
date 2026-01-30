@@ -60,6 +60,9 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::UsingDecls::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
+
+                /// Generated from constructor `MR::UsingDecls::A::A`.
                 public unsafe Const_A(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Construct", ExactSpelling = true)]
@@ -111,6 +114,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_UsingDecls_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::UsingDecls::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from constructor `MR::UsingDecls::A::A`.
                 public unsafe A(int _1) : this(null, is_owning: true)
@@ -255,6 +261,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::UsingDecls::B::B`.
+                public Const_B(B _other) : this((Const_B)_other) {}
+
                 /// Generated from method `MR::UsingDecls::B::StaticFunc`.
                 public static void StaticFunc()
                 {
@@ -301,6 +310,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_UsingDecls_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::UsingDecls::B::B`.
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// Generated from conversion operator `MR::UsingDecls::B::operator int`.
                 public static unsafe implicit operator int(MR.CS.UsingDecls.B _this)

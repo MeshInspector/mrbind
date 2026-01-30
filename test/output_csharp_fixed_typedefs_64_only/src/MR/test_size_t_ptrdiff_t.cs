@@ -48,6 +48,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TestSizeT_A_uint64_t_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::TestSizeT::A<MR_C_uint64_t>::A`.
+                /// </summary>
+                public Const_A_MRCUint64T(A_MRCUint64T _other) : this((Const_A_MRCUint64T)_other) {}
             }
 
             /// <summary>
@@ -78,6 +83,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TestSizeT_A_uint64_t_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::TestSizeT::A<MR_C_uint64_t>::A`.
+                /// </summary>
+                public A_MRCUint64T(A_MRCUint64T _other) : this((Const_A_MRCUint64T)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::TestSizeT::A<MR_C_uint64_t>::operator=`.

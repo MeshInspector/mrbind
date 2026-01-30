@@ -43,6 +43,12 @@ public static partial class MR
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Vector_Long(Const_Vector_Long other) : this(new _ByValue_Vector_Long(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Vector_Long(Vector_Long other) : this((Const_Vector_Long)other) {}
+
                 /// Construct from a range of elements.
                 public unsafe Const_Vector_Long(long? ptr, ulong size) : this(null, is_owning: true)
                 {
@@ -207,6 +213,9 @@ public static partial class MR
                         _KeepAlive(other);
                     }
 
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public Const_ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
+
                     /// Makes a const iterator from a mutable one.
                     public unsafe Const_ConstIterator(MR.CS.Std.Vector_Long.Const_Iterator iter) : this(null, is_owning: true)
                     {
@@ -257,6 +266,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_long_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
                     public unsafe void Assign(MR.CS.Std.Vector_Long.Const_ConstIterator other)
@@ -376,6 +388,9 @@ public static partial class MR
                         _KeepAlive(other);
                     }
 
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public Const_Iterator(Iterator other) : this((Const_Iterator)other) {}
+
                     /// Dereferences a mutable iterator.
                     public unsafe ref long Deref()
                     {
@@ -415,6 +430,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_long_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public Iterator(Iterator other) : this((Const_Iterator)other) {}
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
                     public unsafe void Assign(MR.CS.Std.Vector_Long.Const_Iterator other)
@@ -504,6 +522,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_vector_long_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Vector_Long(Const_Vector_Long other) : this(new _ByValue_Vector_Long(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Vector_Long(Vector_Long other) : this((Const_Vector_Long)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std._ByValue_Vector_Long other)

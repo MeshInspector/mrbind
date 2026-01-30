@@ -43,6 +43,9 @@ public static partial class MR
                     _KeepAlive(other);
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Expected_MRCSharpE1_Float(Expected_MRCSharpE1_Float other) : this((Const_Expected_MRCSharpE1_Float)other) {}
+
                 /// Returns true if this instance represents success, or false if it represents an error.
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_MRCSharpE1_Float _this)
                 {
@@ -92,6 +95,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_E1_float_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Expected_MRCSharpE1_Float(Expected_MRCSharpE1_Float other) : this((Const_Expected_MRCSharpE1_Float)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.Const_Expected_MRCSharpE1_Float other)

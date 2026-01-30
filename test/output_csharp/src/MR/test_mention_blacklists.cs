@@ -42,6 +42,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_SignatureFilters_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::SignatureFilters::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             /// Generated from class `MR::SignatureFilters::A`.
@@ -66,6 +69,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_SignatureFilters_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::SignatureFilters::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::SignatureFilters::A::operator=`.
                 public unsafe MR.CS.SignatureFilters.A Assign(MR.CS.SignatureFilters.Const_A _other)
@@ -159,6 +165,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::SignatureFilters::Blah::Blah`.
+                public Const_Blah(Blah _other) : this((Const_Blah)_other) {}
             }
 
             /// Generated from class `MR::SignatureFilters::Blah`.
@@ -196,6 +205,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_SignatureFilters_Blah_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::SignatureFilters::Blah::Blah`.
+                public Blah(Blah _other) : this((Const_Blah)_other) {}
 
                 /// Generated from method `MR::SignatureFilters::Blah::operator=`.
                 public unsafe MR.CS.SignatureFilters.Blah Assign(MR.CS.SignatureFilters.Const_Blah _other)

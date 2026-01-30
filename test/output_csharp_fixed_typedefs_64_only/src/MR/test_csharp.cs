@@ -79,6 +79,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::A::A`.
+                /// </summary>
+                public Const_A(Const_A _other) : this(new _ByValue_A(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::A::A`.
+                /// </summary>
+                public Const_A(A _other) : this((Const_A)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::A::bar`.
                 /// </summary>
                 public unsafe void bar(int _1, int _2)
@@ -154,6 +164,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::A::A`.
+                /// </summary>
+                public A(Const_A _other) : this(new _ByValue_A(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::A::A`.
+                /// </summary>
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::A::operator=`.
@@ -334,6 +354,16 @@ public static partial class MR
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::B::B`.
                 /// </summary>
+                public Const_B(Const_B _other) : this(new _ByValue_B(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::B::B`.
+                /// </summary>
+                public Const_B(B _other) : this((Const_B)_other) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::B::B`.
+                /// </summary>
                 public unsafe Const_B(int a, int b) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_Construct", ExactSpelling = true)]
@@ -435,6 +465,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_B_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::B::B`.
+                /// </summary>
+                public B(Const_B _other) : this(new _ByValue_B(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::B::B`.
+                /// </summary>
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::B::B`.
@@ -620,6 +660,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::C::C`.
+                /// </summary>
+                public Const_C(Const_C _other) : this(new _ByValue_C(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::C::C`.
+                /// </summary>
+                public Const_C(C _other) : this((Const_C)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::C::bar`.
                 /// </summary>
                 public unsafe void bar(int _1, int _2)
@@ -713,6 +763,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_C_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::C::C`.
+                /// </summary>
+                public C(Const_C _other) : this(new _ByValue_C(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::C::C`.
+                /// </summary>
+                public C(C _other) : this((Const_C)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::C::operator=`.
@@ -867,6 +927,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::D::D`.
+                /// </summary>
+                public Const_D(D _other) : this((Const_D)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::D::d1`.
                 /// </summary>
                 public unsafe void d1()
@@ -909,6 +974,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::D::D`.
+                /// </summary>
+                public D(D _other) : this((Const_D)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::D::operator=`.
@@ -1018,6 +1088,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::E::E`.
+                /// </summary>
+                public Const_E(E _other) : this((Const_E)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::E::e1`.
                 /// </summary>
                 public unsafe void e1()
@@ -1061,6 +1136,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::E::E`.
+                /// </summary>
+                public E(E _other) : this((Const_E)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::E::operator=`.
@@ -1208,6 +1288,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::F::F`.
+                /// </summary>
+                public Const_F(Const_F _other) : this(new _ByValue_F(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::F::F`.
+                /// </summary>
+                public Const_F(F _other) : this((Const_F)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::F::bar`.
                 /// </summary>
                 public unsafe void bar(int _1, int _2)
@@ -1339,6 +1429,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_F_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::F::F`.
+                /// </summary>
+                public F(Const_F _other) : this(new _ByValue_F(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::F::F`.
+                /// </summary>
+                public F(F _other) : this((Const_F)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::F::operator=`.
@@ -1554,6 +1654,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::G::G`.
+                /// </summary>
+                public Const_G(Const_G _other) : this(new _ByValue_G(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::G::G`.
+                /// </summary>
+                public Const_G(G _other) : this((Const_G)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::G::bar`.
                 /// </summary>
                 public unsafe void bar(int _1, int _2)
@@ -1687,6 +1797,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::G::G`.
+                /// </summary>
+                public G(Const_G _other) : this(new _ByValue_G(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::G::G`.
+                /// </summary>
+                public G(G _other) : this((Const_G)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::G::operator=`.
@@ -1855,6 +1975,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_Trivial_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::Trivial::Trivial`.
+                /// </summary>
+                public Const_Trivial(Trivial _other) : this((Const_Trivial)_other) {}
             }
 
             /// <summary>
@@ -1885,6 +2010,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_Trivial_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::Trivial::Trivial`.
+                /// </summary>
+                public Trivial(Trivial _other) : this((Const_Trivial)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::Trivial::operator=`.
@@ -1977,6 +2107,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TrivialDerived_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TrivialDerived::TrivialDerived`.
+                /// </summary>
+                public Const_TrivialDerived(TrivialDerived _other) : this((Const_TrivialDerived)_other) {}
             }
 
             /// <summary>
@@ -2007,6 +2142,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TrivialDerived_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TrivialDerived::TrivialDerived`.
+                /// </summary>
+                public TrivialDerived(TrivialDerived _other) : this((Const_TrivialDerived)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::TrivialDerived::operator=`.
@@ -2099,6 +2239,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivial_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivial::NonTrivial`.
+                /// </summary>
+                public Const_NonTrivial(Const_NonTrivial _other) : this(new _ByValue_NonTrivial(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivial::NonTrivial`.
+                /// </summary>
+                public Const_NonTrivial(NonTrivial _other) : this((Const_NonTrivial)_other) {}
             }
 
             /// <summary>
@@ -2129,6 +2279,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivial_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivial::NonTrivial`.
+                /// </summary>
+                public NonTrivial(Const_NonTrivial _other) : this(new _ByValue_NonTrivial(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivial::NonTrivial`.
+                /// </summary>
+                public NonTrivial(NonTrivial _other) : this((Const_NonTrivial)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::NonTrivial::operator=`.
@@ -2265,6 +2425,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivialDerived_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivialDerived::NonTrivialDerived`.
+                /// </summary>
+                public Const_NonTrivialDerived(Const_NonTrivialDerived _other) : this(new _ByValue_NonTrivialDerived(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivialDerived::NonTrivialDerived`.
+                /// </summary>
+                public Const_NonTrivialDerived(NonTrivialDerived _other) : this((Const_NonTrivialDerived)_other) {}
             }
 
             /// <summary>
@@ -2295,6 +2465,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivialDerived_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivialDerived::NonTrivialDerived`.
+                /// </summary>
+                public NonTrivialDerived(Const_NonTrivialDerived _other) : this(new _ByValue_NonTrivialDerived(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivialDerived::NonTrivialDerived`.
+                /// </summary>
+                public NonTrivialDerived(NonTrivialDerived _other) : this((Const_NonTrivialDerived)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::NonTrivialDerived::operator=`.
@@ -2476,6 +2656,11 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SA_ConstructFromAnother(_other._UnderlyingPtr));
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SA::SA`.
+                /// </summary>
+                public Const_SA(SA _other) : this((Const_SA)_other) {}
             }
 
             /// <summary>
@@ -2511,6 +2696,11 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SA_ConstructFromAnother(_other._UnderlyingPtr));
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SA::SA`.
+                /// </summary>
+                public SA(SA _other) : this((Const_SA)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::SA::operator=`.
@@ -2739,6 +2929,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SB::SB`.
+                /// </summary>
+                public Const_SB(Const_SB _other) : this(new _ByValue_SB(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SB::SB`.
+                /// </summary>
+                public Const_SB(SB _other) : this((Const_SB)_other) {}
             }
 
             /// <summary>
@@ -2824,6 +3024,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SB::SB`.
+                /// </summary>
+                public SB(Const_SB _other) : this(new _ByValue_SB(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SB::SB`.
+                /// </summary>
+                public SB(SB _other) : this((Const_SB)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::SB::operator=`.
@@ -3071,6 +3281,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SC::SC`.
+                /// </summary>
+                public Const_SC(Const_SC _other) : this(new _ByValue_SC(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SC::SC`.
+                /// </summary>
+                public Const_SC(SC _other) : this((Const_SC)_other) {}
             }
 
             /// <summary>
@@ -3155,6 +3375,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SC::SC`.
+                /// </summary>
+                public SC(Const_SC _other) : this(new _ByValue_SC(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SC::SC`.
+                /// </summary>
+                public SC(SC _other) : this((Const_SC)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::SC::operator=`.
@@ -3356,6 +3586,16 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SD_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SD::SD`.
+                /// </summary>
+                public Const_SD(Const_SD _other) : this(new _ByValue_SD(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SD::SD`.
+                /// </summary>
+                public Const_SD(SD _other) : this((Const_SD)_other) {}
             }
 
             /// <summary>
@@ -3391,6 +3631,16 @@ public static partial class MR
                     _LateMakeShared(__MR_CSharp_SD_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null));
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SD::SD`.
+                /// </summary>
+                public SD(Const_SD _other) : this(new _ByValue_SD(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SD::SD`.
+                /// </summary>
+                public SD(SD _other) : this((Const_SD)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::SD::operator=`.
@@ -3642,6 +3892,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SE::SE`.
+                /// </summary>
+                public Const_SE(Const_SE _other) : this(new _ByValue_SE(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SE::SE`.
+                /// </summary>
+                public Const_SE(SE _other) : this((Const_SE)_other) {}
             }
 
             /// <summary>
@@ -3727,6 +3987,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SE::SE`.
+                /// </summary>
+                public SE(Const_SE _other) : this(new _ByValue_SE(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SE::SE`.
+                /// </summary>
+                public SE(SE _other) : this((Const_SE)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::SE::operator=`.
@@ -3984,6 +4254,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SF::SF`.
+                /// </summary>
+                public Const_SF(Const_SF _other) : this(new _ByValue_SF(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SF::SF`.
+                /// </summary>
+                public Const_SF(SF _other) : this((Const_SF)_other) {}
             }
 
             /// <summary>
@@ -4078,6 +4358,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SF::SF`.
+                /// </summary>
+                public SF(Const_SF _other) : this(new _ByValue_SF(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::SF::SF`.
+                /// </summary>
+                public SF(SF _other) : this((Const_SF)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::SF::operator=`.
@@ -4213,6 +4503,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::Outer::Outer`.
+                /// </summary>
+                public Const_Outer(Outer _other) : this((Const_Outer)_other) {}
+
+                /// <summary>
                 /// Generated from class `MR::CSharp::Outer::Inner`.
                 /// This is the const half of the class.
                 /// </summary>
@@ -4256,6 +4551,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_CSharp_Outer_Inner_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// <summary>
+                    /// Generated from constructor `MR::CSharp::Outer::Inner::Inner`.
+                    /// </summary>
+                    public Const_Inner(Inner _other) : this((Const_Inner)_other) {}
                 }
 
                 /// <summary>
@@ -4286,6 +4586,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_CSharp_Outer_Inner_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// <summary>
+                    /// Generated from constructor `MR::CSharp::Outer::Inner::Inner`.
+                    /// </summary>
+                    public Inner(Inner _other) : this((Const_Inner)_other) {}
 
                     /// <summary>
                     /// Generated from method `MR::CSharp::Outer::Inner::operator=`.
@@ -4374,6 +4679,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_Outer_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::Outer::Outer`.
+                /// </summary>
+                public Outer(Outer _other) : this((Const_Outer)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::Outer::operator=`.
@@ -4626,6 +4936,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
+                /// </summary>
+                public Const_TestFields(Const_TestFields _other) : this(new _ByValue_TestFields(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
+                /// </summary>
+                public Const_TestFields(TestFields _other) : this((Const_TestFields)_other) {}
+
+                /// <summary>
                 /// Constructs `MR::CSharp::TestFields` elementwise.
                 /// </summary>
                 public unsafe Const_TestFields(int i, int const_i, ref int i_ref, int const_i_ref, ReadOnlySpan<char> s, ReadOnlySpan<char> const_s, MR.CS.Std.String s_ref, ReadOnlySpan<char> const_s_ref) : this(null, is_owning: true)
@@ -4701,6 +5021,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
+                /// </summary>
+                public TestFields(Const_TestFields _other) : this(new _ByValue_TestFields(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestFields::TestFields`.
+                /// </summary>
+                public TestFields(TestFields _other) : this((Const_TestFields)_other) {}
 
                 /// <summary>
                 /// Constructs `MR::CSharp::TestFields` elementwise.
@@ -4831,6 +5161,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::TestConstness::TestConstness`.
+                /// </summary>
+                public Const_TestConstness(TestConstness _other) : this((Const_TestConstness)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::TestConstness::foo`.
                 /// </summary>
                 public unsafe void foo()
@@ -4869,6 +5204,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestConstness_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestConstness::TestConstness`.
+                /// </summary>
+                public TestConstness(TestConstness _other) : this((Const_TestConstness)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::TestConstness::operator=`.
@@ -4975,6 +5315,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::IncrDecrA::IncrDecrA`.
+                /// </summary>
+                public Const_IncrDecrA(IncrDecrA _other) : this((Const_IncrDecrA)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrA::operator++`.
                 /// </summary>
                 public static unsafe IncrDecrA operator++(MR.CS.CSharp.Const_IncrDecrA _this)
@@ -5029,6 +5374,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IncrDecrA::IncrDecrA`.
+                /// </summary>
+                public IncrDecrA(IncrDecrA _other) : this((Const_IncrDecrA)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrA::operator=`.
@@ -5144,6 +5494,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::IncrDecrB::IncrDecrB`.
+                /// </summary>
+                public Const_IncrDecrB(IncrDecrB _other) : this((Const_IncrDecrB)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrB::operator++`.
                 /// </summary>
                 public unsafe void incr()
@@ -5217,6 +5572,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrB_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IncrDecrB::IncrDecrB`.
+                /// </summary>
+                public IncrDecrB(IncrDecrB _other) : this((Const_IncrDecrB)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrB::operator=`.
@@ -6262,6 +6622,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::IncrDecrI::IncrDecrI`.
+                /// </summary>
+                public Const_IncrDecrI(IncrDecrI _other) : this((Const_IncrDecrI)_other) {}
+
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator++`.
                 /// </summary>
                 public unsafe void incr()
@@ -6335,6 +6700,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IncrDecrI_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IncrDecrI::IncrDecrI`.
+                /// </summary>
+                public IncrDecrI(IncrDecrI _other) : this((Const_IncrDecrI)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrI::operator=`.
@@ -6430,6 +6800,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::EqualityA::EqualityA`.
+                /// </summary>
+                public Const_EqualityA(EqualityA _other) : this((Const_EqualityA)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityA::operator==`.
                 /// </summary>
                 public static unsafe bool operator==(MR.CS.CSharp.Const_EqualityA _this, MR.CS.CSharp.Const_EqualityA _1)
@@ -6492,6 +6867,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::EqualityA::EqualityA`.
+                /// </summary>
+                public EqualityA(EqualityA _other) : this((Const_EqualityA)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::EqualityA::operator=`.
@@ -6618,6 +6998,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::EqualityB::EqualityB`.
+                /// </summary>
+                public Const_EqualityB(EqualityB _other) : this((Const_EqualityB)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityB::operator==`.
                 /// </summary>
                 public unsafe int equal(MR.CS.CSharp.Const_EqualityB _1)
@@ -6657,6 +7042,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityB_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::EqualityB::EqualityB`.
+                /// </summary>
+                public EqualityB(EqualityB _other) : this((Const_EqualityB)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::EqualityB::operator=`.
@@ -6772,6 +7162,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::EqualityC::EqualityC`.
+                /// </summary>
+                public Const_EqualityC(EqualityC _other) : this((Const_EqualityC)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::EqualityC::operator==`.
                 /// </summary>
                 public unsafe void equal(MR.CS.CSharp.Const_EqualityC _1)
@@ -6811,6 +7206,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityC_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::EqualityC::EqualityC`.
+                /// </summary>
+                public EqualityC(EqualityC _other) : this((Const_EqualityC)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::EqualityC::operator=`.
@@ -6924,6 +7324,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityD_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::EqualityD::EqualityD`.
+                /// </summary>
+                public Const_EqualityD(EqualityD _other) : this((Const_EqualityD)_other) {}
             }
 
             // The C# parameter type ends with `?`, and isn't a managed type.
@@ -6955,6 +7360,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityD_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::EqualityD::EqualityD`.
+                /// </summary>
+                public EqualityD(EqualityD _other) : this((Const_EqualityD)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::EqualityD::operator=`.
@@ -7080,6 +7490,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityE_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::EqualityE::EqualityE`.
+                /// </summary>
+                public Const_EqualityE(EqualityE _other) : this((Const_EqualityE)_other) {}
             }
 
             // The C# parameter type ends with `?`, and is a managed type.
@@ -7111,6 +7526,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_EqualityE_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::EqualityE::EqualityE`.
+                /// </summary>
+                public EqualityE(EqualityE _other) : this((Const_EqualityE)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::EqualityE::operator=`.
@@ -7237,6 +7657,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalA::RelationalA`.
+                /// </summary>
+                public Const_RelationalA(RelationalA _other) : this((Const_RelationalA)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalA::operator<`.
                 /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.Const_RelationalA _this, MR.CS.CSharp.Const_RelationalA _1)
@@ -7291,6 +7716,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalA::RelationalA`.
+                /// </summary>
+                public RelationalA(RelationalA _other) : this((Const_RelationalA)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::RelationalA::operator=`.
@@ -7384,6 +7814,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalB_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalB::RelationalB`.
+                /// </summary>
+                public Const_RelationalB(RelationalB _other) : this((Const_RelationalB)_other) {}
             }
 
             // The happy path, the operator is non-const.
@@ -7415,6 +7850,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalB_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalB::RelationalB`.
+                /// </summary>
+                public RelationalB(RelationalB _other) : this((Const_RelationalB)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::RelationalB::operator=`.
@@ -7535,6 +7975,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalC::RelationalC`.
+                /// </summary>
+                public Const_RelationalC(RelationalC _other) : this((Const_RelationalC)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalC::operator<`.
                 /// </summary>
                 public unsafe bool less(MR.CS.CSharp.RelationalC _1)
@@ -7595,6 +8040,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalC_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalC::RelationalC`.
+                /// </summary>
+                public RelationalC(RelationalC _other) : this((Const_RelationalC)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::RelationalC::operator=`.
@@ -7690,6 +8140,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalD::RelationalD`.
+                /// </summary>
+                public Const_RelationalD(RelationalD _other) : this((Const_RelationalD)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalD::operator<`.
                 /// </summary>
                 public unsafe bool less(MR.CS.CSharp.RelationalC _1)
@@ -7759,6 +8214,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalD_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalD::RelationalD`.
+                /// </summary>
+                public RelationalD(RelationalD _other) : this((Const_RelationalD)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::RelationalD::operator=`.
@@ -7854,6 +8314,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalE::RelationalE`.
+                /// </summary>
+                public Const_RelationalE(RelationalE _other) : this((Const_RelationalE)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalE::operator<`.
                 /// </summary>
                 public unsafe int less(MR.CS.CSharp.RelationalC _1)
@@ -7923,6 +8388,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalE_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalE::RelationalE`.
+                /// </summary>
+                public RelationalE(RelationalE _other) : this((Const_RelationalE)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::RelationalE::operator=`.
@@ -8018,6 +8488,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalF::RelationalF`.
+                /// </summary>
+                public Const_RelationalF(RelationalF _other) : this((Const_RelationalF)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::RelationalF::operator<`.
                 /// </summary>
                 public unsafe void less(MR.CS.CSharp.RelationalC _1)
@@ -8087,6 +8562,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_RelationalF_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::RelationalF::RelationalF`.
+                /// </summary>
+                public RelationalF(RelationalF _other) : this((Const_RelationalF)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::RelationalF::operator=`.
@@ -8182,6 +8662,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsA::StaticOpsLhsA`.
+                /// </summary>
+                public Const_StaticOpsLhsA(StaticOpsLhsA _other) : this((Const_StaticOpsLhsA)_other) {}
+
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
                 /// </summary>
                 public static unsafe int operator+(Const_StaticOpsLhsA _1, int _2)
@@ -8221,6 +8706,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsA::StaticOpsLhsA`.
+                /// </summary>
+                public StaticOpsLhsA(StaticOpsLhsA _other) : this((Const_StaticOpsLhsA)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsLhsA::operator=`.
@@ -8316,6 +8806,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsB::StaticOpsLhsB`.
+                /// </summary>
+                public Const_StaticOpsLhsB(StaticOpsLhsB _other) : this((Const_StaticOpsLhsB)_other) {}
+
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
                 /// </summary>
                 public unsafe void add(int _2)
@@ -8355,6 +8850,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsLhsB_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsLhsB::StaticOpsLhsB`.
+                /// </summary>
+                public StaticOpsLhsB(StaticOpsLhsB _other) : this((Const_StaticOpsLhsB)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsLhsB::operator=`.
@@ -9245,6 +9745,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsRhsA::StaticOpsRhsA`.
+                /// </summary>
+                public Const_StaticOpsRhsA(StaticOpsRhsA _other) : this((Const_StaticOpsRhsA)_other) {}
+
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
                 /// </summary>
                 public static unsafe int operator+(int _1, Const_StaticOpsRhsA _2)
@@ -9284,6 +9789,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsRhsA::StaticOpsRhsA`.
+                /// </summary>
+                public StaticOpsRhsA(StaticOpsRhsA _other) : this((Const_StaticOpsRhsA)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsRhsA::operator=`.
@@ -9379,6 +9889,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsRhsB::StaticOpsRhsB`.
+                /// </summary>
+                public Const_StaticOpsRhsB(StaticOpsRhsB _other) : this((Const_StaticOpsRhsB)_other) {}
+
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
                 /// </summary>
                 public static unsafe void add(int _1, MR.CS.CSharp.Const_StaticOpsRhsB _2)
@@ -9418,6 +9933,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsRhsB_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsRhsB::StaticOpsRhsB`.
+                /// </summary>
+                public StaticOpsRhsB(StaticOpsRhsB _other) : this((Const_StaticOpsRhsB)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsRhsB::operator=`.
@@ -10311,6 +10831,11 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsMixedLhs::StaticOpsMixedLhs`.
+                /// </summary>
+                public Const_StaticOpsMixedLhs(StaticOpsMixedLhs _other) : this((Const_StaticOpsMixedLhs)_other) {}
+
                 // Gets injected into the lhs by default.
                 /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
@@ -10351,6 +10876,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsMixedLhs_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsMixedLhs::StaticOpsMixedLhs`.
+                /// </summary>
+                public StaticOpsMixedLhs(StaticOpsMixedLhs _other) : this((Const_StaticOpsMixedLhs)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsMixedLhs::operator=`.
@@ -10443,6 +10973,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsMixedRhs_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsMixedRhs::StaticOpsMixedRhs`.
+                /// </summary>
+                public Const_StaticOpsMixedRhs(StaticOpsMixedRhs _other) : this((Const_StaticOpsMixedRhs)_other) {}
             }
 
             /// <summary>
@@ -10473,6 +11008,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StaticOpsMixedRhs_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StaticOpsMixedRhs::StaticOpsMixedRhs`.
+                /// </summary>
+                public StaticOpsMixedRhs(StaticOpsMixedRhs _other) : this((Const_StaticOpsMixedRhs)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::StaticOpsMixedRhs::operator=`.
@@ -10568,6 +11108,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivialClassOps::NonTrivialClassOps`.
+                /// </summary>
+                public Const_NonTrivialClassOps(Const_NonTrivialClassOps _other) : this(new _ByValue_NonTrivialClassOps(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivialClassOps::NonTrivialClassOps`.
+                /// </summary>
+                public Const_NonTrivialClassOps(NonTrivialClassOps _other) : this((Const_NonTrivialClassOps)_other) {}
+
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator+`.
                 /// </summary>
                 public static unsafe int operator+(Const_NonTrivialClassOps _1, float _2)
@@ -10617,6 +11167,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_NonTrivialClassOps_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivialClassOps::NonTrivialClassOps`.
+                /// </summary>
+                public NonTrivialClassOps(Const_NonTrivialClassOps _other) : this(new _ByValue_NonTrivialClassOps(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NonTrivialClassOps::NonTrivialClassOps`.
+                /// </summary>
+                public NonTrivialClassOps(NonTrivialClassOps _other) : this((Const_NonTrivialClassOps)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::NonTrivialClassOps::operator=`.
@@ -10888,6 +11448,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_CallOp_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::CallOp::CallOp`.
+                /// </summary>
+                public Const_CallOp(CallOp _other) : this((Const_CallOp)_other) {}
             }
 
             // Test the call operator, since it can have an unusual amount of arguments.
@@ -10920,6 +11485,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_CallOp_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::CallOp::CallOp`.
+                /// </summary>
+                public CallOp(CallOp _other) : this((Const_CallOp)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::CallOp::operator=`.
@@ -11022,6 +11592,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestOpsA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestOpsA::TestOpsA`.
+                /// </summary>
+                public Const_TestOpsA(TestOpsA _other) : this((Const_TestOpsA)_other) {}
             }
 
             /// <summary>
@@ -11042,6 +11617,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestOpsA_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestOpsA::TestOpsA`.
+                /// </summary>
+                public TestOpsA(TestOpsA _other) : this((Const_TestOpsA)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsA::operator=`.
@@ -11467,6 +12047,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestOpsB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
+                /// </summary>
+                public Const_TestOpsB(Const_TestOpsB _other) : this(new _ByValue_TestOpsB(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
+                /// </summary>
+                public Const_TestOpsB(TestOpsB _other) : this((Const_TestOpsB)_other) {}
             }
 
             /// <summary>
@@ -11487,6 +12077,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestOpsB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
+                /// </summary>
+                public TestOpsB(Const_TestOpsB _other) : this(new _ByValue_TestOpsB(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestOpsB::TestOpsB`.
+                /// </summary>
+                public TestOpsB(TestOpsB _other) : this((Const_TestOpsB)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsB::operator=`.
@@ -11926,6 +12526,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestOpsC_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestOpsC::TestOpsC`.
+                /// </summary>
+                public Const_TestOpsC(TestOpsC _other) : this((Const_TestOpsC)_other) {}
             }
 
             /// <summary>
@@ -11946,6 +12551,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_TestOpsC_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestOpsC::TestOpsC`.
+                /// </summary>
+                public TestOpsC(TestOpsC _other) : this((Const_TestOpsC)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::TestOpsC::operator=`.
@@ -12425,6 +13035,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IndexerA::IndexerA`.
+                /// </summary>
+                public Const_IndexerA(IndexerA _other) : this((Const_IndexerA)_other) {}
             }
 
             // Subscription operator.
@@ -12478,6 +13093,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IndexerA::IndexerA`.
+                /// </summary>
+                public IndexerA(IndexerA _other) : this((Const_IndexerA)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::IndexerA::operator=`.
@@ -12622,6 +13242,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::IndexerB::IndexerB`.
+                /// </summary>
+                public Const_IndexerB(IndexerB _other) : this((Const_IndexerB)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerB::operator[]`.
                 /// </summary>
                 public unsafe MR.CS.CSharp.Const_IndexerA this[int i]
@@ -12726,6 +13351,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::IndexerB::IndexerB`.
+                /// </summary>
+                public IndexerB(IndexerB _other) : this((Const_IndexerB)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerB::operator=`.
                 /// </summary>
                 public unsafe MR.CS.CSharp.IndexerB assign(MR.CS.CSharp.Const_IndexerB _other)
@@ -12818,6 +13448,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::IndexerC::IndexerC`.
+                /// </summary>
+                public Const_IndexerC(IndexerC _other) : this((Const_IndexerC)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CSharp::IndexerC::operator[]`.
                 /// </summary>
                 public unsafe float this[int i]
@@ -12859,6 +13494,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_IndexerC_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IndexerC::IndexerC`.
+                /// </summary>
+                public IndexerC(IndexerC _other) : this((Const_IndexerC)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::IndexerC::operator=`.
@@ -12965,6 +13605,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvOp_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvOp::ConvOp`.
+                /// </summary>
+                public Const_ConvOp(ConvOp _other) : this((Const_ConvOp)_other) {}
             }
 
             // Conversion operators. We preserve explicit-ness.
@@ -12996,6 +13641,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvOp_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvOp::ConvOp`.
+                /// </summary>
+                public ConvOp(ConvOp _other) : this((Const_ConvOp)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CSharp::ConvOp::operator int`.
@@ -13109,6 +13759,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvOpToRef_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvOpToRef::ConvOpToRef`.
+                /// </summary>
+                public Const_ConvOpToRef(ConvOpToRef _other) : this((Const_ConvOpToRef)_other) {}
             }
 
             // Conversion operators to references.
@@ -13140,6 +13795,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvOpToRef_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvOpToRef::ConvOpToRef`.
+                /// </summary>
+                public ConvOpToRef(ConvOpToRef _other) : this((Const_ConvOpToRef)_other) {}
 
                 // Not to a reference.
                 /// <summary>
@@ -13267,6 +13927,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvString_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StringConvString::StringConvString`.
+                /// </summary>
+                public Const_StringConvString(StringConvString _other) : this((Const_StringConvString)_other) {}
             }
 
             // Conversions to string-like types.
@@ -13299,6 +13964,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvString_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StringConvString::StringConvString`.
+                /// </summary>
+                public StringConvString(StringConvString _other) : this((Const_StringConvString)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvString::operator std::string`.
@@ -13412,6 +14082,11 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StringConvStringView::StringConvStringView`.
+                /// </summary>
+                public Const_StringConvStringView(StringConvStringView _other) : this((Const_StringConvStringView)_other) {}
+
                 // Mark this `explicit` and `const` for a change.
                 /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvStringView::operator std::string_view`.
@@ -13464,6 +14139,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvStringView_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StringConvStringView::StringConvStringView`.
+                /// </summary>
+                public StringConvStringView(StringConvStringView _other) : this((Const_StringConvStringView)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::StringConvStringView::operator=`.
@@ -13556,6 +14236,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvFsPath_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StringConvFsPath::StringConvFsPath`.
+                /// </summary>
+                public Const_StringConvFsPath(StringConvFsPath _other) : this((Const_StringConvFsPath)_other) {}
             }
 
             /// <summary>
@@ -13586,6 +14271,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_StringConvFsPath_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::StringConvFsPath::StringConvFsPath`.
+                /// </summary>
+                public StringConvFsPath(StringConvFsPath _other) : this((Const_StringConvFsPath)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CSharp::StringConvFsPath::operator std::filesystem::path`.
@@ -13704,6 +14394,11 @@ public static partial class MR
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
                 /// </summary>
+                public Const_ConvCtor(ConvCtor _other) : this((Const_ConvCtor)_other) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
                 public unsafe Const_ConvCtor(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtor_Construct_1_int", ExactSpelling = true)]
@@ -13795,6 +14490,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtor_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
+                /// </summary>
+                public ConvCtor(ConvCtor _other) : this((Const_ConvCtor)_other) {}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtor::ConvCtor`.
@@ -13970,6 +14670,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+                /// </summary>
+                public Const_ConvCtorWithDefArg(ConvCtorWithDefArg _other) : this((Const_ConvCtorWithDefArg)_other) {}
             }
 
             // Test that the default argument of the parameter of a converting constructor is stripped when rewriting it as a conversion operator.
@@ -14009,6 +14714,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorWithDefArg::ConvCtorWithDefArg`.
+                /// </summary>
+                public ConvCtorWithDefArg(ConvCtorWithDefArg _other) : this((Const_ConvCtorWithDefArg)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::ConvCtorWithDefArg::operator=`.
@@ -14506,6 +15216,16 @@ public static partial class MR
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
                 /// </summary>
+                public Const_ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove _other) : this(new _ByValue_ConvCtorCopyButNoMove(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
+                public Const_ConvCtorCopyButNoMove(ConvCtorCopyButNoMove _other) : this((Const_ConvCtorCopyButNoMove)_other) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
                 public unsafe Const_ConvCtorCopyButNoMove(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorCopyButNoMove_Construct", ExactSpelling = true)]
@@ -14539,6 +15259,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
+                public ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove _other) : this(new _ByValue_ConvCtorCopyButNoMove(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
+                /// </summary>
+                public ConvCtorCopyButNoMove(ConvCtorCopyButNoMove _other) : this((Const_ConvCtorCopyButNoMove)_other) {}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorCopyButNoMove::ConvCtorCopyButNoMove`.
@@ -14678,6 +15408,11 @@ public static partial class MR
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
                 /// </summary>
+                public Const_ConvCtorTrivial(ConvCtorTrivial _other) : this((Const_ConvCtorTrivial)_other) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                /// </summary>
                 public unsafe Const_ConvCtorTrivial(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorTrivial_Construct", ExactSpelling = true)]
@@ -14720,6 +15455,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorTrivial_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
+                /// </summary>
+                public ConvCtorTrivial(ConvCtorTrivial _other) : this((Const_ConvCtorTrivial)_other) {}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorTrivial::ConvCtorTrivial`.
@@ -14837,6 +15577,16 @@ public static partial class MR
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
                 /// </summary>
+                public Const_ConvCtorNonTrivial(Const_ConvCtorNonTrivial _other) : this(new _ByValue_ConvCtorNonTrivial(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
+                public Const_ConvCtorNonTrivial(ConvCtorNonTrivial _other) : this((Const_ConvCtorNonTrivial)_other) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
                 public unsafe Const_ConvCtorNonTrivial(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConvCtorNonTrivial_Construct", ExactSpelling = true)]
@@ -14879,6 +15629,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
+                public ConvCtorNonTrivial(Const_ConvCtorNonTrivial _other) : this(new _ByValue_ConvCtorNonTrivial(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
+                /// </summary>
+                public ConvCtorNonTrivial(ConvCtorNonTrivial _other) : this((Const_ConvCtorNonTrivial)_other) {}
 
                 /// <summary>
                 /// Generated from constructor `MR::CSharp::ConvCtorNonTrivial::ConvCtorNonTrivial`.
@@ -16978,6 +17738,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ArrayMembers::ArrayMembers`.
+                /// </summary>
+                public Const_ArrayMembers(Const_ArrayMembers _other) : this(new _ByValue_ArrayMembers(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ArrayMembers::ArrayMembers`.
+                /// </summary>
+                public Const_ArrayMembers(ArrayMembers _other) : this((Const_ArrayMembers)_other) {}
             }
 
             // Test various array members.
@@ -17049,6 +17819,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ArrayMembers::ArrayMembers`.
+                /// </summary>
+                public ArrayMembers(Const_ArrayMembers _other) : this(new _ByValue_ArrayMembers(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ArrayMembers::ArrayMembers`.
+                /// </summary>
+                public ArrayMembers(ArrayMembers _other) : this((Const_ArrayMembers)_other) {}
             }
 
             /// <summary>
@@ -17198,6 +17978,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::NameConflicts::NameConflicts`.
+                /// </summary>
+                public Const_NameConflicts(NameConflicts _other) : this((Const_NameConflicts)_other) {}
+
+                /// <summary>
                 /// Generated from class `MR::CSharp::NameConflicts::A`.
                 /// This is the const half of the class.
                 /// </summary>
@@ -17241,6 +18026,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_CSharp_NameConflicts_A_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// <summary>
+                    /// Generated from constructor `MR::CSharp::NameConflicts::A::A`.
+                    /// </summary>
+                    public Const_A(A _other) : this((Const_A)_other) {}
                 }
 
                 /// <summary>
@@ -17271,6 +18061,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_CSharp_NameConflicts_A_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// <summary>
+                    /// Generated from constructor `MR::CSharp::NameConflicts::A::A`.
+                    /// </summary>
+                    public A(A _other) : this((Const_A)_other) {}
 
                     /// <summary>
                     /// Generated from method `MR::CSharp::NameConflicts::A::operator=`.
@@ -17389,6 +18184,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::NameConflicts::NameConflicts`.
+                /// </summary>
+                public NameConflicts(NameConflicts _other) : this((Const_NameConflicts)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::NameConflicts::operator=`.
@@ -17915,6 +18715,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_AmbiguousTemplates_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::AmbiguousTemplates::AmbiguousTemplates`.
+                /// </summary>
+                public Const_AmbiguousTemplates(AmbiguousTemplates _other) : this((Const_AmbiguousTemplates)_other) {}
             }
 
             /// <summary>
@@ -17945,6 +18750,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CSharp_AmbiguousTemplates_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::AmbiguousTemplates::AmbiguousTemplates`.
+                /// </summary>
+                public AmbiguousTemplates(AmbiguousTemplates _other) : this((Const_AmbiguousTemplates)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::AmbiguousTemplates::operator=`.
@@ -18790,6 +19600,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::ClassMemberPointersClass::ClassMemberPointersClass`.
+                /// </summary>
+                public Const_ClassMemberPointersClass(ClassMemberPointersClass _other) : this((Const_ClassMemberPointersClass)_other) {}
+
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersClass` elementwise.
                 /// </summary>
                 public unsafe Const_ClassMemberPointersClass(MR.CS.CSharp.A? a, MR.CS.CSharp.Const_A? b, MR.CS.CSharp.A c, MR.CS.CSharp.Const_A d) : this(null, is_owning: true)
@@ -18856,6 +19671,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ClassMemberPointersClass::ClassMemberPointersClass`.
+                /// </summary>
+                public ClassMemberPointersClass(ClassMemberPointersClass _other) : this((Const_ClassMemberPointersClass)_other) {}
 
                 /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersClass` elementwise.
@@ -19075,6 +19895,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::ClassMemberPointersExposed::ClassMemberPointersExposed`.
+                /// </summary>
+                public Const_ClassMemberPointersExposed(ClassMemberPointersExposed _other) : this((Const_ClassMemberPointersExposed)_other) {}
+
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersExposed` elementwise.
                 /// </summary>
                 public unsafe Const_ClassMemberPointersExposed(MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayout>? a, MR.CS.CSharp.ExposedLayout? b, ref MR.CS.CSharp.ExposedLayout c, in MR.CS.CSharp.ExposedLayout d) : this(null, is_owning: true)
@@ -19145,6 +19970,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ClassMemberPointersExposed::ClassMemberPointersExposed`.
+                /// </summary>
+                public ClassMemberPointersExposed(ClassMemberPointersExposed _other) : this((Const_ClassMemberPointersExposed)_other) {}
 
                 /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersExposed` elementwise.
@@ -19369,6 +20199,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::ClassMemberPointersUshort::ClassMemberPointersUshort`.
+                /// </summary>
+                public Const_ClassMemberPointersUshort(ClassMemberPointersUshort _other) : this((Const_ClassMemberPointersUshort)_other) {}
+
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersUshort` elementwise.
                 /// </summary>
                 public unsafe Const_ClassMemberPointersUshort(MR.CS.Misc.InOut<ushort>? a, ushort? b, ref ushort c, ushort d) : this(null, is_owning: true)
@@ -19436,6 +20271,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ClassMemberPointersUshort::ClassMemberPointersUshort`.
+                /// </summary>
+                public ClassMemberPointersUshort(ClassMemberPointersUshort _other) : this((Const_ClassMemberPointersUshort)_other) {}
 
                 /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersUshort` elementwise.
@@ -19657,6 +20497,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::ClassMemberPointersBool::ClassMemberPointersBool`.
+                /// </summary>
+                public Const_ClassMemberPointersBool(ClassMemberPointersBool _other) : this((Const_ClassMemberPointersBool)_other) {}
+
+                /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersBool` elementwise.
                 /// </summary>
                 public unsafe Const_ClassMemberPointersBool(MR.CS.Misc.InOut<bool>? a, bool? b, ref bool c, bool d) : this(null, is_owning: true)
@@ -19724,6 +20569,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::ClassMemberPointersBool::ClassMemberPointersBool`.
+                /// </summary>
+                public ClassMemberPointersBool(ClassMemberPointersBool _other) : this((Const_ClassMemberPointersBool)_other) {}
 
                 /// <summary>
                 /// Constructs `MR::CSharp::ClassMemberPointersBool` elementwise.
@@ -19858,6 +20708,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::LifetimesA::LifetimesA`.
+                /// </summary>
+                public Const_LifetimesA(LifetimesA _other) : this((Const_LifetimesA)_other) {}
             }
 
             // Keep-alive sorcery:
@@ -19911,6 +20766,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::LifetimesA::LifetimesA`.
+                /// </summary>
+                public LifetimesA(LifetimesA _other) : this((Const_LifetimesA)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::LifetimesA::operator=`.
@@ -20066,6 +20926,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::LifetimesB::LifetimesB`.
+                /// </summary>
+                public Const_LifetimesB(LifetimesB _other) : this((Const_LifetimesB)_other) {}
+
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator*`.
                 /// </summary>
                 public unsafe MR.CS.CSharp.Const_LifetimesA deref()
@@ -20142,6 +21007,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::LifetimesB::LifetimesB`.
+                /// </summary>
+                public LifetimesB(LifetimesB _other) : this((Const_LifetimesB)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::LifetimesB::operator=`.
@@ -20306,6 +21176,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CSharp::LifetimesC::LifetimesC`.
+                /// </summary>
+                public Const_LifetimesC(LifetimesC _other) : this((Const_LifetimesC)_other) {}
+
+                /// <summary>
                 /// Generated from function `MR::CSharp::operator*`.
                 /// </summary>
                 public unsafe MR.CS.CSharp.Const_LifetimesA deref()
@@ -20382,6 +21257,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::LifetimesC::LifetimesC`.
+                /// </summary>
+                public LifetimesC(LifetimesC _other) : this((Const_LifetimesC)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::LifetimesC::operator=`.
@@ -20488,6 +21368,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::LifetimesD::LifetimesD`.
+                /// </summary>
+                public Const_LifetimesD(LifetimesD _other) : this((Const_LifetimesD)_other) {}
 
                 // Store param references in this. The two annotation styles are equivalent for constructors.
                 /// <summary>
@@ -20599,6 +21484,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::LifetimesD::LifetimesD`.
+                /// </summary>
+                public LifetimesD(LifetimesD _other) : this((Const_LifetimesD)_other) {}
 
                 // Store param references in this. The two annotation styles are equivalent for constructors.
                 /// <summary>

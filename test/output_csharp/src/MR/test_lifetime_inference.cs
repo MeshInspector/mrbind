@@ -60,6 +60,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_LifetimeInference_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::LifetimeInference::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             /// Generated from class `MR::LifetimeInference::A`.
@@ -102,6 +105,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_LifetimeInference_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::LifetimeInference::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::LifetimeInference::A::operator=`.
                 public unsafe MR.CS.LifetimeInference.A Assign(MR.CS.LifetimeInference.Const_A _other)
@@ -218,6 +224,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_LifetimeInference_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::LifetimeInference::B::B`.
+                public Const_B(B _other) : this((Const_B)_other) {}
             }
 
             /// Generated from class `MR::LifetimeInference::B`.
@@ -260,6 +269,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_LifetimeInference_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::LifetimeInference::B::B`.
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// Generated from method `MR::LifetimeInference::B::operator=`.
                 public unsafe MR.CS.LifetimeInference.B Assign(MR.CS.LifetimeInference.Const_B _other)
@@ -334,6 +346,9 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::LifetimeInference::C::C`.
+                public Const_C(C _other) : this((Const_C)_other) {}
+
+                /// Generated from constructor `MR::LifetimeInference::C::C`.
                 public unsafe Const_C(MR.CS.LifetimeInference.A _1, ref int _2, int _3) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_C_Construct", ExactSpelling = true)]
@@ -360,6 +375,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_LifetimeInference_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::LifetimeInference::C::C`.
+                public C(C _other) : this((Const_C)_other) {}
 
                 /// Generated from constructor `MR::LifetimeInference::C::C`.
                 public unsafe C(MR.CS.LifetimeInference.A _1, ref int _2, int _3) : this(null, is_owning: true)

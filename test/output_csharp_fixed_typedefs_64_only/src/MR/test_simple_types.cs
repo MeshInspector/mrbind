@@ -78,6 +78,11 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// <summary>
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::ClassTemplate`.
+                /// </summary>
+                public Const_ClassTemplate_MRCUint64T(ClassTemplate_MRCUint64T _other) : this((Const_ClassTemplate_MRCUint64T)_other) {}
+
                 // Constructors.
                 /// <summary>
                 /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::ClassTemplate`.
@@ -137,6 +142,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TestSimpleTypes_ClassTemplate_uint64_t_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<MR_C_uint64_t>::ClassTemplate`.
+                /// </summary>
+                public ClassTemplate_MRCUint64T(ClassTemplate_MRCUint64T _other) : this((Const_ClassTemplate_MRCUint64T)_other) {}
 
                 // Constructors.
                 /// <summary>

@@ -50,6 +50,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Tuple_Float_Double_Int_Int(Tuple_Float_Double_Int_Int other) : this((Const_Tuple_Float_Double_Int_Int)other) {}
+
+                /// <summary>
                 /// Constructs the tuple elementwise.
                 /// </summary>
                 public unsafe Const_Tuple_Float_Double_Int_Int(float _0, double _1, int _2, int _3) : this(null, is_owning: true)
@@ -128,6 +133,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_tuple_float_double_int_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Tuple_Float_Double_Int_Int(Tuple_Float_Double_Int_Int other) : this((Const_Tuple_Float_Double_Int_Int)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

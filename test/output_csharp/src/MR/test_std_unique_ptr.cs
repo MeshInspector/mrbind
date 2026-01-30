@@ -43,6 +43,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdUniquePtr_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::StdUniquePtr::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             // Now with a class:
@@ -68,6 +71,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdUniquePtr_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::StdUniquePtr::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::StdUniquePtr::A::operator=`.
                 public unsafe MR.CS.StdUniquePtr.A Assign(MR.CS.StdUniquePtr.Const_A _other)

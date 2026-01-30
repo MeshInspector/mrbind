@@ -50,6 +50,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::ConvOps::A::A`.
+                /// </summary>
+                public Const_A(A _other) : this((Const_A)_other) {}
+
+                /// <summary>
                 /// Generated from conversion operator `MR::ConvOps::A::operator bool`.
                 /// </summary>
                 public static unsafe explicit operator bool(MR.CS.ConvOps.Const_A _this)
@@ -88,6 +93,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_ConvOps_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::ConvOps::A::A`.
+                /// </summary>
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::ConvOps::A::operator=`.

@@ -115,6 +115,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::A::A`.
+                /// </summary>
+                public Const_A(A _other) : this((Const_A)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::A::StaticFunc`.
                 /// </summary>
                 public static void staticFunc()
@@ -192,6 +197,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::A::A`.
+                /// </summary>
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::A::operator int`.
@@ -361,6 +371,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::B::B`.
+                /// </summary>
+                public Const_B(B _other) : this((Const_B)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::B::StaticFunc`.
                 /// </summary>
                 public static void staticFunc()
@@ -428,6 +443,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::B::B`.
+                /// </summary>
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::B::operator int`.
@@ -562,6 +582,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::C::C`.
+                /// </summary>
+                public Const_C(C _other) : this((Const_C)_other) {}
             }
 
             /// <summary>
@@ -614,6 +639,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::C::C`.
+                /// </summary>
+                public C(C _other) : this((Const_C)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::C::operator=`.
@@ -762,6 +792,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::D::D`.
+                /// </summary>
+                public Const_D(D _other) : this((Const_D)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::D::StaticFunc`.
                 /// </summary>
                 public static void staticFunc()
@@ -828,6 +863,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::D::D`.
+                /// </summary>
+                public D(D _other) : this((Const_D)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::D::operator int`.
@@ -972,6 +1012,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::E::E`.
+                /// </summary>
+                public Const_E(E _other) : this((Const_E)_other) {}
             }
 
             /// <summary>
@@ -1034,6 +1079,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::E::E`.
+                /// </summary>
+                public E(E _other) : this((Const_E)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::E::operator=`.
@@ -1158,6 +1208,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::F::F`.
+                /// </summary>
+                public Const_F(F _other) : this((Const_F)_other) {}
             }
 
             /// <summary>
@@ -1220,6 +1275,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::F::F`.
+                /// </summary>
+                public F(F _other) : this((Const_F)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::F::operator=`.
@@ -1370,6 +1430,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
+                /// </summary>
+                public Const_G(Const_G _other) : this(new _ByValue_G(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
+                /// </summary>
+                public Const_G(G _other) : this((Const_G)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::G::StaticFunc`.
                 /// </summary>
                 public static void staticFunc()
@@ -1438,6 +1508,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
+                /// </summary>
+                public G(Const_G _other) : this(new _ByValue_G(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
+                /// </summary>
+                public G(G _other) : this((Const_G)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::G::operator int`.
@@ -1632,6 +1712,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
+                /// </summary>
+                public Const_H(Const_H _other) : this(new _ByValue_H(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
+                /// </summary>
+                public Const_H(H _other) : this((Const_H)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::H::StaticFunc`.
                 /// </summary>
                 public static void staticFunc()
@@ -1704,6 +1794,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
+                /// </summary>
+                public H(Const_H _other) : this(new _ByValue_H(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
+                /// </summary>
+                public H(H _other) : this((Const_H)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::H::operator int`.
@@ -1898,6 +1998,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
+                /// </summary>
+                public Const_I(Const_I _other) : this(new _ByValue_I(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
+                /// </summary>
+                public Const_I(I _other) : this((Const_I)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::I::StaticFunc`.
                 /// </summary>
                 public static void staticFunc()
@@ -1970,6 +2080,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
+                /// </summary>
+                public I(Const_I _other) : this(new _ByValue_I(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
+                /// </summary>
+                public I(I _other) : this((Const_I)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::I::operator int`.
@@ -2162,6 +2282,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::J::J`.
+                /// </summary>
+                public Const_J(J _other) : this((Const_J)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::J::StaticFunc`.
                 /// </summary>
                 public static void staticFunc()
@@ -2232,6 +2357,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::J::J`.
+                /// </summary>
+                public J(J _other) : this((Const_J)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::J::operator int`.
@@ -2368,6 +2498,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
+                /// </summary>
+                public Const_K(Const_K _other) : this(new _ByValue_K(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
+                /// </summary>
+                public Const_K(K _other) : this((Const_K)_other) {}
             }
 
             /// <summary>
@@ -2422,6 +2562,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
+                /// </summary>
+                public K(Const_K _other) : this(new _ByValue_K(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
+                /// </summary>
+                public K(K _other) : this((Const_K)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::K::operator=`.
@@ -2558,6 +2708,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
+                /// </summary>
+                public Const_L(Const_L _other) : this(new _ByValue_L(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
+                /// </summary>
+                public Const_L(L _other) : this((Const_L)_other) {}
             }
 
             /// <summary>
@@ -2612,6 +2772,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
+                /// </summary>
+                public L(Const_L _other) : this(new _ByValue_L(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
+                /// </summary>
+                public L(L _other) : this((Const_L)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::L::operator=`.
@@ -2792,6 +2962,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
+                /// </summary>
+                public Const_M(Const_M _other) : this(new _ByValue_M(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
+                /// </summary>
+                public Const_M(M _other) : this((Const_M)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::M::StaticFunc`.
                 /// </summary>
                 public static void staticFunc()
@@ -2870,6 +3050,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
+                /// </summary>
+                public M(Const_M _other) : this(new _ByValue_M(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
+                /// </summary>
+                public M(M _other) : this((Const_M)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::M::operator int`.
@@ -3077,6 +3267,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
+                /// </summary>
+                public Const_N(Const_N _other) : this(new _ByValue_N(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
+                /// </summary>
+                public Const_N(N _other) : this((Const_N)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::N::StaticFunc`.
                 /// </summary>
                 public static void staticFunc()
@@ -3162,6 +3362,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
+                /// </summary>
+                public N(Const_N _other) : this(new _ByValue_N(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
+                /// </summary>
+                public N(N _other) : this((Const_N)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::N::operator int`.
@@ -3376,6 +3586,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
+                /// </summary>
+                public Const_O(Const_O _other) : this(new _ByValue_O(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
+                /// </summary>
+                public Const_O(O _other) : this((Const_O)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::CopyInheritedMembers::O::StaticFunc`.
                 /// </summary>
                 public static void staticFunc()
@@ -3468,6 +3688,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
+                /// </summary>
+                public O(Const_O _other) : this(new _ByValue_O(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
+                /// </summary>
+                public O(O _other) : this((Const_O)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::CopyInheritedMembers::O::operator int`.

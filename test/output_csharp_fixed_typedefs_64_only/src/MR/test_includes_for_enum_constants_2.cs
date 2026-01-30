@@ -48,6 +48,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>::A`.
+                /// </summary>
+                public Const_A_MRIncludesForEnumConstantsEE1(A_MRIncludesForEnumConstantsEE1 _other) : this((Const_A_MRIncludesForEnumConstantsEE1)_other) {}
             }
 
             /// <summary>
@@ -78,6 +83,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>::A`.
+                /// </summary>
+                public A_MRIncludesForEnumConstantsEE1(A_MRIncludesForEnumConstantsEE1 _other) : this((Const_A_MRIncludesForEnumConstantsEE1)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>::operator=`.

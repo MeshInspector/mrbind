@@ -115,6 +115,11 @@ public static partial class MR
                     _LateMakeShared(__MR_StdSharedPtr_A_ConstructFromAnother(_other._UnderlyingPtr));
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::StdSharedPtr::A::A`.
+                /// </summary>
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             // Now with a class:
@@ -148,6 +153,11 @@ public static partial class MR
                     _LateMakeShared(__MR_StdSharedPtr_A_ConstructFromAnother(_other._UnderlyingPtr));
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::StdSharedPtr::A::A`.
+                /// </summary>
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::StdSharedPtr::A::operator=`.

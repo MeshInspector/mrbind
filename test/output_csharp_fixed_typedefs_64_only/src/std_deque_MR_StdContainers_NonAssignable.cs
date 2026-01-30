@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Deque_MRStdContainersNonAssignable(Const_Deque_MRStdContainersNonAssignable other) : this(new _ByValue_Deque_MRStdContainersNonAssignable(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Deque_MRStdContainersNonAssignable(Deque_MRStdContainersNonAssignable other) : this((Const_Deque_MRStdContainersNonAssignable)other) {}
+
+                /// <summary>
                 /// The number of elements.
                 /// </summary>
                 public unsafe ulong size()
@@ -225,6 +235,11 @@ public static partial class MR
                     }
 
                     /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Const_ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
+
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
                     /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.Deque_MRStdContainersNonAssignable.Const_Iterator iter) : this(null, is_owning: true)
@@ -291,6 +306,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
 
                     /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -435,6 +455,11 @@ public static partial class MR
                     }
 
                     /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Const_Iterator(Iterator other) : this((Const_Iterator)other) {}
+
+                    /// <summary>
                     /// Dereferences a mutable iterator.
                     /// </summary>
                     public unsafe MR.CS.StdContainers.NonAssignable deref()
@@ -486,6 +511,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Iterator(Iterator other) : this((Const_Iterator)other) {}
 
                     /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -593,6 +623,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_deque_MR_StdContainers_NonAssignable_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Deque_MRStdContainersNonAssignable(Const_Deque_MRStdContainersNonAssignable other) : this(new _ByValue_Deque_MRStdContainersNonAssignable(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Deque_MRStdContainersNonAssignable(Deque_MRStdContainersNonAssignable other) : this((Const_Deque_MRStdContainersNonAssignable)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

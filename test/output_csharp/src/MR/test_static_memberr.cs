@@ -53,6 +53,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::StaticFuncs::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
+
                 /// Generated from method `MR::StaticFuncs::A::blah`.
                 public static void Blah()
                 {
@@ -84,6 +87,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StaticFuncs_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::StaticFuncs::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::StaticFuncs::A::operator=`.
                 public unsafe MR.CS.StaticFuncs.A Assign(MR.CS.StaticFuncs.Const_A _other)

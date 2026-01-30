@@ -96,6 +96,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_MemberVars_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::MemberVars::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             /// Generated from class `MR::MemberVars::A`.
@@ -133,6 +136,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_MemberVars_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::MemberVars::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
             }
 
             /// This is used for optional parameters of class `A` with default arguments.

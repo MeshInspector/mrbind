@@ -2757,29 +2757,45 @@ namespace mrbind::CSharp
     {
         std::vector<EmitVariant> ret = {Generator::EmitVariant::regular};
 
-        // Implicit conversion operators for implicit constructors.
-        // Do we also need explicit ones for explicit ctors? I don't think they're that necessary.
         if (auto *ctor = std::get_if<CInterop::MethodKinds::Constructor>(&method.var))
         {
-            // Check that we have the `this` param, as we should.
-            assert(method.params.size() >= 1 && method.params.front().is_this_param);
-
-            if (
-                // Must not be explicit. For now we only allow implicit conversions, see above.
-                !ctor->is_explicit &&
-                // Don't allow conversions for the copy ctor, out of general sanity.
-                // A conversion from a type to itself is illegal. The copy ctor doesn't always take the exact same C# type,
-                //   but even when it doesn't, I doubt allowing such conversions would do any good.
-                !ctor->is_copying_ctor &&
-                // One static `this` parameter, one actual parameter, and 0+ parameters with default arguments.
-                (method.params.size() >= 2) &&
-                // Check that all parameters after the static `this` and the first one have default arguments.
-                std::all_of(method.params.begin() + 2, method.params.end(), [](const CInterop::FuncParam &param){return bool(param.default_arg_spelling);}) &&
-                // Just in case, exactly one C# parameter also.
-                GetParameterBinding(method.params.at(1), false).csharp_decl_params.size() == 1
-            )
+            // Copy constructor rewrites.
+            if (ctor->is_copying_ctor)
             {
-                ret.push_back(Generator::EmitVariant::conv_op_for_ctor);
+                const CInterop::TypeDesc &desc = *c_desc.FindTypeOpt(method.ret.cpp_type);
+
+                // From copy constructor taking the `_ByValue` wrapper, creatre one that takes a const ref, assuming the class is copyable.
+                if (std::get<CInterop::TypeKinds::Class>(desc.var).kind == CInterop::ClassKind::uses_pass_by_enum && desc.traits->is_copy_constructible)
+                    ret.push_back(Generator::EmitVariant::by_value_copy_ctor_to_const_ref_copy_ctor);
+
+                // Copy constructor `T(const T &)` to the mutable reference version `T(T &)`.
+                if (desc.traits->is_copy_constructible && !desc.traits.value().copy_constructor_takes_nonconst_ref)
+                    ret.push_back(Generator::EmitVariant::const_ref_copy_ctor_to_mutable_ref_copy_ctor);
+            }
+
+            // Implicit conversion operators for implicit constructors.
+            // Do we also need explicit ones for explicit ctors? I don't think they're that necessary.
+            {
+                // Check that we have the `this` param, as we should.
+                assert(method.params.size() >= 1 && method.params.front().is_this_param);
+
+                if (
+                    // Must not be explicit. For now we only allow implicit conversions, see above.
+                    !ctor->is_explicit &&
+                    // Don't allow conversions for the copy ctor, out of general sanity.
+                    // A conversion from a type to itself is illegal. The copy ctor doesn't always take the exact same C# type,
+                    //   but even when it doesn't, I doubt allowing such conversions would do any good.
+                    !ctor->is_copying_ctor &&
+                    // One static `this` parameter, one actual parameter, and 0+ parameters with default arguments.
+                    (method.params.size() >= 2) &&
+                    // Check that all parameters after the static `this` and the first one have default arguments.
+                    std::all_of(method.params.begin() + 2, method.params.end(), [](const CInterop::FuncParam &param){return bool(param.default_arg_spelling);}) &&
+                    // Just in case, exactly one C# parameter also.
+                    GetParameterBinding(method.params.at(1), false).csharp_decl_params.size() == 1
+                )
+                {
+                    ret.push_back(Generator::EmitVariant::conv_op_for_ctor);
+                }
             }
         }
 
@@ -3198,6 +3214,34 @@ namespace mrbind::CSharp
                 file.WriteString("public ");
 
                 { // Handle some entirely custom rewrites.
+                    // A version of copy constructor with a const ref parameter, when the default for this class is the by-value one.
+                    if (emit_variant == EmitVariant::by_value_copy_ctor_to_const_ref_copy_ctor)
+                    {
+                        assert(method->params.at(0).is_this_param);
+
+                        cppdecl::QualifiedName enclosing_class = generator.ParseNameOrThrow(method->ret.cpp_type);
+                        const std::string &param_name = param_strings.at(1).csharp_decl_params.at(0).name;
+
+                        file.WriteString(
+                            csharp_name + "(" + generator.CppToCSharpUnqualClassName(enclosing_class, true) + " " + param_name + ") : this(new " + generator.CppToCSharpUnqualByValueHelperName(enclosing_class.parts.back(), false) + "(" + param_name + ")) {}\n"
+                        );
+                        return;
+                    }
+
+                    // A version of copy constructor with a non-const ref parameter.
+                    if (emit_variant == EmitVariant::const_ref_copy_ctor_to_mutable_ref_copy_ctor)
+                    {
+                        assert(method->params.at(0).is_this_param);
+
+                        cppdecl::QualifiedName enclosing_class = generator.ParseNameOrThrow(method->ret.cpp_type);
+                        const std::string &param_name = param_strings.at(1).csharp_decl_params.at(0).name;
+
+                        file.WriteString(
+                            csharp_name + "(" + generator.CppToCSharpUnqualClassName(enclosing_class, false) + " " + param_name + ") : this((" + generator.CppToCSharpUnqualClassName(enclosing_class, true) + ")" + param_name + ") {}\n"
+                        );
+                        return;
+                    }
+
                     // Conversions to string:
                     if (emit_variant == EmitVariant::stringlike_conv_to_csharp_string_conv)
                     {
@@ -4115,6 +4159,8 @@ namespace mrbind::CSharp
                 if (is_static_method)
                 {
                     // A static method, do nothing.
+
+                    // Perform some minimal validation of the parameter.
                     assert(!this_type.Is<cppdecl::Reference>());
                     assert(this_type.IsOnlyQualifiedName());
                 }

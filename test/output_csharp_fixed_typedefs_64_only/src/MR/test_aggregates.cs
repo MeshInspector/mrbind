@@ -100,6 +100,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::A::A`.
+                /// </summary>
+                public Const_A(Const_A _other) : this(new _ByValue_A(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::A::A`.
+                /// </summary>
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             // Aggregates get elementwise constructors. This is necessary if their elements are not default-constructible,
@@ -176,6 +186,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::A::A`.
+                /// </summary>
+                public A(Const_A _other) : this(new _ByValue_A(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::A::A`.
+                /// </summary>
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Aggregates::A::operator=`.
@@ -289,6 +309,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::B::B`.
+                /// </summary>
+                public Const_B(B _other) : this((Const_B)_other) {}
             }
 
             // This is an empty aggregate, it doesn't need an elementwise constructor.
@@ -320,6 +345,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::B::B`.
+                /// </summary>
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Aggregates::B::operator=`.
@@ -402,6 +432,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_NonDefaultConstructible_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::NonDefaultConstructible::NonDefaultConstructible`.
+                /// </summary>
+                public Const_NonDefaultConstructible(NonDefaultConstructible _other) : this((Const_NonDefaultConstructible)_other) {}
             }
 
             /// <summary>
@@ -422,6 +457,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_NonDefaultConstructible_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::NonDefaultConstructible::NonDefaultConstructible`.
+                /// </summary>
+                public NonDefaultConstructible(NonDefaultConstructible _other) : this((Const_NonDefaultConstructible)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Aggregates::NonDefaultConstructible::operator=`.
@@ -614,6 +654,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::C::C`.
+                /// </summary>
+                public Const_C(C _other) : this((Const_C)_other) {}
             }
 
             // Test the optional limit on the number of fields that we aggregate-initialize.
@@ -681,6 +726,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::C::C`.
+                /// </summary>
+                public C(C _other) : this((Const_C)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Aggregates::C::operator=`.
@@ -881,6 +931,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::D::D`.
+                /// </summary>
+                public Const_D(D _other) : this((Const_D)_other) {}
             }
 
             /// <summary>
@@ -949,6 +1004,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::D::D`.
+                /// </summary>
+                public D(D _other) : this((Const_D)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::Aggregates::D::operator=`.
@@ -1148,6 +1208,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::Aggregates::E::E`.
+                /// </summary>
+                public Const_E(E _other) : this((Const_E)_other) {}
+
+                /// <summary>
                 /// Constructs `MR::Aggregates::E` elementwise.
                 /// </summary>
                 public unsafe Const_E(int a, int b, int c, int d, int e, int f, int g, int h, int i, MR.CS.Aggregates.Const_NonDefaultConstructible j) : this(null, is_owning: true)
@@ -1231,6 +1296,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::Aggregates::E::E`.
+                /// </summary>
+                public E(E _other) : this((Const_E)_other) {}
 
                 /// <summary>
                 /// Constructs `MR::Aggregates::E` elementwise.

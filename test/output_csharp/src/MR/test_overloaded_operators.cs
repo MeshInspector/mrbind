@@ -37,6 +37,10 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                // Since we have a custom assignment, we also need a custom copy ctor to avoid the deprecation warning.
+                /// Generated from constructor `MR::OverloadedOps::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
+
                 // Pre-increment.
                 /// Generated from method `MR::OverloadedOps::A::operator++`.
                 public static unsafe A operator++(MR.CS.OverloadedOps.Const_A _this)
@@ -76,6 +80,10 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OverloadedOps_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                // Since we have a custom assignment, we also need a custom copy ctor to avoid the deprecation warning.
+                /// Generated from constructor `MR::OverloadedOps::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 // Assign.
                 /// Generated from method `MR::OverloadedOps::A::operator=`.
@@ -531,6 +539,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::OverloadedOps::B::B`.
+                public Const_B(B _other) : this((Const_B)_other) {}
+
                 // Unary plus.
                 /// Generated from function `MR::OverloadedOps::operator+`.
                 public static unsafe int operator+(Const_B _1)
@@ -922,6 +933,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::OverloadedOps::B::B`.
+                public B(B _other) : this((Const_B)_other) {}
+
                 /// Generated from method `MR::OverloadedOps::B::operator=`.
                 public unsafe MR.CS.OverloadedOps.B Assign(MR.CS.OverloadedOps.Const_B _other)
                 {
@@ -1003,6 +1017,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::OverloadedOps::C::C`.
+                public Const_C(C _other) : this((Const_C)_other) {}
+
                 // If rhs type is same as the lhs one (ignoring cvref), it's not emitted.
                 /// Generated from function `MR::OverloadedOps::operator+`.
                 public unsafe void Add(MR.CS.OverloadedOps.Const_C _2)
@@ -1045,6 +1062,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OverloadedOps_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::OverloadedOps::C::C`.
+                public C(C _other) : this((Const_C)_other) {}
 
                 /// Generated from method `MR::OverloadedOps::C::operator=`.
                 public unsafe MR.CS.OverloadedOps.C Assign(MR.CS.OverloadedOps.Const_C _other)
@@ -1126,6 +1146,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::OverloadedOps::D::D`.
+                public Const_D(D _other) : this((Const_D)_other) {}
+
                 /// Generated from method `MR::OverloadedOps::D::operator*`.
                 public unsafe int Deref()
                 {
@@ -1165,6 +1188,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OverloadedOps_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::OverloadedOps::D::D`.
+                public D(D _other) : this((Const_D)_other) {}
 
                 /// Generated from method `MR::OverloadedOps::D::operator=`.
                 public unsafe MR.CS.OverloadedOps.D Assign(MR.CS.OverloadedOps.Const_D _other)

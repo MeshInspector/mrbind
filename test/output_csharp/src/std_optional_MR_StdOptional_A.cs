@@ -43,6 +43,9 @@ public static partial class MR
                     _KeepAlive(other);
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Optional_MRStdOptionalA(Optional_MRStdOptionalA other) : this((Const_Optional_MRStdOptionalA)other) {}
+
                 /// Constructs a new instance.
                 public unsafe Const_Optional_MRStdOptionalA(MR.CS.StdOptional.Const_A? other) : this(null, is_owning: true)
                 {
@@ -89,6 +92,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_A_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Optional_MRStdOptionalA(Optional_MRStdOptionalA other) : this((Const_Optional_MRStdOptionalA)other) {}
 
                 /// Constructs a new instance.
                 public unsafe Optional_MRStdOptionalA(MR.CS.StdOptional.Const_A? other) : this(null, is_owning: true)

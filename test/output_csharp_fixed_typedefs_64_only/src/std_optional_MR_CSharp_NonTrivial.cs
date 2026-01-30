@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Optional_MRCSharpNonTrivial(Const_Optional_MRCSharpNonTrivial other) : this(new _ByValue_Optional_MRCSharpNonTrivial(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Optional_MRCSharpNonTrivial(Optional_MRCSharpNonTrivial other) : this((Const_Optional_MRCSharpNonTrivial)other) {}
+
+                /// <summary>
                 /// Constructs a new instance.
                 /// </summary>
                 public unsafe Const_Optional_MRCSharpNonTrivial(MR.CS.CSharp._ByValue_NonTrivial? other) : this(null, is_owning: true)
@@ -107,6 +117,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_NonTrivial_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Optional_MRCSharpNonTrivial(Const_Optional_MRCSharpNonTrivial other) : this(new _ByValue_Optional_MRCSharpNonTrivial(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Optional_MRCSharpNonTrivial(Optional_MRCSharpNonTrivial other) : this((Const_Optional_MRCSharpNonTrivial)other) {}
 
                 /// <summary>
                 /// Constructs a new instance.

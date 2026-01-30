@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Variant_Int_Float_StdString(Const_Variant_Int_Float_StdString other) : this(new _ByValue_Variant_Int_Float_StdString(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Variant_Int_Float_StdString(Variant_Int_Float_StdString other) : this((Const_Variant_Int_Float_StdString)other) {}
+
+                /// <summary>
                 /// Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
                 /// </summary>
                 public unsafe ulong index()
@@ -175,6 +185,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_int_float_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Variant_Int_Float_StdString(Const_Variant_Int_Float_StdString other) : this(new _ByValue_Variant_Int_Float_StdString(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Variant_Int_Float_StdString(Variant_Int_Float_StdString other) : this((Const_Variant_Int_Float_StdString)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

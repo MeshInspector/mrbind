@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_SharedPtr_ConstInt(Const_SharedPtr_ConstInt other) : this(new _ByValue_SharedPtr_ConstInt(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_SharedPtr_ConstInt(SharedPtr_ConstInt other) : this((Const_SharedPtr_ConstInt)other) {}
+
+                /// <summary>
                 /// Returns the stored pointer, possibly null.
                 /// </summary>
                 public unsafe int? get()
@@ -149,6 +159,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public SharedPtr_ConstInt(Const_SharedPtr_ConstInt other) : this(new _ByValue_SharedPtr_ConstInt(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public SharedPtr_ConstInt(SharedPtr_ConstInt other) : this((Const_SharedPtr_ConstInt)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

@@ -43,6 +43,9 @@ public static partial class MR
                     _KeepAlive(other);
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Variant_StdMonostate_Int_Float_Float(Variant_StdMonostate_Int_Float_Float other) : this((Const_Variant_StdMonostate_Int_Float_Float)other) {}
+
                 /// Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
                 public unsafe ulong Index()
                 {
@@ -147,6 +150,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_variant_std_monostate_int_float_float_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Variant_StdMonostate_Int_Float_Float(Variant_StdMonostate_Int_Float_Float other) : this((Const_Variant_StdMonostate_Int_Float_Float)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.Const_Variant_StdMonostate_Int_Float_Float other)

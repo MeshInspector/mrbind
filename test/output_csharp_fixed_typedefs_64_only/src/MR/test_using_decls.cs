@@ -82,6 +82,11 @@ public static partial class MR
                 /// <summary>
                 /// Generated from constructor `MR::UsingDecls::A::A`.
                 /// </summary>
+                public Const_A(A _other) : this((Const_A)_other) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::UsingDecls::A::A`.
+                /// </summary>
                 public unsafe Const_A(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_UsingDecls_A_Construct", ExactSpelling = true)]
@@ -142,6 +147,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::UsingDecls::A::A`.
+                /// </summary>
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// <summary>
                 /// Generated from constructor `MR::UsingDecls::A::A`.
@@ -326,6 +336,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::UsingDecls::B::B`.
+                /// </summary>
+                public Const_B(B _other) : this((Const_B)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::UsingDecls::B::StaticFunc`.
                 /// </summary>
                 public static void staticFunc()
@@ -377,6 +392,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::UsingDecls::B::B`.
+                /// </summary>
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// <summary>
                 /// Generated from conversion operator `MR::UsingDecls::B::operator int`.

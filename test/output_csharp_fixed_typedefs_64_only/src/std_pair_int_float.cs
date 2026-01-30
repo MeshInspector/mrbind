@@ -50,6 +50,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Pair_Int_Float(Pair_Int_Float other) : this((Const_Pair_Int_Float)other) {}
+
+                /// <summary>
                 /// Constructs the pair elementwise.
                 /// </summary>
                 public unsafe Const_Pair_Int_Float(int first, float second) : this(null, is_owning: true)
@@ -108,6 +113,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_pair_int_float_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Pair_Int_Float(Pair_Int_Float other) : this((Const_Pair_Int_Float)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

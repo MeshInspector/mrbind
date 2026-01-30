@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Vector_MRStdContainersNonDefaultConstructible(Const_Vector_MRStdContainersNonDefaultConstructible other) : this(new _ByValue_Vector_MRStdContainersNonDefaultConstructible(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Vector_MRStdContainersNonDefaultConstructible(Vector_MRStdContainersNonDefaultConstructible other) : this((Const_Vector_MRStdContainersNonDefaultConstructible)other) {}
+
+                /// <summary>
                 /// The number of elements.
                 /// </summary>
                 public unsafe ulong size()
@@ -235,6 +245,11 @@ public static partial class MR
                     }
 
                     /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Const_ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
+
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
                     /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator iter) : this(null, is_owning: true)
@@ -301,6 +316,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
 
                     /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -445,6 +465,11 @@ public static partial class MR
                     }
 
                     /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Const_Iterator(Iterator other) : this((Const_Iterator)other) {}
+
+                    /// <summary>
                     /// Dereferences a mutable iterator.
                     /// </summary>
                     public unsafe MR.CS.StdContainers.NonDefaultConstructible deref()
@@ -496,6 +521,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Iterator(Iterator other) : this((Const_Iterator)other) {}
 
                     /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -603,6 +633,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Vector_MRStdContainersNonDefaultConstructible(Const_Vector_MRStdContainersNonDefaultConstructible other) : this(new _ByValue_Vector_MRStdContainersNonDefaultConstructible(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Vector_MRStdContainersNonDefaultConstructible(Vector_MRStdContainersNonDefaultConstructible other) : this((Const_Vector_MRStdContainersNonDefaultConstructible)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

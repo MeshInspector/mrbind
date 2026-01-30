@@ -43,6 +43,12 @@ public static partial class MR
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_BtreeMultimap_Int_Float(Const_BtreeMultimap_Int_Float other) : this(new _ByValue_BtreeMultimap_Int_Float(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_BtreeMultimap_Int_Float(BtreeMultimap_Int_Float other) : this((Const_BtreeMultimap_Int_Float)other) {}
+
                 /// The number of elements.
                 public unsafe ulong Size()
                 {
@@ -155,6 +161,9 @@ public static partial class MR
                         _KeepAlive(other);
                     }
 
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public Const_ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
+
                     /// Makes a const iterator from a mutable one.
                     public unsafe Const_ConstIterator(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator iter) : this(null, is_owning: true)
                     {
@@ -205,6 +214,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_phmap_btree_multimap_int_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
                     public unsafe void Assign(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_ConstIterator other)
@@ -316,6 +328,9 @@ public static partial class MR
                         _KeepAlive(other);
                     }
 
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public Const_Iterator(Iterator other) : this((Const_Iterator)other) {}
+
                     /// Dereferences a mutable iterator, returning the key.
                     public unsafe int DerefKey()
                     {
@@ -355,6 +370,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_phmap_btree_multimap_int_float_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public Iterator(Iterator other) : this((Const_Iterator)other) {}
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
                     public unsafe void Assign(MR.CS.Phmap.BtreeMultimap_Int_Float.Const_Iterator other)
@@ -436,6 +454,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_phmap_btree_multimap_int_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public BtreeMultimap_Int_Float(Const_BtreeMultimap_Int_Float other) : this(new _ByValue_BtreeMultimap_Int_Float(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public BtreeMultimap_Int_Float(BtreeMultimap_Int_Float other) : this((Const_BtreeMultimap_Int_Float)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Phmap._ByValue_BtreeMultimap_Int_Float other)

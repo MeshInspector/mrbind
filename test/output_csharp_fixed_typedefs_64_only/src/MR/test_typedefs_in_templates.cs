@@ -50,6 +50,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
+                /// </summary>
+                public Const_A_Int(A_Int _other) : this((Const_A_Int)_other) {}
             }
 
             // This tests a specific Clang bug/quirk.
@@ -82,6 +87,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
+                /// </summary>
+                public A_Int(A_Int _other) : this((Const_A_Int)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::TypedefsInTemplates::A<int>::operator=`.
@@ -186,6 +196,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
+                /// </summary>
+                public Const_B_Int(B_Int _other) : this((Const_B_Int)_other) {}
+
+                /// <summary>
                 /// Generated from class `MR::TypedefsInTemplates::B<int>::BB<float>`.
                 /// This is the const half of the class.
                 /// </summary>
@@ -229,6 +244,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// <summary>
+                    /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
+                    /// </summary>
+                    public Const_BB_Float(BB_Float _other) : this((Const_BB_Float)_other) {}
                 }
 
                 /// <summary>
@@ -259,6 +279,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// <summary>
+                    /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
+                    /// </summary>
+                    public BB_Float(BB_Float _other) : this((Const_BB_Float)_other) {}
 
                     /// <summary>
                     /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::operator=`.
@@ -356,6 +381,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
+                /// </summary>
+                public B_Int(B_Int _other) : this((Const_B_Int)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::TypedefsInTemplates::B<int>::operator=`.

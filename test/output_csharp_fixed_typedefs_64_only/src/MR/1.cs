@@ -71,6 +71,16 @@ public static partial class MR
                 if (_other.Value is not null) _KeepAlive(_other.Value);
                 _FinalizeFields();
             }
+
+            /// <summary>
+            /// Generated from constructor `MR::A::A`.
+            /// </summary>
+            public Const_A(Const_A _other) : this(new _ByValue_A(_other)) {}
+
+            /// <summary>
+            /// Generated from constructor `MR::A::A`.
+            /// </summary>
+            public Const_A(A _other) : this((Const_A)_other) {}
         }
 
         /// <summary>
@@ -127,6 +137,16 @@ public static partial class MR
                 if (_other.Value is not null) _KeepAlive(_other.Value);
                 _FinalizeFields();
             }
+
+            /// <summary>
+            /// Generated from constructor `MR::A::A`.
+            /// </summary>
+            public A(Const_A _other) : this(new _ByValue_A(_other)) {}
+
+            /// <summary>
+            /// Generated from constructor `MR::A::A`.
+            /// </summary>
+            public A(A _other) : this((Const_A)_other) {}
 
             /// <summary>
             /// Generated from method `MR::A::operator=`.

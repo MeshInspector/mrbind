@@ -44,6 +44,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
+                public Const_A_Int(A_Int _other) : this((Const_A_Int)_other) {}
             }
 
             // This tests a specific Clang bug/quirk.
@@ -70,6 +73,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
+                public A_Int(A_Int _other) : this((Const_A_Int)_other) {}
 
                 /// Generated from method `MR::TypedefsInTemplates::A<int>::operator=`.
                 public unsafe MR.CS.TypedefsInTemplates.A_Int Assign(MR.CS.TypedefsInTemplates.Const_A_Int _other)
@@ -159,6 +165,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
+                public Const_B_Int(B_Int _other) : this((Const_B_Int)_other) {}
+
                 /// Generated from class `MR::TypedefsInTemplates::B<int>::BB<float>`.
                 /// This is the const half of the class.
                 public class Const_BB_Float : MR.CS.Misc.Object<Const_BB_Float>, System.IDisposable
@@ -197,6 +206,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
+                    public Const_BB_Float(BB_Float _other) : this((Const_BB_Float)_other) {}
                 }
 
                 /// Generated from class `MR::TypedefsInTemplates::B<int>::BB<float>`.
@@ -221,6 +233,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
+                    public BB_Float(BB_Float _other) : this((Const_BB_Float)_other) {}
 
                     /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::operator=`.
                     public unsafe MR.CS.TypedefsInTemplates.B_Int.BB_Float Assign(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other)
@@ -302,6 +317,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
+                public B_Int(B_Int _other) : this((Const_B_Int)_other) {}
 
                 /// Generated from method `MR::TypedefsInTemplates::B<int>::operator=`.
                 public unsafe MR.CS.TypedefsInTemplates.B_Int Assign(MR.CS.TypedefsInTemplates.Const_B_Int _other)

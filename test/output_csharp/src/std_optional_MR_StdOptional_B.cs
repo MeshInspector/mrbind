@@ -43,6 +43,12 @@ public static partial class MR
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Optional_MRStdOptionalB(Const_Optional_MRStdOptionalB other) : this(new _ByValue_Optional_MRStdOptionalB(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Optional_MRStdOptionalB(Optional_MRStdOptionalB other) : this((Const_Optional_MRStdOptionalB)other) {}
+
                 /// Constructs a new instance.
                 public unsafe Const_Optional_MRStdOptionalB(MR.CS.StdOptional._ByValue_B? other) : this(null, is_owning: true)
                 {
@@ -89,6 +95,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_optional_MR_StdOptional_B_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Optional_MRStdOptionalB(Const_Optional_MRStdOptionalB other) : this(new _ByValue_Optional_MRStdOptionalB(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Optional_MRStdOptionalB(Optional_MRStdOptionalB other) : this((Const_Optional_MRStdOptionalB)other) {}
 
                 /// Constructs a new instance.
                 public unsafe Optional_MRStdOptionalB(MR.CS.StdOptional._ByValue_B? other) : this(null, is_owning: true)

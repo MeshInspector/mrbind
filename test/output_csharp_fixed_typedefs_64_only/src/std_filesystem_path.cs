@@ -52,6 +52,16 @@ public static partial class MR
                     }
 
                     /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Const_Path(Const_Path other) : this(new _ByValue_Path(other)) {}
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Const_Path(Path other) : this((Const_Path)other) {}
+
+                    /// <summary>
                     /// Constructs a new instance.
                     /// </summary>
                     public unsafe Const_Path(ReadOnlySpan<char> other) : this(null, is_owning: true)
@@ -119,6 +129,16 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                         if (other.Value is not null) _KeepAlive(other.Value);
                     }
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Path(Const_Path other) : this(new _ByValue_Path(other)) {}
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Path(Path other) : this((Const_Path)other) {}
 
                     /// <summary>
                     /// Constructs a new instance.

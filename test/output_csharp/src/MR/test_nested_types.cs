@@ -75,6 +75,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::NestedTypes::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
+
                 /// Generated from class `MR::NestedTypes::A::B`.
                 /// This is the const half of the class.
                 public class Const_B : MR.CS.Misc.Object<Const_B>, System.IDisposable
@@ -113,6 +116,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_NestedTypes_A_B_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// Generated from constructor `MR::NestedTypes::A::B::B`.
+                    public Const_B(B _other) : this((Const_B)_other) {}
                 }
 
                 /// Generated from class `MR::NestedTypes::A::B`.
@@ -137,6 +143,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_NestedTypes_A_B_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
                     }
+
+                    /// Generated from constructor `MR::NestedTypes::A::B::B`.
+                    public B(B _other) : this((Const_B)_other) {}
 
                     /// Generated from method `MR::NestedTypes::A::B::operator=`.
                     public unsafe MR.CS.NestedTypes.A.B Assign(MR.CS.NestedTypes.A.Const_B _other)
@@ -238,6 +247,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_NestedTypes_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::NestedTypes::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::NestedTypes::A::operator=`.
                 public unsafe MR.CS.NestedTypes.A Assign(MR.CS.NestedTypes.Const_A _other)

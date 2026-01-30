@@ -43,6 +43,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::ConvOps::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
+
                 /// Generated from conversion operator `MR::ConvOps::A::operator bool`.
                 public static unsafe explicit operator bool(MR.CS.ConvOps.Const_A _this)
                 {
@@ -74,6 +77,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_ConvOps_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::ConvOps::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::ConvOps::A::operator=`.
                 public unsafe MR.CS.ConvOps.A Assign(MR.CS.ConvOps.Const_A _other)

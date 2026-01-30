@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Expected_MRCSharpNonTrivial_Float(Const_Expected_MRCSharpNonTrivial_Float other) : this(new _ByValue_Expected_MRCSharpNonTrivial_Float(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Expected_MRCSharpNonTrivial_Float(Expected_MRCSharpNonTrivial_Float other) : this((Const_Expected_MRCSharpNonTrivial_Float)other) {}
+
+                /// <summary>
                 /// Returns true if this instance represents success, or false if it represents an error.
                 /// </summary>
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float _this)
@@ -113,6 +123,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Expected_MRCSharpNonTrivial_Float(Const_Expected_MRCSharpNonTrivial_Float other) : this(new _ByValue_Expected_MRCSharpNonTrivial_Float(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Expected_MRCSharpNonTrivial_Float(Expected_MRCSharpNonTrivial_Float other) : this((Const_Expected_MRCSharpNonTrivial_Float)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

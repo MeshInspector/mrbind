@@ -43,6 +43,12 @@ public static partial class MR
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Multiset_Float(Const_Multiset_Float other) : this(new _ByValue_Multiset_Float(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Multiset_Float(Multiset_Float other) : this((Const_Multiset_Float)other) {}
+
                 /// Construct from a range of elements.
                 public unsafe Const_Multiset_Float(float? ptr, ulong size) : this(null, is_owning: true)
                 {
@@ -164,6 +170,9 @@ public static partial class MR
                         _KeepAlive(other);
                     }
 
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public Const_ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
+
                     /// Dereferences a const iterator.
                     public unsafe float Deref()
                     {
@@ -195,6 +204,9 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_multiset_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// Constructs a copy of another instance. The source remains alive.
+                    public ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
 
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
                     public unsafe void Assign(MR.CS.Std.Multiset_Float.Const_ConstIterator other)
@@ -276,6 +288,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_multiset_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Multiset_Float(Const_Multiset_Float other) : this(new _ByValue_Multiset_Float(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Multiset_Float(Multiset_Float other) : this((Const_Multiset_Float)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std._ByValue_Multiset_Float other)

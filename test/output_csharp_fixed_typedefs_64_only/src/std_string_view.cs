@@ -50,6 +50,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_StringView(StringView other) : this((Const_StringView)other) {}
+
+                /// <summary>
                 /// Constructs a new instance.
                 /// </summary>
                 public unsafe Const_StringView(ReadOnlySpan<char> other) : this(null, is_owning: true)
@@ -144,6 +149,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_string_view_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public StringView(StringView other) : this((Const_StringView)other) {}
 
                 /// <summary>
                 /// Constructs a new instance.

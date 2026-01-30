@@ -79,6 +79,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::Aggregates::A::A`.
+                public Const_A(Const_A _other) : this(new _ByValue_A(_other)) {}
+
+                /// Generated from constructor `MR::Aggregates::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             // Aggregates get elementwise constructors. This is necessary if their elements are not default-constructible,
@@ -140,6 +146,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::Aggregates::A::A`.
+                public A(Const_A _other) : this(new _ByValue_A(_other)) {}
+
+                /// Generated from constructor `MR::Aggregates::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::Aggregates::A::operator=`.
                 public unsafe MR.CS.Aggregates.A Assign(MR.CS.Aggregates._ByValue_A _other)
@@ -239,6 +251,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Aggregates::B::B`.
+                public Const_B(B _other) : this((Const_B)_other) {}
             }
 
             // This is an empty aggregate, it doesn't need an elementwise constructor.
@@ -264,6 +279,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Aggregates::B::B`.
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// Generated from method `MR::Aggregates::B::operator=`.
                 public unsafe MR.CS.Aggregates.B Assign(MR.CS.Aggregates.Const_B _other)
@@ -336,6 +354,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_NonDefaultConstructible_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Aggregates::NonDefaultConstructible::NonDefaultConstructible`.
+                public Const_NonDefaultConstructible(NonDefaultConstructible _other) : this((Const_NonDefaultConstructible)_other) {}
             }
 
             /// Generated from class `MR::Aggregates::NonDefaultConstructible`.
@@ -352,6 +373,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_NonDefaultConstructible_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Aggregates::NonDefaultConstructible::NonDefaultConstructible`.
+                public NonDefaultConstructible(NonDefaultConstructible _other) : this((Const_NonDefaultConstructible)_other) {}
 
                 /// Generated from method `MR::Aggregates::NonDefaultConstructible::operator=`.
                 public unsafe MR.CS.Aggregates.NonDefaultConstructible Assign(MR.CS.Aggregates.Const_NonDefaultConstructible _other)
@@ -521,6 +545,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Aggregates::C::C`.
+                public Const_C(C _other) : this((Const_C)_other) {}
             }
 
             // Test the optional limit on the number of fields that we aggregate-initialize.
@@ -634,6 +661,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Aggregates::C::C`.
+                public C(C _other) : this((Const_C)_other) {}
 
                 /// Generated from method `MR::Aggregates::C::operator=`.
                 public unsafe MR.CS.Aggregates.C Assign(MR.CS.Aggregates.Const_C _other)
@@ -812,6 +842,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Aggregates::D::D`.
+                public Const_D(D _other) : this((Const_D)_other) {}
             }
 
             /// Generated from class `MR::Aggregates::D`.
@@ -934,6 +967,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Aggregates::D::D`.
+                public D(D _other) : this((Const_D)_other) {}
 
                 /// Generated from method `MR::Aggregates::D::operator=`.
                 public unsafe MR.CS.Aggregates.D Assign(MR.CS.Aggregates.Const_D _other)
@@ -1120,6 +1156,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::Aggregates::E::E`.
+                public Const_E(E _other) : this((Const_E)_other) {}
+
                 /// Constructs `MR::Aggregates::E` elementwise.
                 public unsafe Const_E(int a, int b, int c, int d, int e, int f, int g, int h, int i, MR.CS.Aggregates.Const_NonDefaultConstructible j) : this(null, is_owning: true)
                 {
@@ -1257,6 +1296,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Aggregates_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Aggregates::E::E`.
+                public E(E _other) : this((Const_E)_other) {}
 
                 /// Constructs `MR::Aggregates::E` elementwise.
                 public unsafe E(int a, int b, int c, int d, int e, int f, int g, int h, int i, MR.CS.Aggregates.Const_NonDefaultConstructible j) : this(null, is_owning: true)

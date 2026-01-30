@@ -42,6 +42,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_void_from_MR_StdFunction_A_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Function_VoidFuncFromMRStdFunctionA(Const_Function_VoidFuncFromMRStdFunctionA other) : this(new _ByValue_Function_VoidFuncFromMRStdFunctionA(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Function_VoidFuncFromMRStdFunctionA(Function_VoidFuncFromMRStdFunctionA other) : this((Const_Function_VoidFuncFromMRStdFunctionA)other) {}
             }
 
             /// Stores a functor of type: `void(MR::StdFunction::A)`. Possibly stateful.
@@ -66,6 +72,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_void_from_MR_StdFunction_A_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Function_VoidFuncFromMRStdFunctionA(Const_Function_VoidFuncFromMRStdFunctionA other) : this(new _ByValue_Function_VoidFuncFromMRStdFunctionA(other)) {}
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Function_VoidFuncFromMRStdFunctionA(Function_VoidFuncFromMRStdFunctionA other) : this((Const_Function_VoidFuncFromMRStdFunctionA)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std._ByValue_Function_VoidFuncFromMRStdFunctionA other)

@@ -48,6 +48,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE other) : this(new _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(Function_MRStdFunctionEFuncFromIntMRStdFunctionE other) : this((Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE)other) {}
             }
 
             /// <summary>
@@ -78,6 +88,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Function_MRStdFunctionEFuncFromIntMRStdFunctionE(Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE other) : this(new _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Function_MRStdFunctionEFuncFromIntMRStdFunctionE(Function_MRStdFunctionEFuncFromIntMRStdFunctionE other) : this((Const_Function_MRStdFunctionEFuncFromIntMRStdFunctionE)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

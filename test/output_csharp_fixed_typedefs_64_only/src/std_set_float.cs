@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Set_Float(Const_Set_Float other) : this(new _ByValue_Set_Float(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Set_Float(Set_Float other) : this((Const_Set_Float)other) {}
+
+                /// <summary>
                 /// Construct from a range of elements.
                 /// </summary>
                 public unsafe Const_Set_Float(float? ptr, ulong size) : this(null, is_owning: true)
@@ -195,6 +205,11 @@ public static partial class MR
                     }
 
                     /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Const_ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
+
+                    /// <summary>
                     /// Dereferences a const iterator.
                     /// </summary>
                     public unsafe float deref()
@@ -233,6 +248,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_set_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
 
                     /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -330,6 +350,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_set_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Set_Float(Const_Set_Float other) : this(new _ByValue_Set_Float(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Set_Float(Set_Float other) : this((Const_Set_Float)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

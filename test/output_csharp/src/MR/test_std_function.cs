@@ -71,6 +71,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdFunction_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::StdFunction::A::A`.
+                public Const_A(Const_A _other) : this(new _ByValue_A(_other)) {}
+
+                /// Generated from constructor `MR::StdFunction::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             /// Generated from class `MR::StdFunction::A`.
@@ -120,6 +126,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdFunction_A_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::StdFunction::A::A`.
+                public A(Const_A _other) : this(new _ByValue_A(_other)) {}
+
+                /// Generated from constructor `MR::StdFunction::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::StdFunction::A::operator=`.
                 public unsafe MR.CS.StdFunction.A Assign(MR.CS.StdFunction._ByValue_A _other)

@@ -88,6 +88,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::CopyInheritedMembers::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
+
                 /// Generated from method `MR::CopyInheritedMembers::A::StaticFunc`.
                 public static void StaticFunc()
                 {
@@ -154,6 +157,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from conversion operator `MR::CopyInheritedMembers::A::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.A _this)
@@ -286,6 +292,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::CopyInheritedMembers::B::B`.
+                public Const_B(B _other) : this((Const_B)_other) {}
+
                 /// Generated from method `MR::CopyInheritedMembers::B::StaticFunc`.
                 public static void StaticFunc()
                 {
@@ -342,6 +351,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::B::B`.
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// Generated from conversion operator `MR::CopyInheritedMembers::B::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.B _this)
@@ -460,6 +472,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::C::C`.
+                public Const_C(C _other) : this((Const_C)_other) {}
             }
 
             /// Generated from class `MR::CopyInheritedMembers::C`.
@@ -506,6 +521,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::C::C`.
+                public C(C _other) : this((Const_C)_other) {}
 
                 /// Generated from method `MR::CopyInheritedMembers::C::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.C Assign(MR.CS.CopyInheritedMembers.Const_C _other)
@@ -624,6 +642,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::CopyInheritedMembers::D::D`.
+                public Const_D(D _other) : this((Const_D)_other) {}
+
                 /// Generated from method `MR::CopyInheritedMembers::D::StaticFunc`.
                 public static void StaticFunc()
                 {
@@ -682,6 +703,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::D::D`.
+                public D(D _other) : this((Const_D)_other) {}
 
                 /// Generated from conversion operator `MR::CopyInheritedMembers::D::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.D _this)
@@ -810,6 +834,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::E::E`.
+                public Const_E(E _other) : this((Const_E)_other) {}
             }
 
             /// Generated from class `MR::CopyInheritedMembers::E`.
@@ -866,6 +893,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::E::E`.
+                public E(E _other) : this((Const_E)_other) {}
 
                 /// Generated from method `MR::CopyInheritedMembers::E::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.E Assign(MR.CS.CopyInheritedMembers.Const_E _other)
@@ -978,6 +1008,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::F::F`.
+                public Const_F(F _other) : this((Const_F)_other) {}
             }
 
             /// Generated from class `MR::CopyInheritedMembers::F`.
@@ -1034,6 +1067,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_F_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::F::F`.
+                public F(F _other) : this((Const_F)_other) {}
 
                 /// Generated from method `MR::CopyInheritedMembers::F::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.F Assign(MR.CS.CopyInheritedMembers.Const_F _other)
@@ -1154,6 +1190,12 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
+                /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
+                public Const_G(Const_G _other) : this(new _ByValue_G(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
+                public Const_G(G _other) : this((Const_G)_other) {}
+
                 /// Generated from method `MR::CopyInheritedMembers::G::StaticFunc`.
                 public static void StaticFunc()
                 {
@@ -1214,6 +1256,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
+                public G(Const_G _other) : this(new _ByValue_G(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::G::G`.
+                public G(G _other) : this((Const_G)_other) {}
 
                 /// Generated from conversion operator `MR::CopyInheritedMembers::G::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.G _this)
@@ -1372,6 +1420,12 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
+                /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
+                public Const_H(Const_H _other) : this(new _ByValue_H(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
+                public Const_H(H _other) : this((Const_H)_other) {}
+
                 /// Generated from method `MR::CopyInheritedMembers::H::StaticFunc`.
                 public static void StaticFunc()
                 {
@@ -1436,6 +1490,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
+                public H(Const_H _other) : this(new _ByValue_H(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
+                public H(H _other) : this((Const_H)_other) {}
 
                 /// Generated from conversion operator `MR::CopyInheritedMembers::H::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.H _this)
@@ -1594,6 +1654,12 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
+                /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
+                public Const_I(Const_I _other) : this(new _ByValue_I(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
+                public Const_I(I _other) : this((Const_I)_other) {}
+
                 /// Generated from method `MR::CopyInheritedMembers::I::StaticFunc`.
                 public static void StaticFunc()
                 {
@@ -1658,6 +1724,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
+                public I(Const_I _other) : this(new _ByValue_I(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
+                public I(I _other) : this((Const_I)_other) {}
 
                 /// Generated from conversion operator `MR::CopyInheritedMembers::I::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.I _this)
@@ -1814,6 +1886,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::CopyInheritedMembers::J::J`.
+                public Const_J(J _other) : this((Const_J)_other) {}
+
                 /// Generated from method `MR::CopyInheritedMembers::J::StaticFunc`.
                 public static void StaticFunc()
                 {
@@ -1876,6 +1951,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_J_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::J::J`.
+                public J(J _other) : this((Const_J)_other) {}
 
                 /// Generated from conversion operator `MR::CopyInheritedMembers::J::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.J _this)
@@ -1996,6 +2074,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
+                public Const_K(Const_K _other) : this(new _ByValue_K(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
+                public Const_K(K _other) : this((Const_K)_other) {}
             }
 
             /// Generated from class `MR::CopyInheritedMembers::K`.
@@ -2044,6 +2128,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_K_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
+                public K(Const_K _other) : this(new _ByValue_K(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::K::K`.
+                public K(K _other) : this((Const_K)_other) {}
 
                 /// Generated from method `MR::CopyInheritedMembers::K::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.K Assign(MR.CS.CopyInheritedMembers._ByValue_K _other)
@@ -2166,6 +2256,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
+                public Const_L(Const_L _other) : this(new _ByValue_L(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
+                public Const_L(L _other) : this((Const_L)_other) {}
             }
 
             /// Generated from class `MR::CopyInheritedMembers::L`.
@@ -2214,6 +2310,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_L_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
+                public L(Const_L _other) : this(new _ByValue_L(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::L::L`.
+                public L(L _other) : this((Const_L)_other) {}
 
                 /// Generated from method `MR::CopyInheritedMembers::L::operator=`.
                 public unsafe MR.CS.CopyInheritedMembers.L Assign(MR.CS.CopyInheritedMembers._ByValue_L _other)
@@ -2362,6 +2464,12 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
+                /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
+                public Const_M(Const_M _other) : this(new _ByValue_M(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
+                public Const_M(M _other) : this((Const_M)_other) {}
+
                 /// Generated from method `MR::CopyInheritedMembers::M::StaticFunc`.
                 public static void StaticFunc()
                 {
@@ -2432,6 +2540,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_M_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
+                public M(Const_M _other) : this(new _ByValue_M(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::M::M`.
+                public M(M _other) : this((Const_M)_other) {}
 
                 /// Generated from conversion operator `MR::CopyInheritedMembers::M::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.M _this)
@@ -2603,6 +2717,12 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
+                /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
+                public Const_N(Const_N _other) : this(new _ByValue_N(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
+                public Const_N(N _other) : this((Const_N)_other) {}
+
                 /// Generated from method `MR::CopyInheritedMembers::N::StaticFunc`.
                 public static void StaticFunc()
                 {
@@ -2680,6 +2800,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_N_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
+                public N(Const_N _other) : this(new _ByValue_N(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
+                public N(N _other) : this((Const_N)_other) {}
 
                 /// Generated from conversion operator `MR::CopyInheritedMembers::N::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.N _this)
@@ -2858,6 +2984,12 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
+                /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
+                public Const_O(Const_O _other) : this(new _ByValue_O(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
+                public Const_O(O _other) : this((Const_O)_other) {}
+
                 /// Generated from method `MR::CopyInheritedMembers::O::StaticFunc`.
                 public static void StaticFunc()
                 {
@@ -2942,6 +3074,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CopyInheritedMembers_O_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
+                public O(Const_O _other) : this(new _ByValue_O(_other)) {}
+
+                /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
+                public O(O _other) : this((Const_O)_other) {}
 
                 /// Generated from conversion operator `MR::CopyInheritedMembers::O::operator int`.
                 public static unsafe implicit operator int(MR.CS.CopyInheritedMembers.O _this)

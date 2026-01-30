@@ -45,6 +45,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A<int>::A`.
+                public Const_A_Int(A_Int _other) : this((Const_A_Int)_other) {}
+
                 /// Generated from function `MR::OmittingTargsAndQuals::operator*`.
                 public unsafe void Deref()
                 {
@@ -86,6 +89,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OmittingTargsAndQuals_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A<int>::A`.
+                public A_Int(A_Int _other) : this((Const_A_Int)_other) {}
 
                 /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator=`.
                 public unsafe MR.CS.OmittingTargsAndQuals.A_Int Assign(MR.CS.OmittingTargsAndQuals.Const_A_Int _other)
@@ -184,6 +190,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A<float>::A`.
+                public Const_A_Float(A_Float _other) : this((Const_A_Float)_other) {}
             }
 
             // Here the generated code will omit the template arguments for operators (to avoid unwanted instantiations),
@@ -210,6 +219,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OmittingTargsAndQuals_A_float_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A<float>::A`.
+                public A_Float(A_Float _other) : this((Const_A_Float)_other) {}
 
                 /// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator=`.
                 public unsafe MR.CS.OmittingTargsAndQuals.A_Float Assign(MR.CS.OmittingTargsAndQuals.Const_A_Float _other)

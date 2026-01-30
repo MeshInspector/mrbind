@@ -41,6 +41,12 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                // Since we have a custom assignment, we also need a custom copy ctor to avoid the deprecation warning.
+                /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::A::A`.
+                /// </summary>
+                public Const_A(A _other) : this((Const_A)_other) {}
+
                 // Pre-increment.
                 /// <summary>
                 /// Generated from method `MR::OverloadedOps::A::operator++`.
@@ -88,6 +94,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OverloadedOps_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                // Since we have a custom assignment, we also need a custom copy ctor to avoid the deprecation warning.
+                /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::A::A`.
+                /// </summary>
+                public A(A _other) : this((Const_A)_other) {}
 
                 // Assign.
                 /// <summary>
@@ -637,6 +649,11 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::B::B`.
+                /// </summary>
+                public Const_B(B _other) : this((Const_B)_other) {}
+
                 // Unary plus.
                 /// <summary>
                 /// Generated from function `MR::OverloadedOps::operator+`.
@@ -1115,6 +1132,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::B::B`.
+                /// </summary>
+                public B(B _other) : this((Const_B)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::OverloadedOps::B::operator=`.
                 /// </summary>
                 public unsafe MR.CS.OverloadedOps.B assign(MR.CS.OverloadedOps.Const_B _other)
@@ -1207,6 +1229,11 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::C::C`.
+                /// </summary>
+                public Const_C(C _other) : this((Const_C)_other) {}
+
                 // If rhs type is same as the lhs one (ignoring cvref), it's not emitted.
                 /// <summary>
                 /// Generated from function `MR::OverloadedOps::operator+`.
@@ -1259,6 +1286,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OverloadedOps_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::C::C`.
+                /// </summary>
+                public C(C _other) : this((Const_C)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::OverloadedOps::C::operator=`.
@@ -1353,6 +1385,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::D::D`.
+                /// </summary>
+                public Const_D(D _other) : this((Const_D)_other) {}
+
+                /// <summary>
                 /// Generated from method `MR::OverloadedOps::D::operator*`.
                 /// </summary>
                 public unsafe int deref()
@@ -1401,6 +1438,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_OverloadedOps_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::OverloadedOps::D::D`.
+                /// </summary>
+                public D(D _other) : this((Const_D)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::OverloadedOps::D::operator=`.

@@ -42,6 +42,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_IOStream_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::IOStream::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             /// Generated from class `MR::IOStream::A`.
@@ -66,6 +69,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_IOStream_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::IOStream::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::IOStream::A::operator=`.
                 public unsafe MR.CS.IOStream.A Assign(MR.CS.IOStream.Const_A _other)

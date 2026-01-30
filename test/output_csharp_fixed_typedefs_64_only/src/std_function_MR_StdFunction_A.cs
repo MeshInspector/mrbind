@@ -48,6 +48,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_A_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Function_MRStdFunctionAFunc(Const_Function_MRStdFunctionAFunc other) : this(new _ByValue_Function_MRStdFunctionAFunc(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Function_MRStdFunctionAFunc(Function_MRStdFunctionAFunc other) : this((Const_Function_MRStdFunctionAFunc)other) {}
             }
 
             /// <summary>
@@ -78,6 +88,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_A_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Function_MRStdFunctionAFunc(Const_Function_MRStdFunctionAFunc other) : this(new _ByValue_Function_MRStdFunctionAFunc(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Function_MRStdFunctionAFunc(Function_MRStdFunctionAFunc other) : this((Const_Function_MRStdFunctionAFunc)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

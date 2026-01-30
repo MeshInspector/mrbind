@@ -43,6 +43,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdContainers_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::StdContainers::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             // `std::array` behaves differently with simple types.
@@ -68,6 +71,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdContainers_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::StdContainers::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::StdContainers::A::operator=`.
                 public unsafe MR.CS.StdContainers.A Assign(MR.CS.StdContainers.Const_A _other)
@@ -143,6 +149,9 @@ public static partial class MR
                 }
 
                 /// Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
+                public Const_NonDefaultConstructible(NonDefaultConstructible _other) : this((Const_NonDefaultConstructible)_other) {}
+
+                /// Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
                 public unsafe Const_NonDefaultConstructible(int _1) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdContainers_NonDefaultConstructible_Construct", ExactSpelling = true)]
@@ -169,6 +178,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdContainers_NonDefaultConstructible_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
+                public NonDefaultConstructible(NonDefaultConstructible _other) : this((Const_NonDefaultConstructible)_other) {}
 
                 /// Generated from constructor `MR::StdContainers::NonDefaultConstructible::NonDefaultConstructible`.
                 public unsafe NonDefaultConstructible(int _1) : this(null, is_owning: true)
@@ -265,6 +277,12 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
 
+                /// Generated from constructor `MR::StdContainers::NonAssignable::NonAssignable`.
+                public Const_NonAssignable(Const_NonAssignable _other) : this(new _ByValue_NonAssignable(_other)) {}
+
+                /// Generated from constructor `MR::StdContainers::NonAssignable::NonAssignable`.
+                public Const_NonAssignable(NonAssignable _other) : this((Const_NonAssignable)_other) {}
+
                 /// Generated from method `MR::StdContainers::NonAssignable::operator<`.
                 public unsafe bool Less(MR.CS.StdContainers._ByValue_NonAssignable _1)
                 {
@@ -328,6 +346,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdContainers_NonAssignable_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::StdContainers::NonAssignable::NonAssignable`.
+                public NonAssignable(Const_NonAssignable _other) : this(new _ByValue_NonAssignable(_other)) {}
+
+                /// Generated from constructor `MR::StdContainers::NonAssignable::NonAssignable`.
+                public NonAssignable(NonAssignable _other) : this((Const_NonAssignable)_other) {}
             }
 
             /// This is used as a function parameter when the underlying function receives `NonAssignable` by value.

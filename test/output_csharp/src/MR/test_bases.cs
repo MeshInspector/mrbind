@@ -55,6 +55,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             /// Generated from class `MR::Bases::A`.
@@ -92,6 +95,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::Bases::A::operator=`.
                 public unsafe MR.CS.Bases.A Assign(MR.CS.Bases.Const_A _other)
@@ -191,6 +197,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::B::B`.
+                public Const_B(B _other) : this((Const_B)_other) {}
             }
 
             /// Generated from class `MR::Bases::B`.
@@ -234,6 +243,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_B_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::B::B`.
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// Generated from method `MR::Bases::B::operator=`.
                 public unsafe MR.CS.Bases.B Assign(MR.CS.Bases.Const_B _other)
@@ -337,6 +349,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_B2_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::B2::B2`.
+                public Const_B2(B2 _other) : this((Const_B2)_other) {}
             }
 
             /// Generated from class `MR::Bases::B2`.
@@ -384,6 +399,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_B2_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::B2::B2`.
+                public B2(B2 _other) : this((Const_B2)_other) {}
 
                 /// Generated from method `MR::Bases::B2::operator=`.
                 public unsafe MR.CS.Bases.B2 Assign(MR.CS.Bases.Const_B2 _other)
@@ -480,6 +498,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::C::C`.
+                public Const_C(C _other) : this((Const_C)_other) {}
             }
 
             /// Generated from class `MR::Bases::C`.
@@ -520,6 +541,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_C_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::C::C`.
+                public C(C _other) : this((Const_C)_other) {}
 
                 /// Generated from method `MR::Bases::C::operator=`.
                 public unsafe MR.CS.Bases.C Assign(MR.CS.Bases.Const_C _other)
@@ -624,6 +648,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::D::D`.
+                public Const_D(D _other) : this((Const_D)_other) {}
             }
 
             /// Generated from class `MR::Bases::D`.
@@ -672,6 +699,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::D::D`.
+                public D(D _other) : this((Const_D)_other) {}
 
                 /// Generated from method `MR::Bases::D::operator=`.
                 public unsafe MR.CS.Bases.D Assign(MR.CS.Bases.Const_D _other)
@@ -767,6 +797,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D2_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::D2::D2`.
+                public Const_D2(D2 _other) : this((Const_D2)_other) {}
             }
 
             /// Generated from class `MR::Bases::D2`.
@@ -806,6 +839,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D2_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::D2::D2`.
+                public D2(D2 _other) : this((Const_D2)_other) {}
 
                 /// Generated from method `MR::Bases::D2::operator=`.
                 public unsafe MR.CS.Bases.D2 Assign(MR.CS.Bases.Const_D2 _other)
@@ -901,6 +937,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D3_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::D3::D3`.
+                public Const_D3(D3 _other) : this((Const_D3)_other) {}
             }
 
             /// Generated from class `MR::Bases::D3`.
@@ -940,6 +979,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_D3_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::D3::D3`.
+                public D3(D3 _other) : this((Const_D3)_other) {}
 
                 /// Generated from method `MR::Bases::D3::operator=`.
                 public unsafe MR.CS.Bases.D3 Assign(MR.CS.Bases.Const_D3 _other)
@@ -1027,6 +1069,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::E::E`.
+                public Const_E(E _other) : this((Const_E)_other) {}
             }
 
             /// Generated from class `MR::Bases::E`.
@@ -1058,6 +1103,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_E_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::E::E`.
+                public E(E _other) : this((Const_E)_other) {}
 
                 /// Generated from method `MR::Bases::E::operator=`.
                 public unsafe MR.CS.Bases.E Assign(MR.CS.Bases.Const_E _other)
@@ -1156,6 +1204,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_F_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::F::F`.
+                public Const_F(F _other) : this((Const_F)_other) {}
             }
 
             /// Generated from class `MR::Bases::F`.
@@ -1198,6 +1249,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_F_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::Bases::F::F`.
+                public F(F _other) : this((Const_F)_other) {}
 
                 /// Generated from method `MR::Bases::F::operator=`.
                 public unsafe MR.CS.Bases.F Assign(MR.CS.Bases.Const_F _other)
@@ -1301,6 +1355,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::Bases::G::G`.
+                public Const_G(Const_G _other) : this(new _ByValue_G(_other)) {}
+
+                /// Generated from constructor `MR::Bases::G::G`.
+                public Const_G(G _other) : this((Const_G)_other) {}
             }
 
             /// Generated from class `MR::Bases::G`.
@@ -1348,6 +1408,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_G_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::Bases::G::G`.
+                public G(Const_G _other) : this(new _ByValue_G(_other)) {}
+
+                /// Generated from constructor `MR::Bases::G::G`.
+                public G(G _other) : this((Const_G)_other) {}
 
                 /// Generated from method `MR::Bases::G::operator=`.
                 public unsafe MR.CS.Bases.G Assign(MR.CS.Bases._ByValue_G _other)
@@ -1479,6 +1545,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::Bases::H::H`.
+                public Const_H(Const_H _other) : this(new _ByValue_H(_other)) {}
+
+                /// Generated from constructor `MR::Bases::H::H`.
+                public Const_H(H _other) : this((Const_H)_other) {}
             }
 
             /// Generated from class `MR::Bases::H`.
@@ -1536,6 +1608,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_H_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::Bases::H::H`.
+                public H(Const_H _other) : this(new _ByValue_H(_other)) {}
+
+                /// Generated from constructor `MR::Bases::H::H`.
+                public H(H _other) : this((Const_H)_other) {}
 
                 /// Generated from method `MR::Bases::H::operator=`.
                 public unsafe MR.CS.Bases.H Assign(MR.CS.Bases._ByValue_H _other)
@@ -1666,6 +1744,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::Bases::I::I`.
+                public Const_I(Const_I _other) : this(new _ByValue_I(_other)) {}
+
+                /// Generated from constructor `MR::Bases::I::I`.
+                public Const_I(I _other) : this((Const_I)_other) {}
             }
 
             /// Generated from class `MR::Bases::I`.
@@ -1722,6 +1806,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_Bases_I_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::Bases::I::I`.
+                public I(Const_I _other) : this(new _ByValue_I(_other)) {}
+
+                /// Generated from constructor `MR::Bases::I::I`.
+                public I(I _other) : this((Const_I)_other) {}
 
                 /// Generated from method `MR::Bases::I::operator=`.
                 public unsafe MR.CS.Bases.I Assign(MR.CS.Bases._ByValue_I _other)

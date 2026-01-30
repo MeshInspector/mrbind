@@ -50,6 +50,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Array_MRStdContainersA_42(Array_MRStdContainersA_42 other) : this((Const_Array_MRStdContainersA_42)other) {}
+
+                /// <summary>
                 /// The element at a specific index, read-only.
                 /// </summary>
                 public unsafe MR.CS.StdContainers.Const_A this[ulong i]
@@ -105,6 +110,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_array_MR_StdContainers_A_42_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Array_MRStdContainersA_42(Array_MRStdContainersA_42 other) : this((Const_Array_MRStdContainersA_42)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

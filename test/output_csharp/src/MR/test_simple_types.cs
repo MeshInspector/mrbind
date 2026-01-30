@@ -72,6 +72,9 @@ public static partial class MR
                     _KeepAlive(_other);
                 }
 
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.
+                public Const_ClassTemplate_UnsignedLong(ClassTemplate_UnsignedLong _other) : this((Const_ClassTemplate_UnsignedLong)_other) {}
+
                 // Constructors.
                 /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.
                 public unsafe Const_ClassTemplate_UnsignedLong(ulong _1) : this(null, is_owning: true)
@@ -119,6 +122,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TestSimpleTypes_ClassTemplate_unsigned_long_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.
+                public ClassTemplate_UnsignedLong(ClassTemplate_UnsignedLong _other) : this((Const_ClassTemplate_UnsignedLong)_other) {}
 
                 // Constructors.
                 /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate<unsigned long>::ClassTemplate`.

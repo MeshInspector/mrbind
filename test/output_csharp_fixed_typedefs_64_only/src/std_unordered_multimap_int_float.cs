@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_UnorderedMultimap_Int_Float(Const_UnorderedMultimap_Int_Float other) : this(new _ByValue_UnorderedMultimap_Int_Float(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_UnorderedMultimap_Int_Float(UnorderedMultimap_Int_Float other) : this((Const_UnorderedMultimap_Int_Float)other) {}
+
+                /// <summary>
                 /// The number of elements.
                 /// </summary>
                 public unsafe ulong size()
@@ -184,6 +194,11 @@ public static partial class MR
                     }
 
                     /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Const_ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
+
+                    /// <summary>
                     /// Makes a const iterator from a mutable one.
                     /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.UnorderedMultimap_Int_Float.Const_Iterator iter) : this(null, is_owning: true)
@@ -247,6 +262,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_int_float_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public ConstIterator(ConstIterator other) : this((Const_ConstIterator)other) {}
 
                     /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -371,6 +391,11 @@ public static partial class MR
                     }
 
                     /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Const_Iterator(Iterator other) : this((Const_Iterator)other) {}
+
+                    /// <summary>
                     /// Dereferences a mutable iterator, returning the key.
                     /// </summary>
                     public unsafe int derefKey()
@@ -419,6 +444,11 @@ public static partial class MR
                         _UnderlyingPtr = __MR_C_std_unordered_multimap_int_float_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
                     }
+
+                    /// <summary>
+                    /// Constructs a copy of another instance. The source remains alive.
+                    /// </summary>
+                    public Iterator(Iterator other) : this((Const_Iterator)other) {}
 
                     /// <summary>
                     /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -506,6 +536,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_unordered_multimap_int_float_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public UnorderedMultimap_Int_Float(Const_UnorderedMultimap_Int_Float other) : this(new _ByValue_UnorderedMultimap_Int_Float(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public UnorderedMultimap_Int_Float(UnorderedMultimap_Int_Float other) : this((Const_UnorderedMultimap_Int_Float)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.

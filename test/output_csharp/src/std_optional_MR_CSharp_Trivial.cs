@@ -43,6 +43,9 @@ public static partial class MR
                     _KeepAlive(other);
                 }
 
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Optional_MRCSharpTrivial(Optional_MRCSharpTrivial other) : this((Const_Optional_MRCSharpTrivial)other) {}
+
                 /// Constructs a new instance.
                 public unsafe Const_Optional_MRCSharpTrivial(MR.CS.CSharp.Const_Trivial? other) : this(null, is_owning: true)
                 {
@@ -89,6 +92,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Optional_MRCSharpTrivial(Optional_MRCSharpTrivial other) : this((Const_Optional_MRCSharpTrivial)other) {}
 
                 /// Constructs a new instance.
                 public unsafe Optional_MRCSharpTrivial(MR.CS.CSharp.Const_Trivial? other) : this(null, is_owning: true)

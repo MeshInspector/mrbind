@@ -50,6 +50,11 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Optional_MRCSharpExposedLayoutSh(Optional_MRCSharpExposedLayoutSh other) : this((Const_Optional_MRCSharpExposedLayoutSh)other) {}
+
+                /// <summary>
                 /// Constructs a new instance.
                 /// </summary>
                 public unsafe Const_Optional_MRCSharpExposedLayoutSh(MR.CS.CSharp._InOpt_ExposedLayoutSh other) : this(null, is_owning: true)
@@ -104,6 +109,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Optional_MRCSharpExposedLayoutSh(Optional_MRCSharpExposedLayoutSh other) : this((Const_Optional_MRCSharpExposedLayoutSh)other) {}
 
                 /// <summary>
                 /// Constructs a new instance.

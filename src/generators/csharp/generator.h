@@ -736,6 +736,11 @@ namespace mrbind::CSharp
         {
             regular,
 
+            // A `T(T &)` constructor generated from `T(const T &)`. This resolves some overload ambiguities.
+            const_ref_copy_ctor_to_mutable_ref_copy_ctor,
+            // If the copying constructor of a class ends up using the `_ByValue_` wrapper in C#, this creates the const ref version from it.
+            by_value_copy_ctor_to_const_ref_copy_ctor,
+
             // A constructor getting rewritten as a conversion operator.
             conv_op_for_ctor,
             // Same, but this one is emitted in the `_ByValue_...` helpers.

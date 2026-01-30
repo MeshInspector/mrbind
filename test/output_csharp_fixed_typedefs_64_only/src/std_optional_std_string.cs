@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Optional_StdString(Const_Optional_StdString other) : this(new _ByValue_Optional_StdString(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_Optional_StdString(Optional_StdString other) : this((Const_Optional_StdString)other) {}
+
+                /// <summary>
                 /// Constructs a new instance.
                 /// </summary>
                 public unsafe Const_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) : this(null, is_owning: true)
@@ -117,6 +127,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_optional_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Optional_StdString(Const_Optional_StdString other) : this(new _ByValue_Optional_StdString(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Optional_StdString(Optional_StdString other) : this((Const_Optional_StdString)other) {}
 
                 /// <summary>
                 /// Constructs a new instance.

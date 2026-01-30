@@ -48,6 +48,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CustomPrefNames_Ai_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CustomPrefNames::Ai::Ai`.
+                /// </summary>
+                public Const_Ai(Ai _other) : this((Const_Ai)_other) {}
             }
 
             /// <summary>
@@ -78,6 +83,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CustomPrefNames_Ai_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CustomPrefNames::Ai::Ai`.
+                /// </summary>
+                public Ai(Ai _other) : this((Const_Ai)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CustomPrefNames::Ai::operator=`.
@@ -170,6 +180,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CustomPrefNames_Af_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CustomPrefNames::Af::Af`.
+                /// </summary>
+                public Const_Af(Af _other) : this((Const_Af)_other) {}
             }
 
             /// <summary>
@@ -200,6 +215,11 @@ public static partial class MR
                     _UnderlyingPtr = __MR_CustomPrefNames_Af_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::CustomPrefNames::Af::Af`.
+                /// </summary>
+                public Af(Af _other) : this((Const_Af)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::CustomPrefNames::Af::operator=`.

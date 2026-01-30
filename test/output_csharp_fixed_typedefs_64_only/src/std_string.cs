@@ -50,6 +50,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_String(Const_String other) : this(new _ByValue_String(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public Const_String(String other) : this((Const_String)other) {}
+
+                /// <summary>
                 /// Constructs a new instance.
                 /// </summary>
                 public unsafe Const_String(ReadOnlySpan<char> other) : this(null, is_owning: true)
@@ -144,6 +154,16 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public String(Const_String other) : this(new _ByValue_String(other)) {}
+
+                /// <summary>
+                /// Constructs a copy of another instance. The source remains alive.
+                /// </summary>
+                public String(String other) : this((Const_String)other) {}
 
                 /// <summary>
                 /// Constructs a new instance.

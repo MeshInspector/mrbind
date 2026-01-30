@@ -65,6 +65,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::StdOptional::A::A`.
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             /// Generated from class `MR::StdOptional::A`.
@@ -107,6 +110,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::StdOptional::A::A`.
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// Generated from method `MR::StdOptional::A::operator=`.
                 public unsafe MR.CS.StdOptional.A Assign(MR.CS.StdOptional.Const_A _other)
@@ -212,6 +218,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_B_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::StdOptional::B::B`.
+                public Const_B(Const_B _other) : this(new _ByValue_B(_other)) {}
+
+                /// Generated from constructor `MR::StdOptional::B::B`.
+                public Const_B(B _other) : this((Const_B)_other) {}
             }
 
             /// Generated from class `MR::StdOptional::B`.
@@ -261,6 +273,12 @@ public static partial class MR
                     _UnderlyingPtr = __MR_StdOptional_B_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                 }
+
+                /// Generated from constructor `MR::StdOptional::B::B`.
+                public B(Const_B _other) : this(new _ByValue_B(_other)) {}
+
+                /// Generated from constructor `MR::StdOptional::B::B`.
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// Generated from method `MR::StdOptional::B::operator=`.
                 public unsafe MR.CS.StdOptional.B Assign(MR.CS.StdOptional._ByValue_B _other)

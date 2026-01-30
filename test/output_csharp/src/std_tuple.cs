@@ -42,6 +42,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_tuple_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Const_Tuple(Tuple other) : this((Const_Tuple)other) {}
             }
 
             /// Stores 0 objects.
@@ -66,6 +69,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_tuple_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
                 }
+
+                /// Constructs a copy of another instance. The source remains alive.
+                public Tuple(Tuple other) : this((Const_Tuple)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 public unsafe void Assign(MR.CS.Std.Const_Tuple other)

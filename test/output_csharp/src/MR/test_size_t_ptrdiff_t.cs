@@ -42,6 +42,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TestSizeT_A_unsigned_long_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::TestSizeT::A<unsigned long>::A`.
+                public Const_A_UnsignedLong(A_UnsignedLong _other) : this((Const_A_UnsignedLong)_other) {}
             }
 
             /// Generated from class `MR::TestSizeT::A<unsigned long>`.
@@ -66,6 +69,9 @@ public static partial class MR
                     _UnderlyingPtr = __MR_TestSizeT_A_unsigned_long_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
                 }
+
+                /// Generated from constructor `MR::TestSizeT::A<unsigned long>::A`.
+                public A_UnsignedLong(A_UnsignedLong _other) : this((Const_A_UnsignedLong)_other) {}
 
                 /// Generated from method `MR::TestSizeT::A<unsigned long>::operator=`.
                 public unsafe MR.CS.TestSizeT.A_UnsignedLong Assign(MR.CS.TestSizeT.Const_A_UnsignedLong _other)

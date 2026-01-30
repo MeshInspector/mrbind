@@ -89,6 +89,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::StdOptional::A::A`.
+                /// </summary>
+                public Const_A(A _other) : this((Const_A)_other) {}
             }
 
             /// <summary>
@@ -141,6 +146,11 @@ public static partial class MR
                     _KeepAlive(_other);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::StdOptional::A::A`.
+                /// </summary>
+                public A(A _other) : this((Const_A)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::StdOptional::A::operator=`.
@@ -274,6 +284,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::StdOptional::B::B`.
+                /// </summary>
+                public Const_B(Const_B _other) : this(new _ByValue_B(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::StdOptional::B::B`.
+                /// </summary>
+                public Const_B(B _other) : this((Const_B)_other) {}
             }
 
             /// <summary>
@@ -346,6 +366,16 @@ public static partial class MR
                     if (_other.Value is not null) _KeepAlive(_other.Value);
                     _FinalizeFields();
                 }
+
+                /// <summary>
+                /// Generated from constructor `MR::StdOptional::B::B`.
+                /// </summary>
+                public B(Const_B _other) : this(new _ByValue_B(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::StdOptional::B::B`.
+                /// </summary>
+                public B(B _other) : this((Const_B)_other) {}
 
                 /// <summary>
                 /// Generated from method `MR::StdOptional::B::operator=`.
