@@ -321,8 +321,15 @@ namespace MRBind::pb11
 
         // This is set when loading the class. Relative to the parent class or namespace.
         std::string pybind_type_name;
-        // Same, but with `.`-separate qualifiers for all parent classes or namespaces.
+        // Same, but with `.`-separated qualifiers for all parent classes or namespaces.
         std::string pybind_type_name_qual;
+
+        // Don't read directly, use `DefaultConstructedDefaultArgumentSpelling()`.
+        std::optional<std::string> cached_default_constructed_default_arg_spelling;
+        // Returns the Python string that can be used as a default argument when this type is being default-constructed.
+        // This is constructed lazily in `cached_default_constructed_default_arg_spelling` on first use.
+        // This needs to exist because Pybind uses raw `const char *` that can dangle.
+        [[nodiscard]] const char *DefaultConstructedDefaultArgumentSpelling();
 
         bool was_processed = false;
         std::vector<std::string> aliases;
@@ -523,9 +530,10 @@ namespace MRBind::pb11
     auto ParamWithDefaultArg(const char *name, T &&default_arg, const char *default_arg_str)
     {
         // This logic is only needed to emit nicer default argument strings.
+
         if constexpr (std::is_pointer_v<RemoveConstAndConstRef<T>> || std::is_null_pointer_v<RemoveConstAndConstRef<T>>)
         {
-            // For pointers,
+            // For pointers, replace common spellings of a null pointer with Python's `None`.
             std::string default_arg_view = default_arg_str;
             bool is_null = default_arg_view == "'0'" || default_arg_view == "'nullptr'";
             return pybind11::arg_v(name, std::forward<T>(default_arg), is_null ? "None" : default_arg_str);
@@ -536,7 +544,21 @@ namespace MRBind::pb11
             std::is_same_v<RemoveConstAndConstRef<T>, std::string_view>
         )
         {
+            // For integers, we don't even need a custom string, we can just pass the number as is.
             return pybind11::arg_v(name, std::forward<T>(default_arg)); // No custom string.
+        }
+        else if constexpr (std::is_class_v<RemoveConstAndConstRef<T>> || std::is_enum_v<RemoveConstAndConstRef<T>>)
+        {
+            // For classes and enums, if `{}` is passed and we know this type, replace `'{}'` with `T()`, which should be valid Python.
+            if (std::string_view(default_arg_str) == "'{}'")
+            {
+                Registry &r = GetRegistry();
+                auto iter = r.type_entries.find(typeid(T));
+                if (iter != r.type_entries.end())
+                    return pybind11::arg_v(name, std::forward<T>(default_arg), iter->second.DefaultConstructedDefaultArgumentSpelling());
+            }
+
+            return pybind11::arg_v(name, std::forward<T>(default_arg), default_arg_str); // Leave the string as is.
         }
         else
         {
@@ -2468,6 +2490,17 @@ namespace MRBind::pb11
         return ret;
     }
 
+    const char *TypeEntry::DefaultConstructedDefaultArgumentSpelling()
+    {
+        if (!cached_default_constructed_default_arg_spelling)
+        {
+            assert(!pybind_type_name_qual.empty());
+            cached_default_constructed_default_arg_spelling = pybind_type_name_qual + "()";
+        }
+
+        return cached_default_constructed_default_arg_spelling->c_str();
+    }
+
 
     // Type name simplification:
 
@@ -2510,7 +2543,7 @@ namespace MRBind::pb11
     //   but also removes one of the commas next ot it.
     //
     // The pointers you get remain stable until `pop` is called for the current parameter list.
-    void ForTemplateParameters(std::string &str, auto &&push, auto &&pop, auto &&push_arg, auto &&pop_arg)
+    static void ForTemplateParameters(std::string &str, auto &&push, auto &&pop, auto &&push_arg, auto &&pop_arg)
     {
         // A placeholder character used to mark the erased parts of the string.
         // You can temporarily change it to something printable to debug.
