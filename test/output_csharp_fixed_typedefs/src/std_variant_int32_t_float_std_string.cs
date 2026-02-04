@@ -64,9 +64,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe ulong index()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_Index", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_variant_int32_t_float_std_string_Index(_Underlying *_this);
-                    return __MR_C_std_variant_int32_t_float_std_string_Index(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_index", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_variant_int32_t_float_std_string_index(_Underlying *_this);
+                    return __MR_C_std_variant_int32_t_float_std_string_index(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -125,9 +125,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe int? getInt32T()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_Get_int32_t", ExactSpelling = true)]
-                    extern static int *__MR_C_std_variant_int32_t_float_std_string_Get_int32_t(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_Get_int32_t(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_get_int32_t", ExactSpelling = true)]
+                    extern static int *__MR_C_std_variant_int32_t_float_std_string_get_int32_t(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_get_int32_t(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
 
@@ -136,9 +136,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe float? getFloat()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_Get_float", ExactSpelling = true)]
-                    extern static float *__MR_C_std_variant_int32_t_float_std_string_Get_float(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_Get_float(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_get_float", ExactSpelling = true)]
+                    extern static float *__MR_C_std_variant_int32_t_float_std_string_get_float(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_get_float(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
 
@@ -147,9 +147,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Std.Const_String? getStdString()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_Get_std_string", ExactSpelling = true)]
-                    extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_variant_int32_t_float_std_string_Get_std_string(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_Get_std_string(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_get_std_string", ExactSpelling = true)]
+                    extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_variant_int32_t_float_std_string_get_std_string(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_get_std_string(_UnderlyingPtr);
                     MR.CS.Std.Const_String? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.Const_String(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -302,9 +302,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<int>? getInt32T()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_GetMutable_int32_t", ExactSpelling = true)]
-                    extern static int *__MR_C_std_variant_int32_t_float_std_string_GetMutable_int32_t(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_GetMutable_int32_t(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_get_int32_t_mut", ExactSpelling = true)]
+                    extern static int *__MR_C_std_variant_int32_t_float_std_string_get_int32_t_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_get_int32_t_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
 
@@ -313,9 +313,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<float>? getFloat()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_GetMutable_float", ExactSpelling = true)]
-                    extern static float *__MR_C_std_variant_int32_t_float_std_string_GetMutable_float(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_GetMutable_float(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_get_float_mut", ExactSpelling = true)]
+                    extern static float *__MR_C_std_variant_int32_t_float_std_string_get_float_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_get_float_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
                 }
 
@@ -324,9 +324,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Std.String? getStdString()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_GetMutable_std_string", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_variant_int32_t_float_std_string_GetMutable_std_string(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_GetMutable_std_string(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int32_t_float_std_string_get_std_string_mut", ExactSpelling = true)]
+                    extern static MR.CS.Std.String._Underlying *__MR_C_std_variant_int32_t_float_std_string_get_std_string_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_int32_t_float_std_string_get_std_string_mut(_UnderlyingPtr);
                     MR.CS.Std.String? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.String(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;

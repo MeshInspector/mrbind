@@ -55,13 +55,13 @@ MR_C_API MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdShared
 
 /// Returns the stored pointer, possibly null.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_this);
+MR_C_API MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_this);
 
 /// How many shared pointers share the managed object. Zero if no object is being managed.
-/// This being zero usually conincides with `MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get()` returning null, but is ultimately orthogonal.
+/// This being zero usually conincides with `MR_C_std_shared_ptr_MR_StdSharedPtr_A_get()` returning null, but is ultimately orthogonal.
 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API int MR_C_std_shared_ptr_MR_StdSharedPtr_A_UseCount(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_this);
+MR_C_API int MR_C_std_shared_ptr_MR_StdSharedPtr_A_use_count(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_this);
 
 /// Create a new instance, taking ownership of an existing pointer.
 /// Parameter `ptr` should point to a single object rather than to an array.

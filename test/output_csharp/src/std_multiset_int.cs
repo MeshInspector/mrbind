@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from C++ container `std::multiset<int>`.
             /// This is the const half of the class.
-            public class Const_Multiset_Int : MR.CS.Misc.Object<Const_Multiset_Int>, System.IDisposable
+            public class Const_Multiset_Int : MR.CS.Misc.Object<Const_Multiset_Int>, System.IDisposable, IEnumerable<int>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -23,6 +23,70 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Multiset_Int() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<int>
+                {
+                    Const_Multiset_Int _container;
+                    MR.CS.Std.Multiset_Int.ConstIterator _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_Multiset_Int container)
+                    {
+                        _container = container;
+                        _cur = _container.Begin();
+                        _done = _cur == _container.End();
+                    }
+
+                    public int Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.Deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur.Incr();
+                        if (_cur == _container.End())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.Begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<int> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
 
                 internal unsafe Const_Multiset_Int(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -61,34 +125,34 @@ public static partial class MR
                 /// The number of elements.
                 public unsafe ulong Size()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_Size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_multiset_int_Size(_Underlying *_this);
-                    return __MR_C_std_multiset_int_Size(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_size", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_multiset_int_size(_Underlying *_this);
+                    return __MR_C_std_multiset_int_size(_UnderlyingPtr);
                 }
 
                 /// Returns true if the size is zero.
-                public unsafe bool IsEmpty()
+                public unsafe bool Empty()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_IsEmpty", ExactSpelling = true)]
-                    extern static byte __MR_C_std_multiset_int_IsEmpty(_Underlying *_this);
-                    return __MR_C_std_multiset_int_IsEmpty(_UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_empty", ExactSpelling = true)]
+                    extern static byte __MR_C_std_multiset_int_empty(_Underlying *_this);
+                    return __MR_C_std_multiset_int_empty(_UnderlyingPtr) != 0;
                 }
 
                 /// Checks if the contain contains this key.
                 public unsafe ulong Count(int key)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_Count", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_multiset_int_Count(_Underlying *_this, int *key);
-                    return __MR_C_std_multiset_int_Count(_UnderlyingPtr, &key);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_count", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_multiset_int_count(_Underlying *_this, int *key);
+                    return __MR_C_std_multiset_int_count(_UnderlyingPtr, &key);
                 }
 
                 /// Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
                 public unsafe MR.CS.Std.Multiset_Int.ConstIterator Find(int key)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_Find", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multiset_Int.ConstIterator._Underlying *__MR_C_std_multiset_int_Find(_Underlying *_this, int *key);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_find", ExactSpelling = true)]
+                    extern static MR.CS.Std.Multiset_Int.ConstIterator._Underlying *__MR_C_std_multiset_int_find(_Underlying *_this, int *key);
                     MR.CS.Std.Multiset_Int.ConstIterator __ret;
-                    __ret = new(__MR_C_std_multiset_int_Find(_UnderlyingPtr, &key), is_owning: true);
+                    __ret = new(__MR_C_std_multiset_int_find(_UnderlyingPtr, &key), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -96,10 +160,10 @@ public static partial class MR
                 /// The begin iterator, const.
                 public unsafe MR.CS.Std.Multiset_Int.ConstIterator Begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_Begin", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multiset_Int.ConstIterator._Underlying *__MR_C_std_multiset_int_Begin(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_begin", ExactSpelling = true)]
+                    extern static MR.CS.Std.Multiset_Int.ConstIterator._Underlying *__MR_C_std_multiset_int_begin(_Underlying *_this);
                     MR.CS.Std.Multiset_Int.ConstIterator __ret;
-                    __ret = new(__MR_C_std_multiset_int_Begin(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_multiset_int_begin(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -107,18 +171,18 @@ public static partial class MR
                 /// Tests whether a const iterator is the begin iterator.
                 public unsafe bool IsBegin(MR.CS.Std.Multiset_Int.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_IsBegin", ExactSpelling = true)]
-                    extern static byte __MR_C_std_multiset_int_IsBegin(_Underlying *_this, MR.CS.Std.Multiset_Int.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_multiset_int_IsBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_is_begin", ExactSpelling = true)]
+                    extern static byte __MR_C_std_multiset_int_is_begin(_Underlying *_this, MR.CS.Std.Multiset_Int.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_std_multiset_int_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// The end iterator, const.
                 public unsafe MR.CS.Std.Multiset_Int.ConstIterator End()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_End", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multiset_Int.ConstIterator._Underlying *__MR_C_std_multiset_int_End(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_end", ExactSpelling = true)]
+                    extern static MR.CS.Std.Multiset_Int.ConstIterator._Underlying *__MR_C_std_multiset_int_end(_Underlying *_this);
                     MR.CS.Std.Multiset_Int.ConstIterator __ret;
-                    __ret = new(__MR_C_std_multiset_int_End(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_multiset_int_end(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -126,9 +190,9 @@ public static partial class MR
                 /// Tests whether a const iterator is the end iterator.
                 public unsafe bool IsEnd(MR.CS.Std.Multiset_Int.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_IsEnd", ExactSpelling = true)]
-                    extern static byte __MR_C_std_multiset_int_IsEnd(_Underlying *_this, MR.CS.Std.Multiset_Int.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_multiset_int_IsEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_is_end", ExactSpelling = true)]
+                    extern static byte __MR_C_std_multiset_int_is_end(_Underlying *_this, MR.CS.Std.Multiset_Int.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_std_multiset_int_is_end(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// Read-only iterator for `MR_C_std_multiset_int`.
@@ -176,9 +240,29 @@ public static partial class MR
                     /// Dereferences a const iterator.
                     public unsafe int Deref()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_const_iterator_Deref", ExactSpelling = true)]
-                        extern static int *__MR_C_std_multiset_int_const_iterator_Deref(_Underlying *_this);
-                        return *__MR_C_std_multiset_int_const_iterator_Deref(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_const_iterator_deref", ExactSpelling = true)]
+                        extern static int *__MR_C_std_multiset_int_const_iterator_deref(_Underlying *_this);
+                        return *__MR_C_std_multiset_int_const_iterator_deref(_UnderlyingPtr);
+                    }
+
+                    /// Increments a const iterator.
+                    public static unsafe ConstIterator operator++(MR.CS.Std.Multiset_Int.Const_ConstIterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_multiset_int_const_iterator_incr(MR.CS.Std.Multiset_Int.Const_ConstIterator._Underlying *_this);
+                        ConstIterator __this_copy = new(_this);
+                        __MR_C_std_multiset_int_const_iterator_incr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
+                    }
+
+                    /// Decrements a const iterator.
+                    public static unsafe ConstIterator operator--(MR.CS.Std.Multiset_Int.Const_ConstIterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_const_iterator_decr", ExactSpelling = true)]
+                        extern static void __MR_C_std_multiset_int_const_iterator_decr(MR.CS.Std.Multiset_Int.Const_ConstIterator._Underlying *_this);
+                        ConstIterator __this_copy = new(_this);
+                        __MR_C_std_multiset_int_const_iterator_decr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
                     }
                 }
 
@@ -221,17 +305,17 @@ public static partial class MR
                     /// Increments a const iterator.
                     public unsafe void Incr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_const_iterator_Incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_multiset_int_const_iterator_Incr(_Underlying *_this);
-                        __MR_C_std_multiset_int_const_iterator_Incr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_multiset_int_const_iterator_incr(_Underlying *_this);
+                        __MR_C_std_multiset_int_const_iterator_incr(_UnderlyingPtr);
                     }
 
                     /// Decrements a const iterator.
                     public unsafe void Decr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_const_iterator_Decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_multiset_int_const_iterator_Decr(_Underlying *_this);
-                        __MR_C_std_multiset_int_const_iterator_Decr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_const_iterator_decr", ExactSpelling = true)]
+                        extern static void __MR_C_std_multiset_int_const_iterator_decr(_Underlying *_this);
+                        __MR_C_std_multiset_int_const_iterator_decr(_UnderlyingPtr);
                     }
                 }
 
@@ -326,18 +410,18 @@ public static partial class MR
                 /// Removes all elements from the container.
                 public unsafe void Clear()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_Clear", ExactSpelling = true)]
-                    extern static void __MR_C_std_multiset_int_Clear(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_clear", ExactSpelling = true)]
+                    extern static void __MR_C_std_multiset_int_clear(_Underlying *_this);
                     _DiscardKeepAlive();
-                    __MR_C_std_multiset_int_Clear(_UnderlyingPtr);
+                    __MR_C_std_multiset_int_clear(_UnderlyingPtr);
                 }
 
                 /// Inserts a new element.
                 public unsafe void Insert(int new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_Insert", ExactSpelling = true)]
-                    extern static void __MR_C_std_multiset_int_Insert(_Underlying *_this, int new_elem);
-                    __MR_C_std_multiset_int_Insert(_UnderlyingPtr, new_elem);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_insert", ExactSpelling = true)]
+                    extern static void __MR_C_std_multiset_int_insert(_Underlying *_this, int new_elem);
+                    __MR_C_std_multiset_int_insert(_UnderlyingPtr, new_elem);
                 }
             }
 

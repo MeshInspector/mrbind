@@ -64,58 +64,58 @@ void MR_C_std_multiset_float_AssignFromRange(MR_C_std_multiset_float *_this, con
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::multiset<float> *)(_this)) = std::multiset<float>(ptr, ptr + size);
 }
 
-size_t MR_C_std_multiset_float_Size(const MR_C_std_multiset_float *_this)
+size_t MR_C_std_multiset_float_size(const MR_C_std_multiset_float *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multiset<float> *)(_this)).size();
 }
 
-bool MR_C_std_multiset_float_IsEmpty(const MR_C_std_multiset_float *_this)
+bool MR_C_std_multiset_float_empty(const MR_C_std_multiset_float *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multiset<float> *)(_this)).empty();
 }
 
-void MR_C_std_multiset_float_Clear(MR_C_std_multiset_float *_this)
+void MR_C_std_multiset_float_clear(MR_C_std_multiset_float *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::multiset<float> *)(_this)).clear();
 }
 
-size_t MR_C_std_multiset_float_Count(const MR_C_std_multiset_float *_this, const float *key)
+size_t MR_C_std_multiset_float_count(const MR_C_std_multiset_float *_this, const float *key)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multiset<float> *)(_this)).count(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
     );
 }
 
-MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_Find(const MR_C_std_multiset_float *_this, const float *key)
+MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_find(const MR_C_std_multiset_float *_this, const float *key)
 {
     return (MR_C_std_multiset_float_const_iterator *)new std::multiset<float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multiset<float> *)(_this)).find(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
     ));
 }
 
-void MR_C_std_multiset_float_Insert(MR_C_std_multiset_float *_this, float new_elem)
+void MR_C_std_multiset_float_insert(MR_C_std_multiset_float *_this, float new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::multiset<float> *)(_this)).insert(
         new_elem
     );
 }
 
-MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_Begin(const MR_C_std_multiset_float *_this)
+MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_begin(const MR_C_std_multiset_float *_this)
 {
     return (MR_C_std_multiset_float_const_iterator *)new std::multiset<float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multiset<float> *)(_this)).cbegin());
 }
 
-bool MR_C_std_multiset_float_IsBegin(const MR_C_std_multiset_float *_this, const MR_C_std_multiset_float_const_iterator *iter)
+bool MR_C_std_multiset_float_is_begin(const MR_C_std_multiset_float *_this, const MR_C_std_multiset_float_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multiset<float> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::multiset<float>::const_iterator *)(iter));
 }
 
-MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_End(const MR_C_std_multiset_float *_this)
+MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_end(const MR_C_std_multiset_float *_this)
 {
     return (MR_C_std_multiset_float_const_iterator *)new std::multiset<float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multiset<float> *)(_this)).cend());
 }
 
-bool MR_C_std_multiset_float_IsEnd(const MR_C_std_multiset_float *_this, const MR_C_std_multiset_float_const_iterator *iter)
+bool MR_C_std_multiset_float_is_end(const MR_C_std_multiset_float *_this, const MR_C_std_multiset_float_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multiset<float> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::multiset<float>::const_iterator *)(iter));
 }
@@ -164,17 +164,17 @@ MR_C_std_multiset_float_const_iterator *MR_C_std_multiset_float_const_iterator_O
     return (MR_C_std_multiset_float_const_iterator *)(((std::multiset<float>::const_iterator *)ptr) + i);
 }
 
-const float *MR_C_std_multiset_float_const_iterator_Deref(const MR_C_std_multiset_float_const_iterator *_this)
+const float *MR_C_std_multiset_float_const_iterator_deref(const MR_C_std_multiset_float_const_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::multiset<float>::const_iterator *)(_this)));
 }
 
-void MR_C_std_multiset_float_const_iterator_Incr(MR_C_std_multiset_float_const_iterator *_this)
+void MR_C_std_multiset_float_const_iterator_incr(MR_C_std_multiset_float_const_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::multiset<float>::const_iterator *)(_this));
 }
 
-void MR_C_std_multiset_float_const_iterator_Decr(MR_C_std_multiset_float_const_iterator *_this)
+void MR_C_std_multiset_float_const_iterator_decr(MR_C_std_multiset_float_const_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::multiset<float>::const_iterator *)(_this));
 }

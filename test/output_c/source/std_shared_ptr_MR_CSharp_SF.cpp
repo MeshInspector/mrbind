@@ -53,12 +53,12 @@ MR_C_std_shared_ptr_MR_CSharp_SF *MR_C_std_shared_ptr_MR_CSharp_SF_OffsetMutable
     return (MR_C_std_shared_ptr_MR_CSharp_SF *)(((std::shared_ptr<MR::CSharp::SF> *)ptr) + i);
 }
 
-MR_CSharp_SF *MR_C_std_shared_ptr_MR_CSharp_SF_Get(const MR_C_std_shared_ptr_MR_CSharp_SF *_this)
+MR_CSharp_SF *MR_C_std_shared_ptr_MR_CSharp_SF_get(const MR_C_std_shared_ptr_MR_CSharp_SF *_this)
 {
     return (MR_CSharp_SF *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CSharp::SF> *)(_this)).get());
 }
 
-int MR_C_std_shared_ptr_MR_CSharp_SF_UseCount(const MR_C_std_shared_ptr_MR_CSharp_SF *_this)
+int MR_C_std_shared_ptr_MR_CSharp_SF_use_count(const MR_C_std_shared_ptr_MR_CSharp_SF *_this)
 {
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CSharp::SF> *)(_this)).use_count());
 }

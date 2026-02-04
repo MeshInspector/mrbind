@@ -58,7 +58,7 @@ MR_C_API MR_C_std_variant_int32_t_float_std_string *MR_C_std_variant_int32_t_flo
 
 // Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_variant_int32_t_float_std_string_Index(const MR_C_std_variant_int32_t_float_std_string *_this);
+MR_C_API size_t MR_C_std_variant_int32_t_float_std_string_index(const MR_C_std_variant_int32_t_float_std_string *_this);
 
 // Constructs the variant storing the element 0, of type `int32_t`.
 // The reference to the parameter `value` might be preserved in the constructed object.
@@ -100,27 +100,27 @@ MR_C_API void MR_C_std_variant_int32_t_float_std_string_AssignAs_std_string(MR_C
 
 // Returns the element 0, of type `int32_t`, read-only. If it's not the active element, returns null.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API const int32_t *MR_C_std_variant_int32_t_float_std_string_Get_int32_t(const MR_C_std_variant_int32_t_float_std_string *_this);
+MR_C_API const int32_t *MR_C_std_variant_int32_t_float_std_string_get_int32_t(const MR_C_std_variant_int32_t_float_std_string *_this);
 
 // Returns the element 0, of type `int32_t`, mutable. If it's not the active element, returns null.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API int32_t *MR_C_std_variant_int32_t_float_std_string_GetMutable_int32_t(MR_C_std_variant_int32_t_float_std_string *_this);
+MR_C_API int32_t *MR_C_std_variant_int32_t_float_std_string_get_int32_t_mut(MR_C_std_variant_int32_t_float_std_string *_this);
 
 // Returns the element 1, of type `float`, read-only. If it's not the active element, returns null.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API const float *MR_C_std_variant_int32_t_float_std_string_Get_float(const MR_C_std_variant_int32_t_float_std_string *_this);
+MR_C_API const float *MR_C_std_variant_int32_t_float_std_string_get_float(const MR_C_std_variant_int32_t_float_std_string *_this);
 
 // Returns the element 1, of type `float`, mutable. If it's not the active element, returns null.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API float *MR_C_std_variant_int32_t_float_std_string_GetMutable_float(MR_C_std_variant_int32_t_float_std_string *_this);
+MR_C_API float *MR_C_std_variant_int32_t_float_std_string_get_float_mut(MR_C_std_variant_int32_t_float_std_string *_this);
 
 // Returns the element 2, of type `std::string`, read-only. If it's not the active element, returns null.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API const MR_C_std_string *MR_C_std_variant_int32_t_float_std_string_Get_std_string(const MR_C_std_variant_int32_t_float_std_string *_this);
+MR_C_API const MR_C_std_string *MR_C_std_variant_int32_t_float_std_string_get_std_string(const MR_C_std_variant_int32_t_float_std_string *_this);
 
 // Returns the element 2, of type `std::string`, mutable. If it's not the active element, returns null.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_C_std_string *MR_C_std_variant_int32_t_float_std_string_GetMutable_std_string(MR_C_std_variant_int32_t_float_std_string *_this);
+MR_C_API MR_C_std_string *MR_C_std_variant_int32_t_float_std_string_get_std_string_mut(MR_C_std_variant_int32_t_float_std_string *_this);
 
 #ifdef __cplusplus
 } // extern "C"

@@ -57,9 +57,9 @@ public static partial class MR
                 /// Returns the stored pointer, possibly null.
                 public unsafe MR.CS.StdUniquePtr.A? Get()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get", ExactSpelling = true)]
-                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get(_Underlying *_this);
-                    var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_get", ExactSpelling = true)]
+                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_get(_Underlying *_this);
+                    var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_get(_UnderlyingPtr);
                     MR.CS.StdUniquePtr.A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdUniquePtr.A(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -123,9 +123,9 @@ public static partial class MR
                 /// The returned pointer is owning! It must be deallocated using `MR_StdUniquePtr_A_Destroy()`.
                 public unsafe MR.CS.StdUniquePtr.A? Release()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release", ExactSpelling = true)]
-                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release(_Underlying *_this);
-                    var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_release", ExactSpelling = true)]
+                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_release(_Underlying *_this);
+                    var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_release(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.StdUniquePtr.A(__c_ret, is_owning: false) : null;
                 }
             }

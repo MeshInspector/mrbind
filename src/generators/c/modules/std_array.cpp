@@ -60,7 +60,7 @@ namespace mrbind::CBindings::Modules
                             { // [] const
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// The element at a specific index, read-only.";
-                                emit.name = binder.MakeMemberFuncName(generator, "At", CInterop::MethodKinds::Operator{.token = "[]"});
+                                emit.name = binder.MakeMemberFuncName(generator, generator.ConstMethodVariant("at"), CInterop::MethodKinds::Operator{.token = "[]"});
                                 emit.lifetimes.ReturnsReferenceToSubobject();
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Reference{});
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
@@ -76,7 +76,7 @@ namespace mrbind::CBindings::Modules
                             { // [] mutable
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// The element at a specific index, mutable.";
-                                emit.name = binder.MakeMemberFuncName(generator, "MutableAt", CInterop::MethodKinds::Operator{.token = "[]"});
+                                emit.name = binder.MakeMemberFuncName(generator, generator.MutableMethodVariant("at"), CInterop::MethodKinds::Operator{.token = "[]"});
                                 emit.lifetimes.ReturnsReferenceToSubobject();
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Reference{});
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
@@ -91,7 +91,7 @@ namespace mrbind::CBindings::Modules
                             { // data const
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, read-only.";
-                                emit.name = binder.MakeMemberFuncName(generator, "Data");
+                                emit.name = binder.MakeMemberFuncName(generator, "data", true);
                                 emit.lifetimes.ReturnsReferenceToSubobject();
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{});
                                 emit.mark_as_returning_pointer_to_array = true;
@@ -103,13 +103,39 @@ namespace mrbind::CBindings::Modules
                             { // data mutable
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// Returns a pointer to the continuous storage that holds all elements, mutable.";
-                                emit.name = binder.MakeMemberFuncName(generator, "MutableData", "Data");
+                                emit.name = binder.MakeMemberFuncName(generator, "data", false);
                                 emit.lifetimes.ReturnsReferenceToSubobject();
                                 emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddModifier(cppdecl::Pointer{});
                                 emit.mark_as_returning_pointer_to_array = true;
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                                 emit.cpp_called_func = "data";
                                 generator.EmitFunction(file, emit);
+                            }
+
+                            // Obtaining begin/end iterators.
+                            // This is needed for C# to implement IEnumerable for arrays.
+                            for (bool is_end : {false, true})
+                            {
+                                std::string begin_or_end_str = is_end ? "end" : "begin";
+                                std::string begin_or_end_method_name = is_end ? "end" : "begin"; // Happens to match `begin_or_end_str` right now.
+
+                                for (bool is_const_iter : {true, false})
+                                {
+                                    const std::string mut_or_const_str = is_const_iter ? "const" : "mutable";
+                                    const std::string c_or_empty = is_const_iter ? "c" : "";
+
+                                    { // get
+                                        Generator::EmitFuncParams emit;
+                                        emit.c_comment = "/// The " + begin_or_end_str + " iterator, " + mut_or_const_str + ".";
+                                        emit.name = binder.MakeMemberFuncName(generator, begin_or_end_method_name, is_const_iter);
+                                        emit.lifetimes.ReturnsReferenceToSubobject();
+                                        emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_ * is_const_iter).AddModifier(cppdecl::Pointer{});
+                                        emit.mark_as_returning_pointer_to_array = true;
+                                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const_iter);
+                                        emit.cpp_called_func = c_or_empty + begin_or_end_str;
+                                        generator.EmitFunction(file, emit);
+                                    }
+                                }
                             }
                         }
 

@@ -69,9 +69,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe int getInt32T()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_float_Get_int32_t", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_int32_t_float_Get_int32_t(_Underlying *_this);
-                    return *__MR_C_std_tuple_int32_t_float_Get_int32_t(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_float_get_int32_t", ExactSpelling = true)]
+                    extern static int *__MR_C_std_tuple_int32_t_float_get_int32_t(_Underlying *_this);
+                    return *__MR_C_std_tuple_int32_t_float_get_int32_t(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -79,9 +79,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe float getFloat()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_float_Get_float", ExactSpelling = true)]
-                    extern static float *__MR_C_std_tuple_int32_t_float_Get_float(_Underlying *_this);
-                    return *__MR_C_std_tuple_int32_t_float_Get_float(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_float_get_float", ExactSpelling = true)]
+                    extern static float *__MR_C_std_tuple_int32_t_float_get_float(_Underlying *_this);
+                    return *__MR_C_std_tuple_int32_t_float_get_float(_UnderlyingPtr);
                 }
             }
 
@@ -146,9 +146,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new ref int getInt32T()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_float_GetMutable_int32_t", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_int32_t_float_GetMutable_int32_t(_Underlying *_this);
-                    return ref *__MR_C_std_tuple_int32_t_float_GetMutable_int32_t(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_float_get_int32_t_mut", ExactSpelling = true)]
+                    extern static int *__MR_C_std_tuple_int32_t_float_get_int32_t_mut(_Underlying *_this);
+                    return ref *__MR_C_std_tuple_int32_t_float_get_int32_t_mut(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -156,9 +156,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new ref float getFloat()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_float_GetMutable_float", ExactSpelling = true)]
-                    extern static float *__MR_C_std_tuple_int32_t_float_GetMutable_float(_Underlying *_this);
-                    return ref *__MR_C_std_tuple_int32_t_float_GetMutable_float(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_float_get_float_mut", ExactSpelling = true)]
+                    extern static float *__MR_C_std_tuple_int32_t_float_get_float_mut(_Underlying *_this);
+                    return ref *__MR_C_std_tuple_int32_t_float_get_float_mut(_UnderlyingPtr);
                 }
             }
 

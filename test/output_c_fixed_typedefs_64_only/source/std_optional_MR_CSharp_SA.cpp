@@ -66,13 +66,13 @@ MR_C_std_optional_MR_CSharp_SA *MR_C_std_optional_MR_CSharp_SA_OffsetMutablePtr(
     return (MR_C_std_optional_MR_CSharp_SA *)(((std::optional<MR::CSharp::SA> *)ptr) + i);
 }
 
-const MR_CSharp_SA *MR_C_std_optional_MR_CSharp_SA_Value(const MR_C_std_optional_MR_CSharp_SA *_this)
+const MR_CSharp_SA *MR_C_std_optional_MR_CSharp_SA_value(const MR_C_std_optional_MR_CSharp_SA *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::CSharp::SA> *)(_this));
     return (const MR_CSharp_SA *)(_self ? &*_self : nullptr);
 }
 
-MR_CSharp_SA *MR_C_std_optional_MR_CSharp_SA_MutableValue(MR_C_std_optional_MR_CSharp_SA *_this)
+MR_CSharp_SA *MR_C_std_optional_MR_CSharp_SA_value_mut(MR_C_std_optional_MR_CSharp_SA *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::CSharp::SA> *)(_this));
     return (MR_CSharp_SA *)(_self ? &*_self : nullptr);

@@ -52,12 +52,12 @@ MR_C_std_shared_ptr_void *MR_C_std_shared_ptr_void_OffsetMutablePtr(MR_C_std_sha
     return (MR_C_std_shared_ptr_void *)(((std::shared_ptr<void> *)ptr) + i);
 }
 
-void *MR_C_std_shared_ptr_void_Get(const MR_C_std_shared_ptr_void *_this)
+void *MR_C_std_shared_ptr_void_get(const MR_C_std_shared_ptr_void *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<void> *)(_this)).get();
 }
 
-int MR_C_std_shared_ptr_void_UseCount(const MR_C_std_shared_ptr_void *_this)
+int MR_C_std_shared_ptr_void_use_count(const MR_C_std_shared_ptr_void *_this)
 {
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<void> *)(_this)).use_count());
 }

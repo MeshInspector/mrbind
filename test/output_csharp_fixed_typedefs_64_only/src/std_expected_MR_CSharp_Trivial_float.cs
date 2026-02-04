@@ -59,19 +59,19 @@ public static partial class MR
                 /// </summary>
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_Success", ExactSpelling = true)]
-                    extern static byte __MR_C_std_expected_MR_CSharp_Trivial_float_Success(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float._Underlying *_this);
-                    return __MR_C_std_expected_MR_CSharp_Trivial_float_Success(_this._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_success", ExactSpelling = true)]
+                    extern static byte __MR_C_std_expected_MR_CSharp_Trivial_float_success(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float._Underlying *_this);
+                    return __MR_C_std_expected_MR_CSharp_Trivial_float_success(_this._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
                 /// If this instance represents success, returns the stored `MR::CSharp::Trivial`. Otherwise null.
                 /// </summary>
-                public unsafe MR.CS.CSharp.Const_Trivial? getValue()
+                public unsafe MR.CS.CSharp.Const_Trivial? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_GetValue", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_Trivial._Underlying *__MR_C_std_expected_MR_CSharp_Trivial_float_GetValue(_Underlying *_this);
-                    var __c_ret = __MR_C_std_expected_MR_CSharp_Trivial_float_GetValue(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_value", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.Const_Trivial._Underlying *__MR_C_std_expected_MR_CSharp_Trivial_float_value(_Underlying *_this);
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_Trivial_float_value(_UnderlyingPtr);
                     MR.CS.CSharp.Const_Trivial? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.Const_Trivial(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -81,11 +81,11 @@ public static partial class MR
                 /// <summary>
                 /// If this instance represents an error, returns the stored `float`. Otherwise null.
                 /// </summary>
-                public unsafe float? getError()
+                public unsafe float? error()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_GetError", ExactSpelling = true)]
-                    extern static float *__MR_C_std_expected_MR_CSharp_Trivial_float_GetError(_Underlying *_this);
-                    var __c_ret = __MR_C_std_expected_MR_CSharp_Trivial_float_GetError(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_error", ExactSpelling = true)]
+                    extern static float *__MR_C_std_expected_MR_CSharp_Trivial_float_error(_Underlying *_this);
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_Trivial_float_error(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
             }
@@ -139,11 +139,11 @@ public static partial class MR
                 /// <summary>
                 /// If this instance represents success, returns the stored `MR::CSharp::Trivial`. Otherwise null. This version returns a mutable pointer.
                 /// </summary>
-                public unsafe new MR.CS.CSharp.Trivial? getValue()
+                public unsafe new MR.CS.CSharp.Trivial? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_GetMutableValue", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Trivial._Underlying *__MR_C_std_expected_MR_CSharp_Trivial_float_GetMutableValue(_Underlying *_this);
-                    var __c_ret = __MR_C_std_expected_MR_CSharp_Trivial_float_GetMutableValue(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_value_mut", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.Trivial._Underlying *__MR_C_std_expected_MR_CSharp_Trivial_float_value_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_Trivial_float_value_mut(_UnderlyingPtr);
                     MR.CS.CSharp.Trivial? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.Trivial(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -153,11 +153,11 @@ public static partial class MR
                 /// <summary>
                 /// If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.
                 /// </summary>
-                public unsafe new MR.CS.Misc.Ref<float>? getError()
+                public unsafe new MR.CS.Misc.Ref<float>? error()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_GetMutableError", ExactSpelling = true)]
-                    extern static float *__MR_C_std_expected_MR_CSharp_Trivial_float_GetMutableError(_Underlying *_this);
-                    var __c_ret = __MR_C_std_expected_MR_CSharp_Trivial_float_GetMutableError(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_Trivial_float_error_mut", ExactSpelling = true)]
+                    extern static float *__MR_C_std_expected_MR_CSharp_Trivial_float_error_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_Trivial_float_error_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
                 }
             }

@@ -85,9 +85,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe ulong size()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_string_Size(_Underlying *_this);
-                    return __MR_C_std_string_Size(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_size", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_string_size(_Underlying *_this);
+                    return __MR_C_std_string_size(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -95,9 +95,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.ConstPtrChar data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Data", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_Data(_Underlying *_this);
-                    return new(__MR_C_std_string_Data(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_data(_Underlying *_this);
+                    return new(__MR_C_std_string_data(_UnderlyingPtr));
                 }
 
                 /// <summary>
@@ -105,9 +105,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.ConstPtrChar dataEnd()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DataEnd", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_DataEnd(_Underlying *_this);
-                    return new(__MR_C_std_string_DataEnd(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_end", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_data_end(_Underlying *_this);
+                    return new(__MR_C_std_string_data_end(_UnderlyingPtr));
                 }
 
                 // Custom extras:
@@ -216,9 +216,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.ConstPtrChar data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableData", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_MutableData(_Underlying *_this);
-                    return new(__MR_C_std_string_MutableData(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_mut", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_data_mut(_Underlying *_this);
+                    return new(__MR_C_std_string_data_mut(_UnderlyingPtr));
                 }
 
                 /// <summary>
@@ -226,9 +226,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.PtrChar dataEnd()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableDataEnd", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_MutableDataEnd(_Underlying *_this);
-                    return new(__MR_C_std_string_MutableDataEnd(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_end_mut", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_data_end_mut(_Underlying *_this);
+                    return new(__MR_C_std_string_data_end_mut(_UnderlyingPtr));
                 }
 
                 // Custom extras:

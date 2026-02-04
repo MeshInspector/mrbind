@@ -85,18 +85,18 @@ public static partial class MR
                     /// <summary>
                     /// Get the contents as a UTF8-encoded string.
                     /// </summary>
-                    public unsafe MR.CS.Misc._Moved<MR.CS.Std.String> getString()
+                    public unsafe MR.CS.Misc._Moved<MR.CS.Std.String> string_()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_GetString", ExactSpelling = true)]
-                        extern static MR.CS.Std.String._Underlying *__MR_C_std_filesystem_path_GetString(_Underlying *_this);
-                        return MR.CS.Misc.Move(new MR.CS.Std.String(__MR_C_std_filesystem_path_GetString(_UnderlyingPtr), is_owning: true));
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_string", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_C_std_filesystem_path_string(_Underlying *_this);
+                        return MR.CS.Misc.Move(new MR.CS.Std.String(__MR_C_std_filesystem_path_string(_UnderlyingPtr), is_owning: true));
                     }
 
                     // Custom extras:
 
                     public static unsafe implicit operator string(MR.CS.Std.Filesystem.Const_Path self)
                     {
-                        return self.getString().Value;
+                        return self.string_().Value;
                     }
                     public override string ToString() {return (string)this;}
                 }
@@ -192,7 +192,7 @@ public static partial class MR
 
                     public static unsafe implicit operator string(MR.CS.Std.Filesystem.Path self)
                     {
-                        return self.getString().Value;
+                        return self.string_().Value;
                     }
                     public override string ToString() {return (string)this;}
                 }

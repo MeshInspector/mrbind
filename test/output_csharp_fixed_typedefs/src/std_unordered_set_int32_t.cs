@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from C++ container `std::unordered_set<int32_t>`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_UnorderedSet_Int32T : MR.CS.Misc.Object<Const_UnorderedSet_Int32T>, System.IDisposable
+            public class Const_UnorderedSet_Int32T : MR.CS.Misc.Object<Const_UnorderedSet_Int32T>, System.IDisposable, IEnumerable<int>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -25,6 +25,70 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_UnorderedSet_Int32T() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<int>
+                {
+                    Const_UnorderedSet_Int32T _container;
+                    MR.CS.Std.UnorderedSet_Int32T.ConstIterator _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_UnorderedSet_Int32T container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public int Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur.incr();
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<int> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
 
                 internal unsafe Const_UnorderedSet_Int32T(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -75,19 +139,19 @@ public static partial class MR
                 /// </summary>
                 public unsafe ulong size()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_Size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_unordered_set_int32_t_Size(_Underlying *_this);
-                    return __MR_C_std_unordered_set_int32_t_Size(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_size", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_unordered_set_int32_t_size(_Underlying *_this);
+                    return __MR_C_std_unordered_set_int32_t_size(_UnderlyingPtr);
                 }
 
                 /// <summary>
                 /// Returns true if the size is zero.
                 /// </summary>
-                public unsafe bool isEmpty()
+                public unsafe bool empty()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_IsEmpty", ExactSpelling = true)]
-                    extern static byte __MR_C_std_unordered_set_int32_t_IsEmpty(_Underlying *_this);
-                    return __MR_C_std_unordered_set_int32_t_IsEmpty(_UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_empty", ExactSpelling = true)]
+                    extern static byte __MR_C_std_unordered_set_int32_t_empty(_Underlying *_this);
+                    return __MR_C_std_unordered_set_int32_t_empty(_UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -95,9 +159,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool contains(int key)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_Contains", ExactSpelling = true)]
-                    extern static byte __MR_C_std_unordered_set_int32_t_Contains(_Underlying *_this, int *key);
-                    return __MR_C_std_unordered_set_int32_t_Contains(_UnderlyingPtr, &key) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_contains", ExactSpelling = true)]
+                    extern static byte __MR_C_std_unordered_set_int32_t_contains(_Underlying *_this, int *key);
+                    return __MR_C_std_unordered_set_int32_t_contains(_UnderlyingPtr, &key) != 0;
                 }
 
                 /// <summary>
@@ -105,10 +169,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Std.UnorderedSet_Int32T.ConstIterator find(int key)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_Find", ExactSpelling = true)]
-                    extern static MR.CS.Std.UnorderedSet_Int32T.ConstIterator._Underlying *__MR_C_std_unordered_set_int32_t_Find(_Underlying *_this, int *key);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_find", ExactSpelling = true)]
+                    extern static MR.CS.Std.UnorderedSet_Int32T.ConstIterator._Underlying *__MR_C_std_unordered_set_int32_t_find(_Underlying *_this, int *key);
                     MR.CS.Std.UnorderedSet_Int32T.ConstIterator __ret;
-                    __ret = new(__MR_C_std_unordered_set_int32_t_Find(_UnderlyingPtr, &key), is_owning: true);
+                    __ret = new(__MR_C_std_unordered_set_int32_t_find(_UnderlyingPtr, &key), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -118,10 +182,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Std.UnorderedSet_Int32T.ConstIterator begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_Begin", ExactSpelling = true)]
-                    extern static MR.CS.Std.UnorderedSet_Int32T.ConstIterator._Underlying *__MR_C_std_unordered_set_int32_t_Begin(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_begin", ExactSpelling = true)]
+                    extern static MR.CS.Std.UnorderedSet_Int32T.ConstIterator._Underlying *__MR_C_std_unordered_set_int32_t_begin(_Underlying *_this);
                     MR.CS.Std.UnorderedSet_Int32T.ConstIterator __ret;
-                    __ret = new(__MR_C_std_unordered_set_int32_t_Begin(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_unordered_set_int32_t_begin(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -131,9 +195,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isBegin(MR.CS.Std.UnorderedSet_Int32T.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_IsBegin", ExactSpelling = true)]
-                    extern static byte __MR_C_std_unordered_set_int32_t_IsBegin(_Underlying *_this, MR.CS.Std.UnorderedSet_Int32T.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_unordered_set_int32_t_IsBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_is_begin", ExactSpelling = true)]
+                    extern static byte __MR_C_std_unordered_set_int32_t_is_begin(_Underlying *_this, MR.CS.Std.UnorderedSet_Int32T.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_std_unordered_set_int32_t_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -141,10 +205,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Std.UnorderedSet_Int32T.ConstIterator end()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_End", ExactSpelling = true)]
-                    extern static MR.CS.Std.UnorderedSet_Int32T.ConstIterator._Underlying *__MR_C_std_unordered_set_int32_t_End(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_end", ExactSpelling = true)]
+                    extern static MR.CS.Std.UnorderedSet_Int32T.ConstIterator._Underlying *__MR_C_std_unordered_set_int32_t_end(_Underlying *_this);
                     MR.CS.Std.UnorderedSet_Int32T.ConstIterator __ret;
-                    __ret = new(__MR_C_std_unordered_set_int32_t_End(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_unordered_set_int32_t_end(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -154,9 +218,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isEnd(MR.CS.Std.UnorderedSet_Int32T.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_IsEnd", ExactSpelling = true)]
-                    extern static byte __MR_C_std_unordered_set_int32_t_IsEnd(_Underlying *_this, MR.CS.Std.UnorderedSet_Int32T.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_unordered_set_int32_t_IsEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_is_end", ExactSpelling = true)]
+                    extern static byte __MR_C_std_unordered_set_int32_t_is_end(_Underlying *_this, MR.CS.Std.UnorderedSet_Int32T.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_std_unordered_set_int32_t_is_end(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -214,9 +278,21 @@ public static partial class MR
                     /// </summary>
                     public unsafe int deref()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_const_iterator_Deref", ExactSpelling = true)]
-                        extern static int *__MR_C_std_unordered_set_int32_t_const_iterator_Deref(_Underlying *_this);
-                        return *__MR_C_std_unordered_set_int32_t_const_iterator_Deref(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_const_iterator_deref", ExactSpelling = true)]
+                        extern static int *__MR_C_std_unordered_set_int32_t_const_iterator_deref(_Underlying *_this);
+                        return *__MR_C_std_unordered_set_int32_t_const_iterator_deref(_UnderlyingPtr);
+                    }
+
+                    /// <summary>
+                    /// Increments a const iterator.
+                    /// </summary>
+                    public static unsafe ConstIterator operator++(MR.CS.Std.UnorderedSet_Int32T.Const_ConstIterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_unordered_set_int32_t_const_iterator_incr(MR.CS.Std.UnorderedSet_Int32T.Const_ConstIterator._Underlying *_this);
+                        ConstIterator __this_copy = new(_this);
+                        __MR_C_std_unordered_set_int32_t_const_iterator_incr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
                     }
                 }
 
@@ -271,9 +347,9 @@ public static partial class MR
                     /// </summary>
                     public unsafe void incr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_const_iterator_Incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_unordered_set_int32_t_const_iterator_Incr(_Underlying *_this);
-                        __MR_C_std_unordered_set_int32_t_const_iterator_Incr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_unordered_set_int32_t_const_iterator_incr(_Underlying *_this);
+                        __MR_C_std_unordered_set_int32_t_const_iterator_incr(_UnderlyingPtr);
                     }
                 }
 
@@ -390,10 +466,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe void clear()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_Clear", ExactSpelling = true)]
-                    extern static void __MR_C_std_unordered_set_int32_t_Clear(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_clear", ExactSpelling = true)]
+                    extern static void __MR_C_std_unordered_set_int32_t_clear(_Underlying *_this);
                     _DiscardKeepAlive();
-                    __MR_C_std_unordered_set_int32_t_Clear(_UnderlyingPtr);
+                    __MR_C_std_unordered_set_int32_t_clear(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -401,9 +477,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void insert(int new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_Insert", ExactSpelling = true)]
-                    extern static void __MR_C_std_unordered_set_int32_t_Insert(_Underlying *_this, int new_elem);
-                    __MR_C_std_unordered_set_int32_t_Insert(_UnderlyingPtr, new_elem);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_int32_t_insert", ExactSpelling = true)]
+                    extern static void __MR_C_std_unordered_set_int32_t_insert(_Underlying *_this, int new_elem);
+                    __MR_C_std_unordered_set_int32_t_insert(_UnderlyingPtr, new_elem);
                 }
             }
 

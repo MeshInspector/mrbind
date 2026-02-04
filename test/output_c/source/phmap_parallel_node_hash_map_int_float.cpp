@@ -7,6 +7,7 @@
 #include <memory>
 #include <parallel_hashmap/phmap.h>
 #include <stdexcept>
+#include <utility>
 
 
 MR_C_phmap_parallel_node_hash_map_int_float *MR_C_phmap_parallel_node_hash_map_int_float_DefaultConstruct(void)
@@ -53,85 +54,85 @@ MR_C_phmap_parallel_node_hash_map_int_float *MR_C_phmap_parallel_node_hash_map_i
     return (MR_C_phmap_parallel_node_hash_map_int_float *)(((phmap::parallel_node_hash_map<int, float> *)ptr) + i);
 }
 
-size_t MR_C_phmap_parallel_node_hash_map_int_float_Size(const MR_C_phmap_parallel_node_hash_map_int_float *_this)
+size_t MR_C_phmap_parallel_node_hash_map_int_float_size(const MR_C_phmap_parallel_node_hash_map_int_float *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float> *)(_this)).size();
 }
 
-bool MR_C_phmap_parallel_node_hash_map_int_float_IsEmpty(const MR_C_phmap_parallel_node_hash_map_int_float *_this)
+bool MR_C_phmap_parallel_node_hash_map_int_float_empty(const MR_C_phmap_parallel_node_hash_map_int_float *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float> *)(_this)).empty();
 }
 
-void MR_C_phmap_parallel_node_hash_map_int_float_Clear(MR_C_phmap_parallel_node_hash_map_int_float *_this)
+void MR_C_phmap_parallel_node_hash_map_int_float_clear(MR_C_phmap_parallel_node_hash_map_int_float *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_map<int, float> *)(_this)).clear();
 }
 
-float *MR_C_phmap_parallel_node_hash_map_int_float_FindOrConstructElem(MR_C_phmap_parallel_node_hash_map_int_float *_this, const int *key)
+float *MR_C_phmap_parallel_node_hash_map_int_float_find_or_construct_elem(MR_C_phmap_parallel_node_hash_map_int_float *_this, const int *key)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_map<int, float> *)(_this))[((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)]);
 }
 
-bool MR_C_phmap_parallel_node_hash_map_int_float_Contains(const MR_C_phmap_parallel_node_hash_map_int_float *_this, const int *key)
+bool MR_C_phmap_parallel_node_hash_map_int_float_contains(const MR_C_phmap_parallel_node_hash_map_int_float *_this, const int *key)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float> *)(_this)).contains(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
     );
 }
 
-MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_parallel_node_hash_map_int_float_Find(const MR_C_phmap_parallel_node_hash_map_int_float *_this, const int *key)
+MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_parallel_node_hash_map_int_float_find(const MR_C_phmap_parallel_node_hash_map_int_float *_this, const int *key)
 {
     return (MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *)new phmap::parallel_node_hash_map<int, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float> *)(_this)).find(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
     ));
 }
 
-MR_C_phmap_parallel_node_hash_map_int_float_iterator *MR_C_phmap_parallel_node_hash_map_int_float_FindMutable(MR_C_phmap_parallel_node_hash_map_int_float *_this, const int *key)
+MR_C_phmap_parallel_node_hash_map_int_float_iterator *MR_C_phmap_parallel_node_hash_map_int_float_find_mut(MR_C_phmap_parallel_node_hash_map_int_float *_this, const int *key)
 {
     return (MR_C_phmap_parallel_node_hash_map_int_float_iterator *)new phmap::parallel_node_hash_map<int, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_map<int, float> *)(_this)).find(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
     ));
 }
 
-MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_parallel_node_hash_map_int_float_Begin(const MR_C_phmap_parallel_node_hash_map_int_float *_this)
+MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_parallel_node_hash_map_int_float_begin(const MR_C_phmap_parallel_node_hash_map_int_float *_this)
 {
     return (MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *)new phmap::parallel_node_hash_map<int, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float> *)(_this)).cbegin());
 }
 
-bool MR_C_phmap_parallel_node_hash_map_int_float_IsBegin(const MR_C_phmap_parallel_node_hash_map_int_float *_this, const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *iter)
+bool MR_C_phmap_parallel_node_hash_map_int_float_is_begin(const MR_C_phmap_parallel_node_hash_map_int_float *_this, const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::const_iterator *)(iter));
 }
 
-MR_C_phmap_parallel_node_hash_map_int_float_iterator *MR_C_phmap_parallel_node_hash_map_int_float_MutableBegin(MR_C_phmap_parallel_node_hash_map_int_float *_this)
+MR_C_phmap_parallel_node_hash_map_int_float_iterator *MR_C_phmap_parallel_node_hash_map_int_float_begin_mut(MR_C_phmap_parallel_node_hash_map_int_float *_this)
 {
     return (MR_C_phmap_parallel_node_hash_map_int_float_iterator *)new phmap::parallel_node_hash_map<int, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_map<int, float> *)(_this)).begin());
 }
 
-bool MR_C_phmap_parallel_node_hash_map_int_float_IsMutableBegin(MR_C_phmap_parallel_node_hash_map_int_float *_this, const MR_C_phmap_parallel_node_hash_map_int_float_iterator *iter)
+bool MR_C_phmap_parallel_node_hash_map_int_float_is_begin_mut(const MR_C_phmap_parallel_node_hash_map_int_float *_this, const MR_C_phmap_parallel_node_hash_map_int_float_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_map<int, float> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::iterator *)(iter));
 }
 
-MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_parallel_node_hash_map_int_float_End(const MR_C_phmap_parallel_node_hash_map_int_float *_this)
+MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_parallel_node_hash_map_int_float_end(const MR_C_phmap_parallel_node_hash_map_int_float *_this)
 {
     return (MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *)new phmap::parallel_node_hash_map<int, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float> *)(_this)).cend());
 }
 
-bool MR_C_phmap_parallel_node_hash_map_int_float_IsEnd(const MR_C_phmap_parallel_node_hash_map_int_float *_this, const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *iter)
+bool MR_C_phmap_parallel_node_hash_map_int_float_is_end(const MR_C_phmap_parallel_node_hash_map_int_float *_this, const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::const_iterator *)(iter));
 }
 
-MR_C_phmap_parallel_node_hash_map_int_float_iterator *MR_C_phmap_parallel_node_hash_map_int_float_MutableEnd(MR_C_phmap_parallel_node_hash_map_int_float *_this)
+MR_C_phmap_parallel_node_hash_map_int_float_iterator *MR_C_phmap_parallel_node_hash_map_int_float_end_mut(MR_C_phmap_parallel_node_hash_map_int_float *_this)
 {
     return (MR_C_phmap_parallel_node_hash_map_int_float_iterator *)new phmap::parallel_node_hash_map<int, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_map<int, float> *)(_this)).end());
 }
 
-bool MR_C_phmap_parallel_node_hash_map_int_float_IsMutableEnd(MR_C_phmap_parallel_node_hash_map_int_float *_this, const MR_C_phmap_parallel_node_hash_map_int_float_iterator *iter)
+bool MR_C_phmap_parallel_node_hash_map_int_float_is_end_mut(const MR_C_phmap_parallel_node_hash_map_int_float *_this, const MR_C_phmap_parallel_node_hash_map_int_float_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_map<int, float> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::iterator *)(iter));
 }
 
 MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_DefaultConstruct(void)
@@ -178,7 +179,7 @@ MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_parallel_
     return (MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *)(((phmap::parallel_node_hash_map<int, float>::const_iterator *)ptr) + i);
 }
 
-MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_FromMutable(const MR_C_phmap_parallel_node_hash_map_int_float_iterator *iter)
+MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_from_mutable(const MR_C_phmap_parallel_node_hash_map_int_float_iterator *iter)
 {
     return (MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *)new phmap::parallel_node_hash_map<int, float>::const_iterator(phmap::parallel_node_hash_map<int, float>::iterator(
         ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), phmap::parallel_node_hash_map<int, float>::iterator(*(phmap::parallel_node_hash_map<int, float>::iterator *)iter))
@@ -229,32 +230,42 @@ MR_C_phmap_parallel_node_hash_map_int_float_iterator *MR_C_phmap_parallel_node_h
     return (MR_C_phmap_parallel_node_hash_map_int_float_iterator *)(((phmap::parallel_node_hash_map<int, float>::iterator *)ptr) + i);
 }
 
-const int *MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_DerefKey(const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this)
+const MR_C_std_pair_const_int_float *MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_deref(const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this)
+{
+    return (const MR_C_std_pair_const_int_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::const_iterator *)(_this)));
+}
+
+const int *MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_deref_key(const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::const_iterator *)(_this))->first);
 }
 
-const float *MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_DerefValue(const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this)
+const float *MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_deref_value(const MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::const_iterator *)(_this))->second);
 }
 
-void MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_Incr(MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this)
+void MR_C_phmap_parallel_node_hash_map_int_float_const_iterator_incr(MR_C_phmap_parallel_node_hash_map_int_float_const_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_map<int, float>::const_iterator *)(_this));
 }
 
-const int *MR_C_phmap_parallel_node_hash_map_int_float_iterator_DerefKey(const MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this)
+MR_C_std_pair_const_int_float *MR_C_phmap_parallel_node_hash_map_int_float_iterator_deref(const MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this)
+{
+    return (MR_C_std_pair_const_int_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::iterator *)(_this)));
+}
+
+const int *MR_C_phmap_parallel_node_hash_map_int_float_iterator_deref_key(const MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::iterator *)(_this))->first);
 }
 
-float *MR_C_phmap_parallel_node_hash_map_int_float_iterator_DerefValue(const MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this)
+float *MR_C_phmap_parallel_node_hash_map_int_float_iterator_deref_value(const MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int, float>::iterator *)(_this))->second);
 }
 
-void MR_C_phmap_parallel_node_hash_map_int_float_iterator_Incr(MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this)
+void MR_C_phmap_parallel_node_hash_map_int_float_iterator_incr(MR_C_phmap_parallel_node_hash_map_int_float_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_map<int, float>::iterator *)(_this));
 }

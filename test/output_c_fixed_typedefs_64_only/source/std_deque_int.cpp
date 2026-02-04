@@ -63,24 +63,24 @@ void MR_C_std_deque_int_AssignFromRange(MR_C_std_deque_int *_this, const int *pt
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)) = std::deque<int>(ptr, ptr + size);
 }
 
-size_t MR_C_std_deque_int_Size(const MR_C_std_deque_int *_this)
+size_t MR_C_std_deque_int_size(const MR_C_std_deque_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).size();
 }
 
-bool MR_C_std_deque_int_IsEmpty(const MR_C_std_deque_int *_this)
+bool MR_C_std_deque_int_empty(const MR_C_std_deque_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).empty();
 }
 
-void MR_C_std_deque_int_Resize(MR_C_std_deque_int *_this, size_t new_size)
+void MR_C_std_deque_int_resize(MR_C_std_deque_int *_this, size_t new_size)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).resize(
         new_size
     );
 }
 
-void MR_C_std_deque_int_ResizeWithDefaultValue(MR_C_std_deque_int *_this, size_t new_size, int value)
+void MR_C_std_deque_int_resize_with_default_value(MR_C_std_deque_int *_this, size_t new_size, int value)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).resize(
         new_size,
@@ -88,80 +88,80 @@ void MR_C_std_deque_int_ResizeWithDefaultValue(MR_C_std_deque_int *_this, size_t
     );
 }
 
-void MR_C_std_deque_int_Clear(MR_C_std_deque_int *_this)
+void MR_C_std_deque_int_clear(MR_C_std_deque_int *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).clear();
 }
 
-const int *MR_C_std_deque_int_At(const MR_C_std_deque_int *_this, size_t i)
+const int *MR_C_std_deque_int_at(const MR_C_std_deque_int *_this, size_t i)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).at(
         i
     ));
 }
 
-int *MR_C_std_deque_int_MutableAt(MR_C_std_deque_int *_this, size_t i)
+int *MR_C_std_deque_int_at_mut(MR_C_std_deque_int *_this, size_t i)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).at(
         i
     ));
 }
 
-const int *MR_C_std_deque_int_Front(const MR_C_std_deque_int *_this)
+const int *MR_C_std_deque_int_front(const MR_C_std_deque_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).front();
 }
 
-int *MR_C_std_deque_int_MutableFront(MR_C_std_deque_int *_this)
+int *MR_C_std_deque_int_front_mut(MR_C_std_deque_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).front();
 }
 
-const int *MR_C_std_deque_int_Back(const MR_C_std_deque_int *_this)
+const int *MR_C_std_deque_int_back(const MR_C_std_deque_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).back();
 }
 
-int *MR_C_std_deque_int_MutableBack(MR_C_std_deque_int *_this)
+int *MR_C_std_deque_int_back_mut(MR_C_std_deque_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).back();
 }
 
-void MR_C_std_deque_int_PushBack(MR_C_std_deque_int *_this, int new_elem)
+void MR_C_std_deque_int_push_back(MR_C_std_deque_int *_this, int new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).push_back(
         new_elem
     );
 }
 
-void MR_C_std_deque_int_PopBack(MR_C_std_deque_int *_this)
+void MR_C_std_deque_int_pop_back(MR_C_std_deque_int *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).pop_back();
 }
 
-void MR_C_std_deque_int_PushFront(MR_C_std_deque_int *_this, int new_elem)
+void MR_C_std_deque_int_push_front(MR_C_std_deque_int *_this, int new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).push_front(
         new_elem
     );
 }
 
-void MR_C_std_deque_int_PopFront(MR_C_std_deque_int *_this)
+void MR_C_std_deque_int_pop_front(MR_C_std_deque_int *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).pop_front();
 }
 
-void MR_C_std_deque_int_Insert(MR_C_std_deque_int *_this, size_t position, int new_elem)
+void MR_C_std_deque_int_insert(MR_C_std_deque_int *_this, size_t position, int new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).insert(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).begin() + ptrdiff_t(position), new_elem);
 }
 
-void MR_C_std_deque_int_Erase(MR_C_std_deque_int *_this, size_t position)
+void MR_C_std_deque_int_erase(MR_C_std_deque_int *_this, size_t position)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).erase(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).begin() + ptrdiff_t(position));
 }
 
-void MR_C_std_deque_int_InsertAtMutableIter(MR_C_std_deque_int *_this, const MR_C_std_deque_int_iterator *position, int new_elem)
+void MR_C_std_deque_int_insert_at_mutable_iter(MR_C_std_deque_int *_this, const MR_C_std_deque_int_iterator *position, int new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::deque<int>::iterator(*(std::deque<int>::iterator *)position)),
@@ -169,14 +169,14 @@ void MR_C_std_deque_int_InsertAtMutableIter(MR_C_std_deque_int *_this, const MR_
     );
 }
 
-void MR_C_std_deque_int_EraseAtMutableIter(MR_C_std_deque_int *_this, const MR_C_std_deque_int_iterator *position)
+void MR_C_std_deque_int_erase_at_mutable_iter(MR_C_std_deque_int *_this, const MR_C_std_deque_int_iterator *position)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).erase(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::deque<int>::iterator(*(std::deque<int>::iterator *)position))
     );
 }
 
-void MR_C_std_deque_int_InsertAtIter(MR_C_std_deque_int *_this, const MR_C_std_deque_int_const_iterator *position, int new_elem)
+void MR_C_std_deque_int_insert_at_iter(MR_C_std_deque_int *_this, const MR_C_std_deque_int_const_iterator *position, int new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::deque<int>::const_iterator(*(std::deque<int>::const_iterator *)position)),
@@ -184,59 +184,59 @@ void MR_C_std_deque_int_InsertAtIter(MR_C_std_deque_int *_this, const MR_C_std_d
     );
 }
 
-void MR_C_std_deque_int_EraseAtIter(MR_C_std_deque_int *_this, const MR_C_std_deque_int_const_iterator *position)
+void MR_C_std_deque_int_erase_at_iter(MR_C_std_deque_int *_this, const MR_C_std_deque_int_const_iterator *position)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).erase(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::deque<int>::const_iterator(*(std::deque<int>::const_iterator *)position))
     );
 }
 
-MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_Begin(const MR_C_std_deque_int *_this)
+MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_begin(const MR_C_std_deque_int *_this)
 {
     return (MR_C_std_deque_int_const_iterator *)new std::deque<int>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).cbegin());
 }
 
-bool MR_C_std_deque_int_IsBegin(const MR_C_std_deque_int *_this, const MR_C_std_deque_int_const_iterator *iter)
+bool MR_C_std_deque_int_is_begin(const MR_C_std_deque_int *_this, const MR_C_std_deque_int_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::deque<int>::const_iterator *)(iter));
 }
 
-MR_C_std_deque_int_iterator *MR_C_std_deque_int_MutableBegin(MR_C_std_deque_int *_this)
+MR_C_std_deque_int_iterator *MR_C_std_deque_int_begin_mut(MR_C_std_deque_int *_this)
 {
     return (MR_C_std_deque_int_iterator *)new std::deque<int>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).begin());
 }
 
-bool MR_C_std_deque_int_IsMutableBegin(MR_C_std_deque_int *_this, const MR_C_std_deque_int_iterator *iter)
+bool MR_C_std_deque_int_is_begin_mut(const MR_C_std_deque_int *_this, const MR_C_std_deque_int_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::deque<int>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::deque<int>::iterator *)(iter));
 }
 
-MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_End(const MR_C_std_deque_int *_this)
+MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_end(const MR_C_std_deque_int *_this)
 {
     return (MR_C_std_deque_int_const_iterator *)new std::deque<int>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).cend());
 }
 
-bool MR_C_std_deque_int_IsEnd(const MR_C_std_deque_int *_this, const MR_C_std_deque_int_const_iterator *iter)
+bool MR_C_std_deque_int_is_end(const MR_C_std_deque_int *_this, const MR_C_std_deque_int_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::deque<int>::const_iterator *)(iter));
 }
 
-MR_C_std_deque_int_iterator *MR_C_std_deque_int_MutableEnd(MR_C_std_deque_int *_this)
+MR_C_std_deque_int_iterator *MR_C_std_deque_int_end_mut(MR_C_std_deque_int *_this)
 {
     return (MR_C_std_deque_int_iterator *)new std::deque<int>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).end());
 }
 
-bool MR_C_std_deque_int_IsMutableEnd(MR_C_std_deque_int *_this, const MR_C_std_deque_int_iterator *iter)
+bool MR_C_std_deque_int_is_end_mut(const MR_C_std_deque_int *_this, const MR_C_std_deque_int_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::deque<int>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::deque<int>::iterator *)(iter));
 }
 
-ptrdiff_t MR_C_std_deque_int_ToIndex(const MR_C_std_deque_int *_this, const MR_C_std_deque_int_const_iterator *iter)
+ptrdiff_t MR_C_std_deque_int_to_index(const MR_C_std_deque_int *_this, const MR_C_std_deque_int_const_iterator *iter)
 {
     return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::deque<int>::const_iterator(*(std::deque<int>::const_iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).cbegin();
 }
 
-ptrdiff_t MR_C_std_deque_int_MutableToIndex(const MR_C_std_deque_int *_this, const MR_C_std_deque_int_iterator *iter)
+ptrdiff_t MR_C_std_deque_int_to_index_mut(const MR_C_std_deque_int *_this, const MR_C_std_deque_int_iterator *iter)
 {
     return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::deque<int>::iterator(*(std::deque<int>::iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int> *)(_this)).begin();
 }
@@ -285,7 +285,7 @@ MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_OffsetMutab
     return (MR_C_std_deque_int_const_iterator *)(((std::deque<int>::const_iterator *)ptr) + i);
 }
 
-MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_FromMutable(const MR_C_std_deque_int_iterator *iter)
+MR_C_std_deque_int_const_iterator *MR_C_std_deque_int_const_iterator_from_mutable(const MR_C_std_deque_int_iterator *iter)
 {
     return (MR_C_std_deque_int_const_iterator *)new std::deque<int>::const_iterator(std::deque<int>::iterator(
         ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::deque<int>::iterator(*(std::deque<int>::iterator *)iter))
@@ -336,52 +336,52 @@ MR_C_std_deque_int_iterator *MR_C_std_deque_int_iterator_OffsetMutablePtr(MR_C_s
     return (MR_C_std_deque_int_iterator *)(((std::deque<int>::iterator *)ptr) + i);
 }
 
-const int *MR_C_std_deque_int_const_iterator_Deref(const MR_C_std_deque_int_const_iterator *_this)
+const int *MR_C_std_deque_int_const_iterator_deref(const MR_C_std_deque_int_const_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int>::const_iterator *)(_this)));
 }
 
-void MR_C_std_deque_int_const_iterator_Incr(MR_C_std_deque_int_const_iterator *_this)
+void MR_C_std_deque_int_const_iterator_incr(MR_C_std_deque_int_const_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int>::const_iterator *)(_this));
 }
 
-void MR_C_std_deque_int_const_iterator_Decr(MR_C_std_deque_int_const_iterator *_this)
+void MR_C_std_deque_int_const_iterator_decr(MR_C_std_deque_int_const_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int>::const_iterator *)(_this));
 }
 
-void MR_C_std_deque_int_const_iterator_OffsetBy(MR_C_std_deque_int_const_iterator *_this, ptrdiff_t delta)
+void MR_C_std_deque_int_const_iterator_add_assign(MR_C_std_deque_int_const_iterator *_this, ptrdiff_t delta)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int>::const_iterator *)(_this)) += delta;
 }
 
-ptrdiff_t MR_C_std_deque_int_const_iterator_Distance(const MR_C_std_deque_int_const_iterator *a, const MR_C_std_deque_int_const_iterator *b)
+ptrdiff_t MR_C_sub_MR_C_std_deque_int_const_iterator(const MR_C_std_deque_int_const_iterator *a, const MR_C_std_deque_int_const_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::deque<int>::const_iterator(*(std::deque<int>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::deque<int>::const_iterator(*(std::deque<int>::const_iterator *)a));
 }
 
-int *MR_C_std_deque_int_iterator_Deref(const MR_C_std_deque_int_iterator *_this)
+int *MR_C_std_deque_int_iterator_deref(const MR_C_std_deque_int_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<int>::iterator *)(_this)));
 }
 
-void MR_C_std_deque_int_iterator_Incr(MR_C_std_deque_int_iterator *_this)
+void MR_C_std_deque_int_iterator_incr(MR_C_std_deque_int_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int>::iterator *)(_this));
 }
 
-void MR_C_std_deque_int_iterator_Decr(MR_C_std_deque_int_iterator *_this)
+void MR_C_std_deque_int_iterator_decr(MR_C_std_deque_int_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int>::iterator *)(_this));
 }
 
-void MR_C_std_deque_int_iterator_OffsetBy(MR_C_std_deque_int_iterator *_this, ptrdiff_t delta)
+void MR_C_std_deque_int_iterator_add_assign(MR_C_std_deque_int_iterator *_this, ptrdiff_t delta)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int>::iterator *)(_this)) += delta;
 }
 
-ptrdiff_t MR_C_std_deque_int_iterator_Distance(const MR_C_std_deque_int_iterator *a, const MR_C_std_deque_int_iterator *b)
+ptrdiff_t MR_C_sub_MR_C_std_deque_int_iterator(const MR_C_std_deque_int_iterator *a, const MR_C_std_deque_int_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::deque<int>::iterator(*(std::deque<int>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::deque<int>::iterator(*(std::deque<int>::iterator *)a));
 }

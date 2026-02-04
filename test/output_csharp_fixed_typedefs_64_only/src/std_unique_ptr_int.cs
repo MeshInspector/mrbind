@@ -69,9 +69,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Misc.Ref<int>? get()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_Get", ExactSpelling = true)]
-                    extern static int *__MR_C_std_unique_ptr_int_Get(_Underlying *_this);
-                    var __c_ret = __MR_C_std_unique_ptr_int_Get(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_get", ExactSpelling = true)]
+                    extern static int *__MR_C_std_unique_ptr_int_get(_Underlying *_this);
+                    var __c_ret = __MR_C_std_unique_ptr_int_get(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
             }
@@ -148,9 +148,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Misc.Ref<int>? release()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_Release", ExactSpelling = true)]
-                    extern static int *__MR_C_std_unique_ptr_int_Release(_Underlying *_this);
-                    var __c_ret = __MR_C_std_unique_ptr_int_Release(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_release", ExactSpelling = true)]
+                    extern static int *__MR_C_std_unique_ptr_int_release(_Underlying *_this);
+                    var __c_ret = __MR_C_std_unique_ptr_int_release(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
             }

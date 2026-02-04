@@ -54,23 +54,23 @@ MR_C_API MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_Offs
 
 /// Returns true if this instance represents success, or false if it represents an error.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API bool MR_C_std_expected_int_std_string_Success(const MR_C_std_expected_int_std_string *_this);
+MR_C_API bool MR_C_std_expected_int_std_string_success(const MR_C_std_expected_int_std_string *_this);
 
 /// If this instance represents success, returns the stored `int`. Otherwise null.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const int *MR_C_std_expected_int_std_string_GetValue(const MR_C_std_expected_int_std_string *_this);
+MR_C_API const int *MR_C_std_expected_int_std_string_value(const MR_C_std_expected_int_std_string *_this);
 
 /// If this instance represents an error, returns the stored `std::string`. Otherwise null.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const MR_C_std_string *MR_C_std_expected_int_std_string_GetError(const MR_C_std_expected_int_std_string *_this);
+MR_C_API const MR_C_std_string *MR_C_std_expected_int_std_string_error(const MR_C_std_expected_int_std_string *_this);
 
 /// If this instance represents success, returns the stored `int`. Otherwise null. This version returns a mutable pointer.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API int *MR_C_std_expected_int_std_string_GetMutableValue(MR_C_std_expected_int_std_string *_this);
+MR_C_API int *MR_C_std_expected_int_std_string_value_mut(MR_C_std_expected_int_std_string *_this);
 
 /// If this instance represents an error, returns the stored `std::string`. Otherwise null. This version returns a mutable pointer.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_C_std_string *MR_C_std_expected_int_std_string_GetMutableError(MR_C_std_expected_int_std_string *_this);
+MR_C_API MR_C_std_string *MR_C_std_expected_int_std_string_error_mut(MR_C_std_expected_int_std_string *_this);
 
 #ifdef __cplusplus
 } // extern "C"

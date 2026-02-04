@@ -92,7 +92,7 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment += "/// Returns true if this instance represents success, or false if it represents an error.";
-                        emit.name = binder.MakeMemberFuncName(generator, "Success", CInterop::MethodKinds::ConversionOperator{});
+                        emit.name = binder.MakeMemberFuncName(generator, "success", CInterop::MethodKinds::ConversionOperator{});
                         emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
                         emit.cpp_called_func = "bool(@this@)";
@@ -120,7 +120,7 @@ namespace mrbind::CBindings::Modules
                                     emit.c_comment += " This version returns a mutable pointer.";
                             }
 
-                            emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + "Value", "GetValue");
+                            emit.name = binder.MakeMemberFuncName(generator, "value", is_const);
                             emit.lifetimes.ReturnsReferenceToSubobject();
 
                             if (value_type_is_void)
@@ -158,7 +158,7 @@ namespace mrbind::CBindings::Modules
                             if (!is_const)
                                 emit.c_comment += " This version returns a mutable pointer.";
 
-                            emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + "Error", "GetError");
+                            emit.name = binder.MakeMemberFuncName(generator, "error", is_const);
                             emit.lifetimes.ReturnsReferenceToSubobject();
 
                             emit.cpp_return_type = cpp_elem_type_error;

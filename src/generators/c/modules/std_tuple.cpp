@@ -116,7 +116,7 @@ namespace mrbind::CBindings::Modules
 
                                 Generator::EmitFuncParams emit;
                                 emit.c_comment = "/// The element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ".";
-                                emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + name_suffix, "Get" + name_suffix);
+                                emit.name = binder.MakeMemberFuncName(generator, "get" + name_suffix, is_const);
                                 emit.lifetimes.ReturnsReferenceToSubobject();
                                 emit.cpp_return_type = elem_types[i];
                                 if (!emit.cpp_return_type.Is<cppdecl::Reference>())

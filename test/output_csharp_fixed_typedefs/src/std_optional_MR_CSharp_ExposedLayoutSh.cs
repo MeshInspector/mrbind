@@ -74,9 +74,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.CSharp.ExposedLayoutSh? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutSh *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value(_Underlying *_this);
-                    var __c_ret = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_value", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayoutSh *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_value(_Underlying *_this);
+                    var __c_ret = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_value(_UnderlyingPtr);
                     if (__c_ret is not null) return *__c_ret; else return null;
                 }
             }
@@ -157,9 +157,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayoutSh>? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.ExposedLayoutSh *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue(_Underlying *_this);
-                    var __c_ret = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_ExposedLayoutSh_value_mut", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayoutSh *__MR_C_std_optional_MR_CSharp_ExposedLayoutSh_value_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_optional_MR_CSharp_ExposedLayoutSh_value_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayoutSh>(__c_ret) : null;
                 }
             }

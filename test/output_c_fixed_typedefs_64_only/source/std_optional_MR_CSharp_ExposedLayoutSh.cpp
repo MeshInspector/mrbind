@@ -67,13 +67,13 @@ MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_C_std_optional_MR_CSharp_Exposed
     return (MR_C_std_optional_MR_CSharp_ExposedLayoutSh *)(((std::optional<MR::CSharp::ExposedLayoutSh> *)ptr) + i);
 }
 
-const MR_CSharp_ExposedLayoutSh *MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Value(const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *_this)
+const MR_CSharp_ExposedLayoutSh *MR_C_std_optional_MR_CSharp_ExposedLayoutSh_value(const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::CSharp::ExposedLayoutSh> *)(_this));
     return (const MR_CSharp_ExposedLayoutSh *)(_self ? &*_self : nullptr);
 }
 
-MR_CSharp_ExposedLayoutSh *MR_C_std_optional_MR_CSharp_ExposedLayoutSh_MutableValue(MR_C_std_optional_MR_CSharp_ExposedLayoutSh *_this)
+MR_CSharp_ExposedLayoutSh *MR_C_std_optional_MR_CSharp_ExposedLayoutSh_value_mut(MR_C_std_optional_MR_CSharp_ExposedLayoutSh *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::CSharp::ExposedLayoutSh> *)(_this));
     return (MR_CSharp_ExposedLayoutSh *)(_self ? &*_self : nullptr);

@@ -9,6 +9,7 @@
 #include <memory>
 #include <stdexcept>
 #include <unordered_map>
+#include <utility>
 
 
 MR_C_std_unordered_multimap_int32_t_float *MR_C_std_unordered_multimap_int32_t_float_DefaultConstruct(void)
@@ -55,80 +56,80 @@ MR_C_std_unordered_multimap_int32_t_float *MR_C_std_unordered_multimap_int32_t_f
     return (MR_C_std_unordered_multimap_int32_t_float *)(((std::unordered_multimap<int32_t, float> *)ptr) + i);
 }
 
-size_t MR_C_std_unordered_multimap_int32_t_float_Size(const MR_C_std_unordered_multimap_int32_t_float *_this)
+size_t MR_C_std_unordered_multimap_int32_t_float_size(const MR_C_std_unordered_multimap_int32_t_float *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float> *)(_this)).size();
 }
 
-bool MR_C_std_unordered_multimap_int32_t_float_IsEmpty(const MR_C_std_unordered_multimap_int32_t_float *_this)
+bool MR_C_std_unordered_multimap_int32_t_float_empty(const MR_C_std_unordered_multimap_int32_t_float *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float> *)(_this)).empty();
 }
 
-void MR_C_std_unordered_multimap_int32_t_float_Clear(MR_C_std_unordered_multimap_int32_t_float *_this)
+void MR_C_std_unordered_multimap_int32_t_float_clear(MR_C_std_unordered_multimap_int32_t_float *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multimap<int32_t, float> *)(_this)).clear();
 }
 
-size_t MR_C_std_unordered_multimap_int32_t_float_Count(const MR_C_std_unordered_multimap_int32_t_float *_this, const int32_t *key)
+size_t MR_C_std_unordered_multimap_int32_t_float_count(const MR_C_std_unordered_multimap_int32_t_float *_this, const int32_t *key)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float> *)(_this)).count(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
     );
 }
 
-MR_C_std_unordered_multimap_int32_t_float_const_iterator *MR_C_std_unordered_multimap_int32_t_float_Find(const MR_C_std_unordered_multimap_int32_t_float *_this, const int32_t *key)
+MR_C_std_unordered_multimap_int32_t_float_const_iterator *MR_C_std_unordered_multimap_int32_t_float_find(const MR_C_std_unordered_multimap_int32_t_float *_this, const int32_t *key)
 {
     return (MR_C_std_unordered_multimap_int32_t_float_const_iterator *)new std::unordered_multimap<int32_t, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float> *)(_this)).find(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
     ));
 }
 
-MR_C_std_unordered_multimap_int32_t_float_iterator *MR_C_std_unordered_multimap_int32_t_float_FindMutable(MR_C_std_unordered_multimap_int32_t_float *_this, const int32_t *key)
+MR_C_std_unordered_multimap_int32_t_float_iterator *MR_C_std_unordered_multimap_int32_t_float_find_mut(MR_C_std_unordered_multimap_int32_t_float *_this, const int32_t *key)
 {
     return (MR_C_std_unordered_multimap_int32_t_float_iterator *)new std::unordered_multimap<int32_t, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multimap<int32_t, float> *)(_this)).find(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
     ));
 }
 
-MR_C_std_unordered_multimap_int32_t_float_const_iterator *MR_C_std_unordered_multimap_int32_t_float_Begin(const MR_C_std_unordered_multimap_int32_t_float *_this)
+MR_C_std_unordered_multimap_int32_t_float_const_iterator *MR_C_std_unordered_multimap_int32_t_float_begin(const MR_C_std_unordered_multimap_int32_t_float *_this)
 {
     return (MR_C_std_unordered_multimap_int32_t_float_const_iterator *)new std::unordered_multimap<int32_t, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float> *)(_this)).cbegin());
 }
 
-bool MR_C_std_unordered_multimap_int32_t_float_IsBegin(const MR_C_std_unordered_multimap_int32_t_float *_this, const MR_C_std_unordered_multimap_int32_t_float_const_iterator *iter)
+bool MR_C_std_unordered_multimap_int32_t_float_is_begin(const MR_C_std_unordered_multimap_int32_t_float *_this, const MR_C_std_unordered_multimap_int32_t_float_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_multimap<int32_t, float>::const_iterator *)(iter));
 }
 
-MR_C_std_unordered_multimap_int32_t_float_iterator *MR_C_std_unordered_multimap_int32_t_float_MutableBegin(MR_C_std_unordered_multimap_int32_t_float *_this)
+MR_C_std_unordered_multimap_int32_t_float_iterator *MR_C_std_unordered_multimap_int32_t_float_begin_mut(MR_C_std_unordered_multimap_int32_t_float *_this)
 {
     return (MR_C_std_unordered_multimap_int32_t_float_iterator *)new std::unordered_multimap<int32_t, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multimap<int32_t, float> *)(_this)).begin());
 }
 
-bool MR_C_std_unordered_multimap_int32_t_float_IsMutableBegin(MR_C_std_unordered_multimap_int32_t_float *_this, const MR_C_std_unordered_multimap_int32_t_float_iterator *iter)
+bool MR_C_std_unordered_multimap_int32_t_float_is_begin_mut(const MR_C_std_unordered_multimap_int32_t_float *_this, const MR_C_std_unordered_multimap_int32_t_float_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multimap<int32_t, float> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_multimap<int32_t, float>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_multimap<int32_t, float>::iterator *)(iter));
 }
 
-MR_C_std_unordered_multimap_int32_t_float_const_iterator *MR_C_std_unordered_multimap_int32_t_float_End(const MR_C_std_unordered_multimap_int32_t_float *_this)
+MR_C_std_unordered_multimap_int32_t_float_const_iterator *MR_C_std_unordered_multimap_int32_t_float_end(const MR_C_std_unordered_multimap_int32_t_float *_this)
 {
     return (MR_C_std_unordered_multimap_int32_t_float_const_iterator *)new std::unordered_multimap<int32_t, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float> *)(_this)).cend());
 }
 
-bool MR_C_std_unordered_multimap_int32_t_float_IsEnd(const MR_C_std_unordered_multimap_int32_t_float *_this, const MR_C_std_unordered_multimap_int32_t_float_const_iterator *iter)
+bool MR_C_std_unordered_multimap_int32_t_float_is_end(const MR_C_std_unordered_multimap_int32_t_float *_this, const MR_C_std_unordered_multimap_int32_t_float_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_multimap<int32_t, float>::const_iterator *)(iter));
 }
 
-MR_C_std_unordered_multimap_int32_t_float_iterator *MR_C_std_unordered_multimap_int32_t_float_MutableEnd(MR_C_std_unordered_multimap_int32_t_float *_this)
+MR_C_std_unordered_multimap_int32_t_float_iterator *MR_C_std_unordered_multimap_int32_t_float_end_mut(MR_C_std_unordered_multimap_int32_t_float *_this)
 {
     return (MR_C_std_unordered_multimap_int32_t_float_iterator *)new std::unordered_multimap<int32_t, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multimap<int32_t, float> *)(_this)).end());
 }
 
-bool MR_C_std_unordered_multimap_int32_t_float_IsMutableEnd(MR_C_std_unordered_multimap_int32_t_float *_this, const MR_C_std_unordered_multimap_int32_t_float_iterator *iter)
+bool MR_C_std_unordered_multimap_int32_t_float_is_end_mut(const MR_C_std_unordered_multimap_int32_t_float *_this, const MR_C_std_unordered_multimap_int32_t_float_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multimap<int32_t, float> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_multimap<int32_t, float>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_multimap<int32_t, float>::iterator *)(iter));
 }
 
 MR_C_std_unordered_multimap_int32_t_float_const_iterator *MR_C_std_unordered_multimap_int32_t_float_const_iterator_DefaultConstruct(void)
@@ -175,7 +176,7 @@ MR_C_std_unordered_multimap_int32_t_float_const_iterator *MR_C_std_unordered_mul
     return (MR_C_std_unordered_multimap_int32_t_float_const_iterator *)(((std::unordered_multimap<int32_t, float>::const_iterator *)ptr) + i);
 }
 
-MR_C_std_unordered_multimap_int32_t_float_const_iterator *MR_C_std_unordered_multimap_int32_t_float_const_iterator_FromMutable(const MR_C_std_unordered_multimap_int32_t_float_iterator *iter)
+MR_C_std_unordered_multimap_int32_t_float_const_iterator *MR_C_std_unordered_multimap_int32_t_float_const_iterator_from_mutable(const MR_C_std_unordered_multimap_int32_t_float_iterator *iter)
 {
     return (MR_C_std_unordered_multimap_int32_t_float_const_iterator *)new std::unordered_multimap<int32_t, float>::const_iterator(std::unordered_multimap<int32_t, float>::iterator(
         ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::unordered_multimap<int32_t, float>::iterator(*(std::unordered_multimap<int32_t, float>::iterator *)iter))
@@ -226,32 +227,42 @@ MR_C_std_unordered_multimap_int32_t_float_iterator *MR_C_std_unordered_multimap_
     return (MR_C_std_unordered_multimap_int32_t_float_iterator *)(((std::unordered_multimap<int32_t, float>::iterator *)ptr) + i);
 }
 
-const int32_t *MR_C_std_unordered_multimap_int32_t_float_const_iterator_DerefKey(const MR_C_std_unordered_multimap_int32_t_float_const_iterator *_this)
+const MR_C_std_pair_const_int32_t_float *MR_C_std_unordered_multimap_int32_t_float_const_iterator_deref(const MR_C_std_unordered_multimap_int32_t_float_const_iterator *_this)
+{
+    return (const MR_C_std_pair_const_int32_t_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float>::const_iterator *)(_this)));
+}
+
+const int32_t *MR_C_std_unordered_multimap_int32_t_float_const_iterator_deref_key(const MR_C_std_unordered_multimap_int32_t_float_const_iterator *_this)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float>::const_iterator *)(_this))->first);
 }
 
-const float *MR_C_std_unordered_multimap_int32_t_float_const_iterator_DerefValue(const MR_C_std_unordered_multimap_int32_t_float_const_iterator *_this)
+const float *MR_C_std_unordered_multimap_int32_t_float_const_iterator_deref_value(const MR_C_std_unordered_multimap_int32_t_float_const_iterator *_this)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float>::const_iterator *)(_this))->second);
 }
 
-void MR_C_std_unordered_multimap_int32_t_float_const_iterator_Incr(MR_C_std_unordered_multimap_int32_t_float_const_iterator *_this)
+void MR_C_std_unordered_multimap_int32_t_float_const_iterator_incr(MR_C_std_unordered_multimap_int32_t_float_const_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multimap<int32_t, float>::const_iterator *)(_this));
 }
 
-const int32_t *MR_C_std_unordered_multimap_int32_t_float_iterator_DerefKey(const MR_C_std_unordered_multimap_int32_t_float_iterator *_this)
+MR_C_std_pair_const_int32_t_float *MR_C_std_unordered_multimap_int32_t_float_iterator_deref(const MR_C_std_unordered_multimap_int32_t_float_iterator *_this)
+{
+    return (MR_C_std_pair_const_int32_t_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float>::iterator *)(_this)));
+}
+
+const int32_t *MR_C_std_unordered_multimap_int32_t_float_iterator_deref_key(const MR_C_std_unordered_multimap_int32_t_float_iterator *_this)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float>::iterator *)(_this))->first);
 }
 
-float *MR_C_std_unordered_multimap_int32_t_float_iterator_DerefValue(const MR_C_std_unordered_multimap_int32_t_float_iterator *_this)
+float *MR_C_std_unordered_multimap_int32_t_float_iterator_deref_value(const MR_C_std_unordered_multimap_int32_t_float_iterator *_this)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float>::iterator *)(_this))->second);
 }
 
-void MR_C_std_unordered_multimap_int32_t_float_iterator_Incr(MR_C_std_unordered_multimap_int32_t_float_iterator *_this)
+void MR_C_std_unordered_multimap_int32_t_float_iterator_incr(MR_C_std_unordered_multimap_int32_t_float_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multimap<int32_t, float>::iterator *)(_this));
 }

@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from C++ container `phmap::node_hash_set<int>`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_NodeHashSet_Int : MR.CS.Misc.Object<Const_NodeHashSet_Int>, System.IDisposable
+            public class Const_NodeHashSet_Int : MR.CS.Misc.Object<Const_NodeHashSet_Int>, System.IDisposable, IEnumerable<int>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -25,6 +25,70 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_NodeHashSet_Int() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<int>
+                {
+                    Const_NodeHashSet_Int _container;
+                    MR.CS.Phmap.NodeHashSet_Int.ConstIterator _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_NodeHashSet_Int container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public int Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<int> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
 
                 internal unsafe Const_NodeHashSet_Int(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -75,19 +139,19 @@ public static partial class MR
                 /// </summary>
                 public unsafe ulong size()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_Size", ExactSpelling = true)]
-                    extern static ulong __MR_C_phmap_node_hash_set_int_Size(_Underlying *_this);
-                    return __MR_C_phmap_node_hash_set_int_Size(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_size", ExactSpelling = true)]
+                    extern static ulong __MR_C_phmap_node_hash_set_int_size(_Underlying *_this);
+                    return __MR_C_phmap_node_hash_set_int_size(_UnderlyingPtr);
                 }
 
                 /// <summary>
                 /// Returns true if the size is zero.
                 /// </summary>
-                public unsafe bool isEmpty()
+                public unsafe bool empty()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_IsEmpty", ExactSpelling = true)]
-                    extern static byte __MR_C_phmap_node_hash_set_int_IsEmpty(_Underlying *_this);
-                    return __MR_C_phmap_node_hash_set_int_IsEmpty(_UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_empty", ExactSpelling = true)]
+                    extern static byte __MR_C_phmap_node_hash_set_int_empty(_Underlying *_this);
+                    return __MR_C_phmap_node_hash_set_int_empty(_UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -95,9 +159,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool contains(int key)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_Contains", ExactSpelling = true)]
-                    extern static byte __MR_C_phmap_node_hash_set_int_Contains(_Underlying *_this, int *key);
-                    return __MR_C_phmap_node_hash_set_int_Contains(_UnderlyingPtr, &key) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_contains", ExactSpelling = true)]
+                    extern static byte __MR_C_phmap_node_hash_set_int_contains(_Underlying *_this, int *key);
+                    return __MR_C_phmap_node_hash_set_int_contains(_UnderlyingPtr, &key) != 0;
                 }
 
                 /// <summary>
@@ -105,10 +169,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Phmap.NodeHashSet_Int.ConstIterator find(int key)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_Find", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.NodeHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_node_hash_set_int_Find(_Underlying *_this, int *key);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_find", ExactSpelling = true)]
+                    extern static MR.CS.Phmap.NodeHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_node_hash_set_int_find(_Underlying *_this, int *key);
                     MR.CS.Phmap.NodeHashSet_Int.ConstIterator __ret;
-                    __ret = new(__MR_C_phmap_node_hash_set_int_Find(_UnderlyingPtr, &key), is_owning: true);
+                    __ret = new(__MR_C_phmap_node_hash_set_int_find(_UnderlyingPtr, &key), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -118,10 +182,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Phmap.NodeHashSet_Int.ConstIterator begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_Begin", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.NodeHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_node_hash_set_int_Begin(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_begin", ExactSpelling = true)]
+                    extern static MR.CS.Phmap.NodeHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_node_hash_set_int_begin(_Underlying *_this);
                     MR.CS.Phmap.NodeHashSet_Int.ConstIterator __ret;
-                    __ret = new(__MR_C_phmap_node_hash_set_int_Begin(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_phmap_node_hash_set_int_begin(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -131,9 +195,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isBegin(MR.CS.Phmap.NodeHashSet_Int.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_IsBegin", ExactSpelling = true)]
-                    extern static byte __MR_C_phmap_node_hash_set_int_IsBegin(_Underlying *_this, MR.CS.Phmap.NodeHashSet_Int.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_phmap_node_hash_set_int_IsBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_is_begin", ExactSpelling = true)]
+                    extern static byte __MR_C_phmap_node_hash_set_int_is_begin(_Underlying *_this, MR.CS.Phmap.NodeHashSet_Int.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_phmap_node_hash_set_int_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -141,10 +205,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Phmap.NodeHashSet_Int.ConstIterator end()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_End", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.NodeHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_node_hash_set_int_End(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_end", ExactSpelling = true)]
+                    extern static MR.CS.Phmap.NodeHashSet_Int.ConstIterator._Underlying *__MR_C_phmap_node_hash_set_int_end(_Underlying *_this);
                     MR.CS.Phmap.NodeHashSet_Int.ConstIterator __ret;
-                    __ret = new(__MR_C_phmap_node_hash_set_int_End(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_phmap_node_hash_set_int_end(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -154,9 +218,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isEnd(MR.CS.Phmap.NodeHashSet_Int.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_IsEnd", ExactSpelling = true)]
-                    extern static byte __MR_C_phmap_node_hash_set_int_IsEnd(_Underlying *_this, MR.CS.Phmap.NodeHashSet_Int.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_phmap_node_hash_set_int_IsEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_is_end", ExactSpelling = true)]
+                    extern static byte __MR_C_phmap_node_hash_set_int_is_end(_Underlying *_this, MR.CS.Phmap.NodeHashSet_Int.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_phmap_node_hash_set_int_is_end(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -214,9 +278,21 @@ public static partial class MR
                     /// </summary>
                     public unsafe int deref()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_const_iterator_Deref", ExactSpelling = true)]
-                        extern static int *__MR_C_phmap_node_hash_set_int_const_iterator_Deref(_Underlying *_this);
-                        return *__MR_C_phmap_node_hash_set_int_const_iterator_Deref(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_const_iterator_deref", ExactSpelling = true)]
+                        extern static int *__MR_C_phmap_node_hash_set_int_const_iterator_deref(_Underlying *_this);
+                        return *__MR_C_phmap_node_hash_set_int_const_iterator_deref(_UnderlyingPtr);
+                    }
+
+                    /// <summary>
+                    /// Increments a const iterator.
+                    /// </summary>
+                    public static unsafe ConstIterator operator++(MR.CS.Phmap.NodeHashSet_Int.Const_ConstIterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_phmap_node_hash_set_int_const_iterator_incr(MR.CS.Phmap.NodeHashSet_Int.Const_ConstIterator._Underlying *_this);
+                        ConstIterator __this_copy = new(_this);
+                        __MR_C_phmap_node_hash_set_int_const_iterator_incr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
                     }
                 }
 
@@ -269,11 +345,11 @@ public static partial class MR
                     /// <summary>
                     /// Increments a const iterator.
                     /// </summary>
-                    public unsafe void incr()
+                    public unsafe void operator++()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_const_iterator_Incr", ExactSpelling = true)]
-                        extern static void __MR_C_phmap_node_hash_set_int_const_iterator_Incr(_Underlying *_this);
-                        __MR_C_phmap_node_hash_set_int_const_iterator_Incr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_phmap_node_hash_set_int_const_iterator_incr(_Underlying *_this);
+                        __MR_C_phmap_node_hash_set_int_const_iterator_incr(_UnderlyingPtr);
                     }
                 }
 
@@ -390,10 +466,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe void clear()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_Clear", ExactSpelling = true)]
-                    extern static void __MR_C_phmap_node_hash_set_int_Clear(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_clear", ExactSpelling = true)]
+                    extern static void __MR_C_phmap_node_hash_set_int_clear(_Underlying *_this);
                     _DiscardKeepAlive();
-                    __MR_C_phmap_node_hash_set_int_Clear(_UnderlyingPtr);
+                    __MR_C_phmap_node_hash_set_int_clear(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -401,9 +477,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void insert(int new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_Insert", ExactSpelling = true)]
-                    extern static void __MR_C_phmap_node_hash_set_int_Insert(_Underlying *_this, int new_elem);
-                    __MR_C_phmap_node_hash_set_int_Insert(_UnderlyingPtr, new_elem);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_node_hash_set_int_insert", ExactSpelling = true)]
+                    extern static void __MR_C_phmap_node_hash_set_int_insert(_Underlying *_this, int new_elem);
+                    __MR_C_phmap_node_hash_set_int_insert(_UnderlyingPtr, new_elem);
                 }
             }
 

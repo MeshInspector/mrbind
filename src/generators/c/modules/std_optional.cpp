@@ -66,7 +66,7 @@ namespace mrbind::CBindings::Modules
 
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The stored element or null if none, " + std::string(is_const ? "read-only" : "mutable") + ".";
-                        emit.name = binder.MakeMemberFuncName(generator, std::string(is_const ? "" : "Mutable") + "Value", "Value");
+                        emit.name = binder.MakeMemberFuncName(generator, "value", is_const);
                         emit.lifetimes.ReturnsReferenceToSubobject();
                         emit.cpp_return_type = cpp_elem_type;
                         if (emit.cpp_return_type.Is<cppdecl::Reference>())

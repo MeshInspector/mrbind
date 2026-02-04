@@ -59,9 +59,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe ulong index()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_Index", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_variant_std_monostate_int_float_float_Index(_Underlying *_this);
-                    return __MR_C_std_variant_std_monostate_int_float_float_Index(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_index", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_variant_std_monostate_int_float_float_index(_Underlying *_this);
+                    return __MR_C_std_variant_std_monostate_int_float_float_index(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -119,9 +119,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Std.Monostate? getStdMonostate()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_Get_std_monostate", ExactSpelling = true)]
-                    extern static bool __MR_C_std_variant_std_monostate_int_float_float_Get_std_monostate(_Underlying *_this);
-                    return __MR_C_std_variant_std_monostate_int_float_float_Get_std_monostate(_UnderlyingPtr) ? new MR.CS.Std.Monostate() : null;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_get_std_monostate", ExactSpelling = true)]
+                    extern static bool __MR_C_std_variant_std_monostate_int_float_float_get_std_monostate(_Underlying *_this);
+                    return __MR_C_std_variant_std_monostate_int_float_float_get_std_monostate(_UnderlyingPtr) ? new MR.CS.Std.Monostate() : null;
                 }
 
                 /// <summary>
@@ -129,9 +129,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe int? getInt()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_Get_int", ExactSpelling = true)]
-                    extern static int *__MR_C_std_variant_std_monostate_int_float_float_Get_int(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_Get_int(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_get_int", ExactSpelling = true)]
+                    extern static int *__MR_C_std_variant_std_monostate_int_float_float_get_int(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_get_int(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
 
@@ -140,9 +140,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe float? getFloat2()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_Get_float_2", ExactSpelling = true)]
-                    extern static float *__MR_C_std_variant_std_monostate_int_float_float_Get_float_2(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_Get_float_2(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_get_float_2", ExactSpelling = true)]
+                    extern static float *__MR_C_std_variant_std_monostate_int_float_float_get_float_2(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_get_float_2(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
 
@@ -151,9 +151,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe float? getFloat3()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_Get_float_3", ExactSpelling = true)]
-                    extern static float *__MR_C_std_variant_std_monostate_int_float_float_Get_float_3(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_Get_float_3(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_get_float_3", ExactSpelling = true)]
+                    extern static float *__MR_C_std_variant_std_monostate_int_float_float_get_float_3(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_get_float_3(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
             }
@@ -303,9 +303,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<int>? getInt()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_GetMutable_int", ExactSpelling = true)]
-                    extern static int *__MR_C_std_variant_std_monostate_int_float_float_GetMutable_int(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_GetMutable_int(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_get_int_mut", ExactSpelling = true)]
+                    extern static int *__MR_C_std_variant_std_monostate_int_float_float_get_int_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_get_int_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
 
@@ -314,9 +314,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<float>? getFloat2()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_GetMutable_float_2", ExactSpelling = true)]
-                    extern static float *__MR_C_std_variant_std_monostate_int_float_float_GetMutable_float_2(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_GetMutable_float_2(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_get_float_2_mut", ExactSpelling = true)]
+                    extern static float *__MR_C_std_variant_std_monostate_int_float_float_get_float_2_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_get_float_2_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
                 }
 
@@ -325,9 +325,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<float>? getFloat3()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_GetMutable_float_3", ExactSpelling = true)]
-                    extern static float *__MR_C_std_variant_std_monostate_int_float_float_GetMutable_float_3(_Underlying *_this);
-                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_GetMutable_float_3(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int_float_float_get_float_3_mut", ExactSpelling = true)]
+                    extern static float *__MR_C_std_variant_std_monostate_int_float_float_get_float_3_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_variant_std_monostate_int_float_float_get_float_3_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
                 }
             }

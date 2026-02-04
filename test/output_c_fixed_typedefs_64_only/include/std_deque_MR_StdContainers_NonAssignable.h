@@ -62,114 +62,114 @@ MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdCon
 
 /// The number of elements.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_deque_MR_StdContainers_NonAssignable_Size(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API size_t MR_C_std_deque_MR_StdContainers_NonAssignable_size(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// Returns true if the size is zero.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API bool MR_C_std_deque_MR_StdContainers_NonAssignable_IsEmpty(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API bool MR_C_std_deque_MR_StdContainers_NonAssignable_empty(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// Resizes the container. The new elements if any are zeroed.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_Resize(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, size_t new_size);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_resize(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, size_t new_size);
 
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
 /// When this function is called, this object will drop any object references it had previously.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_Clear(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_clear(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_At(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, size_t i);
+MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_at(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, size_t i);
 
 /// The element at a specific index, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_MutableAt(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, size_t i);
+MR_C_API MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_at_mut(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, size_t i);
 
 /// The first element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_Front(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_front(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// The first element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_MutableFront(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_front_mut(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// The last element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_Back(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_back(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// The last element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_MutableBack(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_back_mut(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// Inserts a new element at the end.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to the parameter `new_elem` might be preserved in this object.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_PushBack(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, MR_C_PassBy new_elem_pass_by, MR_StdContainers_NonAssignable *new_elem);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_push_back(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, MR_C_PassBy new_elem_pass_by, MR_StdContainers_NonAssignable *new_elem);
 
 /// Removes one element from the end.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_PopBack(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_pop_back(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// Inserts a new element at the beginning.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to the parameter `new_elem` might be preserved in this object.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_PushFront(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, MR_C_PassBy new_elem_pass_by, MR_StdContainers_NonAssignable *new_elem);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_push_front(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, MR_C_PassBy new_elem_pass_by, MR_StdContainers_NonAssignable *new_elem);
 
 /// Removes one element from the beginning.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_PopFront(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_pop_front(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_deque_MR_StdContainers_NonAssignable_Begin(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_deque_MR_StdContainers_NonAssignable_begin(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// Tests whether a const iterator is the begin iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_deque_MR_StdContainers_NonAssignable_IsBegin(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *iter);
+MR_C_API bool MR_C_std_deque_MR_StdContainers_NonAssignable_is_begin(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *iter);
 
 /// The begin iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *MR_C_std_deque_MR_StdContainers_NonAssignable_MutableBegin(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *MR_C_std_deque_MR_StdContainers_NonAssignable_begin_mut(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// Tests whether a mutable iterator is the begin iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_deque_MR_StdContainers_NonAssignable_IsMutableBegin(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *iter);
+MR_C_API bool MR_C_std_deque_MR_StdContainers_NonAssignable_is_begin_mut(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *iter);
 
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_deque_MR_StdContainers_NonAssignable_End(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_deque_MR_StdContainers_NonAssignable_end(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// Tests whether a const iterator is the end iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_deque_MR_StdContainers_NonAssignable_IsEnd(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *iter);
+MR_C_API bool MR_C_std_deque_MR_StdContainers_NonAssignable_is_end(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *iter);
 
 /// The end iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *MR_C_std_deque_MR_StdContainers_NonAssignable_MutableEnd(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
+MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *MR_C_std_deque_MR_StdContainers_NonAssignable_end_mut(MR_C_std_deque_MR_StdContainers_NonAssignable *_this);
 
 /// Tests whether a mutable iterator is the end iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_deque_MR_StdContainers_NonAssignable_IsMutableEnd(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *iter);
+MR_C_API bool MR_C_std_deque_MR_StdContainers_NonAssignable_is_end_mut(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *iter);
 
 /// Convert a const iterator to an index.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_deque_MR_StdContainers_NonAssignable_ToIndex(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *iter);
+MR_C_API ptrdiff_t MR_C_std_deque_MR_StdContainers_NonAssignable_to_index(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *iter);
 
 /// Convert a mutable iterator to an index.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_deque_MR_StdContainers_NonAssignable_MutableToIndex(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *iter);
+MR_C_API ptrdiff_t MR_C_std_deque_MR_StdContainers_NonAssignable_to_index_mut(const MR_C_std_deque_MR_StdContainers_NonAssignable *_this, const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *iter);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
@@ -211,7 +211,7 @@ MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_
 /// Makes a const iterator from a mutable one.
 /// Parameter `iter` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_FromMutable(const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *iter);
+MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_from_mutable(const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *iter);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_Destroy()` to free it when you're done using it.
@@ -253,46 +253,46 @@ MR_C_API MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *MR_C_std_deque_
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_Deref(const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *_this);
+MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_deref(const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *_this);
 
 /// Increments a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_Incr(MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *_this);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_incr(MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *_this);
 
 /// Decrements a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_Decr(MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *_this);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_decr(MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *_this);
 
 /// Increments or decrements a const iterator by the specific amount. Completes in constant time.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_OffsetBy(MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *_this, ptrdiff_t delta);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_add_assign(MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *_this, ptrdiff_t delta);
 
 /// Computes the signed difference between two const iterators. Completes in constant time.
 /// Parameter `a` can not be null. It is a single object.
 /// Parameter `b` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_Distance(const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *a, const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *b);
+MR_C_API ptrdiff_t MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator(const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *a, const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *b);
 
 /// Dereferences a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_Deref(const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *_this);
+MR_C_API MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_deref(const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *_this);
 
 /// Increments a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_Incr(MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *_this);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_incr(MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *_this);
 
 /// Decrements a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_Decr(MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *_this);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_decr(MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *_this);
 
 /// Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_OffsetBy(MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *_this, ptrdiff_t delta);
+MR_C_API void MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_add_assign(MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *_this, ptrdiff_t delta);
 
 /// Computes the signed difference between two mutable iterators. Completes in constant time.
 /// Parameter `a` can not be null. It is a single object.
 /// Parameter `b` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_Distance(const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *a, const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *b);
+MR_C_API ptrdiff_t MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator(const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *a, const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *b);
 
 #ifdef __cplusplus
 } // extern "C"

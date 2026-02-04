@@ -54,17 +54,17 @@ MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *MR_C_std_shared_ptr_MR_StdSharedPtr
     return (MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *)(((std::shared_ptr<MR::StdSharedPtr::A[]> *)ptr) + i);
 }
 
-MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_Get(const MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_this)
+MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_get(const MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_this)
 {
     return (MR_StdSharedPtr_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::StdSharedPtr::A[]> *)(_this)).get());
 }
 
-MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_At(const MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_this, ptrdiff_t i)
+MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_at(const MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_this, ptrdiff_t i)
 {
     return (MR_StdSharedPtr_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::StdSharedPtr::A[]> *)(_this))[i]);
 }
 
-int MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_UseCount(const MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_this)
+int MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_use_count(const MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_this)
 {
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::StdSharedPtr::A[]> *)(_this)).use_count());
 }

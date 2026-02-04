@@ -62,47 +62,47 @@ MR_C_API MR_C_std_unordered_set_MR_StdContainers_NonAssignable *MR_C_std_unorder
 
 // The number of elements.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Size(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this);
+MR_C_API size_t MR_C_std_unordered_set_MR_StdContainers_NonAssignable_size(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this);
 
 // Returns true if the size is zero.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_IsEmpty(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this);
+MR_C_API bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_empty(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this);
 
 // Removes all elements from the container.
 // Parameter `_this` can not be null. It is a single object.
 // When this function is called, this object will drop any object references it had previously.
-MR_C_API void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Clear(MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this);
+MR_C_API void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_clear(MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this);
 
 // Checks if the contain contains this key.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `key` can not be null. It is a single object.
-MR_C_API bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Contains(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_StdContainers_NonAssignable *key);
+MR_C_API bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_contains(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_StdContainers_NonAssignable *key);
 
 // Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `key` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Find(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_StdContainers_NonAssignable *key);
+MR_C_API MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_find(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_StdContainers_NonAssignable *key);
 
 // The begin iterator, const.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Begin(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this);
+MR_C_API MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_begin(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this);
 
 // Tests whether a const iterator is the begin iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_IsBegin(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *iter);
+MR_C_API bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_is_begin(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *iter);
 
 // The end iterator, const.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_End(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this);
+MR_C_API MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_end(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this);
 
 // Tests whether a const iterator is the end iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_IsEnd(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *iter);
+MR_C_API bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_is_end(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *iter);
 
 // Constructs an empty (default-constructed) instance.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
@@ -144,11 +144,11 @@ MR_C_API MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *M
 // Dereferences a const iterator.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_Deref(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this);
+MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_deref(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this);
 
 // Increments a const iterator.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_Incr(MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this);
+MR_C_API void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_incr(MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this);
 
 #ifdef __cplusplus
 } // extern "C"

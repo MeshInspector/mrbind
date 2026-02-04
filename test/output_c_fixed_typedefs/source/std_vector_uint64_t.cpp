@@ -65,24 +65,24 @@ void MR_C_std_vector_uint64_t_AssignFromRange(MR_C_std_vector_uint64_t *_this, c
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)) = std::vector<MR_C_uint64_t>(ptr, ptr + size);
 }
 
-size_t MR_C_std_vector_uint64_t_Size(const MR_C_std_vector_uint64_t *_this)
+size_t MR_C_std_vector_uint64_t_size(const MR_C_std_vector_uint64_t *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).size();
 }
 
-bool MR_C_std_vector_uint64_t_IsEmpty(const MR_C_std_vector_uint64_t *_this)
+bool MR_C_std_vector_uint64_t_empty(const MR_C_std_vector_uint64_t *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).empty();
 }
 
-void MR_C_std_vector_uint64_t_Resize(MR_C_std_vector_uint64_t *_this, size_t new_size)
+void MR_C_std_vector_uint64_t_resize(MR_C_std_vector_uint64_t *_this, size_t new_size)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).resize(
         new_size
     );
 }
 
-void MR_C_std_vector_uint64_t_ResizeWithDefaultValue(MR_C_std_vector_uint64_t *_this, size_t new_size, MR_C_uint64_t value)
+void MR_C_std_vector_uint64_t_resize_with_default_value(MR_C_std_vector_uint64_t *_this, size_t new_size, MR_C_uint64_t value)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).resize(
         new_size,
@@ -90,95 +90,95 @@ void MR_C_std_vector_uint64_t_ResizeWithDefaultValue(MR_C_std_vector_uint64_t *_
     );
 }
 
-void MR_C_std_vector_uint64_t_Clear(MR_C_std_vector_uint64_t *_this)
+void MR_C_std_vector_uint64_t_clear(MR_C_std_vector_uint64_t *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).clear();
 }
 
-size_t MR_C_std_vector_uint64_t_Capacity(const MR_C_std_vector_uint64_t *_this)
+size_t MR_C_std_vector_uint64_t_capacity(const MR_C_std_vector_uint64_t *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).capacity();
 }
 
-void MR_C_std_vector_uint64_t_Reserve(MR_C_std_vector_uint64_t *_this, size_t new_capacity)
+void MR_C_std_vector_uint64_t_reserve(MR_C_std_vector_uint64_t *_this, size_t new_capacity)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).reserve(
         new_capacity
     );
 }
 
-void MR_C_std_vector_uint64_t_ShrinkToFit(MR_C_std_vector_uint64_t *_this)
+void MR_C_std_vector_uint64_t_shrink_to_fit(MR_C_std_vector_uint64_t *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).shrink_to_fit();
 }
 
-const MR_C_uint64_t *MR_C_std_vector_uint64_t_At(const MR_C_std_vector_uint64_t *_this, size_t i)
+const MR_C_uint64_t *MR_C_std_vector_uint64_t_at(const MR_C_std_vector_uint64_t *_this, size_t i)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).at(
         i
     ));
 }
 
-MR_C_uint64_t *MR_C_std_vector_uint64_t_MutableAt(MR_C_std_vector_uint64_t *_this, size_t i)
+MR_C_uint64_t *MR_C_std_vector_uint64_t_at_mut(MR_C_std_vector_uint64_t *_this, size_t i)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).at(
         i
     ));
 }
 
-const MR_C_uint64_t *MR_C_std_vector_uint64_t_Front(const MR_C_std_vector_uint64_t *_this)
+const MR_C_uint64_t *MR_C_std_vector_uint64_t_front(const MR_C_std_vector_uint64_t *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).front();
 }
 
-MR_C_uint64_t *MR_C_std_vector_uint64_t_MutableFront(MR_C_std_vector_uint64_t *_this)
+MR_C_uint64_t *MR_C_std_vector_uint64_t_front_mut(MR_C_std_vector_uint64_t *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).front();
 }
 
-const MR_C_uint64_t *MR_C_std_vector_uint64_t_Back(const MR_C_std_vector_uint64_t *_this)
+const MR_C_uint64_t *MR_C_std_vector_uint64_t_back(const MR_C_std_vector_uint64_t *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).back();
 }
 
-MR_C_uint64_t *MR_C_std_vector_uint64_t_MutableBack(MR_C_std_vector_uint64_t *_this)
+MR_C_uint64_t *MR_C_std_vector_uint64_t_back_mut(MR_C_std_vector_uint64_t *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).back();
 }
 
-const MR_C_uint64_t *MR_C_std_vector_uint64_t_Data(const MR_C_std_vector_uint64_t *_this)
+const MR_C_uint64_t *MR_C_std_vector_uint64_t_data(const MR_C_std_vector_uint64_t *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).data();
 }
 
-MR_C_uint64_t *MR_C_std_vector_uint64_t_MutableData(MR_C_std_vector_uint64_t *_this)
+MR_C_uint64_t *MR_C_std_vector_uint64_t_data_mut(MR_C_std_vector_uint64_t *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).data();
 }
 
-void MR_C_std_vector_uint64_t_PushBack(MR_C_std_vector_uint64_t *_this, MR_C_uint64_t new_elem)
+void MR_C_std_vector_uint64_t_push_back(MR_C_std_vector_uint64_t *_this, MR_C_uint64_t new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).push_back(
         new_elem
     );
 }
 
-void MR_C_std_vector_uint64_t_PopBack(MR_C_std_vector_uint64_t *_this)
+void MR_C_std_vector_uint64_t_pop_back(MR_C_std_vector_uint64_t *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).pop_back();
 }
 
-void MR_C_std_vector_uint64_t_Insert(MR_C_std_vector_uint64_t *_this, size_t position, MR_C_uint64_t new_elem)
+void MR_C_std_vector_uint64_t_insert(MR_C_std_vector_uint64_t *_this, size_t position, MR_C_uint64_t new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).insert(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).begin() + ptrdiff_t(position), new_elem);
 }
 
-void MR_C_std_vector_uint64_t_Erase(MR_C_std_vector_uint64_t *_this, size_t position)
+void MR_C_std_vector_uint64_t_erase(MR_C_std_vector_uint64_t *_this, size_t position)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).erase(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).begin() + ptrdiff_t(position));
 }
 
-void MR_C_std_vector_uint64_t_InsertAtMutableIter(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_iterator *position, MR_C_uint64_t new_elem)
+void MR_C_std_vector_uint64_t_insert_at_mutable_iter(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_iterator *position, MR_C_uint64_t new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR_C_uint64_t>::iterator(*(std::vector<MR_C_uint64_t>::iterator *)position)),
@@ -186,14 +186,14 @@ void MR_C_std_vector_uint64_t_InsertAtMutableIter(MR_C_std_vector_uint64_t *_thi
     );
 }
 
-void MR_C_std_vector_uint64_t_EraseAtMutableIter(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_iterator *position)
+void MR_C_std_vector_uint64_t_erase_at_mutable_iter(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_iterator *position)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).erase(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR_C_uint64_t>::iterator(*(std::vector<MR_C_uint64_t>::iterator *)position))
     );
 }
 
-void MR_C_std_vector_uint64_t_InsertAtIter(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_const_iterator *position, MR_C_uint64_t new_elem)
+void MR_C_std_vector_uint64_t_insert_at_iter(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_const_iterator *position, MR_C_uint64_t new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR_C_uint64_t>::const_iterator(*(std::vector<MR_C_uint64_t>::const_iterator *)position)),
@@ -201,59 +201,59 @@ void MR_C_std_vector_uint64_t_InsertAtIter(MR_C_std_vector_uint64_t *_this, cons
     );
 }
 
-void MR_C_std_vector_uint64_t_EraseAtIter(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_const_iterator *position)
+void MR_C_std_vector_uint64_t_erase_at_iter(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_const_iterator *position)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).erase(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR_C_uint64_t>::const_iterator(*(std::vector<MR_C_uint64_t>::const_iterator *)position))
     );
 }
 
-MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_Begin(const MR_C_std_vector_uint64_t *_this)
+MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_begin(const MR_C_std_vector_uint64_t *_this)
 {
     return (MR_C_std_vector_uint64_t_const_iterator *)new std::vector<MR_C_uint64_t>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).cbegin());
 }
 
-bool MR_C_std_vector_uint64_t_IsBegin(const MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_const_iterator *iter)
+bool MR_C_std_vector_uint64_t_is_begin(const MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR_C_uint64_t>::const_iterator *)(iter));
 }
 
-MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_MutableBegin(MR_C_std_vector_uint64_t *_this)
+MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_begin_mut(MR_C_std_vector_uint64_t *_this)
 {
     return (MR_C_std_vector_uint64_t_iterator *)new std::vector<MR_C_uint64_t>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).begin());
 }
 
-bool MR_C_std_vector_uint64_t_IsMutableBegin(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_iterator *iter)
+bool MR_C_std_vector_uint64_t_is_begin_mut(const MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR_C_uint64_t>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR_C_uint64_t>::iterator *)(iter));
 }
 
-MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_End(const MR_C_std_vector_uint64_t *_this)
+MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_end(const MR_C_std_vector_uint64_t *_this)
 {
     return (MR_C_std_vector_uint64_t_const_iterator *)new std::vector<MR_C_uint64_t>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).cend());
 }
 
-bool MR_C_std_vector_uint64_t_IsEnd(const MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_const_iterator *iter)
+bool MR_C_std_vector_uint64_t_is_end(const MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR_C_uint64_t>::const_iterator *)(iter));
 }
 
-MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_MutableEnd(MR_C_std_vector_uint64_t *_this)
+MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_end_mut(MR_C_std_vector_uint64_t *_this)
 {
     return (MR_C_std_vector_uint64_t_iterator *)new std::vector<MR_C_uint64_t>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).end());
 }
 
-bool MR_C_std_vector_uint64_t_IsMutableEnd(MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_iterator *iter)
+bool MR_C_std_vector_uint64_t_is_end_mut(const MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR_C_uint64_t>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR_C_uint64_t>::iterator *)(iter));
 }
 
-ptrdiff_t MR_C_std_vector_uint64_t_ToIndex(const MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_const_iterator *iter)
+ptrdiff_t MR_C_std_vector_uint64_t_to_index(const MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_const_iterator *iter)
 {
     return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<MR_C_uint64_t>::const_iterator(*(std::vector<MR_C_uint64_t>::const_iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).cbegin();
 }
 
-ptrdiff_t MR_C_std_vector_uint64_t_MutableToIndex(const MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_iterator *iter)
+ptrdiff_t MR_C_std_vector_uint64_t_to_index_mut(const MR_C_std_vector_uint64_t *_this, const MR_C_std_vector_uint64_t_iterator *iter)
 {
     return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<MR_C_uint64_t>::iterator(*(std::vector<MR_C_uint64_t>::iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t> *)(_this)).begin();
 }
@@ -302,7 +302,7 @@ MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_const_iterator
     return (MR_C_std_vector_uint64_t_const_iterator *)(((std::vector<MR_C_uint64_t>::const_iterator *)ptr) + i);
 }
 
-MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_const_iterator_FromMutable(const MR_C_std_vector_uint64_t_iterator *iter)
+MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_const_iterator_from_mutable(const MR_C_std_vector_uint64_t_iterator *iter)
 {
     return (MR_C_std_vector_uint64_t_const_iterator *)new std::vector<MR_C_uint64_t>::const_iterator(std::vector<MR_C_uint64_t>::iterator(
         ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<MR_C_uint64_t>::iterator(*(std::vector<MR_C_uint64_t>::iterator *)iter))
@@ -353,52 +353,52 @@ MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_iterator_OffsetMutab
     return (MR_C_std_vector_uint64_t_iterator *)(((std::vector<MR_C_uint64_t>::iterator *)ptr) + i);
 }
 
-const MR_C_uint64_t *MR_C_std_vector_uint64_t_const_iterator_Deref(const MR_C_std_vector_uint64_t_const_iterator *_this)
+const MR_C_uint64_t *MR_C_std_vector_uint64_t_const_iterator_deref(const MR_C_std_vector_uint64_t_const_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t>::const_iterator *)(_this)));
 }
 
-void MR_C_std_vector_uint64_t_const_iterator_Incr(MR_C_std_vector_uint64_t_const_iterator *_this)
+void MR_C_std_vector_uint64_t_const_iterator_incr(MR_C_std_vector_uint64_t_const_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t>::const_iterator *)(_this));
 }
 
-void MR_C_std_vector_uint64_t_const_iterator_Decr(MR_C_std_vector_uint64_t_const_iterator *_this)
+void MR_C_std_vector_uint64_t_const_iterator_decr(MR_C_std_vector_uint64_t_const_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t>::const_iterator *)(_this));
 }
 
-void MR_C_std_vector_uint64_t_const_iterator_OffsetBy(MR_C_std_vector_uint64_t_const_iterator *_this, ptrdiff_t delta)
+void MR_C_std_vector_uint64_t_const_iterator_add_assign(MR_C_std_vector_uint64_t_const_iterator *_this, ptrdiff_t delta)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t>::const_iterator *)(_this)) += delta;
 }
 
-ptrdiff_t MR_C_std_vector_uint64_t_const_iterator_Distance(const MR_C_std_vector_uint64_t_const_iterator *a, const MR_C_std_vector_uint64_t_const_iterator *b)
+ptrdiff_t MR_C_sub_MR_C_std_vector_uint64_t_const_iterator(const MR_C_std_vector_uint64_t_const_iterator *a, const MR_C_std_vector_uint64_t_const_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR_C_uint64_t>::const_iterator(*(std::vector<MR_C_uint64_t>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR_C_uint64_t>::const_iterator(*(std::vector<MR_C_uint64_t>::const_iterator *)a));
 }
 
-MR_C_uint64_t *MR_C_std_vector_uint64_t_iterator_Deref(const MR_C_std_vector_uint64_t_iterator *_this)
+MR_C_uint64_t *MR_C_std_vector_uint64_t_iterator_deref(const MR_C_std_vector_uint64_t_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_uint64_t>::iterator *)(_this)));
 }
 
-void MR_C_std_vector_uint64_t_iterator_Incr(MR_C_std_vector_uint64_t_iterator *_this)
+void MR_C_std_vector_uint64_t_iterator_incr(MR_C_std_vector_uint64_t_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t>::iterator *)(_this));
 }
 
-void MR_C_std_vector_uint64_t_iterator_Decr(MR_C_std_vector_uint64_t_iterator *_this)
+void MR_C_std_vector_uint64_t_iterator_decr(MR_C_std_vector_uint64_t_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t>::iterator *)(_this));
 }
 
-void MR_C_std_vector_uint64_t_iterator_OffsetBy(MR_C_std_vector_uint64_t_iterator *_this, ptrdiff_t delta)
+void MR_C_std_vector_uint64_t_iterator_add_assign(MR_C_std_vector_uint64_t_iterator *_this, ptrdiff_t delta)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR_C_uint64_t>::iterator *)(_this)) += delta;
 }
 
-ptrdiff_t MR_C_std_vector_uint64_t_iterator_Distance(const MR_C_std_vector_uint64_t_iterator *a, const MR_C_std_vector_uint64_t_iterator *b)
+ptrdiff_t MR_C_sub_MR_C_std_vector_uint64_t_iterator(const MR_C_std_vector_uint64_t_iterator *a, const MR_C_std_vector_uint64_t_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR_C_uint64_t>::iterator(*(std::vector<MR_C_uint64_t>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR_C_uint64_t>::iterator(*(std::vector<MR_C_uint64_t>::iterator *)a));
 }

@@ -56,13 +56,13 @@ MR_C_API MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref *MR_C_std_pair_int32_
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 // In C++ returns an rvalue reference.
-MR_C_API int32_t *MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_First(const MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref *_this);
+MR_C_API int32_t *MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_first(const MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref *_this);
 
 // The second of the two elements, read-only.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
 // In C++ returns an rvalue reference.
-MR_C_API float *MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_Second(const MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref *_this);
+MR_C_API float *MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_second(const MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref *_this);
 
 #ifdef __cplusplus
 } // extern "C"

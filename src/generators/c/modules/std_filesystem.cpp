@@ -44,7 +44,7 @@ namespace mrbind::CBindings::Modules
                     { // Get as a string.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Get the contents as a UTF8-encoded string.";
-                        emit.name = binder.MakeMemberFuncName(generator, "GetString");
+                        emit.name = binder.MakeMemberFuncName(generator, "string");
 
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("string"));
 

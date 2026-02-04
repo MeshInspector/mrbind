@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// A fixed-size array of `MR::StdContainers::A` of size 42.
             /// This is the const half of the class.
-            public class Const_Array_MRStdContainersA_42 : MR.CS.Misc.Object<Const_Array_MRStdContainersA_42>, System.IDisposable
+            public class Const_Array_MRStdContainersA_42 : MR.CS.Misc.Object<Const_Array_MRStdContainersA_42>, System.IDisposable, IEnumerable<MR.CS.StdContainers.Const_A>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -23,6 +23,70 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Array_MRStdContainersA_42() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<MR.CS.StdContainers.Const_A>
+                {
+                    Const_Array_MRStdContainersA_42 _container;
+                    MR.CS.StdContainers.ConstPtrA _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_Array_MRStdContainersA_42 container)
+                    {
+                        _container = container;
+                        _cur = _container.Begin();
+                        _done = _cur == _container.End();
+                    }
+
+                    public MR.CS.StdContainers.Const_A Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.Deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur.Incr();
+                        if (_cur == _container.End())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.Begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.StdContainers.Const_A> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
 
                 internal unsafe Const_Array_MRStdContainersA_42(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -51,10 +115,10 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_At", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_At(_Underlying *_this, ulong i);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_at", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_at(_Underlying *_this, ulong i);
                         MR.CS.StdContainers.Const_A __ret;
-                        __ret = new(__MR_C_std_array_MR_StdContainers_A_42_At(_UnderlyingPtr, i), is_owning: false);
+                        __ret = new(__MR_C_std_array_MR_StdContainers_A_42_at(_UnderlyingPtr, i), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
@@ -63,17 +127,99 @@ public static partial class MR
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
                 public unsafe MR.CS.StdContainers.ConstPtrA Data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_Data", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_Data(_Underlying *_this);
-                    var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_Data(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_data", ExactSpelling = true)]
+                    extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_data(_Underlying *_this);
+                    var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_data(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+
+                /// The begin iterator, const.
+                public unsafe MR.CS.StdContainers.ConstPtrA Begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_begin", ExactSpelling = true)]
+                    extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_begin(_Underlying *_this);
+                    var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_begin(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+
+                /// The end iterator, const.
+                public unsafe MR.CS.StdContainers.ConstPtrA End()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_end", ExactSpelling = true)]
+                    extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_end(_Underlying *_this);
+                    var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_end(_UnderlyingPtr);
                     return new(__c_ret);
                 }
             }
 
             /// A fixed-size array of `MR::StdContainers::A` of size 42.
             /// This is the non-const half of the class.
-            public class Array_MRStdContainersA_42 : Const_Array_MRStdContainersA_42
+            public class Array_MRStdContainersA_42 : Const_Array_MRStdContainersA_42, IEnumerable<MR.CS.StdContainers.A>
             {
+                public new class _Enumerator : IEnumerator<MR.CS.StdContainers.A>
+                {
+                    Array_MRStdContainersA_42 _container;
+                    MR.CS.StdContainers.PtrA _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Array_MRStdContainersA_42 container)
+                    {
+                        _container = container;
+                        _cur = _container.Begin();
+                        _done = _cur == _container.End();
+                    }
+
+                    public MR.CS.StdContainers.A Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.Deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur.Incr();
+                        if (_cur == _container.End())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.Begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public new IEnumerator<MR.CS.StdContainers.A> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
                 internal unsafe Array_MRStdContainersA_42(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
@@ -111,10 +257,10 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_MutableAt", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_MutableAt(_Underlying *_this, ulong i);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_at_mut", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_at_mut(_Underlying *_this, ulong i);
                         MR.CS.StdContainers.A __ret;
-                        __ret = new(__MR_C_std_array_MR_StdContainers_A_42_MutableAt(_UnderlyingPtr, i), is_owning: false);
+                        __ret = new(__MR_C_std_array_MR_StdContainers_A_42_at_mut(_UnderlyingPtr, i), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
@@ -123,9 +269,27 @@ public static partial class MR
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
                 public unsafe new MR.CS.StdContainers.PtrA Data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_MutableData", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_MutableData(_Underlying *_this);
-                    var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_MutableData(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_data_mut", ExactSpelling = true)]
+                    extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_data_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_data_mut(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+
+                /// The begin iterator, mutable.
+                public unsafe new MR.CS.StdContainers.PtrA Begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_begin_mut", ExactSpelling = true)]
+                    extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_begin_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_begin_mut(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+
+                /// The end iterator, mutable.
+                public unsafe new MR.CS.StdContainers.PtrA End()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_end_mut", ExactSpelling = true)]
+                    extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_end_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_array_MR_StdContainers_A_42_end_mut(_UnderlyingPtr);
                     return new(__c_ret);
                 }
             }

@@ -54,12 +54,12 @@ MR_C_std_shared_ptr_const_int32_t *MR_C_std_shared_ptr_const_int32_t_OffsetMutab
     return (MR_C_std_shared_ptr_const_int32_t *)(((std::shared_ptr<const int32_t> *)ptr) + i);
 }
 
-const int32_t *MR_C_std_shared_ptr_const_int32_t_Get(const MR_C_std_shared_ptr_const_int32_t *_this)
+const int32_t *MR_C_std_shared_ptr_const_int32_t_get(const MR_C_std_shared_ptr_const_int32_t *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const int32_t> *)(_this)).get();
 }
 
-int MR_C_std_shared_ptr_const_int32_t_UseCount(const MR_C_std_shared_ptr_const_int32_t *_this)
+int MR_C_std_shared_ptr_const_int32_t_use_count(const MR_C_std_shared_ptr_const_int32_t *_this)
 {
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const int32_t> *)(_this)).use_count());
 }

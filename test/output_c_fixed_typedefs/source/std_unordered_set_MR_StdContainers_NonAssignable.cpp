@@ -55,51 +55,51 @@ MR_C_std_unordered_set_MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR
     return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable *)(((std::unordered_set<MR::StdContainers::NonAssignable> *)ptr) + i);
 }
 
-size_t MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Size(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+size_t MR_C_std_unordered_set_MR_StdContainers_NonAssignable_size(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).size();
 }
 
-bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_IsEmpty(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_empty(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).empty();
 }
 
-void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Clear(MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_clear(MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).clear();
 }
 
-bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Contains(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_StdContainers_NonAssignable *key)
+bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_contains(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_StdContainers_NonAssignable *key)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).contains(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *(const MR::StdContainers::NonAssignable *)(key))
     );
 }
 
-MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Find(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_StdContainers_NonAssignable *key)
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_find(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_StdContainers_NonAssignable *key)
 {
     return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)new std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).find(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *(const MR::StdContainers::NonAssignable *)(key))
     ));
 }
 
-MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_Begin(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_begin(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
 {
     return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)new std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).cbegin());
 }
 
-bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_IsBegin(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *iter)
+bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_is_begin(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)(iter));
 }
 
-MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_End(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
+MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_end(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this)
 {
     return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)new std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).cend());
 }
 
-bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_IsEnd(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *iter)
+bool MR_C_std_unordered_set_MR_StdContainers_NonAssignable_is_end(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable *_this, const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)(iter));
 }
@@ -148,12 +148,12 @@ MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_u
     return (MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *)(((std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)ptr) + i);
 }
 
-const MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_Deref(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this)
+const MR_StdContainers_NonAssignable *MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_deref(const MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this)
 {
     return (const MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)(_this)));
 }
 
-void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_Incr(MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this)
+void MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator_incr(MR_C_std_unordered_set_MR_StdContainers_NonAssignable_const_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_set<MR::StdContainers::NonAssignable>::const_iterator *)(_this));
 }

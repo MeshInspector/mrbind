@@ -62,30 +62,30 @@ public static partial class MR
             /// </summary>
             public static unsafe implicit operator bool(MR.CS.Const_Expected_Int32T_StdString _this)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_Success", ExactSpelling = true)]
-                extern static byte __MR_C_expected_int32_t_std_string_Success(MR.CS.Const_Expected_Int32T_StdString._Underlying *_this);
-                return __MR_C_expected_int32_t_std_string_Success(_this._UnderlyingPtr) != 0;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_success", ExactSpelling = true)]
+                extern static byte __MR_C_expected_int32_t_std_string_success(MR.CS.Const_Expected_Int32T_StdString._Underlying *_this);
+                return __MR_C_expected_int32_t_std_string_success(_this._UnderlyingPtr) != 0;
             }
 
             /// <summary>
             /// If this instance represents success, returns the stored `int32_t`. Otherwise null.
             /// </summary>
-            public unsafe int? getValue()
+            public unsafe int? value()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_GetValue", ExactSpelling = true)]
-                extern static int *__MR_C_expected_int32_t_std_string_GetValue(_Underlying *_this);
-                var __c_ret = __MR_C_expected_int32_t_std_string_GetValue(_UnderlyingPtr);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_value", ExactSpelling = true)]
+                extern static int *__MR_C_expected_int32_t_std_string_value(_Underlying *_this);
+                var __c_ret = __MR_C_expected_int32_t_std_string_value(_UnderlyingPtr);
                 return __c_ret is not null ? *__c_ret : null;
             }
 
             /// <summary>
             /// If this instance represents an error, returns the stored `std::string`. Otherwise null.
             /// </summary>
-            public unsafe MR.CS.Std.Const_String? getError()
+            public unsafe MR.CS.Std.Const_String? error()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_GetError", ExactSpelling = true)]
-                extern static MR.CS.Std.Const_String._Underlying *__MR_C_expected_int32_t_std_string_GetError(_Underlying *_this);
-                var __c_ret = __MR_C_expected_int32_t_std_string_GetError(_UnderlyingPtr);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_error", ExactSpelling = true)]
+                extern static MR.CS.Std.Const_String._Underlying *__MR_C_expected_int32_t_std_string_error(_Underlying *_this);
+                var __c_ret = __MR_C_expected_int32_t_std_string_error(_UnderlyingPtr);
                 MR.CS.Std.Const_String? __ret;
                 __ret = __c_ret is not null ? new MR.CS.Std.Const_String(__c_ret, is_owning: false) : null;
                 if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -147,22 +147,22 @@ public static partial class MR
             /// <summary>
             /// If this instance represents success, returns the stored `int32_t`. Otherwise null. This version returns a mutable pointer.
             /// </summary>
-            public unsafe new MR.CS.Misc.Ref<int>? getValue()
+            public unsafe new MR.CS.Misc.Ref<int>? value()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_GetMutableValue", ExactSpelling = true)]
-                extern static int *__MR_C_expected_int32_t_std_string_GetMutableValue(_Underlying *_this);
-                var __c_ret = __MR_C_expected_int32_t_std_string_GetMutableValue(_UnderlyingPtr);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_value_mut", ExactSpelling = true)]
+                extern static int *__MR_C_expected_int32_t_std_string_value_mut(_Underlying *_this);
+                var __c_ret = __MR_C_expected_int32_t_std_string_value_mut(_UnderlyingPtr);
                 return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
             }
 
             /// <summary>
             /// If this instance represents an error, returns the stored `std::string`. Otherwise null. This version returns a mutable pointer.
             /// </summary>
-            public unsafe new MR.CS.Std.String? getError()
+            public unsafe new MR.CS.Std.String? error()
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_GetMutableError", ExactSpelling = true)]
-                extern static MR.CS.Std.String._Underlying *__MR_C_expected_int32_t_std_string_GetMutableError(_Underlying *_this);
-                var __c_ret = __MR_C_expected_int32_t_std_string_GetMutableError(_UnderlyingPtr);
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_expected_int32_t_std_string_error_mut", ExactSpelling = true)]
+                extern static MR.CS.Std.String._Underlying *__MR_C_expected_int32_t_std_string_error_mut(_Underlying *_this);
+                var __c_ret = __MR_C_expected_int32_t_std_string_error_mut(_UnderlyingPtr);
                 MR.CS.Std.String? __ret;
                 __ret = __c_ret is not null ? new MR.CS.Std.String(__c_ret, is_owning: false) : null;
                 if (__ret is not null) __ret._KeepAliveEnclosingObject = this;

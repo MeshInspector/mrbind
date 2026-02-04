@@ -68,160 +68,160 @@ MR_C_API void MR_C_std_vector_unsigned_long_AssignFromRange(MR_C_std_vector_unsi
 
 /// The number of elements.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_vector_unsigned_long_Size(const MR_C_std_vector_unsigned_long *_this);
+MR_C_API size_t MR_C_std_vector_unsigned_long_size(const MR_C_std_vector_unsigned_long *_this);
 
 /// Returns true if the size is zero.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API bool MR_C_std_vector_unsigned_long_IsEmpty(const MR_C_std_vector_unsigned_long *_this);
+MR_C_API bool MR_C_std_vector_unsigned_long_empty(const MR_C_std_vector_unsigned_long *_this);
 
 /// Resizes the container. The new elements if any are zeroed.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_Resize(MR_C_std_vector_unsigned_long *_this, size_t new_size);
+MR_C_API void MR_C_std_vector_unsigned_long_resize(MR_C_std_vector_unsigned_long *_this, size_t new_size);
 
 /// Resizes the container. The new elements if any are set to the specified value.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_ResizeWithDefaultValue(MR_C_std_vector_unsigned_long *_this, size_t new_size, unsigned long value);
+MR_C_API void MR_C_std_vector_unsigned_long_resize_with_default_value(MR_C_std_vector_unsigned_long *_this, size_t new_size, unsigned long value);
 
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
 /// When this function is called, this object will drop any object references it had previously.
-MR_C_API void MR_C_std_vector_unsigned_long_Clear(MR_C_std_vector_unsigned_long *_this);
+MR_C_API void MR_C_std_vector_unsigned_long_clear(MR_C_std_vector_unsigned_long *_this);
 
 /// The memory capacity, measued in the number of elements.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_vector_unsigned_long_Capacity(const MR_C_std_vector_unsigned_long *_this);
+MR_C_API size_t MR_C_std_vector_unsigned_long_capacity(const MR_C_std_vector_unsigned_long *_this);
 
 /// Reserves memory for a certain number of elements. Never shrinks the memory.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_Reserve(MR_C_std_vector_unsigned_long *_this, size_t new_capacity);
+MR_C_API void MR_C_std_vector_unsigned_long_reserve(MR_C_std_vector_unsigned_long *_this, size_t new_capacity);
 
 /// Shrinks the capacity to match the size.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_ShrinkToFit(MR_C_std_vector_unsigned_long *_this);
+MR_C_API void MR_C_std_vector_unsigned_long_shrink_to_fit(MR_C_std_vector_unsigned_long *_this);
 
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_At(const MR_C_std_vector_unsigned_long *_this, size_t i);
+MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_at(const MR_C_std_vector_unsigned_long *_this, size_t i);
 
 /// The element at a specific index, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API unsigned long *MR_C_std_vector_unsigned_long_MutableAt(MR_C_std_vector_unsigned_long *_this, size_t i);
+MR_C_API unsigned long *MR_C_std_vector_unsigned_long_at_mut(MR_C_std_vector_unsigned_long *_this, size_t i);
 
 /// The first element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_Front(const MR_C_std_vector_unsigned_long *_this);
+MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_front(const MR_C_std_vector_unsigned_long *_this);
 
 /// The first element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API unsigned long *MR_C_std_vector_unsigned_long_MutableFront(MR_C_std_vector_unsigned_long *_this);
+MR_C_API unsigned long *MR_C_std_vector_unsigned_long_front_mut(MR_C_std_vector_unsigned_long *_this);
 
 /// The last element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_Back(const MR_C_std_vector_unsigned_long *_this);
+MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_back(const MR_C_std_vector_unsigned_long *_this);
 
 /// The last element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API unsigned long *MR_C_std_vector_unsigned_long_MutableBack(MR_C_std_vector_unsigned_long *_this);
+MR_C_API unsigned long *MR_C_std_vector_unsigned_long_back_mut(MR_C_std_vector_unsigned_long *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_Data(const MR_C_std_vector_unsigned_long *_this);
+MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_data(const MR_C_std_vector_unsigned_long *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API unsigned long *MR_C_std_vector_unsigned_long_MutableData(MR_C_std_vector_unsigned_long *_this);
+MR_C_API unsigned long *MR_C_std_vector_unsigned_long_data_mut(MR_C_std_vector_unsigned_long *_this);
 
 /// Inserts a new element at the end.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to the parameter `new_elem` might be preserved in this object.
-MR_C_API void MR_C_std_vector_unsigned_long_PushBack(MR_C_std_vector_unsigned_long *_this, unsigned long new_elem);
+MR_C_API void MR_C_std_vector_unsigned_long_push_back(MR_C_std_vector_unsigned_long *_this, unsigned long new_elem);
 
 /// Removes one element from the end.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_PopBack(MR_C_std_vector_unsigned_long *_this);
+MR_C_API void MR_C_std_vector_unsigned_long_pop_back(MR_C_std_vector_unsigned_long *_this);
 
 /// Inserts a new element right before the specified position.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to the parameter `new_elem` might be preserved in this object.
-MR_C_API void MR_C_std_vector_unsigned_long_Insert(MR_C_std_vector_unsigned_long *_this, size_t position, unsigned long new_elem);
+MR_C_API void MR_C_std_vector_unsigned_long_insert(MR_C_std_vector_unsigned_long *_this, size_t position, unsigned long new_elem);
 
 /// Erases the element at the specified position.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_Erase(MR_C_std_vector_unsigned_long *_this, size_t position);
+MR_C_API void MR_C_std_vector_unsigned_long_erase(MR_C_std_vector_unsigned_long *_this, size_t position);
 
 /// Inserts a new element right before the specified position.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `position` can not be null. It is a single object.
 /// The reference to the parameter `new_elem` might be preserved in this object.
-MR_C_API void MR_C_std_vector_unsigned_long_InsertAtMutableIter(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_iterator *position, unsigned long new_elem);
+MR_C_API void MR_C_std_vector_unsigned_long_insert_at_mutable_iter(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_iterator *position, unsigned long new_elem);
 
 /// Erases the element at the specified position.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `position` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_EraseAtMutableIter(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_iterator *position);
+MR_C_API void MR_C_std_vector_unsigned_long_erase_at_mutable_iter(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_iterator *position);
 
 /// Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `position` can not be null. It is a single object.
 /// The reference to the parameter `new_elem` might be preserved in this object.
-MR_C_API void MR_C_std_vector_unsigned_long_InsertAtIter(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_const_iterator *position, unsigned long new_elem);
+MR_C_API void MR_C_std_vector_unsigned_long_insert_at_iter(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_const_iterator *position, unsigned long new_elem);
 
 /// Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `position` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_EraseAtIter(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_const_iterator *position);
+MR_C_API void MR_C_std_vector_unsigned_long_erase_at_iter(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_const_iterator *position);
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_long_Begin(const MR_C_std_vector_unsigned_long *_this);
+MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_long_begin(const MR_C_std_vector_unsigned_long *_this);
 
 /// Tests whether a const iterator is the begin iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_vector_unsigned_long_IsBegin(const MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_const_iterator *iter);
+MR_C_API bool MR_C_std_vector_unsigned_long_is_begin(const MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_const_iterator *iter);
 
 /// The begin iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_unsigned_long_iterator *MR_C_std_vector_unsigned_long_MutableBegin(MR_C_std_vector_unsigned_long *_this);
+MR_C_API MR_C_std_vector_unsigned_long_iterator *MR_C_std_vector_unsigned_long_begin_mut(MR_C_std_vector_unsigned_long *_this);
 
 /// Tests whether a mutable iterator is the begin iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_vector_unsigned_long_IsMutableBegin(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_iterator *iter);
+MR_C_API bool MR_C_std_vector_unsigned_long_is_begin_mut(const MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_iterator *iter);
 
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_long_End(const MR_C_std_vector_unsigned_long *_this);
+MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_long_end(const MR_C_std_vector_unsigned_long *_this);
 
 /// Tests whether a const iterator is the end iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_vector_unsigned_long_IsEnd(const MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_const_iterator *iter);
+MR_C_API bool MR_C_std_vector_unsigned_long_is_end(const MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_const_iterator *iter);
 
 /// The end iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_unsigned_long_iterator *MR_C_std_vector_unsigned_long_MutableEnd(MR_C_std_vector_unsigned_long *_this);
+MR_C_API MR_C_std_vector_unsigned_long_iterator *MR_C_std_vector_unsigned_long_end_mut(MR_C_std_vector_unsigned_long *_this);
 
 /// Tests whether a mutable iterator is the end iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_vector_unsigned_long_IsMutableEnd(MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_iterator *iter);
+MR_C_API bool MR_C_std_vector_unsigned_long_is_end_mut(const MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_iterator *iter);
 
 /// Convert a const iterator to an index.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_vector_unsigned_long_ToIndex(const MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_const_iterator *iter);
+MR_C_API ptrdiff_t MR_C_std_vector_unsigned_long_to_index(const MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_const_iterator *iter);
 
 /// Convert a mutable iterator to an index.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `iter` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_vector_unsigned_long_MutableToIndex(const MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_iterator *iter);
+MR_C_API ptrdiff_t MR_C_std_vector_unsigned_long_to_index_mut(const MR_C_std_vector_unsigned_long *_this, const MR_C_std_vector_unsigned_long_iterator *iter);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_const_iterator_Destroy()` to free it when you're done using it.
@@ -263,7 +263,7 @@ MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_
 /// Makes a const iterator from a mutable one.
 /// Parameter `iter` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_long_const_iterator_FromMutable(const MR_C_std_vector_unsigned_long_iterator *iter);
+MR_C_API MR_C_std_vector_unsigned_long_const_iterator *MR_C_std_vector_unsigned_long_const_iterator_from_mutable(const MR_C_std_vector_unsigned_long_iterator *iter);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_unsigned_long_iterator_Destroy()` to free it when you're done using it.
@@ -305,46 +305,46 @@ MR_C_API MR_C_std_vector_unsigned_long_iterator *MR_C_std_vector_unsigned_long_i
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_const_iterator_Deref(const MR_C_std_vector_unsigned_long_const_iterator *_this);
+MR_C_API const unsigned long *MR_C_std_vector_unsigned_long_const_iterator_deref(const MR_C_std_vector_unsigned_long_const_iterator *_this);
 
 /// Increments a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_const_iterator_Incr(MR_C_std_vector_unsigned_long_const_iterator *_this);
+MR_C_API void MR_C_std_vector_unsigned_long_const_iterator_incr(MR_C_std_vector_unsigned_long_const_iterator *_this);
 
 /// Decrements a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_const_iterator_Decr(MR_C_std_vector_unsigned_long_const_iterator *_this);
+MR_C_API void MR_C_std_vector_unsigned_long_const_iterator_decr(MR_C_std_vector_unsigned_long_const_iterator *_this);
 
 /// Increments or decrements a const iterator by the specific amount. Completes in constant time.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_const_iterator_OffsetBy(MR_C_std_vector_unsigned_long_const_iterator *_this, ptrdiff_t delta);
+MR_C_API void MR_C_std_vector_unsigned_long_const_iterator_add_assign(MR_C_std_vector_unsigned_long_const_iterator *_this, ptrdiff_t delta);
 
 /// Computes the signed difference between two const iterators. Completes in constant time.
 /// Parameter `a` can not be null. It is a single object.
 /// Parameter `b` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_vector_unsigned_long_const_iterator_Distance(const MR_C_std_vector_unsigned_long_const_iterator *a, const MR_C_std_vector_unsigned_long_const_iterator *b);
+MR_C_API ptrdiff_t MR_C_sub_MR_C_std_vector_unsigned_long_const_iterator(const MR_C_std_vector_unsigned_long_const_iterator *a, const MR_C_std_vector_unsigned_long_const_iterator *b);
 
 /// Dereferences a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API unsigned long *MR_C_std_vector_unsigned_long_iterator_Deref(const MR_C_std_vector_unsigned_long_iterator *_this);
+MR_C_API unsigned long *MR_C_std_vector_unsigned_long_iterator_deref(const MR_C_std_vector_unsigned_long_iterator *_this);
 
 /// Increments a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_iterator_Incr(MR_C_std_vector_unsigned_long_iterator *_this);
+MR_C_API void MR_C_std_vector_unsigned_long_iterator_incr(MR_C_std_vector_unsigned_long_iterator *_this);
 
 /// Decrements a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_iterator_Decr(MR_C_std_vector_unsigned_long_iterator *_this);
+MR_C_API void MR_C_std_vector_unsigned_long_iterator_decr(MR_C_std_vector_unsigned_long_iterator *_this);
 
 /// Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_unsigned_long_iterator_OffsetBy(MR_C_std_vector_unsigned_long_iterator *_this, ptrdiff_t delta);
+MR_C_API void MR_C_std_vector_unsigned_long_iterator_add_assign(MR_C_std_vector_unsigned_long_iterator *_this, ptrdiff_t delta);
 
 /// Computes the signed difference between two mutable iterators. Completes in constant time.
 /// Parameter `a` can not be null. It is a single object.
 /// Parameter `b` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_vector_unsigned_long_iterator_Distance(const MR_C_std_vector_unsigned_long_iterator *a, const MR_C_std_vector_unsigned_long_iterator *b);
+MR_C_API ptrdiff_t MR_C_sub_MR_C_std_vector_unsigned_long_iterator(const MR_C_std_vector_unsigned_long_iterator *a, const MR_C_std_vector_unsigned_long_iterator *b);
 
 #ifdef __cplusplus
 } // extern "C"

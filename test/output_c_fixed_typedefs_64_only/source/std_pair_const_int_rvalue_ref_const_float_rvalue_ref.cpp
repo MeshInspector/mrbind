@@ -44,12 +44,12 @@ MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_pair_const_i
     ));
 }
 
-const int *MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_First(const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *_this)
+const int *MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_first(const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
     return std::addressof(mrbindc_details::unmove(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const int &&, const float &&> *)(_this)).first));
 }
 
-const float *MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_Second(const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *_this)
+const float *MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref_second(const MR_C_std_pair_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
     return std::addressof(mrbindc_details::unmove(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const int &&, const float &&> *)(_this)).second));
 }

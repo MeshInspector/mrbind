@@ -71,11 +71,11 @@ MR_C_API MR_C_std_optional_std_string *MR_C_std_optional_std_string_OffsetMutabl
 
 // The stored element or null if none, read-only.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API const MR_C_std_string *MR_C_std_optional_std_string_Value(const MR_C_std_optional_std_string *_this);
+MR_C_API const MR_C_std_string *MR_C_std_optional_std_string_value(const MR_C_std_optional_std_string *_this);
 
 // The stored element or null if none, mutable.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_C_std_string *MR_C_std_optional_std_string_MutableValue(MR_C_std_optional_std_string *_this);
+MR_C_API MR_C_std_string *MR_C_std_optional_std_string_value_mut(MR_C_std_optional_std_string *_this);
 
 #ifdef __cplusplus
 } // extern "C"

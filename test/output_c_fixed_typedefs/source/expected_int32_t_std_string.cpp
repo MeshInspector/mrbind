@@ -55,30 +55,30 @@ MR_C_expected_int32_t_std_string *MR_C_expected_int32_t_std_string_OffsetMutable
     return (MR_C_expected_int32_t_std_string *)(((std::expected<int32_t, std::string> *)ptr) + i);
 }
 
-bool MR_C_expected_int32_t_std_string_Success(const MR_C_expected_int32_t_std_string *_this)
+bool MR_C_expected_int32_t_std_string_success(const MR_C_expected_int32_t_std_string *_this)
 {
     return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int32_t, std::string> *)(_this)));
 }
 
-const int32_t *MR_C_expected_int32_t_std_string_GetValue(const MR_C_expected_int32_t_std_string *_this)
+const int32_t *MR_C_expected_int32_t_std_string_value(const MR_C_expected_int32_t_std_string *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int32_t, std::string> *)(_this));
     return _self ? &*_self : nullptr;
 }
 
-const MR_C_std_string *MR_C_expected_int32_t_std_string_GetError(const MR_C_expected_int32_t_std_string *_this)
+const MR_C_std_string *MR_C_expected_int32_t_std_string_error(const MR_C_expected_int32_t_std_string *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int32_t, std::string> *)(_this));
     return (const MR_C_std_string *)(_self ? nullptr : &_self.error());
 }
 
-int32_t *MR_C_expected_int32_t_std_string_GetMutableValue(MR_C_expected_int32_t_std_string *_this)
+int32_t *MR_C_expected_int32_t_std_string_value_mut(MR_C_expected_int32_t_std_string *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int32_t, std::string> *)(_this));
     return _self ? &*_self : nullptr;
 }
 
-MR_C_std_string *MR_C_expected_int32_t_std_string_GetMutableError(MR_C_expected_int32_t_std_string *_this)
+MR_C_std_string *MR_C_expected_int32_t_std_string_error_mut(MR_C_expected_int32_t_std_string *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int32_t, std::string> *)(_this));
     return (MR_C_std_string *)(_self ? nullptr : &_self.error());

@@ -54,24 +54,24 @@ MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_OffsetMutablePtr(MR_C_std_vector_MR_A
     return (MR_C_std_vector_MR_A *)(((std::vector<MR::A> *)ptr) + i);
 }
 
-size_t MR_C_std_vector_MR_A_Size(const MR_C_std_vector_MR_A *_this)
+size_t MR_C_std_vector_MR_A_size(const MR_C_std_vector_MR_A *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).size();
 }
 
-bool MR_C_std_vector_MR_A_IsEmpty(const MR_C_std_vector_MR_A *_this)
+bool MR_C_std_vector_MR_A_empty(const MR_C_std_vector_MR_A *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).empty();
 }
 
-void MR_C_std_vector_MR_A_Resize(MR_C_std_vector_MR_A *_this, size_t new_size)
+void MR_C_std_vector_MR_A_resize(MR_C_std_vector_MR_A *_this, size_t new_size)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).resize(
         new_size
     );
 }
 
-void MR_C_std_vector_MR_A_ResizeWithDefaultValue(MR_C_std_vector_MR_A *_this, size_t new_size, const MR_A *value)
+void MR_C_std_vector_MR_A_resize_with_default_value(MR_C_std_vector_MR_A *_this, size_t new_size, const MR_A *value)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).resize(
         new_size,
@@ -79,85 +79,85 @@ void MR_C_std_vector_MR_A_ResizeWithDefaultValue(MR_C_std_vector_MR_A *_this, si
     );
 }
 
-void MR_C_std_vector_MR_A_Clear(MR_C_std_vector_MR_A *_this)
+void MR_C_std_vector_MR_A_clear(MR_C_std_vector_MR_A *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).clear();
 }
 
-size_t MR_C_std_vector_MR_A_Capacity(const MR_C_std_vector_MR_A *_this)
+size_t MR_C_std_vector_MR_A_capacity(const MR_C_std_vector_MR_A *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).capacity();
 }
 
-void MR_C_std_vector_MR_A_Reserve(MR_C_std_vector_MR_A *_this, size_t new_capacity)
+void MR_C_std_vector_MR_A_reserve(MR_C_std_vector_MR_A *_this, size_t new_capacity)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).reserve(
         new_capacity
     );
 }
 
-void MR_C_std_vector_MR_A_ShrinkToFit(MR_C_std_vector_MR_A *_this)
+void MR_C_std_vector_MR_A_shrink_to_fit(MR_C_std_vector_MR_A *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).shrink_to_fit();
 }
 
-const MR_A *MR_C_std_vector_MR_A_At(const MR_C_std_vector_MR_A *_this, size_t i)
+const MR_A *MR_C_std_vector_MR_A_at(const MR_C_std_vector_MR_A *_this, size_t i)
 {
     return (const MR_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).at(
         i
     ));
 }
 
-MR_A *MR_C_std_vector_MR_A_MutableAt(MR_C_std_vector_MR_A *_this, size_t i)
+MR_A *MR_C_std_vector_MR_A_at_mut(MR_C_std_vector_MR_A *_this, size_t i)
 {
     return (MR_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).at(
         i
     ));
 }
 
-const MR_A *MR_C_std_vector_MR_A_Front(const MR_C_std_vector_MR_A *_this)
+const MR_A *MR_C_std_vector_MR_A_front(const MR_C_std_vector_MR_A *_this)
 {
     return (const MR_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).front());
 }
 
-MR_A *MR_C_std_vector_MR_A_MutableFront(MR_C_std_vector_MR_A *_this)
+MR_A *MR_C_std_vector_MR_A_front_mut(MR_C_std_vector_MR_A *_this)
 {
     return (MR_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).front());
 }
 
-const MR_A *MR_C_std_vector_MR_A_Back(const MR_C_std_vector_MR_A *_this)
+const MR_A *MR_C_std_vector_MR_A_back(const MR_C_std_vector_MR_A *_this)
 {
     return (const MR_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).back());
 }
 
-MR_A *MR_C_std_vector_MR_A_MutableBack(MR_C_std_vector_MR_A *_this)
+MR_A *MR_C_std_vector_MR_A_back_mut(MR_C_std_vector_MR_A *_this)
 {
     return (MR_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).back());
 }
 
-void MR_C_std_vector_MR_A_PushBack(MR_C_std_vector_MR_A *_this, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
+void MR_C_std_vector_MR_A_push_back(MR_C_std_vector_MR_A *_this, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).push_back(
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::A) MRBINDC_CLASSARG_COPY(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::A) MRBINDC_CLASSARG_END(new_elem, MR::A))
     );
 }
 
-void MR_C_std_vector_MR_A_PopBack(MR_C_std_vector_MR_A *_this)
+void MR_C_std_vector_MR_A_pop_back(MR_C_std_vector_MR_A *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).pop_back();
 }
 
-void MR_C_std_vector_MR_A_Insert(MR_C_std_vector_MR_A *_this, size_t position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
+void MR_C_std_vector_MR_A_insert(MR_C_std_vector_MR_A *_this, size_t position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).insert(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).begin() + ptrdiff_t(position), (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::A) MRBINDC_CLASSARG_COPY(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::A) MRBINDC_CLASSARG_END(new_elem, MR::A)));
 }
 
-void MR_C_std_vector_MR_A_Erase(MR_C_std_vector_MR_A *_this, size_t position)
+void MR_C_std_vector_MR_A_erase(MR_C_std_vector_MR_A *_this, size_t position)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).erase(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).begin() + ptrdiff_t(position));
 }
 
-void MR_C_std_vector_MR_A_InsertAtMutableIter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
+void MR_C_std_vector_MR_A_insert_at_mutable_iter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::A>::iterator(*(std::vector<MR::A>::iterator *)position)),
@@ -165,14 +165,14 @@ void MR_C_std_vector_MR_A_InsertAtMutableIter(MR_C_std_vector_MR_A *_this, const
     );
 }
 
-void MR_C_std_vector_MR_A_EraseAtMutableIter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *position)
+void MR_C_std_vector_MR_A_erase_at_mutable_iter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *position)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).erase(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::A>::iterator(*(std::vector<MR::A>::iterator *)position))
     );
 }
 
-void MR_C_std_vector_MR_A_InsertAtIter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
+void MR_C_std_vector_MR_A_insert_at_iter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::A>::const_iterator(*(std::vector<MR::A>::const_iterator *)position)),
@@ -180,59 +180,59 @@ void MR_C_std_vector_MR_A_InsertAtIter(MR_C_std_vector_MR_A *_this, const MR_C_s
     );
 }
 
-void MR_C_std_vector_MR_A_EraseAtIter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *position)
+void MR_C_std_vector_MR_A_erase_at_iter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *position)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).erase(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::A>::const_iterator(*(std::vector<MR::A>::const_iterator *)position))
     );
 }
 
-MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_Begin(const MR_C_std_vector_MR_A *_this)
+MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_begin(const MR_C_std_vector_MR_A *_this)
 {
     return (MR_C_std_vector_MR_A_const_iterator *)new std::vector<MR::A>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).cbegin());
 }
 
-bool MR_C_std_vector_MR_A_IsBegin(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter)
+bool MR_C_std_vector_MR_A_is_begin(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR::A>::const_iterator *)(iter));
 }
 
-MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_MutableBegin(MR_C_std_vector_MR_A *_this)
+MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_begin_mut(MR_C_std_vector_MR_A *_this)
 {
     return (MR_C_std_vector_MR_A_iterator *)new std::vector<MR::A>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).begin());
 }
 
-bool MR_C_std_vector_MR_A_IsMutableBegin(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter)
+bool MR_C_std_vector_MR_A_is_begin_mut(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR::A>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR::A>::iterator *)(iter));
 }
 
-MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_End(const MR_C_std_vector_MR_A *_this)
+MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_end(const MR_C_std_vector_MR_A *_this)
 {
     return (MR_C_std_vector_MR_A_const_iterator *)new std::vector<MR::A>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).cend());
 }
 
-bool MR_C_std_vector_MR_A_IsEnd(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter)
+bool MR_C_std_vector_MR_A_is_end(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR::A>::const_iterator *)(iter));
 }
 
-MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_MutableEnd(MR_C_std_vector_MR_A *_this)
+MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_end_mut(MR_C_std_vector_MR_A *_this)
 {
     return (MR_C_std_vector_MR_A_iterator *)new std::vector<MR::A>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).end());
 }
 
-bool MR_C_std_vector_MR_A_IsMutableEnd(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter)
+bool MR_C_std_vector_MR_A_is_end_mut(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR::A>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR::A>::iterator *)(iter));
 }
 
-ptrdiff_t MR_C_std_vector_MR_A_ToIndex(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter)
+ptrdiff_t MR_C_std_vector_MR_A_to_index(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter)
 {
     return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<MR::A>::const_iterator(*(std::vector<MR::A>::const_iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).cbegin();
 }
 
-ptrdiff_t MR_C_std_vector_MR_A_MutableToIndex(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter)
+ptrdiff_t MR_C_std_vector_MR_A_to_index_mut(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter)
 {
     return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<MR::A>::iterator(*(std::vector<MR::A>::iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A> *)(_this)).begin();
 }
@@ -281,7 +281,7 @@ MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_OffsetM
     return (MR_C_std_vector_MR_A_const_iterator *)(((std::vector<MR::A>::const_iterator *)ptr) + i);
 }
 
-MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_FromMutable(const MR_C_std_vector_MR_A_iterator *iter)
+MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_from_mutable(const MR_C_std_vector_MR_A_iterator *iter)
 {
     return (MR_C_std_vector_MR_A_const_iterator *)new std::vector<MR::A>::const_iterator(std::vector<MR::A>::iterator(
         ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<MR::A>::iterator(*(std::vector<MR::A>::iterator *)iter))
@@ -332,52 +332,52 @@ MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_OffsetMutablePtr(MR
     return (MR_C_std_vector_MR_A_iterator *)(((std::vector<MR::A>::iterator *)ptr) + i);
 }
 
-const MR_A *MR_C_std_vector_MR_A_const_iterator_Deref(const MR_C_std_vector_MR_A_const_iterator *_this)
+const MR_A *MR_C_std_vector_MR_A_const_iterator_deref(const MR_C_std_vector_MR_A_const_iterator *_this)
 {
     return (const MR_A *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A>::const_iterator *)(_this)));
 }
 
-void MR_C_std_vector_MR_A_const_iterator_Incr(MR_C_std_vector_MR_A_const_iterator *_this)
+void MR_C_std_vector_MR_A_const_iterator_incr(MR_C_std_vector_MR_A_const_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A>::const_iterator *)(_this));
 }
 
-void MR_C_std_vector_MR_A_const_iterator_Decr(MR_C_std_vector_MR_A_const_iterator *_this)
+void MR_C_std_vector_MR_A_const_iterator_decr(MR_C_std_vector_MR_A_const_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A>::const_iterator *)(_this));
 }
 
-void MR_C_std_vector_MR_A_const_iterator_OffsetBy(MR_C_std_vector_MR_A_const_iterator *_this, ptrdiff_t delta)
+void MR_C_std_vector_MR_A_const_iterator_add_assign(MR_C_std_vector_MR_A_const_iterator *_this, ptrdiff_t delta)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A>::const_iterator *)(_this)) += delta;
 }
 
-ptrdiff_t MR_C_std_vector_MR_A_const_iterator_Distance(const MR_C_std_vector_MR_A_const_iterator *a, const MR_C_std_vector_MR_A_const_iterator *b)
+ptrdiff_t MR_C_sub_MR_C_std_vector_MR_A_const_iterator(const MR_C_std_vector_MR_A_const_iterator *a, const MR_C_std_vector_MR_A_const_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::A>::const_iterator(*(std::vector<MR::A>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::A>::const_iterator(*(std::vector<MR::A>::const_iterator *)a));
 }
 
-MR_A *MR_C_std_vector_MR_A_iterator_Deref(const MR_C_std_vector_MR_A_iterator *_this)
+MR_A *MR_C_std_vector_MR_A_iterator_deref(const MR_C_std_vector_MR_A_iterator *_this)
 {
     return (MR_A *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::A>::iterator *)(_this)));
 }
 
-void MR_C_std_vector_MR_A_iterator_Incr(MR_C_std_vector_MR_A_iterator *_this)
+void MR_C_std_vector_MR_A_iterator_incr(MR_C_std_vector_MR_A_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A>::iterator *)(_this));
 }
 
-void MR_C_std_vector_MR_A_iterator_Decr(MR_C_std_vector_MR_A_iterator *_this)
+void MR_C_std_vector_MR_A_iterator_decr(MR_C_std_vector_MR_A_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A>::iterator *)(_this));
 }
 
-void MR_C_std_vector_MR_A_iterator_OffsetBy(MR_C_std_vector_MR_A_iterator *_this, ptrdiff_t delta)
+void MR_C_std_vector_MR_A_iterator_add_assign(MR_C_std_vector_MR_A_iterator *_this, ptrdiff_t delta)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A>::iterator *)(_this)) += delta;
 }
 
-ptrdiff_t MR_C_std_vector_MR_A_iterator_Distance(const MR_C_std_vector_MR_A_iterator *a, const MR_C_std_vector_MR_A_iterator *b)
+ptrdiff_t MR_C_sub_MR_C_std_vector_MR_A_iterator(const MR_C_std_vector_MR_A_iterator *a, const MR_C_std_vector_MR_A_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::A>::iterator(*(std::vector<MR::A>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::A>::iterator(*(std::vector<MR::A>::iterator *)a));
 }

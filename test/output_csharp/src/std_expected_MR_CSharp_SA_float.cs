@@ -49,17 +49,17 @@ public static partial class MR
                 /// Returns true if this instance represents success, or false if it represents an error.
                 public static unsafe implicit operator bool(MR.CS.Std.Const_Expected_MRCSharpSA_Float _this)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_SA_float_Success", ExactSpelling = true)]
-                    extern static byte __MR_C_std_expected_MR_CSharp_SA_float_Success(MR.CS.Std.Const_Expected_MRCSharpSA_Float._Underlying *_this);
-                    return __MR_C_std_expected_MR_CSharp_SA_float_Success(_this._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_SA_float_success", ExactSpelling = true)]
+                    extern static byte __MR_C_std_expected_MR_CSharp_SA_float_success(MR.CS.Std.Const_Expected_MRCSharpSA_Float._Underlying *_this);
+                    return __MR_C_std_expected_MR_CSharp_SA_float_success(_this._UnderlyingPtr) != 0;
                 }
 
                 /// If this instance represents success, returns the stored `MR::CSharp::SA`. Otherwise null.
-                public unsafe MR.CS.CSharp.Const_SA? GetValue()
+                public unsafe MR.CS.CSharp.Const_SA? Value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_SA_float_GetValue", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.Const_SA._Underlying *__MR_C_std_expected_MR_CSharp_SA_float_GetValue(_Underlying *_this);
-                    var __c_ret = __MR_C_std_expected_MR_CSharp_SA_float_GetValue(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_SA_float_value", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.Const_SA._Underlying *__MR_C_std_expected_MR_CSharp_SA_float_value(_Underlying *_this);
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_SA_float_value(_UnderlyingPtr);
                     MR.CS.CSharp.Const_SA? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.Const_SA(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -67,11 +67,11 @@ public static partial class MR
                 }
 
                 /// If this instance represents an error, returns the stored `float`. Otherwise null.
-                public unsafe float? GetError()
+                public unsafe float? Error()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_SA_float_GetError", ExactSpelling = true)]
-                    extern static float *__MR_C_std_expected_MR_CSharp_SA_float_GetError(_Underlying *_this);
-                    var __c_ret = __MR_C_std_expected_MR_CSharp_SA_float_GetError(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_SA_float_error", ExactSpelling = true)]
+                    extern static float *__MR_C_std_expected_MR_CSharp_SA_float_error(_Underlying *_this);
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_SA_float_error(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
             }
@@ -113,11 +113,11 @@ public static partial class MR
                 }
 
                 /// If this instance represents success, returns the stored `MR::CSharp::SA`. Otherwise null. This version returns a mutable pointer.
-                public unsafe new MR.CS.CSharp.SA? GetValue()
+                public unsafe new MR.CS.CSharp.SA? Value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_SA_float_GetMutableValue", ExactSpelling = true)]
-                    extern static MR.CS.CSharp.SA._Underlying *__MR_C_std_expected_MR_CSharp_SA_float_GetMutableValue(_Underlying *_this);
-                    var __c_ret = __MR_C_std_expected_MR_CSharp_SA_float_GetMutableValue(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_SA_float_value_mut", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.SA._Underlying *__MR_C_std_expected_MR_CSharp_SA_float_value_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_SA_float_value_mut(_UnderlyingPtr);
                     MR.CS.CSharp.SA? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.SA(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -125,11 +125,11 @@ public static partial class MR
                 }
 
                 /// If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.
-                public unsafe new MR.CS.Misc.Ref<float>? GetError()
+                public unsafe new MR.CS.Misc.Ref<float>? Error()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_SA_float_GetMutableError", ExactSpelling = true)]
-                    extern static float *__MR_C_std_expected_MR_CSharp_SA_float_GetMutableError(_Underlying *_this);
-                    var __c_ret = __MR_C_std_expected_MR_CSharp_SA_float_GetMutableError(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_MR_CSharp_SA_float_error_mut", ExactSpelling = true)]
+                    extern static float *__MR_C_std_expected_MR_CSharp_SA_float_error_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_expected_MR_CSharp_SA_float_error_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
                 }
             }

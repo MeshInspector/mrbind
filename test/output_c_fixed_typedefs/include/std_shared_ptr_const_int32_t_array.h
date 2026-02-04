@@ -60,18 +60,18 @@ MR_C_API MR_C_std_shared_ptr_const_int32_t_array *MR_C_std_shared_ptr_const_int3
 
 // Returns the stored pointer, possibly null.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API const int32_t *MR_C_std_shared_ptr_const_int32_t_array_Get(const MR_C_std_shared_ptr_const_int32_t_array *_this);
+MR_C_API const int32_t *MR_C_std_shared_ptr_const_int32_t_array_get(const MR_C_std_shared_ptr_const_int32_t_array *_this);
 
 // Returns an element from the stored array. The stored pointer must not be null.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const int32_t *MR_C_std_shared_ptr_const_int32_t_array_At(const MR_C_std_shared_ptr_const_int32_t_array *_this, ptrdiff_t i);
+MR_C_API const int32_t *MR_C_std_shared_ptr_const_int32_t_array_at(const MR_C_std_shared_ptr_const_int32_t_array *_this, ptrdiff_t i);
 
 // How many shared pointers share the managed object. Zero if no object is being managed.
-// This being zero usually conincides with `MR_C_std_shared_ptr_const_int32_t_array_Get()` returning null, but is ultimately orthogonal.
+// This being zero usually conincides with `MR_C_std_shared_ptr_const_int32_t_array_get()` returning null, but is ultimately orthogonal.
 // Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API int MR_C_std_shared_ptr_const_int32_t_array_UseCount(const MR_C_std_shared_ptr_const_int32_t_array *_this);
+MR_C_API int MR_C_std_shared_ptr_const_int32_t_array_use_count(const MR_C_std_shared_ptr_const_int32_t_array *_this);
 
 // Create a new instance, taking ownership of an existing pointer.
 // Parameter `ptr` can point to an array.

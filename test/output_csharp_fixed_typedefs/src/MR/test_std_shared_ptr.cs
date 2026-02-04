@@ -20,9 +20,9 @@ public static partial class MR
                     get
                     {
                         System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get(_UnderlyingSharedPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_get", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(_UnderlyingSharedPtr);
                     }
                 }
 
@@ -33,9 +33,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_StdSharedPtr_A_UseCount(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_UseCount(_UnderlyingSharedPtr) > 0;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_use_count", ExactSpelling = true)]
+                        extern static int __MR_C_std_shared_ptr_MR_StdSharedPtr_A_use_count(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_use_count(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
@@ -47,9 +47,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get", ExactSpelling = true)]
-                        extern static void *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_Get(_UnderlyingSharedPtr) is not null;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_StdSharedPtr_A_get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(_UnderlyingSharedPtr) is not null;
                     }
                 }
 

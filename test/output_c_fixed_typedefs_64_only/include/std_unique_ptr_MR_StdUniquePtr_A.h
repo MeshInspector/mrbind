@@ -66,12 +66,12 @@ MR_C_API MR_C_std_unique_ptr_MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUnique
 
 /// Returns the stored pointer, possibly null.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get(const MR_C_std_unique_ptr_MR_StdUniquePtr_A *_this);
+MR_C_API MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_get(const MR_C_std_unique_ptr_MR_StdUniquePtr_A *_this);
 
 /// Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.
 /// The returned pointer is owning! It must be deallocated using `MR_StdUniquePtr_A_Destroy()`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release(MR_C_std_unique_ptr_MR_StdUniquePtr_A *_this);
+MR_C_API MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_release(MR_C_std_unique_ptr_MR_StdUniquePtr_A *_this);
 
 #ifdef __cplusplus
 } // extern "C"

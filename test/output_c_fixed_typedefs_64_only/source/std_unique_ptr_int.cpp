@@ -65,12 +65,12 @@ MR_C_std_unique_ptr_int *MR_C_std_unique_ptr_int_OffsetMutablePtr(MR_C_std_uniqu
     return (MR_C_std_unique_ptr_int *)(((std::unique_ptr<int> *)ptr) + i);
 }
 
-int *MR_C_std_unique_ptr_int_Get(const MR_C_std_unique_ptr_int *_this)
+int *MR_C_std_unique_ptr_int_get(const MR_C_std_unique_ptr_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unique_ptr<int> *)(_this)).get();
 }
 
-int *MR_C_std_unique_ptr_int_Release(MR_C_std_unique_ptr_int *_this)
+int *MR_C_std_unique_ptr_int_release(MR_C_std_unique_ptr_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<int> *)(_this)).release();
 }

@@ -65,9 +65,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe int? get()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_Get", ExactSpelling = true)]
-                    extern static int *__MR_C_std_shared_ptr_const_int_array_Get(_Underlying *_this);
-                    var __c_ret = __MR_C_std_shared_ptr_const_int_array_Get(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_get", ExactSpelling = true)]
+                    extern static int *__MR_C_std_shared_ptr_const_int_array_get(_Underlying *_this);
+                    var __c_ret = __MR_C_std_shared_ptr_const_int_array_get(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
 
@@ -78,22 +78,22 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_At", ExactSpelling = true)]
-                        extern static int *__MR_C_std_shared_ptr_const_int_array_At(_Underlying *_this, long i);
-                        return *__MR_C_std_shared_ptr_const_int_array_At(_UnderlyingPtr, i);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_at", ExactSpelling = true)]
+                        extern static int *__MR_C_std_shared_ptr_const_int_array_at(_Underlying *_this, long i);
+                        return *__MR_C_std_shared_ptr_const_int_array_at(_UnderlyingPtr, i);
                     }
                 }
 
                 /// <summary>
                 /// How many shared pointers share the managed object. Zero if no object is being managed.
-                /// This being zero usually conincides with `MR_C_std_shared_ptr_const_int_array_Get()` returning null, but is ultimately orthogonal.
+                /// This being zero usually conincides with `MR_C_std_shared_ptr_const_int_array_get()` returning null, but is ultimately orthogonal.
                 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
                 /// </summary>
                 public unsafe int useCount()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_UseCount", ExactSpelling = true)]
-                    extern static int __MR_C_std_shared_ptr_const_int_array_UseCount(_Underlying *_this);
-                    return __MR_C_std_shared_ptr_const_int_array_UseCount(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_use_count", ExactSpelling = true)]
+                    extern static int __MR_C_std_shared_ptr_const_int_array_use_count(_Underlying *_this);
+                    return __MR_C_std_shared_ptr_const_int_array_use_count(_UnderlyingPtr);
                 }
 
                 /// <summary>

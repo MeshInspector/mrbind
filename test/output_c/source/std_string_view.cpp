@@ -64,17 +64,17 @@ MR_C_std_string_view *MR_C_std_string_view_OffsetMutablePtr(MR_C_std_string_view
     return (MR_C_std_string_view *)(((std::string_view *)ptr) + i);
 }
 
-size_t MR_C_std_string_view_Size(const MR_C_std_string_view *_this)
+size_t MR_C_std_string_view_size(const MR_C_std_string_view *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).size();
 }
 
-const char *MR_C_std_string_view_Data(const MR_C_std_string_view *_this)
+const char *MR_C_std_string_view_data(const MR_C_std_string_view *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).data();
 }
 
-const char *MR_C_std_string_view_DataEnd(const MR_C_std_string_view *_this)
+const char *MR_C_std_string_view_data_end(const MR_C_std_string_view *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).data() + ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).size();
 }

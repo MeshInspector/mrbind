@@ -52,7 +52,7 @@ MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_OffsetMutablePtr
 
 /// Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_variant_int_float_Index(const MR_C_std_variant_int_float *_this);
+MR_C_API size_t MR_C_std_variant_int_float_index(const MR_C_std_variant_int_float *_this);
 
 /// Constructs the variant storing the element 0, of type `int`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
@@ -76,19 +76,19 @@ MR_C_API void MR_C_std_variant_int_float_AssignAs_float(MR_C_std_variant_int_flo
 
 /// Returns the element 0, of type `int`, read-only. If it's not the active element, returns null.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const int *MR_C_std_variant_int_float_Get_int(const MR_C_std_variant_int_float *_this);
+MR_C_API const int *MR_C_std_variant_int_float_get_int(const MR_C_std_variant_int_float *_this);
 
 /// Returns the element 0, of type `int`, mutable. If it's not the active element, returns null.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API int *MR_C_std_variant_int_float_GetMutable_int(MR_C_std_variant_int_float *_this);
+MR_C_API int *MR_C_std_variant_int_float_get_int_mut(MR_C_std_variant_int_float *_this);
 
 /// Returns the element 1, of type `float`, read-only. If it's not the active element, returns null.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const float *MR_C_std_variant_int_float_Get_float(const MR_C_std_variant_int_float *_this);
+MR_C_API const float *MR_C_std_variant_int_float_get_float(const MR_C_std_variant_int_float *_this);
 
 /// Returns the element 1, of type `float`, mutable. If it's not the active element, returns null.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API float *MR_C_std_variant_int_float_GetMutable_float(MR_C_std_variant_int_float *_this);
+MR_C_API float *MR_C_std_variant_int_float_get_float_mut(MR_C_std_variant_int_float *_this);
 
 #ifdef __cplusplus
 } // extern "C"

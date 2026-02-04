@@ -71,17 +71,17 @@ MR_C_API MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_Std
 
 // Returns the stored pointer, possibly null.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Get(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this);
+MR_C_API MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_get(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this);
 
 // Returns an element from the stored array. The stored pointer must not be null.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_At(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this, size_t i);
+MR_C_API MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_at(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this, size_t i);
 
 // Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.
 // The returned pointer is owning! It must be deallocated using `MR_StdUniquePtr_A_DestroyArray()`.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Release(MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this);
+MR_C_API MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_release(MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this);
 
 #ifdef __cplusplus
 } // extern "C"

@@ -68,15 +68,15 @@ MR_C_API MR_C_std_string_view *MR_C_std_string_view_OffsetMutablePtr(MR_C_std_st
 
 /// The number of characters in the string.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_string_view_Size(const MR_C_std_string_view *_this);
+MR_C_API size_t MR_C_std_string_view_size(const MR_C_std_string_view *_this);
 
 /// Returns the string contents, NOT necessarily null-terminated.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const char *MR_C_std_string_view_Data(const MR_C_std_string_view *_this);
+MR_C_API const char *MR_C_std_string_view_data(const MR_C_std_string_view *_this);
 
 /// Returns a pointer to the end of string. Not dereferencable.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const char *MR_C_std_string_view_DataEnd(const MR_C_std_string_view *_this);
+MR_C_API const char *MR_C_std_string_view_data_end(const MR_C_std_string_view *_this);
 
 #ifdef __cplusplus
 } // extern "C"

@@ -55,7 +55,7 @@ MR_C_std_variant_int32_t_float_std_string *MR_C_std_variant_int32_t_float_std_st
     return (MR_C_std_variant_int32_t_float_std_string *)(((std::variant<int32_t, float, std::string> *)ptr) + i);
 }
 
-size_t MR_C_std_variant_int32_t_float_std_string_Index(const MR_C_std_variant_int32_t_float_std_string *_this)
+size_t MR_C_std_variant_int32_t_float_std_string_index(const MR_C_std_variant_int32_t_float_std_string *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::variant<int32_t, float, std::string> *)(_this)).index();
 }
@@ -102,32 +102,32 @@ void MR_C_std_variant_int32_t_float_std_string_AssignAs_std_string(MR_C_std_vari
         _self.emplace<2>(((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value))));
 }
 
-const int32_t *MR_C_std_variant_int32_t_float_std_string_Get_int32_t(const MR_C_std_variant_int32_t_float_std_string *_this)
+const int32_t *MR_C_std_variant_int32_t_float_std_string_get_int32_t(const MR_C_std_variant_int32_t_float_std_string *_this)
 {
     return std::get_if<0>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::variant<int32_t, float, std::string> *)(_this)));
 }
 
-int32_t *MR_C_std_variant_int32_t_float_std_string_GetMutable_int32_t(MR_C_std_variant_int32_t_float_std_string *_this)
+int32_t *MR_C_std_variant_int32_t_float_std_string_get_int32_t_mut(MR_C_std_variant_int32_t_float_std_string *_this)
 {
     return std::get_if<0>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int32_t, float, std::string> *)(_this)));
 }
 
-const float *MR_C_std_variant_int32_t_float_std_string_Get_float(const MR_C_std_variant_int32_t_float_std_string *_this)
+const float *MR_C_std_variant_int32_t_float_std_string_get_float(const MR_C_std_variant_int32_t_float_std_string *_this)
 {
     return std::get_if<1>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::variant<int32_t, float, std::string> *)(_this)));
 }
 
-float *MR_C_std_variant_int32_t_float_std_string_GetMutable_float(MR_C_std_variant_int32_t_float_std_string *_this)
+float *MR_C_std_variant_int32_t_float_std_string_get_float_mut(MR_C_std_variant_int32_t_float_std_string *_this)
 {
     return std::get_if<1>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int32_t, float, std::string> *)(_this)));
 }
 
-const MR_C_std_string *MR_C_std_variant_int32_t_float_std_string_Get_std_string(const MR_C_std_variant_int32_t_float_std_string *_this)
+const MR_C_std_string *MR_C_std_variant_int32_t_float_std_string_get_std_string(const MR_C_std_variant_int32_t_float_std_string *_this)
 {
     return (const MR_C_std_string *)(std::get_if<2>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::variant<int32_t, float, std::string> *)(_this))));
 }
 
-MR_C_std_string *MR_C_std_variant_int32_t_float_std_string_GetMutable_std_string(MR_C_std_variant_int32_t_float_std_string *_this)
+MR_C_std_string *MR_C_std_variant_int32_t_float_std_string_get_std_string_mut(MR_C_std_variant_int32_t_float_std_string *_this)
 {
     return (MR_C_std_string *)(std::get_if<2>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int32_t, float, std::string> *)(_this))));
 }

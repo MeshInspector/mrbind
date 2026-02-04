@@ -43,17 +43,17 @@ public static partial class MR
                 /// The first of the two elements, read-only.
                 public unsafe ref int First()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_ref_float_ref_First", ExactSpelling = true)]
-                    extern static int *__MR_C_std_pair_int_ref_float_ref_First(_Underlying *_this);
-                    return ref *__MR_C_std_pair_int_ref_float_ref_First(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_ref_float_ref_first", ExactSpelling = true)]
+                    extern static int *__MR_C_std_pair_int_ref_float_ref_first(_Underlying *_this);
+                    return ref *__MR_C_std_pair_int_ref_float_ref_first(_UnderlyingPtr);
                 }
 
                 /// The second of the two elements, read-only.
                 public unsafe ref float Second()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_ref_float_ref_Second", ExactSpelling = true)]
-                    extern static float *__MR_C_std_pair_int_ref_float_ref_Second(_Underlying *_this);
-                    return ref *__MR_C_std_pair_int_ref_float_ref_Second(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_ref_float_ref_second", ExactSpelling = true)]
+                    extern static float *__MR_C_std_pair_int_ref_float_ref_second(_Underlying *_this);
+                    return ref *__MR_C_std_pair_int_ref_float_ref_second(_UnderlyingPtr);
                 }
             }
 

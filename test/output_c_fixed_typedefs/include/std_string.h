@@ -67,23 +67,23 @@ MR_C_API MR_C_std_string *MR_C_std_string_OffsetMutablePtr(MR_C_std_string *ptr,
 
 // The number of characters in the string, excluding the null-terminator.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_string_Size(const MR_C_std_string *_this);
+MR_C_API size_t MR_C_std_string_size(const MR_C_std_string *_this);
 
 // Returns the string contents, which are always null-terminated.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API const char *MR_C_std_string_Data(const MR_C_std_string *_this);
+MR_C_API const char *MR_C_std_string_data(const MR_C_std_string *_this);
 
 // Returns the string contents, which are always null-terminated. This version returns a non-const pointer.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API const char *MR_C_std_string_MutableData(MR_C_std_string *_this);
+MR_C_API const char *MR_C_std_string_data_mut(MR_C_std_string *_this);
 
 // Returns a pointer to the end of string, to its null-terminator.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API const char *MR_C_std_string_DataEnd(const MR_C_std_string *_this);
+MR_C_API const char *MR_C_std_string_data_end(const MR_C_std_string *_this);
 
 // Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API char *MR_C_std_string_MutableDataEnd(MR_C_std_string *_this);
+MR_C_API char *MR_C_std_string_data_end_mut(MR_C_std_string *_this);
 
 #ifdef __cplusplus
 } // extern "C"

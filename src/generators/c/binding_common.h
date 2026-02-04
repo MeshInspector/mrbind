@@ -43,6 +43,12 @@ namespace mrbind::CBindings
         // This is a little helper overload that passes `CInterop::MethodKinds::Regular{.name = name_for_interop, .full_name = name_for_interop}`.
         // The primary use of this is overloading const/non-const functions, which should have the same name in interop, but different names in C.
         [[nodiscard]] Generator::EmitFuncParams::Name MakeMemberFuncName(const Generator &generator, std::string name, std::string name_for_interop) const;
+        // This is for when you have a pair of const and non-const overloads with the same name.
+        // Note, need the `same_as<bool>` to reject string literals in that parameter, they should go to the other overload.
+        [[nodiscard]] Generator::EmitFuncParams::Name MakeMemberFuncName(const Generator &generator, std::string name, std::same_as<bool> auto is_const) const
+        {
+            return MakeMemberFuncName(generator, generator.MaybeConstMethodVariant(name, is_const), name);
+        }
 
         // The `comment` can be empty. Otherwise it must end with a newline and must include leading slashes.
         void EmitForwardDeclaration(Generator &generator, Generator::OutputFile &file, std::string comment) const;

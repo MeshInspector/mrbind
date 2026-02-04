@@ -2845,6 +2845,23 @@ namespace mrbind::CBindings
         return ret;
     }
 
+    std::string Generator::ConstMethodVariant(std::string name) const
+    {
+        // This and `MutableMethodVariant()` should be synced with what `ResolveOverloadAmbiguities()` is doing.
+        return name;
+    }
+
+    std::string Generator::MutableMethodVariant(std::string name) const
+    {
+        // This and `ConstMethodVariant()` should be synced with what `ResolveOverloadAmbiguities()` is doing.
+        return name + "_mut";
+    }
+
+    std::string Generator::MaybeConstMethodVariant(std::string name, bool is_const) const
+    {
+        return is_const ? ConstMethodVariant(std::move(name)) : MutableMethodVariant(std::move(name));
+    }
+
     Generator::EmitFuncParams::Name Generator::GetClassDestroyFuncName(std::string_view c_type_name, bool is_array) const
     {
         auto ret = MakeMemberFuncName(c_type_name, (is_array ? "DestroyArray" : "Destroy"));
@@ -3994,8 +4011,9 @@ namespace mrbind::CBindings
                         std::string ret;
                         if (auto member = dynamic_cast<const BasicReturningClassFunc *>(&func))
                         {
-                            if (member->is_const)
-                                ret = "const";
+                            // This should be synced with what `ConstMethodVariant()` and `MutableMethodVariant()` are doing.
+                            if (!member->is_const)
+                                ret = "mut";
 
                             if (member->ref_qualifier != RefQualifier::none)
                             {

@@ -2171,9 +2171,9 @@ public static partial class MR
                     get
                     {
                         System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Get", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SA_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SA_Get(_UnderlyingSharedPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_get", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SA_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SA_get(_UnderlyingSharedPtr);
                     }
                 }
 
@@ -2182,9 +2182,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SA_UseCount(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SA_UseCount(_UnderlyingSharedPtr) > 0;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_use_count", ExactSpelling = true)]
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SA_use_count(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SA_use_count(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
@@ -2194,9 +2194,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_Get", ExactSpelling = true)]
-                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SA_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SA_Get(_UnderlyingSharedPtr) is not null;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SA_get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SA_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SA_get(_UnderlyingSharedPtr) is not null;
                     }
                 }
 
@@ -2369,9 +2369,9 @@ public static partial class MR
                     get
                     {
                         System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Get", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SB_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SB_Get(_UnderlyingSharedPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_get", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SB_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SB_get(_UnderlyingSharedPtr);
                     }
                 }
 
@@ -2380,9 +2380,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SB_UseCount(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SB_UseCount(_UnderlyingSharedPtr) > 0;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_use_count", ExactSpelling = true)]
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SB_use_count(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SB_use_count(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
@@ -2392,9 +2392,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_Get", ExactSpelling = true)]
-                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SB_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SB_Get(_UnderlyingSharedPtr) is not null;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SB_get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SB_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SB_get(_UnderlyingSharedPtr) is not null;
                     }
                 }
 
@@ -2644,9 +2644,9 @@ public static partial class MR
                     get
                     {
                         System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Get", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SC_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SC_Get(_UnderlyingSharedPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_get", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SC_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SC_get(_UnderlyingSharedPtr);
                     }
                 }
 
@@ -2655,9 +2655,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SC_UseCount(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SC_UseCount(_UnderlyingSharedPtr) > 0;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_use_count", ExactSpelling = true)]
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SC_use_count(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SC_use_count(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
@@ -2667,9 +2667,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_Get", ExactSpelling = true)]
-                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SC_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SC_Get(_UnderlyingSharedPtr) is not null;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SC_get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SC_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SC_get(_UnderlyingSharedPtr) is not null;
                     }
                 }
 
@@ -2923,9 +2923,9 @@ public static partial class MR
                     get
                     {
                         System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Get", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SD_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SD_Get(_UnderlyingSharedPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_get", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SD_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SD_get(_UnderlyingSharedPtr);
                     }
                 }
 
@@ -2934,9 +2934,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SD_UseCount(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SD_UseCount(_UnderlyingSharedPtr) > 0;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_use_count", ExactSpelling = true)]
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SD_use_count(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SD_use_count(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
@@ -2946,9 +2946,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_Get", ExactSpelling = true)]
-                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SD_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SD_Get(_UnderlyingSharedPtr) is not null;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SD_get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SD_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SD_get(_UnderlyingSharedPtr) is not null;
                     }
                 }
 
@@ -3148,9 +3148,9 @@ public static partial class MR
                     get
                     {
                         System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Get", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SE_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SE_Get(_UnderlyingSharedPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_get", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SE_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SE_get(_UnderlyingSharedPtr);
                     }
                 }
 
@@ -3159,9 +3159,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SE_UseCount(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SE_UseCount(_UnderlyingSharedPtr) > 0;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_use_count", ExactSpelling = true)]
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SE_use_count(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SE_use_count(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
@@ -3171,9 +3171,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_Get", ExactSpelling = true)]
-                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SE_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SE_Get(_UnderlyingSharedPtr) is not null;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SE_get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SE_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SE_get(_UnderlyingSharedPtr) is not null;
                     }
                 }
 
@@ -3423,9 +3423,9 @@ public static partial class MR
                     get
                     {
                         System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Get", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SF_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SF_Get(_UnderlyingSharedPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_get", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_SF_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SF_get(_UnderlyingSharedPtr);
                     }
                 }
 
@@ -3434,9 +3434,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SF_UseCount(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SF_UseCount(_UnderlyingSharedPtr) > 0;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_use_count", ExactSpelling = true)]
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_SF_use_count(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SF_use_count(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
@@ -3446,9 +3446,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_Get", ExactSpelling = true)]
-                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SF_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_SF_Get(_UnderlyingSharedPtr) is not null;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_SF_get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_SF_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_SF_get(_UnderlyingSharedPtr) is not null;
                     }
                 }
 
@@ -4338,9 +4338,9 @@ public static partial class MR
                 /// Generated from method `MR::CSharp::TestConstness::foo`.
                 public unsafe void Foo()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestConstness_foo_const", ExactSpelling = true)]
-                    extern static void __MR_CSharp_TestConstness_foo_const(_Underlying *_this);
-                    __MR_CSharp_TestConstness_foo_const(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestConstness_foo", ExactSpelling = true)]
+                    extern static void __MR_CSharp_TestConstness_foo(_Underlying *_this);
+                    __MR_CSharp_TestConstness_foo(_UnderlyingPtr);
                 }
             }
 
@@ -4383,9 +4383,9 @@ public static partial class MR
                 /// Generated from method `MR::CSharp::TestConstness::foo`.
                 public unsafe new void Foo()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestConstness_foo", ExactSpelling = true)]
-                    extern static void __MR_CSharp_TestConstness_foo(_Underlying *_this);
-                    __MR_CSharp_TestConstness_foo(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestConstness_foo_mut", ExactSpelling = true)]
+                    extern static void __MR_CSharp_TestConstness_foo_mut(_Underlying *_this);
+                    __MR_CSharp_TestConstness_foo_mut(_UnderlyingPtr);
                 }
             }
 
@@ -11244,9 +11244,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_index_const", ExactSpelling = true)]
-                        extern static float __MR_CSharp_IndexerC_index_const(_Underlying *_this, int i);
-                        return __MR_CSharp_IndexerC_index_const(_UnderlyingPtr, i);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_index", ExactSpelling = true)]
+                        extern static float __MR_CSharp_IndexerC_index(_Underlying *_this, int i);
+                        return __MR_CSharp_IndexerC_index(_UnderlyingPtr, i);
                     }
                 }
             }
@@ -11292,9 +11292,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_index", ExactSpelling = true)]
-                        extern static int __MR_CSharp_IndexerC_index(_Underlying *_this, int i);
-                        return __MR_CSharp_IndexerC_index(_UnderlyingPtr, i);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerC_index_mut", ExactSpelling = true)]
+                        extern static int __MR_CSharp_IndexerC_index_mut(_Underlying *_this, int i);
+                        return __MR_CSharp_IndexerC_index_mut(_UnderlyingPtr, i);
                     }
                 }
             }
@@ -13679,9 +13679,9 @@ public static partial class MR
                     get
                     {
                         System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, "Internal error: This object holds a null shared pointer.");
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get", ExactSpelling = true)]
-                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get(_UnderlyingSharedPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_get", ExactSpelling = true)]
+                        extern static _Underlying *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_get(_UnderlyingSharedPtr);
                     }
                 }
 
@@ -13690,9 +13690,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_UseCount", ExactSpelling = true)]
-                        extern static int __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_UseCount(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_UseCount(_UnderlyingSharedPtr) > 0;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_use_count", ExactSpelling = true)]
+                        extern static int __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_use_count(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_use_count(_UnderlyingSharedPtr) > 0;
                     }
                 }
 
@@ -13702,9 +13702,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get", ExactSpelling = true)]
-                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get(_UnderlyingShared *_this);
-                        return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Get(_UnderlyingSharedPtr) is not null;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_get", ExactSpelling = true)]
+                        extern static void *__MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_get(_UnderlyingShared *_this);
+                        return __MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_get(_UnderlyingSharedPtr) is not null;
                     }
                 }
 
@@ -15829,17 +15829,17 @@ public static partial class MR
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
                 public unsafe void Foo(float _1)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_float", ExactSpelling = true)]
-                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_const_float(_Underlying *_this, float _1);
-                    __MR_CSharp_ConstNonconstConflicts_foo_const_float(_UnderlyingPtr, _1);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_float", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_float(_Underlying *_this, float _1);
+                    __MR_CSharp_ConstNonconstConflicts_foo_float(_UnderlyingPtr, _1);
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
                 public unsafe void Foo(byte _1)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_char", ExactSpelling = true)]
-                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_const_char(_Underlying *_this, byte _1);
-                    __MR_CSharp_ConstNonconstConflicts_foo_const_char(_UnderlyingPtr, _1);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_char", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_char(_Underlying *_this, byte _1);
+                    __MR_CSharp_ConstNonconstConflicts_foo_char(_UnderlyingPtr, _1);
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
@@ -15926,17 +15926,17 @@ public static partial class MR
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
                 public unsafe void Foo(int _1)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_int", ExactSpelling = true)]
-                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_int(_Underlying *_this, int _1);
-                    __MR_CSharp_ConstNonconstConflicts_foo_int(_UnderlyingPtr, _1);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_mut_int", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_mut_int(_Underlying *_this, int _1);
+                    __MR_CSharp_ConstNonconstConflicts_foo_mut_int(_UnderlyingPtr, _1);
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
                 public unsafe new void Foo(byte _1)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_char", ExactSpelling = true)]
-                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_char(_Underlying *_this, byte _1);
-                    __MR_CSharp_ConstNonconstConflicts_foo_char(_UnderlyingPtr, _1);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_mut_char", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_mut_char(_Underlying *_this, byte _1);
+                    __MR_CSharp_ConstNonconstConflicts_foo_mut_char(_UnderlyingPtr, _1);
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
@@ -16008,44 +16008,44 @@ public static partial class MR
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
                 public unsafe void Foo(int _1)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_int", ExactSpelling = true)]
-                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_int(MR.CS.CSharp.ConstNonconstConflicts *_this, int _1);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_mut_int", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_mut_int(MR.CS.CSharp.ConstNonconstConflicts *_this, int _1);
                     fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
                     {
-                        __MR_CSharp_ConstNonconstConflicts_foo_int(__ptr__this, _1);
+                        __MR_CSharp_ConstNonconstConflicts_foo_mut_int(__ptr__this, _1);
                     }
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
                 public readonly unsafe void Foo(float _1)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_float", ExactSpelling = true)]
-                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_const_float(MR.CS.CSharp.ConstNonconstConflicts *_this, float _1);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_float", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_float(MR.CS.CSharp.ConstNonconstConflicts *_this, float _1);
                     fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
                     {
-                        __MR_CSharp_ConstNonconstConflicts_foo_const_float(__ptr__this, _1);
+                        __MR_CSharp_ConstNonconstConflicts_foo_float(__ptr__this, _1);
                     }
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
                 public unsafe void Foo(byte _1)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_char", ExactSpelling = true)]
-                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_char(MR.CS.CSharp.ConstNonconstConflicts *_this, byte _1);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_mut_char", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_mut_char(MR.CS.CSharp.ConstNonconstConflicts *_this, byte _1);
                     fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
                     {
-                        __MR_CSharp_ConstNonconstConflicts_foo_char(__ptr__this, _1);
+                        __MR_CSharp_ConstNonconstConflicts_foo_mut_char(__ptr__this, _1);
                     }
                 }
 
                 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
                 public readonly unsafe void Foo_Const(byte _1)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_const_char", ExactSpelling = true)]
-                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_const_char(MR.CS.CSharp.ConstNonconstConflicts *_this, byte _1);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ConstNonconstConflicts_foo_char", ExactSpelling = true)]
+                    extern static void __MR_CSharp_ConstNonconstConflicts_foo_char(MR.CS.CSharp.ConstNonconstConflicts *_this, byte _1);
                     fixed (MR.CS.CSharp.ConstNonconstConflicts *__ptr__this = &this)
                     {
-                        __MR_CSharp_ConstNonconstConflicts_foo_const_char(__ptr__this, _1);
+                        __MR_CSharp_ConstNonconstConflicts_foo_char(__ptr__this, _1);
                     }
                 }
 
@@ -18762,17 +18762,17 @@ public static partial class MR
                 /// Generated from method `MR::CSharp::IterableC::begin`.
                 public unsafe MR.CS.ConstPtrInt Begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_begin_const", ExactSpelling = true)]
-                    extern static int *__MR_CSharp_IterableC_begin_const(_Underlying *_this);
-                    return new(__MR_CSharp_IterableC_begin_const(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_begin", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableC_begin(_Underlying *_this);
+                    return new(__MR_CSharp_IterableC_begin(_UnderlyingPtr));
                 }
 
                 /// Generated from method `MR::CSharp::IterableC::end`.
                 public unsafe MR.CS.ConstPtrInt End()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_end_const", ExactSpelling = true)]
-                    extern static int *__MR_CSharp_IterableC_end_const(_Underlying *_this);
-                    return new(__MR_CSharp_IterableC_end_const(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_end", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableC_end(_Underlying *_this);
+                    return new(__MR_CSharp_IterableC_end(_UnderlyingPtr));
                 }
             }
 
@@ -18890,17 +18890,17 @@ public static partial class MR
                 /// Generated from method `MR::CSharp::IterableC::begin`.
                 public unsafe new MR.CS.PtrInt Begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_begin", ExactSpelling = true)]
-                    extern static int *__MR_CSharp_IterableC_begin(_Underlying *_this);
-                    return new(__MR_CSharp_IterableC_begin(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_begin_mut", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableC_begin_mut(_Underlying *_this);
+                    return new(__MR_CSharp_IterableC_begin_mut(_UnderlyingPtr));
                 }
 
                 /// Generated from method `MR::CSharp::IterableC::end`.
                 public unsafe new MR.CS.PtrInt End()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_end", ExactSpelling = true)]
-                    extern static int *__MR_CSharp_IterableC_end(_Underlying *_this);
-                    return new(__MR_CSharp_IterableC_end(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_end_mut", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableC_end_mut(_Underlying *_this);
+                    return new(__MR_CSharp_IterableC_end_mut(_UnderlyingPtr));
                 }
             }
 
@@ -23140,8 +23140,8 @@ public static partial class MR
                 extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_CSharp_test_expected_int(MR.CS.Std.Expected_Int_Float._Underlying *a, MR.CS.Std.Expected_Int_Float._Underlying *b);
                 MR.CS.Std.Expected_Int_Float __expected_ret;
                 __expected_ret = new(__MR_CSharp_test_expected_int(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
-                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
-                return __expected_ret.GetValue()!;
+                if (__expected_ret.Error() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
+                return __expected_ret.Value()!;
             }
 
             /// Generated from function `MR::CSharp::test_expected_int_ref`.
@@ -23192,7 +23192,7 @@ public static partial class MR
                 extern static MR.CS.Std.Expected_Void_Float._Underlying *__MR_CSharp_test_expected_void(MR.CS.Std.Expected_Void_Float._Underlying *a, MR.CS.Std.Expected_Void_Float._Underlying *b);
                 MR.CS.Std.Expected_Void_Float __expected_ret;
                 __expected_ret = new(__MR_CSharp_test_expected_void(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
-                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
+                if (__expected_ret.Error() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
             }
 
             /// Generated from function `MR::CSharp::test_expected_void_ref`.
@@ -23243,8 +23243,8 @@ public static partial class MR
                 extern static MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *__MR_CSharp_test_expected_enum(MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpE1_Float._Underlying *b);
                 MR.CS.Std.Expected_MRCSharpE1_Float __expected_ret;
                 __expected_ret = new(__MR_CSharp_test_expected_enum(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
-                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
-                return __expected_ret.GetValue()!;
+                if (__expected_ret.Error() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
+                return __expected_ret.Value()!;
             }
 
             /// Generated from function `MR::CSharp::test_expected_enum_ref`.
@@ -23295,8 +23295,8 @@ public static partial class MR
                 extern static MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *__MR_CSharp_test_expected_triv(MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpTrivial_Float._Underlying *b);
                 MR.CS.Std.Expected_MRCSharpTrivial_Float __expected_ret;
                 __expected_ret = new(__MR_CSharp_test_expected_triv(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
-                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
-                return __expected_ret.GetValue()!;
+                if (__expected_ret.Error() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
+                return __expected_ret.Value()!;
             }
 
             /// Generated from function `MR::CSharp::test_expected_triv_ref`.
@@ -23347,8 +23347,8 @@ public static partial class MR
                 extern static MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *__MR_CSharp_test_expected_nontriv(MR.CS.Misc._PassBy a_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *a, MR.CS.Misc._PassBy b_pass_by, MR.CS.Std.Expected_MRCSharpNonTrivial_Float._Underlying *b);
                 MR.CS.Std.Expected_MRCSharpNonTrivial_Float __expected_ret;
                 __expected_ret = new(__MR_CSharp_test_expected_nontriv(a.PassByMode, a.Value is not null ? a.Value._UnderlyingPtr : null, b is not null ? b.PassByMode : MR.CS.Misc._PassBy.default_arg, b is not null && b.Value is not null ? b.Value._UnderlyingPtr : null), is_owning: true);
-                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
-                return __expected_ret.GetValue()!;
+                if (__expected_ret.Error() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
+                return __expected_ret.Value()!;
             }
 
             /// Generated from function `MR::CSharp::test_expected_nontriv_ref`.
@@ -23399,8 +23399,8 @@ public static partial class MR
                 extern static MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *__MR_CSharp_test_expected_shared(MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpSA_Float._Underlying *b);
                 MR.CS.Std.Expected_MRCSharpSA_Float __expected_ret;
                 __expected_ret = new(__MR_CSharp_test_expected_shared(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
-                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
-                return __expected_ret.GetValue()!;
+                if (__expected_ret.Error() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
+                return __expected_ret.Value()!;
             }
 
             /// Generated from function `MR::CSharp::test_expected_shared_ref`.
@@ -23451,8 +23451,8 @@ public static partial class MR
                 extern static MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *__MR_CSharp_test_expected_exposed(MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpExposedLayout_Float._Underlying *b);
                 MR.CS.Std.Expected_MRCSharpExposedLayout_Float __expected_ret;
                 __expected_ret = new(__MR_CSharp_test_expected_exposed(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
-                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
-                return __expected_ret.GetValue()!;
+                if (__expected_ret.Error() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
+                return __expected_ret.Value()!;
             }
 
             /// Generated from function `MR::CSharp::test_expected_exposed_ref`.
@@ -23503,8 +23503,8 @@ public static partial class MR
                 extern static MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *__MR_CSharp_test_expected_exposed_shared(MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *a, MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float._Underlying *b);
                 MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float __expected_ret;
                 __expected_ret = new(__MR_CSharp_test_expected_exposed_shared(a._UnderlyingPtr, b is not null ? b._UnderlyingPtr : null), is_owning: true);
-                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
-                return __expected_ret.GetValue()!;
+                if (__expected_ret.Error() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
+                return __expected_ret.Value()!;
             }
 
             /// Generated from function `MR::CSharp::test_expected_exposed_shared_ref`.

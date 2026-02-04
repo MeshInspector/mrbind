@@ -64,12 +64,12 @@ MR_C_API MR_C_std_unique_ptr_int *MR_C_std_unique_ptr_int_OffsetMutablePtr(MR_C_
 
 /// Returns the stored pointer, possibly null.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API int *MR_C_std_unique_ptr_int_Get(const MR_C_std_unique_ptr_int *_this);
+MR_C_API int *MR_C_std_unique_ptr_int_get(const MR_C_std_unique_ptr_int *_this);
 
 /// Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.
 /// The returned pointer is owning! It must be deallocated using `MR_C_Free()`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API int *MR_C_std_unique_ptr_int_Release(MR_C_std_unique_ptr_int *_this);
+MR_C_API int *MR_C_std_unique_ptr_int_release(MR_C_std_unique_ptr_int *_this);
 
 #ifdef __cplusplus
 } // extern "C"

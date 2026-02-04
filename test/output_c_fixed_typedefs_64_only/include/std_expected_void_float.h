@@ -53,19 +53,19 @@ MR_C_API MR_C_std_expected_void_float *MR_C_std_expected_void_float_OffsetMutabl
 
 /// Returns true if this instance represents success, or false if it represents an error.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API bool MR_C_std_expected_void_float_Success(const MR_C_std_expected_void_float *_this);
+MR_C_API bool MR_C_std_expected_void_float_success(const MR_C_std_expected_void_float *_this);
 
 /// Returns true if this instance stores nothing (which represents success).
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API bool MR_C_std_expected_void_float_GetValue(const MR_C_std_expected_void_float *_this);
+MR_C_API bool MR_C_std_expected_void_float_value(const MR_C_std_expected_void_float *_this);
 
 /// If this instance represents an error, returns the stored `float`. Otherwise null.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const float *MR_C_std_expected_void_float_GetError(const MR_C_std_expected_void_float *_this);
+MR_C_API const float *MR_C_std_expected_void_float_error(const MR_C_std_expected_void_float *_this);
 
 /// If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API float *MR_C_std_expected_void_float_GetMutableError(MR_C_std_expected_void_float *_this);
+MR_C_API float *MR_C_std_expected_void_float_error_mut(MR_C_std_expected_void_float *_this);
 
 #ifdef __cplusplus
 } // extern "C"

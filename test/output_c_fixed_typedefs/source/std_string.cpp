@@ -67,27 +67,27 @@ MR_C_std_string *MR_C_std_string_OffsetMutablePtr(MR_C_std_string *ptr, ptrdiff_
     return (MR_C_std_string *)(((std::string *)ptr) + i);
 }
 
-size_t MR_C_std_string_Size(const MR_C_std_string *_this)
+size_t MR_C_std_string_size(const MR_C_std_string *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string *)(_this)).size();
 }
 
-const char *MR_C_std_string_Data(const MR_C_std_string *_this)
+const char *MR_C_std_string_data(const MR_C_std_string *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string *)(_this)).data();
 }
 
-const char *MR_C_std_string_MutableData(MR_C_std_string *_this)
+const char *MR_C_std_string_data_mut(MR_C_std_string *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string *)(_this)).data();
 }
 
-const char *MR_C_std_string_DataEnd(const MR_C_std_string *_this)
+const char *MR_C_std_string_data_end(const MR_C_std_string *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string *)(_this)).data() + ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string *)(_this)).size();
 }
 
-char *MR_C_std_string_MutableDataEnd(MR_C_std_string *_this)
+char *MR_C_std_string_data_end_mut(MR_C_std_string *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string *)(_this)).data() + ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string *)(_this)).size();
 }

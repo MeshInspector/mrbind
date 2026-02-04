@@ -74,9 +74,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.StdOptional.Const_A? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_A_Value", ExactSpelling = true)]
-                    extern static MR.CS.StdOptional.Const_A._Underlying *__MR_C_std_optional_MR_StdOptional_A_Value(_Underlying *_this);
-                    var __c_ret = __MR_C_std_optional_MR_StdOptional_A_Value(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_A_value", ExactSpelling = true)]
+                    extern static MR.CS.StdOptional.Const_A._Underlying *__MR_C_std_optional_MR_StdOptional_A_value(_Underlying *_this);
+                    var __c_ret = __MR_C_std_optional_MR_StdOptional_A_value(_UnderlyingPtr);
                     MR.CS.StdOptional.Const_A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdOptional.Const_A(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -160,9 +160,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.StdOptional.A? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_A_MutableValue", ExactSpelling = true)]
-                    extern static MR.CS.StdOptional.A._Underlying *__MR_C_std_optional_MR_StdOptional_A_MutableValue(_Underlying *_this);
-                    var __c_ret = __MR_C_std_optional_MR_StdOptional_A_MutableValue(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_A_value_mut", ExactSpelling = true)]
+                    extern static MR.CS.StdOptional.A._Underlying *__MR_C_std_optional_MR_StdOptional_A_value_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_optional_MR_StdOptional_A_value_mut(_UnderlyingPtr);
                     MR.CS.StdOptional.A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdOptional.A(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;

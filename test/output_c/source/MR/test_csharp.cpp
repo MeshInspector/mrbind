@@ -2768,12 +2768,12 @@ MR_CSharp_TestConstness *MR_CSharp_TestConstness_AssignFromAnother(MR_CSharp_Tes
     ));
 }
 
-void MR_CSharp_TestConstness_foo(MR_CSharp_TestConstness *_this)
+void MR_CSharp_TestConstness_foo_mut(MR_CSharp_TestConstness *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestConstness *)(_this)).foo();
 }
 
-void MR_CSharp_TestConstness_foo_const(const MR_CSharp_TestConstness *_this)
+void MR_CSharp_TestConstness_foo(const MR_CSharp_TestConstness *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestConstness *)(_this)).foo();
 }
@@ -6167,14 +6167,14 @@ MR_CSharp_IndexerC *MR_CSharp_IndexerC_AssignFromAnother(MR_CSharp_IndexerC *_th
     ));
 }
 
-int MR_CSharp_IndexerC_index(MR_CSharp_IndexerC *_this, int i)
+int MR_CSharp_IndexerC_index_mut(MR_CSharp_IndexerC *_this, int i)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerC *)(_this)).operator[](
         i
     );
 }
 
-float MR_CSharp_IndexerC_index_const(const MR_CSharp_IndexerC *_this, int i)
+float MR_CSharp_IndexerC_index(const MR_CSharp_IndexerC *_this, int i)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerC *)(_this)).operator[](
         i
@@ -8642,28 +8642,28 @@ void MR_CSharp_AmbiguousTemplates_instantiate(MR_CSharp_AmbiguousTemplates *_thi
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::AmbiguousTemplates *)(_this)).instantiate();
 }
 
-void MR_CSharp_ConstNonconstConflicts_foo_int(MR_CSharp_ConstNonconstConflicts *_this, int _1)
+void MR_CSharp_ConstNonconstConflicts_foo_mut_int(MR_CSharp_ConstNonconstConflicts *_this, int _1)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
         _1
     );
 }
 
-void MR_CSharp_ConstNonconstConflicts_foo_const_float(const MR_CSharp_ConstNonconstConflicts *_this, float _1)
+void MR_CSharp_ConstNonconstConflicts_foo_float(const MR_CSharp_ConstNonconstConflicts *_this, float _1)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
         _1
     );
 }
 
-void MR_CSharp_ConstNonconstConflicts_foo_char(MR_CSharp_ConstNonconstConflicts *_this, char _1)
+void MR_CSharp_ConstNonconstConflicts_foo_mut_char(MR_CSharp_ConstNonconstConflicts *_this, char _1)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
         _1
     );
 }
 
-void MR_CSharp_ConstNonconstConflicts_foo_const_char(const MR_CSharp_ConstNonconstConflicts *_this, char _1)
+void MR_CSharp_ConstNonconstConflicts_foo_char(const MR_CSharp_ConstNonconstConflicts *_this, char _1)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
         _1
@@ -9792,22 +9792,22 @@ MR_CSharp_IterableC *MR_CSharp_IterableC_AssignFromAnother(MR_CSharp_IterableC *
     ));
 }
 
-int *MR_CSharp_IterableC_begin(MR_CSharp_IterableC *_this)
+int *MR_CSharp_IterableC_begin_mut(MR_CSharp_IterableC *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableC *)(_this)).begin();
 }
 
-int *MR_CSharp_IterableC_end(MR_CSharp_IterableC *_this)
+int *MR_CSharp_IterableC_end_mut(MR_CSharp_IterableC *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableC *)(_this)).end();
 }
 
-const int *MR_CSharp_IterableC_begin_const(const MR_CSharp_IterableC *_this)
+const int *MR_CSharp_IterableC_begin(const MR_CSharp_IterableC *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableC *)(_this)).begin();
 }
 
-const int *MR_CSharp_IterableC_end_const(const MR_CSharp_IterableC *_this)
+const int *MR_CSharp_IterableC_end(const MR_CSharp_IterableC *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableC *)(_this)).end();
 }

@@ -64,25 +64,25 @@ public static partial class MR
                 /// The number of characters in the string.
                 public unsafe ulong Size()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_string_view_Size(_Underlying *_this);
-                    return __MR_C_std_string_view_Size(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_size", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_string_view_size(_Underlying *_this);
+                    return __MR_C_std_string_view_size(_UnderlyingPtr);
                 }
 
                 /// Returns the string contents, NOT necessarily null-terminated.
                 public unsafe MR.CS.ConstPtrChar Data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Data", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_view_Data(_Underlying *_this);
-                    return new(__MR_C_std_string_view_Data(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_data", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_view_data(_Underlying *_this);
+                    return new(__MR_C_std_string_view_data(_UnderlyingPtr));
                 }
 
                 /// Returns a pointer to the end of string. Not dereferencable.
                 public unsafe MR.CS.ConstPtrChar DataEnd()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DataEnd", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_view_DataEnd(_Underlying *_this);
-                    return new(__MR_C_std_string_view_DataEnd(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_data_end", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_view_data_end(_Underlying *_this);
+                    return new(__MR_C_std_string_view_data_end(_UnderlyingPtr));
                 }
 
                 // Custom extras:

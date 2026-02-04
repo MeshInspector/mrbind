@@ -57,33 +57,33 @@ public static partial class MR
                 /// The element 0, of type `float`, read-only.
                 public unsafe float GetFloat()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_Get_float", ExactSpelling = true)]
-                    extern static float *__MR_C_std_tuple_float_double_int_int_Get_float(_Underlying *_this);
-                    return *__MR_C_std_tuple_float_double_int_int_Get_float(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_float", ExactSpelling = true)]
+                    extern static float *__MR_C_std_tuple_float_double_int_int_get_float(_Underlying *_this);
+                    return *__MR_C_std_tuple_float_double_int_int_get_float(_UnderlyingPtr);
                 }
 
                 /// The element 1, of type `double`, read-only.
                 public unsafe double GetDouble()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_Get_double", ExactSpelling = true)]
-                    extern static double *__MR_C_std_tuple_float_double_int_int_Get_double(_Underlying *_this);
-                    return *__MR_C_std_tuple_float_double_int_int_Get_double(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_double", ExactSpelling = true)]
+                    extern static double *__MR_C_std_tuple_float_double_int_int_get_double(_Underlying *_this);
+                    return *__MR_C_std_tuple_float_double_int_int_get_double(_UnderlyingPtr);
                 }
 
                 /// The element 2, of type `int`, read-only.
                 public unsafe int GetInt2()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_Get_int_2", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_float_double_int_int_Get_int_2(_Underlying *_this);
-                    return *__MR_C_std_tuple_float_double_int_int_Get_int_2(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_2", ExactSpelling = true)]
+                    extern static int *__MR_C_std_tuple_float_double_int_int_get_int_2(_Underlying *_this);
+                    return *__MR_C_std_tuple_float_double_int_int_get_int_2(_UnderlyingPtr);
                 }
 
                 /// The element 3, of type `int`, read-only.
                 public unsafe int GetInt3()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_Get_int_3", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_float_double_int_int_Get_int_3(_Underlying *_this);
-                    return *__MR_C_std_tuple_float_double_int_int_Get_int_3(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_3", ExactSpelling = true)]
+                    extern static int *__MR_C_std_tuple_float_double_int_int_get_int_3(_Underlying *_this);
+                    return *__MR_C_std_tuple_float_double_int_int_get_int_3(_UnderlyingPtr);
                 }
             }
 
@@ -134,33 +134,33 @@ public static partial class MR
                 /// The element 0, of type `float`, mutable.
                 public unsafe new ref float GetFloat()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_GetMutable_float", ExactSpelling = true)]
-                    extern static float *__MR_C_std_tuple_float_double_int_int_GetMutable_float(_Underlying *_this);
-                    return ref *__MR_C_std_tuple_float_double_int_int_GetMutable_float(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_float_mut", ExactSpelling = true)]
+                    extern static float *__MR_C_std_tuple_float_double_int_int_get_float_mut(_Underlying *_this);
+                    return ref *__MR_C_std_tuple_float_double_int_int_get_float_mut(_UnderlyingPtr);
                 }
 
                 /// The element 1, of type `double`, mutable.
                 public unsafe new ref double GetDouble()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_GetMutable_double", ExactSpelling = true)]
-                    extern static double *__MR_C_std_tuple_float_double_int_int_GetMutable_double(_Underlying *_this);
-                    return ref *__MR_C_std_tuple_float_double_int_int_GetMutable_double(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_double_mut", ExactSpelling = true)]
+                    extern static double *__MR_C_std_tuple_float_double_int_int_get_double_mut(_Underlying *_this);
+                    return ref *__MR_C_std_tuple_float_double_int_int_get_double_mut(_UnderlyingPtr);
                 }
 
                 /// The element 2, of type `int`, mutable.
                 public unsafe new ref int GetInt2()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_GetMutable_int_2", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_float_double_int_int_GetMutable_int_2(_Underlying *_this);
-                    return ref *__MR_C_std_tuple_float_double_int_int_GetMutable_int_2(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_2_mut", ExactSpelling = true)]
+                    extern static int *__MR_C_std_tuple_float_double_int_int_get_int_2_mut(_Underlying *_this);
+                    return ref *__MR_C_std_tuple_float_double_int_int_get_int_2_mut(_UnderlyingPtr);
                 }
 
                 /// The element 3, of type `int`, mutable.
                 public unsafe new ref int GetInt3()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_GetMutable_int_3", ExactSpelling = true)]
-                    extern static int *__MR_C_std_tuple_float_double_int_int_GetMutable_int_3(_Underlying *_this);
-                    return ref *__MR_C_std_tuple_float_double_int_int_GetMutable_int_3(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_3_mut", ExactSpelling = true)]
+                    extern static int *__MR_C_std_tuple_float_double_int_int_get_int_3_mut(_Underlying *_this);
+                    return ref *__MR_C_std_tuple_float_double_int_int_get_int_3_mut(_UnderlyingPtr);
                 }
             }
 

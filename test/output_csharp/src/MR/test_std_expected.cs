@@ -11,8 +11,8 @@ public static partial class MR
                 extern static MR.CS.Std.Expected_Int_StdString._Underlying *__MR_StdExpected_GetExp();
                 MR.CS.Std.Expected_Int_StdString __expected_ret;
                 __expected_ret = new(__MR_StdExpected_GetExp(), is_owning: true);
-                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
-                return __expected_ret.GetValue()!;
+                if (__expected_ret.Error() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
+                return __expected_ret.Value()!;
             }
 
             /// Generated from function `MR::StdExpected::SetExp`.
@@ -56,7 +56,7 @@ public static partial class MR
                 extern static MR.CS.Std.Expected_Void_Float._Underlying *__MR_StdExpected_GetExpVoid();
                 MR.CS.Std.Expected_Void_Float __expected_ret;
                 __expected_ret = new(__MR_StdExpected_GetExpVoid(), is_owning: true);
-                if (__expected_ret.GetError() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
+                if (__expected_ret.Error() is var __expected_error and not null) throw new MR.CS.Misc.UnexpectedResultException($"{__expected_error}");
             }
 
             /// Generated from function `MR::StdExpected::SetExpVoid`.

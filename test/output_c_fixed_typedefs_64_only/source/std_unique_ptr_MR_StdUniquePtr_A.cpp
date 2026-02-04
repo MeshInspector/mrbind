@@ -67,12 +67,12 @@ MR_C_std_unique_ptr_MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_Off
     return (MR_C_std_unique_ptr_MR_StdUniquePtr_A *)(((std::unique_ptr<MR::StdUniquePtr::A> *)ptr) + i);
 }
 
-MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_Get(const MR_C_std_unique_ptr_MR_StdUniquePtr_A *_this)
+MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_get(const MR_C_std_unique_ptr_MR_StdUniquePtr_A *_this)
 {
     return (MR_StdUniquePtr_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unique_ptr<MR::StdUniquePtr::A> *)(_this)).get());
 }
 
-MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_Release(MR_C_std_unique_ptr_MR_StdUniquePtr_A *_this)
+MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_release(MR_C_std_unique_ptr_MR_StdUniquePtr_A *_this)
 {
     return (MR_StdUniquePtr_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<MR::StdUniquePtr::A> *)(_this)).release());
 }

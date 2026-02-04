@@ -65,21 +65,21 @@ public static partial class MR
                 /// </summary>
                 public unsafe void *get()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_Get", ExactSpelling = true)]
-                    extern static void *__MR_C_std_shared_ptr_const_void_Get(_Underlying *_this);
-                    return __MR_C_std_shared_ptr_const_void_Get(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_get", ExactSpelling = true)]
+                    extern static void *__MR_C_std_shared_ptr_const_void_get(_Underlying *_this);
+                    return __MR_C_std_shared_ptr_const_void_get(_UnderlyingPtr);
                 }
 
                 /// <summary>
                 /// How many shared pointers share the managed object. Zero if no object is being managed.
-                /// This being zero usually conincides with `MR_C_std_shared_ptr_const_void_Get()` returning null, but is ultimately orthogonal.
+                /// This being zero usually conincides with `MR_C_std_shared_ptr_const_void_get()` returning null, but is ultimately orthogonal.
                 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
                 /// </summary>
                 public unsafe int useCount()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_UseCount", ExactSpelling = true)]
-                    extern static int __MR_C_std_shared_ptr_const_void_UseCount(_Underlying *_this);
-                    return __MR_C_std_shared_ptr_const_void_UseCount(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_use_count", ExactSpelling = true)]
+                    extern static int __MR_C_std_shared_ptr_const_void_use_count(_Underlying *_this);
+                    return __MR_C_std_shared_ptr_const_void_use_count(_UnderlyingPtr);
                 }
 
                 /// <summary>

@@ -54,17 +54,17 @@ MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_OffsetMutab
     return (MR_C_std_shared_ptr_int32_t_array *)(((std::shared_ptr<int32_t[]> *)ptr) + i);
 }
 
-int32_t *MR_C_std_shared_ptr_int32_t_array_Get(const MR_C_std_shared_ptr_int32_t_array *_this)
+int32_t *MR_C_std_shared_ptr_int32_t_array_get(const MR_C_std_shared_ptr_int32_t_array *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int32_t[]> *)(_this)).get();
 }
 
-int32_t *MR_C_std_shared_ptr_int32_t_array_At(const MR_C_std_shared_ptr_int32_t_array *_this, ptrdiff_t i)
+int32_t *MR_C_std_shared_ptr_int32_t_array_at(const MR_C_std_shared_ptr_int32_t_array *_this, ptrdiff_t i)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int32_t[]> *)(_this))[i]);
 }
 
-int MR_C_std_shared_ptr_int32_t_array_UseCount(const MR_C_std_shared_ptr_int32_t_array *_this)
+int MR_C_std_shared_ptr_int32_t_array_use_count(const MR_C_std_shared_ptr_int32_t_array *_this)
 {
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int32_t[]> *)(_this)).use_count());
 }

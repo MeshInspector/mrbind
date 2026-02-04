@@ -64,22 +64,22 @@ MR_C_API MR_C_std_pair_int32_t_float *MR_C_std_pair_int32_t_float_Construct(int3
 // The first of the two elements, read-only.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const int32_t *MR_C_std_pair_int32_t_float_First(const MR_C_std_pair_int32_t_float *_this);
+MR_C_API const int32_t *MR_C_std_pair_int32_t_float_first(const MR_C_std_pair_int32_t_float *_this);
 
 // The first of the two elements, mutable.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API int32_t *MR_C_std_pair_int32_t_float_MutableFirst(MR_C_std_pair_int32_t_float *_this);
+MR_C_API int32_t *MR_C_std_pair_int32_t_float_first_mut(MR_C_std_pair_int32_t_float *_this);
 
 // The second of the two elements, read-only.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const float *MR_C_std_pair_int32_t_float_Second(const MR_C_std_pair_int32_t_float *_this);
+MR_C_API const float *MR_C_std_pair_int32_t_float_second(const MR_C_std_pair_int32_t_float *_this);
 
 // The second of the two elements, mutable.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API float *MR_C_std_pair_int32_t_float_MutableSecond(MR_C_std_pair_int32_t_float *_this);
+MR_C_API float *MR_C_std_pair_int32_t_float_second_mut(MR_C_std_pair_int32_t_float *_this);
 
 #ifdef __cplusplus
 } // extern "C"

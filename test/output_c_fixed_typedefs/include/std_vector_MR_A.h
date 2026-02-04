@@ -66,153 +66,153 @@ MR_C_API MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_OffsetMutablePtr(MR_C_std_ve
 
 // The number of elements.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_vector_MR_A_Size(const MR_C_std_vector_MR_A *_this);
+MR_C_API size_t MR_C_std_vector_MR_A_size(const MR_C_std_vector_MR_A *_this);
 
 // Returns true if the size is zero.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API bool MR_C_std_vector_MR_A_IsEmpty(const MR_C_std_vector_MR_A *_this);
+MR_C_API bool MR_C_std_vector_MR_A_empty(const MR_C_std_vector_MR_A *_this);
 
 // Resizes the container. The new elements if any are zeroed.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_Resize(MR_C_std_vector_MR_A *_this, size_t new_size);
+MR_C_API void MR_C_std_vector_MR_A_resize(MR_C_std_vector_MR_A *_this, size_t new_size);
 
 // Resizes the container. The new elements if any are set to the specified value.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `value` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_ResizeWithDefaultValue(MR_C_std_vector_MR_A *_this, size_t new_size, const MR_A *value);
+MR_C_API void MR_C_std_vector_MR_A_resize_with_default_value(MR_C_std_vector_MR_A *_this, size_t new_size, const MR_A *value);
 
 // Removes all elements from the container.
 // Parameter `_this` can not be null. It is a single object.
 // When this function is called, this object will drop any object references it had previously.
-MR_C_API void MR_C_std_vector_MR_A_Clear(MR_C_std_vector_MR_A *_this);
+MR_C_API void MR_C_std_vector_MR_A_clear(MR_C_std_vector_MR_A *_this);
 
 // The memory capacity, measued in the number of elements.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_vector_MR_A_Capacity(const MR_C_std_vector_MR_A *_this);
+MR_C_API size_t MR_C_std_vector_MR_A_capacity(const MR_C_std_vector_MR_A *_this);
 
 // Reserves memory for a certain number of elements. Never shrinks the memory.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_Reserve(MR_C_std_vector_MR_A *_this, size_t new_capacity);
+MR_C_API void MR_C_std_vector_MR_A_reserve(MR_C_std_vector_MR_A *_this, size_t new_capacity);
 
 // Shrinks the capacity to match the size.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_ShrinkToFit(MR_C_std_vector_MR_A *_this);
+MR_C_API void MR_C_std_vector_MR_A_shrink_to_fit(MR_C_std_vector_MR_A *_this);
 
 // The element at a specific index, read-only.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_A *MR_C_std_vector_MR_A_At(const MR_C_std_vector_MR_A *_this, size_t i);
+MR_C_API const MR_A *MR_C_std_vector_MR_A_at(const MR_C_std_vector_MR_A *_this, size_t i);
 
 // The element at a specific index, mutable.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_A *MR_C_std_vector_MR_A_MutableAt(MR_C_std_vector_MR_A *_this, size_t i);
+MR_C_API MR_A *MR_C_std_vector_MR_A_at_mut(MR_C_std_vector_MR_A *_this, size_t i);
 
 // The first element or null if empty, read-only.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API const MR_A *MR_C_std_vector_MR_A_Front(const MR_C_std_vector_MR_A *_this);
+MR_C_API const MR_A *MR_C_std_vector_MR_A_front(const MR_C_std_vector_MR_A *_this);
 
 // The first element or null if empty, mutable.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_A *MR_C_std_vector_MR_A_MutableFront(MR_C_std_vector_MR_A *_this);
+MR_C_API MR_A *MR_C_std_vector_MR_A_front_mut(MR_C_std_vector_MR_A *_this);
 
 // The last element or null if empty, read-only.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API const MR_A *MR_C_std_vector_MR_A_Back(const MR_C_std_vector_MR_A *_this);
+MR_C_API const MR_A *MR_C_std_vector_MR_A_back(const MR_C_std_vector_MR_A *_this);
 
 // The last element or null if empty, mutable.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_A *MR_C_std_vector_MR_A_MutableBack(MR_C_std_vector_MR_A *_this);
+MR_C_API MR_A *MR_C_std_vector_MR_A_back_mut(MR_C_std_vector_MR_A *_this);
 
 // Inserts a new element at the end.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `new_elem` might be preserved in this object.
-MR_C_API void MR_C_std_vector_MR_A_PushBack(MR_C_std_vector_MR_A *_this, MR_C_PassBy new_elem_pass_by, MR_A *new_elem);
+MR_C_API void MR_C_std_vector_MR_A_push_back(MR_C_std_vector_MR_A *_this, MR_C_PassBy new_elem_pass_by, MR_A *new_elem);
 
 // Removes one element from the end.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_PopBack(MR_C_std_vector_MR_A *_this);
+MR_C_API void MR_C_std_vector_MR_A_pop_back(MR_C_std_vector_MR_A *_this);
 
 // Inserts a new element right before the specified position.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `new_elem` might be preserved in this object.
-MR_C_API void MR_C_std_vector_MR_A_Insert(MR_C_std_vector_MR_A *_this, size_t position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem);
+MR_C_API void MR_C_std_vector_MR_A_insert(MR_C_std_vector_MR_A *_this, size_t position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem);
 
 // Erases the element at the specified position.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_Erase(MR_C_std_vector_MR_A *_this, size_t position);
+MR_C_API void MR_C_std_vector_MR_A_erase(MR_C_std_vector_MR_A *_this, size_t position);
 
 // Inserts a new element right before the specified position.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `position` can not be null. It is a single object.
 // The reference to the parameter `new_elem` might be preserved in this object.
-MR_C_API void MR_C_std_vector_MR_A_InsertAtMutableIter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem);
+MR_C_API void MR_C_std_vector_MR_A_insert_at_mutable_iter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem);
 
 // Erases the element at the specified position.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `position` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_EraseAtMutableIter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *position);
+MR_C_API void MR_C_std_vector_MR_A_erase_at_mutable_iter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *position);
 
 // Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `position` can not be null. It is a single object.
 // The reference to the parameter `new_elem` might be preserved in this object.
-MR_C_API void MR_C_std_vector_MR_A_InsertAtIter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem);
+MR_C_API void MR_C_std_vector_MR_A_insert_at_iter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem);
 
 // Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `position` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_EraseAtIter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *position);
+MR_C_API void MR_C_std_vector_MR_A_erase_at_iter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *position);
 
 // The begin iterator, const.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_Begin(const MR_C_std_vector_MR_A *_this);
+MR_C_API MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_begin(const MR_C_std_vector_MR_A *_this);
 
 // Tests whether a const iterator is the begin iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_vector_MR_A_IsBegin(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter);
+MR_C_API bool MR_C_std_vector_MR_A_is_begin(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter);
 
 // The begin iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_MutableBegin(MR_C_std_vector_MR_A *_this);
+MR_C_API MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_begin_mut(MR_C_std_vector_MR_A *_this);
 
 // Tests whether a mutable iterator is the begin iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_vector_MR_A_IsMutableBegin(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter);
+MR_C_API bool MR_C_std_vector_MR_A_is_begin_mut(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter);
 
 // The end iterator, const.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_End(const MR_C_std_vector_MR_A *_this);
+MR_C_API MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_end(const MR_C_std_vector_MR_A *_this);
 
 // Tests whether a const iterator is the end iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_vector_MR_A_IsEnd(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter);
+MR_C_API bool MR_C_std_vector_MR_A_is_end(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter);
 
 // The end iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_MutableEnd(MR_C_std_vector_MR_A *_this);
+MR_C_API MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_end_mut(MR_C_std_vector_MR_A *_this);
 
 // Tests whether a mutable iterator is the end iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_vector_MR_A_IsMutableEnd(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter);
+MR_C_API bool MR_C_std_vector_MR_A_is_end_mut(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter);
 
 // Convert a const iterator to an index.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `iter` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_vector_MR_A_ToIndex(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter);
+MR_C_API ptrdiff_t MR_C_std_vector_MR_A_to_index(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *iter);
 
 // Convert a mutable iterator to an index.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `iter` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_vector_MR_A_MutableToIndex(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter);
+MR_C_API ptrdiff_t MR_C_std_vector_MR_A_to_index_mut(const MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *iter);
 
 // Constructs an empty (default-constructed) instance.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_const_iterator_Destroy()` to free it when you're done using it.
@@ -254,7 +254,7 @@ MR_C_API MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterato
 // Makes a const iterator from a mutable one.
 // Parameter `iter` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_FromMutable(const MR_C_std_vector_MR_A_iterator *iter);
+MR_C_API MR_C_std_vector_MR_A_const_iterator *MR_C_std_vector_MR_A_const_iterator_from_mutable(const MR_C_std_vector_MR_A_iterator *iter);
 
 // Constructs an empty (default-constructed) instance.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_A_iterator_Destroy()` to free it when you're done using it.
@@ -296,46 +296,46 @@ MR_C_API MR_C_std_vector_MR_A_iterator *MR_C_std_vector_MR_A_iterator_OffsetMuta
 // Dereferences a const iterator.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_A *MR_C_std_vector_MR_A_const_iterator_Deref(const MR_C_std_vector_MR_A_const_iterator *_this);
+MR_C_API const MR_A *MR_C_std_vector_MR_A_const_iterator_deref(const MR_C_std_vector_MR_A_const_iterator *_this);
 
 // Increments a const iterator.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_const_iterator_Incr(MR_C_std_vector_MR_A_const_iterator *_this);
+MR_C_API void MR_C_std_vector_MR_A_const_iterator_incr(MR_C_std_vector_MR_A_const_iterator *_this);
 
 // Decrements a const iterator.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_const_iterator_Decr(MR_C_std_vector_MR_A_const_iterator *_this);
+MR_C_API void MR_C_std_vector_MR_A_const_iterator_decr(MR_C_std_vector_MR_A_const_iterator *_this);
 
 // Increments or decrements a const iterator by the specific amount. Completes in constant time.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_const_iterator_OffsetBy(MR_C_std_vector_MR_A_const_iterator *_this, ptrdiff_t delta);
+MR_C_API void MR_C_std_vector_MR_A_const_iterator_add_assign(MR_C_std_vector_MR_A_const_iterator *_this, ptrdiff_t delta);
 
 // Computes the signed difference between two const iterators. Completes in constant time.
 // Parameter `a` can not be null. It is a single object.
 // Parameter `b` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_vector_MR_A_const_iterator_Distance(const MR_C_std_vector_MR_A_const_iterator *a, const MR_C_std_vector_MR_A_const_iterator *b);
+MR_C_API ptrdiff_t MR_C_sub_MR_C_std_vector_MR_A_const_iterator(const MR_C_std_vector_MR_A_const_iterator *a, const MR_C_std_vector_MR_A_const_iterator *b);
 
 // Dereferences a mutable iterator.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_A *MR_C_std_vector_MR_A_iterator_Deref(const MR_C_std_vector_MR_A_iterator *_this);
+MR_C_API MR_A *MR_C_std_vector_MR_A_iterator_deref(const MR_C_std_vector_MR_A_iterator *_this);
 
 // Increments a mutable iterator.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_iterator_Incr(MR_C_std_vector_MR_A_iterator *_this);
+MR_C_API void MR_C_std_vector_MR_A_iterator_incr(MR_C_std_vector_MR_A_iterator *_this);
 
 // Decrements a mutable iterator.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_iterator_Decr(MR_C_std_vector_MR_A_iterator *_this);
+MR_C_API void MR_C_std_vector_MR_A_iterator_decr(MR_C_std_vector_MR_A_iterator *_this);
 
 // Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_vector_MR_A_iterator_OffsetBy(MR_C_std_vector_MR_A_iterator *_this, ptrdiff_t delta);
+MR_C_API void MR_C_std_vector_MR_A_iterator_add_assign(MR_C_std_vector_MR_A_iterator *_this, ptrdiff_t delta);
 
 // Computes the signed difference between two mutable iterators. Completes in constant time.
 // Parameter `a` can not be null. It is a single object.
 // Parameter `b` can not be null. It is a single object.
-MR_C_API ptrdiff_t MR_C_std_vector_MR_A_iterator_Distance(const MR_C_std_vector_MR_A_iterator *a, const MR_C_std_vector_MR_A_iterator *b);
+MR_C_API ptrdiff_t MR_C_sub_MR_C_std_vector_MR_A_iterator(const MR_C_std_vector_MR_A_iterator *a, const MR_C_std_vector_MR_A_iterator *b);
 
 #ifdef __cplusplus
 } // extern "C"

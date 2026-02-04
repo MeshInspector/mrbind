@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from C++ container `phmap::parallel_node_hash_map<int32_t, float>`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_ParallelNodeHashMap_Int32T_Float : MR.CS.Misc.Object<Const_ParallelNodeHashMap_Int32T_Float>, System.IDisposable
+            public class Const_ParallelNodeHashMap_Int32T_Float : MR.CS.Misc.Object<Const_ParallelNodeHashMap_Int32T_Float>, System.IDisposable, IEnumerable<MR.CS.Std.Const_Pair_ConstInt32T_Float>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -25,6 +25,70 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_ParallelNodeHashMap_Int32T_Float() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<MR.CS.Std.Const_Pair_ConstInt32T_Float>
+                {
+                    Const_ParallelNodeHashMap_Int32T_Float _container;
+                    MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_ParallelNodeHashMap_Int32T_Float container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Std.Const_Pair_ConstInt32T_Float Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur.incr();
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.Std.Const_Pair_ConstInt32T_Float> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
 
                 internal unsafe Const_ParallelNodeHashMap_Int32T_Float(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -64,19 +128,19 @@ public static partial class MR
                 /// </summary>
                 public unsafe ulong size()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_Size", ExactSpelling = true)]
-                    extern static ulong __MR_C_phmap_parallel_node_hash_map_int32_t_float_Size(_Underlying *_this);
-                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_Size(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_size", ExactSpelling = true)]
+                    extern static ulong __MR_C_phmap_parallel_node_hash_map_int32_t_float_size(_Underlying *_this);
+                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_size(_UnderlyingPtr);
                 }
 
                 /// <summary>
                 /// Returns true if the size is zero.
                 /// </summary>
-                public unsafe bool isEmpty()
+                public unsafe bool empty()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_IsEmpty", ExactSpelling = true)]
-                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_IsEmpty(_Underlying *_this);
-                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_IsEmpty(_UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_empty", ExactSpelling = true)]
+                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_empty(_Underlying *_this);
+                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_empty(_UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -84,9 +148,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool contains(int key)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_Contains", ExactSpelling = true)]
-                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_Contains(_Underlying *_this, int *key);
-                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_Contains(_UnderlyingPtr, &key) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_contains", ExactSpelling = true)]
+                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_contains(_Underlying *_this, int *key);
+                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_contains(_UnderlyingPtr, &key) != 0;
                 }
 
                 /// <summary>
@@ -94,10 +158,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator find(int key)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_Find", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_Find(_Underlying *_this, int *key);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_find", ExactSpelling = true)]
+                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_find(_Underlying *_this, int *key);
                     MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator __ret;
-                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_Find(_UnderlyingPtr, &key), is_owning: true);
+                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_find(_UnderlyingPtr, &key), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -107,10 +171,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_Begin", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_Begin(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_begin", ExactSpelling = true)]
+                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_begin(_Underlying *_this);
                     MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator __ret;
-                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_Begin(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_begin(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -120,9 +184,19 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isBegin(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_IsBegin", ExactSpelling = true)]
-                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_IsBegin(_Underlying *_this, MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_IsBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_is_begin", ExactSpelling = true)]
+                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_is_begin(_Underlying *_this, MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                }
+
+                /// <summary>
+                /// Tests whether a mutable iterator is the begin iterator.
+                /// </summary>
+                public unsafe bool isBegin(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator iter)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_is_begin_mut", ExactSpelling = true)]
+                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_is_begin_mut(_Underlying *_this, MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator._Underlying *iter);
+                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_is_begin_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -130,10 +204,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator end()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_End", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_End(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_end", ExactSpelling = true)]
+                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_end(_Underlying *_this);
                     MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator __ret;
-                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_End(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_end(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -143,9 +217,19 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isEnd(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_IsEnd", ExactSpelling = true)]
-                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_IsEnd(_Underlying *_this, MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_IsEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_is_end", ExactSpelling = true)]
+                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_is_end(_Underlying *_this, MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_is_end(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                }
+
+                /// <summary>
+                /// Tests whether a mutable iterator is the end iterator.
+                /// </summary>
+                public unsafe bool isEnd(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator iter)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_is_end_mut", ExactSpelling = true)]
+                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_is_end_mut(_Underlying *_this, MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator._Underlying *iter);
+                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_is_end_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -203,9 +287,9 @@ public static partial class MR
                     /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator iter) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_FromMutable", ExactSpelling = true)]
-                        extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_FromMutable(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator._Underlying *iter);
-                        _UnderlyingPtr = __MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_FromMutable(iter._UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_from_mutable", ExactSpelling = true)]
+                        extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_from_mutable(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator._Underlying *iter);
+                        _UnderlyingPtr = __MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
                     /// <summary>
@@ -214,13 +298,26 @@ public static partial class MR
                     public static unsafe implicit operator Const_ConstIterator(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator iter) {return new(iter);}
 
                     /// <summary>
+                    /// Dereferences a const iterator.
+                    /// </summary>
+                    public unsafe MR.CS.Std.Const_Pair_ConstInt32T_Float deref()
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_deref", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_Pair_ConstInt32T_Float._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_deref(_Underlying *_this);
+                        MR.CS.Std.Const_Pair_ConstInt32T_Float __ret;
+                        __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_deref(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
+
+                    /// <summary>
                     /// Dereferences a const iterator, returning the key.
                     /// </summary>
                     public unsafe int derefKey()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_DerefKey", ExactSpelling = true)]
-                        extern static int *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_DerefKey(_Underlying *_this);
-                        return *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_DerefKey(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_deref_key", ExactSpelling = true)]
+                        extern static int *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_deref_key(_Underlying *_this);
+                        return *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_deref_key(_UnderlyingPtr);
                     }
 
                     /// <summary>
@@ -228,9 +325,21 @@ public static partial class MR
                     /// </summary>
                     public unsafe float derefValue()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_DerefValue", ExactSpelling = true)]
-                        extern static float *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_DerefValue(_Underlying *_this);
-                        return *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_DerefValue(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_deref_value", ExactSpelling = true)]
+                        extern static float *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_deref_value(_Underlying *_this);
+                        return *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_deref_value(_UnderlyingPtr);
+                    }
+
+                    /// <summary>
+                    /// Increments a const iterator.
+                    /// </summary>
+                    public static unsafe ConstIterator operator++(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_ConstIterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_incr(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_ConstIterator._Underlying *_this);
+                        ConstIterator __this_copy = new(_this);
+                        __MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_incr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
                     }
                 }
 
@@ -285,9 +394,9 @@ public static partial class MR
                     /// </summary>
                     public unsafe ConstIterator(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator iter) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_FromMutable", ExactSpelling = true)]
-                        extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_FromMutable(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator._Underlying *iter);
-                        _UnderlyingPtr = __MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_FromMutable(iter._UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_from_mutable", ExactSpelling = true)]
+                        extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.ConstIterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_from_mutable(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator._Underlying *iter);
+                        _UnderlyingPtr = __MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
                     /// <summary>
@@ -300,9 +409,9 @@ public static partial class MR
                     /// </summary>
                     public unsafe void incr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_Incr", ExactSpelling = true)]
-                        extern static void __MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_Incr(_Underlying *_this);
-                        __MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_Incr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_incr(_Underlying *_this);
+                        __MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_incr(_UnderlyingPtr);
                     }
                 }
 
@@ -396,13 +505,26 @@ public static partial class MR
                     public Const_Iterator(Iterator other) : this((Const_Iterator)other) {}
 
                     /// <summary>
+                    /// Dereferences a mutable iterator.
+                    /// </summary>
+                    public unsafe MR.CS.Std.Pair_ConstInt32T_Float deref()
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_deref", ExactSpelling = true)]
+                        extern static MR.CS.Std.Pair_ConstInt32T_Float._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_deref(_Underlying *_this);
+                        MR.CS.Std.Pair_ConstInt32T_Float __ret;
+                        __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_deref(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
+
+                    /// <summary>
                     /// Dereferences a mutable iterator, returning the key.
                     /// </summary>
                     public unsafe int derefKey()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_DerefKey", ExactSpelling = true)]
-                        extern static int *__MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_DerefKey(_Underlying *_this);
-                        return *__MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_DerefKey(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_deref_key", ExactSpelling = true)]
+                        extern static int *__MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_deref_key(_Underlying *_this);
+                        return *__MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_deref_key(_UnderlyingPtr);
                     }
 
                     /// <summary>
@@ -410,9 +532,21 @@ public static partial class MR
                     /// </summary>
                     public unsafe ref float derefValue()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_DerefValue", ExactSpelling = true)]
-                        extern static float *__MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_DerefValue(_Underlying *_this);
-                        return ref *__MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_DerefValue(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_deref_value", ExactSpelling = true)]
+                        extern static float *__MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_deref_value(_Underlying *_this);
+                        return ref *__MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_deref_value(_UnderlyingPtr);
+                    }
+
+                    /// <summary>
+                    /// Increments a mutable iterator.
+                    /// </summary>
+                    public static unsafe Iterator operator++(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_incr(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator._Underlying *_this);
+                        Iterator __this_copy = new(_this);
+                        __MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_incr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
                     }
                 }
 
@@ -467,9 +601,9 @@ public static partial class MR
                     /// </summary>
                     public unsafe void incr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_Incr", ExactSpelling = true)]
-                        extern static void __MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_Incr(_Underlying *_this);
-                        __MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_Incr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_incr(_Underlying *_this);
+                        __MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_incr(_UnderlyingPtr);
                     }
                 }
 
@@ -512,8 +646,72 @@ public static partial class MR
             /// Generated from C++ container `phmap::parallel_node_hash_map<int32_t, float>`.
             /// This is the non-const half of the class.
             /// </summary>
-            public class ParallelNodeHashMap_Int32T_Float : Const_ParallelNodeHashMap_Int32T_Float
+            public class ParallelNodeHashMap_Int32T_Float : Const_ParallelNodeHashMap_Int32T_Float, IEnumerable<MR.CS.Std.Pair_ConstInt32T_Float>
             {
+                public new class _Enumerator : IEnumerator<MR.CS.Std.Pair_ConstInt32T_Float>
+                {
+                    ParallelNodeHashMap_Int32T_Float _container;
+                    MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(ParallelNodeHashMap_Int32T_Float container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Std.Pair_ConstInt32T_Float Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur.incr();
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public new IEnumerator<MR.CS.Std.Pair_ConstInt32T_Float> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
                 internal unsafe ParallelNodeHashMap_Int32T_Float(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
@@ -564,10 +762,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe void clear()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_Clear", ExactSpelling = true)]
-                    extern static void __MR_C_phmap_parallel_node_hash_map_int32_t_float_Clear(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_clear", ExactSpelling = true)]
+                    extern static void __MR_C_phmap_parallel_node_hash_map_int32_t_float_clear(_Underlying *_this);
                     _DiscardKeepAlive();
-                    __MR_C_phmap_parallel_node_hash_map_int32_t_float_Clear(_UnderlyingPtr);
+                    __MR_C_phmap_parallel_node_hash_map_int32_t_float_clear(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -575,9 +773,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe ref float findOrConstructElem(int key)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_FindOrConstructElem", ExactSpelling = true)]
-                    extern static float *__MR_C_phmap_parallel_node_hash_map_int32_t_float_FindOrConstructElem(_Underlying *_this, int *key);
-                    return ref *__MR_C_phmap_parallel_node_hash_map_int32_t_float_FindOrConstructElem(_UnderlyingPtr, &key);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_find_or_construct_elem", ExactSpelling = true)]
+                    extern static float *__MR_C_phmap_parallel_node_hash_map_int32_t_float_find_or_construct_elem(_Underlying *_this, int *key);
+                    return ref *__MR_C_phmap_parallel_node_hash_map_int32_t_float_find_or_construct_elem(_UnderlyingPtr, &key);
                 }
 
                 /// <summary>
@@ -585,10 +783,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator find(int key)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_FindMutable", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_FindMutable(_Underlying *_this, int *key);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_find_mut", ExactSpelling = true)]
+                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_find_mut(_Underlying *_this, int *key);
                     MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator __ret;
-                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_FindMutable(_UnderlyingPtr, &key), is_owning: true);
+                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_find_mut(_UnderlyingPtr, &key), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -598,22 +796,12 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_MutableBegin", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_MutableBegin(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_begin_mut", ExactSpelling = true)]
+                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_begin_mut(_Underlying *_this);
                     MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator __ret;
-                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_MutableBegin(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_begin_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
-                }
-
-                /// <summary>
-                /// Tests whether a mutable iterator is the begin iterator.
-                /// </summary>
-                public unsafe bool isBegin(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator iter)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_IsMutableBegin", ExactSpelling = true)]
-                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_IsMutableBegin(_Underlying *_this, MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator._Underlying *iter);
-                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_IsMutableBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -621,22 +809,12 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator end()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_MutableEnd", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_MutableEnd(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_end_mut", ExactSpelling = true)]
+                    extern static MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator._Underlying *__MR_C_phmap_parallel_node_hash_map_int32_t_float_end_mut(_Underlying *_this);
                     MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Iterator __ret;
-                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_MutableEnd(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_phmap_parallel_node_hash_map_int32_t_float_end_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
-                }
-
-                /// <summary>
-                /// Tests whether a mutable iterator is the end iterator.
-                /// </summary>
-                public unsafe bool isEnd(MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator iter)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_map_int32_t_float_IsMutableEnd", ExactSpelling = true)]
-                    extern static byte __MR_C_phmap_parallel_node_hash_map_int32_t_float_IsMutableEnd(_Underlying *_this, MR.CS.Phmap.ParallelNodeHashMap_Int32T_Float.Const_Iterator._Underlying *iter);
-                    return __MR_C_phmap_parallel_node_hash_map_int32_t_float_IsMutableEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
             }
 

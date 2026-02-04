@@ -1480,6 +1480,14 @@ namespace mrbind::CBindings
         // Prefer `HeapAllocatedClassBinder::MakeMemberFuncName()` if you're using that class already.
         [[nodiscard]] EmitFuncParams::Name MakeMemberFuncName(std::string_view c_type_name, std::string func_name, std::optional<CInterop::MethodKindVar> interop_var = {}) const;
 
+        // When you have two functions, one `const` and one non-`const`, use those functions to generate their names.
+        // The result could be passed to `MakeMemberFuncName()`.
+        // NOTE! Those are rarely useful, prefer the `HeapAllocatedClassBinder::MakeMemberFuncName(generator, name, is_const)` overload.
+        //   Those are only useful if you're binding an operator, which can't be done with that overload.
+        [[nodiscard]] std::string ConstMethodVariant(std::string name) const;
+        [[nodiscard]] std::string MutableMethodVariant(std::string name) const;
+        [[nodiscard]] std::string MaybeConstMethodVariant(std::string name, bool is_const) const;
+
         // The destroy function name for parsed and custom classes. It calls `delete`.
         // We have a separate function for destroying arrays (`is_array == true`) which corresponds to C++'s `delete[]`.
         // NOTE: You probably want `GetDestroyFuncNameForType()` and not this function. This function trusts you

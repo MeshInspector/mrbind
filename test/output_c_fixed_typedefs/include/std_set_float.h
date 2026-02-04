@@ -68,51 +68,51 @@ MR_C_API void MR_C_std_set_float_AssignFromRange(MR_C_std_set_float *_this, cons
 
 // The number of elements.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API size_t MR_C_std_set_float_Size(const MR_C_std_set_float *_this);
+MR_C_API size_t MR_C_std_set_float_size(const MR_C_std_set_float *_this);
 
 // Returns true if the size is zero.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API bool MR_C_std_set_float_IsEmpty(const MR_C_std_set_float *_this);
+MR_C_API bool MR_C_std_set_float_empty(const MR_C_std_set_float *_this);
 
 // Removes all elements from the container.
 // Parameter `_this` can not be null. It is a single object.
 // When this function is called, this object will drop any object references it had previously.
-MR_C_API void MR_C_std_set_float_Clear(MR_C_std_set_float *_this);
+MR_C_API void MR_C_std_set_float_clear(MR_C_std_set_float *_this);
 
 // Checks if the contain contains this key.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `key` can not be null. It is a single object.
-MR_C_API bool MR_C_std_set_float_Contains(const MR_C_std_set_float *_this, const float *key);
+MR_C_API bool MR_C_std_set_float_contains(const MR_C_std_set_float *_this, const float *key);
 
 // Finds the element by key, or returns the end iterator if no such key. Returns a read-only iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `key` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_Find(const MR_C_std_set_float *_this, const float *key);
+MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_find(const MR_C_std_set_float *_this, const float *key);
 
 // Inserts a new element.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_set_float_Insert(MR_C_std_set_float *_this, float new_elem);
+MR_C_API void MR_C_std_set_float_insert(MR_C_std_set_float *_this, float new_elem);
 
 // The begin iterator, const.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_Begin(const MR_C_std_set_float *_this);
+MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_begin(const MR_C_std_set_float *_this);
 
 // Tests whether a const iterator is the begin iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_set_float_IsBegin(const MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *iter);
+MR_C_API bool MR_C_std_set_float_is_begin(const MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *iter);
 
 // The end iterator, const.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_End(const MR_C_std_set_float *_this);
+MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_end(const MR_C_std_set_float *_this);
 
 // Tests whether a const iterator is the end iterator.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `iter` can not be null. It is a single object.
-MR_C_API bool MR_C_std_set_float_IsEnd(const MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *iter);
+MR_C_API bool MR_C_std_set_float_is_end(const MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *iter);
 
 // Constructs an empty (default-constructed) instance.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
@@ -154,15 +154,15 @@ MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_Of
 // Dereferences a const iterator.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const float *MR_C_std_set_float_const_iterator_Deref(const MR_C_std_set_float_const_iterator *_this);
+MR_C_API const float *MR_C_std_set_float_const_iterator_deref(const MR_C_std_set_float_const_iterator *_this);
 
 // Increments a const iterator.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_set_float_const_iterator_Incr(MR_C_std_set_float_const_iterator *_this);
+MR_C_API void MR_C_std_set_float_const_iterator_incr(MR_C_std_set_float_const_iterator *_this);
 
 // Decrements a const iterator.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_set_float_const_iterator_Decr(MR_C_std_set_float_const_iterator *_this);
+MR_C_API void MR_C_std_set_float_const_iterator_decr(MR_C_std_set_float_const_iterator *_this);
 
 #ifdef __cplusplus
 } // extern "C"

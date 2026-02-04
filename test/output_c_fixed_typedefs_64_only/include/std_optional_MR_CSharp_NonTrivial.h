@@ -63,11 +63,11 @@ MR_C_API MR_C_std_optional_MR_CSharp_NonTrivial *MR_C_std_optional_MR_CSharp_Non
 
 /// The stored element or null if none, read-only.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const MR_CSharp_NonTrivial *MR_C_std_optional_MR_CSharp_NonTrivial_Value(const MR_C_std_optional_MR_CSharp_NonTrivial *_this);
+MR_C_API const MR_CSharp_NonTrivial *MR_C_std_optional_MR_CSharp_NonTrivial_value(const MR_C_std_optional_MR_CSharp_NonTrivial *_this);
 
 /// The stored element or null if none, mutable.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API MR_CSharp_NonTrivial *MR_C_std_optional_MR_CSharp_NonTrivial_MutableValue(MR_C_std_optional_MR_CSharp_NonTrivial *_this);
+MR_C_API MR_CSharp_NonTrivial *MR_C_std_optional_MR_CSharp_NonTrivial_value_mut(MR_C_std_optional_MR_CSharp_NonTrivial *_this);
 
 #ifdef __cplusplus
 } // extern "C"

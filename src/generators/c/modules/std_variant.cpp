@@ -83,7 +83,7 @@ namespace mrbind::CBindings::Modules
                     { // index
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the index of the stored element type. In rare cases may return -1 if this variant is \"valueless by exception\".";
-                        emit.name = binder.MakeMemberFuncName(generator, "Index");
+                        emit.name = binder.MakeMemberFuncName(generator, "index");
                         emit.cpp_return_type = cppdecl::Type::FromSingleWord("size_t");
                         emit.AddThisParam(type, true);
                         emit.cpp_called_func = "index";
@@ -205,7 +205,7 @@ namespace mrbind::CBindings::Modules
                                 name_suffix += type_identifiers[i];
 
                                 emit.c_comment = "/// Returns the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ". If it's not the active element, returns null.";
-                                emit.name = binder.MakeMemberFuncName(generator, "Get" + std::string(is_const ? "" : "Mutable") + name_suffix, "Get" + name_suffix);
+                                emit.name = binder.MakeMemberFuncName(generator, "get" + name_suffix, is_const);
                                 emit.lifetimes.ReturnsReferenceToSubobject();
 
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const);

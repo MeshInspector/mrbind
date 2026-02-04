@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// Generated from C++ container `std::vector<MR::StdContainers::NonDefaultConstructible>`.
             /// This is the const half of the class.
-            public class Const_Vector_MRStdContainersNonDefaultConstructible : MR.CS.Misc.Object<Const_Vector_MRStdContainersNonDefaultConstructible>, System.IDisposable
+            public class Const_Vector_MRStdContainersNonDefaultConstructible : MR.CS.Misc.Object<Const_Vector_MRStdContainersNonDefaultConstructible>, System.IDisposable, IEnumerable<MR.CS.StdContainers.Const_NonDefaultConstructible>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -23,6 +23,70 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Vector_MRStdContainersNonDefaultConstructible() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<MR.CS.StdContainers.Const_NonDefaultConstructible>
+                {
+                    Const_Vector_MRStdContainersNonDefaultConstructible _container;
+                    MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_Vector_MRStdContainersNonDefaultConstructible container)
+                    {
+                        _container = container;
+                        _cur = _container.Begin();
+                        _done = _cur == _container.End();
+                    }
+
+                    public MR.CS.StdContainers.Const_NonDefaultConstructible Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.Deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur.Incr();
+                        if (_cur == _container.End())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.Begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.StdContainers.Const_NonDefaultConstructible> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
 
                 internal unsafe Const_Vector_MRStdContainersNonDefaultConstructible(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -52,25 +116,25 @@ public static partial class MR
                 /// The number of elements.
                 public unsafe ulong Size()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Size(_Underlying *_this);
-                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Size(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_size", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_size(_Underlying *_this);
+                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_size(_UnderlyingPtr);
                 }
 
                 /// Returns true if the size is zero.
-                public unsafe bool IsEmpty()
+                public unsafe bool Empty()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsEmpty", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsEmpty(_Underlying *_this);
-                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsEmpty(_UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_empty", ExactSpelling = true)]
+                    extern static byte __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_empty(_Underlying *_this);
+                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_empty(_UnderlyingPtr) != 0;
                 }
 
                 /// The memory capacity, measued in the number of elements.
                 public unsafe ulong Capacity()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Capacity", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Capacity(_Underlying *_this);
-                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Capacity(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_capacity", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_capacity(_Underlying *_this);
+                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_capacity(_UnderlyingPtr);
                 }
 
                 /// The element at a specific index, read-only.
@@ -78,10 +142,10 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_At", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_At(_Underlying *_this, ulong i);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_at", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_at(_Underlying *_this, ulong i);
                         MR.CS.StdContainers.Const_NonDefaultConstructible __ret;
-                        __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_At(_UnderlyingPtr, i), is_owning: false);
+                        __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_at(_UnderlyingPtr, i), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
@@ -90,9 +154,9 @@ public static partial class MR
                 /// The first element or null if empty, read-only.
                 public unsafe MR.CS.StdContainers.Const_NonDefaultConstructible? Front()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Front", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Front(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Front(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_front", ExactSpelling = true)]
+                    extern static MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_front(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_front(_UnderlyingPtr);
                     MR.CS.StdContainers.Const_NonDefaultConstructible? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdContainers.Const_NonDefaultConstructible(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -102,9 +166,9 @@ public static partial class MR
                 /// The last element or null if empty, read-only.
                 public unsafe MR.CS.StdContainers.Const_NonDefaultConstructible? Back()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Back", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Back(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Back(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_back", ExactSpelling = true)]
+                    extern static MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_back(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_back(_UnderlyingPtr);
                     MR.CS.StdContainers.Const_NonDefaultConstructible? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdContainers.Const_NonDefaultConstructible(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -114,10 +178,10 @@ public static partial class MR
                 /// The begin iterator, const.
                 public unsafe MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator Begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Begin", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Begin(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin", ExactSpelling = true)]
+                    extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin(_Underlying *_this);
                     MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator __ret;
-                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Begin(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -125,18 +189,26 @@ public static partial class MR
                 /// Tests whether a const iterator is the begin iterator.
                 public unsafe bool IsBegin(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsBegin", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsBegin(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_begin", ExactSpelling = true)]
+                    extern static byte __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_begin(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                }
+
+                /// Tests whether a mutable iterator is the begin iterator.
+                public unsafe bool IsBegin(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator iter)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_begin_mut", ExactSpelling = true)]
+                    extern static byte __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_begin_mut(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator._Underlying *iter);
+                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_begin_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// The end iterator, const.
                 public unsafe MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator End()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_End", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_End(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end", ExactSpelling = true)]
+                    extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end(_Underlying *_this);
                     MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator __ret;
-                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_End(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -144,25 +216,33 @@ public static partial class MR
                 /// Tests whether a const iterator is the end iterator.
                 public unsafe bool IsEnd(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsEnd", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsEnd(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_end", ExactSpelling = true)]
+                    extern static byte __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_end(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_end(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                }
+
+                /// Tests whether a mutable iterator is the end iterator.
+                public unsafe bool IsEnd(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator iter)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_end_mut", ExactSpelling = true)]
+                    extern static byte __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_end_mut(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator._Underlying *iter);
+                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_is_end_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// Convert a const iterator to an index.
                 public unsafe long ToIndex(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ToIndex", ExactSpelling = true)]
-                    extern static long __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ToIndex(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *iter);
-                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ToIndex(_UnderlyingPtr, iter._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_to_index", ExactSpelling = true)]
+                    extern static long __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_to_index(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *iter);
+                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_to_index(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
                 /// Convert a mutable iterator to an index.
                 public unsafe long ToIndex(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableToIndex", ExactSpelling = true)]
-                    extern static long __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableToIndex(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *iter);
-                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableToIndex(_UnderlyingPtr, iter._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_to_index_mut", ExactSpelling = true)]
+                    extern static long __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *iter);
+                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_to_index_mut(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
                 /// Read-only iterator for `MR_C_std_vector_MR_StdContainers_NonDefaultConstructible`.
@@ -210,9 +290,9 @@ public static partial class MR
                     /// Makes a const iterator from a mutable one.
                     public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator iter) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_FromMutable", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_FromMutable(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *iter);
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_FromMutable(iter._UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_from_mutable", ExactSpelling = true)]
+                        extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_from_mutable(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *iter);
+                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
                     /// Makes a const iterator from a mutable one.
@@ -221,20 +301,40 @@ public static partial class MR
                     /// Dereferences a const iterator.
                     public unsafe MR.CS.StdContainers.Const_NonDefaultConstructible Deref()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Deref", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Deref(_Underlying *_this);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_deref", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_deref(_Underlying *_this);
                         MR.CS.StdContainers.Const_NonDefaultConstructible __ret;
-                        __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Deref(_UnderlyingPtr), is_owning: false);
+                        __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_deref(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
 
-                    /// Computes the signed difference between two const iterators. Completes in constant time.
-                    public static unsafe long Distance(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator a, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator b)
+                    /// Increments a const iterator.
+                    public static unsafe ConstIterator operator++(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator _this)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Distance", ExactSpelling = true)]
-                        extern static long __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Distance(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *b);
-                        return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Distance(a._UnderlyingPtr, b._UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_incr(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator._Underlying *_this);
+                        ConstIterator __this_copy = new(_this);
+                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_incr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
+                    }
+
+                    /// Decrements a const iterator.
+                    public static unsafe ConstIterator operator--(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_decr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_decr(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator._Underlying *_this);
+                        ConstIterator __this_copy = new(_this);
+                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_decr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
+                    }
+
+                    /// Computes the signed difference between two const iterators. Completes in constant time.
+                    public static unsafe long operator-(Const_ConstIterator a, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator b)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator", ExactSpelling = true)]
+                        extern static long __MR_C_sub_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *b);
+                        return __MR_C_sub_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                     }
                 }
 
@@ -277,9 +377,9 @@ public static partial class MR
                     /// Makes a const iterator from a mutable one.
                     public unsafe ConstIterator(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator iter) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_FromMutable", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_FromMutable(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *iter);
-                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_FromMutable(iter._UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_from_mutable", ExactSpelling = true)]
+                        extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_from_mutable(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *iter);
+                        _UnderlyingPtr = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
                     /// Makes a const iterator from a mutable one.
@@ -288,25 +388,25 @@ public static partial class MR
                     /// Increments a const iterator.
                     public unsafe void Incr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Incr(_Underlying *_this);
-                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Incr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_incr(_Underlying *_this);
+                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_incr(_UnderlyingPtr);
                     }
 
                     /// Decrements a const iterator.
                     public unsafe void Decr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Decr(_Underlying *_this);
-                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_Decr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_decr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_decr(_Underlying *_this);
+                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_decr(_UnderlyingPtr);
                     }
 
                     /// Increments or decrements a const iterator by the specific amount. Completes in constant time.
-                    public unsafe void OffsetBy(long delta)
+                    public unsafe void AddAssign(long delta)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_OffsetBy", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_OffsetBy(_Underlying *_this, long delta);
-                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_OffsetBy(_UnderlyingPtr, delta);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_add_assign", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_add_assign(_Underlying *_this, long delta);
+                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator_add_assign(_UnderlyingPtr, delta);
                     }
                 }
 
@@ -388,20 +488,40 @@ public static partial class MR
                     /// Dereferences a mutable iterator.
                     public unsafe MR.CS.StdContainers.NonDefaultConstructible Deref()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Deref", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Deref(_Underlying *_this);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_deref", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_deref(_Underlying *_this);
                         MR.CS.StdContainers.NonDefaultConstructible __ret;
-                        __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Deref(_UnderlyingPtr), is_owning: false);
+                        __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_deref(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
 
-                    /// Computes the signed difference between two mutable iterators. Completes in constant time.
-                    public static unsafe long Distance(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator a, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator b)
+                    /// Increments a mutable iterator.
+                    public static unsafe Iterator operator++(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator _this)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Distance", ExactSpelling = true)]
-                        extern static long __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Distance(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *a, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *b);
-                        return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Distance(a._UnderlyingPtr, b._UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_incr(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator._Underlying *_this);
+                        Iterator __this_copy = new(_this);
+                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_incr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
+                    }
+
+                    /// Decrements a mutable iterator.
+                    public static unsafe Iterator operator--(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_decr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_decr(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator._Underlying *_this);
+                        Iterator __this_copy = new(_this);
+                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_decr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
+                    }
+
+                    /// Computes the signed difference between two mutable iterators. Completes in constant time.
+                    public static unsafe long operator-(Const_Iterator a, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator b)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator", ExactSpelling = true)]
+                        extern static long __MR_C_sub_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *a, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *b);
+                        return __MR_C_sub_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                     }
                 }
 
@@ -444,25 +564,25 @@ public static partial class MR
                     /// Increments a mutable iterator.
                     public unsafe void Incr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Incr(_Underlying *_this);
-                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Incr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_incr(_Underlying *_this);
+                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_incr(_UnderlyingPtr);
                     }
 
                     /// Decrements a mutable iterator.
                     public unsafe void Decr()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Decr(_Underlying *_this);
-                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_Decr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_decr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_decr(_Underlying *_this);
+                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_decr(_UnderlyingPtr);
                     }
 
                     /// Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
-                    public unsafe void OffsetBy(long delta)
+                    public unsafe void AddAssign(long delta)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_OffsetBy", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_OffsetBy(_Underlying *_this, long delta);
-                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_OffsetBy(_UnderlyingPtr, delta);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_add_assign", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_add_assign(_Underlying *_this, long delta);
+                        __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_add_assign(_UnderlyingPtr, delta);
                     }
                 }
 
@@ -499,8 +619,72 @@ public static partial class MR
 
             /// Generated from C++ container `std::vector<MR::StdContainers::NonDefaultConstructible>`.
             /// This is the non-const half of the class.
-            public class Vector_MRStdContainersNonDefaultConstructible : Const_Vector_MRStdContainersNonDefaultConstructible
+            public class Vector_MRStdContainersNonDefaultConstructible : Const_Vector_MRStdContainersNonDefaultConstructible, IEnumerable<MR.CS.StdContainers.NonDefaultConstructible>
             {
+                public new class _Enumerator : IEnumerator<MR.CS.StdContainers.NonDefaultConstructible>
+                {
+                    Vector_MRStdContainersNonDefaultConstructible _container;
+                    MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Vector_MRStdContainersNonDefaultConstructible container)
+                    {
+                        _container = container;
+                        _cur = _container.Begin();
+                        _done = _cur == _container.End();
+                    }
+
+                    public MR.CS.StdContainers.NonDefaultConstructible Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.Deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur.Incr();
+                        if (_cur == _container.End())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.Begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public new IEnumerator<MR.CS.StdContainers.NonDefaultConstructible> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
                 internal unsafe Vector_MRStdContainersNonDefaultConstructible(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// Constructs an empty (default-constructed) instance.
@@ -539,34 +723,34 @@ public static partial class MR
                 /// Resizes the container. The new elements if any are set to the specified value.
                 public unsafe void ResizeWithDefaultValue(ulong new_size, MR.CS.StdContainers.Const_NonDefaultConstructible value)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ResizeWithDefaultValue", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ResizeWithDefaultValue(_Underlying *_this, ulong new_size, MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *value);
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ResizeWithDefaultValue(_UnderlyingPtr, new_size, value._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_resize_with_default_value", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_resize_with_default_value(_Underlying *_this, ulong new_size, MR.CS.StdContainers.Const_NonDefaultConstructible._Underlying *value);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_resize_with_default_value(_UnderlyingPtr, new_size, value._UnderlyingPtr);
                 }
 
                 /// Removes all elements from the container.
                 public unsafe void Clear()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Clear", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Clear(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_clear", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_clear(_Underlying *_this);
                     _DiscardKeepAlive();
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Clear(_UnderlyingPtr);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_clear(_UnderlyingPtr);
                 }
 
                 /// Reserves memory for a certain number of elements. Never shrinks the memory.
                 public unsafe void Reserve(ulong new_capacity)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Reserve", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Reserve(_Underlying *_this, ulong new_capacity);
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Reserve(_UnderlyingPtr, new_capacity);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_reserve", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_reserve(_Underlying *_this, ulong new_capacity);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_reserve(_UnderlyingPtr, new_capacity);
                 }
 
                 /// Shrinks the capacity to match the size.
                 public unsafe void ShrinkToFit()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ShrinkToFit", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ShrinkToFit(_Underlying *_this);
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_ShrinkToFit(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_shrink_to_fit", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_shrink_to_fit(_Underlying *_this);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_shrink_to_fit(_UnderlyingPtr);
                 }
 
                 /// The element at a specific index, mutable.
@@ -574,10 +758,10 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableAt", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableAt(_Underlying *_this, ulong i);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_at_mut", ExactSpelling = true)]
+                        extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_at_mut(_Underlying *_this, ulong i);
                         MR.CS.StdContainers.NonDefaultConstructible __ret;
-                        __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableAt(_UnderlyingPtr, i), is_owning: false);
+                        __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_at_mut(_UnderlyingPtr, i), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
@@ -586,9 +770,9 @@ public static partial class MR
                 /// The first element or null if empty, mutable.
                 public unsafe new MR.CS.StdContainers.NonDefaultConstructible? Front()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableFront", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableFront(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableFront(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_front_mut", ExactSpelling = true)]
+                    extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_front_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_front_mut(_UnderlyingPtr);
                     MR.CS.StdContainers.NonDefaultConstructible? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdContainers.NonDefaultConstructible(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -598,9 +782,9 @@ public static partial class MR
                 /// The last element or null if empty, mutable.
                 public unsafe new MR.CS.StdContainers.NonDefaultConstructible? Back()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBack", ExactSpelling = true)]
-                    extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBack(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBack(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_back_mut", ExactSpelling = true)]
+                    extern static MR.CS.StdContainers.NonDefaultConstructible._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_back_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_back_mut(_UnderlyingPtr);
                     MR.CS.StdContainers.NonDefaultConstructible? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdContainers.NonDefaultConstructible(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -610,107 +794,91 @@ public static partial class MR
                 /// Inserts a new element at the end.
                 public unsafe void PushBack(MR.CS.StdContainers.Const_NonDefaultConstructible new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_PushBack", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_PushBack(_Underlying *_this, MR.CS.StdContainers.NonDefaultConstructible._Underlying *new_elem);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_push_back", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_push_back(_Underlying *_this, MR.CS.StdContainers.NonDefaultConstructible._Underlying *new_elem);
                     _KeepAlive(new_elem);
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_PushBack(_UnderlyingPtr, new_elem._UnderlyingPtr);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_push_back(_UnderlyingPtr, new_elem._UnderlyingPtr);
                 }
 
                 /// Removes one element from the end.
                 public unsafe void PopBack()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_PopBack", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_PopBack(_Underlying *_this);
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_PopBack(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_pop_back", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_pop_back(_Underlying *_this);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_pop_back(_UnderlyingPtr);
                 }
 
                 /// Inserts a new element right before the specified position.
                 public unsafe void Insert(ulong position, MR.CS.StdContainers.Const_NonDefaultConstructible new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Insert", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Insert(_Underlying *_this, ulong position, MR.CS.StdContainers.NonDefaultConstructible._Underlying *new_elem);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert(_Underlying *_this, ulong position, MR.CS.StdContainers.NonDefaultConstructible._Underlying *new_elem);
                     _KeepAlive(new_elem);
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Insert(_UnderlyingPtr, position, new_elem._UnderlyingPtr);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert(_UnderlyingPtr, position, new_elem._UnderlyingPtr);
                 }
 
                 /// Erases the element at the specified position.
                 public unsafe void Erase(ulong position)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Erase", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Erase(_Underlying *_this, ulong position);
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_Erase(_UnderlyingPtr, position);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase(_Underlying *_this, ulong position);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase(_UnderlyingPtr, position);
                 }
 
                 /// Inserts a new element right before the specified position.
                 public unsafe void InsertAtMutableIter(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator position, MR.CS.StdContainers.Const_NonDefaultConstructible new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_InsertAtMutableIter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_InsertAtMutableIter(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *position, MR.CS.StdContainers.NonDefaultConstructible._Underlying *new_elem);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert_at_mutable_iter", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *position, MR.CS.StdContainers.NonDefaultConstructible._Underlying *new_elem);
                     _KeepAlive(new_elem);
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_InsertAtMutableIter(_UnderlyingPtr, position._UnderlyingPtr, new_elem._UnderlyingPtr);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem._UnderlyingPtr);
                 }
 
                 /// Erases the element at the specified position.
                 public unsafe void EraseAtMutableIter(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator position)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_EraseAtMutableIter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_EraseAtMutableIter(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *position);
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_EraseAtMutableIter(_UnderlyingPtr, position._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase_at_mutable_iter", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *position);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
                 /// Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
                 public unsafe void InsertAtIter(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator position, MR.CS.StdContainers.Const_NonDefaultConstructible new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_InsertAtIter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_InsertAtIter(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *position, MR.CS.StdContainers.NonDefaultConstructible._Underlying *new_elem);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert_at_iter", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *position, MR.CS.StdContainers.NonDefaultConstructible._Underlying *new_elem);
                     _KeepAlive(new_elem);
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_InsertAtIter(_UnderlyingPtr, position._UnderlyingPtr, new_elem._UnderlyingPtr);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_insert_at_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem._UnderlyingPtr);
                 }
 
                 /// Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
                 public unsafe void EraseAtIter(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_ConstIterator position)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_EraseAtIter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_EraseAtIter(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *position);
-                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_EraseAtIter(_UnderlyingPtr, position._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase_at_iter", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.ConstIterator._Underlying *position);
+                    __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_erase_at_iter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
                 /// The begin iterator, mutable.
                 public unsafe new MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator Begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBegin", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBegin(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin_mut", ExactSpelling = true)]
+                    extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin_mut(_Underlying *_this);
                     MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator __ret;
-                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableBegin(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_begin_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
-                }
-
-                /// Tests whether a mutable iterator is the begin iterator.
-                public unsafe bool IsBegin(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator iter)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsMutableBegin", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsMutableBegin(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator._Underlying *iter);
-                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsMutableBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// The end iterator, mutable.
                 public unsafe new MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator End()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableEnd", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableEnd(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end_mut", ExactSpelling = true)]
+                    extern static MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator._Underlying *__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end_mut(_Underlying *_this);
                     MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Iterator __ret;
-                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_MutableEnd(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_end_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
-                }
-
-                /// Tests whether a mutable iterator is the end iterator.
-                public unsafe bool IsEnd(MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator iter)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsMutableEnd", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsMutableEnd(_Underlying *_this, MR.CS.Std.Vector_MRStdContainersNonDefaultConstructible.Const_Iterator._Underlying *iter);
-                    return __MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_IsMutableEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
             }
 

@@ -70,9 +70,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.StdUniquePtr.A? get()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Get", ExactSpelling = true)]
-                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Get(_Underlying *_this);
-                    var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Get(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_get", ExactSpelling = true)]
+                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_get(_Underlying *_this);
+                    var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_get(_UnderlyingPtr);
                     MR.CS.StdUniquePtr.A? __ret;
                     __ret = __c_ret is not null ? new MR.CS.StdUniquePtr.A(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -86,10 +86,10 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_At", ExactSpelling = true)]
-                        extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_At(_Underlying *_this, ulong i);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_at", ExactSpelling = true)]
+                        extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_at(_Underlying *_this, ulong i);
                         MR.CS.StdUniquePtr.A __ret;
-                        __ret = new(__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_At(_UnderlyingPtr, i), is_owning: false);
+                        __ret = new(__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_at(_UnderlyingPtr, i), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
                         return __ret;
                     }
@@ -169,9 +169,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.StdUniquePtr.A? release()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Release", ExactSpelling = true)]
-                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Release(_Underlying *_this);
-                    var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_Release(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_release", ExactSpelling = true)]
+                    extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_release(_Underlying *_this);
+                    var __c_ret = __MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_release(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.StdUniquePtr.A(__c_ret, is_owning: false) : null;
                 }
             }

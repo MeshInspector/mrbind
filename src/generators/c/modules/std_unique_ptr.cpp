@@ -109,7 +109,7 @@ namespace mrbind::CBindings::Modules
                     { // Get pointer. Doesn't propagate const, since `std::unique_ptr` doesn't too.
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns the stored pointer, possibly null.";
-                        emit.name = binder.MakeMemberFuncName(generator, "Get");
+                        emit.name = binder.MakeMemberFuncName(generator, "get");
 
                         emit.lifetimes.ReturnsReferenceToSubobject();
                         emit.cpp_return_type = underlying_ptr_type;
@@ -126,7 +126,7 @@ namespace mrbind::CBindings::Modules
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Returns an element from the stored array. The stored pointer must not be null.";
-                        emit.name = binder.MakeMemberFuncName(generator, "At", CInterop::MethodKinds::Operator{.token = "[]"});
+                        emit.name = binder.MakeMemberFuncName(generator, "at", CInterop::MethodKinds::Operator{.token = "[]"});
 
                         emit.lifetimes.ReturnsReferenceToSubobject();
                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Reference{});
@@ -152,7 +152,7 @@ namespace mrbind::CBindings::Modules
                             "/// Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.\n"
                             "/// The returned pointer is owning! It must be deallocated using `" + func_name_destroy_released_ptr + "()`.";
 
-                        emit.name = binder.MakeMemberFuncName(generator, "Release");
+                        emit.name = binder.MakeMemberFuncName(generator, "release");
 
                         emit.cpp_return_type = underlying_ptr_type;
 

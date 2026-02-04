@@ -50,30 +50,30 @@ MR_C_std_expected_int_float *MR_C_std_expected_int_float_OffsetMutablePtr(MR_C_s
     return (MR_C_std_expected_int_float *)(((std::expected<int, float> *)ptr) + i);
 }
 
-bool MR_C_std_expected_int_float_Success(const MR_C_std_expected_int_float *_this)
+bool MR_C_std_expected_int_float_success(const MR_C_std_expected_int_float *_this)
 {
     return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int, float> *)(_this)));
 }
 
-const int *MR_C_std_expected_int_float_GetValue(const MR_C_std_expected_int_float *_this)
+const int *MR_C_std_expected_int_float_value(const MR_C_std_expected_int_float *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int, float> *)(_this));
     return _self ? &*_self : nullptr;
 }
 
-const float *MR_C_std_expected_int_float_GetError(const MR_C_std_expected_int_float *_this)
+const float *MR_C_std_expected_int_float_error(const MR_C_std_expected_int_float *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int, float> *)(_this));
     return _self ? nullptr : &_self.error();
 }
 
-int *MR_C_std_expected_int_float_GetMutableValue(MR_C_std_expected_int_float *_this)
+int *MR_C_std_expected_int_float_value_mut(MR_C_std_expected_int_float *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int, float> *)(_this));
     return _self ? &*_self : nullptr;
 }
 
-float *MR_C_std_expected_int_float_GetMutableError(MR_C_std_expected_int_float *_this)
+float *MR_C_std_expected_int_float_error_mut(MR_C_std_expected_int_float *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int, float> *)(_this));
     return _self ? nullptr : &_self.error();

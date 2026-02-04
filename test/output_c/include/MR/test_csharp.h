@@ -2733,11 +2733,11 @@ MR_C_API MR_CSharp_TestConstness *MR_CSharp_TestConstness_AssignFromAnother(MR_C
 
 /// Generated from method `MR::CSharp::TestConstness::foo`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_CSharp_TestConstness_foo(MR_CSharp_TestConstness *_this);
+MR_C_API void MR_CSharp_TestConstness_foo_mut(MR_CSharp_TestConstness *_this);
 
 /// Generated from method `MR::CSharp::TestConstness::foo`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_CSharp_TestConstness_foo_const(const MR_CSharp_TestConstness *_this);
+MR_C_API void MR_CSharp_TestConstness_foo(const MR_CSharp_TestConstness *_this);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IncrDecrA_Destroy()` to free it when you're done using it.
@@ -5347,11 +5347,11 @@ MR_C_API MR_CSharp_IndexerC *MR_CSharp_IndexerC_AssignFromAnother(MR_CSharp_Inde
 
 /// Generated from method `MR::CSharp::IndexerC::operator[]`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API int MR_CSharp_IndexerC_index(MR_CSharp_IndexerC *_this, int i);
+MR_C_API int MR_CSharp_IndexerC_index_mut(MR_CSharp_IndexerC *_this, int i);
 
 /// Generated from method `MR::CSharp::IndexerC::operator[]`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API float MR_CSharp_IndexerC_index_const(const MR_CSharp_IndexerC *_this, int i);
+MR_C_API float MR_CSharp_IndexerC_index(const MR_CSharp_IndexerC *_this, int i);
 
 /// Constructs an empty (default-constructed) instance.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_ConvOp_Destroy()` to free it when you're done using it.
@@ -7085,19 +7085,19 @@ MR_C_API void MR_CSharp_AmbiguousTemplates_instantiate(MR_CSharp_AmbiguousTempla
 
 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_int(MR_CSharp_ConstNonconstConflicts *_this, int _1);
+MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_mut_int(MR_CSharp_ConstNonconstConflicts *_this, int _1);
 
 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_const_float(const MR_CSharp_ConstNonconstConflicts *_this, float _1);
+MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_float(const MR_CSharp_ConstNonconstConflicts *_this, float _1);
 
 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_char(MR_CSharp_ConstNonconstConflicts *_this, char _1);
+MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_mut_char(MR_CSharp_ConstNonconstConflicts *_this, char _1);
 
 /// Generated from method `MR::CSharp::ConstNonconstConflicts::foo`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_const_char(const MR_CSharp_ConstNonconstConflicts *_this, char _1);
+MR_C_API void MR_CSharp_ConstNonconstConflicts_foo_char(const MR_CSharp_ConstNonconstConflicts *_this, char _1);
 
 /// Generated from method `MR::CSharp::ConstNonconstConflicts::operator+`.
 /// Parameter `_this` can not be null. It is a single object.
@@ -8088,19 +8088,19 @@ MR_C_API MR_CSharp_IterableC *MR_CSharp_IterableC_AssignFromAnother(MR_CSharp_It
 
 /// Generated from method `MR::CSharp::IterableC::begin`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API int *MR_CSharp_IterableC_begin(MR_CSharp_IterableC *_this);
+MR_C_API int *MR_CSharp_IterableC_begin_mut(MR_CSharp_IterableC *_this);
 
 /// Generated from method `MR::CSharp::IterableC::end`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API int *MR_CSharp_IterableC_end(MR_CSharp_IterableC *_this);
+MR_C_API int *MR_CSharp_IterableC_end_mut(MR_CSharp_IterableC *_this);
 
 /// Generated from method `MR::CSharp::IterableC::begin`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const int *MR_CSharp_IterableC_begin_const(const MR_CSharp_IterableC *_this);
+MR_C_API const int *MR_CSharp_IterableC_begin(const MR_CSharp_IterableC *_this);
 
 /// Generated from method `MR::CSharp::IterableC::end`.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API const int *MR_CSharp_IterableC_end_const(const MR_CSharp_IterableC *_this);
+MR_C_API const int *MR_CSharp_IterableC_end(const MR_CSharp_IterableC *_this);
 
 /// Returns a pointer to a member variable of class `MR::CSharp::IterableD` named `arr`. This is a pointer to the first element of an array.
 /// Parameter `_this` can not be null. It is a single object.

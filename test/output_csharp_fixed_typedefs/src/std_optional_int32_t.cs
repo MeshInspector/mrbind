@@ -75,9 +75,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe int? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int32_t_Value", ExactSpelling = true)]
-                    extern static int *__MR_C_std_optional_int32_t_Value(_Underlying *_this);
-                    var __c_ret = __MR_C_std_optional_int32_t_Value(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int32_t_value", ExactSpelling = true)]
+                    extern static int *__MR_C_std_optional_int32_t_value(_Underlying *_this);
+                    var __c_ret = __MR_C_std_optional_int32_t_value(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
             }
@@ -160,9 +160,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<int>? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int32_t_MutableValue", ExactSpelling = true)]
-                    extern static int *__MR_C_std_optional_int32_t_MutableValue(_Underlying *_this);
-                    var __c_ret = __MR_C_std_optional_int32_t_MutableValue(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int32_t_value_mut", ExactSpelling = true)]
+                    extern static int *__MR_C_std_optional_int32_t_value_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_optional_int32_t_value_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
             }

@@ -67,25 +67,25 @@ public static partial class MR
                 /// The number of characters in the string, excluding the null-terminator.
                 public unsafe ulong Size()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_string_Size(_Underlying *_this);
-                    return __MR_C_std_string_Size(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_size", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_string_size(_Underlying *_this);
+                    return __MR_C_std_string_size(_UnderlyingPtr);
                 }
 
                 /// Returns the string contents, which are always null-terminated.
                 public unsafe MR.CS.ConstPtrChar Data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Data", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_Data(_Underlying *_this);
-                    return new(__MR_C_std_string_Data(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_data(_Underlying *_this);
+                    return new(__MR_C_std_string_data(_UnderlyingPtr));
                 }
 
                 /// Returns a pointer to the end of string, to its null-terminator.
                 public unsafe MR.CS.ConstPtrChar DataEnd()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DataEnd", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_DataEnd(_Underlying *_this);
-                    return new(__MR_C_std_string_DataEnd(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_end", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_data_end(_Underlying *_this);
+                    return new(__MR_C_std_string_data_end(_UnderlyingPtr));
                 }
 
                 // Custom extras:
@@ -166,17 +166,17 @@ public static partial class MR
                 /// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.
                 public unsafe new MR.CS.ConstPtrChar Data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableData", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_MutableData(_Underlying *_this);
-                    return new(__MR_C_std_string_MutableData(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_mut", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_data_mut(_Underlying *_this);
+                    return new(__MR_C_std_string_data_mut(_UnderlyingPtr));
                 }
 
                 /// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.
                 public unsafe new MR.CS.PtrChar DataEnd()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableDataEnd", ExactSpelling = true)]
-                    extern static byte *__MR_C_std_string_MutableDataEnd(_Underlying *_this);
-                    return new(__MR_C_std_string_MutableDataEnd(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_data_end_mut", ExactSpelling = true)]
+                    extern static byte *__MR_C_std_string_data_end_mut(_Underlying *_this);
+                    return new(__MR_C_std_string_data_end_mut(_UnderlyingPtr));
                 }
             }
 

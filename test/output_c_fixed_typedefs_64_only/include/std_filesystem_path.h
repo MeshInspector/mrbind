@@ -64,7 +64,7 @@ MR_C_API MR_C_std_filesystem_path *MR_C_std_filesystem_path_OffsetMutablePtr(MR_
 /// Get the contents as a UTF8-encoded string.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_string *MR_C_std_filesystem_path_GetString(const MR_C_std_filesystem_path *_this);
+MR_C_API MR_C_std_string *MR_C_std_filesystem_path_string(const MR_C_std_filesystem_path *_this);
 
 #ifdef __cplusplus
 } // extern "C"

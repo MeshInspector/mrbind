@@ -89,9 +89,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Std.Const_String? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_Value", ExactSpelling = true)]
-                    extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_optional_std_string_Value(_Underlying *_this);
-                    var __c_ret = __MR_C_std_optional_std_string_Value(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_value", ExactSpelling = true)]
+                    extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_optional_std_string_value(_Underlying *_this);
+                    var __c_ret = __MR_C_std_optional_std_string_value(_UnderlyingPtr);
                     MR.CS.Std.Const_String? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.Const_String(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
@@ -200,9 +200,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Std.String? value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_MutableValue", ExactSpelling = true)]
-                    extern static MR.CS.Std.String._Underlying *__MR_C_std_optional_std_string_MutableValue(_Underlying *_this);
-                    var __c_ret = __MR_C_std_optional_std_string_MutableValue(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_value_mut", ExactSpelling = true)]
+                    extern static MR.CS.Std.String._Underlying *__MR_C_std_optional_std_string_value_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_optional_std_string_value_mut(_UnderlyingPtr);
                     MR.CS.Std.String? __ret;
                     __ret = __c_ret is not null ? new MR.CS.Std.String(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;

@@ -61,9 +61,9 @@ public static partial class MR
                 /// The stored element or null if none, read-only.
                 public unsafe MR.CS.StdOptional.E? Value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_Value", ExactSpelling = true)]
-                    extern static MR.CS.StdOptional.E *__MR_C_std_optional_MR_StdOptional_E_Value(_Underlying *_this);
-                    var __c_ret = __MR_C_std_optional_MR_StdOptional_E_Value(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_value", ExactSpelling = true)]
+                    extern static MR.CS.StdOptional.E *__MR_C_std_optional_MR_StdOptional_E_value(_Underlying *_this);
+                    var __c_ret = __MR_C_std_optional_MR_StdOptional_E_value(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
             }
@@ -128,9 +128,9 @@ public static partial class MR
                 /// The stored element or null if none, mutable.
                 public unsafe new MR.CS.Misc.Ref<MR.CS.StdOptional.E>? Value()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_MutableValue", ExactSpelling = true)]
-                    extern static MR.CS.StdOptional.E *__MR_C_std_optional_MR_StdOptional_E_MutableValue(_Underlying *_this);
-                    var __c_ret = __MR_C_std_optional_MR_StdOptional_E_MutableValue(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_E_value_mut", ExactSpelling = true)]
+                    extern static MR.CS.StdOptional.E *__MR_C_std_optional_MR_StdOptional_E_value_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_optional_MR_StdOptional_E_value_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.StdOptional.E>(__c_ret) : null;
                 }
             }

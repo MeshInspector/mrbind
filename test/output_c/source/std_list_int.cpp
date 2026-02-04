@@ -63,24 +63,24 @@ void MR_C_std_list_int_AssignFromRange(MR_C_std_list_int *_this, const int *ptr,
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)) = std::list<int>(ptr, ptr + size);
 }
 
-size_t MR_C_std_list_int_Size(const MR_C_std_list_int *_this)
+size_t MR_C_std_list_int_size(const MR_C_std_list_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).size();
 }
 
-bool MR_C_std_list_int_IsEmpty(const MR_C_std_list_int *_this)
+bool MR_C_std_list_int_empty(const MR_C_std_list_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).empty();
 }
 
-void MR_C_std_list_int_Resize(MR_C_std_list_int *_this, size_t new_size)
+void MR_C_std_list_int_resize(MR_C_std_list_int *_this, size_t new_size)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).resize(
         new_size
     );
 }
 
-void MR_C_std_list_int_ResizeWithDefaultValue(MR_C_std_list_int *_this, size_t new_size, int value)
+void MR_C_std_list_int_resize_with_default_value(MR_C_std_list_int *_this, size_t new_size, int value)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).resize(
         new_size,
@@ -88,56 +88,56 @@ void MR_C_std_list_int_ResizeWithDefaultValue(MR_C_std_list_int *_this, size_t n
     );
 }
 
-void MR_C_std_list_int_Clear(MR_C_std_list_int *_this)
+void MR_C_std_list_int_clear(MR_C_std_list_int *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).clear();
 }
 
-const int *MR_C_std_list_int_Front(const MR_C_std_list_int *_this)
+const int *MR_C_std_list_int_front(const MR_C_std_list_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).front();
 }
 
-int *MR_C_std_list_int_MutableFront(MR_C_std_list_int *_this)
+int *MR_C_std_list_int_front_mut(MR_C_std_list_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).front();
 }
 
-const int *MR_C_std_list_int_Back(const MR_C_std_list_int *_this)
+const int *MR_C_std_list_int_back(const MR_C_std_list_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).back();
 }
 
-int *MR_C_std_list_int_MutableBack(MR_C_std_list_int *_this)
+int *MR_C_std_list_int_back_mut(MR_C_std_list_int *_this)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).back();
 }
 
-void MR_C_std_list_int_PushBack(MR_C_std_list_int *_this, int new_elem)
+void MR_C_std_list_int_push_back(MR_C_std_list_int *_this, int new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).push_back(
         new_elem
     );
 }
 
-void MR_C_std_list_int_PopBack(MR_C_std_list_int *_this)
+void MR_C_std_list_int_pop_back(MR_C_std_list_int *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).pop_back();
 }
 
-void MR_C_std_list_int_PushFront(MR_C_std_list_int *_this, int new_elem)
+void MR_C_std_list_int_push_front(MR_C_std_list_int *_this, int new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).push_front(
         new_elem
     );
 }
 
-void MR_C_std_list_int_PopFront(MR_C_std_list_int *_this)
+void MR_C_std_list_int_pop_front(MR_C_std_list_int *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).pop_front();
 }
 
-void MR_C_std_list_int_InsertAtMutableIter(MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *position, int new_elem)
+void MR_C_std_list_int_insert_at_mutable_iter(MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *position, int new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::list<int>::iterator(*(std::list<int>::iterator *)position)),
@@ -145,14 +145,14 @@ void MR_C_std_list_int_InsertAtMutableIter(MR_C_std_list_int *_this, const MR_C_
     );
 }
 
-void MR_C_std_list_int_EraseAtMutableIter(MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *position)
+void MR_C_std_list_int_erase_at_mutable_iter(MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *position)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).erase(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::list<int>::iterator(*(std::list<int>::iterator *)position))
     );
 }
 
-void MR_C_std_list_int_InsertAtIter(MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *position, int new_elem)
+void MR_C_std_list_int_insert_at_iter(MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *position, int new_elem)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::list<int>::const_iterator(*(std::list<int>::const_iterator *)position)),
@@ -160,51 +160,51 @@ void MR_C_std_list_int_InsertAtIter(MR_C_std_list_int *_this, const MR_C_std_lis
     );
 }
 
-void MR_C_std_list_int_EraseAtIter(MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *position)
+void MR_C_std_list_int_erase_at_iter(MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *position)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).erase(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::list<int>::const_iterator(*(std::list<int>::const_iterator *)position))
     );
 }
 
-MR_C_std_list_int_const_iterator *MR_C_std_list_int_Begin(const MR_C_std_list_int *_this)
+MR_C_std_list_int_const_iterator *MR_C_std_list_int_begin(const MR_C_std_list_int *_this)
 {
     return (MR_C_std_list_int_const_iterator *)new std::list<int>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).cbegin());
 }
 
-bool MR_C_std_list_int_IsBegin(const MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *iter)
+bool MR_C_std_list_int_is_begin(const MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::list<int>::const_iterator *)(iter));
 }
 
-MR_C_std_list_int_iterator *MR_C_std_list_int_MutableBegin(MR_C_std_list_int *_this)
+MR_C_std_list_int_iterator *MR_C_std_list_int_begin_mut(MR_C_std_list_int *_this)
 {
     return (MR_C_std_list_int_iterator *)new std::list<int>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).begin());
 }
 
-bool MR_C_std_list_int_IsMutableBegin(MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *iter)
+bool MR_C_std_list_int_is_begin_mut(const MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::list<int>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::list<int>::iterator *)(iter));
 }
 
-MR_C_std_list_int_const_iterator *MR_C_std_list_int_End(const MR_C_std_list_int *_this)
+MR_C_std_list_int_const_iterator *MR_C_std_list_int_end(const MR_C_std_list_int *_this)
 {
     return (MR_C_std_list_int_const_iterator *)new std::list<int>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).cend());
 }
 
-bool MR_C_std_list_int_IsEnd(const MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *iter)
+bool MR_C_std_list_int_is_end(const MR_C_std_list_int *_this, const MR_C_std_list_int_const_iterator *iter)
 {
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::list<int>::const_iterator *)(iter));
 }
 
-MR_C_std_list_int_iterator *MR_C_std_list_int_MutableEnd(MR_C_std_list_int *_this)
+MR_C_std_list_int_iterator *MR_C_std_list_int_end_mut(MR_C_std_list_int *_this)
 {
     return (MR_C_std_list_int_iterator *)new std::list<int>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).end());
 }
 
-bool MR_C_std_list_int_IsMutableEnd(MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *iter)
+bool MR_C_std_list_int_is_end_mut(const MR_C_std_list_int *_this, const MR_C_std_list_int_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::list<int>::iterator *)(iter));
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::list<int>::iterator *)(iter));
 }
 
 MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_DefaultConstruct(void)
@@ -251,7 +251,7 @@ MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_OffsetMutable
     return (MR_C_std_list_int_const_iterator *)(((std::list<int>::const_iterator *)ptr) + i);
 }
 
-MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_FromMutable(const MR_C_std_list_int_iterator *iter)
+MR_C_std_list_int_const_iterator *MR_C_std_list_int_const_iterator_from_mutable(const MR_C_std_list_int_iterator *iter)
 {
     return (MR_C_std_list_int_const_iterator *)new std::list<int>::const_iterator(std::list<int>::iterator(
         ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::list<int>::iterator(*(std::list<int>::iterator *)iter))
@@ -302,32 +302,32 @@ MR_C_std_list_int_iterator *MR_C_std_list_int_iterator_OffsetMutablePtr(MR_C_std
     return (MR_C_std_list_int_iterator *)(((std::list<int>::iterator *)ptr) + i);
 }
 
-const int *MR_C_std_list_int_const_iterator_Deref(const MR_C_std_list_int_const_iterator *_this)
+const int *MR_C_std_list_int_const_iterator_deref(const MR_C_std_list_int_const_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int>::const_iterator *)(_this)));
 }
 
-void MR_C_std_list_int_const_iterator_Incr(MR_C_std_list_int_const_iterator *_this)
+void MR_C_std_list_int_const_iterator_incr(MR_C_std_list_int_const_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int>::const_iterator *)(_this));
 }
 
-void MR_C_std_list_int_const_iterator_Decr(MR_C_std_list_int_const_iterator *_this)
+void MR_C_std_list_int_const_iterator_decr(MR_C_std_list_int_const_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int>::const_iterator *)(_this));
 }
 
-int *MR_C_std_list_int_iterator_Deref(const MR_C_std_list_int_iterator *_this)
+int *MR_C_std_list_int_iterator_deref(const MR_C_std_list_int_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int>::iterator *)(_this)));
 }
 
-void MR_C_std_list_int_iterator_Incr(MR_C_std_list_int_iterator *_this)
+void MR_C_std_list_int_iterator_incr(MR_C_std_list_int_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int>::iterator *)(_this));
 }
 
-void MR_C_std_list_int_iterator_Decr(MR_C_std_list_int_iterator *_this)
+void MR_C_std_list_int_iterator_decr(MR_C_std_list_int_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int>::iterator *)(_this));
 }

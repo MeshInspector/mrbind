@@ -68,13 +68,13 @@ MR_C_std_optional_std_string *MR_C_std_optional_std_string_OffsetMutablePtr(MR_C
     return (MR_C_std_optional_std_string *)(((std::optional<std::string> *)ptr) + i);
 }
 
-const MR_C_std_string *MR_C_std_optional_std_string_Value(const MR_C_std_optional_std_string *_this)
+const MR_C_std_string *MR_C_std_optional_std_string_value(const MR_C_std_optional_std_string *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<std::string> *)(_this));
     return (const MR_C_std_string *)(_self ? &*_self : nullptr);
 }
 
-MR_C_std_string *MR_C_std_optional_std_string_MutableValue(MR_C_std_optional_std_string *_this)
+MR_C_std_string *MR_C_std_optional_std_string_value_mut(MR_C_std_optional_std_string *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<std::string> *)(_this));
     return (MR_C_std_string *)(_self ? &*_self : nullptr);

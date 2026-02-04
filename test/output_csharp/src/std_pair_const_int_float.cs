@@ -57,17 +57,17 @@ public static partial class MR
                 /// The first of the two elements, read-only.
                 public unsafe int First()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int_float_First", ExactSpelling = true)]
-                    extern static int *__MR_C_std_pair_const_int_float_First(_Underlying *_this);
-                    return *__MR_C_std_pair_const_int_float_First(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int_float_first", ExactSpelling = true)]
+                    extern static int *__MR_C_std_pair_const_int_float_first(_Underlying *_this);
+                    return *__MR_C_std_pair_const_int_float_first(_UnderlyingPtr);
                 }
 
                 /// The second of the two elements, read-only.
                 public unsafe float Second()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int_float_Second", ExactSpelling = true)]
-                    extern static float *__MR_C_std_pair_const_int_float_Second(_Underlying *_this);
-                    return *__MR_C_std_pair_const_int_float_Second(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int_float_second", ExactSpelling = true)]
+                    extern static float *__MR_C_std_pair_const_int_float_second(_Underlying *_this);
+                    return *__MR_C_std_pair_const_int_float_second(_UnderlyingPtr);
                 }
             }
 
@@ -108,9 +108,9 @@ public static partial class MR
                 /// The second of the two elements, mutable.
                 public unsafe new ref float Second()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int_float_MutableSecond", ExactSpelling = true)]
-                    extern static float *__MR_C_std_pair_const_int_float_MutableSecond(_Underlying *_this);
-                    return ref *__MR_C_std_pair_const_int_float_MutableSecond(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_int_float_second_mut", ExactSpelling = true)]
+                    extern static float *__MR_C_std_pair_const_int_float_second_mut(_Underlying *_this);
+                    return ref *__MR_C_std_pair_const_int_float_second_mut(_UnderlyingPtr);
                 }
             }
 

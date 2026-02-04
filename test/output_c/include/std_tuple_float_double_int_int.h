@@ -58,42 +58,42 @@ MR_C_API MR_C_std_tuple_float_double_int_int *MR_C_std_tuple_float_double_int_in
 /// The element 0, of type `float`, read-only.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const float *MR_C_std_tuple_float_double_int_int_Get_float(const MR_C_std_tuple_float_double_int_int *_this);
+MR_C_API const float *MR_C_std_tuple_float_double_int_int_get_float(const MR_C_std_tuple_float_double_int_int *_this);
 
 /// The element 0, of type `float`, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API float *MR_C_std_tuple_float_double_int_int_GetMutable_float(MR_C_std_tuple_float_double_int_int *_this);
+MR_C_API float *MR_C_std_tuple_float_double_int_int_get_float_mut(MR_C_std_tuple_float_double_int_int *_this);
 
 /// The element 1, of type `double`, read-only.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const double *MR_C_std_tuple_float_double_int_int_Get_double(const MR_C_std_tuple_float_double_int_int *_this);
+MR_C_API const double *MR_C_std_tuple_float_double_int_int_get_double(const MR_C_std_tuple_float_double_int_int *_this);
 
 /// The element 1, of type `double`, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API double *MR_C_std_tuple_float_double_int_int_GetMutable_double(MR_C_std_tuple_float_double_int_int *_this);
+MR_C_API double *MR_C_std_tuple_float_double_int_int_get_double_mut(MR_C_std_tuple_float_double_int_int *_this);
 
 /// The element 2, of type `int`, read-only.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const int *MR_C_std_tuple_float_double_int_int_Get_int_2(const MR_C_std_tuple_float_double_int_int *_this);
+MR_C_API const int *MR_C_std_tuple_float_double_int_int_get_int_2(const MR_C_std_tuple_float_double_int_int *_this);
 
 /// The element 2, of type `int`, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API int *MR_C_std_tuple_float_double_int_int_GetMutable_int_2(MR_C_std_tuple_float_double_int_int *_this);
+MR_C_API int *MR_C_std_tuple_float_double_int_int_get_int_2_mut(MR_C_std_tuple_float_double_int_int *_this);
 
 /// The element 3, of type `int`, read-only.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const int *MR_C_std_tuple_float_double_int_int_Get_int_3(const MR_C_std_tuple_float_double_int_int *_this);
+MR_C_API const int *MR_C_std_tuple_float_double_int_int_get_int_3(const MR_C_std_tuple_float_double_int_int *_this);
 
 /// The element 3, of type `int`, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API int *MR_C_std_tuple_float_double_int_int_GetMutable_int_3(MR_C_std_tuple_float_double_int_int *_this);
+MR_C_API int *MR_C_std_tuple_float_double_int_int_get_int_3_mut(MR_C_std_tuple_float_double_int_int *_this);
 
 #ifdef __cplusplus
 } // extern "C"

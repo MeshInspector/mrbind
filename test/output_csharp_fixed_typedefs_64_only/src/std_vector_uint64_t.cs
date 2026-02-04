@@ -8,7 +8,7 @@ public static partial class MR
             /// Generated from C++ container `std::vector<MR_C_uint64_t>`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Vector_MRCUint64T : MR.CS.Misc.Object<Const_Vector_MRCUint64T>, System.IDisposable
+            public class Const_Vector_MRCUint64T : MR.CS.Misc.Object<Const_Vector_MRCUint64T>, System.IDisposable, IEnumerable<ulong>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -25,6 +25,70 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_Vector_MRCUint64T() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<ulong>
+                {
+                    Const_Vector_MRCUint64T _container;
+                    MR.CS.Std.Vector_MRCUint64T.ConstIterator _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_Vector_MRCUint64T container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public ulong Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<ulong> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
 
                 internal unsafe Const_Vector_MRCUint64T(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
@@ -75,19 +139,19 @@ public static partial class MR
                 /// </summary>
                 public unsafe ulong size()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_Size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_vector_uint64_t_Size(_Underlying *_this);
-                    return __MR_C_std_vector_uint64_t_Size(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_size", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_vector_uint64_t_size(_Underlying *_this);
+                    return __MR_C_std_vector_uint64_t_size(_UnderlyingPtr);
                 }
 
                 /// <summary>
                 /// Returns true if the size is zero.
                 /// </summary>
-                public unsafe bool isEmpty()
+                public unsafe bool empty()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_IsEmpty", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_uint64_t_IsEmpty(_Underlying *_this);
-                    return __MR_C_std_vector_uint64_t_IsEmpty(_UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_empty", ExactSpelling = true)]
+                    extern static byte __MR_C_std_vector_uint64_t_empty(_Underlying *_this);
+                    return __MR_C_std_vector_uint64_t_empty(_UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -95,9 +159,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe ulong capacity()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_Capacity", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_vector_uint64_t_Capacity(_Underlying *_this);
-                    return __MR_C_std_vector_uint64_t_Capacity(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_capacity", ExactSpelling = true)]
+                    extern static ulong __MR_C_std_vector_uint64_t_capacity(_Underlying *_this);
+                    return __MR_C_std_vector_uint64_t_capacity(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -107,9 +171,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_At", ExactSpelling = true)]
-                        extern static ulong *__MR_C_std_vector_uint64_t_At(_Underlying *_this, ulong i);
-                        return *__MR_C_std_vector_uint64_t_At(_UnderlyingPtr, i);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_at", ExactSpelling = true)]
+                        extern static ulong *__MR_C_std_vector_uint64_t_at(_Underlying *_this, ulong i);
+                        return *__MR_C_std_vector_uint64_t_at(_UnderlyingPtr, i);
                     }
                 }
 
@@ -118,9 +182,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe ulong? front()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_Front", ExactSpelling = true)]
-                    extern static ulong *__MR_C_std_vector_uint64_t_Front(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_uint64_t_Front(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_front", ExactSpelling = true)]
+                    extern static ulong *__MR_C_std_vector_uint64_t_front(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_uint64_t_front(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
 
@@ -129,9 +193,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe ulong? back()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_Back", ExactSpelling = true)]
-                    extern static ulong *__MR_C_std_vector_uint64_t_Back(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_uint64_t_Back(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_back", ExactSpelling = true)]
+                    extern static ulong *__MR_C_std_vector_uint64_t_back(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_uint64_t_back(_UnderlyingPtr);
                     return __c_ret is not null ? *__c_ret : null;
                 }
 
@@ -140,9 +204,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.ConstPtrMRCUint64T data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_Data", ExactSpelling = true)]
-                    extern static ulong *__MR_C_std_vector_uint64_t_Data(_Underlying *_this);
-                    return new(__MR_C_std_vector_uint64_t_Data(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_data", ExactSpelling = true)]
+                    extern static ulong *__MR_C_std_vector_uint64_t_data(_Underlying *_this);
+                    return new(__MR_C_std_vector_uint64_t_data(_UnderlyingPtr));
                 }
 
                 /// <summary>
@@ -150,10 +214,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Std.Vector_MRCUint64T.ConstIterator begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_Begin", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *__MR_C_std_vector_uint64_t_Begin(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_begin", ExactSpelling = true)]
+                    extern static MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *__MR_C_std_vector_uint64_t_begin(_Underlying *_this);
                     MR.CS.Std.Vector_MRCUint64T.ConstIterator __ret;
-                    __ret = new(__MR_C_std_vector_uint64_t_Begin(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_vector_uint64_t_begin(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -163,9 +227,19 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isBegin(MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_IsBegin", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_uint64_t_IsBegin(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_vector_uint64_t_IsBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_is_begin", ExactSpelling = true)]
+                    extern static byte __MR_C_std_vector_uint64_t_is_begin(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_std_vector_uint64_t_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                }
+
+                /// <summary>
+                /// Tests whether a mutable iterator is the begin iterator.
+                /// </summary>
+                public unsafe bool isBegin(MR.CS.Std.Vector_MRCUint64T.Const_Iterator iter)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_is_begin_mut", ExactSpelling = true)]
+                    extern static byte __MR_C_std_vector_uint64_t_is_begin_mut(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Const_Iterator._Underlying *iter);
+                    return __MR_C_std_vector_uint64_t_is_begin_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -173,10 +247,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe MR.CS.Std.Vector_MRCUint64T.ConstIterator end()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_End", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *__MR_C_std_vector_uint64_t_End(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_end", ExactSpelling = true)]
+                    extern static MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *__MR_C_std_vector_uint64_t_end(_Underlying *_this);
                     MR.CS.Std.Vector_MRCUint64T.ConstIterator __ret;
-                    __ret = new(__MR_C_std_vector_uint64_t_End(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_vector_uint64_t_end(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
                 }
@@ -186,9 +260,19 @@ public static partial class MR
                 /// </summary>
                 public unsafe bool isEnd(MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_IsEnd", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_uint64_t_IsEnd(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_vector_uint64_t_IsEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_is_end", ExactSpelling = true)]
+                    extern static byte __MR_C_std_vector_uint64_t_is_end(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator._Underlying *iter);
+                    return __MR_C_std_vector_uint64_t_is_end(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                }
+
+                /// <summary>
+                /// Tests whether a mutable iterator is the end iterator.
+                /// </summary>
+                public unsafe bool isEnd(MR.CS.Std.Vector_MRCUint64T.Const_Iterator iter)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_is_end_mut", ExactSpelling = true)]
+                    extern static byte __MR_C_std_vector_uint64_t_is_end_mut(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Const_Iterator._Underlying *iter);
+                    return __MR_C_std_vector_uint64_t_is_end_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -196,9 +280,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe long toIndex(MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_ToIndex", ExactSpelling = true)]
-                    extern static long __MR_C_std_vector_uint64_t_ToIndex(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *iter);
-                    return __MR_C_std_vector_uint64_t_ToIndex(_UnderlyingPtr, iter._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_to_index", ExactSpelling = true)]
+                    extern static long __MR_C_std_vector_uint64_t_to_index(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *iter);
+                    return __MR_C_std_vector_uint64_t_to_index(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -206,9 +290,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe long toIndex(MR.CS.Std.Vector_MRCUint64T.Const_Iterator iter)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_MutableToIndex", ExactSpelling = true)]
-                    extern static long __MR_C_std_vector_uint64_t_MutableToIndex(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *iter);
-                    return __MR_C_std_vector_uint64_t_MutableToIndex(_UnderlyingPtr, iter._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_to_index_mut", ExactSpelling = true)]
+                    extern static long __MR_C_std_vector_uint64_t_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *iter);
+                    return __MR_C_std_vector_uint64_t_to_index_mut(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -266,9 +350,9 @@ public static partial class MR
                     /// </summary>
                     public unsafe Const_ConstIterator(MR.CS.Std.Vector_MRCUint64T.Const_Iterator iter) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_FromMutable", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *__MR_C_std_vector_uint64_t_const_iterator_FromMutable(MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *iter);
-                        _UnderlyingPtr = __MR_C_std_vector_uint64_t_const_iterator_FromMutable(iter._UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_from_mutable", ExactSpelling = true)]
+                        extern static MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *__MR_C_std_vector_uint64_t_const_iterator_from_mutable(MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *iter);
+                        _UnderlyingPtr = __MR_C_std_vector_uint64_t_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
                     /// <summary>
@@ -281,19 +365,43 @@ public static partial class MR
                     /// </summary>
                     public unsafe ulong deref()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_Deref", ExactSpelling = true)]
-                        extern static ulong *__MR_C_std_vector_uint64_t_const_iterator_Deref(_Underlying *_this);
-                        return *__MR_C_std_vector_uint64_t_const_iterator_Deref(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_deref", ExactSpelling = true)]
+                        extern static ulong *__MR_C_std_vector_uint64_t_const_iterator_deref(_Underlying *_this);
+                        return *__MR_C_std_vector_uint64_t_const_iterator_deref(_UnderlyingPtr);
+                    }
+
+                    /// <summary>
+                    /// Increments a const iterator.
+                    /// </summary>
+                    public static unsafe ConstIterator operator++(MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_uint64_t_const_iterator_incr(MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator._Underlying *_this);
+                        ConstIterator __this_copy = new(_this);
+                        __MR_C_std_vector_uint64_t_const_iterator_incr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
+                    }
+
+                    /// <summary>
+                    /// Decrements a const iterator.
+                    /// </summary>
+                    public static unsafe ConstIterator operator--(MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_decr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_uint64_t_const_iterator_decr(MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator._Underlying *_this);
+                        ConstIterator __this_copy = new(_this);
+                        __MR_C_std_vector_uint64_t_const_iterator_decr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
                     }
 
                     /// <summary>
                     /// Computes the signed difference between two const iterators. Completes in constant time.
                     /// </summary>
-                    public static unsafe long distance(MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator a, MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator b)
+                    public static unsafe long operator-(Const_ConstIterator a, MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator b)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_Distance", ExactSpelling = true)]
-                        extern static long __MR_C_std_vector_uint64_t_const_iterator_Distance(MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *b);
-                        return __MR_C_std_vector_uint64_t_const_iterator_Distance(a._UnderlyingPtr, b._UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_uint64_t_const_iterator", ExactSpelling = true)]
+                        extern static long __MR_C_sub_MR_C_std_vector_uint64_t_const_iterator(MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *a, MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *b);
+                        return __MR_C_sub_MR_C_std_vector_uint64_t_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                     }
                 }
 
@@ -348,9 +456,9 @@ public static partial class MR
                     /// </summary>
                     public unsafe ConstIterator(MR.CS.Std.Vector_MRCUint64T.Const_Iterator iter) : this(null, is_owning: true)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_FromMutable", ExactSpelling = true)]
-                        extern static MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *__MR_C_std_vector_uint64_t_const_iterator_FromMutable(MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *iter);
-                        _UnderlyingPtr = __MR_C_std_vector_uint64_t_const_iterator_FromMutable(iter._UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_from_mutable", ExactSpelling = true)]
+                        extern static MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *__MR_C_std_vector_uint64_t_const_iterator_from_mutable(MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *iter);
+                        _UnderlyingPtr = __MR_C_std_vector_uint64_t_const_iterator_from_mutable(iter._UnderlyingPtr);
                     }
 
                     /// <summary>
@@ -361,31 +469,31 @@ public static partial class MR
                     /// <summary>
                     /// Increments a const iterator.
                     /// </summary>
-                    public unsafe void incr()
+                    public unsafe void operator++()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_Incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_uint64_t_const_iterator_Incr(_Underlying *_this);
-                        __MR_C_std_vector_uint64_t_const_iterator_Incr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_uint64_t_const_iterator_incr(_Underlying *_this);
+                        __MR_C_std_vector_uint64_t_const_iterator_incr(_UnderlyingPtr);
                     }
 
                     /// <summary>
                     /// Decrements a const iterator.
                     /// </summary>
-                    public unsafe void decr()
+                    public unsafe void operator--()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_Decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_uint64_t_const_iterator_Decr(_Underlying *_this);
-                        __MR_C_std_vector_uint64_t_const_iterator_Decr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_decr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_uint64_t_const_iterator_decr(_Underlying *_this);
+                        __MR_C_std_vector_uint64_t_const_iterator_decr(_UnderlyingPtr);
                     }
 
                     /// <summary>
                     /// Increments or decrements a const iterator by the specific amount. Completes in constant time.
                     /// </summary>
-                    public unsafe void offsetBy(long delta)
+                    public unsafe void addAssign(long delta)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_OffsetBy", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_uint64_t_const_iterator_OffsetBy(_Underlying *_this, long delta);
-                        __MR_C_std_vector_uint64_t_const_iterator_OffsetBy(_UnderlyingPtr, delta);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_const_iterator_add_assign", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_uint64_t_const_iterator_add_assign(_Underlying *_this, long delta);
+                        __MR_C_std_vector_uint64_t_const_iterator_add_assign(_UnderlyingPtr, delta);
                     }
                 }
 
@@ -483,19 +591,43 @@ public static partial class MR
                     /// </summary>
                     public unsafe ref ulong deref()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_iterator_Deref", ExactSpelling = true)]
-                        extern static ulong *__MR_C_std_vector_uint64_t_iterator_Deref(_Underlying *_this);
-                        return ref *__MR_C_std_vector_uint64_t_iterator_Deref(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_iterator_deref", ExactSpelling = true)]
+                        extern static ulong *__MR_C_std_vector_uint64_t_iterator_deref(_Underlying *_this);
+                        return ref *__MR_C_std_vector_uint64_t_iterator_deref(_UnderlyingPtr);
+                    }
+
+                    /// <summary>
+                    /// Increments a mutable iterator.
+                    /// </summary>
+                    public static unsafe Iterator operator++(MR.CS.Std.Vector_MRCUint64T.Const_Iterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_uint64_t_iterator_incr(MR.CS.Std.Vector_MRCUint64T.Const_Iterator._Underlying *_this);
+                        Iterator __this_copy = new(_this);
+                        __MR_C_std_vector_uint64_t_iterator_incr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
+                    }
+
+                    /// <summary>
+                    /// Decrements a mutable iterator.
+                    /// </summary>
+                    public static unsafe Iterator operator--(MR.CS.Std.Vector_MRCUint64T.Const_Iterator _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_iterator_decr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_uint64_t_iterator_decr(MR.CS.Std.Vector_MRCUint64T.Const_Iterator._Underlying *_this);
+                        Iterator __this_copy = new(_this);
+                        __MR_C_std_vector_uint64_t_iterator_decr(__this_copy._UnderlyingPtr);
+                        return __this_copy;
                     }
 
                     /// <summary>
                     /// Computes the signed difference between two mutable iterators. Completes in constant time.
                     /// </summary>
-                    public static unsafe long distance(MR.CS.Std.Vector_MRCUint64T.Const_Iterator a, MR.CS.Std.Vector_MRCUint64T.Const_Iterator b)
+                    public static unsafe long operator-(Const_Iterator a, MR.CS.Std.Vector_MRCUint64T.Const_Iterator b)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_iterator_Distance", ExactSpelling = true)]
-                        extern static long __MR_C_std_vector_uint64_t_iterator_Distance(MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *a, MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *b);
-                        return __MR_C_std_vector_uint64_t_iterator_Distance(a._UnderlyingPtr, b._UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_uint64_t_iterator", ExactSpelling = true)]
+                        extern static long __MR_C_sub_MR_C_std_vector_uint64_t_iterator(MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *a, MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *b);
+                        return __MR_C_sub_MR_C_std_vector_uint64_t_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                     }
                 }
 
@@ -548,31 +680,31 @@ public static partial class MR
                     /// <summary>
                     /// Increments a mutable iterator.
                     /// </summary>
-                    public unsafe void incr()
+                    public unsafe void operator++()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_iterator_Incr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_uint64_t_iterator_Incr(_Underlying *_this);
-                        __MR_C_std_vector_uint64_t_iterator_Incr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_iterator_incr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_uint64_t_iterator_incr(_Underlying *_this);
+                        __MR_C_std_vector_uint64_t_iterator_incr(_UnderlyingPtr);
                     }
 
                     /// <summary>
                     /// Decrements a mutable iterator.
                     /// </summary>
-                    public unsafe void decr()
+                    public unsafe void operator--()
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_iterator_Decr", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_uint64_t_iterator_Decr(_Underlying *_this);
-                        __MR_C_std_vector_uint64_t_iterator_Decr(_UnderlyingPtr);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_iterator_decr", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_uint64_t_iterator_decr(_Underlying *_this);
+                        __MR_C_std_vector_uint64_t_iterator_decr(_UnderlyingPtr);
                     }
 
                     /// <summary>
                     /// Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
                     /// </summary>
-                    public unsafe void offsetBy(long delta)
+                    public unsafe void addAssign(long delta)
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_iterator_OffsetBy", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_uint64_t_iterator_OffsetBy(_Underlying *_this, long delta);
-                        __MR_C_std_vector_uint64_t_iterator_OffsetBy(_UnderlyingPtr, delta);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_iterator_add_assign", ExactSpelling = true)]
+                        extern static void __MR_C_std_vector_uint64_t_iterator_add_assign(_Underlying *_this, long delta);
+                        __MR_C_std_vector_uint64_t_iterator_add_assign(_UnderlyingPtr, delta);
                     }
                 }
 
@@ -615,8 +747,72 @@ public static partial class MR
             /// Generated from C++ container `std::vector<MR_C_uint64_t>`.
             /// This is the non-const half of the class.
             /// </summary>
-            public class Vector_MRCUint64T : Const_Vector_MRCUint64T
+            public class Vector_MRCUint64T : Const_Vector_MRCUint64T, IEnumerable<MR.CS.Misc.Ref<ulong>>
             {
+                public new class _Enumerator : IEnumerator<MR.CS.Misc.Ref<ulong>>
+                {
+                    Vector_MRCUint64T _container;
+                    MR.CS.Std.Vector_MRCUint64T.Iterator _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Vector_MRCUint64T container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Misc.Ref<ulong> Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return new(ref _cur.deref());
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public new IEnumerator<MR.CS.Misc.Ref<ulong>> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
                 internal unsafe Vector_MRCUint64T(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
@@ -689,9 +885,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void resize(ulong new_size)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_Resize", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_Resize(_Underlying *_this, ulong new_size);
-                    __MR_C_std_vector_uint64_t_Resize(_UnderlyingPtr, new_size);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_resize", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_resize(_Underlying *_this, ulong new_size);
+                    __MR_C_std_vector_uint64_t_resize(_UnderlyingPtr, new_size);
                 }
 
                 /// <summary>
@@ -699,9 +895,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void resizeWithDefaultValue(ulong new_size, ulong value)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_ResizeWithDefaultValue", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_ResizeWithDefaultValue(_Underlying *_this, ulong new_size, ulong value);
-                    __MR_C_std_vector_uint64_t_ResizeWithDefaultValue(_UnderlyingPtr, new_size, value);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_resize_with_default_value", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_resize_with_default_value(_Underlying *_this, ulong new_size, ulong value);
+                    __MR_C_std_vector_uint64_t_resize_with_default_value(_UnderlyingPtr, new_size, value);
                 }
 
                 /// <summary>
@@ -709,10 +905,10 @@ public static partial class MR
                 /// </summary>
                 public unsafe void clear()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_Clear", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_Clear(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_clear", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_clear(_Underlying *_this);
                     _DiscardKeepAlive();
-                    __MR_C_std_vector_uint64_t_Clear(_UnderlyingPtr);
+                    __MR_C_std_vector_uint64_t_clear(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -720,9 +916,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void reserve(ulong new_capacity)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_Reserve", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_Reserve(_Underlying *_this, ulong new_capacity);
-                    __MR_C_std_vector_uint64_t_Reserve(_UnderlyingPtr, new_capacity);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_reserve", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_reserve(_Underlying *_this, ulong new_capacity);
+                    __MR_C_std_vector_uint64_t_reserve(_UnderlyingPtr, new_capacity);
                 }
 
                 /// <summary>
@@ -730,9 +926,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void shrinkToFit()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_ShrinkToFit", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_ShrinkToFit(_Underlying *_this);
-                    __MR_C_std_vector_uint64_t_ShrinkToFit(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_shrink_to_fit", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_shrink_to_fit(_Underlying *_this);
+                    __MR_C_std_vector_uint64_t_shrink_to_fit(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -742,9 +938,9 @@ public static partial class MR
                 {
                     get
                     {
-                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_MutableAt", ExactSpelling = true)]
-                        extern static ulong *__MR_C_std_vector_uint64_t_MutableAt(_Underlying *_this, ulong i);
-                        return ref *__MR_C_std_vector_uint64_t_MutableAt(_UnderlyingPtr, i);
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_at_mut", ExactSpelling = true)]
+                        extern static ulong *__MR_C_std_vector_uint64_t_at_mut(_Underlying *_this, ulong i);
+                        return ref *__MR_C_std_vector_uint64_t_at_mut(_UnderlyingPtr, i);
                     }
                 }
 
@@ -753,9 +949,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<ulong>? front()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_MutableFront", ExactSpelling = true)]
-                    extern static ulong *__MR_C_std_vector_uint64_t_MutableFront(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_uint64_t_MutableFront(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_front_mut", ExactSpelling = true)]
+                    extern static ulong *__MR_C_std_vector_uint64_t_front_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_uint64_t_front_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<ulong>(__c_ret) : null;
                 }
 
@@ -764,9 +960,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<ulong>? back()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_MutableBack", ExactSpelling = true)]
-                    extern static ulong *__MR_C_std_vector_uint64_t_MutableBack(_Underlying *_this);
-                    var __c_ret = __MR_C_std_vector_uint64_t_MutableBack(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_back_mut", ExactSpelling = true)]
+                    extern static ulong *__MR_C_std_vector_uint64_t_back_mut(_Underlying *_this);
+                    var __c_ret = __MR_C_std_vector_uint64_t_back_mut(_UnderlyingPtr);
                     return __c_ret is not null ? new MR.CS.Misc.Ref<ulong>(__c_ret) : null;
                 }
 
@@ -775,9 +971,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.PtrMRCUint64T data()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_MutableData", ExactSpelling = true)]
-                    extern static ulong *__MR_C_std_vector_uint64_t_MutableData(_Underlying *_this);
-                    return new(__MR_C_std_vector_uint64_t_MutableData(_UnderlyingPtr));
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_data_mut", ExactSpelling = true)]
+                    extern static ulong *__MR_C_std_vector_uint64_t_data_mut(_Underlying *_this);
+                    return new(__MR_C_std_vector_uint64_t_data_mut(_UnderlyingPtr));
                 }
 
                 /// <summary>
@@ -785,9 +981,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void pushBack(ulong new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_PushBack", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_PushBack(_Underlying *_this, ulong new_elem);
-                    __MR_C_std_vector_uint64_t_PushBack(_UnderlyingPtr, new_elem);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_push_back", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_push_back(_Underlying *_this, ulong new_elem);
+                    __MR_C_std_vector_uint64_t_push_back(_UnderlyingPtr, new_elem);
                 }
 
                 /// <summary>
@@ -795,9 +991,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void popBack()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_PopBack", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_PopBack(_Underlying *_this);
-                    __MR_C_std_vector_uint64_t_PopBack(_UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_pop_back", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_pop_back(_Underlying *_this);
+                    __MR_C_std_vector_uint64_t_pop_back(_UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -805,9 +1001,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void insert(ulong position, ulong new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_Insert", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_Insert(_Underlying *_this, ulong position, ulong new_elem);
-                    __MR_C_std_vector_uint64_t_Insert(_UnderlyingPtr, position, new_elem);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_insert", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_insert(_Underlying *_this, ulong position, ulong new_elem);
+                    __MR_C_std_vector_uint64_t_insert(_UnderlyingPtr, position, new_elem);
                 }
 
                 /// <summary>
@@ -815,9 +1011,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void erase(ulong position)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_Erase", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_Erase(_Underlying *_this, ulong position);
-                    __MR_C_std_vector_uint64_t_Erase(_UnderlyingPtr, position);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_erase", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_erase(_Underlying *_this, ulong position);
+                    __MR_C_std_vector_uint64_t_erase(_UnderlyingPtr, position);
                 }
 
                 /// <summary>
@@ -825,9 +1021,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void insertAtMutableIter(MR.CS.Std.Vector_MRCUint64T.Const_Iterator position, ulong new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_InsertAtMutableIter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_InsertAtMutableIter(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *position, ulong new_elem);
-                    __MR_C_std_vector_uint64_t_InsertAtMutableIter(_UnderlyingPtr, position._UnderlyingPtr, new_elem);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_insert_at_mutable_iter", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_insert_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *position, ulong new_elem);
+                    __MR_C_std_vector_uint64_t_insert_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem);
                 }
 
                 /// <summary>
@@ -835,9 +1031,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void eraseAtMutableIter(MR.CS.Std.Vector_MRCUint64T.Const_Iterator position)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_EraseAtMutableIter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_EraseAtMutableIter(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *position);
-                    __MR_C_std_vector_uint64_t_EraseAtMutableIter(_UnderlyingPtr, position._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_erase_at_mutable_iter", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_erase_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *position);
+                    __MR_C_std_vector_uint64_t_erase_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -845,9 +1041,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void insertAtIter(MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator position, ulong new_elem)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_InsertAtIter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_InsertAtIter(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *position, ulong new_elem);
-                    __MR_C_std_vector_uint64_t_InsertAtIter(_UnderlyingPtr, position._UnderlyingPtr, new_elem);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_insert_at_iter", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_insert_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *position, ulong new_elem);
+                    __MR_C_std_vector_uint64_t_insert_at_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem);
                 }
 
                 /// <summary>
@@ -855,9 +1051,9 @@ public static partial class MR
                 /// </summary>
                 public unsafe void eraseAtIter(MR.CS.Std.Vector_MRCUint64T.Const_ConstIterator position)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_EraseAtIter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_uint64_t_EraseAtIter(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *position);
-                    __MR_C_std_vector_uint64_t_EraseAtIter(_UnderlyingPtr, position._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_erase_at_iter", ExactSpelling = true)]
+                    extern static void __MR_C_std_vector_uint64_t_erase_at_iter(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.ConstIterator._Underlying *position);
+                    __MR_C_std_vector_uint64_t_erase_at_iter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
                 /// <summary>
@@ -865,22 +1061,12 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Std.Vector_MRCUint64T.Iterator begin()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_MutableBegin", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *__MR_C_std_vector_uint64_t_MutableBegin(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_begin_mut", ExactSpelling = true)]
+                    extern static MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *__MR_C_std_vector_uint64_t_begin_mut(_Underlying *_this);
                     MR.CS.Std.Vector_MRCUint64T.Iterator __ret;
-                    __ret = new(__MR_C_std_vector_uint64_t_MutableBegin(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_vector_uint64_t_begin_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
-                }
-
-                /// <summary>
-                /// Tests whether a mutable iterator is the begin iterator.
-                /// </summary>
-                public unsafe bool isBegin(MR.CS.Std.Vector_MRCUint64T.Const_Iterator iter)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_IsMutableBegin", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_uint64_t_IsMutableBegin(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Const_Iterator._Underlying *iter);
-                    return __MR_C_std_vector_uint64_t_IsMutableBegin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
 
                 /// <summary>
@@ -888,22 +1074,12 @@ public static partial class MR
                 /// </summary>
                 public unsafe new MR.CS.Std.Vector_MRCUint64T.Iterator end()
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_MutableEnd", ExactSpelling = true)]
-                    extern static MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *__MR_C_std_vector_uint64_t_MutableEnd(_Underlying *_this);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_end_mut", ExactSpelling = true)]
+                    extern static MR.CS.Std.Vector_MRCUint64T.Iterator._Underlying *__MR_C_std_vector_uint64_t_end_mut(_Underlying *_this);
                     MR.CS.Std.Vector_MRCUint64T.Iterator __ret;
-                    __ret = new(__MR_C_std_vector_uint64_t_MutableEnd(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__MR_C_std_vector_uint64_t_end_mut(_UnderlyingPtr), is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
                     return __ret;
-                }
-
-                /// <summary>
-                /// Tests whether a mutable iterator is the end iterator.
-                /// </summary>
-                public unsafe bool isEnd(MR.CS.Std.Vector_MRCUint64T.Const_Iterator iter)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_uint64_t_IsMutableEnd", ExactSpelling = true)]
-                    extern static byte __MR_C_std_vector_uint64_t_IsMutableEnd(_Underlying *_this, MR.CS.Std.Vector_MRCUint64T.Const_Iterator._Underlying *iter);
-                    return __MR_C_std_vector_uint64_t_IsMutableEnd(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
                 }
             }
 

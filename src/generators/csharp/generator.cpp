@@ -1609,7 +1609,7 @@ namespace mrbind::CSharp
 
                                         // Throw if null.
                                         // Note no trailing newline here yet.
-                                        ret += "if (__expected_ret." + AdjustCalledFuncName("GetError") + "() is var __expected_error and not null) throw new " + RequestHelper("UnexpectedResultException") + "($\"{__expected_error}\");"; // This should call `.ToString()` (built-in method of the C# `object`, the common base of all objects, possibly overridden). But unlike `ToString()`, which returns `string?`, this should automatically fall back to the type name or whatever.
+                                        ret += "if (__expected_ret." + AdjustCalledFuncName("Error") + "() is var __expected_error and not null) throw new " + RequestHelper("UnexpectedResultException") + "($\"{__expected_error}\");"; // This should call `.ToString()` (built-in method of the C# `object`, the common base of all objects, possibly overridden). But unlike `ToString()`, which returns `string?`, this should automatically fall back to the type name or whatever.
 
                                         // Return the underlying instance.
                                         // The `{,_nomove}` part shouldn't affect this condition.
@@ -1621,7 +1621,7 @@ namespace mrbind::CSharp
                                         {
                                             // Just this.
                                             // Don't need to keep-alive anything here, since `GetValue()` should do that automatically.
-                                            ret += "\n" + target + " __expected_ret." + AdjustCalledFuncName("GetValue") + "()!;";
+                                            ret += "\n" + target + " __expected_ret." + AdjustCalledFuncName("Value") + "()!;";
                                         }
 
                                         return ret;
@@ -2763,7 +2763,7 @@ namespace mrbind::CSharp
                 // When `--move-classes-returned-by-value` is used, we need `.Value` because `GetString` returns `_Moved<Std.String>` in that case.
                 // This is a bit sad, ideally we'd copy `_Moved` for each class, and duplicate that conversion into it?
                 // But that sounds like a lot of work. And `--move-classes-returned-by-value` is opt-in anyway.
-                "    return self." + AdjustCalledFuncName("GetString") + "()" + (move_in_by_value_return ? ".Value" : "") + ";\n"
+                "    return self." + AdjustCalledFuncName("String") + "()" + (move_in_by_value_return ? ".Value" : "") + ";\n"
                 "}\n"
                 "public override string ToString() {return (string)this;}\n";
         }
@@ -5243,6 +5243,7 @@ namespace mrbind::CSharp
                                         throw std::runtime_error("The iterator type `" + CppdeclToCode(cpp_iter_type) + "` is neither a pointer nor a class, not sure what to do with it.");
 
                                     // Find the dereference method.
+                                    bool found = false;
                                     for (const auto &method : cl->methods)
                                     {
                                         auto op = std::get_if<CInterop::MethodKinds::Operator>(&method.var);
@@ -5255,10 +5256,14 @@ namespace mrbind::CSharp
                                         if (!cpp_elem_type.IsEmpty())
                                             throw std::runtime_error("The iterator type `" + CppdeclToCode(cpp_iter_type) + "` has multiple unary `*` operators, expected exactly one.");
 
+                                        found = true;
                                         cpp_elem_type = ParseTypeOrThrow(method.ret.cpp_type);
 
                                         // Don't break yet, we want to check for other unary `*` operators, and complain if there's more than one.
                                     }
+
+                                    if (!found)
+                                        throw std::runtime_error("The iterator type `" + CppdeclToCode(cpp_iter_type) + "` doesn't have an unary `*` operator.");
                                 }
 
                                 // Need `return_ref_wrapper` because `ref T` can't serve as a generic argument.
@@ -5331,7 +5336,7 @@ namespace mrbind::CSharp
 
                                 file.WriteString("System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, \"Internal error: This object holds a null shared pointer.\");\n");
 
-                                auto dllimport_get_ptr_from_shared = MakeDllImportDecl(c_sharedptr_name.value() + "_Get", "_Underlying *", "_UnderlyingShared *_this");
+                                auto dllimport_get_ptr_from_shared = MakeDllImportDecl(c_sharedptr_name.value() + "_get", "_Underlying *", "_UnderlyingShared *_this");
                                 file.WriteString(dllimport_get_ptr_from_shared.dllimport_decl);
                                 file.WriteString("return " + dllimport_get_ptr_from_shared.csharp_name + "(_UnderlyingSharedPtr);\n");
 
@@ -5346,7 +5351,7 @@ namespace mrbind::CSharp
                                 file.PushScope();
                                 file.PushScope({}, "get\n{\n", "}\n");
 
-                                auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_UseCount", "int", "_UnderlyingShared *_this");
+                                auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_use_count", "int", "_UnderlyingShared *_this");
                                 file.WriteString(dllimport_use_count.dllimport_decl);
                                 file.WriteString("return " + dllimport_use_count.csharp_name + "(_UnderlyingSharedPtr) > 0;\n");
 
@@ -5364,7 +5369,7 @@ namespace mrbind::CSharp
                                 file.PushScope();
                                 file.PushScope({}, "get\n{\n", "}\n");
 
-                                auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_Get", "void *", "_UnderlyingShared *_this");
+                                auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_get", "void *", "_UnderlyingShared *_this");
                                 file.WriteString(dllimport_use_count.dllimport_decl);
                                 file.WriteString("return " + dllimport_use_count.csharp_name + "(_UnderlyingSharedPtr) is not null;\n");
 
