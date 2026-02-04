@@ -73,28 +73,26 @@ public static partial class MR
                 }
 
                 /// Returns the string contents, which are always null-terminated.
-                /// Returns a read-only pointer.
-                public unsafe byte *Data()
+                public unsafe MR.CS.ConstPtrChar Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_Data", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_Data(_Underlying *_this);
-                    return __MR_C_std_string_Data(_UnderlyingPtr);
+                    return new(__MR_C_std_string_Data(_UnderlyingPtr));
                 }
 
                 /// Returns a pointer to the end of string, to its null-terminator.
-                /// Returns a read-only pointer.
-                public unsafe byte *DataEnd()
+                public unsafe MR.CS.ConstPtrChar DataEnd()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_DataEnd", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_DataEnd(_Underlying *_this);
-                    return __MR_C_std_string_DataEnd(_UnderlyingPtr);
+                    return new(__MR_C_std_string_DataEnd(_UnderlyingPtr));
                 }
 
                 // Custom extras:
 
                 public static unsafe implicit operator string(MR.CS.Std.Const_String self)
                 {
-                    return System.Text.Encoding.UTF8.GetString(self.Data(), checked((int)self.Size()));
+                    return System.Text.Encoding.UTF8.GetString(self.Data().GetPointer(), checked((int)self.Size()));
                 }
                 public override string ToString() {return (string)this;}
             }
@@ -166,21 +164,19 @@ public static partial class MR
                 }
 
                 /// Returns the string contents, which are always null-terminated. This version returns a non-const pointer.
-                /// Returns a read-only pointer.
-                public unsafe new byte *Data()
+                public unsafe new MR.CS.ConstPtrChar Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableData", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_MutableData(_Underlying *_this);
-                    return __MR_C_std_string_MutableData(_UnderlyingPtr);
+                    return new(__MR_C_std_string_MutableData(_UnderlyingPtr));
                 }
 
                 /// Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.
-                /// Returns a mutable pointer.
-                public unsafe new byte *DataEnd()
+                public unsafe new MR.CS.PtrChar DataEnd()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_MutableDataEnd", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_MutableDataEnd(_Underlying *_this);
-                    return __MR_C_std_string_MutableDataEnd(_UnderlyingPtr);
+                    return new(__MR_C_std_string_MutableDataEnd(_UnderlyingPtr));
                 }
             }
 

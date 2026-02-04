@@ -61,7 +61,7 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
-                public unsafe MR.CS.StdContainers.ConstPtrA? Data()
+                public unsafe MR.CS.StdContainers.ConstPtrA Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_Data", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.Const_A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_Data(_Underlying *_this);
@@ -121,7 +121,7 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
-                public unsafe new MR.CS.StdContainers.PtrA? Data()
+                public unsafe new MR.CS.StdContainers.PtrA Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_A_42_MutableData", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.A._Underlying *__MR_C_std_array_MR_StdContainers_A_42_MutableData(_Underlying *_this);

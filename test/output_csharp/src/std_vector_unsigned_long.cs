@@ -112,12 +112,11 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
-                /// Returns a read-only pointer.
-                public unsafe ulong *Data()
+                public unsafe MR.CS.ConstPtrUnsignedLong Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_Data", ExactSpelling = true)]
                     extern static ulong *__MR_C_std_vector_unsigned_long_Data(_Underlying *_this);
-                    return __MR_C_std_vector_unsigned_long_Data(_UnderlyingPtr);
+                    return new(__MR_C_std_vector_unsigned_long_Data(_UnderlyingPtr));
                 }
 
                 /// The begin iterator, const.
@@ -628,12 +627,11 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
-                /// Returns a mutable pointer.
-                public unsafe new ulong *Data()
+                public unsafe new MR.CS.PtrUnsignedLong Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_unsigned_long_MutableData", ExactSpelling = true)]
                     extern static ulong *__MR_C_std_vector_unsigned_long_MutableData(_Underlying *_this);
-                    return __MR_C_std_vector_unsigned_long_MutableData(_UnderlyingPtr);
+                    return new(__MR_C_std_vector_unsigned_long_MutableData(_UnderlyingPtr));
                 }
 
                 /// Inserts a new element at the end.

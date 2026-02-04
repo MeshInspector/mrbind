@@ -112,7 +112,7 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
-                public unsafe MR.CS.CSharp.ConstPtrExposedLayout? Data()
+                public unsafe MR.CS.CSharp.ConstPtrExposedLayout Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_Data", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_Data(_Underlying *_this);
@@ -631,7 +631,7 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
-                public unsafe new MR.CS.CSharp.PtrExposedLayout? Data()
+                public unsafe new MR.CS.CSharp.PtrExposedLayout Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_MR_CSharp_ExposedLayout_MutableData", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_vector_MR_CSharp_ExposedLayout_MutableData(_Underlying *_this);

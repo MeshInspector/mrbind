@@ -3542,14 +3542,23 @@ namespace mrbind::CBindings
                         class_info.traits.is_any_constructible = true;
                         if (ctor.kind == CopyMoveKind::copy)
                         {
+                            const bool param_is_const = self.ParseTypeOrThrow(ctor.params.at(0).type.canonical).IsConst(1);
+
+                            // If we've already seen the `const T &` constructor, and this one is `T &`, there's nothing useful we could possibly get from it.
+                            // We want to preserve the variables (such as trivial-ness) set from the `cosnt T &` constructor.
+                            if (class_info.traits.is_copy_constructible && !param_is_const)
+                                return;
+
                             class_info.traits.is_copy_constructible = true;
-                            if (ctor.is_trivial)
-                                class_info.traits.is_trivially_copy_constructible = true;
-                            if (!self.ParseTypeOrThrow(ctor.params.at(0).type.canonical).IsConst(1))
-                                class_info.traits.copy_constructor_takes_nonconst_ref = true;
+
+                            // Must assign unconditionally, to overwrite the existing value from the `T &` constructor, if any.
+                            class_info.traits.is_trivially_copy_constructible = ctor.is_trivial;
+                            class_info.traits.copy_constructor_takes_nonconst_ref = !param_is_const;
                         }
                         else if (ctor.kind == CopyMoveKind::move)
                         {
+                            // Currently this doesn't handle `const T &&` well (and doesn't handle having multiple move constructors in general).
+
                             class_info.traits.is_move_constructible = true;
                             if (ctor.is_trivial)
                                 class_info.traits.is_trivially_move_constructible = true;

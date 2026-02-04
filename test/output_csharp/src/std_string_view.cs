@@ -70,28 +70,26 @@ public static partial class MR
                 }
 
                 /// Returns the string contents, NOT necessarily null-terminated.
-                /// Returns a read-only pointer.
-                public unsafe byte *Data()
+                public unsafe MR.CS.ConstPtrChar Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_Data", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_view_Data(_Underlying *_this);
-                    return __MR_C_std_string_view_Data(_UnderlyingPtr);
+                    return new(__MR_C_std_string_view_Data(_UnderlyingPtr));
                 }
 
                 /// Returns a pointer to the end of string. Not dereferencable.
-                /// Returns a read-only pointer.
-                public unsafe byte *DataEnd()
+                public unsafe MR.CS.ConstPtrChar DataEnd()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DataEnd", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_view_DataEnd(_Underlying *_this);
-                    return __MR_C_std_string_view_DataEnd(_UnderlyingPtr);
+                    return new(__MR_C_std_string_view_DataEnd(_UnderlyingPtr));
                 }
 
                 // Custom extras:
 
                 public static unsafe implicit operator string(MR.CS.Std.Const_StringView self)
                 {
-                    return System.Text.Encoding.UTF8.GetString(self.Data(), checked((int)self.Size()));
+                    return System.Text.Encoding.UTF8.GetString(self.Data().GetPointer(), checked((int)self.Size()));
                 }
                 public override string ToString() {return (string)this;}
             }

@@ -137,13 +137,12 @@ public static partial class MR
 
                 /// <summary>
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
-                /// Returns a read-only pointer.
                 /// </summary>
-                public unsafe int *data()
+                public unsafe MR.CS.ConstPtrInt data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int_Data", ExactSpelling = true)]
                     extern static int *__MR_C_std_vector_int_Data(_Underlying *_this);
-                    return __MR_C_std_vector_int_Data(_UnderlyingPtr);
+                    return new(__MR_C_std_vector_int_Data(_UnderlyingPtr));
                 }
 
                 /// <summary>
@@ -773,13 +772,12 @@ public static partial class MR
 
                 /// <summary>
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
-                /// Returns a mutable pointer.
                 /// </summary>
-                public unsafe new int *data()
+                public unsafe new MR.CS.PtrInt data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_int_MutableData", ExactSpelling = true)]
                     extern static int *__MR_C_std_vector_int_MutableData(_Underlying *_this);
-                    return __MR_C_std_vector_int_MutableData(_UnderlyingPtr);
+                    return new(__MR_C_std_vector_int_MutableData(_UnderlyingPtr));
                 }
 
                 /// <summary>

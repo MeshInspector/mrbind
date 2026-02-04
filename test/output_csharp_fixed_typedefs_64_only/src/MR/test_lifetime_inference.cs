@@ -95,8 +95,72 @@ public static partial class MR
             /// Generated from class `MR::LifetimeInference::A`.
             /// This is the non-const half of the class.
             /// </summary>
-            public class A : Const_A
+            public class A : Const_A, IEnumerable<MR.CS.Misc.Ref<int>>
             {
+                public class _Enumerator : IEnumerator<MR.CS.Misc.Ref<int>>
+                {
+                    A _container;
+                    MR.CS.PtrInt _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(A container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Misc.Ref<int> Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return new(ref _cur.deref());
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.Misc.Ref<int>> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
                 public new unsafe ref int x => ref *__ref_storage_x;
 
                 // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
@@ -162,23 +226,21 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::LifetimeInference::A::begin`.
                 /// </summary>
-                public unsafe MR.CS.Misc.Ref<int>? begin()
+                public unsafe MR.CS.PtrInt begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_begin", ExactSpelling = true)]
                     extern static int *__MR_LifetimeInference_A_begin(_Underlying *_this);
-                    var __c_ret = __MR_LifetimeInference_A_begin(_UnderlyingPtr);
-                    return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
+                    return new(__MR_LifetimeInference_A_begin(_UnderlyingPtr));
                 }
 
                 /// <summary>
                 /// Generated from method `MR::LifetimeInference::A::end`.
                 /// </summary>
-                public unsafe MR.CS.Misc.Ref<int>? end()
+                public unsafe MR.CS.PtrInt end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_A_end", ExactSpelling = true)]
                     extern static int *__MR_LifetimeInference_A_end(_Underlying *_this);
-                    var __c_ret = __MR_LifetimeInference_A_end(_UnderlyingPtr);
-                    return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
+                    return new(__MR_LifetimeInference_A_end(_UnderlyingPtr));
                 }
             }
 
@@ -307,8 +369,72 @@ public static partial class MR
             /// Generated from class `MR::LifetimeInference::B`.
             /// This is the non-const half of the class.
             /// </summary>
-            public class B : Const_B
+            public class B : Const_B, IEnumerable<MR.CS.Misc.Ref<int>>
             {
+                public class _Enumerator : IEnumerator<MR.CS.Misc.Ref<int>>
+                {
+                    B _container;
+                    MR.CS.PtrInt _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(B container)
+                    {
+                        _container = container;
+                        _cur = MR.CS.LifetimeInference.begin(_container);
+                        _done = _cur == MR.CS.LifetimeInference.end(_container);
+                    }
+
+                    public MR.CS.Misc.Ref<int> Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return new(ref _cur.deref());
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == MR.CS.LifetimeInference.end(_container))
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = MR.CS.LifetimeInference.begin(_container);
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.Misc.Ref<int>> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
                 public new unsafe ref int x => ref *__ref_storage_x;
 
                 // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
@@ -547,45 +673,41 @@ public static partial class MR
             /// <summary>
             /// Generated from function `MR::LifetimeInference::begin`.
             /// </summary>
-            public static unsafe MR.CS.Misc.Ref<int>? begin(MR.CS.LifetimeInference.A a)
+            public static unsafe MR.CS.PtrInt begin(MR.CS.LifetimeInference.A a)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_begin_MR_LifetimeInference_A", ExactSpelling = true)]
                 extern static int *__MR_LifetimeInference_begin_MR_LifetimeInference_A(MR.CS.LifetimeInference.A._Underlying *a);
-                var __c_ret = __MR_LifetimeInference_begin_MR_LifetimeInference_A(a._UnderlyingPtr);
-                return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
+                return new(__MR_LifetimeInference_begin_MR_LifetimeInference_A(a._UnderlyingPtr));
             }
 
             /// <summary>
             /// Generated from function `MR::LifetimeInference::end`.
             /// </summary>
-            public static unsafe MR.CS.Misc.Ref<int>? end(MR.CS.LifetimeInference.A a)
+            public static unsafe MR.CS.PtrInt end(MR.CS.LifetimeInference.A a)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_end_MR_LifetimeInference_A", ExactSpelling = true)]
                 extern static int *__MR_LifetimeInference_end_MR_LifetimeInference_A(MR.CS.LifetimeInference.A._Underlying *a);
-                var __c_ret = __MR_LifetimeInference_end_MR_LifetimeInference_A(a._UnderlyingPtr);
-                return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
+                return new(__MR_LifetimeInference_end_MR_LifetimeInference_A(a._UnderlyingPtr));
             }
 
             /// <summary>
             /// Generated from function `MR::LifetimeInference::begin`.
             /// </summary>
-            public static unsafe MR.CS.Misc.Ref<int>? begin(MR.CS.LifetimeInference.B b)
+            public static unsafe MR.CS.PtrInt begin(MR.CS.LifetimeInference.B b)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_begin_MR_LifetimeInference_B", ExactSpelling = true)]
                 extern static int *__MR_LifetimeInference_begin_MR_LifetimeInference_B(MR.CS.LifetimeInference.B._Underlying *b);
-                var __c_ret = __MR_LifetimeInference_begin_MR_LifetimeInference_B(b._UnderlyingPtr);
-                return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
+                return new(__MR_LifetimeInference_begin_MR_LifetimeInference_B(b._UnderlyingPtr));
             }
 
             /// <summary>
             /// Generated from function `MR::LifetimeInference::end`.
             /// </summary>
-            public static unsafe MR.CS.Misc.Ref<int>? end(MR.CS.LifetimeInference.B b)
+            public static unsafe MR.CS.PtrInt end(MR.CS.LifetimeInference.B b)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_end_MR_LifetimeInference_B", ExactSpelling = true)]
                 extern static int *__MR_LifetimeInference_end_MR_LifetimeInference_B(MR.CS.LifetimeInference.B._Underlying *b);
-                var __c_ret = __MR_LifetimeInference_end_MR_LifetimeInference_B(b._UnderlyingPtr);
-                return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
+                return new(__MR_LifetimeInference_end_MR_LifetimeInference_B(b._UnderlyingPtr));
             }
         }
     }

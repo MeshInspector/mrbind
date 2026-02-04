@@ -492,7 +492,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::OverloadedOps::A::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_A", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_OverloadedOps_A(_Underlying *_this);
@@ -503,7 +503,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::OverloadedOps::A::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_A", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_OverloadedOps_A(_Underlying *_this);
@@ -1034,7 +1034,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from function `MR::OverloadedOps::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_OverloadedOps_B", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_OverloadedOps_B(_Underlying *_1);
@@ -1058,7 +1058,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from function `MR::OverloadedOps::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_OverloadedOps_B", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_OverloadedOps_B(_Underlying *_1);

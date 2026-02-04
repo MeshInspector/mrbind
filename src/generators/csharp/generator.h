@@ -96,6 +96,9 @@ namespace mrbind::CSharp
     // Also as a special case, if every letter in the input is uppercase, they're all lowercased.
     void MakeFirstLetterLowercase(std::string &str);
 
+    // If `str` ends with `<...>`, removes that part. Otherwise returns the input as is.
+    [[nodiscard]] std::string_view TryStripTemplateArgsSimple(std::string_view str);
+
     struct Generator;
 
     struct OutputFile
@@ -129,6 +132,8 @@ namespace mrbind::CSharp
         // `open_scope` and `close_scope` should have trailing newlines.
         // You can pass an empty `cpp_name` for temporary scopes.
         void PushScope(cppdecl::UnqualifiedName cpp_name, std::string_view open_scope, std::string close_scope);
+
+        void PushScope() {PushScope({}, "{\n", "}\n");}
 
         // Repeatedly calls `PushScope()` and `PopScope()` to end up in the desired namespace.
         void EnsureNamespace(const Generator &generator, cppdecl::QualifiedName new_namespace);
@@ -396,10 +401,51 @@ namespace mrbind::CSharp
         // This will adjust `str` to the correct naming style, as per `begin_func_names_with_lowercase`.
         [[nodiscard]] std::string AdjustCalledFuncName(std::string str);
 
+
+        struct BeginEndFuncStatus
+        {
+            // Currently our convention is to prefer member versions over non-member versions.
+
+            // Non-null if the class has `.begin()` or `.end()` respectively.
+            // This is the C++ return type of that function.
+            std::optional<cppdecl::Type> member_return_type;
+
+            // Non-null if the type has a non-member `begin(x)`/`end(x)` respectively.
+            // In that case, it's set to the qualified name of the respective C# function, that you can call from the generated C# code.
+            std::optional<std::string> nonmember_csharp_name;
+            // Non-null if the type has a non-member `begin(x)`/`end(x)` respectively.
+            // This is the C++ return type of that function.
+            std::optional<cppdecl::Type> nonmember_return_type;
+
+            [[nodiscard]] bool MemberExists() const {return bool(member_return_type);}
+            [[nodiscard]] bool NonMemberExists() const {return bool(nonmember_return_type);}
+
+            [[nodiscard]] bool AnyExists() const {return MemberExists() || NonMemberExists();}
+        };
+
+        struct ClassBeginEndFuncs
+        {
+            BeginEndFuncStatus begin{};
+            BeginEndFuncStatus end{};
+
+            [[nodiscard]] bool BothExist() const {return begin.AnyExists() && end.AnyExists();}
+
+            [[nodiscard]]       BeginEndFuncStatus &GetBeginOrEnd(bool is_end)       {return is_end ? end : begin;}
+            [[nodiscard]] const BeginEndFuncStatus &GetBeginOrEnd(bool is_end) const {return is_end ? end : begin;}
+        };
+
+        // Maps a C++ class name, plus a bool (true if `end`, false if `begin`) to the state of this function for the specified class.
+        // If a class doesn't have those functions, its entry might be missing.
+        // This map is initialized early, by doing a pass over all functions.
+        // When working with a non-const class, you have to manually check the const version too, to be able to fallback to that.
+        // Using an ordered map because `std::pair` isn't hashable.
+        std::map<std::pair<std::string, bool>, ClassBeginEndFuncs, std::less<>> begin_end_class_funcs;
+
+
         // Translates a primitive C type to C#. This intentionally rejects pointers.
         // `is_indirect` affects how `bool` is mapped. If true, returns `bool` as is, and otherwise returns `byte`.
         // This is needed since passing `bool` by value internally uses `int32_t` in C#, but passing it by reference seems to work correctly.
-        // `out_sizeof` receives the type size (respects `is_indirect` for `bool`), or zero on failure.s
+        // `out_sizeof` receives the type size (respects `is_indirect` for `bool`), or zero on failure.
         [[nodiscard]] std::optional<std::string_view> CToCSharpPrimitiveTypeOpt(std::string_view c_type, bool is_indirect, std::size_t *out_sizeof = nullptr);
 
         // This is mostly for internal use by `CppToCSharpKnownSizeType()` and `RequestCSharpArrayType()`.
@@ -472,7 +518,7 @@ namespace mrbind::CSharp
         // The custom types that `RequestCSharpSpanType()` wants to generate.
         // The keys are the C# type names for the whole span classes.
         // This is intentionally an ordered map, to emit consistent C# code.
-        std::map<std::string, RequestedMaybeOpaqueArray> requested_opaque_arrays;
+        std::map<std::string, RequestedMaybeOpaqueArray> requested_maybe_opaque_arrays;
 
         // Returns an array-like type, suitable to hold a fixed-size (or of unknown bound) array of some C++ type.
         // This is more capable than `CppToCSharpKnownSizeType()`, supporting also arrays of opaque classes,
@@ -572,7 +618,7 @@ namespace mrbind::CSharp
         // The keys are C++ qualified namespace names, with the empty string for the global namespace.
         std::unordered_map<std::string, UsedNamesInNamespace> cached_used_names_in_namespace;
 
-        [[nodiscard]] const UsedNamesInNamespace &GetUsedUsedNamesInNamespace(const cppdecl::QualifiedName &cpp_namespace);
+        [[nodiscard]] const UsedNamesInNamespace &GetUsedNamesInNamespace(const cppdecl::QualifiedName &cpp_namespace);
 
         struct UsedMemberNamesInClass
         {
@@ -692,6 +738,8 @@ namespace mrbind::CSharp
 
         // Check if our target C# and .NET framework support certain features: [
 
+        // Non-static `++` and `--` operators.
+        [[nodiscard]] bool HaveCSharpFeatureNonStaticIncrementAndDecrement() const;
         // `Span` and `ReadOnlySpan`.
         [[nodiscard]] bool HaveCSharpFeatureSpans() const;
         // The `InlineArray` attribute
@@ -804,6 +852,7 @@ namespace mrbind::CSharp
             const CInterop::BasicFuncLike &func_like;
             const CInterop::BasicClassMethodLike *method_like;
             const CInterop::ClassMethod *method;
+            const CInterop::Function *free_func;
 
             const bool is_ctor;
             const bool is_conv_op_rewritten_from_ctor;
@@ -873,6 +922,10 @@ namespace mrbind::CSharp
         // `class_part_kind == true` means we're in the const half of the class, `== false` means the non-const half,
         //   and null means we're in an exposed `ref struct`.
         [[nodiscard]] std::string MakeUnqualCSharpMethodName(const CInterop::ClassMethod &method, std::optional<bool> class_part_kind, EmitVariant emit_variant, bool adjust_to_disambiguate = true);
+
+        // Determine C# name for the given C++ free function.
+        [[nodiscard]] std::string MakeQualCSharpFreeFuncName(const CInterop::Function &func);
+        [[nodiscard]] std::string MakeUnqualCSharpFreeFuncName(const CInterop::Function &func);
 
         // Create a C# comment for a parsed function.
         // This will always end with a newline if not empty, and will include slashes.

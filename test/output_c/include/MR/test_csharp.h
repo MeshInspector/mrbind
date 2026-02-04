@@ -606,6 +606,56 @@ typedef struct MR_CSharp_LifetimesC MR_CSharp_LifetimesC;
 /// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_LifetimesD MR_CSharp_LifetimesD;
 
+// Const member functions.
+/// Generated from class `MR::CSharp::IterableA`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableA MR_CSharp_IterableA;
+
+// Mutable member functions.
+/// Generated from class `MR::CSharp::IterableB`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableB MR_CSharp_IterableB;
+
+// Both const and mutable member functions.
+/// Generated from class `MR::CSharp::IterableC`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableC MR_CSharp_IterableC;
+
+// Const free functions.
+/// Generated from class `MR::CSharp::IterableD`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableD MR_CSharp_IterableD;
+
+// Mutable free functions.
+/// Generated from class `MR::CSharp::IterableE`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableE MR_CSharp_IterableE;
+
+// Both const and mutable free functions.
+/// Generated from class `MR::CSharp::IterableF`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableF MR_CSharp_IterableF;
+
+// Returning mutable class instances.
+/// Generated from class `MR::CSharp::IterableG`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableG MR_CSharp_IterableG;
+
+// Returning const class instances.
+/// Generated from class `MR::CSharp::IterableH`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableH MR_CSharp_IterableH;
+
+// Returning mutable exposed struct instances.
+/// Generated from class `MR::CSharp::IterableI`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableI MR_CSharp_IterableI;
+
+// Returning const exposed struct instances.
+/// Generated from class `MR::CSharp::IterableJ`.
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableJ MR_CSharp_IterableJ;
+
 /// Generated from function `MR::CSharp::foo`.
 MR_C_API void MR_CSharp_foo(void);
 
@@ -7675,12 +7725,12 @@ MR_C_API MR_CSharp_LifetimesA *MR_C_deref_MR_CSharp_LifetimesB_ref(MR_CSharp_Lif
 /// Generated from function `MR::CSharp::begin`.
 /// Parameter `b` can not be null. It is a single object.
 /// The reference to the parameter `b` might be preserved in the return value.
-MR_C_API const MR_CSharp_LifetimesA *MR_CSharp_begin_MR_CSharp_LifetimesB(const MR_CSharp_LifetimesB *b);
+MR_C_API const MR_CSharp_LifetimesA *MR_CSharp_begin_const_MR_CSharp_LifetimesB_ref(const MR_CSharp_LifetimesB *b);
 
 /// Generated from function `MR::CSharp::end`.
 /// Parameter `b` can not be null. It is a single object.
 /// The reference to the parameter `b` might be preserved in the return value.
-MR_C_API const MR_CSharp_LifetimesA *MR_CSharp_end_MR_CSharp_LifetimesB(const MR_CSharp_LifetimesB *b);
+MR_C_API const MR_CSharp_LifetimesA *MR_CSharp_end_const_MR_CSharp_LifetimesB_ref(const MR_CSharp_LifetimesB *b);
 
 /// Generated from function `MR::CSharp::operator*`.
 /// Parameter `b` can not be null. It is a single object.
@@ -7753,12 +7803,12 @@ MR_C_API MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_AssignFromAnother(MR_CSharp_
 /// Generated from function `MR::CSharp::begin`.
 /// Parameter `c` can not be null. It is a single object.
 /// The reference to the parameter `c` might be preserved in the return value.
-MR_C_API const MR_CSharp_LifetimesA *MR_CSharp_begin_MR_CSharp_LifetimesC(const MR_CSharp_LifetimesC *c);
+MR_C_API const MR_CSharp_LifetimesA *MR_CSharp_begin_const_MR_CSharp_LifetimesC_ref(const MR_CSharp_LifetimesC *c);
 
 /// Generated from function `MR::CSharp::end`.
 /// Parameter `c` can not be null. It is a single object.
 /// The reference to the parameter `c` might be preserved in the return value.
-MR_C_API const MR_CSharp_LifetimesA *MR_CSharp_end_MR_CSharp_LifetimesC(const MR_CSharp_LifetimesC *c);
+MR_C_API const MR_CSharp_LifetimesA *MR_CSharp_end_const_MR_CSharp_LifetimesC_ref(const MR_CSharp_LifetimesC *c);
 
 /// Generated from function `MR::CSharp::operator*`.
 /// Parameter `c` can not be null. It is a single object.
@@ -7869,6 +7919,608 @@ MR_C_API void MR_CSharp_LifetimesD_store_ref_in_param(MR_CSharp_LifetimesD *_thi
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `ref` can not be null. It is a single object.
 MR_C_API void MR_CSharp_LifetimesD_store_this_in_param(MR_CSharp_LifetimesD *_this, MR_CSharp_LifetimesA *ref);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IterableA` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_IterableA_Get_arr(const MR_CSharp_IterableA *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableA` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_CSharp_IterableA_GetMutable_arr(MR_CSharp_IterableA *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::IterableA` named `arr`. The size is `3`.
+MR_C_API size_t MR_CSharp_IterableA_GetSize_arr(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableA_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableA *MR_CSharp_IterableA_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IterableA_DestroyArray()`.
+/// Use `MR_CSharp_IterableA_OffsetMutablePtr()` and `MR_CSharp_IterableA_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableA *MR_CSharp_IterableA_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableA *MR_CSharp_IterableA_OffsetPtr(const MR_CSharp_IterableA *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableA *MR_CSharp_IterableA_OffsetMutablePtr(MR_CSharp_IterableA *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IterableA::IterableA`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableA_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableA *MR_CSharp_IterableA_ConstructFromAnother(const MR_CSharp_IterableA *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IterableA`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableA_Destroy(const MR_CSharp_IterableA *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IterableA`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableA_DestroyArray(const MR_CSharp_IterableA *_this);
+
+/// Generated from method `MR::CSharp::IterableA::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableA *MR_CSharp_IterableA_AssignFromAnother(MR_CSharp_IterableA *_this, const MR_CSharp_IterableA *_other);
+
+/// Generated from method `MR::CSharp::IterableA::begin`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API const int *MR_CSharp_IterableA_begin(const MR_CSharp_IterableA *_this);
+
+/// Generated from method `MR::CSharp::IterableA::end`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API const int *MR_CSharp_IterableA_end(const MR_CSharp_IterableA *_this);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IterableB` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_IterableB_Get_arr(const MR_CSharp_IterableB *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableB` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_CSharp_IterableB_GetMutable_arr(MR_CSharp_IterableB *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::IterableB` named `arr`. The size is `3`.
+MR_C_API size_t MR_CSharp_IterableB_GetSize_arr(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableB_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableB *MR_CSharp_IterableB_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IterableB_DestroyArray()`.
+/// Use `MR_CSharp_IterableB_OffsetMutablePtr()` and `MR_CSharp_IterableB_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableB *MR_CSharp_IterableB_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableB *MR_CSharp_IterableB_OffsetPtr(const MR_CSharp_IterableB *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableB *MR_CSharp_IterableB_OffsetMutablePtr(MR_CSharp_IterableB *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IterableB::IterableB`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableB_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableB *MR_CSharp_IterableB_ConstructFromAnother(const MR_CSharp_IterableB *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IterableB`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableB_Destroy(const MR_CSharp_IterableB *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IterableB`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableB_DestroyArray(const MR_CSharp_IterableB *_this);
+
+/// Generated from method `MR::CSharp::IterableB::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableB *MR_CSharp_IterableB_AssignFromAnother(MR_CSharp_IterableB *_this, const MR_CSharp_IterableB *_other);
+
+/// Generated from method `MR::CSharp::IterableB::begin`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API int *MR_CSharp_IterableB_begin(MR_CSharp_IterableB *_this);
+
+/// Generated from method `MR::CSharp::IterableB::end`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API int *MR_CSharp_IterableB_end(MR_CSharp_IterableB *_this);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IterableC` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_IterableC_Get_arr(const MR_CSharp_IterableC *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableC` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_CSharp_IterableC_GetMutable_arr(MR_CSharp_IterableC *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::IterableC` named `arr`. The size is `3`.
+MR_C_API size_t MR_CSharp_IterableC_GetSize_arr(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableC_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableC *MR_CSharp_IterableC_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IterableC_DestroyArray()`.
+/// Use `MR_CSharp_IterableC_OffsetMutablePtr()` and `MR_CSharp_IterableC_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableC *MR_CSharp_IterableC_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableC *MR_CSharp_IterableC_OffsetPtr(const MR_CSharp_IterableC *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableC *MR_CSharp_IterableC_OffsetMutablePtr(MR_CSharp_IterableC *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IterableC::IterableC`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableC_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableC *MR_CSharp_IterableC_ConstructFromAnother(const MR_CSharp_IterableC *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IterableC`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableC_Destroy(const MR_CSharp_IterableC *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IterableC`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableC_DestroyArray(const MR_CSharp_IterableC *_this);
+
+/// Generated from method `MR::CSharp::IterableC::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableC *MR_CSharp_IterableC_AssignFromAnother(MR_CSharp_IterableC *_this, const MR_CSharp_IterableC *_other);
+
+/// Generated from method `MR::CSharp::IterableC::begin`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API int *MR_CSharp_IterableC_begin(MR_CSharp_IterableC *_this);
+
+/// Generated from method `MR::CSharp::IterableC::end`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API int *MR_CSharp_IterableC_end(MR_CSharp_IterableC *_this);
+
+/// Generated from method `MR::CSharp::IterableC::begin`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API const int *MR_CSharp_IterableC_begin_const(const MR_CSharp_IterableC *_this);
+
+/// Generated from method `MR::CSharp::IterableC::end`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API const int *MR_CSharp_IterableC_end_const(const MR_CSharp_IterableC *_this);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IterableD` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_IterableD_Get_arr(const MR_CSharp_IterableD *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableD` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_CSharp_IterableD_GetMutable_arr(MR_CSharp_IterableD *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::IterableD` named `arr`. The size is `3`.
+MR_C_API size_t MR_CSharp_IterableD_GetSize_arr(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableD_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableD *MR_CSharp_IterableD_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IterableD_DestroyArray()`.
+/// Use `MR_CSharp_IterableD_OffsetMutablePtr()` and `MR_CSharp_IterableD_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableD *MR_CSharp_IterableD_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableD *MR_CSharp_IterableD_OffsetPtr(const MR_CSharp_IterableD *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableD *MR_CSharp_IterableD_OffsetMutablePtr(MR_CSharp_IterableD *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IterableD::IterableD`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableD_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableD *MR_CSharp_IterableD_ConstructFromAnother(const MR_CSharp_IterableD *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IterableD`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableD_Destroy(const MR_CSharp_IterableD *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IterableD`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableD_DestroyArray(const MR_CSharp_IterableD *_this);
+
+/// Generated from method `MR::CSharp::IterableD::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableD *MR_CSharp_IterableD_AssignFromAnother(MR_CSharp_IterableD *_this, const MR_CSharp_IterableD *_other);
+
+/// Generated from function `MR::CSharp::begin`.
+/// Parameter `self` can not be null. It is a single object.
+/// The reference to the parameter `self` might be preserved in the return value.
+MR_C_API const int *MR_CSharp_begin_const_MR_CSharp_IterableD_ref(const MR_CSharp_IterableD *self);
+
+/// Generated from function `MR::CSharp::end`.
+/// Parameter `self` can not be null. It is a single object.
+/// The reference to the parameter `self` might be preserved in the return value.
+MR_C_API const int *MR_CSharp_end_const_MR_CSharp_IterableD_ref(const MR_CSharp_IterableD *self);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IterableE` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_IterableE_Get_arr(const MR_CSharp_IterableE *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableE` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_CSharp_IterableE_GetMutable_arr(MR_CSharp_IterableE *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::IterableE` named `arr`. The size is `3`.
+MR_C_API size_t MR_CSharp_IterableE_GetSize_arr(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableE_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableE *MR_CSharp_IterableE_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IterableE_DestroyArray()`.
+/// Use `MR_CSharp_IterableE_OffsetMutablePtr()` and `MR_CSharp_IterableE_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableE *MR_CSharp_IterableE_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableE *MR_CSharp_IterableE_OffsetPtr(const MR_CSharp_IterableE *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableE *MR_CSharp_IterableE_OffsetMutablePtr(MR_CSharp_IterableE *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IterableE::IterableE`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableE_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableE *MR_CSharp_IterableE_ConstructFromAnother(const MR_CSharp_IterableE *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IterableE`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableE_Destroy(const MR_CSharp_IterableE *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IterableE`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableE_DestroyArray(const MR_CSharp_IterableE *_this);
+
+/// Generated from method `MR::CSharp::IterableE::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableE *MR_CSharp_IterableE_AssignFromAnother(MR_CSharp_IterableE *_this, const MR_CSharp_IterableE *_other);
+
+/// Generated from function `MR::CSharp::begin`.
+/// Parameter `self` can not be null. It is a single object.
+/// The reference to the parameter `self` might be preserved in the return value.
+MR_C_API int *MR_CSharp_begin_MR_CSharp_IterableE_ref(MR_CSharp_IterableE *self);
+
+/// Generated from function `MR::CSharp::end`.
+/// Parameter `self` can not be null. It is a single object.
+/// The reference to the parameter `self` might be preserved in the return value.
+MR_C_API int *MR_CSharp_end_MR_CSharp_IterableE_ref(MR_CSharp_IterableE *self);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IterableF` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int *MR_CSharp_IterableF_Get_arr(const MR_CSharp_IterableF *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableF` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int *MR_CSharp_IterableF_GetMutable_arr(MR_CSharp_IterableF *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::IterableF` named `arr`. The size is `3`.
+MR_C_API size_t MR_CSharp_IterableF_GetSize_arr(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableF_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableF *MR_CSharp_IterableF_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IterableF_DestroyArray()`.
+/// Use `MR_CSharp_IterableF_OffsetMutablePtr()` and `MR_CSharp_IterableF_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableF *MR_CSharp_IterableF_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableF *MR_CSharp_IterableF_OffsetPtr(const MR_CSharp_IterableF *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableF *MR_CSharp_IterableF_OffsetMutablePtr(MR_CSharp_IterableF *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IterableF::IterableF`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableF_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableF *MR_CSharp_IterableF_ConstructFromAnother(const MR_CSharp_IterableF *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IterableF`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableF_Destroy(const MR_CSharp_IterableF *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IterableF`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableF_DestroyArray(const MR_CSharp_IterableF *_this);
+
+/// Generated from method `MR::CSharp::IterableF::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableF *MR_CSharp_IterableF_AssignFromAnother(MR_CSharp_IterableF *_this, const MR_CSharp_IterableF *_other);
+
+/// Generated from function `MR::CSharp::begin`.
+/// Parameter `self` can not be null. It is a single object.
+/// The reference to the parameter `self` might be preserved in the return value.
+MR_C_API const int *MR_CSharp_begin_const_MR_CSharp_IterableF_ref(const MR_CSharp_IterableF *self);
+
+/// Generated from function `MR::CSharp::end`.
+/// Parameter `self` can not be null. It is a single object.
+/// The reference to the parameter `self` might be preserved in the return value.
+MR_C_API const int *MR_CSharp_end_const_MR_CSharp_IterableF_ref(const MR_CSharp_IterableF *self);
+
+/// Generated from function `MR::CSharp::begin`.
+/// Parameter `self` can not be null. It is a single object.
+/// The reference to the parameter `self` might be preserved in the return value.
+MR_C_API int *MR_CSharp_begin_MR_CSharp_IterableF_ref(MR_CSharp_IterableF *self);
+
+/// Generated from function `MR::CSharp::end`.
+/// Parameter `self` can not be null. It is a single object.
+/// The reference to the parameter `self` might be preserved in the return value.
+MR_C_API int *MR_CSharp_end_MR_CSharp_IterableF_ref(MR_CSharp_IterableF *self);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IterableG` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_string *MR_CSharp_IterableG_Get_arr(const MR_CSharp_IterableG *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableG` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_string *MR_CSharp_IterableG_GetMutable_arr(MR_CSharp_IterableG *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::IterableG` named `arr`. The size is `3`.
+MR_C_API size_t MR_CSharp_IterableG_GetSize_arr(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableG_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableG *MR_CSharp_IterableG_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IterableG_DestroyArray()`.
+/// Use `MR_CSharp_IterableG_OffsetMutablePtr()` and `MR_CSharp_IterableG_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableG *MR_CSharp_IterableG_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableG *MR_CSharp_IterableG_OffsetPtr(const MR_CSharp_IterableG *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableG *MR_CSharp_IterableG_OffsetMutablePtr(MR_CSharp_IterableG *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IterableG::IterableG`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableG_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableG *MR_CSharp_IterableG_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_IterableG *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IterableG`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableG_Destroy(const MR_CSharp_IterableG *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IterableG`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableG_DestroyArray(const MR_CSharp_IterableG *_this);
+
+/// Generated from method `MR::CSharp::IterableG::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableG *MR_CSharp_IterableG_AssignFromAnother(MR_CSharp_IterableG *_this, MR_C_PassBy _other_pass_by, MR_CSharp_IterableG *_other);
+
+/// Generated from method `MR::CSharp::IterableG::begin`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API MR_C_std_string *MR_CSharp_IterableG_begin(MR_CSharp_IterableG *_this);
+
+/// Generated from method `MR::CSharp::IterableG::end`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API MR_C_std_string *MR_CSharp_IterableG_end(MR_CSharp_IterableG *_this);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IterableH` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_C_std_string *MR_CSharp_IterableH_Get_arr(const MR_CSharp_IterableH *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableH` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_C_std_string *MR_CSharp_IterableH_GetMutable_arr(MR_CSharp_IterableH *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::IterableH` named `arr`. The size is `3`.
+MR_C_API size_t MR_CSharp_IterableH_GetSize_arr(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableH_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableH *MR_CSharp_IterableH_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IterableH_DestroyArray()`.
+/// Use `MR_CSharp_IterableH_OffsetMutablePtr()` and `MR_CSharp_IterableH_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableH *MR_CSharp_IterableH_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableH *MR_CSharp_IterableH_OffsetPtr(const MR_CSharp_IterableH *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableH *MR_CSharp_IterableH_OffsetMutablePtr(MR_CSharp_IterableH *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IterableH::IterableH`.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableH_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableH *MR_CSharp_IterableH_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_IterableH *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IterableH`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableH_Destroy(const MR_CSharp_IterableH *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IterableH`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableH_DestroyArray(const MR_CSharp_IterableH *_this);
+
+/// Generated from method `MR::CSharp::IterableH::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableH *MR_CSharp_IterableH_AssignFromAnother(MR_CSharp_IterableH *_this, MR_C_PassBy _other_pass_by, MR_CSharp_IterableH *_other);
+
+// Not making those functions `const` for a change.
+/// Generated from method `MR::CSharp::IterableH::begin`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API const MR_C_std_string *MR_CSharp_IterableH_begin(MR_CSharp_IterableH *_this);
+
+/// Generated from method `MR::CSharp::IterableH::end`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API const MR_C_std_string *MR_CSharp_IterableH_end(MR_CSharp_IterableH *_this);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IterableI` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_IterableI_Get_arr(const MR_CSharp_IterableI *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableI` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_IterableI_GetMutable_arr(MR_CSharp_IterableI *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::IterableI` named `arr`. The size is `3`.
+MR_C_API size_t MR_CSharp_IterableI_GetSize_arr(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableI_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableI *MR_CSharp_IterableI_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IterableI_DestroyArray()`.
+/// Use `MR_CSharp_IterableI_OffsetMutablePtr()` and `MR_CSharp_IterableI_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableI *MR_CSharp_IterableI_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableI *MR_CSharp_IterableI_OffsetPtr(const MR_CSharp_IterableI *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableI *MR_CSharp_IterableI_OffsetMutablePtr(MR_CSharp_IterableI *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IterableI::IterableI`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableI_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableI *MR_CSharp_IterableI_ConstructFromAnother(const MR_CSharp_IterableI *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IterableI`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableI_Destroy(const MR_CSharp_IterableI *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IterableI`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableI_DestroyArray(const MR_CSharp_IterableI *_this);
+
+/// Generated from method `MR::CSharp::IterableI::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableI *MR_CSharp_IterableI_AssignFromAnother(MR_CSharp_IterableI *_this, const MR_CSharp_IterableI *_other);
+
+/// Generated from method `MR::CSharp::IterableI::begin`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_IterableI_begin(MR_CSharp_IterableI *_this);
+
+/// Generated from method `MR::CSharp::IterableI::end`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_IterableI_end(MR_CSharp_IterableI *_this);
+
+/// Returns a pointer to a member variable of class `MR::CSharp::IterableJ` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_Get_arr(const MR_CSharp_IterableJ *_this);
+
+/// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableJ` named `arr`. This is a pointer to the first element of an array.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_GetMutable_arr(MR_CSharp_IterableJ *_this);
+
+/// Returns the size of the array member of class `MR::CSharp::IterableJ` named `arr`. The size is `3`.
+MR_C_API size_t MR_CSharp_IterableJ_GetSize_arr(void);
+
+/// Constructs an empty (default-constructed) instance.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableJ_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableJ *MR_CSharp_IterableJ_DefaultConstruct(void);
+
+/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+/// The array must be destroyed using `MR_CSharp_IterableJ_DestroyArray()`.
+/// Use `MR_CSharp_IterableJ_OffsetMutablePtr()` and `MR_CSharp_IterableJ_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableJ *MR_CSharp_IterableJ_DefaultConstructArray(size_t num_elems);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableJ *MR_CSharp_IterableJ_OffsetPtr(const MR_CSharp_IterableJ *ptr, ptrdiff_t i);
+
+/// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+/// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableJ *MR_CSharp_IterableJ_OffsetMutablePtr(MR_CSharp_IterableJ *ptr, ptrdiff_t i);
+
+/// Generated from constructor `MR::CSharp::IterableJ::IterableJ`.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableJ_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableJ *MR_CSharp_IterableJ_ConstructFromAnother(const MR_CSharp_IterableJ *_other);
+
+/// Destroys a heap-allocated instance of `MR_CSharp_IterableJ`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableJ_Destroy(const MR_CSharp_IterableJ *_this);
+
+/// Destroys a heap-allocated array of `MR_CSharp_IterableJ`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableJ_DestroyArray(const MR_CSharp_IterableJ *_this);
+
+/// Generated from method `MR::CSharp::IterableJ::operator=`.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_other` can not be null. It is a single object.
+/// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableJ *MR_CSharp_IterableJ_AssignFromAnother(MR_CSharp_IterableJ *_this, const MR_CSharp_IterableJ *_other);
+
+// Not making those functions `const` for a change.
+/// Generated from method `MR::CSharp::IterableJ::begin`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_begin(MR_CSharp_IterableJ *_this);
+
+/// Generated from method `MR::CSharp::IterableJ::end`.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_end(MR_CSharp_IterableJ *_this);
 
 /// Generated from function `MR::CSharp::test_expected_int`.
 /// Parameter `a` can not be null. It is a single object.

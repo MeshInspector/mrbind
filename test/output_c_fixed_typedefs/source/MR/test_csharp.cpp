@@ -9119,14 +9119,14 @@ MR_CSharp_LifetimesA *MR_C_deref_MR_CSharp_LifetimesB_ref(MR_CSharp_LifetimesB *
     return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).operator*());
 }
 
-const MR_CSharp_LifetimesA *MR_CSharp_begin_MR_CSharp_LifetimesB(const MR_CSharp_LifetimesB *b)
+const MR_CSharp_LifetimesA *MR_CSharp_begin_const_MR_CSharp_LifetimesB_ref(const MR_CSharp_LifetimesB *b)
 {
     return (const MR_CSharp_LifetimesA *)(::MR::CSharp::begin(
         ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), *(const MR::CSharp::LifetimesB *)(b))
     ));
 }
 
-const MR_CSharp_LifetimesA *MR_CSharp_end_MR_CSharp_LifetimesB(const MR_CSharp_LifetimesB *b)
+const MR_CSharp_LifetimesA *MR_CSharp_end_const_MR_CSharp_LifetimesB_ref(const MR_CSharp_LifetimesB *b)
 {
     return (const MR_CSharp_LifetimesA *)(::MR::CSharp::end(
         ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), *(const MR::CSharp::LifetimesB *)(b))
@@ -9206,14 +9206,14 @@ MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_AssignFromAnother(MR_CSharp_Lifetimes
     ));
 }
 
-const MR_CSharp_LifetimesA *MR_CSharp_begin_MR_CSharp_LifetimesC(const MR_CSharp_LifetimesC *c)
+const MR_CSharp_LifetimesA *MR_CSharp_begin_const_MR_CSharp_LifetimesC_ref(const MR_CSharp_LifetimesC *c)
 {
     return (const MR_CSharp_LifetimesA *)(begin(
         ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(const MR::CSharp::LifetimesC *)(c))
     ));
 }
 
-const MR_CSharp_LifetimesA *MR_CSharp_end_MR_CSharp_LifetimesC(const MR_CSharp_LifetimesC *c)
+const MR_CSharp_LifetimesA *MR_CSharp_end_const_MR_CSharp_LifetimesC_ref(const MR_CSharp_LifetimesC *c)
 {
     return (const MR_CSharp_LifetimesA *)(end(
         ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(const MR::CSharp::LifetimesC *)(c))
@@ -9337,6 +9337,732 @@ void MR_CSharp_LifetimesD_store_this_in_param(MR_CSharp_LifetimesD *_this, MR_CS
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).store_this_in_param(
         ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
     );
+}
+
+const int32_t *MR_CSharp_IterableA_Get_arr(const MR_CSharp_IterableA *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableA *)(_this)).arr[0]);
+}
+
+int32_t *MR_CSharp_IterableA_GetMutable_arr(MR_CSharp_IterableA *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableA *)(_this)).arr[0]);
+}
+
+size_t MR_CSharp_IterableA_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::CSharp::IterableA::arr)>;
+}
+
+MR_CSharp_IterableA *MR_CSharp_IterableA_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableA *)new MR::CSharp::IterableA(MR::CSharp::IterableA());
+}
+
+MR_CSharp_IterableA *MR_CSharp_IterableA_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableA *)(new MR::CSharp::IterableA[num_elems]{});
+}
+
+const MR_CSharp_IterableA *MR_CSharp_IterableA_OffsetPtr(const MR_CSharp_IterableA *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableA *)(((const MR::CSharp::IterableA *)ptr) + i);
+}
+
+MR_CSharp_IterableA *MR_CSharp_IterableA_OffsetMutablePtr(MR_CSharp_IterableA *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableA *)(((MR::CSharp::IterableA *)ptr) + i);
+}
+
+MR_CSharp_IterableA *MR_CSharp_IterableA_ConstructFromAnother(const MR_CSharp_IterableA *_other)
+{
+    return (MR_CSharp_IterableA *)new MR::CSharp::IterableA(MR::CSharp::IterableA(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableA(*(MR::CSharp::IterableA *)_other))
+    ));
+}
+
+void MR_CSharp_IterableA_Destroy(const MR_CSharp_IterableA *_this)
+{
+    delete ((const MR::CSharp::IterableA *)_this);
+}
+
+void MR_CSharp_IterableA_DestroyArray(const MR_CSharp_IterableA *_this)
+{
+    delete[] ((const MR::CSharp::IterableA *)_this);
+}
+
+MR_CSharp_IterableA *MR_CSharp_IterableA_AssignFromAnother(MR_CSharp_IterableA *_this, const MR_CSharp_IterableA *_other)
+{
+    return (MR_CSharp_IterableA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableA *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableA(*(MR::CSharp::IterableA *)_other))
+    ));
+}
+
+const int32_t *MR_CSharp_IterableA_begin(const MR_CSharp_IterableA *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableA *)(_this)).begin();
+}
+
+const int32_t *MR_CSharp_IterableA_end(const MR_CSharp_IterableA *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableA *)(_this)).end();
+}
+
+const int32_t *MR_CSharp_IterableB_Get_arr(const MR_CSharp_IterableB *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableB *)(_this)).arr[0]);
+}
+
+int32_t *MR_CSharp_IterableB_GetMutable_arr(MR_CSharp_IterableB *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableB *)(_this)).arr[0]);
+}
+
+size_t MR_CSharp_IterableB_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::CSharp::IterableB::arr)>;
+}
+
+MR_CSharp_IterableB *MR_CSharp_IterableB_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableB *)new MR::CSharp::IterableB(MR::CSharp::IterableB());
+}
+
+MR_CSharp_IterableB *MR_CSharp_IterableB_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableB *)(new MR::CSharp::IterableB[num_elems]{});
+}
+
+const MR_CSharp_IterableB *MR_CSharp_IterableB_OffsetPtr(const MR_CSharp_IterableB *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableB *)(((const MR::CSharp::IterableB *)ptr) + i);
+}
+
+MR_CSharp_IterableB *MR_CSharp_IterableB_OffsetMutablePtr(MR_CSharp_IterableB *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableB *)(((MR::CSharp::IterableB *)ptr) + i);
+}
+
+MR_CSharp_IterableB *MR_CSharp_IterableB_ConstructFromAnother(const MR_CSharp_IterableB *_other)
+{
+    return (MR_CSharp_IterableB *)new MR::CSharp::IterableB(MR::CSharp::IterableB(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableB(*(MR::CSharp::IterableB *)_other))
+    ));
+}
+
+void MR_CSharp_IterableB_Destroy(const MR_CSharp_IterableB *_this)
+{
+    delete ((const MR::CSharp::IterableB *)_this);
+}
+
+void MR_CSharp_IterableB_DestroyArray(const MR_CSharp_IterableB *_this)
+{
+    delete[] ((const MR::CSharp::IterableB *)_this);
+}
+
+MR_CSharp_IterableB *MR_CSharp_IterableB_AssignFromAnother(MR_CSharp_IterableB *_this, const MR_CSharp_IterableB *_other)
+{
+    return (MR_CSharp_IterableB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableB *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableB(*(MR::CSharp::IterableB *)_other))
+    ));
+}
+
+int32_t *MR_CSharp_IterableB_begin(MR_CSharp_IterableB *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableB *)(_this)).begin();
+}
+
+int32_t *MR_CSharp_IterableB_end(MR_CSharp_IterableB *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableB *)(_this)).end();
+}
+
+const int32_t *MR_CSharp_IterableC_Get_arr(const MR_CSharp_IterableC *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableC *)(_this)).arr[0]);
+}
+
+int32_t *MR_CSharp_IterableC_GetMutable_arr(MR_CSharp_IterableC *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableC *)(_this)).arr[0]);
+}
+
+size_t MR_CSharp_IterableC_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::CSharp::IterableC::arr)>;
+}
+
+MR_CSharp_IterableC *MR_CSharp_IterableC_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableC *)new MR::CSharp::IterableC(MR::CSharp::IterableC());
+}
+
+MR_CSharp_IterableC *MR_CSharp_IterableC_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableC *)(new MR::CSharp::IterableC[num_elems]{});
+}
+
+const MR_CSharp_IterableC *MR_CSharp_IterableC_OffsetPtr(const MR_CSharp_IterableC *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableC *)(((const MR::CSharp::IterableC *)ptr) + i);
+}
+
+MR_CSharp_IterableC *MR_CSharp_IterableC_OffsetMutablePtr(MR_CSharp_IterableC *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableC *)(((MR::CSharp::IterableC *)ptr) + i);
+}
+
+MR_CSharp_IterableC *MR_CSharp_IterableC_ConstructFromAnother(const MR_CSharp_IterableC *_other)
+{
+    return (MR_CSharp_IterableC *)new MR::CSharp::IterableC(MR::CSharp::IterableC(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableC(*(MR::CSharp::IterableC *)_other))
+    ));
+}
+
+void MR_CSharp_IterableC_Destroy(const MR_CSharp_IterableC *_this)
+{
+    delete ((const MR::CSharp::IterableC *)_this);
+}
+
+void MR_CSharp_IterableC_DestroyArray(const MR_CSharp_IterableC *_this)
+{
+    delete[] ((const MR::CSharp::IterableC *)_this);
+}
+
+MR_CSharp_IterableC *MR_CSharp_IterableC_AssignFromAnother(MR_CSharp_IterableC *_this, const MR_CSharp_IterableC *_other)
+{
+    return (MR_CSharp_IterableC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableC *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableC(*(MR::CSharp::IterableC *)_other))
+    ));
+}
+
+int32_t *MR_CSharp_IterableC_begin(MR_CSharp_IterableC *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableC *)(_this)).begin();
+}
+
+int32_t *MR_CSharp_IterableC_end(MR_CSharp_IterableC *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableC *)(_this)).end();
+}
+
+const int32_t *MR_CSharp_IterableC_begin_const(const MR_CSharp_IterableC *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableC *)(_this)).begin();
+}
+
+const int32_t *MR_CSharp_IterableC_end_const(const MR_CSharp_IterableC *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableC *)(_this)).end();
+}
+
+const int32_t *MR_CSharp_IterableD_Get_arr(const MR_CSharp_IterableD *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableD *)(_this)).arr[0]);
+}
+
+int32_t *MR_CSharp_IterableD_GetMutable_arr(MR_CSharp_IterableD *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableD *)(_this)).arr[0]);
+}
+
+size_t MR_CSharp_IterableD_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::CSharp::IterableD::arr)>;
+}
+
+MR_CSharp_IterableD *MR_CSharp_IterableD_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableD *)new MR::CSharp::IterableD(MR::CSharp::IterableD());
+}
+
+MR_CSharp_IterableD *MR_CSharp_IterableD_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableD *)(new MR::CSharp::IterableD[num_elems]{});
+}
+
+const MR_CSharp_IterableD *MR_CSharp_IterableD_OffsetPtr(const MR_CSharp_IterableD *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableD *)(((const MR::CSharp::IterableD *)ptr) + i);
+}
+
+MR_CSharp_IterableD *MR_CSharp_IterableD_OffsetMutablePtr(MR_CSharp_IterableD *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableD *)(((MR::CSharp::IterableD *)ptr) + i);
+}
+
+MR_CSharp_IterableD *MR_CSharp_IterableD_ConstructFromAnother(const MR_CSharp_IterableD *_other)
+{
+    return (MR_CSharp_IterableD *)new MR::CSharp::IterableD(MR::CSharp::IterableD(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableD(*(MR::CSharp::IterableD *)_other))
+    ));
+}
+
+void MR_CSharp_IterableD_Destroy(const MR_CSharp_IterableD *_this)
+{
+    delete ((const MR::CSharp::IterableD *)_this);
+}
+
+void MR_CSharp_IterableD_DestroyArray(const MR_CSharp_IterableD *_this)
+{
+    delete[] ((const MR::CSharp::IterableD *)_this);
+}
+
+MR_CSharp_IterableD *MR_CSharp_IterableD_AssignFromAnother(MR_CSharp_IterableD *_this, const MR_CSharp_IterableD *_other)
+{
+    return (MR_CSharp_IterableD *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableD *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableD(*(MR::CSharp::IterableD *)_other))
+    ));
+}
+
+const int32_t *MR_CSharp_begin_const_MR_CSharp_IterableD_ref(const MR_CSharp_IterableD *self)
+{
+    return begin(
+        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(const MR::CSharp::IterableD *)(self))
+    );
+}
+
+const int32_t *MR_CSharp_end_const_MR_CSharp_IterableD_ref(const MR_CSharp_IterableD *self)
+{
+    return end(
+        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(const MR::CSharp::IterableD *)(self))
+    );
+}
+
+const int32_t *MR_CSharp_IterableE_Get_arr(const MR_CSharp_IterableE *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableE *)(_this)).arr[0]);
+}
+
+int32_t *MR_CSharp_IterableE_GetMutable_arr(MR_CSharp_IterableE *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableE *)(_this)).arr[0]);
+}
+
+size_t MR_CSharp_IterableE_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::CSharp::IterableE::arr)>;
+}
+
+MR_CSharp_IterableE *MR_CSharp_IterableE_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableE *)new MR::CSharp::IterableE(MR::CSharp::IterableE());
+}
+
+MR_CSharp_IterableE *MR_CSharp_IterableE_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableE *)(new MR::CSharp::IterableE[num_elems]{});
+}
+
+const MR_CSharp_IterableE *MR_CSharp_IterableE_OffsetPtr(const MR_CSharp_IterableE *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableE *)(((const MR::CSharp::IterableE *)ptr) + i);
+}
+
+MR_CSharp_IterableE *MR_CSharp_IterableE_OffsetMutablePtr(MR_CSharp_IterableE *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableE *)(((MR::CSharp::IterableE *)ptr) + i);
+}
+
+MR_CSharp_IterableE *MR_CSharp_IterableE_ConstructFromAnother(const MR_CSharp_IterableE *_other)
+{
+    return (MR_CSharp_IterableE *)new MR::CSharp::IterableE(MR::CSharp::IterableE(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableE(*(MR::CSharp::IterableE *)_other))
+    ));
+}
+
+void MR_CSharp_IterableE_Destroy(const MR_CSharp_IterableE *_this)
+{
+    delete ((const MR::CSharp::IterableE *)_this);
+}
+
+void MR_CSharp_IterableE_DestroyArray(const MR_CSharp_IterableE *_this)
+{
+    delete[] ((const MR::CSharp::IterableE *)_this);
+}
+
+MR_CSharp_IterableE *MR_CSharp_IterableE_AssignFromAnother(MR_CSharp_IterableE *_this, const MR_CSharp_IterableE *_other)
+{
+    return (MR_CSharp_IterableE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableE *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableE(*(MR::CSharp::IterableE *)_other))
+    ));
+}
+
+int32_t *MR_CSharp_begin_MR_CSharp_IterableE_ref(MR_CSharp_IterableE *self)
+{
+    return begin(
+        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(MR::CSharp::IterableE *)(self))
+    );
+}
+
+int32_t *MR_CSharp_end_MR_CSharp_IterableE_ref(MR_CSharp_IterableE *self)
+{
+    return end(
+        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(MR::CSharp::IterableE *)(self))
+    );
+}
+
+const int32_t *MR_CSharp_IterableF_Get_arr(const MR_CSharp_IterableF *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableF *)(_this)).arr[0]);
+}
+
+int32_t *MR_CSharp_IterableF_GetMutable_arr(MR_CSharp_IterableF *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableF *)(_this)).arr[0]);
+}
+
+size_t MR_CSharp_IterableF_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::CSharp::IterableF::arr)>;
+}
+
+MR_CSharp_IterableF *MR_CSharp_IterableF_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableF *)new MR::CSharp::IterableF(MR::CSharp::IterableF());
+}
+
+MR_CSharp_IterableF *MR_CSharp_IterableF_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableF *)(new MR::CSharp::IterableF[num_elems]{});
+}
+
+const MR_CSharp_IterableF *MR_CSharp_IterableF_OffsetPtr(const MR_CSharp_IterableF *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableF *)(((const MR::CSharp::IterableF *)ptr) + i);
+}
+
+MR_CSharp_IterableF *MR_CSharp_IterableF_OffsetMutablePtr(MR_CSharp_IterableF *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableF *)(((MR::CSharp::IterableF *)ptr) + i);
+}
+
+MR_CSharp_IterableF *MR_CSharp_IterableF_ConstructFromAnother(const MR_CSharp_IterableF *_other)
+{
+    return (MR_CSharp_IterableF *)new MR::CSharp::IterableF(MR::CSharp::IterableF(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableF(*(MR::CSharp::IterableF *)_other))
+    ));
+}
+
+void MR_CSharp_IterableF_Destroy(const MR_CSharp_IterableF *_this)
+{
+    delete ((const MR::CSharp::IterableF *)_this);
+}
+
+void MR_CSharp_IterableF_DestroyArray(const MR_CSharp_IterableF *_this)
+{
+    delete[] ((const MR::CSharp::IterableF *)_this);
+}
+
+MR_CSharp_IterableF *MR_CSharp_IterableF_AssignFromAnother(MR_CSharp_IterableF *_this, const MR_CSharp_IterableF *_other)
+{
+    return (MR_CSharp_IterableF *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableF *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableF(*(MR::CSharp::IterableF *)_other))
+    ));
+}
+
+const int32_t *MR_CSharp_begin_const_MR_CSharp_IterableF_ref(const MR_CSharp_IterableF *self)
+{
+    return begin(
+        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(const MR::CSharp::IterableF *)(self))
+    );
+}
+
+const int32_t *MR_CSharp_end_const_MR_CSharp_IterableF_ref(const MR_CSharp_IterableF *self)
+{
+    return end(
+        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(const MR::CSharp::IterableF *)(self))
+    );
+}
+
+int32_t *MR_CSharp_begin_MR_CSharp_IterableF_ref(MR_CSharp_IterableF *self)
+{
+    return begin(
+        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(MR::CSharp::IterableF *)(self))
+    );
+}
+
+int32_t *MR_CSharp_end_MR_CSharp_IterableF_ref(MR_CSharp_IterableF *self)
+{
+    return end(
+        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(MR::CSharp::IterableF *)(self))
+    );
+}
+
+const MR_C_std_string *MR_CSharp_IterableG_Get_arr(const MR_CSharp_IterableG *_this)
+{
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableG *)(_this)).arr[0]);
+}
+
+MR_C_std_string *MR_CSharp_IterableG_GetMutable_arr(MR_CSharp_IterableG *_this)
+{
+    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableG *)(_this)).arr[0]);
+}
+
+size_t MR_CSharp_IterableG_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::CSharp::IterableG::arr)>;
+}
+
+MR_CSharp_IterableG *MR_CSharp_IterableG_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableG *)new MR::CSharp::IterableG(MR::CSharp::IterableG());
+}
+
+MR_CSharp_IterableG *MR_CSharp_IterableG_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableG *)(new MR::CSharp::IterableG[num_elems]{});
+}
+
+const MR_CSharp_IterableG *MR_CSharp_IterableG_OffsetPtr(const MR_CSharp_IterableG *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableG *)(((const MR::CSharp::IterableG *)ptr) + i);
+}
+
+MR_CSharp_IterableG *MR_CSharp_IterableG_OffsetMutablePtr(MR_CSharp_IterableG *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableG *)(((MR::CSharp::IterableG *)ptr) + i);
+}
+
+MR_CSharp_IterableG *MR_CSharp_IterableG_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_IterableG *_other)
+{
+    return (MR_CSharp_IterableG *)new MR::CSharp::IterableG(MR::CSharp::IterableG(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IterableG) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::IterableG), MR::CSharp::IterableG) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IterableG), MR::CSharp::IterableG) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IterableG) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IterableG) MRBINDC_CLASSARG_END(_other, MR::CSharp::IterableG))
+    ));
+}
+
+void MR_CSharp_IterableG_Destroy(const MR_CSharp_IterableG *_this)
+{
+    delete ((const MR::CSharp::IterableG *)_this);
+}
+
+void MR_CSharp_IterableG_DestroyArray(const MR_CSharp_IterableG *_this)
+{
+    delete[] ((const MR::CSharp::IterableG *)_this);
+}
+
+MR_CSharp_IterableG *MR_CSharp_IterableG_AssignFromAnother(MR_CSharp_IterableG *_this, MR_C_PassBy _other_pass_by, MR_CSharp_IterableG *_other)
+{
+    return (MR_CSharp_IterableG *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableG *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IterableG) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::IterableG), MR::CSharp::IterableG) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IterableG), MR::CSharp::IterableG) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IterableG) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IterableG) MRBINDC_CLASSARG_END(_other, MR::CSharp::IterableG))
+    ));
+}
+
+MR_C_std_string *MR_CSharp_IterableG_begin(MR_CSharp_IterableG *_this)
+{
+    return (MR_C_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableG *)(_this)).begin());
+}
+
+MR_C_std_string *MR_CSharp_IterableG_end(MR_CSharp_IterableG *_this)
+{
+    return (MR_C_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableG *)(_this)).end());
+}
+
+const MR_C_std_string *MR_CSharp_IterableH_Get_arr(const MR_CSharp_IterableH *_this)
+{
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableH *)(_this)).arr[0]);
+}
+
+MR_C_std_string *MR_CSharp_IterableH_GetMutable_arr(MR_CSharp_IterableH *_this)
+{
+    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableH *)(_this)).arr[0]);
+}
+
+size_t MR_CSharp_IterableH_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::CSharp::IterableH::arr)>;
+}
+
+MR_CSharp_IterableH *MR_CSharp_IterableH_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableH *)new MR::CSharp::IterableH(MR::CSharp::IterableH());
+}
+
+MR_CSharp_IterableH *MR_CSharp_IterableH_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableH *)(new MR::CSharp::IterableH[num_elems]{});
+}
+
+const MR_CSharp_IterableH *MR_CSharp_IterableH_OffsetPtr(const MR_CSharp_IterableH *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableH *)(((const MR::CSharp::IterableH *)ptr) + i);
+}
+
+MR_CSharp_IterableH *MR_CSharp_IterableH_OffsetMutablePtr(MR_CSharp_IterableH *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableH *)(((MR::CSharp::IterableH *)ptr) + i);
+}
+
+MR_CSharp_IterableH *MR_CSharp_IterableH_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_IterableH *_other)
+{
+    return (MR_CSharp_IterableH *)new MR::CSharp::IterableH(MR::CSharp::IterableH(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IterableH) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::IterableH), MR::CSharp::IterableH) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IterableH), MR::CSharp::IterableH) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IterableH) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IterableH) MRBINDC_CLASSARG_END(_other, MR::CSharp::IterableH))
+    ));
+}
+
+void MR_CSharp_IterableH_Destroy(const MR_CSharp_IterableH *_this)
+{
+    delete ((const MR::CSharp::IterableH *)_this);
+}
+
+void MR_CSharp_IterableH_DestroyArray(const MR_CSharp_IterableH *_this)
+{
+    delete[] ((const MR::CSharp::IterableH *)_this);
+}
+
+MR_CSharp_IterableH *MR_CSharp_IterableH_AssignFromAnother(MR_CSharp_IterableH *_this, MR_C_PassBy _other_pass_by, MR_CSharp_IterableH *_other)
+{
+    return (MR_CSharp_IterableH *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableH *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IterableH) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::IterableH), MR::CSharp::IterableH) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IterableH), MR::CSharp::IterableH) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IterableH) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IterableH) MRBINDC_CLASSARG_END(_other, MR::CSharp::IterableH))
+    ));
+}
+
+const MR_C_std_string *MR_CSharp_IterableH_begin(MR_CSharp_IterableH *_this)
+{
+    return (const MR_C_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableH *)(_this)).begin());
+}
+
+const MR_C_std_string *MR_CSharp_IterableH_end(MR_CSharp_IterableH *_this)
+{
+    return (const MR_C_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableH *)(_this)).end());
+}
+
+const MR_CSharp_ExposedLayout *MR_CSharp_IterableI_Get_arr(const MR_CSharp_IterableI *_this)
+{
+    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableI *)(_this)).arr[0]);
+}
+
+MR_CSharp_ExposedLayout *MR_CSharp_IterableI_GetMutable_arr(MR_CSharp_IterableI *_this)
+{
+    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableI *)(_this)).arr[0]);
+}
+
+size_t MR_CSharp_IterableI_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::CSharp::IterableI::arr)>;
+}
+
+MR_CSharp_IterableI *MR_CSharp_IterableI_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableI *)new MR::CSharp::IterableI(MR::CSharp::IterableI());
+}
+
+MR_CSharp_IterableI *MR_CSharp_IterableI_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableI *)(new MR::CSharp::IterableI[num_elems]{});
+}
+
+const MR_CSharp_IterableI *MR_CSharp_IterableI_OffsetPtr(const MR_CSharp_IterableI *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableI *)(((const MR::CSharp::IterableI *)ptr) + i);
+}
+
+MR_CSharp_IterableI *MR_CSharp_IterableI_OffsetMutablePtr(MR_CSharp_IterableI *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableI *)(((MR::CSharp::IterableI *)ptr) + i);
+}
+
+MR_CSharp_IterableI *MR_CSharp_IterableI_ConstructFromAnother(const MR_CSharp_IterableI *_other)
+{
+    return (MR_CSharp_IterableI *)new MR::CSharp::IterableI(MR::CSharp::IterableI(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableI(*(MR::CSharp::IterableI *)_other))
+    ));
+}
+
+void MR_CSharp_IterableI_Destroy(const MR_CSharp_IterableI *_this)
+{
+    delete ((const MR::CSharp::IterableI *)_this);
+}
+
+void MR_CSharp_IterableI_DestroyArray(const MR_CSharp_IterableI *_this)
+{
+    delete[] ((const MR::CSharp::IterableI *)_this);
+}
+
+MR_CSharp_IterableI *MR_CSharp_IterableI_AssignFromAnother(MR_CSharp_IterableI *_this, const MR_CSharp_IterableI *_other)
+{
+    return (MR_CSharp_IterableI *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableI *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableI(*(MR::CSharp::IterableI *)_other))
+    ));
+}
+
+MR_CSharp_ExposedLayout *MR_CSharp_IterableI_begin(MR_CSharp_IterableI *_this)
+{
+    return (MR_CSharp_ExposedLayout *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableI *)(_this)).begin());
+}
+
+MR_CSharp_ExposedLayout *MR_CSharp_IterableI_end(MR_CSharp_IterableI *_this)
+{
+    return (MR_CSharp_ExposedLayout *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableI *)(_this)).end());
+}
+
+const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_Get_arr(const MR_CSharp_IterableJ *_this)
+{
+    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableJ *)(_this)).arr[0]);
+}
+
+MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_GetMutable_arr(MR_CSharp_IterableJ *_this)
+{
+    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableJ *)(_this)).arr[0]);
+}
+
+size_t MR_CSharp_IterableJ_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::CSharp::IterableJ::arr)>;
+}
+
+MR_CSharp_IterableJ *MR_CSharp_IterableJ_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableJ *)new MR::CSharp::IterableJ(MR::CSharp::IterableJ());
+}
+
+MR_CSharp_IterableJ *MR_CSharp_IterableJ_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableJ *)(new MR::CSharp::IterableJ[num_elems]{});
+}
+
+const MR_CSharp_IterableJ *MR_CSharp_IterableJ_OffsetPtr(const MR_CSharp_IterableJ *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableJ *)(((const MR::CSharp::IterableJ *)ptr) + i);
+}
+
+MR_CSharp_IterableJ *MR_CSharp_IterableJ_OffsetMutablePtr(MR_CSharp_IterableJ *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableJ *)(((MR::CSharp::IterableJ *)ptr) + i);
+}
+
+MR_CSharp_IterableJ *MR_CSharp_IterableJ_ConstructFromAnother(const MR_CSharp_IterableJ *_other)
+{
+    return (MR_CSharp_IterableJ *)new MR::CSharp::IterableJ(MR::CSharp::IterableJ(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableJ(*(MR::CSharp::IterableJ *)_other))
+    ));
+}
+
+void MR_CSharp_IterableJ_Destroy(const MR_CSharp_IterableJ *_this)
+{
+    delete ((const MR::CSharp::IterableJ *)_this);
+}
+
+void MR_CSharp_IterableJ_DestroyArray(const MR_CSharp_IterableJ *_this)
+{
+    delete[] ((const MR::CSharp::IterableJ *)_this);
+}
+
+MR_CSharp_IterableJ *MR_CSharp_IterableJ_AssignFromAnother(MR_CSharp_IterableJ *_this, const MR_CSharp_IterableJ *_other)
+{
+    return (MR_CSharp_IterableJ *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableJ *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableJ(*(MR::CSharp::IterableJ *)_other))
+    ));
+}
+
+const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_begin(MR_CSharp_IterableJ *_this)
+{
+    return (const MR_CSharp_ExposedLayout *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableJ *)(_this)).begin());
+}
+
+const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_end(MR_CSharp_IterableJ *_this)
+{
+    return (const MR_CSharp_ExposedLayout *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableJ *)(_this)).end());
 }
 
 MR_C_expected_int32_t_float *MR_CSharp_test_expected_int(const MR_C_expected_int32_t_float *a, const MR_C_expected_int32_t_float *b)

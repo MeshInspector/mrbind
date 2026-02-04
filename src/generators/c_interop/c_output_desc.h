@@ -372,6 +372,7 @@ namespace mrbind::CInterop
 
             MBREFL_STRUCT(
                 // The name without qualifiers.
+                // (Note that the C# generator modifies this to include the template arguments in some cases, to avoid ambiguities.)
                 (std::string)(name)
                 // The name without qualifiers and with template arguments, if any. Otherwise equal to `name`.
                 (std::string)(full_name)

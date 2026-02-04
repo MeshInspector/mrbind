@@ -4,11 +4,15 @@ class MainClass
 {
     public static void Main()
     {
-        Console.WriteLine(Foo(true));
+        IterableA a = new();
+
+        foreach (var x in a)
+        {
+            Console.WriteLine(x);
+        }
 
         try
         {
-            Console.WriteLine(Foo(false));
         }
         catch (Exception e)
         {

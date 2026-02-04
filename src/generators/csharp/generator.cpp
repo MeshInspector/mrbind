@@ -170,6 +170,14 @@ namespace mrbind::CSharp
             AdjustIfMatchesCSharpKeyword(str);
     }
 
+    std::string_view TryStripTemplateArgsSimple(std::string_view str)
+    {
+        auto pos = str.find('<');
+        if (pos == std::string_view::npos || !str.ends_with('>'))
+            return str;
+        return str.substr(0, pos);
+    }
+
     void OutputFile::DumpToOstream(std::ostream &out) const
     {
         out << contents;
@@ -430,6 +438,12 @@ namespace mrbind::CSharp
         cppdecl::QualifiedName remaining_parts;
         remaining_parts.parts.assign(cpp_array_type.simple_type.name.parts.begin() + std::ptrdiff_t(ret.parts.size()), cpp_array_type.simple_type.name.parts.end());
 
+        // Don't forget the signed-ness.
+        if (bool(cpp_array_type.simple_type.flags & cppdecl::SimpleTypeFlags::unsigned_))
+            remaining_parts.parts.back().var = "unsigned " + std::get<std::string>(remaining_parts.parts.back().var);
+        else if (cpp_array_type.simple_type.IsNonRedundantlySigned())
+            remaining_parts.parts.back().var = "signed " + std::get<std::string>(remaining_parts.parts.back().var);
+
         std::string csharp_array_name;
         if (cpp_array_type.IsEffectivelyConst())
             csharp_array_name += "Const_";
@@ -561,16 +575,16 @@ namespace mrbind::CSharp
         // Not inserting yet, in case this function fails.
         // And also because arrays of simple enough types are not inserted into this map at all,
         //   and are instead handled through `CppToCSharpKnownSizeType()`, see below.
-        auto iter = requested_opaque_arrays.find(csharp_array_name);
+        auto iter = requested_maybe_opaque_arrays.find(csharp_array_name);
 
-        if (iter == requested_opaque_arrays.end())
+        if (iter == requested_maybe_opaque_arrays.end())
         {
             const bool is_const = cpp_array_type.IsEffectivelyConst();
 
             // Simple enough type.
             if (auto opt = CppToCSharpKnownSizeType(cpp_array_type))
             {
-                // Here we don't write to `requested_opaque_arrays`, and just reuse a simple array.
+                // Here we don't write to `requested_maybe_opaque_arrays`, and just reuse a simple array.
 
                 ArrayStrings ret;
 
@@ -585,7 +599,7 @@ namespace mrbind::CSharp
 
             auto Return = [&]() -> ArrayStrings
             {
-                auto result = requested_opaque_arrays.try_emplace(std::move(csharp_array_name), std::move(ret));
+                auto result = requested_maybe_opaque_arrays.try_emplace(std::move(csharp_array_name), std::move(ret));
                 if (desc)
                     *desc = &result.first->second;
                 return result.first->second.strings;
@@ -971,7 +985,7 @@ namespace mrbind::CSharp
         return false;
     }
 
-    const Generator::UsedNamesInNamespace &Generator::GetUsedUsedNamesInNamespace(const cppdecl::QualifiedName &cpp_namespace)
+    const Generator::UsedNamesInNamespace &Generator::GetUsedNamesInNamespace(const cppdecl::QualifiedName &cpp_namespace)
     {
         const std::string cpp_namespace_str = cpp_namespace.parts.empty() ? "" : CppdeclToCode(cpp_namespace);
         auto iter = cached_used_names_in_namespace.find(cpp_namespace_str);
@@ -2022,9 +2036,57 @@ namespace mrbind::CSharp
                             // If `fix_input` is specified, it should return an extra statement for parameters' `extra_statements`.
                             // The result should be terminated with a newline, and you can read/write `name` in your statement.
                             // NOTE: The `fix_input` lambda is preserved, make sure it doesn't dangle.
-                            auto MakeScalarPtrBinding = [&](const std::string &csharp_type, std::function<std::string(const std::string &name)> fix_input = nullptr, bool is_exposed_struct = false) -> TypeBinding
+                            auto MakeScalarPtrBinding = [&](const cppdecl::Type &cpp_pointer_type, const std::string &csharp_type, std::function<std::string(const std::string &name)> fix_input = nullptr, bool is_exposed_struct = false) -> TypeBinding
                             {
-                                if (bool(flags & (TypeBindingFlags::pointer_to_array | TypeBindingFlags::replace_ref_with_ptr)))
+                                if (bool(flags & (TypeBindingFlags::pointer_to_array)))
+                                {
+                                    std::string csharp_ptr_type = csharp_type;
+                                    if (!csharp_ptr_type.ends_with('*'))
+                                        csharp_ptr_type += ' ';
+                                    csharp_ptr_type += '*';
+
+                                    cppdecl::Type cpp_unbounded_array_type = cpp_pointer_type;
+                                    assert(cpp_unbounded_array_type.Is<cppdecl::Pointer>());
+                                    cpp_unbounded_array_type.RemoveModifier();
+                                    cpp_unbounded_array_type.AddModifier(cppdecl::Array{});
+
+                                    auto strings = RequestCSharpArrayType(cpp_unbounded_array_type);
+
+                                    return {
+                                        // For now, parameters are still plain pointers. We could eventually replace then with the unbounded array wrappers.
+                                        .param_usage = TypeBinding::ParamUsage{
+                                            .make_strings = [is_const, csharp_ptr_type](const std::string &name, bool have_useless_defarg)
+                                            {
+                                                return TypeBinding::ParamUsage::Strings{
+                                                    .extra_comment = "/// Parameter `" + name + "` is " + (is_const ? "a read-only pointer" : "a mutable pointer") + ".\n",
+                                                    .dllimport_decl_params = csharp_ptr_type + name,
+                                                    .csharp_decl_params = {{.type = csharp_ptr_type, .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
+                                                    .dllimport_args = name,
+                                                };
+                                            },
+                                        },
+                                        .param_usage_with_default_arg = TypeBinding::ParamUsage{
+                                            .make_strings = [is_const, csharp_ptr_type](const std::string &name, bool /*have_useless_defarg*/)
+                                            {
+                                                return TypeBinding::ParamUsage::Strings{
+                                                    .extra_comment = "/// Parameter `" + name + "` is " + (is_const ? "a read-only pointer" : "a mutable pointer") + ".\n",
+                                                    .dllimport_decl_params = csharp_ptr_type + "*" + name,
+                                                    .csharp_decl_params = {{.type = csharp_ptr_type + "*", .name = name, .default_arg = "null"}},
+                                                    .dllimport_args = name,
+                                                };
+                                            },
+                                        },
+                                        .return_usage = TypeBinding::ReturnUsage{
+                                            .dllimport_return_type = csharp_ptr_type,
+                                            .csharp_return_type = strings.csharp_type,
+                                            .make_return_statements = [strings](const std::string &target, const std::string &expr)
+                                            {
+                                                return target + " " + strings.construct(expr) + ";";
+                                            },
+                                        },
+                                    };
+                                }
+                                else if (bool(flags & (TypeBindingFlags::replace_ref_with_ptr)))
                                 {
                                     std::string csharp_ptr_type = csharp_type;
                                     if (!csharp_ptr_type.ends_with('*'))
@@ -2202,7 +2264,7 @@ namespace mrbind::CSharp
                                     auto csharp_type = CToCSharpPrimitiveTypeOpt(cpp_underlying_type_str, true);
                                     if (!csharp_type)
                                         throw std::runtime_error("Type `" + cpp_type_str + "` is marked as a pointer to an arithmetic type, but we don't know this arithmetic type.");
-                                    return CreateBinding(MakeScalarPtrBinding(std::string(*csharp_type)));
+                                    return CreateBinding(MakeScalarPtrBinding(cpp_type, std::string(*csharp_type)));
                                 },
                                 [&](const CInterop::TypeKinds::Enum &underlying_enum) -> const TypeBinding *
                                 {
@@ -2212,7 +2274,7 @@ namespace mrbind::CSharp
                                     const std::string csharp_underlying_enum_type = CppToCSharpEnumName(cpp_underlying_type.simple_type.name);
                                     const bool underlying_is_bool = c_desc.platform_info.FindPrimitiveType(underlying_enum.underlying_type)->kind == PrimitiveTypeInfo::Kind::boolean;
 
-                                    return CreateBinding(MakeScalarPtrBinding(csharp_underlying_enum_type,
+                                    return CreateBinding(MakeScalarPtrBinding(cpp_type, csharp_underlying_enum_type,
                                         // If the underlying type was bool in C/C++, insert code to clamp out-of-range inputs.
                                         underlying_is_bool
                                         ? std::function([csharp_underlying_enum_type](const std::string &name){return "if ((byte)" + name + " > 1) " + name + " = (" + csharp_underlying_enum_type + ")1;\n";})
@@ -2244,7 +2306,7 @@ namespace mrbind::CSharp
                                                 {
                                                     return TypeBinding::ParamUsage::Strings{
                                                         .dllimport_decl_params = csharp_ptr_type + name,
-                                                        .csharp_decl_params = {{.type = csharp_unbounded_array.csharp_type + "?", .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
+                                                        .csharp_decl_params = {{.type = csharp_unbounded_array.csharp_type, .name = name, .default_arg = (have_useless_defarg ? std::optional<std::string>("null") : std::nullopt)}},
                                                         .dllimport_args = name + ".Ptr",
                                                     };
                                                 },
@@ -2263,7 +2325,7 @@ namespace mrbind::CSharp
                                             .return_usage = TypeBinding::ReturnUsage{
                                                 .needs_temporary_variable = true,
                                                 .dllimport_return_type = csharp_ptr_type,
-                                                .csharp_return_type = csharp_unbounded_array.csharp_type + "?",
+                                                .csharp_return_type = csharp_unbounded_array.csharp_type, // Do we want to make this optional (`?`) here and for parameters without default arguments?
                                                 .make_return_statements = [](const std::string &target, const std::string &expr)
                                                 {
                                                     return target + " new(" + expr + ");";
@@ -2280,7 +2342,7 @@ namespace mrbind::CSharp
                                     {
                                         // An exposed struct, and not a shared pointer.
 
-                                        return CreateBinding(MakeScalarPtrBinding(CppToCSharpExposedStructName(cpp_type.simple_type.name), {}, true));
+                                        return CreateBinding(MakeScalarPtrBinding(cpp_type, CppToCSharpExposedStructName(cpp_type.simple_type.name), {}, true));
                                     }
                                     else
                                     {
@@ -2652,7 +2714,7 @@ namespace mrbind::CSharp
                     ret.text +=
                         "public static unsafe implicit operator ReadOnlySpan<byte>(" + csharp_name + " self)\n"
                         "{\n"
-                        "    return new(self." + AdjustCalledFuncName("Data") + "(), checked((int)self." + AdjustCalledFuncName("Size") + "()));\n"
+                        "    return new(self." + AdjustCalledFuncName("Data") + "().GetPointer(), checked((int)self." + AdjustCalledFuncName("Size") + "()));\n"
                         "}\n";
                 }
 
@@ -2660,7 +2722,7 @@ namespace mrbind::CSharp
                 ret.text +=
                     "public static unsafe implicit operator string(" + csharp_name + " self)\n"
                     "{\n"
-                    "    return System.Text.Encoding.UTF8.GetString(self." + AdjustCalledFuncName("Data") + "(), checked((int)self." + AdjustCalledFuncName("Size") + "()));\n"
+                    "    return System.Text.Encoding.UTF8.GetString(self." + AdjustCalledFuncName("Data") + "().GetPointer(), checked((int)self." + AdjustCalledFuncName("Size") + "()));\n"
                     "}\n"
                     "public override string ToString() {return (string)this;}\n";
             }
@@ -2674,7 +2736,7 @@ namespace mrbind::CSharp
                     ret.text +=
                         "public static unsafe implicit operator Span<byte>(" + csharp_name + " s)\n"
                         "{\n"
-                        "    return new(s." + AdjustCalledFuncName("Data") + "(), checked((int)s." + AdjustCalledFuncName("Size") + "()));\n"
+                        "    return new(s." + AdjustCalledFuncName("Data") + "().GetPointer(), checked((int)s." + AdjustCalledFuncName("Size") + "()));\n"
                         "}\n";
                 }
             }
@@ -2707,6 +2769,11 @@ namespace mrbind::CSharp
         }
 
         return ret;
+    }
+
+    bool Generator::HaveCSharpFeatureNonStaticIncrementAndDecrement() const
+    {
+        return csharp_version >= 14;
     }
 
     bool Generator::HaveCSharpFeatureSpans() const
@@ -2854,6 +2921,10 @@ namespace mrbind::CSharp
             [](const CInterop::ClassMethod *ptr) -> const CInterop::ClassMethod * {return ptr;},
             [](const CInterop::ClassField::Accessor *) -> const CInterop::ClassMethod * {return nullptr;},
         }, any_func_like)),
+        free_func(std::visit(Overload{
+            [](const CInterop::BasicClassMethodLike *) -> const CInterop::Function * {return nullptr;},
+            [](const CInterop::Function *ptr) -> const CInterop::Function * {return ptr;},
+        }, any_func_like)),
         is_ctor(method && std::holds_alternative<CInterop::MethodKinds::Constructor>(method->var)),
         is_conv_op_rewritten_from_ctor(IsConvOpForCtor(emit_variant)),
         // This is a subset of `is_conv_op_rewritten_from_ctor` that's only true for by-value wrappers.
@@ -2946,11 +3017,42 @@ namespace mrbind::CSharp
                     // NOTE: This behavior must match what's done in `MakeUnqualCSharpMethodName()` to avoid spelling `_Moved<...>` in the name.
                     Generator::TypeBindingFlags::no_move_in_by_value_return
                 ) :
-                is_overloaded_op_or_conv_op_from_this
                 // Custom behavior for all other overloaded operators.
+                is_overloaded_op_or_conv_op_from_this
                 ? (
                     // Overloaded operators can't return true `ref`s, so we must return a wrapper class instead.
                     Generator::TypeBindingFlags::return_ref_wrapper
+                ) :
+                // Custom behavior for `begin` and `end` functions, both member and free ones.
+                (
+                    // TODO: it would be better to make "returns a pointer to array" an attribute in the parser, and additionally make it set it automatically based on the function names.
+
+                    // Is a matching method?
+                    [&]{
+                        if (!method)
+                            return false;
+                        auto regular = std::get_if<CInterop::MethodKinds::Regular>(&method->var);
+                        if (!regular)
+                            return false;
+                        // Even though `.name` shouldn't normally have template arguments, the C# generator appends them to resolve ambiguities, so we must remove them here.
+                        std::string_view name = TryStripTemplateArgsSimple(regular->name);
+                        return name == "begin" || name == "end";
+                    }() ||
+                    // Is a matching free function?
+                    [&]{
+                        if (!free_func)
+                            return false;
+                        auto regular = std::get_if<CInterop::FuncKinds::Regular>(&free_func->var);
+                        if (!regular)
+                            return false;
+                        // Even though `.name` shouldn't normally have template arguments, the C# generator appends them to resolve ambiguities, so we must remove them here.
+                        std::string name = CppdeclToCode(generator.ParseNameOrThrow(regular->name).parts.back().var);
+                        return name == "begin" || name == "end";
+                    }()
+                )
+                ? (
+                    // Make sure we return a pointer to array, instead of treating it as an optional reference to a single object.
+                    Generator::TypeBindingFlags::pointer_to_array
                 ) :
                 // Otherwise use default flags.
                 TypeBindingFlags{}
@@ -4017,11 +4119,11 @@ namespace mrbind::CSharp
 
                 if (
                     IsOverloadableOpOrConvOp(&method) &&
-                    // If this is a non-static version of `++`/`--` and we're pre-C# 14, must fall back to the normal function name.
+                    // If this is a non-static version of `++`/`--` and we're in older C#, must fall back to the normal function name.
                     !(
                         (elem.token == "++" || elem.token == "--") &&
                         emit_variant != EmitVariant::static_incr_or_decr &&
-                        csharp_version < 14
+                        !HaveCSharpFeatureNonStaticIncrementAndDecrement()
                     ) &&
                     // If this is an overloaded operator that can't be implemented as such in an exposed struct, and we're in one, fall back to the normal function name.
                     !(
@@ -4086,6 +4188,71 @@ namespace mrbind::CSharp
         }
 
         return ret;
+    }
+
+    std::string Generator::MakeQualCSharpFreeFuncName(const CInterop::Function &func)
+    {
+        cppdecl::QualifiedName name;
+        std::visit(
+            [&]<typename T>(const T &elem)
+            {
+                name = ParseNameOrThrow(elem.name);
+            },
+            func.var
+        );
+
+        name = AdjustCppNamespaces(std::move(name));
+
+        std::string ret;
+        for (std::size_t i = 0; i < name.parts.size(); i++)
+        {
+            if (i > 0)
+                ret += '.'; // We don't use actual namespaces in C# (which would require `::`). Since we only use static classes, we can use `.` everywhere.
+
+            std::string part;
+            if (i + 1 == name.parts.size())
+                part = MakeUnqualCSharpFreeFuncName(func);
+            else
+                part = CppToCSharpIdentifier(name.parts[i]);
+
+            ret += part;
+        }
+        return ret;
+    }
+
+    std::string Generator::MakeUnqualCSharpFreeFuncName(const CInterop::Function &func)
+    {
+        // At this point, if `free_func` is an overloaded operator (a free function operator that wasn't adjusted to a member one in `Generate()`,
+        //   before emitting free functions), then we can't bind it as an operator
+
+        return std::visit(
+            [&]<typename T>(const T &elem)
+            {
+                cppdecl::QualifiedName name = ParseNameOrThrow(elem.name);
+
+                // Sync this logic for operators with `MakeUnqualCSharpMethodName()`.
+                std::string ret;
+                if constexpr (std::is_same_v<T, CInterop::FuncKinds::Operator>)
+                    ret = CppIdentifierToCSharpIdentifier(cppdecl::TokenToIdentifier(std::get<cppdecl::OverloadedOperator>(name.parts.back().var).token, true));
+                else
+                    ret = CppToCSharpIdentifier(name.parts.back());
+
+                if (begin_func_names_with_lowercase)
+                    MakeFirstLetterLowercase(ret);
+
+                { // Adjust the name to avoid conflicts with types.
+                    auto name_copy = name;
+                    name_copy.parts.pop_back();
+                    const auto &used_names = GetUsedNamesInNamespace(name_copy);
+
+                    while (used_names.class_names.contains(ret))
+                        ret += '_';
+                }
+
+                return ret;
+            },
+            func.var
+        );
     }
 
     std::string Generator::MakeFuncComment(AnyFuncLikePtr any_func_like)
@@ -4346,7 +4513,7 @@ namespace mrbind::CSharp
             const bool is_signed = c_desc.platform_info.FindPrimitiveType(enum_desc.underlying_type)->kind == PrimitiveTypeInfo::Kind::signed_integral;
 
             // Open the enum scope.
-            file.PushScope({}, "{\n", "}\n");
+            file.PushScope();
 
             // Write the constants...
             for (const CInterop::EnumElem &elem : enum_desc.elems)
@@ -4803,6 +4970,16 @@ namespace mrbind::CSharp
                 });
             };
 
+            // Returns true if this half of the class has `begin` and `end` methods or free functions.
+            // Doesn't automatically propagate const methods to the non-const half, that has to be done manually.
+            auto BeginEndExistForClassPart = [&](bool is_const) -> bool
+            {
+                auto iter = begin_end_class_funcs.find(std::make_pair(cpp_type, is_const));
+                if (iter == begin_end_class_funcs.end())
+                    return false;
+                return iter->second.BothExist();
+            };
+
             // If `class_part_kind` isn't null, then it means `is_const`.
             // If it is null, we're in the `struct` corresponding to an exposed C++ struct.
             auto EmitClassPart = [&](std::optional<bool> class_part_kind, ClassShadowingData *shadowing_data)
@@ -4833,7 +5010,7 @@ namespace mrbind::CSharp
                     // And it'll also help if we decide to get rid of the uncool cast one day.
                     static const cppdecl::QualifiedName cpp_sharedptr_constvoid_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr").AddTemplateArgument(cppdecl::Type::FromSingleWord("void").AddQualifiers(cppdecl::CvQualifiers::const_));
                     // This is the C# name of the underlying raw pointer used in the C# wrapper of `std::shared_ptr<const void>`.
-                    static const std::string sharedptr_constvoid_underlying_ptr_type = CppToCSharpClassName(cpp_sharedptr_constvoid_name, true) + "._Underlying *";
+                    static const std::optional<std::string> sharedptr_constvoid_underlying_ptr_type = c_desc.FindTypeOpt(CppdeclToCode(cpp_sharedptr_constvoid_name)) ? std::optional(CppToCSharpClassName(cpp_sharedptr_constvoid_name, true) + "._Underlying *") : std::nullopt;
 
                     // Is this an equality comparison that gets implemented as an overloaded operator in C#.
                     auto IsEqualityComparisonForIEquatable = [&](const CInterop::ClassMethod &method)
@@ -4885,6 +5062,15 @@ namespace mrbind::CSharp
                     std::string iequatable_impls;
                     std::string iequatable_generic_impl;
 
+                    bool is_ienumerable = false;
+                    bool base_is_ienumerable = false;
+                    std::string ienumerable_csharp_iter_type;
+                    std::string ienumerable_csharp_elem_type;
+                    std::string ienumerable_csharp_call_begin;
+                    std::string ienumerable_csharp_call_end;
+                    std::string ienumerable_csharp_call_incr;
+                    std::string ienumerable_csharp_return_deref;
+
                     { // Write the bases.
                         auto BaseSeparator = [&, first = true]() mutable
                         {
@@ -4924,7 +5110,7 @@ namespace mrbind::CSharp
                             }
                         }
 
-                        // `IEquatable` for our equality comparisons.
+                        // `IEquatable<T>` for our equality comparisons.
                         for (const CInterop::ClassMethod &method : class_desc.methods)
                         {
                             if (ShouldEmitMethodHere(method, class_part_kind, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
@@ -5011,6 +5197,95 @@ namespace mrbind::CSharp
                             if (!is_exposed_struct_by_value && !IsConst() && ShouldEmitMethodHere(method, true, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
                                 base_implements_any_iequatable = true;
                         }
+
+                        // `IEnumerable<T>` for containers.
+                        if (!is_exposed_struct_by_value && BeginEndExistForClassPart(IsConst()))
+                        {
+                            try
+                            {
+                                is_ienumerable = true;
+
+                                if (!IsConst() && BeginEndExistForClassPart(true))
+                                    base_is_ienumerable = true;
+
+                                const ClassBeginEndFuncs &info = begin_end_class_funcs.at(std::make_pair(cpp_type, IsConst()));
+
+                                ienumerable_csharp_call_begin = info.begin.MemberExists() ? "_container." + AdjustCalledFuncName("Begin") + "()" : info.begin.nonmember_csharp_name.value() + "(_container)";
+                                ienumerable_csharp_call_end   = info.end  .MemberExists() ? "_container." + AdjustCalledFuncName("End"  ) + "()" : info.end  .nonmember_csharp_name.value() + "(_container)";
+
+                                // First, figure out the iterator type. We're getting it from `begin()`, in case `end()` returns a sentinel of a different type.
+                                const cppdecl::Type &cpp_iter_type = info.begin.MemberExists() ? info.begin.member_return_type.value() : info.begin.nonmember_return_type.value();
+
+                                // Not using `CppToCSharpKnownSizeType` to get `ienumerable_csharp_iter_type` for pointers, since it doesn't handle pointers to classes correctly, and just gives `void *` for those.
+                                // So instead we unconditionally use `GetTypeBinding()`.
+                                ienumerable_csharp_iter_type = GetTypeBinding(cpp_iter_type, TypeBindingFlags::pointer_to_array).return_usage.value().csharp_return_type;
+
+                                if (HaveCSharpFeatureNonStaticIncrementAndDecrement())
+                                    ienumerable_csharp_call_incr = "_cur++";
+                                else
+                                    ienumerable_csharp_call_incr = "_cur." + AdjustCalledFuncName("Incr") + "()";
+
+                                cppdecl::Type cpp_elem_type;
+                                if (cpp_iter_type.Is<cppdecl::Pointer>())
+                                {
+                                    // The element type is same as the pointer type, but with the pointer replaced with a reference.
+                                    cpp_elem_type = cpp_iter_type;
+                                    cpp_elem_type.RemoveModifier();
+                                    cpp_elem_type.AddModifier(cppdecl::Reference());
+                                }
+                                else
+                                {
+                                    const CInterop::TypeDesc *iter_desc = c_desc.FindTypeOpt(CppdeclToCode(cpp_iter_type));
+                                    if (!iter_desc)
+                                        throw std::runtime_error("No information about the iterator type `" + CppdeclToCode(cpp_iter_type) + "`.");
+                                    auto cl = std::get_if<CInterop::TypeKinds::Class>(&iter_desc->var);
+                                    if (!cl)
+                                        throw std::runtime_error("The iterator type `" + CppdeclToCode(cpp_iter_type) + "` is neither a pointer nor a class, not sure what to do with it.");
+
+                                    // Find the dereference method.
+                                    for (const auto &method : cl->methods)
+                                    {
+                                        auto op = std::get_if<CInterop::MethodKinds::Operator>(&method.var);
+
+                                        // Must be unary operator `*`.
+                                        if (!op || op->token != "*" || method.params.size() != 1)
+                                            continue;
+
+                                        // Complain if we have multiple such operators.
+                                        if (!cpp_elem_type.IsEmpty())
+                                            throw std::runtime_error("The iterator type `" + CppdeclToCode(cpp_iter_type) + "` has multiple unary `*` operators, expected exactly one.");
+
+                                        cpp_elem_type = ParseTypeOrThrow(method.ret.cpp_type);
+
+                                        // Don't break yet, we want to check for other unary `*` operators, and complain if there's more than one.
+                                    }
+                                }
+
+                                // Need `return_ref_wrapper` because `ref T` can't serve as a generic argument.
+                                ienumerable_csharp_elem_type = GetTypeBinding(cpp_elem_type, TypeBindingFlags::return_ref_wrapper).return_usage.value().csharp_return_type;
+
+                                // For iterator classes this comes from a C++ overloaded operator `*`. C# doesn't let you overload the unary `*`, so it becomes a function.
+                                // And for unbounded array wrappers, we implement this ourselves.
+                                if (ienumerable_csharp_elem_type.starts_with(MakeHelperNameWithoutRegistration("Ref") + "<"))
+                                    ienumerable_csharp_return_deref = "return new(ref _cur." + AdjustCalledFuncName("Deref") + "());"; // Must construct our `Ref` class explicitly.
+                                else if (ienumerable_csharp_elem_type.starts_with(MakeHelperNameWithoutRegistration("ConstRef") + "<"))
+                                    ienumerable_csharp_return_deref = "return new(in _cur." + AdjustCalledFuncName("Deref") + "());"; // Interestingly, this doesn't compile with `ref`, compiles without `ref` but warns, and the warnings suggests adding `in`. Hmm.
+                                else
+                                    ienumerable_csharp_return_deref = "return _cur." + AdjustCalledFuncName("Deref") + "();";
+
+
+                                // We add the interface to the non-const half if it has its own customized begin/end, even if the const half has them too.
+                                // It's easier this way, and could improve clarity too.
+                                // And also in C#, methods overridden from interfaces don't automaticaly become overridable (unless you make them virtual), so this helps with correctness too.
+
+                                BaseSeparator();
+                                file.WriteString("IEnumerable<" + ienumerable_csharp_elem_type + ">");
+                            }
+                            catch (...)
+                            {
+                                std::throw_with_nested(std::runtime_error("While implementing `IEnumerable`:"));
+                            }
+                        }
                     }
                     file.PushScope({}, "\n{\n", "}\n");
 
@@ -5050,9 +5325,9 @@ namespace mrbind::CSharp
 
                             { // Get underlying raw pointer from the shared pointer.
                                 file.WriteString("internal unsafe _Underlying *_UnderlyingPtr\n");
-                                file.PushScope({}, "{\n", "}\n");
+                                file.PushScope();
                                 file.WriteString("get\n");
-                                file.PushScope({}, "{\n", "}\n");
+                                file.PushScope();
 
                                 file.WriteString("System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, \"Internal error: This object holds a null shared pointer.\");\n");
 
@@ -5068,7 +5343,7 @@ namespace mrbind::CSharp
                                 file.WriteSeparatingNewline();
                                 WriteComment(file, "/// Check if the underlying shared pointer is owning or not.\n");
                                 file.WriteString("public override unsafe bool _IsOwning\n");
-                                file.PushScope({}, "{\n", "}\n");
+                                file.PushScope();
                                 file.PushScope({}, "get\n{\n", "}\n");
 
                                 auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_UseCount", "int", "_UnderlyingShared *_this");
@@ -5086,7 +5361,7 @@ namespace mrbind::CSharp
                                     "/// If this returns null, calling any member other than `.Assign()` on this object will assert.\n"
                                 );
                                 file.WriteString("private unsafe bool _SharedPtrIsNotNull\n");
-                                file.PushScope({}, "{\n", "}\n");
+                                file.PushScope();
                                 file.PushScope({}, "get\n{\n", "}\n");
 
                                 auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_Get", "void *", "_UnderlyingShared *_this");
@@ -5137,7 +5412,7 @@ namespace mrbind::CSharp
                         file.WriteSeparatingNewline();
 
                         file.WriteString("protected virtual unsafe void Dispose(bool disposing)\n");
-                        file.PushScope({}, "{\n", "}\n");
+                        file.PushScope();
                         file.WriteString(
                             // Notice the use of `_IsOwningVal` instead of `_IsOwning`. They mean the same thing if shared pointers are not involved,
                             //   but if they ARE involved, then `_IsOwning` will check if the shared pointer owns the target or not,
@@ -5158,6 +5433,101 @@ namespace mrbind::CSharp
                         file.WriteString(
                             "public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}\n"
                             "~" + std::string(unqual_csharp_name) + "() {Dispose(false);}\n"
+                        );
+                    }
+
+                    // The `IEnumerable` implementation, if needed.
+                    if (is_ienumerable)
+                    {
+                        file.WriteSeparatingNewline();
+
+                        std::string maybe_new = base_is_ienumerable ? "new " : "";
+
+                        file.WriteString("public " + maybe_new + "class _Enumerator : IEnumerator<" + ienumerable_csharp_elem_type + ">\n");
+                        file.PushScope();
+
+                        const bool is_raw_ptr = ienumerable_csharp_iter_type.ends_with('*');
+
+                        file.WriteString(
+                            // Store the container. We need this to call `end()`. Also enumerators optionally support rewinding, and this lets us do this too.
+                            unqual_csharp_name + " _container;\n" +
+                            // Store the current iterator.
+                            (is_raw_ptr ? "unsafe " : "") + ienumerable_csharp_iter_type + (ienumerable_csharp_iter_type.ends_with('*') ? "" : " ") + "_cur;\n"
+                            // C# enumerators initially point before the first element, so we need a flag to indicate that.
+                            "bool _first = true;\n"
+                            "bool _done;\n"
+                            "\n"
+                            // Constructor.
+                            // The interface doesn't require it (and can't require it), but we need a way to construct it, and might as well make it public.
+                            // It can't be `private` (to be callable from the enclosing class), but can be `internal`.
+                            "public " + (is_raw_ptr ? "unsafe " : "") + "_Enumerator(" + unqual_csharp_name + " container)\n"
+                            "{\n"
+                            "    _container = container;\n"
+                            "    _cur = " + ienumerable_csharp_call_begin + ";\n"
+                            "    _done = _cur == " + ienumerable_csharp_call_end + ";\n"
+                            "}\n"
+                            "\n"
+                            // Implement dereferencing.
+                            "public " + (is_raw_ptr ? "unsafe " : "") + ienumerable_csharp_elem_type + " Current\n"
+                            "{\n"
+                            "    get\n"
+                            "    {\n"
+                            "        if (_first || _done)\n"
+                            "            throw new " + RequestHelper("InvalidEnumeratorExpression") + "(\"Attempting to dereference an invalid enumerator.\");\n" +
+                            Strings::Indent(ienumerable_csharp_return_deref, 2) + "\n"
+                            "    }\n"
+                            "}\n"
+                            "\n"
+                            // Implement generic dereferencing needed for `IEnumerator`, which `IEnumerator<T>` inherits from.
+                            "object System.Collections.IEnumerator.Current => Current;\n"
+                            "\n"
+                            // Implement incrementing.
+                            "public " + (is_raw_ptr ? "unsafe " : "") + "bool MoveNext()\n"
+                            "{\n"
+                            "    if (_done)\n"
+                            "        return false;\n"
+                            "    if (_first)\n"
+                            "    {\n"
+                            "        _first = false;\n"
+                            "        return true;\n"
+                            "    }\n"
+                            "    " + ienumerable_csharp_call_incr + ";\n"
+                            "    if (_cur == " + ienumerable_csharp_call_end + ")\n"
+                            "    {\n"
+                            "        _done = true;\n"
+                            "        return false;\n"
+                            "    }\n"
+                            "    return true;\n"
+                            "}\n"
+                            "\n"
+                            // Implement resetting. This feature is optional, you're allowed to throw instead of implementing it, but we do it anyway.
+                            "public " + (is_raw_ptr ? "unsafe " : "") + "void Reset()\n"
+                            "{\n"
+                            "    _cur = " + ienumerable_csharp_call_begin + ";\n"
+                            "    _first = true;\n"
+                            "    _done = false;\n"
+                            "}\n"
+                        );
+
+                        // `IEnumerator<T>` inherits from `IDisposable`, so we need a dummy implementation.
+                        file.WriteSeparatingNewline();
+                        file.WriteString("void IDisposable.Dispose() {}\n");
+
+                        file.PopScope(); // Close `class _Enumerator`.
+
+                        // Implement `GetEnumerator()` in this class.
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "public " + maybe_new + "IEnumerator<" + ienumerable_csharp_elem_type + "> GetEnumerator()\n"
+                            "{\n"
+                            "    return new _Enumerator(this);\n"
+                            "}\n"
+                            "\n"
+                            // Must also implement the generic version for `IEnumerable`, which `IEnumerable<T>` inherits from.
+                            "System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()\n"
+                            "{\n"
+                            "    return GetEnumerator();\n"
+                            "}\n"
                         );
                     }
 
@@ -5184,7 +5554,7 @@ namespace mrbind::CSharp
                                 const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst());
 
                                 file.WriteString("public static unsafe implicit operator " + csharp_base_name + "(" + unqual_csharp_name + " self)\n");
-                                file.PushScope({}, "{\n", "}\n");
+                                file.PushScope();
 
 
                                 auto dllimport_decl = MakeDllImportDecl(class_desc.c_name + "_UpcastTo_" + base_desc.c_name, CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *", "_Underlying *_this");
@@ -5205,7 +5575,7 @@ namespace mrbind::CSharp
                                     // Also here we reinterpret all shared pointers as `std::shared_ptr<const void>`, which is slightly uncool,
                                     //   but makes things easier for us. Our C API is good enough that we could express this legally, but that would
                                     //   introduce an extra heap-allocated instance of `std::shared_ptr<const void>`, which is something I don't want.
-                                    file.WriteString("return " + csharp_base_name + "._MakeAliasing((" + sharedptr_constvoid_underlying_ptr_type + ")self._UnderlyingSharedPtr, " + dllimport_decl.csharp_name + "(self._UnderlyingPtr));\n");
+                                    file.WriteString("return " + csharp_base_name + "._MakeAliasing((" + sharedptr_constvoid_underlying_ptr_type.value() + ")self._UnderlyingSharedPtr, " + dllimport_decl.csharp_name + "(self._UnderlyingPtr));\n");
                                 }
 
                                 file.PopScope();
@@ -5233,7 +5603,7 @@ namespace mrbind::CSharp
 
                                 const std::string csharp_base_name = CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst());
                                 file.WriteString("public static unsafe explicit operator " + unqual_csharp_name + "?(" + csharp_base_name + " parent)\n");
-                                file.PushScope({}, "{\n", "}\n");
+                                file.PushScope();
 
                                 auto dllimport_decl = MakeDllImportDecl(base_desc.c_name + "_DynamicDowncastTo_" + class_desc.c_name, "_Underlying *", CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *_this");
                                 file.WriteString(dllimport_decl.dllimport_decl);
@@ -5255,7 +5625,7 @@ namespace mrbind::CSharp
                                 {
                                     // See the upcast code above for an explanation of what we're doing here and why.
                                     file.WriteString(
-                                        "return " + unqual_csharp_name + "._MakeAliasing((" + sharedptr_constvoid_underlying_ptr_type + ")parent._UnderlyingSharedPtr, ptr);\n"
+                                        "return " + unqual_csharp_name + "._MakeAliasing((" + sharedptr_constvoid_underlying_ptr_type.value() + ")parent._UnderlyingSharedPtr, ptr);\n"
                                     );
                                 }
 
@@ -5362,7 +5732,7 @@ namespace mrbind::CSharp
 
                             file.WriteSeparatingNewline();
                             file.WriteString("unsafe static " + unqual_csharp_name + "()\n");
-                            file.PushScope({}, "{\n", "}\n");
+                            file.PushScope();
                             std::string_view view = field_init_static;
                             cppdecl::TrimLeadingWhitespace(view);
                             file.WriteString(view);
@@ -5383,7 +5753,7 @@ namespace mrbind::CSharp
                                 file.WriteSeparatingNewline();
                                 WriteComment(file, "/// Constructors call this at the end to initialize class fields.\n");
                                 file.WriteString("protected " + std::string(!IsConst() ? "new " : "") + "unsafe void _FinalizeFields()\n");
-                                file.PushScope({}, "{\n", "}\n");
+                                file.PushScope();
 
                                 std::string_view view = field_init_nonstatic;
 
@@ -5500,7 +5870,7 @@ namespace mrbind::CSharp
                             // We own our shared pointer regardless, so this is unconditionally true.
                             file.WriteString(" : base(true)\n");
 
-                            file.PushScope({}, "{\n", "}\n");
+                            file.PushScope();
 
                             auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
                             file.WriteString(dllimport_construct_owning.dllimport_decl);
@@ -5556,7 +5926,7 @@ namespace mrbind::CSharp
                                 else
                                 {
                                     file.WriteString(" : base(is_owning)\n");
-                                    file.PushScope({}, "{\n", "}\n");
+                                    file.PushScope();
                                     file.WriteString("_UnderlyingSharedPtr = shared_ptr;\n");
                                     file.WriteString("if (shared_ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
                                     file.WriteString(Strings::Indent(extra_code));
@@ -5572,7 +5942,7 @@ namespace mrbind::CSharp
                                 else
                                 {
                                     file.WriteString(" : base(shared_ptr, is_owning)\n");
-                                    file.PushScope({}, "{\n", "}\n");
+                                    file.PushScope();
                                     file.WriteString("if (shared_ptr is not null)\n"); // This is called with null pointers for delayed construction, so we must check this.
                                     file.WriteString(Strings::Indent(extra_code));
                                     file.PopScope();
@@ -5589,10 +5959,10 @@ namespace mrbind::CSharp
                             file.WriteSeparatingNewline();
 
                             // Notice that this returns a non-const type. This allows us to avoid overriding it in the non-const half, and otherwise shouldn't change anything.
-                            file.WriteString("internal static unsafe " + CppToCSharpUnqualClassName(cpp_qual_name, false) + " _MakeAliasing(" + sharedptr_constvoid_underlying_ptr_type + "ownership, _Underlying *ptr)\n");
-                            file.PushScope({}, "{\n", "}\n");
+                            file.WriteString("internal static unsafe " + CppToCSharpUnqualClassName(cpp_qual_name, false) + " _MakeAliasing(" + sharedptr_constvoid_underlying_ptr_type.value() + "ownership, _Underlying *ptr)\n");
+                            file.PushScope();
 
-                            auto dllimport_construct_aliasing = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructAliasing", "_UnderlyingShared *", RequestHelper("_PassBy") + " ownership_pass_by, " + sharedptr_constvoid_underlying_ptr_type + "ownership, _Underlying *ptr");
+                            auto dllimport_construct_aliasing = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructAliasing", "_UnderlyingShared *", RequestHelper("_PassBy") + " ownership_pass_by, " + sharedptr_constvoid_underlying_ptr_type.value() + "ownership, _Underlying *ptr");
                             file.WriteString(dllimport_construct_aliasing.dllimport_decl);
                             file.WriteString("return new(" + dllimport_construct_aliasing.csharp_name + "(" + RequestHelper("_PassBy") + ".copy, ownership, ptr), is_owning: true);\n");
 
@@ -5609,7 +5979,7 @@ namespace mrbind::CSharp
                             file.WriteSeparatingNewline();
                             // `private protected` = must satisfy both `internal` and `protected`.
                             file.WriteString("private protected unsafe void _LateMakeShared(_Underlying *ptr)\n");
-                            file.PushScope({}, "{\n", "}\n");
+                            file.PushScope();
 
                             // Make sure the usage is correct, i.e. that the owning bool was set to true, and the pointer is still false.
                             file.WriteString("System.Diagnostics.Trace.Assert(_IsOwningVal == true);\n");
@@ -5643,7 +6013,7 @@ namespace mrbind::CSharp
                             else
                                 file.WriteString(" : this(null, is_owning: true)\n");
 
-                            file.PushScope({}, "{\n", "}\n");
+                            file.PushScope();
 
                             std::string expr = "(_Underlying *)" + RequestHelper("_Alloc") + "(" + std::to_string(class_desc.size_and_alignment.value().size) + ")";
 
@@ -5694,7 +6064,7 @@ namespace mrbind::CSharp
                                 else
                                     file.WriteString(" : this(null, is_owning: true)\n");
 
-                                file.PushScope({}, "{\n", "}\n");
+                                file.PushScope();
 
                                 std::string expr = "(_Underlying *)" + RequestHelper("_Alloc") + "(" + std::to_string(class_desc.size_and_alignment.value().size) + ")";
 
@@ -5928,7 +6298,7 @@ namespace mrbind::CSharp
                             // Can't be a plain `struct` because we might want it to not be default-constructible, if the underlying class isn't.
                             "public class " + by_val_name + "\n"
                         );
-                        file.PushScope({}, "{\n", "}\n");
+                        file.PushScope();
                         file.WriteString(
                             "internal readonly " + const_half_name + "? Value;\n" // We always store the const half for simplicity, and then effectively `const_cast` it.
                             "internal readonly " + pass_by + " PassByMode;\n" +
@@ -6018,7 +6388,7 @@ namespace mrbind::CSharp
                     file.WriteString(
                         "public readonly ref struct " + in_opt_name + "\n"
                     );
-                    file.PushScope({}, "{\n", "}\n");
+                    file.PushScope();
                     file.WriteString(
                         "public readonly bool HasValue;\n"
                         // This looks like it requires the type to be default-constructible.
@@ -6062,7 +6432,7 @@ namespace mrbind::CSharp
                     file.WriteString(
                         "public class " + in_opt_mut_name + "\n"
                     );
-                    file.PushScope({}, "{\n", "}\n");
+                    file.PushScope();
                     file.WriteString(
                         "public " + mut_half_name + "? Opt;\n"
                         "\n"
@@ -6106,7 +6476,7 @@ namespace mrbind::CSharp
                     file.WriteString(
                         "public class " + in_opt_const_name + "\n"
                     );
-                    file.PushScope({}, "{\n", "}\n");
+                    file.PushScope();
                     file.WriteString(
                         "public " + const_half_name + "? Opt;\n"
                         "\n"
@@ -6311,7 +6681,7 @@ namespace mrbind::CSharp
                 }
                 else
                 {
-                    file.PushScope({}, "{\n", "}\n");
+                    file.PushScope();
                     file.PushScope({}, "get\n{\n", "}\n");
                     file.WriteString(body);
                     file.PopScope();
@@ -6377,7 +6747,7 @@ namespace mrbind::CSharp
                         file.WriteString("\n");
 
                         // Begin property.
-                        file.PushScope({}, "{\n", "}\n");
+                        file.PushScope();
 
                         const std::string maybe_static_str = field.is_static ? "Static" : "";
                         const std::string csharp_storage_field_name = "__ptr_storage_" + csharp_field_name;
@@ -6597,7 +6967,7 @@ namespace mrbind::CSharp
             {
                 file.WriteString("\n");
 
-                file.PushScope({}, "{\n", "}\n");
+                file.PushScope();
 
                 // The getter.
                 emit_getter.Emit(file);
@@ -6613,7 +6983,7 @@ namespace mrbind::CSharp
 
     void Generator::Generate()
     {
-        { // Perform some initialization.
+        { // Perform some simple initialization.
             // Set `helpers_prefix`.
             for (const auto &elem : AdjustCppNamespaces(helpers_namespace).parts)
             {
@@ -6730,7 +7100,120 @@ namespace mrbind::CSharp
             std::erase_if(c_desc.functions, [&](const CInterop::Function &func){return funcs_to_erase.contains(&func);});
         }
 
-        { // Add templates to function and method names if necessary to remove ambiguities.
+        { // Collect `begin()` and `end()` functions.
+            // Free functions.
+            for (const auto &func : c_desc.functions)
+            {
+                auto regular = std::get_if<CInterop::FuncKinds::Regular>(&func.var);
+                if (!regular)
+                    continue; // Not a normal function (so an overloaded operator).
+
+                cppdecl::QualifiedName qual_name = ParseNameOrThrow(regular->name);
+
+                std::string_view name_word = qual_name.parts.back().AsSingleWord();
+                assert(!name_word.empty()); // We've already rejected overloaded operators above, so this name should always be a word.
+
+                // Is this `begin()` or `end()` or neither?
+                bool is_end = false;
+                if (name_word == "begin")
+                    is_end = false;
+                else if (name_word == "end")
+                    is_end = true;
+                else
+                    continue; // Not a function we're interested in.
+
+                // Check parameters.
+                // We need at least one parameter, and all parameters after the first one must have default arguments.
+                if (func.params.empty() || !std::all_of(func.params.begin() + 1, func.params.end(), [](const CInterop::FuncParam &p){return bool(p.default_arg_spelling);}))
+                    continue;
+
+                // Analyze the parameter type.
+                const auto &param_type_name = func.params.front().cpp_type;
+                cppdecl::Type param_type = ParseTypeOrThrow(param_type_name);
+
+                // Must either have no modifiers, or only a reference.
+                if (param_type.modifiers.size() > 1 || (param_type.modifiers.size() == 1 && !param_type.IsLvalueReference()))
+                    continue;
+
+                // Does this parameter refer to a class type?
+                std::string param_unqual_type_name = CppdeclToCode(param_type.simple_type.name);
+                const CInterop::TypeDesc *param_type_desc = c_desc.FindTypeOpt(param_unqual_type_name);
+                if (!param_type_desc || !std::holds_alternative<CInterop::TypeKinds::Class>(param_type_desc->var))
+                    continue;
+
+                // The logic below is similar for member functions below, keep them in sync.
+
+                // If the parameter is by value, the class must be copyable.
+                if (!param_type.Is<cppdecl::Reference>() && !param_type_desc->traits->is_copy_constructible)
+                    continue;
+
+                const bool is_const = param_type.Is<cppdecl::Reference>() ? param_type.IsConst(1) : !param_type_desc->traits->copy_constructor_takes_nonconst_ref;
+
+                ClassBeginEndFuncs &state = begin_end_class_funcs[std::make_pair(param_unqual_type_name, is_const)];
+                state.GetBeginOrEnd(is_end).nonmember_csharp_name = MakeQualCSharpFreeFuncName(func);
+                state.GetBeginOrEnd(is_end).nonmember_return_type = ParseTypeOrThrow(func.ret.cpp_type);
+            }
+
+            // Class members.
+            for (const auto &[type_name, type] : c_desc.cpp_types.Map())
+            {
+                auto cl = std::get_if<CInterop::TypeKinds::Class>(&type.var);
+                if (!cl)
+                    continue; // Not a class.
+
+                for (const CInterop::ClassMethod &method : cl->methods)
+                {
+                    if (method.is_static)
+                        continue; // Must be non-static.
+
+                    auto regular = std::get_if<CInterop::MethodKinds::Regular>(&method.var);
+                    if (!regular)
+                        continue; // Not a regular method.
+
+                    // Make sure we don't have template arguments in the name.
+                    // Even though the comment of that field says they shouldn't be there, we add them later in `Generate()` to fix ambiguities.
+                    // But at this point, there should be none.
+                    assert(regular->name.find('<') == std::string::npos);
+
+                    // Is this `begin()` or `end()` or neither?
+                    bool is_end = false;
+                    if (regular->name == "begin")
+                        is_end = false;
+                    else if (regular->name == "end")
+                        is_end = true;
+                    else
+                        continue; // Not a function we're interested in.
+
+                    // Make sure have the `this` parameter.
+                    assert(method.params.size() >= 1 && method.params.front().is_this_param);
+
+                    // All parameters (not counting `this`) must have default arguments, or there must be no extra parameters.
+                    if (!std::all_of(method.params.begin() + 1, method.params.end(), [](const CInterop::FuncParam &p){return bool(p.default_arg_spelling);}))
+                        continue;
+
+                    // This logic is same as for free functions above, keep them in sync.
+
+                    const auto &param_type_name = method.params.front().cpp_type;
+                    cppdecl::Type param_type = ParseTypeOrThrow(param_type_name);
+
+                    if (param_type.IsRvalueReference())
+                        continue; // Don't accept rvalue refs.
+
+                    // If the parameter is by value, the class must be copyable.
+                    if (!param_type.Is<cppdecl::Reference>() && !type.traits->is_copy_constructible)
+                        continue;
+
+                    const bool is_const = param_type.Is<cppdecl::Reference>() ? param_type.IsConst(1) : !type.traits->copy_constructor_takes_nonconst_ref;
+
+                    ClassBeginEndFuncs &state = begin_end_class_funcs[std::make_pair(type_name, is_const)];
+                    state.GetBeginOrEnd(is_end).member_return_type = ParseTypeOrThrow(method.ret.cpp_type);
+                }
+            }
+        }
+
+        // Add template arguments to function and method names if necessary to remove ambiguities.
+        // Note, this must be AFTER extracting `begin`/`end`, since this messes with the function names.
+        {
             // For now we do this based on C++ types, not based on C# types, primarily because this is easier.
 
             // Returns a string describing C++ parameter types of a function.
@@ -6886,38 +7369,19 @@ namespace mrbind::CSharp
         {
             OutputFile &file = GetOutputFile(free_func.output_file);
 
-            // At this point, if `free_func` is an overloaded operator (a free function operator that wasn't adjusted to a member one earlier in `Generate()`),
-            //   then we can't bind it as an operator
-
-            std::string unqual_csharp_name;
+            // Go into the correct namespace.
             std::visit(
                 [&]<typename T>(const T &elem)
                 {
                     cppdecl::QualifiedName qual_name = ParseNameOrThrow(elem.name);
                     assert(!qual_name.parts.empty());
 
-                    // Open the namespace.
                     file.EnsureNamespace(*this, cppdecl::QualifiedName{.parts = {qual_name.parts.begin(), qual_name.parts.end() - 1}});
-
-                    // Sync this logic for operators with `MakeUnqualCSharpMethodName()`.
-                    if constexpr (std::is_same_v<T, CInterop::FuncKinds::Operator>)
-                        unqual_csharp_name = CppIdentifierToCSharpIdentifier(cppdecl::TokenToIdentifier(std::get<cppdecl::OverloadedOperator>(qual_name.parts.back().var).token, true));
-                    else
-                        unqual_csharp_name = CppToCSharpIdentifier(qual_name.parts.back());
-
-                    if (begin_func_names_with_lowercase)
-                        MakeFirstLetterLowercase(unqual_csharp_name);
-
-                    { // Adjust the name to avoid conflicts with types.
-                        qual_name.parts.pop_back();
-                        const auto &used_names = GetUsedUsedNamesInNamespace(qual_name);
-
-                        while (used_names.class_names.contains(unqual_csharp_name))
-                            unqual_csharp_name += '_';
-                    }
                 },
                 free_func.var
             );
+
+            const std::string unqual_csharp_name = MakeUnqualCSharpFreeFuncName(free_func);
 
             FuncLikeEmitter(*this, &free_func, unqual_csharp_name, false/*Doesn't really matter, we're not in a class.*/).Emit(file);
         }
@@ -6934,7 +7398,7 @@ namespace mrbind::CSharp
     void Generator::GenerateHelpers()
     {
         // Don't generate the file if no helpers are needed.
-        if (!requested_helpers.empty() || !requested_empty_tag_types.empty() || !requested_plain_arrays.empty() || !requested_opaque_arrays.empty())
+        if (!requested_helpers.empty() || !requested_empty_tag_types.empty() || !requested_plain_arrays.empty() || !requested_maybe_opaque_arrays.empty())
         {
             OutputFile &file = output_files.try_emplace("__common").first->second;
 
@@ -7090,6 +7554,8 @@ namespace mrbind::CSharp
                         if (!requested_helpers.erase(name))
                             return;
 
+                        std::string maybe_readonly = is_const ? "readonly " : "";
+
                         file.WriteSeparatingNewline();
                         WriteComment(file,
                             "/// A reference to a C object. This is sometimes used to return optional references, since `ref` can't be nullable. Or to return references from operators, since those can't return `ref`s.\n"
@@ -7102,14 +7568,23 @@ namespace mrbind::CSharp
                             "{\n"
                             "    // Should never be null.\n"
                             "    private T *Ptr;\n"
-                            "    // Should never be given a null pointer. I would pass `ref T`, but this prevents the address from being taken without `fixed`.\n"
+                            "    // Should never be given a null pointer.\n"
                             "    internal " + name + "(T *new_ptr)\n"
                             "    {\n"
                             "        System.Diagnostics.Trace.Assert(new_ptr is not null);\n"
                             "        Ptr = new_ptr;\n"
                             "    }\n"
+                            "    // \n"
+                            "    internal unsafe " + name + "(ref " + maybe_readonly + "T new_ref)\n"
+                            "    {\n"
+                            "        fixed (T *new_ptr = &new_ref)\n"
+                            "        {\n"
+                            "            // Smuggling fixed pointers like this seems sketchy at first, but we deal with `ref`s created from pointers all the time, and assume they don't break.\n"
+                            "            Ptr = new_ptr;\n"
+                            "        }\n"
+                            "    }\n"
                             "\n"
-                            "    public ref T Value => ref *Ptr;\n"
+                            "    public ref " + maybe_readonly + "T Value => ref *Ptr;\n"
                             "\n"
                             // Add implicit conversion to `T`.
                             // This is needed not just for user convenience, but also for our automatic dereferencing of `expected`.
@@ -7458,7 +7933,7 @@ namespace mrbind::CSharp
                 }
 
                 { // Custom exceptions.
-                    auto CreateExceptionClassIfNeeded = [&](const std::string &name, const std::string &comment)
+                    auto CreateExceptionClassIfNeeded = [&](const std::string &name, std::string base, const std::string &comment)
                     {
                         if (!requested_helpers.erase(name))
                             return;
@@ -7466,7 +7941,7 @@ namespace mrbind::CSharp
                         file.WriteSeparatingNewline();
                         WriteComment(file, comment);
                         file.WriteString(
-                            "public class " + name + " : System.Exception\n"
+                            "public class " + name + " : System." + base + "\n"
                             "{\n"
                             "    public " + name + "() {}\n"
                             "    public " + name + "(string message) : base(message) {}\n"
@@ -7475,7 +7950,8 @@ namespace mrbind::CSharp
                         );
                     };
 
-                    CreateExceptionClassIfNeeded("UnexpectedResultException", "/// This is thrown when the underlying C++ function returns an error via `expected<>`.\n");
+                    CreateExceptionClassIfNeeded("UnexpectedResultException", "Exception", "/// This is thrown when the underlying C++ function returns an error via `expected<>`.\n");
+                    CreateExceptionClassIfNeeded("InvalidEnumeratorExpression", "InvalidOperationException", "/// This is thrown when dereferencing an invalid enumerator (a C++ iterator).\n");
                 }
 
                 // ---
@@ -7492,7 +7968,7 @@ namespace mrbind::CSharp
                     file.WriteString(
                         "internal static unsafe void *_Alloc(nuint size)\n"
                     );
-                    file.PushScope({}, "{\n", "}\n");
+                    file.PushScope();
 
                     auto dllimport_alloc = MakeDllImportDecl(c_desc.helpers_prefix + "Alloc", "void *", "nuint size");
                     file.WriteString(dllimport_alloc.dllimport_decl);
@@ -7511,7 +7987,7 @@ namespace mrbind::CSharp
                     file.WriteString(
                         "internal static unsafe void _Free(void *ptr)\n"
                     );
-                    file.PushScope({}, "{\n", "}\n");
+                    file.PushScope();
 
                     auto dllimport_free = MakeDllImportDecl(c_desc.helpers_prefix + "Free", "void", "void *ptr");
                     file.WriteString(dllimport_free.dllimport_decl);
@@ -7656,9 +8132,9 @@ namespace mrbind::CSharp
 
             // Generate opaque arrays.
             // Note that this moves to a different namespace.
-            if (!requested_opaque_arrays.empty())
+            if (!requested_maybe_opaque_arrays.empty())
             {
-                for (const auto &[name, desc] : requested_opaque_arrays)
+                for (const auto &[name, desc] : requested_maybe_opaque_arrays)
                 {
                     { // Enter the correct namespace.
                         cppdecl::QualifiedName ns = desc.qual_array_name;
@@ -7668,11 +8144,93 @@ namespace mrbind::CSharp
 
                     const std::string unqual_csharp_name = CppToCSharpIdentifier(desc.qual_array_name.parts.back());
 
+                    std::optional<DllImportDeclStrings> dllimport_offset_func;
+                    if (desc.ptr_offset_func)
+                    {
+                        dllimport_offset_func = MakeDllImportDecl(*desc.ptr_offset_func, desc.strings.csharp_underlying_ptr_target_type + " *", desc.strings.csharp_underlying_ptr_target_type + " *ptr, nint i");
+                    }
+
+                    // If offsetting this pointer needs a function call, writes a dllimport for that call.
+                    auto WriteOffsetFuncDllImportDecl = [&]
+                    {
+                        if (dllimport_offset_func)
+                            file.WriteString(dllimport_offset_func->dllimport_decl);
+                    };
+
+                    // Returns the expression to offset the pointer by `amount`.
+                    // `amount` mus be sufficiently parenthesized, if it's not a single variable/literal (the `-` sign is allowed without parens).
+                    auto OffsetPtr = [&](std::string amount) -> std::string
+                    {
+                        std::string expr = amount;
+                        if (desc.size_for_ptr_offsets != 1)
+                        {
+                            if (amount == "1")
+                                expr = std::to_string(desc.size_for_ptr_offsets); // Purely to make the code look better.
+                            else if (amount == "-1")
+                                expr = "-" + std::to_string(desc.size_for_ptr_offsets); // Purely to make the code look better.
+                            else
+                                expr += " * " + std::to_string(desc.size_for_ptr_offsets);
+                        }
+
+                        if (desc.ptr_offset_func)
+                            expr = dllimport_offset_func->csharp_name + "(Ptr, " + expr + ")";
+                        else
+                            expr = "Ptr + " + expr;
+
+                        return expr;
+                    };
+
                     file.WriteSeparatingNewline();
 
-                    file.WriteString("public unsafe struct " + unqual_csharp_name + "\n");
-                    file.PushScope({}, "{\n", "}\n");
+                    file.WriteString("public unsafe struct " + unqual_csharp_name);
+                    if (!desc.num_elems)
+                        file.WriteString(" : IEquatable<" + unqual_csharp_name + ">"); // Unbounded arrays are equality-compatable.
+                    file.WriteString("\n");
+                    file.PushScope();
 
+                    auto Deref = [&](const std::string &expr) -> std::string
+                    {
+                        switch (desc.kind)
+                        {
+                          case RequestedMaybeOpaqueArray::ElemKind::ref:
+                            return "return ref *(" + expr + ");";
+                          case RequestedMaybeOpaqueArray::ElemKind::ptr:
+                            return "return new(" + expr + ");";
+                          case RequestedMaybeOpaqueArray::ElemKind::ptr_maybeowning:
+                            return "return new(" + expr + ", is_owning: false);";
+                        }
+
+                        assert(false);
+                        return "??";
+                    };
+
+                    // Extra stuff for unbounded arrays.
+                    if (!desc.num_elems)
+                    {
+                        // `Deref()`. We need this not only for convenience, but also to implement our `IEnumerator` classes.
+                        file.WriteString(
+                            "public readonly " + desc.csharp_elem_type + " " + AdjustCalledFuncName("Deref") + "()\n"
+                            "{\n"
+                            "    " + Deref("Ptr") + "\n"
+                            "}\n"
+                        );
+
+                        { // Increment and decrement. We need this to implement our `IEnumerator` classes.
+                            file.WriteString("public unsafe void " + (HaveCSharpFeatureNonStaticIncrementAndDecrement() ? "operator++" : AdjustCalledFuncName("Incr")) + "()\n");
+                            file.PushScope();
+                            WriteOffsetFuncDllImportDecl();
+                            file.WriteString("Ptr = " + OffsetPtr("1") + ";\n");
+                            file.PopScope();
+
+                            file.WriteString("public unsafe void " + (HaveCSharpFeatureNonStaticIncrementAndDecrement() ? "operator--" : AdjustCalledFuncName("Decr")) + "()\n");
+                            file.PushScope();
+                            WriteOffsetFuncDllImportDecl();
+                            file.WriteString("Ptr = " + OffsetPtr("-1") + ";\n");
+                            file.PopScope();
+                        }
+                    }
+
+                    file.WriteSeparatingNewline();
                     file.WriteString(
                         "internal " + desc.strings.csharp_underlying_ptr_target_type + " *Ptr;\n"
                         "\n"
@@ -7684,13 +8242,13 @@ namespace mrbind::CSharp
                         "public " + desc.csharp_elem_type + " this[nint i]\n"
                     );
 
-                    file.PushScope({}, "{\n", "}\n");
+                    file.PushScope();
 
                     // Properties and indexers of reference types only need getters. Attempting to provide a setter is an error.
                     // And if `desc.csharp_elem_type` is a non-reference, we don't need setters either, you can use `.Assign()` or whatever.
                     file.WriteString("get\n");
 
-                    file.PushScope({}, "{\n", "}\n");
+                    file.PushScope();
 
                     // Assert that `i` is in bounds.
                     // Note that for arrays of unknown bounds, we don't even check `i >= 0`, because we can use those
@@ -7698,38 +8256,39 @@ namespace mrbind::CSharp
                     if (desc.num_elems)
                         file.WriteString("System.Diagnostics.Trace.Assert(i >= 0 && i < " + std::to_string(*desc.num_elems) + ");\n");
 
-                    DllImportDeclStrings dllimport_decl;
-                    if (desc.ptr_offset_func)
-                    {
-                        dllimport_decl = MakeDllImportDecl(*desc.ptr_offset_func, desc.strings.csharp_underlying_ptr_target_type + " *", desc.strings.csharp_underlying_ptr_target_type + " *ptr, nint i");
-                        file.WriteString(dllimport_decl.dllimport_decl);
-                    }
+                    WriteOffsetFuncDllImportDecl();
 
-                    std::string expr = "i";
-                    if (desc.size_for_ptr_offsets != 1)
-                        expr += " * " + std::to_string(desc.size_for_ptr_offsets);
-
-                    if (desc.ptr_offset_func)
-                        expr = dllimport_decl.csharp_name + "(Ptr, " + expr + ")";
-                    else
-                        expr = "Ptr + " + expr;
-
-                    switch (desc.kind)
-                    {
-                      case RequestedMaybeOpaqueArray::ElemKind::ref:
-                        file.WriteString("return ref *(" + expr + ");\n");
-                        break;
-                      case RequestedMaybeOpaqueArray::ElemKind::ptr:
-                        file.WriteString("return new(" + expr + ");\n");
-                        break;
-                      case RequestedMaybeOpaqueArray::ElemKind::ptr_maybeowning:
-                        file.WriteString("return new(" + expr + ", is_owning: false);\n");
-                        break;
-                    }
+                    file.WriteString(Deref(OffsetPtr("i")) + "\n");
 
                     file.PopScope(); // indexer getter
 
                     file.PopScope(); // indexer
+
+                    // Get the underlying pointer.
+                    if (desc.kind != RequestedMaybeOpaqueArray::ElemKind::ptr_maybeowning)
+                    {
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "public unsafe " + desc.strings.csharp_underlying_ptr_target_type + " *GetPointer() => Ptr;\n"
+                        );
+                    }
+
+                    // More extra stuff to unbounded arrays.
+                    if (!desc.num_elems)
+                    {
+                        file.WriteSeparatingNewline();
+
+                        // Unbounded arrays are equality-comparable.
+                        file.WriteString(
+                            "public static unsafe bool operator==(" + unqual_csharp_name + " a, " + unqual_csharp_name + " b) {return a.Equals(b);}\n"
+                            "public static bool operator!=(" + unqual_csharp_name + " a, " + unqual_csharp_name + " b) {return !a.Equals(b);}\n"
+                            // Apparently this already exists in the implicit struct base called `ValueType`, but that isn't enough to satisfy the interface, so I have to reimplement this myself.
+                            "public readonly bool Equals(" + unqual_csharp_name + " other) {return base.Equals(other);}\n"
+                            // This also already exists in the base, but the compiler warns about us not overriding it (though we don't really need to).
+                            // So I'm overriding it just to silence the warning.
+                            "public override bool Equals(object? other) {return base.Equals(other);}\n"
+                        );
+                    }
 
                     file.PopScope(); // struct
                 }

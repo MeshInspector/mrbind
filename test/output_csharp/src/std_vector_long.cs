@@ -112,12 +112,11 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, read-only.
-                /// Returns a read-only pointer.
-                public unsafe long *Data()
+                public unsafe MR.CS.ConstPtrLong Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_long_Data", ExactSpelling = true)]
                     extern static long *__MR_C_std_vector_long_Data(_Underlying *_this);
-                    return __MR_C_std_vector_long_Data(_UnderlyingPtr);
+                    return new(__MR_C_std_vector_long_Data(_UnderlyingPtr));
                 }
 
                 /// The begin iterator, const.
@@ -628,12 +627,11 @@ public static partial class MR
                 }
 
                 /// Returns a pointer to the continuous storage that holds all elements, mutable.
-                /// Returns a mutable pointer.
-                public unsafe new long *Data()
+                public unsafe new MR.CS.PtrLong Data()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_long_MutableData", ExactSpelling = true)]
                     extern static long *__MR_C_std_vector_long_MutableData(_Underlying *_this);
-                    return __MR_C_std_vector_long_MutableData(_UnderlyingPtr);
+                    return new(__MR_C_std_vector_long_MutableData(_UnderlyingPtr));
                 }
 
                 /// Inserts a new element at the end.

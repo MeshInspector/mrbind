@@ -5395,7 +5395,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrA::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrA", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrA._Underlying *__MR_C_incr_MR_CSharp_IncrDecrA(_Underlying *_this);
@@ -5405,7 +5405,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrA::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrA", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrA._Underlying *__MR_C_decr_MR_CSharp_IncrDecrA(_Underlying *_this);
@@ -5501,7 +5501,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrB::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrB", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrB._Underlying *__MR_C_incr_MR_CSharp_IncrDecrB(_Underlying *_this);
@@ -5523,7 +5523,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrB::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrB", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrB._Underlying *__MR_C_decr_MR_CSharp_IncrDecrB(_Underlying *_this);
@@ -5719,7 +5719,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrC::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_C_incr_MR_CSharp_IncrDecrC(_Underlying *_this);
@@ -5741,7 +5741,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrC::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrC", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrC._Underlying *__MR_C_decr_MR_CSharp_IncrDecrC(_Underlying *_this);
@@ -5845,7 +5845,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrD::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrD._Underlying *__MR_C_incr_MR_CSharp_IncrDecrD(_Underlying *_this);
@@ -5855,7 +5855,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrD::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrD", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrD._Underlying *__MR_C_decr_MR_CSharp_IncrDecrD(_Underlying *_this);
@@ -6045,7 +6045,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrE::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrE", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrE._Underlying *__MR_C_incr_MR_CSharp_IncrDecrE(_Underlying *_this);
@@ -6055,7 +6055,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrE::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrE", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrE._Underlying *__MR_C_decr_MR_CSharp_IncrDecrE(_Underlying *_this);
@@ -6163,7 +6163,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrF::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrF", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrF._Underlying *__MR_C_incr_MR_CSharp_IncrDecrF(_Underlying *_this);
@@ -6173,7 +6173,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrF::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrF", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrF._Underlying *__MR_C_decr_MR_CSharp_IncrDecrF(_Underlying *_this);
@@ -6367,7 +6367,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrG::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrG", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrG._Underlying *__MR_C_incr_MR_CSharp_IncrDecrG(_Underlying *_this);
@@ -6377,7 +6377,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrG::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrG", ExactSpelling = true)]
                     extern static MR.CS.CSharp.IncrDecrG._Underlying *__MR_C_decr_MR_CSharp_IncrDecrG(_Underlying *_this);
@@ -6468,7 +6468,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrH::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrH", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrH._Underlying *__MR_C_incr_MR_CSharp_IncrDecrH(_Underlying *_this);
@@ -6490,7 +6490,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::IncrDecrH::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrH", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_IncrDecrH._Underlying *__MR_C_decr_MR_CSharp_IncrDecrH(_Underlying *_this);
@@ -6629,7 +6629,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from function `MR::CSharp::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
                     extern static int __MR_C_incr_MR_CSharp_IncrDecrI(_Underlying *_1);
@@ -6651,7 +6651,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_IncrDecrI", ExactSpelling = true)]
                     extern static int __MR_C_decr_MR_CSharp_IncrDecrI(_Underlying *_1);
@@ -15903,7 +15903,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
                     extern static void __MR_C_decr_MR_CSharp_ExposedLayout(_Underlying *_1);
@@ -15992,7 +15992,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayout::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
                     extern static void __MR_C_incr_MR_CSharp_ExposedLayout(_Underlying *_this);
@@ -16289,7 +16289,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
                 /// </summary>
-                public void decr()
+                public void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayout", ExactSpelling = true)]
                     extern static void __MR_C_decr_MR_CSharp_ExposedLayout(MR.CS.CSharp.ExposedLayout _1);
@@ -16662,7 +16662,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
                 /// </summary>
-                public unsafe void decr()
+                public unsafe void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
                     extern static void __MR_C_decr_MR_CSharp_ExposedLayoutSh(_Underlying *_1);
@@ -16778,7 +16778,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::ExposedLayoutSh::operator++`.
                 /// </summary>
-                public unsafe void incr()
+                public unsafe void operator++()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
                     extern static void __MR_C_incr_MR_CSharp_ExposedLayoutSh(_Underlying *_this);
@@ -17098,7 +17098,7 @@ public static partial class MR
                 /// <summary>
                 /// Generated from function `MR::CSharp::operator--`.
                 /// </summary>
-                public void decr()
+                public void operator--()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_decr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
                     extern static void __MR_C_decr_MR_CSharp_ExposedLayoutSh(MR.CS.CSharp.ExposedLayoutSh _1);
@@ -20847,7 +20847,7 @@ public static partial class MR
             /// Generated from class `MR::CSharp::LifetimesB`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_LifetimesB : MR.CS.Misc.Object<Const_LifetimesB>, System.IDisposable
+            public class Const_LifetimesB : MR.CS.Misc.Object<Const_LifetimesB>, System.IDisposable, IEnumerable<MR.CS.CSharp.Const_LifetimesA>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -20864,6 +20864,70 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_LifetimesB() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<MR.CS.CSharp.Const_LifetimesA>
+                {
+                    Const_LifetimesB _container;
+                    MR.CS.CSharp.ConstPtrLifetimesA _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_LifetimesB container)
+                    {
+                        _container = container;
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _done = _cur == MR.CS.CSharp.end(_container);
+                    }
+
+                    public MR.CS.CSharp.Const_LifetimesA Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == MR.CS.CSharp.end(_container))
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.CSharp.Const_LifetimesA> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
 
                 public unsafe MR.CS.CSharp.Const_LifetimesA a {get; private protected set;}
 
@@ -20945,8 +21009,72 @@ public static partial class MR
             /// Generated from class `MR::CSharp::LifetimesB`.
             /// This is the non-const half of the class.
             /// </summary>
-            public class LifetimesB : Const_LifetimesB
+            public class LifetimesB : Const_LifetimesB, IEnumerable<MR.CS.CSharp.LifetimesA>
             {
+                public new class _Enumerator : IEnumerator<MR.CS.CSharp.LifetimesA>
+                {
+                    LifetimesB _container;
+                    MR.CS.CSharp.PtrLifetimesA _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(LifetimesB container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.CSharp.LifetimesA Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public new IEnumerator<MR.CS.CSharp.LifetimesA> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
                 public new unsafe MR.CS.CSharp.LifetimesA a {get; private protected set;}
 
                 /// <summary>
@@ -21029,23 +21157,23 @@ public static partial class MR
                 /// <summary>
                 /// Generated from method `MR::CSharp::LifetimesB::begin`.
                 /// </summary>
-                public unsafe MR.CS.CSharp.LifetimesA? begin()
+                public unsafe MR.CS.CSharp.PtrLifetimesA begin()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesB_begin", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesB_begin(_Underlying *_this);
                     var __c_ret = __MR_CSharp_LifetimesB_begin(_UnderlyingPtr);
-                    return __c_ret is not null ? new MR.CS.CSharp.LifetimesA(__c_ret, is_owning: false) : null;
+                    return new(__c_ret);
                 }
 
                 /// <summary>
                 /// Generated from method `MR::CSharp::LifetimesB::end`.
                 /// </summary>
-                public unsafe MR.CS.CSharp.LifetimesA? end()
+                public unsafe MR.CS.CSharp.PtrLifetimesA end()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesB_end", ExactSpelling = true)]
                     extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesB_end(_Underlying *_this);
                     var __c_ret = __MR_CSharp_LifetimesB_end(_UnderlyingPtr);
-                    return __c_ret is not null ? new MR.CS.CSharp.LifetimesA(__c_ret, is_owning: false) : null;
+                    return new(__c_ret);
                 }
 
                 /// <summary>
@@ -21097,7 +21225,7 @@ public static partial class MR
             /// Generated from class `MR::CSharp::LifetimesC`.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_LifetimesC : MR.CS.Misc.Object<Const_LifetimesC>, System.IDisposable
+            public class Const_LifetimesC : MR.CS.Misc.Object<Const_LifetimesC>, System.IDisposable, IEnumerable<MR.CS.CSharp.Const_LifetimesA>
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -21114,6 +21242,70 @@ public static partial class MR
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
                 ~Const_LifetimesC() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<MR.CS.CSharp.Const_LifetimesA>
+                {
+                    Const_LifetimesC _container;
+                    MR.CS.CSharp.ConstPtrLifetimesA _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_LifetimesC container)
+                    {
+                        _container = container;
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _done = _cur == MR.CS.CSharp.end(_container);
+                    }
+
+                    public MR.CS.CSharp.Const_LifetimesA Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == MR.CS.CSharp.end(_container))
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.CSharp.Const_LifetimesA> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
 
                 public unsafe MR.CS.CSharp.Const_LifetimesA a {get; private protected set;}
 
@@ -21660,6 +21852,2730 @@ public static partial class MR
                 /// Generated from constructor `MR::CSharp::LifetimesD::LifetimesD`.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_LifetimesD(MR.CS.CSharp.LifetimesB ref_) {return new Const_LifetimesD(ref_);}
+            }
+
+            // Const member functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableA`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_IterableA : MR.CS.Misc.Object<Const_IterableA>, System.IDisposable, IEnumerable<int>
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableA_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableA_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableA_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableA() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<int>
+                {
+                    Const_IterableA _container;
+                    MR.CS.ConstPtrInt _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_IterableA container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public int Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<int> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+                private protected unsafe MR.CS.ArrayInt3 *__array_storage_arr;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // arr (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableA_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt3 *__MR_CSharp_IterableA_Get_arr(_Underlying *_this);
+                        this.__array_storage_arr = __MR_CSharp_IterableA_Get_arr(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IterableA(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_IterableA() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableA_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableA._Underlying *__MR_CSharp_IterableA_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableA_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableA::IterableA`.
+                /// </summary>
+                public unsafe Const_IterableA(MR.CS.CSharp.Const_IterableA _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableA_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableA._Underlying *__MR_CSharp_IterableA_ConstructFromAnother(MR.CS.CSharp.IterableA._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableA_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableA::IterableA`.
+                /// </summary>
+                public Const_IterableA(IterableA _other) : this((Const_IterableA)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableA::begin`.
+                /// </summary>
+                public unsafe MR.CS.ConstPtrInt begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableA_begin", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableA_begin(_Underlying *_this);
+                    return new(__MR_CSharp_IterableA_begin(_UnderlyingPtr));
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableA::end`.
+                /// </summary>
+                public unsafe MR.CS.ConstPtrInt end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableA_end", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableA_end(_Underlying *_this);
+                    return new(__MR_CSharp_IterableA_end(_UnderlyingPtr));
+                }
+            }
+
+            // Const member functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableA`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class IterableA : Const_IterableA
+            {
+                new public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IterableA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe IterableA() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableA_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableA._Underlying *__MR_CSharp_IterableA_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableA_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableA::IterableA`.
+                /// </summary>
+                public unsafe IterableA(MR.CS.CSharp.Const_IterableA _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableA_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableA._Underlying *__MR_CSharp_IterableA_ConstructFromAnother(MR.CS.CSharp.IterableA._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableA_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableA::IterableA`.
+                /// </summary>
+                public IterableA(IterableA _other) : this((Const_IterableA)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableA::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.IterableA assign(MR.CS.CSharp.Const_IterableA _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableA_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableA._Underlying *__MR_CSharp_IterableA_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableA._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_CSharp_IterableA_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableA` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableA`/`Const_IterableA` directly.
+            /// </summary>
+            public class _InOptMut_IterableA
+            {
+                public IterableA? Opt;
+
+                public _InOptMut_IterableA() {}
+                public _InOptMut_IterableA(IterableA value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableA(IterableA value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableA` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableA`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableA`/`Const_IterableA` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_IterableA
+            {
+                public Const_IterableA? Opt;
+
+                public _InOptConst_IterableA() {}
+                public _InOptConst_IterableA(Const_IterableA value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableA(Const_IterableA value) {return new(value);}
+            }
+
+            // Mutable member functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableB`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_IterableB : MR.CS.Misc.Object<Const_IterableB>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableB_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableB_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableB_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableB() {Dispose(false);}
+
+                public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+                private protected unsafe MR.CS.ArrayInt3 *__array_storage_arr;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // arr (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableB_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt3 *__MR_CSharp_IterableB_Get_arr(_Underlying *_this);
+                        this.__array_storage_arr = __MR_CSharp_IterableB_Get_arr(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IterableB(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_IterableB() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableB_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableB._Underlying *__MR_CSharp_IterableB_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableB_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableB::IterableB`.
+                /// </summary>
+                public unsafe Const_IterableB(MR.CS.CSharp.Const_IterableB _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableB_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableB._Underlying *__MR_CSharp_IterableB_ConstructFromAnother(MR.CS.CSharp.IterableB._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableB_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableB::IterableB`.
+                /// </summary>
+                public Const_IterableB(IterableB _other) : this((Const_IterableB)_other) {}
+            }
+
+            // Mutable member functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableB`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class IterableB : Const_IterableB, IEnumerable<MR.CS.Misc.Ref<int>>
+            {
+                public class _Enumerator : IEnumerator<MR.CS.Misc.Ref<int>>
+                {
+                    IterableB _container;
+                    MR.CS.PtrInt _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(IterableB container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Misc.Ref<int> Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return new(ref _cur.deref());
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.Misc.Ref<int>> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                new public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IterableB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe IterableB() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableB_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableB._Underlying *__MR_CSharp_IterableB_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableB_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableB::IterableB`.
+                /// </summary>
+                public unsafe IterableB(MR.CS.CSharp.Const_IterableB _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableB_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableB._Underlying *__MR_CSharp_IterableB_ConstructFromAnother(MR.CS.CSharp.IterableB._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableB_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableB::IterableB`.
+                /// </summary>
+                public IterableB(IterableB _other) : this((Const_IterableB)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableB::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.IterableB assign(MR.CS.CSharp.Const_IterableB _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableB_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableB._Underlying *__MR_CSharp_IterableB_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableB._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_CSharp_IterableB_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableB::begin`.
+                /// </summary>
+                public unsafe MR.CS.PtrInt begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableB_begin", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableB_begin(_Underlying *_this);
+                    return new(__MR_CSharp_IterableB_begin(_UnderlyingPtr));
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableB::end`.
+                /// </summary>
+                public unsafe MR.CS.PtrInt end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableB_end", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableB_end(_Underlying *_this);
+                    return new(__MR_CSharp_IterableB_end(_UnderlyingPtr));
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableB` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableB`/`Const_IterableB` directly.
+            /// </summary>
+            public class _InOptMut_IterableB
+            {
+                public IterableB? Opt;
+
+                public _InOptMut_IterableB() {}
+                public _InOptMut_IterableB(IterableB value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableB(IterableB value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableB` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableB`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableB`/`Const_IterableB` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_IterableB
+            {
+                public Const_IterableB? Opt;
+
+                public _InOptConst_IterableB() {}
+                public _InOptConst_IterableB(Const_IterableB value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableB(Const_IterableB value) {return new(value);}
+            }
+
+            // Both const and mutable member functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableC`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_IterableC : MR.CS.Misc.Object<Const_IterableC>, System.IDisposable, IEnumerable<int>
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableC_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableC_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableC() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<int>
+                {
+                    Const_IterableC _container;
+                    MR.CS.ConstPtrInt _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_IterableC container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public int Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<int> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+                private protected unsafe MR.CS.ArrayInt3 *__array_storage_arr;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // arr (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt3 *__MR_CSharp_IterableC_Get_arr(_Underlying *_this);
+                        this.__array_storage_arr = __MR_CSharp_IterableC_Get_arr(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IterableC(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_IterableC() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableC._Underlying *__MR_CSharp_IterableC_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableC_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableC::IterableC`.
+                /// </summary>
+                public unsafe Const_IterableC(MR.CS.CSharp.Const_IterableC _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableC._Underlying *__MR_CSharp_IterableC_ConstructFromAnother(MR.CS.CSharp.IterableC._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableC_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableC::IterableC`.
+                /// </summary>
+                public Const_IterableC(IterableC _other) : this((Const_IterableC)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableC::begin`.
+                /// </summary>
+                public unsafe MR.CS.ConstPtrInt begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_begin_const", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableC_begin_const(_Underlying *_this);
+                    return new(__MR_CSharp_IterableC_begin_const(_UnderlyingPtr));
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableC::end`.
+                /// </summary>
+                public unsafe MR.CS.ConstPtrInt end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_end_const", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableC_end_const(_Underlying *_this);
+                    return new(__MR_CSharp_IterableC_end_const(_UnderlyingPtr));
+                }
+            }
+
+            // Both const and mutable member functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableC`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class IterableC : Const_IterableC, IEnumerable<MR.CS.Misc.Ref<int>>
+            {
+                public new class _Enumerator : IEnumerator<MR.CS.Misc.Ref<int>>
+                {
+                    IterableC _container;
+                    MR.CS.PtrInt _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(IterableC container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Misc.Ref<int> Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return new(ref _cur.deref());
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public new IEnumerator<MR.CS.Misc.Ref<int>> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                new public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IterableC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe IterableC() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableC._Underlying *__MR_CSharp_IterableC_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableC_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableC::IterableC`.
+                /// </summary>
+                public unsafe IterableC(MR.CS.CSharp.Const_IterableC _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableC._Underlying *__MR_CSharp_IterableC_ConstructFromAnother(MR.CS.CSharp.IterableC._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableC_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableC::IterableC`.
+                /// </summary>
+                public IterableC(IterableC _other) : this((Const_IterableC)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableC::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.IterableC assign(MR.CS.CSharp.Const_IterableC _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableC._Underlying *__MR_CSharp_IterableC_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableC._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_CSharp_IterableC_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableC::begin`.
+                /// </summary>
+                public unsafe new MR.CS.PtrInt begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_begin", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableC_begin(_Underlying *_this);
+                    return new(__MR_CSharp_IterableC_begin(_UnderlyingPtr));
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableC::end`.
+                /// </summary>
+                public unsafe new MR.CS.PtrInt end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableC_end", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableC_end(_Underlying *_this);
+                    return new(__MR_CSharp_IterableC_end(_UnderlyingPtr));
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableC` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableC`/`Const_IterableC` directly.
+            /// </summary>
+            public class _InOptMut_IterableC
+            {
+                public IterableC? Opt;
+
+                public _InOptMut_IterableC() {}
+                public _InOptMut_IterableC(IterableC value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableC(IterableC value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableC`/`Const_IterableC` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_IterableC
+            {
+                public Const_IterableC? Opt;
+
+                public _InOptConst_IterableC() {}
+                public _InOptConst_IterableC(Const_IterableC value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableC(Const_IterableC value) {return new(value);}
+            }
+
+            // Const free functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableD`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_IterableD : MR.CS.Misc.Object<Const_IterableD>, System.IDisposable, IEnumerable<int>
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableD_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableD_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableD_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableD() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<int>
+                {
+                    Const_IterableD _container;
+                    MR.CS.ConstPtrInt _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_IterableD container)
+                    {
+                        _container = container;
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _done = _cur == MR.CS.CSharp.end(_container);
+                    }
+
+                    public int Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == MR.CS.CSharp.end(_container))
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<int> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+                private protected unsafe MR.CS.ArrayInt3 *__array_storage_arr;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // arr (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableD_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt3 *__MR_CSharp_IterableD_Get_arr(_Underlying *_this);
+                        this.__array_storage_arr = __MR_CSharp_IterableD_Get_arr(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IterableD(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_IterableD() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableD_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableD._Underlying *__MR_CSharp_IterableD_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableD_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableD::IterableD`.
+                /// </summary>
+                public unsafe Const_IterableD(MR.CS.CSharp.Const_IterableD _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableD_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableD._Underlying *__MR_CSharp_IterableD_ConstructFromAnother(MR.CS.CSharp.IterableD._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableD_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableD::IterableD`.
+                /// </summary>
+                public Const_IterableD(IterableD _other) : this((Const_IterableD)_other) {}
+            }
+
+            // Const free functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableD`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class IterableD : Const_IterableD
+            {
+                new public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IterableD(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe IterableD() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableD_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableD._Underlying *__MR_CSharp_IterableD_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableD_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableD::IterableD`.
+                /// </summary>
+                public unsafe IterableD(MR.CS.CSharp.Const_IterableD _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableD_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableD._Underlying *__MR_CSharp_IterableD_ConstructFromAnother(MR.CS.CSharp.IterableD._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableD_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableD::IterableD`.
+                /// </summary>
+                public IterableD(IterableD _other) : this((Const_IterableD)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableD::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.IterableD assign(MR.CS.CSharp.Const_IterableD _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableD_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableD._Underlying *__MR_CSharp_IterableD_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableD._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_CSharp_IterableD_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableD` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableD`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableD`/`Const_IterableD` directly.
+            /// </summary>
+            public class _InOptMut_IterableD
+            {
+                public IterableD? Opt;
+
+                public _InOptMut_IterableD() {}
+                public _InOptMut_IterableD(IterableD value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableD(IterableD value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableD` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableD`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableD`/`Const_IterableD` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_IterableD
+            {
+                public Const_IterableD? Opt;
+
+                public _InOptConst_IterableD() {}
+                public _InOptConst_IterableD(Const_IterableD value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableD(Const_IterableD value) {return new(value);}
+            }
+
+            // Mutable free functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableE`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_IterableE : MR.CS.Misc.Object<Const_IterableE>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableE_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableE_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableE_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableE() {Dispose(false);}
+
+                public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+                private protected unsafe MR.CS.ArrayInt3 *__array_storage_arr;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // arr (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableE_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt3 *__MR_CSharp_IterableE_Get_arr(_Underlying *_this);
+                        this.__array_storage_arr = __MR_CSharp_IterableE_Get_arr(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IterableE(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_IterableE() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableE_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableE._Underlying *__MR_CSharp_IterableE_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableE_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableE::IterableE`.
+                /// </summary>
+                public unsafe Const_IterableE(MR.CS.CSharp.Const_IterableE _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableE_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableE._Underlying *__MR_CSharp_IterableE_ConstructFromAnother(MR.CS.CSharp.IterableE._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableE_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableE::IterableE`.
+                /// </summary>
+                public Const_IterableE(IterableE _other) : this((Const_IterableE)_other) {}
+            }
+
+            // Mutable free functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableE`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class IterableE : Const_IterableE, IEnumerable<MR.CS.Misc.Ref<int>>
+            {
+                public class _Enumerator : IEnumerator<MR.CS.Misc.Ref<int>>
+                {
+                    IterableE _container;
+                    MR.CS.PtrInt _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(IterableE container)
+                    {
+                        _container = container;
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _done = _cur == MR.CS.CSharp.end(_container);
+                    }
+
+                    public MR.CS.Misc.Ref<int> Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return new(ref _cur.deref());
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == MR.CS.CSharp.end(_container))
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.Misc.Ref<int>> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                new public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IterableE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe IterableE() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableE_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableE._Underlying *__MR_CSharp_IterableE_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableE_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableE::IterableE`.
+                /// </summary>
+                public unsafe IterableE(MR.CS.CSharp.Const_IterableE _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableE_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableE._Underlying *__MR_CSharp_IterableE_ConstructFromAnother(MR.CS.CSharp.IterableE._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableE_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableE::IterableE`.
+                /// </summary>
+                public IterableE(IterableE _other) : this((Const_IterableE)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableE::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.IterableE assign(MR.CS.CSharp.Const_IterableE _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableE_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableE._Underlying *__MR_CSharp_IterableE_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableE._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_CSharp_IterableE_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableE` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableE`/`Const_IterableE` directly.
+            /// </summary>
+            public class _InOptMut_IterableE
+            {
+                public IterableE? Opt;
+
+                public _InOptMut_IterableE() {}
+                public _InOptMut_IterableE(IterableE value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableE(IterableE value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableE`/`Const_IterableE` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_IterableE
+            {
+                public Const_IterableE? Opt;
+
+                public _InOptConst_IterableE() {}
+                public _InOptConst_IterableE(Const_IterableE value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableE(Const_IterableE value) {return new(value);}
+            }
+
+            // Both const and mutable free functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableF`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_IterableF : MR.CS.Misc.Object<Const_IterableF>, System.IDisposable, IEnumerable<int>
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableF_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableF_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableF_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableF() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<int>
+                {
+                    Const_IterableF _container;
+                    MR.CS.ConstPtrInt _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_IterableF container)
+                    {
+                        _container = container;
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _done = _cur == MR.CS.CSharp.end(_container);
+                    }
+
+                    public int Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == MR.CS.CSharp.end(_container))
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<int> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+                private protected unsafe MR.CS.ArrayInt3 *__array_storage_arr;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // arr (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableF_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt3 *__MR_CSharp_IterableF_Get_arr(_Underlying *_this);
+                        this.__array_storage_arr = __MR_CSharp_IterableF_Get_arr(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IterableF(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_IterableF() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableF_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableF._Underlying *__MR_CSharp_IterableF_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableF_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableF::IterableF`.
+                /// </summary>
+                public unsafe Const_IterableF(MR.CS.CSharp.Const_IterableF _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableF_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableF._Underlying *__MR_CSharp_IterableF_ConstructFromAnother(MR.CS.CSharp.IterableF._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableF_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableF::IterableF`.
+                /// </summary>
+                public Const_IterableF(IterableF _other) : this((Const_IterableF)_other) {}
+            }
+
+            // Both const and mutable free functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableF`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class IterableF : Const_IterableF, IEnumerable<MR.CS.Misc.Ref<int>>
+            {
+                public new class _Enumerator : IEnumerator<MR.CS.Misc.Ref<int>>
+                {
+                    IterableF _container;
+                    MR.CS.PtrInt _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(IterableF container)
+                    {
+                        _container = container;
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _done = _cur == MR.CS.CSharp.end(_container);
+                    }
+
+                    public MR.CS.Misc.Ref<int> Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return new(ref _cur.deref());
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == MR.CS.CSharp.end(_container))
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = MR.CS.CSharp.begin(_container);
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public new IEnumerator<MR.CS.Misc.Ref<int>> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                new public unsafe ref MR.CS.ArrayInt3 arr => ref *(__array_storage_arr);
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IterableF(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe IterableF() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableF_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableF._Underlying *__MR_CSharp_IterableF_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableF_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableF::IterableF`.
+                /// </summary>
+                public unsafe IterableF(MR.CS.CSharp.Const_IterableF _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableF_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableF._Underlying *__MR_CSharp_IterableF_ConstructFromAnother(MR.CS.CSharp.IterableF._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableF_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableF::IterableF`.
+                /// </summary>
+                public IterableF(IterableF _other) : this((Const_IterableF)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableF::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.IterableF assign(MR.CS.CSharp.Const_IterableF _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableF_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableF._Underlying *__MR_CSharp_IterableF_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableF._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_CSharp_IterableF_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableF` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableF`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableF`/`Const_IterableF` directly.
+            /// </summary>
+            public class _InOptMut_IterableF
+            {
+                public IterableF? Opt;
+
+                public _InOptMut_IterableF() {}
+                public _InOptMut_IterableF(IterableF value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableF(IterableF value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableF` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableF`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableF`/`Const_IterableF` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_IterableF
+            {
+                public Const_IterableF? Opt;
+
+                public _InOptConst_IterableF() {}
+                public _InOptConst_IterableF(Const_IterableF value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableF(Const_IterableF value) {return new(value);}
+            }
+
+            // Returning mutable class instances.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableG`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_IterableG : MR.CS.Misc.Object<Const_IterableG>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableG_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableG_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableG_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableG() {Dispose(false);}
+
+                public unsafe MR.CS.Std.ArrayString3 arr {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // arr (array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableG_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_IterableG_Get_arr(_Underlying *_this);
+                        this.arr = new(__MR_CSharp_IterableG_Get_arr(_UnderlyingPtr));
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IterableG(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_IterableG() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableG_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableG._Underlying *__MR_CSharp_IterableG_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableG_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableG::IterableG`.
+                /// </summary>
+                public unsafe Const_IterableG(MR.CS.CSharp._ByValue_IterableG _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableG_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableG._Underlying *__MR_CSharp_IterableG_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.IterableG._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableG_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableG::IterableG`.
+                /// </summary>
+                public Const_IterableG(Const_IterableG _other) : this(new _ByValue_IterableG(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableG::IterableG`.
+                /// </summary>
+                public Const_IterableG(IterableG _other) : this((Const_IterableG)_other) {}
+            }
+
+            // Returning mutable class instances.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableG`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class IterableG : Const_IterableG, IEnumerable<MR.CS.Std.String>
+            {
+                public class _Enumerator : IEnumerator<MR.CS.Std.String>
+                {
+                    IterableG _container;
+                    MR.CS.Std.PtrString _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(IterableG container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Std.String Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.Std.String> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                new public unsafe MR.CS.Std.ArrayString3 arr {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected new unsafe void _FinalizeFields()
+                {
+                    base._FinalizeFields();
+
+                    { // arr (array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableG_GetMutable_arr", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_IterableG_GetMutable_arr(_Underlying *_this);
+                        this.arr = new(__MR_CSharp_IterableG_GetMutable_arr(_UnderlyingPtr));
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IterableG(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe IterableG() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableG_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableG._Underlying *__MR_CSharp_IterableG_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableG_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableG::IterableG`.
+                /// </summary>
+                public unsafe IterableG(MR.CS.CSharp._ByValue_IterableG _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableG_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableG._Underlying *__MR_CSharp_IterableG_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.IterableG._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableG_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableG::IterableG`.
+                /// </summary>
+                public IterableG(Const_IterableG _other) : this(new _ByValue_IterableG(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableG::IterableG`.
+                /// </summary>
+                public IterableG(IterableG _other) : this((Const_IterableG)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableG::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.IterableG assign(MR.CS.CSharp._ByValue_IterableG _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableG_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableG._Underlying *__MR_CSharp_IterableG_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.IterableG._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
+                    return new(__MR_CSharp_IterableG_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableG::begin`.
+                /// </summary>
+                public unsafe MR.CS.Std.PtrString begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableG_begin", ExactSpelling = true)]
+                    extern static MR.CS.Std.String._Underlying *__MR_CSharp_IterableG_begin(_Underlying *_this);
+                    var __c_ret = __MR_CSharp_IterableG_begin(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableG::end`.
+                /// </summary>
+                public unsafe MR.CS.Std.PtrString end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableG_end", ExactSpelling = true)]
+                    extern static MR.CS.Std.String._Underlying *__MR_CSharp_IterableG_end(_Underlying *_this);
+                    var __c_ret = __MR_CSharp_IterableG_end(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+            }
+
+            /// <summary>
+            /// This is used as a function parameter when the underlying function receives `IterableG` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `IterableG`/`Const_IterableG` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
+            public class _ByValue_IterableG
+            {
+                internal readonly Const_IterableG? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValue_IterableG() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_IterableG(Const_IterableG new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_IterableG(Const_IterableG arg) {return new(arg);}
+                public _ByValue_IterableG(MR.CS.Misc._Moved<IterableG> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_IterableG(MR.CS.Misc._Moved<IterableG> arg) {return new(arg);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableG` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableG`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableG`/`Const_IterableG` directly.
+            /// </summary>
+            public class _InOptMut_IterableG
+            {
+                public IterableG? Opt;
+
+                public _InOptMut_IterableG() {}
+                public _InOptMut_IterableG(IterableG value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableG(IterableG value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableG` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableG`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableG`/`Const_IterableG` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_IterableG
+            {
+                public Const_IterableG? Opt;
+
+                public _InOptConst_IterableG() {}
+                public _InOptConst_IterableG(Const_IterableG value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableG(Const_IterableG value) {return new(value);}
+            }
+
+            // Returning const class instances.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableH`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_IterableH : MR.CS.Misc.Object<Const_IterableH>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableH_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableH_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableH_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableH() {Dispose(false);}
+
+                public unsafe MR.CS.Std.ArrayString3 arr {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // arr (array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableH_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_IterableH_Get_arr(_Underlying *_this);
+                        this.arr = new(__MR_CSharp_IterableH_Get_arr(_UnderlyingPtr));
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IterableH(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_IterableH() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableH_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableH._Underlying *__MR_CSharp_IterableH_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableH_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableH::IterableH`.
+                /// </summary>
+                public unsafe Const_IterableH(MR.CS.CSharp._ByValue_IterableH _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableH_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableH._Underlying *__MR_CSharp_IterableH_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.IterableH._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableH_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableH::IterableH`.
+                /// </summary>
+                public Const_IterableH(Const_IterableH _other) : this(new _ByValue_IterableH(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableH::IterableH`.
+                /// </summary>
+                public Const_IterableH(IterableH _other) : this((Const_IterableH)_other) {}
+            }
+
+            // Returning const class instances.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableH`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class IterableH : Const_IterableH, IEnumerable<MR.CS.Std.Const_String>
+            {
+                public class _Enumerator : IEnumerator<MR.CS.Std.Const_String>
+                {
+                    IterableH _container;
+                    MR.CS.Std.ConstPtrString _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(IterableH container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Std.Const_String Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.Std.Const_String> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                new public unsafe MR.CS.Std.ArrayString3 arr {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected new unsafe void _FinalizeFields()
+                {
+                    base._FinalizeFields();
+
+                    { // arr (array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableH_GetMutable_arr", ExactSpelling = true)]
+                        extern static MR.CS.Std.String._Underlying *__MR_CSharp_IterableH_GetMutable_arr(_Underlying *_this);
+                        this.arr = new(__MR_CSharp_IterableH_GetMutable_arr(_UnderlyingPtr));
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IterableH(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe IterableH() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableH_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableH._Underlying *__MR_CSharp_IterableH_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableH_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableH::IterableH`.
+                /// </summary>
+                public unsafe IterableH(MR.CS.CSharp._ByValue_IterableH _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableH_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableH._Underlying *__MR_CSharp_IterableH_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.IterableH._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableH_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableH::IterableH`.
+                /// </summary>
+                public IterableH(Const_IterableH _other) : this(new _ByValue_IterableH(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableH::IterableH`.
+                /// </summary>
+                public IterableH(IterableH _other) : this((Const_IterableH)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableH::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.IterableH assign(MR.CS.CSharp._ByValue_IterableH _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableH_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableH._Underlying *__MR_CSharp_IterableH_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.IterableH._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
+                    return new(__MR_CSharp_IterableH_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
+                }
+
+                // Not making those functions `const` for a change.
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableH::begin`.
+                /// </summary>
+                public unsafe MR.CS.Std.ConstPtrString begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableH_begin", ExactSpelling = true)]
+                    extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_IterableH_begin(_Underlying *_this);
+                    var __c_ret = __MR_CSharp_IterableH_begin(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableH::end`.
+                /// </summary>
+                public unsafe MR.CS.Std.ConstPtrString end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableH_end", ExactSpelling = true)]
+                    extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_IterableH_end(_Underlying *_this);
+                    var __c_ret = __MR_CSharp_IterableH_end(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+            }
+
+            /// <summary>
+            /// This is used as a function parameter when the underlying function receives `IterableH` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `IterableH`/`Const_IterableH` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
+            public class _ByValue_IterableH
+            {
+                internal readonly Const_IterableH? Value;
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValue_IterableH() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_IterableH(Const_IterableH new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_IterableH(Const_IterableH arg) {return new(arg);}
+                public _ByValue_IterableH(MR.CS.Misc._Moved<IterableH> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_IterableH(MR.CS.Misc._Moved<IterableH> arg) {return new(arg);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableH` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableH`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableH`/`Const_IterableH` directly.
+            /// </summary>
+            public class _InOptMut_IterableH
+            {
+                public IterableH? Opt;
+
+                public _InOptMut_IterableH() {}
+                public _InOptMut_IterableH(IterableH value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableH(IterableH value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableH` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableH`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableH`/`Const_IterableH` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_IterableH
+            {
+                public Const_IterableH? Opt;
+
+                public _InOptConst_IterableH() {}
+                public _InOptConst_IterableH(Const_IterableH value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableH(Const_IterableH value) {return new(value);}
+            }
+
+            // Returning mutable exposed struct instances.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableI`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_IterableI : MR.CS.Misc.Object<Const_IterableI>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableI_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableI_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableI_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableI() {Dispose(false);}
+
+                public unsafe ref MR.CS.CSharp.ArrayExposedLayout3 arr => ref *(__array_storage_arr);
+                private protected unsafe MR.CS.CSharp.ArrayExposedLayout3 *__array_storage_arr;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // arr (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableI_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.ArrayExposedLayout3 *__MR_CSharp_IterableI_Get_arr(_Underlying *_this);
+                        this.__array_storage_arr = __MR_CSharp_IterableI_Get_arr(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IterableI(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_IterableI() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableI_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableI._Underlying *__MR_CSharp_IterableI_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableI_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableI::IterableI`.
+                /// </summary>
+                public unsafe Const_IterableI(MR.CS.CSharp.Const_IterableI _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableI_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableI._Underlying *__MR_CSharp_IterableI_ConstructFromAnother(MR.CS.CSharp.IterableI._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableI_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableI::IterableI`.
+                /// </summary>
+                public Const_IterableI(IterableI _other) : this((Const_IterableI)_other) {}
+            }
+
+            // Returning mutable exposed struct instances.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableI`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class IterableI : Const_IterableI, IEnumerable<MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>>
+            {
+                public class _Enumerator : IEnumerator<MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>>
+                {
+                    IterableI _container;
+                    MR.CS.CSharp.PtrExposedLayout _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(IterableI container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout> Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return new(ref _cur.deref());
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                new public unsafe ref MR.CS.CSharp.ArrayExposedLayout3 arr => ref *(__array_storage_arr);
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IterableI(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe IterableI() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableI_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableI._Underlying *__MR_CSharp_IterableI_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableI_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableI::IterableI`.
+                /// </summary>
+                public unsafe IterableI(MR.CS.CSharp.Const_IterableI _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableI_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableI._Underlying *__MR_CSharp_IterableI_ConstructFromAnother(MR.CS.CSharp.IterableI._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableI_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableI::IterableI`.
+                /// </summary>
+                public IterableI(IterableI _other) : this((Const_IterableI)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableI::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.IterableI assign(MR.CS.CSharp.Const_IterableI _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableI_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableI._Underlying *__MR_CSharp_IterableI_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableI._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_CSharp_IterableI_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableI::begin`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.PtrExposedLayout begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableI_begin", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_IterableI_begin(_Underlying *_this);
+                    var __c_ret = __MR_CSharp_IterableI_begin(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableI::end`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.PtrExposedLayout end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableI_end", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_IterableI_end(_Underlying *_this);
+                    var __c_ret = __MR_CSharp_IterableI_end(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableI` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableI`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableI`/`Const_IterableI` directly.
+            /// </summary>
+            public class _InOptMut_IterableI
+            {
+                public IterableI? Opt;
+
+                public _InOptMut_IterableI() {}
+                public _InOptMut_IterableI(IterableI value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableI(IterableI value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableI` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableI`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableI`/`Const_IterableI` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_IterableI
+            {
+                public Const_IterableI? Opt;
+
+                public _InOptConst_IterableI() {}
+                public _InOptConst_IterableI(Const_IterableI value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableI(Const_IterableI value) {return new(value);}
+            }
+
+            // Returning const exposed struct instances.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableJ`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_IterableJ : MR.CS.Misc.Object<Const_IterableJ>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableJ_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableJ_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableJ_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableJ() {Dispose(false);}
+
+                public unsafe ref MR.CS.CSharp.ArrayExposedLayout3 arr => ref *(__array_storage_arr);
+                private protected unsafe MR.CS.CSharp.ArrayExposedLayout3 *__array_storage_arr;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // arr (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableJ_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.ArrayExposedLayout3 *__MR_CSharp_IterableJ_Get_arr(_Underlying *_this);
+                        this.__array_storage_arr = __MR_CSharp_IterableJ_Get_arr(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IterableJ(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_IterableJ() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableJ_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableJ._Underlying *__MR_CSharp_IterableJ_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableJ_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableJ::IterableJ`.
+                /// </summary>
+                public unsafe Const_IterableJ(MR.CS.CSharp.Const_IterableJ _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableJ_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableJ._Underlying *__MR_CSharp_IterableJ_ConstructFromAnother(MR.CS.CSharp.IterableJ._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableJ_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableJ::IterableJ`.
+                /// </summary>
+                public Const_IterableJ(IterableJ _other) : this((Const_IterableJ)_other) {}
+            }
+
+            // Returning const exposed struct instances.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableJ`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class IterableJ : Const_IterableJ, IEnumerable<MR.CS.Misc.ConstRef<MR.CS.CSharp.ExposedLayout>>
+            {
+                public class _Enumerator : IEnumerator<MR.CS.Misc.ConstRef<MR.CS.CSharp.ExposedLayout>>
+                {
+                    IterableJ _container;
+                    MR.CS.CSharp.ConstPtrExposedLayout _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(IterableJ container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public MR.CS.Misc.ConstRef<MR.CS.CSharp.ExposedLayout> Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return new(in _cur.deref());
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur++;
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<MR.CS.Misc.ConstRef<MR.CS.CSharp.ExposedLayout>> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                new public unsafe ref MR.CS.CSharp.ArrayExposedLayout3 arr => ref *(__array_storage_arr);
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IterableJ(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe IterableJ() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableJ_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableJ._Underlying *__MR_CSharp_IterableJ_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableJ_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableJ::IterableJ`.
+                /// </summary>
+                public unsafe IterableJ(MR.CS.CSharp.Const_IterableJ _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableJ_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableJ._Underlying *__MR_CSharp_IterableJ_ConstructFromAnother(MR.CS.CSharp.IterableJ._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableJ_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableJ::IterableJ`.
+                /// </summary>
+                public IterableJ(IterableJ _other) : this((Const_IterableJ)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableJ::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.IterableJ assign(MR.CS.CSharp.Const_IterableJ _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableJ_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableJ._Underlying *__MR_CSharp_IterableJ_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableJ._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_CSharp_IterableJ_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
+                // Not making those functions `const` for a change.
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableJ::begin`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.ConstPtrExposedLayout begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableJ_begin", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_IterableJ_begin(_Underlying *_this);
+                    var __c_ret = __MR_CSharp_IterableJ_begin(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableJ::end`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.ConstPtrExposedLayout end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableJ_end", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_IterableJ_end(_Underlying *_this);
+                    var __c_ret = __MR_CSharp_IterableJ_end(_UnderlyingPtr);
+                    return new(__c_ret);
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableJ` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableJ`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableJ`/`Const_IterableJ` directly.
+            /// </summary>
+            public class _InOptMut_IterableJ
+            {
+                public IterableJ? Opt;
+
+                public _InOptMut_IterableJ() {}
+                public _InOptMut_IterableJ(IterableJ value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableJ(IterableJ value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableJ` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableJ`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableJ`/`Const_IterableJ` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_IterableJ
+            {
+                public Const_IterableJ? Opt;
+
+                public _InOptConst_IterableJ() {}
+                public _InOptConst_IterableJ(Const_IterableJ value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableJ(Const_IterableJ value) {return new(value);}
             }
 
             /// <summary>
@@ -24676,46 +27592,126 @@ public static partial class MR
             /// <summary>
             /// Generated from function `MR::CSharp::begin`.
             /// </summary>
-            public static unsafe MR.CS.CSharp.Const_LifetimesA? begin(MR.CS.CSharp.Const_LifetimesB b)
+            public static unsafe MR.CS.CSharp.ConstPtrLifetimesA begin(MR.CS.CSharp.Const_LifetimesB b)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_begin_MR_CSharp_LifetimesB", ExactSpelling = true)]
-                extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_begin_MR_CSharp_LifetimesB(MR.CS.CSharp.Const_LifetimesB._Underlying *b);
-                var __c_ret = __MR_CSharp_begin_MR_CSharp_LifetimesB(b._UnderlyingPtr);
-                return __c_ret is not null ? new MR.CS.CSharp.Const_LifetimesA(__c_ret, is_owning: false) : null;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_begin_const_MR_CSharp_LifetimesB_ref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_begin_const_MR_CSharp_LifetimesB_ref(MR.CS.CSharp.Const_LifetimesB._Underlying *b);
+                var __c_ret = __MR_CSharp_begin_const_MR_CSharp_LifetimesB_ref(b._UnderlyingPtr);
+                return new(__c_ret);
             }
 
             /// <summary>
             /// Generated from function `MR::CSharp::end`.
             /// </summary>
-            public static unsafe MR.CS.CSharp.Const_LifetimesA? end(MR.CS.CSharp.Const_LifetimesB b)
+            public static unsafe MR.CS.CSharp.ConstPtrLifetimesA end(MR.CS.CSharp.Const_LifetimesB b)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_end_MR_CSharp_LifetimesB", ExactSpelling = true)]
-                extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_end_MR_CSharp_LifetimesB(MR.CS.CSharp.Const_LifetimesB._Underlying *b);
-                var __c_ret = __MR_CSharp_end_MR_CSharp_LifetimesB(b._UnderlyingPtr);
-                return __c_ret is not null ? new MR.CS.CSharp.Const_LifetimesA(__c_ret, is_owning: false) : null;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_end_const_MR_CSharp_LifetimesB_ref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_end_const_MR_CSharp_LifetimesB_ref(MR.CS.CSharp.Const_LifetimesB._Underlying *b);
+                var __c_ret = __MR_CSharp_end_const_MR_CSharp_LifetimesB_ref(b._UnderlyingPtr);
+                return new(__c_ret);
             }
 
             // `--infer-lifetime-iterators` should act on those:
             /// <summary>
             /// Generated from function `MR::CSharp::begin`.
             /// </summary>
-            public static unsafe MR.CS.CSharp.Const_LifetimesA? begin(MR.CS.CSharp.Const_LifetimesC c)
+            public static unsafe MR.CS.CSharp.ConstPtrLifetimesA begin(MR.CS.CSharp.Const_LifetimesC c)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_begin_MR_CSharp_LifetimesC", ExactSpelling = true)]
-                extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_begin_MR_CSharp_LifetimesC(MR.CS.CSharp.Const_LifetimesC._Underlying *c);
-                var __c_ret = __MR_CSharp_begin_MR_CSharp_LifetimesC(c._UnderlyingPtr);
-                return __c_ret is not null ? new MR.CS.CSharp.Const_LifetimesA(__c_ret, is_owning: false) : null;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_begin_const_MR_CSharp_LifetimesC_ref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_begin_const_MR_CSharp_LifetimesC_ref(MR.CS.CSharp.Const_LifetimesC._Underlying *c);
+                var __c_ret = __MR_CSharp_begin_const_MR_CSharp_LifetimesC_ref(c._UnderlyingPtr);
+                return new(__c_ret);
             }
 
             /// <summary>
             /// Generated from function `MR::CSharp::end`.
             /// </summary>
-            public static unsafe MR.CS.CSharp.Const_LifetimesA? end(MR.CS.CSharp.Const_LifetimesC c)
+            public static unsafe MR.CS.CSharp.ConstPtrLifetimesA end(MR.CS.CSharp.Const_LifetimesC c)
             {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_end_MR_CSharp_LifetimesC", ExactSpelling = true)]
-                extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_end_MR_CSharp_LifetimesC(MR.CS.CSharp.Const_LifetimesC._Underlying *c);
-                var __c_ret = __MR_CSharp_end_MR_CSharp_LifetimesC(c._UnderlyingPtr);
-                return __c_ret is not null ? new MR.CS.CSharp.Const_LifetimesA(__c_ret, is_owning: false) : null;
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_end_const_MR_CSharp_LifetimesC_ref", ExactSpelling = true)]
+                extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_end_const_MR_CSharp_LifetimesC_ref(MR.CS.CSharp.Const_LifetimesC._Underlying *c);
+                var __c_ret = __MR_CSharp_end_const_MR_CSharp_LifetimesC_ref(c._UnderlyingPtr);
+                return new(__c_ret);
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::begin`.
+            /// </summary>
+            public static unsafe MR.CS.ConstPtrInt begin(MR.CS.CSharp.Const_IterableD self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_begin_const_MR_CSharp_IterableD_ref", ExactSpelling = true)]
+                extern static int *__MR_CSharp_begin_const_MR_CSharp_IterableD_ref(MR.CS.CSharp.Const_IterableD._Underlying *self);
+                return new(__MR_CSharp_begin_const_MR_CSharp_IterableD_ref(self._UnderlyingPtr));
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::end`.
+            /// </summary>
+            public static unsafe MR.CS.ConstPtrInt end(MR.CS.CSharp.Const_IterableD self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_end_const_MR_CSharp_IterableD_ref", ExactSpelling = true)]
+                extern static int *__MR_CSharp_end_const_MR_CSharp_IterableD_ref(MR.CS.CSharp.Const_IterableD._Underlying *self);
+                return new(__MR_CSharp_end_const_MR_CSharp_IterableD_ref(self._UnderlyingPtr));
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::begin`.
+            /// </summary>
+            public static unsafe MR.CS.PtrInt begin(MR.CS.CSharp.IterableE self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_begin_MR_CSharp_IterableE_ref", ExactSpelling = true)]
+                extern static int *__MR_CSharp_begin_MR_CSharp_IterableE_ref(MR.CS.CSharp.IterableE._Underlying *self);
+                return new(__MR_CSharp_begin_MR_CSharp_IterableE_ref(self._UnderlyingPtr));
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::end`.
+            /// </summary>
+            public static unsafe MR.CS.PtrInt end(MR.CS.CSharp.IterableE self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_end_MR_CSharp_IterableE_ref", ExactSpelling = true)]
+                extern static int *__MR_CSharp_end_MR_CSharp_IterableE_ref(MR.CS.CSharp.IterableE._Underlying *self);
+                return new(__MR_CSharp_end_MR_CSharp_IterableE_ref(self._UnderlyingPtr));
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::begin`.
+            /// </summary>
+            public static unsafe MR.CS.ConstPtrInt begin(MR.CS.CSharp.Const_IterableF self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_begin_const_MR_CSharp_IterableF_ref", ExactSpelling = true)]
+                extern static int *__MR_CSharp_begin_const_MR_CSharp_IterableF_ref(MR.CS.CSharp.Const_IterableF._Underlying *self);
+                return new(__MR_CSharp_begin_const_MR_CSharp_IterableF_ref(self._UnderlyingPtr));
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::end`.
+            /// </summary>
+            public static unsafe MR.CS.ConstPtrInt end(MR.CS.CSharp.Const_IterableF self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_end_const_MR_CSharp_IterableF_ref", ExactSpelling = true)]
+                extern static int *__MR_CSharp_end_const_MR_CSharp_IterableF_ref(MR.CS.CSharp.Const_IterableF._Underlying *self);
+                return new(__MR_CSharp_end_const_MR_CSharp_IterableF_ref(self._UnderlyingPtr));
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::begin`.
+            /// </summary>
+            public static unsafe MR.CS.PtrInt begin(MR.CS.CSharp.IterableF self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_begin_MR_CSharp_IterableF_ref", ExactSpelling = true)]
+                extern static int *__MR_CSharp_begin_MR_CSharp_IterableF_ref(MR.CS.CSharp.IterableF._Underlying *self);
+                return new(__MR_CSharp_begin_MR_CSharp_IterableF_ref(self._UnderlyingPtr));
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::end`.
+            /// </summary>
+            public static unsafe MR.CS.PtrInt end(MR.CS.CSharp.IterableF self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_end_MR_CSharp_IterableF_ref", ExactSpelling = true)]
+                extern static int *__MR_CSharp_end_MR_CSharp_IterableF_ref(MR.CS.CSharp.IterableF._Underlying *self);
+                return new(__MR_CSharp_end_MR_CSharp_IterableF_ref(self._UnderlyingPtr));
             }
 
             /// <summary>

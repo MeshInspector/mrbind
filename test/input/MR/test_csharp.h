@@ -1449,6 +1449,105 @@ namespace MR::CSharp
         // `--infer-lifetime-constructors` skips this, because we already have custom attributes.
         LifetimesD(LifetimesB &ref) MBTEST_LIFETIME_CAPTURE_BY(ref) {(void)ref;}
     };
+
+
+    // Implementing `IEnumerable`:
+
+    // Const member functions.
+    struct IterableA
+    {
+        int arr[3] = {1, 2, 3};
+
+        const int *begin() const {return arr;}
+        const int *end() const {return arr + 3;}
+    };
+
+    // Mutable member functions.
+    struct IterableB
+    {
+        int arr[3] = {1, 2, 3};
+
+        int *begin() {return arr;}
+        int *end() {return arr + 3;}
+    };
+
+    // Both const and mutable member functions.
+    struct IterableC
+    {
+        int arr[3] = {1, 2, 3};
+
+        int *begin() {return arr;}
+        int *end() {return arr + 3;}
+        const int *begin() const {return arr;}
+        const int *end() const {return arr + 3;}
+    };
+
+    // Const free functions.
+    struct IterableD
+    {
+        int arr[3] = {1, 2, 3};
+
+        friend const int *begin(const IterableD &self) {return self.arr;}
+        friend const int *end(const IterableD &self) {return self.arr + 3;}
+    };
+
+    // Mutable free functions.
+    struct IterableE
+    {
+        int arr[3] = {1, 2, 3};
+
+        friend int *begin(IterableE &self) {return self.arr;}
+        friend int *end(IterableE &self) {return self.arr + 3;}
+    };
+
+    // Both const and mutable free functions.
+    struct IterableF
+    {
+        int arr[3] = {1, 2, 3};
+
+        friend const int *begin(const IterableF &self) {return self.arr;}
+        friend const int *end(const IterableF &self) {return self.arr + 3;}
+        friend int *begin(IterableF &self) {return self.arr;}
+        friend int *end(IterableF &self) {return self.arr + 3;}
+    };
+
+    // Returning mutable class instances.
+    struct IterableG
+    {
+        std::string arr[3] = {"a", "b", "c"};
+
+        std::string *begin() {return arr;}
+        std::string *end() {return arr + 3;}
+    };
+
+    // Returning const class instances.
+    struct IterableH
+    {
+        std::string arr[3] = {"a", "b", "c"};
+
+        // Not making those functions `const` for a change.
+        const std::string *begin() {return arr;}
+        const std::string *end() {return arr + 3;}
+    };
+
+    // Returning mutable exposed struct instances.
+    struct IterableI
+    {
+        ExposedLayout arr[3];
+
+        ExposedLayout *begin() {return arr;}
+        ExposedLayout *end() {return arr + 3;}
+    };
+
+    // Returning const exposed struct instances.
+    struct IterableJ
+    {
+        ExposedLayout arr[3];
+
+        // Not making those functions `const` for a change.
+        const ExposedLayout *begin() {return arr;}
+        const ExposedLayout *end() {return arr + 3;}
+    };
 }
 
 
