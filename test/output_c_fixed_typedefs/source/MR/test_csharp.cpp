@@ -10065,6 +10065,16 @@ const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_end(MR_CSharp_IterableJ *_thi
     return (const MR_CSharp_ExposedLayout *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableJ *)(_this)).end());
 }
 
+MR_C_std_vector_MR_CSharp_A_ptr *MR_CSharp_test_vec_of_mut_ptr_to_class(void)
+{
+    return (MR_C_std_vector_MR_CSharp_A_ptr *)new std::vector<MR::CSharp::A *>(::MR::CSharp::test_vec_of_mut_ptr_to_class());
+}
+
+MR_C_std_vector_const_MR_CSharp_A_ptr *MR_CSharp_test_vec_of_const_ptr_to_class(void)
+{
+    return (MR_C_std_vector_const_MR_CSharp_A_ptr *)new std::vector<const MR::CSharp::A *>(::MR::CSharp::test_vec_of_const_ptr_to_class());
+}
+
 MR_C_expected_int32_t_float *MR_CSharp_test_expected_int(const MR_C_expected_int32_t_float *a, const MR_C_expected_int32_t_float *b)
 {
     using namespace MR;

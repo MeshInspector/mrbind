@@ -41,7 +41,9 @@ typedef struct MR_C_std_string_view MR_C_std_string_view; // Defined in `#includ
 typedef struct MR_C_std_unique_ptr_int32_t MR_C_std_unique_ptr_int32_t; // Defined in `#include <std_unique_ptr_int32_t.h>`.
 typedef struct MR_C_std_variant_std_monostate_int32_t_float MR_C_std_variant_std_monostate_int32_t_float; // Defined in `#include <std_variant_std_monostate_int32_t_float.h>`.
 typedef struct MR_C_std_variant_std_monostate_int32_t_float_float MR_C_std_variant_std_monostate_int32_t_float_float; // Defined in `#include <std_variant_std_monostate_int32_t_float_float.h>`.
+typedef struct MR_C_std_vector_MR_CSharp_A_ptr MR_C_std_vector_MR_CSharp_A_ptr; // Defined in `#include <std_vector_MR_CSharp_A_ptr.h>`.
 typedef struct MR_C_std_vector_MR_CSharp_ExposedLayout MR_C_std_vector_MR_CSharp_ExposedLayout; // Defined in `#include <std_vector_MR_CSharp_ExposedLayout.h>`.
+typedef struct MR_C_std_vector_const_MR_CSharp_A_ptr MR_C_std_vector_const_MR_CSharp_A_ptr; // Defined in `#include <std_vector_const_MR_CSharp_A_ptr.h>`.
 
 
 // Enum comment.
@@ -8344,6 +8346,16 @@ MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_begin(MR_CSharp_Iter
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_end(MR_CSharp_IterableJ *_this);
 
+// Vectors of pointers to a class.
+// Currently `IEnumerable` is disabled for those, it needs to be fixed.
+// Generated from function `MR::CSharp::test_vec_of_mut_ptr_to_class`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_CSharp_A_ptr_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_vector_MR_CSharp_A_ptr *MR_CSharp_test_vec_of_mut_ptr_to_class(void);
+
+// Generated from function `MR::CSharp::test_vec_of_const_ptr_to_class`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_const_MR_CSharp_A_ptr_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_vector_const_MR_CSharp_A_ptr *MR_CSharp_test_vec_of_const_ptr_to_class(void);
+
 // Generated from function `MR::CSharp::test_expected_int`.
 // Parameter `a` can not be null. It is a single object.
 // Parameter `b` is a single object.
@@ -8626,6 +8638,8 @@ MR_C_API const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_exp
 #include <std_unique_ptr_int32_t.h>
 #include <std_variant_std_monostate_int32_t_float.h>
 #include <std_variant_std_monostate_int32_t_float_float.h>
+#include <std_vector_MR_CSharp_A_ptr.h>
 #include <std_vector_MR_CSharp_ExposedLayout.h>
+#include <std_vector_const_MR_CSharp_A_ptr.h>
 
 #endif // !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_MR_TEST_CSHARP_H_2)

@@ -5266,25 +5266,35 @@ namespace mrbind::CSharp
                                         throw std::runtime_error("The iterator type `" + CppdeclToCode(cpp_iter_type) + "` doesn't have an unary `*` operator.");
                                 }
 
-                                // Need `return_ref_wrapper` because `ref T` can't serve as a generic argument.
-                                ienumerable_csharp_elem_type = GetTypeBinding(cpp_elem_type, TypeBindingFlags::return_ref_wrapper).return_usage.value().csharp_return_type;
+                                // If the iterator dereferences to a pointer, abort. We can't handle that yet. TODO fix this.
+                                if (cpp_elem_type.Is<cppdecl::Reference>() && cpp_elem_type.Is<cppdecl::Pointer>(1))
+                                {
+                                    // Nope out of here.
+                                    is_ienumerable = false;
+                                }
 
-                                // For iterator classes this comes from a C++ overloaded operator `*`. C# doesn't let you overload the unary `*`, so it becomes a function.
-                                // And for unbounded array wrappers, we implement this ourselves.
-                                if (ienumerable_csharp_elem_type.starts_with(MakeHelperNameWithoutRegistration("Ref") + "<"))
-                                    ienumerable_csharp_return_deref = "return new(ref _cur." + AdjustCalledFuncName("Deref") + "());"; // Must construct our `Ref` class explicitly.
-                                else if (ienumerable_csharp_elem_type.starts_with(MakeHelperNameWithoutRegistration("ConstRef") + "<"))
-                                    ienumerable_csharp_return_deref = "return new(in _cur." + AdjustCalledFuncName("Deref") + "());"; // Interestingly, this doesn't compile with `ref`, compiles without `ref` but warns, and the warnings suggests adding `in`. Hmm.
-                                else
-                                    ienumerable_csharp_return_deref = "return _cur." + AdjustCalledFuncName("Deref") + "();";
+                                if (is_ienumerable)
+                                {
+                                    // Need `return_ref_wrapper` because `ref T` can't serve as a generic argument.
+                                    ienumerable_csharp_elem_type = GetTypeBinding(cpp_elem_type, TypeBindingFlags::return_ref_wrapper).return_usage.value().csharp_return_type;
+
+                                    // For iterator classes this comes from a C++ overloaded operator `*`. C# doesn't let you overload the unary `*`, so it becomes a function.
+                                    // And for unbounded array wrappers, we implement this ourselves.
+                                    if (ienumerable_csharp_elem_type.starts_with(MakeHelperNameWithoutRegistration("Ref") + "<"))
+                                        ienumerable_csharp_return_deref = "return new(ref _cur." + AdjustCalledFuncName("Deref") + "());"; // Must construct our `Ref` class explicitly.
+                                    else if (ienumerable_csharp_elem_type.starts_with(MakeHelperNameWithoutRegistration("ConstRef") + "<"))
+                                        ienumerable_csharp_return_deref = "return new(in _cur." + AdjustCalledFuncName("Deref") + "());"; // Interestingly, this doesn't compile with `ref`, compiles without `ref` but warns, and the warnings suggests adding `in`. Hmm.
+                                    else
+                                        ienumerable_csharp_return_deref = "return _cur." + AdjustCalledFuncName("Deref") + "();";
 
 
-                                // We add the interface to the non-const half if it has its own customized begin/end, even if the const half has them too.
-                                // It's easier this way, and could improve clarity too.
-                                // And also in C#, methods overridden from interfaces don't automaticaly become overridable (unless you make them virtual), so this helps with correctness too.
+                                    // We add the interface to the non-const half if it has its own customized begin/end, even if the const half has them too.
+                                    // It's easier this way, and could improve clarity too.
+                                    // And also in C#, methods overridden from interfaces don't automaticaly become overridable (unless you make them virtual), so this helps with correctness too.
 
-                                BaseSeparator();
-                                file.WriteString("IEnumerable<" + ienumerable_csharp_elem_type + ">");
+                                    BaseSeparator();
+                                    file.WriteString("IEnumerable<" + ienumerable_csharp_elem_type + ">");
+                                }
                             }
                             catch (...)
                             {

@@ -1548,6 +1548,11 @@ namespace MR::CSharp
         const ExposedLayout *begin() {return arr;}
         const ExposedLayout *end() {return arr + 3;}
     };
+
+    // Vectors of pointers to a class.
+    // Currently `IEnumerable` is disabled for those, it needs to be fixed.
+    inline std::vector<A *> test_vec_of_mut_ptr_to_class() {return {};}
+    inline std::vector<const A *> test_vec_of_const_ptr_to_class() {return {};}
 }
 
 

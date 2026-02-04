@@ -27714,6 +27714,28 @@ public static partial class MR
                 return new(__MR_CSharp_end_MR_CSharp_IterableF_ref(self._UnderlyingPtr));
             }
 
+            // Vectors of pointers to a class.
+            // Currently `IEnumerable` is disabled for those, it needs to be fixed.
+            /// <summary>
+            /// Generated from function `MR::CSharp::test_vec_of_mut_ptr_to_class`.
+            /// </summary>
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_MRCSharpAPtr> testVecOfMutPtrToClass()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_vec_of_mut_ptr_to_class", ExactSpelling = true)]
+                extern static MR.CS.Std.Vector_MRCSharpAPtr._Underlying *__MR_CSharp_test_vec_of_mut_ptr_to_class();
+                return MR.CS.Misc.Move(new MR.CS.Std.Vector_MRCSharpAPtr(__MR_CSharp_test_vec_of_mut_ptr_to_class(), is_owning: true));
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::test_vec_of_const_ptr_to_class`.
+            /// </summary>
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Vector_ConstMRCSharpAPtr> testVecOfConstPtrToClass()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_vec_of_const_ptr_to_class", ExactSpelling = true)]
+                extern static MR.CS.Std.Vector_ConstMRCSharpAPtr._Underlying *__MR_CSharp_test_vec_of_const_ptr_to_class();
+                return MR.CS.Misc.Move(new MR.CS.Std.Vector_ConstMRCSharpAPtr(__MR_CSharp_test_vec_of_const_ptr_to_class(), is_owning: true));
+            }
+
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_int`.
             /// Parameter `b` defaults to `std::expected<int, float>{42}`.
