@@ -132,7 +132,7 @@ namespace mrbind::CBindings::Modules
                                         emit.cpp_return_type = cppdecl::Type(cpp_elem_type).AddQualifiers(cppdecl::CvQualifiers::const_ * is_const_iter).AddModifier(cppdecl::Pointer{});
                                         emit.mark_as_returning_pointer_to_array = true;
                                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const_iter);
-                                        emit.cpp_called_func = c_or_empty + begin_or_end_str;
+                                        emit.cpp_called_func = "&*@this@." + c_or_empty + begin_or_end_str + "()"; // Note `&*` to force convert the iterator ot a pointer, if it's not already a pointer on this stdlib.
                                         generator.EmitFunction(file, emit);
                                     }
                                 }
