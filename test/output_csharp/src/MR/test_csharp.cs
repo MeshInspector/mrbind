@@ -20492,6 +20492,606 @@ public static partial class MR
                 public static implicit operator _InOptConst_IterableJ(Const_IterableJ value) {return new(value);}
             }
 
+            // The sentinel having a different type.
+            /// Generated from class `MR::CSharp::IterableK`.
+            /// This is the const half of the class.
+            public class Const_IterableK : MR.CS.Misc.Object<Const_IterableK>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableK_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableK_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableK() {Dispose(false);}
+
+                public unsafe ref MR.CS.ArrayInt3 arr
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt3 *__MR_CSharp_IterableK_Get_arr(_Underlying *_this);
+                        return ref *(__MR_CSharp_IterableK_Get_arr(_UnderlyingPtr));
+                    }
+                }
+
+                internal unsafe Const_IterableK(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe Const_IterableK() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableK._Underlying *__MR_CSharp_IterableK_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableK_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::IterableK::IterableK`.
+                public unsafe Const_IterableK(MR.CS.CSharp.Const_IterableK _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableK._Underlying *__MR_CSharp_IterableK_ConstructFromAnother(MR.CS.CSharp.IterableK._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableK_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                }
+
+                /// Generated from constructor `MR::CSharp::IterableK::IterableK`.
+                public Const_IterableK(IterableK _other) : this((Const_IterableK)_other) {}
+
+                /// Generated from class `MR::CSharp::IterableK::Iter`.
+                /// This is the const half of the class.
+                public class Const_Iter : MR.CS.Misc.Object<Const_Iter>, System.IDisposable
+                {
+                    internal struct _Underlying {} // Represents the underlying C++ type.
+
+                    internal unsafe _Underlying *_UnderlyingPtr;
+
+                    protected virtual unsafe void Dispose(bool disposing)
+                    {
+                        if (_UnderlyingPtr is null || !_IsOwningVal)
+                            return;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Iter_Destroy", ExactSpelling = true)]
+                        extern static void __MR_CSharp_IterableK_Iter_Destroy(_Underlying *_this);
+                        __MR_CSharp_IterableK_Iter_Destroy(_UnderlyingPtr);
+                        _UnderlyingPtr = null;
+                    }
+                    public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                    ~Const_Iter() {Dispose(false);}
+
+                    public unsafe MR.CS.Misc.Box<int>? ptr
+                    {
+                        get
+                        {
+                            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Iter_Get_ptr", ExactSpelling = true)]
+                            extern static int **__MR_CSharp_IterableK_Iter_Get_ptr(Const_Iter._Underlying *_this);
+                            var ptr = __MR_CSharp_IterableK_Iter_Get_ptr(_UnderlyingPtr);
+                            MR.CS.Misc.Box<int>? value = null;
+                            if (*ptr is not null)
+                            {
+                                value = new(*ptr);
+                                value._KeepAliveEnclosingObject = this;
+                            }
+                            return value;
+                        }
+                    }
+
+                    internal unsafe Const_Iter(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                    /// Constructs an empty (default-constructed) instance.
+                    public unsafe Const_Iter() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Iter_DefaultConstruct", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Iter._Underlying *__MR_CSharp_IterableK_Iter_DefaultConstruct();
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Iter_DefaultConstruct();
+                    }
+
+                    /// Constructs `MR::CSharp::IterableK::Iter` elementwise.
+                    public unsafe Const_Iter(MR.CS.Misc.InOut<int>? ptr) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Iter_ConstructFrom", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Iter._Underlying *__MR_CSharp_IterableK_Iter_ConstructFrom(int *ptr);
+                        int __value_ptr = ptr is not null ? ptr.Value : default(int);
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Iter_ConstructFrom(ptr is not null ? &__value_ptr : null);
+                        if (ptr is not null) ptr.Value = __value_ptr;
+                    }
+
+                    /// Generated from constructor `MR::CSharp::IterableK::Iter::Iter`.
+                    public unsafe Const_Iter(MR.CS.CSharp.IterableK.Const_Iter _other) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Iter_ConstructFromAnother", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Iter._Underlying *__MR_CSharp_IterableK_Iter_ConstructFromAnother(MR.CS.CSharp.IterableK.Iter._Underlying *_other);
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Iter_ConstructFromAnother(_other._UnderlyingPtr);
+                        _KeepAlive(_other);
+                    }
+
+                    /// Generated from constructor `MR::CSharp::IterableK::Iter::Iter`.
+                    public Const_Iter(Iter _other) : this((Const_Iter)_other) {}
+
+                    /// Generated from method `MR::CSharp::IterableK::Iter::operator*`.
+                    public unsafe int Deref()
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_deref_MR_CSharp_IterableK_Iter", ExactSpelling = true)]
+                        extern static int __MR_C_deref_MR_CSharp_IterableK_Iter(_Underlying *_this);
+                        return __MR_C_deref_MR_CSharp_IterableK_Iter(_UnderlyingPtr);
+                    }
+
+                    /// Generated from method `MR::CSharp::IterableK::Iter::operator++`.
+                    public static unsafe Iter operator++(MR.CS.CSharp.IterableK.Const_Iter _this)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IterableK_Iter", ExactSpelling = true)]
+                        extern static void __MR_C_incr_MR_CSharp_IterableK_Iter(MR.CS.CSharp.IterableK.Const_Iter._Underlying *_this);
+                        Iter __this_copy = new(_this);
+                        __MR_C_incr_MR_CSharp_IterableK_Iter(__this_copy._UnderlyingPtr);
+                        return __this_copy;
+                    }
+                }
+
+                /// Generated from class `MR::CSharp::IterableK::Iter`.
+                /// This is the non-const half of the class.
+                public class Iter : Const_Iter, System.IEquatable<MR.CS.CSharp.IterableK.Const_Sentinel>
+                {
+                    public new unsafe MR.CS.Misc.Box<int>? ptr
+                    {
+                        get => base.ptr;
+                        set
+                        {
+                            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Iter_GetMutable_ptr", ExactSpelling = true)]
+                            extern static int **__MR_CSharp_IterableK_Iter_GetMutable_ptr(Iter._Underlying *_this);
+                            var ptr = __MR_CSharp_IterableK_Iter_GetMutable_ptr(_UnderlyingPtr);
+                            _DiscardKeepAlive("ptr");
+                            if (value is not null)
+                                _KeepAlive(value, "ptr");
+                            *ptr = (value is not null ? value._UnderlyingPtr : null);
+                        }
+                    }
+
+                    internal unsafe Iter(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                    /// Constructs an empty (default-constructed) instance.
+                    public unsafe Iter() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Iter_DefaultConstruct", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Iter._Underlying *__MR_CSharp_IterableK_Iter_DefaultConstruct();
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Iter_DefaultConstruct();
+                    }
+
+                    /// Constructs `MR::CSharp::IterableK::Iter` elementwise.
+                    public unsafe Iter(MR.CS.Misc.InOut<int>? ptr) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Iter_ConstructFrom", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Iter._Underlying *__MR_CSharp_IterableK_Iter_ConstructFrom(int *ptr);
+                        int __value_ptr = ptr is not null ? ptr.Value : default(int);
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Iter_ConstructFrom(ptr is not null ? &__value_ptr : null);
+                        if (ptr is not null) ptr.Value = __value_ptr;
+                    }
+
+                    /// Generated from constructor `MR::CSharp::IterableK::Iter::Iter`.
+                    public unsafe Iter(MR.CS.CSharp.IterableK.Const_Iter _other) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Iter_ConstructFromAnother", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Iter._Underlying *__MR_CSharp_IterableK_Iter_ConstructFromAnother(MR.CS.CSharp.IterableK.Iter._Underlying *_other);
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Iter_ConstructFromAnother(_other._UnderlyingPtr);
+                        _KeepAlive(_other);
+                    }
+
+                    /// Generated from constructor `MR::CSharp::IterableK::Iter::Iter`.
+                    public Iter(Iter _other) : this((Const_Iter)_other) {}
+
+                    /// Generated from method `MR::CSharp::IterableK::Iter::operator=`.
+                    public unsafe MR.CS.CSharp.IterableK.Iter Assign(MR.CS.CSharp.IterableK.Const_Iter _other)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Iter_AssignFromAnother", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Iter._Underlying *__MR_CSharp_IterableK_Iter_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableK.Iter._Underlying *_other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(_other);
+                        return new(__MR_CSharp_IterableK_Iter_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    }
+
+                    /// Generated from method `MR::CSharp::IterableK::Iter::operator++`.
+                    public unsafe void Incr()
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_incr_MR_CSharp_IterableK_Iter", ExactSpelling = true)]
+                        extern static void __MR_C_incr_MR_CSharp_IterableK_Iter(_Underlying *_this);
+                        __MR_C_incr_MR_CSharp_IterableK_Iter(_UnderlyingPtr);
+                    }
+
+                    /// Generated from method `MR::CSharp::IterableK::Iter::operator==`.
+                    public static unsafe bool operator==(MR.CS.CSharp.IterableK.Iter _this, MR.CS.CSharp.IterableK.Const_Sentinel s)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel", ExactSpelling = true)]
+                        extern static byte __MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(MR.CS.CSharp.IterableK.Iter._Underlying *_this, MR.CS.CSharp.IterableK.Sentinel._Underlying *s);
+                        return __MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(_this._UnderlyingPtr, s._UnderlyingPtr) != 0;
+                    }
+
+                    public static unsafe bool operator!=(MR.CS.CSharp.IterableK.Iter _this, MR.CS.CSharp.IterableK.Const_Sentinel s)
+                    {
+                        return !(_this == s);
+                    }
+
+                    // IEquatable:
+
+                    public bool Equals(MR.CS.CSharp.IterableK.Const_Sentinel? s)
+                    {
+                        if (s is null)
+                            return false;
+                        return this == s;
+                    }
+
+                    public override bool Equals(object? other)
+                    {
+                        if (other is null)
+                            return false;
+                        if (other is MR.CS.CSharp.IterableK.Const_Sentinel)
+                            return this == (MR.CS.CSharp.IterableK.Const_Sentinel)other;
+                        return false;
+                    }
+                }
+
+                /// This is used for optional parameters of class `Iter` with default arguments.
+                /// This is only used mutable parameters. For const ones we have `_InOptConst_Iter`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Iter`/`Const_Iter` directly.
+                public class _InOptMut_Iter
+                {
+                    public Iter? Opt;
+
+                    public _InOptMut_Iter() {}
+                    public _InOptMut_Iter(Iter value) {Opt = value;}
+                    public static implicit operator _InOptMut_Iter(Iter value) {return new(value);}
+                }
+
+                /// This is used for optional parameters of class `Iter` with default arguments.
+                /// This is only used const parameters. For non-const ones we have `_InOptMut_Iter`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Iter`/`Const_Iter` to pass it to the function.
+                public class _InOptConst_Iter
+                {
+                    public Const_Iter? Opt;
+
+                    public _InOptConst_Iter() {}
+                    public _InOptConst_Iter(Const_Iter value) {Opt = value;}
+                    public static implicit operator _InOptConst_Iter(Const_Iter value) {return new(value);}
+                }
+
+                /// Generated from class `MR::CSharp::IterableK::Sentinel`.
+                /// This is the const half of the class.
+                public class Const_Sentinel : MR.CS.Misc.Object<Const_Sentinel>, System.IDisposable
+                {
+                    internal struct _Underlying {} // Represents the underlying C++ type.
+
+                    internal unsafe _Underlying *_UnderlyingPtr;
+
+                    protected virtual unsafe void Dispose(bool disposing)
+                    {
+                        if (_UnderlyingPtr is null || !_IsOwningVal)
+                            return;
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Sentinel_Destroy", ExactSpelling = true)]
+                        extern static void __MR_CSharp_IterableK_Sentinel_Destroy(_Underlying *_this);
+                        __MR_CSharp_IterableK_Sentinel_Destroy(_UnderlyingPtr);
+                        _UnderlyingPtr = null;
+                    }
+                    public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                    ~Const_Sentinel() {Dispose(false);}
+
+                    public unsafe MR.CS.Misc.Box<int>? ptr
+                    {
+                        get
+                        {
+                            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Sentinel_Get_ptr", ExactSpelling = true)]
+                            extern static int **__MR_CSharp_IterableK_Sentinel_Get_ptr(Const_Sentinel._Underlying *_this);
+                            var ptr = __MR_CSharp_IterableK_Sentinel_Get_ptr(_UnderlyingPtr);
+                            MR.CS.Misc.Box<int>? value = null;
+                            if (*ptr is not null)
+                            {
+                                value = new(*ptr);
+                                value._KeepAliveEnclosingObject = this;
+                            }
+                            return value;
+                        }
+                    }
+
+                    internal unsafe Const_Sentinel(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                    /// Constructs an empty (default-constructed) instance.
+                    public unsafe Const_Sentinel() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Sentinel_DefaultConstruct", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Sentinel._Underlying *__MR_CSharp_IterableK_Sentinel_DefaultConstruct();
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Sentinel_DefaultConstruct();
+                    }
+
+                    /// Constructs `MR::CSharp::IterableK::Sentinel` elementwise.
+                    public unsafe Const_Sentinel(MR.CS.Misc.InOut<int>? ptr) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Sentinel_ConstructFrom", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Sentinel._Underlying *__MR_CSharp_IterableK_Sentinel_ConstructFrom(int *ptr);
+                        int __value_ptr = ptr is not null ? ptr.Value : default(int);
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Sentinel_ConstructFrom(ptr is not null ? &__value_ptr : null);
+                        if (ptr is not null) ptr.Value = __value_ptr;
+                    }
+
+                    /// Generated from constructor `MR::CSharp::IterableK::Sentinel::Sentinel`.
+                    public unsafe Const_Sentinel(MR.CS.CSharp.IterableK.Const_Sentinel _other) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Sentinel_ConstructFromAnother", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Sentinel._Underlying *__MR_CSharp_IterableK_Sentinel_ConstructFromAnother(MR.CS.CSharp.IterableK.Sentinel._Underlying *_other);
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Sentinel_ConstructFromAnother(_other._UnderlyingPtr);
+                        _KeepAlive(_other);
+                    }
+
+                    /// Generated from constructor `MR::CSharp::IterableK::Sentinel::Sentinel`.
+                    public Const_Sentinel(Sentinel _other) : this((Const_Sentinel)_other) {}
+                }
+
+                /// Generated from class `MR::CSharp::IterableK::Sentinel`.
+                /// This is the non-const half of the class.
+                public class Sentinel : Const_Sentinel
+                {
+                    public new unsafe MR.CS.Misc.Box<int>? ptr
+                    {
+                        get => base.ptr;
+                        set
+                        {
+                            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Sentinel_GetMutable_ptr", ExactSpelling = true)]
+                            extern static int **__MR_CSharp_IterableK_Sentinel_GetMutable_ptr(Sentinel._Underlying *_this);
+                            var ptr = __MR_CSharp_IterableK_Sentinel_GetMutable_ptr(_UnderlyingPtr);
+                            _DiscardKeepAlive("ptr");
+                            if (value is not null)
+                                _KeepAlive(value, "ptr");
+                            *ptr = (value is not null ? value._UnderlyingPtr : null);
+                        }
+                    }
+
+                    internal unsafe Sentinel(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                    /// Constructs an empty (default-constructed) instance.
+                    public unsafe Sentinel() : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Sentinel_DefaultConstruct", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Sentinel._Underlying *__MR_CSharp_IterableK_Sentinel_DefaultConstruct();
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Sentinel_DefaultConstruct();
+                    }
+
+                    /// Constructs `MR::CSharp::IterableK::Sentinel` elementwise.
+                    public unsafe Sentinel(MR.CS.Misc.InOut<int>? ptr) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Sentinel_ConstructFrom", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Sentinel._Underlying *__MR_CSharp_IterableK_Sentinel_ConstructFrom(int *ptr);
+                        int __value_ptr = ptr is not null ? ptr.Value : default(int);
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Sentinel_ConstructFrom(ptr is not null ? &__value_ptr : null);
+                        if (ptr is not null) ptr.Value = __value_ptr;
+                    }
+
+                    /// Generated from constructor `MR::CSharp::IterableK::Sentinel::Sentinel`.
+                    public unsafe Sentinel(MR.CS.CSharp.IterableK.Const_Sentinel _other) : this(null, is_owning: true)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Sentinel_ConstructFromAnother", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Sentinel._Underlying *__MR_CSharp_IterableK_Sentinel_ConstructFromAnother(MR.CS.CSharp.IterableK.Sentinel._Underlying *_other);
+                        _UnderlyingPtr = __MR_CSharp_IterableK_Sentinel_ConstructFromAnother(_other._UnderlyingPtr);
+                        _KeepAlive(_other);
+                    }
+
+                    /// Generated from constructor `MR::CSharp::IterableK::Sentinel::Sentinel`.
+                    public Sentinel(Sentinel _other) : this((Const_Sentinel)_other) {}
+
+                    /// Generated from method `MR::CSharp::IterableK::Sentinel::operator=`.
+                    public unsafe MR.CS.CSharp.IterableK.Sentinel Assign(MR.CS.CSharp.IterableK.Const_Sentinel _other)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_Sentinel_AssignFromAnother", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.IterableK.Sentinel._Underlying *__MR_CSharp_IterableK_Sentinel_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableK.Sentinel._Underlying *_other);
+                        _DiscardKeepAlive();
+                        _KeepAlive(_other);
+                        return new(__MR_CSharp_IterableK_Sentinel_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    }
+                }
+
+                /// This is used for optional parameters of class `Sentinel` with default arguments.
+                /// This is only used mutable parameters. For const ones we have `_InOptConst_Sentinel`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Sentinel`/`Const_Sentinel` directly.
+                public class _InOptMut_Sentinel
+                {
+                    public Sentinel? Opt;
+
+                    public _InOptMut_Sentinel() {}
+                    public _InOptMut_Sentinel(Sentinel value) {Opt = value;}
+                    public static implicit operator _InOptMut_Sentinel(Sentinel value) {return new(value);}
+                }
+
+                /// This is used for optional parameters of class `Sentinel` with default arguments.
+                /// This is only used const parameters. For non-const ones we have `_InOptMut_Sentinel`.
+                /// Usage:
+                /// * Pass `null` to use the default argument.
+                /// * Pass `new()` to pass no object.
+                /// * Pass an instance of `Sentinel`/`Const_Sentinel` to pass it to the function.
+                public class _InOptConst_Sentinel
+                {
+                    public Const_Sentinel? Opt;
+
+                    public _InOptConst_Sentinel() {}
+                    public _InOptConst_Sentinel(Const_Sentinel value) {Opt = value;}
+                    public static implicit operator _InOptConst_Sentinel(Const_Sentinel value) {return new(value);}
+                }
+            }
+
+            // The sentinel having a different type.
+            /// Generated from class `MR::CSharp::IterableK`.
+            /// This is the non-const half of the class.
+            public class IterableK : Const_IterableK, IEnumerable<int>
+            {
+                public class _Enumerator : IEnumerator<int>
+                {
+                    IterableK _container;
+                    MR.CS.CSharp.IterableK.Iter _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(IterableK container)
+                    {
+                        _container = container;
+                        _cur = _container.Begin();
+                        _done = _cur == _container.End();
+                    }
+
+                    public int Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.Deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur.Incr();
+                        if (_cur == _container.End())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.Begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<int> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                new public unsafe ref MR.CS.ArrayInt3 arr
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_GetMutable_arr", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt3 *__MR_CSharp_IterableK_GetMutable_arr(_Underlying *_this);
+                        return ref *(__MR_CSharp_IterableK_GetMutable_arr(_UnderlyingPtr));
+                    }
+                }
+
+                internal unsafe IterableK(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Constructs an empty (default-constructed) instance.
+                public unsafe IterableK() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableK._Underlying *__MR_CSharp_IterableK_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableK_DefaultConstruct();
+                }
+
+                /// Generated from constructor `MR::CSharp::IterableK::IterableK`.
+                public unsafe IterableK(MR.CS.CSharp.Const_IterableK _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableK._Underlying *__MR_CSharp_IterableK_ConstructFromAnother(MR.CS.CSharp.IterableK._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableK_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                }
+
+                /// Generated from constructor `MR::CSharp::IterableK::IterableK`.
+                public IterableK(IterableK _other) : this((Const_IterableK)_other) {}
+
+                /// Generated from method `MR::CSharp::IterableK::operator=`.
+                public unsafe MR.CS.CSharp.IterableK Assign(MR.CS.CSharp.Const_IterableK _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableK._Underlying *__MR_CSharp_IterableK_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableK._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_CSharp_IterableK_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
+                // Not making those functions `const` for a change.
+                /// Generated from method `MR::CSharp::IterableK::begin`.
+                public unsafe MR.CS.CSharp.IterableK.Iter Begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_begin", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableK.Iter._Underlying *__MR_CSharp_IterableK_begin(_Underlying *_this);
+                    MR.CS.CSharp.IterableK.Iter __ret;
+                    __ret = new(__MR_CSharp_IterableK_begin(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
+                }
+
+                /// Generated from method `MR::CSharp::IterableK::end`.
+                public unsafe MR.CS.CSharp.IterableK.Sentinel End()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableK_end", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableK.Sentinel._Underlying *__MR_CSharp_IterableK_end(_Underlying *_this);
+                    MR.CS.CSharp.IterableK.Sentinel __ret;
+                    __ret = new(__MR_CSharp_IterableK_end(_UnderlyingPtr), is_owning: true);
+                    __ret._KeepAlive(this);
+                    return __ret;
+                }
+            }
+
+            /// This is used for optional parameters of class `IterableK` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableK`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableK`/`Const_IterableK` directly.
+            public class _InOptMut_IterableK
+            {
+                public IterableK? Opt;
+
+                public _InOptMut_IterableK() {}
+                public _InOptMut_IterableK(IterableK value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableK(IterableK value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `IterableK` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableK`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableK`/`Const_IterableK` to pass it to the function.
+            public class _InOptConst_IterableK
+            {
+                public Const_IterableK? Opt;
+
+                public _InOptConst_IterableK() {}
+                public _InOptConst_IterableK(Const_IterableK value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableK(Const_IterableK value) {return new(value);}
+            }
+
             /// Generated from function `MR::CSharp::foo`.
             public static void Foo()
             {

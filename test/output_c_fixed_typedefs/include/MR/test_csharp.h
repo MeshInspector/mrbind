@@ -661,6 +661,19 @@ typedef struct MR_CSharp_IterableI MR_CSharp_IterableI;
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_IterableJ MR_CSharp_IterableJ;
 
+// Generated from class `MR::CSharp::IterableK::Sentinel`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableK_Sentinel MR_CSharp_IterableK_Sentinel;
+
+// Generated from class `MR::CSharp::IterableK::Iter`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableK_Iter MR_CSharp_IterableK_Iter;
+
+// The sentinel having a different type.
+// Generated from class `MR::CSharp::IterableK`.
+// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+typedef struct MR_CSharp_IterableK MR_CSharp_IterableK;
+
 // Generated from function `MR::CSharp::foo`.
 MR_C_API void MR_CSharp_foo(void);
 
@@ -8345,6 +8358,198 @@ MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_begin(MR_CSharp_Iter
 // Generated from method `MR::CSharp::IterableJ::end`.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_end(MR_CSharp_IterableJ *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::IterableK` named `arr`. This is a pointer to the first element of an array.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API const int32_t *MR_CSharp_IterableK_Get_arr(const MR_CSharp_IterableK *_this);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableK` named `arr`. This is a pointer to the first element of an array.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int32_t *MR_CSharp_IterableK_GetMutable_arr(MR_CSharp_IterableK *_this);
+
+// Returns the size of the array member of class `MR::CSharp::IterableK` named `arr`. The size is `3`.
+MR_C_API size_t MR_CSharp_IterableK_GetSize_arr(void);
+
+// Constructs an empty (default-constructed) instance.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableK_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableK *MR_CSharp_IterableK_DefaultConstruct(void);
+
+// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+// The array must be destroyed using `MR_CSharp_IterableK_DestroyArray()`.
+// Use `MR_CSharp_IterableK_OffsetMutablePtr()` and `MR_CSharp_IterableK_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableK *MR_CSharp_IterableK_DefaultConstructArray(size_t num_elems);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableK *MR_CSharp_IterableK_OffsetPtr(const MR_CSharp_IterableK *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableK *MR_CSharp_IterableK_OffsetMutablePtr(MR_CSharp_IterableK *ptr, ptrdiff_t i);
+
+// Generated from constructor `MR::CSharp::IterableK::IterableK`.
+// Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableK_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableK *MR_CSharp_IterableK_ConstructFromAnother(const MR_CSharp_IterableK *_other);
+
+// Destroys a heap-allocated instance of `MR_CSharp_IterableK`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableK_Destroy(const MR_CSharp_IterableK *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_IterableK`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableK_DestroyArray(const MR_CSharp_IterableK *_this);
+
+// Generated from method `MR::CSharp::IterableK::operator=`.
+// Parameter `_this` can not be null. It is a single object.
+// Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableK *MR_CSharp_IterableK_AssignFromAnother(MR_CSharp_IterableK *_this, const MR_CSharp_IterableK *_other);
+
+// Not making those functions `const` for a change.
+// Generated from method `MR::CSharp::IterableK::begin`.
+// Parameter `_this` can not be null. It is a single object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableK_Iter_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_begin(MR_CSharp_IterableK *_this);
+
+// Generated from method `MR::CSharp::IterableK::end`.
+// Parameter `_this` can not be null. It is a single object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableK_Sentinel_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_end(MR_CSharp_IterableK *_this);
+
+// Returns a pointer to a member variable of class `MR::CSharp::IterableK::Sentinel` named `ptr`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int32_t *const *MR_CSharp_IterableK_Sentinel_Get_ptr(const MR_CSharp_IterableK_Sentinel *_this);
+
+// Modifies a member variable of class `MR::CSharp::IterableK::Sentinel` named `ptr`.
+// Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `value` might be preserved in this object in element `ptr`.
+// When this function is called, this object will drop object references it had previously in `ptr`.
+MR_C_API void MR_CSharp_IterableK_Sentinel_Set_ptr(MR_CSharp_IterableK_Sentinel *_this, int32_t *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableK::Sentinel` named `ptr`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int32_t **MR_CSharp_IterableK_Sentinel_GetMutable_ptr(MR_CSharp_IterableK_Sentinel *_this);
+
+// Constructs an empty (default-constructed) instance.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableK_Sentinel_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_DefaultConstruct(void);
+
+// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+// The array must be destroyed using `MR_CSharp_IterableK_Sentinel_DestroyArray()`.
+// Use `MR_CSharp_IterableK_Sentinel_OffsetMutablePtr()` and `MR_CSharp_IterableK_Sentinel_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_DefaultConstructArray(size_t num_elems);
+
+// Constructs `MR::CSharp::IterableK::Sentinel` elementwise.
+// The reference to the parameter `ptr` might be preserved in the constructed object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableK_Sentinel_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_ConstructFrom(int32_t *ptr);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_OffsetPtr(const MR_CSharp_IterableK_Sentinel *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_OffsetMutablePtr(MR_CSharp_IterableK_Sentinel *ptr, ptrdiff_t i);
+
+// Generated from constructor `MR::CSharp::IterableK::Sentinel::Sentinel`.
+// Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableK_Sentinel_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_ConstructFromAnother(const MR_CSharp_IterableK_Sentinel *_other);
+
+// Destroys a heap-allocated instance of `MR_CSharp_IterableK_Sentinel`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableK_Sentinel_Destroy(const MR_CSharp_IterableK_Sentinel *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_IterableK_Sentinel`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableK_Sentinel_DestroyArray(const MR_CSharp_IterableK_Sentinel *_this);
+
+// Generated from method `MR::CSharp::IterableK::Sentinel::operator=`.
+// Parameter `_this` can not be null. It is a single object.
+// Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_AssignFromAnother(MR_CSharp_IterableK_Sentinel *_this, const MR_CSharp_IterableK_Sentinel *_other);
+
+// Returns a pointer to a member variable of class `MR::CSharp::IterableK::Iter` named `ptr`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int32_t *const *MR_CSharp_IterableK_Iter_Get_ptr(const MR_CSharp_IterableK_Iter *_this);
+
+// Modifies a member variable of class `MR::CSharp::IterableK::Iter` named `ptr`.
+// Parameter `_this` can not be null. It is a single object.
+// The reference to the parameter `value` might be preserved in this object in element `ptr`.
+// When this function is called, this object will drop object references it had previously in `ptr`.
+MR_C_API void MR_CSharp_IterableK_Iter_Set_ptr(MR_CSharp_IterableK_Iter *_this, int32_t *value);
+
+// Returns a mutable pointer to a member variable of class `MR::CSharp::IterableK::Iter` named `ptr`.
+// Parameter `_this` can not be null. It is a single object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int32_t **MR_CSharp_IterableK_Iter_GetMutable_ptr(MR_CSharp_IterableK_Iter *_this);
+
+// Constructs an empty (default-constructed) instance.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableK_Iter_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_DefaultConstruct(void);
+
+// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
+// The array must be destroyed using `MR_CSharp_IterableK_Iter_DestroyArray()`.
+// Use `MR_CSharp_IterableK_Iter_OffsetMutablePtr()` and `MR_CSharp_IterableK_Iter_OffsetPtr()` to access the array elements.
+MR_C_API MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_DefaultConstructArray(size_t num_elems);
+
+// Constructs `MR::CSharp::IterableK::Iter` elementwise.
+// The reference to the parameter `ptr` might be preserved in the constructed object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableK_Iter_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_ConstructFrom(int32_t *ptr);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_OffsetPtr(const MR_CSharp_IterableK_Iter *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_OffsetMutablePtr(MR_CSharp_IterableK_Iter *ptr, ptrdiff_t i);
+
+// Generated from constructor `MR::CSharp::IterableK::Iter::Iter`.
+// Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_CSharp_IterableK_Iter_Destroy()` to free it when you're done using it.
+MR_C_API MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_ConstructFromAnother(const MR_CSharp_IterableK_Iter *_other);
+
+// Destroys a heap-allocated instance of `MR_CSharp_IterableK_Iter`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableK_Iter_Destroy(const MR_CSharp_IterableK_Iter *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_IterableK_Iter`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_IterableK_Iter_DestroyArray(const MR_CSharp_IterableK_Iter *_this);
+
+// Generated from method `MR::CSharp::IterableK::Iter::operator=`.
+// Parameter `_this` can not be null. It is a single object.
+// Parameter `_other` can not be null. It is a single object.
+// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// When this function is called, this object will drop any object references it had previously.
+MR_C_API MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_AssignFromAnother(MR_CSharp_IterableK_Iter *_this, const MR_CSharp_IterableK_Iter *_other);
+
+// Generated from method `MR::CSharp::IterableK::Iter::operator*`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API int32_t MR_C_deref_MR_CSharp_IterableK_Iter(const MR_CSharp_IterableK_Iter *_this);
+
+// Generated from method `MR::CSharp::IterableK::Iter::operator++`.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_C_incr_MR_CSharp_IterableK_Iter(MR_CSharp_IterableK_Iter *_this);
+
+// Generated from method `MR::CSharp::IterableK::Iter::operator==`.
+// Parameter `_this` can not be null. It is a single object.
+// Parameter `s` can not be null. It is a single object.
+MR_C_API bool MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(MR_CSharp_IterableK_Iter *_this, const MR_CSharp_IterableK_Sentinel *s);
 
 // Vectors of pointers to a class.
 // Currently `IEnumerable` is disabled for those, it needs to be fixed.

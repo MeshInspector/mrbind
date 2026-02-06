@@ -10321,6 +10321,224 @@ const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_end(MR_CSharp_IterableJ *_thi
     return (const MR_CSharp_ExposedLayout *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableJ *)(_this)).end());
 }
 
+const int *MR_CSharp_IterableK_Get_arr(const MR_CSharp_IterableK *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableK *)(_this)).arr[0]);
+}
+
+int *MR_CSharp_IterableK_GetMutable_arr(MR_CSharp_IterableK *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK *)(_this)).arr[0]);
+}
+
+size_t MR_CSharp_IterableK_GetSize_arr(void)
+{
+    return std::extent_v<decltype(MR::CSharp::IterableK::arr)>;
+}
+
+MR_CSharp_IterableK *MR_CSharp_IterableK_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableK *)new MR::CSharp::IterableK(MR::CSharp::IterableK());
+}
+
+MR_CSharp_IterableK *MR_CSharp_IterableK_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableK *)(new MR::CSharp::IterableK[num_elems]{});
+}
+
+const MR_CSharp_IterableK *MR_CSharp_IterableK_OffsetPtr(const MR_CSharp_IterableK *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableK *)(((const MR::CSharp::IterableK *)ptr) + i);
+}
+
+MR_CSharp_IterableK *MR_CSharp_IterableK_OffsetMutablePtr(MR_CSharp_IterableK *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableK *)(((MR::CSharp::IterableK *)ptr) + i);
+}
+
+MR_CSharp_IterableK *MR_CSharp_IterableK_ConstructFromAnother(const MR_CSharp_IterableK *_other)
+{
+    return (MR_CSharp_IterableK *)new MR::CSharp::IterableK(MR::CSharp::IterableK(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK(*(MR::CSharp::IterableK *)_other))
+    ));
+}
+
+void MR_CSharp_IterableK_Destroy(const MR_CSharp_IterableK *_this)
+{
+    delete ((const MR::CSharp::IterableK *)_this);
+}
+
+void MR_CSharp_IterableK_DestroyArray(const MR_CSharp_IterableK *_this)
+{
+    delete[] ((const MR::CSharp::IterableK *)_this);
+}
+
+MR_CSharp_IterableK *MR_CSharp_IterableK_AssignFromAnother(MR_CSharp_IterableK *_this, const MR_CSharp_IterableK *_other)
+{
+    return (MR_CSharp_IterableK *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK(*(MR::CSharp::IterableK *)_other))
+    ));
+}
+
+MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_begin(MR_CSharp_IterableK *_this)
+{
+    return (MR_CSharp_IterableK_Iter *)new MR::CSharp::IterableK::Iter(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK *)(_this)).begin());
+}
+
+MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_end(MR_CSharp_IterableK *_this)
+{
+    return (MR_CSharp_IterableK_Sentinel *)new MR::CSharp::IterableK::Sentinel(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK *)(_this)).end());
+}
+
+int *const *MR_CSharp_IterableK_Sentinel_Get_ptr(const MR_CSharp_IterableK_Sentinel *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableK::Sentinel *)(_this)).ptr);
+}
+
+void MR_CSharp_IterableK_Sentinel_Set_ptr(MR_CSharp_IterableK_Sentinel *_this, int *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Sentinel *)(_this)).ptr = value;
+}
+
+int **MR_CSharp_IterableK_Sentinel_GetMutable_ptr(MR_CSharp_IterableK_Sentinel *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Sentinel *)(_this)).ptr);
+}
+
+MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableK_Sentinel *)new MR::CSharp::IterableK::Sentinel(MR::CSharp::IterableK::Sentinel());
+}
+
+MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableK_Sentinel *)(new MR::CSharp::IterableK::Sentinel[num_elems]{});
+}
+
+MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_ConstructFrom(int *ptr)
+{
+    return (MR_CSharp_IterableK_Sentinel *)new MR::CSharp::IterableK::Sentinel(MR::CSharp::IterableK::Sentinel{
+        ptr
+    });
+}
+
+const MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_OffsetPtr(const MR_CSharp_IterableK_Sentinel *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableK_Sentinel *)(((const MR::CSharp::IterableK::Sentinel *)ptr) + i);
+}
+
+MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_OffsetMutablePtr(MR_CSharp_IterableK_Sentinel *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableK_Sentinel *)(((MR::CSharp::IterableK::Sentinel *)ptr) + i);
+}
+
+MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_ConstructFromAnother(const MR_CSharp_IterableK_Sentinel *_other)
+{
+    return (MR_CSharp_IterableK_Sentinel *)new MR::CSharp::IterableK::Sentinel(MR::CSharp::IterableK::Sentinel(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK::Sentinel(*(MR::CSharp::IterableK::Sentinel *)_other))
+    ));
+}
+
+void MR_CSharp_IterableK_Sentinel_Destroy(const MR_CSharp_IterableK_Sentinel *_this)
+{
+    delete ((const MR::CSharp::IterableK::Sentinel *)_this);
+}
+
+void MR_CSharp_IterableK_Sentinel_DestroyArray(const MR_CSharp_IterableK_Sentinel *_this)
+{
+    delete[] ((const MR::CSharp::IterableK::Sentinel *)_this);
+}
+
+MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_AssignFromAnother(MR_CSharp_IterableK_Sentinel *_this, const MR_CSharp_IterableK_Sentinel *_other)
+{
+    return (MR_CSharp_IterableK_Sentinel *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Sentinel *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK::Sentinel(*(MR::CSharp::IterableK::Sentinel *)_other))
+    ));
+}
+
+int *const *MR_CSharp_IterableK_Iter_Get_ptr(const MR_CSharp_IterableK_Iter *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableK::Iter *)(_this)).ptr);
+}
+
+void MR_CSharp_IterableK_Iter_Set_ptr(MR_CSharp_IterableK_Iter *_this, int *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Iter *)(_this)).ptr = value;
+}
+
+int **MR_CSharp_IterableK_Iter_GetMutable_ptr(MR_CSharp_IterableK_Iter *_this)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Iter *)(_this)).ptr);
+}
+
+MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_DefaultConstruct(void)
+{
+    return (MR_CSharp_IterableK_Iter *)new MR::CSharp::IterableK::Iter(MR::CSharp::IterableK::Iter());
+}
+
+MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_IterableK_Iter *)(new MR::CSharp::IterableK::Iter[num_elems]{});
+}
+
+MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_ConstructFrom(int *ptr)
+{
+    return (MR_CSharp_IterableK_Iter *)new MR::CSharp::IterableK::Iter(MR::CSharp::IterableK::Iter{
+        ptr
+    });
+}
+
+const MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_OffsetPtr(const MR_CSharp_IterableK_Iter *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_IterableK_Iter *)(((const MR::CSharp::IterableK::Iter *)ptr) + i);
+}
+
+MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_OffsetMutablePtr(MR_CSharp_IterableK_Iter *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_IterableK_Iter *)(((MR::CSharp::IterableK::Iter *)ptr) + i);
+}
+
+MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_ConstructFromAnother(const MR_CSharp_IterableK_Iter *_other)
+{
+    return (MR_CSharp_IterableK_Iter *)new MR::CSharp::IterableK::Iter(MR::CSharp::IterableK::Iter(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK::Iter(*(MR::CSharp::IterableK::Iter *)_other))
+    ));
+}
+
+void MR_CSharp_IterableK_Iter_Destroy(const MR_CSharp_IterableK_Iter *_this)
+{
+    delete ((const MR::CSharp::IterableK::Iter *)_this);
+}
+
+void MR_CSharp_IterableK_Iter_DestroyArray(const MR_CSharp_IterableK_Iter *_this)
+{
+    delete[] ((const MR::CSharp::IterableK::Iter *)_this);
+}
+
+MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_AssignFromAnother(MR_CSharp_IterableK_Iter *_this, const MR_CSharp_IterableK_Iter *_other)
+{
+    return (MR_CSharp_IterableK_Iter *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Iter *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK::Iter(*(MR::CSharp::IterableK::Iter *)_other))
+    ));
+}
+
+int MR_C_deref_MR_CSharp_IterableK_Iter(const MR_CSharp_IterableK_Iter *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableK::Iter *)(_this)).operator*();
+}
+
+void MR_C_incr_MR_CSharp_IterableK_Iter(MR_CSharp_IterableK_Iter *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Iter *)(_this)).operator++();
+}
+
+bool MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(MR_CSharp_IterableK_Iter *_this, const MR_CSharp_IterableK_Sentinel *s)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Iter *)(_this)).operator==(
+        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), MR::CSharp::IterableK::Sentinel(*(MR::CSharp::IterableK::Sentinel *)s))
+    );
+}
+
 MR_C_std_vector_MR_CSharp_A_ptr *MR_CSharp_test_vec_of_mut_ptr_to_class(void)
 {
     return (MR_C_std_vector_MR_CSharp_A_ptr *)new std::vector<MR::CSharp::A *>(::MR::CSharp::test_vec_of_mut_ptr_to_class());

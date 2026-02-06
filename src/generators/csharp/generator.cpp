@@ -5215,6 +5215,8 @@ namespace mrbind::CSharp
 
                                 // First, figure out the iterator type. We're getting it from `begin()`, in case `end()` returns a sentinel of a different type.
                                 const cppdecl::Type &cpp_iter_type = info.begin.MemberExists() ? info.begin.member_return_type.value() : info.begin.nonmember_return_type.value();
+                                // And also the sentinel type.
+                                const cppdecl::Type &cpp_sentinel_type = info.end.MemberExists() ? info.end.member_return_type.value() : info.end.nonmember_return_type.value();
 
                                 // Not using `CppToCSharpKnownSizeType` to get `ienumerable_csharp_iter_type` for pointers, since it doesn't handle pointers to classes correctly, and just gives `void *` for those.
                                 // So instead we unconditionally use `GetTypeBinding()`.
@@ -5264,8 +5266,13 @@ namespace mrbind::CSharp
                                     if (!found_deref)
                                         throw std::runtime_error("The iterator type `" + CppdeclToCode(cpp_iter_type) + "` doesn't have an unary `*` operator.");
 
-                                    // Check for the equality comparison.
+
+                                    // Check for the equality comparison with the sentinel.
                                     // This a best-effort sanity check. If the comparison doesn't exist, `==` in our enumerator implementation will compare addresses and never stop.
+
+                                    // Check the iterator class for the equality operator.
+                                    // NOTE: The C# comparisons are not automatically symmetric, so we're not checking the sentinel class for a symmetric equality, if this one isn't found.
+                                    //   Maybe we should make them symmetric ourselves eventually.
                                     bool found_eq = false;
                                     for (const auto &method : cl->methods)
                                     {
@@ -5281,7 +5288,7 @@ namespace mrbind::CSharp
                                             second_param_type.RemoveModifier();
                                         second_param_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
 
-                                        if (second_param_type != cpp_iter_type)
+                                        if (second_param_type != cpp_sentinel_type)
                                             continue; // The parameter type doesn't match.
 
                                         // Don't bother checking for duplicates.

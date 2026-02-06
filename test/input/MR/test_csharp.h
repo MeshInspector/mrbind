@@ -1549,6 +1549,29 @@ namespace MR::CSharp
         const ExposedLayout *end() {return arr + 3;}
     };
 
+    // The sentinel having a different type.
+    struct IterableK
+    {
+        int arr[3] = {10, 20, 30};
+
+        struct Sentinel
+        {
+            int *ptr;
+        };
+
+        struct Iter
+        {
+            int *ptr;
+            int operator*() const {return *ptr;}
+            void operator++() {ptr++;}
+            bool operator==(Sentinel s) {return ptr == s.ptr;}
+        };
+
+        // Not making those functions `const` for a change.
+        Iter begin() {return {arr};}
+        Sentinel end() {return {arr + 3};}
+    };
+
     // Vectors of pointers to a class.
     // Currently `IEnumerable` is disabled for those, it needs to be fixed.
     inline std::vector<A *> test_vec_of_mut_ptr_to_class() {return {};}
