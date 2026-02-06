@@ -376,6 +376,11 @@ ptrdiff_t MR_C_sub_MR_C_std_vector_long_const_iterator(const MR_C_std_vector_lon
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<long>::const_iterator(*(std::vector<long>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<long>::const_iterator(*(std::vector<long>::const_iterator *)a));
 }
 
+bool MR_C_equal_MR_C_std_vector_long_const_iterator(const MR_C_std_vector_long_const_iterator *a, const MR_C_std_vector_long_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<long>::const_iterator(*(std::vector<long>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<long>::const_iterator(*(std::vector<long>::const_iterator *)b));
+}
+
 long *MR_C_std_vector_long_iterator_deref(const MR_C_std_vector_long_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<long>::iterator *)(_this)));
@@ -399,5 +404,10 @@ void MR_C_std_vector_long_iterator_add_assign(MR_C_std_vector_long_iterator *_th
 ptrdiff_t MR_C_sub_MR_C_std_vector_long_iterator(const MR_C_std_vector_long_iterator *a, const MR_C_std_vector_long_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<long>::iterator(*(std::vector<long>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<long>::iterator(*(std::vector<long>::iterator *)a));
+}
+
+bool MR_C_equal_MR_C_std_vector_long_iterator(const MR_C_std_vector_long_iterator *a, const MR_C_std_vector_long_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<long>::iterator(*(std::vector<long>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<long>::iterator(*(std::vector<long>::iterator *)b));
 }
 

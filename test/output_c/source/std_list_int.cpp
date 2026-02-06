@@ -317,6 +317,11 @@ void MR_C_std_list_int_const_iterator_decr(MR_C_std_list_int_const_iterator *_th
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int>::const_iterator *)(_this));
 }
 
+bool MR_C_equal_MR_C_std_list_int_const_iterator(const MR_C_std_list_int_const_iterator *a, const MR_C_std_list_int_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::list<int>::const_iterator(*(std::list<int>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::list<int>::const_iterator(*(std::list<int>::const_iterator *)b));
+}
+
 int *MR_C_std_list_int_iterator_deref(const MR_C_std_list_int_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int>::iterator *)(_this)));
@@ -330,5 +335,10 @@ void MR_C_std_list_int_iterator_incr(MR_C_std_list_int_iterator *_this)
 void MR_C_std_list_int_iterator_decr(MR_C_std_list_int_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int>::iterator *)(_this));
+}
+
+bool MR_C_equal_MR_C_std_list_int_iterator(const MR_C_std_list_int_iterator *a, const MR_C_std_list_int_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::list<int>::iterator(*(std::list<int>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::list<int>::iterator(*(std::list<int>::iterator *)b));
 }
 

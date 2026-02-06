@@ -5243,7 +5243,7 @@ namespace mrbind::CSharp
                                         throw std::runtime_error("The iterator type `" + CppdeclToCode(cpp_iter_type) + "` is neither a pointer nor a class, not sure what to do with it.");
 
                                     // Find the dereference method.
-                                    bool found = false;
+                                    bool found_deref = false;
                                     for (const auto &method : cl->methods)
                                     {
                                         auto op = std::get_if<CInterop::MethodKinds::Operator>(&method.var);
@@ -5256,14 +5256,40 @@ namespace mrbind::CSharp
                                         if (!cpp_elem_type.IsEmpty())
                                             throw std::runtime_error("The iterator type `" + CppdeclToCode(cpp_iter_type) + "` has multiple unary `*` operators, expected exactly one.");
 
-                                        found = true;
+                                        found_deref = true;
                                         cpp_elem_type = ParseTypeOrThrow(method.ret.cpp_type);
 
                                         // Don't break yet, we want to check for other unary `*` operators, and complain if there's more than one.
                                     }
-
-                                    if (!found)
+                                    if (!found_deref)
                                         throw std::runtime_error("The iterator type `" + CppdeclToCode(cpp_iter_type) + "` doesn't have an unary `*` operator.");
+
+                                    // Check for the equality comparison.
+                                    // This a best-effort sanity check. If the comparison doesn't exist, `==` in our enumerator implementation will compare addresses and never stop.
+                                    bool found_eq = false;
+                                    for (const auto &method : cl->methods)
+                                    {
+                                        auto op = std::get_if<CInterop::MethodKinds::Operator>(&method.var);
+
+                                        // Must be non-static binary operator `==`.
+                                        if (!op || op->token != "==" || method.params.size() != 2 || method.is_static)
+                                            continue;
+
+                                        // Check that the parameter type matches.
+                                        cppdecl::Type second_param_type = ParseTypeOrThrow(method.params.at(1).cpp_type);
+                                        if (second_param_type.IsLvalueReference())
+                                            second_param_type.RemoveModifier();
+                                        second_param_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+                                        if (second_param_type != cpp_iter_type)
+                                            continue; // The parameter type doesn't match.
+
+                                        // Don't bother checking for duplicates.
+                                        found_eq = true;
+                                        break;
+                                    }
+                                    if (!found_eq)
+                                        throw std::runtime_error("The iterator type `" + CppdeclToCode(cpp_iter_type) + "` isn't equality-comparable with itself.");
                                 }
 
                                 // If the iterator dereferences to a pointer, abort. We can't handle that yet. TODO fix this.

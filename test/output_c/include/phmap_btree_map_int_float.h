@@ -238,6 +238,11 @@ MR_C_API void MR_C_phmap_btree_map_int_float_const_iterator_incr(MR_C_phmap_btre
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_phmap_btree_map_int_float_const_iterator_decr(MR_C_phmap_btree_map_int_float_const_iterator *_this);
 
+/// Compares two const iterators for equality.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` can not be null. It is a single object.
+MR_C_API bool MR_C_equal_MR_C_phmap_btree_map_int_float_const_iterator(const MR_C_phmap_btree_map_int_float_const_iterator *a, const MR_C_phmap_btree_map_int_float_const_iterator *b);
+
 /// Dereferences a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -260,6 +265,11 @@ MR_C_API void MR_C_phmap_btree_map_int_float_iterator_incr(MR_C_phmap_btree_map_
 /// Decrements a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_phmap_btree_map_int_float_iterator_decr(MR_C_phmap_btree_map_int_float_iterator *_this);
+
+/// Compares two mutable iterators for equality.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` can not be null. It is a single object.
+MR_C_API bool MR_C_equal_MR_C_phmap_btree_map_int_float_iterator(const MR_C_phmap_btree_map_int_float_iterator *a, const MR_C_phmap_btree_map_int_float_iterator *b);
 
 #ifdef __cplusplus
 } // extern "C"

@@ -236,7 +236,7 @@ public static partial class MR
                 /// Read-only iterator for `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float`.
                 /// This is the const half of the class.
                 /// </summary>
-                public class Const_ConstIterator : MR.CS.Misc.Object<Const_ConstIterator>, System.IDisposable
+                public class Const_ConstIterator : MR.CS.Misc.Object<Const_ConstIterator>, System.IDisposable, System.IEquatable<Const_ConstIterator>
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -343,6 +343,39 @@ public static partial class MR
                         ConstIterator __this_copy = new(_this);
                         __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator_incr(__this_copy._UnderlyingPtr);
                         return __this_copy;
+                    }
+
+                    /// <summary>
+                    /// Compares two const iterators for equality.
+                    /// </summary>
+                    public static unsafe bool operator==(Const_ConstIterator a, Const_ConstIterator b)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator", ExactSpelling = true)]
+                        extern static byte __MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *a, MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.ConstIterator._Underlying *b);
+                        return __MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
+                    }
+
+                    public static unsafe bool operator!=(Const_ConstIterator a, Const_ConstIterator b)
+                    {
+                        return !(a == b);
+                    }
+
+                    // IEquatable:
+
+                    public bool Equals(Const_ConstIterator? b)
+                    {
+                        if (b is null)
+                            return false;
+                        return this == b;
+                    }
+
+                    public override bool Equals(object? other)
+                    {
+                        if (other is null)
+                            return false;
+                        if (other is Const_ConstIterator)
+                            return this == (Const_ConstIterator)other;
+                        return false;
                     }
                 }
 
@@ -461,7 +494,7 @@ public static partial class MR
                 /// Mutable iterator for `MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float`.
                 /// This is the const half of the class.
                 /// </summary>
-                public class Const_Iterator : MR.CS.Misc.Object<Const_Iterator>, System.IDisposable
+                public class Const_Iterator : MR.CS.Misc.Object<Const_Iterator>, System.IDisposable, System.IEquatable<Const_Iterator>
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -553,6 +586,39 @@ public static partial class MR
                         Iterator __this_copy = new(_this);
                         __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator_incr(__this_copy._UnderlyingPtr);
                         return __this_copy;
+                    }
+
+                    /// <summary>
+                    /// Compares two mutable iterators for equality.
+                    /// </summary>
+                    public static unsafe bool operator==(Const_Iterator a, Const_Iterator b)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator", ExactSpelling = true)]
+                        extern static byte __MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator(MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *a, MR.CS.Std.UnorderedMultimap_MRStdContainersNonAssignable_Float.Iterator._Underlying *b);
+                        return __MR_C_equal_MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
+                    }
+
+                    public static unsafe bool operator!=(Const_Iterator a, Const_Iterator b)
+                    {
+                        return !(a == b);
+                    }
+
+                    // IEquatable:
+
+                    public bool Equals(Const_Iterator? b)
+                    {
+                        if (b is null)
+                            return false;
+                        return this == b;
+                    }
+
+                    public override bool Equals(object? other)
+                    {
+                        if (other is null)
+                            return false;
+                        if (other is Const_Iterator)
+                            return this == (Const_Iterator)other;
+                        return false;
                     }
                 }
 

@@ -304,6 +304,11 @@ ptrdiff_t MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator(
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::deque<MR::StdContainers::NonAssignable>::const_iterator(*(std::deque<MR::StdContainers::NonAssignable>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::deque<MR::StdContainers::NonAssignable>::const_iterator(*(std::deque<MR::StdContainers::NonAssignable>::const_iterator *)a));
 }
 
+bool MR_C_equal_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator(const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *a, const MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::deque<MR::StdContainers::NonAssignable>::const_iterator(*(std::deque<MR::StdContainers::NonAssignable>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::deque<MR::StdContainers::NonAssignable>::const_iterator(*(std::deque<MR::StdContainers::NonAssignable>::const_iterator *)b));
+}
+
 MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_deref(const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *_this)
 {
     return (MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::deque<MR::StdContainers::NonAssignable>::iterator *)(_this)));
@@ -327,5 +332,10 @@ void MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_add_assign(MR_C_std_
 ptrdiff_t MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator(const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *a, const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::deque<MR::StdContainers::NonAssignable>::iterator(*(std::deque<MR::StdContainers::NonAssignable>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::deque<MR::StdContainers::NonAssignable>::iterator(*(std::deque<MR::StdContainers::NonAssignable>::iterator *)a));
+}
+
+bool MR_C_equal_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator(const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *a, const MR_C_std_deque_MR_StdContainers_NonAssignable_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::deque<MR::StdContainers::NonAssignable>::iterator(*(std::deque<MR::StdContainers::NonAssignable>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::deque<MR::StdContainers::NonAssignable>::iterator(*(std::deque<MR::StdContainers::NonAssignable>::iterator *)b));
 }
 

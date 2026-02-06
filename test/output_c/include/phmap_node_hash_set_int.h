@@ -156,6 +156,11 @@ MR_C_API const int *MR_C_phmap_node_hash_set_int_const_iterator_deref(const MR_C
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_phmap_node_hash_set_int_const_iterator_incr(MR_C_phmap_node_hash_set_int_const_iterator *_this);
 
+/// Compares two const iterators for equality.
+/// Parameter `a` can not be null. It is a single object.
+/// Parameter `b` can not be null. It is a single object.
+MR_C_API bool MR_C_equal_MR_C_phmap_node_hash_set_int_const_iterator(const MR_C_phmap_node_hash_set_int_const_iterator *a, const MR_C_phmap_node_hash_set_int_const_iterator *b);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif

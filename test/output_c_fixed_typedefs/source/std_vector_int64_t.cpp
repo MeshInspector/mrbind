@@ -378,6 +378,11 @@ ptrdiff_t MR_C_sub_MR_C_std_vector_int64_t_const_iterator(const MR_C_std_vector_
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR_C_int64_t>::const_iterator(*(std::vector<MR_C_int64_t>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR_C_int64_t>::const_iterator(*(std::vector<MR_C_int64_t>::const_iterator *)a));
 }
 
+bool MR_C_equal_MR_C_std_vector_int64_t_const_iterator(const MR_C_std_vector_int64_t_const_iterator *a, const MR_C_std_vector_int64_t_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR_C_int64_t>::const_iterator(*(std::vector<MR_C_int64_t>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR_C_int64_t>::const_iterator(*(std::vector<MR_C_int64_t>::const_iterator *)b));
+}
+
 MR_C_int64_t *MR_C_std_vector_int64_t_iterator_deref(const MR_C_std_vector_int64_t_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR_C_int64_t>::iterator *)(_this)));
@@ -401,5 +406,10 @@ void MR_C_std_vector_int64_t_iterator_add_assign(MR_C_std_vector_int64_t_iterato
 ptrdiff_t MR_C_sub_MR_C_std_vector_int64_t_iterator(const MR_C_std_vector_int64_t_iterator *a, const MR_C_std_vector_int64_t_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR_C_int64_t>::iterator(*(std::vector<MR_C_int64_t>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR_C_int64_t>::iterator(*(std::vector<MR_C_int64_t>::iterator *)a));
+}
+
+bool MR_C_equal_MR_C_std_vector_int64_t_iterator(const MR_C_std_vector_int64_t_iterator *a, const MR_C_std_vector_int64_t_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR_C_int64_t>::iterator(*(std::vector<MR_C_int64_t>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR_C_int64_t>::iterator(*(std::vector<MR_C_int64_t>::iterator *)b));
 }
 

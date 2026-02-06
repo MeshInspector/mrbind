@@ -377,6 +377,11 @@ ptrdiff_t MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(const 
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::CSharp::ExposedLayout>::const_iterator(*(std::vector<MR::CSharp::ExposedLayout>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::CSharp::ExposedLayout>::const_iterator(*(std::vector<MR::CSharp::ExposedLayout>::const_iterator *)a));
 }
 
+bool MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator(const MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator *a, const MR_C_std_vector_MR_CSharp_ExposedLayout_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::CSharp::ExposedLayout>::const_iterator(*(std::vector<MR::CSharp::ExposedLayout>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::CSharp::ExposedLayout>::const_iterator(*(std::vector<MR::CSharp::ExposedLayout>::const_iterator *)b));
+}
+
 MR_CSharp_ExposedLayout *MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_deref(const MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *_this)
 {
     return (MR_CSharp_ExposedLayout *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::CSharp::ExposedLayout>::iterator *)(_this)));
@@ -400,5 +405,10 @@ void MR_C_std_vector_MR_CSharp_ExposedLayout_iterator_add_assign(MR_C_std_vector
 ptrdiff_t MR_C_sub_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(const MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *a, const MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::CSharp::ExposedLayout>::iterator(*(std::vector<MR::CSharp::ExposedLayout>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::CSharp::ExposedLayout>::iterator(*(std::vector<MR::CSharp::ExposedLayout>::iterator *)a));
+}
+
+bool MR_C_equal_MR_C_std_vector_MR_CSharp_ExposedLayout_iterator(const MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *a, const MR_C_std_vector_MR_CSharp_ExposedLayout_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::CSharp::ExposedLayout>::iterator(*(std::vector<MR::CSharp::ExposedLayout>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::CSharp::ExposedLayout>::iterator(*(std::vector<MR::CSharp::ExposedLayout>::iterator *)b));
 }
 

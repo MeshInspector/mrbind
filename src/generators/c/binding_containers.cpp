@@ -780,6 +780,25 @@ namespace mrbind::CBindings
                         emit.cpp_called_func = "@2@ - @1@";
                         generator.EmitFunction(file, emit);
                     }
+
+                    // compare iterators for equality
+                    // This is useful in general, and the C# bindings need this to exist to implement `IEnumerable` properly.
+                    {
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Compares two " + mut_or_const_str + " iterators for equality.";
+                        emit.name = generator.MakeFreeFuncName("equal_" + this_iter_binder.c_type_name, CInterop::FuncKinds::Operator{.token = "==", .name = "operator==", .full_name = "operator=="});
+                        emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
+                        emit.params.push_back({
+                            .name = "a",
+                            .cpp_type = cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name),
+                        });
+                        emit.params.push_back({
+                            .name = "b",
+                            .cpp_type = cppdecl::Type::FromQualifiedName(this_iter_binder.cpp_type_name),
+                        });
+                        emit.cpp_called_func = "@1@ == @2@";
+                        generator.EmitFunction(file, emit);
+                    }
                 }
             }
         }

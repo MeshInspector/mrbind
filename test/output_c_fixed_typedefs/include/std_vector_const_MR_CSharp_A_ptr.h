@@ -314,6 +314,11 @@ MR_C_API void MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_add_assign(MR
 // Parameter `b` can not be null. It is a single object.
 MR_C_API ptrdiff_t MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator(const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *a, const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *b);
 
+// Compares two const iterators for equality.
+// Parameter `a` can not be null. It is a single object.
+// Parameter `b` can not be null. It is a single object.
+MR_C_API bool MR_C_equal_MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator(const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *a, const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *b);
+
 // Dereferences a mutable iterator.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -335,6 +340,11 @@ MR_C_API void MR_C_std_vector_const_MR_CSharp_A_ptr_iterator_add_assign(MR_C_std
 // Parameter `a` can not be null. It is a single object.
 // Parameter `b` can not be null. It is a single object.
 MR_C_API ptrdiff_t MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_iterator(const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *a, const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *b);
+
+// Compares two mutable iterators for equality.
+// Parameter `a` can not be null. It is a single object.
+// Parameter `b` can not be null. It is a single object.
+MR_C_API bool MR_C_equal_MR_C_std_vector_const_MR_CSharp_A_ptr_iterator(const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *a, const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *b);
 
 #ifdef __cplusplus
 } // extern "C"

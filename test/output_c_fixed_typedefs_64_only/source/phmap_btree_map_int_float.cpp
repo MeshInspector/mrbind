@@ -255,6 +255,11 @@ void MR_C_phmap_btree_map_int_float_const_iterator_decr(MR_C_phmap_btree_map_int
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_map<int, float>::const_iterator *)(_this));
 }
 
+bool MR_C_equal_MR_C_phmap_btree_map_int_float_const_iterator(const MR_C_phmap_btree_map_int_float_const_iterator *a, const MR_C_phmap_btree_map_int_float_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::btree_map<int, float>::const_iterator(*(phmap::btree_map<int, float>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::btree_map<int, float>::const_iterator(*(phmap::btree_map<int, float>::const_iterator *)b));
+}
+
 MR_C_std_pair_const_int_float *MR_C_phmap_btree_map_int_float_iterator_deref(const MR_C_phmap_btree_map_int_float_iterator *_this)
 {
     return (MR_C_std_pair_const_int_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::btree_map<int, float>::iterator *)(_this)));
@@ -278,5 +283,10 @@ void MR_C_phmap_btree_map_int_float_iterator_incr(MR_C_phmap_btree_map_int_float
 void MR_C_phmap_btree_map_int_float_iterator_decr(MR_C_phmap_btree_map_int_float_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_map<int, float>::iterator *)(_this));
+}
+
+bool MR_C_equal_MR_C_phmap_btree_map_int_float_iterator(const MR_C_phmap_btree_map_int_float_iterator *a, const MR_C_phmap_btree_map_int_float_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::btree_map<int, float>::iterator(*(phmap::btree_map<int, float>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::btree_map<int, float>::iterator(*(phmap::btree_map<int, float>::iterator *)b));
 }
 

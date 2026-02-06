@@ -319,6 +319,11 @@ void MR_C_std_list_int32_t_const_iterator_decr(MR_C_std_list_int32_t_const_itera
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int32_t>::const_iterator *)(_this));
 }
 
+bool MR_C_equal_MR_C_std_list_int32_t_const_iterator(const MR_C_std_list_int32_t_const_iterator *a, const MR_C_std_list_int32_t_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::list<int32_t>::const_iterator(*(std::list<int32_t>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::list<int32_t>::const_iterator(*(std::list<int32_t>::const_iterator *)b));
+}
+
 int32_t *MR_C_std_list_int32_t_iterator_deref(const MR_C_std_list_int32_t_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<int32_t>::iterator *)(_this)));
@@ -332,5 +337,10 @@ void MR_C_std_list_int32_t_iterator_incr(MR_C_std_list_int32_t_iterator *_this)
 void MR_C_std_list_int32_t_iterator_decr(MR_C_std_list_int32_t_iterator *_this)
 {
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int32_t>::iterator *)(_this));
+}
+
+bool MR_C_equal_MR_C_std_list_int32_t_iterator(const MR_C_std_list_int32_t_iterator *a, const MR_C_std_list_int32_t_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::list<int32_t>::iterator(*(std::list<int32_t>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::list<int32_t>::iterator(*(std::list<int32_t>::iterator *)b));
 }
 

@@ -376,6 +376,11 @@ ptrdiff_t MR_C_sub_MR_C_std_vector_unsigned_long_const_iterator(const MR_C_std_v
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<unsigned long>::const_iterator(*(std::vector<unsigned long>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<unsigned long>::const_iterator(*(std::vector<unsigned long>::const_iterator *)a));
 }
 
+bool MR_C_equal_MR_C_std_vector_unsigned_long_const_iterator(const MR_C_std_vector_unsigned_long_const_iterator *a, const MR_C_std_vector_unsigned_long_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<unsigned long>::const_iterator(*(std::vector<unsigned long>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<unsigned long>::const_iterator(*(std::vector<unsigned long>::const_iterator *)b));
+}
+
 unsigned long *MR_C_std_vector_unsigned_long_iterator_deref(const MR_C_std_vector_unsigned_long_iterator *_this)
 {
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<unsigned long>::iterator *)(_this)));
@@ -399,5 +404,10 @@ void MR_C_std_vector_unsigned_long_iterator_add_assign(MR_C_std_vector_unsigned_
 ptrdiff_t MR_C_sub_MR_C_std_vector_unsigned_long_iterator(const MR_C_std_vector_unsigned_long_iterator *a, const MR_C_std_vector_unsigned_long_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<unsigned long>::iterator(*(std::vector<unsigned long>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<unsigned long>::iterator(*(std::vector<unsigned long>::iterator *)a));
+}
+
+bool MR_C_equal_MR_C_std_vector_unsigned_long_iterator(const MR_C_std_vector_unsigned_long_iterator *a, const MR_C_std_vector_unsigned_long_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<unsigned long>::iterator(*(std::vector<unsigned long>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<unsigned long>::iterator(*(std::vector<unsigned long>::iterator *)b));
 }
 

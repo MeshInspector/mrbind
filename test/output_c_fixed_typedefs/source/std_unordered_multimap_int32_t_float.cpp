@@ -247,6 +247,11 @@ void MR_C_std_unordered_multimap_int32_t_float_const_iterator_incr(MR_C_std_unor
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multimap<int32_t, float>::const_iterator *)(_this));
 }
 
+bool MR_C_equal_MR_C_std_unordered_multimap_int32_t_float_const_iterator(const MR_C_std_unordered_multimap_int32_t_float_const_iterator *a, const MR_C_std_unordered_multimap_int32_t_float_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::unordered_multimap<int32_t, float>::const_iterator(*(std::unordered_multimap<int32_t, float>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::unordered_multimap<int32_t, float>::const_iterator(*(std::unordered_multimap<int32_t, float>::const_iterator *)b));
+}
+
 MR_C_std_pair_const_int32_t_float *MR_C_std_unordered_multimap_int32_t_float_iterator_deref(const MR_C_std_unordered_multimap_int32_t_float_iterator *_this)
 {
     return (MR_C_std_pair_const_int32_t_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multimap<int32_t, float>::iterator *)(_this)));
@@ -265,5 +270,10 @@ float *MR_C_std_unordered_multimap_int32_t_float_iterator_deref_value(const MR_C
 void MR_C_std_unordered_multimap_int32_t_float_iterator_incr(MR_C_std_unordered_multimap_int32_t_float_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multimap<int32_t, float>::iterator *)(_this));
+}
+
+bool MR_C_equal_MR_C_std_unordered_multimap_int32_t_float_iterator(const MR_C_std_unordered_multimap_int32_t_float_iterator *a, const MR_C_std_unordered_multimap_int32_t_float_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::unordered_multimap<int32_t, float>::iterator(*(std::unordered_multimap<int32_t, float>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::unordered_multimap<int32_t, float>::iterator(*(std::unordered_multimap<int32_t, float>::iterator *)b));
 }
 

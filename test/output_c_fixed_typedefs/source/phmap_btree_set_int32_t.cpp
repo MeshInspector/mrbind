@@ -180,3 +180,8 @@ void MR_C_phmap_btree_set_int32_t_const_iterator_decr(MR_C_phmap_btree_set_int32
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_set<int32_t>::const_iterator *)(_this));
 }
 
+bool MR_C_equal_MR_C_phmap_btree_set_int32_t_const_iterator(const MR_C_phmap_btree_set_int32_t_const_iterator *a, const MR_C_phmap_btree_set_int32_t_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::btree_set<int32_t>::const_iterator(*(phmap::btree_set<int32_t>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::btree_set<int32_t>::const_iterator(*(phmap::btree_set<int32_t>::const_iterator *)b));
+}
+

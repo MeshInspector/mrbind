@@ -350,6 +350,11 @@ ptrdiff_t MR_C_sub_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_cons
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::StdContainers::NonDefaultConstructible>::const_iterator(*(std::vector<MR::StdContainers::NonDefaultConstructible>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::StdContainers::NonDefaultConstructible>::const_iterator(*(std::vector<MR::StdContainers::NonDefaultConstructible>::const_iterator *)a));
 }
 
+bool MR_C_equal_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *a, const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::StdContainers::NonDefaultConstructible>::const_iterator(*(std::vector<MR::StdContainers::NonDefaultConstructible>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::StdContainers::NonDefaultConstructible>::const_iterator(*(std::vector<MR::StdContainers::NonDefaultConstructible>::const_iterator *)b));
+}
+
 MR_StdContainers_NonDefaultConstructible *MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_deref(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *_this)
 {
     return (MR_StdContainers_NonDefaultConstructible *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::StdContainers::NonDefaultConstructible>::iterator *)(_this)));
@@ -373,5 +378,10 @@ void MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator_add_assig
 ptrdiff_t MR_C_sub_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *a, const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *b)
 {
     return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::StdContainers::NonDefaultConstructible>::iterator(*(std::vector<MR::StdContainers::NonDefaultConstructible>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::StdContainers::NonDefaultConstructible>::iterator(*(std::vector<MR::StdContainers::NonDefaultConstructible>::iterator *)a));
+}
+
+bool MR_C_equal_MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator(const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *a, const MR_C_std_vector_MR_StdContainers_NonDefaultConstructible_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::StdContainers::NonDefaultConstructible>::iterator(*(std::vector<MR::StdContainers::NonDefaultConstructible>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::StdContainers::NonDefaultConstructible>::iterator(*(std::vector<MR::StdContainers::NonDefaultConstructible>::iterator *)b));
 }
 

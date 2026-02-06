@@ -250,6 +250,11 @@ void MR_C_phmap_flat_hash_map_int_float_const_iterator_incr(MR_C_phmap_flat_hash
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float>::const_iterator *)(_this));
 }
 
+bool MR_C_equal_MR_C_phmap_flat_hash_map_int_float_const_iterator(const MR_C_phmap_flat_hash_map_int_float_const_iterator *a, const MR_C_phmap_flat_hash_map_int_float_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::flat_hash_map<int, float>::const_iterator(*(phmap::flat_hash_map<int, float>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::flat_hash_map<int, float>::const_iterator(*(phmap::flat_hash_map<int, float>::const_iterator *)b));
+}
+
 MR_C_std_pair_const_int_float *MR_C_phmap_flat_hash_map_int_float_iterator_deref(const MR_C_phmap_flat_hash_map_int_float_iterator *_this)
 {
     return (MR_C_std_pair_const_int_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float>::iterator *)(_this)));
@@ -268,5 +273,10 @@ float *MR_C_phmap_flat_hash_map_int_float_iterator_deref_value(const MR_C_phmap_
 void MR_C_phmap_flat_hash_map_int_float_iterator_incr(MR_C_phmap_flat_hash_map_int_float_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float>::iterator *)(_this));
+}
+
+bool MR_C_equal_MR_C_phmap_flat_hash_map_int_float_iterator(const MR_C_phmap_flat_hash_map_int_float_iterator *a, const MR_C_phmap_flat_hash_map_int_float_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)b));
 }
 

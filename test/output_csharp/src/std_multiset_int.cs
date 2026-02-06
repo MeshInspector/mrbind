@@ -197,7 +197,7 @@ public static partial class MR
 
                 /// Read-only iterator for `MR_C_std_multiset_int`.
                 /// This is the const half of the class.
-                public class Const_ConstIterator : MR.CS.Misc.Object<Const_ConstIterator>, System.IDisposable
+                public class Const_ConstIterator : MR.CS.Misc.Object<Const_ConstIterator>, System.IDisposable, System.IEquatable<Const_ConstIterator>
                 {
                     internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -263,6 +263,37 @@ public static partial class MR
                         ConstIterator __this_copy = new(_this);
                         __MR_C_std_multiset_int_const_iterator_decr(__this_copy._UnderlyingPtr);
                         return __this_copy;
+                    }
+
+                    /// Compares two const iterators for equality.
+                    public static unsafe bool operator==(Const_ConstIterator a, Const_ConstIterator b)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_multiset_int_const_iterator", ExactSpelling = true)]
+                        extern static byte __MR_C_equal_MR_C_std_multiset_int_const_iterator(MR.CS.Std.Multiset_Int.ConstIterator._Underlying *a, MR.CS.Std.Multiset_Int.ConstIterator._Underlying *b);
+                        return __MR_C_equal_MR_C_std_multiset_int_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
+                    }
+
+                    public static unsafe bool operator!=(Const_ConstIterator a, Const_ConstIterator b)
+                    {
+                        return !(a == b);
+                    }
+
+                    // IEquatable:
+
+                    public bool Equals(Const_ConstIterator? b)
+                    {
+                        if (b is null)
+                            return false;
+                        return this == b;
+                    }
+
+                    public override bool Equals(object? other)
+                    {
+                        if (other is null)
+                            return false;
+                        if (other is Const_ConstIterator)
+                            return this == (Const_ConstIterator)other;
+                        return false;
                     }
                 }
 

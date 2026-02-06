@@ -252,6 +252,11 @@ void MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator_incr(MR_C_ph
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_map<int32_t, float>::const_iterator *)(_this));
 }
 
+bool MR_C_equal_MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator(const MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator *a, const MR_C_phmap_parallel_node_hash_map_int32_t_float_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::parallel_node_hash_map<int32_t, float>::const_iterator(*(phmap::parallel_node_hash_map<int32_t, float>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::parallel_node_hash_map<int32_t, float>::const_iterator(*(phmap::parallel_node_hash_map<int32_t, float>::const_iterator *)b));
+}
+
 MR_C_std_pair_const_int32_t_float *MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_deref(const MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator *_this)
 {
     return (MR_C_std_pair_const_int32_t_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::parallel_node_hash_map<int32_t, float>::iterator *)(_this)));
@@ -270,5 +275,10 @@ float *MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_deref_value(cons
 void MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator_incr(MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator *_this)
 {
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_map<int32_t, float>::iterator *)(_this));
+}
+
+bool MR_C_equal_MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator(const MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator *a, const MR_C_phmap_parallel_node_hash_map_int32_t_float_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::parallel_node_hash_map<int32_t, float>::iterator(*(phmap::parallel_node_hash_map<int32_t, float>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::parallel_node_hash_map<int32_t, float>::iterator(*(phmap::parallel_node_hash_map<int32_t, float>::iterator *)b));
 }
 

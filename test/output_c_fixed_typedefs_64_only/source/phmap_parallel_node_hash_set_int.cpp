@@ -173,3 +173,8 @@ void MR_C_phmap_parallel_node_hash_set_int_const_iterator_incr(MR_C_phmap_parall
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_set<int>::const_iterator *)(_this));
 }
 
+bool MR_C_equal_MR_C_phmap_parallel_node_hash_set_int_const_iterator(const MR_C_phmap_parallel_node_hash_set_int_const_iterator *a, const MR_C_phmap_parallel_node_hash_set_int_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::parallel_node_hash_set<int>::const_iterator(*(phmap::parallel_node_hash_set<int>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::parallel_node_hash_set<int>::const_iterator(*(phmap::parallel_node_hash_set<int>::const_iterator *)b));
+}
+
