@@ -25618,6 +25618,44 @@ public static partial class MR
             }
 
             /// <summary>
+            /// Generated from function `MR::CSharp::test_constness_int`.
+            /// Parameter `_2` defaults to `42`.
+            /// </summary>
+            public static unsafe int testConstnessInt(int _1, int? _2 = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_constness_int", ExactSpelling = true)]
+                extern static int __MR_CSharp_test_constness_int(int _1, int *_2);
+                int __deref__2 = _2.GetValueOrDefault();
+                return __MR_CSharp_test_constness_int(_1, _2.HasValue ? &__deref__2 : null);
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::test_constness_str`.
+            /// Parameter `_2` defaults to `"42"`.
+            /// </summary>
+            public static unsafe MR.CS.Misc._Moved<MR.CS.Std.String> testConstnessStr(ReadOnlySpan<char> _1, MR.CS.Misc.ReadOnlyCharSpanOpt _2 = new())
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_constness_str", ExactSpelling = true)]
+                extern static MR.CS.Std.String._Underlying *__MR_CSharp_test_constness_str(byte *_1, byte *_1_end, byte *_2, byte *_2_end);
+                byte[] __bytes__1 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_1.Length)];
+                int __len__1 = System.Text.Encoding.UTF8.GetBytes(_1, __bytes__1);
+                fixed (byte *__ptr__1 = __bytes__1)
+                {
+                    byte[] __bytes__2;
+                    int __len__2 = 0;
+                    if (_2.HasValue)
+                    {
+                        __bytes__2 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_2.Value.Length)];
+                        __len__2 = System.Text.Encoding.UTF8.GetBytes(_2.Value, __bytes__2);
+                    }
+                    fixed (byte *__ptr__2 = __bytes__2)
+                    {
+                        return MR.CS.Misc.Move(new MR.CS.Std.String(__MR_CSharp_test_constness_str(__ptr__1, __ptr__1 + __len__1, _2.HasValue ? __ptr__2 : null, _2.HasValue ? __ptr__2 + __len__2 : null), is_owning: true));
+                    }
+                }
+            }
+
+            /// <summary>
             /// Generated from function `MR::CSharp::test_enum`.
             /// Parameter `b` defaults to `E1::b`.
             /// </summary>

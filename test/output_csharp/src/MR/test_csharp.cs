@@ -21337,6 +21337,38 @@ public static partial class MR
                 return __c_ret is not null ? *__c_ret : null;
             }
 
+            /// Generated from function `MR::CSharp::test_constness_int`.
+            /// Parameter `_2` defaults to `42`.
+            public static unsafe int TestConstnessInt(int _1, int? _2 = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_constness_int", ExactSpelling = true)]
+                extern static int __MR_CSharp_test_constness_int(int _1, int *_2);
+                int __deref__2 = _2.GetValueOrDefault();
+                return __MR_CSharp_test_constness_int(_1, _2.HasValue ? &__deref__2 : null);
+            }
+
+            /// Generated from function `MR::CSharp::test_constness_str`.
+            /// Parameter `_2` defaults to `"42"`.
+            public static unsafe MR.CS.Std.String TestConstnessStr(string _1, string? _2 = null)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_constness_str", ExactSpelling = true)]
+                extern static MR.CS.Std.String._Underlying *__MR_CSharp_test_constness_str(byte *_1, byte *_1_end, byte *_2, byte *_2_end);
+                byte[] __bytes__1 = System.Text.Encoding.UTF8.GetBytes(_1);
+                fixed (byte *__ptr__1 = __bytes__1)
+                {
+                    byte[] __bytes__2;
+                    int __len__2 = 0;
+                    if (_2 is not null)
+                    {
+                        __bytes__2 = System.Text.Encoding.UTF8.GetBytes(_2);
+                    }
+                    fixed (byte *__ptr__2 = __bytes__2)
+                    {
+                        return new(__MR_CSharp_test_constness_str(__ptr__1, __ptr__1 + __bytes__1.Length, _2 is not null ? __ptr__2 : null, _2 is not null ? __ptr__2 + __len__2 : null), is_owning: true);
+                    }
+                }
+            }
+
             /// Generated from function `MR::CSharp::test_enum`.
             /// Parameter `b` defaults to `E1::b`.
             public static unsafe MR.CS.CSharp.E1 TestEnum(MR.CS.CSharp.E1 a, MR.CS.CSharp.E1? b = null)

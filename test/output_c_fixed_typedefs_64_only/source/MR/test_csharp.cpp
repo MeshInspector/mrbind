@@ -219,6 +219,26 @@ const unsigned short *MR_CSharp_test_ushort_cptr(const unsigned short *a, const 
     );
 }
 
+int MR_CSharp_test_constness_int(int _1, const int *_2)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return ::MR::CSharp::test_constness_int(
+        _1,
+        (_2 ? *_2 : static_cast<int>(42))
+    );
+}
+
+MR_C_std_string *MR_CSharp_test_constness_str(const char *_1, const char *_1_end, const char *_2, const char *_2_end)
+{
+    using namespace MR;
+    using namespace CSharp;
+    return (MR_C_std_string *)new std::string(::MR::CSharp::test_constness_str(
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), (_1_end ? std::string(_1, _1_end) : std::string(_1))),
+        (_2 ? (_2_end ? std::string(_2, _2_end) : std::string(_2)) : std::string("42"))
+    ));
+}
+
 MR_CSharp_E1 MR_CSharp_test_enum_MR_CSharp_E1(MR_CSharp_E1 a, const MR_CSharp_E1 *b)
 {
     using namespace MR;

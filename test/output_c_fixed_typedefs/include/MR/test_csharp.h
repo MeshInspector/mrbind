@@ -811,6 +811,19 @@ MR_C_API uint16_t *MR_CSharp_test_ushort_ptr(uint16_t *a, uint16_t *b, uint16_t 
 // Parameter `c` has a default argument: `&default_ushort`, pass a null pointer to use it.
 MR_C_API const uint16_t *MR_CSharp_test_ushort_cptr(const uint16_t *a, const uint16_t *b, const uint16_t *const *c);
 
+// Generated from function `MR::CSharp::test_constness_int`.
+// Parameter `_2` has a default argument: `42`, pass a null pointer to use it.
+MR_C_API int32_t MR_CSharp_test_constness_int(int32_t _1, const int32_t *_2);
+
+// Generated from function `MR::CSharp::test_constness_str`.
+// Parameter `_1` can not be null.
+// If `_1_end` is null, then `_1` is assumed to be null-terminated.
+// If `_2_end` is null, then `_2` is assumed to be null-terminated.
+// Non-null `_2_end` requires a non-null `_2`.
+// Parameter `_2` has a default argument: `"42"`, pass a null pointer to both it and `_2_end` to use it.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_string *MR_CSharp_test_constness_str(const char *_1, const char *_1_end, const char *_2, const char *_2_end);
+
 // Generated from function `MR::CSharp::test_enum`.
 // Parameter `b` has a default argument: `E1::b`, pass a null pointer to use it.
 MR_C_API MR_CSharp_E1 MR_CSharp_test_enum_MR_CSharp_E1(MR_CSharp_E1 a, const MR_CSharp_E1 *b);

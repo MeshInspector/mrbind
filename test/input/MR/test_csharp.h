@@ -59,6 +59,12 @@ namespace MR::CSharp
     inline unsigned short *test_ushort_ptr(unsigned short *a, unsigned short *b = nullptr, unsigned short *c = &default_ushort) {(void)a; (void)b; (void)c; return &default_ushort;}
     inline const unsigned short *test_ushort_cptr(const unsigned short *a, const unsigned short *b = nullptr, const unsigned short *c = &default_ushort) {(void)a; (void)b; (void)c; return &default_ushort;}
 
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wignored-qualifiers"
+    inline const int test_constness_int(const int, const int = 42) {return 43;}
+    inline const std::string test_constness_str(const std::string, const std::string = "42") {return "43";}
+    #pragma clang diagnostic pop
+
 
     /// Enum comment.
     enum class E1
