@@ -380,6 +380,7 @@ namespace mrbind
     struct BasicReturningFunc : BasicFunc
     {
         MBREFL_STRUCT(
+            // Note that the parser can emit this specific type as `const` if it's marked const in the input (even on scalar types on which it's ignored anyway).
             (Type)(return_type)
         , // Bases:
             (BasicFunc)

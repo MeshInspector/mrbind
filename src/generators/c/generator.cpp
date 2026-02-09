@@ -1755,6 +1755,11 @@ namespace mrbind::CBindings
     void Generator::EmitFuncParams::SetReturnTypeFromParsedFunc(Generator &self, const BasicReturningFunc &new_func)
     {
         cpp_return_type = self.ParseTypeOrThrow(new_func.return_type.canonical);
+
+        // This can arrive `const` from the parser if it's `const` in the input.
+        // I'm doing this here instead of in `EmitFunction()`, because custom bindings should never do this.
+        // `EmitFunction()` happens to throw on const return types, so this won't go unnoticed.
+        cpp_return_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
     }
 
     void Generator::EmitFuncParams::SetLifetimesFromParsedFunc(const BasicFunc &new_func, bool is_member_func_or_ctor, bool is_ctor)
