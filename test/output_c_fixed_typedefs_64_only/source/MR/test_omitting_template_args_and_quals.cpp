@@ -137,14 +137,14 @@ void MR_OmittingTargsAndQuals_a_MR_OmittingTargsAndQuals_A_float(const MR_Omitti
 
 void MR_C_deref_MR_OmittingTargsAndQuals_A_int(const MR_OmittingTargsAndQuals_A_int *_1)
 {
-    MR::OmittingTargsAndQuals::operator*(
+    ::MR::OmittingTargsAndQuals::operator*(
         ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::OmittingTargsAndQuals::A<int>(*(MR::OmittingTargsAndQuals::A<int> *)_1))
     );
 }
 
 void MR_C_compl_MR_OmittingTargsAndQuals_A_int(const MR_OmittingTargsAndQuals_A_int *_1)
 {
-    MR::OmittingTargsAndQuals::operator~(
+    ::MR::OmittingTargsAndQuals::operator~(
         ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::OmittingTargsAndQuals::A<int>(*(MR::OmittingTargsAndQuals::A<int> *)_1))
     );
 }

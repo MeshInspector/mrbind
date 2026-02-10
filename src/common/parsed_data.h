@@ -511,9 +511,9 @@ namespace mrbind
         static constexpr std::string_view name_in_variant = "function";
 
         MBREFL_STRUCT(
-            // Name as a single identifier.
+            // Name as a single identifier, or `operator` followed by a token, etc.
             (std::string)(name)
-            // Same, but for overloaded operators this instead contains its name as an identifier.
+            // Name always as a single identifier. For overloaded operators this instead contains its name as an identifier.
             (std::string)(simple_name)
             // Name with all scope qualifiers added.
             (std::string)(qual_name)

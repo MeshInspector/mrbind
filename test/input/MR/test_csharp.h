@@ -1578,6 +1578,24 @@ namespace MR::CSharp
         Sentinel end() {return {arr + 3};}
     };
 
+    // Templated free functions.
+    template <typename T>
+    struct IterableL
+    {
+        T arr[3] = {1, 2, 3};
+
+        const T *begin() const {return arr;}
+        const T *end() const {return arr + 3;}
+    };
+
+    template <typename T> const T *begin(const IterableL<T> &self) {return self.arr;}
+    template <typename T> const T *end(const IterableL<T> &self) {return self.arr + 3;}
+    #if PARSING_FOR_C_BINDINGS
+    template const int *begin(const IterableL<int> &self);
+    template const int *end(const IterableL<int> &self);
+    #endif
+
+
     // Vectors of pointers to a class.
     // Currently `IEnumerable` is disabled for those, it needs to be fixed.
     inline std::vector<A *> test_vec_of_mut_ptr_to_class() {return {};}

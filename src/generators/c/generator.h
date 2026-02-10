@@ -93,6 +93,10 @@ namespace mrbind::CBindings
         // If this is positive, will not generate the aggregate init constructor if there are more than this number of fields.
         std::size_t max_num_fields_for_default_constructible_aggregate_init = std::size_t(-1);
 
+        // This is the list of unqualified C++ function names that should be called without their template arguments.
+        // This is tested against the last component of qualified names, and ignoring the templale arguments.
+        std::set<std::string, std::less<>> skip_template_arguments_on_functions = {"begin", "end", "swap"};
+
         // ]
 
         // Output JSON description: [

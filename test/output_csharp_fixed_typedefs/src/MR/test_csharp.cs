@@ -24487,6 +24487,260 @@ public static partial class MR
                 public static implicit operator _InOptConst_IterableK(Const_IterableK value) {return new(value);}
             }
 
+            // Templated free functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableL<int32_t>`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_IterableL_Int32T : MR.CS.Misc.Object<Const_IterableL_Int32T>, System.IDisposable, IEnumerable<int>
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableL_int32_t_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_IterableL_int32_t_Destroy(_Underlying *_this);
+                    __MR_CSharp_IterableL_int32_t_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_IterableL_Int32T() {Dispose(false);}
+
+                public class _Enumerator : IEnumerator<int>
+                {
+                    Const_IterableL_Int32T _container;
+                    MR.CS.ConstPtrInt32T _cur;
+                    bool _first = true;
+                    bool _done;
+
+                    public _Enumerator(Const_IterableL_Int32T container)
+                    {
+                        _container = container;
+                        _cur = _container.begin();
+                        _done = _cur == _container.end();
+                    }
+
+                    public int Current
+                    {
+                        get
+                        {
+                            if (_first || _done)
+                                throw new MR.CS.Misc.InvalidEnumeratorExpression("Attempting to dereference an invalid enumerator.");
+                            return _cur.deref();
+                        }
+                    }
+
+                    object System.Collections.IEnumerator.Current => Current;
+
+                    public bool MoveNext()
+                    {
+                        if (_done)
+                            return false;
+                        if (_first)
+                        {
+                            _first = false;
+                            return true;
+                        }
+                        _cur.incr();
+                        if (_cur == _container.end())
+                        {
+                            _done = true;
+                            return false;
+                        }
+                        return true;
+                    }
+
+                    public void Reset()
+                    {
+                        _cur = _container.begin();
+                        _first = true;
+                        _done = false;
+                    }
+
+                    void IDisposable.Dispose() {}
+                }
+
+                public IEnumerator<int> GetEnumerator()
+                {
+                    return new _Enumerator(this);
+                }
+
+                System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+                {
+                    return GetEnumerator();
+                }
+
+                public unsafe ref MR.CS.ArrayInt32T3 arr => ref *(__array_storage_arr);
+                private protected unsafe MR.CS.ArrayInt32T3 *__array_storage_arr;
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // arr (ref array)
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableL_int32_t_Get_arr", ExactSpelling = true)]
+                        extern static MR.CS.ArrayInt32T3 *__MR_CSharp_IterableL_int32_t_Get_arr(_Underlying *_this);
+                        this.__array_storage_arr = __MR_CSharp_IterableL_int32_t_Get_arr(_UnderlyingPtr);
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_IterableL_Int32T(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_IterableL_Int32T() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableL_int32_t_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableL_Int32T._Underlying *__MR_CSharp_IterableL_int32_t_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableL_int32_t_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableL<int32_t>::IterableL`.
+                /// </summary>
+                public unsafe Const_IterableL_Int32T(MR.CS.CSharp.Const_IterableL_Int32T _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableL_int32_t_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableL_Int32T._Underlying *__MR_CSharp_IterableL_int32_t_ConstructFromAnother(MR.CS.CSharp.IterableL_Int32T._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableL_int32_t_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableL<int32_t>::IterableL`.
+                /// </summary>
+                public Const_IterableL_Int32T(IterableL_Int32T _other) : this((Const_IterableL_Int32T)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableL<int32_t>::begin`.
+                /// </summary>
+                public unsafe MR.CS.ConstPtrInt32T begin()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableL_int32_t_begin", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableL_int32_t_begin(_Underlying *_this);
+                    return new(__MR_CSharp_IterableL_int32_t_begin(_UnderlyingPtr));
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableL<int32_t>::end`.
+                /// </summary>
+                public unsafe MR.CS.ConstPtrInt32T end()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableL_int32_t_end", ExactSpelling = true)]
+                    extern static int *__MR_CSharp_IterableL_int32_t_end(_Underlying *_this);
+                    return new(__MR_CSharp_IterableL_int32_t_end(_UnderlyingPtr));
+                }
+            }
+
+            // Templated free functions.
+            /// <summary>
+            /// Generated from class `MR::CSharp::IterableL<int32_t>`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class IterableL_Int32T : Const_IterableL_Int32T
+            {
+                new public unsafe ref MR.CS.ArrayInt32T3 arr => ref *(__array_storage_arr);
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe IterableL_Int32T(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe IterableL_Int32T() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableL_int32_t_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableL_Int32T._Underlying *__MR_CSharp_IterableL_int32_t_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_IterableL_int32_t_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableL<int32_t>::IterableL`.
+                /// </summary>
+                public unsafe IterableL_Int32T(MR.CS.CSharp.Const_IterableL_Int32T _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableL_int32_t_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableL_Int32T._Underlying *__MR_CSharp_IterableL_int32_t_ConstructFromAnother(MR.CS.CSharp.IterableL_Int32T._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_IterableL_int32_t_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::IterableL<int32_t>::IterableL`.
+                /// </summary>
+                public IterableL_Int32T(IterableL_Int32T _other) : this((Const_IterableL_Int32T)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::IterableL<int32_t>::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.IterableL_Int32T assign(MR.CS.CSharp.Const_IterableL_Int32T _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IterableL_int32_t_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.IterableL_Int32T._Underlying *__MR_CSharp_IterableL_int32_t_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.IterableL_Int32T._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_CSharp_IterableL_int32_t_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableL_Int32T` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_IterableL_Int32T`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableL_Int32T`/`Const_IterableL_Int32T` directly.
+            /// </summary>
+            public class _InOptMut_IterableL_Int32T
+            {
+                public IterableL_Int32T? Opt;
+
+                public _InOptMut_IterableL_Int32T() {}
+                public _InOptMut_IterableL_Int32T(IterableL_Int32T value) {Opt = value;}
+                public static implicit operator _InOptMut_IterableL_Int32T(IterableL_Int32T value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `IterableL_Int32T` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_IterableL_Int32T`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `IterableL_Int32T`/`Const_IterableL_Int32T` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_IterableL_Int32T
+            {
+                public Const_IterableL_Int32T? Opt;
+
+                public _InOptConst_IterableL_Int32T() {}
+                public _InOptConst_IterableL_Int32T(Const_IterableL_Int32T value) {Opt = value;}
+                public static implicit operator _InOptConst_IterableL_Int32T(Const_IterableL_Int32T value) {return new(value);}
+            }
+
             /// <summary>
             /// Generated from function `MR::CSharp::foo`.
             /// </summary>
@@ -27659,6 +27913,26 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_end_MR_CSharp_IterableF_ref", ExactSpelling = true)]
                 extern static int *__MR_CSharp_end_MR_CSharp_IterableF_ref(MR.CS.CSharp.IterableF._Underlying *self);
                 return new(__MR_CSharp_end_MR_CSharp_IterableF_ref(self._UnderlyingPtr));
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::begin<int32_t>`.
+            /// </summary>
+            public static unsafe MR.CS.ConstPtrInt32T begin(MR.CS.CSharp.Const_IterableL_Int32T self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_begin_int32_t", ExactSpelling = true)]
+                extern static int *__MR_CSharp_begin_int32_t(MR.CS.CSharp.Const_IterableL_Int32T._Underlying *self);
+                return new(__MR_CSharp_begin_int32_t(self._UnderlyingPtr));
+            }
+
+            /// <summary>
+            /// Generated from function `MR::CSharp::end<int32_t>`.
+            /// </summary>
+            public static unsafe MR.CS.ConstPtrInt32T end(MR.CS.CSharp.Const_IterableL_Int32T self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_end_int32_t", ExactSpelling = true)]
+                extern static int *__MR_CSharp_end_int32_t(MR.CS.CSharp.Const_IterableL_Int32T._Underlying *self);
+                return new(__MR_CSharp_end_int32_t(self._UnderlyingPtr));
             }
 
             // Vectors of pointers to a class.

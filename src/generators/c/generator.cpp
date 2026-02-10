@@ -1830,13 +1830,13 @@ namespace mrbind::CBindings
             // Roundtrip the name through cppdecl to adjust the template arguments, if necessary.
             cpp_called_func = self.CppdeclToCode(self.ParseQualNameOrThrow(new_func.name + std::string(new_func.TemplateArguments())));
         }
-        else if (new_func.IsOverloadedOperator())
+        else if (new_func.IsOverloadedOperator() || self.skip_template_arguments_on_functions.contains(new_func.name))
         {
             // Skip the template arguments, as they could cause some unwanted instantiations.
             // We could also skip the qualifiers, and but that doesn't do anything useful (other than looking nice), and could break
             //   some poorly written code.
             // We don't roundtrip this through cppdecl, since there are no template arguments to adjust.
-            cpp_called_func = new_func.qual_name;
+            cpp_called_func = "::" + new_func.qual_name;
         }
         else
         {

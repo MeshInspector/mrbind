@@ -77,6 +77,7 @@ int main(int raw_argc, char **raw_argv)
                     "    --force-emit-common-helpers            - Always emit the header with some basic helpers, even if not otherwise needed. It includes, among other things, C++-compatible memory allocation/deallocation functions.\n"
                     "    --expose-as-struct          <type>     - Bind this C++ class or struct as an actual C struct with the same member layout, instead of an opaque pointer. The argument is either the exact name (with template arguments if any), or a regex enclosed in slashes `/.../`. If there is no such struct, does nothing. If the struct exists, but isn't simple enough for such binding, will emit an error. The struct must be trivally-copyable and standard-layout to qualify.\n"
                     "    --adjust-comments           s/A/B/g    - Adjusts all generated comments in C code with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules.\n"
+                    "    --[no-]skip-template-args-on-func <func> - When calling those functions, we won't put template arguments after the function name. This helps handle certain overloaded functions that don't behave well when used with template arguments, which causes them to instantiate templates with unwanted template arguments, causing hard errors. This is enabled by default for `begin`, `end`, `swap` (can be disabled with `--no-...`), and for all overloaded operators (can't be disabled). This takes a function name as a single identifier, which will match those functions regardless of the namespace. This can be specified multiple times to apply to specify multiple functions.\n"
                     "    --verbose                              - Write some logs.\n";
 
                 { // Ask modules for thier flags.
@@ -289,6 +290,24 @@ int main(int raw_argc, char **raw_argv)
                 if (ConsumeFlagWithStringArg("--adjust-comments", tmp, nullptr))
                 {
                     generator.generated_comments_adjuster.AddRule(tmp);
+                    continue;
+                }
+            }
+
+            { // --[no-]skip-template-args-on-func
+                std::string tmp;
+                if (ConsumeFlagWithStringArg("--skip-template-args-on-func", tmp, nullptr))
+                {
+                    if (!cppdecl::IsValidIdentifier(tmp))
+                        throw std::runtime_error("Not a valid identifier: `" + tmp + "`.");
+                    generator.skip_template_arguments_on_functions.insert(std::move(tmp));
+                    continue;
+                }
+                if (ConsumeFlagWithStringArg("--no-skip-template-args-on-func", tmp, nullptr))
+                {
+                    if (!cppdecl::IsValidIdentifier(tmp))
+                        throw std::runtime_error("Not a valid identifier: `" + tmp + "`.");
+                    generator.skip_template_arguments_on_functions.erase(std::move(tmp));
                     continue;
                 }
             }
