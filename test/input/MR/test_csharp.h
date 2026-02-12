@@ -120,6 +120,7 @@ namespace MR::CSharp
 
         int &refs(int &x, int &) {return x;}
     };
+    inline A default_a;
 
     struct B : A
     {
@@ -280,22 +281,22 @@ namespace MR::CSharp
     struct TestFields
     {
         int i;
-        static int static_i;
+        inline static int static_i;
         const int const_i;
-        static const int static_const_i;
+        inline static const int static_const_i = 42;
         int &i_ref;
-        static int &static_i_ref;
+        inline static int &static_i_ref = default_int;
         const int &const_i_ref;
-        static const int &static_const_i_ref;
+        inline static const int &static_const_i_ref = default_int;
 
         std::string s;
         const std::string const_s;
-        static std::string static_s;
-        static const std::string static_const_s;
+        inline static std::string static_s;
+        inline static const std::string static_const_s;
         std::string &s_ref;
         const std::string &const_s_ref;
-        static std::string &static_s_ref;
-        static const std::string &static_const_s_ref;
+        inline static std::string &static_s_ref = default_string;
+        inline static const std::string &static_const_s_ref = default_string;
     };
 
 
@@ -1349,10 +1350,10 @@ namespace MR::CSharp
         A &c;
         const A &d;
 
-        static A *sa;
-        static const A *sb;
-        static A &sc;
-        static const A &sd;
+        inline static A *sa;
+        inline static const A *sb;
+        inline static A &sc = default_a;
+        inline static const A &sd = default_a;
     };
 
     struct ClassMemberPointersExposed
@@ -1362,10 +1363,10 @@ namespace MR::CSharp
         ExposedLayout &c;
         const ExposedLayout &d;
 
-        static ExposedLayout *sa;
-        static const ExposedLayout *sb;
-        static ExposedLayout &sc;
-        static const ExposedLayout &sd;
+        inline static ExposedLayout *sa;
+        inline static const ExposedLayout *sb;
+        inline static ExposedLayout &sc = default_exposed;
+        inline static const ExposedLayout &sd = default_exposed;
     };
 
     struct ClassMemberPointersUshort
@@ -1375,10 +1376,10 @@ namespace MR::CSharp
         unsigned short &c;
         const unsigned short &d;
 
-        static unsigned short *sa;
-        static const unsigned short *sb;
-        static unsigned short &sc;
-        static const unsigned short &sd;
+        inline static unsigned short *sa;
+        inline static const unsigned short *sb;
+        inline static unsigned short &sc = default_ushort;
+        inline static const unsigned short &sd = default_ushort;
     };
 
     struct ClassMemberPointersBool
@@ -1388,10 +1389,10 @@ namespace MR::CSharp
         bool &c;
         const bool &d;
 
-        static bool *sa;
-        static const bool *sb;
-        static bool &sc;
-        static const bool &sd;
+        inline static bool *sa;
+        inline static const bool *sb;
+        inline static bool &sc = default_bool;
+        inline static const bool &sd = default_bool;
     };
 
 
