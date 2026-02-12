@@ -2768,6 +2768,170 @@ namespace mrbind::CSharp
                 "public override string ToString() {return (string)this;}\n";
         }
 
+
+        // `std::pair` and `std::tuple` deconstruction.
+
+        static const cppdecl::QualifiedName cpp_name_std_pair = cppdecl::QualifiedName{}.AddPart("std").AddPart("pair");
+        static const cppdecl::QualifiedName cpp_name_std_tuple = cppdecl::QualifiedName{}.AddPart("std").AddPart("tuple");
+
+        if (
+            (
+                cpp_name.Equals(cpp_name_std_pair, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target) ||
+                cpp_name.Equals(cpp_name_std_tuple, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target)
+            ) &&
+            // C# requires at least two elements to deconstruct.
+            cpp_name.parts.back().template_args.value().args.size() >= 2
+        )
+        {
+            try
+            {
+                std::vector<cppdecl::Type> cpp_elem_types;
+                cpp_elem_types.reserve(cpp_name.parts.back().template_args.value().args.size());
+                for (const auto &elem : cpp_name.parts.back().template_args.value().args)
+                {
+                    auto cpp_elem_type = elem.AsType();
+                    if (!cpp_elem_type)
+                        throw std::runtime_error("The template argument `" + CppdeclToCode(*elem.AsPseudoExpr()) + "` couldn't be parsed as a type.");
+                    cpp_elem_types.push_back(*cpp_elem_type);
+                }
+
+                auto GetCSharpElemType = [&](const cppdecl::Type &cpp_elem_type, bool is_const, bool adjust = true)
+                {
+                    cppdecl::Type cpp_elem_type_ref = cpp_elem_type;
+                    // Add constness if we're in the const half, and this is not a reference.
+                    if (is_const && !cpp_elem_type.Is<cppdecl::Reference>())
+                        cpp_elem_type_ref.AddQualifiers(cppdecl::CvQualifiers::const_);
+                    // Add reference-ness, if this isn't already a reference.
+                    if (!cpp_elem_type_ref.Is<cppdecl::Reference>())
+                        cpp_elem_type_ref.AddModifier(cppdecl::Reference{});
+
+                    std::string ret = GetTypeBinding(cpp_elem_type_ref,
+                        TypeBindingFlags::no_move_in_by_value_return | // For general sanity. Should this be checking `adjust` too? Not sure, and not sure if it matters.
+                        adjust * (
+                            TypeBindingFlags::return_ref_wrapper // This will be nice for exposed structs.
+                            // Could also add `TypeBindingFlags::return_ref_instead_of_copying_small_types`, probably behind a command line flag, because it makes things too ugly.
+                        )
+                    ).return_usage.value().csharp_return_type;
+
+                    // Trim `ref [readonly]` from the C# type. It's not allowed in the `out` parameters.
+                    // This has to be done in this lambda for the correct results.
+                    if (adjust && ret.starts_with("ref "))
+                    {
+                        ret.erase(0, 4);
+                        if (ret.starts_with("readonly "))
+                            ret.erase(0, 9);
+                    }
+
+                    return ret;
+                };
+
+                // If the non-const half would have the same parameter types as the const half, it probably means we can omit it entirely (instead of emitting it and adding `new`).
+                if (class_part_kind.value() || !std::all_of(cpp_elem_types.begin(), cpp_elem_types.end(), [&](const cppdecl::Type &type){return GetCSharpElemType(type, false) == GetCSharpElemType(type, true);}))
+                {
+                    WriteSeparator();
+                    // No `new`. If we're here in the non-const half, it means the parameter types are different, so there's no shadowing.
+                    ret.text += "public void Deconstruct(";
+
+                    std::string body;
+
+                    const CInterop::TypeDesc &type_desc = *c_desc.FindTypeOpt(CppdeclToCode(cpp_name));
+                    const CInterop::TypeKinds::Class &class_desc = std::get<CInterop::TypeKinds::Class>(type_desc.var);
+
+                    int i = 0;
+                    for (const cppdecl::Type &cpp_elem_type : cpp_elem_types)
+                    {
+                        try
+                        {
+                            std::string csharp_elem_type = GetCSharpElemType(cpp_elem_type, class_part_kind.value());
+                            std::string csharp_getter_return_type = GetCSharpElemType(cpp_elem_type, class_part_kind.value(), false);
+
+                            if (i != 0)
+                                ret.text += ", ";
+
+                            ret.text += "out ";
+
+                            ret.text += csharp_elem_type;
+                            if (!ret.text.ends_with('*')) // Can we ever get `*` there?
+                                ret.text += ' ';
+
+                            ret.text += '_';
+                            ret.text += std::to_string(i + 1);
+
+                            // Append to the body:
+                            body += "    _";
+                            body += std::to_string(i + 1);
+                            body += " = ";
+
+                            // Find a getter method.
+                            const CInterop::ClassMethod *elem_method = nullptr;
+                            for (const auto &method : class_desc.methods)
+                            {
+                                if (method.is_static)
+                                    continue;
+
+                                auto regular = std::get_if<CInterop::MethodKinds::Regular>(&method.var);
+                                if (!regular)
+                                    continue;
+
+                                if (!regular->elem_index || regular->elem_index != i)
+                                    continue; // Wrong index.
+
+                                const cppdecl::Type &type = ParseTypeOrThrow(method.params.at(0).cpp_type);
+                                if (!type.Is<cppdecl::Reference>())
+                                    throw std::runtime_error("For now we require the tuple-like element getters to take `this` by reference.");
+
+                                bool param_is_const = type.IsConst(1);
+                                if (class_part_kind.value() && !param_is_const)
+                                    continue; // Const half but mutable getter, no good.
+
+                                elem_method = &method;
+
+                                if (class_part_kind.value() == param_is_const)
+                                    continue; // We found the perfect constness match, no point in looking further.
+
+                                // If we're here, it means we found a const method in a mutable half of the class. Look further, in case we have a mutable method.
+                            }
+                            if (!elem_method)
+                                throw std::runtime_error("Unable to find a suitable getter for this element.\n");
+
+                            bool creating_const_ref_wrapper = false;
+                            bool creating_ref_wrapper =
+                                (
+                                    csharp_elem_type.starts_with(MakeHelperNameWithoutRegistration("Ref") + "<") ||
+                                    (creating_const_ref_wrapper = csharp_elem_type.starts_with(MakeHelperNameWithoutRegistration("ConstRef") + "<"))
+                                ) &&
+                                csharp_getter_return_type.starts_with("ref ");
+
+                            if (creating_ref_wrapper)
+                            {
+                                body += "new(";
+                                body += creating_const_ref_wrapper ? "in " : "ref ";
+                            }
+                            body += MakeUnqualCSharpMethodName(*elem_method, class_part_kind, EmitVariant::regular) + "()";
+                            if (creating_ref_wrapper)
+                                body += ")";
+                            body += ";\n";
+
+                            i++;
+                        }
+                        catch (...)
+                        {
+                            std::throw_with_nested(std::runtime_error("While handling element " + std::to_string(i + 1) + "/" + std::to_string(cpp_elem_types.size()) + " of type `" + CppdeclToCode(cpp_elem_type) + "`:"));
+                        }
+                    }
+
+
+                    ret.text += ")\n{\n";
+                    ret.text += body;
+                    ret.text += "}\n";
+                }
+            }
+            catch (...)
+            {
+                std::throw_with_nested(std::runtime_error("While implementing tuple-like decomposition:"));
+            }
+        }
+
         return ret;
     }
 

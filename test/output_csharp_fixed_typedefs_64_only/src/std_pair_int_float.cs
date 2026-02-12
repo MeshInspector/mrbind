@@ -83,6 +83,14 @@ public static partial class MR
                     extern static float *__MR_C_std_pair_int_float_second(_Underlying *_this);
                     return *__MR_C_std_pair_int_float_second(_UnderlyingPtr);
                 }
+
+                // Custom extras:
+
+                public void Deconstruct(out int _1, out float _2)
+                {
+                    _1 = first();
+                    _2 = second();
+                }
             }
 
             /// <summary>
@@ -159,6 +167,14 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_second_mut", ExactSpelling = true)]
                     extern static float *__MR_C_std_pair_int_float_second_mut(_Underlying *_this);
                     return ref *__MR_C_std_pair_int_float_second_mut(_UnderlyingPtr);
+                }
+
+                // Custom extras:
+
+                public void Deconstruct(out MR.CS.Misc.Ref<int> _1, out MR.CS.Misc.Ref<float> _2)
+                {
+                    _1 = new(ref first());
+                    _2 = new(ref second());
                 }
             }
 

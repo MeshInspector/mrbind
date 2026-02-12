@@ -103,6 +103,16 @@ public static partial class MR
                     extern static int *__MR_C_std_tuple_float_double_int32_t_int32_t_get_int32_t_3(_Underlying *_this);
                     return *__MR_C_std_tuple_float_double_int32_t_int32_t_get_int32_t_3(_UnderlyingPtr);
                 }
+
+                // Custom extras:
+
+                public void Deconstruct(out float _1, out double _2, out int _3, out int _4)
+                {
+                    _1 = getFloat();
+                    _2 = getDouble();
+                    _3 = getInt32T2();
+                    _4 = getInt32T3();
+                }
             }
 
             /// <summary>
@@ -199,6 +209,16 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int32_t_int32_t_get_int32_t_3_mut", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_float_double_int32_t_int32_t_get_int32_t_3_mut(_Underlying *_this);
                     return ref *__MR_C_std_tuple_float_double_int32_t_int32_t_get_int32_t_3_mut(_UnderlyingPtr);
+                }
+
+                // Custom extras:
+
+                public void Deconstruct(out MR.CS.Misc.Ref<float> _1, out MR.CS.Misc.Ref<double> _2, out MR.CS.Misc.Ref<int> _3, out MR.CS.Misc.Ref<int> _4)
+                {
+                    _1 = new(ref getFloat());
+                    _2 = new(ref getDouble());
+                    _3 = new(ref getInt32T2());
+                    _4 = new(ref getInt32T3());
                 }
             }
 

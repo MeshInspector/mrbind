@@ -39,6 +39,7 @@ namespace MR::CSharp
     inline const bool &test_bool_cref(const bool &, const bool & = default_bool) {return default_bool;}
 
     inline int default_int = 42;
+    inline float default_float = 1.23f;
 
     inline int &test_int_ref(int &a, int &b = default_int) {(void)a; (void)b; return default_int;}
     inline const int &test_int_cref(const int &a, const int &b = default_int) {(void)a; (void)b; return default_int;}
@@ -1601,6 +1602,21 @@ namespace MR::CSharp
     // Currently `IEnumerable` is disabled for those, it needs to be fixed.
     inline std::vector<A *> test_vec_of_mut_ptr_to_class() {return {};}
     inline std::vector<const A *> test_vec_of_const_ptr_to_class() {return {};}
+
+
+    // Test decomposition for certain whitelisted standard tuple-like types: (tuples and pairs)
+
+    inline std::tuple<> get_tuple0() {return {};}
+    inline std::tuple<int> get_tuple1() {return {42};}
+    inline std::tuple<int, std::string> get_tuple2() {return {42, "blah"};}
+    inline std::pair<int, std::string> get_pair2() {return {42, "blah"};}
+    inline std::tuple<const int, std::string> get_tuple_const() {return {42, "blah"};}
+    inline std::tuple<int &, float &&, std::string &, std::string &&> get_tuple_refs() {return {default_int, std::move(default_float), default_string, std::move(default_string)};}
+    inline std::tuple<const int &, const float &&, const std::string &, const std::string &&> get_tuple_crefs() {return {default_int, std::move(default_float), default_string, std::move(default_string)};}
+
+    inline std::tuple<ExposedLayout, const ExposedLayout> get_tuple_exposed_value() {return {{}, {}};}
+    inline std::tuple<ExposedLayout &, const ExposedLayout &> get_tuple_exposed_lvalue_ref() {return {default_exposed, default_exposed};}
+    inline std::tuple<ExposedLayout &&, const ExposedLayout &&> get_tuple_exposed_rvalue_ref() {return {std::move(default_exposed), std::move(default_exposed)};}
 }
 
 

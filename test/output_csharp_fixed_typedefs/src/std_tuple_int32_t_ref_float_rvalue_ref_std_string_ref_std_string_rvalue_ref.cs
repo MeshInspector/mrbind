@@ -1,0 +1,170 @@
+public static partial class MR
+{
+    public static partial class CS
+    {
+        public static partial class Std
+        {
+            /// <summary>
+            /// Stores 4 objects: `int32_t &`, `float &&`, `std::string &`, `std::string &&`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef : MR.CS.Misc.Object<Const_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Destroy", ExactSpelling = true)]
+                    extern static void __MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Destroy(_Underlying *_this);
+                    __MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef() {Dispose(false);}
+
+                internal unsafe Const_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// <summary>
+                /// Constructs the tuple elementwise.
+                /// </summary>
+                public unsafe Const_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef(ref int _0, MR.CS.Misc._MoveRef _move__1, float _1, MR.CS.Std.String _2, MR.CS.Misc._MoveRef _move__3, ReadOnlySpan<char> _3) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct", ExactSpelling = true)]
+                    extern static MR.CS.Std.Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef._Underlying *__MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct(int *_0, float *_1, MR.CS.Std.String._Underlying *_2, byte *_3, byte *_3_end);
+                    fixed (int *__ptr__0 = &_0)
+                    {
+                        byte[] __bytes__3 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_3.Length)];
+                        int __len__3 = System.Text.Encoding.UTF8.GetBytes(_3, __bytes__3);
+                        fixed (byte *__ptr__3 = __bytes__3)
+                        {
+                            _UnderlyingPtr = __MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct(__ptr__0, &_1, _2._UnderlyingPtr, __ptr__3, __ptr__3 + __len__3);
+                            _KeepAlive(_2);
+                        }
+                    }
+                }
+
+                /// <summary>
+                /// The element 0, of type `int32_t &`, read-only.
+                /// </summary>
+                public unsafe ref int getInt32TRef()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_int32_t_ref", ExactSpelling = true)]
+                    extern static int *__MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_int32_t_ref(_Underlying *_this);
+                    return ref *__MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_int32_t_ref(_UnderlyingPtr);
+                }
+
+                /// <summary>
+                /// The element 1, of type `float &&`, read-only.
+                /// </summary>
+                public unsafe float getFloatRvalueRef()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_float_rvalue_ref", ExactSpelling = true)]
+                    extern static float *__MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_float_rvalue_ref(_Underlying *_this);
+                    return *__MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_float_rvalue_ref(_UnderlyingPtr);
+                }
+
+                /// <summary>
+                /// The element 2, of type `std::string &`, read-only.
+                /// </summary>
+                public unsafe MR.CS.Std.String getStdStringRef()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_std_string_ref", ExactSpelling = true)]
+                    extern static MR.CS.Std.String._Underlying *__MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_std_string_ref(_Underlying *_this);
+                    MR.CS.Std.String __ret;
+                    __ret = new(__MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_std_string_ref(_UnderlyingPtr), is_owning: false);
+                    __ret._KeepAliveEnclosingObject = this;
+                    return __ret;
+                }
+
+                /// <summary>
+                /// The element 3, of type `std::string &&`, read-only.
+                /// </summary>
+                public unsafe MR.CS.Misc._Moved<MR.CS.Std.String> getStdStringRvalueRef()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_std_string_rvalue_ref", ExactSpelling = true)]
+                    extern static MR.CS.Std.String._Underlying *__MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_std_string_rvalue_ref(_Underlying *_this);
+                    MR.CS.Misc._Moved<MR.CS.Std.String> __ret;
+                    __ret = MR.CS.Misc.Move(new MR.CS.Std.String(__MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_get_std_string_rvalue_ref(_UnderlyingPtr), is_owning: false));
+                    __ret.Value._KeepAliveEnclosingObject = this;
+                    return __ret;
+                }
+
+                // Custom extras:
+
+                public void Deconstruct(out MR.CS.Misc.Ref<int> _1, out float _2, out MR.CS.Std.String _3, out MR.CS.Misc._Moved<MR.CS.Std.String> _4)
+                {
+                    _1 = new(ref getInt32TRef());
+                    _2 = getFloatRvalueRef();
+                    _3 = getStdStringRef();
+                    _4 = getStdStringRvalueRef();
+                }
+            }
+
+            /// <summary>
+            /// Stores 4 objects: `int32_t &`, `float &&`, `std::string &`, `std::string &&`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef : Const_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef
+            {
+                internal unsafe Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// <summary>
+                /// Constructs the tuple elementwise.
+                /// </summary>
+                public unsafe Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef(ref int _0, MR.CS.Misc._MoveRef _move__1, float _1, MR.CS.Std.String _2, MR.CS.Misc._MoveRef _move__3, ReadOnlySpan<char> _3) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct", ExactSpelling = true)]
+                    extern static MR.CS.Std.Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef._Underlying *__MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct(int *_0, float *_1, MR.CS.Std.String._Underlying *_2, byte *_3, byte *_3_end);
+                    fixed (int *__ptr__0 = &_0)
+                    {
+                        byte[] __bytes__3 = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(_3.Length)];
+                        int __len__3 = System.Text.Encoding.UTF8.GetBytes(_3, __bytes__3);
+                        fixed (byte *__ptr__3 = __bytes__3)
+                        {
+                            _UnderlyingPtr = __MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct(__ptr__0, &_1, _2._UnderlyingPtr, __ptr__3, __ptr__3 + __len__3);
+                            _KeepAlive(_2);
+                        }
+                    }
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef`/`Const_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef` directly.
+            /// </summary>
+            public class _InOptMut_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef
+            {
+                public Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef? Opt;
+
+                public _InOptMut_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef() {}
+                public _InOptMut_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef(Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef value) {Opt = value;}
+                public static implicit operator _InOptMut_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef(Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef`/`Const_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef
+            {
+                public Const_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef? Opt;
+
+                public _InOptConst_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef() {}
+                public _InOptConst_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef(Const_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef value) {Opt = value;}
+                public static implicit operator _InOptConst_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef(Const_Tuple_Int32TRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef value) {return new(value);}
+            }
+        }
+    }
+}

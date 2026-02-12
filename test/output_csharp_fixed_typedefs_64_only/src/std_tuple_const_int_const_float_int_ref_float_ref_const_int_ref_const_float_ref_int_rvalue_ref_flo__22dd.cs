@@ -143,6 +143,22 @@ public static partial class MR
                     extern static float *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_float_rvalue_ref(_Underlying *_this);
                     return *__MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_float_rvalue_ref(_UnderlyingPtr);
                 }
+
+                // Custom extras:
+
+                public void Deconstruct(out int _1, out float _2, out MR.CS.Misc.Ref<int> _3, out MR.CS.Misc.Ref<float> _4, out int _5, out float _6, out int _7, out float _8, out int _9, out float _10)
+                {
+                    _1 = getConstInt();
+                    _2 = getConstFloat();
+                    _3 = new(ref getIntRef());
+                    _4 = new(ref getFloatRef());
+                    _5 = getConstIntRef();
+                    _6 = getConstFloatRef();
+                    _7 = getIntRvalueRef();
+                    _8 = getFloatRvalueRef();
+                    _9 = getConstIntRvalueRef();
+                    _10 = getConstFloatRvalueRef();
+                }
             }
 
             /// <summary>

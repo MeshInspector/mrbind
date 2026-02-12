@@ -671,6 +671,7 @@ namespace mrbind::CSharp
             force_move_in_by_value_return = 1 << 5,
             // Don't return a true `ref`, instead return a wrapper class.
             // This is good for overloaded operators, which can't return `ref`s (or have them as parameters).
+            // This interacts with `return_ref_instead_of_copying_small_types`. When that flag is also set, this applies to const references too, and otherwise it only works with mutable references.
             return_ref_wrapper = 1 << 6,
             // When dealing with references to exposed structs, use the heap-allocating wrapper classes, instead of `ref`, `ref readonly`, and `in`.
             // This is only useful for emitting operators in those wrappers themselves. When we eventually remove those (I hope), we can drop this flag too.

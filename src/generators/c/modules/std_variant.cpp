@@ -206,6 +206,7 @@ namespace mrbind::CBindings::Modules
 
                                 emit.c_comment = "/// Returns the element " + std::to_string(i) + ", of type `" + generator.CppdeclToCodeForComments(elem_types[i]) + "`, " + (is_const ? "read-only" : "mutable") + ". If it's not the active element, returns null.";
                                 emit.name = binder.MakeMemberFuncName(generator, "get" + name_suffix, is_const);
+                                std::get<CInterop::MethodKinds::Regular>(std::get<CInterop::MethodKindVar>(emit.name.cpp_for_interop)).elem_index = i;
                                 emit.lifetimes.ReturnsReferenceToSubobject();
 
                                 emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), is_const);

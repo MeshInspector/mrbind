@@ -61,6 +61,14 @@ public static partial class MR
                     extern static float *__MR_C_std_pair_const_int_ref_const_float_ref_second(_Underlying *_this);
                     return *__MR_C_std_pair_const_int_ref_const_float_ref_second(_UnderlyingPtr);
                 }
+
+                // Custom extras:
+
+                public void Deconstruct(out int _1, out float _2)
+                {
+                    _1 = First();
+                    _2 = Second();
+                }
             }
 
             /// Stores two objects: `const int &` and `const int &`.

@@ -143,6 +143,22 @@ public static partial class MR
                     extern static float *__MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_get_const_float_rvalue_ref(_Underlying *_this);
                     return *__MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_get_const_float_rvalue_ref(_UnderlyingPtr);
                 }
+
+                // Custom extras:
+
+                public void Deconstruct(out int _1, out float _2, out MR.CS.Misc.Ref<int> _3, out MR.CS.Misc.Ref<float> _4, out int _5, out float _6, out int _7, out float _8, out int _9, out float _10)
+                {
+                    _1 = getConstInt32T();
+                    _2 = getConstFloat();
+                    _3 = new(ref getInt32TRef());
+                    _4 = new(ref getFloatRef());
+                    _5 = getConstInt32TRef();
+                    _6 = getConstFloatRef();
+                    _7 = getInt32TRvalueRef();
+                    _8 = getFloatRvalueRef();
+                    _9 = getConstInt32TRvalueRef();
+                    _10 = getConstFloatRvalueRef();
+                }
             }
 
             /// <summary>

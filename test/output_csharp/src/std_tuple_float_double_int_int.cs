@@ -85,6 +85,16 @@ public static partial class MR
                     extern static int *__MR_C_std_tuple_float_double_int_int_get_int_3(_Underlying *_this);
                     return *__MR_C_std_tuple_float_double_int_int_get_int_3(_UnderlyingPtr);
                 }
+
+                // Custom extras:
+
+                public void Deconstruct(out float _1, out double _2, out int _3, out int _4)
+                {
+                    _1 = GetFloat();
+                    _2 = GetDouble();
+                    _3 = GetInt2();
+                    _4 = GetInt3();
+                }
             }
 
             /// Stores 4 objects: `float`, `double`, `int`, `int`.
@@ -161,6 +171,16 @@ public static partial class MR
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_float_double_int_int_get_int_3_mut", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_float_double_int_int_get_int_3_mut(_Underlying *_this);
                     return ref *__MR_C_std_tuple_float_double_int_int_get_int_3_mut(_UnderlyingPtr);
+                }
+
+                // Custom extras:
+
+                public void Deconstruct(out MR.CS.Misc.Ref<float> _1, out MR.CS.Misc.Ref<double> _2, out MR.CS.Misc.Ref<int> _3, out MR.CS.Misc.Ref<int> _4)
+                {
+                    _1 = new(ref GetFloat());
+                    _2 = new(ref GetDouble());
+                    _3 = new(ref GetInt2());
+                    _4 = new(ref GetInt3());
                 }
             }
 

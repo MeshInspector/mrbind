@@ -68,6 +68,14 @@ public static partial class MR
                     extern static float *__MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_second(_Underlying *_this);
                     return *__MR_C_std_pair_int32_t_rvalue_ref_float_rvalue_ref_second(_UnderlyingPtr);
                 }
+
+                // Custom extras:
+
+                public void Deconstruct(out int _1, out float _2)
+                {
+                    _1 = first();
+                    _2 = second();
+                }
             }
 
             /// <summary>

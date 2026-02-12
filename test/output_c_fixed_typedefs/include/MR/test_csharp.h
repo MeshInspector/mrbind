@@ -32,12 +32,22 @@ typedef struct MR_C_std_optional_MR_CSharp_Trivial MR_C_std_optional_MR_CSharp_T
 typedef struct MR_C_std_optional_int32_t MR_C_std_optional_int32_t; // Defined in `#include <std_optional_int32_t.h>`.
 typedef struct MR_C_std_optional_std_string MR_C_std_optional_std_string; // Defined in `#include <std_optional_std_string.h>`.
 typedef struct MR_C_std_ostream MR_C_std_ostream; // Defined in `#include <iostream.h>`.
+typedef struct MR_C_std_pair_int32_t_std_string MR_C_std_pair_int32_t_std_string; // Defined in `#include <std_pair_int32_t_std_string.h>`.
 typedef struct MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh; // Defined in `#include <std_shared_ptr_MR_CSharp_ExposedLayoutSh.h>`.
 typedef struct MR_C_std_shared_ptr_MR_CSharp_SA MR_C_std_shared_ptr_MR_CSharp_SA; // Defined in `#include <std_shared_ptr_MR_CSharp_SA.h>`.
 typedef struct MR_C_std_shared_ptr_MR_CSharp_SE MR_C_std_shared_ptr_MR_CSharp_SE; // Defined in `#include <std_shared_ptr_MR_CSharp_SE.h>`.
 typedef struct MR_C_std_shared_ptr_const_MR_CSharp_SA MR_C_std_shared_ptr_const_MR_CSharp_SA; // Defined in `#include <std_shared_ptr_const_MR_CSharp_SA.h>`.
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
 typedef struct MR_C_std_string_view MR_C_std_string_view; // Defined in `#include <std_string_view.h>`.
+typedef struct MR_C_std_tuple MR_C_std_tuple; // Defined in `#include <std_tuple.h>`.
+typedef struct MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout; // Defined in `#include <std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout.h>`.
+typedef struct MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref; // Defined in `#include <std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref.h>`.
+typedef struct MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref; // Defined in `#include <std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref.h>`.
+typedef struct MR_C_std_tuple_const_int32_t_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref MR_C_std_tuple_const_int32_t_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref; // Defined in `#include <std_tuple_const_int32_t_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_re__883b.h>`.
+typedef struct MR_C_std_tuple_const_int32_t_std_string MR_C_std_tuple_const_int32_t_std_string; // Defined in `#include <std_tuple_const_int32_t_std_string.h>`.
+typedef struct MR_C_std_tuple_int32_t MR_C_std_tuple_int32_t; // Defined in `#include <std_tuple_int32_t.h>`.
+typedef struct MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref; // Defined in `#include <std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref.h>`.
+typedef struct MR_C_std_tuple_int32_t_std_string MR_C_std_tuple_int32_t_std_string; // Defined in `#include <std_tuple_int32_t_std_string.h>`.
 typedef struct MR_C_std_unique_ptr_int32_t MR_C_std_unique_ptr_int32_t; // Defined in `#include <std_unique_ptr_int32_t.h>`.
 typedef struct MR_C_std_variant_std_monostate_int32_t_float MR_C_std_variant_std_monostate_int32_t_float; // Defined in `#include <std_variant_std_monostate_int32_t_float.h>`.
 typedef struct MR_C_std_variant_std_monostate_int32_t_float_float MR_C_std_variant_std_monostate_int32_t_float_float; // Defined in `#include <std_variant_std_monostate_int32_t_float_float.h>`.
@@ -8647,6 +8657,47 @@ MR_C_API MR_C_std_vector_MR_CSharp_A_ptr *MR_CSharp_test_vec_of_mut_ptr_to_class
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_const_MR_CSharp_A_ptr_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_vector_const_MR_CSharp_A_ptr *MR_CSharp_test_vec_of_const_ptr_to_class(void);
 
+// Test decomposition for certain whitelisted standard tuple-like types: (tuples and pairs)
+// Generated from function `MR::CSharp::get_tuple0`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_tuple *MR_CSharp_get_tuple0(void);
+
+// Generated from function `MR::CSharp::get_tuple1`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_int32_t_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_tuple_int32_t *MR_CSharp_get_tuple1(void);
+
+// Generated from function `MR::CSharp::get_tuple2`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_int32_t_std_string_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_tuple_int32_t_std_string *MR_CSharp_get_tuple2(void);
+
+// Generated from function `MR::CSharp::get_pair2`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_int32_t_std_string_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_pair_int32_t_std_string *MR_CSharp_get_pair2(void);
+
+// Generated from function `MR::CSharp::get_tuple_const`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_const_int32_t_std_string_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_tuple_const_int32_t_std_string *MR_CSharp_get_tuple_const(void);
+
+// Generated from function `MR::CSharp::get_tuple_refs`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref *MR_CSharp_get_tuple_refs(void);
+
+// Generated from function `MR::CSharp::get_tuple_crefs`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_const_int32_t_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_tuple_const_int32_t_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref *MR_CSharp_get_tuple_crefs(void);
+
+// Generated from function `MR::CSharp::get_tuple_exposed_value`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout *MR_CSharp_get_tuple_exposed_value(void);
+
+// Generated from function `MR::CSharp::get_tuple_exposed_lvalue_ref`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref *MR_CSharp_get_tuple_exposed_lvalue_ref(void);
+
+// Generated from function `MR::CSharp::get_tuple_exposed_rvalue_ref`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref *MR_CSharp_get_tuple_exposed_rvalue_ref(void);
+
 // Generated from function `MR::CSharp::test_expected_int`.
 // Parameter `a` can not be null. It is a single object.
 // Parameter `b` is a single object.
@@ -8920,12 +8971,22 @@ MR_C_API const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_exp
 #include <std_optional_MR_CSharp_Trivial.h>
 #include <std_optional_int32_t.h>
 #include <std_optional_std_string.h>
+#include <std_pair_int32_t_std_string.h>
 #include <std_shared_ptr_MR_CSharp_ExposedLayoutSh.h>
 #include <std_shared_ptr_MR_CSharp_SA.h>
 #include <std_shared_ptr_MR_CSharp_SE.h>
 #include <std_shared_ptr_const_MR_CSharp_SA.h>
 #include <std_string.h>
 #include <std_string_view.h>
+#include <std_tuple.h>
+#include <std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout.h>
+#include <std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref.h>
+#include <std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref.h>
+#include <std_tuple_const_int32_t_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_re__883b.h>
+#include <std_tuple_const_int32_t_std_string.h>
+#include <std_tuple_int32_t.h>
+#include <std_tuple_int32_t_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref.h>
+#include <std_tuple_int32_t_std_string.h>
 #include <std_unique_ptr_int32_t.h>
 #include <std_variant_std_monostate_int32_t_float.h>
 #include <std_variant_std_monostate_int32_t_float_float.h>

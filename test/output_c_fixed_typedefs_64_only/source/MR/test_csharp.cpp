@@ -14,6 +14,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <tuple>
 #include <type_traits>
 #include <utility>
 #include <variant>
@@ -10650,6 +10651,56 @@ MR_C_std_vector_MR_CSharp_A_ptr *MR_CSharp_test_vec_of_mut_ptr_to_class(void)
 MR_C_std_vector_const_MR_CSharp_A_ptr *MR_CSharp_test_vec_of_const_ptr_to_class(void)
 {
     return (MR_C_std_vector_const_MR_CSharp_A_ptr *)new std::vector<const MR::CSharp::A *>(::MR::CSharp::test_vec_of_const_ptr_to_class());
+}
+
+MR_C_std_tuple *MR_CSharp_get_tuple0(void)
+{
+    return (MR_C_std_tuple *)new std::tuple<>(::MR::CSharp::get_tuple0());
+}
+
+MR_C_std_tuple_int *MR_CSharp_get_tuple1(void)
+{
+    return (MR_C_std_tuple_int *)new std::tuple<int>(::MR::CSharp::get_tuple1());
+}
+
+MR_C_std_tuple_int_std_string *MR_CSharp_get_tuple2(void)
+{
+    return (MR_C_std_tuple_int_std_string *)new std::tuple<int, std::string>(::MR::CSharp::get_tuple2());
+}
+
+MR_C_std_pair_int_std_string *MR_CSharp_get_pair2(void)
+{
+    return (MR_C_std_pair_int_std_string *)new std::pair<int, std::string>(::MR::CSharp::get_pair2());
+}
+
+MR_C_std_tuple_const_int_std_string *MR_CSharp_get_tuple_const(void)
+{
+    return (MR_C_std_tuple_const_int_std_string *)new std::tuple<const int, std::string>(::MR::CSharp::get_tuple_const());
+}
+
+MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref *MR_CSharp_get_tuple_refs(void)
+{
+    return (MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref *)new std::tuple<int &, float &&, std::string &, std::string &&>(::MR::CSharp::get_tuple_refs());
+}
+
+MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref *MR_CSharp_get_tuple_crefs(void)
+{
+    return (MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref *)new std::tuple<const int &, const float &&, const std::string &, const std::string &&>(::MR::CSharp::get_tuple_crefs());
+}
+
+MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout *MR_CSharp_get_tuple_exposed_value(void)
+{
+    return (MR_C_std_tuple_MR_CSharp_ExposedLayout_const_MR_CSharp_ExposedLayout *)new std::tuple<MR::CSharp::ExposedLayout, const MR::CSharp::ExposedLayout>(::MR::CSharp::get_tuple_exposed_value());
+}
+
+MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref *MR_CSharp_get_tuple_exposed_lvalue_ref(void)
+{
+    return (MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref *)new std::tuple<MR::CSharp::ExposedLayout &, const MR::CSharp::ExposedLayout &>(::MR::CSharp::get_tuple_exposed_lvalue_ref());
+}
+
+MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref *MR_CSharp_get_tuple_exposed_rvalue_ref(void)
+{
+    return (MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref *)new std::tuple<MR::CSharp::ExposedLayout &&, const MR::CSharp::ExposedLayout &&>(::MR::CSharp::get_tuple_exposed_rvalue_ref());
 }
 
 MR_C_std_expected_int_float *MR_CSharp_test_expected_int(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b)

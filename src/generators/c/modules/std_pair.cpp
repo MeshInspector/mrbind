@@ -79,6 +79,7 @@ namespace mrbind::CBindings::Modules
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The first of the two elements, read-only.";
                         emit.name = binder.MakeMemberFuncName(generator, "first", true);
+                        std::get<CInterop::MethodKinds::Regular>(std::get<CInterop::MethodKindVar>(emit.name.cpp_for_interop)).elem_index = 0;
                         emit.lifetimes.ReturnsReferenceToSubobject();
                         emit.cpp_return_type = MakeReturnType(cpp_elem_type_a, true);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
@@ -92,6 +93,7 @@ namespace mrbind::CBindings::Modules
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The first of the two elements, mutable.";
                         emit.name = binder.MakeMemberFuncName(generator, "first", false);
+                        std::get<CInterop::MethodKinds::Regular>(std::get<CInterop::MethodKindVar>(emit.name.cpp_for_interop)).elem_index = 0;
                         emit.lifetimes.ReturnsReferenceToSubobject();
                         emit.cpp_return_type = MakeReturnType(cpp_elem_type_a, false);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
@@ -103,6 +105,7 @@ namespace mrbind::CBindings::Modules
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The second of the two elements, read-only.";
                         emit.name = binder.MakeMemberFuncName(generator, "second", true);
+                        std::get<CInterop::MethodKinds::Regular>(std::get<CInterop::MethodKindVar>(emit.name.cpp_for_interop)).elem_index = 1;
                         emit.lifetimes.ReturnsReferenceToSubobject();
                         emit.cpp_return_type = MakeReturnType(cpp_elem_type_b, true);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
@@ -116,6 +119,7 @@ namespace mrbind::CBindings::Modules
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// The second of the two elements, mutable.";
                         emit.name = binder.MakeMemberFuncName(generator, "second", false);
+                        std::get<CInterop::MethodKinds::Regular>(std::get<CInterop::MethodKindVar>(emit.name.cpp_for_interop)).elem_index = 1;
                         emit.lifetimes.ReturnsReferenceToSubobject();
                         emit.cpp_return_type = MakeReturnType(cpp_elem_type_b, false);
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);

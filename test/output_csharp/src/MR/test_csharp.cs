@@ -24010,6 +24010,87 @@ public static partial class MR
                 return new(__MR_CSharp_test_vec_of_const_ptr_to_class(), is_owning: true);
             }
 
+            // Test decomposition for certain whitelisted standard tuple-like types: (tuples and pairs)
+            /// Generated from function `MR::CSharp::get_tuple0`.
+            public static unsafe MR.CS.Std.Tuple GetTuple0()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_get_tuple0", ExactSpelling = true)]
+                extern static MR.CS.Std.Tuple._Underlying *__MR_CSharp_get_tuple0();
+                return new(__MR_CSharp_get_tuple0(), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::get_tuple1`.
+            public static unsafe MR.CS.Std.Tuple_Int GetTuple1()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_get_tuple1", ExactSpelling = true)]
+                extern static MR.CS.Std.Tuple_Int._Underlying *__MR_CSharp_get_tuple1();
+                return new(__MR_CSharp_get_tuple1(), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::get_tuple2`.
+            public static unsafe MR.CS.Std.Tuple_Int_StdString GetTuple2()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_get_tuple2", ExactSpelling = true)]
+                extern static MR.CS.Std.Tuple_Int_StdString._Underlying *__MR_CSharp_get_tuple2();
+                return new(__MR_CSharp_get_tuple2(), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::get_pair2`.
+            public static unsafe MR.CS.Std.Pair_Int_StdString GetPair2()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_get_pair2", ExactSpelling = true)]
+                extern static MR.CS.Std.Pair_Int_StdString._Underlying *__MR_CSharp_get_pair2();
+                return new(__MR_CSharp_get_pair2(), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::get_tuple_const`.
+            public static unsafe MR.CS.Std.Tuple_ConstInt_StdString GetTupleConst()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_get_tuple_const", ExactSpelling = true)]
+                extern static MR.CS.Std.Tuple_ConstInt_StdString._Underlying *__MR_CSharp_get_tuple_const();
+                return new(__MR_CSharp_get_tuple_const(), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::get_tuple_refs`.
+            public static unsafe MR.CS.Std.Tuple_IntRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef GetTupleRefs()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_get_tuple_refs", ExactSpelling = true)]
+                extern static MR.CS.Std.Tuple_IntRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef._Underlying *__MR_CSharp_get_tuple_refs();
+                return new(__MR_CSharp_get_tuple_refs(), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::get_tuple_crefs`.
+            public static unsafe MR.CS.Std.Tuple_ConstIntRef_ConstFloatRvalueRef_ConstStdStringRef_ConstStdStringRvalueRef GetTupleCrefs()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_get_tuple_crefs", ExactSpelling = true)]
+                extern static MR.CS.Std.Tuple_ConstIntRef_ConstFloatRvalueRef_ConstStdStringRef_ConstStdStringRvalueRef._Underlying *__MR_CSharp_get_tuple_crefs();
+                return new(__MR_CSharp_get_tuple_crefs(), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::get_tuple_exposed_value`.
+            public static unsafe MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout GetTupleExposedValue()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_get_tuple_exposed_value", ExactSpelling = true)]
+                extern static MR.CS.Std.Tuple_MRCSharpExposedLayout_ConstMRCSharpExposedLayout._Underlying *__MR_CSharp_get_tuple_exposed_value();
+                return new(__MR_CSharp_get_tuple_exposed_value(), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::get_tuple_exposed_lvalue_ref`.
+            public static unsafe MR.CS.Std.Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef GetTupleExposedLvalueRef()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_get_tuple_exposed_lvalue_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef._Underlying *__MR_CSharp_get_tuple_exposed_lvalue_ref();
+                return new(__MR_CSharp_get_tuple_exposed_lvalue_ref(), is_owning: true);
+            }
+
+            /// Generated from function `MR::CSharp::get_tuple_exposed_rvalue_ref`.
+            public static unsafe MR.CS.Std.Tuple_MRCSharpExposedLayoutRvalueRef_ConstMRCSharpExposedLayoutRvalueRef GetTupleExposedRvalueRef()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_get_tuple_exposed_rvalue_ref", ExactSpelling = true)]
+                extern static MR.CS.Std.Tuple_MRCSharpExposedLayoutRvalueRef_ConstMRCSharpExposedLayoutRvalueRef._Underlying *__MR_CSharp_get_tuple_exposed_rvalue_ref();
+                return new(__MR_CSharp_get_tuple_exposed_rvalue_ref(), is_owning: true);
+            }
+
             /// Generated from function `MR::CSharp::test_expected_int`.
             /// Parameter `b` defaults to `std::expected<int, float>{42}`.
             public static unsafe int TestExpectedInt(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)
