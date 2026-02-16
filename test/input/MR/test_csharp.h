@@ -11,15 +11,21 @@
 
 #if PARSING_FOR_C_BINDINGS
 #  define MBTEST_LIFETIMEBOUND [[clang::lifetimebound]]
-#  if __clang_major__ >= 20 // Added in Clang 20.
+#  if __clang_major__ >= 20 && !MBTEST_SIMULATE_MISSING_LIFETIME_CAPTURE_BY_SUPPORT // Added in Clang 20.
 #    define MBTEST_LIFETIME_CAPTURE_BY(x) [[clang::lifetime_capture_by(x)]]
+#    define MBTEST_THIS_LIFETIME_CAPTURE_BY(x) [[clang::lifetime_capture_by(x)]]
 #  else
-#    define MBTEST_LIFETIME_CAPTURE_BY(x)
+// This version is for function parameters.
+#    define MBTEST_LIFETIME_CAPTURE_BY(x) [[clang::annotate("mrbind::lifetime_capture_by=" #x)]]
+// This version is for this, i.e. for using after a method parameter list.
+// We must have two separate macros, Clang refuses to compile if `annotate` is used instead of `annotate_type` or vice versa in those locations.
+#    define MBTEST_THIS_LIFETIME_CAPTURE_BY(x) [[clang::annotate_type("mrbind::lifetime_capture_by=" #x)]]
 #  endif
 #else
 // Define those to nothing when compiling the C bindings, since my Clang 21 ICEs when doing lifetime-based warning checks. `-w` also fixes those ICEs.
 #  define MBTEST_LIFETIMEBOUND
 #  define MBTEST_LIFETIME_CAPTURE_BY(x)
+#  define MBTEST_THIS_LIFETIME_CAPTURE_BY(x)
 #endif
 
 namespace MR::CSharp
@@ -1445,7 +1451,7 @@ namespace MR::CSharp
         void store_ref_in_this(LifetimesA &ref MBTEST_LIFETIME_CAPTURE_BY(this)) {(void)ref;}
         void store_ref_in_param(LifetimesA &ref MBTEST_LIFETIME_CAPTURE_BY(other_ref), LifetimesB &other_ref) {(void)ref; (void)other_ref;}
 
-        void store_this_in_param(LifetimesA &ref) MBTEST_LIFETIME_CAPTURE_BY(ref) {(void)ref;}
+        void store_this_in_param(LifetimesA &ref) MBTEST_THIS_LIFETIME_CAPTURE_BY(ref) {(void)ref;}
 
         // Store param references in this. The two annotation styles are equivalent for constructors.
         LifetimesD(LifetimesA &ref MBTEST_LIFETIMEBOUND, LifetimesB &other_ref MBTEST_LIFETIME_CAPTURE_BY(this)) {(void)ref; (void)other_ref;}
@@ -1455,7 +1461,7 @@ namespace MR::CSharp
 
         // Store reference to this in param.
         // `--infer-lifetime-constructors` skips this, because we already have custom attributes.
-        LifetimesD(LifetimesB &ref) MBTEST_LIFETIME_CAPTURE_BY(ref) {(void)ref;}
+        LifetimesD(LifetimesB &ref) MBTEST_THIS_LIFETIME_CAPTURE_BY(ref) {(void)ref;}
     };
 
 

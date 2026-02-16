@@ -108,7 +108,8 @@ build/mrbind \
     --canonicalize-size_t-to-uint64_t \
     --infer-lifetime-iterators \
     "${MRBIND_FLAGS[@]}" \
-    -DDISABLE_LONG_LONG
+    -DDISABLE_LONG_LONG \
+    -DMBTEST_SIMULATE_MISSING_LIFETIME_CAPTURE_BY_SUPPORT
 
 # Here `--merge-std-and-tl-expected` (and everything below) is unrelated to the fixed-size typedefs, but we need to test it too, so why not here.
 build/mrbind_gen_c \

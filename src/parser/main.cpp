@@ -1338,6 +1338,30 @@ namespace mrbind
         {
             std::vector<FuncParam> ret;
 
+            // This is used for `mrbind::lifetime_capture_by` attributes.
+            auto GetParamNameToIndexMap = [&, ret = std::optional<std::map<std::string, int, std::less<>>>{}]() mutable -> const auto &
+            {
+                if (!ret)
+                {
+                    auto &ret_map = ret.emplace();
+
+                    int i = 0;
+
+                    // This condition must match what `HandleLifetimeCapturedByParam()` is doing, which in turn must match Clang's logic.
+                    if (is_member_function_or_ctor)
+                        ret_map.try_emplace("this", i++);
+
+                    for (const clang::ParmVarDecl *p : decl.parameters())
+                    {
+                        if (auto name = p->getName(); !name.empty())
+                            ret_map.try_emplace(std::string(name), i);
+                        i++; // Must increment even for unnamed parameters.
+                    }
+                }
+
+                return *ret;
+            };
+
             auto HandleLifetimeAttrs = [&](const clang::Decl *this_param_decl, const LifetimeRelation::Variant &this_entity_var)
             {
                 if (lifetimes)
@@ -1386,8 +1410,31 @@ namespace mrbind
                         return isNormalAssignmentOperator(FD);
                     };
 
-                    // This attribute seems to only exist in Clang 20 and newer.
-                    #if CLANG_VERSION_MAJOR >= 20
+                    // If `attr` is `"mrbind::lifetime_capture_by="` followed by a parameter name or `this`, returns the index of that parameter, in the same style as what Clang does.
+                    // If it's followed by something else, throws.
+                    // If it doesn't start with this prefix, returns null.
+                    auto CustomLifetimeCaptureByAttrToIndex = [&](std::string_view attr, const clang::SourceLocation &loc) -> std::optional<int>
+                    {
+                        static constexpr std::string_view prefix = "mrbind::lifetime_capture_by=";
+                        if (attr.starts_with(prefix))
+                        {
+                            attr.remove_prefix(prefix.size());
+                            const auto &map = GetParamNameToIndexMap();
+                            auto iter = map.find(attr);
+                            if (iter == map.end())
+                            {
+                                // For the filename, just calling `getFilename()` produces an empty string. But `getPresumedLoc(...).getFilename()` seems to work, hmm.
+                                // For the line number, there are several `get...LineNumber()` functions to choose from, not sure which one to pick. Decided to use this one.
+                                throw std::runtime_error("Attribute `mrbind::lifetime_capture_by=` was given argument `" + std::string(attr) + "`, which doesn't name a parameter of this function. Located at `" + std::string(ctx->getSourceManager().getPresumedLoc(loc).getFilename()) + ":" + std::to_string(ctx->getSourceManager().getPresumedLineNumber(loc)) + "`.");
+                            }
+                            return iter->second;
+                        }
+                        else
+                        {
+                            return {};
+                        }
+                    };
+
                     // Calls `func` which is `(int attr_param) -> void` for every parameter of `[[clang::lifetime_capture_by(...)]]` attribute specified on this function, after its parameter list and cvref-qualifiers,
                     //   which in case of this attribute makes it act on `this`.
                     auto ForEachLifetimeCapturedByParamOfImplicitThisParam = [&](auto &&func)
@@ -1405,14 +1452,23 @@ namespace mrbind
                         clang::AttributedTypeLoc ATL;
                         for (clang::TypeLoc TL = TSI->getTypeLoc(); (ATL = TL.getAsAdjusted<clang::AttributedTypeLoc>()); TL = ATL.getModifiedLoc())
                         {
+                            // This attribute seems to only exist in Clang 20 and newer.
+                            #if CLANG_VERSION_MAJOR >= 20
                             if (auto attr = ATL.getAttrAs<clang::LifetimeCaptureByAttr>())
                             {
                                 for (int attr_param : attr->params())
                                     func(attr_param);
                             }
+                            #endif
+
+                            // Have to use `[[clang::annotate_type(...)]]` for this, the plain `annotate` doesn't compile in this position.
+                            if (auto attr = ATL.getAttrAs<clang::AnnotateTypeAttr>())
+                            {
+                                if (auto opt = CustomLifetimeCaptureByAttrToIndex(attr->getAnnotation(), attr->getLoc()))
+                                    func(*opt);
+                            }
                         }
                     };
-                    #endif
 
                     const bool is_implicit_this_param = std::holds_alternative<LifetimeRelation::ThisObject>(this_entity_var);
                     assert(is_implicit_this_param != bool(this_param_decl));
@@ -1438,9 +1494,6 @@ namespace mrbind
                             lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ReturnValue{}, .target = this_entity_var});
                     }
 
-                    // `[[clang::lifetime_capture_by(...)]]`?
-                    // This attribute seems to only exist in Clang 20 and newer.
-                    #if CLANG_VERSION_MAJOR >= 20
                     auto HandleLifetimeCapturedByParam = [&](int attr_param)
                     {
                         if (attr_param < 0)
@@ -1478,13 +1531,23 @@ namespace mrbind
                     }
                     else
                     {
+                        // `[[clang::lifetime_capture_by(...)]]`?
+                        // This attribute seems to only exist in Clang 20 and newer.
+                        #if CLANG_VERSION_MAJOR >= 20
                         for (const auto *attr : this_param_decl->specific_attrs<clang::LifetimeCaptureByAttr>())
                         {
                             for (int attr_param : attr->params())
                                 HandleLifetimeCapturedByParam(attr_param);
                         }
+                        #endif
+
+                        // Have to use `[[clang::annotate(...)]]` for this, in contrast with the annotation on `this`.
+                        for (const auto *attr : this_param_decl->specific_attrs<clang::AnnotateAttr>())
+                        {
+                            if (auto opt = CustomLifetimeCaptureByAttrToIndex(attr->getAnnotation(), attr->getLoc()))
+                                HandleLifetimeCapturedByParam(*opt);
+                        }
                     }
-                    #endif
                 }
             };
 
