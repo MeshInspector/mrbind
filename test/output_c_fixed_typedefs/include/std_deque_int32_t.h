@@ -95,27 +95,33 @@ MR_C_API void MR_C_std_deque_int32_t_clear(MR_C_std_deque_int32_t *_this);
 // The element at a specific index, read-only.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API const int32_t *MR_C_std_deque_int32_t_at(const MR_C_std_deque_int32_t *_this, size_t i);
 
 // The element at a specific index, mutable.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_C_std_deque_int32_t_at_mut(MR_C_std_deque_int32_t *_this, size_t i);
 
 // The first element or null if empty, read-only.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API const int32_t *MR_C_std_deque_int32_t_front(const MR_C_std_deque_int32_t *_this);
 
 // The first element or null if empty, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_C_std_deque_int32_t_front_mut(MR_C_std_deque_int32_t *_this);
 
 // The last element or null if empty, read-only.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API const int32_t *MR_C_std_deque_int32_t_back(const MR_C_std_deque_int32_t *_this);
 
 // The last element or null if empty, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_C_std_deque_int32_t_back_mut(MR_C_std_deque_int32_t *_this);
 
 // Inserts a new element at the end.
@@ -170,6 +176,7 @@ MR_C_API void MR_C_std_deque_int32_t_erase_at_iter(MR_C_std_deque_int32_t *_this
 // The begin iterator, const.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_int32_t_const_iterator_Destroy()` to free it when you're done using it.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_deque_int32_t_const_iterator *MR_C_std_deque_int32_t_begin(const MR_C_std_deque_int32_t *_this);
 
 // Tests whether a const iterator is the begin iterator.
@@ -180,6 +187,7 @@ MR_C_API bool MR_C_std_deque_int32_t_is_begin(const MR_C_std_deque_int32_t *_thi
 // The begin iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_int32_t_iterator_Destroy()` to free it when you're done using it.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_deque_int32_t_iterator *MR_C_std_deque_int32_t_begin_mut(MR_C_std_deque_int32_t *_this);
 
 // Tests whether a mutable iterator is the begin iterator.
@@ -190,6 +198,7 @@ MR_C_API bool MR_C_std_deque_int32_t_is_begin_mut(const MR_C_std_deque_int32_t *
 // The end iterator, const.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_int32_t_const_iterator_Destroy()` to free it when you're done using it.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_deque_int32_t_const_iterator *MR_C_std_deque_int32_t_end(const MR_C_std_deque_int32_t *_this);
 
 // Tests whether a const iterator is the end iterator.
@@ -200,6 +209,7 @@ MR_C_API bool MR_C_std_deque_int32_t_is_end(const MR_C_std_deque_int32_t *_this,
 // The end iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_deque_int32_t_iterator_Destroy()` to free it when you're done using it.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_deque_int32_t_iterator *MR_C_std_deque_int32_t_end_mut(MR_C_std_deque_int32_t *_this);
 
 // Tests whether a mutable iterator is the end iterator.
@@ -299,6 +309,7 @@ MR_C_API MR_C_std_deque_int32_t_iterator *MR_C_std_deque_int32_t_iterator_Offset
 // Dereferences a const iterator.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to things referred to by this object (if any) might be preserved as the return value.
 MR_C_API const int32_t *MR_C_std_deque_int32_t_const_iterator_deref(const MR_C_std_deque_int32_t_const_iterator *_this);
 
 // Increments a const iterator.
@@ -326,6 +337,7 @@ MR_C_API bool MR_C_equal_MR_C_std_deque_int32_t_const_iterator(const MR_C_std_de
 // Dereferences a mutable iterator.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to things referred to by this object (if any) might be preserved as the return value.
 MR_C_API int32_t *MR_C_std_deque_int32_t_iterator_deref(const MR_C_std_deque_int32_t_iterator *_this);
 
 // Increments a mutable iterator.

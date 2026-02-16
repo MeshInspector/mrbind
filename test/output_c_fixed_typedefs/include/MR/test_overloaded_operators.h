@@ -87,6 +87,7 @@ MR_C_API int32_t MR_C_sub_MR_OverloadedOps_A(MR_OverloadedOps_A *_this, const MR
 // Dereference (unary star).
 // Generated from method `MR::OverloadedOps::A::operator*`.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved in the return value.
 MR_C_API int32_t MR_C_deref_MR_OverloadedOps_A(MR_OverloadedOps_A *_this);
 
 // Multiply (binary star).
@@ -670,10 +671,12 @@ MR_C_API MR_OverloadedOps_D *MR_OverloadedOps_D_AssignFromAnother(MR_OverloadedO
 // Disambiguating the names.
 // Generated from method `MR::OverloadedOps::D::operator*`.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved in the return value.
 MR_C_API int32_t MR_C_deref_MR_OverloadedOps_D_ref(MR_OverloadedOps_D *_this);
 
 // Generated from method `MR::OverloadedOps::D::operator*`.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved in the return value.
 MR_C_API int32_t MR_C_deref_const_MR_OverloadedOps_D_ref(const MR_OverloadedOps_D *_this);
 
 // Generated from function `MR::OverloadedOps::operator+`.

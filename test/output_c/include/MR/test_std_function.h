@@ -50,6 +50,7 @@ MR_C_API void MR_StdFunction_foo_std_function_void_func_from_std_string(MR_C_Pas
 /// Returns a pointer to a member variable of class `MR::StdFunction::A` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_C_std_string *MR_StdFunction_A_Get_a(const MR_StdFunction_A *_this);
 
 /// Modifies a member variable of class `MR::StdFunction::A` named `a`.
@@ -63,6 +64,7 @@ MR_C_API void MR_StdFunction_A_Set_a(MR_StdFunction_A *_this, const char *value,
 /// Returns a mutable pointer to a member variable of class `MR::StdFunction::A` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_string *MR_StdFunction_A_GetMutable_a(MR_StdFunction_A *_this);
 
 /// Constructs an empty (default-constructed) instance.

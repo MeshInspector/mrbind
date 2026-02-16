@@ -55,6 +55,7 @@ MR_C_API MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdShared
 
 /// Returns the stored pointer, possibly null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_this);
 
 /// How many shared pointers share the managed object. Zero if no object is being managed.

@@ -25,6 +25,7 @@ typedef struct MR_NestedTypes_A MR_NestedTypes_A;
 /// Returns a pointer to a member variable of class `MR::NestedTypes::A` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_NestedTypes_A_B *MR_NestedTypes_A_Get_b(const MR_NestedTypes_A *_this);
 
 /// Modifies a member variable of class `MR::NestedTypes::A` named `b`.
@@ -37,11 +38,13 @@ MR_C_API void MR_NestedTypes_A_Set_b(MR_NestedTypes_A *_this, const MR_NestedTyp
 /// Returns a mutable pointer to a member variable of class `MR::NestedTypes::A` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_NestedTypes_A_B *MR_NestedTypes_A_GetMutable_b(MR_NestedTypes_A *_this);
 
 /// Returns a pointer to a member variable of class `MR::NestedTypes::A` named `e`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_NestedTypes_A_E *MR_NestedTypes_A_Get_e(const MR_NestedTypes_A *_this);
 
 /// Modifies a member variable of class `MR::NestedTypes::A` named `e`.
@@ -53,6 +56,7 @@ MR_C_API void MR_NestedTypes_A_Set_e(MR_NestedTypes_A *_this, MR_NestedTypes_A_E
 /// Returns a mutable pointer to a member variable of class `MR::NestedTypes::A` named `e`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_NestedTypes_A_E *MR_NestedTypes_A_GetMutable_e(MR_NestedTypes_A *_this);
 
 /// Constructs an empty (default-constructed) instance.

@@ -9360,6 +9360,81 @@ void MR_CSharp_LifetimesD_store_this_in_param(MR_CSharp_LifetimesD *_this, MR_CS
     );
 }
 
+const MR_CSharp_LifetimesA *MR_CSharp_LifetimesE_Get_a(const MR_CSharp_LifetimesE *_this)
+{
+    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::LifetimesE *)(_this)).a);
+}
+
+void MR_CSharp_LifetimesE_Set_a(MR_CSharp_LifetimesE *_this, const MR_CSharp_LifetimesA *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesE_GetMutable_a(MR_CSharp_LifetimesE *_this)
+{
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).a);
+}
+
+MR_CSharp_LifetimesE *MR_CSharp_LifetimesE_ConstructFromAnother(const MR_CSharp_LifetimesE *_other)
+{
+    return (MR_CSharp_LifetimesE *)new MR::CSharp::LifetimesE(MR::CSharp::LifetimesE(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesE(*(MR::CSharp::LifetimesE *)_other))
+    ));
+}
+
+const MR_CSharp_LifetimesE *MR_CSharp_LifetimesE_OffsetPtr(const MR_CSharp_LifetimesE *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_LifetimesE *)(((const MR::CSharp::LifetimesE *)ptr) + i);
+}
+
+MR_CSharp_LifetimesE *MR_CSharp_LifetimesE_OffsetMutablePtr(MR_CSharp_LifetimesE *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_LifetimesE *)(((MR::CSharp::LifetimesE *)ptr) + i);
+}
+
+MR_CSharp_LifetimesE *MR_CSharp_LifetimesE_Construct(MR_CSharp_LifetimesB *ref)
+{
+    return (MR_CSharp_LifetimesE *)new MR::CSharp::LifetimesE(MR::CSharp::LifetimesE(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesB *)(ref))
+    ));
+}
+
+void MR_CSharp_LifetimesE_Destroy(const MR_CSharp_LifetimesE *_this)
+{
+    delete ((const MR::CSharp::LifetimesE *)_this);
+}
+
+void MR_CSharp_LifetimesE_DestroyArray(const MR_CSharp_LifetimesE *_this)
+{
+    delete[] ((const MR::CSharp::LifetimesE *)_this);
+}
+
+MR_CSharp_LifetimesE *MR_CSharp_LifetimesE_AssignFromAnother(MR_CSharp_LifetimesE *_this, const MR_CSharp_LifetimesE *_other)
+{
+    return (MR_CSharp_LifetimesE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).operator=(
+        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesE(*(MR::CSharp::LifetimesE *)_other))
+    ));
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesE_get(MR_CSharp_LifetimesE *_this)
+{
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).get());
+}
+
+MR_CSharp_LifetimesA *MR_CSharp_LifetimesE_return_ref(MR_CSharp_LifetimesE *_this, MR_CSharp_LifetimesA *ref)
+{
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).return_ref(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    ));
+}
+
+void MR_CSharp_LifetimesE_store_ref_in_this(MR_CSharp_LifetimesE *_this, MR_CSharp_LifetimesA *ref)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).store_ref_in_this(
+        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    );
+}
+
 const int32_t *MR_CSharp_IterableA_Get_arr(const MR_CSharp_IterableA *_this)
 {
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableA *)(_this)).arr[0]);

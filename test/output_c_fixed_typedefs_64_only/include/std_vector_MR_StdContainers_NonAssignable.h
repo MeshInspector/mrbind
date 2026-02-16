@@ -92,27 +92,33 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonAssignable_shrink_to_fit(MR_C_
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_at(const MR_C_std_vector_MR_StdContainers_NonAssignable *_this, size_t i);
 
 /// The element at a specific index, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_at_mut(MR_C_std_vector_MR_StdContainers_NonAssignable *_this, size_t i);
 
 /// The first element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_front(const MR_C_std_vector_MR_StdContainers_NonAssignable *_this);
 
 /// The first element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_front_mut(MR_C_std_vector_MR_StdContainers_NonAssignable *_this);
 
 /// The last element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_back(const MR_C_std_vector_MR_StdContainers_NonAssignable *_this);
 
 /// The last element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_back_mut(MR_C_std_vector_MR_StdContainers_NonAssignable *_this);
 
 /// Inserts a new element at the end.
@@ -127,6 +133,7 @@ MR_C_API void MR_C_std_vector_MR_StdContainers_NonAssignable_pop_back(MR_C_std_v
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_vector_MR_StdContainers_NonAssignable_begin(const MR_C_std_vector_MR_StdContainers_NonAssignable *_this);
 
 /// Tests whether a const iterator is the begin iterator.
@@ -137,6 +144,7 @@ MR_C_API bool MR_C_std_vector_MR_StdContainers_NonAssignable_is_begin(const MR_C
 /// The begin iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonAssignable_iterator *MR_C_std_vector_MR_StdContainers_NonAssignable_begin_mut(MR_C_std_vector_MR_StdContainers_NonAssignable *_this);
 
 /// Tests whether a mutable iterator is the begin iterator.
@@ -147,6 +155,7 @@ MR_C_API bool MR_C_std_vector_MR_StdContainers_NonAssignable_is_begin_mut(const 
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_vector_MR_StdContainers_NonAssignable_end(const MR_C_std_vector_MR_StdContainers_NonAssignable *_this);
 
 /// Tests whether a const iterator is the end iterator.
@@ -157,6 +166,7 @@ MR_C_API bool MR_C_std_vector_MR_StdContainers_NonAssignable_is_end(const MR_C_s
 /// The end iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_vector_MR_StdContainers_NonAssignable_iterator *MR_C_std_vector_MR_StdContainers_NonAssignable_end_mut(MR_C_std_vector_MR_StdContainers_NonAssignable *_this);
 
 /// Tests whether a mutable iterator is the end iterator.
@@ -256,6 +266,7 @@ MR_C_API MR_C_std_vector_MR_StdContainers_NonAssignable_iterator *MR_C_std_vecto
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to things referred to by this object (if any) might be preserved as the return value.
 MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator_deref(const MR_C_std_vector_MR_StdContainers_NonAssignable_const_iterator *_this);
 
 /// Increments a const iterator.
@@ -283,6 +294,7 @@ MR_C_API bool MR_C_equal_MR_C_std_vector_MR_StdContainers_NonAssignable_const_it
 /// Dereferences a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to things referred to by this object (if any) might be preserved as the return value.
 MR_C_API MR_StdContainers_NonAssignable *MR_C_std_vector_MR_StdContainers_NonAssignable_iterator_deref(const MR_C_std_vector_MR_StdContainers_NonAssignable_iterator *_this);
 
 /// Increments a mutable iterator.

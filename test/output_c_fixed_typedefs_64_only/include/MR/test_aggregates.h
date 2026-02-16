@@ -43,6 +43,7 @@ typedef struct MR_Aggregates_E MR_Aggregates_E;
 /// Returns a pointer to a member variable of class `MR::Aggregates::A` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_A_Get_x(const MR_Aggregates_A *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::A` named `x`.
@@ -53,11 +54,13 @@ MR_C_API void MR_Aggregates_A_Set_x(MR_Aggregates_A *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::A` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_A_GetMutable_x(MR_Aggregates_A *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::A` named `y`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_C_std_string *MR_Aggregates_A_Get_y(const MR_Aggregates_A *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::A` named `y`.
@@ -71,6 +74,7 @@ MR_C_API void MR_Aggregates_A_Set_y(MR_Aggregates_A *_this, const char *value, c
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::A` named `y`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_string *MR_Aggregates_A_GetMutable_y(MR_Aggregates_A *_this);
 
 /// Constructs an empty (default-constructed) instance.
@@ -184,6 +188,7 @@ MR_C_API MR_Aggregates_NonDefaultConstructible *MR_Aggregates_NonDefaultConstruc
 /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_C_Get_a(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `a`.
@@ -194,11 +199,13 @@ MR_C_API void MR_Aggregates_C_Set_a(MR_Aggregates_C *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_C_GetMutable_a(MR_Aggregates_C *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_C_Get_b(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `b`.
@@ -209,11 +216,13 @@ MR_C_API void MR_Aggregates_C_Set_b(MR_Aggregates_C *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_C_GetMutable_b(MR_Aggregates_C *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_C_Get_c(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `c`.
@@ -224,11 +233,13 @@ MR_C_API void MR_Aggregates_C_Set_c(MR_Aggregates_C *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_C_GetMutable_c(MR_Aggregates_C *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_C_Get_d(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `d`.
@@ -239,11 +250,13 @@ MR_C_API void MR_Aggregates_C_Set_d(MR_Aggregates_C *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_C_GetMutable_d(MR_Aggregates_C *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `e`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_C_Get_e(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `e`.
@@ -254,11 +267,13 @@ MR_C_API void MR_Aggregates_C_Set_e(MR_Aggregates_C *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `e`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_C_GetMutable_e(MR_Aggregates_C *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `f`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_C_Get_f(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `f`.
@@ -269,11 +284,13 @@ MR_C_API void MR_Aggregates_C_Set_f(MR_Aggregates_C *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `f`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_C_GetMutable_f(MR_Aggregates_C *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `g`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_C_Get_g(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `g`.
@@ -284,11 +301,13 @@ MR_C_API void MR_Aggregates_C_Set_g(MR_Aggregates_C *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `g`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_C_GetMutable_g(MR_Aggregates_C *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::C` named `h`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_C_Get_h(const MR_Aggregates_C *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::C` named `h`.
@@ -299,6 +318,7 @@ MR_C_API void MR_Aggregates_C_Set_h(MR_Aggregates_C *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::C` named `h`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_C_GetMutable_h(MR_Aggregates_C *_this);
 
 /// Constructs an empty (default-constructed) instance.
@@ -346,6 +366,7 @@ MR_C_API MR_Aggregates_C *MR_Aggregates_C_AssignFromAnother(MR_Aggregates_C *_th
 /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_D_Get_a(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `a`.
@@ -356,11 +377,13 @@ MR_C_API void MR_Aggregates_D_Set_a(MR_Aggregates_D *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_D_GetMutable_a(MR_Aggregates_D *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_D_Get_b(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `b`.
@@ -371,11 +394,13 @@ MR_C_API void MR_Aggregates_D_Set_b(MR_Aggregates_D *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_D_GetMutable_b(MR_Aggregates_D *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_D_Get_c(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `c`.
@@ -386,11 +411,13 @@ MR_C_API void MR_Aggregates_D_Set_c(MR_Aggregates_D *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_D_GetMutable_c(MR_Aggregates_D *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_D_Get_d(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `d`.
@@ -401,11 +428,13 @@ MR_C_API void MR_Aggregates_D_Set_d(MR_Aggregates_D *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_D_GetMutable_d(MR_Aggregates_D *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `e`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_D_Get_e(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `e`.
@@ -416,11 +445,13 @@ MR_C_API void MR_Aggregates_D_Set_e(MR_Aggregates_D *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `e`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_D_GetMutable_e(MR_Aggregates_D *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `f`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_D_Get_f(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `f`.
@@ -431,11 +462,13 @@ MR_C_API void MR_Aggregates_D_Set_f(MR_Aggregates_D *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `f`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_D_GetMutable_f(MR_Aggregates_D *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `g`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_D_Get_g(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `g`.
@@ -446,11 +479,13 @@ MR_C_API void MR_Aggregates_D_Set_g(MR_Aggregates_D *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `g`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_D_GetMutable_g(MR_Aggregates_D *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `h`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_D_Get_h(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `h`.
@@ -461,11 +496,13 @@ MR_C_API void MR_Aggregates_D_Set_h(MR_Aggregates_D *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `h`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_D_GetMutable_h(MR_Aggregates_D *_this);
 
 /// Returns a pointer to a member variable of class `MR::Aggregates::D` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_D_Get_i(const MR_Aggregates_D *_this);
 
 /// Modifies a member variable of class `MR::Aggregates::D` named `i`.
@@ -476,6 +513,7 @@ MR_C_API void MR_Aggregates_D_Set_i(MR_Aggregates_D *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::D` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_D_GetMutable_i(MR_Aggregates_D *_this);
 
 /// Constructs an empty (default-constructed) instance.
@@ -524,6 +562,7 @@ MR_C_API MR_Aggregates_D *MR_Aggregates_D_AssignFromAnother(MR_Aggregates_D *_th
 /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_E_Get_a(const MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -536,12 +575,14 @@ MR_C_API void MR_Aggregates_E_Set_a(MR_Aggregates_E *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_E_GetMutable_a(MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_E_Get_b(const MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -554,12 +595,14 @@ MR_C_API void MR_Aggregates_E_Set_b(MR_Aggregates_E *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `b`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_E_GetMutable_b(MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_E_Get_c(const MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -572,12 +615,14 @@ MR_C_API void MR_Aggregates_E_Set_c(MR_Aggregates_E *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `c`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_E_GetMutable_c(MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_E_Get_d(const MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -590,12 +635,14 @@ MR_C_API void MR_Aggregates_E_Set_d(MR_Aggregates_E *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `d`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_E_GetMutable_d(MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `e`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_E_Get_e(const MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -608,12 +655,14 @@ MR_C_API void MR_Aggregates_E_Set_e(MR_Aggregates_E *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `e`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_E_GetMutable_e(MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `f`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_E_Get_f(const MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -626,12 +675,14 @@ MR_C_API void MR_Aggregates_E_Set_f(MR_Aggregates_E *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `f`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_E_GetMutable_f(MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `g`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_E_Get_g(const MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -644,12 +695,14 @@ MR_C_API void MR_Aggregates_E_Set_g(MR_Aggregates_E *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `g`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_E_GetMutable_g(MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `h`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_E_Get_h(const MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -662,12 +715,14 @@ MR_C_API void MR_Aggregates_E_Set_h(MR_Aggregates_E *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `h`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_E_GetMutable_h(MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_Aggregates_E_Get_i(const MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -680,12 +735,14 @@ MR_C_API void MR_Aggregates_E_Set_i(MR_Aggregates_E *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_Aggregates_E_GetMutable_i(MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
 /// Returns a pointer to a member variable of class `MR::Aggregates::E` named `j`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_Aggregates_NonDefaultConstructible *MR_Aggregates_E_Get_j(const MR_Aggregates_E *_this);
 
 // This gets the ctor anyway, because `j` would otherwise make it non-default-constructible.
@@ -700,6 +757,7 @@ MR_C_API void MR_Aggregates_E_Set_j(MR_Aggregates_E *_this, const MR_Aggregates_
 /// Returns a mutable pointer to a member variable of class `MR::Aggregates::E` named `j`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_Aggregates_NonDefaultConstructible *MR_Aggregates_E_GetMutable_j(MR_Aggregates_E *_this);
 
 /// Generated from constructor `MR::Aggregates::E::E`.

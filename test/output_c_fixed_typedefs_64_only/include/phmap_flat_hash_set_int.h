@@ -84,6 +84,7 @@ MR_C_API bool MR_C_phmap_flat_hash_set_int_contains(const MR_C_phmap_flat_hash_s
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `key` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_flat_hash_set_int_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_phmap_flat_hash_set_int_const_iterator *MR_C_phmap_flat_hash_set_int_find(const MR_C_phmap_flat_hash_set_int *_this, const int *key);
 
 /// Inserts a new element.
@@ -93,6 +94,7 @@ MR_C_API void MR_C_phmap_flat_hash_set_int_insert(MR_C_phmap_flat_hash_set_int *
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_flat_hash_set_int_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_phmap_flat_hash_set_int_const_iterator *MR_C_phmap_flat_hash_set_int_begin(const MR_C_phmap_flat_hash_set_int *_this);
 
 /// Tests whether a const iterator is the begin iterator.
@@ -103,6 +105,7 @@ MR_C_API bool MR_C_phmap_flat_hash_set_int_is_begin(const MR_C_phmap_flat_hash_s
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_flat_hash_set_int_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_phmap_flat_hash_set_int_const_iterator *MR_C_phmap_flat_hash_set_int_end(const MR_C_phmap_flat_hash_set_int *_this);
 
 /// Tests whether a const iterator is the end iterator.
@@ -150,6 +153,7 @@ MR_C_API MR_C_phmap_flat_hash_set_int_const_iterator *MR_C_phmap_flat_hash_set_i
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to things referred to by this object (if any) might be preserved as the return value.
 MR_C_API const int *MR_C_phmap_flat_hash_set_int_const_iterator_deref(const MR_C_phmap_flat_hash_set_int_const_iterator *_this);
 
 /// Increments a const iterator.

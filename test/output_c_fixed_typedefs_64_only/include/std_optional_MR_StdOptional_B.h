@@ -63,10 +63,12 @@ MR_C_API MR_C_std_optional_MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_
 
 /// The stored element or null if none, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_value(const MR_C_std_optional_MR_StdOptional_B *_this);
 
 /// The stored element or null if none, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_StdOptional_B *MR_C_std_optional_MR_StdOptional_B_value_mut(MR_C_std_optional_MR_StdOptional_B *_this);
 
 #ifdef __cplusplus

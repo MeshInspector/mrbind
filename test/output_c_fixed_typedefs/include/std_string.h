@@ -71,18 +71,22 @@ MR_C_API size_t MR_C_std_string_size(const MR_C_std_string *_this);
 
 // Returns the string contents, which are always null-terminated.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API const char *MR_C_std_string_data(const MR_C_std_string *_this);
 
 // Returns the string contents, which are always null-terminated. This version returns a non-const pointer.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API const char *MR_C_std_string_data_mut(MR_C_std_string *_this);
 
 // Returns a pointer to the end of string, to its null-terminator.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API const char *MR_C_std_string_data_end(const MR_C_std_string *_this);
 
 // Returns a pointer to the end of string, to its null-terminator. This version returns a non-const pointer.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API char *MR_C_std_string_data_end_mut(MR_C_std_string *_this);
 
 #ifdef __cplusplus

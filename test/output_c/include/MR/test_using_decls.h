@@ -44,6 +44,7 @@ MR_C_API int *MR_UsingDecls_A_GetMutable_StaticVar(void);
 /// Returns a pointer to a member variable of class `MR::UsingDecls::A` named `Field`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_UsingDecls_A_Get_Field(const MR_UsingDecls_A *_this);
 
 /// Modifies a member variable of class `MR::UsingDecls::A` named `Field`.
@@ -54,6 +55,7 @@ MR_C_API void MR_UsingDecls_A_Set_Field(MR_UsingDecls_A *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::UsingDecls::A` named `Field`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_UsingDecls_A_GetMutable_Field(MR_UsingDecls_A *_this);
 
 /// Generated from constructor `MR::UsingDecls::A::A`.
@@ -73,10 +75,12 @@ MR_C_API MR_UsingDecls_A *MR_UsingDecls_A_OffsetMutablePtr(MR_UsingDecls_A *ptr,
 /// Downcasts an instance of `MR::UsingDecls::A` to a derived class `MR::UsingDecls::B`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_UsingDecls_B *MR_UsingDecls_A_StaticDowncastTo_MR_UsingDecls_B(const MR_UsingDecls_A *object);
 
 /// Downcasts an instance of `MR::UsingDecls::A` to a derived class `MR::UsingDecls::B`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_UsingDecls_B *MR_UsingDecls_A_MutableStaticDowncastTo_MR_UsingDecls_B(MR_UsingDecls_A *object);
 
 /// Generated from constructor `MR::UsingDecls::A::A`.
@@ -115,6 +119,7 @@ MR_C_API void MR_UsingDecls_A_StaticFunc(void);
 /// Returns a pointer to a member variable of class `MR::UsingDecls::B` named `Field`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_UsingDecls_B_Get_Field(const MR_UsingDecls_B *_this);
 
 /// Modifies a member variable of class `MR::UsingDecls::B` named `Field`.
@@ -125,6 +130,7 @@ MR_C_API void MR_UsingDecls_B_Set_Field(MR_UsingDecls_B *_this, int value);
 /// Returns a mutable pointer to a member variable of class `MR::UsingDecls::B` named `Field`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_UsingDecls_B_GetMutable_Field(MR_UsingDecls_B *_this);
 
 /// Returns a pointer to a member variable of class `MR::UsingDecls::B` named `StaticVar`.
@@ -155,9 +161,11 @@ MR_C_API MR_UsingDecls_B *MR_UsingDecls_B_OffsetMutablePtr(MR_UsingDecls_B *ptr,
 
 /// Upcasts an instance of `MR::UsingDecls::B` to its base class `MR::UsingDecls::A`.
 /// This version is acting on mutable pointers.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API const MR_UsingDecls_A *MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(const MR_UsingDecls_B *object);
 
 /// Upcasts an instance of `MR::UsingDecls::B` to its base class `MR::UsingDecls::A`.
+/// The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_B_MutableUpcastTo_MR_UsingDecls_A(MR_UsingDecls_B *object);
 
 /// Destroys a heap-allocated instance of `MR_UsingDecls_B`. Does nothing if the pointer is null.

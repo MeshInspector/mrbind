@@ -380,7 +380,7 @@ namespace mrbind::CInterop
                 // This is never set for parsed functions.
                 // The C generator sets this for custom functions of `std::tuple`, `std::pair`, `std::variant`, etc, to make looking them up easier.
                 // There might be several functions with the same index but different constness.
-                (std::optional<std::size_t>)(elem_index)
+                (std::optional<std::size_t>)(elem_index, {})
             )
         };
 

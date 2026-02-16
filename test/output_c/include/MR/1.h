@@ -20,6 +20,7 @@ typedef struct MR_A MR_A;
 /// Returns a pointer to a member variable of class `MR::A` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_C_std_string *MR_A_Get_x(const MR_A *_this);
 
 /// Modifies a member variable of class `MR::A` named `x`.
@@ -33,6 +34,7 @@ MR_C_API void MR_A_Set_x(MR_A *_this, const char *value, const char *value_end);
 /// Returns a mutable pointer to a member variable of class `MR::A` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_string *MR_A_GetMutable_x(MR_A *_this);
 
 /// Constructs an empty (default-constructed) instance.
@@ -67,6 +69,7 @@ MR_C_API void MR_A_DestroyArray(const MR_A *_this);
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved in the return value.
 /// When this function is called, this object will drop any object references it had previously.
 MR_C_API MR_A *MR_A_AssignFromAnother(MR_A *_this, MR_C_PassBy _other_pass_by, MR_A *_other);
 

@@ -1368,7 +1368,7 @@ namespace mrbind
                 {
                     // This is a copy of an internal Clang function with the same name, slightly modified to compile here.
                     // Checks if the type of the function is marked with `[[clang::lifetime_bound]]` (i.e. the attribute is after the parameter list and cvref-qualifiers, which in case of this attribute makes it act on `this`).
-                    auto implicitObjectParamIsLifetimeBound = [](const clang::FunctionDecl *FD) -> bool
+                    auto implicitObjectParamIsLifetimeBound = [](const clang::FunctionDecl *FD, bool check_nested) -> bool
                     {
                         FD = FD->getMostRecentDecl();
                         const clang::TypeSourceInfo *TSI = FD->getTypeSourceInfo();
@@ -1380,9 +1380,26 @@ namespace mrbind
                         clang::AttributedTypeLoc ATL;
                         for (clang::TypeLoc TL = TSI->getTypeLoc(); (ATL = TL.getAsAdjusted<clang::AttributedTypeLoc>()); TL = ATL.getModifiedLoc())
                         {
-                            if (ATL.getAttrAs<clang::LifetimeBoundAttr>())
-                                return true;
+                            if (check_nested)
+                            {
+                                // mrbind: Checking for the nested variant of the attribute.
+                                if (auto attr = ATL.getAttrAs<clang::AnnotateTypeAttr>())
+                                {
+                                    if (attr->getAnnotation() == "mrbind::lifetimebound_nested")
+                                        return true;
+                                }
+                            }
+                            else
+                            {
+                                if (ATL.getAttrAs<clang::LifetimeBoundAttr>())
+                                    return true;
+                            }
                         }
+
+                        if (check_nested)
+                            return false;
+
+                        // mrbind: Handle the reference returned from an assignment operator.
 
                         // mrbind: This is copied from the internal Clang function with the same name too.
                         auto isNormalAssignmentOperator = [](const clang::FunctionDecl *FD) -> bool
@@ -1413,12 +1430,16 @@ namespace mrbind
                     // If `attr` is `"mrbind::lifetime_capture_by="` followed by a parameter name or `this`, returns the index of that parameter, in the same style as what Clang does.
                     // If it's followed by something else, throws.
                     // If it doesn't start with this prefix, returns null.
-                    auto CustomLifetimeCaptureByAttrToIndex = [&](std::string_view attr, const clang::SourceLocation &loc) -> std::optional<int>
+                    // If non-null is returned, `out_is_nested` is assigned `true` if this is the "nested" variant of the attribute.
+                    auto CustomLifetimeCaptureByAttrToIndex = [&](std::string_view attr, const clang::SourceLocation &loc, bool &out_is_nested) -> std::optional<int>
                     {
+                        out_is_nested = false;
+
                         static constexpr std::string_view prefix = "mrbind::lifetime_capture_by=";
-                        if (attr.starts_with(prefix))
+                        static constexpr std::string_view prefix_nested = "mrbind::lifetime_capture_by_nested=";
+                        if (attr.starts_with(prefix) || (out_is_nested = attr.starts_with(prefix_nested)))
                         {
-                            attr.remove_prefix(prefix.size());
+                            attr.remove_prefix((out_is_nested ? prefix_nested : prefix).size());
                             const auto &map = GetParamNameToIndexMap();
                             auto iter = map.find(attr);
                             if (iter == map.end())
@@ -1435,7 +1456,7 @@ namespace mrbind
                         }
                     };
 
-                    // Calls `func` which is `(int attr_param) -> void` for every parameter of `[[clang::lifetime_capture_by(...)]]` attribute specified on this function, after its parameter list and cvref-qualifiers,
+                    // Calls `func` which is `(int attr_param, bool is_nested) -> void` for every parameter of `[[clang::lifetime_capture_by(...)]]` attribute specified on this function, after its parameter list and cvref-qualifiers,
                     //   which in case of this attribute makes it act on `this`.
                     auto ForEachLifetimeCapturedByParamOfImplicitThisParam = [&](auto &&func)
                     {
@@ -1457,15 +1478,16 @@ namespace mrbind
                             if (auto attr = ATL.getAttrAs<clang::LifetimeCaptureByAttr>())
                             {
                                 for (int attr_param : attr->params())
-                                    func(attr_param);
+                                    func(attr_param, false);
                             }
                             #endif
 
                             // Have to use `[[clang::annotate_type(...)]]` for this, the plain `annotate` doesn't compile in this position.
                             if (auto attr = ATL.getAttrAs<clang::AnnotateTypeAttr>())
                             {
-                                if (auto opt = CustomLifetimeCaptureByAttrToIndex(attr->getAnnotation(), attr->getLoc()))
-                                    func(*opt);
+                                bool is_nested = false;
+                                if (auto opt = CustomLifetimeCaptureByAttrToIndex(attr->getAnnotation(), attr->getLoc(), is_nested))
+                                    func(*opt, is_nested);
                             }
                         }
                     };
@@ -1475,26 +1497,57 @@ namespace mrbind
 
                     const bool is_first_param = std::holds_alternative<LifetimeRelation::Param>(this_entity_var) && std::get<LifetimeRelation::Param>(this_entity_var).index == 0;
 
-                    // Implied `lifetimebound` for copy/move constructors and assignments.
-                    if (is_copy_or_move_ctor_or_assignment && is_first_param)
+                    auto IsLifetimebound = [&](bool &is_nested) -> bool
                     {
-                        lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var, .only_nested = true});
-                        if (!is_ctor)
-                            lifetimes->removed_keys[LifetimeRelation::ThisObject{}].insert(""); // Remove all existing targets.
-                    }
-                    // `[[clang::lifetimebound]]`?
-                    else if (is_implicit_this_param ? implicitObjectParamIsLifetimeBound(&decl) : !this_param_decl->specific_attrs<clang::LifetimeBoundAttr>().empty())
-                    {
-                        // For constructors, gotta unify the handling of "return value" and "this" into one common representation.
-                        // It doesn't really matter which one, I'm picking "this" because this is what Pybind uses, and because it also makes more sense on the language level (constructors don't have a return type, but do have `this`).
-                        //   But on the other hand, this makes less sense
-                        if (is_ctor)
-                            lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var});
+                        is_nested = false;
+
+                        // `[[clang::lifetimebound]]`?
+                        if (
+                            is_implicit_this_param
+                            ? implicitObjectParamIsLifetimeBound(&decl, false) || (is_nested = implicitObjectParamIsLifetimeBound(&decl, true))
+                            :
+                                !this_param_decl->specific_attrs<clang::LifetimeBoundAttr>().empty() ||
+                                (is_nested = [&]
+                                    {
+                                        for (const auto &attr : this_param_decl->specific_attrs<clang::AnnotateAttr>())
+                                        {
+                                            if (attr->getAnnotation() == "mrbind::lifetimebound_nested")
+                                                return true;
+                                        }
+                                        return false;
+                                    }()
+                                )
+                        )
+                        {
+                            return true;
+                        }
+
+                        return false;
+                    };
+
+                    { // Check for `[[clang::lifetimebound]]` and our own `mrbind::lifetimebound_nested`.
+                        // Implied nested lifetimebound on the first parameter of special constructors and assignments.
+                        if (is_copy_or_move_ctor_or_assignment && is_first_param)
+                        {
+                            lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var, .only_nested = true});
+                        }
                         else
-                            lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ReturnValue{}, .target = this_entity_var});
+                        {
+                            bool is_nested = false;
+                            if (IsLifetimebound(is_nested))
+                            {
+                                // For constructors, gotta unify the handling of "return value" and "this" into one common representation.
+                                // It doesn't really matter which one, I'm picking "this" because this is what Pybind uses, and because it also makes more sense on the language level (constructors don't have a return type, but do have `this`).
+                                //   But on the other hand, this makes less sense
+                                if (is_ctor)
+                                    lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var, .only_nested = is_nested});
+                                else
+                                    lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ReturnValue{}, .target = this_entity_var, .only_nested = is_nested});
+                            }
+                        }
                     }
 
-                    auto HandleLifetimeCapturedByParam = [&](int attr_param)
+                    auto HandleLifetimeCapturedByParam = [&](int attr_param, bool is_nested)
                     {
                         if (attr_param < 0)
                             return; // Some special value that we don't care about, see `clang::LifetimeCaptureByAttr::ArgIndex` if you're curious.
@@ -1504,7 +1557,7 @@ namespace mrbind
                             // Special handling of the `this` target.
                             if (attr_param == 0)
                             {
-                                lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var});
+                                lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::ThisObject{}, .target = this_entity_var, .only_nested = is_nested});
                                 return;
                             }
 
@@ -1522,12 +1575,16 @@ namespace mrbind
                         assert(attr_param_is_valid); // The two parameter indices are the same!
 
                         if (attr_param_is_valid)
-                            lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::Param{.index = attr_param}, .target = this_entity_var});
+                            lifetimes->relations.insert(LifetimeRelation{.holder = LifetimeRelation::Param{.index = attr_param}, .target = this_entity_var, .only_nested = is_nested});
                     };
 
                     if (is_implicit_this_param)
                     {
                         ForEachLifetimeCapturedByParamOfImplicitThisParam(HandleLifetimeCapturedByParam);
+
+                        // Special assignments erase all existing targets.
+                        if (is_copy_or_move_ctor_or_assignment && !is_ctor)
+                            lifetimes->removed_keys[LifetimeRelation::ThisObject{}].insert("");
                     }
                     else
                     {
@@ -1537,15 +1594,16 @@ namespace mrbind
                         for (const auto *attr : this_param_decl->specific_attrs<clang::LifetimeCaptureByAttr>())
                         {
                             for (int attr_param : attr->params())
-                                HandleLifetimeCapturedByParam(attr_param);
+                                HandleLifetimeCapturedByParam(attr_param, false);
                         }
                         #endif
 
                         // Have to use `[[clang::annotate(...)]]` for this, in contrast with the annotation on `this`.
                         for (const auto *attr : this_param_decl->specific_attrs<clang::AnnotateAttr>())
                         {
-                            if (auto opt = CustomLifetimeCaptureByAttrToIndex(attr->getAnnotation(), attr->getLoc()))
-                                HandleLifetimeCapturedByParam(*opt);
+                            bool is_nested = false;
+                            if (auto opt = CustomLifetimeCaptureByAttrToIndex(attr->getAnnotation(), attr->getLoc(), is_nested))
+                                HandleLifetimeCapturedByParam(*opt, is_nested);
                         }
                     }
                 }

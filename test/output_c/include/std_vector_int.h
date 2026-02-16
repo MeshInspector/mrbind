@@ -102,35 +102,43 @@ MR_C_API void MR_C_std_vector_int_shrink_to_fit(MR_C_std_vector_int *_this);
 /// The element at a specific index, read-only.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_C_std_vector_int_at(const MR_C_std_vector_int *_this, size_t i);
 
 /// The element at a specific index, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_C_std_vector_int_at_mut(MR_C_std_vector_int *_this, size_t i);
 
 /// The first element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_C_std_vector_int_front(const MR_C_std_vector_int *_this);
 
 /// The first element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_C_std_vector_int_front_mut(MR_C_std_vector_int *_this);
 
 /// The last element or null if empty, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_C_std_vector_int_back(const MR_C_std_vector_int *_this);
 
 /// The last element or null if empty, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_C_std_vector_int_back_mut(MR_C_std_vector_int *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, read-only.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_C_std_vector_int_data(const MR_C_std_vector_int *_this);
 
 /// Returns a pointer to the continuous storage that holds all elements, mutable.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_C_std_vector_int_data_mut(MR_C_std_vector_int *_this);
 
 /// Inserts a new element at the end.
@@ -172,6 +180,7 @@ MR_C_API void MR_C_std_vector_int_erase_at_iter(MR_C_std_vector_int *_this, cons
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_begin(const MR_C_std_vector_int *_this);
 
 /// Tests whether a const iterator is the begin iterator.
@@ -182,6 +191,7 @@ MR_C_API bool MR_C_std_vector_int_is_begin(const MR_C_std_vector_int *_this, con
 /// The begin iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_begin_mut(MR_C_std_vector_int *_this);
 
 /// Tests whether a mutable iterator is the begin iterator.
@@ -192,6 +202,7 @@ MR_C_API bool MR_C_std_vector_int_is_begin_mut(const MR_C_std_vector_int *_this,
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_vector_int_const_iterator *MR_C_std_vector_int_end(const MR_C_std_vector_int *_this);
 
 /// Tests whether a const iterator is the end iterator.
@@ -202,6 +213,7 @@ MR_C_API bool MR_C_std_vector_int_is_end(const MR_C_std_vector_int *_this, const
 /// The end iterator, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_int_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_end_mut(MR_C_std_vector_int *_this);
 
 /// Tests whether a mutable iterator is the end iterator.
@@ -301,6 +313,7 @@ MR_C_API MR_C_std_vector_int_iterator *MR_C_std_vector_int_iterator_OffsetMutabl
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to things referred to by this object (if any) might be preserved as the return value.
 MR_C_API const int *MR_C_std_vector_int_const_iterator_deref(const MR_C_std_vector_int_const_iterator *_this);
 
 /// Increments a const iterator.
@@ -328,6 +341,7 @@ MR_C_API bool MR_C_equal_MR_C_std_vector_int_const_iterator(const MR_C_std_vecto
 /// Dereferences a mutable iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to things referred to by this object (if any) might be preserved as the return value.
 MR_C_API int *MR_C_std_vector_int_iterator_deref(const MR_C_std_vector_int_iterator *_this);
 
 /// Increments a mutable iterator.

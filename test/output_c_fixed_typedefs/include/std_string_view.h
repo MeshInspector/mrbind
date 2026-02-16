@@ -76,10 +76,12 @@ MR_C_API size_t MR_C_std_string_view_size(const MR_C_std_string_view *_this);
 
 // Returns the string contents, NOT necessarily null-terminated.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API const char *MR_C_std_string_view_data(const MR_C_std_string_view *_this);
 
 // Returns a pointer to the end of string. Not dereferencable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API const char *MR_C_std_string_view_data_end(const MR_C_std_string_view *_this);
 
 #ifdef __cplusplus

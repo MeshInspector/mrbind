@@ -82,6 +82,7 @@ MR_C_API void MR_StdOptional_SetEnumDef(const MR_C_std_optional_MR_StdOptional_E
 // Returns a pointer to a member variable of class `MR::StdOptional::A` named `x`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API const int32_t *MR_StdOptional_A_Get_x(const MR_StdOptional_A *_this);
 
 // Modifies a member variable of class `MR::StdOptional::A` named `x`.
@@ -93,6 +94,7 @@ MR_C_API void MR_StdOptional_A_Set_x(MR_StdOptional_A *_this, int32_t value);
 // Returns a mutable pointer to a member variable of class `MR::StdOptional::A` named `x`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_StdOptional_A_GetMutable_x(MR_StdOptional_A *_this);
 
 // Constructs an empty (default-constructed) instance.
@@ -166,6 +168,7 @@ MR_C_API void MR_StdOptional_SetClassDef(const MR_C_std_optional_MR_StdOptional_
 // Returns a pointer to a member variable of class `MR::StdOptional::B` named `s`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API const MR_C_std_string *MR_StdOptional_B_Get_s(const MR_StdOptional_B *_this);
 
 // Modifies a member variable of class `MR::StdOptional::B` named `s`.
@@ -179,6 +182,7 @@ MR_C_API void MR_StdOptional_B_Set_s(MR_StdOptional_B *_this, const char *value,
 // Returns a mutable pointer to a member variable of class `MR::StdOptional::B` named `s`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_string *MR_StdOptional_B_GetMutable_s(MR_StdOptional_B *_this);
 
 // Constructs an empty (default-constructed) instance.

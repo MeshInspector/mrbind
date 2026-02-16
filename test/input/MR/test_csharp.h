@@ -21,11 +21,19 @@
 // We must have two separate macros, Clang refuses to compile if `annotate` is used instead of `annotate_type` or vice versa in those locations.
 #    define MBTEST_THIS_LIFETIME_CAPTURE_BY(x) [[clang::annotate_type("mrbind::lifetime_capture_by=" #x)]]
 #  endif
+#  define MBTEST_LIFETIMEBOUND_NESTED               [[clang::annotate     ("mrbind::lifetimebound_nested")]]
+#  define MBTEST_THIS_LIFETIMEBOUND_NESTED          [[clang::annotate_type("mrbind::lifetimebound_nested")]]
+#  define MBTEST_LIFETIME_CAPTURE_BY_NESTED(x)      [[clang::annotate     ("mrbind::lifetime_capture_by_nested=" #x)]]
+#  define MBTEST_THIS_LIFETIME_CAPTURE_BY_NESTED(x) [[clang::annotate_type("mrbind::lifetime_capture_by_nested=" #x)]]
 #else
 // Define those to nothing when compiling the C bindings, since my Clang 21 ICEs when doing lifetime-based warning checks. `-w` also fixes those ICEs.
 #  define MBTEST_LIFETIMEBOUND
 #  define MBTEST_LIFETIME_CAPTURE_BY(x)
 #  define MBTEST_THIS_LIFETIME_CAPTURE_BY(x)
+#  define MBTEST_LIFETIMEBOUND_NESTED
+#  define MBTEST_THIS_LIFETIMEBOUND_NESTED
+#  define MBTEST_LIFETIME_CAPTURE_BY_NESTED(x)
+#  define MBTEST_THIS_LIFETIME_CAPTURE_BY_NESTED(x)
 #endif
 
 namespace MR::CSharp
@@ -1462,6 +1470,20 @@ namespace MR::CSharp
         // Store reference to this in param.
         // `--infer-lifetime-constructors` skips this, because we already have custom attributes.
         LifetimesD(LifetimesB &ref) MBTEST_THIS_LIFETIME_CAPTURE_BY(ref) {(void)ref;}
+    };
+
+    // Nested attributes.
+    struct LifetimesE
+    {
+        LifetimesA a;
+
+        LifetimesA &get() MBTEST_THIS_LIFETIMEBOUND_NESTED {return a;}
+
+        LifetimesA &return_ref(LifetimesA &ref MBTEST_LIFETIMEBOUND_NESTED) {return ref;}
+
+        void store_ref_in_this(LifetimesA &ref MBTEST_LIFETIME_CAPTURE_BY_NESTED(this)) {(void)ref;}
+
+        LifetimesE(LifetimesB &ref) MBTEST_THIS_LIFETIME_CAPTURE_BY_NESTED(ref) {(void)ref;}
     };
 
 

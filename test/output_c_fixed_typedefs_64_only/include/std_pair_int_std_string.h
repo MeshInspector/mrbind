@@ -62,21 +62,25 @@ MR_C_API MR_C_std_pair_int_std_string *MR_C_std_pair_int_std_string_Construct(in
 /// The first of the two elements, read-only.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_C_std_pair_int_std_string_first(const MR_C_std_pair_int_std_string *_this);
 
 /// The first of the two elements, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_C_std_pair_int_std_string_first_mut(MR_C_std_pair_int_std_string *_this);
 
 /// The second of the two elements, read-only.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_C_std_string *MR_C_std_pair_int_std_string_second(const MR_C_std_pair_int_std_string *_this);
 
 /// The second of the two elements, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_string *MR_C_std_pair_int_std_string_second_mut(MR_C_std_pair_int_std_string *_this);
 
 #ifdef __cplusplus

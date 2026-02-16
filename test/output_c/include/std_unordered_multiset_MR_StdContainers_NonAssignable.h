@@ -78,11 +78,13 @@ MR_C_API size_t MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_count
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `key` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_find(const MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable *_this, const MR_StdContainers_NonAssignable *key);
 
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_begin(const MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable *_this);
 
 /// Tests whether a const iterator is the begin iterator.
@@ -93,6 +95,7 @@ MR_C_API bool MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_is_begi
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_end(const MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable *_this);
 
 /// Tests whether a const iterator is the end iterator.
@@ -140,6 +143,7 @@ MR_C_API MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterat
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to things referred to by this object (if any) might be preserved as the return value.
 MR_C_API const MR_StdContainers_NonAssignable *MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator_deref(const MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_const_iterator *_this);
 
 /// Increments a const iterator.

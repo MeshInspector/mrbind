@@ -57,18 +57,22 @@ MR_C_API bool MR_C_std_expected_int_float_success(const MR_C_std_expected_int_fl
 
 /// If this instance represents success, returns the stored `int`. Otherwise null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_C_std_expected_int_float_value(const MR_C_std_expected_int_float *_this);
 
 /// If this instance represents an error, returns the stored `float`. Otherwise null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const float *MR_C_std_expected_int_float_error(const MR_C_std_expected_int_float *_this);
 
 /// If this instance represents success, returns the stored `int`. Otherwise null. This version returns a mutable pointer.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_C_std_expected_int_float_value_mut(MR_C_std_expected_int_float *_this);
 
 /// If this instance represents an error, returns the stored `float`. Otherwise null. This version returns a mutable pointer.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API float *MR_C_std_expected_int_float_error_mut(MR_C_std_expected_int_float *_this);
 
 #ifdef __cplusplus

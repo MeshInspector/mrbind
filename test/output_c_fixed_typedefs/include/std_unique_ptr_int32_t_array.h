@@ -70,11 +70,13 @@ MR_C_API MR_C_std_unique_ptr_int32_t_array *MR_C_std_unique_ptr_int32_t_array_Of
 
 // Returns the stored pointer, possibly null.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_C_std_unique_ptr_int32_t_array_get(const MR_C_std_unique_ptr_int32_t_array *_this);
 
 // Returns an element from the stored array. The stored pointer must not be null.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_C_std_unique_ptr_int32_t_array_at(const MR_C_std_unique_ptr_int32_t_array *_this, size_t i);
 
 // Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.

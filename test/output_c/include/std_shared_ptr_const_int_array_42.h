@@ -54,6 +54,7 @@ MR_C_API MR_C_std_shared_ptr_const_int_array_42 *MR_C_std_shared_ptr_const_int_a
 
 /// Returns the stored pointer, possibly null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_C_std_shared_ptr_const_int_array_42_get(const MR_C_std_shared_ptr_const_int_array_42 *_this);
 
 /// How many shared pointers share the managed object. Zero if no object is being managed.

@@ -59,35 +59,43 @@ MR_C_API MR_C_std_array_MR_StdContainers_A_42 *MR_C_std_array_MR_StdContainers_A
 // The element at a specific index, read-only.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API const MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_at(const MR_C_std_array_MR_StdContainers_A_42 *_this, size_t i);
 
 // The element at a specific index, mutable.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_at_mut(MR_C_std_array_MR_StdContainers_A_42 *_this, size_t i);
 
 // Returns a pointer to the continuous storage that holds all elements, read-only.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API const MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_data(const MR_C_std_array_MR_StdContainers_A_42 *_this);
 
 // Returns a pointer to the continuous storage that holds all elements, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_data_mut(MR_C_std_array_MR_StdContainers_A_42 *_this);
 
 // The begin iterator, const.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API const MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_begin(const MR_C_std_array_MR_StdContainers_A_42 *_this);
 
 // The begin iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_begin_mut(MR_C_std_array_MR_StdContainers_A_42 *_this);
 
 // The end iterator, const.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API const MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_end(const MR_C_std_array_MR_StdContainers_A_42 *_this);
 
 // The end iterator, mutable.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_StdContainers_A *MR_C_std_array_MR_StdContainers_A_42_end_mut(MR_C_std_array_MR_StdContainers_A_42 *_this);
 
 #ifdef __cplusplus

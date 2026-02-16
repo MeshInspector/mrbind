@@ -84,6 +84,7 @@ MR_C_API bool MR_C_std_set_float_contains(const MR_C_std_set_float *_this, const
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `key` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_find(const MR_C_std_set_float *_this, const float *key);
 
 /// Inserts a new element.
@@ -93,6 +94,7 @@ MR_C_API void MR_C_std_set_float_insert(MR_C_std_set_float *_this, float new_ele
 /// The begin iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_begin(const MR_C_std_set_float *_this);
 
 /// Tests whether a const iterator is the begin iterator.
@@ -103,6 +105,7 @@ MR_C_API bool MR_C_std_set_float_is_begin(const MR_C_std_set_float *_this, const
 /// The end iterator, const.
 /// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_float_const_iterator_Destroy()` to free it when you're done using it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_end(const MR_C_std_set_float *_this);
 
 /// Tests whether a const iterator is the end iterator.
@@ -150,6 +153,7 @@ MR_C_API MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_Of
 /// Dereferences a const iterator.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to things referred to by this object (if any) might be preserved as the return value.
 MR_C_API const float *MR_C_std_set_float_const_iterator_deref(const MR_C_std_set_float_const_iterator *_this);
 
 /// Increments a const iterator.

@@ -18218,6 +18218,186 @@ public static partial class MR
                 public static unsafe implicit operator _InOptConst_LifetimesD(MR.CS.CSharp.LifetimesB ref_) {return new Const_LifetimesD(ref_);}
             }
 
+            // Nested attributes.
+            /// Generated from class `MR::CSharp::LifetimesE`.
+            /// This is the const half of the class.
+            public class Const_LifetimesE : MR.CS.Misc.Object<Const_LifetimesE>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesE_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_LifetimesE_Destroy(_Underlying *_this);
+                    __MR_CSharp_LifetimesE_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_LifetimesE() {Dispose(false);}
+
+                public unsafe MR.CS.CSharp.Const_LifetimesA a
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesE_Get_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesE_Get_a(_Underlying *_this);
+                        MR.CS.CSharp.Const_LifetimesA __ret;
+                        __ret = new(__MR_CSharp_LifetimesE_Get_a(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
+                }
+
+                internal unsafe Const_LifetimesE(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// Generated from constructor `MR::CSharp::LifetimesE::LifetimesE`.
+                public unsafe Const_LifetimesE(MR.CS.CSharp.Const_LifetimesE _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesE_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.LifetimesE._Underlying *__MR_CSharp_LifetimesE_ConstructFromAnother(MR.CS.CSharp.LifetimesE._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_LifetimesE_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                }
+
+                /// Generated from constructor `MR::CSharp::LifetimesE::LifetimesE`.
+                public Const_LifetimesE(LifetimesE _other) : this((Const_LifetimesE)_other) {}
+
+                /// Generated from constructor `MR::CSharp::LifetimesE::LifetimesE`.
+                public unsafe Const_LifetimesE(MR.CS.CSharp.LifetimesB ref_) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesE_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.LifetimesE._Underlying *__MR_CSharp_LifetimesE_Construct(MR.CS.CSharp.LifetimesB._Underlying *ref_);
+                    _UnderlyingPtr = __MR_CSharp_LifetimesE_Construct(ref_._UnderlyingPtr);
+                    ref_._KeepAlive(this);
+                }
+
+                /// Generated from constructor `MR::CSharp::LifetimesE::LifetimesE`.
+                public static unsafe implicit operator Const_LifetimesE(MR.CS.CSharp.LifetimesB ref_) {return new(ref_);}
+            }
+
+            // Nested attributes.
+            /// Generated from class `MR::CSharp::LifetimesE`.
+            /// This is the non-const half of the class.
+            public class LifetimesE : Const_LifetimesE
+            {
+                public new unsafe MR.CS.CSharp.LifetimesA a
+                {
+                    get
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesE_GetMutable_a", ExactSpelling = true)]
+                        extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesE_GetMutable_a(_Underlying *_this);
+                        MR.CS.CSharp.LifetimesA __ret;
+                        __ret = new(__MR_CSharp_LifetimesE_GetMutable_a(_UnderlyingPtr), is_owning: false);
+                        __ret._KeepAliveEnclosingObject = this;
+                        return __ret;
+                    }
+                }
+
+                internal unsafe LifetimesE(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// Generated from constructor `MR::CSharp::LifetimesE::LifetimesE`.
+                public unsafe LifetimesE(MR.CS.CSharp.Const_LifetimesE _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesE_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.LifetimesE._Underlying *__MR_CSharp_LifetimesE_ConstructFromAnother(MR.CS.CSharp.LifetimesE._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_LifetimesE_ConstructFromAnother(_other._UnderlyingPtr);
+                    _KeepAlive(_other);
+                }
+
+                /// Generated from constructor `MR::CSharp::LifetimesE::LifetimesE`.
+                public LifetimesE(LifetimesE _other) : this((Const_LifetimesE)_other) {}
+
+                /// Generated from constructor `MR::CSharp::LifetimesE::LifetimesE`.
+                public unsafe LifetimesE(MR.CS.CSharp.LifetimesB ref_) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesE_Construct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.LifetimesE._Underlying *__MR_CSharp_LifetimesE_Construct(MR.CS.CSharp.LifetimesB._Underlying *ref_);
+                    _UnderlyingPtr = __MR_CSharp_LifetimesE_Construct(ref_._UnderlyingPtr);
+                    ref_._KeepAlive(this);
+                }
+
+                /// Generated from constructor `MR::CSharp::LifetimesE::LifetimesE`.
+                public static unsafe implicit operator LifetimesE(MR.CS.CSharp.LifetimesB ref_) {return new(ref_);}
+
+                /// Generated from method `MR::CSharp::LifetimesE::operator=`.
+                public unsafe MR.CS.CSharp.LifetimesE Assign(MR.CS.CSharp.Const_LifetimesE _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesE_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.LifetimesE._Underlying *__MR_CSharp_LifetimesE_AssignFromAnother(_Underlying *_this, MR.CS.CSharp.LifetimesE._Underlying *_other);
+                    _DiscardKeepAlive();
+                    _KeepAlive(_other);
+                    return new(__MR_CSharp_LifetimesE_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                }
+
+                /// Generated from method `MR::CSharp::LifetimesE::get`.
+                public unsafe MR.CS.CSharp.LifetimesA Get()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesE_get", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesE_get(_Underlying *_this);
+                    MR.CS.CSharp.LifetimesA __ret;
+                    __ret = new(__MR_CSharp_LifetimesE_get(_UnderlyingPtr), is_owning: false);
+                    __ret._KeepAlive(this);
+                    return __ret;
+                }
+
+                /// Generated from method `MR::CSharp::LifetimesE::return_ref`.
+                public unsafe MR.CS.CSharp.LifetimesA ReturnRef(MR.CS.CSharp.LifetimesA ref_)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesE_return_ref", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.LifetimesA._Underlying *__MR_CSharp_LifetimesE_return_ref(_Underlying *_this, MR.CS.CSharp.LifetimesA._Underlying *ref_);
+                    MR.CS.CSharp.LifetimesA __ret;
+                    __ret = new(__MR_CSharp_LifetimesE_return_ref(_UnderlyingPtr, ref_._UnderlyingPtr), is_owning: false);
+                    __ret._KeepAlive(ref_);
+                    return __ret;
+                }
+
+                /// Generated from method `MR::CSharp::LifetimesE::store_ref_in_this`.
+                public unsafe void StoreRefInThis(MR.CS.CSharp.LifetimesA ref_)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesE_store_ref_in_this", ExactSpelling = true)]
+                    extern static void __MR_CSharp_LifetimesE_store_ref_in_this(_Underlying *_this, MR.CS.CSharp.LifetimesA._Underlying *ref_);
+                    _KeepAlive(ref_);
+                    __MR_CSharp_LifetimesE_store_ref_in_this(_UnderlyingPtr, ref_._UnderlyingPtr);
+                }
+            }
+
+            /// This is used for optional parameters of class `LifetimesE` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_LifetimesE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `LifetimesE`/`Const_LifetimesE` directly.
+            public class _InOptMut_LifetimesE
+            {
+                public LifetimesE? Opt;
+
+                public _InOptMut_LifetimesE() {}
+                public _InOptMut_LifetimesE(LifetimesE value) {Opt = value;}
+                public static implicit operator _InOptMut_LifetimesE(LifetimesE value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `LifetimesE` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_LifetimesE`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `LifetimesE`/`Const_LifetimesE` to pass it to the function.
+            public class _InOptConst_LifetimesE
+            {
+                public Const_LifetimesE? Opt;
+
+                public _InOptConst_LifetimesE() {}
+                public _InOptConst_LifetimesE(Const_LifetimesE value) {Opt = value;}
+                public static implicit operator _InOptConst_LifetimesE(Const_LifetimesE value) {return new(value);}
+
+                /// Generated from constructor `MR::CSharp::LifetimesE::LifetimesE`.
+                public static unsafe implicit operator _InOptConst_LifetimesE(MR.CS.CSharp.LifetimesB ref_) {return new Const_LifetimesE(ref_);}
+            }
+
             // Const member functions.
             /// Generated from class `MR::CSharp::IterableA`.
             /// This is the const half of the class.

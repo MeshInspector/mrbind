@@ -58,11 +58,13 @@ MR_C_API MR_C_std_tuple_int *MR_C_std_tuple_int_Construct(int _0);
 /// The element 0, of type `int`, read-only.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_C_std_tuple_int_get_int(const MR_C_std_tuple_int *_this);
 
 /// The element 0, of type `int`, mutable.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_C_std_tuple_int_get_int_mut(MR_C_std_tuple_int *_this);
 
 #ifdef __cplusplus

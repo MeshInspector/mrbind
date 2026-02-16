@@ -103,6 +103,7 @@ MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_foo5_0(void);
 /// Returns a pointer to a member variable of class `MR::SignatureFilters::Blah` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const MR_SignatureFilters_A *MR_SignatureFilters_Blah_Get_a(const MR_SignatureFilters_Blah *_this);
 
 /// Modifies a member variable of class `MR::SignatureFilters::Blah` named `a`.
@@ -115,6 +116,7 @@ MR_C_API void MR_SignatureFilters_Blah_Set_a(MR_SignatureFilters_Blah *_this, co
 /// Returns a mutable pointer to a member variable of class `MR::SignatureFilters::Blah` named `a`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// The reference to this object might be preserved as the return value.
 MR_C_API MR_SignatureFilters_A *MR_SignatureFilters_Blah_GetMutable_a(MR_SignatureFilters_Blah *_this);
 
 /// Constructs an empty (default-constructed) instance.

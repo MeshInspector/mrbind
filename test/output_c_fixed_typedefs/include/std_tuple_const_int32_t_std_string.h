@@ -62,16 +62,19 @@ MR_C_API MR_C_std_tuple_const_int32_t_std_string *MR_C_std_tuple_const_int32_t_s
 // The element 0, of type `const int32_t`, read-only.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API const int32_t *MR_C_std_tuple_const_int32_t_std_string_get_const_int32_t(const MR_C_std_tuple_const_int32_t_std_string *_this);
 
 // The element 1, of type `std::string`, read-only.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API const MR_C_std_string *MR_C_std_tuple_const_int32_t_std_string_get_std_string(const MR_C_std_tuple_const_int32_t_std_string *_this);
 
 // The element 1, of type `std::string`, mutable.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_std_string *MR_C_std_tuple_const_int32_t_std_string_get_std_string_mut(MR_C_std_tuple_const_int32_t_std_string *_this);
 
 #ifdef __cplusplus

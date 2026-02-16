@@ -69,6 +69,7 @@ MR_C_API MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_OffsetMutableP
 
 // Returns the stored pointer, possibly null.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_C_std_unique_ptr_int32_t_get(const MR_C_std_unique_ptr_int32_t *_this);
 
 // Releases the pointer ownership. Returns the stored pointer and zeroes the source. If the source is already null, returns null and does nothing.

@@ -29,6 +29,7 @@ typedef struct MR_LifetimeInference_C MR_LifetimeInference_C;
 // Returns a pointer to a member variable of class `MR::LifetimeInference::A` named `x`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API const int32_t *MR_LifetimeInference_A_Get_x(const MR_LifetimeInference_A *_this);
 
 // Modifies a member variable of class `MR::LifetimeInference::A` named `x`.
@@ -40,6 +41,7 @@ MR_C_API void MR_LifetimeInference_A_Set_x(MR_LifetimeInference_A *_this, int32_
 // Returns a mutable pointer to a member variable of class `MR::LifetimeInference::A` named `x`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_LifetimeInference_A_GetMutable_x(MR_LifetimeInference_A *_this);
 
 // Constructs an empty (default-constructed) instance.
@@ -87,10 +89,12 @@ MR_C_API MR_LifetimeInference_A *MR_LifetimeInference_A_AssignFromAnother(MR_Lif
 
 // Generated from method `MR::LifetimeInference::A::begin`.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved in the return value.
 MR_C_API int32_t *MR_LifetimeInference_A_begin(MR_LifetimeInference_A *_this);
 
 // Generated from method `MR::LifetimeInference::A::end`.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved in the return value.
 MR_C_API int32_t *MR_LifetimeInference_A_end(MR_LifetimeInference_A *_this);
 
 // Generated from function `MR::LifetimeInference::begin`.
@@ -106,6 +110,7 @@ MR_C_API int32_t *MR_LifetimeInference_end_MR_LifetimeInference_A(MR_LifetimeInf
 // Returns a pointer to a member variable of class `MR::LifetimeInference::B` named `x`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API const int32_t *MR_LifetimeInference_B_Get_x(const MR_LifetimeInference_B *_this);
 
 // Modifies a member variable of class `MR::LifetimeInference::B` named `x`.
@@ -117,6 +122,7 @@ MR_C_API void MR_LifetimeInference_B_Set_x(MR_LifetimeInference_B *_this, int32_
 // Returns a mutable pointer to a member variable of class `MR::LifetimeInference::B` named `x`.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_LifetimeInference_B_GetMutable_x(MR_LifetimeInference_B *_this);
 
 // Constructs an empty (default-constructed) instance.

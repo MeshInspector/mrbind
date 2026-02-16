@@ -51,11 +51,13 @@ MR_C_API MR_C_std_pair_const_int32_t_ref_const_float_ref *MR_C_std_pair_const_in
 // The first of the two elements, read-only.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API const int32_t *MR_C_std_pair_const_int32_t_ref_const_float_ref_first(const MR_C_std_pair_const_int32_t_ref_const_float_ref *_this);
 
 // The second of the two elements, read-only.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API const float *MR_C_std_pair_const_int32_t_ref_const_float_ref_second(const MR_C_std_pair_const_int32_t_ref_const_float_ref *_this);
 
 #ifdef __cplusplus

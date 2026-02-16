@@ -60,11 +60,13 @@ MR_C_API MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_Of
 
 // Returns the stored pointer, possibly null.
 // Parameter `_this` can not be null. It is a single object.
+// The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_C_std_shared_ptr_int32_t_array_get(const MR_C_std_shared_ptr_int32_t_array *_this);
 
 // Returns an element from the stored array. The stored pointer must not be null.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_C_std_shared_ptr_int32_t_array_at(const MR_C_std_shared_ptr_int32_t_array *_this, ptrdiff_t i);
 
 // How many shared pointers share the managed object. Zero if no object is being managed.

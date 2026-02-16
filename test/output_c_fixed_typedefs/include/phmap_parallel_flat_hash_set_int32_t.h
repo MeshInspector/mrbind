@@ -89,6 +89,7 @@ MR_C_API bool MR_C_phmap_parallel_flat_hash_set_int32_t_contains(const MR_C_phma
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `key` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator_Destroy()` to free it when you're done using it.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator *MR_C_phmap_parallel_flat_hash_set_int32_t_find(const MR_C_phmap_parallel_flat_hash_set_int32_t *_this, const int32_t *key);
 
 // Inserts a new element.
@@ -99,6 +100,7 @@ MR_C_API void MR_C_phmap_parallel_flat_hash_set_int32_t_insert(MR_C_phmap_parall
 // The begin iterator, const.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator_Destroy()` to free it when you're done using it.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator *MR_C_phmap_parallel_flat_hash_set_int32_t_begin(const MR_C_phmap_parallel_flat_hash_set_int32_t *_this);
 
 // Tests whether a const iterator is the begin iterator.
@@ -109,6 +111,7 @@ MR_C_API bool MR_C_phmap_parallel_flat_hash_set_int32_t_is_begin(const MR_C_phma
 // The end iterator, const.
 // Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator_Destroy()` to free it when you're done using it.
+// The reference to this object might be preserved as the return value.
 MR_C_API MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator *MR_C_phmap_parallel_flat_hash_set_int32_t_end(const MR_C_phmap_parallel_flat_hash_set_int32_t *_this);
 
 // Tests whether a const iterator is the end iterator.
@@ -156,6 +159,7 @@ MR_C_API MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator *MR_C_phmap_pa
 // Dereferences a const iterator.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
+// The reference to things referred to by this object (if any) might be preserved as the return value.
 MR_C_API const int32_t *MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator_deref(const MR_C_phmap_parallel_flat_hash_set_int32_t_const_iterator *_this);
 
 // Increments a const iterator.

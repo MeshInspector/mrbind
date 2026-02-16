@@ -54,6 +54,7 @@ MR_C_API MR_C_std_shared_ptr_int *MR_C_std_shared_ptr_int_OffsetMutablePtr(MR_C_
 
 /// Returns the stored pointer, possibly null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_C_std_shared_ptr_int_get(const MR_C_std_shared_ptr_int *_this);
 
 /// How many shared pointers share the managed object. Zero if no object is being managed.

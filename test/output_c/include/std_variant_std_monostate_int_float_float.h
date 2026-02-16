@@ -99,30 +99,37 @@ MR_C_API void MR_C_std_variant_std_monostate_int_float_float_AssignAs_float_3(MR
 
 /// Returns the element 0, of type `std::monostate`, read-only. If it's not the active element, returns null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API bool MR_C_std_variant_std_monostate_int_float_float_get_std_monostate(const MR_C_std_variant_std_monostate_int_float_float *_this);
 
 /// Returns the element 1, of type `int`, read-only. If it's not the active element, returns null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_C_std_variant_std_monostate_int_float_float_get_int(const MR_C_std_variant_std_monostate_int_float_float *_this);
 
 /// Returns the element 1, of type `int`, mutable. If it's not the active element, returns null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API int *MR_C_std_variant_std_monostate_int_float_float_get_int_mut(MR_C_std_variant_std_monostate_int_float_float *_this);
 
 /// Returns the element 2, of type `float`, read-only. If it's not the active element, returns null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const float *MR_C_std_variant_std_monostate_int_float_float_get_float_2(const MR_C_std_variant_std_monostate_int_float_float *_this);
 
 /// Returns the element 2, of type `float`, mutable. If it's not the active element, returns null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API float *MR_C_std_variant_std_monostate_int_float_float_get_float_2_mut(MR_C_std_variant_std_monostate_int_float_float *_this);
 
 /// Returns the element 3, of type `float`, read-only. If it's not the active element, returns null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API const float *MR_C_std_variant_std_monostate_int_float_float_get_float_3(const MR_C_std_variant_std_monostate_int_float_float *_this);
 
 /// Returns the element 3, of type `float`, mutable. If it's not the active element, returns null.
 /// Parameter `_this` can not be null. It is a single object.
+/// The reference to this object might be preserved as the return value.
 MR_C_API float *MR_C_std_variant_std_monostate_int_float_float_get_float_3_mut(MR_C_std_variant_std_monostate_int_float_float *_this);
 
 #ifdef __cplusplus

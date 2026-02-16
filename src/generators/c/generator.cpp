@@ -2350,6 +2350,77 @@ namespace mrbind::CBindings
                 i_onebased_nothis++;
         }
 
+        // Appends a comment to the output, that describes the lifetime properties of `target`.
+        // This lambda has to be called for all valid targets to emit all necessary information.
+        // If `allow == false`, will throw if anything matches `target`, instead of printing it.
+        auto InsertLifetimeCommentFor = [&](const LifetimeRelation::Variant &target, bool allow = true)
+        {
+            auto WriteLifetimeComment = [&](const std::string &comment)
+            {
+                ret.comment += comment;
+                ret.comment_lifetimes += comment;
+            };
+
+            auto WriteVariantDesc = [&](const LifetimeRelation::Variant &var)
+            {
+                std::visit(Overload{
+                    [&](const LifetimeRelation::ThisObject &)
+                    {
+                        if (params.name.IsConstructor())
+                        {
+                            WriteLifetimeComment("the constructed object");
+                        }
+                        else
+                        {
+                            assert(!params.params.empty() && params.params.at(0).kind != EmitFuncParams::Param::Kind::normal);
+                            WriteLifetimeComment("this object");
+                        }
+                    },
+                    [&](const LifetimeRelation::ReturnValue &)
+                    {
+                        assert(!params.name.IsConstructor());
+                        WriteLifetimeComment("the return value");
+                    },
+                    [&](const LifetimeRelation::Param &param)
+                    {
+                        assert(params.params.at(std::size_t(param.index)).kind == EmitFuncParams::Param::Kind::normal);
+                        WriteLifetimeComment("the parameter `" + ret.params_info.at(std::size_t(param.index)).fixed_name + "`");
+                    },
+                }, var);
+            };
+
+            for (const LifetimeRelation &lifetime : ret.lifetimes.relations)
+            {
+                if (lifetime.target != target)
+                    continue;
+
+                if (!allow)
+                    throw std::logic_error("Internal error: Invalid lifetime annotation on this function.");
+
+                WriteLifetimeComment("/// The reference to ");
+
+                if (lifetime.only_nested)
+                    WriteLifetimeComment("things referred to by ");
+
+                WriteVariantDesc(lifetime.target);
+
+                if (lifetime.only_nested)
+                    WriteLifetimeComment(" (if any)");
+
+                WriteLifetimeComment(" might be preserved ");
+                WriteLifetimeComment(std::holds_alternative<LifetimeRelation::ClassSubobject>(lifetime.key) ? "as " : "in ");
+
+                WriteVariantDesc(lifetime.holder);
+
+                if (auto key = std::get_if<std::string>(&lifetime.key); key && !key->empty())
+                    WriteLifetimeComment(" in element `" + *key + "`");
+
+                WriteLifetimeComment(".\n");
+
+                // I'd say "Make sure it doesn't dangle." here, but this will look meaningless in Python/C#/etc.
+            }
+        };
+
         // For each C++ parameter...
         std::size_t i = 0;
         std::size_t i_onebased_nothis = 1; // This counter doesn't increment on `this` parameters, and is 1-based for user-friendliness.
@@ -2456,64 +2527,8 @@ namespace mrbind::CBindings
                         ret.comment += "/// Parameter `" + param_name_fixed + "` defaults to " + *useless_default_arg_message + " in C++.\n";
                     }
 
-                    { // Comment about lifetime, if any.
-                        auto WriteLifetimeComment = [&](const std::string &comment)
-                        {
-                            ret.comment += comment;
-                            ret.comment_lifetimes += comment;
-                        };
-
-                        for (const LifetimeRelation &lifetime : ret.lifetimes.relations)
-                        {
-                            if (auto param = std::get_if<LifetimeRelation::Param>(&lifetime.target); param && param->index == int(i))
-                            {
-                                WriteLifetimeComment("/// The reference to ");
-
-                                if (lifetime.only_nested)
-                                    WriteLifetimeComment("things referred to by ");
-
-                                WriteLifetimeComment("the parameter `" + out_param_info.fixed_name + "` ");
-
-                                if (lifetime.only_nested)
-                                    WriteLifetimeComment("(if any) ");
-
-                                WriteLifetimeComment("might be preserved ");
-                                WriteLifetimeComment(std::holds_alternative<LifetimeRelation::ClassSubobject>(lifetime.key) ? "as " : "in ");
-
-                                std::visit(Overload{
-                                    [&](const LifetimeRelation::ThisObject &)
-                                    {
-                                        if (params.name.IsConstructor())
-                                        {
-                                            WriteLifetimeComment("the constructed object");
-                                        }
-                                        else
-                                        {
-                                            assert(!params.params.empty() && params.params.at(0).kind != EmitFuncParams::Param::Kind::normal);
-                                            WriteLifetimeComment("this object");
-                                        }
-                                    },
-                                    [&](const LifetimeRelation::ReturnValue &)
-                                    {
-                                        assert(!params.name.IsConstructor());
-                                        WriteLifetimeComment("the return value");
-                                    },
-                                    [&](const LifetimeRelation::Param &param)
-                                    {
-                                        assert(params.params.at(std::size_t(param.index)).kind == EmitFuncParams::Param::Kind::normal);
-                                        WriteLifetimeComment("the parameter `" + ret.params_info.at(std::size_t(param.index)).fixed_name + "`");
-                                    },
-                                }, lifetime.holder);
-
-                                if (auto key = std::get_if<std::string>(&lifetime.key); key && !key->empty())
-                                    WriteLifetimeComment(" in element `" + *key + "`");
-
-                                WriteLifetimeComment(".\n");
-
-                                // I'd say "Make sure it doesn't dangle." here, but this will look meaningless in Python/C#/etc.
-                            }
-                        }
-                    }
+                    // Comment about lifetime, if any.
+                    InsertLifetimeCommentFor(LifetimeRelation::Param{.index = int(i)});
 
                     if (!param.custom_argument_spelling && param.kind != EmitFuncParams::Param::Kind::static_ && !param.omit_from_call)
                         arg_expr = param_usage.CParamsToCpp(file.source, param_name_fixed, has_useful_default_arg ? BindableType::ParamUsage::DefaultArgVar(param.default_arg->cpp_expr) : BindableType::ParamUsage::DefaultArgNone{});
@@ -2698,6 +2713,10 @@ namespace mrbind::CBindings
         }
 
         { // Append non-parameter-specific lifetime information to the comment.
+            // Note that for constructors, we allow `ThisObject` but don't allow `ReturnValue`.
+            InsertLifetimeCommentFor(LifetimeRelation::ThisObject{}, (!params.params.empty() && params.params.front().kind == EmitFuncParams::Param::Kind::this_ref) || params.name.IsConstructor());
+            InsertLifetimeCommentFor(LifetimeRelation::ReturnValue{}, !params.name.IsConstructor());
+
             for (const auto &removed_keys : ret.lifetimes.removed_keys)
             {
                 if (removed_keys.second.empty())
@@ -4615,10 +4634,17 @@ namespace mrbind::CBindings
                                             // Hide from interop. Call those functions directly by their names if you need them.
                                             emit.name.ignore_in_interop = true;
 
-                                            emit.lifetimes.ReturnsReferenceToSubobject();
-
                                             // Will add a pointer or a reference later.
                                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(target_cpp_qual_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_);
+
+                                            // Add a `static this` parameter to make some of our internal checks happy.
+                                            // This is considered to be a static function.
+                                            emit.params.push_back({
+                                                .name = "_this",
+                                                .kind = EmitFuncParams::Param::Kind::static_,
+                                                .omit_from_call = true,
+                                                .cpp_type = cppdecl::Type::FromQualifiedName(cpp_class_name),
+                                            });
 
                                             // This is not a `this` parameter, because for some of the casts it's a nullable pointer,
                                             //   and our `this` params are intended to be non-nullable.
@@ -4627,6 +4653,7 @@ namespace mrbind::CBindings
                                                 .name = "object",
                                                 // Will add a pointer or a reference later.
                                                 .cpp_type = cppdecl::Type::FromQualifiedName(cpp_class_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_),
+                                                .reference_returned = true,
                                             });
 
                                             if (acts_on_ref)
