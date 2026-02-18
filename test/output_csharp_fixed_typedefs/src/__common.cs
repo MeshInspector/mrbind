@@ -353,7 +353,9 @@ public static partial class MR
                         _KeepAliveData.Clear(); // I could also make it null, but I don't think it's worth it.
                         return;
                     }
-                    _KeepAliveData[key].Clear(); // Or we could `.Remove(key)`, but keeping a slot in the map looks better to me.
+                    HashSet<object>? set;
+                    if (_KeepAliveData.TryGetValue(key, out set))
+                        set.Clear(); // Or we could `.Remove(key)`, but keeping a slot in the map looks better to me.
                 }
                 public static void _StaticDiscardKeepAlive(string key = "")
                 {
@@ -364,7 +366,9 @@ public static partial class MR
                         _StaticKeepAliveData.Clear(); // I could also make it null, but I don't think it's worth it.
                         return;
                     }
-                    _StaticKeepAliveData[key].Clear(); // Or we could `.Remove(key)`, but keeping a slot in the map looks better to me.
+                    HashSet<object>? set;
+                    if (_StaticKeepAliveData.TryGetValue(key, out set))
+                        set.Clear(); // Or we could `.Remove(key)`, but keeping a slot in the map looks better to me.
                 }
             }
 
