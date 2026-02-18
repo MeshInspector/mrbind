@@ -54,6 +54,40 @@ namespace mrbind::CSharp
         return ret;
     }
 
+    void AdjustCppQualNameForCSharpSpelling(cppdecl::QualifiedName &name)
+    {
+        // Handle `std::function`.
+        // Without this, the default spelling for e.g. `std::function<int(int, int)>` ends up being `Function_IntFuncFromIntInt`, and we want to get rid of the second `Func`.
+        // We do this by rewriting that name into `std::function<int, From, int, int>` first.
+        if (
+            name.parts.size() == 2 &&
+            name.parts.front().AsSingleWord() == "std" &&
+            name.parts.back().AsSingleWord(cppdecl::SingleWordFlags::ignore_template_args) == "function" &&
+            name.parts.back().template_args &&
+            name.parts.back().template_args->args.size() == 1 &&
+            name.parts.back().template_args->args.front().IsType() &&
+            name.parts.back().template_args->args.front().AsType()->Is<cppdecl::Function>()
+        )
+        {
+            auto &targs = name.parts.back().template_args->args;
+
+            cppdecl::Type func_type = std::move(*targs.front().AsType());
+            cppdecl::Function &func = *func_type.As<cppdecl::Function>();
+
+            // Write the return type.
+            targs.front().var = func_type; // Intentionally copying this, instead of moving or modifying the original. We need `func` to remain valid.
+            targs.front().AsType()->RemoveModifier(); // Remove function-ness, leaving only the return type.
+
+            if (!func.params.empty())
+            {
+                name.AddTemplateArgument(cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName::FromSingleWord("From")));
+
+                for (auto &param : func.params)
+                    name.AddTemplateArgument(std::move(param.type));
+            }
+        }
+    }
+
     bool AdjustIfMatchesCSharpKeyword(std::string &str)
     {
         static const std::unordered_set<std::string> csharp_keywords = {
@@ -778,11 +812,16 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::CppToCSharpUnqualClassName(const cppdecl::QualifiedName &name, bool is_const)
+    std::string Generator::CppToCSharpUnqualClassName(cppdecl::QualifiedName name, bool is_const)
     {
         // Custom names for exposed structs.
         // Eventually we might want to remove those wrappers entirely.
         const auto &class_info = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(name))->var);
+
+        // Need this e.g. to adjust the C# spelling of `std::function<...>`. See this function for details.
+        // Must do this after `FindTypeOpt()`, since this modifies the spelling.
+        AdjustCppQualNameForCSharpSpelling(name);
+
         if (class_info.kind == CInterop::ClassKind::exposed_struct)
             return (is_const ? "ConstBox_" : "Box_") + CppToCSharpIdentifier(name.parts.back());
 

@@ -27,11 +27,23 @@ namespace mrbind::CSharp
     // Transforms a single C++ string (usually a type name or a qualified name) to C# style.
     [[nodiscard]] std::string CppIdentifierToCSharpIdentifier(std::string_view cpp_ident);
 
+    // Adjust the spelling of `name` to make it work better with `CppToCSharpIdentifier()`.
+    // You almost never need to call this manually, because `CppToCSharpIdentifier()` also calls this, recursively for every qualified name in its argument.
+    // The point of having this as a separate function is for when you want to pass an unqualified name into `CppToCSharpIdentifier()`, which is a part of a qualified name,
+    //   which you first want to adjust with this function.
+    void AdjustCppQualNameForCSharpSpelling(cppdecl::QualifiedName &name);
+
     // Transforms any C++ entity to a C#-style name.
     [[nodiscard]] std::string CppToCSharpIdentifier(auto value)
     {
-        // Adjust qualified names first.
+        // Do an early pass to special-case some names.
+        (void)value.template VisitEachComponent<cppdecl::QualifiedName>({}, [](cppdecl::QualifiedName &name)
+        {
+            AdjustCppQualNameForCSharpSpelling(name);
+            return false;
+        });
 
+        // Now the main part. Adjust qualified names.
         (void)value.template VisitEachComponent<cppdecl::UnqualifiedName, cppdecl::QualifiedName>({}, Overload{
             [](cppdecl::UnqualifiedName &name)
             {
@@ -597,7 +609,7 @@ namespace mrbind::CSharp
         [[nodiscard]] std::string CppToCSharpClassName(cppdecl::QualifiedName name, bool is_const);
         // Same, but produces an unqualified name. This still needs a full name on input,
         //   since the result can be affected by the properties of the class.
-        [[nodiscard]] std::string CppToCSharpUnqualClassName(const cppdecl::QualifiedName &name, bool is_const);
+        [[nodiscard]] std::string CppToCSharpUnqualClassName(cppdecl::QualifiedName name, bool is_const);
 
         // Converts a C++ qualified class name to a C# name. This is only for exposed structs, and returns the name of the corresponding C# `ref struct`.
         [[nodiscard]] std::string CppToCSharpExposedStructName(cppdecl::QualifiedName name);
