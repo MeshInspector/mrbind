@@ -168,8 +168,38 @@ namespace mrbind::CSharp
                 // Forces the enclosing function to be `unsafe`. This happens automatically if you have `*` in the types.
                 bool force_unsafe = false;
 
-                // A comma-separated list of parameter declarations for the `DllImport` C# function declaration, or empty if none.
-                std::string dllimport_decl_params;
+                struct DllImportParam
+                {
+                    std::string type;
+                    std::string name;
+
+                    [[nodiscard]] std::string ToString() const
+                    {
+                        assert(!type.empty() && !type.starts_with(' ') && !type.ends_with(' '));
+                        assert(!name.empty() && !name.starts_with(' ') && !name.ends_with(' '));
+
+                        std::string ret = type;
+                        if (!ret.ends_with('*'))
+                            ret += ' ';
+                        ret += name;
+                        return ret;
+                    }
+                };
+
+                // A list of parameter declarations for the `DllImport` C# function declaration, if any.
+                std::vector<DllImportParam> dllimport_decl_params;
+
+                [[nodiscard]] std::string DllImportDeclParamsString() const
+                {
+                    std::string ret;
+                    for (bool first = true; const auto &param : dllimport_decl_params)
+                    {
+                        if (!std::exchange(first, false))
+                            ret += ", ";
+                        ret += param.ToString();
+                    }
+                    return ret;
+                }
 
                 struct CSharpParam
                 {
