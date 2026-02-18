@@ -246,8 +246,8 @@ namespace mrbind::CSharp
                 // If not empty, must end with a newline. No indentation is needed.
                 std::string extra_statements = "";
 
-                // A comma-separated list of arguments that will be passed to the `DllImport`ed C function, or empty if none.
-                std::string dllimport_args;
+                // A list of arguments that will be passed to the `DllImport`ed C function, if any.
+                std::vector<std::string> dllimport_args;
 
                 // Optional. The additional statements to insert for this parameter after calling the C function.
                 // If not empty, must end with a newline. No indentation is needed.
