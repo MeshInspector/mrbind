@@ -289,8 +289,19 @@ namespace mrbind::CBindings::Modules
                             // Now adjust the return expression.
                             ret.make_return_expr = [&file, callback_return_usage, output_parameters_base_name](std::string_view expr) -> std::string
                             {
-                                std::string ret = "decltype(auto) " + output_parameters_base_name + " = " + std::string(expr) + ";\n    ";
-                                ret += "return " + callback_return_usage->CParamsToCpp(file.source, output_parameters_base_name, {}) + ";";
+                                std::string ret = "decltype(auto) " + output_parameters_base_name + " = " + std::string(expr) + ";\n";
+
+                                if (callback_return_usage->early_non_throwing_statements)
+                                {
+                                    std::string str = callback_return_usage->early_non_throwing_statements(output_parameters_base_name);
+                                    if (!str.empty())
+                                    {
+                                        assert(str.ends_with('\n'));
+                                        ret += Strings::Indent(str);
+                                    }
+                                }
+
+                                ret += "    return " + callback_return_usage->CParamsToCpp(file.source, output_parameters_base_name, {}) + ";";
                                 return ret;
                             };
                         }

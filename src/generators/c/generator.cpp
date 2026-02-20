@@ -213,6 +213,7 @@ namespace mrbind::CBindings
 
         file.InitRelativeName(*this, "__mrbind_c_details", false);
         file.header.stdlib_headers.insert("stdexcept");
+        file.header.stdlib_headers.insert("utility"); // For `std::move`.
 
         std::string pass_by_enum_name = GetPassByEnumName();
 
@@ -228,6 +229,30 @@ namespace mrbind::CBindings
             "    #define MRBINDC_CLASSARG_DEF_ARG(param_, enum_constant_, default_arg_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `\" #enum_constant_ \"` was used.\") : __VA_ARGS__(default_arg_)) :\n"
             "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, enum_constant_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? throw std::runtime_error(\"Function parameter `\" #param_ \" doesn't support `\" #enum_constant_ \"`.\") :\n"
             "    #define MRBINDC_CLASSARG_END(param_, .../*cpp_type_*/) true ? throw std::runtime_error(\"Invalid `" + pass_by_enum_name + "` enum value specified for function parameter `\" #param_ \".\") : ((__VA_ARGS__ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n"
+            "\n"
+            "    // This is used by the `MRBINDC_CLASSARG_GUARD()` macro, see below.\n"
+            "    template <typename T>\n"
+            "    struct ClassArgGuard\n"
+            "    {\n"
+            "        T *ptr = nullptr;\n"
+            "        ClassArgGuard(T *new_ptr, " + pass_by_enum_name + " &pass_by)\n"
+            "        {\n"
+            "            if (pass_by != " + pass_by_enum_name + "_MoveAndDestroy)\n"
+            "                return;\n"
+            "            ptr = new_ptr;\n"
+            "            pass_by = " + pass_by_enum_name + "_Move;\n"
+            "        }\n"
+            "        ClassArgGuard(const ClassArgGuard &) = delete;\n"
+            "        ClassArgGuard &operator=(const ClassArgGuard &) = delete;\n"
+            "        ~ClassArgGuard()\n"
+            "        {\n"
+            "            if (ptr)\n"
+            "                delete ptr;\n"
+            "        }\n"
+            "    };\n"
+            "\n"
+            "    // This is used to handle `" + pass_by_enum_name + "_MoveAndDestroy`.\n"
+            "    #define MRBINDC_CLASSARG_GUARD(param_, .../*cpp_type_without_wrapper_*/) mrbindc_details::ClassArgGuard<__VA_ARGS__> _classarg_guard_##param_((__VA_ARGS__ *)param_, param_##_pass_by)\n"
             "\n"
             "    // Converts an rvalue to an lvalue.\n"
             "    template <typename T> constexpr T &unmove(T &&value) {return static_cast<T &>(value);}\n"
@@ -320,6 +345,7 @@ namespace mrbind::CBindings
                 "    " + name + "_DefaultConstruct, // Default-construct this parameter, the associated pointer must be null.\n"
                 "    " + name + "_Copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.\n"
                 "    " + name + "_Move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.\n"
+                "    " + name + "_MoveAndDestroy, // Same as `Move`, but also destroy the pointer after moving from it.\n"
                 "    " + name + "_DefaultArgument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.\n"
                 "    " + name + "_NoObject, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.\n"
                 "} " + name + ";\n"
@@ -2298,6 +2324,10 @@ namespace mrbind::CBindings
             ret.comment += '\n';
         }
 
+        // This is for setting up guards before anything can throw.
+        std::string body_pre_pre;
+
+        // This is just a copy of `params.cpp_extra_statements`, but we also replace placeholders in it, if any.
         std::string body_pre;
         if (!params.cpp_extra_statements.empty())
         {
@@ -2480,6 +2510,18 @@ namespace mrbind::CBindings
                     // Update the deprecation flag.
                     if (param_usage.silence_deprecation)
                         should_silence_deprecation = true;
+
+                    // Update the pre-pre part of the body.
+                    if (param_usage.early_non_throwing_statements)
+                    {
+                        std::string str = param_usage.early_non_throwing_statements(param_name_fixed);
+                        if (!str.empty())
+                        {
+                            assert(str.ends_with('\n'));
+                            body_pre_pre += str;
+                        }
+                    }
+
 
                     for (const auto &c_param : param_usage.c_params)
                     {
@@ -2799,6 +2841,12 @@ namespace mrbind::CBindings
             {
                 ret.body += "    MRBINDC_IGNORE_DEPRECATION(\n";
                 file.source.custom_headers.insert(GetInternalDetailsFile().header.path_for_inclusion);
+            }
+
+            if (!body_pre_pre.empty())
+            {
+                assert(body_pre_pre.ends_with('\n'));
+                ret.body += Strings::Indent(body_pre_pre);
             }
 
             if (!body_pre.empty())

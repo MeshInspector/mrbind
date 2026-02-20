@@ -25,6 +25,7 @@ namespace mrbind::CInterop
         default_construct, // Default-construct this parameter, the associated pointer must be null.
         copy, // Copy the object into the function. For most types this doesn't modify the input object, so feel free to cast away constness from it if needed.
         move, // Move the object into the function. The input object remains alive and still needs to be manually destroyed after.
+        move_and_destroy, // Same as `move`, but also destroy the pointer after moving from it.
         default_argument, // If this function has a default argument value for this parameter, uses that; illegal otherwise. The associated pointer must be null.
         no_object, // This is used to pass no object to the function (functions supporting this will document this fact). This is used e.g. for C++ `std::optional<T>` parameters.
     };

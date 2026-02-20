@@ -114,6 +114,7 @@ namespace mrbind::CBindings::Modules
             // All we need to do is to adjust the callbacks a bit, in particular to pass `std::optional<T>` as the wrapper.
             auto &param_usage = new_type.param_usage.emplace();
             param_usage = elem_type_binding.param_usage_with_default_arg.value();
+            // We intentionally copy `early_non_throwing_statements` as is.
             param_usage.c_params_to_cpp =
                 [
                     next = std::move(param_usage.c_params_to_cpp),
@@ -161,6 +162,7 @@ namespace mrbind::CBindings::Modules
             {
                 auto &param_usage_defarg = new_type.param_usage_with_default_arg.emplace();
                 param_usage_defarg = elem_type_binding.param_usage_with_default_arg.value();
+                // We intentionally copy `early_non_throwing_statements` as is.
 
                 param_usage_defarg.supports_default_arguments_in_wrappers = false; // Important! Or optionals of optionals will blow up.
 

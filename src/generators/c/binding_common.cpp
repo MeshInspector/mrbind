@@ -284,6 +284,8 @@ namespace mrbind::CBindings
             param_usage.c_params.emplace_back().c_type = cppdecl::Type::FromSingleWord(c_type_name);
             param_usage.c_params.back().c_type.AddModifier(cppdecl::Pointer{}); // This should be the only modifier at this point.
 
+            param_usage.early_non_throwing_statements = [cpp_type_str](const std::string &cpp_param_name){return "MRBINDC_CLASSARG_GUARD(" + cpp_param_name + ", " + cpp_type_str + ");\n";};
+
             param_usage.c_params_to_cpp = [
                 &generator,
                 cpp_type_str,

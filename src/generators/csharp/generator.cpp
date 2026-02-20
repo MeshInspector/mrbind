@@ -8200,6 +8200,7 @@ namespace mrbind::CSharp
                         "    default_construct,\n"
                         "    copy,\n"
                         "    move,\n"
+                        "    move_and_destroy,\n"
                         "    default_arg,\n"
                         "    no_object,\n"
                         "}\n"

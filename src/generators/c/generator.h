@@ -772,6 +772,11 @@ namespace mrbind::CBindings
                 // See `.c_params_to_cpp` below for the explanation.
                 using DefaultArgVar = std::variant<DefaultArgNone, std::string_view, DefaultArgWrapper>;
 
+                // Optional. If specified, must end with a newline.
+                // Those statements are added to the beginning of the C function that has this parameter.
+                // The goal is to set up anything related to exception cleanup, before something could throw.
+                std::function<std::string(const std::string &cpp_param_name)> early_non_throwing_statements = {};
+
                 // Defaults to returning `cpp_param_name` if null.
                 // Given a C++ parameter name (which normally matches the C name, but see `CParam::name_suffix` above), generates the argument for it.
                 // NOTE: The return value must be correctly parenthesized if necessary (so that e.g. `"&" + result` compiles correctly).
