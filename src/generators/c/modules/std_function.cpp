@@ -73,7 +73,9 @@ namespace mrbind::CBindings::Modules
 
             if (!cpp_callback_return_type_is_void)
             {
-                callback_return_type_binding = &generator.FindBindableType(cpp_callback_return_type);
+                // This has to be desugared, because e.g. if the type is `std::string`, you can't return `const char *` from your callback
+                //   without having them dangle, so you have to return a properly constructed `std::string`.
+                callback_return_type_binding = &generator.FindBindableType(cpp_callback_return_type, true);
 
                 if (!callback_return_type_binding->param_usage && !callback_return_type_binding->param_usage_with_default_arg)
                     throw std::runtime_error("The return type of `std::function`, which is `" + generator.CppdeclToCode(cpp_callback_return_type) + "`, doesn't have a parameter usage.");
@@ -93,6 +95,9 @@ namespace mrbind::CBindings::Modules
                 if (!fixed_type.Is<cppdecl::Reference>() && !generator.IsSimplyBindableDirect(fixed_type))
                     fixed_type.AddModifier(cppdecl::Reference{.kind = cppdecl::RefQualifier::rvalue});
 
+                // Does this need to be desugared to match how the return type is handling?
+                // I don't remember us having sugared return usage anyway, so this shouldn't matter.
+                // If you ever change this, don't forget to update the C# bindings to match.
                 const Generator::BindableType &param_type_binding = generator.FindBindableType(fixed_type);
                 if (!param_type_binding.return_usage)
                     throw std::runtime_error("A parameter type of `std::function`, a `" + generator.CppdeclToCode(fixed_type) + "`, doesn't have a return usage.");

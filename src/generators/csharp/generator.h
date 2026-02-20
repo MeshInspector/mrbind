@@ -172,6 +172,8 @@ namespace mrbind::CSharp
 
         struct ParamUsage
         {
+            // Note that any new additions to those usages need to be used in two places: Both in the normal `FuncLikeEmitter`, and in `std::function` code in `GetExtraContentsForParsedClass()`.
+
             struct Strings
             {
                 // An extra comment to be added on the function. Should end with a newline, and should usually have the form `/// Parameter `x` ...`.
@@ -294,7 +296,7 @@ namespace mrbind::CSharp
             // Forces the enclosing function to be `unsafe`. This happens automatically if you have `*` in the types.
             bool force_unsafe = false;
 
-            // If true, the returned result will always be saved to a temporary variable, and `make_return_statements` will receive that variable.
+            // If true, the returned C result will always be saved to a temporary variable, and `make_return_statements` will receive that variable.
             // This is needed if `make_return_statements` wants to use the expression multiple times.
             bool needs_temporary_variable = false;
 
@@ -697,27 +699,42 @@ namespace mrbind::CSharp
         {
             // Enable type-specific sugared passing style.
             enable_sugar = 1 << 0,
+            // Try to enable sugar if the type has that, or fall back to the desugared spelling.
+            // `std::function<...>` needs this (at least for the C# parameter types; the C# return type can't use sugar, since it makes returning `std::string`s too difficult, and I don't know any cases where it helps at all).
+            // This is a bit dangerous, since there's no protection against not knowing about a sugar and using the wrong dllimport ABI.
+            try_enable_sugar = 1 << 1,
+            // Same, but the fallback also happens if the parameter usage (without the default argument) is missing, and not just if the entire sugared binding is missing.
+            try_enable_sugar_for_param_usage = 1 << 2 | try_enable_sugar,
+            // Same, but the fallback also happens if the return usage is missing, and not just if the entire sugared binding is missing.
+            try_enable_sugar_for_return_usage = 1 << 3 | try_enable_sugar,
             // Treat a pointer as a pointer to an array element.
-            pointer_to_array = 1 << 1,
+            pointer_to_array = 1 << 4,
             // If you would otherwise emit `ref`, instead emit a C# pointer to the same type.
             // Currently this is only needed for the return types.
             // Since our `pointer_to_array` is currently implemented as pointers, most of the time they can share implementations.
-            replace_ref_with_ptr = 1 << 2,
+            replace_ref_with_ptr = 1 << 5,
             // If we're dealing with a returned const ref to a small type, use `ref readonly` instead of returning it by value.
-            return_ref_instead_of_copying_small_types = 1 << 3,
+            return_ref_instead_of_copying_small_types = 1 << 6,
             // When returning stuff by value, don't wrap it in the "_Moved<...>" wrapper.
             // This is useful e.g. for binding the return types of constructors.
             // This flag is implied by default, unless `--move-classes-returned-by-value` is used.
-            no_move_in_by_value_return = 1 << 4,
+            no_move_in_by_value_return = 1 << 7,
             // This flag disables the implicit `no_move_in_by_value_return` caused by the lack of `--move-classes-returned-by-value`.
-            force_move_in_by_value_return = 1 << 5,
+            force_move_in_by_value_return = 1 << 8,
             // Don't return a true `ref`, instead return a wrapper class.
             // This is good for overloaded operators, which can't return `ref`s (or have them as parameters).
             // This interacts with `return_ref_instead_of_copying_small_types`. When that flag is also set, this applies to const references too, and otherwise it only works with mutable references.
-            return_ref_wrapper = 1 << 6,
+            return_ref_wrapper = 1 << 9,
             // When dealing with references to exposed structs, use the heap-allocating wrapper classes, instead of `ref`, `ref readonly`, and `in`.
             // This is only useful for emitting operators in those wrappers themselves. When we eventually remove those (I hope), we can drop this flag too.
-            use_heap_wrappers_for_exposed_structs = 1 << 7,
+            use_heap_wrappers_for_exposed_structs = 1 << 10,
+            // When dealing with rvalue references, pretend that they are lvalue references (for all purposes other than the dllimport ABI, but they don't affect ABI in our current C bindings).
+            // Since directly changing the type passed to `GetTypeBinding()` could cause issues if we ever give lvalue refs and rvalue refs different ABI, I'd rather have a special flag for this.
+            treat_rvalue_refs_as_lvalue_refs = 1 << 11,
+            // For parameter usage, avoid the "post call" extra statements at all costs, even if it results in an uglier parameter type.
+            // This is used by `std::function<...>` bindings for the return type (which uses the parameter usage, and the parameters use the return usage; they have to be reversed like this in callbacks).
+            // This is needed, because `std::function` simply can't run those statements, because that would need to be done after returning from the function.
+            avoid_post_statements = 1 << 12,
 
             // When adding new flags here, update `TypeBindingFlagsToString()`!
         };
