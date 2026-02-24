@@ -214,6 +214,7 @@ namespace mrbind::CBindings
         file.InitRelativeName(*this, "__mrbind_c_details", false);
         file.header.stdlib_headers.insert("stdexcept");
         file.header.stdlib_headers.insert("utility"); // For `std::move`.
+        file.header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion); // For the pass-by enum.
 
         std::string pass_by_enum_name = GetPassByEnumName();
 
