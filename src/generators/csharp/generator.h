@@ -182,6 +182,16 @@ namespace mrbind::CSharp
                 // Forces the enclosing function to be `unsafe`. This happens automatically if you have `*` in the types.
                 bool force_unsafe = false;
 
+                // It's very important to set this correctly.
+                // This only makes sense in `param_usage`, not in `param_usage_with_default_arg`.
+                // `std::function` uses this. If this is true, and this type is returned from the callback (callbacks use parameter usage for return types),
+                //   then it'll be backed up to delay its destruction until after the C++ return value was constructed.
+                // This prevents dangling pointers. Incorrectly setting this to true is a pessimization. Incorrectly setting this to false leads to dangling pointers.
+                // It must be set to true for most managed C# types (we're only interested in the type of the unsuffixed parameter in `dllimport_decl_params`),
+                //   which includes both C# classes, and also for C# structs that hold C# classes in them (possibly indirectly).
+                // But notably something like `InOut<...>` doesn't really need to set this, since it just holds a plain pointer, which can't become dangling when `InOut` itself dies.
+                bool need_backup_when_returning_from_callback = false;
+
                 struct DllImportParam
                 {
                     std::string type;
@@ -432,6 +442,10 @@ namespace mrbind::CSharp
         // If `comment` is not empty, it must end with a newline. We assert this too.
         // Importantly, you must write the entire comment of an entity in one piece, using a single call to this function.
         void WriteComment(OutputFile &file, std::string comment, int extra_indent_levels = 0);
+
+        // Same as `WriteComment()`, but returns a string instead of writing the comment directly to the file.
+        // If the result is non-empty, it will end with a newline.
+        [[nodiscard]] std::string PrepareComment(std::string comment, int indent_levels = 0);
 
         // Caches `cppdecl::Type` parsing. Don't access directly, this is for `ParseTypeOrThrow`.
         std::unordered_map<std::string, cppdecl::Type> cached_parsed_types;

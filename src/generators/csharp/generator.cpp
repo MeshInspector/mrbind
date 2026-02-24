@@ -307,17 +307,19 @@ namespace mrbind::CSharp
 
     void Generator::WriteComment(OutputFile &file, std::string comment, int extra_indent_levels)
     {
+        file.WriteString(PrepareComment(std::move(comment), extra_indent_levels));
+    }
+
+    std::string Generator::PrepareComment(std::string comment, int indent_levels)
+    {
         if (comment.empty())
-            return;
+            return "";
         assert(comment.ends_with('\n'));
 
-        // If we don't need to process the comment, just write it as is.
+        // If we don't need to process the comment, just return it as is.
         // Our parsing can eat some whitespace and possibly mess up the comment in other ways too, so don't do it if we can avoid it.
         if (!wrap_doc_comments_in_summary_tag)
-        {
-            file.WriteString(comment);
-            return;
-        }
+            return comment;
 
         // Here we split the individual pieces of the comment into two separate part, first the non-documentation part, and then the documentation part.
         // We deinterleave them into this order.
@@ -349,8 +351,9 @@ namespace mrbind::CSharp
         if (!first)
             doc += "/// </summary>\n";
 
-        file.WriteString(non_doc, extra_indent_levels);
-        file.WriteString(doc, extra_indent_levels);
+        return
+            Strings::Indent(non_doc, indent_levels) +
+            Strings::Indent(doc, indent_levels);
     }
 
     const cppdecl::Type &Generator::ParseTypeOrThrow(const std::string &str)
@@ -1468,6 +1471,7 @@ namespace mrbind::CSharp
                                             .make_strings = [this, by_value_helper, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                             {
                                                 return TypeBinding::ParamUsage::Strings{
+                                                    .need_backup_when_returning_from_callback = true,
                                                     .dllimport_decl_params = {{.type = RequestHelper("_PassBy"), .name = name + "_pass_by"}, {.type = csharp_underlying_ptr_type, .name = name}},
                                                     .csharp_decl_params = {{.type = by_value_helper, .name = name}},
                                                     .can_be_kept_alive = true,
@@ -1526,6 +1530,7 @@ namespace mrbind::CSharp
                                             .make_strings = [csharp_type_const, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                             {
                                                 return TypeBinding::ParamUsage::Strings{
+                                                    .need_backup_when_returning_from_callback = true,
                                                     .dllimport_decl_params = {{.type = csharp_underlying_ptr_type, .name = name}},
                                                     .csharp_decl_params = {{.type = csharp_type_const, .name = name}},
                                                     .can_be_kept_alive = true,
@@ -1767,6 +1772,7 @@ namespace mrbind::CSharp
                                             .make_strings = [this, csharp_type, fix_input, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
                                             {
                                                 return TypeBinding::ParamUsage::Strings{
+                                                    .need_backup_when_returning_from_callback = true,
                                                     .dllimport_decl_params = {{.type = csharp_type + " *", .name = name}},
                                                     // Must pass a class because C# `ref` parameters can't have default arguments, and and we can't just tell the user
                                                     //   to pass a placeholder, because we might have proper default arguments before this one, so omitting the default argument here
@@ -1923,6 +1929,7 @@ namespace mrbind::CSharp
                                                     .make_strings = [csharp_type, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                                     {
                                                         return TypeBinding::ParamUsage::Strings{
+                                                            .need_backup_when_returning_from_callback = true,
                                                             .dllimport_decl_params = {{.type = csharp_underlying_ptr_type, .name = name}},
                                                             .csharp_decl_params = {{.type = csharp_type, .name = name}},
                                                             .can_be_kept_alive = true,
@@ -1970,6 +1977,7 @@ namespace mrbind::CSharp
                                                     .make_strings = [CSharpMovedType, csharp_underlying_ptr_type, csharp_underlying_ptr](const std::string &name, bool /*have_useless_defarg*/)
                                                     {
                                                         return TypeBinding::ParamUsage::Strings{
+                                                            .need_backup_when_returning_from_callback = true,
                                                             .dllimport_decl_params = {{.type = csharp_underlying_ptr_type, .name = name}},
                                                             .csharp_decl_params = {{.type = CSharpMovedType(), .name = name}},
                                                             .can_be_kept_alive = true,
@@ -2610,6 +2618,7 @@ namespace mrbind::CSharp
                             .make_strings = [this, by_value_opt_opt_helper, csharp_underlying_ptr_type](const std::string &name, bool /*have_useless_defarg*/)
                             {
                                 return TypeBinding::ParamUsage::Strings{
+                                    .need_backup_when_returning_from_callback = true,
                                     .dllimport_decl_params = {{.type = RequestHelper("_PassBy"), .name = name + "_pass_by"}, {.type = csharp_underlying_ptr_type, .name = name}},
                                     .csharp_decl_params = {{.type = by_value_opt_opt_helper + "?", .name = name, .default_arg = "null"}},
                                     .dllimport_args = {name + " is not null ? " + name + ".PassByMode : " + RequestHelper("_PassBy") + ".default_arg", name + " is not null && " + name + ".Value is not null ? " + name + ".Value._UnderlyingPtr : null"},
@@ -2672,6 +2681,9 @@ namespace mrbind::CSharp
                             .make_strings = [this, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
                             {
                                 return TypeBinding::ParamUsage::Strings{
+                                    // If this is a span, how does returning it from a callback work? Is there some hidden keep-alive at play? If so, this needs to be true unconditionally, which is what we do right now.
+                                    // This (returning `string` from a function with a return type `ReadOnlySpan<char>`) seems to compile without `unsafe`, so surely it's supposed to work somehow?
+                                    .need_backup_when_returning_from_callback = true,
                                     .dllimport_decl_params = {{.type = "byte *", .name = name}, {.type = "byte *", .name = name + "_end"}},
                                     .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = HaveCSharpFeatureSpans() ? "ReadOnlySpan<char>" : "string", .name = name}}),
                                     .scope_open =
@@ -3027,9 +3039,7 @@ namespace mrbind::CSharp
 
                 std::string csharp_return_type = "void";
 
-                bool dllimport_delegate_unsafe = false;
                 bool csharp_delegate_unsafe = false;
-                bool csharp_body_unsafe = false; // If `dllimport_delegate_unsafe == true || csharp_delegate_unsafe == true`, then the value of this is ignored, and it's assumed to always be true.
 
                 // This is a dummy "parameter" name that we use when handling the return type of the callback. In callbacks, the return type has to be processed using a parameter usage.
                 // This also matches the variable name that's used to hold the result of calling the C# callback.
@@ -3043,8 +3053,6 @@ namespace mrbind::CSharp
                     if (csharp_return_type.find('*') != std::string::npos)
                         csharp_delegate_unsafe = true;
                 }
-                if (ret_strings.force_unsafe)
-                    csharp_body_unsafe = true;
 
                 // Determine the DllImport delegate return type, and the output parameters, if any.
 
@@ -3057,9 +3065,6 @@ namespace mrbind::CSharp
                     {
                         // This is the primary C parameter. We map it to the return type.
                         csharp_dllimport_return_type = dllimport_param.type;
-
-                        if (csharp_dllimport_return_type.find('*') != std::string::npos)
-                            dllimport_delegate_unsafe = true;
                     }
                     else
                     {
@@ -3070,8 +3075,6 @@ namespace mrbind::CSharp
                         if (!csharp_dllimport_params.back().type.ends_with('*'))
                             csharp_dllimport_params.back().type += ' ';
                         csharp_dllimport_params.back().type += '*';
-
-                        dllimport_delegate_unsafe = true; // Since this is always a pointer.
                     }
                 }
 
@@ -3111,18 +3114,18 @@ namespace mrbind::CSharp
                         .type = return_usage->dllimport_return_type,
                         .name = new_csharp_param.strings.name,
                     });
-
-                    if (return_usage->dllimport_return_type.find('*') != std::string::npos)
-                        dllimport_delegate_unsafe = true;
-
-                    if (return_usage->force_unsafe)
-                        csharp_body_unsafe = true;
                 }
 
                 // Add the userdata parameter!
                 csharp_dllimport_params.push_back({
                     .type = "void *",
                     .name = "_userdata",
+                });
+
+                // Add the cleanup value parameter!
+                csharp_dllimport_params.push_back({
+                    .type = "void **",
+                    .name = "_cleanup_value",
                 });
 
 
@@ -3154,8 +3157,8 @@ namespace mrbind::CSharp
                 {
                     WriteSeparator();
                     ret.text +=
-                        std::string(dllimport_delegate_unsafe ? "unsafe " : "") +
-                        "delegate " +
+                        // This is always unsafe because of `void *_userdata, void **_cleanup_value`.
+                        "private protected unsafe delegate " +
                         csharp_dllimport_return_type +
                         (csharp_dllimport_return_type.ends_with('*') ? "" : " ") +
                         "_CDelegate(";
@@ -3176,7 +3179,7 @@ namespace mrbind::CSharp
                 {
                     WriteSeparator();
                     ret.text +=
-                        (csharp_body_unsafe || csharp_delegate_unsafe || dllimport_delegate_unsafe ? "unsafe " : "") +
+                        "private protected unsafe " + // This is always unsafe, because `csharp_dllimport_params` always includes `void *_userdata, void **_cleanup_value`.
                         csharp_dllimport_return_type +
                         (csharp_dllimport_return_type.ends_with('*') ? "" : " ") +
                         "_CCallWrapper(";
@@ -3248,6 +3251,13 @@ namespace mrbind::CSharp
                             body += "ref ";
                         body += "((Delegate)System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)_userdata).Target!)(" + csharp_args + ");\n";
 
+                        // Do we need to back up the C# result in `_cleanup_value` to avoid dangling?
+                        // `need_backup_when_returning_from_callback` better be set correctly.
+                        if (ret_strings.need_backup_when_returning_from_callback)
+                        {
+                            body += "*_cleanup_value = (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(" + csharp_ret_var_name + "));\n";
+                        }
+
                         { // Convert the result to C style.
                             const bool have_scope = !ret_strings.scope_open.empty() || !ret_strings.scope_close.empty();
                             body += ret_strings.scope_open;
@@ -3277,6 +3287,63 @@ namespace mrbind::CSharp
                     }
 
                     ret.text += "}\n";
+                }
+
+                { // Write the public constructor and assignment from the delegate.
+                    const std::string csharp_unqual_class_name = CppToCSharpUnqualClassName(cpp_name, class_part_kind.value());
+
+                    const bool class_backed_by_shared_ptr = GetSharedPtrTypeDescForCppTypeOpt(CppdeclToCode(cpp_name));
+
+                    auto dllimport_construct = MakeDllImportDecl(
+                        // Name.
+                        std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(cpp_name))->var).c_name + "_ConstructEx",
+                        // Return type.
+                        csharp_unqual_class_name + "._Underlying *",
+                        // Params.
+                        "_CDelegate func, void *userdata, " + RequestHelper("StdFunctionPostCallCallbackDelegate") + " postcall_callback, " + RequestHelper("StdFunctionUserdataCallbackDelegate") + " userdata_callback"
+                    );
+
+                    auto dllimport_assign = MakeDllImportDecl(
+                        // Name.
+                        std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(cpp_name))->var).c_name + "_AssignEx",
+                        // Return type.
+                        "void",
+                        // Params.
+                        csharp_unqual_class_name + "._Underlying *_this, _CDelegate func, void *userdata, " + RequestHelper("StdFunctionPostCallCallbackDelegate") + " postcall_callback, " + RequestHelper("StdFunctionUserdataCallbackDelegate") + " userdata_callback"
+                    );
+
+                    const std::string dllimport_args = "_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), " + RequestHelper("StdFunctionPostCallCallback") + ", " + RequestHelper("StdFunctionUserdataCallback");
+
+                    WriteSeparator();
+                    ret.text +=
+                        PrepareComment("/// Construct from a delegate.\n") +
+                        // This is always unsafe, because `csharp_dllimport_params` always includes `void *_userdata, void **_cleanup_value`.
+                        "public unsafe " + csharp_unqual_class_name + "(Delegate func) : this(" + (class_backed_by_shared_ptr ? "shared_ptr: " : "") + "null, is_owning: true)\n"
+                        "{\n" +
+                        Strings::Indent(
+                            dllimport_construct.dllimport_decl +
+                            (
+                                class_backed_by_shared_ptr
+                                ? "_LateMakeShared(" + dllimport_construct.csharp_name + "(" + dllimport_args + "));\n"
+                                : "_UnderlyingPtr = " + dllimport_construct.csharp_name + "(" + dllimport_args + ");\n"
+                            )
+                        ) +
+                        "}\n";
+
+                    if (!class_part_kind.value())
+                    {
+                        WriteSeparator();
+                        ret.text +=
+                            PrepareComment("/// Assign from a delegate.\n") +
+                            // This is always unsafe, because `csharp_dllimport_params` always includes `void *_userdata, void **_cleanup_value`.
+                            "public unsafe void " + AdjustCalledFuncName("Assign") + "(Delegate func)\n"
+                            "{\n" +
+                            Strings::Indent(
+                                dllimport_assign.dllimport_decl +
+                                dllimport_assign.csharp_name + "(_UnderlyingPtr, " + dllimport_args + ");\n"
+                            ) +
+                            "}\n";
+                    }
                 }
             }
             catch (...)
@@ -8500,30 +8567,67 @@ namespace mrbind::CSharp
                     );
                 }
 
-                if (requested_helpers.erase("StdFunctionUserdataCallback"))
-                {
-                    file.WriteSeparatingNewline();
+                { // `std::function` stuff.
+                    // Those are always requested together. We're separating them here only for clarity.
 
-                    WriteComment(file,
-                        "/// This is used by the `std::function<...>` wrappers to manage the userdata pointer, which in our case always represents a `GCHandle` to the underlying C# callable.\n"
-                    );
-                    file.WriteString(
-                        "internal static unsafe void UserdataCallback(void **this_data, void *other_data)\n"
-                        "{\n"
-                        "    if (*this_data is not null)\n"
-                        "    {\n"
-                        "        // We're either getting copy-assigned or destroyed.\n"
-                        "        // Either way, we must destroy the existing handle.\n"
-                        "        System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)(*this_data)).Free();\n"
-                        "\n"
-                        "        if (other_data is null)\n"
-                        "            return; // We're getting destroyed, nothing else to do.\n"
-                        "    }\n"
-                        "\n"
-                        "    // Now we're either getting either copy-constructed or copy-assigned. Duplicate the provided handle.\n"
-                        "    *this_data = (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)other_data).Target));\n"
-                        "}\n"
-                    );
+                    if (requested_helpers.erase("StdFunctionPostCallCallbackDelegate"))
+                    {
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "internal unsafe delegate void StdFunctionPostCallCallbackDelegate(void *userdata, void *value);\n"
+                        );
+                    }
+
+                    if (requested_helpers.erase("StdFunctionPostCallCallback"))
+                    {
+                        file.WriteSeparatingNewline();
+
+                        WriteComment(file,
+                            "/// This is used by the `std::function<...>` wrappers to clean up the object returned from a call.\n"
+                        );
+                        file.WriteString(
+                            "internal static unsafe void StdFunctionPostCallCallback(void *userdata, void *value)\n"
+                            "{\n"
+                            "    if (value is not null)\n"
+                            "        System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)value).Free();\n"
+                            "}\n"
+                        );
+                    }
+
+
+                    if (requested_helpers.erase("StdFunctionUserdataCallbackDelegate"))
+                    {
+                        file.WriteSeparatingNewline();
+                        file.WriteString(
+                            "internal unsafe delegate void StdFunctionUserdataCallbackDelegate(void **this_userdata, void *other_userdata);\n"
+                        );
+                    }
+
+                    if (requested_helpers.erase("StdFunctionUserdataCallback"))
+                    {
+                        file.WriteSeparatingNewline();
+
+                        WriteComment(file,
+                            "/// This is used by the `std::function<...>` wrappers to manage the userdata pointer, which in our case always represents a `GCHandle` to the underlying C# callable.\n"
+                        );
+                        file.WriteString(
+                            "internal static unsafe void StdFunctionUserdataCallback(void **this_userdata, void *other_userdata)\n"
+                            "{\n"
+                            "    if (*this_userdata is not null)\n"
+                            "    {\n"
+                            "        // We're either getting copy-assigned or destroyed.\n"
+                            "        // Either way, we must destroy the existing handle.\n"
+                            "        System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)(*this_userdata)).Free();\n"
+                            "\n"
+                            "        if (other_userdata is null)\n"
+                            "            return; // We're getting destroyed, nothing else to do.\n"
+                            "    }\n"
+                            "\n"
+                            "    // Now we're either getting either copy-constructed or copy-assigned. Duplicate the provided handle.\n"
+                            "    *this_userdata = (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)other_userdata).Target));\n"
+                            "}\n"
+                        );
+                    }
                 }
 
                 // <-- Insert new public helpers here.
@@ -8778,6 +8882,7 @@ namespace mrbind::CSharp
 
                     file.WriteSeparatingNewline();
 
+                    // NOTE: If this ever receives a keep-alive, don't forget to set `.need_backup_when_returning_from_callback = true` for those arrays/pointer wrappers.
                     file.WriteString("public unsafe struct " + unqual_csharp_name);
                     if (!desc.num_elems)
                         file.WriteString(" : IEquatable<" + unqual_csharp_name + ">"); // Unbounded arrays are equality-compatable.

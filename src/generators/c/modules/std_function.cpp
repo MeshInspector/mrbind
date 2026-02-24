@@ -3,6 +3,8 @@
 
 #include <vector>
 
+// If you change anything in this file, you might need to sync the changes with the C# code.
+
 namespace mrbind::CBindings::Modules
 {
     struct StdFunction : DeriveModule<StdFunction>
@@ -544,11 +546,11 @@ namespace mrbind::CBindings::Modules
 
                         { // Construct with user data pointer.
                             Generator::EmitFuncParams emit;
-                            emit.c_comment = "/// Construct a function with an extra user data pointer.";
+                            emit.c_comment = "/// Construct a function with additional state.";
 
                             emit.c_comment_trailing = trailing_comment;
 
-                            emit.name = binder.MakeMemberFuncName(generator, "ConstructWithDataPtr", CInterop::MethodKinds::Constructor{}); // Intentionally implicit.
+                            emit.name = binder.MakeMemberFuncName(generator, "ConstructEx", CInterop::MethodKinds::Constructor{}); // Intentionally implicit.
                             emit.name.ignore_in_interop = true; // C binding wrappers will likely want to ignore this, and write their own custom replacements.
 
                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
@@ -585,11 +587,11 @@ namespace mrbind::CBindings::Modules
                         { // Assign with user data pointer.
                             Generator::EmitFuncParams emit;
                             emit.c_comment =
-                                "/// Assign a function with an extra user data pointer.";
+                                "/// Assign a function with additional state.";
 
                             emit.c_comment_trailing = trailing_comment;
 
-                            emit.name = binder.MakeMemberFuncName(generator, "AssignWithDataPtr");
+                            emit.name = binder.MakeMemberFuncName(generator, "AssignEx");
                             emit.name.ignore_in_interop = true; // C binding wrappers will likely want to ignore this, and write their own custom replacements.
 
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
