@@ -2788,7 +2788,7 @@ namespace mrbind::CBindings
                 ret.comment += " will drop ";
                 if (all_refs)
                     ret.comment += "any ";
-                ret.comment += "object references it had previously";
+                ret.comment += "object references it held previously";
 
                 if (!all_refs)
                 {

@@ -168,11 +168,15 @@ namespace mrbind::CBindings::Modules
             }
 
 
-            cppdecl::Type c_func_type_with_userdata_ptr = c_func_type;
+            cppdecl::Type c_func_type_with_extra_ptr_params = c_func_type;
             {
-                auto &userdata_param = c_func_type_with_userdata_ptr.As<cppdecl::Function>()->params.emplace_back();
+                auto &userdata_param = c_func_type_with_extra_ptr_params.As<cppdecl::Function>()->params.emplace_back();
                 userdata_param.type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{});
                 userdata_param.name = cppdecl::QualifiedName::FromSingleWord("_userdata");
+
+                auto &cleanup_param = c_func_type_with_extra_ptr_params.As<cppdecl::Function>()->params.emplace_back();
+                cleanup_param.type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}).AddModifier(cppdecl::Pointer{});
+                cleanup_param.name = cppdecl::QualifiedName::FromSingleWord("_cleanup_value");
             }
 
 
@@ -183,10 +187,11 @@ namespace mrbind::CBindings::Modules
                 output_parameters_base_name,
                 c_type_name_base,
                 c_func_type,
-                c_func_type_with_userdata_ptr,
+                c_func_type_with_extra_ptr_params,
                 fixed_parameter_names,
                 callback_return_usage,
                 callback_param_usages,
+                pass_by_enum_name = generator.GetPassByEnumName(),
                 binder
             ](Generator &generator) -> Generator::OutputFile &
             {
@@ -276,7 +281,7 @@ namespace mrbind::CBindings::Modules
                                         if (!out_comment.empty())
                                             out_comment += '\n';
 
-                                        out_comment += "/// Callback parameter `" + output_parameters_base_name + usage_c_param.name_suffix + "` is an output parameter. It's will never be null, and initially points to a zeroed variable.";
+                                        out_comment += "/// Callback parameter `" + output_parameters_base_name + usage_c_param.name_suffix + "` is an output parameter. It will never be null, and initially points to a zeroed variable.";
                                     }
                                 }
                             }
@@ -388,7 +393,17 @@ namespace mrbind::CBindings::Modules
                     { // Construct and assign stateful.
                         std::string trailing_comment;
 
-                        cppdecl::Type funcptr_with_userdata = cppdecl::Type(c_func_type_with_userdata_ptr).AddModifier(cppdecl::Pointer{});
+                        cppdecl::Type funcptr_with_extra_ptr_params = cppdecl::Type(c_func_type_with_extra_ptr_params).AddModifier(cppdecl::Pointer{});
+
+                        std::vector<cppdecl::MaybeAmbiguousDecl> postcall_cb_params;
+                        postcall_cb_params.emplace_back();
+                        postcall_cb_params.back().name = cppdecl::QualifiedName::FromSingleWord("_userdata");
+                        postcall_cb_params.back().type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{});
+                        postcall_cb_params.emplace_back();
+                        postcall_cb_params.back().name = cppdecl::QualifiedName::FromSingleWord("_cleanup_value");
+                        postcall_cb_params.back().type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{});
+
+                        cppdecl::Type funcptr_postcall_cb = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Function{.params = postcall_cb_params}).AddModifier(cppdecl::Pointer{});
 
                         std::vector<cppdecl::MaybeAmbiguousDecl> userdata_cb_params;
                         userdata_cb_params.emplace_back();
@@ -400,23 +415,59 @@ namespace mrbind::CBindings::Modules
 
                         cppdecl::Type funcptr_userdata_cb = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Function{.params = userdata_cb_params}).AddModifier(cppdecl::Pointer{});
 
+
                         // This name must depend on the function type, otherwise unity builds explode.
                         const std::string functor_name = "_functor_" + binder.c_type_name;
 
                         { // Write some common helpers.
                             Generator::EmitFuncParams emit_lambda = PrepareLambda("_func", trailing_comment);
+                            emit_lambda.cpp_extra_statements =
+                                "struct _cleanup_guard_type\n"
+                                "{\n"
+                                "    " + functor_name + " *_self = nullptr;\n"
+                                "    void *_value = nullptr;\n"
+                                "    ~_cleanup_guard_type()\n"
+                                "    {\n"
+                                "        if (_self->_postcall_cb)\n" // Intentionally not checking `_value != nullptr`, this is documented as a part of the contract.
+                                "            _self->_postcall_cb(_self->_userdata, _value);\n"
+                                "    }\n"
+                                "};\n"
+                                "_cleanup_guard_type _cleanup_guard;\n"
+                                "_cleanup_guard._self = this;" +
+                                (emit_lambda.cpp_extra_statements.empty() ? "" : "\n" + emit_lambda.cpp_extra_statements);
                             emit_lambda.extra_args_after.push_back("_userdata");
+                            emit_lambda.extra_args_after.push_back("_postcall_cb ? &_cleanup_guard._value : nullptr");
 
                             // Add more stuff to the comment.
                             if (!trailing_comment.empty())
                                 trailing_comment += '\n';
                             trailing_comment +=
+                                "/// Parameter `userdata` is propagated to `func`.\n"
+                                "/// Parameter `postcall_callback` can be null. If specified, it will always be called right after `func`, after constructing the underlying C++ return value.\n"
+                                "///   If null, then `func` will always receive null `_cleanup_value`. If specified, then `_cleanup_value` will not be null.\n"
+                                "///   `func` can write to `*_cleanup_value`, and that value will be forwarded to the `postcall_callback` call.\n"
+                                "///   Writing null has no special effect, `postcall_callback` will be called regardless. `*_cleanup_value` is null by default.\n"
+                                "///   The intent is to handle cases where in C++ the callback returns by value, but the corresponding C callback returns a pointer,\n"
+                                "///     which makes implementing the callback difficult, as you would need to either leak the pointer, or it would dangle.\n"
+                                "///   With this callback, you can leak the pointer from `func`, and then clean it up in `postcall_callback`.\n"
+                                "///   Another way to handle this is by using `" + pass_by_enum_name + "_MoveAndDestroy`, but it's not available in some cases,\n"
+                                "///     such as when returning a `std::string` (which in C maps to returning two pointers with no pass-by enum).\n"
+                                "///   `" + pass_by_enum_name + "_MoveAndDestroy` is also less flexible than the callback, since it forces an extra move in some cases. This might make no sense to C users,\n"
+                                "///     but it helps when wrapping C bindings in another language. If you're using `" + pass_by_enum_name + "_Copy` or `" + pass_by_enum_name + "_Move`,\n"
+                                "///     then in C you'd expect your pointer to outlive the callback, so all is good. But when wrapping C in a managed language where objects are shared references,\n"
+                                "///     you might not know if the object you're returning is the last reference or not, so you'd have to either copy/move it into a temporary,\n"
+                                "///     which you would then `" + pass_by_enum_name + "_MoveAndDestroy` (which adds an extra move), or introduce a null state to your objects\n"
+                                "///     to `" + pass_by_enum_name + "_MoveAndDestroy` the original pointer (having the null state might be undesirable).\n"
+                                "///     And attempting to use `" + pass_by_enum_name + "_Copy` or `" + pass_by_enum_name + "_Move` could dangle your pointer, if the returned object\n"
+                                "///     in your language is a local or temporary, and is the last reference to the underlying C/C++ object.\n"
+                                "///     What `postcall_callback` allows you to do is to preserve a reference to the returned object in your language, so that it lives long enough\n"
+                                "///     for the contents to be copied into the returned C++ object.\n"
                                 "/// Parameter `userdata_callback` can be null. Pass null if you don't need custom behavior when destroying and/or copying the functor.\n"
-                                "/// How to use `userdata_callback`:\n"
                                 "///   The `_this_userdata` parameter will never be null.\n"
                                 "///   If `*_this_userdata` is non-null and `_other_userdata` is     null, the functor is being destroyed. Perform any cleanup if needed.\n"
                                 "///   If `*_this_userdata` is     null and `_other_userdata` is non-null, a copy of the functor is being constructed. Perform copying if needed and write the new userdata to `*_this_userdata`.\n"
-                                "///   If `*_this_userdata` is non-null and `_other_userdata` is non-null, the functor is being assigned. The simplest option is to destroy `*_this_userdata` first, and then behave as if it was null.";
+                                "///   If `*_this_userdata` is non-null and `_other_userdata` is non-null, the functor is being assigned. The simplest option is to destroy `*_this_userdata` first, and then behave as if it was null.\n"
+                                "///   Both `*_this_userdata` and `_other_userdata` will never be null at the same time.";
 
 
                             auto lambda_strings = generator.EmitFunctionAsStrings(file, emit_lambda);
@@ -429,26 +480,29 @@ namespace mrbind::CBindings::Modules
                                 "{\n"
                                 "    struct " + functor_name + "\n"
                                 "    {\n"
-                                "        using FuncPtr = " + generator.CppdeclToCode(funcptr_with_userdata) + ";\n"
+                                "        using FuncPtr = " + generator.CppdeclToCode(funcptr_with_extra_ptr_params) + ";\n"
+                                "        using PostcallCbPtr = " + generator.CppdeclToCode(funcptr_postcall_cb) + ";\n"
                                 "        using UserdataCbPtr = " + generator.CppdeclToCode(funcptr_userdata_cb) + ";\n"
                                 "\n"
                                 "        FuncPtr _func = nullptr;\n"
                                 "        void *_userdata = nullptr;\n"
+                                "        PostcallCbPtr _postcall_cb = nullptr;\n"
                                 "        UserdataCbPtr _userdata_cb = nullptr;\n"
                                 "\n"
-                                "        " + functor_name + "(FuncPtr _func, void *_userdata, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}\n"
+                                "        " + functor_name + "(FuncPtr _func, void *_userdata, PostcallCbPtr _postcall_cb, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _postcall_cb(_postcall_cb), _userdata_cb(_userdata_cb) {}\n"
                                 "\n"
-                                "        " + functor_name + "(const " + functor_name + " &other) : _func(other._func), _userdata_cb(other._userdata_cb)\n"
+                                "        " + functor_name + "(const " + functor_name + " &other) : _func(other._func), _postcall_cb(other._postcall_cb), _userdata_cb(other._userdata_cb)\n"
                                 "        {\n"
                                 "            if (!other._userdata) return; // No data to copy.\n"
                                 "            if (!_userdata_cb) {_userdata = other._userdata; return;} // No callback, just copy the data.\n"
                                 "            _userdata_cb(&_userdata, other._userdata);\n"
                                 "        }\n"
                                 "\n"
-                                "        " + functor_name + "(" + functor_name + " &&other) noexcept : _func(other._func), _userdata(other._userdata), _userdata_cb(other._userdata_cb)\n"
+                                "        " + functor_name + "(" + functor_name + " &&other) noexcept : _func(other._func), _userdata(other._userdata), _postcall_cb(other._postcall_cb), _userdata_cb(other._userdata_cb)\n"
                                 "        {\n"
                                 "            other._func = nullptr;\n"
                                 "            other._userdata = nullptr;\n"
+                                "            other._postcall_cb = nullptr;\n"
                                 "            other._userdata_cb = nullptr;\n"
                                 "        }\n"
                                 "\n"
@@ -460,6 +514,7 @@ namespace mrbind::CBindings::Modules
                                 "                _userdata = nullptr; // Don't need to zero the callbacks, we'll overwrite them anyway.\n"
                                 "            }\n"
                                 "            _func = other._func;\n"
+                                "            _postcall_cb = other._postcall_cb;\n"
                                 "            _userdata_cb = other._userdata_cb;\n"
                                 "            if (other._userdata && _userdata_cb) // If we have data to copy and a callback, use the callback. The data must be non-null, otherwise the callback will confuse this for a copy construction.\n"
                                 "                _userdata_cb(&_userdata, other._userdata);\n"
@@ -472,6 +527,7 @@ namespace mrbind::CBindings::Modules
                                 "        {\n"
                                 "            _func = other._func;\n"
                                 "            _userdata = other._userdata;\n"
+                                "            _postcall_cb = other._postcall_cb;\n"
                                 "            _userdata_cb = other._userdata_cb;\n"
                                 "            other._func = nullptr;\n"
                                 "            other._userdata = nullptr;\n"
@@ -503,7 +559,7 @@ namespace mrbind::CBindings::Modules
                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
                             emit.params.push_back({
                                 .name = "func",
-                                .cpp_type = funcptr_with_userdata,
+                                .cpp_type = funcptr_with_extra_ptr_params,
                                 .use_type_as_is = true,
                             });
                             emit.params.push_back({
@@ -513,13 +569,20 @@ namespace mrbind::CBindings::Modules
                             });
 
                             emit.params.push_back({
+                                .name = "postcall_callback",
+                                .cpp_type = funcptr_postcall_cb,
+                                .reference_assigned = true,
+                                .use_type_as_is = true,
+                            });
+
+                            emit.params.push_back({
                                 .name = "userdata_callback",
                                 .cpp_type = funcptr_userdata_cb,
                                 .reference_assigned = true,
                                 .use_type_as_is = true,
                             });
 
-                            emit.cpp_called_func = "@1@ ? " + generator.CppdeclToCode(binder.cpp_type_name) + "(" + functor_name + "{@1@, @2@, @3@}) : nullptr";
+                            emit.cpp_called_func = "@1@ ? " + generator.CppdeclToCode(binder.cpp_type_name) + "(" + functor_name + "{@1@, @2@, @3@, @4@}) : nullptr";
 
                             generator.EmitFunction(file, emit);
                         }
@@ -537,13 +600,20 @@ namespace mrbind::CBindings::Modules
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                             emit.params.push_back({
                                 .name = "func",
-                                .cpp_type = funcptr_with_userdata,
+                                .cpp_type = funcptr_with_extra_ptr_params,
                                 .use_type_as_is = true,
                             });
                             emit.params.push_back({
                                 .name = "userdata",
                                 .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
                                 .reference_assigned = true,
+                            });
+
+                            emit.params.push_back({
+                                .name = "postcall_callback",
+                                .cpp_type = funcptr_postcall_cb,
+                                .reference_assigned = true,
+                                .use_type_as_is = true,
                             });
 
                             emit.params.push_back({
@@ -561,7 +631,7 @@ namespace mrbind::CBindings::Modules
                                 "    return;\n"
                                 "}\n";
 
-                            emit.cpp_called_func = "_self = " + functor_name + "{@1@, @2@, @3@}";
+                            emit.cpp_called_func = "_self = " + functor_name + "{@1@, @2@, @3@, @4@}";
 
                             generator.EmitFunction(file, emit);
                         }
