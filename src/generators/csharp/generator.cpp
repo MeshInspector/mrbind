@@ -3016,9 +3016,9 @@ namespace mrbind::CSharp
                 cppdecl::Type cpp_return_type = *cpp_name.parts.back().template_args.value().args.front().AsType();
                 cpp_return_type.RemoveModifier(); // Remove function-ness.
 
-                // Note the lack of `try_enable_sugar_for_param_usage`. We've disabled it in C too, because it makes it to difficult to return strings, and I don't see any cases where it would actually be useful.
+                // Note `try_enable_sugar_for_param_usage`. The C bindings use sugar if it's available. Make sure to keep this in sync with C.
                 // Note `avoid_post_statements`. We're unable to run those, since those would need to happen after we return from our function.
-                const TypeBinding &ret_type_binding = GetTypeBinding(cpp_return_type, TypeBindingFlags::avoid_post_statements);
+                const TypeBinding &ret_type_binding = GetTypeBinding(cpp_return_type, TypeBindingFlags::try_enable_sugar_for_return_usage | TypeBindingFlags::avoid_post_statements);
                 if (!ret_type_binding.param_usage) // Sic!
                     throw std::runtime_error("The type `" + CppdeclToCode(cpp_return_type) + "` isn't usable as a C# parameter (sic), so it's be used as a callback return type.");
 
