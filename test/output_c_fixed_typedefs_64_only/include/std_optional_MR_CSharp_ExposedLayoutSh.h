@@ -3,6 +3,7 @@
 #include <MR/test_csharp.h>
 #include <exports.h>
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -27,7 +28,7 @@ MR_C_API MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_C_std_optional_MR_CShar
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_optional_MR_CSharp_ExposedLayoutSh_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_C_std_optional_MR_CSharp_ExposedLayoutSh_ConstructFromAnother(const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *other);
 
 /// Constructs a new instance.
@@ -39,7 +40,7 @@ MR_C_API MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_C_std_optional_MR_CShar
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in this object.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_optional_MR_CSharp_ExposedLayoutSh_AssignFromAnother(MR_C_std_optional_MR_CSharp_ExposedLayoutSh *_this, const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *other);
 
 /// Assigns the contents.
@@ -60,6 +61,10 @@ MR_C_API const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_C_std_optional_MR
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 /// The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_C_std_optional_MR_CSharp_ExposedLayoutSh_OffsetMutablePtr(MR_C_std_optional_MR_CSharp_ExposedLayoutSh *ptr, ptrdiff_t i);
+
+/// Returns true if this instance stores an object, as opposed to being empty.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_std_optional_MR_CSharp_ExposedLayoutSh_has_value(const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *_this);
 
 /// The stored element or null if none, read-only.
 /// Parameter `_this` can not be null. It is a single object.

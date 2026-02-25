@@ -1165,7 +1165,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_Vector_MRCSharpExposedLayout
             {
+                #pragma warning disable CS0649
                 internal readonly Const_Vector_MRCSharpExposedLayout? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_Vector_MRCSharpExposedLayout() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_Vector_MRCSharpExposedLayout(Const_Vector_MRCSharpExposedLayout new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

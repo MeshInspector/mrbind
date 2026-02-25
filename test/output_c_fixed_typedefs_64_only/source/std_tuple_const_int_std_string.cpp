@@ -22,6 +22,7 @@ MR_C_std_tuple_const_int_std_string *MR_C_std_tuple_const_int_std_string_Default
 
 MR_C_std_tuple_const_int_std_string *MR_C_std_tuple_const_int_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_tuple_const_int_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::tuple<const int, std::string>);
     return (MR_C_std_tuple_const_int_std_string *)new std::tuple<const int, std::string>(std::tuple<const int, std::string>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::tuple<const int, std::string>) MRBINDC_CLASSARG_COPY(other, (std::tuple<const int, std::string>), std::tuple<const int, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::tuple<const int, std::string>), std::tuple<const int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::tuple<const int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::tuple<const int, std::string>) MRBINDC_CLASSARG_END(other, std::tuple<const int, std::string>))
     ));

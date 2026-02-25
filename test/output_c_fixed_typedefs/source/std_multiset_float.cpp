@@ -22,6 +22,7 @@ MR_C_std_multiset_float *MR_C_std_multiset_float_DefaultConstructArray(size_t nu
 
 MR_C_std_multiset_float *MR_C_std_multiset_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_multiset_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::multiset<float>);
     return (MR_C_std_multiset_float *)new std::multiset<float>(std::multiset<float>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::multiset<float>) MRBINDC_CLASSARG_COPY(other, (std::multiset<float>), std::multiset<float>) MRBINDC_CLASSARG_MOVE(other, (std::multiset<float>), std::multiset<float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::multiset<float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::multiset<float>) MRBINDC_CLASSARG_END(other, std::multiset<float>))
     ));
@@ -29,6 +30,7 @@ MR_C_std_multiset_float *MR_C_std_multiset_float_ConstructFromAnother(MR_C_PassB
 
 void MR_C_std_multiset_float_AssignFromAnother(MR_C_std_multiset_float *_this, MR_C_PassBy other_pass_by, MR_C_std_multiset_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::multiset<float>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::multiset<float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::multiset<float>) MRBINDC_CLASSARG_COPY(other, (std::multiset<float>), std::multiset<float>) MRBINDC_CLASSARG_MOVE(other, (std::multiset<float>), std::multiset<float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::multiset<float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::multiset<float>) MRBINDC_CLASSARG_END(other, std::multiset<float>))
     );

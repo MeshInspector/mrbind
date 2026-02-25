@@ -8,7 +8,7 @@ public static partial class MR
             /// Stores a functor of type: `void(std::string)`. Possibly stateful.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Function_VoidFuncFromStdString : MR.CS.Misc.Object<Const_Function_VoidFuncFromStdString>, System.IDisposable
+            public class Const_Function_Void_From_StdString : MR.CS.Misc.Object<Const_Function_Void_From_StdString>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -24,27 +24,27 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_Function_VoidFuncFromStdString() {Dispose(false);}
+                ~Const_Function_Void_From_StdString() {Dispose(false);}
 
-                internal unsafe Const_Function_VoidFuncFromStdString(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_Function_Void_From_StdString(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
                 /// </summary>
-                public unsafe Const_Function_VoidFuncFromStdString() : this(null, is_owning: true)
+                public unsafe Const_Function_Void_From_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_VoidFuncFromStdString._Underlying *__MR_C_std_function_void_from_std_string_DefaultConstruct();
+                    extern static MR.CS.Std.Function_Void_From_StdString._Underlying *__MR_C_std_function_void_from_std_string_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_function_void_from_std_string_DefaultConstruct();
                 }
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Const_Function_VoidFuncFromStdString(MR.CS.Std._ByValue_Function_VoidFuncFromStdString other) : this(null, is_owning: true)
+                public unsafe Const_Function_Void_From_StdString(MR.CS.Std._ByValue_Function_VoidFuncFromStdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_VoidFuncFromStdString._Underlying *__MR_C_std_function_void_from_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_VoidFuncFromStdString._Underlying *other);
+                    extern static MR.CS.Std.Function_Void_From_StdString._Underlying *__MR_C_std_function_void_from_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void_From_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_void_from_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -52,39 +52,72 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Const_Function_VoidFuncFromStdString(Const_Function_VoidFuncFromStdString other) : this(new _ByValue_Function_VoidFuncFromStdString(other)) {}
+                public Const_Function_Void_From_StdString(Const_Function_Void_From_StdString other) : this(new _ByValue_Function_VoidFuncFromStdString(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Const_Function_VoidFuncFromStdString(Function_VoidFuncFromStdString other) : this((Const_Function_VoidFuncFromStdString)other) {}
+                public Const_Function_Void_From_StdString(Function_Void_From_StdString other) : this((Const_Function_Void_From_StdString)other) {}
+
+                /// <summary>
+                /// Returns true if this instance stores a callable, as opposed to being null.
+                /// </summary>
+                public static unsafe implicit operator bool(MR.CS.Std.Const_Function_Void_From_StdString _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_has_value", ExactSpelling = true)]
+                    extern static byte __MR_C_std_function_void_from_std_string_has_value(MR.CS.Std.Const_Function_Void_From_StdString._Underlying *_this);
+                    return __MR_C_std_function_void_from_std_string_has_value(_this._UnderlyingPtr) != 0;
+                }
+
+                // Custom extras:
+
+                public delegate void Delegate(MR.CS.Std.String _1);
+
+                private protected unsafe delegate void _CDelegate(MR.CS.Std.String._Underlying *_1, void *_userdata, void **_cleanup_value);
+
+                private protected unsafe void _CCallWrapper(MR.CS.Std.String._Underlying *_1, void *_userdata, void **_cleanup_value)
+                {
+                    MR.CS.Std.String _arg_1;
+                    _arg_1 = new(_1, is_owning: false);
+                    ((Delegate)System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)_userdata).Target!)(_arg_1);
+                }
+
+                /// <summary>
+                /// Construct from a delegate.
+                /// </summary>
+                public unsafe Const_Function_Void_From_StdString(Delegate func) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_ConstructEx", ExactSpelling = true)]
+                    extern static Const_Function_Void_From_StdString._Underlying *__MR_C_std_function_void_from_std_string_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+                    _UnderlyingPtr = __MR_C_std_function_void_from_std_string_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
+                }
             }
 
             /// <summary>
             /// Stores a functor of type: `void(std::string)`. Possibly stateful.
             /// This is the non-const half of the class.
             /// </summary>
-            public class Function_VoidFuncFromStdString : Const_Function_VoidFuncFromStdString
+            public class Function_Void_From_StdString : Const_Function_Void_From_StdString
             {
-                internal unsafe Function_VoidFuncFromStdString(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe Function_Void_From_StdString(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
                 /// </summary>
-                public unsafe Function_VoidFuncFromStdString() : this(null, is_owning: true)
+                public unsafe Function_Void_From_StdString() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_VoidFuncFromStdString._Underlying *__MR_C_std_function_void_from_std_string_DefaultConstruct();
+                    extern static MR.CS.Std.Function_Void_From_StdString._Underlying *__MR_C_std_function_void_from_std_string_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_function_void_from_std_string_DefaultConstruct();
                 }
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Function_VoidFuncFromStdString(MR.CS.Std._ByValue_Function_VoidFuncFromStdString other) : this(null, is_owning: true)
+                public unsafe Function_Void_From_StdString(MR.CS.Std._ByValue_Function_VoidFuncFromStdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_VoidFuncFromStdString._Underlying *__MR_C_std_function_void_from_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_VoidFuncFromStdString._Underlying *other);
+                    extern static MR.CS.Std.Function_Void_From_StdString._Underlying *__MR_C_std_function_void_from_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void_From_StdString._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_void_from_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -92,12 +125,12 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Function_VoidFuncFromStdString(Const_Function_VoidFuncFromStdString other) : this(new _ByValue_Function_VoidFuncFromStdString(other)) {}
+                public Function_Void_From_StdString(Const_Function_Void_From_StdString other) : this(new _ByValue_Function_VoidFuncFromStdString(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Function_VoidFuncFromStdString(Function_VoidFuncFromStdString other) : this((Const_Function_VoidFuncFromStdString)other) {}
+                public Function_Void_From_StdString(Function_Void_From_StdString other) : this((Const_Function_Void_From_StdString)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -105,65 +138,94 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std._ByValue_Function_VoidFuncFromStdString other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_void_from_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_VoidFuncFromStdString._Underlying *other);
+                    extern static void __MR_C_std_function_void_from_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void_From_StdString._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_function_void_from_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
+
+                /// <summary>
+                /// Destroys the stored callable, making this instance null.
+                /// </summary>
+                public unsafe void reset()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_reset", ExactSpelling = true)]
+                    extern static void __MR_C_std_function_void_from_std_string_reset(_Underlying *_this);
+                    __MR_C_std_function_void_from_std_string_reset(_UnderlyingPtr);
+                }
+
+                // Custom extras:
+
+                /// <summary>
+                /// Construct from a delegate.
+                /// </summary>
+                public unsafe Function_Void_From_StdString(Delegate func) : base(func) {}
+
+                /// <summary>
+                /// Assign from a delegate.
+                /// </summary>
+                public unsafe void assign(Delegate func)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_AssignEx", ExactSpelling = true)]
+                    extern static void __MR_C_std_function_void_from_std_string_AssignEx(Function_Void_From_StdString._Underlying *_this, _CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+                    __MR_C_std_function_void_from_std_string_AssignEx(_UnderlyingPtr, _CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
+                }
             }
 
             /// <summary>
-            /// This is used as a function parameter when the underlying function receives `Function_VoidFuncFromStdString` by value.
+            /// This is used as a function parameter when the underlying function receives `Function_Void_From_StdString` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `Function_VoidFuncFromStdString`/`Const_Function_VoidFuncFromStdString` to copy it into the function.
+            /// * Pass an instance of `Function_Void_From_StdString`/`Const_Function_Void_From_StdString` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
             public class _ByValue_Function_VoidFuncFromStdString
             {
-                internal readonly Const_Function_VoidFuncFromStdString? Value;
+                #pragma warning disable CS0649
+                internal readonly Const_Function_Void_From_StdString? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_Function_VoidFuncFromStdString() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_Function_VoidFuncFromStdString(Const_Function_VoidFuncFromStdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_Function_VoidFuncFromStdString(Const_Function_VoidFuncFromStdString arg) {return new(arg);}
-                public _ByValue_Function_VoidFuncFromStdString(MR.CS.Misc._Moved<Function_VoidFuncFromStdString> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_Function_VoidFuncFromStdString(MR.CS.Misc._Moved<Function_VoidFuncFromStdString> arg) {return new(arg);}
+                public _ByValue_Function_VoidFuncFromStdString(Const_Function_Void_From_StdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Function_VoidFuncFromStdString(Const_Function_Void_From_StdString arg) {return new(arg);}
+                public _ByValue_Function_VoidFuncFromStdString(MR.CS.Misc._Moved<Function_Void_From_StdString> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Function_VoidFuncFromStdString(MR.CS.Misc._Moved<Function_Void_From_StdString> arg) {return new(arg);}
             }
 
             /// <summary>
-            /// This is used for optional parameters of class `Function_VoidFuncFromStdString` with default arguments.
+            /// This is used for optional parameters of class `Function_Void_From_StdString` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_VoidFuncFromStdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Function_VoidFuncFromStdString`/`Const_Function_VoidFuncFromStdString` directly.
+            /// * Pass an instance of `Function_Void_From_StdString`/`Const_Function_Void_From_StdString` directly.
             /// </summary>
             public class _InOptMut_Function_VoidFuncFromStdString
             {
-                public Function_VoidFuncFromStdString? Opt;
+                public Function_Void_From_StdString? Opt;
 
                 public _InOptMut_Function_VoidFuncFromStdString() {}
-                public _InOptMut_Function_VoidFuncFromStdString(Function_VoidFuncFromStdString value) {Opt = value;}
-                public static implicit operator _InOptMut_Function_VoidFuncFromStdString(Function_VoidFuncFromStdString value) {return new(value);}
+                public _InOptMut_Function_VoidFuncFromStdString(Function_Void_From_StdString value) {Opt = value;}
+                public static implicit operator _InOptMut_Function_VoidFuncFromStdString(Function_Void_From_StdString value) {return new(value);}
             }
 
             /// <summary>
-            /// This is used for optional parameters of class `Function_VoidFuncFromStdString` with default arguments.
+            /// This is used for optional parameters of class `Function_Void_From_StdString` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_VoidFuncFromStdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Function_VoidFuncFromStdString`/`Const_Function_VoidFuncFromStdString` to pass it to the function.
+            /// * Pass an instance of `Function_Void_From_StdString`/`Const_Function_Void_From_StdString` to pass it to the function.
             /// </summary>
             public class _InOptConst_Function_VoidFuncFromStdString
             {
-                public Const_Function_VoidFuncFromStdString? Opt;
+                public Const_Function_Void_From_StdString? Opt;
 
                 public _InOptConst_Function_VoidFuncFromStdString() {}
-                public _InOptConst_Function_VoidFuncFromStdString(Const_Function_VoidFuncFromStdString value) {Opt = value;}
-                public static implicit operator _InOptConst_Function_VoidFuncFromStdString(Const_Function_VoidFuncFromStdString value) {return new(value);}
+                public _InOptConst_Function_VoidFuncFromStdString(Const_Function_Void_From_StdString value) {Opt = value;}
+                public static implicit operator _InOptConst_Function_VoidFuncFromStdString(Const_Function_Void_From_StdString value) {return new(value);}
             }
         }
     }

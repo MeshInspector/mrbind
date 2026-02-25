@@ -722,6 +722,7 @@ MR_Bases_F *MR_Bases_G_MutableUpcastTo_MR_Bases_F(MR_Bases_G *object)
 
 MR_Bases_G *MR_Bases_G_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_Bases_G *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::Bases::G);
     return (MR_Bases_G *)new MR::Bases::G(MR::Bases::G(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::Bases::G) MRBINDC_CLASSARG_COPY(_other, (MR::Bases::G), MR::Bases::G) MRBINDC_CLASSARG_MOVE(_other, (MR::Bases::G), MR::Bases::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::Bases::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::Bases::G) MRBINDC_CLASSARG_END(_other, MR::Bases::G))
     ));
@@ -739,6 +740,7 @@ void MR_Bases_G_DestroyArray(const MR_Bases_G *_this)
 
 MR_Bases_G *MR_Bases_G_AssignFromAnother(MR_Bases_G *_this, MR_C_PassBy _other_pass_by, MR_Bases_G *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::Bases::G);
     return (MR_Bases_G *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::G *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::Bases::G) MRBINDC_CLASSARG_COPY(_other, (MR::Bases::G), MR::Bases::G) MRBINDC_CLASSARG_MOVE(_other, (MR::Bases::G), MR::Bases::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::Bases::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::Bases::G) MRBINDC_CLASSARG_END(_other, MR::Bases::G))
     ));
@@ -808,6 +810,7 @@ MR_Bases_A *MR_Bases_H_MutableUpcastTo_MR_Bases_A(MR_Bases_H *object)
 
 MR_Bases_H *MR_Bases_H_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_Bases_H *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::Bases::H);
     return (MR_Bases_H *)new MR::Bases::H(MR::Bases::H(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::Bases::H) MRBINDC_CLASSARG_COPY(_other, (MR::Bases::H), MR::Bases::H) MRBINDC_CLASSARG_MOVE(_other, (MR::Bases::H), MR::Bases::H) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::Bases::H) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::Bases::H) MRBINDC_CLASSARG_END(_other, MR::Bases::H))
     ));
@@ -825,6 +828,7 @@ void MR_Bases_H_DestroyArray(const MR_Bases_H *_this)
 
 MR_Bases_H *MR_Bases_H_AssignFromAnother(MR_Bases_H *_this, MR_C_PassBy _other_pass_by, MR_Bases_H *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::Bases::H);
     return (MR_Bases_H *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::H *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::Bases::H) MRBINDC_CLASSARG_COPY(_other, (MR::Bases::H), MR::Bases::H) MRBINDC_CLASSARG_MOVE(_other, (MR::Bases::H), MR::Bases::H) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::Bases::H) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::Bases::H) MRBINDC_CLASSARG_END(_other, MR::Bases::H))
     ));
@@ -894,6 +898,7 @@ MR_Bases_A *MR_Bases_I_MutableUpcastTo_MR_Bases_A(MR_Bases_I *object)
 
 MR_Bases_I *MR_Bases_I_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_Bases_I *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::Bases::I);
     return (MR_Bases_I *)new MR::Bases::I(MR::Bases::I(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::Bases::I) MRBINDC_CLASSARG_COPY(_other, (MR::Bases::I), MR::Bases::I) MRBINDC_CLASSARG_MOVE(_other, (MR::Bases::I), MR::Bases::I) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::Bases::I) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::Bases::I) MRBINDC_CLASSARG_END(_other, MR::Bases::I))
     ));
@@ -911,6 +916,7 @@ void MR_Bases_I_DestroyArray(const MR_Bases_I *_this)
 
 MR_Bases_I *MR_Bases_I_AssignFromAnother(MR_Bases_I *_this, MR_C_PassBy _other_pass_by, MR_Bases_I *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::Bases::I);
     return (MR_Bases_I *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Bases::I *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::Bases::I) MRBINDC_CLASSARG_COPY(_other, (MR::Bases::I), MR::Bases::I) MRBINDC_CLASSARG_MOVE(_other, (MR::Bases::I), MR::Bases::I) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::Bases::I) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::Bases::I) MRBINDC_CLASSARG_END(_other, MR::Bases::I))
     ));

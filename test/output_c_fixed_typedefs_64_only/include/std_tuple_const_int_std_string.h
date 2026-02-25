@@ -28,7 +28,7 @@ MR_C_API MR_C_std_tuple_const_int_std_string *MR_C_std_tuple_const_int_std_strin
 /// Constructs a copy of another instance. The source remains alive.
 /// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_const_int_std_string_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_tuple_const_int_std_string *MR_C_std_tuple_const_int_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_tuple_const_int_std_string *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_tuple_const_int_std_string`. Does nothing if the pointer is null.
@@ -50,7 +50,7 @@ MR_C_API MR_C_std_tuple_const_int_std_string *MR_C_std_tuple_const_int_std_strin
 /// If `_1_end` is null, then `_1` is assumed to be null-terminated.
 /// The reference to the parameter `_1` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_const_int_std_string_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_tuple_const_int_std_string *MR_C_std_tuple_const_int_std_string_Construct(int _0, const char *_1, const char *_1_end);
 
 /// The element 0, of type `const int`, read-only.

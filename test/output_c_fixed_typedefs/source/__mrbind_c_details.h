@@ -1,7 +1,13 @@
 #ifndef MR_C_DETAIL_INCLUDED_MRBIND_C_DETAILS_H
 #define MR_C_DETAIL_INCLUDED_MRBIND_C_DETAILS_H
 
+#pragma push_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+#define MR_C_DISABLE_CONVENIENCE_INCLUDES
+#include <common.h>
+#pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
+
 #include <stdexcept>
+#include <utility>
 
 namespace mrbindc_details
 {
@@ -13,6 +19,30 @@ namespace mrbindc_details
     #define MRBINDC_CLASSARG_DEF_ARG(param_, enum_constant_, default_arg_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? (param_ ? throw std::runtime_error("Expected a null pointer to be passed to `" #param_ " because `" #enum_constant_ "` was used.") : __VA_ARGS__(default_arg_)) :
     #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, enum_constant_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? throw std::runtime_error("Function parameter `" #param_ " doesn't support `" #enum_constant_ "`.") :
     #define MRBINDC_CLASSARG_END(param_, .../*cpp_type_*/) true ? throw std::runtime_error("Invalid `MR_C_PassBy` enum value specified for function parameter `" #param_ ".") : ((__VA_ARGS__ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.
+
+    // This is used by the `MRBINDC_CLASSARG_GUARD()` macro, see below.
+    template <typename T>
+    struct ClassArgGuard
+    {
+        T *ptr = nullptr;
+        ClassArgGuard(T *new_ptr, MR_C_PassBy &pass_by)
+        {
+            if (pass_by != MR_C_PassBy_MoveAndDestroy)
+                return;
+            ptr = new_ptr;
+            pass_by = MR_C_PassBy_Move;
+        }
+        ClassArgGuard(const ClassArgGuard &) = delete;
+        ClassArgGuard &operator=(const ClassArgGuard &) = delete;
+        ~ClassArgGuard()
+        {
+            if (ptr)
+                delete ptr;
+        }
+    };
+
+    // This is used to handle `MR_C_PassBy_MoveAndDestroy`.
+    #define MRBINDC_CLASSARG_GUARD(param_, .../*cpp_type_without_wrapper_*/) mrbindc_details::ClassArgGuard<__VA_ARGS__> _classarg_guard_##param_((__VA_ARGS__ *)param_, param_##_pass_by)
 
     // Converts an rvalue to an lvalue.
     template <typename T> constexpr T &unmove(T &&value) {return static_cast<T &>(value);}

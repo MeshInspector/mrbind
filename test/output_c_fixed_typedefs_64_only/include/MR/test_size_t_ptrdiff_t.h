@@ -75,7 +75,7 @@ MR_C_API void MR_TestSizeT_A_uint64_t_DestroyArray(const MR_TestSizeT_A_uint64_t
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_TestSizeT_A_uint64_t *MR_TestSizeT_A_uint64_t_AssignFromAnother(MR_TestSizeT_A_uint64_t *_this, const MR_TestSizeT_A_uint64_t *_other);
 
 /// Generated from method `MR::TestSizeT::A<MR_C_uint64_t>::foo`.

@@ -177,7 +177,9 @@ public static partial class MR
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class _ByValue_Tuple_Int_StdString
             {
+                #pragma warning disable CS0649
                 internal readonly Const_Tuple_Int_StdString? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_Tuple_Int_StdString() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_Tuple_Int_StdString(Const_Tuple_Int_StdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

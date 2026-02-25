@@ -17,6 +17,7 @@ MR_C_std_expected_int_std_string *MR_StdExpected_GetExp(void)
 
 void MR_StdExpected_SetExp(MR_C_PassBy _1_pass_by, MR_C_std_expected_int_std_string *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::expected<int, std::string>);
     ::MR::StdExpected::SetExp(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::expected<int, std::string>) MRBINDC_CLASSARG_COPY(_1, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_MOVE(_1, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::expected<int, std::string>) MRBINDC_CLASSARG_END(_1, std::expected<int, std::string>))
     );
@@ -33,6 +34,7 @@ void MR_StdExpected_SetExpDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_expected_i
 {
     using namespace MR;
     using namespace StdExpected;
+    MRBINDC_CLASSARG_GUARD(_1, std::expected<int, std::string>);
     ::MR::StdExpected::SetExpDefTrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::expected<int, std::string>) MRBINDC_CLASSARG_COPY(_1, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_MOVE(_1, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::type_identity_t<std::expected<int, std::string>>{}), std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::expected<int, std::string>) MRBINDC_CLASSARG_END(_1, std::expected<int, std::string>))
     );
@@ -42,6 +44,7 @@ void MR_StdExpected_SetExpDef(MR_C_PassBy _1_pass_by, MR_C_std_expected_int_std_
 {
     using namespace MR;
     using namespace StdExpected;
+    MRBINDC_CLASSARG_GUARD(_1, std::expected<int, std::string>);
     ::MR::StdExpected::SetExpDef(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::expected<int, std::string>) MRBINDC_CLASSARG_COPY(_1, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_MOVE(_1, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (42), std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::expected<int, std::string>) MRBINDC_CLASSARG_END(_1, std::expected<int, std::string>))
     );

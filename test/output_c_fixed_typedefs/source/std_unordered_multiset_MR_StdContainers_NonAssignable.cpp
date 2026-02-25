@@ -23,6 +23,7 @@ MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable *MR_C_std_unordered_m
 
 MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable *MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::unordered_multiset<MR::StdContainers::NonAssignable>);
     return (MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable *)new std::unordered_multiset<MR::StdContainers::NonAssignable>(std::unordered_multiset<MR::StdContainers::NonAssignable>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::unordered_multiset<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_COPY(other, (std::unordered_multiset<MR::StdContainers::NonAssignable>), std::unordered_multiset<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_MOVE(other, (std::unordered_multiset<MR::StdContainers::NonAssignable>), std::unordered_multiset<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::unordered_multiset<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::unordered_multiset<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_END(other, std::unordered_multiset<MR::StdContainers::NonAssignable>))
     ));
@@ -30,6 +31,7 @@ MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable *MR_C_std_unordered_m
 
 void MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable_AssignFromAnother(MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable *_this, MR_C_PassBy other_pass_by, MR_C_std_unordered_multiset_MR_StdContainers_NonAssignable *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::unordered_multiset<MR::StdContainers::NonAssignable>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multiset<MR::StdContainers::NonAssignable> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::unordered_multiset<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_COPY(other, (std::unordered_multiset<MR::StdContainers::NonAssignable>), std::unordered_multiset<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_MOVE(other, (std::unordered_multiset<MR::StdContainers::NonAssignable>), std::unordered_multiset<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::unordered_multiset<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::unordered_multiset<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_END(other, std::unordered_multiset<MR::StdContainers::NonAssignable>))
     );

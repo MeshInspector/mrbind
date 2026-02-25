@@ -181,7 +181,9 @@ public static partial class MR
         /// </summary>
         public class _ByValue_Expected_MRCSharpNonTrivial_Float
         {
+            #pragma warning disable CS0649
             internal readonly Const_Expected_MRCSharpNonTrivial_Float? Value;
+            #pragma warning restore CS0649
             internal readonly MR.CS.Misc._PassBy PassByMode;
             public _ByValue_Expected_MRCSharpNonTrivial_Float() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
             public _ByValue_Expected_MRCSharpNonTrivial_Float(Const_Expected_MRCSharpNonTrivial_Float new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

@@ -41,7 +41,7 @@ MR_C_API MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalu
 /// If `_3_end` is null, then `_3` is assumed to be null-terminated.
 /// The reference to the parameter `_3` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref *MR_C_std_tuple_int_ref_float_rvalue_ref_std_string_ref_std_string_rvalue_ref_Construct(int *_0, float *_1, MR_C_std_string *_2, const char *_3, const char *_3_end);
 
 /// The element 0, of type `int &`, read-only.

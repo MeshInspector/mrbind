@@ -250,7 +250,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_String
             {
+                #pragma warning disable CS0649
                 internal readonly Const_String? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_String() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_String(Const_String new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -278,7 +280,9 @@ public static partial class MR
             /// </summary>
             public class _ByValueOptOpt_String
             {
+                #pragma warning disable CS0649
                 internal readonly Const_String? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValueOptOpt_String() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValueOptOpt_String(Const_String new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

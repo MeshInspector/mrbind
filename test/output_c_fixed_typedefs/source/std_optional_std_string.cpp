@@ -22,6 +22,7 @@ MR_C_std_optional_std_string *MR_C_std_optional_std_string_DefaultConstructArray
 
 MR_C_std_optional_std_string *MR_C_std_optional_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_optional_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::optional<std::string>);
     return (MR_C_std_optional_std_string *)new std::optional<std::string>(std::optional<std::string>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::optional<std::string>) MRBINDC_CLASSARG_COPY(other, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_MOVE(other, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::optional<std::string>) MRBINDC_CLASSARG_END(other, std::optional<std::string>))
     ));
@@ -36,6 +37,7 @@ MR_C_std_optional_std_string *MR_C_std_optional_std_string_ConstructFrom(const c
 
 void MR_C_std_optional_std_string_AssignFromAnother(MR_C_std_optional_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_optional_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::optional<std::string>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<std::string> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::optional<std::string>) MRBINDC_CLASSARG_COPY(other, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_MOVE(other, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::optional<std::string>) MRBINDC_CLASSARG_END(other, std::optional<std::string>))
     );
@@ -66,6 +68,11 @@ const MR_C_std_optional_std_string *MR_C_std_optional_std_string_OffsetPtr(const
 MR_C_std_optional_std_string *MR_C_std_optional_std_string_OffsetMutablePtr(MR_C_std_optional_std_string *ptr, ptrdiff_t i)
 {
     return (MR_C_std_optional_std_string *)(((std::optional<std::string> *)ptr) + i);
+}
+
+bool MR_C_std_optional_std_string_has_value(const MR_C_std_optional_std_string *_this)
+{
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<std::string> *)(_this)));
 }
 
 const MR_C_std_string *MR_C_std_optional_std_string_value(const MR_C_std_optional_std_string *_this)

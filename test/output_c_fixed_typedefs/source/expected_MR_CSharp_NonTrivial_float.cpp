@@ -22,6 +22,7 @@ MR_C_expected_MR_CSharp_NonTrivial_float *MR_C_expected_MR_CSharp_NonTrivial_flo
 
 MR_C_expected_MR_CSharp_NonTrivial_float *MR_C_expected_MR_CSharp_NonTrivial_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_expected_MR_CSharp_NonTrivial_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::expected<MR::CSharp::NonTrivial, float>);
     return (MR_C_expected_MR_CSharp_NonTrivial_float *)new std::expected<MR::CSharp::NonTrivial, float>(std::expected<MR::CSharp::NonTrivial, float>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_COPY(other, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_MOVE(other, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_END(other, std::expected<MR::CSharp::NonTrivial, float>))
     ));
@@ -29,6 +30,7 @@ MR_C_expected_MR_CSharp_NonTrivial_float *MR_C_expected_MR_CSharp_NonTrivial_flo
 
 void MR_C_expected_MR_CSharp_NonTrivial_float_AssignFromAnother(MR_C_expected_MR_CSharp_NonTrivial_float *_this, MR_C_PassBy other_pass_by, MR_C_expected_MR_CSharp_NonTrivial_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::expected<MR::CSharp::NonTrivial, float>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<MR::CSharp::NonTrivial, float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_COPY(other, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_MOVE(other, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_END(other, std::expected<MR::CSharp::NonTrivial, float>))
     );

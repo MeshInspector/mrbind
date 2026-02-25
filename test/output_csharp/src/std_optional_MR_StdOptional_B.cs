@@ -60,6 +60,14 @@ public static partial class MR
                 /// Constructs a new instance.
                 public static unsafe implicit operator Const_Optional_MRStdOptionalB(MR.CS.StdOptional._ByValue_B? other) {return new(other);}
 
+                /// Returns true if this instance stores an object, as opposed to being empty.
+                public static unsafe implicit operator bool(MR.CS.Std.Const_Optional_MRStdOptionalB _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_B_has_value", ExactSpelling = true)]
+                    extern static byte __MR_C_std_optional_MR_StdOptional_B_has_value(MR.CS.Std.Const_Optional_MRStdOptionalB._Underlying *_this);
+                    return __MR_C_std_optional_MR_StdOptional_B_has_value(_this._UnderlyingPtr) != 0;
+                }
+
                 /// The stored element or null if none, read-only.
                 public unsafe MR.CS.StdOptional.Const_B? Value()
                 {
@@ -153,7 +161,9 @@ public static partial class MR
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class _ByValue_Optional_MRStdOptionalB
             {
+                #pragma warning disable CS0649
                 internal readonly Const_Optional_MRStdOptionalB? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_Optional_MRStdOptionalB() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_Optional_MRStdOptionalB(Const_Optional_MRStdOptionalB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

@@ -22,6 +22,7 @@ MR_C_phmap_btree_map_int_float *MR_C_phmap_btree_map_int_float_DefaultConstructA
 
 MR_C_phmap_btree_map_int_float *MR_C_phmap_btree_map_int_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_phmap_btree_map_int_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::btree_map<int, float>);
     return (MR_C_phmap_btree_map_int_float *)new phmap::btree_map<int, float>(phmap::btree_map<int, float>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::btree_map<int, float>) MRBINDC_CLASSARG_COPY(other, (phmap::btree_map<int, float>), phmap::btree_map<int, float>) MRBINDC_CLASSARG_MOVE(other, (phmap::btree_map<int, float>), phmap::btree_map<int, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::btree_map<int, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::btree_map<int, float>) MRBINDC_CLASSARG_END(other, phmap::btree_map<int, float>))
     ));
@@ -29,6 +30,7 @@ MR_C_phmap_btree_map_int_float *MR_C_phmap_btree_map_int_float_ConstructFromAnot
 
 void MR_C_phmap_btree_map_int_float_AssignFromAnother(MR_C_phmap_btree_map_int_float *_this, MR_C_PassBy other_pass_by, MR_C_phmap_btree_map_int_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::btree_map<int, float>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_map<int, float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::btree_map<int, float>) MRBINDC_CLASSARG_COPY(other, (phmap::btree_map<int, float>), phmap::btree_map<int, float>) MRBINDC_CLASSARG_MOVE(other, (phmap::btree_map<int, float>), phmap::btree_map<int, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::btree_map<int, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::btree_map<int, float>) MRBINDC_CLASSARG_END(other, phmap::btree_map<int, float>))
     );

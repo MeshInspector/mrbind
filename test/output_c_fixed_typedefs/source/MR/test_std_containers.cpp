@@ -22,6 +22,7 @@
 
 void MR_StdContainers_Set(MR_C_PassBy _1_pass_by, MR_C_std_vector_int32_t *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::vector<int32_t>);
     ::MR::StdContainers::Set(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<int32_t>) MRBINDC_CLASSARG_COPY(_1, (std::vector<int32_t>), std::vector<int32_t>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<int32_t>), std::vector<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::vector<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::vector<int32_t>) MRBINDC_CLASSARG_END(_1, std::vector<int32_t>))
     );
@@ -31,6 +32,7 @@ void MR_StdContainers_SetWithDefault(MR_C_PassBy _1_pass_by, MR_C_std_vector_int
 {
     using namespace MR;
     using namespace StdContainers;
+    MRBINDC_CLASSARG_GUARD(_1, std::vector<int32_t>);
     ::MR::StdContainers::SetWithDefault(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<int32_t>) MRBINDC_CLASSARG_COPY(_1, (std::vector<int32_t>), std::vector<int32_t>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<int32_t>), std::vector<int32_t>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::type_identity_t<std::vector<int>>{1, 2, 3}), std::vector<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::vector<int32_t>) MRBINDC_CLASSARG_END(_1, std::vector<int32_t>))
     );
@@ -277,6 +279,7 @@ MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_OffsetMutablePtr(
 
 MR_StdContainers_NonAssignable *MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdContainers_NonAssignable *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::StdContainers::NonAssignable);
     return (MR_StdContainers_NonAssignable *)new MR::StdContainers::NonAssignable(MR::StdContainers::NonAssignable(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(_other, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(_other, MR::StdContainers::NonAssignable))
     ));
@@ -294,6 +297,7 @@ void MR_StdContainers_NonAssignable_DestroyArray(const MR_StdContainers_NonAssig
 
 bool MR_C_less_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignable *_this, MR_C_PassBy _1_pass_by, MR_StdContainers_NonAssignable *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::StdContainers::NonAssignable);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::StdContainers::NonAssignable *)(_this)).operator<(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(_1, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(_1, MR::StdContainers::NonAssignable))
     );
@@ -301,6 +305,7 @@ bool MR_C_less_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignab
 
 bool MR_C_equal_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignable *_this, MR_C_PassBy _1_pass_by, MR_StdContainers_NonAssignable *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::StdContainers::NonAssignable);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::StdContainers::NonAssignable *)(_this)).operator==(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(_1, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(_1, MR::StdContainers::NonAssignable))
     );

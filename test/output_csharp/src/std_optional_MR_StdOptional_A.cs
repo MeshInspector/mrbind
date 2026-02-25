@@ -57,6 +57,14 @@ public static partial class MR
                 /// Constructs a new instance.
                 public static unsafe implicit operator Const_Optional_MRStdOptionalA(MR.CS.StdOptional.Const_A? other) {return new(other);}
 
+                /// Returns true if this instance stores an object, as opposed to being empty.
+                public static unsafe implicit operator bool(MR.CS.Std.Const_Optional_MRStdOptionalA _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_StdOptional_A_has_value", ExactSpelling = true)]
+                    extern static byte __MR_C_std_optional_MR_StdOptional_A_has_value(MR.CS.Std.Const_Optional_MRStdOptionalA._Underlying *_this);
+                    return __MR_C_std_optional_MR_StdOptional_A_has_value(_this._UnderlyingPtr) != 0;
+                }
+
                 /// The stored element or null if none, read-only.
                 public unsafe MR.CS.StdOptional.Const_A? Value()
                 {

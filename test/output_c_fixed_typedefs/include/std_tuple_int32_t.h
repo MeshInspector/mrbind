@@ -31,14 +31,14 @@ MR_C_API MR_C_std_tuple_int32_t *MR_C_std_tuple_int32_t_DefaultConstructArray(si
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_int32_t_Destroy()` to free it when you're done using it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_tuple_int32_t *MR_C_std_tuple_int32_t_ConstructFromAnother(const MR_C_std_tuple_int32_t *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in this object.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_tuple_int32_t_AssignFromAnother(MR_C_std_tuple_int32_t *_this, const MR_C_std_tuple_int32_t *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_tuple_int32_t`. Does nothing if the pointer is null.
@@ -58,7 +58,7 @@ MR_C_API MR_C_std_tuple_int32_t *MR_C_std_tuple_int32_t_OffsetMutablePtr(MR_C_st
 // Constructs the tuple elementwise.
 // The reference to the parameter `_0` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_int32_t_Destroy()` to free it when you're done using it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_tuple_int32_t *MR_C_std_tuple_int32_t_Construct(int32_t _0);
 
 // The element 0, of type `int32_t`, read-only.

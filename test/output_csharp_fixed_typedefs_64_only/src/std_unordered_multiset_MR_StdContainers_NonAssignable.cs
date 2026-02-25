@@ -487,7 +487,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_UnorderedMultiset_MRStdContainersNonAssignable
             {
+                #pragma warning disable CS0649
                 internal readonly Const_UnorderedMultiset_MRStdContainersNonAssignable? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_UnorderedMultiset_MRStdContainersNonAssignable() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_UnorderedMultiset_MRStdContainersNonAssignable(Const_UnorderedMultiset_MRStdContainersNonAssignable new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

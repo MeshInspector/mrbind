@@ -23,6 +23,7 @@ MR_C_std_vector_int32_t *MR_C_std_vector_int32_t_DefaultConstructArray(size_t nu
 
 MR_C_std_vector_int32_t *MR_C_std_vector_int32_t_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_int32_t *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<int32_t>);
     return (MR_C_std_vector_int32_t *)new std::vector<int32_t>(std::vector<int32_t>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int32_t>) MRBINDC_CLASSARG_COPY(other, (std::vector<int32_t>), std::vector<int32_t>) MRBINDC_CLASSARG_MOVE(other, (std::vector<int32_t>), std::vector<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<int32_t>) MRBINDC_CLASSARG_END(other, std::vector<int32_t>))
     ));
@@ -30,6 +31,7 @@ MR_C_std_vector_int32_t *MR_C_std_vector_int32_t_ConstructFromAnother(MR_C_PassB
 
 void MR_C_std_vector_int32_t_AssignFromAnother(MR_C_std_vector_int32_t *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_int32_t *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<int32_t>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<int32_t> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<int32_t>) MRBINDC_CLASSARG_COPY(other, (std::vector<int32_t>), std::vector<int32_t>) MRBINDC_CLASSARG_MOVE(other, (std::vector<int32_t>), std::vector<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<int32_t>) MRBINDC_CLASSARG_END(other, std::vector<int32_t>))
     );

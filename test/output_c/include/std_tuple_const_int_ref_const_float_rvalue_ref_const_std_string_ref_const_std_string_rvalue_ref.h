@@ -19,7 +19,7 @@ typedef struct MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_str
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref *MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_ConstructFromAnother(const MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref`. Does nothing if the pointer is null.
@@ -50,7 +50,7 @@ MR_C_API MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_re
 /// If `_3_end` is null, then `_3` is assumed to be null-terminated.
 /// The reference to the parameter `_3` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref *MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_Construct(const int *_0, const float *_1, const char *_2, const char *_2_end, const char *_3, const char *_3_end);
 
 /// The element 0, of type `const int &`, read-only.

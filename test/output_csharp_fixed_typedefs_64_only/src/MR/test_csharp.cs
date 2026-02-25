@@ -238,7 +238,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_A
             {
+                #pragma warning disable CS0649
                 internal readonly Const_A? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_A() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_A(Const_A new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -546,7 +548,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_B
             {
+                #pragma warning disable CS0649
                 internal readonly Const_B? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_B() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_B(Const_B new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -834,7 +838,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_C
             {
+                #pragma warning disable CS0649
                 internal readonly Const_C? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_C() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_C(Const_C new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -1520,7 +1526,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_F
             {
+                #pragma warning disable CS0649
                 internal readonly Const_F? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_F() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_F(Const_F new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -1888,7 +1896,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_G
             {
+                #pragma warning disable CS0649
                 internal readonly Const_G? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_G() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_G(Const_G new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -2314,7 +2324,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_NonTrivial
             {
+                #pragma warning disable CS0649
                 internal readonly Const_NonTrivial? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_NonTrivial() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_NonTrivial(Const_NonTrivial new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -2336,7 +2348,9 @@ public static partial class MR
             /// </summary>
             public class _ByValueOptOpt_NonTrivial
             {
+                #pragma warning disable CS0649
                 internal readonly Const_NonTrivial? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValueOptOpt_NonTrivial() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValueOptOpt_NonTrivial(Const_NonTrivial new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -2500,7 +2514,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_NonTrivialDerived
             {
+                #pragma warning disable CS0649
                 internal readonly Const_NonTrivialDerived? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_NonTrivialDerived() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_NonTrivialDerived(Const_NonTrivialDerived new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -2726,7 +2742,9 @@ public static partial class MR
             /// </summary>
             public class _ByValueShared_SA
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SA? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValueShared_SA() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValueShared_SA(Const_SA new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -3059,7 +3077,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_SB
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SB? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_SB() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_SB(Const_SB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -3079,7 +3099,9 @@ public static partial class MR
             /// </summary>
             public class _ByValueShared_SB
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SB? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValueShared_SB() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValueShared_SB(Const_SB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -3410,7 +3432,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_SC
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SC? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_SC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_SC(Const_SC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -3430,7 +3454,9 @@ public static partial class MR
             /// </summary>
             public class _ByValueShared_SC
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SC? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValueShared_SC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValueShared_SC(Const_SC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -3669,7 +3695,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_SD
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SD? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_SD() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_SD(Const_SD new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -3689,7 +3717,9 @@ public static partial class MR
             /// </summary>
             public class _ByValueShared_SD
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SD? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValueShared_SD() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValueShared_SD(Const_SD new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -4022,7 +4052,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_SE
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SE? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_SE() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_SE(Const_SE new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -4042,7 +4074,9 @@ public static partial class MR
             /// </summary>
             public class _ByValueShared_SE
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SE? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValueShared_SE() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValueShared_SE(Const_SE new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -4393,7 +4427,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_SF
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SF? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_SF() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_SF(Const_SF new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -4413,7 +4449,9 @@ public static partial class MR
             /// </summary>
             public class _ByValueShared_SF
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SF? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValueShared_SF() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValueShared_SF(Const_SF new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -5073,7 +5111,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_TestFields
             {
+                #pragma warning disable CS0649
                 internal readonly Const_TestFields? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_TestFields(Const_TestFields new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
                 public static implicit operator _ByValue_TestFields(Const_TestFields arg) {return new(arg);}
@@ -6073,7 +6113,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_IncrDecrE
             {
+                #pragma warning disable CS0649
                 internal readonly Const_IncrDecrE? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_IncrDecrE() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_IncrDecrE(MR.CS.Misc._Moved<IncrDecrE> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
@@ -6222,7 +6264,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_IncrDecrF
             {
+                #pragma warning disable CS0649
                 internal readonly Const_IncrDecrF? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_IncrDecrF() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_IncrDecrF(MR.CS.Misc._Moved<IncrDecrF> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
@@ -8991,7 +9035,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_StaticOpsLhsC
             {
+                #pragma warning disable CS0649
                 internal readonly Const_StaticOpsLhsC? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_StaticOpsLhsC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_StaticOpsLhsC(MR.CS.Misc._Moved<StaticOpsLhsC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
@@ -10074,7 +10120,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_StaticOpsRhsC
             {
+                #pragma warning disable CS0649
                 internal readonly Const_StaticOpsRhsC? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_StaticOpsRhsC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_StaticOpsRhsC(MR.CS.Misc._Moved<StaticOpsRhsC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
@@ -11212,7 +11260,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_NonTrivialClassOps
             {
+                #pragma warning disable CS0649
                 internal readonly Const_NonTrivialClassOps? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_NonTrivialClassOps() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_NonTrivialClassOps(Const_NonTrivialClassOps new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -12452,7 +12502,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_TestOpsB
             {
+                #pragma warning disable CS0649
                 internal readonly Const_TestOpsB? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_TestOpsB(Const_TestOpsB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
                 public static implicit operator _ByValue_TestOpsB(Const_TestOpsB arg) {return new(arg);}
@@ -14887,7 +14939,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_ConvCtorNonTrivialRestricted
             {
+                #pragma warning disable CS0649
                 internal readonly Const_ConvCtorNonTrivialRestricted? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_ConvCtorNonTrivialRestricted(MR.CS.Misc._Moved<ConvCtorNonTrivialRestricted> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_ConvCtorNonTrivialRestricted(MR.CS.Misc._Moved<ConvCtorNonTrivialRestricted> arg) {return new(arg);}
@@ -15309,7 +15363,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_ConvCtorCopyButNoMove
             {
+                #pragma warning disable CS0649
                 internal readonly Const_ConvCtorCopyButNoMove? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
                 public static implicit operator _ByValue_ConvCtorCopyButNoMove(Const_ConvCtorCopyButNoMove arg) {return new(arg);}
@@ -15679,7 +15735,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_ConvCtorNonTrivial
             {
+                #pragma warning disable CS0649
                 internal readonly Const_ConvCtorNonTrivial? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_ConvCtorNonTrivial() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_ConvCtorNonTrivial(Const_ConvCtorNonTrivial new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -17159,7 +17217,9 @@ public static partial class MR
             /// </summary>
             public class _ByValueShared_ExposedLayoutSh
             {
+                #pragma warning disable CS0649
                 internal readonly ConstBox_ExposedLayoutSh? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValueShared_ExposedLayoutSh() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValueShared_ExposedLayoutSh(ConstBox_ExposedLayoutSh new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -17588,6 +17648,206 @@ public static partial class MR
                 public static unsafe implicit operator _InOptConst_ExposedLayoutB(MR.CS.CSharp.Const_A _1) {return new ConstBox_ExposedLayoutB(_1);}
             }
 
+            // Just a simple exposed struct to test other things.
+            /// <summary>
+            /// Generated from class `MR::CSharp::ExposedLayoutC`.
+            /// This is the const reference to the struct.
+            /// </summary>
+            public class ConstBox_ExposedLayoutC : MR.CS.Misc.Object<ConstBox_ExposedLayoutC>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                /// <summary>
+                /// Get the underlying struct.
+                /// </summary>
+                public unsafe ref readonly ExposedLayoutC _Ref => ref *(ExposedLayoutC *)_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    MR.CS.Misc._Free((void *)_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~ConstBox_ExposedLayoutC() {Dispose(false);}
+
+                public ref readonly int x => ref _Ref.x;
+
+                /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe ConstBox_ExposedLayoutC(ExposedLayoutC other) : this(new ConstBox_ExposedLayoutC((_Underlying *)&other, is_owning: false)) {}
+                /// <summary>
+                /// Convert from a struct by copying it. Note that only `ConstBox_ExposedLayoutC` has this conversion, `Box_ExposedLayoutC` intentionally doesn't.
+                /// </summary>
+                public static implicit operator ConstBox_ExposedLayoutC(ExposedLayoutC other) {return new(other);}
+
+                internal unsafe ConstBox_ExposedLayoutC(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+
+                /// <summary>
+                /// Generated default constructor.
+                /// </summary>
+                public unsafe ConstBox_ExposedLayoutC() : this(null, is_owning: true)
+                {
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
+                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                }
+
+                /// <summary>
+                /// Generated copy constructor.
+                /// </summary>
+                public unsafe ConstBox_ExposedLayoutC(ConstBox_ExposedLayoutC _other) : this(null, is_owning: true)
+                {
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
+                    *(MR.CS.CSharp.ExposedLayoutC *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayoutC *)_other._UnderlyingPtr;
+                }
+            }
+
+            // Just a simple exposed struct to test other things.
+            /// <summary>
+            /// Generated from class `MR::CSharp::ExposedLayoutC`.
+            /// This is the non-const reference to the struct.
+            /// </summary>
+            public class Box_ExposedLayoutC : ConstBox_ExposedLayoutC
+            {
+                /// <summary>
+                /// Get the underlying struct.
+                /// </summary>
+                public unsafe new ref ExposedLayoutC _Ref => ref *(ExposedLayoutC *)_UnderlyingPtr;
+
+                public new ref int x => ref _Ref.x;
+
+                /// <summary>
+                /// Make a copy of a struct. (Even though we initially pass `is_owning: false`, we then use the copy constructor to produce an owning instance.)
+                /// </summary>
+                public unsafe Box_ExposedLayoutC(ExposedLayoutC other) : this(new ConstBox_ExposedLayoutC((_Underlying *)&other, is_owning: false)) {}
+
+                internal unsafe Box_ExposedLayoutC(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+
+                /// <summary>
+                /// Generated default constructor.
+                /// </summary>
+                public unsafe Box_ExposedLayoutC() : this(null, is_owning: true)
+                {
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
+                    System.Runtime.InteropServices.NativeMemory.Fill(_UnderlyingPtr, 4, 0);
+                }
+
+                /// <summary>
+                /// Generated copy constructor.
+                /// </summary>
+                public unsafe Box_ExposedLayoutC(ConstBox_ExposedLayoutC _other) : this(null, is_owning: true)
+                {
+                    _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(4);
+                    *(MR.CS.CSharp.ExposedLayoutC *)_UnderlyingPtr = *(MR.CS.CSharp.ExposedLayoutC *)_other._UnderlyingPtr;
+                }
+
+                /// <summary>
+                /// Generated copy assignment.
+                /// </summary>
+                public void Assign(ConstBox_ExposedLayoutC _other) {_Ref = _other._Ref;}
+            }
+
+            // Just a simple exposed struct to test other things.
+            /// <summary>
+            /// Generated from class `MR::CSharp::ExposedLayoutC`.
+            /// This is the by-value version of the struct.
+            /// </summary>
+            [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
+            public struct ExposedLayoutC
+            {
+                [System.Runtime.InteropServices.FieldOffset(0)]
+                public int x;
+
+                /// <summary>
+                /// Copy contents from a wrapper class to this struct.
+                /// </summary>
+                public static implicit operator ExposedLayoutC(ConstBox_ExposedLayoutC other) => other._Ref;
+
+                /// <summary>
+                /// Generated copy constructor.
+                /// </summary>
+                public ExposedLayoutC(ExposedLayoutC _other) {this = _other;}
+            }
+
+            /// <summary>
+            /// This is used as a function parameter when passing `Box_ExposedLayoutC` by value with a default argument, since trying to use `?` instead seems to prevent us from taking its address.
+            /// Usage:
+            /// * Pass an instance of `Box_ExposedLayoutC`/`ConstBox_ExposedLayoutC` to copy it into the function.
+            /// * Pass `null` to use the default argument
+            /// </summary>
+            public readonly ref struct _InOpt_ExposedLayoutC
+            {
+                public readonly bool HasValue;
+                internal readonly ExposedLayoutC Object;
+                public ExposedLayoutC Value{
+                    get
+                    {
+                        System.Diagnostics.Trace.Assert(HasValue);
+                        return Object;
+                    }
+                }
+
+                public _InOpt_ExposedLayoutC() {HasValue = false;}
+                public _InOpt_ExposedLayoutC(ExposedLayoutC new_value) {HasValue = true; Object = new_value;}
+                public static implicit operator _InOpt_ExposedLayoutC(ExposedLayoutC new_value) {return new(new_value);}
+                public _InOpt_ExposedLayoutC(ConstBox_ExposedLayoutC new_value) {HasValue = true; Object = new_value._Ref;}
+                public static implicit operator _InOpt_ExposedLayoutC(ConstBox_ExposedLayoutC new_value) {return new(new_value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `Box_ExposedLayoutC` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_ExposedLayoutC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `Box_ExposedLayoutC`/`ConstBox_ExposedLayoutC` directly.
+            /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutC`.
+            /// </summary>
+            public class _InOptMut_ExposedLayoutC
+            {
+                public Box_ExposedLayoutC? Opt;
+
+                public _InOptMut_ExposedLayoutC() {}
+                public _InOptMut_ExposedLayoutC(Box_ExposedLayoutC value) {Opt = value;}
+                public static implicit operator _InOptMut_ExposedLayoutC(Box_ExposedLayoutC value) {return new(value);}
+                public unsafe _InOptMut_ExposedLayoutC(ref ExposedLayoutC value)
+                {
+                    fixed (ExposedLayoutC *value_ptr = &value)
+                    {
+                        Opt = new((ConstBox_ExposedLayoutC._Underlying *)value_ptr, is_owning: false);
+                    }
+                }
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `Box_ExposedLayoutC` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_ExposedLayoutC`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `Box_ExposedLayoutC`/`ConstBox_ExposedLayoutC` to pass it to the function.
+            /// * Pass `new(ref ...)` to pass a reference to `ExposedLayoutC`.
+            /// </summary>
+            public class _InOptConst_ExposedLayoutC
+            {
+                public ConstBox_ExposedLayoutC? Opt;
+
+                public _InOptConst_ExposedLayoutC() {}
+                public _InOptConst_ExposedLayoutC(ConstBox_ExposedLayoutC value) {Opt = value;}
+                public static implicit operator _InOptConst_ExposedLayoutC(ConstBox_ExposedLayoutC value) {return new(value);}
+                public unsafe _InOptConst_ExposedLayoutC(ref readonly ExposedLayoutC value)
+                {
+                    fixed (ExposedLayoutC *value_ptr = &value)
+                    {
+                        Opt = new((ConstBox_ExposedLayoutC._Underlying *)value_ptr, is_owning: false);
+                    }
+                }
+            }
+
             // Test various array members.
             /// <summary>
             /// Generated from class `MR::CSharp::ArrayMembers`.
@@ -17842,7 +18102,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_ArrayMembers
             {
+                #pragma warning disable CS0649
                 internal readonly Const_ArrayMembers? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_ArrayMembers() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_ArrayMembers(Const_ArrayMembers new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -23961,7 +24223,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_IterableG
             {
+                #pragma warning disable CS0649
                 internal readonly Const_IterableG? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_IterableG() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_IterableG(Const_IterableG new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -24261,7 +24525,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_IterableH
             {
+                #pragma warning disable CS0649
                 internal readonly Const_IterableH? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_IterableH() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_IterableH(Const_IterableH new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -25821,6 +26087,377 @@ public static partial class MR
                 public _InOptConst_IterableL_Int() {}
                 public _InOptConst_IterableL_Int(Const_IterableL_Int value) {Opt = value;}
                 public static implicit operator _InOptConst_IterableL_Int(Const_IterableL_Int value) {return new(value);}
+            }
+
+            // Test `std::function`.
+            /// <summary>
+            /// Generated from class `MR::CSharp::TestStdFunction`.
+            /// This is the const half of the class.
+            /// </summary>
+            public class Const_TestStdFunction : MR.CS.Misc.Object<Const_TestStdFunction>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_TestStdFunction_Destroy(_Underlying *_this);
+                    __MR_CSharp_TestStdFunction_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_TestStdFunction() {Dispose(false);}
+
+                public unsafe MR.CS.Std.Const_Function_Int_From_StdString f1 {get; private protected set;}
+
+                public unsafe MR.CS.Std.Const_Function_StdString_From_Int_Int f2 {get; private protected set;}
+
+                public unsafe MR.CS.Std.Const_Function_MRCSharpE1_From_MRCSharpE1 f3 {get; private protected set;}
+
+                public unsafe MR.CS.Std.Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC f4 {get; private protected set;}
+
+                public unsafe MR.CS.Std.Const_Function_IntRef_From_IntRef_IntRvalueRef f5 {get; private protected set;}
+
+                public unsafe MR.CS.Std.Const_Function_IntRvalueRef f6 {get; private protected set;}
+
+                public unsafe MR.CS.Std.Const_Function_Void f7 {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected unsafe void _FinalizeFields()
+                {
+                    { // f1
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f1", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_Function_Int_From_StdString._Underlying *__MR_CSharp_TestStdFunction_Get_f1(MR.CS.CSharp.Const_TestStdFunction._Underlying *_this);
+                        this.f1 = new(__MR_CSharp_TestStdFunction_Get_f1(_UnderlyingPtr), is_owning: false);
+                        this.f1._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f2
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f2", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_Function_StdString_From_Int_Int._Underlying *__MR_CSharp_TestStdFunction_Get_f2(MR.CS.CSharp.Const_TestStdFunction._Underlying *_this);
+                        this.f2 = new(__MR_CSharp_TestStdFunction_Get_f2(_UnderlyingPtr), is_owning: false);
+                        this.f2._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f3
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f3", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_Function_MRCSharpE1_From_MRCSharpE1._Underlying *__MR_CSharp_TestStdFunction_Get_f3(MR.CS.CSharp.Const_TestStdFunction._Underlying *_this);
+                        this.f3 = new(__MR_CSharp_TestStdFunction_Get_f3(_UnderlyingPtr), is_owning: false);
+                        this.f3._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f4
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f4", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *__MR_CSharp_TestStdFunction_Get_f4(MR.CS.CSharp.Const_TestStdFunction._Underlying *_this);
+                        this.f4 = new(__MR_CSharp_TestStdFunction_Get_f4(_UnderlyingPtr), is_owning: false);
+                        this.f4._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f5
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f5", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_Function_IntRef_From_IntRef_IntRvalueRef._Underlying *__MR_CSharp_TestStdFunction_Get_f5(MR.CS.CSharp.Const_TestStdFunction._Underlying *_this);
+                        this.f5 = new(__MR_CSharp_TestStdFunction_Get_f5(_UnderlyingPtr), is_owning: false);
+                        this.f5._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f6
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f6", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_Function_IntRvalueRef._Underlying *__MR_CSharp_TestStdFunction_Get_f6(MR.CS.CSharp.Const_TestStdFunction._Underlying *_this);
+                        this.f6 = new(__MR_CSharp_TestStdFunction_Get_f6(_UnderlyingPtr), is_owning: false);
+                        this.f6._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f7
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f7", ExactSpelling = true)]
+                        extern static MR.CS.Std.Const_Function_Void._Underlying *__MR_CSharp_TestStdFunction_Get_f7(MR.CS.CSharp.Const_TestStdFunction._Underlying *_this);
+                        this.f7 = new(__MR_CSharp_TestStdFunction_Get_f7(_UnderlyingPtr), is_owning: false);
+                        this.f7._KeepAliveEnclosingObject = this;
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe Const_TestStdFunction(_Underlying *ptr, bool is_owning) : base(is_owning)
+                {
+                    _UnderlyingPtr = ptr;
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe Const_TestStdFunction() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.TestStdFunction._Underlying *__MR_CSharp_TestStdFunction_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_TestStdFunction_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Constructs `MR::CSharp::TestStdFunction` elementwise.
+                /// </summary>
+                public unsafe Const_TestStdFunction(MR.CS.Std._ByValue_Function_IntFuncFromStdString f1, MR.CS.Std._ByValue_Function_StdStringFuncFromIntInt f2, MR.CS.Std._ByValue_Function_MRCSharpE1FuncFromMRCSharpE1 f3, MR.CS.Std._ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC f4, MR.CS.Std._ByValue_Function_IntRefFuncFromIntRefIntRvalueRef f5, MR.CS.Std._ByValue_Function_IntRvalueRefFunc f6, MR.CS.Std._ByValue_Function_VoidFunc f7) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.TestStdFunction._Underlying *__MR_CSharp_TestStdFunction_ConstructFrom(MR.CS.Misc._PassBy f1_pass_by, MR.CS.Std.Function_Int_From_StdString._Underlying *f1, MR.CS.Misc._PassBy f2_pass_by, MR.CS.Std.Function_StdString_From_Int_Int._Underlying *f2, MR.CS.Misc._PassBy f3_pass_by, MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1._Underlying *f3, MR.CS.Misc._PassBy f4_pass_by, MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *f4, MR.CS.Misc._PassBy f5_pass_by, MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef._Underlying *f5, MR.CS.Misc._PassBy f6_pass_by, MR.CS.Std.Function_IntRvalueRef._Underlying *f6, MR.CS.Misc._PassBy f7_pass_by, MR.CS.Std.Function_Void._Underlying *f7);
+                    _UnderlyingPtr = __MR_CSharp_TestStdFunction_ConstructFrom(f1.PassByMode, f1.Value is not null ? f1.Value._UnderlyingPtr : null, f2.PassByMode, f2.Value is not null ? f2.Value._UnderlyingPtr : null, f3.PassByMode, f3.Value is not null ? f3.Value._UnderlyingPtr : null, f4.PassByMode, f4.Value is not null ? f4.Value._UnderlyingPtr : null, f5.PassByMode, f5.Value is not null ? f5.Value._UnderlyingPtr : null, f6.PassByMode, f6.Value is not null ? f6.Value._UnderlyingPtr : null, f7.PassByMode, f7.Value is not null ? f7.Value._UnderlyingPtr : null);
+                    if (f1.Value is not null) _KeepAlive(f1.Value);
+                    if (f2.Value is not null) _KeepAlive(f2.Value);
+                    if (f3.Value is not null) _KeepAlive(f3.Value);
+                    if (f4.Value is not null) _KeepAlive(f4.Value);
+                    if (f5.Value is not null) _KeepAlive(f5.Value);
+                    if (f6.Value is not null) _KeepAlive(f6.Value);
+                    if (f7.Value is not null) _KeepAlive(f7.Value);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestStdFunction::TestStdFunction`.
+                /// </summary>
+                public unsafe Const_TestStdFunction(MR.CS.CSharp._ByValue_TestStdFunction _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.TestStdFunction._Underlying *__MR_CSharp_TestStdFunction_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestStdFunction._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_TestStdFunction_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestStdFunction::TestStdFunction`.
+                /// </summary>
+                public Const_TestStdFunction(Const_TestStdFunction _other) : this(new _ByValue_TestStdFunction(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestStdFunction::TestStdFunction`.
+                /// </summary>
+                public Const_TestStdFunction(TestStdFunction _other) : this((Const_TestStdFunction)_other) {}
+            }
+
+            // Test `std::function`.
+            /// <summary>
+            /// Generated from class `MR::CSharp::TestStdFunction`.
+            /// This is the non-const half of the class.
+            /// </summary>
+            public class TestStdFunction : Const_TestStdFunction
+            {
+                public new unsafe MR.CS.Std.Function_Int_From_StdString f1 {get; private protected set;}
+
+                public new unsafe MR.CS.Std.Function_StdString_From_Int_Int f2 {get; private protected set;}
+
+                public new unsafe MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1 f3 {get; private protected set;}
+
+                public new unsafe MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC f4 {get; private protected set;}
+
+                public new unsafe MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef f5 {get; private protected set;}
+
+                public new unsafe MR.CS.Std.Function_IntRvalueRef f6 {get; private protected set;}
+
+                public new unsafe MR.CS.Std.Function_Void f7 {get; private protected set;}
+
+                /// <summary>
+                /// Constructors call this at the end to initialize class fields.
+                /// </summary>
+                protected new unsafe void _FinalizeFields()
+                {
+                    base._FinalizeFields();
+
+                    { // f1
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f1", ExactSpelling = true)]
+                        extern static MR.CS.Std.Function_Int_From_StdString._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f1(MR.CS.CSharp.TestStdFunction._Underlying *_this);
+                        this.f1 = new(__MR_CSharp_TestStdFunction_GetMutable_f1(_UnderlyingPtr), is_owning: false);
+                        this.f1._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f2
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f2", ExactSpelling = true)]
+                        extern static MR.CS.Std.Function_StdString_From_Int_Int._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f2(MR.CS.CSharp.TestStdFunction._Underlying *_this);
+                        this.f2 = new(__MR_CSharp_TestStdFunction_GetMutable_f2(_UnderlyingPtr), is_owning: false);
+                        this.f2._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f3
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f3", ExactSpelling = true)]
+                        extern static MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f3(MR.CS.CSharp.TestStdFunction._Underlying *_this);
+                        this.f3 = new(__MR_CSharp_TestStdFunction_GetMutable_f3(_UnderlyingPtr), is_owning: false);
+                        this.f3._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f4
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f4", ExactSpelling = true)]
+                        extern static MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f4(MR.CS.CSharp.TestStdFunction._Underlying *_this);
+                        this.f4 = new(__MR_CSharp_TestStdFunction_GetMutable_f4(_UnderlyingPtr), is_owning: false);
+                        this.f4._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f5
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f5", ExactSpelling = true)]
+                        extern static MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f5(MR.CS.CSharp.TestStdFunction._Underlying *_this);
+                        this.f5 = new(__MR_CSharp_TestStdFunction_GetMutable_f5(_UnderlyingPtr), is_owning: false);
+                        this.f5._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f6
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f6", ExactSpelling = true)]
+                        extern static MR.CS.Std.Function_IntRvalueRef._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f6(MR.CS.CSharp.TestStdFunction._Underlying *_this);
+                        this.f6 = new(__MR_CSharp_TestStdFunction_GetMutable_f6(_UnderlyingPtr), is_owning: false);
+                        this.f6._KeepAliveEnclosingObject = this;
+                    }
+
+                    { // f7
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f7", ExactSpelling = true)]
+                        extern static MR.CS.Std.Function_Void._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f7(MR.CS.CSharp.TestStdFunction._Underlying *_this);
+                        this.f7 = new(__MR_CSharp_TestStdFunction_GetMutable_f7(_UnderlyingPtr), is_owning: false);
+                        this.f7._KeepAliveEnclosingObject = this;
+                    }
+                }
+
+                // Don't warn about some fields remaining conditionally uninitialized. We initialize them later.
+                #pragma warning disable CS8618
+                internal unsafe TestStdFunction(_Underlying *ptr, bool is_owning) : base(ptr, is_owning)
+                {
+                    if (ptr is not null)
+                        _FinalizeFields();
+                }
+                #pragma warning restore CS8618
+
+                /// <summary>
+                /// Constructs an empty (default-constructed) instance.
+                /// </summary>
+                public unsafe TestStdFunction() : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_DefaultConstruct", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.TestStdFunction._Underlying *__MR_CSharp_TestStdFunction_DefaultConstruct();
+                    _UnderlyingPtr = __MR_CSharp_TestStdFunction_DefaultConstruct();
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Constructs `MR::CSharp::TestStdFunction` elementwise.
+                /// </summary>
+                public unsafe TestStdFunction(MR.CS.Std._ByValue_Function_IntFuncFromStdString f1, MR.CS.Std._ByValue_Function_StdStringFuncFromIntInt f2, MR.CS.Std._ByValue_Function_MRCSharpE1FuncFromMRCSharpE1 f3, MR.CS.Std._ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC f4, MR.CS.Std._ByValue_Function_IntRefFuncFromIntRefIntRvalueRef f5, MR.CS.Std._ByValue_Function_IntRvalueRefFunc f6, MR.CS.Std._ByValue_Function_VoidFunc f7) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_ConstructFrom", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.TestStdFunction._Underlying *__MR_CSharp_TestStdFunction_ConstructFrom(MR.CS.Misc._PassBy f1_pass_by, MR.CS.Std.Function_Int_From_StdString._Underlying *f1, MR.CS.Misc._PassBy f2_pass_by, MR.CS.Std.Function_StdString_From_Int_Int._Underlying *f2, MR.CS.Misc._PassBy f3_pass_by, MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1._Underlying *f3, MR.CS.Misc._PassBy f4_pass_by, MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *f4, MR.CS.Misc._PassBy f5_pass_by, MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef._Underlying *f5, MR.CS.Misc._PassBy f6_pass_by, MR.CS.Std.Function_IntRvalueRef._Underlying *f6, MR.CS.Misc._PassBy f7_pass_by, MR.CS.Std.Function_Void._Underlying *f7);
+                    _UnderlyingPtr = __MR_CSharp_TestStdFunction_ConstructFrom(f1.PassByMode, f1.Value is not null ? f1.Value._UnderlyingPtr : null, f2.PassByMode, f2.Value is not null ? f2.Value._UnderlyingPtr : null, f3.PassByMode, f3.Value is not null ? f3.Value._UnderlyingPtr : null, f4.PassByMode, f4.Value is not null ? f4.Value._UnderlyingPtr : null, f5.PassByMode, f5.Value is not null ? f5.Value._UnderlyingPtr : null, f6.PassByMode, f6.Value is not null ? f6.Value._UnderlyingPtr : null, f7.PassByMode, f7.Value is not null ? f7.Value._UnderlyingPtr : null);
+                    if (f1.Value is not null) _KeepAlive(f1.Value);
+                    if (f2.Value is not null) _KeepAlive(f2.Value);
+                    if (f3.Value is not null) _KeepAlive(f3.Value);
+                    if (f4.Value is not null) _KeepAlive(f4.Value);
+                    if (f5.Value is not null) _KeepAlive(f5.Value);
+                    if (f6.Value is not null) _KeepAlive(f6.Value);
+                    if (f7.Value is not null) _KeepAlive(f7.Value);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestStdFunction::TestStdFunction`.
+                /// </summary>
+                public unsafe TestStdFunction(MR.CS.CSharp._ByValue_TestStdFunction _other) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.TestStdFunction._Underlying *__MR_CSharp_TestStdFunction_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestStdFunction._Underlying *_other);
+                    _UnderlyingPtr = __MR_CSharp_TestStdFunction_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
+                    _FinalizeFields();
+                }
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestStdFunction::TestStdFunction`.
+                /// </summary>
+                public TestStdFunction(Const_TestStdFunction _other) : this(new _ByValue_TestStdFunction(_other)) {}
+
+                /// <summary>
+                /// Generated from constructor `MR::CSharp::TestStdFunction::TestStdFunction`.
+                /// </summary>
+                public TestStdFunction(TestStdFunction _other) : this((Const_TestStdFunction)_other) {}
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::TestStdFunction::operator=`.
+                /// </summary>
+                public unsafe MR.CS.CSharp.TestStdFunction assign(MR.CS.CSharp._ByValue_TestStdFunction _other)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_AssignFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.TestStdFunction._Underlying *__MR_CSharp_TestStdFunction_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.TestStdFunction._Underlying *_other);
+                    _DiscardKeepAlive();
+                    if (_other.Value is not null) _KeepAlive(_other.Value);
+                    return new(__MR_CSharp_TestStdFunction_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
+                }
+
+                /// <summary>
+                /// Generated from method `MR::CSharp::TestStdFunction::Call`.
+                /// </summary>
+                public unsafe void call()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Call", ExactSpelling = true)]
+                    extern static void __MR_CSharp_TestStdFunction_Call(_Underlying *_this);
+                    __MR_CSharp_TestStdFunction_Call(_UnderlyingPtr);
+                }
+            }
+
+            /// <summary>
+            /// This is used as a function parameter when the underlying function receives `TestStdFunction` by value.
+            /// Usage:
+            /// * Pass `new()` to default-construct the instance.
+            /// * Pass an instance of `TestStdFunction`/`Const_TestStdFunction` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            /// </summary>
+            public class _ByValue_TestStdFunction
+            {
+                #pragma warning disable CS0649
+                internal readonly Const_TestStdFunction? Value;
+                #pragma warning restore CS0649
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValue_TestStdFunction() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_TestStdFunction(Const_TestStdFunction new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_TestStdFunction(Const_TestStdFunction arg) {return new(arg);}
+                public _ByValue_TestStdFunction(MR.CS.Misc._Moved<TestStdFunction> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_TestStdFunction(MR.CS.Misc._Moved<TestStdFunction> arg) {return new(arg);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `TestStdFunction` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_TestStdFunction`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestStdFunction`/`Const_TestStdFunction` directly.
+            /// </summary>
+            public class _InOptMut_TestStdFunction
+            {
+                public TestStdFunction? Opt;
+
+                public _InOptMut_TestStdFunction() {}
+                public _InOptMut_TestStdFunction(TestStdFunction value) {Opt = value;}
+                public static implicit operator _InOptMut_TestStdFunction(TestStdFunction value) {return new(value);}
+            }
+
+            /// <summary>
+            /// This is used for optional parameters of class `TestStdFunction` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_TestStdFunction`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `TestStdFunction`/`Const_TestStdFunction` to pass it to the function.
+            /// </summary>
+            public class _InOptConst_TestStdFunction
+            {
+                public Const_TestStdFunction? Opt;
+
+                public _InOptConst_TestStdFunction() {}
+                public _InOptConst_TestStdFunction(Const_TestStdFunction value) {Opt = value;}
+                public static implicit operator _InOptConst_TestStdFunction(Const_TestStdFunction value) {return new(value);}
             }
 
             /// <summary>

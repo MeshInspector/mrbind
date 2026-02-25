@@ -24,6 +24,7 @@ MR_C_std_multimap_MR_StdContainers_NonAssignable_float *MR_C_std_multimap_MR_Std
 
 MR_C_std_multimap_MR_StdContainers_NonAssignable_float *MR_C_std_multimap_MR_StdContainers_NonAssignable_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_multimap_MR_StdContainers_NonAssignable_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::multimap<MR::StdContainers::NonAssignable, float>);
     return (MR_C_std_multimap_MR_StdContainers_NonAssignable_float *)new std::multimap<MR::StdContainers::NonAssignable, float>(std::multimap<MR::StdContainers::NonAssignable, float>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::multimap<MR::StdContainers::NonAssignable, float>) MRBINDC_CLASSARG_COPY(other, (std::multimap<MR::StdContainers::NonAssignable, float>), std::multimap<MR::StdContainers::NonAssignable, float>) MRBINDC_CLASSARG_MOVE(other, (std::multimap<MR::StdContainers::NonAssignable, float>), std::multimap<MR::StdContainers::NonAssignable, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::multimap<MR::StdContainers::NonAssignable, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::multimap<MR::StdContainers::NonAssignable, float>) MRBINDC_CLASSARG_END(other, std::multimap<MR::StdContainers::NonAssignable, float>))
     ));
@@ -31,6 +32,7 @@ MR_C_std_multimap_MR_StdContainers_NonAssignable_float *MR_C_std_multimap_MR_Std
 
 void MR_C_std_multimap_MR_StdContainers_NonAssignable_float_AssignFromAnother(MR_C_std_multimap_MR_StdContainers_NonAssignable_float *_this, MR_C_PassBy other_pass_by, MR_C_std_multimap_MR_StdContainers_NonAssignable_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::multimap<MR::StdContainers::NonAssignable, float>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::multimap<MR::StdContainers::NonAssignable, float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::multimap<MR::StdContainers::NonAssignable, float>) MRBINDC_CLASSARG_COPY(other, (std::multimap<MR::StdContainers::NonAssignable, float>), std::multimap<MR::StdContainers::NonAssignable, float>) MRBINDC_CLASSARG_MOVE(other, (std::multimap<MR::StdContainers::NonAssignable, float>), std::multimap<MR::StdContainers::NonAssignable, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::multimap<MR::StdContainers::NonAssignable, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::multimap<MR::StdContainers::NonAssignable, float>) MRBINDC_CLASSARG_END(other, std::multimap<MR::StdContainers::NonAssignable, float>))
     );

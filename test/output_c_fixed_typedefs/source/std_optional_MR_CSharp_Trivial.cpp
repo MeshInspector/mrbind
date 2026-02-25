@@ -67,6 +67,11 @@ MR_C_std_optional_MR_CSharp_Trivial *MR_C_std_optional_MR_CSharp_Trivial_OffsetM
     return (MR_C_std_optional_MR_CSharp_Trivial *)(((std::optional<MR::CSharp::Trivial> *)ptr) + i);
 }
 
+bool MR_C_std_optional_MR_CSharp_Trivial_has_value(const MR_C_std_optional_MR_CSharp_Trivial *_this)
+{
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::CSharp::Trivial> *)(_this)));
+}
+
 const MR_CSharp_Trivial *MR_C_std_optional_MR_CSharp_Trivial_value(const MR_C_std_optional_MR_CSharp_Trivial *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::CSharp::Trivial> *)(_this));

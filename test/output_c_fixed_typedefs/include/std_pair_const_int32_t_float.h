@@ -31,7 +31,7 @@ MR_C_API MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_De
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_int32_t_float_Destroy()` to free it when you're done using it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_ConstructFromAnother(const MR_C_std_pair_const_int32_t_float *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_pair_const_int32_t_float`. Does nothing if the pointer is null.
@@ -51,7 +51,7 @@ MR_C_API MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_Of
 // Constructs the pair elementwise.
 // The reference to the parameter `first` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_int32_t_float_Destroy()` to free it when you're done using it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_Construct(int32_t first, float second);
 
 // The first of the two elements, read-only.

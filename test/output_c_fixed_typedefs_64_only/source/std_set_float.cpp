@@ -21,6 +21,7 @@ MR_C_std_set_float *MR_C_std_set_float_DefaultConstructArray(size_t num_elems)
 
 MR_C_std_set_float *MR_C_std_set_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_set_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::set<float>);
     return (MR_C_std_set_float *)new std::set<float>(std::set<float>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::set<float>) MRBINDC_CLASSARG_COPY(other, (std::set<float>), std::set<float>) MRBINDC_CLASSARG_MOVE(other, (std::set<float>), std::set<float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::set<float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::set<float>) MRBINDC_CLASSARG_END(other, std::set<float>))
     ));
@@ -28,6 +29,7 @@ MR_C_std_set_float *MR_C_std_set_float_ConstructFromAnother(MR_C_PassBy other_pa
 
 void MR_C_std_set_float_AssignFromAnother(MR_C_std_set_float *_this, MR_C_PassBy other_pass_by, MR_C_std_set_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::set<float>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::set<float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::set<float>) MRBINDC_CLASSARG_COPY(other, (std::set<float>), std::set<float>) MRBINDC_CLASSARG_MOVE(other, (std::set<float>), std::set<float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::set<float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::set<float>) MRBINDC_CLASSARG_END(other, std::set<float>))
     );

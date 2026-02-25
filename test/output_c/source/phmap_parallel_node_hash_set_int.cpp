@@ -21,6 +21,7 @@ MR_C_phmap_parallel_node_hash_set_int *MR_C_phmap_parallel_node_hash_set_int_Def
 
 MR_C_phmap_parallel_node_hash_set_int *MR_C_phmap_parallel_node_hash_set_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_phmap_parallel_node_hash_set_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::parallel_node_hash_set<int>);
     return (MR_C_phmap_parallel_node_hash_set_int *)new phmap::parallel_node_hash_set<int>(phmap::parallel_node_hash_set<int>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::parallel_node_hash_set<int>) MRBINDC_CLASSARG_COPY(other, (phmap::parallel_node_hash_set<int>), phmap::parallel_node_hash_set<int>) MRBINDC_CLASSARG_MOVE(other, (phmap::parallel_node_hash_set<int>), phmap::parallel_node_hash_set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::parallel_node_hash_set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::parallel_node_hash_set<int>) MRBINDC_CLASSARG_END(other, phmap::parallel_node_hash_set<int>))
     ));
@@ -28,6 +29,7 @@ MR_C_phmap_parallel_node_hash_set_int *MR_C_phmap_parallel_node_hash_set_int_Con
 
 void MR_C_phmap_parallel_node_hash_set_int_AssignFromAnother(MR_C_phmap_parallel_node_hash_set_int *_this, MR_C_PassBy other_pass_by, MR_C_phmap_parallel_node_hash_set_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::parallel_node_hash_set<int>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::parallel_node_hash_set<int> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::parallel_node_hash_set<int>) MRBINDC_CLASSARG_COPY(other, (phmap::parallel_node_hash_set<int>), phmap::parallel_node_hash_set<int>) MRBINDC_CLASSARG_MOVE(other, (phmap::parallel_node_hash_set<int>), phmap::parallel_node_hash_set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::parallel_node_hash_set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::parallel_node_hash_set<int>) MRBINDC_CLASSARG_END(other, phmap::parallel_node_hash_set<int>))
     );

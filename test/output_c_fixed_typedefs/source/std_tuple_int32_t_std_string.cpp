@@ -24,6 +24,7 @@ MR_C_std_tuple_int32_t_std_string *MR_C_std_tuple_int32_t_std_string_DefaultCons
 
 MR_C_std_tuple_int32_t_std_string *MR_C_std_tuple_int32_t_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_tuple_int32_t_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::tuple<int32_t, std::string>);
     return (MR_C_std_tuple_int32_t_std_string *)new std::tuple<int32_t, std::string>(std::tuple<int32_t, std::string>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::tuple<int32_t, std::string>) MRBINDC_CLASSARG_COPY(other, (std::tuple<int32_t, std::string>), std::tuple<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::tuple<int32_t, std::string>), std::tuple<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::tuple<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::tuple<int32_t, std::string>) MRBINDC_CLASSARG_END(other, std::tuple<int32_t, std::string>))
     ));
@@ -31,6 +32,7 @@ MR_C_std_tuple_int32_t_std_string *MR_C_std_tuple_int32_t_std_string_ConstructFr
 
 void MR_C_std_tuple_int32_t_std_string_AssignFromAnother(MR_C_std_tuple_int32_t_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_tuple_int32_t_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::tuple<int32_t, std::string>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<int32_t, std::string> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::tuple<int32_t, std::string>) MRBINDC_CLASSARG_COPY(other, (std::tuple<int32_t, std::string>), std::tuple<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::tuple<int32_t, std::string>), std::tuple<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::tuple<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::tuple<int32_t, std::string>) MRBINDC_CLASSARG_END(other, std::tuple<int32_t, std::string>))
     );

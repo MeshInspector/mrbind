@@ -21,6 +21,7 @@ MR_C_std_list_int *MR_C_std_list_int_DefaultConstructArray(size_t num_elems)
 
 MR_C_std_list_int *MR_C_std_list_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_list_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::list<int>);
     return (MR_C_std_list_int *)new std::list<int>(std::list<int>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::list<int>) MRBINDC_CLASSARG_COPY(other, (std::list<int>), std::list<int>) MRBINDC_CLASSARG_MOVE(other, (std::list<int>), std::list<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::list<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::list<int>) MRBINDC_CLASSARG_END(other, std::list<int>))
     ));
@@ -28,6 +29,7 @@ MR_C_std_list_int *MR_C_std_list_int_ConstructFromAnother(MR_C_PassBy other_pass
 
 void MR_C_std_list_int_AssignFromAnother(MR_C_std_list_int *_this, MR_C_PassBy other_pass_by, MR_C_std_list_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::list<int>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::list<int>) MRBINDC_CLASSARG_COPY(other, (std::list<int>), std::list<int>) MRBINDC_CLASSARG_MOVE(other, (std::list<int>), std::list<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::list<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::list<int>) MRBINDC_CLASSARG_END(other, std::list<int>))
     );

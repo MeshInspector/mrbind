@@ -22,6 +22,7 @@ MR_C_std_deque_MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_N
 
 MR_C_std_deque_MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_deque_MR_StdContainers_NonAssignable *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::deque<MR::StdContainers::NonAssignable>);
     return (MR_C_std_deque_MR_StdContainers_NonAssignable *)new std::deque<MR::StdContainers::NonAssignable>(std::deque<MR::StdContainers::NonAssignable>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::deque<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_COPY(other, (std::deque<MR::StdContainers::NonAssignable>), std::deque<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_MOVE(other, (std::deque<MR::StdContainers::NonAssignable>), std::deque<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::deque<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::deque<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_END(other, std::deque<MR::StdContainers::NonAssignable>))
     ));
@@ -29,6 +30,7 @@ MR_C_std_deque_MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_N
 
 void MR_C_std_deque_MR_StdContainers_NonAssignable_AssignFromAnother(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, MR_C_PassBy other_pass_by, MR_C_std_deque_MR_StdContainers_NonAssignable *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::deque<MR::StdContainers::NonAssignable>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<MR::StdContainers::NonAssignable> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::deque<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_COPY(other, (std::deque<MR::StdContainers::NonAssignable>), std::deque<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_MOVE(other, (std::deque<MR::StdContainers::NonAssignable>), std::deque<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::deque<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::deque<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_END(other, std::deque<MR::StdContainers::NonAssignable>))
     );
@@ -112,6 +114,7 @@ MR_StdContainers_NonAssignable *MR_C_std_deque_MR_StdContainers_NonAssignable_ba
 
 void MR_C_std_deque_MR_StdContainers_NonAssignable_push_back(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, MR_C_PassBy new_elem_pass_by, MR_StdContainers_NonAssignable *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::StdContainers::NonAssignable);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<MR::StdContainers::NonAssignable> *)(_this)).push_back(
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(new_elem, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(new_elem, MR::StdContainers::NonAssignable))
     );
@@ -124,6 +127,7 @@ void MR_C_std_deque_MR_StdContainers_NonAssignable_pop_back(MR_C_std_deque_MR_St
 
 void MR_C_std_deque_MR_StdContainers_NonAssignable_push_front(MR_C_std_deque_MR_StdContainers_NonAssignable *_this, MR_C_PassBy new_elem_pass_by, MR_StdContainers_NonAssignable *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::StdContainers::NonAssignable);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<MR::StdContainers::NonAssignable> *)(_this)).push_front(
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(new_elem, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(new_elem, MR::StdContainers::NonAssignable))
     );

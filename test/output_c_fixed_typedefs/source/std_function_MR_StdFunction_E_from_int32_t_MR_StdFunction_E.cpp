@@ -8,7 +8,6 @@
 #include <cstddef>
 #include <cstdint>
 #include <functional>
-#include <memory>
 #include <stdexcept>
 
 
@@ -24,6 +23,7 @@ MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_funct
 
 MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>);
     return (MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *)new std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>(std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>) MRBINDC_CLASSARG_COPY(other, (std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>), std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>) MRBINDC_CLASSARG_MOVE(other, (std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>), std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>) MRBINDC_CLASSARG_END(other, std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>))
     ));
@@ -31,6 +31,7 @@ MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_funct
 
 void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_AssignFromAnother(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, MR_C_PassBy other_pass_by, MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>) MRBINDC_CLASSARG_COPY(other, (std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>), std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>) MRBINDC_CLASSARG_MOVE(other, (std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>), std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>) MRBINDC_CLASSARG_END(other, std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>))
     );
@@ -56,19 +57,29 @@ MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_funct
     return (MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *)(((std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)> *)ptr) + i);
 }
 
-MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_ConstructStateless(MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E *_2))
+bool MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_has_value(const MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this)
+{
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)> *)(_this)));
+}
+
+void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_reset(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)> *)(_this)) = nullptr;
+}
+
+MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_ConstructStateless(MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E _2))
 {
     return (MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *)new std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>(func ? std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>([_f = func](int32_t _1, MR::StdFunction::E _2) -> MR::StdFunction::E
     {
         decltype(auto) _return = _f(
             _1,
-            (MR_StdFunction_E *)std::addressof(mrbindc_details::unmove(_2))
+            (MR_StdFunction_E)(_2)
         );
         return ((MR::StdFunction::E)_return);
     }) : nullptr);
 }
 
-void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_Assign(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E *_2))
+void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_Assign(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E _2))
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)> *)(_this));
     if (!func)
@@ -80,7 +91,7 @@ void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_Assign(MR_
     {
         decltype(auto) _return = _f(
             _1,
-            (MR_StdFunction_E *)std::addressof(mrbindc_details::unmove(_2))
+            (MR_StdFunction_E)(_2)
         );
         return ((MR::StdFunction::E)_return);
     };
@@ -90,26 +101,29 @@ namespace
 {
     struct _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E
     {
-        using FuncPtr = MR_StdFunction_E (*)(int32_t _1, MR_StdFunction_E *_2, void *_userdata);
+        using FuncPtr = MR_StdFunction_E (*)(int32_t _1, MR_StdFunction_E _2, void *_userdata, void **_cleanup_value);
+        using PostcallCbPtr = void (*)(void *_userdata, void *_cleanup_value);
         using UserdataCbPtr = void (*)(void **_this_userdata, void *_other_userdata);
 
         FuncPtr _func = nullptr;
         void *_userdata = nullptr;
+        PostcallCbPtr _postcall_cb = nullptr;
         UserdataCbPtr _userdata_cb = nullptr;
 
-        _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E(FuncPtr _func, void *_userdata, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _userdata_cb(_userdata_cb) {}
+        _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E(FuncPtr _func, void *_userdata, PostcallCbPtr _postcall_cb, UserdataCbPtr _userdata_cb) : _func(_func), _userdata(_userdata), _postcall_cb(_postcall_cb), _userdata_cb(_userdata_cb) {}
 
-        _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E(const _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E &other) : _func(other._func), _userdata_cb(other._userdata_cb)
+        _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E(const _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E &other) : _func(other._func), _postcall_cb(other._postcall_cb), _userdata_cb(other._userdata_cb)
         {
             if (!other._userdata) return; // No data to copy.
             if (!_userdata_cb) {_userdata = other._userdata; return;} // No callback, just copy the data.
             _userdata_cb(&_userdata, other._userdata);
         }
 
-        _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E(_functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E &&other) noexcept : _func(other._func), _userdata(other._userdata), _userdata_cb(other._userdata_cb)
+        _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E(_functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E &&other) noexcept : _func(other._func), _userdata(other._userdata), _postcall_cb(other._postcall_cb), _userdata_cb(other._userdata_cb)
         {
             other._func = nullptr;
             other._userdata = nullptr;
+            other._postcall_cb = nullptr;
             other._userdata_cb = nullptr;
         }
 
@@ -121,6 +135,7 @@ namespace
                 _userdata = nullptr; // Don't need to zero the callbacks, we'll overwrite them anyway.
             }
             _func = other._func;
+            _postcall_cb = other._postcall_cb;
             _userdata_cb = other._userdata_cb;
             if (other._userdata && _userdata_cb) // If we have data to copy and a callback, use the callback. The data must be non-null, otherwise the callback will confuse this for a copy construction.
                 _userdata_cb(&_userdata, other._userdata);
@@ -133,6 +148,7 @@ namespace
         {
             _func = other._func;
             _userdata = other._userdata;
+            _postcall_cb = other._postcall_cb;
             _userdata_cb = other._userdata_cb;
             other._func = nullptr;
             other._userdata = nullptr;
@@ -148,22 +164,35 @@ namespace
 
         auto operator()(int32_t _1, MR::StdFunction::E _2) -> MR::StdFunction::E
         {
+            struct _cleanup_guard_type
+            {
+                _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_self = nullptr;
+                void *_value = nullptr;
+                ~_cleanup_guard_type()
+                {
+                    if (_self->_postcall_cb)
+                        _self->_postcall_cb(_self->_userdata, _value);
+                }
+            };
+            _cleanup_guard_type _cleanup_guard;
+            _cleanup_guard._self = this;
             decltype(auto) _return = _func(
                 _1,
-                (MR_StdFunction_E *)std::addressof(mrbindc_details::unmove(_2)),
-                _userdata
+                (MR_StdFunction_E)(_2),
+                _userdata,
+                _postcall_cb ? &_cleanup_guard._value : nullptr
             );
             return ((MR::StdFunction::E)_return);
         }
     };
 }
 
-MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_ConstructWithDataPtr(MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E *_2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
+MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_ConstructEx(MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E _2, void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
-    return (MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *)new std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>(func ? std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>(_functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E{func, userdata, userdata_callback}) : nullptr);
+    return (MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *)new std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>(func ? std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)>(_functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E{func, userdata, postcall_callback, userdata_callback}) : nullptr);
 }
 
-void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_AssignWithDataPtr(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E *_2, void *_userdata), void *userdata, void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
+void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_AssignEx(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E _2, void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::StdFunction::E(int32_t, MR::StdFunction::E)> *)(_this));
     if (!func)
@@ -172,6 +201,6 @@ void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_AssignWith
         return;
     }
     
-    _self = _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E{func, userdata, userdata_callback};
+    _self = _functor_MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E{func, userdata, postcall_callback, userdata_callback};
 }
 

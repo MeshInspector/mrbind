@@ -38,7 +38,7 @@ MR_C_API MR_C_std_pair_int32_t_ref_float_ref *MR_C_std_pair_int32_t_ref_float_re
 // Parameter `second` can not be null. It is a single object.
 // The reference to the parameter `second` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_int32_t_ref_float_ref_Destroy()` to free it when you're done using it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_pair_int32_t_ref_float_ref *MR_C_std_pair_int32_t_ref_float_ref_Construct(int32_t *first, float *second);
 
 // The first of the two elements, read-only.

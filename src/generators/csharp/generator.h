@@ -747,11 +747,15 @@ namespace mrbind::CSharp
             use_heap_wrappers_for_exposed_structs = 1 << 11,
             // When dealing with rvalue references, pretend that they are lvalue references (for all purposes other than the dllimport ABI, but they don't affect ABI in our current C bindings).
             // Since directly changing the type passed to `GetTypeBinding()` could cause issues if we ever give lvalue refs and rvalue refs different ABI, I'd rather have a special flag for this.
+            // For scalars and other simple types, this additionally has an effect of making the reference const, which might cause the object to be passed by value.
             treat_rvalue_refs_as_lvalue_refs = 1 << 12,
             // For parameter usage, avoid the "post call" extra statements at all costs, even if it results in an uglier parameter type.
             // This is used by `std::function<...>` bindings for the return type (which uses the parameter usage, and the parameters use the return usage; they have to be reversed like this in callbacks).
             // This is needed, because `std::function` simply can't run those statements, because that would need to be done after returning from the function.
             avoid_post_statements = 1 << 13,
+            // Avoid C# spans. Primarily intended for strings, this replaces `ReadOnlySpan<char>` with `string`.
+            // Note that this also happens everywhere for older C# versions.
+            avoid_spans = 1 << 14,
 
             // When adding new flags here, update `TypeBindingFlagsToString()`!
         };

@@ -24,6 +24,7 @@ MR_C_std_map_int32_t_float *MR_C_std_map_int32_t_float_DefaultConstructArray(siz
 
 MR_C_std_map_int32_t_float *MR_C_std_map_int32_t_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_map_int32_t_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::map<int32_t, float>);
     return (MR_C_std_map_int32_t_float *)new std::map<int32_t, float>(std::map<int32_t, float>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::map<int32_t, float>) MRBINDC_CLASSARG_COPY(other, (std::map<int32_t, float>), std::map<int32_t, float>) MRBINDC_CLASSARG_MOVE(other, (std::map<int32_t, float>), std::map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::map<int32_t, float>) MRBINDC_CLASSARG_END(other, std::map<int32_t, float>))
     ));
@@ -31,6 +32,7 @@ MR_C_std_map_int32_t_float *MR_C_std_map_int32_t_float_ConstructFromAnother(MR_C
 
 void MR_C_std_map_int32_t_float_AssignFromAnother(MR_C_std_map_int32_t_float *_this, MR_C_PassBy other_pass_by, MR_C_std_map_int32_t_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::map<int32_t, float>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::map<int32_t, float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::map<int32_t, float>) MRBINDC_CLASSARG_COPY(other, (std::map<int32_t, float>), std::map<int32_t, float>) MRBINDC_CLASSARG_MOVE(other, (std::map<int32_t, float>), std::map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::map<int32_t, float>) MRBINDC_CLASSARG_END(other, std::map<int32_t, float>))
     );

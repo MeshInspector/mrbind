@@ -42,7 +42,7 @@ MR_C_API MR_C_std_pair_const_MR_StdContainers_NonAssignable_float *MR_C_std_pair
 /// Constructs the pair elementwise.
 /// The reference to the parameter `first` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_pair_const_MR_StdContainers_NonAssignable_float *MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(MR_C_PassBy first_pass_by, MR_StdContainers_NonAssignable *first, float second);
 
 /// The first of the two elements, read-only.

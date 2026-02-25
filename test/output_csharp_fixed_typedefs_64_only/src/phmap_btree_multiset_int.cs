@@ -549,7 +549,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_BtreeMultiset_Int
             {
+                #pragma warning disable CS0649
                 internal readonly Const_BtreeMultiset_Int? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_BtreeMultiset_Int() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_BtreeMultiset_Int(Const_BtreeMultiset_Int new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

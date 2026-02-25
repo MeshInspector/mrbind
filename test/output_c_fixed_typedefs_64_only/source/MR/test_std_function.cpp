@@ -13,6 +13,7 @@
 
 void MR_StdFunction_foo_std_function_int_func(MR_C_PassBy _1_pass_by, MR_C_std_function_int *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::function<int(void)>);
     ::MR::StdFunction::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::function<int(void)>) MRBINDC_CLASSARG_COPY(_1, (std::function<int(void)>), std::function<int(void)>) MRBINDC_CLASSARG_MOVE(_1, (std::function<int(void)>), std::function<int(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::function<int(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::function<int(void)>) MRBINDC_CLASSARG_END(_1, std::function<int(void)>))
     );
@@ -20,6 +21,7 @@ void MR_StdFunction_foo_std_function_int_func(MR_C_PassBy _1_pass_by, MR_C_std_f
 
 void MR_StdFunction_foo_std_function_void_func_from_int_int(MR_C_PassBy _1_pass_by, MR_C_std_function_void_from_int_int *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::function<void(int, int)>);
     ::MR::StdFunction::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::function<void(int, int)>) MRBINDC_CLASSARG_COPY(_1, (std::function<void(int, int)>), std::function<void(int, int)>) MRBINDC_CLASSARG_MOVE(_1, (std::function<void(int, int)>), std::function<void(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::function<void(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::function<void(int, int)>) MRBINDC_CLASSARG_END(_1, std::function<void(int, int)>))
     );
@@ -27,6 +29,7 @@ void MR_StdFunction_foo_std_function_void_func_from_int_int(MR_C_PassBy _1_pass_
 
 void MR_StdFunction_foo_std_function_int_func_from_int_int(MR_C_PassBy _1_pass_by, MR_C_std_function_int_from_int_int *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::function<int(int, int)>);
     ::MR::StdFunction::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::function<int(int, int)>) MRBINDC_CLASSARG_COPY(_1, (std::function<int(int, int)>), std::function<int(int, int)>) MRBINDC_CLASSARG_MOVE(_1, (std::function<int(int, int)>), std::function<int(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::function<int(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::function<int(int, int)>) MRBINDC_CLASSARG_END(_1, std::function<int(int, int)>))
     );
@@ -34,6 +37,7 @@ void MR_StdFunction_foo_std_function_int_func_from_int_int(MR_C_PassBy _1_pass_b
 
 void MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E(MR_C_PassBy _1_pass_by, MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::function<MR::StdFunction::E(int, MR::StdFunction::E)>);
     ::MR::StdFunction::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::function<MR::StdFunction::E(int, MR::StdFunction::E)>) MRBINDC_CLASSARG_COPY(_1, (std::function<MR::StdFunction::E(int, MR::StdFunction::E)>), std::function<MR::StdFunction::E(int, MR::StdFunction::E)>) MRBINDC_CLASSARG_MOVE(_1, (std::function<MR::StdFunction::E(int, MR::StdFunction::E)>), std::function<MR::StdFunction::E(int, MR::StdFunction::E)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::function<MR::StdFunction::E(int, MR::StdFunction::E)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::function<MR::StdFunction::E(int, MR::StdFunction::E)>) MRBINDC_CLASSARG_END(_1, std::function<MR::StdFunction::E(int, MR::StdFunction::E)>))
     );
@@ -41,6 +45,7 @@ void MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFuncti
 
 void MR_StdFunction_foo_std_function_std_string_func_from_int_float(MR_C_PassBy _1_pass_by, MR_C_std_function_std_string_from_int_float *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::function<std::string(int, float)>);
     ::MR::StdFunction::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::function<std::string(int, float)>) MRBINDC_CLASSARG_COPY(_1, (std::function<std::string(int, float)>), std::function<std::string(int, float)>) MRBINDC_CLASSARG_MOVE(_1, (std::function<std::string(int, float)>), std::function<std::string(int, float)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::function<std::string(int, float)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::function<std::string(int, float)>) MRBINDC_CLASSARG_END(_1, std::function<std::string(int, float)>))
     );
@@ -48,6 +53,7 @@ void MR_StdFunction_foo_std_function_std_string_func_from_int_float(MR_C_PassBy 
 
 void MR_StdFunction_foo_std_function_void_func_from_std_string(MR_C_PassBy _1_pass_by, MR_C_std_function_void_from_std_string *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::function<void(std::string)>);
     ::MR::StdFunction::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::function<void(std::string)>) MRBINDC_CLASSARG_COPY(_1, (std::function<void(std::string)>), std::function<void(std::string)>) MRBINDC_CLASSARG_MOVE(_1, (std::function<void(std::string)>), std::function<void(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::function<void(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::function<void(std::string)>) MRBINDC_CLASSARG_END(_1, std::function<void(std::string)>))
     );
@@ -97,6 +103,7 @@ MR_StdFunction_A *MR_StdFunction_A_OffsetMutablePtr(MR_StdFunction_A *ptr, ptrdi
 
 MR_StdFunction_A *MR_StdFunction_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::StdFunction::A);
     return (MR_StdFunction_A *)new MR::StdFunction::A(MR::StdFunction::A(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::StdFunction::A) MRBINDC_CLASSARG_COPY(_other, (MR::StdFunction::A), MR::StdFunction::A) MRBINDC_CLASSARG_MOVE(_other, (MR::StdFunction::A), MR::StdFunction::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::StdFunction::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::StdFunction::A) MRBINDC_CLASSARG_END(_other, MR::StdFunction::A))
     ));
@@ -114,6 +121,7 @@ void MR_StdFunction_A_DestroyArray(const MR_StdFunction_A *_this)
 
 MR_StdFunction_A *MR_StdFunction_A_AssignFromAnother(MR_StdFunction_A *_this, MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::StdFunction::A);
     return (MR_StdFunction_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdFunction::A *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::StdFunction::A) MRBINDC_CLASSARG_COPY(_other, (MR::StdFunction::A), MR::StdFunction::A) MRBINDC_CLASSARG_MOVE(_other, (MR::StdFunction::A), MR::StdFunction::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::StdFunction::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::StdFunction::A) MRBINDC_CLASSARG_END(_other, MR::StdFunction::A))
     ));
@@ -121,6 +129,7 @@ MR_StdFunction_A *MR_StdFunction_A_AssignFromAnother(MR_StdFunction_A *_this, MR
 
 void MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(MR_C_PassBy _1_pass_by, MR_C_std_function_void_from_MR_StdFunction_A *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::function<void(MR::StdFunction::A)>);
     ::MR::StdFunction::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::function<void(MR::StdFunction::A)>) MRBINDC_CLASSARG_COPY(_1, (std::function<void(MR::StdFunction::A)>), std::function<void(MR::StdFunction::A)>) MRBINDC_CLASSARG_MOVE(_1, (std::function<void(MR::StdFunction::A)>), std::function<void(MR::StdFunction::A)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::function<void(MR::StdFunction::A)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::function<void(MR::StdFunction::A)>) MRBINDC_CLASSARG_END(_1, std::function<void(MR::StdFunction::A)>))
     );
@@ -128,6 +137,7 @@ void MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(MR_C_PassBy
 
 void MR_StdFunction_foo_std_function_MR_StdFunction_A_func(MR_C_PassBy _1_pass_by, MR_C_std_function_MR_StdFunction_A *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::function<MR::StdFunction::A(void)>);
     ::MR::StdFunction::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::function<MR::StdFunction::A(void)>) MRBINDC_CLASSARG_COPY(_1, (std::function<MR::StdFunction::A(void)>), std::function<MR::StdFunction::A(void)>) MRBINDC_CLASSARG_MOVE(_1, (std::function<MR::StdFunction::A(void)>), std::function<MR::StdFunction::A(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::function<MR::StdFunction::A(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::function<MR::StdFunction::A(void)>) MRBINDC_CLASSARG_END(_1, std::function<MR::StdFunction::A(void)>))
     );

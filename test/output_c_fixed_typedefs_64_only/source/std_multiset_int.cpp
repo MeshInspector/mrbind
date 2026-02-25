@@ -21,6 +21,7 @@ MR_C_std_multiset_int *MR_C_std_multiset_int_DefaultConstructArray(size_t num_el
 
 MR_C_std_multiset_int *MR_C_std_multiset_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_multiset_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::multiset<int>);
     return (MR_C_std_multiset_int *)new std::multiset<int>(std::multiset<int>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::multiset<int>) MRBINDC_CLASSARG_COPY(other, (std::multiset<int>), std::multiset<int>) MRBINDC_CLASSARG_MOVE(other, (std::multiset<int>), std::multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::multiset<int>) MRBINDC_CLASSARG_END(other, std::multiset<int>))
     ));
@@ -28,6 +29,7 @@ MR_C_std_multiset_int *MR_C_std_multiset_int_ConstructFromAnother(MR_C_PassBy ot
 
 void MR_C_std_multiset_int_AssignFromAnother(MR_C_std_multiset_int *_this, MR_C_PassBy other_pass_by, MR_C_std_multiset_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::multiset<int>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::multiset<int> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::multiset<int>) MRBINDC_CLASSARG_COPY(other, (std::multiset<int>), std::multiset<int>) MRBINDC_CLASSARG_MOVE(other, (std::multiset<int>), std::multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::multiset<int>) MRBINDC_CLASSARG_END(other, std::multiset<int>))
     );

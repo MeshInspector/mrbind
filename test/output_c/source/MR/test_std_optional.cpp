@@ -226,6 +226,7 @@ MR_StdOptional_B *MR_StdOptional_B_OffsetMutablePtr(MR_StdOptional_B *ptr, ptrdi
 
 MR_StdOptional_B *MR_StdOptional_B_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_StdOptional_B *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::StdOptional::B);
     return (MR_StdOptional_B *)new MR::StdOptional::B(MR::StdOptional::B(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::StdOptional::B) MRBINDC_CLASSARG_COPY(_other, (MR::StdOptional::B), MR::StdOptional::B) MRBINDC_CLASSARG_MOVE(_other, (MR::StdOptional::B), MR::StdOptional::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::StdOptional::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::StdOptional::B) MRBINDC_CLASSARG_END(_other, MR::StdOptional::B))
     ));
@@ -243,6 +244,7 @@ void MR_StdOptional_B_DestroyArray(const MR_StdOptional_B *_this)
 
 MR_StdOptional_B *MR_StdOptional_B_AssignFromAnother(MR_StdOptional_B *_this, MR_C_PassBy _other_pass_by, MR_StdOptional_B *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::StdOptional::B);
     return (MR_StdOptional_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdOptional::B *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::StdOptional::B) MRBINDC_CLASSARG_COPY(_other, (MR::StdOptional::B), MR::StdOptional::B) MRBINDC_CLASSARG_MOVE(_other, (MR::StdOptional::B), MR::StdOptional::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::StdOptional::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::StdOptional::B) MRBINDC_CLASSARG_END(_other, MR::StdOptional::B))
     ));
@@ -255,6 +257,7 @@ MR_C_std_optional_MR_StdOptional_B *MR_StdOptional_GetClass2(void)
 
 void MR_StdOptional_SetClass2(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::StdOptional::B);
     ::MR::StdOptional::SetClass2(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_COPY(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_MOVE(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_DEF_ARG(_1, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_END(_1, std::optional<MR::StdOptional::B>))
     );
@@ -262,6 +265,7 @@ void MR_StdOptional_SetClass2(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1)
 
 void MR_StdOptional_SetClass2ConstRef(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::StdOptional::B);
     ::MR::StdOptional::SetClass2ConstRef(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_COPY(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_MOVE(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_DEF_ARG(_1, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_END(_1, std::optional<MR::StdOptional::B>))
     );
@@ -269,6 +273,7 @@ void MR_StdOptional_SetClass2ConstRef(MR_C_PassBy _1_pass_by, MR_StdOptional_B *
 
 void MR_StdOptional_SetClass2DefTrivial(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::StdOptional::B);
     ::MR::StdOptional::SetClass2DefTrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_COPY(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_MOVE(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_DEF_ARG(_1, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_END(_1, std::optional<MR::StdOptional::B>))
     );
@@ -278,6 +283,7 @@ void MR_StdOptional_SetClass2Def(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1)
 {
     using namespace MR;
     using namespace StdOptional;
+    MRBINDC_CLASSARG_GUARD(_1, MR::StdOptional::B);
     ::MR::StdOptional::SetClass2Def(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_COPY(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_MOVE(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (MR::StdOptional::B{"blah"}), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_DEF_ARG(_1, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_END(_1, std::optional<MR::StdOptional::B>))
     );

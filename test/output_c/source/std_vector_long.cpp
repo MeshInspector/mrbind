@@ -21,6 +21,7 @@ MR_C_std_vector_long *MR_C_std_vector_long_DefaultConstructArray(size_t num_elem
 
 MR_C_std_vector_long *MR_C_std_vector_long_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_long *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<long>);
     return (MR_C_std_vector_long *)new std::vector<long>(std::vector<long>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<long>) MRBINDC_CLASSARG_COPY(other, (std::vector<long>), std::vector<long>) MRBINDC_CLASSARG_MOVE(other, (std::vector<long>), std::vector<long>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<long>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<long>) MRBINDC_CLASSARG_END(other, std::vector<long>))
     ));
@@ -28,6 +29,7 @@ MR_C_std_vector_long *MR_C_std_vector_long_ConstructFromAnother(MR_C_PassBy othe
 
 void MR_C_std_vector_long_AssignFromAnother(MR_C_std_vector_long *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_long *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<long>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<long> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<long>) MRBINDC_CLASSARG_COPY(other, (std::vector<long>), std::vector<long>) MRBINDC_CLASSARG_MOVE(other, (std::vector<long>), std::vector<long>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<long>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<long>) MRBINDC_CLASSARG_END(other, std::vector<long>))
     );

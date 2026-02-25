@@ -58,7 +58,7 @@ MR_C_API const MR_C_std_string *MR_StdFunction_A_Get_a(const MR_StdFunction_A *_
 /// Parameter `value` can not be null.
 /// If `value_end` is null, then `value` is assumed to be null-terminated.
 /// The reference to the parameter `value` might be preserved in this object in element `a`.
-/// When this function is called, this object will drop object references it had previously in `a`.
+/// When this function is called, this object will drop object references it held previously in `a`.
 MR_C_API void MR_StdFunction_A_Set_a(MR_StdFunction_A *_this, const char *value, const char *value_end);
 
 /// Returns a mutable pointer to a member variable of class `MR::StdFunction::A` named `a`.
@@ -81,7 +81,7 @@ MR_C_API MR_StdFunction_A *MR_StdFunction_A_DefaultConstructArray(size_t num_ele
 /// If `a_end` is null, then `a` is assumed to be null-terminated.
 /// The reference to the parameter `a` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_StdFunction_A_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_StdFunction_A *MR_StdFunction_A_ConstructFrom(const char *a, const char *a_end);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
@@ -107,7 +107,7 @@ MR_C_API void MR_StdFunction_A_DestroyArray(const MR_StdFunction_A *_this);
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_StdFunction_A *MR_StdFunction_A_AssignFromAnother(MR_StdFunction_A *_this, MR_C_PassBy _other_pass_by, MR_StdFunction_A *_other);
 
 /// Generated from function `MR::StdFunction::foo`.

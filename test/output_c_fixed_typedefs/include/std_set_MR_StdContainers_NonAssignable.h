@@ -37,13 +37,13 @@ MR_C_API MR_C_std_set_MR_StdContainers_NonAssignable *MR_C_std_set_MR_StdContain
 // Constructs a copy of another instance. The source remains alive.
 // The reference to the parameter `other` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_MR_StdContainers_NonAssignable_Destroy()` to free it when you're done using it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_set_MR_StdContainers_NonAssignable *MR_C_std_set_MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_set_MR_StdContainers_NonAssignable *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in this object.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_set_MR_StdContainers_NonAssignable_AssignFromAnother(MR_C_std_set_MR_StdContainers_NonAssignable *_this, MR_C_PassBy other_pass_by, MR_C_std_set_MR_StdContainers_NonAssignable *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_set_MR_StdContainers_NonAssignable`. Does nothing if the pointer is null.
@@ -70,7 +70,7 @@ MR_C_API bool MR_C_std_set_MR_StdContainers_NonAssignable_empty(const MR_C_std_s
 
 // Removes all elements from the container.
 // Parameter `_this` can not be null. It is a single object.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_set_MR_StdContainers_NonAssignable_clear(MR_C_std_set_MR_StdContainers_NonAssignable *_this);
 
 // Checks if the contain contains this key.
@@ -125,14 +125,14 @@ MR_C_API MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_se
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_Destroy()` to free it when you're done using it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_ConstructFromAnother(const MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator *other);
 
 // Assigns the contents from another instance. Both objects remain alive after the call.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in this object.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother(MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator *_this, const MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator *other);
 
 // Destroys a heap-allocated instance of `MR_C_std_set_MR_StdContainers_NonAssignable_const_iterator`. Does nothing if the pointer is null.

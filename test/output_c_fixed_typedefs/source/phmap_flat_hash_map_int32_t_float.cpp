@@ -24,6 +24,7 @@ MR_C_phmap_flat_hash_map_int32_t_float *MR_C_phmap_flat_hash_map_int32_t_float_D
 
 MR_C_phmap_flat_hash_map_int32_t_float *MR_C_phmap_flat_hash_map_int32_t_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_phmap_flat_hash_map_int32_t_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::flat_hash_map<int32_t, float>);
     return (MR_C_phmap_flat_hash_map_int32_t_float *)new phmap::flat_hash_map<int32_t, float>(phmap::flat_hash_map<int32_t, float>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::flat_hash_map<int32_t, float>) MRBINDC_CLASSARG_COPY(other, (phmap::flat_hash_map<int32_t, float>), phmap::flat_hash_map<int32_t, float>) MRBINDC_CLASSARG_MOVE(other, (phmap::flat_hash_map<int32_t, float>), phmap::flat_hash_map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::flat_hash_map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::flat_hash_map<int32_t, float>) MRBINDC_CLASSARG_END(other, phmap::flat_hash_map<int32_t, float>))
     ));
@@ -31,6 +32,7 @@ MR_C_phmap_flat_hash_map_int32_t_float *MR_C_phmap_flat_hash_map_int32_t_float_C
 
 void MR_C_phmap_flat_hash_map_int32_t_float_AssignFromAnother(MR_C_phmap_flat_hash_map_int32_t_float *_this, MR_C_PassBy other_pass_by, MR_C_phmap_flat_hash_map_int32_t_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::flat_hash_map<int32_t, float>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int32_t, float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::flat_hash_map<int32_t, float>) MRBINDC_CLASSARG_COPY(other, (phmap::flat_hash_map<int32_t, float>), phmap::flat_hash_map<int32_t, float>) MRBINDC_CLASSARG_MOVE(other, (phmap::flat_hash_map<int32_t, float>), phmap::flat_hash_map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::flat_hash_map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::flat_hash_map<int32_t, float>) MRBINDC_CLASSARG_END(other, phmap::flat_hash_map<int32_t, float>))
     );

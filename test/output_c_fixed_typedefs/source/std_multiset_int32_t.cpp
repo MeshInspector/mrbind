@@ -23,6 +23,7 @@ MR_C_std_multiset_int32_t *MR_C_std_multiset_int32_t_DefaultConstructArray(size_
 
 MR_C_std_multiset_int32_t *MR_C_std_multiset_int32_t_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_multiset_int32_t *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::multiset<int32_t>);
     return (MR_C_std_multiset_int32_t *)new std::multiset<int32_t>(std::multiset<int32_t>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::multiset<int32_t>) MRBINDC_CLASSARG_COPY(other, (std::multiset<int32_t>), std::multiset<int32_t>) MRBINDC_CLASSARG_MOVE(other, (std::multiset<int32_t>), std::multiset<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::multiset<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::multiset<int32_t>) MRBINDC_CLASSARG_END(other, std::multiset<int32_t>))
     ));
@@ -30,6 +31,7 @@ MR_C_std_multiset_int32_t *MR_C_std_multiset_int32_t_ConstructFromAnother(MR_C_P
 
 void MR_C_std_multiset_int32_t_AssignFromAnother(MR_C_std_multiset_int32_t *_this, MR_C_PassBy other_pass_by, MR_C_std_multiset_int32_t *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::multiset<int32_t>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::multiset<int32_t> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::multiset<int32_t>) MRBINDC_CLASSARG_COPY(other, (std::multiset<int32_t>), std::multiset<int32_t>) MRBINDC_CLASSARG_MOVE(other, (std::multiset<int32_t>), std::multiset<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::multiset<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::multiset<int32_t>) MRBINDC_CLASSARG_END(other, std::multiset<int32_t>))
     );

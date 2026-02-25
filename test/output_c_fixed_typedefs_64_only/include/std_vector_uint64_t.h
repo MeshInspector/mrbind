@@ -35,13 +35,13 @@ MR_C_API MR_C_std_vector_uint64_t *MR_C_std_vector_uint64_t_DefaultConstructArra
 /// Constructs a copy of another instance. The source remains alive.
 /// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_uint64_t_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_vector_uint64_t *MR_C_std_vector_uint64_t_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_uint64_t *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in this object.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_vector_uint64_t_AssignFromAnother(MR_C_std_vector_uint64_t *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_uint64_t *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_uint64_t`. Does nothing if the pointer is null.
@@ -84,7 +84,7 @@ MR_C_API void MR_C_std_vector_uint64_t_resize_with_default_value(MR_C_std_vector
 
 /// Removes all elements from the container.
 /// Parameter `_this` can not be null. It is a single object.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_vector_uint64_t_clear(MR_C_std_vector_uint64_t *_this);
 
 /// The memory capacity, measued in the number of elements.
@@ -248,14 +248,14 @@ MR_C_API MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_const
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_uint64_t_const_iterator_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_vector_uint64_t_const_iterator *MR_C_std_vector_uint64_t_const_iterator_ConstructFromAnother(const MR_C_std_vector_uint64_t_const_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in this object.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_vector_uint64_t_const_iterator_AssignFromAnother(MR_C_std_vector_uint64_t_const_iterator *_this, const MR_C_std_vector_uint64_t_const_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_uint64_t_const_iterator`. Does nothing if the pointer is null.
@@ -290,14 +290,14 @@ MR_C_API MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_iterator_De
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_vector_uint64_t_iterator_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_vector_uint64_t_iterator *MR_C_std_vector_uint64_t_iterator_ConstructFromAnother(const MR_C_std_vector_uint64_t_iterator *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in this object.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_vector_uint64_t_iterator_AssignFromAnother(MR_C_std_vector_uint64_t_iterator *_this, const MR_C_std_vector_uint64_t_iterator *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_vector_uint64_t_iterator`. Does nothing if the pointer is null.

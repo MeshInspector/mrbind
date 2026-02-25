@@ -23,6 +23,7 @@ MR_C_phmap_btree_multiset_int32_t *MR_C_phmap_btree_multiset_int32_t_DefaultCons
 
 MR_C_phmap_btree_multiset_int32_t *MR_C_phmap_btree_multiset_int32_t_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_phmap_btree_multiset_int32_t *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::btree_multiset<int32_t>);
     return (MR_C_phmap_btree_multiset_int32_t *)new phmap::btree_multiset<int32_t>(phmap::btree_multiset<int32_t>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::btree_multiset<int32_t>) MRBINDC_CLASSARG_COPY(other, (phmap::btree_multiset<int32_t>), phmap::btree_multiset<int32_t>) MRBINDC_CLASSARG_MOVE(other, (phmap::btree_multiset<int32_t>), phmap::btree_multiset<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::btree_multiset<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::btree_multiset<int32_t>) MRBINDC_CLASSARG_END(other, phmap::btree_multiset<int32_t>))
     ));
@@ -30,6 +31,7 @@ MR_C_phmap_btree_multiset_int32_t *MR_C_phmap_btree_multiset_int32_t_ConstructFr
 
 void MR_C_phmap_btree_multiset_int32_t_AssignFromAnother(MR_C_phmap_btree_multiset_int32_t *_this, MR_C_PassBy other_pass_by, MR_C_phmap_btree_multiset_int32_t *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::btree_multiset<int32_t>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_multiset<int32_t> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::btree_multiset<int32_t>) MRBINDC_CLASSARG_COPY(other, (phmap::btree_multiset<int32_t>), phmap::btree_multiset<int32_t>) MRBINDC_CLASSARG_MOVE(other, (phmap::btree_multiset<int32_t>), phmap::btree_multiset<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::btree_multiset<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::btree_multiset<int32_t>) MRBINDC_CLASSARG_END(other, phmap::btree_multiset<int32_t>))
     );

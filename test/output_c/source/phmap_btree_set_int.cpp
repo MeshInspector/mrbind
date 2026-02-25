@@ -21,6 +21,7 @@ MR_C_phmap_btree_set_int *MR_C_phmap_btree_set_int_DefaultConstructArray(size_t 
 
 MR_C_phmap_btree_set_int *MR_C_phmap_btree_set_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_phmap_btree_set_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::btree_set<int>);
     return (MR_C_phmap_btree_set_int *)new phmap::btree_set<int>(phmap::btree_set<int>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::btree_set<int>) MRBINDC_CLASSARG_COPY(other, (phmap::btree_set<int>), phmap::btree_set<int>) MRBINDC_CLASSARG_MOVE(other, (phmap::btree_set<int>), phmap::btree_set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::btree_set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::btree_set<int>) MRBINDC_CLASSARG_END(other, phmap::btree_set<int>))
     ));
@@ -28,6 +29,7 @@ MR_C_phmap_btree_set_int *MR_C_phmap_btree_set_int_ConstructFromAnother(MR_C_Pas
 
 void MR_C_phmap_btree_set_int_AssignFromAnother(MR_C_phmap_btree_set_int *_this, MR_C_PassBy other_pass_by, MR_C_phmap_btree_set_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::btree_set<int>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_set<int> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::btree_set<int>) MRBINDC_CLASSARG_COPY(other, (phmap::btree_set<int>), phmap::btree_set<int>) MRBINDC_CLASSARG_MOVE(other, (phmap::btree_set<int>), phmap::btree_set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::btree_set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::btree_set<int>) MRBINDC_CLASSARG_END(other, phmap::btree_set<int>))
     );

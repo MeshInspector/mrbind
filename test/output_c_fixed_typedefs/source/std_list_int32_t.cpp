@@ -23,6 +23,7 @@ MR_C_std_list_int32_t *MR_C_std_list_int32_t_DefaultConstructArray(size_t num_el
 
 MR_C_std_list_int32_t *MR_C_std_list_int32_t_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_list_int32_t *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::list<int32_t>);
     return (MR_C_std_list_int32_t *)new std::list<int32_t>(std::list<int32_t>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::list<int32_t>) MRBINDC_CLASSARG_COPY(other, (std::list<int32_t>), std::list<int32_t>) MRBINDC_CLASSARG_MOVE(other, (std::list<int32_t>), std::list<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::list<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::list<int32_t>) MRBINDC_CLASSARG_END(other, std::list<int32_t>))
     ));
@@ -30,6 +31,7 @@ MR_C_std_list_int32_t *MR_C_std_list_int32_t_ConstructFromAnother(MR_C_PassBy ot
 
 void MR_C_std_list_int32_t_AssignFromAnother(MR_C_std_list_int32_t *_this, MR_C_PassBy other_pass_by, MR_C_std_list_int32_t *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::list<int32_t>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<int32_t> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::list<int32_t>) MRBINDC_CLASSARG_COPY(other, (std::list<int32_t>), std::list<int32_t>) MRBINDC_CLASSARG_MOVE(other, (std::list<int32_t>), std::list<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::list<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::list<int32_t>) MRBINDC_CLASSARG_END(other, std::list<int32_t>))
     );

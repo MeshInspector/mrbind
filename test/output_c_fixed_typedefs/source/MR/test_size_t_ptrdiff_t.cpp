@@ -28,6 +28,7 @@ MR_C_uint64_t **MR_TestSizeT_foo_uint64_t_ptr(MR_C_uint64_t **_1)
 
 MR_C_std_vector_uint64_t *MR_TestSizeT_foo_std_vector_uint64_t(MR_C_PassBy _1_pass_by, MR_C_std_vector_uint64_t *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::vector<MR_C_uint64_t>);
     return (MR_C_std_vector_uint64_t *)new std::vector<MR_C_uint64_t>(::MR::TestSizeT::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<MR_C_uint64_t>) MRBINDC_CLASSARG_COPY(_1, (std::vector<MR_C_uint64_t>), std::vector<MR_C_uint64_t>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<MR_C_uint64_t>), std::vector<MR_C_uint64_t>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::vector<MR_C_uint64_t>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::vector<MR_C_uint64_t>) MRBINDC_CLASSARG_END(_1, std::vector<MR_C_uint64_t>))
     ));
@@ -49,6 +50,7 @@ MR_C_int64_t **MR_TestSizeT_foo_int64_t_ptr(MR_C_int64_t **_1)
 
 MR_C_std_vector_int64_t *MR_TestSizeT_foo_std_vector_int64_t(MR_C_PassBy _1_pass_by, MR_C_std_vector_int64_t *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::vector<MR_C_int64_t>);
     return (MR_C_std_vector_int64_t *)new std::vector<MR_C_int64_t>(::MR::TestSizeT::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<MR_C_int64_t>) MRBINDC_CLASSARG_COPY(_1, (std::vector<MR_C_int64_t>), std::vector<MR_C_int64_t>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<MR_C_int64_t>), std::vector<MR_C_int64_t>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::vector<MR_C_int64_t>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::vector<MR_C_int64_t>) MRBINDC_CLASSARG_END(_1, std::vector<MR_C_int64_t>))
     ));

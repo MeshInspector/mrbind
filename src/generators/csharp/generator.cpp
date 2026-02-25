@@ -1228,6 +1228,7 @@ namespace mrbind::CSharp
         if (!move_in_by_value_return && !bool(flags & TypeBindingFlags::force_move_in_by_value_return))
             flags |= TypeBindingFlags::no_move_in_by_value_return;
 
+        // Note! No changing `flags` below this point!
 
         const std::string cpp_type_str = CppdeclToCode(cpp_type);
         auto cached_iter = cached_type_bindings.find(std::pair(cpp_type_str, flags));
@@ -1743,16 +1744,21 @@ namespace mrbind::CSharp
                                     cppdecl::Type ptr_type = cpp_type;
                                     ptr_type.RemoveModifier(); // Remove the reference-ness.
                                     ptr_type.AddModifier(cppdecl::Pointer{});
-                                    flags &= ~TypeBindingFlags::replace_ref_with_ptr;
-                                    flags |= TypeBindingFlags::bind_ptrs_are_raw_ptrs;
-                                    return *GetTypeBindingOpt(ptr_type, flags);
+                                    TypeBindingFlags new_flags = flags; // Not allowed to change `flags` here (after consulting the type binding cache), so must make a copy.
+                                    new_flags &= ~TypeBindingFlags::replace_ref_with_ptr;
+                                    new_flags |= TypeBindingFlags::bind_ptrs_are_raw_ptrs;
+                                    return *GetTypeBindingOpt(ptr_type, new_flags);
                                 }
+
+                                // Specifically for scalars, when `treat_rvalue_refs_as_lvalue_refs` is passed, pretend that the reference is also const, to get rid of the `ref` and get a slightly nicer API.
+                                // Use this instead of `is_const` in this lambda.
+                                const bool is_const_scalar = is_const || (cpp_type.As<cppdecl::Reference>()->kind == cppdecl::RefQualifier::rvalue && !allow_rvalue_refs);
 
                                 const bool add_in = is_exposed_struct;
                                 const bool return_ref_instead_of_by_value = is_exposed_struct || bool(flags & TypeBindingFlags::return_ref_instead_of_copying_small_types); // Otherwise return by value.
                                 const bool return_ref_wrapper = bool(flags & TypeBindingFlags::return_ref_wrapper);
 
-                                if (!is_const && !is_rvalue_ref)
+                                if (!is_const_scalar && !is_rvalue_ref)
                                 {
                                     return {
                                         .param_usage = TypeBinding::ParamUsage{
@@ -2678,19 +2684,22 @@ namespace mrbind::CSharp
 
                 auto MakeStringLikeReadOnlyBinding = [&] -> TypeBinding
                 {
+                    const bool allow_spans = HaveCSharpFeatureSpans();
+
                     return {
                         .param_usage = TypeBinding::ParamUsage{
-                            .make_strings = [this, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
+                            .make_strings = [allow_spans, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
                             {
                                 return TypeBinding::ParamUsage::Strings{
-                                    // If this is a span, how does returning it from a callback work? Is there some hidden keep-alive at play? If so, this needs to be true unconditionally, which is what we do right now.
-                                    // This (returning `string` from a function with a return type `ReadOnlySpan<char>`) seems to compile without `unsafe`, so surely it's supposed to work somehow?
+                                    // If this is a span, this being true will cause a C# compilation error, because a span is a `ref struct` and as such can't be copied to the heap.
+                                    // This should never happen though, because `std::function` should use a desugared binding.
+                                    // I'm intentionally setting this to true to get an error if `std::function` is ever accidentally changed to use this binding.
                                     .need_backup_when_returning_from_callback = true,
                                     .dllimport_decl_params = {{.type = "byte *", .name = name}, {.type = "byte *", .name = name + "_end"}},
-                                    .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = HaveCSharpFeatureSpans() ? "ReadOnlySpan<char>" : "string", .name = name}}),
+                                    .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = allow_spans ? "ReadOnlySpan<char>" : "string", .name = name}}),
                                     .scope_open =
                                         (
-                                            HaveCSharpFeatureSpans()
+                                            allow_spans
                                             ?
                                                 "byte[] __bytes_" + name + " = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(" + name + ".Length)];\n" +
                                                 "int __len_" + name + " = System.Text.Encoding.UTF8.GetBytes(" + name + ", __bytes_" + name + ");\n"
@@ -2699,22 +2708,22 @@ namespace mrbind::CSharp
                                                 "byte[] __bytes_" + name + " = System.Text.Encoding.UTF8.GetBytes(" + name + ");\n" +
                                                 "fixed (byte *__ptr_" + name + " = __bytes_" + name + ")\n{\n"
                                         ),
-                                    .dllimport_args = {"__ptr_" + name, "__ptr_" + name + " + " + (HaveCSharpFeatureSpans() ? "__len_" + name : "__bytes_" + name + ".Length")},
+                                    .dllimport_args = {"__ptr_" + name, "__ptr_" + name + " + " + (allow_spans ? "__len_" + name : "__bytes_" + name + ".Length")},
                                     .scope_close = "}\n",
                                 };
                             },
                         },
                         .param_usage_with_default_arg = TypeBinding::ParamUsage{
-                            .make_strings = [this, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
+                            .make_strings = [this, allow_spans, MaybePrependRvalueTag](const std::string &name, bool /*have_useless_defarg*/)
                             {
                                 return TypeBinding::ParamUsage::Strings{
                                     .dllimport_decl_params = {{.type = "byte *", .name = name}, {.type = "byte *", .name = name + "_end"}},
-                                    .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = HaveCSharpFeatureSpans() ? RequestHelper("ReadOnlyCharSpanOpt") : "string?", .name = name, .default_arg = HaveCSharpFeatureSpans() ? "new()" : "null"}}), // For some reason `= null` doesn't compile in the default argument here, though passing it manually to those parameters works.
+                                    .csharp_decl_params = MaybePrependRvalueTag(name, {{.type = allow_spans ? RequestHelper("ReadOnlyCharSpanOpt") : "string?", .name = name, .default_arg = allow_spans ? "new()" : "null"}}), // For some reason `= null` doesn't compile in the default argument here, though passing it manually to those parameters works.
                                     .scope_open =
                                         "byte[] __bytes_" + name + ";\n"
                                         "int __len_" + name + " = 0;\n" +
                                         (
-                                            HaveCSharpFeatureSpans()
+                                            allow_spans
                                             ?
                                                 "if (" + name + ".HasValue)\n"
                                                 "{\n"
@@ -2730,7 +2739,7 @@ namespace mrbind::CSharp
                                         "fixed (byte *__ptr_" + name + " = __bytes_" + name + ")\n{\n",
                                     .dllimport_args =
                                         (
-                                            HaveCSharpFeatureSpans()
+                                            allow_spans
                                             ?
                                                 std::vector<std::string>{name + ".HasValue ? __ptr_" + name + " : null", name + ".HasValue ? __ptr_" + name + " + __len_" + name + " : null"}
                                             :
@@ -3030,11 +3039,19 @@ namespace mrbind::CSharp
                 cppdecl::Type cpp_return_type = *cpp_name.parts.back().template_args.value().args.front().AsType();
                 cpp_return_type.RemoveModifier(); // Remove function-ness.
 
-                // Note `try_enable_sugar_for_param_usage`. The C bindings use sugar if it's available. Make sure to keep this in sync with C.
+                const bool cpp_return_type_is_void = cpp_return_type.AsSingleWord() == "void";
+
+                // Note the lack of `try_enable_sugar_for_param_usage`. Make sure to keep this in sync with C.
+                //   We can't use the sugar here because of how returning sugared `std::string` would need to work. (See the comments in the C binding for more details.)
                 // Note `avoid_post_statements`. We're unable to run those, since those would need to happen after we return from our function.
-                const TypeBinding &ret_type_binding = GetTypeBinding(cpp_return_type, TypeBindingFlags::try_enable_sugar_for_return_usage | TypeBindingFlags::avoid_post_statements);
-                if (!ret_type_binding.param_usage) // Sic!
-                    throw std::runtime_error("The type `" + CppdeclToCode(cpp_return_type) + "` isn't usable as a C# parameter (sic), so it's be used as a callback return type.");
+                // Note `avoid_spans`. I believe that returning a string into a span would dangle. We can't backup a span into an `object` using our normal mechanism because it's a `ref struct`.
+                const TypeBinding *ret_type_binding = nullptr;
+                if (!cpp_return_type_is_void)
+                {
+                    ret_type_binding = &GetTypeBinding(cpp_return_type, TypeBindingFlags::avoid_post_statements | TypeBindingFlags::avoid_spans);
+                    if (!ret_type_binding->param_usage) // Sic!
+                        throw std::runtime_error("The type `" + CppdeclToCode(cpp_return_type) + "` isn't usable as a C# parameter (sic), so it's be used as a callback return type.");
+                }
 
 
                 // Determine the C# return type.
@@ -3046,14 +3063,24 @@ namespace mrbind::CSharp
                 // This is a dummy "parameter" name that we use when handling the return type of the callback. In callbacks, the return type has to be processed using a parameter usage.
                 // This also matches the variable name that's used to hold the result of calling the C# callback.
                 const std::string csharp_ret_var_name = "_ret";
-                auto ret_strings = ret_type_binding.param_usage->make_strings(csharp_ret_var_name, false);
-                if (ret_strings.csharp_decl_params.size() > 1)
-                    throw std::runtime_error("This C++ callback return type can't serve as a C# return type, because it maps to more than one C# type.");
-                if (ret_strings.csharp_decl_params.size() == 1)
+                std::optional<TypeBinding::ParamUsage::Strings> ret_strings;
+                if (!cpp_return_type_is_void)
                 {
-                    csharp_return_type = ret_strings.csharp_decl_params.front().type;
-                    if (csharp_return_type.find('*') != std::string::npos)
-                        csharp_delegate_unsafe = true;
+                    ret_strings = ret_type_binding->param_usage->make_strings(csharp_ret_var_name, false);
+                    for (bool first = true; const auto &param : ret_strings->csharp_decl_params)
+                    {
+                        // Skip certain known tag types, for convenience. Otherwise we'd error because there's more than one C# type that this parameter maps to.
+                        if (param.type == MakeHelperNameWithoutRegistration("_MoveRef"))
+                            continue;
+
+                        // Complain if we have more than one C# parameter, ignoring those tag types.
+                        if (!std::exchange(first, false))
+                            throw std::runtime_error("This C++ callback return type can't serve as a C# return type, because it maps to more than one C# type.");
+
+                        csharp_return_type = param.type;
+                        if (csharp_return_type.find('*') != std::string::npos)
+                            csharp_delegate_unsafe = true;
+                    }
                 }
 
                 // Determine the DllImport delegate return type, and the output parameters, if any.
@@ -3061,22 +3088,25 @@ namespace mrbind::CSharp
                 std::vector<TypeBinding::ParamUsage::Strings::DllImportParam> csharp_dllimport_params;
                 std::string csharp_dllimport_return_type = "void";
 
-                for (const auto &dllimport_param : ret_strings.dllimport_decl_params)
+                if (!cpp_return_type_is_void)
                 {
-                    if (dllimport_param.name == csharp_ret_var_name)
+                    for (const auto &dllimport_param : ret_strings->dllimport_decl_params)
                     {
-                        // This is the primary C parameter. We map it to the return type.
-                        csharp_dllimport_return_type = dllimport_param.type;
-                    }
-                    else
-                    {
-                        // This is a seconary C parameter. It becomes an output parameter in the dllimport-ed function.
-                        csharp_dllimport_params.push_back(dllimport_param);
+                        if (dllimport_param.name == csharp_ret_var_name)
+                        {
+                            // This is the primary C parameter. We map it to the return type.
+                            csharp_dllimport_return_type = dllimport_param.type;
+                        }
+                        else
+                        {
+                            // This is a seconary C parameter. It becomes an output parameter in the dllimport-ed function.
+                            csharp_dllimport_params.push_back(dllimport_param);
 
-                        // Add a pointer ot the type. Note that it's a C# type, so we do it by hand.
-                        if (!csharp_dllimport_params.back().type.ends_with('*'))
-                            csharp_dllimport_params.back().type += ' ';
-                        csharp_dllimport_params.back().type += '*';
+                            // Add a pointer ot the type. Note that it's a C# type, so we do it by hand.
+                            if (!csharp_dllimport_params.back().type.ends_with('*'))
+                                csharp_dllimport_params.back().type += ' ';
+                            csharp_dllimport_params.back().type += '*';
+                        }
                     }
                 }
 
@@ -3095,12 +3125,26 @@ namespace mrbind::CSharp
                 {
                     cppdecl::Type cpp_param_type = cpp_param_decl.type;
                     // The C bindings automatically append `&&` to non-references for sanity, so we have to mimic that behavior.
-                    if (!cpp_param_type.Is<cppdecl::Reference>())
+                    // They do that only if the type is neither built-in nor a enum. This condition needs to be synced with C.
+                    if (
+                        !cpp_param_type.Is<cppdecl::Reference>() &&
+                        // Not a built-in type.
+                        !c_desc.platform_info.FindPrimitiveType(CppdeclToCode(cpp_param_type)) &&
+                        // Not a enum.
+                        ![&]{
+                            auto type = c_desc.FindTypeOpt(CppdeclToCode(cpp_param_type));
+                            return type && std::holds_alternative<CInterop::TypeKinds::Enum>(type->var);
+                        }()
+                    )
+                    {
                         cpp_param_type.AddModifier(cppdecl::Reference{.kind = cppdecl::RefQualifier::rvalue});
+                    }
 
-                    // Note `try_enable_sugar_for_return_usage` for consistency with C, but I don't know any cases where this changes anything.
-                    // Make sure to keep this in sync with C.
-                    const auto &return_usage = GetTypeBinding(cpp_param_type, TypeBindingFlags::try_enable_sugar_for_return_usage).return_usage;
+                    // Note `try_enable_sugar_for_return_usage` for consistency with C, but I don't know any cases where this changes anything. Make sure to keep this in sync with C.
+                    // Note `treat_rvalue_refs_as_lvalue_refs`, just to make the C# side a bit more sane. This doesn't affect the dllimport ABI (the whole purpose of this flag is to get an lvalue reference without affecting ABI;
+                    //   not like it's currently affected if you just modify the type, but the flag makes it more future-proof; even though I don't see us ever changing the ABI for those refs).
+                    // Note `return_ref_instead_of_copying_small_types`, otherwise reference parameters silently get replaced with by-value parameters in some cases (which doesn't seem like a dllimport ABI issue, just a C# API issue).
+                    const auto &return_usage = GetTypeBinding(cpp_param_type, TypeBindingFlags::try_enable_sugar_for_return_usage | TypeBindingFlags::treat_rvalue_refs_as_lvalue_refs | TypeBindingFlags::return_ref_instead_of_copying_small_types).return_usage;
                     if (!return_usage)
                         throw std::runtime_error("The type `" + CppdeclToCode(cpp_param_type) + "` isn't usable as a C# return type (sic), so it's be used as a callback parameter type.");
 
@@ -3231,7 +3275,7 @@ namespace mrbind::CSharp
                             if (param.strings.type.starts_with("ref "))
                             {
                                 // We use the same trick in `FuncLikeEmitter::Emit()`.
-                                std::string type_without_ref = param.strings.type.substr(4);
+                                std::string type_without_ref = param.strings.type.substr(param.strings.type.starts_with("ref readonly ") ? 13 : 4);
                                 body += " = ref *(" + type_without_ref + " *)sizeof(" + type_without_ref + "); // Uninitialized ref.\n";
                             }
                             else
@@ -3253,35 +3297,38 @@ namespace mrbind::CSharp
                             body += "ref ";
                         body += "((Delegate)System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)_userdata).Target!)(" + csharp_args + ");\n";
 
-                        // Do we need to back up the C# result in `_cleanup_value` to avoid dangling?
-                        // `need_backup_when_returning_from_callback` better be set correctly.
-                        if (ret_strings.need_backup_when_returning_from_callback)
+                        if (!cpp_return_type_is_void)
                         {
-                            body += "*_cleanup_value = (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(" + csharp_ret_var_name + "));\n";
-                        }
-
-                        { // Convert the result to C style.
-                            const bool have_scope = !ret_strings.scope_open.empty() || !ret_strings.scope_close.empty();
-                            body += ret_strings.scope_open;
-
-                            std::string ret_body = ret_strings.extra_statements;
-                            std::string ret_final_statement;
-
-                            std::size_t dllimport_param_index = 0; // This isn't synced with `i`, because it shouldn't be incremented when handling unsuffixed parameters.
-                            for (std::size_t i = 0; i < ret_strings.dllimport_args.size(); i++)
+                            // Do we need to back up the C# result in `_cleanup_value` to avoid dangling?
+                            // `need_backup_when_returning_from_callback` better be set correctly.
+                            if (ret_strings->need_backup_when_returning_from_callback)
                             {
-                                if (ret_strings.dllimport_decl_params[i].name == csharp_ret_var_name)
-                                    ret_final_statement = "return " + ret_strings.dllimport_args[i] + ";\n";
-                                else
-                                    ret_body += "*" + csharp_dllimport_params[dllimport_param_index++].name + " = " + ret_strings.dllimport_args[i] + ";\n";
+                                body += "*_cleanup_value = (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(" + csharp_ret_var_name + "));\n";
                             }
 
-                            // We can't paste statements after `return`, but no such statements should be provided in the first place, since we passed the `avoid_post_statements` flag above.
-                            if (!ret_strings.extra_statements_after.empty())
-                                throw std::logic_error("Internal error: The return type usage has statements that need to be inserted after `return`, which we can't do. The `TypeBindingFlags::avoid_post_statements` flag wasn't respected.");
+                            { // Convert the result to C style.
+                                const bool have_scope = !ret_strings->scope_open.empty() || !ret_strings->scope_close.empty();
+                                body += ret_strings->scope_open;
 
-                            body += Strings::Indent(ret_body + ret_final_statement, int(have_scope));
-                            body += ret_strings.scope_close;
+                                std::string ret_body = ret_strings->extra_statements;
+                                std::string ret_final_statement;
+
+                                std::size_t dllimport_param_index = 0; // This isn't synced with `i`, because it shouldn't be incremented when handling unsuffixed parameters.
+                                for (std::size_t i = 0; i < ret_strings->dllimport_args.size(); i++)
+                                {
+                                    if (ret_strings->dllimport_decl_params[i].name == csharp_ret_var_name)
+                                        ret_final_statement = "return " + ret_strings->dllimport_args[i] + ";\n";
+                                    else
+                                        ret_body += "*" + csharp_dllimport_params[dllimport_param_index++].name + " = " + ret_strings->dllimport_args[i] + ";\n";
+                                }
+
+                                // We can't paste statements after `return`, but no such statements should be provided in the first place, since we passed the `avoid_post_statements` flag above.
+                                if (!ret_strings->extra_statements_after.empty())
+                                    throw std::logic_error("Internal error: The return type usage has statements that need to be inserted after `return`, which we can't do. The `TypeBindingFlags::avoid_post_statements` flag wasn't respected.");
+
+                                body += Strings::Indent(ret_body + ret_final_statement, int(have_scope));
+                                body += ret_strings->scope_close;
+                            }
                         }
 
                         // Write the resulting body.
@@ -3316,22 +3363,35 @@ namespace mrbind::CSharp
 
                     const std::string dllimport_args = "_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), " + RequestHelper("StdFunctionPostCallCallback") + ", " + RequestHelper("StdFunctionUserdataCallback");
 
+                    // Constructor.
                     WriteSeparator();
-                    ret.text +=
-                        PrepareComment("/// Construct from a delegate.\n") +
-                        // This is always unsafe, because `csharp_dllimport_params` always includes `void *_userdata, void **_cleanup_value`.
-                        "public unsafe " + csharp_unqual_class_name + "(Delegate func) : this(" + (class_backed_by_shared_ptr ? "shared_ptr: " : "") + "null, is_owning: true)\n"
-                        "{\n" +
-                        Strings::Indent(
-                            dllimport_construct.dllimport_decl +
-                            (
-                                class_backed_by_shared_ptr
-                                ? "_LateMakeShared(" + dllimport_construct.csharp_name + "(" + dllimport_args + "));\n"
-                                : "_UnderlyingPtr = " + dllimport_construct.csharp_name + "(" + dllimport_args + ");\n"
-                            )
-                        ) +
-                        "}\n";
+                    if (class_part_kind.value())
+                    {
+                        ret.text +=
+                            PrepareComment("/// Construct from a delegate.\n") +
+                            // This is always unsafe, because `csharp_dllimport_params` always includes `void *_userdata, void **_cleanup_value`.
+                            "public unsafe " + csharp_unqual_class_name + "(Delegate func) : this(" + (class_backed_by_shared_ptr ? "shared_ptr: " : "") + "null, is_owning: true)\n"
+                            "{\n" +
+                            Strings::Indent(
+                                dllimport_construct.dllimport_decl +
+                                (
+                                    class_backed_by_shared_ptr
+                                    ? "_LateMakeShared(" + dllimport_construct.csharp_name + "(" + dllimport_args + "));\n"
+                                    : "_UnderlyingPtr = " + dllimport_construct.csharp_name + "(" + dllimport_args + ");\n"
+                                )
+                            ) +
+                            "}\n";
+                    }
+                    else
+                    {
+                        // Propagate to the base constructor, for aesthetics.
+                        ret.text +=
+                            PrepareComment("/// Construct from a delegate.\n") +
+                            // This is always unsafe, because `csharp_dllimport_params` always includes `void *_userdata, void **_cleanup_value`.
+                            "public unsafe " + csharp_unqual_class_name + "(Delegate func) : base(func) {}\n";
+                    }
 
+                    // Assignment.
                     if (!class_part_kind.value())
                     {
                         WriteSeparator();

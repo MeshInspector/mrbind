@@ -153,7 +153,9 @@ public static partial class MR
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class _ByValue_A
             {
+                #pragma warning disable CS0649
                 internal readonly Const_A? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_A() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_A(Const_A new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -196,7 +198,7 @@ public static partial class MR
             public static unsafe void Foo(MR.CS.Std._ByValue_Function_IntFunc _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_int_func", ExactSpelling = true)]
-                extern static void __MR_StdFunction_foo_std_function_int_func(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_IntFunc._Underlying *_1);
+                extern static void __MR_StdFunction_foo_std_function_int_func(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_Int._Underlying *_1);
                 __MR_StdFunction_foo_std_function_int_func(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -204,7 +206,7 @@ public static partial class MR
             public static unsafe void Foo(MR.CS.Std._ByValue_Function_VoidFuncFromIntInt _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_void_func_from_int_int", ExactSpelling = true)]
-                extern static void __MR_StdFunction_foo_std_function_void_func_from_int_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_VoidFuncFromIntInt._Underlying *_1);
+                extern static void __MR_StdFunction_foo_std_function_void_func_from_int_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_Void_From_Int_Int._Underlying *_1);
                 __MR_StdFunction_foo_std_function_void_func_from_int_int(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -212,7 +214,7 @@ public static partial class MR
             public static unsafe void Foo(MR.CS.Std._ByValue_Function_IntFuncFromIntInt _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_int_func_from_int_int", ExactSpelling = true)]
-                extern static void __MR_StdFunction_foo_std_function_int_func_from_int_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_IntFuncFromIntInt._Underlying *_1);
+                extern static void __MR_StdFunction_foo_std_function_int_func_from_int_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_Int_From_Int_Int._Underlying *_1);
                 __MR_StdFunction_foo_std_function_int_func_from_int_int(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -220,7 +222,7 @@ public static partial class MR
             public static unsafe void Foo(MR.CS.Std._ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E", ExactSpelling = true)]
-                extern static void __MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_MRStdFunctionEFuncFromIntMRStdFunctionE._Underlying *_1);
+                extern static void __MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *_1);
                 __MR_StdFunction_foo_std_function_MR_StdFunction_E_func_from_int_MR_StdFunction_E(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -228,7 +230,7 @@ public static partial class MR
             public static unsafe void Foo(MR.CS.Std._ByValue_Function_StdStringFuncFromIntFloat _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_std_string_func_from_int_float", ExactSpelling = true)]
-                extern static void __MR_StdFunction_foo_std_function_std_string_func_from_int_float(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_StdStringFuncFromIntFloat._Underlying *_1);
+                extern static void __MR_StdFunction_foo_std_function_std_string_func_from_int_float(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_StdString_From_Int_Float._Underlying *_1);
                 __MR_StdFunction_foo_std_function_std_string_func_from_int_float(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -236,7 +238,7 @@ public static partial class MR
             public static unsafe void Foo(MR.CS.Std._ByValue_Function_VoidFuncFromStdString _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_void_func_from_std_string", ExactSpelling = true)]
-                extern static void __MR_StdFunction_foo_std_function_void_func_from_std_string(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_VoidFuncFromStdString._Underlying *_1);
+                extern static void __MR_StdFunction_foo_std_function_void_func_from_std_string(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_Void_From_StdString._Underlying *_1);
                 __MR_StdFunction_foo_std_function_void_func_from_std_string(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -244,7 +246,7 @@ public static partial class MR
             public static unsafe void Foo(MR.CS.Std._ByValue_Function_VoidFuncFromMRStdFunctionA _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A", ExactSpelling = true)]
-                extern static void __MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_VoidFuncFromMRStdFunctionA._Underlying *_1);
+                extern static void __MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_Void_From_MRStdFunctionA._Underlying *_1);
                 __MR_StdFunction_foo_std_function_void_func_from_MR_StdFunction_A(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -252,7 +254,7 @@ public static partial class MR
             public static unsafe void Foo(MR.CS.Std._ByValue_Function_MRStdFunctionAFunc _1)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFunction_foo_std_function_MR_StdFunction_A_func", ExactSpelling = true)]
-                extern static void __MR_StdFunction_foo_std_function_MR_StdFunction_A_func(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_MRStdFunctionAFunc._Underlying *_1);
+                extern static void __MR_StdFunction_foo_std_function_MR_StdFunction_A_func(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Function_MRStdFunctionA._Underlying *_1);
                 __MR_StdFunction_foo_std_function_MR_StdFunction_A_func(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
         }

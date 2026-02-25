@@ -23,6 +23,7 @@ MR_C_std_list_MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_Non
 
 MR_C_std_list_MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_NonAssignable_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_list_MR_StdContainers_NonAssignable *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::list<MR::StdContainers::NonAssignable>);
     return (MR_C_std_list_MR_StdContainers_NonAssignable *)new std::list<MR::StdContainers::NonAssignable>(std::list<MR::StdContainers::NonAssignable>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_COPY(other, (std::list<MR::StdContainers::NonAssignable>), std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_MOVE(other, (std::list<MR::StdContainers::NonAssignable>), std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_END(other, std::list<MR::StdContainers::NonAssignable>))
     ));
@@ -30,6 +31,7 @@ MR_C_std_list_MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_Non
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_AssignFromAnother(MR_C_std_list_MR_StdContainers_NonAssignable *_this, MR_C_PassBy other_pass_by, MR_C_std_list_MR_StdContainers_NonAssignable *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::list<MR::StdContainers::NonAssignable>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_COPY(other, (std::list<MR::StdContainers::NonAssignable>), std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_MOVE(other, (std::list<MR::StdContainers::NonAssignable>), std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_END(other, std::list<MR::StdContainers::NonAssignable>))
     );
@@ -107,6 +109,7 @@ MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_NonAssignable_bac
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_push_back(MR_C_std_list_MR_StdContainers_NonAssignable *_this, MR_C_PassBy new_elem_pass_by, MR_StdContainers_NonAssignable *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::StdContainers::NonAssignable);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).push_back(
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(new_elem, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(new_elem, MR::StdContainers::NonAssignable))
     );
@@ -119,6 +122,7 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_pop_back(MR_C_std_list_MR_StdC
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_push_front(MR_C_std_list_MR_StdContainers_NonAssignable *_this, MR_C_PassBy new_elem_pass_by, MR_StdContainers_NonAssignable *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::StdContainers::NonAssignable);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).push_front(
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(new_elem, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(new_elem, MR::StdContainers::NonAssignable))
     );
@@ -131,6 +135,7 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_pop_front(MR_C_std_list_MR_Std
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_mutable_iter(MR_C_std_list_MR_StdContainers_NonAssignable *_this, const MR_C_std_list_MR_StdContainers_NonAssignable_iterator *position, MR_C_PassBy new_elem_pass_by, MR_StdContainers_NonAssignable *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::StdContainers::NonAssignable);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)position)),
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(new_elem, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(new_elem, MR::StdContainers::NonAssignable))
@@ -146,6 +151,7 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_mutable_iter(MR_C_std
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_iter(MR_C_std_list_MR_StdContainers_NonAssignable *_this, const MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *position, MR_C_PassBy new_elem_pass_by, MR_StdContainers_NonAssignable *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::StdContainers::NonAssignable);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)position)),
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(new_elem, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(new_elem, MR::StdContainers::NonAssignable))

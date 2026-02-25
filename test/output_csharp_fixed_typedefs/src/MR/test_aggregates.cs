@@ -221,7 +221,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_A
             {
+                #pragma warning disable CS0649
                 internal readonly Const_A? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_A() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_A(Const_A new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

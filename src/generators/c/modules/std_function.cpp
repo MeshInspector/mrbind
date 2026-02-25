@@ -75,7 +75,12 @@ namespace mrbind::CBindings::Modules
 
             if (!cpp_callback_return_type_is_void)
             {
-                callback_return_type_binding = &generator.FindBindableType(cpp_callback_return_type);
+                // Desugar this because returning `std::string` with sugar in C# is annoyingly difficult, since there's nothing you could pass to the cleanup callback, because you'd need to preserve the fixed pointers.
+                // The only proper fix that comes to mind is passing a lambda to the callback that could be used to construct the return value, but I'm not entirely sure how to do that with zero moves,
+                //   and if we allow moves, just returning a desugared object is the same thing.
+                //
+                // When adding or removing sugar here, sync it with C#.
+                callback_return_type_binding = &generator.FindBindableType(cpp_callback_return_type, true);
 
                 if (!callback_return_type_binding->param_usage && !callback_return_type_binding->param_usage_with_default_arg)
                     throw std::runtime_error("The return type of `std::function`, which is `" + generator.CppdeclToCode(cpp_callback_return_type) + "`, doesn't have a parameter usage.");
@@ -89,10 +94,11 @@ namespace mrbind::CBindings::Modules
             callback_param_usages.reserve(cpp_elem_type.As<cppdecl::Function>()->params.size());
             for (const auto &param : cpp_elem_type.As<cppdecl::Function>()->params)
             {
-                // Adjust the type by replacing non-references with rvalue references, but only if they are not built-in C types.
+                // Adjust the type by replacing non-references with rvalue references, but only if they are not simple enough types, such as scalars or enums.
                 // This adds the weird comments, but at least the callback no longer needs to deallocate heap objects all the time. This is too dumb otherwise.
+                // This condition (`IsSimplyBindableDirectCast()`) needs to be synced with C#.
                 cppdecl::Type fixed_type = param.type;
-                if (!fixed_type.Is<cppdecl::Reference>() && !generator.IsSimplyBindableDirect(fixed_type))
+                if (!fixed_type.Is<cppdecl::Reference>() && !generator.IsSimplyBindableDirectCast(fixed_type))
                     fixed_type.AddModifier(cppdecl::Reference{.kind = cppdecl::RefQualifier::rvalue});
 
                 const Generator::BindableType &param_type_binding = generator.FindBindableType(fixed_type);
@@ -203,6 +209,25 @@ namespace mrbind::CBindings::Modules
                     binder.EmitSpecialMemberFunctions(generator, file);
 
                     // Some custom functions:
+
+                    { // `has_value()`
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment += "/// Returns true if this instance stores a callable, as opposed to being null.";
+                        emit.name = binder.MakeMemberFuncName(generator, "has_value", CInterop::MethodKinds::ConversionOperator{});
+                        emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+                        emit.cpp_called_func = "bool(@this@)";
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    { // `reset()`
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment += "/// Destroys the stored callable, making this instance null.";
+                        emit.name = binder.MakeMemberFuncName(generator, "reset");
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+                        emit.cpp_called_func = "@this@ = nullptr";
+                        generator.EmitFunction(file, emit);
+                    }
 
                     // Writes the extra comment to `out_comment`.
                     // If it's already non-empty, will add `\n` after the existing contents and before ours.
@@ -447,9 +472,8 @@ namespace mrbind::CBindings::Modules
                                 "///   The intent is to handle cases where in C++ the callback returns by value, but the corresponding C callback returns a pointer,\n"
                                 "///     which makes implementing the callback difficult, as you would need to either leak the pointer, or it would dangle.\n"
                                 "///   With this callback, you can leak the pointer from `func`, and then clean it up in `postcall_callback`.\n"
-                                "///   Another way to handle this is by using `" + pass_by_enum_name + "_MoveAndDestroy`, but it's not available in some cases,\n"
-                                "///     such as when returning a `std::string` (which in C maps to returning two pointers with no pass-by enum).\n"
-                                "///   `" + pass_by_enum_name + "_MoveAndDestroy` is also less flexible than the callback, since it forces an extra move in some cases. This might make no sense to C users,\n"
+                                "///   Another way to handle this is by using `" + pass_by_enum_name + "_MoveAndDestroy`,but it is less flexible than the callback,\n"
+                                "///     since it forces an extra move in some cases. This might make no sense to C users,\n"
                                 "///     but it helps when wrapping C bindings in another language. If you're using `" + pass_by_enum_name + "_Copy` or `" + pass_by_enum_name + "_Move`,\n"
                                 "///     then in C you'd expect your pointer to outlive the callback, so all is good. But when wrapping C in a managed language where objects are shared references,\n"
                                 "///     you might not know if the object you're returning is the last reference or not, so you'd have to either copy/move it into a temporary,\n"

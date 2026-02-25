@@ -193,7 +193,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_Tuple_ConstInt_StdString
             {
+                #pragma warning disable CS0649
                 internal readonly Const_Tuple_ConstInt_StdString? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_Tuple_ConstInt_StdString() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_Tuple_ConstInt_StdString(Const_Tuple_ConstInt_StdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

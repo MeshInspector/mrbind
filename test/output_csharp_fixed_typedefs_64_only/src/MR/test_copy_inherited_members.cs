@@ -1563,7 +1563,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_G
             {
+                #pragma warning disable CS0649
                 internal readonly Const_G? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_G() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_G(Const_G new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -1849,7 +1851,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_H
             {
+                #pragma warning disable CS0649
                 internal readonly Const_H? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_H() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_H(Const_H new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -2135,7 +2139,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_I
             {
+                #pragma warning disable CS0649
                 internal readonly Const_I? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_I() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_I(Const_I new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -2597,7 +2603,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_K
             {
+                #pragma warning disable CS0649
                 internal readonly Const_K? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_K() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_K(Const_K new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -2807,7 +2815,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_L
             {
+                #pragma warning disable CS0649
                 internal readonly Const_L? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_L() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_L(Const_L new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -3105,7 +3115,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_M
             {
+                #pragma warning disable CS0649
                 internal readonly Const_M? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_M() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_M(Const_M new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -3417,7 +3429,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_N
             {
+                #pragma warning disable CS0649
                 internal readonly Const_N? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_N() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_N(Const_N new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
@@ -3743,7 +3757,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_O
             {
+                #pragma warning disable CS0649
                 internal readonly Const_O? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_O() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_O(Const_O new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

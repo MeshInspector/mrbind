@@ -567,7 +567,9 @@ public static partial class MR
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class _ByValue_SharedPtr_Void
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SharedPtr_Void? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_SharedPtr_Void() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_SharedPtr_Void(Const_SharedPtr_Void new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

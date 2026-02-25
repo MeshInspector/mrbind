@@ -895,7 +895,9 @@ public static partial class MR
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             public class _ByValue_Deque_MRStdContainersNonAssignable
             {
+                #pragma warning disable CS0649
                 internal readonly Const_Deque_MRStdContainersNonAssignable? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_Deque_MRStdContainersNonAssignable() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_Deque_MRStdContainersNonAssignable(Const_Deque_MRStdContainersNonAssignable new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

@@ -24,6 +24,7 @@ MR_C_std_multimap_int32_t_float *MR_C_std_multimap_int32_t_float_DefaultConstruc
 
 MR_C_std_multimap_int32_t_float *MR_C_std_multimap_int32_t_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_multimap_int32_t_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::multimap<int32_t, float>);
     return (MR_C_std_multimap_int32_t_float *)new std::multimap<int32_t, float>(std::multimap<int32_t, float>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::multimap<int32_t, float>) MRBINDC_CLASSARG_COPY(other, (std::multimap<int32_t, float>), std::multimap<int32_t, float>) MRBINDC_CLASSARG_MOVE(other, (std::multimap<int32_t, float>), std::multimap<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::multimap<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::multimap<int32_t, float>) MRBINDC_CLASSARG_END(other, std::multimap<int32_t, float>))
     ));
@@ -31,6 +32,7 @@ MR_C_std_multimap_int32_t_float *MR_C_std_multimap_int32_t_float_ConstructFromAn
 
 void MR_C_std_multimap_int32_t_float_AssignFromAnother(MR_C_std_multimap_int32_t_float *_this, MR_C_PassBy other_pass_by, MR_C_std_multimap_int32_t_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::multimap<int32_t, float>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::multimap<int32_t, float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::multimap<int32_t, float>) MRBINDC_CLASSARG_COPY(other, (std::multimap<int32_t, float>), std::multimap<int32_t, float>) MRBINDC_CLASSARG_MOVE(other, (std::multimap<int32_t, float>), std::multimap<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::multimap<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::multimap<int32_t, float>) MRBINDC_CLASSARG_END(other, std::multimap<int32_t, float>))
     );

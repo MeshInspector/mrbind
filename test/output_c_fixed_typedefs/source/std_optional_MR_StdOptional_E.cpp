@@ -67,6 +67,11 @@ MR_C_std_optional_MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_OffsetMut
     return (MR_C_std_optional_MR_StdOptional_E *)(((std::optional<MR::StdOptional::E> *)ptr) + i);
 }
 
+bool MR_C_std_optional_MR_StdOptional_E_has_value(const MR_C_std_optional_MR_StdOptional_E *_this)
+{
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::StdOptional::E> *)(_this)));
+}
+
 const MR_StdOptional_E *MR_C_std_optional_MR_StdOptional_E_value(const MR_C_std_optional_MR_StdOptional_E *_this)
 {
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::StdOptional::E> *)(_this));

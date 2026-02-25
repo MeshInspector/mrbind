@@ -32,7 +32,7 @@ MR_C_API MR_C_std_unique_ptr_int32_t_array *MR_C_std_unique_ptr_int32_t_array_De
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_unique_ptr_int32_t_array_Destroy()` to free it when you're done using it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_unique_ptr_int32_t_array *MR_C_std_unique_ptr_int32_t_array_ConstructFromAnother(const MR_C_std_unique_ptr_int32_t_array *other);
 
 // Constructs a new instance.
@@ -45,7 +45,7 @@ MR_C_API MR_C_std_unique_ptr_int32_t_array *MR_C_std_unique_ptr_int32_t_array_Co
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `other` can not be null. It is a single object.
 // The reference to the parameter `other` might be preserved in this object.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_unique_ptr_int32_t_array_AssignFromAnother(MR_C_std_unique_ptr_int32_t_array *_this, const MR_C_std_unique_ptr_int32_t_array *other);
 
 // Assigns the contents.

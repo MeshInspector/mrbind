@@ -22,6 +22,7 @@ MR_C_std_vector_MR_CSharp_A_ptr *MR_C_std_vector_MR_CSharp_A_ptr_DefaultConstruc
 
 MR_C_std_vector_MR_CSharp_A_ptr *MR_C_std_vector_MR_CSharp_A_ptr_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_MR_CSharp_A_ptr *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<MR::CSharp::A *>);
     return (MR_C_std_vector_MR_CSharp_A_ptr *)new std::vector<MR::CSharp::A *>(std::vector<MR::CSharp::A *>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<MR::CSharp::A *>) MRBINDC_CLASSARG_COPY(other, (std::vector<MR::CSharp::A *>), std::vector<MR::CSharp::A *>) MRBINDC_CLASSARG_MOVE(other, (std::vector<MR::CSharp::A *>), std::vector<MR::CSharp::A *>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<MR::CSharp::A *>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<MR::CSharp::A *>) MRBINDC_CLASSARG_END(other, std::vector<MR::CSharp::A *>))
     ));
@@ -29,6 +30,7 @@ MR_C_std_vector_MR_CSharp_A_ptr *MR_C_std_vector_MR_CSharp_A_ptr_ConstructFromAn
 
 void MR_C_std_vector_MR_CSharp_A_ptr_AssignFromAnother(MR_C_std_vector_MR_CSharp_A_ptr *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_MR_CSharp_A_ptr *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<MR::CSharp::A *>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::CSharp::A *> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<MR::CSharp::A *>) MRBINDC_CLASSARG_COPY(other, (std::vector<MR::CSharp::A *>), std::vector<MR::CSharp::A *>) MRBINDC_CLASSARG_MOVE(other, (std::vector<MR::CSharp::A *>), std::vector<MR::CSharp::A *>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<MR::CSharp::A *>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<MR::CSharp::A *>) MRBINDC_CLASSARG_END(other, std::vector<MR::CSharp::A *>))
     );

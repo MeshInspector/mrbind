@@ -21,6 +21,7 @@ MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_Def
 
 MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::shared_ptr<MR::StdSharedPtr::A>);
     return (MR_C_std_shared_ptr_MR_StdSharedPtr_A *)new std::shared_ptr<MR::StdSharedPtr::A>(std::shared_ptr<MR::StdSharedPtr::A>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_COPY(other, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_MOVE(other, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_END(other, std::shared_ptr<MR::StdSharedPtr::A>))
     ));
@@ -28,6 +29,7 @@ MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_Con
 
 void MR_C_std_shared_ptr_MR_StdSharedPtr_A_AssignFromAnother(MR_C_std_shared_ptr_MR_StdSharedPtr_A *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::shared_ptr<MR::StdSharedPtr::A>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::StdSharedPtr::A> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_COPY(other, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_MOVE(other, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_END(other, std::shared_ptr<MR::StdSharedPtr::A>))
     );
@@ -89,6 +91,7 @@ void MR_C_std_shared_ptr_MR_StdSharedPtr_A_AssignNonOwning(MR_C_std_shared_ptr_M
 
 MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructAliasing(MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, MR_StdSharedPtr_A *ptr)
 {
+    MRBINDC_CLASSARG_GUARD(ownership, std::shared_ptr<const void>);
     return (MR_C_std_shared_ptr_MR_StdSharedPtr_A *)new std::shared_ptr<MR::StdSharedPtr::A>(std::shared_ptr<MR::StdSharedPtr::A>(
         (MRBINDC_CLASSARG_DEF_CTOR(ownership, std::shared_ptr<const void>) MRBINDC_CLASSARG_COPY(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_MOVE(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_DefaultArgument, std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_NoObject, std::shared_ptr<const void>) MRBINDC_CLASSARG_END(ownership, std::shared_ptr<const void>)),
         ((MR::StdSharedPtr::A *)ptr)
@@ -97,6 +100,7 @@ MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_Con
 
 void MR_C_std_shared_ptr_MR_StdSharedPtr_A_AssignAliasing(MR_C_std_shared_ptr_MR_StdSharedPtr_A *_this, MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, MR_StdSharedPtr_A *ptr)
 {
+    MRBINDC_CLASSARG_GUARD(ownership, std::shared_ptr<const void>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::StdSharedPtr::A> *)(_this)) = std::shared_ptr<MR::StdSharedPtr::A>(
         (MRBINDC_CLASSARG_DEF_CTOR(ownership, std::shared_ptr<const void>) MRBINDC_CLASSARG_COPY(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_MOVE(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_DefaultArgument, std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_NoObject, std::shared_ptr<const void>) MRBINDC_CLASSARG_END(ownership, std::shared_ptr<const void>)),
         ((MR::StdSharedPtr::A *)ptr)
@@ -105,6 +109,7 @@ void MR_C_std_shared_ptr_MR_StdSharedPtr_A_AssignAliasing(MR_C_std_shared_ptr_MR
 
 MR_C_std_shared_ptr_void *MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, std::shared_ptr<MR::StdSharedPtr::A>);
     return (MR_C_std_shared_ptr_void *)new std::shared_ptr<void>(std::shared_ptr<void>(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_COPY(_other, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_MOVE(_other, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_END(_other, std::shared_ptr<MR::StdSharedPtr::A>))
     ));
@@ -112,6 +117,7 @@ MR_C_std_shared_ptr_void *MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared
 
 void MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(MR_C_std_shared_ptr_void *_this, MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, std::shared_ptr<MR::StdSharedPtr::A>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<void> *)(_this)) = (MRBINDC_CLASSARG_DEF_CTOR(_other, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_COPY(_other, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_MOVE(_other, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_END(_other, std::shared_ptr<MR::StdSharedPtr::A>));
 }
 

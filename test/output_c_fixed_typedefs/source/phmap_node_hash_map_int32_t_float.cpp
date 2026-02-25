@@ -24,6 +24,7 @@ MR_C_phmap_node_hash_map_int32_t_float *MR_C_phmap_node_hash_map_int32_t_float_D
 
 MR_C_phmap_node_hash_map_int32_t_float *MR_C_phmap_node_hash_map_int32_t_float_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_phmap_node_hash_map_int32_t_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::node_hash_map<int32_t, float>);
     return (MR_C_phmap_node_hash_map_int32_t_float *)new phmap::node_hash_map<int32_t, float>(phmap::node_hash_map<int32_t, float>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_COPY(other, (phmap::node_hash_map<int32_t, float>), phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_MOVE(other, (phmap::node_hash_map<int32_t, float>), phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_END(other, phmap::node_hash_map<int32_t, float>))
     ));
@@ -31,6 +32,7 @@ MR_C_phmap_node_hash_map_int32_t_float *MR_C_phmap_node_hash_map_int32_t_float_C
 
 void MR_C_phmap_node_hash_map_int32_t_float_AssignFromAnother(MR_C_phmap_node_hash_map_int32_t_float *_this, MR_C_PassBy other_pass_by, MR_C_phmap_node_hash_map_int32_t_float *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, phmap::node_hash_map<int32_t, float>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int32_t, float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_COPY(other, (phmap::node_hash_map<int32_t, float>), phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_MOVE(other, (phmap::node_hash_map<int32_t, float>), phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_END(other, phmap::node_hash_map<int32_t, float>))
     );

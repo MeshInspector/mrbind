@@ -1,6 +1,7 @@
 #pragma once
 
 #include <filesystem>
+#include <functional>
 #include <iostream>
 #include <memory>
 #include <optional>
@@ -1038,6 +1039,12 @@ namespace MR::CSharp
         friend bool operator==(const ExposedLayoutB &, const ExposedLayoutB &) {return true;}
     };
 
+    // Just a simple exposed struct to test other things.
+    struct ExposedLayoutC
+    {
+        int x;
+    };
+
 
     // Test various array members.
     struct ArrayMembers
@@ -1645,6 +1652,78 @@ namespace MR::CSharp
     inline std::tuple<ExposedLayout, const ExposedLayout> get_tuple_exposed_value() {return {{}, {}};}
     inline std::tuple<ExposedLayout &, const ExposedLayout &> get_tuple_exposed_lvalue_ref() {return {default_exposed, default_exposed};}
     inline std::tuple<ExposedLayout &&, const ExposedLayout &&> get_tuple_exposed_rvalue_ref() {return {std::move(default_exposed), std::move(default_exposed)};}
+
+
+    // Test `std::function`.
+
+    struct TestStdFunction
+    {
+        std::function<int(std::string)> f1 = nullptr;
+        std::function<std::string(int, int)> f2 = nullptr;
+        std::function<E1(E1)> f3 = nullptr;
+        std::function<ExposedLayoutC(ExposedLayoutC)> f4 = nullptr;
+        std::function<int &(int &, int &&)> f5 = nullptr;
+        std::function<int &&()> f6 = nullptr;
+        std::function<void()> f7 = nullptr;
+
+        void Call()
+        {
+            /* Some C# code to test this class:
+            B b = new();
+            b.Call();
+            b.f1.Assign((MR.CS.Std.String s) => (int)s.Size());
+            b.f2.Assign((int a, int b) => new MR.CS.Std.String($"[{a},{b}]"));
+            b.f3.Assign((E1 e) => {Console.WriteLine(e); return E1.C;});
+            b.f4.Assign((ref readonly ExposedLayoutC e) => {ExposedLayoutC ret = new(e); ret.x++; return ret;});
+            b.f5.Assign((ref int a, ref readonly int b) => {Console.WriteLine($"C#: [{a};{b}]"); return ref a;});
+            b.Call();
+            b.f1.Reset();
+            b.Call();
+            */
+
+            if (f1)
+                std::cout << "f1(\"blah\") = " << f1("blah") << '\n';
+            else
+                std::cout << "f1 = null\n";
+
+            if (f2)
+                std::cout << "f2(10, 20) = " << f2(10, 20) << '\n';
+            else
+                std::cout << "f2 = null\n";
+
+            if (f3)
+                std::cout << "f3(e2) = " << (int)f3(E1::b) << '\n';
+            else
+                std::cout << "f3 = null\n";
+
+            if (f4)
+                std::cout << "f4({.x = 42}).x = " << f4({.x = 42}).x << '\n';
+            else
+                std::cout << "f4 = null\n";
+
+            if (f5)
+            {
+                int x = 42;
+                std::cout << "f5(x/*42*/, 43) = " << f5(x, 43) << "; x = " << x << '\n';
+            }
+            else
+            {
+                std::cout << "f5 = null\n";
+            }
+
+            // Can't be bothered calling `f6`...
+
+            if (f7)
+            {
+                f7();
+                std::cout << "f7()\n";
+            }
+            else
+            {
+                std::cout << "f7 = null\n";
+            }
+        }
+    };
 }
 
 

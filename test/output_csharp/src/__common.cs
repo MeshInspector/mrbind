@@ -143,6 +143,7 @@ public static partial class MR
                 default_construct,
                 copy,
                 move,
+                move_and_destroy,
                 default_arg,
                 no_object,
             }
@@ -279,6 +280,34 @@ public static partial class MR
                     if (_StaticKeepAliveData.TryGetValue(key, out set))
                         set.Clear(); // Or we could `.Remove(key)`, but keeping a slot in the map looks better to me.
                 }
+            }
+
+            internal unsafe delegate void StdFunctionPostCallCallbackDelegate(void *userdata, void *value);
+
+            /// This is used by the `std::function<...>` wrappers to clean up the object returned from a call.
+            internal static unsafe void StdFunctionPostCallCallback(void *userdata, void *value)
+            {
+                if (value is not null)
+                    System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)value).Free();
+            }
+
+            internal unsafe delegate void StdFunctionUserdataCallbackDelegate(void **this_userdata, void *other_userdata);
+
+            /// This is used by the `std::function<...>` wrappers to manage the userdata pointer, which in our case always represents a `GCHandle` to the underlying C# callable.
+            internal static unsafe void StdFunctionUserdataCallback(void **this_userdata, void *other_userdata)
+            {
+                if (*this_userdata is not null)
+                {
+                    // We're either getting copy-assigned or destroyed.
+                    // Either way, we must destroy the existing handle.
+                    System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)(*this_userdata)).Free();
+
+                    if (other_userdata is null)
+                        return; // We're getting destroyed, nothing else to do.
+                }
+
+                // Now we're either getting either copy-constructed or copy-assigned. Duplicate the provided handle.
+                *this_userdata = (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)other_userdata).Target));
             }
 
             /// This is thrown when the underlying C++ function returns an error via `expected<>`.

@@ -26,6 +26,7 @@ unsigned long **MR_TestSizeT_foo_unsigned_long_ptr(unsigned long **_1)
 
 MR_C_std_vector_unsigned_long *MR_TestSizeT_foo_std_vector_unsigned_long(MR_C_PassBy _1_pass_by, MR_C_std_vector_unsigned_long *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::vector<unsigned long>);
     return (MR_C_std_vector_unsigned_long *)new std::vector<unsigned long>(::MR::TestSizeT::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<unsigned long>) MRBINDC_CLASSARG_COPY(_1, (std::vector<unsigned long>), std::vector<unsigned long>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<unsigned long>), std::vector<unsigned long>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::vector<unsigned long>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::vector<unsigned long>) MRBINDC_CLASSARG_END(_1, std::vector<unsigned long>))
     ));
@@ -47,6 +48,7 @@ long **MR_TestSizeT_foo_long_ptr(long **_1)
 
 MR_C_std_vector_long *MR_TestSizeT_foo_std_vector_long(MR_C_PassBy _1_pass_by, MR_C_std_vector_long *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::vector<long>);
     return (MR_C_std_vector_long *)new std::vector<long>(::MR::TestSizeT::foo(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<long>) MRBINDC_CLASSARG_COPY(_1, (std::vector<long>), std::vector<long>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<long>), std::vector<long>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::vector<long>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::vector<long>) MRBINDC_CLASSARG_END(_1, std::vector<long>))
     ));

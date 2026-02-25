@@ -560,6 +560,7 @@ MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_G(MR_CSharp_A 
 
 MR_CSharp_A *MR_CSharp_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_A *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::A);
     return (MR_CSharp_A *)new MR::CSharp::A(MR::CSharp::A(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::A) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::A), MR::CSharp::A) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::A), MR::CSharp::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::A) MRBINDC_CLASSARG_END(_other, MR::CSharp::A))
     ));
@@ -577,6 +578,7 @@ void MR_CSharp_A_DestroyArray(const MR_CSharp_A *_this)
 
 MR_CSharp_A *MR_CSharp_A_AssignFromAnother(MR_CSharp_A *_this, MR_C_PassBy _other_pass_by, MR_CSharp_A *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::A);
     return (MR_CSharp_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::A *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::A) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::A), MR::CSharp::A) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::A), MR::CSharp::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::A) MRBINDC_CLASSARG_END(_other, MR::CSharp::A))
     ));
@@ -665,6 +667,7 @@ MR_CSharp_A *MR_CSharp_B_MutableUpcastTo_MR_CSharp_A(MR_CSharp_B *object)
 
 MR_CSharp_B *MR_CSharp_B_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_B *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::B);
     return (MR_CSharp_B *)new MR::CSharp::B(MR::CSharp::B(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::B) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::B), MR::CSharp::B) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::B), MR::CSharp::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::B) MRBINDC_CLASSARG_END(_other, MR::CSharp::B))
     ));
@@ -690,6 +693,7 @@ void MR_CSharp_B_DestroyArray(const MR_CSharp_B *_this)
 
 MR_CSharp_B *MR_CSharp_B_AssignFromAnother(MR_CSharp_B *_this, MR_C_PassBy _other_pass_by, MR_CSharp_B *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::B);
     return (MR_CSharp_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::B *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::B) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::B), MR::CSharp::B) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::B), MR::CSharp::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::B) MRBINDC_CLASSARG_END(_other, MR::CSharp::B))
     ));
@@ -778,6 +782,7 @@ MR_CSharp_A *MR_CSharp_C_MutableUpcastTo_MR_CSharp_A(MR_CSharp_C *object)
 
 MR_CSharp_C *MR_CSharp_C_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_C *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::C);
     return (MR_CSharp_C *)new MR::CSharp::C(MR::CSharp::C(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::C) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::C), MR::CSharp::C) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::C), MR::CSharp::C) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::C) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::C) MRBINDC_CLASSARG_END(_other, MR::CSharp::C))
     ));
@@ -795,6 +800,7 @@ void MR_CSharp_C_DestroyArray(const MR_CSharp_C *_this)
 
 MR_CSharp_C *MR_CSharp_C_AssignFromAnother(MR_CSharp_C *_this, MR_C_PassBy _other_pass_by, MR_CSharp_C *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::C);
     return (MR_CSharp_C *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::C *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::C) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::C), MR::CSharp::C) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::C), MR::CSharp::C) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::C) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::C) MRBINDC_CLASSARG_END(_other, MR::CSharp::C))
     ));
@@ -1061,6 +1067,7 @@ MR_CSharp_E *MR_CSharp_F_MutableUpcastTo_MR_CSharp_E(MR_CSharp_F *object)
 
 MR_CSharp_F *MR_CSharp_F_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_F *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::F);
     return (MR_CSharp_F *)new MR::CSharp::F(MR::CSharp::F(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::F) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::F), MR::CSharp::F) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::F), MR::CSharp::F) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::F) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::F) MRBINDC_CLASSARG_END(_other, MR::CSharp::F))
     ));
@@ -1078,6 +1085,7 @@ void MR_CSharp_F_DestroyArray(const MR_CSharp_F *_this)
 
 MR_CSharp_F *MR_CSharp_F_AssignFromAnother(MR_CSharp_F *_this, MR_C_PassBy _other_pass_by, MR_CSharp_F *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::F);
     return (MR_CSharp_F *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::F *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::F) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::F), MR::CSharp::F) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::F), MR::CSharp::F) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::F) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::F) MRBINDC_CLASSARG_END(_other, MR::CSharp::F))
     ));
@@ -1214,6 +1222,7 @@ MR_CSharp_E *MR_CSharp_G_MutableUpcastTo_MR_CSharp_E(MR_CSharp_G *object)
 
 MR_CSharp_G *MR_CSharp_G_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_G *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::G);
     return (MR_CSharp_G *)new MR::CSharp::G(MR::CSharp::G(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::G) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::G), MR::CSharp::G) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::G), MR::CSharp::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::G) MRBINDC_CLASSARG_END(_other, MR::CSharp::G))
     ));
@@ -1231,6 +1240,7 @@ void MR_CSharp_G_DestroyArray(const MR_CSharp_G *_this)
 
 MR_CSharp_G *MR_CSharp_G_AssignFromAnother(MR_CSharp_G *_this, MR_C_PassBy _other_pass_by, MR_CSharp_G *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::G);
     return (MR_CSharp_G *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::G *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::G) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::G), MR::CSharp::G) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::G), MR::CSharp::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::G) MRBINDC_CLASSARG_END(_other, MR::CSharp::G))
     ));
@@ -1485,6 +1495,7 @@ MR_CSharp_NonTrivial *MR_CSharp_NonTrivial_OffsetMutablePtr(MR_CSharp_NonTrivial
 
 MR_CSharp_NonTrivial *MR_CSharp_NonTrivial_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivial *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::NonTrivial);
     return (MR_CSharp_NonTrivial *)new MR::CSharp::NonTrivial(MR::CSharp::NonTrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::NonTrivial), MR::CSharp::NonTrivial) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::NonTrivial), MR::CSharp::NonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_END(_other, MR::CSharp::NonTrivial))
     ));
@@ -1502,6 +1513,7 @@ void MR_CSharp_NonTrivial_DestroyArray(const MR_CSharp_NonTrivial *_this)
 
 MR_CSharp_NonTrivial *MR_CSharp_NonTrivial_AssignFromAnother(MR_CSharp_NonTrivial *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivial *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::NonTrivial);
     return (MR_CSharp_NonTrivial *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NonTrivial *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::NonTrivial), MR::CSharp::NonTrivial) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::NonTrivial), MR::CSharp::NonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_END(_other, MR::CSharp::NonTrivial))
     ));
@@ -1529,6 +1541,7 @@ MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_OffsetMutablePtr(MR_CSh
 
 MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialDerived *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::NonTrivialDerived);
     return (MR_CSharp_NonTrivialDerived *)new MR::CSharp::NonTrivialDerived(MR::CSharp::NonTrivialDerived(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::NonTrivialDerived), MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::NonTrivialDerived), MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_END(_other, MR::CSharp::NonTrivialDerived))
     ));
@@ -1546,6 +1559,7 @@ void MR_CSharp_NonTrivialDerived_DestroyArray(const MR_CSharp_NonTrivialDerived 
 
 MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_AssignFromAnother(MR_CSharp_NonTrivialDerived *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialDerived *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::NonTrivialDerived);
     return (MR_CSharp_NonTrivialDerived *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NonTrivialDerived *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::NonTrivialDerived), MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::NonTrivialDerived), MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_END(_other, MR::CSharp::NonTrivialDerived))
     ));
@@ -1555,6 +1569,8 @@ MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial(MR_C_PassBy a_pass_by, MR_
 {
     using namespace MR;
     using namespace CSharp;
+    MRBINDC_CLASSARG_GUARD(a, MR::CSharp::NonTrivial);
+    MRBINDC_CLASSARG_GUARD(b, MR::CSharp::NonTrivial);
     return (MR_CSharp_NonTrivial *)new MR::CSharp::NonTrivial(::MR::CSharp::test_class_nontrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(a, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_COPY(a, (MR::CSharp::NonTrivial), MR::CSharp::NonTrivial) MRBINDC_CLASSARG_MOVE(a, (MR::CSharp::NonTrivial), MR::CSharp::NonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_NoObject, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_END(a, MR::CSharp::NonTrivial)),
         (MRBINDC_CLASSARG_DEF_CTOR(b, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_COPY(b, (MR::CSharp::NonTrivial), MR::CSharp::NonTrivial) MRBINDC_CLASSARG_MOVE(b, (MR::CSharp::NonTrivial), MR::CSharp::NonTrivial) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (MR::CSharp::NonTrivial{}), MR::CSharp::NonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(b, MR_C_PassBy_NoObject, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_END(b, MR::CSharp::NonTrivial))
@@ -1761,6 +1777,7 @@ MR_CSharp_SC *MR_CSharp_SB_MutableStaticDowncastTo_MR_CSharp_SC(MR_CSharp_SB *ob
 
 MR_CSharp_SB *MR_CSharp_SB_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SB *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SB);
     return (MR_CSharp_SB *)new MR::CSharp::SB(MR::CSharp::SB(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SB) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SB), MR::CSharp::SB) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SB), MR::CSharp::SB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SB) MRBINDC_CLASSARG_END(_other, MR::CSharp::SB))
     ));
@@ -1778,6 +1795,7 @@ void MR_CSharp_SB_DestroyArray(const MR_CSharp_SB *_this)
 
 MR_CSharp_SB *MR_CSharp_SB_AssignFromAnother(MR_CSharp_SB *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SB *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SB);
     return (MR_CSharp_SB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SB *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SB) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SB), MR::CSharp::SB) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SB), MR::CSharp::SB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SB) MRBINDC_CLASSARG_END(_other, MR::CSharp::SB))
     ));
@@ -1848,6 +1866,7 @@ MR_CSharp_SB *MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SB(MR_CSharp_SC *object)
 
 MR_CSharp_SC *MR_CSharp_SC_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SC *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SC);
     return (MR_CSharp_SC *)new MR::CSharp::SC(MR::CSharp::SC(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SC) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SC), MR::CSharp::SC) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SC), MR::CSharp::SC) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SC) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SC) MRBINDC_CLASSARG_END(_other, MR::CSharp::SC))
     ));
@@ -1865,6 +1884,7 @@ void MR_CSharp_SC_DestroyArray(const MR_CSharp_SC *_this)
 
 MR_CSharp_SC *MR_CSharp_SC_AssignFromAnother(MR_CSharp_SC *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SC *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SC);
     return (MR_CSharp_SC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SC *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SC) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SC), MR::CSharp::SC) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SC), MR::CSharp::SC) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SC) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SC) MRBINDC_CLASSARG_END(_other, MR::CSharp::SC))
     ));
@@ -1934,6 +1954,7 @@ MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastToOrFail_MR_CSharp_SF(MR_CSharp
 
 MR_CSharp_SD *MR_CSharp_SD_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SD);
     return (MR_CSharp_SD *)new MR::CSharp::SD(MR::CSharp::SD(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SD) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SD), MR::CSharp::SD) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SD), MR::CSharp::SD) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SD) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SD) MRBINDC_CLASSARG_END(_other, MR::CSharp::SD))
     ));
@@ -1951,6 +1972,7 @@ void MR_CSharp_SD_DestroyArray(const MR_CSharp_SD *_this)
 
 MR_CSharp_SD *MR_CSharp_SD_AssignFromAnother(MR_CSharp_SD *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SD);
     return (MR_CSharp_SD *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SD *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SD) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SD), MR::CSharp::SD) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SD), MR::CSharp::SD) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SD) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SD) MRBINDC_CLASSARG_END(_other, MR::CSharp::SD))
     ));
@@ -2014,6 +2036,7 @@ MR_CSharp_SF *MR_CSharp_SE_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SE *ob
 
 MR_CSharp_SE *MR_CSharp_SE_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SE *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SE);
     return (MR_CSharp_SE *)new MR::CSharp::SE(MR::CSharp::SE(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SE) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SE) MRBINDC_CLASSARG_END(_other, MR::CSharp::SE))
     ));
@@ -2031,6 +2054,7 @@ void MR_CSharp_SE_DestroyArray(const MR_CSharp_SE *_this)
 
 MR_CSharp_SE *MR_CSharp_SE_AssignFromAnother(MR_CSharp_SE *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SE *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SE);
     return (MR_CSharp_SE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SE *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SE) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SE) MRBINDC_CLASSARG_END(_other, MR::CSharp::SE))
     ));
@@ -2101,6 +2125,7 @@ MR_CSharp_SE *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SE(MR_CSharp_SF *object)
 
 MR_CSharp_SF *MR_CSharp_SF_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SF *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SF);
     return (MR_CSharp_SF *)new MR::CSharp::SF(MR::CSharp::SF(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SF) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SF), MR::CSharp::SF) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SF), MR::CSharp::SF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SF) MRBINDC_CLASSARG_END(_other, MR::CSharp::SF))
     ));
@@ -2118,6 +2143,7 @@ void MR_CSharp_SF_DestroyArray(const MR_CSharp_SF *_this)
 
 MR_CSharp_SF *MR_CSharp_SF_AssignFromAnother(MR_CSharp_SF *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SF *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SF);
     return (MR_CSharp_SF *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SF *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SF) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SF), MR::CSharp::SF) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SF), MR::CSharp::SF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SF) MRBINDC_CLASSARG_END(_other, MR::CSharp::SF))
     ));
@@ -2132,6 +2158,8 @@ MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr(MR_C_PassBy a_pass_by, MR
 {
     using namespace MR;
     using namespace CSharp;
+    MRBINDC_CLASSARG_GUARD(a, std::shared_ptr<MR::CSharp::SA>);
+    MRBINDC_CLASSARG_GUARD(b, std::shared_ptr<MR::CSharp::SA>);
     return (MR_C_std_shared_ptr_MR_CSharp_SA *)new std::shared_ptr<MR::CSharp::SA>(::MR::CSharp::test_shptr(
         (MRBINDC_CLASSARG_DEF_CTOR(a, std::shared_ptr<MR::CSharp::SA>) MRBINDC_CLASSARG_COPY(a, (std::shared_ptr<MR::CSharp::SA>), std::shared_ptr<MR::CSharp::SA>) MRBINDC_CLASSARG_MOVE(a, (std::shared_ptr<MR::CSharp::SA>), std::shared_ptr<MR::CSharp::SA>) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_DefaultArgument, std::shared_ptr<MR::CSharp::SA>) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_NoObject, std::shared_ptr<MR::CSharp::SA>) MRBINDC_CLASSARG_END(a, std::shared_ptr<MR::CSharp::SA>)),
         (MRBINDC_CLASSARG_DEF_CTOR(b, std::shared_ptr<MR::CSharp::SA>) MRBINDC_CLASSARG_COPY(b, (std::shared_ptr<MR::CSharp::SA>), std::shared_ptr<MR::CSharp::SA>) MRBINDC_CLASSARG_MOVE(b, (std::shared_ptr<MR::CSharp::SA>), std::shared_ptr<MR::CSharp::SA>) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (default_shptr), std::shared_ptr<MR::CSharp::SA>) MRBINDC_CLASSARG_NO_DEF_ARG(b, MR_C_PassBy_NoObject, std::shared_ptr<MR::CSharp::SA>) MRBINDC_CLASSARG_END(b, std::shared_ptr<MR::CSharp::SA>))
@@ -2202,6 +2230,8 @@ MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr(MR_C_PassBy a_pass
 {
     using namespace MR;
     using namespace CSharp;
+    MRBINDC_CLASSARG_GUARD(a, std::shared_ptr<const MR::CSharp::SA>);
+    MRBINDC_CLASSARG_GUARD(b, std::shared_ptr<const MR::CSharp::SA>);
     return (MR_C_std_shared_ptr_const_MR_CSharp_SA *)new std::shared_ptr<const MR::CSharp::SA>(::MR::CSharp::test_shcptr(
         (MRBINDC_CLASSARG_DEF_CTOR(a, std::shared_ptr<const MR::CSharp::SA>) MRBINDC_CLASSARG_COPY(a, (std::shared_ptr<const MR::CSharp::SA>), std::shared_ptr<const MR::CSharp::SA>) MRBINDC_CLASSARG_MOVE(a, (std::shared_ptr<const MR::CSharp::SA>), std::shared_ptr<const MR::CSharp::SA>) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_DefaultArgument, std::shared_ptr<const MR::CSharp::SA>) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_NoObject, std::shared_ptr<const MR::CSharp::SA>) MRBINDC_CLASSARG_END(a, std::shared_ptr<const MR::CSharp::SA>)),
         (MRBINDC_CLASSARG_DEF_CTOR(b, std::shared_ptr<const MR::CSharp::SA>) MRBINDC_CLASSARG_COPY(b, (std::shared_ptr<const MR::CSharp::SA>), std::shared_ptr<const MR::CSharp::SA>) MRBINDC_CLASSARG_MOVE(b, (std::shared_ptr<const MR::CSharp::SA>), std::shared_ptr<const MR::CSharp::SA>) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (default_shcptr), std::shared_ptr<const MR::CSharp::SA>) MRBINDC_CLASSARG_NO_DEF_ARG(b, MR_C_PassBy_NoObject, std::shared_ptr<const MR::CSharp::SA>) MRBINDC_CLASSARG_END(b, std::shared_ptr<const MR::CSharp::SA>))
@@ -2706,6 +2736,7 @@ const MR_C_std_string *MR_CSharp_TestFields_Get_const_s_ref(const MR_CSharp_Test
 
 MR_CSharp_TestFields *MR_CSharp_TestFields_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_TestFields *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::TestFields);
     return (MR_CSharp_TestFields *)new MR::CSharp::TestFields(MR::CSharp::TestFields(
         (MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::TestFields), MR::CSharp::TestFields) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::TestFields), MR::CSharp::TestFields) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::TestFields) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::TestFields) MRBINDC_CLASSARG_END(_other, MR::CSharp::TestFields))
     ));
@@ -3093,6 +3124,7 @@ MR_CSharp_IncrDecrE *MR_CSharp_IncrDecrE_OffsetMutablePtr(MR_CSharp_IncrDecrE *p
 
 MR_CSharp_IncrDecrE *MR_CSharp_IncrDecrE_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_IncrDecrE *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::IncrDecrE);
     return (MR_CSharp_IncrDecrE *)new MR::CSharp::IncrDecrE(MR::CSharp::IncrDecrE(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IncrDecrE) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IncrDecrE), MR::CSharp::IncrDecrE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IncrDecrE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IncrDecrE) MRBINDC_CLASSARG_END(_other, MR::CSharp::IncrDecrE))
     ));
@@ -3154,6 +3186,7 @@ MR_CSharp_IncrDecrF *MR_CSharp_IncrDecrF_OffsetMutablePtr(MR_CSharp_IncrDecrF *p
 
 MR_CSharp_IncrDecrF *MR_CSharp_IncrDecrF_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_IncrDecrF *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::IncrDecrF);
     return (MR_CSharp_IncrDecrF *)new MR::CSharp::IncrDecrF(MR::CSharp::IncrDecrF(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IncrDecrF) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IncrDecrF), MR::CSharp::IncrDecrF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IncrDecrF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IncrDecrF) MRBINDC_CLASSARG_END(_other, MR::CSharp::IncrDecrF))
     ));
@@ -4237,6 +4270,7 @@ MR_CSharp_StaticOpsLhsC *MR_CSharp_StaticOpsLhsC_OffsetMutablePtr(MR_CSharp_Stat
 
 MR_CSharp_StaticOpsLhsC *MR_CSharp_StaticOpsLhsC_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_StaticOpsLhsC *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::StaticOpsLhsC);
     return (MR_CSharp_StaticOpsLhsC *)new MR::CSharp::StaticOpsLhsC(MR::CSharp::StaticOpsLhsC(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::StaticOpsLhsC) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::StaticOpsLhsC), MR::CSharp::StaticOpsLhsC) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::StaticOpsLhsC) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::StaticOpsLhsC) MRBINDC_CLASSARG_END(_other, MR::CSharp::StaticOpsLhsC))
     ));
@@ -4254,6 +4288,7 @@ void MR_CSharp_StaticOpsLhsC_DestroyArray(const MR_CSharp_StaticOpsLhsC *_this)
 
 int MR_C_add_MR_CSharp_StaticOpsLhsC_int(MR_C_PassBy _1_pass_by, MR_CSharp_StaticOpsLhsC *_1, int _2)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::StaticOpsLhsC);
     return ::MR::CSharp::operator+(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, MR::CSharp::StaticOpsLhsC) MRBINDC_CLASSARG_MOVE(_1, (MR::CSharp::StaticOpsLhsC), MR::CSharp::StaticOpsLhsC) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::StaticOpsLhsC) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::StaticOpsLhsC) MRBINDC_CLASSARG_END(_1, MR::CSharp::StaticOpsLhsC)),
         _2
@@ -4639,6 +4674,7 @@ MR_CSharp_StaticOpsRhsC *MR_CSharp_StaticOpsRhsC_OffsetMutablePtr(MR_CSharp_Stat
 
 MR_CSharp_StaticOpsRhsC *MR_CSharp_StaticOpsRhsC_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_StaticOpsRhsC *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::StaticOpsRhsC);
     return (MR_CSharp_StaticOpsRhsC *)new MR::CSharp::StaticOpsRhsC(MR::CSharp::StaticOpsRhsC(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::StaticOpsRhsC) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::StaticOpsRhsC), MR::CSharp::StaticOpsRhsC) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::StaticOpsRhsC) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::StaticOpsRhsC) MRBINDC_CLASSARG_END(_other, MR::CSharp::StaticOpsRhsC))
     ));
@@ -4656,6 +4692,7 @@ void MR_CSharp_StaticOpsRhsC_DestroyArray(const MR_CSharp_StaticOpsRhsC *_this)
 
 int MR_C_add_int_MR_CSharp_StaticOpsRhsC(int _1, MR_C_PassBy _2_pass_by, MR_CSharp_StaticOpsRhsC *_2)
 {
+    MRBINDC_CLASSARG_GUARD(_2, MR::CSharp::StaticOpsRhsC);
     return ::MR::CSharp::operator+(
         _1,
         (MRBINDC_CLASSARG_DEF_CTOR(_2, MR::CSharp::StaticOpsRhsC) MRBINDC_CLASSARG_MOVE(_2, (MR::CSharp::StaticOpsRhsC), MR::CSharp::StaticOpsRhsC) MRBINDC_CLASSARG_NO_DEF_ARG(_2, MR_C_PassBy_DefaultArgument, MR::CSharp::StaticOpsRhsC) MRBINDC_CLASSARG_NO_DEF_ARG(_2, MR_C_PassBy_NoObject, MR::CSharp::StaticOpsRhsC) MRBINDC_CLASSARG_END(_2, MR::CSharp::StaticOpsRhsC))
@@ -5041,6 +5078,7 @@ MR_CSharp_NonTrivialClassOps *MR_CSharp_NonTrivialClassOps_OffsetMutablePtr(MR_C
 
 MR_CSharp_NonTrivialClassOps *MR_CSharp_NonTrivialClassOps_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialClassOps *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::NonTrivialClassOps);
     return (MR_CSharp_NonTrivialClassOps *)new MR::CSharp::NonTrivialClassOps(MR::CSharp::NonTrivialClassOps(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::NonTrivialClassOps), MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::NonTrivialClassOps), MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_END(_other, MR::CSharp::NonTrivialClassOps))
     ));
@@ -5058,6 +5096,7 @@ void MR_CSharp_NonTrivialClassOps_DestroyArray(const MR_CSharp_NonTrivialClassOp
 
 MR_CSharp_NonTrivialClassOps *MR_CSharp_NonTrivialClassOps_AssignFromAnother(MR_CSharp_NonTrivialClassOps *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialClassOps *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::NonTrivialClassOps);
     return (MR_CSharp_NonTrivialClassOps *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NonTrivialClassOps *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::NonTrivialClassOps), MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::NonTrivialClassOps), MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_END(_other, MR::CSharp::NonTrivialClassOps))
     ));
@@ -5072,6 +5111,7 @@ int MR_C_add_MR_CSharp_NonTrivialClassOps_int(MR_CSharp_NonTrivialClassOps *_thi
 
 int MR_C_add_MR_CSharp_NonTrivialClassOps_float(MR_C_PassBy _1_pass_by, MR_CSharp_NonTrivialClassOps *_1, float _2)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::NonTrivialClassOps);
     return ::MR::CSharp::operator+(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::NonTrivialClassOps), MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_MOVE(_1, (MR::CSharp::NonTrivialClassOps), MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_END(_1, MR::CSharp::NonTrivialClassOps)),
         _2
@@ -5080,6 +5120,7 @@ int MR_C_add_MR_CSharp_NonTrivialClassOps_float(MR_C_PassBy _1_pass_by, MR_CShar
 
 int MR_C_add_float_MR_CSharp_NonTrivialClassOps(float _1, MR_C_PassBy _2_pass_by, MR_CSharp_NonTrivialClassOps *_2)
 {
+    MRBINDC_CLASSARG_GUARD(_2, MR::CSharp::NonTrivialClassOps);
     return ::MR::CSharp::operator+(
         _1,
         (MRBINDC_CLASSARG_DEF_CTOR(_2, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_COPY(_2, (MR::CSharp::NonTrivialClassOps), MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_MOVE(_2, (MR::CSharp::NonTrivialClassOps), MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_NO_DEF_ARG(_2, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_NO_DEF_ARG(_2, MR_C_PassBy_NoObject, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_END(_2, MR::CSharp::NonTrivialClassOps))
@@ -5464,6 +5505,7 @@ int MR_CSharp_TestOpsA_index(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA
 
 MR_CSharp_TestOpsB *MR_CSharp_TestOpsB_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_TestOpsB *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::TestOpsB);
     return (MR_CSharp_TestOpsB *)new MR::CSharp::TestOpsB(MR::CSharp::TestOpsB(
         (MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_other, MR::CSharp::TestOpsB))
     ));
@@ -5491,6 +5533,7 @@ void MR_CSharp_TestOpsB_DestroyArray(const MR_CSharp_TestOpsB *_this)
 
 int MR_CSharp_TestOpsB_AssignFromAnother(MR_CSharp_TestOpsB *_this, MR_C_PassBy _other_pass_by, MR_CSharp_TestOpsB *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator=(
         (MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_other, MR::CSharp::TestOpsB))
     );
@@ -5503,6 +5546,7 @@ int MR_C_pos_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this)
 
 int MR_C_add_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator+(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5515,6 +5559,7 @@ int MR_C_neg_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this)
 
 int MR_C_sub_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator-(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5527,6 +5572,7 @@ int MR_C_deref_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this)
 
 int MR_C_mul_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator*(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5534,6 +5580,7 @@ int MR_C_mul_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_b
 
 int MR_C_div_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator/(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5541,6 +5588,7 @@ int MR_C_div_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_b
 
 int MR_C_mod_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator%(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5548,6 +5596,7 @@ int MR_C_mod_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_b
 
 int MR_C_xor_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator^(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5560,6 +5609,7 @@ int MR_C_addressof_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this)
 
 int MR_C_bitand_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator&(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5567,6 +5617,7 @@ int MR_C_bitand_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pas
 
 int MR_C_bitor_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator|(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5584,6 +5635,7 @@ int MR_C_not_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this)
 
 int MR_CSharp_TestOpsB_add_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator+=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5591,6 +5643,7 @@ int MR_CSharp_TestOpsB_add_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 
 int MR_CSharp_TestOpsB_sub_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator-=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5598,6 +5651,7 @@ int MR_CSharp_TestOpsB_sub_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 
 int MR_CSharp_TestOpsB_mul_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator*=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5605,6 +5659,7 @@ int MR_CSharp_TestOpsB_mul_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 
 int MR_CSharp_TestOpsB_div_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator/=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5612,6 +5667,7 @@ int MR_CSharp_TestOpsB_div_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 
 int MR_CSharp_TestOpsB_mod_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator%=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5619,6 +5675,7 @@ int MR_CSharp_TestOpsB_mod_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 
 int MR_CSharp_TestOpsB_xor_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator^=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5626,6 +5683,7 @@ int MR_CSharp_TestOpsB_xor_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 
 int MR_CSharp_TestOpsB_bitand_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator&=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5633,6 +5691,7 @@ int MR_CSharp_TestOpsB_bitand_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_p
 
 int MR_CSharp_TestOpsB_bitor_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator|=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5640,6 +5699,7 @@ int MR_CSharp_TestOpsB_bitor_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pa
 
 int MR_C_lshift_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator<<(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5647,6 +5707,7 @@ int MR_C_lshift_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pas
 
 int MR_C_rshift_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator>>(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5654,6 +5715,7 @@ int MR_C_rshift_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pas
 
 int MR_CSharp_TestOpsB_lshift_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator<<=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5661,6 +5723,7 @@ int MR_CSharp_TestOpsB_lshift_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_p
 
 int MR_CSharp_TestOpsB_rshift_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator>>=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5668,6 +5731,7 @@ int MR_CSharp_TestOpsB_rshift_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_p
 
 int MR_C_compare_three_way_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator<=>(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5675,6 +5739,7 @@ int MR_C_compare_three_way_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_Pa
 
 int MR_C_and_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator&&(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5682,6 +5747,7 @@ int MR_C_and_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_b
 
 int MR_C_or_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator||(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5689,6 +5755,7 @@ int MR_C_or_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by
 
 int MR_C_comma_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator,(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5696,6 +5763,7 @@ int MR_C_comma_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 
 int MR_CSharp_TestOpsB_arrow_star(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator->*(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5708,6 +5776,7 @@ int MR_CSharp_TestOpsB_arrow(MR_CSharp_TestOpsB *_this)
 
 int MR_CSharp_TestOpsB_call(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator()(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -5715,6 +5784,7 @@ int MR_CSharp_TestOpsB_call(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, M
 
 int MR_CSharp_TestOpsB_index(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator[](
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
@@ -6596,6 +6666,7 @@ MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_AssignFromAnother(MR_
 
 MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::ConvCtorNonTrivialRestricted);
     return (MR_CSharp_ConvCtorNonTrivialRestricted *)new MR::CSharp::ConvCtorNonTrivialRestricted(MR::CSharp::ConvCtorNonTrivialRestricted(
         (MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::ConvCtorNonTrivialRestricted), MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorNonTrivialRestricted))
     ));
@@ -6630,6 +6701,7 @@ void MR_CSharp_ConvCtorNonTrivialRestricted_DestroyArray(const MR_CSharp_ConvCto
 
 MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_AssignFromAnother(MR_CSharp_ConvCtorNonTrivialRestricted *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::ConvCtorNonTrivialRestricted);
     return (MR_CSharp_ConvCtorNonTrivialRestricted *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvCtorNonTrivialRestricted *)(_this)).operator=(
         (MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::ConvCtorNonTrivialRestricted), MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorNonTrivialRestricted))
     ));
@@ -6644,6 +6716,7 @@ MR_CSharp_ConvCtorExposed MR_CSharp_ConvCtorExposed_Construct(int _1)
 
 MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorCopyButNoMove *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::ConvCtorCopyButNoMove);
     return (MR_CSharp_ConvCtorCopyButNoMove *)new MR::CSharp::ConvCtorCopyButNoMove(MR::CSharp::ConvCtorCopyButNoMove(
         (MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::ConvCtorCopyButNoMove), MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorCopyButNoMove))
     ));
@@ -6678,6 +6751,7 @@ void MR_CSharp_ConvCtorCopyButNoMove_DestroyArray(const MR_CSharp_ConvCtorCopyBu
 
 MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_AssignFromAnother(MR_CSharp_ConvCtorCopyButNoMove *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorCopyButNoMove *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::ConvCtorCopyButNoMove);
     return (MR_CSharp_ConvCtorCopyButNoMove *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvCtorCopyButNoMove *)(_this)).operator=(
         mrbindc_details::unmove((MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::ConvCtorCopyButNoMove), MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorCopyButNoMove)))
     ));
@@ -6808,6 +6882,7 @@ MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_OffsetMutablePtr(MR_C
 
 MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivial *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::ConvCtorNonTrivial);
     return (MR_CSharp_ConvCtorNonTrivial *)new MR::CSharp::ConvCtorNonTrivial(MR::CSharp::ConvCtorNonTrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::ConvCtorNonTrivial), MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::ConvCtorNonTrivial), MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorNonTrivial))
     ));
@@ -6832,6 +6907,7 @@ void MR_CSharp_ConvCtorNonTrivial_DestroyArray(const MR_CSharp_ConvCtorNonTrivia
 
 MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_AssignFromAnother(MR_CSharp_ConvCtorNonTrivial *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivial *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::ConvCtorNonTrivial);
     return (MR_CSharp_ConvCtorNonTrivial *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvCtorNonTrivial *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::ConvCtorNonTrivial), MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::ConvCtorNonTrivial), MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorNonTrivial))
     ));
@@ -6841,6 +6917,8 @@ MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial(MR_C_PassBy a_
 {
     using namespace MR;
     using namespace CSharp;
+    MRBINDC_CLASSARG_GUARD(a, MR::CSharp::ConvCtorNonTrivial);
+    MRBINDC_CLASSARG_GUARD(b, MR::CSharp::ConvCtorNonTrivial);
     return (MR_CSharp_ConvCtorNonTrivial *)new MR::CSharp::ConvCtorNonTrivial(::MR::CSharp::test_class_convnontrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(a, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_COPY(a, (MR::CSharp::ConvCtorNonTrivial), MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_MOVE(a, (MR::CSharp::ConvCtorNonTrivial), MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_END(a, MR::CSharp::ConvCtorNonTrivial)),
         (MRBINDC_CLASSARG_DEF_CTOR(b, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_COPY(b, (MR::CSharp::ConvCtorNonTrivial), MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_MOVE(b, (MR::CSharp::ConvCtorNonTrivial), MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (MR::CSharp::ConvCtorNonTrivial{}), MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(b, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_END(b, MR::CSharp::ConvCtorNonTrivial))
@@ -7383,6 +7461,7 @@ MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_OffsetMutablePtr(MR_CSharp_ArrayM
 
 MR_CSharp_ArrayMembers *MR_CSharp_ArrayMembers_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_ArrayMembers *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::ArrayMembers);
     return (MR_CSharp_ArrayMembers *)new MR::CSharp::ArrayMembers(MR::CSharp::ArrayMembers(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::ArrayMembers) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::ArrayMembers), MR::CSharp::ArrayMembers) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::ArrayMembers), MR::CSharp::ArrayMembers) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ArrayMembers) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ArrayMembers) MRBINDC_CLASSARG_END(_other, MR::CSharp::ArrayMembers))
     ));
@@ -7455,6 +7534,8 @@ MR_C_std_optional_std_string *MR_CSharp_test_optstr(const char *a, const char *a
 {
     using namespace MR;
     using namespace CSharp;
+    MRBINDC_CLASSARG_GUARD(b, std::optional<std::string>);
+    MRBINDC_CLASSARG_GUARD(c, std::optional<std::string>);
     return (MR_C_std_optional_std_string *)new std::optional<std::string>(::MR::CSharp::test_optstr(
         (a ? std::optional<std::string>(a_end ? std::string(a, a_end) : std::string(a)) : std::nullopt),
         (MRBINDC_CLASSARG_DEF_CTOR(b, std::optional<std::string>) MRBINDC_CLASSARG_COPY(b, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_MOVE(b, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (default_optstr), std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(b, MR_C_PassBy_NoObject, std::optional<std::string>) MRBINDC_CLASSARG_END(b, std::optional<std::string>)),
@@ -7476,6 +7557,7 @@ const MR_C_std_optional_std_string *MR_CSharp_test_optstr_cref(const char *a, co
 {
     using namespace MR;
     using namespace CSharp;
+    MRBINDC_CLASSARG_GUARD(b, std::optional<std::string>);
     return (const MR_C_std_optional_std_string *)std::addressof(::MR::CSharp::test_optstr_cref(
         (a ? std::optional<std::string>(a_end ? std::string(a, a_end) : std::string(a)) : std::nullopt),
         (MRBINDC_CLASSARG_DEF_CTOR(b, std::optional<std::string>) MRBINDC_CLASSARG_COPY(b, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_MOVE(b, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (default_optstr), std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(b, MR_C_PassBy_NoObject, std::optional<std::string>) MRBINDC_CLASSARG_END(b, std::optional<std::string>))
@@ -7561,6 +7643,9 @@ MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv(MR_C_PassBy a_
 {
     using namespace MR;
     using namespace CSharp;
+    MRBINDC_CLASSARG_GUARD(a, MR::CSharp::NonTrivial);
+    MRBINDC_CLASSARG_GUARD(b, MR::CSharp::NonTrivial);
+    MRBINDC_CLASSARG_GUARD(c, MR::CSharp::NonTrivial);
     return (MR_C_std_optional_MR_CSharp_NonTrivial *)new std::optional<MR::CSharp::NonTrivial>(::MR::CSharp::test_optnontriv(
         (MRBINDC_CLASSARG_DEF_CTOR(a, std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_COPY(a, (MR::CSharp::NonTrivial), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_MOVE(a, (MR::CSharp::NonTrivial), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_DefaultArgument, std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_DEF_ARG(a, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_END(a, std::optional<MR::CSharp::NonTrivial>)),
         (MRBINDC_CLASSARG_DEF_CTOR(b, std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_COPY(b, (MR::CSharp::NonTrivial), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_MOVE(b, (MR::CSharp::NonTrivial), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (default_optnontriv), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_DEF_ARG(b, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_END(b, std::optional<MR::CSharp::NonTrivial>)),
@@ -7582,6 +7667,8 @@ const MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_cref(MR_
 {
     using namespace MR;
     using namespace CSharp;
+    MRBINDC_CLASSARG_GUARD(a, MR::CSharp::NonTrivial);
+    MRBINDC_CLASSARG_GUARD(b, MR::CSharp::NonTrivial);
     return (const MR_C_std_optional_MR_CSharp_NonTrivial *)std::addressof(::MR::CSharp::test_optnontriv_cref(
         (MRBINDC_CLASSARG_DEF_CTOR(a, std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_COPY(a, (MR::CSharp::NonTrivial), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_MOVE(a, (MR::CSharp::NonTrivial), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_DefaultArgument, std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_DEF_ARG(a, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_END(a, std::optional<MR::CSharp::NonTrivial>)),
         (MRBINDC_CLASSARG_DEF_CTOR(b, std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_COPY(b, (MR::CSharp::NonTrivial), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_MOVE(b, (MR::CSharp::NonTrivial), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (default_optnontriv), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_DEF_ARG(b, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_END(b, std::optional<MR::CSharp::NonTrivial>))
@@ -10178,6 +10265,7 @@ MR_CSharp_IterableG *MR_CSharp_IterableG_OffsetMutablePtr(MR_CSharp_IterableG *p
 
 MR_CSharp_IterableG *MR_CSharp_IterableG_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_IterableG *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::IterableG);
     return (MR_CSharp_IterableG *)new MR::CSharp::IterableG(MR::CSharp::IterableG(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IterableG) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::IterableG), MR::CSharp::IterableG) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IterableG), MR::CSharp::IterableG) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IterableG) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IterableG) MRBINDC_CLASSARG_END(_other, MR::CSharp::IterableG))
     ));
@@ -10195,6 +10283,7 @@ void MR_CSharp_IterableG_DestroyArray(const MR_CSharp_IterableG *_this)
 
 MR_CSharp_IterableG *MR_CSharp_IterableG_AssignFromAnother(MR_CSharp_IterableG *_this, MR_C_PassBy _other_pass_by, MR_CSharp_IterableG *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::IterableG);
     return (MR_CSharp_IterableG *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableG *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IterableG) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::IterableG), MR::CSharp::IterableG) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IterableG), MR::CSharp::IterableG) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IterableG) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IterableG) MRBINDC_CLASSARG_END(_other, MR::CSharp::IterableG))
     ));
@@ -10247,6 +10336,7 @@ MR_CSharp_IterableH *MR_CSharp_IterableH_OffsetMutablePtr(MR_CSharp_IterableH *p
 
 MR_CSharp_IterableH *MR_CSharp_IterableH_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_IterableH *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::IterableH);
     return (MR_CSharp_IterableH *)new MR::CSharp::IterableH(MR::CSharp::IterableH(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IterableH) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::IterableH), MR::CSharp::IterableH) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IterableH), MR::CSharp::IterableH) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IterableH) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IterableH) MRBINDC_CLASSARG_END(_other, MR::CSharp::IterableH))
     ));
@@ -10264,6 +10354,7 @@ void MR_CSharp_IterableH_DestroyArray(const MR_CSharp_IterableH *_this)
 
 MR_CSharp_IterableH *MR_CSharp_IterableH_AssignFromAnother(MR_CSharp_IterableH *_this, MR_C_PassBy _other_pass_by, MR_CSharp_IterableH *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::IterableH);
     return (MR_CSharp_IterableH *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableH *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IterableH) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::IterableH), MR::CSharp::IterableH) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IterableH), MR::CSharp::IterableH) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IterableH) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IterableH) MRBINDC_CLASSARG_END(_other, MR::CSharp::IterableH))
     ));
@@ -10778,6 +10869,189 @@ MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_
     return (MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_rvalue_ref *)new std::tuple<MR::CSharp::ExposedLayout &&, const MR::CSharp::ExposedLayout &&>(::MR::CSharp::get_tuple_exposed_rvalue_ref());
 }
 
+const MR_C_std_function_int_from_std_string *MR_CSharp_TestStdFunction_Get_f1(const MR_CSharp_TestStdFunction *_this)
+{
+    return (const MR_C_std_function_int_from_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f1);
+}
+
+void MR_CSharp_TestStdFunction_Set_f1(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_int_from_std_string *value)
+{
+    MRBINDC_CLASSARG_GUARD(value, std::function<int(std::string)>);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f1 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<int(std::string)>) MRBINDC_CLASSARG_COPY(value, (std::function<int(std::string)>), std::function<int(std::string)>) MRBINDC_CLASSARG_MOVE(value, (std::function<int(std::string)>), std::function<int(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<int(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<int(std::string)>) MRBINDC_CLASSARG_END(value, std::function<int(std::string)>));
+}
+
+MR_C_std_function_int_from_std_string *MR_CSharp_TestStdFunction_GetMutable_f1(MR_CSharp_TestStdFunction *_this)
+{
+    return (MR_C_std_function_int_from_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f1);
+}
+
+const MR_C_std_function_std_string_from_int_int *MR_CSharp_TestStdFunction_Get_f2(const MR_CSharp_TestStdFunction *_this)
+{
+    return (const MR_C_std_function_std_string_from_int_int *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f2);
+}
+
+void MR_CSharp_TestStdFunction_Set_f2(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_std_string_from_int_int *value)
+{
+    MRBINDC_CLASSARG_GUARD(value, std::function<std::string(int, int)>);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f2 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<std::string(int, int)>) MRBINDC_CLASSARG_COPY(value, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_MOVE(value, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<std::string(int, int)>) MRBINDC_CLASSARG_END(value, std::function<std::string(int, int)>));
+}
+
+MR_C_std_function_std_string_from_int_int *MR_CSharp_TestStdFunction_GetMutable_f2(MR_CSharp_TestStdFunction *_this)
+{
+    return (MR_C_std_function_std_string_from_int_int *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f2);
+}
+
+const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_CSharp_TestStdFunction_Get_f3(const MR_CSharp_TestStdFunction *_this)
+{
+    return (const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f3);
+}
+
+void MR_CSharp_TestStdFunction_Set_f3(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *value)
+{
+    MRBINDC_CLASSARG_GUARD(value, std::function<MR::CSharp::E1(MR::CSharp::E1)>);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f3 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_COPY(value, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_MOVE(value, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_END(value, std::function<MR::CSharp::E1(MR::CSharp::E1)>));
+}
+
+MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_CSharp_TestStdFunction_GetMutable_f3(MR_CSharp_TestStdFunction *_this)
+{
+    return (MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f3);
+}
+
+const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_CSharp_TestStdFunction_Get_f4(const MR_CSharp_TestStdFunction *_this)
+{
+    return (const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f4);
+}
+
+void MR_CSharp_TestStdFunction_Set_f4(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *value)
+{
+    MRBINDC_CLASSARG_GUARD(value, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f4 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_COPY(value, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_MOVE(value, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_END(value, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>));
+}
+
+MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_CSharp_TestStdFunction_GetMutable_f4(MR_CSharp_TestStdFunction *_this)
+{
+    return (MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f4);
+}
+
+const MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *MR_CSharp_TestStdFunction_Get_f5(const MR_CSharp_TestStdFunction *_this)
+{
+    return (const MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f5);
+}
+
+void MR_CSharp_TestStdFunction_Set_f5(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *value)
+{
+    MRBINDC_CLASSARG_GUARD(value, std::function<int &(int &, int &&)>);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f5 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_COPY(value, (std::function<int &(int &, int &&)>), std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_MOVE(value, (std::function<int &(int &, int &&)>), std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_END(value, std::function<int &(int &, int &&)>));
+}
+
+MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *MR_CSharp_TestStdFunction_GetMutable_f5(MR_CSharp_TestStdFunction *_this)
+{
+    return (MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f5);
+}
+
+const MR_C_std_function_int_rvalue_ref *MR_CSharp_TestStdFunction_Get_f6(const MR_CSharp_TestStdFunction *_this)
+{
+    return (const MR_C_std_function_int_rvalue_ref *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f6);
+}
+
+void MR_CSharp_TestStdFunction_Set_f6(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_int_rvalue_ref *value)
+{
+    MRBINDC_CLASSARG_GUARD(value, std::function<int &&(void)>);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f6 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<int &&(void)>) MRBINDC_CLASSARG_COPY(value, (std::function<int &&(void)>), std::function<int &&(void)>) MRBINDC_CLASSARG_MOVE(value, (std::function<int &&(void)>), std::function<int &&(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<int &&(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<int &&(void)>) MRBINDC_CLASSARG_END(value, std::function<int &&(void)>));
+}
+
+MR_C_std_function_int_rvalue_ref *MR_CSharp_TestStdFunction_GetMutable_f6(MR_CSharp_TestStdFunction *_this)
+{
+    return (MR_C_std_function_int_rvalue_ref *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f6);
+}
+
+const MR_C_std_function_void *MR_CSharp_TestStdFunction_Get_f7(const MR_CSharp_TestStdFunction *_this)
+{
+    return (const MR_C_std_function_void *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f7);
+}
+
+void MR_CSharp_TestStdFunction_Set_f7(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_void *value)
+{
+    MRBINDC_CLASSARG_GUARD(value, std::function<void(void)>);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f7 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<void(void)>) MRBINDC_CLASSARG_COPY(value, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_MOVE(value, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<void(void)>) MRBINDC_CLASSARG_END(value, std::function<void(void)>));
+}
+
+MR_C_std_function_void *MR_CSharp_TestStdFunction_GetMutable_f7(MR_CSharp_TestStdFunction *_this)
+{
+    return (MR_C_std_function_void *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f7);
+}
+
+MR_CSharp_TestStdFunction *MR_CSharp_TestStdFunction_DefaultConstruct(void)
+{
+    return (MR_CSharp_TestStdFunction *)new MR::CSharp::TestStdFunction(MR::CSharp::TestStdFunction());
+}
+
+MR_CSharp_TestStdFunction *MR_CSharp_TestStdFunction_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_CSharp_TestStdFunction *)(new MR::CSharp::TestStdFunction[num_elems]{});
+}
+
+MR_CSharp_TestStdFunction *MR_CSharp_TestStdFunction_ConstructFrom(MR_C_PassBy f1_pass_by, MR_C_std_function_int_from_std_string *f1, MR_C_PassBy f2_pass_by, MR_C_std_function_std_string_from_int_int *f2, MR_C_PassBy f3_pass_by, MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *f3, MR_C_PassBy f4_pass_by, MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *f4, MR_C_PassBy f5_pass_by, MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *f5, MR_C_PassBy f6_pass_by, MR_C_std_function_int_rvalue_ref *f6, MR_C_PassBy f7_pass_by, MR_C_std_function_void *f7)
+{
+    MRBINDC_CLASSARG_GUARD(f1, std::function<int(std::string)>);
+    MRBINDC_CLASSARG_GUARD(f2, std::function<std::string(int, int)>);
+    MRBINDC_CLASSARG_GUARD(f3, std::function<MR::CSharp::E1(MR::CSharp::E1)>);
+    MRBINDC_CLASSARG_GUARD(f4, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>);
+    MRBINDC_CLASSARG_GUARD(f5, std::function<int &(int &, int &&)>);
+    MRBINDC_CLASSARG_GUARD(f6, std::function<int &&(void)>);
+    MRBINDC_CLASSARG_GUARD(f7, std::function<void(void)>);
+    return (MR_CSharp_TestStdFunction *)new MR::CSharp::TestStdFunction(MR::CSharp::TestStdFunction{
+        (MRBINDC_CLASSARG_DEF_CTOR(f1, std::function<int(std::string)>) MRBINDC_CLASSARG_COPY(f1, (std::function<int(std::string)>), std::function<int(std::string)>) MRBINDC_CLASSARG_MOVE(f1, (std::function<int(std::string)>), std::function<int(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(f1, MR_C_PassBy_DefaultArgument, std::function<int(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(f1, MR_C_PassBy_NoObject, std::function<int(std::string)>) MRBINDC_CLASSARG_END(f1, std::function<int(std::string)>)),
+        (MRBINDC_CLASSARG_DEF_CTOR(f2, std::function<std::string(int, int)>) MRBINDC_CLASSARG_COPY(f2, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_MOVE(f2, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(f2, MR_C_PassBy_DefaultArgument, std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(f2, MR_C_PassBy_NoObject, std::function<std::string(int, int)>) MRBINDC_CLASSARG_END(f2, std::function<std::string(int, int)>)),
+        (MRBINDC_CLASSARG_DEF_CTOR(f3, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_COPY(f3, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_MOVE(f3, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(f3, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(f3, MR_C_PassBy_NoObject, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_END(f3, std::function<MR::CSharp::E1(MR::CSharp::E1)>)),
+        (MRBINDC_CLASSARG_DEF_CTOR(f4, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_COPY(f4, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_MOVE(f4, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(f4, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(f4, MR_C_PassBy_NoObject, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_END(f4, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>)),
+        (MRBINDC_CLASSARG_DEF_CTOR(f5, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_COPY(f5, (std::function<int &(int &, int &&)>), std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_MOVE(f5, (std::function<int &(int &, int &&)>), std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_NO_DEF_ARG(f5, MR_C_PassBy_DefaultArgument, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_NO_DEF_ARG(f5, MR_C_PassBy_NoObject, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_END(f5, std::function<int &(int &, int &&)>)),
+        (MRBINDC_CLASSARG_DEF_CTOR(f6, std::function<int &&(void)>) MRBINDC_CLASSARG_COPY(f6, (std::function<int &&(void)>), std::function<int &&(void)>) MRBINDC_CLASSARG_MOVE(f6, (std::function<int &&(void)>), std::function<int &&(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(f6, MR_C_PassBy_DefaultArgument, std::function<int &&(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(f6, MR_C_PassBy_NoObject, std::function<int &&(void)>) MRBINDC_CLASSARG_END(f6, std::function<int &&(void)>)),
+        (MRBINDC_CLASSARG_DEF_CTOR(f7, std::function<void(void)>) MRBINDC_CLASSARG_COPY(f7, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_MOVE(f7, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(f7, MR_C_PassBy_DefaultArgument, std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(f7, MR_C_PassBy_NoObject, std::function<void(void)>) MRBINDC_CLASSARG_END(f7, std::function<void(void)>))
+    });
+}
+
+const MR_CSharp_TestStdFunction *MR_CSharp_TestStdFunction_OffsetPtr(const MR_CSharp_TestStdFunction *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_TestStdFunction *)(((const MR::CSharp::TestStdFunction *)ptr) + i);
+}
+
+MR_CSharp_TestStdFunction *MR_CSharp_TestStdFunction_OffsetMutablePtr(MR_CSharp_TestStdFunction *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_TestStdFunction *)(((MR::CSharp::TestStdFunction *)ptr) + i);
+}
+
+MR_CSharp_TestStdFunction *MR_CSharp_TestStdFunction_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_TestStdFunction *_other)
+{
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::TestStdFunction);
+    return (MR_CSharp_TestStdFunction *)new MR::CSharp::TestStdFunction(MR::CSharp::TestStdFunction(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::TestStdFunction), MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::TestStdFunction), MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_END(_other, MR::CSharp::TestStdFunction))
+    ));
+}
+
+void MR_CSharp_TestStdFunction_Destroy(const MR_CSharp_TestStdFunction *_this)
+{
+    delete ((const MR::CSharp::TestStdFunction *)_this);
+}
+
+void MR_CSharp_TestStdFunction_DestroyArray(const MR_CSharp_TestStdFunction *_this)
+{
+    delete[] ((const MR::CSharp::TestStdFunction *)_this);
+}
+
+MR_CSharp_TestStdFunction *MR_CSharp_TestStdFunction_AssignFromAnother(MR_CSharp_TestStdFunction *_this, MR_C_PassBy _other_pass_by, MR_CSharp_TestStdFunction *_other)
+{
+    MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::TestStdFunction);
+    return (MR_CSharp_TestStdFunction *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::TestStdFunction), MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::TestStdFunction), MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_END(_other, MR::CSharp::TestStdFunction))
+    ));
+}
+
+void MR_CSharp_TestStdFunction_Call(MR_CSharp_TestStdFunction *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).Call();
+}
+
 MR_C_std_expected_int_float *MR_CSharp_test_expected_int(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b)
 {
     using namespace MR;
@@ -10990,6 +11264,8 @@ MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv(MR
 {
     using namespace MR;
     using namespace CSharp;
+    MRBINDC_CLASSARG_GUARD(a, std::expected<MR::CSharp::NonTrivial, float>);
+    MRBINDC_CLASSARG_GUARD(b, std::expected<MR::CSharp::NonTrivial, float>);
     return (MR_C_std_expected_MR_CSharp_NonTrivial_float *)new std::expected<MR::CSharp::NonTrivial, float>(::MR::CSharp::test_expected_nontriv(
         (MRBINDC_CLASSARG_DEF_CTOR(a, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_COPY(a, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_MOVE(a, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_DefaultArgument, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_NO_DEF_ARG(a, MR_C_PassBy_NoObject, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_END(a, std::expected<MR::CSharp::NonTrivial, float>)),
         (MRBINDC_CLASSARG_DEF_CTOR(b, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_COPY(b, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_MOVE(b, (std::expected<MR::CSharp::NonTrivial, float>), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_DEF_ARG(b, (MR_C_PassBy_DefaultArgument), (std::expected<MR::CSharp::NonTrivial, float>{MR::CSharp::NonTrivial{}}), std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_NO_DEF_ARG(b, MR_C_PassBy_NoObject, std::expected<MR::CSharp::NonTrivial, float>) MRBINDC_CLASSARG_END(b, std::expected<MR::CSharp::NonTrivial, float>))

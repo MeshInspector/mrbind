@@ -26,14 +26,14 @@ MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_DefaultConstruct
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructFromAnother(const MR_C_std_variant_int_float *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in this object.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_variant_int_float_AssignFromAnother(MR_C_std_variant_int_float *_this, const MR_C_std_variant_int_float *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_variant_int_float`. Does nothing if the pointer is null.
@@ -56,22 +56,22 @@ MR_C_API size_t MR_C_std_variant_int_float_index(const MR_C_std_variant_int_floa
 
 /// Constructs the variant storing the element 0, of type `int`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructAs_int(int value);
 
 /// Constructs the variant storing the element 1, of type `float`.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_variant_int_float_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_variant_int_float *MR_C_std_variant_int_float_ConstructAs_float(float value);
 
 /// Assigns to the variant, making it store the element 0, of type `int`.
 /// Parameter `_this` can not be null. It is a single object.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_variant_int_float_AssignAs_int(MR_C_std_variant_int_float *_this, int value);
 
 /// Assigns to the variant, making it store the element 1, of type `float`.
 /// Parameter `_this` can not be null. It is a single object.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_variant_int_float_AssignAs_float(MR_C_std_variant_int_float *_this, float value);
 
 /// Returns the element 0, of type `int`, read-only. If it's not the active element, returns null.

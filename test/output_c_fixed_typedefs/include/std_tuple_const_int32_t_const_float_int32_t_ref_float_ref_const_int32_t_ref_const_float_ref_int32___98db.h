@@ -58,7 +58,7 @@ MR_C_API MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_in
 //   but if your pointer is owning, you must still destroy it manually later.
 // The reference to the parameter `_9` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Destroy()` to free it when you're done using it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref *MR_C_std_tuple_const_int32_t_const_float_int32_t_ref_float_ref_const_int32_t_ref_const_float_ref_int32_t_rvalue_ref_float_rvalue_ref_const_int32_t_rvalue_ref_const_float_rvalue_ref_Construct(int32_t _0, float _1, int32_t *_2, float *_3, const int32_t *_4, const float *_5, int32_t *_6, float *_7, const int32_t *_8, const float *_9);
 
 // The element 0, of type `const int32_t`, read-only.

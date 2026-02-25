@@ -72,6 +72,7 @@ MR_Aggregates_A *MR_Aggregates_A_OffsetMutablePtr(MR_Aggregates_A *ptr, ptrdiff_
 
 MR_Aggregates_A *MR_Aggregates_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_Aggregates_A *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::Aggregates::A);
     return (MR_Aggregates_A *)new MR::Aggregates::A(MR::Aggregates::A(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::Aggregates::A) MRBINDC_CLASSARG_COPY(_other, (MR::Aggregates::A), MR::Aggregates::A) MRBINDC_CLASSARG_MOVE(_other, (MR::Aggregates::A), MR::Aggregates::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::Aggregates::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::Aggregates::A) MRBINDC_CLASSARG_END(_other, MR::Aggregates::A))
     ));
@@ -89,6 +90,7 @@ void MR_Aggregates_A_DestroyArray(const MR_Aggregates_A *_this)
 
 MR_Aggregates_A *MR_Aggregates_A_AssignFromAnother(MR_Aggregates_A *_this, MR_C_PassBy _other_pass_by, MR_Aggregates_A *_other)
 {
+    MRBINDC_CLASSARG_GUARD(_other, MR::Aggregates::A);
     return (MR_Aggregates_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::Aggregates::A *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::Aggregates::A) MRBINDC_CLASSARG_COPY(_other, (MR::Aggregates::A), MR::Aggregates::A) MRBINDC_CLASSARG_MOVE(_other, (MR::Aggregates::A), MR::Aggregates::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::Aggregates::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::Aggregates::A) MRBINDC_CLASSARG_END(_other, MR::Aggregates::A))
     ));

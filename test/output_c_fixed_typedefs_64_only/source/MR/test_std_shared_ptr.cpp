@@ -17,6 +17,7 @@ MR_C_std_shared_ptr_int *MR_StdSharedPtr_GetInt(void)
 
 void MR_StdSharedPtr_SetInt(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<int>);
     ::MR::StdSharedPtr::SetInt(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<int>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<int>), std::shared_ptr<int>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<int>), std::shared_ptr<int>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::shared_ptr<int>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<int>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<int>))
     );
@@ -33,6 +34,7 @@ void MR_StdSharedPtr_SetIntDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_shared_pt
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<int>);
     ::MR::StdSharedPtr::SetIntDefTrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<int>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<int>), std::shared_ptr<int>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<int>), std::shared_ptr<int>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::type_identity_t<std::shared_ptr<int>>{}), std::shared_ptr<int>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<int>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<int>))
     );
@@ -42,6 +44,7 @@ void MR_StdSharedPtr_SetIntDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int *
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<int>);
     ::MR::StdSharedPtr::SetIntDef(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<int>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<int>), std::shared_ptr<int>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<int>), std::shared_ptr<int>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::make_unique<int>(42)), std::shared_ptr<int>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<int>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<int>))
     );
@@ -82,6 +85,7 @@ MR_C_std_shared_ptr_int_array *MR_StdSharedPtr_GetIntArr(void)
 
 void MR_StdSharedPtr_SetIntArr(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int_array *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<int[]>);
     ::MR::StdSharedPtr::SetIntArr(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<int[]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<int[]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<int[]>))
     );
@@ -91,6 +95,7 @@ void MR_StdSharedPtr_SetIntArrDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_shared
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<int[]>);
     ::MR::StdSharedPtr::SetIntArrDefTrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<int[]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::type_identity_t<std::shared_ptr<int[]>>{}), std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<int[]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<int[]>))
     );
@@ -100,6 +105,7 @@ void MR_StdSharedPtr_SetIntArrDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_in
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<int[]>);
     ::MR::StdSharedPtr::SetIntArrDef(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<int[]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::make_unique<int[]>(42)), std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<int[]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<int[]>))
     );
@@ -112,6 +118,7 @@ MR_C_std_shared_ptr_int_array_42 *MR_StdSharedPtr_GetIntArr42(void)
 
 void MR_StdSharedPtr_SetIntArr42(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_int_array_42 *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<int[42]>);
     ::MR::StdSharedPtr::SetIntArr42(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<int[42]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<int[42]>), std::shared_ptr<int[42]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<int[42]>), std::shared_ptr<int[42]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::shared_ptr<int[42]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<int[42]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<int[42]>))
     );
@@ -121,6 +128,7 @@ void MR_StdSharedPtr_SetIntArr42DefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_shar
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<int[42]>);
     ::MR::StdSharedPtr::SetIntArr42DefTrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<int[42]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<int[42]>), std::shared_ptr<int[42]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<int[42]>), std::shared_ptr<int[42]>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::type_identity_t<std::shared_ptr<int[42]>>{}), std::shared_ptr<int[42]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<int[42]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<int[42]>))
     );
@@ -130,6 +138,7 @@ void MR_StdSharedPtr_SetIntArr42Def(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<int[42]>);
     ::MR::StdSharedPtr::SetIntArr42Def(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<int[42]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<int[42]>), std::shared_ptr<int[42]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<int[42]>), std::shared_ptr<int[42]>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::make_shared<int[42]>()), std::shared_ptr<int[42]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<int[42]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<int[42]>))
     );
@@ -186,6 +195,7 @@ MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_StdSharedPtr_GetClass(void)
 
 void MR_StdSharedPtr_SetClass(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<MR::StdSharedPtr::A>);
     ::MR::StdSharedPtr::SetClass(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<MR::StdSharedPtr::A>))
     );
@@ -202,6 +212,7 @@ void MR_StdSharedPtr_SetClassDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_shared_
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<MR::StdSharedPtr::A>);
     ::MR::StdSharedPtr::SetClassDefTrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::type_identity_t<std::shared_ptr<MR::StdSharedPtr::A>>{}), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<MR::StdSharedPtr::A>))
     );
@@ -211,6 +222,7 @@ void MR_StdSharedPtr_SetClassDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<MR::StdSharedPtr::A>);
     ::MR::StdSharedPtr::SetClassDef(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<MR::StdSharedPtr::A>), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::make_unique<MR::StdSharedPtr::A>(MR::StdSharedPtr::A{})), std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<MR::StdSharedPtr::A>))
     );
@@ -251,6 +263,7 @@ MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *MR_StdSharedPtr_GetClassArr(void)
 
 void MR_StdSharedPtr_SetClassArr(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A_array *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<MR::StdSharedPtr::A[]>);
     ::MR::StdSharedPtr::SetClassArr(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<MR::StdSharedPtr::A[]>), std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<MR::StdSharedPtr::A[]>), std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<MR::StdSharedPtr::A[]>))
     );
@@ -260,6 +273,7 @@ void MR_StdSharedPtr_SetClassArrDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_shar
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<MR::StdSharedPtr::A[]>);
     ::MR::StdSharedPtr::SetClassArrDefTrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<MR::StdSharedPtr::A[]>), std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<MR::StdSharedPtr::A[]>), std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::type_identity_t<std::shared_ptr<MR::StdSharedPtr::A[]>>{}), std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<MR::StdSharedPtr::A[]>))
     );
@@ -269,6 +283,7 @@ void MR_StdSharedPtr_SetClassArrDef(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<MR::StdSharedPtr::A[]>);
     ::MR::StdSharedPtr::SetClassArrDef(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<MR::StdSharedPtr::A[]>), std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<MR::StdSharedPtr::A[]>), std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::make_unique<MR::StdSharedPtr::A[]>(42)), std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A[]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<MR::StdSharedPtr::A[]>))
     );
@@ -281,6 +296,7 @@ MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42 *MR_StdSharedPtr_GetClassArr42(vo
 
 void MR_StdSharedPtr_SetClassArr42(MR_C_PassBy _1_pass_by, MR_C_std_shared_ptr_MR_StdSharedPtr_A_array_42 *_1)
 {
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<MR::StdSharedPtr::A[42]>);
     ::MR::StdSharedPtr::SetClassArr42(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<MR::StdSharedPtr::A[42]>), std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<MR::StdSharedPtr::A[42]>), std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<MR::StdSharedPtr::A[42]>))
     );
@@ -290,6 +306,7 @@ void MR_StdSharedPtr_SetClassArr42DefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_sh
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<MR::StdSharedPtr::A[42]>);
     ::MR::StdSharedPtr::SetClassArr42DefTrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<MR::StdSharedPtr::A[42]>), std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<MR::StdSharedPtr::A[42]>), std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::type_identity_t<std::shared_ptr<MR::StdSharedPtr::A[42]>>{}), std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<MR::StdSharedPtr::A[42]>))
     );
@@ -299,6 +316,7 @@ void MR_StdSharedPtr_SetClassArr42Def(MR_C_PassBy _1_pass_by, MR_C_std_shared_pt
 {
     using namespace MR;
     using namespace StdSharedPtr;
+    MRBINDC_CLASSARG_GUARD(_1, std::shared_ptr<MR::StdSharedPtr::A[42]>);
     ::MR::StdSharedPtr::SetClassArr42Def(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_COPY(_1, (std::shared_ptr<MR::StdSharedPtr::A[42]>), std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_MOVE(_1, (std::shared_ptr<MR::StdSharedPtr::A[42]>), std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::make_shared<MR::StdSharedPtr::A[42]>()), std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::shared_ptr<MR::StdSharedPtr::A[42]>) MRBINDC_CLASSARG_END(_1, std::shared_ptr<MR::StdSharedPtr::A[42]>))
     );

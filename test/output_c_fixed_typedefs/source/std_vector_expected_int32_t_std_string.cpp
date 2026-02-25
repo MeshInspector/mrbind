@@ -25,6 +25,7 @@ MR_C_std_vector_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_st
 
 MR_C_std_vector_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_expected_int32_t_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<std::expected<int32_t, std::string>>);
     return (MR_C_std_vector_expected_int32_t_std_string *)new std::vector<std::expected<int32_t, std::string>>(std::vector<std::expected<int32_t, std::string>>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_COPY(other, (std::vector<std::expected<int32_t, std::string>>), std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_MOVE(other, (std::vector<std::expected<int32_t, std::string>>), std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_END(other, std::vector<std::expected<int32_t, std::string>>))
     ));
@@ -32,6 +33,7 @@ MR_C_std_vector_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_st
 
 void MR_C_std_vector_expected_int32_t_std_string_AssignFromAnother(MR_C_std_vector_expected_int32_t_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_expected_int32_t_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<std::expected<int32_t, std::string>>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_COPY(other, (std::vector<std::expected<int32_t, std::string>>), std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_MOVE(other, (std::vector<std::expected<int32_t, std::string>>), std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<std::expected<int32_t, std::string>>) MRBINDC_CLASSARG_END(other, std::vector<std::expected<int32_t, std::string>>))
     );
@@ -140,6 +142,7 @@ MR_C_expected_int32_t_std_string *MR_C_std_vector_expected_int32_t_std_string_ba
 
 void MR_C_std_vector_expected_int32_t_std_string_push_back(MR_C_std_vector_expected_int32_t_std_string *_this, MR_C_PassBy new_elem_pass_by, MR_C_expected_int32_t_std_string *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, std::expected<int32_t, std::string>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).push_back(
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_COPY(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_END(new_elem, std::expected<int32_t, std::string>))
     );
@@ -152,6 +155,7 @@ void MR_C_std_vector_expected_int32_t_std_string_pop_back(MR_C_std_vector_expect
 
 void MR_C_std_vector_expected_int32_t_std_string_insert(MR_C_std_vector_expected_int32_t_std_string *_this, size_t position, MR_C_PassBy new_elem_pass_by, MR_C_expected_int32_t_std_string *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, std::expected<int32_t, std::string>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).insert(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).begin() + ptrdiff_t(position), (MRBINDC_CLASSARG_DEF_CTOR(new_elem, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_COPY(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_END(new_elem, std::expected<int32_t, std::string>)));
 }
 
@@ -162,6 +166,7 @@ void MR_C_std_vector_expected_int32_t_std_string_erase(MR_C_std_vector_expected_
 
 void MR_C_std_vector_expected_int32_t_std_string_insert_at_mutable_iter(MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_iterator *position, MR_C_PassBy new_elem_pass_by, MR_C_expected_int32_t_std_string *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, std::expected<int32_t, std::string>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<std::expected<int32_t, std::string>>::iterator(*(std::vector<std::expected<int32_t, std::string>>::iterator *)position)),
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_COPY(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_END(new_elem, std::expected<int32_t, std::string>))
@@ -177,6 +182,7 @@ void MR_C_std_vector_expected_int32_t_std_string_erase_at_mutable_iter(MR_C_std_
 
 void MR_C_std_vector_expected_int32_t_std_string_insert_at_iter(MR_C_std_vector_expected_int32_t_std_string *_this, const MR_C_std_vector_expected_int32_t_std_string_const_iterator *position, MR_C_PassBy new_elem_pass_by, MR_C_expected_int32_t_std_string *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, std::expected<int32_t, std::string>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<std::expected<int32_t, std::string>> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<std::expected<int32_t, std::string>>::const_iterator(*(std::vector<std::expected<int32_t, std::string>>::const_iterator *)position)),
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_COPY(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(new_elem, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_END(new_elem, std::expected<int32_t, std::string>))

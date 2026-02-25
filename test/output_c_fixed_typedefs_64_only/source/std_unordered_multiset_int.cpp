@@ -21,6 +21,7 @@ MR_C_std_unordered_multiset_int *MR_C_std_unordered_multiset_int_DefaultConstruc
 
 MR_C_std_unordered_multiset_int *MR_C_std_unordered_multiset_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_unordered_multiset_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::unordered_multiset<int>);
     return (MR_C_std_unordered_multiset_int *)new std::unordered_multiset<int>(std::unordered_multiset<int>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::unordered_multiset<int>) MRBINDC_CLASSARG_COPY(other, (std::unordered_multiset<int>), std::unordered_multiset<int>) MRBINDC_CLASSARG_MOVE(other, (std::unordered_multiset<int>), std::unordered_multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::unordered_multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::unordered_multiset<int>) MRBINDC_CLASSARG_END(other, std::unordered_multiset<int>))
     ));
@@ -28,6 +29,7 @@ MR_C_std_unordered_multiset_int *MR_C_std_unordered_multiset_int_ConstructFromAn
 
 void MR_C_std_unordered_multiset_int_AssignFromAnother(MR_C_std_unordered_multiset_int *_this, MR_C_PassBy other_pass_by, MR_C_std_unordered_multiset_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::unordered_multiset<int>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multiset<int> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::unordered_multiset<int>) MRBINDC_CLASSARG_COPY(other, (std::unordered_multiset<int>), std::unordered_multiset<int>) MRBINDC_CLASSARG_MOVE(other, (std::unordered_multiset<int>), std::unordered_multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::unordered_multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::unordered_multiset<int>) MRBINDC_CLASSARG_END(other, std::unordered_multiset<int>))
     );

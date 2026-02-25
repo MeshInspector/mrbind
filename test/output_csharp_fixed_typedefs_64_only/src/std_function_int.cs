@@ -8,7 +8,7 @@ public static partial class MR
             /// Stores a functor of type: `int(void)`. Possibly stateful.
             /// This is the const half of the class.
             /// </summary>
-            public class Const_Function_IntFunc : MR.CS.Misc.Object<Const_Function_IntFunc>, System.IDisposable
+            public class Const_Function_Int : MR.CS.Misc.Object<Const_Function_Int>, System.IDisposable
             {
                 internal struct _Underlying {} // Represents the underlying C++ type.
 
@@ -24,27 +24,27 @@ public static partial class MR
                     _UnderlyingPtr = null;
                 }
                 public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
-                ~Const_Function_IntFunc() {Dispose(false);}
+                ~Const_Function_Int() {Dispose(false);}
 
-                internal unsafe Const_Function_IntFunc(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+                internal unsafe Const_Function_Int(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
                 /// </summary>
-                public unsafe Const_Function_IntFunc() : this(null, is_owning: true)
+                public unsafe Const_Function_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_IntFunc._Underlying *__MR_C_std_function_int_DefaultConstruct();
+                    extern static MR.CS.Std.Function_Int._Underlying *__MR_C_std_function_int_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_function_int_DefaultConstruct();
                 }
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Const_Function_IntFunc(MR.CS.Std._ByValue_Function_IntFunc other) : this(null, is_owning: true)
+                public unsafe Const_Function_Int(MR.CS.Std._ByValue_Function_IntFunc other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_IntFunc._Underlying *__MR_C_std_function_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_IntFunc._Underlying *other);
+                    extern static MR.CS.Std.Function_Int._Underlying *__MR_C_std_function_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -52,39 +52,71 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Const_Function_IntFunc(Const_Function_IntFunc other) : this(new _ByValue_Function_IntFunc(other)) {}
+                public Const_Function_Int(Const_Function_Int other) : this(new _ByValue_Function_IntFunc(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Const_Function_IntFunc(Function_IntFunc other) : this((Const_Function_IntFunc)other) {}
+                public Const_Function_Int(Function_Int other) : this((Const_Function_Int)other) {}
+
+                /// <summary>
+                /// Returns true if this instance stores a callable, as opposed to being null.
+                /// </summary>
+                public static unsafe implicit operator bool(MR.CS.Std.Const_Function_Int _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_has_value", ExactSpelling = true)]
+                    extern static byte __MR_C_std_function_int_has_value(MR.CS.Std.Const_Function_Int._Underlying *_this);
+                    return __MR_C_std_function_int_has_value(_this._UnderlyingPtr) != 0;
+                }
+
+                // Custom extras:
+
+                public delegate int Delegate();
+
+                private protected unsafe delegate int _CDelegate(void *_userdata, void **_cleanup_value);
+
+                private protected unsafe int _CCallWrapper(void *_userdata, void **_cleanup_value)
+                {
+                    int _ret = ((Delegate)System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)_userdata).Target!)();
+                    return _ret;
+                }
+
+                /// <summary>
+                /// Construct from a delegate.
+                /// </summary>
+                public unsafe Const_Function_Int(Delegate func) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ConstructEx", ExactSpelling = true)]
+                    extern static Const_Function_Int._Underlying *__MR_C_std_function_int_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+                    _UnderlyingPtr = __MR_C_std_function_int_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
+                }
             }
 
             /// <summary>
             /// Stores a functor of type: `int(void)`. Possibly stateful.
             /// This is the non-const half of the class.
             /// </summary>
-            public class Function_IntFunc : Const_Function_IntFunc
+            public class Function_Int : Const_Function_Int
             {
-                internal unsafe Function_IntFunc(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+                internal unsafe Function_Int(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
                 /// Constructs an empty (default-constructed) instance.
                 /// </summary>
-                public unsafe Function_IntFunc() : this(null, is_owning: true)
+                public unsafe Function_Int() : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_IntFunc._Underlying *__MR_C_std_function_int_DefaultConstruct();
+                    extern static MR.CS.Std.Function_Int._Underlying *__MR_C_std_function_int_DefaultConstruct();
                     _UnderlyingPtr = __MR_C_std_function_int_DefaultConstruct();
                 }
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Function_IntFunc(MR.CS.Std._ByValue_Function_IntFunc other) : this(null, is_owning: true)
+                public unsafe Function_Int(MR.CS.Std._ByValue_Function_IntFunc other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Function_IntFunc._Underlying *__MR_C_std_function_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_IntFunc._Underlying *other);
+                    extern static MR.CS.Std.Function_Int._Underlying *__MR_C_std_function_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Int._Underlying *other);
                     _UnderlyingPtr = __MR_C_std_function_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
                 }
@@ -92,12 +124,12 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Function_IntFunc(Const_Function_IntFunc other) : this(new _ByValue_Function_IntFunc(other)) {}
+                public Function_Int(Const_Function_Int other) : this(new _ByValue_Function_IntFunc(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Function_IntFunc(Function_IntFunc other) : this((Const_Function_IntFunc)other) {}
+                public Function_Int(Function_Int other) : this((Const_Function_Int)other) {}
 
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
@@ -105,65 +137,94 @@ public static partial class MR
                 public unsafe void assign(MR.CS.Std._ByValue_Function_IntFunc other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_function_int_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_IntFunc._Underlying *other);
+                    extern static void __MR_C_std_function_int_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Int._Underlying *other);
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
                     __MR_C_std_function_int_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
+
+                /// <summary>
+                /// Destroys the stored callable, making this instance null.
+                /// </summary>
+                public unsafe void reset()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_reset", ExactSpelling = true)]
+                    extern static void __MR_C_std_function_int_reset(_Underlying *_this);
+                    __MR_C_std_function_int_reset(_UnderlyingPtr);
+                }
+
+                // Custom extras:
+
+                /// <summary>
+                /// Construct from a delegate.
+                /// </summary>
+                public unsafe Function_Int(Delegate func) : base(func) {}
+
+                /// <summary>
+                /// Assign from a delegate.
+                /// </summary>
+                public unsafe void assign(Delegate func)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_AssignEx", ExactSpelling = true)]
+                    extern static void __MR_C_std_function_int_AssignEx(Function_Int._Underlying *_this, _CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+                    __MR_C_std_function_int_AssignEx(_UnderlyingPtr, _CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
+                }
             }
 
             /// <summary>
-            /// This is used as a function parameter when the underlying function receives `Function_IntFunc` by value.
+            /// This is used as a function parameter when the underlying function receives `Function_Int` by value.
             /// Usage:
             /// * Pass `new()` to default-construct the instance.
-            /// * Pass an instance of `Function_IntFunc`/`Const_Function_IntFunc` to copy it into the function.
+            /// * Pass an instance of `Function_Int`/`Const_Function_Int` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
             public class _ByValue_Function_IntFunc
             {
-                internal readonly Const_Function_IntFunc? Value;
+                #pragma warning disable CS0649
+                internal readonly Const_Function_Int? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_Function_IntFunc() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_Function_IntFunc(Const_Function_IntFunc new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_Function_IntFunc(Const_Function_IntFunc arg) {return new(arg);}
-                public _ByValue_Function_IntFunc(MR.CS.Misc._Moved<Function_IntFunc> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_Function_IntFunc(MR.CS.Misc._Moved<Function_IntFunc> arg) {return new(arg);}
+                public _ByValue_Function_IntFunc(Const_Function_Int new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Function_IntFunc(Const_Function_Int arg) {return new(arg);}
+                public _ByValue_Function_IntFunc(MR.CS.Misc._Moved<Function_Int> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Function_IntFunc(MR.CS.Misc._Moved<Function_Int> arg) {return new(arg);}
             }
 
             /// <summary>
-            /// This is used for optional parameters of class `Function_IntFunc` with default arguments.
+            /// This is used for optional parameters of class `Function_Int` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_IntFunc`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Function_IntFunc`/`Const_Function_IntFunc` directly.
+            /// * Pass an instance of `Function_Int`/`Const_Function_Int` directly.
             /// </summary>
             public class _InOptMut_Function_IntFunc
             {
-                public Function_IntFunc? Opt;
+                public Function_Int? Opt;
 
                 public _InOptMut_Function_IntFunc() {}
-                public _InOptMut_Function_IntFunc(Function_IntFunc value) {Opt = value;}
-                public static implicit operator _InOptMut_Function_IntFunc(Function_IntFunc value) {return new(value);}
+                public _InOptMut_Function_IntFunc(Function_Int value) {Opt = value;}
+                public static implicit operator _InOptMut_Function_IntFunc(Function_Int value) {return new(value);}
             }
 
             /// <summary>
-            /// This is used for optional parameters of class `Function_IntFunc` with default arguments.
+            /// This is used for optional parameters of class `Function_Int` with default arguments.
             /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_IntFunc`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `Function_IntFunc`/`Const_Function_IntFunc` to pass it to the function.
+            /// * Pass an instance of `Function_Int`/`Const_Function_Int` to pass it to the function.
             /// </summary>
             public class _InOptConst_Function_IntFunc
             {
-                public Const_Function_IntFunc? Opt;
+                public Const_Function_Int? Opt;
 
                 public _InOptConst_Function_IntFunc() {}
-                public _InOptConst_Function_IntFunc(Const_Function_IntFunc value) {Opt = value;}
-                public static implicit operator _InOptConst_Function_IntFunc(Const_Function_IntFunc value) {return new(value);}
+                public _InOptConst_Function_IntFunc(Const_Function_Int value) {Opt = value;}
+                public static implicit operator _InOptConst_Function_IntFunc(Const_Function_Int value) {return new(value);}
             }
         }
     }

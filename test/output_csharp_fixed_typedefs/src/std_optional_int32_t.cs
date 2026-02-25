@@ -71,6 +71,16 @@ public static partial class MR
                 public static unsafe implicit operator Const_Optional_Int32T(int? other) {return new(other);}
 
                 /// <summary>
+                /// Returns true if this instance stores an object, as opposed to being empty.
+                /// </summary>
+                public static unsafe implicit operator bool(MR.CS.Std.Const_Optional_Int32T _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int32_t_has_value", ExactSpelling = true)]
+                    extern static byte __MR_C_std_optional_int32_t_has_value(MR.CS.Std.Const_Optional_Int32T._Underlying *_this);
+                    return __MR_C_std_optional_int32_t_has_value(_this._UnderlyingPtr) != 0;
+                }
+
+                /// <summary>
                 /// The stored element or null if none, read-only.
                 /// </summary>
                 public unsafe int? value()

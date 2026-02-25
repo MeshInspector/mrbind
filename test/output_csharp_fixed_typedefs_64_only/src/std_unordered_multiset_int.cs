@@ -527,7 +527,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_UnorderedMultiset_Int
             {
+                #pragma warning disable CS0649
                 internal readonly Const_UnorderedMultiset_Int? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_UnorderedMultiset_Int() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_UnorderedMultiset_Int(Const_UnorderedMultiset_Int new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

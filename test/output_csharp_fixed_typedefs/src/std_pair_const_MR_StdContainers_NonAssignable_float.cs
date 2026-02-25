@@ -138,7 +138,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_Pair_ConstMRStdContainersNonAssignable_Float
             {
+                #pragma warning disable CS0649
                 internal readonly Const_Pair_ConstMRStdContainersNonAssignable_Float? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_Pair_ConstMRStdContainersNonAssignable_Float() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_Pair_ConstMRStdContainersNonAssignable_Float(Const_Pair_ConstMRStdContainersNonAssignable_Float new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

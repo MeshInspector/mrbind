@@ -88,7 +88,7 @@ MR_C_API const int32_t *MR_StdOptional_A_Get_x(const MR_StdOptional_A *_this);
 // Modifies a member variable of class `MR::StdOptional::A` named `x`.
 // Parameter `_this` can not be null. It is a single object.
 // The reference to the parameter `value` might be preserved in this object in element `x`.
-// When this function is called, this object will drop object references it had previously in `x`.
+// When this function is called, this object will drop object references it held previously in `x`.
 MR_C_API void MR_StdOptional_A_Set_x(MR_StdOptional_A *_this, int32_t value);
 
 // Returns a mutable pointer to a member variable of class `MR::StdOptional::A` named `x`.
@@ -109,7 +109,7 @@ MR_C_API MR_StdOptional_A *MR_StdOptional_A_DefaultConstructArray(size_t num_ele
 // Constructs `MR::StdOptional::A` elementwise.
 // The reference to the parameter `x` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_StdOptional_A_Destroy()` to free it when you're done using it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_ConstructFrom(int32_t x);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
@@ -137,7 +137,7 @@ MR_C_API void MR_StdOptional_A_DestroyArray(const MR_StdOptional_A *_this);
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_StdOptional_A *MR_StdOptional_A_AssignFromAnother(MR_StdOptional_A *_this, const MR_StdOptional_A *_other);
 
 // Generated from function `MR::StdOptional::GetClass`.
@@ -176,7 +176,7 @@ MR_C_API const MR_C_std_string *MR_StdOptional_B_Get_s(const MR_StdOptional_B *_
 // Parameter `value` can not be null.
 // If `value_end` is null, then `value` is assumed to be null-terminated.
 // The reference to the parameter `value` might be preserved in this object in element `s`.
-// When this function is called, this object will drop object references it had previously in `s`.
+// When this function is called, this object will drop object references it held previously in `s`.
 MR_C_API void MR_StdOptional_B_Set_s(MR_StdOptional_B *_this, const char *value, const char *value_end);
 
 // Returns a mutable pointer to a member variable of class `MR::StdOptional::B` named `s`.
@@ -199,7 +199,7 @@ MR_C_API MR_StdOptional_B *MR_StdOptional_B_DefaultConstructArray(size_t num_ele
 // If `s_end` is null, then `s` is assumed to be null-terminated.
 // The reference to the parameter `s` might be preserved in the constructed object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_StdOptional_B_Destroy()` to free it when you're done using it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_StdOptional_B *MR_StdOptional_B_ConstructFrom(const char *s, const char *s_end);
 
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
@@ -225,7 +225,7 @@ MR_C_API void MR_StdOptional_B_DestroyArray(const MR_StdOptional_B *_this);
 // Parameter `_this` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-// When this function is called, this object will drop any object references it had previously.
+// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_StdOptional_B *MR_StdOptional_B_AssignFromAnother(MR_StdOptional_B *_this, MR_C_PassBy _other_pass_by, MR_StdOptional_B *_other);
 
 // Generated from function `MR::StdOptional::GetClass2`.

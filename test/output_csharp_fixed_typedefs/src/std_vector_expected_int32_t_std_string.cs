@@ -1135,7 +1135,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_Vector_ExpectedInt32TStdString
             {
+                #pragma warning disable CS0649
                 internal readonly Const_Vector_ExpectedInt32TStdString? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_Vector_ExpectedInt32TStdString() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_Vector_ExpectedInt32TStdString(Const_Vector_ExpectedInt32TStdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

@@ -21,6 +21,7 @@ MR_C_std_set_int *MR_C_std_set_int_DefaultConstructArray(size_t num_elems)
 
 MR_C_std_set_int *MR_C_std_set_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_set_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::set<int>);
     return (MR_C_std_set_int *)new std::set<int>(std::set<int>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::set<int>) MRBINDC_CLASSARG_COPY(other, (std::set<int>), std::set<int>) MRBINDC_CLASSARG_MOVE(other, (std::set<int>), std::set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::set<int>) MRBINDC_CLASSARG_END(other, std::set<int>))
     ));
@@ -28,6 +29,7 @@ MR_C_std_set_int *MR_C_std_set_int_ConstructFromAnother(MR_C_PassBy other_pass_b
 
 void MR_C_std_set_int_AssignFromAnother(MR_C_std_set_int *_this, MR_C_PassBy other_pass_by, MR_C_std_set_int *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::set<int>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::set<int> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::set<int>) MRBINDC_CLASSARG_COPY(other, (std::set<int>), std::set<int>) MRBINDC_CLASSARG_MOVE(other, (std::set<int>), std::set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::set<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::set<int>) MRBINDC_CLASSARG_END(other, std::set<int>))
     );

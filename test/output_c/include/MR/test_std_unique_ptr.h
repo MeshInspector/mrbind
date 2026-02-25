@@ -117,7 +117,7 @@ MR_C_API void MR_StdUniquePtr_A_DestroyArray(const MR_StdUniquePtr_A *_this);
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_StdUniquePtr_A *MR_StdUniquePtr_A_AssignFromAnother(MR_StdUniquePtr_A *_this, const MR_StdUniquePtr_A *_other);
 
 /// Generated from function `MR::StdUniquePtr::GetClass`.

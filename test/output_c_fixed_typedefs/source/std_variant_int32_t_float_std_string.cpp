@@ -23,6 +23,7 @@ MR_C_std_variant_int32_t_float_std_string *MR_C_std_variant_int32_t_float_std_st
 
 MR_C_std_variant_int32_t_float_std_string *MR_C_std_variant_int32_t_float_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_variant_int32_t_float_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::variant<int32_t, float, std::string>);
     return (MR_C_std_variant_int32_t_float_std_string *)new std::variant<int32_t, float, std::string>(std::variant<int32_t, float, std::string>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::variant<int32_t, float, std::string>) MRBINDC_CLASSARG_COPY(other, (std::variant<int32_t, float, std::string>), std::variant<int32_t, float, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::variant<int32_t, float, std::string>), std::variant<int32_t, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::variant<int32_t, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::variant<int32_t, float, std::string>) MRBINDC_CLASSARG_END(other, std::variant<int32_t, float, std::string>))
     ));
@@ -30,6 +31,7 @@ MR_C_std_variant_int32_t_float_std_string *MR_C_std_variant_int32_t_float_std_st
 
 void MR_C_std_variant_int32_t_float_std_string_AssignFromAnother(MR_C_std_variant_int32_t_float_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_variant_int32_t_float_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::variant<int32_t, float, std::string>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int32_t, float, std::string> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::variant<int32_t, float, std::string>) MRBINDC_CLASSARG_COPY(other, (std::variant<int32_t, float, std::string>), std::variant<int32_t, float, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::variant<int32_t, float, std::string>), std::variant<int32_t, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::variant<int32_t, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::variant<int32_t, float, std::string>) MRBINDC_CLASSARG_END(other, std::variant<int32_t, float, std::string>))
     );

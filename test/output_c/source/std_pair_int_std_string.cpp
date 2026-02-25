@@ -22,6 +22,7 @@ MR_C_std_pair_int_std_string *MR_C_std_pair_int_std_string_DefaultConstructArray
 
 MR_C_std_pair_int_std_string *MR_C_std_pair_int_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_pair_int_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::pair<int, std::string>);
     return (MR_C_std_pair_int_std_string *)new std::pair<int, std::string>(std::pair<int, std::string>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::pair<int, std::string>) MRBINDC_CLASSARG_COPY(other, (std::pair<int, std::string>), std::pair<int, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::pair<int, std::string>), std::pair<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::pair<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::pair<int, std::string>) MRBINDC_CLASSARG_END(other, std::pair<int, std::string>))
     ));
@@ -29,6 +30,7 @@ MR_C_std_pair_int_std_string *MR_C_std_pair_int_std_string_ConstructFromAnother(
 
 void MR_C_std_pair_int_std_string_AssignFromAnother(MR_C_std_pair_int_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_pair_int_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::pair<int, std::string>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<int, std::string> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::pair<int, std::string>) MRBINDC_CLASSARG_COPY(other, (std::pair<int, std::string>), std::pair<int, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::pair<int, std::string>), std::pair<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::pair<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::pair<int, std::string>) MRBINDC_CLASSARG_END(other, std::pair<int, std::string>))
     );

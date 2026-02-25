@@ -26,7 +26,7 @@ MR_C_API MR_C_std_string *MR_C_std_string_DefaultConstructArray(size_t num_elems
 /// Constructs a copy of another instance. The source remains alive.
 /// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_C_std_string *MR_C_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_string *other);
 
 /// Constructs a new instance.
@@ -38,7 +38,7 @@ MR_C_API MR_C_std_string *MR_C_std_string_ConstructFrom(const char *other, const
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in this object.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API void MR_C_std_string_AssignFromAnother(MR_C_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_string *other);
 
 /// Assigns the contents.

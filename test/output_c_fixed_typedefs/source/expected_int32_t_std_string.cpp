@@ -23,6 +23,7 @@ MR_C_expected_int32_t_std_string *MR_C_expected_int32_t_std_string_DefaultConstr
 
 MR_C_expected_int32_t_std_string *MR_C_expected_int32_t_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_expected_int32_t_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::expected<int32_t, std::string>);
     return (MR_C_expected_int32_t_std_string *)new std::expected<int32_t, std::string>(std::expected<int32_t, std::string>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_COPY(other, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_END(other, std::expected<int32_t, std::string>))
     ));
@@ -30,6 +31,7 @@ MR_C_expected_int32_t_std_string *MR_C_expected_int32_t_std_string_ConstructFrom
 
 void MR_C_expected_int32_t_std_string_AssignFromAnother(MR_C_expected_int32_t_std_string *_this, MR_C_PassBy other_pass_by, MR_C_expected_int32_t_std_string *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::expected<int32_t, std::string>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int32_t, std::string> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_COPY(other, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::expected<int32_t, std::string>), std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::expected<int32_t, std::string>) MRBINDC_CLASSARG_END(other, std::expected<int32_t, std::string>))
     );

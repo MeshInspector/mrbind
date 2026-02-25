@@ -85,6 +85,16 @@ public static partial class MR
                 public static unsafe implicit operator Const_Optional_StdString(MR.CS.Misc.ReadOnlyCharSpanOpt other) {return new(other);}
 
                 /// <summary>
+                /// Returns true if this instance stores an object, as opposed to being empty.
+                /// </summary>
+                public static unsafe implicit operator bool(MR.CS.Std.Const_Optional_StdString _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_std_string_has_value", ExactSpelling = true)]
+                    extern static byte __MR_C_std_optional_std_string_has_value(MR.CS.Std.Const_Optional_StdString._Underlying *_this);
+                    return __MR_C_std_optional_std_string_has_value(_this._UnderlyingPtr) != 0;
+                }
+
+                /// <summary>
                 /// The stored element or null if none, read-only.
                 /// </summary>
                 public unsafe MR.CS.Std.Const_String? value()
@@ -221,7 +231,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_Optional_StdString
             {
+                #pragma warning disable CS0649
                 internal readonly Const_Optional_StdString? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_Optional_StdString() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_Optional_StdString(Const_Optional_StdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

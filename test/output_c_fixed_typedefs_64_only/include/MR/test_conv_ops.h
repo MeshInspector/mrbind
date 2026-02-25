@@ -52,7 +52,7 @@ MR_C_API bool MR_ConvOps_A_ConvertTo_bool(const MR_ConvOps_A *_this);
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_ConvOps_A *MR_ConvOps_A_AssignFromAnother(MR_ConvOps_A *_this, const MR_ConvOps_A *_other);
 
 #ifdef __cplusplus

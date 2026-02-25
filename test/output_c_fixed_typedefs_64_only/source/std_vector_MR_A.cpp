@@ -22,6 +22,7 @@ MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_DefaultConstructArray(size_t num_elem
 
 MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_MR_A *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<MR::A>);
     return (MR_C_std_vector_MR_A *)new std::vector<MR::A>(std::vector<MR::A>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<MR::A>) MRBINDC_CLASSARG_COPY(other, (std::vector<MR::A>), std::vector<MR::A>) MRBINDC_CLASSARG_MOVE(other, (std::vector<MR::A>), std::vector<MR::A>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<MR::A>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<MR::A>) MRBINDC_CLASSARG_END(other, std::vector<MR::A>))
     ));
@@ -29,6 +30,7 @@ MR_C_std_vector_MR_A *MR_C_std_vector_MR_A_ConstructFromAnother(MR_C_PassBy othe
 
 void MR_C_std_vector_MR_A_AssignFromAnother(MR_C_std_vector_MR_A *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_MR_A *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<MR::A>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<MR::A>) MRBINDC_CLASSARG_COPY(other, (std::vector<MR::A>), std::vector<MR::A>) MRBINDC_CLASSARG_MOVE(other, (std::vector<MR::A>), std::vector<MR::A>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<MR::A>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<MR::A>) MRBINDC_CLASSARG_END(other, std::vector<MR::A>))
     );
@@ -137,6 +139,7 @@ MR_A *MR_C_std_vector_MR_A_back_mut(MR_C_std_vector_MR_A *_this)
 
 void MR_C_std_vector_MR_A_push_back(MR_C_std_vector_MR_A *_this, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::A);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).push_back(
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::A) MRBINDC_CLASSARG_COPY(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::A) MRBINDC_CLASSARG_END(new_elem, MR::A))
     );
@@ -149,6 +152,7 @@ void MR_C_std_vector_MR_A_pop_back(MR_C_std_vector_MR_A *_this)
 
 void MR_C_std_vector_MR_A_insert(MR_C_std_vector_MR_A *_this, size_t position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::A);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).insert(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).begin() + ptrdiff_t(position), (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::A) MRBINDC_CLASSARG_COPY(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::A) MRBINDC_CLASSARG_END(new_elem, MR::A)));
 }
 
@@ -159,6 +163,7 @@ void MR_C_std_vector_MR_A_erase(MR_C_std_vector_MR_A *_this, size_t position)
 
 void MR_C_std_vector_MR_A_insert_at_mutable_iter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_iterator *position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::A);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::A>::iterator(*(std::vector<MR::A>::iterator *)position)),
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::A) MRBINDC_CLASSARG_COPY(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::A) MRBINDC_CLASSARG_END(new_elem, MR::A))
@@ -174,6 +179,7 @@ void MR_C_std_vector_MR_A_erase_at_mutable_iter(MR_C_std_vector_MR_A *_this, con
 
 void MR_C_std_vector_MR_A_insert_at_iter(MR_C_std_vector_MR_A *_this, const MR_C_std_vector_MR_A_const_iterator *position, MR_C_PassBy new_elem_pass_by, MR_A *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::A);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::A> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::A>::const_iterator(*(std::vector<MR::A>::const_iterator *)position)),
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::A) MRBINDC_CLASSARG_COPY(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(new_elem, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::A) MRBINDC_CLASSARG_END(new_elem, MR::A))

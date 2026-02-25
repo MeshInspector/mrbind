@@ -23,6 +23,7 @@ MR_C_std_deque_int32_t *MR_C_std_deque_int32_t_DefaultConstructArray(size_t num_
 
 MR_C_std_deque_int32_t *MR_C_std_deque_int32_t_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_deque_int32_t *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::deque<int32_t>);
     return (MR_C_std_deque_int32_t *)new std::deque<int32_t>(std::deque<int32_t>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::deque<int32_t>) MRBINDC_CLASSARG_COPY(other, (std::deque<int32_t>), std::deque<int32_t>) MRBINDC_CLASSARG_MOVE(other, (std::deque<int32_t>), std::deque<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::deque<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::deque<int32_t>) MRBINDC_CLASSARG_END(other, std::deque<int32_t>))
     ));
@@ -30,6 +31,7 @@ MR_C_std_deque_int32_t *MR_C_std_deque_int32_t_ConstructFromAnother(MR_C_PassBy 
 
 void MR_C_std_deque_int32_t_AssignFromAnother(MR_C_std_deque_int32_t *_this, MR_C_PassBy other_pass_by, MR_C_std_deque_int32_t *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::deque<int32_t>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::deque<int32_t> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::deque<int32_t>) MRBINDC_CLASSARG_COPY(other, (std::deque<int32_t>), std::deque<int32_t>) MRBINDC_CLASSARG_MOVE(other, (std::deque<int32_t>), std::deque<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::deque<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::deque<int32_t>) MRBINDC_CLASSARG_END(other, std::deque<int32_t>))
     );

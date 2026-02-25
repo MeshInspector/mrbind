@@ -55,8 +55,17 @@ namespace mrbind::CBindings::Modules
 
                     // Some custom functions:
 
-                    // We don't provide a `.has_value()` check because the dereferencing function (that returns a pointer) already acts as one.
                     // We don't provide "set value" and "reset" functions because the sugared copy/move constructor and assignment already do the same thing.
+
+                    { // `has_value()`. This is redundant (since we have `value()` below), we only need this to expose the conversion to `bool` to the interop.
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment += "/// Returns true if this instance stores an object, as opposed to being empty.";
+                        emit.name = binder.MakeMemberFuncName(generator, "has_value", CInterop::MethodKinds::ConversionOperator{});
+                        emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+                        emit.cpp_called_func = "bool(@this@)";
+                        generator.EmitFunction(file, emit);
+                    }
 
                     // Dereference.
                     for (bool is_const : {true, false})

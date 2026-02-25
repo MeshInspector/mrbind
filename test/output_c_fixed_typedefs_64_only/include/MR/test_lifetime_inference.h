@@ -29,7 +29,7 @@ MR_C_API const int *MR_LifetimeInference_A_Get_x(const MR_LifetimeInference_A *_
 
 /// Modifies a member variable of class `MR::LifetimeInference::A` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
-/// When this function is called, this object will drop object references it had previously in `x`.
+/// When this function is called, this object will drop object references it held previously in `x`.
 MR_C_API void MR_LifetimeInference_A_Set_x(MR_LifetimeInference_A *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::LifetimeInference::A` named `x`.
@@ -49,7 +49,7 @@ MR_C_API MR_LifetimeInference_A *MR_LifetimeInference_A_DefaultConstructArray(si
 
 /// Constructs `MR::LifetimeInference::A` elementwise.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_LifetimeInference_A_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_LifetimeInference_A *MR_LifetimeInference_A_ConstructFrom(int x);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
@@ -77,7 +77,7 @@ MR_C_API void MR_LifetimeInference_A_DestroyArray(const MR_LifetimeInference_A *
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_LifetimeInference_A *MR_LifetimeInference_A_AssignFromAnother(MR_LifetimeInference_A *_this, const MR_LifetimeInference_A *_other);
 
 /// Generated from method `MR::LifetimeInference::A::begin`.
@@ -104,7 +104,7 @@ MR_C_API const int *MR_LifetimeInference_B_Get_x(const MR_LifetimeInference_B *_
 
 /// Modifies a member variable of class `MR::LifetimeInference::B` named `x`.
 /// Parameter `_this` can not be null. It is a single object.
-/// When this function is called, this object will drop object references it had previously in `x`.
+/// When this function is called, this object will drop object references it held previously in `x`.
 MR_C_API void MR_LifetimeInference_B_Set_x(MR_LifetimeInference_B *_this, int value);
 
 /// Returns a mutable pointer to a member variable of class `MR::LifetimeInference::B` named `x`.
@@ -124,7 +124,7 @@ MR_C_API MR_LifetimeInference_B *MR_LifetimeInference_B_DefaultConstructArray(si
 
 /// Constructs `MR::LifetimeInference::B` elementwise.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_LifetimeInference_B_Destroy()` to free it when you're done using it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_LifetimeInference_B *MR_LifetimeInference_B_ConstructFrom(int x);
 
 /// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
@@ -152,7 +152,7 @@ MR_C_API void MR_LifetimeInference_B_DestroyArray(const MR_LifetimeInference_B *
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_LifetimeInference_B *MR_LifetimeInference_B_AssignFromAnother(MR_LifetimeInference_B *_this, const MR_LifetimeInference_B *_other);
 
 /// Generated from function `MR::LifetimeInference::begin`.
@@ -194,7 +194,7 @@ MR_C_API void MR_LifetimeInference_C_DestroyArray(const MR_LifetimeInference_C *
 /// Parameter `_other` can not be null. It is a single object.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in this object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-/// When this function is called, this object will drop any object references it had previously.
+/// When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_LifetimeInference_C *MR_LifetimeInference_C_AssignFromAnother(MR_LifetimeInference_C *_this, const MR_LifetimeInference_C *_other);
 
 #ifdef __cplusplus

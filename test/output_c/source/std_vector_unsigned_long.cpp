@@ -21,6 +21,7 @@ MR_C_std_vector_unsigned_long *MR_C_std_vector_unsigned_long_DefaultConstructArr
 
 MR_C_std_vector_unsigned_long *MR_C_std_vector_unsigned_long_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_unsigned_long *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<unsigned long>);
     return (MR_C_std_vector_unsigned_long *)new std::vector<unsigned long>(std::vector<unsigned long>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<unsigned long>) MRBINDC_CLASSARG_COPY(other, (std::vector<unsigned long>), std::vector<unsigned long>) MRBINDC_CLASSARG_MOVE(other, (std::vector<unsigned long>), std::vector<unsigned long>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<unsigned long>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<unsigned long>) MRBINDC_CLASSARG_END(other, std::vector<unsigned long>))
     ));
@@ -28,6 +29,7 @@ MR_C_std_vector_unsigned_long *MR_C_std_vector_unsigned_long_ConstructFromAnothe
 
 void MR_C_std_vector_unsigned_long_AssignFromAnother(MR_C_std_vector_unsigned_long *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_unsigned_long *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::vector<unsigned long>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<unsigned long> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<unsigned long>) MRBINDC_CLASSARG_COPY(other, (std::vector<unsigned long>), std::vector<unsigned long>) MRBINDC_CLASSARG_MOVE(other, (std::vector<unsigned long>), std::vector<unsigned long>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<unsigned long>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<unsigned long>) MRBINDC_CLASSARG_END(other, std::vector<unsigned long>))
     );

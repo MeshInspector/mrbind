@@ -21,6 +21,7 @@ MR_C_std_filesystem_path *MR_C_std_filesystem_path_DefaultConstructArray(size_t 
 
 MR_C_std_filesystem_path *MR_C_std_filesystem_path_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_filesystem_path *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::filesystem::path);
     return (MR_C_std_filesystem_path *)new std::filesystem::path(std::filesystem::path(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::filesystem::path) MRBINDC_CLASSARG_COPY(other, (std::filesystem::path), std::filesystem::path) MRBINDC_CLASSARG_MOVE(other, (std::filesystem::path), std::filesystem::path) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::filesystem::path) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::filesystem::path) MRBINDC_CLASSARG_END(other, std::filesystem::path))
     ));
@@ -37,6 +38,7 @@ MR_C_std_filesystem_path *MR_C_std_filesystem_path_ConstructFrom(const char *oth
 
 void MR_C_std_filesystem_path_AssignFromAnother(MR_C_std_filesystem_path *_this, MR_C_PassBy other_pass_by, MR_C_std_filesystem_path *other)
 {
+    MRBINDC_CLASSARG_GUARD(other, std::filesystem::path);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::filesystem::path *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::filesystem::path) MRBINDC_CLASSARG_COPY(other, (std::filesystem::path), std::filesystem::path) MRBINDC_CLASSARG_MOVE(other, (std::filesystem::path), std::filesystem::path) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::filesystem::path) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::filesystem::path) MRBINDC_CLASSARG_END(other, std::filesystem::path))
     );

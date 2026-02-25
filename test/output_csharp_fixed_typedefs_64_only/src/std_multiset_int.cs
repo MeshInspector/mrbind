@@ -549,7 +549,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_Multiset_Int
             {
+                #pragma warning disable CS0649
                 internal readonly Const_Multiset_Int? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_Multiset_Int() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_Multiset_Int(Const_Multiset_Int new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}

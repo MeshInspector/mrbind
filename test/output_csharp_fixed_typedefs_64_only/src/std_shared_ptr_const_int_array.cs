@@ -302,7 +302,9 @@ public static partial class MR
             /// </summary>
             public class _ByValue_SharedPtr_ConstIntArray
             {
+                #pragma warning disable CS0649
                 internal readonly Const_SharedPtr_ConstIntArray? Value;
+                #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
                 public _ByValue_SharedPtr_ConstIntArray() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
                 public _ByValue_SharedPtr_ConstIntArray(Const_SharedPtr_ConstIntArray new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
