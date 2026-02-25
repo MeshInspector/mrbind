@@ -6934,7 +6934,10 @@ namespace mrbind::CSharp
                         );
                         file.PushScope();
                         file.WriteString(
+                            // Don't warn about this never being assigned to, if we happen to not generate any constructors below. We could make it conditional, but it's easier not to.
+                            "#pragma warning disable CS0649\n"
                             "internal readonly " + const_half_name + "? Value;\n" // We always store the const half for simplicity, and then effectively `const_cast` it.
+                            "#pragma warning restore CS0649\n"
                             "internal readonly " + pass_by + " PassByMode;\n" +
                             (
                                 allow_def_ctor
