@@ -1743,6 +1743,8 @@ namespace mrbind::CSharp
                                     cppdecl::Type ptr_type = cpp_type;
                                     ptr_type.RemoveModifier(); // Remove the reference-ness.
                                     ptr_type.AddModifier(cppdecl::Pointer{});
+                                    flags &= ~TypeBindingFlags::replace_ref_with_ptr;
+                                    flags |= TypeBindingFlags::bind_ptrs_are_raw_ptrs;
                                     return *GetTypeBindingOpt(ptr_type, flags);
                                 }
 
@@ -2156,7 +2158,7 @@ namespace mrbind::CSharp
                                         },
                                     };
                                 }
-                                else if (bool(flags & (TypeBindingFlags::avoid_post_statements)))
+                                else if (bool(flags & (TypeBindingFlags::bind_ptrs_are_raw_ptrs)) || bool(flags & (TypeBindingFlags::avoid_post_statements)))
                                 {
                                     std::string csharp_ptr_type = csharp_type;
                                     if (!csharp_ptr_type.ends_with('*'))
