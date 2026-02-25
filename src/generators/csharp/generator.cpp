@@ -318,7 +318,7 @@ namespace mrbind::CSharp
 
         // If we don't need to process the comment, just return it as is.
         // Our parsing can eat some whitespace and possibly mess up the comment in other ways too, so don't do it if we can avoid it.
-        if (!wrap_doc_comments_in_summary_tag)
+        if (!wrap_doc_comments_in_summary_tag || comment.find("<summary>") != std::string::npos)
             return comment;
 
         // Here we split the individual pieces of the comment into two separate part, first the non-documentation part, and then the documentation part.
