@@ -69,6 +69,12 @@
 #define MB_PB11_OFFSETOF(...) offsetof(__VA_ARGS__)
 #endif
 
+// Should we respect the lifetime information coming from the parser?
+// This is here to allow disabling it if it turns out to be bugged.
+#ifndef MB_PB11_USE_PARSED_LIFETIMES
+#define MB_PB11_USE_PARSED_LIFETIMES 1
+#endif
+
 
 // The global namespace marker. Each parsed namespace gets its own, in `MB_NAMESPACE` below.
 using _pb11_ns_marker = void;
@@ -1372,29 +1378,10 @@ namespace MRBind::pb11
             constexpr GilHandling gil_handling = CombineGilHandling<ParamGilHandling<P>::value...>::value;
             static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
-            (MapFilterPack<P...>)(
-                [&]<int I, typename U>()
-                {
-                    // Keep alive reference arguments as long as `this` is alive, in case the class stores them.
-                    // This prevents dangling references. Yes, we do it even for const references! (See e.g. `MR::FreeFormDeformer`.)
-                    // Reject references to the same class though, to avoid the copy constructors. (Just in case also reject refs to base classes.)
-                    if constexpr (
-                        (std::is_lvalue_reference_v<AdjustedParamType<U>> && !std::is_base_of_v<std::remove_cvref_t<AdjustedParamType<U>>, T>) ||
-                        // And the same for pointers:
-                        std::is_pointer_v<AdjustedParamType<U>>
-                    )
-                    {
-                        return pybind11::keep_alive<1, I+2>();
-                    }
-                },
-                [&](auto &&... keepalives)
-                {
-                    if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
-                        c.def(pybind11::init(+lambda), decltype(data)(data)..., decltype(keepalives)(keepalives)..., pybind11::call_guard<pybind11::gil_scoped_release>());
-                    else
-                        c.def(pybind11::init(+lambda), decltype(data)(data)..., decltype(keepalives)(keepalives)...);
-                }
-            );
+            if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
+                c.def(pybind11::init(+lambda), decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+            else
+                c.def(pybind11::init(+lambda), decltype(data)(data)...);
 
             // Register this ctor as an implicit conversion if it's not explicit, has at least one parameter,
             // and has at most one parameter without a default argument.
@@ -3489,6 +3476,14 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define DETAIL_MB_PB11_NUM_DEF_ARGS(seq) 0 SF_FOR_EACH0(DETAIL_MB_PB11_NUM_DEF_ARGS_BODY, SF_NULL, SF_NULL,, seq)
 #define DETAIL_MB_PB11_NUM_DEF_ARGS_BODY(n, d, type_, name_, default_arg_, .../*default_arg_cpp_*/) __VA_OPT__(+1)
 
+// Returns a list of `pybind11::keep_alive<...>()` calls for the given lifetime annotations.
+#if MB_PB11_USE_PARSED_LIFETIMES
+#  define DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_) SF_FOR_EACH0(DETAIL_MB_PB11_KEEP_ALIVE_BODY, SF_NULL, SF_NULL,, lifetimes_)
+#  define DETAIL_MB_PB11_KEEP_ALIVE_BODY(n, d, holder_, target_) , pybind11::keep_alive<holder_, target_>()
+#else
+#  define DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_)
+#endif
+
 // A helper for `MB_ENUM` that generates the elements.
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS(name, seq) SF_FOR_EACH(DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY, SF_STATE, SF_NULL, name, seq)
 #define DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY(n, d, name_, value_, comment_) \
@@ -3625,6 +3620,8 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
                     DETAIL_MB_PB11_MAKE_PARAMS(params_) \
                     /* Comment, if any. */ \
                     MRBIND_PREPEND_COMMA(comment_) \
+                    /* Lifetime annotations. */ \
+                    DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_) \
                 ));} \
             ); \
         } \
@@ -3789,6 +3786,8 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         DETAIL_MB_PB11_MAKE_PARAMS(params_) \
         /* Comment, if any. */\
         DETAIL_MB_PB11_PREPEND_COMMA_PLUS(comment_) \
+        /* Lifetime annotations. */ \
+        DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_) \
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
@@ -3824,6 +3823,8 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
             DETAIL_MB_PB11_MAKE_PARAMS(params_) \
             /* Comment, if any. */ \
             MRBIND_PREPEND_COMMA(comment_) \
+            /* Lifetime annotations. */ \
+            DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_) \
         ));} \
     ); \
     /* If this is `__getitem__`, also generate `__setitem__`. */\

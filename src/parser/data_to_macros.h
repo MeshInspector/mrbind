@@ -6,5 +6,5 @@
 
 namespace mrbind
 {
-    void ParsedFileToMacros(const ParsedFile &file, std::ofstream &out);
+    void ParsedFileToMacros(const ParsedFile &file, std::ofstream &out, bool enable_cppdecl = true);
 }

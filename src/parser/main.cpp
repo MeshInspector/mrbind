@@ -3295,7 +3295,7 @@ namespace mrbind
                     mrbind::ParsedFileToJson(multiplexed_data[i], out);
                     break;
                   case OutputFormat::macros:
-                    mrbind::ParsedFileToMacros(multiplexed_data[i], out);
+                    mrbind::ParsedFileToMacros(multiplexed_data[i], out, params->enable_cppdecl_processing);
                     break;
                 }
 
