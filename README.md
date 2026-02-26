@@ -46,6 +46,8 @@ The point is making maintaining large bindings easy, with acceptable binding qua
 
    * [Adding specific template specializations.](/docs/adding_template_specializations.md)
 
+   * [Lifetime extension / keep-alive.](/docs/keep_alive.md)
+
    * [Customizing type names.](/docs/customizing_type_names.md)
 
    * [Adjusting parsed comments.](/docs/adjusting_comments.md)
@@ -56,19 +58,20 @@ The point is making maintaining large bindings easy, with acceptable binding qua
 
 Which language features we can expose to the bindings.
 
-It's impotant to note that this only applies to the functions you expose. It's fine if unsupported features appear in code that's not exposed, such as any libraries you use, or entities you manually exclude.
+It's impotant to note that this only applies to the functions/classes you expose. It's fine if unsupported features appear in code that's not exposed, such as any libraries you use, or your own entities you manually exclude from the bindings.
 
 Feature | C | C# | Python | Comments
 ---|---|---|---|---
 Templates | ✅ | ✅ | ✅ | We don't use the templating mechanism in any of the languages, instead the template arguments are baked into the names. Also read about [Adding specific template specializations](/docs/adding_template_specializations.md).
 Customizing type names | ✅ | ✅ | ⚠️ | In Python, doesn't work in template arguments. Read about [Customizing type names](/docs/customizing_type_names.md).
 Function overloading | ✅ | ✅ | ✅ | In C, functions are automatically renamed to disambiguate them. Sometimes this is done in other languages too.
-Aggregate initialization | ✅ | ✅ | ✅ | Aggregates (structs/classes with no custom constructor, initializable in C++ with a list of members) get member-wise constructors.
+Aggregate initialization | ✅ | ✅ | ✅ | Aggregates (structs/classes with no custom constructor, initializable in C++ with a list of their members) get member-wise constructors.
 Overloaded operators | ✅ | ✅ | ✅ | In C, they become functions. In C# and Python, they become operators if possible, falling back to functions.
 `operator<=>` | ❌ | ❌ | ❌ | Not implemented yet. It's recommended that you `--ignore '/.*operator<=>.*/'` in the parser.
-Conversion operators | ✅ | ✅ | ✅ | Overloaded as conversion operators if possible, falling back to constructors. In C# and Python, we also generate implicit conversion operators from implicit constructors callable with a single argument.
-Explicit object parameter, aka "deducing `this`" | ❌ | ❌ | ❌ | Not supported. There is some provisional work in language backends.
+Conversion operators | ✅ | ✅ | ✅ | Overloaded as conversion operators if possible, falling back to constructors.<br/>In C# and Python, we also generate implicit conversion operators from implicit constructors callable with a single argument.
+Explicit object parameter, aka "deducing `this`" | ❌ | ❌ | ❌ | Not implemented yet. There is some provisional work in language backends.
 Bitfields | ❌ | ❌ | ❌ | Ignored.
+Non-public members | ❌ | ❌ | ❌ | Intentionally ignored by the parser.<br/>It's not supported to return non-public nested classes from public member functions.
 `typedef`/`using` | ❌ | ❌ | ✅ | Ignored in C/C#. Become aliases in Python. Python also automatically builds aliases from different spellings of a type used in code.
 
 ### Types
