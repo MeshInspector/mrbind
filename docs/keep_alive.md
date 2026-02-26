@@ -238,3 +238,13 @@ In some cases, you can tell the parser to guess the annotations, if you don't fe
 * `--infer-lifetime-constructors` for all constructors other than copy/move constructors. This adds `[[clang::lifetimebound]]` to every parameter of those constructors.
 
   This assumes that the constructor might store a reference to the parameter in the resulting class instance. While not always the case, the worst that can happen is an increased memory usage.
+
+## Hidden annotations
+
+Certain annotations are used in mrbind's custom bindings (such as those for the standard containers), but we currently don't have corresponding C++ attributes to add them in custom code. In particular:
+
+* There's no way to express that a function drops any existing references stored in an object.
+
+  This is added to `clear()` of standard containers, and to assignment operators of all classes.
+
+  This has effect only in C#, not in Python.

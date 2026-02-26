@@ -34,6 +34,8 @@ But since it's buggy, what you *actually* should use is a macro that additionall
 ```cpp
 #include <type_traits>
 
+// Replace `MYLIB` with your library name.
+
 #define MYLIB_IDENTITY(...) __VA_ARGS__
 #define MYLIB_END(...) MYLIB_END_(__VA_ARGS__)
 #define MYLIB_END_(...) __VA_ARGS__##_END
