@@ -406,7 +406,7 @@ namespace mrbind::CSharp
 
         // Test that we're using at least a specific .NET version, or a specific .NET Standard version.
         // E.g. `NetFrameworkAtLeast(80, 21)` means ".NET 8 or newer, or .NET Standard 2.1 or newer".
-        // Smaller numbers in the first argument mean .NET Core, e.g. `21` means "".NET Core 2.1 or newer".
+        // Smaller numbers in the first argument mean .NET Core, e.g. `21` means ".NET Core 2.1 or newer".
         // Pass `0` to one of the parameters if that flavor is not supported at all, e.g. `(80, 0)` to mean ".NET 8 or newer, .NET Standard isn't allowed".
         [[nodiscard]] bool NetFrameworkAtLeast(int net_ver, int net_std_ver) const
         {
