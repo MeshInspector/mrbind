@@ -198,13 +198,8 @@ namespace mrbind
             // `params` is only passed here so we can print nice parameter names.
             auto DumpLifetimes = [&](const std::vector<FuncParam> &params, const Type *return_type, const Lifetimes &lifetimes, bool is_class_member)
             {
-                if (lifetimes.relations.empty())
-                {
-                    out << "/*no lifetime info*/";
-                    return;
-                }
+                bool first = true;
 
-                out << "/*lifetime info:*/\n";
                 for (const LifetimeRelation &lifetime : lifetimes.relations)
                 {
                     // Do we think this type supports lifetime annotations?
@@ -214,7 +209,7 @@ namespace mrbind
                         while (type.Is<cppdecl::Reference>() || type.Is<cppdecl::Pointer>())
                             type.RemoveModifier();
 
-                        if (type.modifiers.empty())
+                        if (!type.modifiers.empty())
                             return false; // Something weird.
 
                         // Reject simple built-in types. I hope that's enough.
@@ -276,14 +271,24 @@ namespace mrbind
 
                     if (VariantIsOk(lifetime.holder) && VariantIsOk(lifetime.target))
                     {
+                        if (std::exchange(first, false))
+                            out << "/*lifetime info:*/\n";
+
                         if (is_class_member)
                             out << "    ";
                         out << "    (" << VariantToIndex(false, lifetime.holder) << ", " << VariantToIndex(true, lifetime.target) << ")\n";
                     }
                 }
 
-                if (is_class_member && !lifetimes.relations.empty())
-                    out << "    ";
+                if (first)
+                {
+                    out << "/*no lifetime info*/";
+                }
+                else
+                {
+                    if (is_class_member)
+                        out << "    ";
+                }
             };
 
             std::vector<std::string> namespace_stack;
