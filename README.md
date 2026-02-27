@@ -26,7 +26,7 @@ MRBind is meant to cover a large API surface area with minimal effort.
 
 It'll never be as flexible as handwritten bindings, and doesn't offer as many customization knobs as raw Pybind11, for example.
 
-The point is making maintaining large bindings easy, with acceptable binding quality.
+The point is making maintaining large bindings easy, with decent binding quality.
 
 ## Usage
 
