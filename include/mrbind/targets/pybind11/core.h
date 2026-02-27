@@ -1320,7 +1320,7 @@ namespace MRBind::pb11
     inline constexpr int num_add_func_passes = 3;
 
 
-    template <CopyMoveKind CopyMove, int NumDefaultArgs, bool IsExplicit, typename ...P>
+    template <CopyMoveKind CopyMove, int NumDefaultArgs, bool IsExplicit, bool IsAggregate, typename ...P>
     void TryAddCtor(auto &c, TryAddFuncScopeState *scope_state, int pass_number, auto &&... data)
     {
         using T = typename std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
@@ -1378,10 +1378,43 @@ namespace MRBind::pb11
             constexpr GilHandling gil_handling = CombineGilHandling<ParamGilHandling<P>::value...>::value;
             static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
 
-            if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
-                c.def(pybind11::init(+lambda), decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+            if (IsAggregate)
+            {
+                // Aggregate constructors need lifetime inference, since they are not emitted by the parser, and as such can't benefit from it inserting the lifetime attributes for us.
+
+                (MapFilterPack<P...>)(
+                    [&]<int I, typename U>()
+                    {
+                        // Keep alive reference arguments as long as `this` is alive, in case the class stores them.
+                        // This prevents dangling references. Yes, we do it even for const references! (See e.g. `MR::FreeFormDeformer`.)
+                        // Reject references to the same class though, to avoid the copy constructors. (Just in case also reject refs to base classes.)
+                        if constexpr (
+                            (std::is_lvalue_reference_v<AdjustedParamType<U>> && !std::is_base_of_v<std::remove_cvref_t<AdjustedParamType<U>>, T>) ||
+                            // And the same for pointers:
+                            std::is_pointer_v<AdjustedParamType<U>>
+                        )
+                        {
+                            return pybind11::keep_alive<1, I+2>();
+                        }
+                    },
+                    [&](auto &&... keepalives)
+                    {
+                        // Sync this with the similar code in the `else` branch.
+                        if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
+                            c.def(pybind11::init(+lambda), decltype(data)(data)..., decltype(keepalives)(keepalives)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                        else
+                            c.def(pybind11::init(+lambda), decltype(data)(data)..., decltype(keepalives)(keepalives)...);
+                    }
+                );
+            }
             else
-                c.def(pybind11::init(+lambda), decltype(data)(data)...);
+            {
+                // Sync this with the similar code in the branch above.
+                if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
+                    c.def(pybind11::init(+lambda), decltype(data)(data)..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                else
+                    c.def(pybind11::init(+lambda), decltype(data)(data)...);
+            }
 
             // Register this ctor as an implicit conversion if it's not explicit, has at least one parameter,
             // and has at most one parameter without a default argument.
@@ -1397,7 +1430,7 @@ namespace MRBind::pb11
     {
         if constexpr ((pybind11::detail::is_copy_constructible<P>::value && ...))
         {
-            (TryAddCtor<MRBind::pb11::CopyMoveKind::none, 0, true, const P &...>)(c, nullptr, -1, decltype(data)(data)...);
+            (TryAddCtor<MRBind::pb11::CopyMoveKind::none, 0, true, true, const P &...>)(c, nullptr, -1, decltype(data)(data)...);
         }
     }
 
@@ -1562,6 +1595,7 @@ namespace MRBind::pb11
                                     CopyMoveKind::none,
                                     /*NumDefaultArgs:*/ 0,
                                     /*IsExplicit:*/ (Kind & FuncKind::conv_op_explicit) == FuncKind::conv_op_explicit,
+                                    /*IsAggregate:*/ false,
                                     /*Params:*/ ThisClass
                                 >(
                                     target_type.type,
@@ -3776,7 +3810,9 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         /* Default argument counter, to detect converting constructors. */\
         DETAIL_MB_PB11_NUM_DEF_ARGS(params_),\
         /* Explicit? */\
-        MRBIND_CAT(DETAIL_MB_PB11_IS_EXPLICIT_, explicit_)()\
+        MRBIND_CAT(DETAIL_MB_PB11_IS_EXPLICIT_, explicit_)(),\
+        /* Not an aggregate constructor. */\
+        false \
         /* Parameter types. */\
         DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_)\
     >( \
