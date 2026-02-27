@@ -211,15 +211,23 @@ namespace mrbind
             for (auto *p : {&normal, &without_preferred_names})
             {
                 // Not adding `PrintCanonicalTypes = true`, because that expands typedefs which prevents the bindings from being portable.
+                #if CLANG_VERSION_MAJOR < 22
+                // This got removed in Clang 22, in PR: https://github.com/llvm/llvm-project/pull/147835, commit: https://github.com/llvm/llvm-project/commit/91cdd35008e9ab32dffb7e401cdd7313b3461892
+                // It seems that `.FullyQualifiedName = true` is enough now.
                 p->SuppressElaboration = true; // Add qualifiers! (Sic!!!!!)
-                p->FullyQualifiedName = true; // Add qualifiers when printing declarations, to the names being declared. Currently we don't use this (I think?), but still nice to have.
+                #endif
+                p->FullyQualifiedName = true; // Add qualifiers when printing declarations, to the names being declared.
                 p->SuppressUnwrittenScope = true; // Disable printing `::(anonymous namespace)::` weirdness.
                 p->SuppressInlineNamespace = // Suppress printing inline namespaces, if it doesn't introduce ambiguity.
                     #if CLANG_VERSION_MAJOR >= 20
                     // This became a enum in commit:  https://github.com/llvm/llvm-project/commit/bd12729a828c653da53f7182dda29982123913db
+                    // (note that the member variable itself is still an integer, only the recommended way of setting the value has changed).
                     // This specific enum constant has the value `1`, which matches the old behavior of `true`, likely for compatibility.
                     // But we're still switching to a enum, because it shows the intent better.
-                    clang::PrintingPolicy::Redundant;
+                    //
+                    // And then it became enum class in Clang 22 in commit:  https://github.com/llvm/llvm-project/commit/6dac9b48618516cbeb813398a5aefe89b3cf9134
+                    // So now we had to add `...::SuppressInlineNamespaceMode::...` and `llvm::to_underlying` (or could be `std::to_underlying()`; just in case using the LLVM version, even though we require C++23 at the moment).
+                    llvm::to_underlying(clang::PrintingPolicy::SuppressInlineNamespaceMode::Redundant);
                     #else
                     true;
                     #endif
@@ -438,21 +446,21 @@ namespace mrbind
 
         if (params.enable_cppdecl_processing)
         {
-            cppdecl::Type type = ParseTypeWithCppdecl(ret);
+            cppdecl::Type cppdecl_type = ParseTypeWithCppdecl(ret);
 
             if (strip_cvref_if_cppdecl_is_enabled)
             {
-                if (type.Is<cppdecl::Reference>())
-                    type.RemoveModifier();
-                type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+                if (cppdecl_type.Is<cppdecl::Reference>())
+                    cppdecl_type.RemoveModifier();
+                cppdecl_type.RemoveQualifiers(cppdecl::CvQualifiers::const_);
             }
 
-            AdjustCppdeclEntity(type, ci, params, true);
+            AdjustCppdeclEntity(cppdecl_type, ci, params, true);
 
             // Apply custom canonical names!
             if (params.canonincalization_respects_custom_preferred_names && !params.custom_preferred_names.empty())
             {
-                (void)type.VisitEachComponent<cppdecl::QualifiedName>(
+                (void)cppdecl_type.VisitEachComponent<cppdecl::QualifiedName>(
                     cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
                     [&](cppdecl::QualifiedName &name)
                     {
@@ -464,7 +472,7 @@ namespace mrbind
                 );
             }
 
-            ret = cppdecl::ToCode(type, cppdecl::ToCodeFlags::canonical_cpp_style); // Not sure if additional canonicalization would do anything here. Just in case.
+            ret = cppdecl::ToCode(cppdecl_type, cppdecl::ToCodeFlags::canonical_cpp_style); // Not sure if additional canonicalization would do anything here. Just in case.
         }
 
         return ret;
@@ -894,6 +902,9 @@ namespace mrbind
         }
         if (auto t = llvm::dyn_cast<clang::InjectedClassNameType>(fixed_type))
             return AccessIsOk(t->getDecl()->getAccess());
+        #if CLANG_VERSION_MAJOR < 22
+        // `clang::ElaboratedType` got removed in Clang 22, it better not be necessary anymore.
+        // Seeing how it was removed from `clang_getTypeDeclaration()` too (which, according to the comment above, is the inspiration for this code), we should be fine.
         if (auto t = llvm::dyn_cast<clang::ElaboratedType>(fixed_type))
         {
             if (auto dt = t->getNamedType().getTypePtrOrNull())
@@ -901,6 +912,7 @@ namespace mrbind
             else
                 return true;
         }
+        #endif
         return true;
     }
 
@@ -1212,8 +1224,13 @@ namespace mrbind
         if (decl.isAnonymousStructOrUnion())
             return true; // Reject anonymous structs/unions.
 
+        #if CLANG_VERSION_MAJOR >= 22
+        if (!TypeLooksAccessible(*ctx.getCanonicalTagType(&decl)->getTypePtr()))
+            return true; // Inaccessible type.
+        #else
         if (!TypeLooksAccessible(*decl.getTypeForDecl()))
             return true; // Inaccessible type.
+        #endif
 
         return false;
     }
@@ -1223,8 +1240,13 @@ namespace mrbind
         if (ShouldRejectDeclaration(decl, ctx, params, printing_policies))
             return true;
 
+        #if CLANG_VERSION_MAJOR >= 22
+        if (!TypeLooksAccessible(*ctx.getCanonicalTagType(&decl)->getTypePtr()))
+            return true; // Inaccessible type.
+        #else
         if (!TypeLooksAccessible(*decl.getTypeForDecl()))
             return true; // Inaccessible type.
+        #endif
 
         return false;
     }
@@ -1234,11 +1256,16 @@ namespace mrbind
         if (ShouldRejectDeclaration(decl, ctx, params, printing_policies, {}, should_poison))
             return true;
 
+        #if CLANG_VERSION_MAJOR >= 22
+        if (!TypeLooksAccessible(*decl.getUnderlyingType()))
+            return true; // Inaccessible type.
+        #else
         if (auto type = decl.getTypeForDecl()) // For some reason this can be null (for typedefs/aliases, but not for other entities?).
         {
             if (!TypeLooksAccessible(*type))
                 return true; // Inaccessible type.
         }
+        #endif
 
         return false;
     }
@@ -1945,9 +1972,15 @@ namespace mrbind
             new_class.name = decl->getName();
             new_class.comment = GetCommentString(*ctx, *params, *decl);
             new_class.kind = decl->isClass() ? ClassKind::class_ : decl->isStruct() ? ClassKind::struct_ : decl->isUnion() ? ClassKind::union_ : throw std::runtime_error("Unable to classify the class-like type `" + new_class.full_type + "`.");
+            #if CLANG_VERSION_MAJOR >= 22
+            new_class.is_aggregate = ctx->getCanonicalTagType(decl)->isAggregateType();
+            new_class.type_size = DivideByByteSize(ctx->getTypeInfo(ctx->getCanonicalTagType(decl)).Width);
+            new_class.type_alignment = DivideByByteSize(ctx->getTypeInfo(ctx->getCanonicalTagType(decl)).Align);
+            #else
             new_class.is_aggregate = ctx->getRecordType(decl)->isAggregateType();
             new_class.type_size = DivideByByteSize(ctx->getTypeInfo(ctx->getRecordType(decl)).Width);
             new_class.type_alignment = DivideByByteSize(ctx->getTypeInfo(ctx->getRecordType(decl)).Align);
+            #endif
             new_class.declared_in_file = GetDefinitionLocationFile(*decl, new_class.name);
             // Remove non-canonical template arguments, since I don't know how to do this with a printing policy.
             // Testcase: `namespace MR{ template <E> struct X {}; template <> struct X<E::e2> {}; using F = X<MR::E::e1>; using G = X<MR::E::e2>; }`.
@@ -1964,10 +1997,18 @@ namespace mrbind
             if (auto opt = GetPreferredNameFromCustomAttribute(*decl))
                 new_class.full_type = *opt;
             else
+                #if CLANG_VERSION_MAJOR >= 22
+                new_class.full_type = GetCanonicalTypeName(ctx->getCanonicalTagType(decl));
+                #else
                 new_class.full_type = GetCanonicalTypeName(ctx->getRecordType(decl));
+                #endif
 
             // Register the class type, just in case. AFTER `setTypeAsWritten()`.
+            #if CLANG_VERSION_MAJOR >= 22
+            (void)GetTypeStrings(ctx->getCanonicalTagType(decl), TypeUses::parsed);
+            #else
             (void)GetTypeStrings(ctx->getRecordType(decl), TypeUses::parsed);
+            #endif
 
             auto cxxdecl = llvm::dyn_cast<clang::CXXRecordDecl>(decl);
 
@@ -2122,8 +2163,13 @@ namespace mrbind
                     // If this comes from a base class (it always does, right?), then make sure that base isn't blacklisted.
                     if (auto base_record = llvm::dyn_cast<clang::RecordDecl>(target->getDeclContext()))
                     {
+                        #if CLANG_VERSION_MAJOR >= 22
+                        if (ShouldRejectMentionsOfType(ctx->getCanonicalTagType(base_record), *ci, *params, printing_policies))
+                            continue;
+                        #else
                         if (ShouldRejectMentionsOfType(ctx->getRecordType(base_record), *ci, *params, printing_policies))
                             continue;
+                        #endif
                     }
 
                     // Now the specific member kinds:
@@ -2343,12 +2389,20 @@ namespace mrbind
             EnumEntity &new_enum = params->container_stack.back()->nested.emplace_back().emplace<EnumEntity>();
 
             // Register the type, just in case.
+            #if CLANG_VERSION_MAJOR >= 22
+            (void)GetTypeStrings(ctx->getCanonicalTagType(decl), TypeUses::parsed);
+            #else
             (void)GetTypeStrings(ctx->getEnumType(decl), TypeUses::parsed);
+            #endif
 
             new_enum.name = decl->getName();
             new_enum.is_scoped = decl->isScoped();
             new_enum.comment = GetCommentString(*ctx, *params, *decl);
+            #if CLANG_VERSION_MAJOR >= 22
+            new_enum.full_type = GetCanonicalTypeName(ctx->getCanonicalTagType(decl));
+            #else
             new_enum.full_type = GetCanonicalTypeName(ctx->getEnumType(decl));
+            #endif
             new_enum.has_custom_underlying_type = decl->isFixed();
             if (params->implicit_enum_underlying_type_is_always_int && !new_enum.has_custom_underlying_type)
             {
@@ -2401,7 +2455,11 @@ namespace mrbind
                 return true;
             }
 
+            #if CLANG_VERSION_MAJOR >= 22
+            std::string full_name = RoundtripQualifiedNameThroughCppdecl(decl->getUnderlyingType().getAsString(printing_policies.normal), *ci, *params, true);
+            #else
             std::string full_name = RoundtripQualifiedNameThroughCppdecl(ctx->getTypedefType(decl).getAsString(printing_policies.normal), *ci, *params, true);
+            #endif
             // Here we don't register the typedef TARGET TYPE SPELLING if we're going to poison the target type.
             auto type_strings = GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target * !should_poison);
             if (should_poison)
@@ -2498,7 +2556,11 @@ namespace mrbind
             // Since it won't be used on (non-full-specialized) templates anyway, it's fine to do it here, before instantiating all templates.
             if (auto opt = GetPreferredNameFromCustomAttribute(*decl))
             {
+                #if CLANG_VERSION_MAJOR >= 22
+                std::string original_name = GetCanonicalTypeName(ctx->getCanonicalTagType(decl));
+                #else
                 std::string original_name = GetCanonicalTypeName(ctx->getRecordType(decl));
+                #endif
                 if (!params->custom_preferred_names.try_emplace(std::move(original_name), ParseQualifiedNameWithCppdecl(*opt)).second) // The string `original_name` is not moved on failure, so we can use it below when generating the error message.
                     throw std::logic_error("Internal error: Duplicate parsed class name in the input: `" + original_name + "` (when constructing the mapping to the custom preferred name `" + *opt + "`.");
             }
@@ -2718,8 +2780,12 @@ namespace mrbind
                                     // Which one to pick? This one looks kinda relevant.
                                     auto csc = clang::Sema::CodeSynthesisContext::ExplicitTemplateArgumentSubstitution;
 
+                                    #if CLANG_VERSION_MAJOR >= 22
+                                    clang::Sema::InstantiatingTemplate Inst(ci->getSema(), loc, func_templ, ml_targs.getInnermost(), csc);
+                                    #else
                                     clang::sema::TemplateDeductionInfo Info(loc);
                                     clang::Sema::InstantiatingTemplate Inst(ci->getSema(), loc, func_templ, ml_targs.getInnermost(), csc, Info);
+                                    #endif
                                     if (!Inst.isInvalid())
                                     {
                                         auto templated_decl = func_templ->getTemplatedDecl();
