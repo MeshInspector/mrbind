@@ -2,7 +2,7 @@
 
 MRBind is written in C++ and needs to be compiled before use. There are no binary releases.
 
-MRBind depends on Clang's libraries for parsing, which you have to install. Clang 18 or newer is required. At the time of writing this, versions up to 21 (latest) are known to work.
+MRBind depends on Clang's libraries for parsing, which you have to install. Clang 18 or newer is required. At the time of writing this, versions up to 22 are known to work. We try to support the latest version. (If the version number in this file gets out of date, you can still try using the latest version. Usually it either works as is, or requires only minimal changes; send issues or PRs.)
 
 ### Installing Clang libraries
 
@@ -11,7 +11,7 @@ MRBind depends on Clang's libraries for parsing, which you have to install. Clan
   Clang provides [binary packages](https://apt.llvm.org/llvm.sh), so you can install an up-to-date Clang even on an outdated Ubuntu.,
 
   ```cpp
-  CLANG_VER=21
+  CLANG_VER=22
   wget https://apt.llvm.org/llvm.sh
   chmod +x llvm.sh
   sudo ./llvm.sh $CLANG_VER
@@ -24,9 +24,9 @@ MRBind depends on Clang's libraries for parsing, which you have to install. Clan
 
   You could install LLVM in Vcpkg, but that would build it from source.
 
-  I recommend installing it in MSYS2, as they provide prebuilt packages. Yes, even if you're not planning to use MinGW. MSYS2 Clang can operate in MSVC-compatible mode.
+  One option is installing it in MSYS2, as they provide prebuilt packages. Yes, even if you're not planning to use MinGW. MSYS2 Clang can operate in MSVC-compatible mode.
 
-  I recommend using MSYS2 CLANG64 environment (use the corresponding shortcut in the Start menu), but any of them should work. Install the required packages via:
+  If using MSYS2, I recommend using MSYS2 CLANG64 environment (use the corresponding shortcut in the Start menu), but any of them should work. Install the required packages via:
 
   ```sh
   pacman -S $MINGW_PACKAGE_PREFIX-{clang,clang-tools-extra,cmake} procps-ng
@@ -39,7 +39,7 @@ MRBind depends on Clang's libraries for parsing, which you have to install. Clan
 
 ### Building MRBind itself
 
-Ensure the Git submodules are cloned: `git submodule update --recursive --init`
+Ensure the Git submodules are cloned: `git submodule update --recursive --init`. (If you get errors about `cppdecl` includes not being found, it means you forgot the submodules.)
 
 Then build with CMake. Use the same Clang compiler that provides the parsing libraries. Other compilers may work, but that is not supported.
 
