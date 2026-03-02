@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Phmap
         {
             /// <summary>
-            /// Generated from C++ container `phmap::node_hash_set<int>`.
+            /// Generated from C++ container `phmap::node_hash_set&lt;int&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_NodeHashSet_Int : MR.CS.Misc.Object<Const_NodeHashSet_Int>, System.IDisposable, IEnumerable<int>
@@ -422,7 +422,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `phmap::node_hash_set<int>`.
+            /// Generated from C++ container `phmap::node_hash_set&lt;int&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class NodeHashSet_Int : Const_NodeHashSet_Int

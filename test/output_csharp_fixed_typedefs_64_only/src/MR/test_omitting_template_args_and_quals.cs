@@ -7,7 +7,7 @@ public static partial class MR
             // Here the generated code will omit the template arguments for operators (to avoid unwanted instantiations),
             //   and omit qualifiers for friend functions (since they are normally only accessible via ADL).
             /// <summary>
-            /// Generated from class `MR::OmittingTargsAndQuals::A<int>`.
+            /// Generated from class `MR::OmittingTargsAndQuals::A&lt;int&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_A_Int : MR.CS.Misc.Object<Const_A_Int>, System.IDisposable
@@ -41,7 +41,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::OmittingTargsAndQuals::A<int>::A`.
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A&lt;int&gt;::A`.
                 /// </summary>
                 public unsafe Const_A_Int(MR.CS.OmittingTargsAndQuals.Const_A_Int _other) : this(null, is_owning: true)
                 {
@@ -52,7 +52,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::OmittingTargsAndQuals::A<int>::A`.
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A&lt;int&gt;::A`.
                 /// </summary>
                 public Const_A_Int(A_Int _other) : this((Const_A_Int)_other) {}
 
@@ -67,7 +67,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from function `MR::OmittingTargsAndQuals::operator~<int>`.
+                /// Generated from function `MR::OmittingTargsAndQuals::operator~&lt;int&gt;`.
                 /// </summary>
                 public unsafe void compl()
                 {
@@ -80,7 +80,7 @@ public static partial class MR
             // Here the generated code will omit the template arguments for operators (to avoid unwanted instantiations),
             //   and omit qualifiers for friend functions (since they are normally only accessible via ADL).
             /// <summary>
-            /// Generated from class `MR::OmittingTargsAndQuals::A<int>`.
+            /// Generated from class `MR::OmittingTargsAndQuals::A&lt;int&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class A_Int : Const_A_Int
@@ -98,7 +98,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::OmittingTargsAndQuals::A<int>::A`.
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A&lt;int&gt;::A`.
                 /// </summary>
                 public unsafe A_Int(MR.CS.OmittingTargsAndQuals.Const_A_Int _other) : this(null, is_owning: true)
                 {
@@ -109,12 +109,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::OmittingTargsAndQuals::A<int>::A`.
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A&lt;int&gt;::A`.
                 /// </summary>
                 public A_Int(A_Int _other) : this((Const_A_Int)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator=`.
+                /// Generated from method `MR::OmittingTargsAndQuals::A&lt;int&gt;::operator=`.
                 /// </summary>
                 public unsafe MR.CS.OmittingTargsAndQuals.A_Int assign(MR.CS.OmittingTargsAndQuals.Const_A_Int _other)
                 {
@@ -126,7 +126,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator+`.
+                /// Generated from method `MR::OmittingTargsAndQuals::A&lt;int&gt;::operator+`.
                 /// </summary>
                 public unsafe void add()
                 {
@@ -136,7 +136,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::OmittingTargsAndQuals::A<int>::operator-<float>`.
+                /// Generated from method `MR::OmittingTargsAndQuals::A&lt;int&gt;::operator-&lt;float&gt;`.
                 /// </summary>
                 public unsafe void sub(MR.CS.OmittingTargsAndQuals.Const_A_Float _1)
                 {
@@ -183,7 +183,7 @@ public static partial class MR
             // Here the generated code will omit the template arguments for operators (to avoid unwanted instantiations),
             //   and omit qualifiers for friend functions (since they are normally only accessible via ADL).
             /// <summary>
-            /// Generated from class `MR::OmittingTargsAndQuals::A<float>`.
+            /// Generated from class `MR::OmittingTargsAndQuals::A&lt;float&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_A_Float : MR.CS.Misc.Object<Const_A_Float>, System.IDisposable
@@ -217,7 +217,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::OmittingTargsAndQuals::A<float>::A`.
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A&lt;float&gt;::A`.
                 /// </summary>
                 public unsafe Const_A_Float(MR.CS.OmittingTargsAndQuals.Const_A_Float _other) : this(null, is_owning: true)
                 {
@@ -228,7 +228,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::OmittingTargsAndQuals::A<float>::A`.
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A&lt;float&gt;::A`.
                 /// </summary>
                 public Const_A_Float(A_Float _other) : this((Const_A_Float)_other) {}
             }
@@ -236,7 +236,7 @@ public static partial class MR
             // Here the generated code will omit the template arguments for operators (to avoid unwanted instantiations),
             //   and omit qualifiers for friend functions (since they are normally only accessible via ADL).
             /// <summary>
-            /// Generated from class `MR::OmittingTargsAndQuals::A<float>`.
+            /// Generated from class `MR::OmittingTargsAndQuals::A&lt;float&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class A_Float : Const_A_Float
@@ -254,7 +254,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::OmittingTargsAndQuals::A<float>::A`.
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A&lt;float&gt;::A`.
                 /// </summary>
                 public unsafe A_Float(MR.CS.OmittingTargsAndQuals.Const_A_Float _other) : this(null, is_owning: true)
                 {
@@ -265,12 +265,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::OmittingTargsAndQuals::A<float>::A`.
+                /// Generated from constructor `MR::OmittingTargsAndQuals::A&lt;float&gt;::A`.
                 /// </summary>
                 public A_Float(A_Float _other) : this((Const_A_Float)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator=`.
+                /// Generated from method `MR::OmittingTargsAndQuals::A&lt;float&gt;::operator=`.
                 /// </summary>
                 public unsafe MR.CS.OmittingTargsAndQuals.A_Float assign(MR.CS.OmittingTargsAndQuals.Const_A_Float _other)
                 {
@@ -282,7 +282,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::OmittingTargsAndQuals::A<float>::operator+`.
+                /// Generated from method `MR::OmittingTargsAndQuals::A&lt;float&gt;::operator+`.
                 /// </summary>
                 public unsafe void add()
                 {
@@ -337,7 +337,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from function `MR::OmittingTargsAndQuals::b<float>`.
+            /// Generated from function `MR::OmittingTargsAndQuals::b&lt;float&gt;`.
             /// </summary>
             public static unsafe void b(MR.CS.OmittingTargsAndQuals.Const_A_Int _1, MR.CS.OmittingTargsAndQuals.Const_A_Float _2)
             {
@@ -367,7 +367,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from function `MR::OmittingTargsAndQuals::d<int>`.
+            /// Generated from function `MR::OmittingTargsAndQuals::d&lt;int&gt;`.
             /// </summary>
             public static unsafe void d(MR.CS.OmittingTargsAndQuals.Const_A_Int _1)
             {

@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::deque<MR::StdContainers::NonAssignable>`.
+            /// Generated from C++ container `std::deque&lt;MR::StdContainers::NonAssignable&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Deque_MRStdContainersNonAssignable : MR.CS.Misc.Object<Const_Deque_MRStdContainersNonAssignable>, System.IDisposable, IEnumerable<MR.CS.StdContainers.Const_NonAssignable>
@@ -794,7 +794,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::deque<MR::StdContainers::NonAssignable>`.
+            /// Generated from C++ container `std::deque&lt;MR::StdContainers::NonAssignable&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Deque_MRStdContainersNonAssignable : Const_Deque_MRStdContainersNonAssignable, IEnumerable<MR.CS.StdContainers.NonAssignable>

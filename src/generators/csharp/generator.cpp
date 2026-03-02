@@ -342,7 +342,7 @@ namespace mrbind::CSharp
                 doc += "/// <summary>\n";
 
             doc += "/// ";
-            doc += part;
+            doc += Strings::Replace(Strings::Replace(part, "<", "&lt;"), ">", "&gt;");
             doc += '\n';
 
             return false;

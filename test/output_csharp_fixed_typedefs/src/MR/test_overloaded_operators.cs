@@ -259,7 +259,7 @@ public static partial class MR
 
                 // Less.
                 /// <summary>
-                /// Generated from method `MR::OverloadedOps::A::operator<`.
+                /// Generated from method `MR::OverloadedOps::A::operator&lt;`.
                 /// </summary>
                 public unsafe int less(MR.CS.OverloadedOps.Const_A _1)
                 {
@@ -270,7 +270,7 @@ public static partial class MR
 
                 // Greater.
                 /// <summary>
-                /// Generated from method `MR::OverloadedOps::A::operator>`.
+                /// Generated from method `MR::OverloadedOps::A::operator&gt;`.
                 /// </summary>
                 public unsafe int greater(MR.CS.OverloadedOps.Const_A _1)
                 {
@@ -369,7 +369,7 @@ public static partial class MR
 
                 // Left shift.
                 /// <summary>
-                /// Generated from method `MR::OverloadedOps::A::operator<<`.
+                /// Generated from method `MR::OverloadedOps::A::operator&lt;&lt;`.
                 /// </summary>
                 public static unsafe int operator<<(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
@@ -380,7 +380,7 @@ public static partial class MR
 
                 // Right shift.
                 /// <summary>
-                /// Generated from method `MR::OverloadedOps::A::operator>>`.
+                /// Generated from method `MR::OverloadedOps::A::operator&gt;&gt;`.
                 /// </summary>
                 public static unsafe int operator>>(MR.CS.OverloadedOps.A _this, MR.CS.OverloadedOps.Const_A _1)
                 {
@@ -391,7 +391,7 @@ public static partial class MR
 
                 // Left shift assign.
                 /// <summary>
-                /// Generated from method `MR::OverloadedOps::A::operator<<=`.
+                /// Generated from method `MR::OverloadedOps::A::operator&lt;&lt;=`.
                 /// </summary>
                 public unsafe int lshiftAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
@@ -402,7 +402,7 @@ public static partial class MR
 
                 // Right shift assign.
                 /// <summary>
-                /// Generated from method `MR::OverloadedOps::A::operator>>=`.
+                /// Generated from method `MR::OverloadedOps::A::operator&gt;&gt;=`.
                 /// </summary>
                 public unsafe int rshiftAssign(MR.CS.OverloadedOps.Const_A _1)
                 {
@@ -435,7 +435,7 @@ public static partial class MR
 
                 // Less equal.
                 /// <summary>
-                /// Generated from method `MR::OverloadedOps::A::operator<=`.
+                /// Generated from method `MR::OverloadedOps::A::operator&lt;=`.
                 /// </summary>
                 public unsafe int lessEqual(MR.CS.OverloadedOps.Const_A _1)
                 {
@@ -446,7 +446,7 @@ public static partial class MR
 
                 // Greater equal.
                 /// <summary>
-                /// Generated from method `MR::OverloadedOps::A::operator>=`.
+                /// Generated from method `MR::OverloadedOps::A::operator&gt;=`.
                 /// </summary>
                 public unsafe int greaterEqual(MR.CS.OverloadedOps.Const_A _1)
                 {
@@ -457,7 +457,7 @@ public static partial class MR
 
                 // Compare three way.
                 /// <summary>
-                /// Generated from method `MR::OverloadedOps::A::operator<=>`.
+                /// Generated from method `MR::OverloadedOps::A::operator&lt;=&gt;`.
                 /// </summary>
                 public unsafe int compareThreeWay(MR.CS.OverloadedOps.Const_A _1)
                 {
@@ -523,7 +523,7 @@ public static partial class MR
 
                 // Arrow star.
                 /// <summary>
-                /// Generated from method `MR::OverloadedOps::A::operator->*`.
+                /// Generated from method `MR::OverloadedOps::A::operator-&gt;*`.
                 /// </summary>
                 public unsafe int arrowStar(MR.CS.OverloadedOps.Const_A _1)
                 {
@@ -534,7 +534,7 @@ public static partial class MR
 
                 // Arrow.
                 /// <summary>
-                /// Generated from method `MR::OverloadedOps::A::operator->`.
+                /// Generated from method `MR::OverloadedOps::A::operator-&gt;`.
                 /// </summary>
                 public unsafe int arrow()
                 {
@@ -801,7 +801,7 @@ public static partial class MR
                 // friend int operator=(B, B); // Can't be a free function.
                 // Less.
                 /// <summary>
-                /// Generated from function `MR::OverloadedOps::operator<`.
+                /// Generated from function `MR::OverloadedOps::operator&lt;`.
                 /// </summary>
                 public unsafe int less(MR.CS.OverloadedOps.Const_B _2)
                 {
@@ -812,7 +812,7 @@ public static partial class MR
 
                 // Greater.
                 /// <summary>
-                /// Generated from function `MR::OverloadedOps::operator>`.
+                /// Generated from function `MR::OverloadedOps::operator&gt;`.
                 /// </summary>
                 public unsafe int greater(MR.CS.OverloadedOps.Const_B _2)
                 {
@@ -911,7 +911,7 @@ public static partial class MR
 
                 // Left shift.
                 /// <summary>
-                /// Generated from function `MR::OverloadedOps::operator<<`.
+                /// Generated from function `MR::OverloadedOps::operator&lt;&lt;`.
                 /// </summary>
                 public static unsafe int operator<<(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
@@ -922,7 +922,7 @@ public static partial class MR
 
                 // Right shift.
                 /// <summary>
-                /// Generated from function `MR::OverloadedOps::operator>>`.
+                /// Generated from function `MR::OverloadedOps::operator&gt;&gt;`.
                 /// </summary>
                 public static unsafe int operator>>(Const_B _1, MR.CS.OverloadedOps.Const_B _2)
                 {
@@ -933,7 +933,7 @@ public static partial class MR
 
                 // Left shift assign.
                 /// <summary>
-                /// Generated from function `MR::OverloadedOps::operator<<=`.
+                /// Generated from function `MR::OverloadedOps::operator&lt;&lt;=`.
                 /// </summary>
                 public unsafe int lshiftAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
@@ -944,7 +944,7 @@ public static partial class MR
 
                 // Right shift assign.
                 /// <summary>
-                /// Generated from function `MR::OverloadedOps::operator>>=`.
+                /// Generated from function `MR::OverloadedOps::operator&gt;&gt;=`.
                 /// </summary>
                 public unsafe int rshiftAssign(MR.CS.OverloadedOps.Const_B _2)
                 {
@@ -977,7 +977,7 @@ public static partial class MR
 
                 // Less equal.
                 /// <summary>
-                /// Generated from function `MR::OverloadedOps::operator<=`.
+                /// Generated from function `MR::OverloadedOps::operator&lt;=`.
                 /// </summary>
                 public unsafe int lessEqual(MR.CS.OverloadedOps.Const_B _2)
                 {
@@ -988,7 +988,7 @@ public static partial class MR
 
                 // Greater equal.
                 /// <summary>
-                /// Generated from function `MR::OverloadedOps::operator>=`.
+                /// Generated from function `MR::OverloadedOps::operator&gt;=`.
                 /// </summary>
                 public unsafe int greaterEqual(MR.CS.OverloadedOps.Const_B _2)
                 {
@@ -999,7 +999,7 @@ public static partial class MR
 
                 // Compare three way.
                 /// <summary>
-                /// Generated from function `MR::OverloadedOps::operator<=>`.
+                /// Generated from function `MR::OverloadedOps::operator&lt;=&gt;`.
                 /// </summary>
                 public unsafe int compareThreeWay(MR.CS.OverloadedOps.Const_B _2)
                 {
@@ -1091,7 +1091,7 @@ public static partial class MR
 
                 // Arrow star.
                 /// <summary>
-                /// Generated from function `MR::OverloadedOps::operator->*`.
+                /// Generated from function `MR::OverloadedOps::operator-&gt;*`.
                 /// </summary>
                 public unsafe int arrowStar(MR.CS.OverloadedOps.Const_B _2)
                 {

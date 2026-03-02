@@ -7,7 +7,7 @@ public static partial class MR
             // This tests a specific Clang bug/quirk.
             // Certain typedefs in templates get their names printed without the template arguments of the enclosing class template, breaking our code generation.
             /// <summary>
-            /// Generated from class `MR::TypedefsInTemplates::A<int>`.
+            /// Generated from class `MR::TypedefsInTemplates::A&lt;int&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_A_Int : MR.CS.Misc.Object<Const_A_Int>, System.IDisposable
@@ -41,7 +41,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
+                /// Generated from constructor `MR::TypedefsInTemplates::A&lt;int&gt;::A`.
                 /// </summary>
                 public unsafe Const_A_Int(MR.CS.TypedefsInTemplates.Const_A_Int _other) : this(null, is_owning: true)
                 {
@@ -52,7 +52,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
+                /// Generated from constructor `MR::TypedefsInTemplates::A&lt;int&gt;::A`.
                 /// </summary>
                 public Const_A_Int(A_Int _other) : this((Const_A_Int)_other) {}
             }
@@ -60,7 +60,7 @@ public static partial class MR
             // This tests a specific Clang bug/quirk.
             // Certain typedefs in templates get their names printed without the template arguments of the enclosing class template, breaking our code generation.
             /// <summary>
-            /// Generated from class `MR::TypedefsInTemplates::A<int>`.
+            /// Generated from class `MR::TypedefsInTemplates::A&lt;int&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class A_Int : Const_A_Int
@@ -78,7 +78,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
+                /// Generated from constructor `MR::TypedefsInTemplates::A&lt;int&gt;::A`.
                 /// </summary>
                 public unsafe A_Int(MR.CS.TypedefsInTemplates.Const_A_Int _other) : this(null, is_owning: true)
                 {
@@ -89,12 +89,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
+                /// Generated from constructor `MR::TypedefsInTemplates::A&lt;int&gt;::A`.
                 /// </summary>
                 public A_Int(A_Int _other) : this((Const_A_Int)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::TypedefsInTemplates::A<int>::operator=`.
+                /// Generated from method `MR::TypedefsInTemplates::A&lt;int&gt;::operator=`.
                 /// </summary>
                 public unsafe MR.CS.TypedefsInTemplates.A_Int assign(MR.CS.TypedefsInTemplates.Const_A_Int _other)
                 {
@@ -106,7 +106,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::TypedefsInTemplates::A<int>::foo`.
+                /// Generated from method `MR::TypedefsInTemplates::A&lt;int&gt;::foo`.
                 /// </summary>
                 public unsafe int foo()
                 {
@@ -151,7 +151,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from class `MR::TypedefsInTemplates::B<int>`.
+            /// Generated from class `MR::TypedefsInTemplates::B&lt;int&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_B_Int : MR.CS.Misc.Object<Const_B_Int>, System.IDisposable
@@ -185,7 +185,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
+                /// Generated from constructor `MR::TypedefsInTemplates::B&lt;int&gt;::B`.
                 /// </summary>
                 public unsafe Const_B_Int(MR.CS.TypedefsInTemplates.Const_B_Int _other) : this(null, is_owning: true)
                 {
@@ -196,12 +196,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
+                /// Generated from constructor `MR::TypedefsInTemplates::B&lt;int&gt;::B`.
                 /// </summary>
                 public Const_B_Int(B_Int _other) : this((Const_B_Int)_other) {}
 
                 /// <summary>
-                /// Generated from class `MR::TypedefsInTemplates::B<int>::BB<float>`.
+                /// Generated from class `MR::TypedefsInTemplates::B&lt;int&gt;::BB&lt;float&gt;`.
                 /// This is the const half of the class.
                 /// </summary>
                 public class Const_BB_Float : MR.CS.Misc.Object<Const_BB_Float>, System.IDisposable
@@ -235,7 +235,7 @@ public static partial class MR
                     }
 
                     /// <summary>
-                    /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
+                    /// Generated from constructor `MR::TypedefsInTemplates::B&lt;int&gt;::BB&lt;float&gt;::BB`.
                     /// </summary>
                     public unsafe Const_BB_Float(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other) : this(null, is_owning: true)
                     {
@@ -246,13 +246,13 @@ public static partial class MR
                     }
 
                     /// <summary>
-                    /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
+                    /// Generated from constructor `MR::TypedefsInTemplates::B&lt;int&gt;::BB&lt;float&gt;::BB`.
                     /// </summary>
                     public Const_BB_Float(BB_Float _other) : this((Const_BB_Float)_other) {}
                 }
 
                 /// <summary>
-                /// Generated from class `MR::TypedefsInTemplates::B<int>::BB<float>`.
+                /// Generated from class `MR::TypedefsInTemplates::B&lt;int&gt;::BB&lt;float&gt;`.
                 /// This is the non-const half of the class.
                 /// </summary>
                 public class BB_Float : Const_BB_Float
@@ -270,7 +270,7 @@ public static partial class MR
                     }
 
                     /// <summary>
-                    /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
+                    /// Generated from constructor `MR::TypedefsInTemplates::B&lt;int&gt;::BB&lt;float&gt;::BB`.
                     /// </summary>
                     public unsafe BB_Float(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other) : this(null, is_owning: true)
                     {
@@ -281,12 +281,12 @@ public static partial class MR
                     }
 
                     /// <summary>
-                    /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
+                    /// Generated from constructor `MR::TypedefsInTemplates::B&lt;int&gt;::BB&lt;float&gt;::BB`.
                     /// </summary>
                     public BB_Float(BB_Float _other) : this((Const_BB_Float)_other) {}
 
                     /// <summary>
-                    /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::operator=`.
+                    /// Generated from method `MR::TypedefsInTemplates::B&lt;int&gt;::BB&lt;float&gt;::operator=`.
                     /// </summary>
                     public unsafe MR.CS.TypedefsInTemplates.B_Int.BB_Float assign(MR.CS.TypedefsInTemplates.B_Int.Const_BB_Float _other)
                     {
@@ -298,7 +298,7 @@ public static partial class MR
                     }
 
                     /// <summary>
-                    /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::foo`.
+                    /// Generated from method `MR::TypedefsInTemplates::B&lt;int&gt;::BB&lt;float&gt;::foo`.
                     /// </summary>
                     public unsafe int foo()
                     {
@@ -308,7 +308,7 @@ public static partial class MR
                     }
 
                     /// <summary>
-                    /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::foo2`.
+                    /// Generated from method `MR::TypedefsInTemplates::B&lt;int&gt;::BB&lt;float&gt;::foo2`.
                     /// </summary>
                     public unsafe int foo2()
                     {
@@ -354,7 +354,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from class `MR::TypedefsInTemplates::B<int>`.
+            /// Generated from class `MR::TypedefsInTemplates::B&lt;int&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class B_Int : Const_B_Int
@@ -372,7 +372,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
+                /// Generated from constructor `MR::TypedefsInTemplates::B&lt;int&gt;::B`.
                 /// </summary>
                 public unsafe B_Int(MR.CS.TypedefsInTemplates.Const_B_Int _other) : this(null, is_owning: true)
                 {
@@ -383,12 +383,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
+                /// Generated from constructor `MR::TypedefsInTemplates::B&lt;int&gt;::B`.
                 /// </summary>
                 public B_Int(B_Int _other) : this((Const_B_Int)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::TypedefsInTemplates::B<int>::operator=`.
+                /// Generated from method `MR::TypedefsInTemplates::B&lt;int&gt;::operator=`.
                 /// </summary>
                 public unsafe MR.CS.TypedefsInTemplates.B_Int assign(MR.CS.TypedefsInTemplates.Const_B_Int _other)
                 {

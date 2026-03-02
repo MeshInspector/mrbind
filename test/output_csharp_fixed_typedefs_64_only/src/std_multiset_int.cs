@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::multiset<int>`.
+            /// Generated from C++ container `std::multiset&lt;int&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Multiset_Int : MR.CS.Misc.Object<Const_Multiset_Int>, System.IDisposable, IEnumerable<int>
@@ -444,7 +444,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::multiset<int>`.
+            /// Generated from C++ container `std::multiset&lt;int&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Multiset_Int : Const_Multiset_Int

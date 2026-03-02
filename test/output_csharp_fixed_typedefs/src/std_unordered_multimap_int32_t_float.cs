@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::unordered_multimap<int32_t, float>`.
+            /// Generated from C++ container `std::unordered_multimap&lt;int32_t, float&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_UnorderedMultimap_Int32T_Float : MR.CS.Misc.Object<Const_UnorderedMultimap_Int32T_Float>, System.IDisposable, IEnumerable<MR.CS.Std.Const_Pair_ConstInt32T_Float>
@@ -709,7 +709,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::unordered_multimap<int32_t, float>`.
+            /// Generated from C++ container `std::unordered_multimap&lt;int32_t, float&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class UnorderedMultimap_Int32T_Float : Const_UnorderedMultimap_Int32T_Float, IEnumerable<MR.CS.Std.Pair_ConstInt32T_Float>

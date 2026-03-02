@@ -271,7 +271,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdSharedPtr::SetIntDef`.
-            /// Parameter `_1` defaults to `std::make_unique<int>(42)`.
+            /// Parameter `_1` defaults to `std::make_unique&lt;int&gt;(42)`.
             /// </summary>
             public static unsafe void setIntDef(MR.CS.Std._ByValue_SharedPtr_Int? _1 = null)
             {
@@ -353,7 +353,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdSharedPtr::SetIntArrDef`.
-            /// Parameter `_1` defaults to `std::make_unique<int[]>(42)`.
+            /// Parameter `_1` defaults to `std::make_unique&lt;int[]&gt;(42)`.
             /// </summary>
             public static unsafe void setIntArrDef(MR.CS.Std._ByValue_SharedPtr_IntArray? _1 = null)
             {
@@ -395,7 +395,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdSharedPtr::SetIntArr42Def`.
-            /// Parameter `_1` defaults to `std::make_shared<int[42]>()`.
+            /// Parameter `_1` defaults to `std::make_shared&lt;int[42]&gt;()`.
             /// </summary>
             public static unsafe void setIntArr42Def(MR.CS.Std._ByValue_SharedPtr_IntArray42? _1 = null)
             {
@@ -447,7 +447,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdSharedPtr::SetClassDef`.
-            /// Parameter `_1` defaults to `std::make_unique<MR::StdSharedPtr::A>(MR::StdSharedPtr::A{})`.
+            /// Parameter `_1` defaults to `std::make_unique&lt;MR::StdSharedPtr::A&gt;(MR::StdSharedPtr::A{})`.
             /// </summary>
             public static unsafe void setClassDef(MR.CS.StdSharedPtr._ByValueShared_A? _1 = null)
             {
@@ -529,7 +529,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdSharedPtr::SetClassArrDef`.
-            /// Parameter `_1` defaults to `std::make_unique<MR::StdSharedPtr::A[]>(42)`.
+            /// Parameter `_1` defaults to `std::make_unique&lt;MR::StdSharedPtr::A[]&gt;(42)`.
             /// </summary>
             public static unsafe void setClassArrDef(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray? _1 = null)
             {
@@ -571,7 +571,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdSharedPtr::SetClassArr42Def`.
-            /// Parameter `_1` defaults to `std::make_shared<MR::StdSharedPtr::A[42]>()`.
+            /// Parameter `_1` defaults to `std::make_shared&lt;MR::StdSharedPtr::A[42]&gt;()`.
             /// </summary>
             public static unsafe void setClassArr42Def(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42? _1 = null)
             {

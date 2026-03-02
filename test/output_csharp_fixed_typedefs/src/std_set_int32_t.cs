@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::set<int32_t>`.
+            /// Generated from C++ container `std::set&lt;int32_t&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Set_Int32T : MR.CS.Misc.Object<Const_Set_Int32T>, System.IDisposable, IEnumerable<int>
@@ -444,7 +444,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::set<int32_t>`.
+            /// Generated from C++ container `std::set&lt;int32_t&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Set_Int32T : Const_Set_Int32T

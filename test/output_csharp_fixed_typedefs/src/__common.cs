@@ -54,7 +54,7 @@ public static partial class MR
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
-            /// * Pass an instance of `InOut<T>` to pass it to the function.
+            /// * Pass an instance of `InOut&lt;T&gt;` to pass it to the function.
             /// </summary>
             public class _InOutOpt<T> where T: unmanaged
             {
@@ -93,7 +93,7 @@ public static partial class MR
 
             /// <summary>
             /// A reference to a C object. This is sometimes used to return optional references, since `ref` can't be nullable. Or to return references from operators, since those can't return `ref`s.
-            /// This object itself isn't nullable, we return `Ref<T>?` when nullability is needed.
+            /// This object itself isn't nullable, we return `Ref&lt;T&gt;?` when nullability is needed.
             /// </summary>
             public unsafe class Ref<T> where T: unmanaged
             {
@@ -122,7 +122,7 @@ public static partial class MR
 
             /// <summary>
             /// A reference to a C object. This is sometimes used to return optional references, since `ref` can't be nullable. Or to return references from operators, since those can't return `ref`s.
-            /// This object itself isn't nullable, we return `ConstRef<T>?` when nullability is needed.
+            /// This object itself isn't nullable, we return `ConstRef&lt;T&gt;?` when nullability is needed.
             /// </summary>
             public unsafe class ConstRef<T> where T: unmanaged
             {
@@ -199,9 +199,9 @@ public static partial class MR
             public static NullOptType NullOpt;
 
             /// <summary>
-            /// This is used for optional `ReadOnlySpan<char>` function parameters. This is a specialized version that provides string interop.
+            /// This is used for optional `ReadOnlySpan&lt;char&gt;` function parameters. This is a specialized version that provides string interop.
             /// Pass `null` or `new()` to use the default argument.
-            ///   Note that for the original `ReadOnlySpan<char>`, those result in an empty span instead.
+            ///   Note that for the original `ReadOnlySpan&lt;char&gt;`, those result in an empty span instead.
             /// </summary>
             public ref struct ReadOnlyCharSpanOpt
             {
@@ -231,7 +231,7 @@ public static partial class MR
             /// Stores a single heap-allocated value with a stable address, or a user-provided non-owning pointer.
             /// This is used for class fields of pointer types to const non-classes.
             /// Usage:
-            /// * To read a property of type `Const_Box<T>?`, first check `is not null`. If it's not null, use `.Value` to read the value.
+            /// * To read a property of type `Const_Box&lt;T&gt;?`, first check `is not null`. If it's not null, use `.Value` to read the value.
             /// * To modify the property, either assign a value of type `T`, or assign `null`.
             ///   Assigning a value will allocate its copy and make the underlying pointer point to it.
             /// </summary>
@@ -255,7 +255,7 @@ public static partial class MR
 
                 /// <summary>
                 /// Implicitly convert from a value, allocating a copy of it.
-                /// Only `Const_Box<T>` has this, `Box<T>` intentionally doesn't.
+                /// Only `Const_Box&lt;T&gt;` has this, `Box&lt;T&gt;` intentionally doesn't.
                 /// </summary>
                 public static implicit operator Const_Box<T>(T value) {return new(value);}
 
@@ -283,7 +283,7 @@ public static partial class MR
             /// Stores a single heap-allocated value with a stable address, or a user-provided non-owning pointer.
             /// This is used for class fields of pointer types to mutable non-classes.
             /// Usage:
-            /// * To read a property of type `Box<T>?`, first check `is not null`. If it's not null, use `.Value` to read the value.
+            /// * To read a property of type `Box&lt;T&gt;?`, first check `is not null`. If it's not null, use `.Value` to read the value.
             /// * To modify the property, either assign `new(value)` (to allocate a copy of the value and point to it), or assign `null`.
             ///   Since `.Value` returns a mutable ref, you can also assign to that to modify the pointee, assuming the property isn't null.
             /// </summary>
@@ -376,7 +376,7 @@ public static partial class MR
             internal unsafe delegate void StdFunctionPostCallCallbackDelegate(void *userdata, void *value);
 
             /// <summary>
-            /// This is used by the `std::function<...>` wrappers to clean up the object returned from a call.
+            /// This is used by the `std::function&lt;...&gt;` wrappers to clean up the object returned from a call.
             /// </summary>
             internal static unsafe void StdFunctionPostCallCallback(void *userdata, void *value)
             {
@@ -387,7 +387,7 @@ public static partial class MR
             internal unsafe delegate void StdFunctionUserdataCallbackDelegate(void **this_userdata, void *other_userdata);
 
             /// <summary>
-            /// This is used by the `std::function<...>` wrappers to manage the userdata pointer, which in our case always represents a `GCHandle` to the underlying C# callable.
+            /// This is used by the `std::function&lt;...&gt;` wrappers to manage the userdata pointer, which in our case always represents a `GCHandle` to the underlying C# callable.
             /// </summary>
             internal static unsafe void StdFunctionUserdataCallback(void **this_userdata, void *other_userdata)
             {

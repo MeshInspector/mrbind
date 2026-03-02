@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::unordered_set<int>`.
+            /// Generated from C++ container `std::unordered_set&lt;int&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_UnorderedSet_Int : MR.CS.Misc.Object<Const_UnorderedSet_Int>, System.IDisposable, IEnumerable<int>
@@ -422,7 +422,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::unordered_set<int>`.
+            /// Generated from C++ container `std::unordered_set&lt;int&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class UnorderedSet_Int : Const_UnorderedSet_Int

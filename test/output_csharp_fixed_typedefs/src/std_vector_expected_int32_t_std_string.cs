@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::vector<expected<int32_t, std::string>>`.
+            /// Generated from C++ container `std::vector&lt;expected&lt;int32_t, std::string&gt;&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Vector_ExpectedInt32TStdString : MR.CS.Misc.Object<Const_Vector_ExpectedInt32TStdString>, System.IDisposable, IEnumerable<MR.CS.Const_Expected_Int32T_StdString>
@@ -804,7 +804,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::vector<expected<int32_t, std::string>>`.
+            /// Generated from C++ container `std::vector&lt;expected&lt;int32_t, std::string&gt;&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Vector_ExpectedInt32TStdString : Const_Vector_ExpectedInt32TStdString, IEnumerable<MR.CS.Expected_Int32T_StdString>

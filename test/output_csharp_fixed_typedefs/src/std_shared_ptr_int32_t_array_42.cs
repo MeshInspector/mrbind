@@ -106,7 +106,7 @@ public static partial class MR
 
                 /// <summary>
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
-                /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
+                /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// </summary>
                 public unsafe Const_SharedPtr_Int32TArray42(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.Misc.InOut<int>? ptr) : this(null, is_owning: true)
                 {
@@ -216,7 +216,7 @@ public static partial class MR
 
                 /// <summary>
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
-                /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
+                /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// </summary>
                 public unsafe SharedPtr_Int32TArray42(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.Misc.InOut<int>? ptr) : this(null, is_owning: true)
                 {
@@ -229,7 +229,7 @@ public static partial class MR
 
                 /// <summary>
                 /// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
-                /// The input pointer can be reinterpreted from any other `std::shared_ptr<T>` to avoid constructing a new `std::shared_ptr<void>`.
+                /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// </summary>
                 public unsafe void assignAliasing(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.Misc.InOut<int>? ptr)
                 {

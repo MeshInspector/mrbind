@@ -99,7 +99,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdExpected::SetExpVoidDef`.
-            /// Parameter `_1` defaults to `std::expected<void, float>{}`.
+            /// Parameter `_1` defaults to `std::expected&lt;void, float&gt;{}`.
             /// </summary>
             public static unsafe void setExpVoidDef(MR.CS.Std.Const_Expected_Void_Float? _1 = null)
             {
