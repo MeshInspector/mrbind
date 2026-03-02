@@ -10,6 +10,7 @@
 
 #include "main.h"
 
+#include "common/command_line_parser.h"
 #include "common/filesystem.h"
 #include "common/parsed_data.h"
 #include "common/set_error_handlers.h"
@@ -48,6 +49,7 @@
 #include <cstring>
 #include <filesystem>
 #include <fstream>
+#include <iostream>
 #include <regex>
 #include <set>
 #include <stdexcept>
@@ -132,7 +134,6 @@ namespace mrbind
 
     enum class OutputFormat
     {
-        unselected,
         json,
         macros,
     };
@@ -161,7 +162,7 @@ namespace mrbind
         // We set this to true once we're done filling the map. Then it starts to affect `GetCanonicalTypeName()`.
         mutable bool canonincalization_respects_custom_preferred_names = false;
 
-        OutputFormat output_format = OutputFormat::unselected;
+        OutputFormat output_format = OutputFormat::json;
         std::vector<std::string> output_filenames;
 
         AdjustTypeNameFlags adjust_type_name_flags{};
@@ -196,10 +197,10 @@ namespace mrbind
         StringRegexAdjuster parsed_comments_adjuster;
 
         // Automatically add lifetime annotations to the free and member functions named `begin` and `end`, assuming they return iterators.
-        bool infer_lifetime_iterators = false;
+        bool infer_lifetime_iterators = true;
 
         // Automatically add lifetime annotations to non-copy/move ctors, assuming they store all passed pointers and references.
-        bool infer_lifetime_ctors = false;
+        bool infer_lifetime_custom_ctors = false;
     };
 
     struct PrintingPolicies
@@ -1884,7 +1885,7 @@ namespace mrbind
                     }
 
                     // Infer lifetime for constructors.
-                    if (params->infer_lifetime_ctors && is_ctor && !is_copy_or_move_ctor_or_assignment)
+                    if (params->infer_lifetime_custom_ctors && is_ctor && !is_copy_or_move_ctor_or_assignment)
                     {
                         for (std::size_t i = 0; i < basic_func->params.size(); i++)
                         {
@@ -3023,9 +3024,6 @@ namespace mrbind
 
     void ClangAstConsumer::HandleTranslationUnit(clang::ASTContext &ctx)
     {
-        if (params->output_format == OutputFormat::unselected)
-            throw std::runtime_error("Must select the output format using `--format=...`, see `--help`.");
-
         params->parsed_result.original_file = input_filename;
 
         { // Dump the headers from the .cpp file.
@@ -3343,21 +3341,28 @@ namespace mrbind
         // Write the output.
         for (std::size_t i = 0; i < multiplexed_data.size(); i++)
         {
-            std::ofstream out(MakePath(params->output_filenames.at(i)));
-            if (!out)
-                throw std::runtime_error("Unable to open output file: `" + params->output_filenames.at(i) + "`.");
+            std::ostream *out = nullptr;
+            std::ofstream out_file;
+
+            if (params->output_filenames.at(i) == "-")
+            {
+                out = &std::cout;
+            }
+            else
+            {
+                out = &out_file;
+                out_file.open(MakePath(params->output_filenames.at(i)));
+                if (!out_file)
+                    throw std::runtime_error("Unable to open output file: `" + params->output_filenames.at(i) + "`.");
+            }
 
             switch (params->output_format)
             {
-              case OutputFormat::unselected:
-                // This should be unreachable.
-                throw std::logic_error("Finsihed parsing, but no output format is selected.");
-                break;
               case OutputFormat::json:
-                mrbind::ParsedFileToJson(multiplexed_data[i], out);
+                mrbind::ParsedFileToJson(multiplexed_data[i], *out);
                 break;
               case OutputFormat::macros:
-                mrbind::ParsedFileToMacros(multiplexed_data[i], out, params->enable_cppdecl_processing);
+                mrbind::ParsedFileToMacros(multiplexed_data[i], *out, params->enable_cppdecl_processing);
                 break;
             }
 
@@ -3442,221 +3447,236 @@ int main(int argc, char **argv)
 
     mrbind::VisitorParams params;
 
+    std::vector<const char *> clang_argv;
+    { // Handle custom options in `argc`/`argv`, place the rest in `clang_argv`.
+        mrbind::CommandLineParser args_parser;
 
-    { // Extract custom options from argc/argv.
-        int modified_argc = 1;
-        bool seen_double_dash = false;
+        args_parser.help_banner =
+            "Usage:\n"
+            "  mrbind [mrbind_flags] [-- [clang_flags]]\n"
+            "\n"
+            "`[clang_flags]` are the usual compiler flags. They can be empty, which isn't the same thing as omitting `--` entirely.\n"
+            "If no `--` is passed, the compiler flags are guessed from a `compile_commands.json`, which is usually not what you want.\n"
+            "\n"
+            "`[mrbind_flags]` are:\n";
 
-        for (int i = 1; i < argc; i++)
+        clang_argv.reserve(std::size_t(argc + 1));
+        if (argc >= 1)
+            clang_argv.push_back(argv[0]);
+
+        args_parser.on_unknown_flag = [&, ret = false](const char *flag) mutable
         {
-            if (!seen_double_dash)
+            if (ret)
             {
-                std::string_view this_arg = argv[i];
-                if (this_arg == "--")
-                    seen_double_dash = true; // Don't continue after `--`, those are Clang options.
-
-                if (!seen_double_dash)
-                {
-                    // --dump-command
-
-                    bool dump_command = false;
-                    if (this_arg == "--dump-command")
-                    {
-                        dump_command = true;
-                        dump_command_with_null_separators = false;
-                    }
-                    else if (this_arg == "--dump-command0")
-                    {
-                        dump_command = true;
-                        dump_command_with_null_separators = true;
-                    }
-
-                    if (dump_command)
-                    {
-                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
-                            throw std::runtime_error("Expected a filename after `" + std::string(this_arg) + "`.");
-
-                        dump_command_to_file = argv[++i];
-                        continue;
-                    }
-
-                    // ----
-
-                    if (this_arg == "-o")
-                    {
-                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
-                            throw std::runtime_error("Expected a file name after `" + std::string(this_arg) + "`.");
-                        params.output_filenames.emplace_back(argv[++i]);
-                        continue;
-                    }
-
-                    if (this_arg == "--ignore-pch-flags")
-                    {
-                        remove_pch_flags = true;
-                        continue;
-                    }
-
-                    if (this_arg == "--ignore")
-                    {
-                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
-                            throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
-
-                        params.blacklisted_entities.Insert(argv[++i]);
-                        continue;
-                    }
-
-                    if (this_arg == "--allow")
-                    {
-                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
-                            throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
-
-                        params.whitelisted_entities.Insert(argv[++i]);
-                        continue;
-                    }
-
-                    if (this_arg == "--skip-mentions-of")
-                    {
-                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
-                            throw std::runtime_error("Expected a type name after `" + std::string(this_arg) + "`.");
-
-                        params.blacklisted_mentioned_types.Insert(argv[++i]);
-                        continue;
-                    }
-
-                    if (this_arg == "--format=json")
-                    {
-                        params.output_format = mrbind::OutputFormat::json;
-                        continue;
-                    }
-                    if (this_arg == "--format=macros")
-                    {
-                        params.output_format = mrbind::OutputFormat::macros;
-                        continue;
-                    }
-
-                    const std::string_view combine_types_flag = "--combine-types=";
-                    if (this_arg.starts_with(combine_types_flag))
-                    {
-                        params.adjust_type_name_flags = mrbind::ParseAdjustTypeNameFlags(this_arg.substr(combine_types_flag.size()));
-                        continue;
-                    }
-
-                    if (this_arg == "--no-cppdecl")
-                    {
-                        params.enable_cppdecl_processing = false;
-                        continue;
-                    }
-
-                    if (this_arg == "--canonicalize-to-fixed-size-typedefs")
-                    {
-                        params.canonicalize_to_fixed_size_typedefs = true;
-                        continue;
-                    }
-
-                    if (this_arg == "--canonicalize-64-to-fixed-size-typedefs")
-                    {
-                        params.canonicalize_64_to_fixed_size_typedefs = true;
-                        continue;
-                    }
-
-                    if (this_arg == "--canonicalize-size_t-to-uint64_t")
-                    {
-                        params.only_canonicalize_size_t_to_uint64_t = true;
-                        continue;
-                    }
-
-                    if (this_arg == "--implicit-enum-underlying-type-is-always-int")
-                    {
-                        params.implicit_enum_underlying_type_is_always_int = true;
-                        continue;
-                    }
-
-                    if (this_arg == "--copy-inherited-members")
-                    {
-                        params.copy_inherited_members = true;
-                        continue;
-                    }
-
-                    if (this_arg == "--buggy-substitute-default-template-args")
-                    {
-                        params.buggy_substitute_default_template_args = true;
-                        continue;
-                    }
-
-                    if (this_arg == "--adjust-comments")
-                    {
-                        if (i == argc - 1 || std::strcmp(argv[i + 1], "--") == 0)
-                            throw std::runtime_error("Expected an argument after `" + std::string(this_arg) + "`.");
-
-                        params.parsed_comments_adjuster.AddRule(argv[++i]);
-                        continue;
-                    }
-
-                    if (this_arg == "--infer-lifetime-iterators")
-                    {
-                        params.infer_lifetime_iterators = true;
-                        continue;
-                    }
-
-                    if (this_arg == "--infer-lifetime-constructors")
-                    {
-                        params.infer_lifetime_ctors = true;
-                        continue;
-                    }
-                }
+                clang_argv.push_back(flag);
+                return true;
             }
 
-            argv[modified_argc++] = argv[i];
+            if (std::string_view(flag) == "--")
+                ret = true;
+
+            clang_argv.push_back(flag);
+            return ret;
+        };
+
+
+        { // Register flags.
+            args_parser.AddFlag("-o", {
+                .allow_repeat = true,
+                .arg_names = {"output.cpp"},
+                .desc = "Redirect the output to a file. Specifying this flag multiple times multiplexes the output between several files which can be compiled in parallel, or sequentally for a lower RAM usage.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan args)
+                {
+                    params.output_filenames.emplace_back(args.front());
+                },
+            });
+
+            args_parser.AddFlag("--format", {
+                .arg_names = {"F"},
+                .desc = "The output format, either `json` (default) or `macros`.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan args)
+                {
+                    if (args.front() == "json")
+                        params.output_format = mrbind::OutputFormat::json;
+                    else if (args.front() == "macros")
+                        params.output_format = mrbind::OutputFormat::macros;
+                    else
+                        throw std::runtime_error("Unknown output format: `" + std::string(args.front()) + "`.");
+                },
+            });
+
+            args_parser.AddFlag("--ignore", {
+                .allow_repeat = true,
+                .arg_names = {"T"},
+                .desc =
+                    "Don't emit bindings for a specific entity. "
+                    "Use the flag several times to ban several entities. "
+                    "Use a fully qualified name. The final template arguments can be omitted, then any arguments match. "
+                    "Use `::` to reject the global namespace. "
+                    "Enclose in slashes to match a regex. "
+                    "Also note that you can annotate declarations that you want to ignore with `[[clang::annotate(\"mrbind::ignore\")]]`.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan args)
+                {
+                    params.blacklisted_entities.Insert(std::string(args.front()));
+                },
+            });
+
+            args_parser.AddFlag("--allow", {
+                .allow_repeat = true,
+                .arg_names = {"T"},
+                .desc = "Unban a subentity of something that was banned with `--ignore`. Same syntax.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan args)
+                {
+                    params.whitelisted_entities.Insert(std::string(args.front()));
+                },
+            });
+
+            args_parser.AddFlag("--skip-mentions-of", {
+                .allow_repeat = true,
+                .arg_names = {"T"},
+                .desc = "Skip any data members and bases of type `T`, and any functions that have type `T` either as the return type or as a parameter type. `T` must be cvref-unqualified, as those qualifiers are ignored automatically (unless `--no-cppdecl` is passed). Like in `--ignore`, the type can be enclosed in slashes to act as a regex. You might want to pass the same type to `--ignore` too. Unlike in `--ignore`, the template arguments can't be omitted, but a regex can be used to handle those.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan args)
+                {
+                    params.blacklisted_mentioned_types.Insert(std::string(args.front()));
+                },
+            });
+
+            args_parser.AddFlag("--canonicalize-to-fixed-size-typedefs", {
+                .desc = "This helps produce cross-platform bindings. Canonicalize integer types to the standard fixed-width typedefs, instead of their normal spellings. If you use this, you shouldn't use `long` and `long long` directly in the interface, and should only use 64-bit wide standard typedefs in their place. Because otherwise you will get conflicts between different types of the same width (we refuse to canonicalize either `long` or `long long` depending on the platform to avoid errors). Additionally, to get sane results on Mac, the only 64-bit wide standard typedefs you can use are `[u]int64_t` (or alternatively enable `--canonicalize-size_t-to-uint64_t` and use `size_t` and `ptrdiff_t`, but then you must avoid `[u]int64_t.)",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.canonicalize_to_fixed_size_typedefs = true;
+                },
+            });
+
+            args_parser.AddFlag("--canonicalize-64-to-fixed-size-typedefs", {
+                .desc = "A subset of `--canonicalize-to-fixed-size-typedefs` that only acts on 64-bit wide types. Note that it only acts on either `[unsigned] long` or `[unsigned] long long` depending on the platform, depending on which one corresponds to the `[u]int64_t` typedef.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.canonicalize_64_to_fixed_size_typedefs = true;
+                },
+            });
+
+            args_parser.AddFlag("--canonicalize-size_t-to-uint64_t", {
+                .desc = "This only has effect if `--canonicalize-[int64-]to-fixed-size-typedefs` is set (at least one of the two), and only if we're targeting Mac. On Mac, `uint64_t` and `size_t` are different types (`unsigned long long` and `unsigned long` respectively), for some unknown reason. If this is enabled, instead of canonicalizing `unsigned long` to `uint64_t`, we canonicalize `unsigned long long` to `uint64_t`. This allows you to use `size_t` and `ptrdiff_t` in the public interface, but means that you can no longer use the standard `[u]int64_t` typedefs in the interface.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.only_canonicalize_size_t_to_uint64_t = true;
+                },
+            });
+
+            args_parser.AddFlag("--implicit-enum-underlying-type-is-always-int", {
+                .desc = "This helps produce cross-platform bindings. On Windows enums already seem to default to `int` in all cases, but on Linux they can default to `unsigned int` if all constants are non-negative. If this flag is specified, we instead pretend they default to `int` on all platforms.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.implicit_enum_underlying_type_is_always_int = true;
+                },
+            });
+
+            args_parser.AddFlag("--copy-inherited-members", {
+                .desc = "Copy the inherited members from base classes into the derived classes. This only makes sense for certain output languages that don't do this automatically. This doesn't affect constructors, or any members explicitly imported via `using`, as those are always copied.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.copy_inherited_members = true;
+                },
+            });
+
+            args_parser.AddFlag("--buggy-substitute-default-template-args", {
+                .desc = "Automatically instantiate function templates that have all their arguments defaulted, by substituting those default template arguments. This is currently buggy, enable at your own risk (chokes on old-style SFINAE, works alright with `requires`).",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.buggy_substitute_default_template_args = true;
+                },
+            });
+
+            args_parser.AddFlag("--no-infer-lifetime-iterators", {
+                .desc = "Disable the automatic lifetime annotation inference free and member functions named `begin()`, `end()`, as if `[[clang::lifetimebound]]` was used on their parameters. Similarly for unary `operator*`, which is assumed to peform iterator dereferencing. Those annotations are used by some backends to automatically extend object lifetimes to avoid dangling.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.infer_lifetime_iterators = false;
+                },
+            });
+
+            args_parser.AddFlag("--infer-lifetime-constructors", {
+                .desc = "Infer lifetime annotations for any non-copy/move constructors from pointers and references, as if `[[clang::lifetimebound]]` was used on their parameters. Those annotations are used by some backends to automatically extend object lifetimes to avoid dangling.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.infer_lifetime_custom_ctors = true;
+                },
+            });
+
+            args_parser.AddFlag("--adjust-comments", {
+                .allow_repeat = true,
+                .arg_names = {"s/A/B/g"},
+                .desc = "Adjusts all parsed comments with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules. We separately record the comments with and without leading slashes, and this is applied to both forms, so it should correctly handle both, and shouldn't remove the leading slashes, at least not without replacing them with some other form of a comment.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan args)
+                {
+                    params.parsed_comments_adjuster.AddRule(args.front());
+                },
+            });
+
+            args_parser.AddFlag("--combine-types", {
+                .arg_names = {"..."},
+                .desc =
+                    "Currently only makes sense with `--format=macros`, and only affects the Python backend. Merges type registration information for certain types. This can improve the build times, but depends on the target backend. "
+                    "`...` is a comma-separated list of: `cv`, `ref` (includess both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).",
+                .func = [&](mrbind::CommandLineParser::ArgSpan args)
+                {
+                    params.adjust_type_name_flags = mrbind::ParseAdjustTypeNameFlags(args.front());
+                },
+            });
+
+            args_parser.AddFlag("--no-cppdecl", {
+                .arg_names = {"..."},
+                .desc = "Do not attempt to postprocess the type names using our `cppdecl` library. There's typically no reason to, unless the library ends up being bugged. This will break most non-trivial usecases though.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.enable_cppdecl_processing = false;
+                },
+            });
+
+            args_parser.AddFlag("--dump-command", {
+                .arg_names = {"output.txt"},
+                .desc = "Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline. This is useful for extracting commands from a `compile_commands.json`.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan args)
+                {
+                    dump_command_to_file = args.front();
+                    dump_command_with_null_separators = false;
+                },
+            });
+
+            args_parser.AddFlag("--dump-command0", {
+                .arg_names = {"output.txt"},
+                .desc = "Same, but separate the arguments with zero bytes instead of newlines.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan args)
+                {
+                    dump_command_to_file = args.front();
+                    dump_command_with_null_separators = true;
+                },
+            });
+
+            args_parser.AddFlag("--ignore-pch-flags", {
+                .desc = "Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different compiler.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    remove_pch_flags = true;
+                },
+            });
         }
 
-        if (modified_argc < argc)
-            argv[modified_argc] = nullptr;
-        argc = modified_argc;
+        args_parser.Parse(argc, argv);
 
-        // Adjust the options:
+
+        // Adjust the options a bit:
 
         if (params.output_filenames.empty())
             params.output_filenames.push_back("-");
     }
 
     llvm::cl::OptionCategory options_category("Standard Clang tooling options");
-    auto option_parser_ex = clang::tooling::CommonOptionsParser::create(argc, const_cast<const char **>(argv), options_category, llvm::cl::OneOrMore,
-        "\n"
-        "\n"
-        "Usage:\n"
-        "  mrbind [mrbind_flags]\n"
-        "  mrbind [mrbind_flags] -- [clang_flags]\n"
-        "\n"
-        "`[clang_flags]` are the usual compiler flags. They can be empty, which isn't the same thing as omitting `--` entirely.\n"
-        "If no `--` is passed, the compiler flags are guessed from a `compile_commands.json`.\n"
-        "\n"
-        "`[mrbind_flags]` are following:\n"
-        "  -o output.cpp               - Redirect the output to a file. Specifying this flag multiple times multiplexes the output between several files which can be compiled in parallel, or sequentally for a lower RAM usage.\n"
-        "  --format=...                - The output format, either `json` or `macros`.\n"
-        "  --ignore T                  - Don't emit bindings for a specific entity. "
-                                         "Use the flag several times to ban several entities. "
-                                         "Use a fully qualified name. The final template arguments can be omitted, then any arguments match. "
-                                         "Use `::` to reject the global namespace. "
-                                         "Enclose in slashes to match a regex. "
-                                         "Also note that you can annotate declarations that you want to ignore with `[[clang::annotate(\"mrbind::ignore\")]]`.\n"
-        "  --allow T                   - Unban a subentity of something that was banned with `--ignore`. Same syntax.\n"
-        "  --skip-mentions-of T        - Skip any data members and bases of type `T`, and any functions that have type `T` either as the return type or as a parameter type. `T` must be cvref-unqualified, as those qualifiers are ignored automatically (unless `--no-cppdecl` is passed). Like in `--ignore`, the type can be enclosed in slashes to act as a regex. You might want to pass the same type to `--ignore` too. Unlike in `--ignore`, the template arguments can't be omitted, but a regex can be used to handle those.\n"
-        "  --canonicalize-to-fixed-size-typedefs - This helps produce cross-platform bindings. Canonicalize integer types to the standard fixed-width typedefs, instead of their normal spellings. If you use this, you shouldn't use `long` and `long long` directly in the interface, and should only use 64-bit wide standard typedefs in their place. Because otherwise you will get conflicts between different types of the same width (we refuse to canonicalize either `long` or `long long` depending on the platform to avoid errors). Additionally, to get sane results on Mac, the only 64-bit wide standard typedefs you can use are `[u]int64_t` (or alternatively enable `--canonicalize-size_t-to-uint64_t` and use `size_t` and `ptrdiff_t`, but then you must avoid `[u]int64_t.)\n"
-        "  --canonicalize-64-to-fixed-size-typedefs - A subset of `--canonicalize-to-fixed-size-typedefs` that only acts on 64-bit wide types. Note that it only acts on either `[unsigned] long` or `[unsigned] long long` depending on the platform, depending on which one corresponds to the `[u]int64_t` typedef.\n"
-        "  --canonicalize-size_t-to-uint64_t - This only has effect if `--canonicalize-[int64-]to-fixed-size-typedefs` is set (at least one of the two), and only if we're targeting Mac. On Mac, `uint64_t` and `size_t` are different types (`unsigned long long` and `unsigned long` respectively), for some unknown reason. If this is enabled, instead of canonicalizing `unsigned long` to `uint64_t`, we canonicalize `unsigned long long` to `uint64_t`. This allows you to use `size_t` and `ptrdiff_t` in the public interface, but means that you can no longer use the standard `[u]int64_t` typedefs in the interface.\n"
-        "  --implicit-enum-underlying-type-is-always-int - This helps produce cross-platform bindings. On Windows enums already seem to default to `int` in all cases, but on Linux they can default to `unsigned int` if all constants are non-negative. If this flag is specified, we instead pretend they default to `int` on all platforms.\n"
-        "  --copy-inherited-members    - Copy the inherited members from base classes into the derived classes. This only makes sense for certain output languages that don't do this automatically. This doesn't affect constructors, or any members explicitly imported via `using`, as those are always copied.\n"
-        "  --buggy-substitute-default-template-args - Automatically instantiate function templates that have all their arguments defaulted, by substituting those default template arguments. This is currently buggy, enable at your own risk (chokes on old-style SFINAE, works alright with `requires`).\n"
-        "  --infer-lifetime-iterators  - Infer lifetime annotations for any free and member functions named `begin()`, `end()`, as if `[[clang::lifetimebound]]` was used on their parameters. Similarly for unary `operator*`, which is assumed to peform iterator dereferencing. Those annotations are used by some backends to automatically extend object lifetimes to avoid dangling.\n"
-        "  --infer-lifetime-constructors      - Infer lifetime annotations for any non-copy/move constructors from pointers and references, as if `[[clang::lifetimebound]]` was used on their parameters. Those annotations are used by some backends to automatically extend object lifetimes to avoid dangling.\n"
-        "  --adjust-comments s/A/B/g   - Adjusts all parsed comments with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules. We separately record the comments with and without leading slashes, and this is applied to both forms, so it should correctly handle both, and shouldn't remove the leading slashes, at least not without replacing them with some other form of a comment.\n"
-        "  --combine-types=...         - Merge type registration info for certain types. This can improve the build times, but depends on the target backend. "
-                                         "`...` is a comma-separated list of: `cv`, `ref` (both lvalue and rvalue references), `ptr` (includes cv-qualified pointers), and `smart_ptr` (both `std::unique_ptr` and `std::shared_ptr`).\n"
-        "  --no-cppdecl                - Do not attempt to postprocess the type names using our cppdecl library. There's typically no reason to, unless the library ends up being bugged. This will break most non-trivial usecases though.\n"
-        "  --dump-command output.txt   - Dump the resulting compilation command to the specified file, one argument per line. The first argument is always the compiler name, and there's no trailing newline. This is useful for extracting commands from a `compile_commands.json`.\n"
-        "  --dump-command0 output.txt  - Same, but separate the arguments with zero bytes instead of newlines.\n"
-        "  --ignore-pch-flags          - Try to ignore PCH inclusion flags mentioned in the `compile_commands.json`. This is useful if the PCH was generated using a different compiler.\n"
-    );
+    int clang_argc = int(clang_argv.size());
+    clang_argv.push_back(nullptr); // This is the convention.
+    auto option_parser_ex = clang::tooling::CommonOptionsParser::create(clang_argc, clang_argv.data(), options_category);
     if (!option_parser_ex)
     {
         llvm::errs() << option_parser_ex.takeError();

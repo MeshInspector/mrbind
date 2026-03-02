@@ -4,7 +4,7 @@
 
 namespace mrbind
 {
-    void ParsedFileToJson(const ParsedFile &file, std::ofstream &out)
+    void ParsedFileToJson(const ParsedFile &file, std::ostream &out)
     {
         JsonWriter json;
         json.out = &out;

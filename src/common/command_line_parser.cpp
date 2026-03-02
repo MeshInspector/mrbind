@@ -24,8 +24,17 @@ namespace mrbind
 
         std::unordered_set<const Flag *> once_args;
 
+        bool skipping_flags = false;
+
         while (*argv)
         {
+            if (skipping_flags)
+            {
+                skipping_flags = on_unknown_flag(*argv++);
+                continue;
+            }
+
+            // We rely on this being null-terminated in at least one place below.
             std::string_view flag = *argv++;
 
             std::vector<std::string_view> flag_args;
@@ -36,7 +45,7 @@ namespace mrbind
                 flag = flag.substr(0, sep);
             }
 
-            if (flag == "--help")
+            if (enable_help_flag && flag == "--help")
             {
                 if (!flag_args.empty())
                     throw std::runtime_error("Flag `--help` takes no arguments.");
@@ -62,18 +71,29 @@ namespace mrbind
                         max_size = new_str.size();
                 }
 
-                std::puts("Flags:");
+                std::printf("%s", help_banner.c_str());
 
                 std::printf("  %-*s  - Shows this page.\n", (int)max_size, "--help");
                 for (std::size_t i = 0; i < flags.Vec().size(); i++)
                     std::printf("  %-*s  - %s\n", (int)max_size, flags_with_args[i].c_str(), flags.Map().at(flags.Vec()[i]).desc.c_str());
 
-                std::exit(0);
+                if (exit_after_printing_help)
+                    std::exit(0);
             }
 
             auto iter = flags.Map().find(flag);
             if (iter == flags.Map().end())
-                throw std::runtime_error("No such flag: `" + std::string(flag) + "`, try `--help`.");
+            {
+                if (on_unknown_flag)
+                {
+                    skipping_flags = on_unknown_flag(flag.data()); // `flag` is always null-terminated anyway.
+                    continue;
+                }
+                else
+                {
+                    throw std::runtime_error("No such flag: `" + std::string(flag) + "`, try `--help`.");
+                }
+            }
 
             if (!iter->second.allow_repeat && !once_args.insert(&iter->second).second)
                 throw std::runtime_error("Flag `" + std::string(flag) + "` can be used at most once.");

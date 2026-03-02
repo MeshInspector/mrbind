@@ -25,7 +25,7 @@ namespace mrbind
 
     struct JsonWriter
     {
-        std::ofstream *out = nullptr;
+        std::ostream *out = nullptr;
 
         int indentation = 0;
         bool indentation_needed = false;

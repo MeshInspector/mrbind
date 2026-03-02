@@ -1,6 +1,6 @@
 # Generating Python bindings
 
-We generate Python bindings using [Pybind11](https://github.com/pybind/pybind11). You can try using the latest version of it; or, at the time of writing this, the commit [`741d86f`](https://github.com/pybind/pybind11/commit/741d86f2e3527b667ba85d273a5eea19a0978ef5) is known to work.
+We generate Python bindings using [Pybind11](https://github.com/pybind/pybind11). You can try using the latest version of it; or, at the time of writing this, the commit [`741d86f`](https://github.com/pybind/pybind11/commit/741d86f2e3527b667ba85d273a5eea19a0978ef5) is known to work. (Note that latest Pybind has a [bug](https://github.com/pybind/pybind11/issues/5976) that makes it crash when exiting Python when binding enums, consider using [this commit](https://github.com/pybind/pybind11/commit/15d9dae14b148509f3e1e7a42d5b1260fffff3ad) or older.)
 
 You're expected to have a basic understanding of how to work with Pybind. I recommend going through [the basic Pybind tutorial](https://pybind11.readthedocs.io/en/stable/basics.html), compiling at least one test module, and making sure you can import it in Python.
 
@@ -9,6 +9,8 @@ Python modules are shared libraries (sometimes with a customized extension, typi
 Pybind is a header-only library, so you'll need to clone it and add it to your include paths. You also need some [platform-dependent linker flags](https://pybind11.readthedocs.io/en/stable/compiling.html#building-manually). On Windows, you must link `pythonXY.lib`. On Linux, you don't link anything (and rely on the default behavior of not checking for undefined references when building shared libraries). On Mac, you don't link anything and additionally pass `-Xlinker -undefined -Xlinker dynamic_lookup`.
 
 Modules generated with Pybind need to be recompiled on every OS, for every minor Python version (X.Y, e.g. 3.13) that you want to support. We have a [Pybind fork](https://github.com/MeshInspector/mrbind-pybind11) that produces Python-version-agnostic modules, but I suggest getting the upstream version to work first, and then thinking about portability.
+
+On Windows, the modules must be built using MSVC or Clang in MSVC-compatible mode (we only support the latter), the ones built with MinGW will not work with the official Python releases.
 
 ## The basic idea
 
@@ -29,9 +31,11 @@ But much more complex.
 
 Then for each target language using this format (currently only Python), we have a header that defines `MB_FUNC()` and other macros (in the case of Python they expand to Pybind calls). `MRBIND_HEADER` needs to be defined to the name of that header.
 
+It seemed like a good idea at the time. (c)
+
 ## The build process
 
-[Previously](/docs/running_parser.md) the parser output format was set to JSON for testing (`--format=json`), but the Python backend requires a different format, `--format=macros`. This generates a `.cpp` file. (See above for more info.)
+[Previously](/docs/running_parser.md) the parser output format was set to JSON for testing (`-o parse_result.json`), but the Python backend requires a different format, `--format=macros`. This generates a `.cpp` file. (See above for more info.)
 
 Then you compile this file. Only the Clang compiler is supported, the same version that you used to compile MRBind (the generated code has some complex templating that other compilers may or may not choke on).
 
@@ -46,6 +50,8 @@ Compile with the following flags:
 * `-I.` — We're adding the current directory to the include search path, because at one point we need to do `#include __FILE__`. This becomes optional if you pass an absolute path to the source file to the compiler.
 
 * `-DMRBIND_HEADER='<mrbind/targets/pybind11.h>'` (Use the approproate quotes for your shell, `'...'` in Bash.)
+
+* `-Ipath/to/mrbind/include` to find the above file, where `path/to/mrbind` is a path to this repository.
 
 * `-DMB_PB11_MODULE_NAME=MyModule` — Set this to your module name. This should match the filename of the compiled module, minus the extension.
 

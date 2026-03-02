@@ -225,6 +225,12 @@ In particular, you need to annotate all custom containers:
 
 ## Inferring annotations
 
+In some cases, we're able to guess the intent from the code:
+
+* The reference returned from a copy or move assignment operator is assumed to refer to `this`.
+
+* Functions named `begin()`, `end()`, and `operator*` are assumed to have their usual iterator-related meaning (this can be disabled with `--no-infer-lifetime-iterators`).
+
 When mrbind generates custom bindings for something, it's mrbind's responsibility to automatically provide the annotations for it. E.g.:
 
 * When generating the bindings for standard containers.
@@ -233,9 +239,7 @@ When mrbind generates custom bindings for something, it's mrbind's responsibilit
 
 In some cases, you can tell the parser to guess the annotations, if you don't feel like spelling them manually.
 
-* `--infer-lifetime-iterators` for `begin()`, `end()`, and unary `operator*`. You should always use this flag, there's no reason to avoid it. We might enable it by default at some point.
-
-* `--infer-lifetime-constructors` for all constructors other than copy/move constructors. This adds `[[clang::lifetimebound]]` to every parameter of those constructors.
+* `--infer-lifetime-constructors` for all constructors other than the copy/move constructors. This adds `[[clang::lifetimebound]]` to every parameter of those constructors.
 
   This assumes that the constructor might store a reference to the parameter in the resulting class instance. While not always the case, the worst that can happen is an increased memory usage.
 

@@ -29,7 +29,23 @@ namespace mrbind
             std::function<void(ArgSpan args)> func;
         };
 
+        // You probably shouldn't touch this manually, prefer `AddFlag()`.
         OrderedMap<std::string, Flag> flags;
+
+        // If false, ignore `--help`.
+        bool enable_help_flag = true;
+
+        // If true, exit the application after printing the `--help` message.
+        bool exit_after_printing_help = true;
+
+        // This is printed before the list of flags in response to `--help`.
+        // You can assign something else to this. This should end with a newline.
+        std::string help_banner = "Flags:\n";
+
+        // If set, this is called when receiving an unknown flag, instead of throwing an exception.
+        // If this returns true, all remaining false are considered unknown and go straight to this function (until it returns false again, then the flags starting from the next one will continue to be parsed).
+        std::function<bool(const char *)> on_unknown_flag = nullptr;
+
 
         CommandLineParser();
 

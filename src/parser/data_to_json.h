@@ -5,5 +5,5 @@
 namespace mrbind
 {
     struct ParsedFile;
-    void ParsedFileToJson(const ParsedFile &file, std::ofstream &out);
+    void ParsedFileToJson(const ParsedFile &file, std::ostream &out);
 }

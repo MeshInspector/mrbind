@@ -22,13 +22,13 @@ mrbind <mrbind_flags> -- <clang_flags>
 
 `<mrbind_flags>` are our own flags (see `--help` for the full list), and `<clang_flags>` are the normal Clang/GCC-style compiler flags (for include directories, defines, etc).
 
-**`<mrbind_flags>`** should be at least following: `YourHeader.h -o parse_result.json --format=json --ignore :: --allow YourNamespace`. Some additional flags might be needed here depending on the target language, more on that in language-specific docs.
+**`<mrbind_flags>`** should be at least following: `YourHeader.h -o parse_result.json --ignore :: --allow YourNamespace`. Some additional flags might be needed here depending on the target language, more on that in language-specific docs.
 
 Notice `--ignore :: --allow YourNamespace`, which limits the parser output to your namespace (replace `YourNamespace` with your library's namespace name).
 
 It's intentional that we filter out `namespace std`, parsing the standard library contents is not supported. You can of course include standard headers, and use standard types in your interface. The point is that standard types have custom handwritten bindings instead of parsed ones.
 
-You can additionally `--ignore` more namespaces here, such as `--ignore YourLibrary::detail`. If your library adds entities to the global namespace, you'll have to individually bless every function/class/etc with `--allow` (note that it accepts regexes: `--allow '/MyLib_.*/'`; replace `'...'` with appropriate escapement for your shell, it's not a part of the syntax).
+You can additionally `--ignore` more namespaces here, such as `--ignore YourLibrary::detail`. If your library adds entities to the global namespace, you'll have to individually bless every function/class/etc with `--allow` (note that it accepts regexes: `--allow '/MyLib_.*/'`; replace `'...'` with an appropriate escape for your shell, it's not a part of the syntax).
 
 **`<clang_flags>`** is where you put `-I`, `-D`, `-std=c++??`, etc. Other useful flags that can be added here are:
 
@@ -40,9 +40,9 @@ You can additionally `--ignore` more namespaces here, such as `--ignore YourLibr
 Notice that omitting `--` (and the subsequent flags) altogether will make Clang extract the flags from `compile_commands.json` if available. So `--` with nothing after it isn't the same thing as omitting it entirely. I recommend not omitting `--` and spelling out the flags manually.
 
 **So a complete command line could look like this:**<br/>
-`mrbind YourHeader.h -o parse_result.json --format=json --ignore :: --allow YourNamespace -- -xc++-header -resource-dir="$(clang -print-resource-dir)" -fparse-all-comments`
+`mrbind YourHeader.h -o parse_result.json --ignore :: --allow YourNamespace -- -xc++-header -resource-dir="$(clang -print-resource-dir)" -fparse-all-comments`
 
-Note that `clang` that you call `-print-resource-dir` on must match the libclang you used when compiling MRBind. So e.g. on Ubuntu this would be `clang-21 -print-resource-dir` (or whatever version you used).
+Note that the `clang` executable you called `-print-resource-dir` on must match the libclang you used when compiling MRBind. So e.g. on Ubuntu this would be `clang-22 -print-resource-dir` (or whatever version you used).
 
 On Windows, if using Clang from MSYS2, add the extra flags mentioned above.
 
