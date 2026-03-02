@@ -8,6 +8,8 @@
 #pragma GCC diagnostic pop
 #endif
 
+#include "main.h"
+
 #include "common/filesystem.h"
 #include "common/parsed_data.h"
 #include "common/set_error_handlers.h"
@@ -3015,445 +3017,419 @@ namespace mrbind
         }
     };
 
-    struct ClangAstConsumer : clang::ASTConsumer
+    ClangAstConsumer::ClangAstConsumer(std::string input_filename, clang::CompilerInstance &ci, const VisitorParams &params)
+        : input_filename(std::move(input_filename)), ci(&ci), params(&params)
+    {}
+
+    void ClangAstConsumer::HandleTranslationUnit(clang::ASTContext &ctx)
     {
-        std::string input_filename;
-        clang::CompilerInstance *ci = nullptr;
-        const VisitorParams *params = nullptr;
+        if (params->output_format == OutputFormat::unselected)
+            throw std::runtime_error("Must select the output format using `--format=...`, see `--help`.");
 
-        explicit ClangAstConsumer(std::string input_filename, clang::CompilerInstance &ci, const VisitorParams &params)
-            : input_filename(std::move(input_filename)), ci(&ci), params(&params)
-        {}
+        params->parsed_result.original_file = input_filename;
 
-        void HandleTranslationUnit(clang::ASTContext &ctx) override
+        { // Dump the headers from the .cpp file.
+            llvm::raw_string_ostream ss(params->parsed_result.impl_file_preprocessor_directives);
+
+            params->parsed_result.guessed_impl_file = PpDirDumper::GuessImplementationFileName(input_filename);
+            PpDirDumper::DumpResult result = PpDirDumper::DumpPreprocessorDirectivesFromFile(params->parsed_result.guessed_impl_file, ss);
+            switch (result)
+            {
+              case PpDirDumper::DumpResult::ok:
+                // Nothing.
+                break;
+              case PpDirDumper::DumpResult::filename_not_specified:
+                ss << "// Unable to guess the implementation file name from the input file name.\n";
+                break;
+              case PpDirDumper::DumpResult::no_such_file:
+                ss << "// Implementation file doesn't exist: " << params->parsed_result.guessed_impl_file << '\n';
+                break;
+              case PpDirDumper::DumpResult::no_pp_directives:
+                ss << "// Implementation file doesn't contain preprocessing directives: " << params->parsed_result.guessed_impl_file << '\n';
+                break;
+            }
+        }
+
+        params->rejected_namespace_stack.push_back(params->blacklisted_entities.Contains("::"));
+
+        auto VerifyStacks = [&]
         {
-            if (params->output_format == OutputFormat::unselected)
-                throw std::runtime_error("Must select the output format using `--format=...`, see `--help`.");
+            if (params->rejected_namespace_stack.size() != 1)
+                throw std::logic_error("Internal error: The visitor didn't clean the namespace stack after itself.");
+            if (!params->nonrejected_class_stack.empty())
+                throw std::logic_error("Internal error: The visitor didn't clean the class stack after itself.");
+        };
+        VerifyStacks();
 
-            params->parsed_result.original_file = input_filename;
-
-            { // Dump the headers from the .cpp file.
-                llvm::raw_string_ostream ss(params->parsed_result.impl_file_preprocessor_directives);
-
-                params->parsed_result.guessed_impl_file = PpDirDumper::GuessImplementationFileName(input_filename);
-                PpDirDumper::DumpResult result = PpDirDumper::DumpPreprocessorDirectivesFromFile(params->parsed_result.guessed_impl_file, ss);
-                switch (result)
-                {
-                  case PpDirDumper::DumpResult::ok:
-                    // Nothing.
-                    break;
-                  case PpDirDumper::DumpResult::filename_not_specified:
-                    ss << "// Unable to guess the implementation file name from the input file name.\n";
-                    break;
-                  case PpDirDumper::DumpResult::no_such_file:
-                    ss << "// Implementation file doesn't exist: " << params->parsed_result.guessed_impl_file << '\n';
-                    break;
-                  case PpDirDumper::DumpResult::no_pp_directives:
-                    ss << "// Implementation file doesn't contain preprocessing directives: " << params->parsed_result.guessed_impl_file << '\n';
-                    break;
-                }
-            }
-
-            params->rejected_namespace_stack.push_back(params->blacklisted_entities.Contains("::"));
-
-            auto VerifyStacks = [&]
-            {
-                if (params->rejected_namespace_stack.size() != 1)
-                    throw std::logic_error("Internal error: The visitor didn't clean the namespace stack after itself.");
-                if (!params->nonrejected_class_stack.empty())
-                    throw std::logic_error("Internal error: The visitor didn't clean the class stack after itself.");
-            };
-            VerifyStacks();
-
-            { // Collect the initial set of target types.
-                ClangAstVisitor_CollectKnownTypes vis(ctx, *ci, *params);
-                vis.TraverseDecl(ctx.getTranslationUnitDecl());
-                VerifyStacks();
-
-                // Once we're done fiilling the preferred names map, we can enable this.
-                params->canonincalization_respects_custom_preferred_names = true;
-            }
-
-            // Instantiate templates.
-            for (int i = 0;; i++)
-            {
-                if (i == 1000)
-                    throw std::runtime_error("Too many template instantiation iterations!");
-
-                ClangAstVisitor_InstTypesAndCollectNewTypes vis(ctx, *ci, *params);
-                vis.TraverseDecl(ctx.getTranslationUnitDecl());
-                VerifyStacks();
-                if (!vis.need_another_iteration)
-                {
-                    if (i > 1)
-                        llvm::errs() << "mrbind: Used " << i+1 << " iterations to instantiate all templates.\n";
-                    break;
-                }
-            }
-
-            // Gather the bulk of the information.
-
-            ClangAstVisitor_Final vis(ctx, *ci, *params);
+        { // Collect the initial set of target types.
+            ClangAstVisitor_CollectKnownTypes vis(ctx, *ci, *params);
             vis.TraverseDecl(ctx.getTranslationUnitDecl());
             VerifyStacks();
 
-            params->rejected_namespace_stack.pop_back();
+            // Once we're done fiilling the preferred names map, we can enable this.
+            params->canonincalization_respects_custom_preferred_names = true;
+        }
 
-            // Optionally copy the inherited members into the derived classes.
-            // We need to do it here, before sorting the members.
-            if (params->copy_inherited_members)
-                CopyInheritedMembers(params->parsed_result);
+        // Instantiate templates.
+        for (int i = 0;; i++)
+        {
+            if (i == 1000)
+                throw std::runtime_error("Too many template instantiation iterations!");
 
-            // Sort the class members.
-            // We sometimes seem to get a different order of the implicit members on different platforms.
-            // We could make the sorting optional and put it behind a flag, but for now I don't see a reason why one would want to disable it.
+            ClangAstVisitor_InstTypesAndCollectNewTypes vis(ctx, *ci, *params);
+            vis.TraverseDecl(ctx.getTranslationUnitDecl());
+            VerifyStacks();
+            if (!vis.need_another_iteration)
             {
-                auto SortContainer = [](auto &lambda, EntityContainer &cont) -> void
+                if (i > 1)
+                    llvm::errs() << "mrbind: Used " << i+1 << " iterations to instantiate all templates.\n";
+                break;
+            }
+        }
+
+        // Gather the bulk of the information.
+
+        ClangAstVisitor_Final vis(ctx, *ci, *params);
+        vis.TraverseDecl(ctx.getTranslationUnitDecl());
+        VerifyStacks();
+
+        params->rejected_namespace_stack.pop_back();
+
+        // Optionally copy the inherited members into the derived classes.
+        // We need to do it here, before sorting the members.
+        if (params->copy_inherited_members)
+            CopyInheritedMembers(params->parsed_result);
+
+        // Sort the class members.
+        // We sometimes seem to get a different order of the implicit members on different platforms.
+        // We could make the sorting optional and put it behind a flag, but for now I don't see a reason why one would want to disable it.
+        {
+            auto SortContainer = [](auto &lambda, EntityContainer &cont) -> void
+            {
+                if (ClassEntity *cl = dynamic_cast<ClassEntity *>(&cont))
                 {
-                    if (ClassEntity *cl = dynamic_cast<ClassEntity *>(&cont))
-                    {
-                        // Using stable sorting!
-                        // The entire point of this is to get something stable across platforms, so the sorting has to be stable as well.
-                        std::stable_sort(
-                            cl->members.begin(),
-                            cl->members.end(),
-                            [](const ClassMemberVariant &a, const ClassMemberVariant &b)
+                    // Using stable sorting!
+                    // The entire point of this is to get something stable across platforms, so the sorting has to be stable as well.
+                    std::stable_sort(
+                        cl->members.begin(),
+                        cl->members.end(),
+                        [](const ClassMemberVariant &a, const ClassMemberVariant &b)
+                        {
+                            // Our only goal here is to sort the special member functions, since those seem to be the only things that are emitted
+                            //   in a platform-dependent order.
+                            // But to get to those, we first do some additional sorting just in case.
+
+                            // First sort by type.
+                            if (auto d = std::ptrdiff_t(a.index()) - std::ptrdiff_t(b.index()))
+                                return d < 0;
+
+                            // Sort constructors by their special kind.
+                            if (auto a_elem = std::get_if<ClassCtor>(&a))
                             {
-                                // Our only goal here is to sort the special member functions, since those seem to be the only things that are emitted
-                                //   in a platform-dependent order.
-                                // But to get to those, we first do some additional sorting just in case.
+                                const auto &b_elem = std::get<ClassCtor>(b);
 
-                                // First sort by type.
-                                if (auto d = std::ptrdiff_t(a.index()) - std::ptrdiff_t(b.index()))
-                                    return d < 0;
+                                // A true default constructor goes first. (As opposed to those with default arguments.)
+                                if (auto d = (a_elem->params.size() == 0) - (b_elem.params.size() == 0))
+                                    return d > 0;
 
-                                // Sort constructors by their special kind.
-                                if (auto a_elem = std::get_if<ClassCtor>(&a))
-                                {
-                                    const auto &b_elem = std::get<ClassCtor>(b);
+                                // Then any "untrue" default constructors with default arguments.
+                                if (auto d = a_elem->IsCallableWithNumArgs(0) - b_elem.IsCallableWithNumArgs(0))
+                                    return d > 0;
 
-                                    // A true default constructor goes first. (As opposed to those with default arguments.)
-                                    if (auto d = (a_elem->params.size() == 0) - (b_elem.params.size() == 0))
-                                        return d > 0;
+                                // Copy constructors?
+                                if (auto d = (a_elem->kind == CopyMoveKind::copy) - (b_elem.kind == CopyMoveKind::copy))
+                                    return d > 0;
 
-                                    // Then any "untrue" default constructors with default arguments.
-                                    if (auto d = a_elem->IsCallableWithNumArgs(0) - b_elem.IsCallableWithNumArgs(0))
-                                        return d > 0;
-
-                                    // Copy constructors?
-                                    if (auto d = (a_elem->kind == CopyMoveKind::copy) - (b_elem.kind == CopyMoveKind::copy))
-                                        return d > 0;
-
-                                    // Move constructors?
-                                    if (auto d = (a_elem->kind == CopyMoveKind::move) - (b_elem.kind == CopyMoveKind::move))
-                                        return d > 0;
-                                }
-                                // Sort assignment operators before other member functions.
-                                if (auto a_elem = std::get_if<ClassMethod>(&a))
-                                {
-                                    const auto &b_elem = std::get<ClassMethod>(b);
-
-                                    // Copy assignment?
-                                    if (auto d = (a_elem->assignment_kind == CopyMoveKind::copy) - (b_elem.assignment_kind == CopyMoveKind::copy))
-                                        return d > 0;
-
-                                    // Move assignment?
-                                    if (auto d = (a_elem->assignment_kind == CopyMoveKind::move) - (b_elem.assignment_kind == CopyMoveKind::move))
-                                        return d > 0;
-
-                                    // By-value assignment?
-                                    if (auto d = (a_elem->assignment_kind == CopyMoveKind::by_value_assignment) - (b_elem.assignment_kind == CopyMoveKind::by_value_assignment))
-                                        return d > 0;
-                                }
-
-                                return false; // Whatever;
+                                // Move constructors?
+                                if (auto d = (a_elem->kind == CopyMoveKind::move) - (b_elem.kind == CopyMoveKind::move))
+                                    return d > 0;
                             }
-                        );
-                    }
-
-                    // Recurse.
-                    for (auto &elem : cont.nested)
-                    {
-                        std::visit(
-                            [&]<typename T>(T &typed_elem)
+                            // Sort assignment operators before other member functions.
+                            if (auto a_elem = std::get_if<ClassMethod>(&a))
                             {
-                                if constexpr (std::is_base_of_v<EntityContainer, T>)
-                                    lambda(lambda, typed_elem);
-                            },
-                            *elem.variant
-                        );
+                                const auto &b_elem = std::get<ClassMethod>(b);
 
-                    }
-                };
-                SortContainer(SortContainer, params->parsed_result.entities);
-            }
+                                // Copy assignment?
+                                if (auto d = (a_elem->assignment_kind == CopyMoveKind::copy) - (b_elem.assignment_kind == CopyMoveKind::copy))
+                                    return d > 0;
 
-            { // Remove identities from the "alt type spellings".
-                // We intentionally don't remove the empty lists after erasure, because we use this map to know all types we need to bind.
-                for (auto &inner : params->parsed_result.type_info)
-                {
-                    for (auto &[type, info] : inner.second)
-                        info.alt_spellings.erase(type);
-                }
-            }
+                                // Move assignment?
+                                if (auto d = (a_elem->assignment_kind == CopyMoveKind::move) - (b_elem.assignment_kind == CopyMoveKind::move))
+                                    return d > 0;
 
-            { // Remove the spellings with the `poisoned` bool set.
-                // I intentionally don't remove the empty lists after erasure, but I'm not sure if can even in this case at all.
-                // And if it can, not sure if the empty lists should be erased or not.
-                for (auto &inner : params->parsed_result.type_info)
-                {
-                    for (auto &info : inner.second)
-                    {
-                        std::erase_if(info.second.alt_spellings, [](const auto &elem)
-                        {
-                            return elem.second.poisoned;
-                        });
-                    }
-                }
-            }
+                                // By-value assignment?
+                                if (auto d = (a_elem->assignment_kind == CopyMoveKind::by_value_assignment) - (b_elem.assignment_kind == CopyMoveKind::by_value_assignment))
+                                    return d > 0;
+                            }
 
-            { // Remove types that don't have any "uses" bits set. This can happen if they were poisoned by poisonous typedefs and weren't used elsewhere.
-                std::erase_if(
-                    params->parsed_result.type_info,
-                    [](const std::pair<const std::string, std::map<std::string, TypeInformation, std::less<>>> &p)
-                    {
-                        if (p.second.size() != 1)
-                            throw std::logic_error("Expected exactly one subtype at this point.");
-                        return p.second.begin()->second.uses == TypeUses{};
-                    }
-                );
-            }
-
-            // Combine together similar types, if needed.
-            if (bool(params->adjust_type_name_flags))
-            {
-                CombineSimilarTypes(params->parsed_result, params->enable_cppdecl_processing ? MakeAdjustTypeNameFunc(params->adjust_type_name_flags) : MakeAdjustTypeNameFuncLegacyWithoutCppdecl(params->adjust_type_name_flags));
-            }
-
-            { // Emit the information about built-in types. This is independent from everything else.
-                // Integral types:
-
-                // Whether to adjust the `[u]int64_t` types to point to `size_t` and `ptrdiff_t` instead.
-                // Currently the C parser doesn't even care about this, but it's still a good idea to emit "correct" (if you can say that) information
-                //   in the platform description.
-                const bool uint64_typedef_is_size_t = (params->canonicalize_to_fixed_size_typedefs || params->canonicalize_64_to_fixed_size_typedefs) && params->only_canonicalize_size_t_to_uint64_t;
-
-                struct IntEntry
-                {
-                    // Need our own names, since `TargetInfo::getTypeName()` uses a slightly different format.
-                    // E.g. it uses `long unsigned int`, but we want `unsigned long` (not only do we skip `int`, but also put `unsigned` before `long`).
-                    std::string_view name;
-
-                    bool is_typedef = false;
-
-                    clang::TargetInfo::IntType type;
-                };
-
-                for (IntEntry e : std::array{
-                    IntEntry{.name = "char",               .type = ci->getLangOpts().CharIsSigned ? clang::TargetInfo::IntType::SignedChar : clang::TargetInfo::IntType::UnsignedChar},
-                    IntEntry{.name = "signed char",        .type = clang::TargetInfo::IntType::SignedChar},
-                    IntEntry{.name = "unsigned char",      .type = clang::TargetInfo::IntType::UnsignedChar},
-                    IntEntry{.name = "short",              .type = clang::TargetInfo::IntType::SignedShort},
-                    IntEntry{.name = "unsigned short",     .type = clang::TargetInfo::IntType::UnsignedShort},
-                    IntEntry{.name = "int",                .type = clang::TargetInfo::IntType::SignedInt},
-                    IntEntry{.name = "unsigned int",       .type = clang::TargetInfo::IntType::UnsignedInt},
-                    IntEntry{.name = "long",               .type = clang::TargetInfo::IntType::SignedLong},
-                    IntEntry{.name = "unsigned long",      .type = clang::TargetInfo::IntType::UnsignedLong},
-                    IntEntry{.name = "long long",          .type = clang::TargetInfo::IntType::SignedLongLong},
-                    IntEntry{.name = "unsigned long long", .type = clang::TargetInfo::IntType::UnsignedLongLong},
-                    // Here `getTarget()` doesn't have consistent functions for different types.
-                    // And we can't use `getIntTypeByWidth()` for everything, because sometimes that's an ambiguity, and it would select the wrong thing.
-                    IntEntry{.name = "int8_t",             .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(8, true)},
-                    IntEntry{.name = "uint8_t",            .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(8, false)},
-                    IntEntry{.name = "int16_t",            .is_typedef = true, .type = ci->getTarget().getInt16Type()},
-                    IntEntry{.name = "uint16_t",           .is_typedef = true, .type = ci->getTarget().getUInt16Type()},
-                    IntEntry{.name = "int32_t",            .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(32, true)},
-                    IntEntry{.name = "uint32_t",           .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(32, false)},
-                    IntEntry{.name = "int64_t",            .is_typedef = true, .type = uint64_typedef_is_size_t ? ci->getTarget().getSignedSizeType() : ci->getTarget().getInt64Type()},
-                    IntEntry{.name = "uint64_t",           .is_typedef = true, .type = uint64_typedef_is_size_t ? ci->getTarget().getSizeType()       : ci->getTarget().getCorrespondingUnsignedType(ci->getTarget().getInt64Type())},
-                    IntEntry{.name = "ptrdiff_t",          .is_typedef = true, .type = ci->getTarget().getSignedSizeType()}, // There's also `getPtrDiffType(address_space)`, but it should be the same thing.
-                    IntEntry{.name = "size_t",             .is_typedef = true, .type = ci->getTarget().getSizeType()},
-                })
-                {
-                    params->parsed_result.platform_info.primitive_types.try_emplace(
-                        std::string(e.name),
-                        PrimitiveTypeInfo{
-                            .type_size      = DivideByByteSize(ci->getTarget().getTypeWidth(e.type)),
-                            .type_alignment = DivideByByteSize(ci->getTarget().getTypeAlign(e.type)),
-                            .typedef_for    =
-                                !e.is_typedef ? std::nullopt : std::optional(
-                                    e.type == clang::TargetInfo::IntType::SignedChar ? "signed char" :
-                                    e.type == clang::TargetInfo::IntType::UnsignedChar ? "unsigned char" :
-                                    e.type == clang::TargetInfo::IntType::SignedShort ? "short" :
-                                    e.type == clang::TargetInfo::IntType::UnsignedShort ? "unsigned short" :
-                                    e.type == clang::TargetInfo::IntType::SignedInt ? "int" :
-                                    e.type == clang::TargetInfo::IntType::UnsignedInt ? "unsigned int" :
-                                    e.type == clang::TargetInfo::IntType::SignedLong ? "long" :
-                                    e.type == clang::TargetInfo::IntType::UnsignedLong ? "unsigned long" :
-                                    e.type == clang::TargetInfo::IntType::SignedLongLong ? "long long" :
-                                    e.type == clang::TargetInfo::IntType::UnsignedLongLong ? "unsigned long long" :
-                                    throw std::runtime_error("The standard typedef `" + std::string(e.name) + "` expands to some weird type.")
-                                ),
-                            .kind           = ci->getTarget().isTypeSigned(e.type) ? PrimitiveTypeInfo::Kind::signed_integral : PrimitiveTypeInfo::Kind::unsigned_integral,
+                            return false; // Whatever;
                         }
                     );
                 }
 
-                // Floating-point types:
-
-                params->parsed_result.platform_info.primitive_types.try_emplace(
-                    "float",
-                    PrimitiveTypeInfo{
-                        .type_size      = DivideByByteSize(ci->getTarget().getFloatWidth()),
-                        .type_alignment = DivideByByteSize(ci->getTarget().getFloatAlign()),
-                        .kind           = PrimitiveTypeInfo::Kind::floating_point,
-                    }
-                );
-                params->parsed_result.platform_info.primitive_types.try_emplace(
-                    "double",
-                    PrimitiveTypeInfo{
-                        .type_size      = DivideByByteSize(ci->getTarget().getDoubleWidth()),
-                        .type_alignment = DivideByByteSize(ci->getTarget().getDoubleAlign()),
-                        .kind           = PrimitiveTypeInfo::Kind::floating_point,
-                    }
-                );
-                params->parsed_result.platform_info.primitive_types.try_emplace(
-                    "long double",
-                    PrimitiveTypeInfo{
-                        .type_size      = DivideByByteSize(ci->getTarget().getLongDoubleWidth()),
-                        .type_alignment = DivideByByteSize(ci->getTarget().getLongDoubleAlign()),
-                        .kind           = PrimitiveTypeInfo::Kind::floating_point,
-                    }
-                );
-
-                // Also add the bool.
-                params->parsed_result.platform_info.primitive_types.try_emplace(
-                    "bool",
-                    PrimitiveTypeInfo{
-                        .type_size      = DivideByByteSize(ci->getTarget().getBoolWidth()),
-                        .type_alignment = DivideByByteSize(ci->getTarget().getBoolAlign()),
-                        .kind           = PrimitiveTypeInfo::Kind::boolean,
-                    }
-                );
-
-                // Pointers:
-                params->parsed_result.platform_info.pointer_size = DivideByByteSize(ci->getTarget().PointerWidth);
-                params->parsed_result.platform_info.pointer_alignment = DivideByByteSize(ci->getTarget().PointerAlign);
-            }
-
-            // Multiplex the output between several files, if needed.
-            std::vector<ParsedFile> multiplexed_data = MultiplexData(std::move(params->parsed_result), params->output_filenames.size());
-
-            // Write the output.
-            for (std::size_t i = 0; i < multiplexed_data.size(); i++)
-            {
-                std::ofstream out(MakePath(params->output_filenames.at(i)));
-                if (!out)
-                    throw std::runtime_error("Unable to open output file: `" + params->output_filenames.at(i) + "`.");
-
-                switch (params->output_format)
+                // Recurse.
+                for (auto &elem : cont.nested)
                 {
-                  case OutputFormat::unselected:
-                    // This should be unreachable.
-                    throw std::logic_error("Finsihed parsing, but no output format is selected.");
-                    break;
-                  case OutputFormat::json:
-                    mrbind::ParsedFileToJson(multiplexed_data[i], out);
-                    break;
-                  case OutputFormat::macros:
-                    mrbind::ParsedFileToMacros(multiplexed_data[i], out, params->enable_cppdecl_processing);
-                    break;
-                }
-
-                if (!out)
-                    throw std::runtime_error("Write error to output file: `" + params->output_filenames.at(i) + "`.");
-            }
-        }
-    };
-
-    struct ClangFrontendAction : clang::ASTFrontendAction
-    {
-        const VisitorParams *params = nullptr;
-
-        ClangFrontendAction(const VisitorParams &params) : params(&params) {}
-
-        std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(clang::CompilerInstance &CI, llvm::StringRef InFile) override
-        {
-            (void)InFile;
-            return std::make_unique<ClangAstConsumer>(std::string(InFile), CI, *params);
-        }
-    };
-
-    struct ClangFrontendActionFactory : clang::tooling::FrontendActionFactory
-    {
-        const VisitorParams *params = nullptr;
-
-        std::unique_ptr<clang::FrontendAction> create() override
-        {
-            return std::make_unique<ClangFrontendAction>(*params);
-        }
-    };
-
-    // Wraps the default compilation database, to adjust some flags.
-    // Can hold at most one file at a time.
-    struct ClangAdjustedCompilationDatabase : clang::tooling::CompilationDatabase
-    {
-        clang::tooling::CompilationDatabase *underlying = nullptr;
-
-        bool remove_pch_flags = false;
-
-        ClangAdjustedCompilationDatabase(clang::tooling::CompilationDatabase &underlying, bool remove_pch_flags)
-            : underlying(&underlying), remove_pch_flags(remove_pch_flags)
-        {}
-
-        void AdjustCommand(clang::tooling::CompileCommand &command) const
-        {
-            auto RemoveFlags = [&](const auto &... patterns)
-            {
-                auto iter = command.CommandLine.begin();
-
-                std::array<std::regex, sizeof...(patterns)> pattern_regexes = {std::regex(patterns)...};
-
-                while (true)
-                {
-                    iter = std::search(command.CommandLine.begin(), command.CommandLine.end(), pattern_regexes.begin(), pattern_regexes.end(),
-                        [](const std::string &a, const std::regex &b)
+                    std::visit(
+                        [&]<typename T>(T &typed_elem)
                         {
-                            return std::regex_match(a, b);
-                        }
+                            if constexpr (std::is_base_of_v<EntityContainer, T>)
+                                lambda(lambda, typed_elem);
+                        },
+                        *elem.variant
                     );
-                    if (iter == command.CommandLine.end())
-                        break;
-                    command.CommandLine.erase(iter, iter + std::ptrdiff_t(pattern_regexes.size()));
+
                 }
             };
-
-            // PCH inclusion, because their Clang version might not match.
-            if (remove_pch_flags)
-                RemoveFlags("-Xclang", "-include-pch", "-Xclang", ".*");
+            SortContainer(SortContainer, params->parsed_result.entities);
         }
 
-        std::vector<clang::tooling::CompileCommand> getCompileCommands(clang::StringRef FilePath) const override
+        { // Remove identities from the "alt type spellings".
+            // We intentionally don't remove the empty lists after erasure, because we use this map to know all types we need to bind.
+            for (auto &inner : params->parsed_result.type_info)
+            {
+                for (auto &[type, info] : inner.second)
+                    info.alt_spellings.erase(type);
+            }
+        }
+
+        { // Remove the spellings with the `poisoned` bool set.
+            // I intentionally don't remove the empty lists after erasure, but I'm not sure if can even in this case at all.
+            // And if it can, not sure if the empty lists should be erased or not.
+            for (auto &inner : params->parsed_result.type_info)
+            {
+                for (auto &info : inner.second)
+                {
+                    std::erase_if(info.second.alt_spellings, [](const auto &elem)
+                    {
+                        return elem.second.poisoned;
+                    });
+                }
+            }
+        }
+
+        { // Remove types that don't have any "uses" bits set. This can happen if they were poisoned by poisonous typedefs and weren't used elsewhere.
+            std::erase_if(
+                params->parsed_result.type_info,
+                [](const std::pair<const std::string, std::map<std::string, TypeInformation, std::less<>>> &p)
+                {
+                    if (p.second.size() != 1)
+                        throw std::logic_error("Expected exactly one subtype at this point.");
+                    return p.second.begin()->second.uses == TypeUses{};
+                }
+            );
+        }
+
+        // Combine together similar types, if needed.
+        if (bool(params->adjust_type_name_flags))
         {
-            auto ret = underlying->getCompileCommands(FilePath);
-            for (auto &elem : ret)
-                AdjustCommand(elem);
-            return ret;
+            CombineSimilarTypes(params->parsed_result, params->enable_cppdecl_processing ? MakeAdjustTypeNameFunc(params->adjust_type_name_flags) : MakeAdjustTypeNameFuncLegacyWithoutCppdecl(params->adjust_type_name_flags));
         }
 
-        std::vector<std::string> getAllFiles() const override
-        {
-            return underlying->getAllFiles();
+        { // Emit the information about built-in types. This is independent from everything else.
+            // Integral types:
+
+            // Whether to adjust the `[u]int64_t` types to point to `size_t` and `ptrdiff_t` instead.
+            // Currently the C parser doesn't even care about this, but it's still a good idea to emit "correct" (if you can say that) information
+            //   in the platform description.
+            const bool uint64_typedef_is_size_t = (params->canonicalize_to_fixed_size_typedefs || params->canonicalize_64_to_fixed_size_typedefs) && params->only_canonicalize_size_t_to_uint64_t;
+
+            struct IntEntry
+            {
+                // Need our own names, since `TargetInfo::getTypeName()` uses a slightly different format.
+                // E.g. it uses `long unsigned int`, but we want `unsigned long` (not only do we skip `int`, but also put `unsigned` before `long`).
+                std::string_view name;
+
+                bool is_typedef = false;
+
+                clang::TargetInfo::IntType type;
+            };
+
+            for (IntEntry e : std::array{
+                IntEntry{.name = "char",               .type = ci->getLangOpts().CharIsSigned ? clang::TargetInfo::IntType::SignedChar : clang::TargetInfo::IntType::UnsignedChar},
+                IntEntry{.name = "signed char",        .type = clang::TargetInfo::IntType::SignedChar},
+                IntEntry{.name = "unsigned char",      .type = clang::TargetInfo::IntType::UnsignedChar},
+                IntEntry{.name = "short",              .type = clang::TargetInfo::IntType::SignedShort},
+                IntEntry{.name = "unsigned short",     .type = clang::TargetInfo::IntType::UnsignedShort},
+                IntEntry{.name = "int",                .type = clang::TargetInfo::IntType::SignedInt},
+                IntEntry{.name = "unsigned int",       .type = clang::TargetInfo::IntType::UnsignedInt},
+                IntEntry{.name = "long",               .type = clang::TargetInfo::IntType::SignedLong},
+                IntEntry{.name = "unsigned long",      .type = clang::TargetInfo::IntType::UnsignedLong},
+                IntEntry{.name = "long long",          .type = clang::TargetInfo::IntType::SignedLongLong},
+                IntEntry{.name = "unsigned long long", .type = clang::TargetInfo::IntType::UnsignedLongLong},
+                // Here `getTarget()` doesn't have consistent functions for different types.
+                // And we can't use `getIntTypeByWidth()` for everything, because sometimes that's an ambiguity, and it would select the wrong thing.
+                IntEntry{.name = "int8_t",             .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(8, true)},
+                IntEntry{.name = "uint8_t",            .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(8, false)},
+                IntEntry{.name = "int16_t",            .is_typedef = true, .type = ci->getTarget().getInt16Type()},
+                IntEntry{.name = "uint16_t",           .is_typedef = true, .type = ci->getTarget().getUInt16Type()},
+                IntEntry{.name = "int32_t",            .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(32, true)},
+                IntEntry{.name = "uint32_t",           .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(32, false)},
+                IntEntry{.name = "int64_t",            .is_typedef = true, .type = uint64_typedef_is_size_t ? ci->getTarget().getSignedSizeType() : ci->getTarget().getInt64Type()},
+                IntEntry{.name = "uint64_t",           .is_typedef = true, .type = uint64_typedef_is_size_t ? ci->getTarget().getSizeType()       : ci->getTarget().getCorrespondingUnsignedType(ci->getTarget().getInt64Type())},
+                IntEntry{.name = "ptrdiff_t",          .is_typedef = true, .type = ci->getTarget().getSignedSizeType()}, // There's also `getPtrDiffType(address_space)`, but it should be the same thing.
+                IntEntry{.name = "size_t",             .is_typedef = true, .type = ci->getTarget().getSizeType()},
+            })
+            {
+                params->parsed_result.platform_info.primitive_types.try_emplace(
+                    std::string(e.name),
+                    PrimitiveTypeInfo{
+                        .type_size      = DivideByByteSize(ci->getTarget().getTypeWidth(e.type)),
+                        .type_alignment = DivideByByteSize(ci->getTarget().getTypeAlign(e.type)),
+                        .typedef_for    =
+                            !e.is_typedef ? std::nullopt : std::optional(
+                                e.type == clang::TargetInfo::IntType::SignedChar ? "signed char" :
+                                e.type == clang::TargetInfo::IntType::UnsignedChar ? "unsigned char" :
+                                e.type == clang::TargetInfo::IntType::SignedShort ? "short" :
+                                e.type == clang::TargetInfo::IntType::UnsignedShort ? "unsigned short" :
+                                e.type == clang::TargetInfo::IntType::SignedInt ? "int" :
+                                e.type == clang::TargetInfo::IntType::UnsignedInt ? "unsigned int" :
+                                e.type == clang::TargetInfo::IntType::SignedLong ? "long" :
+                                e.type == clang::TargetInfo::IntType::UnsignedLong ? "unsigned long" :
+                                e.type == clang::TargetInfo::IntType::SignedLongLong ? "long long" :
+                                e.type == clang::TargetInfo::IntType::UnsignedLongLong ? "unsigned long long" :
+                                throw std::runtime_error("The standard typedef `" + std::string(e.name) + "` expands to some weird type.")
+                            ),
+                        .kind           = ci->getTarget().isTypeSigned(e.type) ? PrimitiveTypeInfo::Kind::signed_integral : PrimitiveTypeInfo::Kind::unsigned_integral,
+                    }
+                );
+            }
+
+            // Floating-point types:
+
+            params->parsed_result.platform_info.primitive_types.try_emplace(
+                "float",
+                PrimitiveTypeInfo{
+                    .type_size      = DivideByByteSize(ci->getTarget().getFloatWidth()),
+                    .type_alignment = DivideByByteSize(ci->getTarget().getFloatAlign()),
+                    .kind           = PrimitiveTypeInfo::Kind::floating_point,
+                }
+            );
+            params->parsed_result.platform_info.primitive_types.try_emplace(
+                "double",
+                PrimitiveTypeInfo{
+                    .type_size      = DivideByByteSize(ci->getTarget().getDoubleWidth()),
+                    .type_alignment = DivideByByteSize(ci->getTarget().getDoubleAlign()),
+                    .kind           = PrimitiveTypeInfo::Kind::floating_point,
+                }
+            );
+            params->parsed_result.platform_info.primitive_types.try_emplace(
+                "long double",
+                PrimitiveTypeInfo{
+                    .type_size      = DivideByByteSize(ci->getTarget().getLongDoubleWidth()),
+                    .type_alignment = DivideByByteSize(ci->getTarget().getLongDoubleAlign()),
+                    .kind           = PrimitiveTypeInfo::Kind::floating_point,
+                }
+            );
+
+            // Also add the bool.
+            params->parsed_result.platform_info.primitive_types.try_emplace(
+                "bool",
+                PrimitiveTypeInfo{
+                    .type_size      = DivideByByteSize(ci->getTarget().getBoolWidth()),
+                    .type_alignment = DivideByByteSize(ci->getTarget().getBoolAlign()),
+                    .kind           = PrimitiveTypeInfo::Kind::boolean,
+                }
+            );
+
+            // Pointers:
+            params->parsed_result.platform_info.pointer_size = DivideByByteSize(ci->getTarget().PointerWidth);
+            params->parsed_result.platform_info.pointer_alignment = DivideByByteSize(ci->getTarget().PointerAlign);
         }
 
-        std::vector<clang::tooling::CompileCommand> getAllCompileCommands() const override
+        // Multiplex the output between several files, if needed.
+        std::vector<ParsedFile> multiplexed_data = MultiplexData(std::move(params->parsed_result), params->output_filenames.size());
+
+        // Write the output.
+        for (std::size_t i = 0; i < multiplexed_data.size(); i++)
         {
-            auto ret = underlying->getAllCompileCommands();
-            for (auto &elem : ret)
-                AdjustCommand(elem);
-            return ret;
+            std::ofstream out(MakePath(params->output_filenames.at(i)));
+            if (!out)
+                throw std::runtime_error("Unable to open output file: `" + params->output_filenames.at(i) + "`.");
+
+            switch (params->output_format)
+            {
+              case OutputFormat::unselected:
+                // This should be unreachable.
+                throw std::logic_error("Finsihed parsing, but no output format is selected.");
+                break;
+              case OutputFormat::json:
+                mrbind::ParsedFileToJson(multiplexed_data[i], out);
+                break;
+              case OutputFormat::macros:
+                mrbind::ParsedFileToMacros(multiplexed_data[i], out, params->enable_cppdecl_processing);
+                break;
+            }
+
+            if (!out)
+                throw std::runtime_error("Write error to output file: `" + params->output_filenames.at(i) + "`.");
         }
-    };
+    }
+
+    ClangFrontendAction::ClangFrontendAction(const VisitorParams &params) : params(&params) {}
+
+    std::unique_ptr<clang::ASTConsumer> ClangFrontendAction::CreateASTConsumer(clang::CompilerInstance &CI, llvm::StringRef InFile)
+    {
+        (void)InFile;
+        return std::make_unique<ClangAstConsumer>(std::string(InFile), CI, *params);
+    }
+
+    std::unique_ptr<clang::FrontendAction> ClangFrontendActionFactory::create()
+    {
+        return std::make_unique<ClangFrontendAction>(*params);
+    }
+
+    ClangAdjustedCompilationDatabase::ClangAdjustedCompilationDatabase(clang::tooling::CompilationDatabase &underlying, bool remove_pch_flags)
+        : underlying(&underlying), remove_pch_flags(remove_pch_flags)
+    {}
+
+    void ClangAdjustedCompilationDatabase::AdjustCommand(clang::tooling::CompileCommand &command) const
+    {
+        auto RemoveFlags = [&](const auto &... patterns)
+        {
+            auto iter = command.CommandLine.begin();
+
+            std::array<std::regex, sizeof...(patterns)> pattern_regexes = {std::regex(patterns)...};
+
+            while (true)
+            {
+                iter = std::search(command.CommandLine.begin(), command.CommandLine.end(), pattern_regexes.begin(), pattern_regexes.end(),
+                    [](const std::string &a, const std::regex &b)
+                    {
+                        return std::regex_match(a, b);
+                    }
+                );
+                if (iter == command.CommandLine.end())
+                    break;
+                command.CommandLine.erase(iter, iter + std::ptrdiff_t(pattern_regexes.size()));
+            }
+        };
+
+        // PCH inclusion, because their Clang version might not match.
+        if (remove_pch_flags)
+            RemoveFlags("-Xclang", "-include-pch", "-Xclang", ".*");
+    }
+
+    std::vector<clang::tooling::CompileCommand> ClangAdjustedCompilationDatabase::getCompileCommands(clang::StringRef FilePath) const
+    {
+        auto ret = underlying->getCompileCommands(FilePath);
+        for (auto &elem : ret)
+            AdjustCommand(elem);
+        return ret;
+    }
+
+    std::vector<std::string> ClangAdjustedCompilationDatabase::getAllFiles() const
+    {
+        return underlying->getAllFiles();
+    }
+
+    std::vector<clang::tooling::CompileCommand> ClangAdjustedCompilationDatabase::getAllCompileCommands() const
+    {
+        auto ret = underlying->getAllCompileCommands();
+        for (auto &elem : ret)
+            AdjustCommand(elem);
+        return ret;
+    }
 }
 
 int main(int argc, char **argv)

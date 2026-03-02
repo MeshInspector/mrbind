@@ -40,13 +40,18 @@ if(MRBIND_BUILD_PARSER)
 
     add_executable(mrbind
         src/parser/combine_types.cpp
+        src/parser/copy_inherited_members.cpp
         src/parser/cppdecl_helpers.cpp
         src/parser/data_to_json.cpp
         src/parser/data_to_macros.cpp
-        src/parser/copy_inherited_members.cpp
+        src/parser/disable_rtti.cpp
         src/parser/main.cpp
         src/parser/multiplex_data.cpp
     )
+
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GCC" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+        set_source_files_properties(src/parser/disable_rtti.cpp PROPERTIES COMPILE_FLAGS -fno-rtti)
+    endif()
 
     target_link_libraries(mrbind PRIVATE
         mrbind_common
