@@ -227,7 +227,9 @@ In particular, you need to annotate all custom containers:
 
 In some cases, we're able to guess the intent from the code:
 
-* The reference returned from a copy or move assignment operator is assumed to refer to `this`.
+* For copy and move constructors and assignments, we assume that the resulting object will store the same references as the argument it was copied from (i.e. the first argument of copy and move constructors and assignments is implicitly `lifetime-capture-by-nested(this)`).
+
+* For copy and move assignments, we assume that they return a reference to `*this`, as long as their return type is a reference to the enclosing class (i.e. are implicitly `[[clang::lifetimebound]]` if that condition holds).
 
 * Functions named `begin()`, `end()`, and `operator*` are assumed to have their usual iterator-related meaning (this can be disabled with `--no-infer-lifetime-iterators`).
 
