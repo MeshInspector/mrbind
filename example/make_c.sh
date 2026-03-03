@@ -8,6 +8,22 @@ cd "$SCRIPT_DIR"
 rm -rf output_c
 mkdir -p output_c/tmp
 
+# Those are the Clang-style flags for the parser.
+EXTRA_PARSER_CXX_FLAGS="
+    -std=c++20 -Wall -Wextra -pedantic-errors
+    -fparse-all-comments
+"
+
+# Those are optional tunable flags for the parser.
+EXTRA_PARSER_FLAGS="
+    --copy-inherited-members
+"
+
+# Those are optional tunable flags for the C generator.
+EXTRA_GEN_FLAGS="
+    --max-header-name-length 100
+"
+
 set -x
 
 ../build/mrbind \
@@ -15,10 +31,11 @@ set -x
     -o output_c/tmp/parse_result.json \
     --ignore :: \
     --allow Example \
+    $EXTRA_PARSER_FLAGS \
     -- \
     -xc++-header \
     -resource-dir="$("$CLANG_CXX" -print-resource-dir)" \
-    -fparse-all-comments
+    $EXTRA_PARSER_CXX_FLAGS
 
 ../build/mrbind_gen_c \
     --input output_c/tmp/parse_result.json \
@@ -27,7 +44,8 @@ set -x
     --helper-name-prefix Example_ \
     --helper-macro-name-prefix EXAMPLE_ \
     --map-path . . \
-    --assume-include-dir ..
+    --assume-include-dir .. \
+    $EXTRA_GEN_FLAGS
 
 SOURCES="$(find output_c/src -name *.cpp)"
 LIBRARY=
