@@ -60,9 +60,26 @@ MR_CSharp_ExposedLayoutSh *MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_get(con
     return (MR_CSharp_ExposedLayoutSh *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CSharp::ExposedLayoutSh> *)(_this)).get());
 }
 
+bool MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_has_value(const MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *_this)
+{
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CSharp::ExposedLayoutSh> *)(_this)));
+}
+
 int MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_use_count(const MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *_this)
 {
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CSharp::ExposedLayoutSh> *)(_this)).use_count());
+}
+
+void MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_reset(MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::CSharp::ExposedLayoutSh> *)(_this)).reset();
+}
+
+MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructFromValue(MR_CSharp_ExposedLayoutSh value)
+{
+    return (MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *)new std::shared_ptr<MR::CSharp::ExposedLayoutSh>(std::make_shared<MR::CSharp::ExposedLayoutSh>(
+        MRBINDC_BIT_CAST((MR::CSharp::ExposedLayoutSh), value)
+    ));
 }
 
 MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Construct(MR_CSharp_ExposedLayoutSh *ptr)

@@ -75,6 +75,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Returns true if non-null.
+                /// </summary>
+                public static unsafe implicit operator bool(MR.CS.Std.Const_SharedPtr_ConstMRStdSharedPtrAArray _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_has_value", ExactSpelling = true)]
+                    extern static byte __MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_has_value(MR.CS.Std.Const_SharedPtr_ConstMRStdSharedPtrAArray._Underlying *_this);
+                    return __MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_has_value(_this._UnderlyingPtr) != 0;
+                }
+
+                /// <summary>
                 /// Returns an element from the stored array. The stored pointer must not be null.
                 /// </summary>
                 public unsafe MR.CS.StdSharedPtr.Const_A this[long i]
@@ -103,9 +113,19 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Construct an array of the specified size.
+                /// </summary>
+                public unsafe Const_SharedPtr_ConstMRStdSharedPtrAArray(ulong size) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize", ExactSpelling = true)]
+                    extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(ulong size);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(size);
+                }
+
+                /// <summary>
                 /// Create a new instance, taking ownership of an existing pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_ConstMRStdSharedPtrAArray(void *ptr) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.Std.Owning tag, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_Construct(void *ptr);
@@ -115,7 +135,7 @@ public static partial class MR
                 /// <summary>
                 /// Create a new instance, storing a non-owning pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.StdSharedPtr.Const_A? ptr) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.Std.NonOwning tag, MR.CS.StdSharedPtr.Const_A? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructNonOwning", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructNonOwning(MR.CS.StdSharedPtr.Const_A._Underlying *ptr);
@@ -142,7 +162,7 @@ public static partial class MR
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// </summary>
-                public unsafe Const_SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.Const_A? ptr) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.Const_A? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructAliasing", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, MR.CS.StdSharedPtr.Const_A._Underlying *ptr);
@@ -204,9 +224,29 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Resets the pointer to null.
+                /// </summary>
+                public unsafe void reset()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_reset", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_reset(_Underlying *_this);
+                    __MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_reset(_UnderlyingPtr);
+                }
+
+                /// <summary>
+                /// Construct an array of the specified size.
+                /// </summary>
+                public unsafe SharedPtr_ConstMRStdSharedPtrAArray(ulong size) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize", ExactSpelling = true)]
+                    extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(ulong size);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(size);
+                }
+
+                /// <summary>
                 /// Create a new instance, taking ownership of an existing pointer.
                 /// </summary>
-                public unsafe SharedPtr_ConstMRStdSharedPtrAArray(void *ptr) : this(null, is_owning: true)
+                public unsafe SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.Std.Owning tag, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_Construct(void *ptr);
@@ -216,7 +256,7 @@ public static partial class MR
                 /// <summary>
                 /// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
                 /// </summary>
-                public unsafe void assign(void *ptr)
+                public unsafe void assign(MR.CS.Std.Owning tag, void *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_Assign", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_Assign(_Underlying *_this, void *ptr);
@@ -226,7 +266,7 @@ public static partial class MR
                 /// <summary>
                 /// Create a new instance, storing a non-owning pointer.
                 /// </summary>
-                public unsafe SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.StdSharedPtr.Const_A? ptr) : this(null, is_owning: true)
+                public unsafe SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.Std.NonOwning tag, MR.CS.StdSharedPtr.Const_A? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructNonOwning", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructNonOwning(MR.CS.StdSharedPtr.Const_A._Underlying *ptr);
@@ -237,7 +277,7 @@ public static partial class MR
                 /// <summary>
                 /// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
                 /// </summary>
-                public unsafe void assign(MR.CS.StdSharedPtr.Const_A? ptr)
+                public unsafe void assign(MR.CS.Std.NonOwning tag, MR.CS.StdSharedPtr.Const_A? ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_AssignNonOwning", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_AssignNonOwning(_Underlying *_this, MR.CS.StdSharedPtr.Const_A._Underlying *ptr);
@@ -275,7 +315,7 @@ public static partial class MR
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// </summary>
-                public unsafe SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.Const_A? ptr) : this(null, is_owning: true)
+                public unsafe SharedPtr_ConstMRStdSharedPtrAArray(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.Const_A? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructAliasing", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, MR.CS.StdSharedPtr.Const_A._Underlying *ptr);
@@ -287,7 +327,7 @@ public static partial class MR
                 /// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// </summary>
-                public unsafe void assignAliasing(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.Const_A? ptr)
+                public unsafe void assignAliasing(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.Const_A? ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_AssignAliasing", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_AssignAliasing(_Underlying *_this, MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, MR.CS.StdSharedPtr.Const_A._Underlying *ptr);

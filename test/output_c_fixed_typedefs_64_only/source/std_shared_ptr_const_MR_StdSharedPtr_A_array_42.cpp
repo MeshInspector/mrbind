@@ -60,9 +60,19 @@ const MR_StdSharedPtr_A *MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42_ge
     return (const MR_StdSharedPtr_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const MR::StdSharedPtr::A[42]> *)(_this)).get());
 }
 
+bool MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42_has_value(const MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42 *_this)
+{
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const MR::StdSharedPtr::A[42]> *)(_this)));
+}
+
 int MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42_use_count(const MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42 *_this)
 {
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const MR::StdSharedPtr::A[42]> *)(_this)).use_count());
+}
+
+void MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42_reset(MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42 *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<const MR::StdSharedPtr::A[42]> *)(_this)).reset();
 }
 
 MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42 *MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_42_Construct(const MR_StdSharedPtr_A *ptr)

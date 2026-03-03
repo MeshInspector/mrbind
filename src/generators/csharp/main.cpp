@@ -205,6 +205,14 @@ int main(int argc, char **argv)
             generator.move_in_by_value_return = true;
         },
     });
+    args_parser.AddFlag("--buggy-transparent-shared-pointers", {
+        .desc = "Not implemented properly yet. This tries to make shared pointers to classes transparent, by storing them directly in those classes, instead of exposing them as separate classes. This requires passing `--bind-shared-ptr-virally` to the parser.",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            (void)args;
+            generator.transparent_shared_pointers = true;
+        },
+    });
 
     mrbind::CommandLineArgsAsUtf8 args(argc, argv);
     args_parser.Parse(args.argc, args.argv);

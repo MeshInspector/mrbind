@@ -442,6 +442,11 @@ public static partial class MR
             /// <summary>
             /// This is an empty tag type.
             /// </summary>
+            public struct Aliasing {}
+
+            /// <summary>
+            /// This is an empty tag type.
+            /// </summary>
             public struct Greater_Int {}
 
             /// <summary>
@@ -463,6 +468,16 @@ public static partial class MR
             /// This is an empty tag type.
             /// </summary>
             public struct Monostate {}
+
+            /// <summary>
+            /// This is an empty tag type.
+            /// </summary>
+            public struct NonOwning {}
+
+            /// <summary>
+            /// This is an empty tag type.
+            /// </summary>
+            public struct Owning {}
 
             /// <summary>
             /// This is an empty tag type.

@@ -71,6 +71,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Returns true if non-null.
+                /// </summary>
+                public static unsafe implicit operator bool(MR.CS.Std.Const_SharedPtr_ConstVoid _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_has_value", ExactSpelling = true)]
+                    extern static byte __MR_C_std_shared_ptr_const_void_has_value(MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *_this);
+                    return __MR_C_std_shared_ptr_const_void_has_value(_this._UnderlyingPtr) != 0;
+                }
+
+                /// <summary>
                 /// How many shared pointers share the managed object. Zero if no object is being managed.
                 /// This being zero usually conincides with `MR_C_std_shared_ptr_const_void_get()` returning null, but is ultimately orthogonal.
                 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
@@ -86,7 +96,7 @@ public static partial class MR
                 /// Create a new instance, storing a non-owning pointer.
                 /// Parameter `ptr` is a read-only pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_ConstVoid(void *ptr) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_ConstVoid(MR.CS.Std.NonOwning tag, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_ConstructNonOwning", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstVoid._Underlying *__MR_C_std_shared_ptr_const_void_ConstructNonOwning(void *ptr);
@@ -113,7 +123,7 @@ public static partial class MR
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// Parameter `ptr` is a read-only pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_ConstVoid(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_ConstructAliasing", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstVoid._Underlying *__MR_C_std_shared_ptr_const_void_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, void *ptr);
@@ -278,10 +288,20 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Resets the pointer to null.
+                /// </summary>
+                public unsafe void reset()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_reset", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_const_void_reset(_Underlying *_this);
+                    __MR_C_std_shared_ptr_const_void_reset(_UnderlyingPtr);
+                }
+
+                /// <summary>
                 /// Create a new instance, storing a non-owning pointer.
                 /// Parameter `ptr` is a read-only pointer.
                 /// </summary>
-                public unsafe SharedPtr_ConstVoid(void *ptr) : this(null, is_owning: true)
+                public unsafe SharedPtr_ConstVoid(MR.CS.Std.NonOwning tag, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_ConstructNonOwning", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstVoid._Underlying *__MR_C_std_shared_ptr_const_void_ConstructNonOwning(void *ptr);
@@ -292,7 +312,7 @@ public static partial class MR
                 /// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
                 /// Parameter `ptr` is a read-only pointer.
                 /// </summary>
-                public unsafe void assign(void *ptr)
+                public unsafe void assign(MR.CS.Std.NonOwning tag, void *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_AssignNonOwning", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_void_AssignNonOwning(_Underlying *_this, void *ptr);
@@ -330,7 +350,7 @@ public static partial class MR
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// Parameter `ptr` is a read-only pointer.
                 /// </summary>
-                public unsafe SharedPtr_ConstVoid(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr) : this(null, is_owning: true)
+                public unsafe SharedPtr_ConstVoid(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_ConstructAliasing", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstVoid._Underlying *__MR_C_std_shared_ptr_const_void_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, void *ptr);
@@ -342,7 +362,7 @@ public static partial class MR
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// Parameter `ptr` is a read-only pointer.
                 /// </summary>
-                public unsafe void assignAliasing(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr)
+                public unsafe void assignAliasing(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_void_AssignAliasing", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_void_AssignAliasing(_Underlying *_this, MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, void *ptr);

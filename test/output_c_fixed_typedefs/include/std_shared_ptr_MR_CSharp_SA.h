@@ -7,6 +7,7 @@
 #include <exports.h>
 #pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -62,11 +63,26 @@ MR_C_API MR_C_std_shared_ptr_MR_CSharp_SA *MR_C_std_shared_ptr_MR_CSharp_SA_Offs
 // The reference to this object might be preserved as the return value.
 MR_C_API MR_CSharp_SA *MR_C_std_shared_ptr_MR_CSharp_SA_get(const MR_C_std_shared_ptr_MR_CSharp_SA *_this);
 
+// Returns true if non-null.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_std_shared_ptr_MR_CSharp_SA_has_value(const MR_C_std_shared_ptr_MR_CSharp_SA *_this);
+
 // How many shared pointers share the managed object. Zero if no object is being managed.
 // This being zero usually conincides with `MR_C_std_shared_ptr_MR_CSharp_SA_get()` returning null, but is ultimately orthogonal.
 // Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API int MR_C_std_shared_ptr_MR_CSharp_SA_use_count(const MR_C_std_shared_ptr_MR_CSharp_SA *_this);
+
+// Resets the pointer to null.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_C_std_shared_ptr_MR_CSharp_SA_reset(MR_C_std_shared_ptr_MR_CSharp_SA *_this);
+
+// Construct from a value.
+// Parameter `value` can not be null. It is a single object.
+// The reference to the parameter `value` might be preserved in the constructed object.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_CSharp_SA_Destroy()` to free it when you're done using it.
+// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_C_std_shared_ptr_MR_CSharp_SA *MR_C_std_shared_ptr_MR_CSharp_SA_ConstructFromValue(const MR_CSharp_SA *value);
 
 // Create a new instance, taking ownership of an existing pointer.
 // Parameter `ptr` should point to a single object rather than to an array.

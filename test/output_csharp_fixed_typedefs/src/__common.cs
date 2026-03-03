@@ -20,25 +20,6 @@ public static partial class MR
             }
 
             /// <summary>
-            /// This is the base class for those of our classes that are backed by `std::shared_ptr`.
-            /// </summary>
-            public abstract class SharedObject<T> : Object<T>
-            {
-                /// <summary>
-                /// This checks if the `shared_ptr` itself is owning or not, rather than whether we own our `shared_ptr`, which isn't a given.
-                /// The derived classes have to implement this, since it depends on the specific `shared_ptr` type.
-                /// </summary>
-                public abstract override bool _IsOwning {get;}
-                /// <summary>
-                /// This checks if we own the underlying `shared_ptr` instance, regardless of whether it owns the underlying object, which is orthogonal.
-                /// We repurpose `_IsOwningVal` for this.
-                /// </summary>
-                public bool _IsOwningSharedPtr => _IsOwningVal;
-
-                internal SharedObject(bool is_owning) : base(is_owning) {}
-            }
-
-            /// <summary>
             /// This is used for optional in/out parameters, since `ref` can't be nullable.
             /// </summary>
             public class InOut<T> where T: unmanaged
@@ -442,6 +423,11 @@ public static partial class MR
             /// <summary>
             /// This is an empty tag type.
             /// </summary>
+            public struct Aliasing {}
+
+            /// <summary>
+            /// This is an empty tag type.
+            /// </summary>
             public struct Greater_Int32T {}
 
             /// <summary>
@@ -463,6 +449,16 @@ public static partial class MR
             /// This is an empty tag type.
             /// </summary>
             public struct Monostate {}
+
+            /// <summary>
+            /// This is an empty tag type.
+            /// </summary>
+            public struct NonOwning {}
+
+            /// <summary>
+            /// This is an empty tag type.
+            /// </summary>
+            public struct Owning {}
 
             /// <summary>
             /// This is an empty tag type.

@@ -1,15 +1,16 @@
 #pragma once
 
+#include <MR/test_csharp.h>
 #include <common.h>
 #include <exports.h>
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct MR_CSharp_ExposedLayoutSh MR_CSharp_ExposedLayoutSh; // Defined in `#include <MR/test_csharp.h>`.
 typedef struct MR_C_std_shared_ptr_const_void MR_C_std_shared_ptr_const_void; // Defined in `#include <std_shared_ptr_const_void.h>`.
 typedef struct MR_C_std_shared_ptr_void MR_C_std_shared_ptr_void; // Defined in `#include <std_shared_ptr_void.h>`.
 
@@ -58,11 +59,25 @@ MR_C_API MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *MR_C_std_shared_ptr_MR_C
 /// The reference to this object might be preserved as the return value.
 MR_C_API MR_CSharp_ExposedLayoutSh *MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_get(const MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *_this);
 
+/// Returns true if non-null.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_has_value(const MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *_this);
+
 /// How many shared pointers share the managed object. Zero if no object is being managed.
 /// This being zero usually conincides with `MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_get()` returning null, but is ultimately orthogonal.
 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API int MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_use_count(const MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *_this);
+
+/// Resets the pointer to null.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_reset(MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *_this);
+
+/// Construct from a value.
+/// The reference to the parameter `value` might be preserved in the constructed object.
+/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_Destroy()` to free it when you're done using it.
+/// When this function is called, this object will drop any object references it held previously.
+MR_C_API MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh_ConstructFromValue(MR_CSharp_ExposedLayoutSh value);
 
 /// Create a new instance, taking ownership of an existing pointer.
 /// Parameter `ptr` should point to a single object rather than to an array.

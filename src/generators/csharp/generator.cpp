@@ -1444,7 +1444,7 @@ namespace mrbind::CSharp
                                 throw std::runtime_error("This type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
 
 
-                            const bool is_shared_ptr = cpp_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
+                            const bool is_shared_ptr = transparent_shared_pointers && cpp_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                             const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
                             const bool is_transparent_shared_ptr = shared_ptr_targ && TypeIsCppClass(*shared_ptr_targ);
 
@@ -1909,7 +1909,7 @@ namespace mrbind::CSharp
                                     if (!cpp_underlying_type.IsOnlyQualifiedName())
                                         throw std::runtime_error("The referenced type is marked `TypeKinds::Class`, but its name isn't just a qualified name.");
 
-                                    const bool is_shared_ptr = cpp_underlying_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
+                                    const bool is_shared_ptr = transparent_shared_pointers && cpp_underlying_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                                     const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_underlying_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
                                     const bool is_transparent_shared_ptr = shared_ptr_targ && TypeIsCppClass(*shared_ptr_targ);
 
@@ -2412,7 +2412,7 @@ namespace mrbind::CSharp
                                         });
                                     }
 
-                                    const bool is_shared_ptr = cpp_underlying_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
+                                    const bool is_shared_ptr = transparent_shared_pointers && cpp_underlying_type.simple_type.name.Equals(cpp_name_shared_ptr, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target);
                                     const cppdecl::Type *shared_ptr_targ = is_shared_ptr ? cpp_underlying_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType() : nullptr;
                                     const bool is_transparent_shared_ptr = shared_ptr_targ && TypeIsCppClass(*shared_ptr_targ);
 
@@ -3341,7 +3341,7 @@ namespace mrbind::CSharp
                 { // Write the public constructor and assignment from the delegate.
                     const std::string csharp_unqual_class_name = CppToCSharpUnqualClassName(cpp_name, class_part_kind.value());
 
-                    const bool class_backed_by_shared_ptr = GetSharedPtrTypeDescForCppTypeOpt(CppdeclToCode(cpp_name));
+                    const bool class_backed_by_shared_ptr = GetTransparentSharedPtrTypeDescForCppTypeOpt(CppdeclToCode(cpp_name));
 
                     auto dllimport_construct = MakeDllImportDecl(
                         // Name.
@@ -3582,7 +3582,7 @@ namespace mrbind::CSharp
         // If this is a constructor, is the target class backed by a `shared_ptr`?
         ctor_class_backed_by_shared_ptr([&]{
             assert(!is_ctor || generator.ParseTypeOrThrow(func_like.ret.cpp_type).IsOnlyQualifiedName());
-            return is_ctor && generator.GetSharedPtrTypeDescForCppTypeOpt(func_like.ret.cpp_type);
+            return is_ctor && generator.GetTransparentSharedPtrTypeDescForCppTypeOpt(func_like.ret.cpp_type);
         }()),
         in_exposed_struct(!class_part_kind),
         class_part_kind(class_part_kind),
@@ -5512,7 +5512,7 @@ namespace mrbind::CSharp
             const CInterop::TypeDesc &type_desc = *c_desc.FindTypeOpt(cpp_type);
             const CInterop::TypeKinds::Class &class_desc = std::get<CInterop::TypeKinds::Class>(type_desc.var);
 
-            const CInterop::TypeDesc *shared_ptr_desc = GetSharedPtrTypeDescForCppTypeOpt(cpp_type);
+            const CInterop::TypeDesc *shared_ptr_desc = GetTransparentSharedPtrTypeDescForCppTypeOpt(cpp_type);
 
             // This is only used in exposed structs, to avoid emitting both const and non-const versions of the same method
             //   under the same name, which would cause ambiguities. Instead we rename the const versions if the mutable versions also exist.
@@ -7258,8 +7258,10 @@ namespace mrbind::CSharp
         return ManagedKind::unsure; // Whatever.
     }
 
-    const CInterop::TypeDesc *Generator::GetSharedPtrTypeDescForCppTypeOpt(const std::string &cpp_type)
+    const CInterop::TypeDesc *Generator::GetTransparentSharedPtrTypeDescForCppTypeOpt(const std::string &cpp_type)
     {
+        if (!transparent_shared_pointers)
+            return nullptr;
         return c_desc.FindTypeOpt("std::shared_ptr<" + cpp_type + ">");
     }
 
@@ -7269,7 +7271,7 @@ namespace mrbind::CSharp
         {
             // Skip `std::shared_ptr<T>` to managed types.
             static const cppdecl::QualifiedName shared_ptr_name = cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr");
-            if (cpp_type.simple_type.name.Equals(shared_ptr_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
+            if (transparent_shared_pointers && cpp_type.simple_type.name.Equals(shared_ptr_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
             {
                 if (TypeIsCppClass(*cpp_type.simple_type.name.parts.at(1).template_args.value().args.at(0).AsType()))
                     return false;

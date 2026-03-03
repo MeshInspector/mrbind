@@ -15,19 +15,6 @@ public static partial class MR
                 internal Object(bool is_owning) {_IsOwningVal = is_owning;}
             }
 
-            /// This is the base class for those of our classes that are backed by `std::shared_ptr`.
-            public abstract class SharedObject<T> : Object<T>
-            {
-                /// This checks if the `shared_ptr` itself is owning or not, rather than whether we own our `shared_ptr`, which isn't a given.
-                /// The derived classes have to implement this, since it depends on the specific `shared_ptr` type.
-                public abstract override bool _IsOwning {get;}
-                /// This checks if we own the underlying `shared_ptr` instance, regardless of whether it owns the underlying object, which is orthogonal.
-                /// We repurpose `_IsOwningVal` for this.
-                public bool _IsOwningSharedPtr => _IsOwningVal;
-
-                internal SharedObject(bool is_owning) : base(is_owning) {}
-            }
-
             /// This is used for optional in/out parameters, since `ref` can't be nullable.
             public class InOut<T> where T: unmanaged
             {
@@ -347,6 +334,9 @@ public static partial class MR
         public static partial class Std
         {
             /// This is an empty tag type.
+            public struct Aliasing {}
+
+            /// This is an empty tag type.
             public struct Greater_Int {}
 
             /// This is an empty tag type.
@@ -360,6 +350,12 @@ public static partial class MR
 
             /// This is an empty tag type.
             public struct Monostate {}
+
+            /// This is an empty tag type.
+            public struct NonOwning {}
+
+            /// This is an empty tag type.
+            public struct Owning {}
 
             /// This is an empty tag type.
             public struct VariantIndex_0 {}

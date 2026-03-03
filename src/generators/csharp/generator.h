@@ -429,6 +429,10 @@ namespace mrbind::CSharp
         // Write all generated C# documentation comments wrapped in `<summary>...</summary>` tags, to let them be parsed as XML by Microsoft IDEs and tools.
         bool wrap_doc_comments_in_summary_tag = false;
 
+        // If true, try to transparently store shared pointers in C# objects.
+        // The implementation of this is incomplete.
+        bool transparent_shared_pointers = false;
+
         // ]
 
         // Maps relative file paths (without extensions) to the file descriptions and contents.
@@ -1076,9 +1080,10 @@ namespace mrbind::CSharp
         // The parameter `in_heap_allocated_struct_wrapper` can be removed once we remove the heap-allocated struct wrappers (I hope we remove them).
         [[nodiscard]] ManagedKind ClassifyParamManagedKind(const cppdecl::Type &cpp_type, bool in_heap_allocated_struct_wrapper = false);
 
+        // This can only return non-null if `transparent_shared_pointers == true`.
         // If our input has a binding for `std::shared_ptr<T>` (where `T` is `cpp_type`), returns that binding. Otherwise null.
         // This can be used to check if a class is backed by a shared pointer or not.
-        [[nodiscard]] const CInterop::TypeDesc *GetSharedPtrTypeDescForCppTypeOpt(const std::string &cpp_type);
+        [[nodiscard]] const CInterop::TypeDesc *GetTransparentSharedPtrTypeDescForCppTypeOpt(const std::string &cpp_type);
 
         // If this returns false, this C++ type (usually a class or enum) will not be emitted.
         [[nodiscard]] bool ShouldEmitCppType(const cppdecl::Type &cpp_type);

@@ -59,9 +59,19 @@ const void *MR_C_std_shared_ptr_const_void_get(const MR_C_std_shared_ptr_const_v
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const void> *)(_this)).get();
 }
 
+bool MR_C_std_shared_ptr_const_void_has_value(const MR_C_std_shared_ptr_const_void *_this)
+{
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const void> *)(_this)));
+}
+
 int MR_C_std_shared_ptr_const_void_use_count(const MR_C_std_shared_ptr_const_void *_this)
 {
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const void> *)(_this)).use_count());
+}
+
+void MR_C_std_shared_ptr_const_void_reset(MR_C_std_shared_ptr_const_void *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<const void> *)(_this)).reset();
 }
 
 MR_C_std_shared_ptr_const_void *MR_C_std_shared_ptr_const_void_ConstructNonOwning(const void *ptr)

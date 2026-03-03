@@ -71,6 +71,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Returns true if non-null.
+                /// </summary>
+                public static unsafe implicit operator bool(MR.CS.Std.Const_SharedPtr_Void _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_has_value", ExactSpelling = true)]
+                    extern static byte __MR_C_std_shared_ptr_void_has_value(MR.CS.Std.Const_SharedPtr_Void._Underlying *_this);
+                    return __MR_C_std_shared_ptr_void_has_value(_this._UnderlyingPtr) != 0;
+                }
+
+                /// <summary>
                 /// How many shared pointers share the managed object. Zero if no object is being managed.
                 /// This being zero usually conincides with `MR_C_std_shared_ptr_void_get()` returning null, but is ultimately orthogonal.
                 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
@@ -86,7 +96,7 @@ public static partial class MR
                 /// Create a new instance, storing a non-owning pointer.
                 /// Parameter `ptr` is a mutable pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_Void(void *ptr) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_Void(MR.CS.Std.NonOwning tag, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructNonOwning", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructNonOwning(void *ptr);
@@ -98,7 +108,7 @@ public static partial class MR
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// Parameter `ptr` is a mutable pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_Void(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructAliasing", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, void *ptr);
@@ -108,47 +118,47 @@ public static partial class MR
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_Void(MR.CS.CSharp._ByValueShared_SE _other) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SE", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SE(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SE._UnderlyingShared *_other);
-                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SE(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SE(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRCSharpSE._Underlying *_other);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SE(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.CSharp._ByValueShared_SE _other) {return new(_other);}
+                public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) {return new(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_Void(MR.CS.CSharp._ByValueShared_SA _other) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SA", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SA(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SA._UnderlyingShared *_other);
-                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SA(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SA(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRCSharpSA._Underlying *_other);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SA(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.CSharp._ByValueShared_SA _other) {return new(_other);}
+                public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) {return new(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_Void(MR.CS.CSharp._ByValueShared_ExposedLayoutSh _other) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.Box_ExposedLayoutSh._UnderlyingShared *_other);
-                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRCSharpExposedLayoutSh._Underlying *_other);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.CSharp._ByValueShared_ExposedLayoutSh _other) {return new(_other);}
+                public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) {return new(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
@@ -198,17 +208,17 @@ public static partial class MR
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_Void(MR.CS.StdSharedPtr._ByValueShared_A _other) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_other);
-                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrA._Underlying *_other);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.StdSharedPtr._ByValueShared_A _other) {return new(_other);}
+                public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) {return new(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
@@ -293,10 +303,20 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Resets the pointer to null.
+                /// </summary>
+                public unsafe void reset()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_reset", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_void_reset(_Underlying *_this);
+                    __MR_C_std_shared_ptr_void_reset(_UnderlyingPtr);
+                }
+
+                /// <summary>
                 /// Create a new instance, storing a non-owning pointer.
                 /// Parameter `ptr` is a mutable pointer.
                 /// </summary>
-                public unsafe SharedPtr_Void(void *ptr) : this(null, is_owning: true)
+                public unsafe SharedPtr_Void(MR.CS.Std.NonOwning tag, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructNonOwning", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructNonOwning(void *ptr);
@@ -307,7 +327,7 @@ public static partial class MR
                 /// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
                 /// Parameter `ptr` is a mutable pointer.
                 /// </summary>
-                public unsafe void assign(void *ptr)
+                public unsafe void assign(MR.CS.Std.NonOwning tag, void *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_AssignNonOwning", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_void_AssignNonOwning(_Underlying *_this, void *ptr);
@@ -320,7 +340,7 @@ public static partial class MR
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// Parameter `ptr` is a mutable pointer.
                 /// </summary>
-                public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr) : this(null, is_owning: true)
+                public unsafe SharedPtr_Void(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructAliasing", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, void *ptr);
@@ -332,7 +352,7 @@ public static partial class MR
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// Parameter `ptr` is a mutable pointer.
                 /// </summary>
-                public unsafe void assignAliasing(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr)
+                public unsafe void assignAliasing(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_AssignAliasing", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_void_AssignAliasing(_Underlying *_this, MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, void *ptr);
@@ -343,76 +363,76 @@ public static partial class MR
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public unsafe SharedPtr_Void(MR.CS.CSharp._ByValueShared_SE _other) : this(null, is_owning: true)
+                public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SE", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SE(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SE._UnderlyingShared *_other);
-                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SE(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SE(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRCSharpSE._Underlying *_other);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SE(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator SharedPtr_Void(MR.CS.CSharp._ByValueShared_SE _other) {return new(_other);}
+                public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) {return new(_other);}
 
                 /// <summary>
                 /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
                 /// </summary>
-                public unsafe void assign(MR.CS.CSharp._ByValueShared_SE _other)
+                public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_SE", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_SE(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SE._UnderlyingShared *_other);
-                    __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_SE(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static void __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_SE(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRCSharpSE._Underlying *_other);
+                    __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_SE(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public unsafe SharedPtr_Void(MR.CS.CSharp._ByValueShared_SA _other) : this(null, is_owning: true)
+                public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SA", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SA(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SA._UnderlyingShared *_other);
-                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SA(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SA(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRCSharpSA._Underlying *_other);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_SA(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator SharedPtr_Void(MR.CS.CSharp._ByValueShared_SA _other) {return new(_other);}
+                public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) {return new(_other);}
 
                 /// <summary>
                 /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
                 /// </summary>
-                public unsafe void assign(MR.CS.CSharp._ByValueShared_SA _other)
+                public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_SA", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_SA(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.SA._UnderlyingShared *_other);
-                    __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_SA(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static void __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_SA(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRCSharpSA._Underlying *_other);
+                    __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_SA(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public unsafe SharedPtr_Void(MR.CS.CSharp._ByValueShared_ExposedLayoutSh _other) : this(null, is_owning: true)
+                public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.Box_ExposedLayoutSh._UnderlyingShared *_other);
-                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRCSharpExposedLayoutSh._Underlying *_other);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator SharedPtr_Void(MR.CS.CSharp._ByValueShared_ExposedLayoutSh _other) {return new(_other);}
+                public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) {return new(_other);}
 
                 /// <summary>
                 /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
                 /// </summary>
-                public unsafe void assign(MR.CS.CSharp._ByValueShared_ExposedLayoutSh _other)
+                public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CSharp.Box_ExposedLayoutSh._UnderlyingShared *_other);
-                    __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static void __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRCSharpExposedLayoutSh._Underlying *_other);
+                    __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
@@ -493,26 +513,26 @@ public static partial class MR
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public unsafe SharedPtr_Void(MR.CS.StdSharedPtr._ByValueShared_A _other) : this(null, is_owning: true)
+                public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_other);
-                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrA._Underlying *_other);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator SharedPtr_Void(MR.CS.StdSharedPtr._ByValueShared_A _other) {return new(_other);}
+                public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) {return new(_other);}
 
                 /// <summary>
                 /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
                 /// </summary>
-                public unsafe void assign(MR.CS.StdSharedPtr._ByValueShared_A _other)
+                public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A", ExactSpelling = true)]
-                    extern static void __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdSharedPtr.A._UnderlyingShared *_other);
-                    __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingSharedPtr : null);
+                    extern static void __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.Std.SharedPtr_MRStdSharedPtrA._Underlying *_other);
+                    __MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_MR_StdSharedPtr_A(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
@@ -590,17 +610,17 @@ public static partial class MR
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.CSharp._ByValueShared_SE _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
+                public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.CSharp._ByValueShared_SA _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
+                public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.CSharp._ByValueShared_ExposedLayoutSh _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
+                public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
@@ -620,7 +640,7 @@ public static partial class MR
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.StdSharedPtr._ByValueShared_A _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
+                public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
@@ -669,17 +689,17 @@ public static partial class MR
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.CSharp._ByValueShared_SE _other) {return new Const_SharedPtr_Void(_other);}
+                public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.CSharp._ByValueShared_SA _other) {return new Const_SharedPtr_Void(_other);}
+                public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.CSharp._ByValueShared_ExposedLayoutSh _other) {return new Const_SharedPtr_Void(_other);}
+                public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
@@ -699,7 +719,7 @@ public static partial class MR
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
-                public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.StdSharedPtr._ByValueShared_A _other) {return new Const_SharedPtr_Void(_other);}
+                public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
                 /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.

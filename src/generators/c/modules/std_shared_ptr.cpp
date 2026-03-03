@@ -30,6 +30,25 @@ namespace mrbind::C::Modules
 
             std::optional<Generator::BindableType> ret;
 
+            // We use some tag types to disambiguate some constructors and assignments, in languages other than C.
+            // Injecting a fake name into `std` is a bit sketchy, but we already do this for `std::variant` tags, so...
+            static const cppdecl::QualifiedName tag_owning = cppdecl::QualifiedName{}.AddPart("std").AddPart("owning");
+            static const cppdecl::QualifiedName tag_nonowning = cppdecl::QualifiedName{}.AddPart("std").AddPart("non_owning");
+            static const cppdecl::QualifiedName tag_aliasing = cppdecl::QualifiedName{}.AddPart("std").AddPart("aliasing");
+
+            { // Handling our tag types.
+                if (
+                    type.simple_type.name.Equals(tag_owning, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target) ||
+                    type.simple_type.name.Equals(tag_nonowning, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target) ||
+                    type.simple_type.name.Equals(tag_aliasing, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target)
+                )
+                {
+                    ret = MakeEmptyTagBinding(generator, type);
+                    if (ret)
+                        return ret;
+                }
+            }
+
             if (!type.IsOnlyQualifiedName() || !type.simple_type.name.Equals(base_name, cppdecl::QualifiedName::EqualsFlags::allow_missing_final_template_args_in_target))
                 return ret;
 
@@ -43,7 +62,7 @@ namespace mrbind::C::Modules
             const cppdecl::Type cpp_elem_type_minus_array = is_array ? cppdecl::Type(cpp_elem_type).RemoveModifier() : cpp_elem_type;
             const bool is_const = cpp_elem_type_minus_array.IsConst();
 
-            const cppdecl::Type cpp_elem_type_minus_const = cppdecl::Type(cpp_elem_type).RemoveQualifiers(cppdecl::CvQualifiers::const_, is_array);
+            const cppdecl::Type cpp_elem_type_minus_const = cppdecl::Type(cpp_elem_type).RemoveQualifiers(cppdecl::CvQualifiers::const_, cpp_elem_type.CountModifiers<cppdecl::Array>());
 
             // Same as `cpp_elem_type`, but if it's an array, here the size is made empty.
             cppdecl::Type cpp_elem_type_force_unknown_bound = cpp_elem_type;
@@ -137,7 +156,7 @@ namespace mrbind::C::Modules
                     // We don't provide an `operator bool` check because the dereferencing function (that returns a pointer) already acts as one.
                     // We don't provide "set value" and "reset" functions because the sugared copy/move constructor and assignment already do the same thing.
 
-                    auto func_name_get = binder.MakeMemberFuncName(generator, "get");
+                    const auto func_name_get = binder.MakeMemberFuncName(generator, "get");
 
                     { // Get pointer. Doesn't propagate const, since `std::shared_ptr` doesn't too.
                         Generator::EmitFuncParams emit;
@@ -150,6 +169,21 @@ namespace mrbind::C::Modules
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
 
                         emit.cpp_called_func = "get";
+
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    { // Check for non-null. This is only useful for interop.
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Returns true if non-null.";
+                        emit.name = binder.MakeMemberFuncName(generator, "has_value", CInterop::MethodKinds::ConversionOperator{});
+
+                        emit.lifetimes.ReturnsReferenceToSubobject();
+                        emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
+
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+
+                        emit.cpp_called_func = "bool(@this@)";
 
                         generator.EmitFunction(file, emit);
                     }
@@ -194,9 +228,61 @@ namespace mrbind::C::Modules
                         generator.EmitFunction(file, emit);
                     }
 
+                    { // Reset. This is only useful for interop.
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Resets the pointer to null.";
+                        emit.name = binder.MakeMemberFuncName(generator, "reset");
+
+                        emit.lifetimes.ReturnsReferenceToSubobject();
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+
+                        emit.cpp_called_func = "reset";
+
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    // Construct from a value. This is only useful for interop.
+                    if (!is_array && !is_void)
+                    {
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Construct from a value.";
+                        emit.name = binder.MakeMemberFuncName(generator, "ConstructFromValue", CInterop::MethodKinds::Constructor{});
+
+                        emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
+
+                        emit.params.push_back({
+                            .name = "value",
+                            .cpp_type = cpp_elem_type,
+                            .reference_assigned = true, // A nested reference, but whatever?
+                        });
+
+                        emit.cpp_called_func = "std::make_shared<" + generator.CppdeclToCode(cpp_elem_type) + ">";
+
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    // Construct an array from size. This is only useful for interop.
+                    if (is_array_of_unknown_bound && generator.FindTypeTraits(cpp_elem_type).is_default_constructible)
+                    {
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment = "/// Construct an array of the specified size.";
+                        emit.name = binder.MakeMemberFuncName(generator, "ConstructFromSize", CInterop::MethodKinds::Constructor{.is_explicit = true});
+
+                        emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
+
+                        emit.params.push_back({
+                            .name = "size",
+                            .cpp_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("size_t")),
+                        });
+
+                        emit.cpp_called_func = "std::make_shared<" + generator.CppdeclToCode(cpp_elem_type_minus_const) + ">"; // It's fun that we need to strip constness from the array element type.
+
+                        generator.EmitFunction(file, emit);
+                    }
+
                     std::string construct_from_unique_ptr = type_str;
                     if (is_array && !is_array_of_unknown_bound)
-                        construct_from_unique_ptr += "(@1@.release())"; // Arrays of fixed bound need special care.
+                        construct_from_unique_ptr += "(@2@.release())"; // Arrays of fixed bound need special care.
 
                     // Construct from a pointer.
                     // This ctor is disabled in `std::shared_ptr<void>`. We don't really need it, since the user should just use a typed pointer instead.
@@ -208,6 +294,12 @@ namespace mrbind::C::Modules
                         emit.name = binder.MakeMemberFuncName(generator, "Construct", CInterop::MethodKinds::Constructor{.is_explicit = true});
 
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
+
+                        emit.params.push_back({
+                            .name = "tag",
+                            .omit_from_call = true,
+                            .cpp_type = cppdecl::Type::FromQualifiedName(tag_owning),
+                        });
 
                         emit.params.push_back({
                             .name = "ptr",
@@ -229,6 +321,13 @@ namespace mrbind::C::Modules
                         emit.name = binder.MakeMemberFuncName(generator, "Assign", CInterop::MethodKinds::Operator{.token = "="});
 
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+
+                        emit.params.push_back({
+                            .name = "tag",
+                            .omit_from_call = true,
+                            .cpp_type = cppdecl::Type::FromQualifiedName(tag_owning),
+                        });
+
                         emit.params.push_back({
                             .name = "ptr",
                             .cpp_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("unique_ptr").AddTemplateArgument(cpp_elem_type_force_unknown_bound)),
@@ -249,12 +348,18 @@ namespace mrbind::C::Modules
                         emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
 
                         emit.params.push_back({
+                            .name = "tag",
+                            .omit_from_call = true,
+                            .cpp_type = cppdecl::Type::FromQualifiedName(tag_nonowning),
+                        });
+
+                        emit.params.push_back({
                             .name = "ptr",
                             .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
                             .reference_assigned = true,
                         });
 
-                        emit.cpp_called_func = type_str + "(std::shared_ptr<void>{}, @1@)";
+                        emit.cpp_called_func = type_str + "(std::shared_ptr<void>{}, @2@)";
 
                         generator.EmitFunction(file, emit);
                     }
@@ -265,13 +370,20 @@ namespace mrbind::C::Modules
                         emit.name = binder.MakeMemberFuncName(generator, "AssignNonOwning", CInterop::MethodKinds::Operator{.token = "="});
 
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+
+                        emit.params.push_back({
+                            .name = "tag",
+                            .omit_from_call = true,
+                            .cpp_type = cppdecl::Type::FromQualifiedName(tag_nonowning),
+                        });
+
                         emit.params.push_back({
                             .name = "ptr",
                             .cpp_type = cppdecl::Type(cpp_elem_type_minus_array).AddModifier(cppdecl::Pointer{}),
                             .reference_assigned = true,
                         });
 
-                        emit.cpp_called_func = "@this@ = " + type_str + "(std::shared_ptr<void>{}, @1@)";
+                        emit.cpp_called_func = "@this@ = " + type_str + "(std::shared_ptr<void>{}, @2@)";
 
                         generator.EmitFunction(file, emit);
                     }
@@ -289,6 +401,8 @@ namespace mrbind::C::Modules
 
                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
 
+                            // No tag here.
+
                             emit.params.push_back({
                                 .name = "ptr",
                                 .cpp_type = sharedptr_nonconst_type,
@@ -305,6 +419,9 @@ namespace mrbind::C::Modules
                             emit.name = binder.MakeMemberFuncName(generator, "AssignFromMutable", CInterop::MethodKinds::Operator{.token = "="});
 
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+
+                            // No tag here.
+
                             emit.params.push_back({
                                 .name = "ptr",
                                 .cpp_type = sharedptr_nonconst_type,
@@ -330,6 +447,12 @@ namespace mrbind::C::Modules
                             emit.cpp_return_type = cppdecl::Type::FromQualifiedName(binder.cpp_type_name);
 
                             emit.params.push_back({
+                                .name = "tag",
+                                .omit_from_call = true,
+                                .cpp_type = cppdecl::Type::FromQualifiedName(tag_aliasing),
+                            });
+
+                            emit.params.push_back({
                                 .name = "ownership",
                                 .cpp_type = sharedptr_constvoid_type,
                             });
@@ -352,6 +475,13 @@ namespace mrbind::C::Modules
                             emit.name = binder.MakeMemberFuncName(generator, "AssignAliasing"); // Not marking this as assignment due to multiple parameters.
 
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
+
+                            emit.params.push_back({
+                                .name = "tag",
+                                .omit_from_call = true,
+                                .cpp_type = cppdecl::Type::FromQualifiedName(tag_aliasing),
+                            });
+
                             emit.params.push_back({
                                 .name = "ownership",
                                 .cpp_type = sharedptr_constvoid_type,
@@ -388,6 +518,8 @@ namespace mrbind::C::Modules
 
                             emit.cpp_return_type = sharedptr_void_type;
 
+                            // No tag here.
+
                             emit.params.push_back({
                                 .name = "_other",
                                 .cpp_type = type,
@@ -406,6 +538,9 @@ namespace mrbind::C::Modules
                             emit.name = void_binder.MakeMemberFuncName(generator, "AssignFrom_" + binder.c_type_name, CInterop::MethodKinds::Operator{.token = "="});
 
                             emit.AddThisParam(cppdecl::Type::FromQualifiedName(void_binder.cpp_type_name), false);
+
+                            // No tag here.
+
                             emit.params.push_back({
                                 .name = "_other",
                                 .cpp_type = type,

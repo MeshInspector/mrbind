@@ -7,6 +7,7 @@
 #include <exports.h>
 #pragma pop_macro("MR_C_DISABLE_CONVENIENCE_INCLUDES")
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 
@@ -63,6 +64,10 @@ MR_C_API MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_Of
 // The reference to this object might be preserved as the return value.
 MR_C_API int32_t *MR_C_std_shared_ptr_int32_t_array_get(const MR_C_std_shared_ptr_int32_t_array *_this);
 
+// Returns true if non-null.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_std_shared_ptr_int32_t_array_has_value(const MR_C_std_shared_ptr_int32_t_array *_this);
+
 // Returns an element from the stored array. The stored pointer must not be null.
 // Parameter `_this` can not be null. It is a single object.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
@@ -74,6 +79,14 @@ MR_C_API int32_t *MR_C_std_shared_ptr_int32_t_array_at(const MR_C_std_shared_ptr
 // Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API int MR_C_std_shared_ptr_int32_t_array_use_count(const MR_C_std_shared_ptr_int32_t_array *_this);
+
+// Resets the pointer to null.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_C_std_shared_ptr_int32_t_array_reset(MR_C_std_shared_ptr_int32_t_array *_this);
+
+// Construct an array of the specified size.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_int32_t_array_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_int32_t_array *MR_C_std_shared_ptr_int32_t_array_ConstructFromSize(size_t size);
 
 // Create a new instance, taking ownership of an existing pointer.
 // Parameter `ptr` can point to an array.

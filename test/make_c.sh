@@ -99,7 +99,6 @@ build/mrbind_gen_c \
     --output-source-dir test/output_c/source \
     --output-desc-json test/output_c/desc.json \
     "${MRBIND_GEN_C_FLAGS[@]}" \
-    --bind-shared-ptr-virally \
     --force-emit-common-helpers \
 
 build/mrbind \

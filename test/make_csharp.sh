@@ -42,7 +42,8 @@ build/mrbind_gen_csharp \
     --begin-func-names-with-lowercase \
     --wrap-doc-comments-in-summary-tag \
     --fat-objects \
-    --csharp-version=14
+    --csharp-version=14 \
+    --buggy-transparent-shared-pointers
 
 dotnet build test/output_csharp
 dotnet build test/output_csharp_fixed_typedefs

@@ -60,9 +60,26 @@ MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_get(const MR_C_std_shar
     return (MR_StdSharedPtr_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::StdSharedPtr::A> *)(_this)).get());
 }
 
+bool MR_C_std_shared_ptr_MR_StdSharedPtr_A_has_value(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_this)
+{
+    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::StdSharedPtr::A> *)(_this)));
+}
+
 int MR_C_std_shared_ptr_MR_StdSharedPtr_A_use_count(const MR_C_std_shared_ptr_MR_StdSharedPtr_A *_this)
 {
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::StdSharedPtr::A> *)(_this)).use_count());
+}
+
+void MR_C_std_shared_ptr_MR_StdSharedPtr_A_reset(MR_C_std_shared_ptr_MR_StdSharedPtr_A *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::StdSharedPtr::A> *)(_this)).reset();
+}
+
+MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_ConstructFromValue(const MR_StdSharedPtr_A *value)
+{
+    return (MR_C_std_shared_ptr_MR_StdSharedPtr_A *)new std::shared_ptr<MR::StdSharedPtr::A>(std::make_shared<MR::StdSharedPtr::A>(
+        ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::StdSharedPtr::A(*(MR::StdSharedPtr::A *)value))
+    ));
 }
 
 MR_C_std_shared_ptr_MR_StdSharedPtr_A *MR_C_std_shared_ptr_MR_StdSharedPtr_A_Construct(MR_StdSharedPtr_A *ptr)

@@ -71,6 +71,16 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Returns true if non-null.
+                /// </summary>
+                public static unsafe implicit operator bool(MR.CS.Std.Const_SharedPtr_ConstInt32T _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_has_value", ExactSpelling = true)]
+                    extern static byte __MR_C_std_shared_ptr_const_int32_t_has_value(MR.CS.Std.Const_SharedPtr_ConstInt32T._Underlying *_this);
+                    return __MR_C_std_shared_ptr_const_int32_t_has_value(_this._UnderlyingPtr) != 0;
+                }
+
+                /// <summary>
                 /// How many shared pointers share the managed object. Zero if no object is being managed.
                 /// This being zero usually conincides with `MR_C_std_shared_ptr_const_int32_t_get()` returning null, but is ultimately orthogonal.
                 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
@@ -83,9 +93,24 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Construct from a value.
+                /// </summary>
+                public unsafe Const_SharedPtr_ConstInt32T(int value) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_ConstructFromValue", ExactSpelling = true)]
+                    extern static MR.CS.Std.SharedPtr_ConstInt32T._Underlying *__MR_C_std_shared_ptr_const_int32_t_ConstructFromValue(int value);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_const_int32_t_ConstructFromValue(value);
+                }
+
+                /// <summary>
+                /// Construct from a value.
+                /// </summary>
+                public static unsafe implicit operator Const_SharedPtr_ConstInt32T(int value) {return new(value);}
+
+                /// <summary>
                 /// Create a new instance, taking ownership of an existing pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_ConstInt32T(void *ptr) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_ConstInt32T(MR.CS.Std.Owning tag, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstInt32T._Underlying *__MR_C_std_shared_ptr_const_int32_t_Construct(void *ptr);
@@ -95,7 +120,7 @@ public static partial class MR
                 /// <summary>
                 /// Create a new instance, storing a non-owning pointer.
                 /// </summary>
-                public unsafe Const_SharedPtr_ConstInt32T(int? ptr) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_ConstInt32T(MR.CS.Std.NonOwning tag, int? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_ConstructNonOwning", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstInt32T._Underlying *__MR_C_std_shared_ptr_const_int32_t_ConstructNonOwning(int *ptr);
@@ -122,7 +147,7 @@ public static partial class MR
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// </summary>
-                public unsafe Const_SharedPtr_ConstInt32T(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, int? ptr) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_ConstInt32T(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, int? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_ConstructAliasing", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstInt32T._Underlying *__MR_C_std_shared_ptr_const_int32_t_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, int *ptr);
@@ -183,9 +208,34 @@ public static partial class MR
                 }
 
                 /// <summary>
+                /// Resets the pointer to null.
+                /// </summary>
+                public unsafe void reset()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_reset", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_const_int32_t_reset(_Underlying *_this);
+                    __MR_C_std_shared_ptr_const_int32_t_reset(_UnderlyingPtr);
+                }
+
+                /// <summary>
+                /// Construct from a value.
+                /// </summary>
+                public unsafe SharedPtr_ConstInt32T(int value) : this(null, is_owning: true)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_ConstructFromValue", ExactSpelling = true)]
+                    extern static MR.CS.Std.SharedPtr_ConstInt32T._Underlying *__MR_C_std_shared_ptr_const_int32_t_ConstructFromValue(int value);
+                    _UnderlyingPtr = __MR_C_std_shared_ptr_const_int32_t_ConstructFromValue(value);
+                }
+
+                /// <summary>
+                /// Construct from a value.
+                /// </summary>
+                public static unsafe implicit operator SharedPtr_ConstInt32T(int value) {return new(value);}
+
+                /// <summary>
                 /// Create a new instance, taking ownership of an existing pointer.
                 /// </summary>
-                public unsafe SharedPtr_ConstInt32T(void *ptr) : this(null, is_owning: true)
+                public unsafe SharedPtr_ConstInt32T(MR.CS.Std.Owning tag, void *ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstInt32T._Underlying *__MR_C_std_shared_ptr_const_int32_t_Construct(void *ptr);
@@ -195,7 +245,7 @@ public static partial class MR
                 /// <summary>
                 /// Overwrite the existing instance, taking ownership of an existing pointer. The previously owned object, if any, has its reference count decremented.
                 /// </summary>
-                public unsafe void assign(void *ptr)
+                public unsafe void assign(MR.CS.Std.Owning tag, void *ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_Assign", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int32_t_Assign(_Underlying *_this, void *ptr);
@@ -205,7 +255,7 @@ public static partial class MR
                 /// <summary>
                 /// Create a new instance, storing a non-owning pointer.
                 /// </summary>
-                public unsafe SharedPtr_ConstInt32T(int? ptr) : this(null, is_owning: true)
+                public unsafe SharedPtr_ConstInt32T(MR.CS.Std.NonOwning tag, int? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_ConstructNonOwning", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstInt32T._Underlying *__MR_C_std_shared_ptr_const_int32_t_ConstructNonOwning(int *ptr);
@@ -216,7 +266,7 @@ public static partial class MR
                 /// <summary>
                 /// Overwrite the existing instance with a non-owning pointer. The previously owned object, if any, has its reference count decremented.
                 /// </summary>
-                public unsafe void assign(int? ptr)
+                public unsafe void assign(MR.CS.Std.NonOwning tag, int? ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_AssignNonOwning", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int32_t_AssignNonOwning(_Underlying *_this, int *ptr);
@@ -254,7 +304,7 @@ public static partial class MR
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// </summary>
-                public unsafe SharedPtr_ConstInt32T(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, int? ptr) : this(null, is_owning: true)
+                public unsafe SharedPtr_ConstInt32T(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, int? ptr) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_ConstructAliasing", ExactSpelling = true)]
                     extern static MR.CS.Std.SharedPtr_ConstInt32T._Underlying *__MR_C_std_shared_ptr_const_int32_t_ConstructAliasing(MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, int *ptr);
@@ -266,7 +316,7 @@ public static partial class MR
                 /// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
                 /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
                 /// </summary>
-                public unsafe void assignAliasing(MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, int? ptr)
+                public unsafe void assignAliasing(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, int? ptr)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int32_t_AssignAliasing", ExactSpelling = true)]
                     extern static void __MR_C_std_shared_ptr_const_int32_t_AssignAliasing(_Underlying *_this, MR.CS.Misc._PassBy ownership_pass_by, MR.CS.Std.SharedPtr_ConstVoid._Underlying *ownership, int *ptr);
@@ -296,6 +346,11 @@ public static partial class MR
                 public static implicit operator _ByValue_SharedPtr_ConstInt32T(Const_SharedPtr_ConstInt32T arg) {return new(arg);}
                 public _ByValue_SharedPtr_ConstInt32T(MR.CS.Misc._Moved<SharedPtr_ConstInt32T> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_SharedPtr_ConstInt32T(MR.CS.Misc._Moved<SharedPtr_ConstInt32T> arg) {return new(arg);}
+
+                /// <summary>
+                /// Construct from a value.
+                /// </summary>
+                public static unsafe implicit operator _ByValue_SharedPtr_ConstInt32T(int value) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_ConstInt32T>(value);}
 
                 /// <summary>
                 /// Create a new instance from a non-const pointer to the same type.
@@ -335,6 +390,11 @@ public static partial class MR
                 public _InOptConst_SharedPtr_ConstInt32T() {}
                 public _InOptConst_SharedPtr_ConstInt32T(Const_SharedPtr_ConstInt32T value) {Opt = value;}
                 public static implicit operator _InOptConst_SharedPtr_ConstInt32T(Const_SharedPtr_ConstInt32T value) {return new(value);}
+
+                /// <summary>
+                /// Construct from a value.
+                /// </summary>
+                public static unsafe implicit operator _InOptConst_SharedPtr_ConstInt32T(int value) {return new Const_SharedPtr_ConstInt32T(value);}
 
                 /// <summary>
                 /// Create a new instance from a non-const pointer to the same type.

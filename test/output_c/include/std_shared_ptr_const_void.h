@@ -3,6 +3,7 @@
 #include <common.h>
 #include <exports.h>
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -56,11 +57,19 @@ MR_C_API MR_C_std_shared_ptr_const_void *MR_C_std_shared_ptr_const_void_OffsetMu
 /// The reference to this object might be preserved as the return value.
 MR_C_API const void *MR_C_std_shared_ptr_const_void_get(const MR_C_std_shared_ptr_const_void *_this);
 
+/// Returns true if non-null.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API bool MR_C_std_shared_ptr_const_void_has_value(const MR_C_std_shared_ptr_const_void *_this);
+
 /// How many shared pointers share the managed object. Zero if no object is being managed.
 /// This being zero usually conincides with `MR_C_std_shared_ptr_const_void_get()` returning null, but is ultimately orthogonal.
 /// Note that in multithreaded environments, the only safe way to use this number is comparing it with zero. Positive values might change by the time you get to use them.
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API int MR_C_std_shared_ptr_const_void_use_count(const MR_C_std_shared_ptr_const_void *_this);
+
+/// Resets the pointer to null.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_C_std_shared_ptr_const_void_reset(MR_C_std_shared_ptr_const_void *_this);
 
 /// Create a new instance, storing a non-owning pointer.
 /// The reference to the parameter `ptr` might be preserved in the constructed object.
