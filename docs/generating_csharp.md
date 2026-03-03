@@ -22,6 +22,8 @@ As mentioned above, C# bindings are based on C bindings, so [you must produce th
 
 Pass `--output-desc-json c_desc.json` to the C generator to make it dump C bindings description, which will then be used by the C# generator.
 
+You must also pass `--force-emit-common-helpers` to generate some additional helpers for C# bindings.
+
 It's strongly recommended that you also pass [`--copy-inherited-members`](/docs/generating_c.md#inherit-class-members) to the C generator, otherwise in C# the derived classes will not inherit the base members (we imitate inheritance by copying members and providing conversions between the classes, to support multiple inheritance among other things, see [README](/README.md) for more details).
 
 ## Running the C# generator
