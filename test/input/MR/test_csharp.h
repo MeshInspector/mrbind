@@ -305,7 +305,7 @@ namespace MR::CSharp
 
     struct TestFields
     {
-        int i;
+        int i; ///< Test same-line documentation comment.
         inline static int static_i;
         const int const_i;
         inline static const int static_const_i = 42;

@@ -4982,6 +4982,9 @@ public static partial class MR
 
                 public static unsafe MR.CS.Std.Const_String StaticConstSRef {get; private protected set;}
 
+                /// <summary>
+                /// Test same-line documentation comment.
+                /// </summary>
                 public unsafe int i => *__ref_storage_i;
                 private protected unsafe int *__ref_storage_i;
 
@@ -5180,6 +5183,9 @@ public static partial class MR
             /// </summary>
             public class TestFields : Const_TestFields
             {
+                /// <summary>
+                /// Test same-line documentation comment.
+                /// </summary>
                 public new unsafe ref int i => ref *__ref_storage_i;
 
                 public new unsafe MR.CS.Std.String s {get; private protected set;}

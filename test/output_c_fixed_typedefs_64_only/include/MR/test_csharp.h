@@ -2756,17 +2756,20 @@ MR_C_API MR_C_std_string *MR_CSharp_TestFields_Get_static_s_ref(void);
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 MR_C_API const MR_C_std_string *MR_CSharp_TestFields_Get_static_const_s_ref(void);
 
+///< Test same-line documentation comment.
 /// Returns a pointer to a member variable of class `MR::CSharp::TestFields` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
 /// The reference to this object might be preserved as the return value.
 MR_C_API const int *MR_CSharp_TestFields_Get_i(const MR_CSharp_TestFields *_this);
 
+///< Test same-line documentation comment.
 /// Modifies a member variable of class `MR::CSharp::TestFields` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
 /// When this function is called, this object will drop object references it held previously in `i`.
 MR_C_API void MR_CSharp_TestFields_Set_i(MR_CSharp_TestFields *_this, int value);
 
+///< Test same-line documentation comment.
 /// Returns a mutable pointer to a member variable of class `MR::CSharp::TestFields` named `i`.
 /// Parameter `_this` can not be null. It is a single object.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.

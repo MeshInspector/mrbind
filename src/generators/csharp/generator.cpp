@@ -6352,7 +6352,7 @@ namespace mrbind::CSharp
                                     file.WriteSeparatingNewline();
 
                                     // Write comment.
-                                    file.WriteString(field.comment.c_style);
+                                    WriteComment(file, field.comment.c_style);
 
                                     // Write the field by value, if we're in the by-value part.
                                     if (is_exposed_struct_by_value)
@@ -7330,7 +7330,7 @@ namespace mrbind::CSharp
                     const std::string csharp_storage_field_name = "__array_storage_" + csharp_field_name;
 
                     file.WriteSeparatingNewline();
-                    file.WriteString(field.comment.c_style);
+                    WriteComment(file, field.comment.c_style);
                     if (!is_const)
                         file.WriteString("new ");
 
@@ -7360,7 +7360,7 @@ namespace mrbind::CSharp
                 }
 
                 file.WriteSeparatingNewline();
-                file.WriteString(field.comment.c_style);
+                WriteComment(file, field.comment.c_style);
                 if (!is_const)
                     file.WriteString("new ");
                 // Using `get; private protected set;` to allow the derived class to modify this.
@@ -7423,7 +7423,7 @@ namespace mrbind::CSharp
                     if (is_class || csharp_nonclass_type)
                     {
                         file.WriteSeparatingNewline();
-                        file.WriteString(field.comment.c_style);
+                        WriteComment(file, field.comment.c_style);
                         file.WriteString("public ");
                         if (field.is_static)
                             file.WriteString("static ");
@@ -7568,7 +7568,7 @@ namespace mrbind::CSharp
 
 
                 file.WriteSeparatingNewline();
-                file.WriteString(field.comment.c_style);
+                WriteComment(file, field.comment.c_style);
                 file.WriteString("public ");
 
                 if (field.is_static)
@@ -7622,7 +7622,7 @@ namespace mrbind::CSharp
 
             file.WriteSeparatingNewline();
 
-            file.WriteString(field.comment.c_style);
+            WriteComment(file, field.comment.c_style);
 
             file.WriteString("public ");
 

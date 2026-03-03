@@ -3660,6 +3660,7 @@ public static partial class MR
                     }
                 }
 
+                ///< Test same-line documentation comment.
                 public unsafe int i
                 {
                     get
@@ -3798,6 +3799,7 @@ public static partial class MR
             /// This is the non-const half of the class.
             public class TestFields : Const_TestFields
             {
+                ///< Test same-line documentation comment.
                 public new unsafe ref int i
                 {
                     get
