@@ -13,17 +13,15 @@ namespace mrbind::C::Modules
         // If true, also bind shared pointers for all base classes and derived classes.
         bool viral_bindings = false;
 
-        void ConsumeFlag(FlagInterface &in) override
+        void RegisterCommandLineFlags(CommandLineParser &args_parser) override
         {
             // This behavior is made specifically for our C# bindings. So we can't remove anything from this, but can add more implied bindings later.
-            // We also require `std::shared_ptr<const T>` implying `std::shared_ptr<T>`, but right now this happens automatically,
+            // We also require `std::shared_ptr<const T>` to imply `std::shared_ptr<T>`, but right now this happens automatically,
             //   because we have a ctor and an assignment from the non-const variant.
-            if (in.FlagNameMatches("--bind-shared-ptr-virally", "", "If enabled, when encountering `std::shared_ptr` with a class as a template parameter, we will additionally generate `std::shared_ptr` bindings for all its base and derived classes, recursively."))
-            {
-                if (viral_bindings)
-                    throw std::runtime_error("Duplicate flag `--bind-shared-ptr-virally`.");
-                viral_bindings = true;
-            }
+            args_parser.AddFlag("--bind-shared-ptr-virally", {
+                .desc = "If enabled, when encountering `std::shared_ptr` with a class as a template parameter, we will additionally generate `std::shared_ptr` bindings for all its base and derived classes, recursively.",
+                .func = [this](CommandLineParser::ArgSpan){viral_bindings = true;},
+            });
         }
 
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override

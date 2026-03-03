@@ -1,5 +1,7 @@
 #include "command_line_parser.h"
 
+#include <cppdecl/misc/string_helpers.h>
+
 #include <cstdlib>
 #include <stdexcept>
 #include <unordered_set>
@@ -77,6 +79,8 @@ namespace mrbind
                 for (std::size_t i = 0; i < flags.Vec().size(); i++)
                     std::printf("  %-*s  - %s\n", (int)max_size, flags_with_args[i].c_str(), flags.Map().at(flags.Vec()[i]).desc.c_str());
 
+                std::printf("%s", help_footer.c_str());
+
                 if (exit_after_printing_help)
                     std::exit(0);
             }
@@ -117,5 +121,21 @@ namespace mrbind
 
             iter->second.func(flag_args);
         }
+    }
+
+    std::size_t CommandLineParser::ParseSizeT(const std::string &str)
+    {
+        if (str.empty() || !cppdecl::IsDigit(str.front()))
+            throw std::runtime_error("`" + str + "` is not a valid number.");
+
+        char *end = nullptr;
+        errno = 0;
+
+        static_assert(sizeof(std::size_t) == sizeof(unsigned long long));
+        unsigned long long ll = std::strtoull(str.c_str(), &end, 10);
+        if (end != str.c_str() + str.size() || errno != 0)
+            throw std::runtime_error("`" + (str) + "` is not a valid number.");
+
+        return std::size_t(ll);
     }
 }

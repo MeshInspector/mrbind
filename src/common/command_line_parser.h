@@ -42,6 +42,9 @@ namespace mrbind
         // You can assign something else to this. This should end with a newline.
         std::string help_banner = "Flags:\n";
 
+        // This is printed after the flags.
+        std::string help_footer;
+
         // If set, this is called when receiving an unknown flag, instead of throwing an exception.
         // If this returns true, all remaining false are considered unknown and go straight to this function (until it returns false again, then the flags starting from the next one will continue to be parsed).
         std::function<bool(const char *)> on_unknown_flag = nullptr;
@@ -51,6 +54,13 @@ namespace mrbind
 
         void AddFlag(std::string name, Flag flag);
 
+        // You should preprocess your arguments using `mrbind::CommandLineArgsAsUtf8` before passing them here.
         void Parse(int argc, char **argv) const;
+
+
+        // Static helpers:
+
+        // Sadly `strtoull()` requires `str` to be null-terminated.
+        [[nodiscard]] static std::size_t ParseSizeT(const std::string &str);
     };
 }

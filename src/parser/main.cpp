@@ -10,6 +10,7 @@
 
 #include "main.h"
 
+#include "common/command_line_args_as_utf8.h"
 #include "common/command_line_parser.h"
 #include "common/filesystem.h"
 #include "common/parsed_data.h"
@@ -3437,7 +3438,7 @@ namespace mrbind
     }
 }
 
-int main(int argc, char **argv)
+int main(int raw_argc, char **raw_argv)
 {
     mrbind::SetErrorHandlers();
 
@@ -3447,8 +3448,10 @@ int main(int argc, char **argv)
 
     mrbind::VisitorParams params;
 
+    mrbind::CommandLineArgsAsUtf8 utf8_args(raw_argc, raw_argv);
+
     std::vector<const char *> clang_argv;
-    { // Handle custom options in `argc`/`argv`, place the rest in `clang_argv`.
+    { // Handle custom options in `utf8_args`, place the rest in `clang_argv`.
         mrbind::CommandLineParser args_parser;
 
         args_parser.help_banner =
@@ -3460,9 +3463,9 @@ int main(int argc, char **argv)
             "\n"
             "`[mrbind_flags]` are:\n";
 
-        clang_argv.reserve(std::size_t(argc + 1));
-        if (argc >= 1)
-            clang_argv.push_back(argv[0]);
+        clang_argv.reserve(std::size_t(utf8_args.argc + 1));
+        if (utf8_args.argc >= 1)
+            clang_argv.push_back(utf8_args.argv[0]);
 
         args_parser.on_unknown_flag = [&, ret = false](const char *flag) mutable
         {
@@ -3664,7 +3667,7 @@ int main(int argc, char **argv)
             });
         }
 
-        args_parser.Parse(argc, argv);
+        args_parser.Parse(utf8_args.argc, utf8_args.argv);
 
 
         // Adjust the options a bit:

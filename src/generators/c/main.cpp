@@ -1,4 +1,5 @@
 #include "common/command_line_args_as_utf8.h"
+#include "common/command_line_parser.h"
 #include "common/filesystem.h"
 #include "common/set_error_handlers.h"
 #include "generators/c_interop/desc_to_and_from_json.h"
@@ -13,8 +14,6 @@
 int main(int raw_argc, char **raw_argv)
 {
     mrbind::SetErrorHandlers();
-
-    mrbind::CommandLineArgsAsUtf8 args(raw_argc, raw_argv);
 
     std::string input_filename;
     std::string output_json_desc_filename;
@@ -33,364 +32,241 @@ int main(int raw_argc, char **raw_argv)
     }
 
     { // Parse arguments.
-        bool seen_input_filename = false;
-        bool seen_output_header_dir = false;
-        bool seen_output_source_dir = false;
-        bool seen_output_json_desc_filename = false;
-        bool seen_helper_header_dir = false;
-        bool seen_helper_name_prefix = false;
-        bool seen_helper_macro_name_prefix = false;
-        bool seen_clean_output_dirs = false;
-        bool seen_max_output_filename_length = false;
-        bool seen_add_convenience_includes = false;
-        bool seen_max_num_fields_for_default_constructible_aggregate_init = false;
-        bool seen_reject_long_and_long_long = false;
-        bool seen_custom_typedef_for_uint64_t_pointing_to_size_t = false;
-        bool seen_force_emit_helpers_file = false;
-        bool seen_verbose = false;
+        mrbind::CommandLineParser args_parser;
 
-        for (int i = 1; i < args.argc; i++)
-        {
-            std::string_view view = args.argv[i];
+        args_parser.help_footer =
+            "\n"
+            "A minimal usage might look like this:\n"
+            "    mrbind_gen_c --input test/build/parsed.json --output-header-dir test/build/include --clean-output-dirs --output-source-dir test/build/source --map-path test/input . --assume-include-dir test\n"
+            "With `--clean-output-dirs` being optional.\n";
 
-            if (view == "--help")
+        args_parser.AddFlag("--input", {
+            .arg_names = {"filename.json"},
+            .desc = "Input JSON file, as produced by `mrbind --format=json`.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
             {
-                static constexpr int flag_column_width = 38; // Sync with the whitespaces below.
-                std::cout <<
-                    "Usage:\n"
-                    "    --input               <filename.json>  - Input JSON file, as produced by `mrbind --format=json`.\n"
-                    "    --output-header-dir   <dir>            - Output directory for headers. Must be empty or not exist, unless you pass `--clean-output-dirs` too. It's always an error if it exists and is not a directory.\n"
-                    "    --output-source-dir   <dir>            - Output directory for sources. Same rules are for `--output-header-dir`.\n"
-                    "    --clean-output-dirs                    - Destroy the contents of the output directory before writing to it. Without this flag, it's an error for it to not be empty.\n"
-                    "    --output-desc-json    <filename.json>  - Optional. Outputs an additional JSON describing the generated C code, which is useful for building bindings for other languages on top of the C ones.\n"
-                    "    --map-path            <from> <to>      - How to transform parsed filenames to their respective generated filenames. Can be repeated. `<from>` is a directory or file name, it gets canonicalized automatically. `<to>` is a suffix relative to the output directories. Every filename in the parsed data must match some prefix. Longer prefixes get priority.\n"
-                    "    --helper-header-dir         <dir>      - Where to generate the additional helper files, relative to `--output-header-dir`. Unless your entire output directory is named after your library, you probably to pass the library name to this flag, something like `--helper-header-dir=MyLib_helpers`.\n"
-                    "    --helper-name-prefix        <string>   - This is a prefix for the names of some helpers that we sometimes need to generate. This will typically be your library name, followed by an underscore. This is technically optional, but you'll get an error if this turns out to be necessary for something, which is almost guaranteed for any non-trivial input.\n"
-                    "    --helper-macro-name-prefix  <string>   - Optional. If specified, it overrides `--helper-name-prefix` specifically for macro names.\n"
-                    "    --strip-filename-suffix     <ext>      - If any of the filenames of the parsed files mentioned in the input JSON end with this suffix (which should start with a dot), they'll be removed. All common C++ source extensions are added automatically.\n"
-                    "    --assume-include-dir        <dir>      - When including the parsed files, assume that this directory will be passed to the compiler as `-I`, so we can spell filenames relative to it. Can be repeated. More deeply nested directories get priority. You might need to tune this or `--map-path` if you get conflicts between your C++ headers and the generated C headers.\n"
-                    "    --max-header-name-length    <n>        - Shorten the generated header names to this length. This doesn't count the output directory/prefix, only the relative name of the header. This is also inexact, not counting the extensions, nor the hash that gets added to the filename in those cases. This seems to be more important on Windows with it's smaller default path length limits. A value around 100 should work well enough.\n"
-                    "    --add-convenience-includes             - Add more include directives to the output, that are not strictly necessary, but might help the user. This isn't enabled by default because it add too much bloat in large projects.\n"
-                    "    --preferred-max-num-aggregate-init-fields <n> - Don't generate aggregate initialization constructors for structures with more than this number of members. The default is no limit. This limit is ignored if the aggregate is not default-constructible, because that would make it impossible to construct from C.\n"
-                    "    --reject-long-and-long-long            - Fail if the input contains `long` or `long long`, possibly unsigned. This is intended to be used with the parser's `--canonicalize-to-fixed-size-typedefs`, to make sure the input didn't contain types that couldn't be canonicalized due to width conflict. If this trips, stop using `long` and `long long` in your code directly, and use the standard typedefs instead.\n"
-                    "    --use-size_t-typedef-for-uint64_t      - This is intended to be used with the parser's `--canonicalize-size_t-to-uint64_t`. When the input contains `[u]int64_t`, we'll bind them as `size_t` and `ptrdiff_t` (or our own typedefs for them, rather), instead of the standard `[u]int64_t` typedefs.\n"
-                    "    --force-emit-common-helpers            - Always emit the header with some basic helpers, even if not otherwise needed. It includes, among other things, C++-compatible memory allocation/deallocation functions.\n"
-                    "    --expose-as-struct          <type>     - Bind this C++ class or struct as an actual C struct with the same member layout, instead of an opaque pointer. The argument is either the exact name (with template arguments if any), or a regex enclosed in slashes `/.../`. If there is no such struct, does nothing. If the struct exists, but isn't simple enough for such binding, will emit an error. The struct must be trivally-copyable and standard-layout to qualify.\n"
-                    "    --adjust-comments           s/A/B/g    - Adjusts all generated comments in C code with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules.\n"
-                    "    --[no-]skip-template-args-on-func <func> - When calling those functions, we won't put template arguments after the function name. This helps handle certain overloaded functions that don't behave well when used with template arguments, which causes them to instantiate templates with unwanted template arguments, causing hard errors. This is enabled by default for `begin`, `end`, `swap` (can be disabled with `--no-...`), and for all overloaded operators (can't be disabled). This takes a function name as a single identifier, which will match those functions regardless of the namespace. This can be specified multiple times to apply to specify multiple functions.\n"
-                    "    --verbose                              - Write some logs.\n";
+                input_filename = args.front();
+            },
+        });
 
-                { // Ask modules for thier flags.
-                    // This fake implementation just prints the flags that the modules know about.
-                    struct FlagPrinter : mrbind::C::Module::FlagInterface
-                    {
-                        bool FlagNameMatches(std::string_view name, std::string_view args, std::string_view description) override
-                        {
-                            std::string name_with_args(name);
-                            if (!args.empty())
-                            {
-                                name_with_args += ' ';
-                                name_with_args += args;
-                            }
-
-                            std::cout << "    " << std::left << std::setw(flag_column_width) << name_with_args << " - " << description << '\n';
-                            return false;
-                        }
-
-                        std::string_view GetStringArgument() override
-                        {
-                            throw std::runtime_error("Bad usage of `FlagInterface`: must not call `GetStringArgument()` before `FlagNameMatches()` returns true.");
-                        }
-                    };
-                    FlagPrinter printer;
-
-                    for (const auto &m : generator.modules)
-                        m->ConsumeFlag(printer);
-                }
-
-                std::cout <<
-                    "\n"
-                    "A minimal usage might look like this:\n"
-                    "    mrbind_gen_c --input test/build/parsed.json --output-header-dir test/build/include --clean-output-dirs --output-source-dir test/build/source --map-path test/input . --assume-include-dir test\n"
-                    "With `--clean-output-dirs` being optional.\n"
-                    ;
-                return 0;
-            }
-
-            auto ConsumeFlagWithNoArgs = [&](std::string_view name, bool &out, bool *dupe_check) -> bool
+        args_parser.AddFlag("--output-header-dir", {
+            .arg_names = {"dir"},
+            .desc = "Output directory for headers. Must be empty or not exist, unless you pass `--clean-output-dirs` too. It's always an error if it exists and is not a directory.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
             {
-                if (view == name)
-                {
-                    if (dupe_check)
-                    {
-                        if (*dupe_check)
-                            throw std::runtime_error("More than one `" + std::string(name) + "` not allowed.");
-                        *dupe_check = true;
-                    }
+                generator.output_header_dir = args.front();
+            },
+        });
 
-                    out = true;
-                    return true;
-                }
-
-                return false;
-            };
-            auto ConsumeFlagWithStringArg = [&](std::string_view name, std::string &out, bool *dupe_check) -> bool
+        args_parser.AddFlag("--output-source-dir", {
+            .arg_names = {"dir"},
+            .desc = "Output directory for sources. Same rules are for `--output-header-dir`.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
             {
-                if (view == name)
-                {
-                    if (dupe_check)
-                    {
-                        if (*dupe_check)
-                            throw std::runtime_error("More than one `" + std::string(name) + "` not allowed.");
-                        *dupe_check = true;
-                    }
+                generator.output_source_dir = args.front();
+            },
+        });
 
-                    if (i + 1 >= args.argc)
-                        throw std::runtime_error("Expected an argument after `" + std::string(name) + "`.");
-
-                    out = args.argv[++i];
-                    return true;
-                }
-
-                return false;
-            };
-            auto ConsumeFlagWithTwoStringArgs = [&](std::string_view name, std::string &out1, std::string &out2, bool *dupe_check) -> bool
+        args_parser.AddFlag("--clean-output-dirs", {
+            .desc = "Destroy the contents of the output directory before writing to it. Without this flag, it's an error for it to not be empty.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan)
             {
-                if (view == name)
-                {
-                    if (dupe_check)
-                    {
-                        if (*dupe_check)
-                            throw std::runtime_error("More than one `" + std::string(name) + "` not allowed.");
-                        *dupe_check = true;
-                    }
+                clean_output_dirs = true;
+            },
+        });
 
-                    if (i + 2 >= args.argc)
-                        throw std::runtime_error("Expected two arguments after `" + std::string(name) + "`.");
-
-                    out1 = args.argv[++i];
-                    out2 = args.argv[++i];
-                    return true;
-                }
-
-                return false;
-            };
-            auto ConsumeFlagWithSizeTArg = [&](std::string_view name, std::size_t &out, bool *dupe_check) -> bool
+        args_parser.AddFlag("--output-desc-json", {
+            .arg_names = {"filename.json"},
+            .desc = "Optional. Outputs an additional JSON describing the generated C code, which is useful for building bindings for other languages on top of the C ones.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
             {
-                std::string str;
-                if (ConsumeFlagWithStringArg(name, str, dupe_check))
-                {
-                    if (str.empty() || !cppdecl::IsDigit(str.front()))
-                        throw std::runtime_error("`" + str + "` is not a valid number.");
-
-                    char *end = nullptr;
-
-                    static_assert(sizeof(out) == sizeof(long long));
-                    errno = 0;
-                    unsigned long long ll = std::strtoull(str.data(), &end, 10);
-                    if (end != str.data() + str.size() || errno != 0)
-                        throw std::runtime_error("`" + str + "` is not a valid number.");
-
-                    out = std::size_t(ll);
-
-                    return true;
-                }
-
-                return false;
-            };
-
-            if (ConsumeFlagWithStringArg("--input", input_filename, &seen_input_filename))
-                continue;
-            if (ConsumeFlagWithStringArg("--output-header-dir", generator.output_header_dir, &seen_output_header_dir))
-                continue;
-            if (ConsumeFlagWithStringArg("--output-source-dir", generator.output_source_dir, &seen_output_source_dir))
-                continue;
-            if (ConsumeFlagWithNoArgs("--clean-output-dirs", clean_output_dirs, &seen_clean_output_dirs))
-                continue;
-            if (ConsumeFlagWithStringArg("--output-desc-json", output_json_desc_filename, &seen_output_json_desc_filename))
-            {
+                output_json_desc_filename = args.front();
                 generator.output_desc.emplace(); // Tell the generator to begin collecting the description.
-                continue;
-            }
+            },
+        });
 
-            { // --map-path
-                std::string from, to;
-                if (ConsumeFlagWithTwoStringArgs("--map-path", from, to, nullptr))
-                {
-                    from = mrbind::PathToString(std::filesystem::weakly_canonical(mrbind::MakePath(from)));
+        args_parser.AddFlag("--map-path", {
+            .allow_repeat = true,
+            .arg_names = {"from", "to"},
+            .desc = "How to transform parsed filenames to their respective generated filenames. Can be repeated. `<from>` is a directory or file name, it gets canonicalized automatically. `<to>` is a suffix relative to the output directories. Every filename in the parsed data must match some prefix. Longer prefixes get priority.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                std::string from = mrbind::PathToString(std::filesystem::weakly_canonical(mrbind::MakePath(args[0])));
+                std::string to(args[1]);
 
-                    if (!mrbind::MakePath(to).is_relative())
-                        throw std::runtime_error("The second argument of `--map-path` must be a relative path.");
+                if (!mrbind::MakePath(to).is_relative())
+                    throw std::runtime_error("The second argument of `--map-path` must be a relative path.");
 
-                    // Don't check for duplicates, who cares.
-                    // If you decide to add the check, keep in mind that different input paths can canonicalize to the same string.
-                    generator.path_mappings.try_emplace(from, to);
-                    continue;
-                }
-            }
-            { // --helper-header-dir
-                std::string tmp;
-                if (ConsumeFlagWithStringArg("--helper-header-dir", tmp, &seen_helper_header_dir))
-                {
-                    generator.helper_header_relative_dir = mrbind::MakePath(tmp);
-                    if (!generator.helper_header_relative_dir.is_relative())
-                        throw std::runtime_error("The argument of `--helper-header-dir` must be a relative path.");
-                    continue;
-                }
-            }
-            if (ConsumeFlagWithStringArg("--helper-name-prefix", generator.helper_name_prefix_opt, &seen_helper_name_prefix))
-                continue;
-            if (ConsumeFlagWithStringArg("--helper-macro-name-prefix", generator.helper_macro_name_prefix_opt, &seen_helper_macro_name_prefix))
-                continue;
-            { // --strip-filename-suffix
-                std::string ext;
-                if (ConsumeFlagWithStringArg("--strip-filename-suffix", ext, nullptr))
-                {
-                    generator.known_input_exts_to_strip.insert(std::move(ext));
-                    continue;
-                }
-            }
-            { // --assume-include-dir
-                std::string tmp;
-                if (ConsumeFlagWithStringArg("--assume-include-dir", tmp, nullptr))
-                {
-                    generator.assumed_include_directories.insert(std::filesystem::weakly_canonical(mrbind::MakePath(tmp)));
-                    continue;
-                }
-            }
-            if (ConsumeFlagWithSizeTArg("--max-header-name-length", generator.max_output_filename_len, &seen_max_output_filename_length))
-                continue;
+                // Don't check for duplicates, who cares.
+                // If you decide to add the check, keep in mind that different input paths can canonicalize to the same string.
+                generator.path_mappings.try_emplace(from, to);
+            },
+        });
 
-            if (ConsumeFlagWithNoArgs("--add-convenience-includes", generator.add_convenience_includes, &seen_add_convenience_includes))
-                continue;
+        args_parser.AddFlag("--helper-header-dir", {
+            .arg_names = {"dir"},
+            .desc = "Where to generate the additional helper files, relative to `--output-header-dir`. Unless your entire output directory is named after your library, you probably to pass the library name to this flag, something like `--helper-header-dir=MyLib_helpers`.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                generator.helper_header_relative_dir = mrbind::MakePath(args.front());
+                if (!generator.helper_header_relative_dir.is_relative())
+                    throw std::runtime_error("The argument of `--helper-header-dir` must be a relative path.");
+            },
+        });
 
-            if (ConsumeFlagWithSizeTArg("--preferred-max-num-aggregate-init-fields", generator.max_num_fields_for_default_constructible_aggregate_init, &seen_max_num_fields_for_default_constructible_aggregate_init))
-                continue;
+        args_parser.AddFlag("--helper-name-prefix", {
+            .arg_names = {"string"},
+            .desc = "This is a prefix for the names of some helpers that we sometimes need to generate. This will typically be your library name, followed by an underscore. This is technically optional, but you'll get an error if this turns out to be necessary for something, which is almost guaranteed for any non-trivial input.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                generator.helper_name_prefix_opt = args.front();
+            },
+        });
 
-            if (ConsumeFlagWithNoArgs("--reject-long-and-long-long", generator.reject_long_and_long_long, &seen_reject_long_and_long_long))
-                continue;
+        args_parser.AddFlag("--helper-macro-name-prefix", {
+            .arg_names = {"string"},
+            .desc = "Optional. If specified, it overrides `--helper-name-prefix` specifically for macro names.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                generator.helper_macro_name_prefix_opt = args.front();
+            },
+        });
 
-            if (ConsumeFlagWithNoArgs("--use-size_t-typedef-for-uint64_t", generator.custom_typedef_for_uint64_t_pointing_to_size_t, &seen_custom_typedef_for_uint64_t_pointing_to_size_t))
-                continue;
+        args_parser.AddFlag("--strip-filename-suffix", {
+            .allow_repeat = true,
+            .arg_names = {".ext"},
+            .desc = "If any of the filenames of the parsed files mentioned in the input JSON end with this suffix (which should start with a dot), they'll be removed. All common C++ source extensions are handled automatically.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                generator.known_input_exts_to_strip.insert(std::string(args.front()));
+            },
+        });
 
-            if (ConsumeFlagWithNoArgs("--force-emit-common-helpers", generator.force_emit_helpers_file, &seen_force_emit_helpers_file))
-                continue;
+        args_parser.AddFlag("--assume-include-dir", {
+            .allow_repeat = true,
+            .arg_names = {"dir"},
+            .desc = "When including the parsed files, assume that this directory will be passed to the compiler as `-I`, so we can spell filenames relative to it. Can be repeated. More deeply nested directories get priority. You might need to tune this or `--map-path` if you get conflicts between your C++ headers and the generated C headers.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                generator.assumed_include_directories.insert(std::filesystem::weakly_canonical(mrbind::MakePath(args.front())));
+            },
+        });
 
-            { // --expose-as-struct
-                std::string tmp;
-                if (ConsumeFlagWithStringArg("--expose-as-struct", tmp, nullptr))
-                {
-                    generator.same_layout_struct_filter.Insert(std::move(tmp));
-                    continue;
-                }
-            }
+        args_parser.AddFlag("--max-header-name-length", {
+            .arg_names = {"n"},
+            .desc = "Shorten the generated header names to this length. This doesn't count the output directory/prefix, only the relative name of the header. This is also inexact, not counting the extensions, nor the hash that gets added to the filename in those cases. This seems to be more important on Windows with it's smaller default path length limits. A value around 100 should work well enough.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                generator.max_output_filename_len = mrbind::CommandLineParser::ParseSizeT(std::string(args.front()));
+            },
+        });
 
-            { // --adjust-comments
-                std::string tmp;
-                if (ConsumeFlagWithStringArg("--adjust-comments", tmp, nullptr))
-                {
-                    generator.generated_comments_adjuster.AddRule(tmp);
-                    continue;
-                }
-            }
+        args_parser.AddFlag("--add-convenience-includes", {
+            .desc = "Add more include directives to the output, that are not strictly necessary, but might help the user. This isn't enabled by default because it add too much bloat in large projects. Even if this is enabled, you can define a macro to revert to the default behavior when consuming the headers.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan)
+            {
+                generator.add_convenience_includes = true;
+            },
+        });
 
-            { // --[no-]skip-template-args-on-func
-                std::string tmp;
-                if (ConsumeFlagWithStringArg("--skip-template-args-on-func", tmp, nullptr))
-                {
-                    if (!cppdecl::IsValidIdentifier(tmp))
-                        throw std::runtime_error("Not a valid identifier: `" + tmp + "`.");
-                    generator.skip_template_arguments_on_functions.insert(std::move(tmp));
-                    continue;
-                }
-                if (ConsumeFlagWithStringArg("--no-skip-template-args-on-func", tmp, nullptr))
-                {
-                    if (!cppdecl::IsValidIdentifier(tmp))
-                        throw std::runtime_error("Not a valid identifier: `" + tmp + "`.");
-                    generator.skip_template_arguments_on_functions.erase(std::move(tmp));
-                    continue;
-                }
-            }
+        args_parser.AddFlag("--preferred-max-num-aggregate-init-fields", {
+            .arg_names = {"n"},
+            .desc = "Don't generate aggregate initialization constructors for structures with more than this number of members. The default is no limit. This limit is ignored if the aggregate is not default-constructible, because that would make it impossible to construct from C.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                generator.max_num_fields_for_default_constructible_aggregate_init = mrbind::CommandLineParser::ParseSizeT(std::string(args.front()));
+            },
+        });
 
-            if (ConsumeFlagWithNoArgs("--verbose", verbose, &seen_verbose))
-                continue;
+        args_parser.AddFlag("--reject-long-and-long-long", {
+            .desc = "Fail if the input contains `long` or `long long`, possibly unsigned. This is intended to be used with the parser's `--canonicalize-to-fixed-size-typedefs`, to make sure the input didn't contain types that couldn't be canonicalized due to width conflict. If this trips, stop using `long` and `long long` in your code directly, and use the standard typedefs instead.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan)
+            {
+                generator.reject_long_and_long_long = true;
+            },
+        });
 
+        args_parser.AddFlag("--use-size_t-typedef-for-uint64_t", {
+            .desc = "This is intended to be used with the parser's `--canonicalize-size_t-to-uint64_t`. When the input contains `[u]int64_t`, we'll bind them as `size_t` and `ptrdiff_t` (or our own typedefs for them, rather), instead of the standard `[u]int64_t` typedefs.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan)
+            {
+                generator.custom_typedef_for_uint64_t_pointing_to_size_t = true;
+            },
+        });
 
-            { // Lastly, ask the modules.
-                struct FlagHandler : mrbind::C::Module::FlagInterface
-                {
-                    int argc = 0;
-                    char **argv = nullptr;
-                    int *i = nullptr;
+        args_parser.AddFlag("--force-emit-common-helpers", {
+            .desc = "Always emit the header with some basic helpers, even if not otherwise needed. It includes, among other things, C++-compatible memory allocation/deallocation functions. This usually doesn't matter, as anything remotely complex will get this header anyway. This flag is useful for wrapping C bindings in another language, if you need those functions to exist there.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan)
+            {
+                generator.force_emit_helpers_file = true;
+            },
+        });
 
-                    enum class State
-                    {
-                        not_handled,
-                        handled_by_this_module,
-                        handled_by_previous_module,
-                    };
-                    State state = State::not_handled;
+        args_parser.AddFlag("--expose-as-struct", {
+            .allow_repeat = true,
+            .arg_names = {"type"},
+            .desc = "Bind this C++ class or struct as an actual C struct with the same member layout, instead of an opaque pointer. The argument is either the exact name (with template arguments if any), or a regex enclosed in slashes `/.../`. If there is no such struct, does nothing. If the struct exists, but isn't simple enough for such binding, will emit an error. The struct must be trivally-copyable and standard-layout to qualify.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                generator.same_layout_struct_filter.Insert(std::string(args.front()));
+            },
+        });
 
-                    std::string_view current_flag;
+        args_parser.AddFlag("--adjust-comments", {
+            .allow_repeat = true,
+            .arg_names = {"s/A/B/g"},
+            .desc = "Adjusts all generated comments in C code with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                generator.generated_comments_adjuster.AddRule(args.front());
+            },
+        });
 
-                    void HandleModule(mrbind::C::Module &m)
-                    {
-                        current_flag = argv[*i];
-                        m.ConsumeFlag(*this);
-                        if (state == State::handled_by_this_module)
-                            state = State::handled_by_previous_module;
-                    }
+        args_parser.AddFlag("--skip-template-args-on-func", {
+            .allow_repeat = true,
+            .arg_names = {"func"},
+            .desc = "When calling those functions, we won't put template arguments after the function name. This helps handle certain overloaded functions that don't behave well when used with template arguments, which causes them to instantiate templates with unwanted template arguments, causing hard errors. This is enabled by default for `begin`, `end`, `swap` (can be disabled with `--no-...`), and for all overloaded operators (can't be disabled). This takes a function name as a single identifier, which will match those functions regardless of the namespace. This can be specified multiple times to apply to specify multiple functions.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                if (!cppdecl::IsValidIdentifier(args.front()))
+                    throw std::runtime_error("Not a valid identifier: `" + std::string(args.front()) + "`.");
+                generator.skip_template_arguments_on_functions.insert(std::string(args.front()));
+            },
+        });
 
-                    bool FlagNameMatches(std::string_view name, std::string_view args, std::string_view description) override
-                    {
-                        (void)args;
-                        (void)description;
+        args_parser.AddFlag("--no-skip-template-args-on-func", {
+            .allow_repeat = true,
+            .arg_names = {"func"},
+            .desc = "Has the opposite effect compared to `--skip-template-args-on-func`. This primarily makes sense for identifiers for which it's enabled by default, as documented in that flag.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                if (!cppdecl::IsValidIdentifier(args.front()))
+                    throw std::runtime_error("Not a valid identifier: `" + std::string(args.front()) + "`.");
+                generator.skip_template_arguments_on_functions.erase(std::string(args.front()));
+            },
+        });
 
-                        if (state == State::handled_by_this_module)
-                            throw std::runtime_error("Bad usage of `FlagInterface`: must not call `FlagNameMatches()` again after it returned true.");
-                        if (name != current_flag)
-                            return false;
-                        if (state == State::handled_by_previous_module)
-                            throw std::runtime_error("Bad usage of `FlagInterface`: attempting to handle flag `" + std::string(current_flag) + "` after some other module has already handled it.");
-                        state = State::handled_by_this_module;
-                        return true;
-                    }
+        args_parser.AddFlag("--verbose", {
+            .desc = "Write some logs.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan)
+            {
+                verbose = true;
+            },
+        });
 
-                    std::string_view GetStringArgument() override
-                    {
-                        if (state != State::handled_by_this_module)
-                            throw std::runtime_error("Bad usage of `FlagInterface`: must not call `GetStringArgument()` before `FlagNameMatches()` returns true.");
+        for (const auto &m : generator.modules)
+            m->RegisterCommandLineFlags(args_parser);
 
-                        if (*i + 1 >= argc)
-                            throw std::runtime_error("Not enough arguments for `" + std::string(current_flag) + "`.");
-
-                        return argv[++*i];
-                    }
-                };
-                FlagHandler handler;
-                handler.argc = args.argc;
-                handler.argv = args.argv;
-                handler.i = &i;
-
-                // We don't stop this loop early when the flag is handled. Instead we check all other modules,
-                //   to make sure that no one else tries to handle the same flag. If that happens, we emit an error.
-                for (const auto &m : generator.modules)
-                    handler.HandleModule(*m);
-
-                if (handler.state != FlagHandler::State::not_handled)
-                    continue; // Some module has handled the flag.
-            }
-
-            throw std::runtime_error("Unknown argument: `" + std::string(view) + "`. Consult `--help` for usage.");
-        }
-
-        if (!seen_input_filename)
-            throw std::runtime_error("Missing `--input`, consult `--help` for usage.");
-        if (!seen_output_header_dir)
-            throw std::runtime_error("Missing `--output-header-dir`, consult `--help` for usage.");
-        if (!seen_output_source_dir)
-            throw std::runtime_error("Missing `--output-source-dir`, consult `--help` for usage.");
+        mrbind::CommandLineArgsAsUtf8 utf8_args(raw_argc, raw_argv);
+        args_parser.Parse(utf8_args.argc, utf8_args.argv);
     }
+
+    if (input_filename.empty())
+        throw std::runtime_error("Missing `--input`, consult `--help` for usage.");
+    if (generator.output_header_dir.empty())
+        throw std::runtime_error("Missing `--output-header-dir`, consult `--help` for usage.");
+    if (generator.output_source_dir.empty())
+        throw std::runtime_error("Missing `--output-source-dir`, consult `--help` for usage.");
 
     generator.output_header_dir_path = mrbind::MakePath(generator.output_header_dir);
     generator.output_source_dir_path = mrbind::MakePath(generator.output_source_dir);

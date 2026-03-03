@@ -1,7 +1,8 @@
 #pragma once
 
-#include "generators/c/generator.h"
+#include "common/command_line_parser.h"
 #include "common/type_name.h"
+#include "generators/c/generator.h"
 
 #include <cppdecl/declarations/data.h>
 
@@ -18,22 +19,8 @@ namespace mrbind::C
         virtual ~Module() = default;
 
 
-        struct FlagInterface
-        {
-            virtual ~FlagInterface() = default;
-
-            // Returns true if the flag name is `name`. It must match exactly, don't omit the leading `--`.
-            // If this returns true, the flag is automatically marked as consumed by this module.
-            // `description` is the flag description for the help page. It shouldn't contain any newlines.
-            // `args` is the description of the arguments for the help page. Should be either empty or `<foo>` (or `<foo> <bar>`, etc).
-            virtual bool FlagNameMatches(std::string_view name, std::string_view args, std::string_view description) = 0;
-
-            // You can call this repeatedly to get arguments for this flag.
-            virtual std::string_view GetStringArgument() = 0;
-        };
-
-        // This is called before `Init()` to handle the command line arguments.
-        virtual void ConsumeFlag(FlagInterface &in) {(void)in;}
+        // This is called before `Init()` to collect supported command line flags.
+        virtual void RegisterCommandLineFlags(CommandLineParser &args_parser) {(void)args_parser;}
 
 
         // This is called after constructing the module to initialize it, since the constructor doesn't have access to the generator,

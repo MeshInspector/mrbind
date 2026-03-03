@@ -15,10 +15,12 @@ namespace mrbind::C::Modules
 
         bool merge_std_and_tl_expected = false;
 
-        void ConsumeFlag(FlagInterface &in) override
+        void RegisterCommandLineFlags(CommandLineParser &args_parser) override
         {
-            if (in.FlagNameMatches("--merge-std-and-tl-expected", "", "Bind both `std::expected` and `tl::expected` to the same common C name, without the `std`/`tl` prefix."))
-                merge_std_and_tl_expected = true;
+            args_parser.AddFlag("--merge-std-and-tl-expected", {
+                .desc = "Bind both `std::expected` and `tl::expected` to the same common C name, without the `std`/`tl` prefix.",
+                .func = [this](CommandLineParser::ArgSpan){merge_std_and_tl_expected = true;},
+            });
         }
 
         std::optional<Generator::BindableType> GetBindableType(Generator &generator, const cppdecl::Type &type, const std::string &type_str) override
