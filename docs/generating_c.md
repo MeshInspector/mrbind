@@ -87,12 +87,6 @@ You need at least following compiler flags:
 
 * Add your input C++ headers to the include search paths. Use the same directories you passed to `--assume-include-dir`.
 
-* If you're compiling a shared library, define `MyLib_BUILD_LIBRARY`. This only matters on Windows, to enable `__declspec(dllexport)` for your functions.
-
-  This macro is checked in `exports.h`, which is one of the generated headers.
-
-  The `MyLib_` prefix is what you passe d to `--helper-macro-name-prefix` or `--helper-name-prefix`.
-
 ## Tuning the generated bindings
 
 All flags beflow are for `mrbind_gen_c`, unless mentioned otherwise.

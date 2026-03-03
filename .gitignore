@@ -12,3 +12,6 @@
 /test/**/obj
 parallel-hashmap/
 pybind11/
+/example/output_c
+/example/cxx.txt
+/example/run_example_c
