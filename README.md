@@ -64,19 +64,20 @@ It's impotant to note that this only applies to the functions/classes you expose
 
 Feature | C | C# | Python | Comments
 ---|---|---|---|---
-Templates | ✅ | ✅ | ✅ | We don't use the templating mechanism in any of the languages, instead the template arguments are baked into the names. Also read about [Adding specific template specializations](/docs/adding_template_specializations.md).
-Customizing type names | ✅ | ✅ | ⚠️ | In Python, doesn't work in template arguments. Read about [Customizing type names](/docs/customizing_type_names.md).
-Function overloading | ✅ | ✅ | ✅ | In C, functions are automatically renamed to disambiguate them. Sometimes this is done in other languages too.
-Const-correctness | ✅ | ✅ | ⚠️ | In C#, each class is emitted in two halves, one for const methods and another for non-const, with the latter inheriting from the former. This allows emulating C++ const references in C#.<br/>In Python, we eventually want to use the same solution as in C#, but it's not yet implemented, so when you have a function returning `const T &`, we copy the result, because otherwise the default Pybind behavior would be to `const_cast<T &>(...)` it, which lets the user modify const C++ objects.
-Inheritance (including multiple inheritance) | ✅ | ✅ | ✅ | In C, we generate upcast/downcast functions, and can optionally copy members from bases to derived classes, to allow accessing them without the upcasts.<br/>In C#, we don't use C# inheritance, because there's no multiple inheritance support, and because the single inheritance is already spent on implementing const-correctness (see above). Instead we emit unrelated classes with upcast/downcast conversion operators between them, and copy the members from bases to derived classes to imitate inheritance.
-Aggregate initialization | ✅ | ✅ | ✅ | Aggregates (structs/classes with no custom constructor, initializable in C++ with a list of their members) get member-wise constructors.
-Overloaded operators | ✅ | ✅ | ✅ | In C, they become functions. In C# and Python, they become operators if possible, falling back to functions.
-`operator<=>` | ❌ | ❌ | ❌ | Not implemented yet. It's recommended that you `--ignore '/.*operator<=>.*/'` in the parser.
-Conversion operators | ✅ | ✅ | ✅ | Overloaded as conversion operators if possible, falling back to constructors.<br/>In C# and Python, we also generate implicit conversion operators from implicit constructors callable with a single argument.
+Templates                                        | ✅ | ✅ | ✅ | We don't use the templating mechanism in any of the languages, instead the template arguments are baked into the names. Also read about [Adding specific template specializations](/docs/adding_template_specializations.md).
+Customizing type names                           | ✅ | ✅ | ⚠️ | In Python, doesn't work in template arguments. Read about [Customizing type names](/docs/customizing_type_names.md).
+Function overloading                             | ✅ | ✅ | ✅ | In C, functions are automatically renamed to disambiguate them. Sometimes this is done in other languages too.
+Const-correctness                                | ✅ | ✅ | ⚠️ | In C#, each class is emitted in two halves, one for const methods and another for non-const, with the latter inheriting from the former. This allows emulating C++ const references in C#.<br/>In Python, we eventually want to use the same solution as in C#, but it's not yet implemented, so when you have a function returning `const T &`, we copy the result, because otherwise the default Pybind behavior would be to `const_cast<T &>(...)` it, which lets the user modify const C++ objects.
+Inheritance (including multiple inheritance)     | ✅ | ✅ | ✅ | In C, we generate upcast/downcast functions, and can optionally copy members from bases to derived classes, to allow accessing them without the upcasts.<br/>In C#, we don't use C# inheritance, because there's no multiple inheritance support, and because the single inheritance is already spent on implementing const-correctness (see above). Instead we emit unrelated classes with upcast/downcast conversion operators between them, and copy the members from bases to derived classes to imitate inheritance.
+Aggregate initialization                         | ✅ | ✅ | ✅ | Aggregates (structs/classes with no custom constructor, initializable in C++ with a list of their members) get member-wise constructors.
+Overloaded operators                             | ✅ | ✅ | ✅ | In C, they become functions. In C# and Python, they become operators if possible, falling back to functions.
+`operator<=>`                                    | ❌ | ❌ | ❌ | Not implemented yet. It's recommended that you `--ignore '/.*operator<=>.*/'` in the parser.
+Conversion operators                             | ✅ | ✅ | ✅ | Overloaded as conversion operators if possible, falling back to constructors.<br/>In C# and Python, we also generate implicit conversion operators from implicit constructors callable with a single argument.
+Exceptions                                       | ❌ | ❌ | ✅ | In Python, Pybind translates C++ exceptions to Python exceptions.<br/>In C, not implemented yet. The exceptions will just fall out of functions.<br/>In C#, we just call the C functions, so this will probably crash.
 Explicit object parameter, aka "deducing `this`" | ❌ | ❌ | ❌ | Not implemented yet. There is some provisional work in language backends.
-Bitfields | ❌ | ❌ | ❌ | Ignored.
-Non-public members | N/A | N/A | N/A | Intentionally ignored by the parser.<br/>It's not supported to return non-public nested classes from public member functions.
-`typedef`/`using` | ❌ | ❌ | ✅ | Ignored in C/C#. Become aliases in Python. Python also automatically builds aliases from different spellings of a type used in code.
+Bitfields                                        | ❌ | ❌ | ❌ | Ignored.
+Non-public members                               | N/A | N/A | N/A | Intentionally ignored by the parser.<br/>It's not supported to return non-public nested classes from public member functions.
+`typedef`/`using`                                | ❌ | ❌ | ✅ | Ignored in C/C#. Become aliases in Python. Python also automatically builds aliases from different spellings of a type used in code.
 
 ### Types
 
