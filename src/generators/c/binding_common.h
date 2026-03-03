@@ -5,7 +5,7 @@
 #include <cppdecl/declarations/data.h>
 #include <cppdecl/declarations/to_string.h>
 
-namespace mrbind::CBindings
+namespace mrbind::C
 {
     struct HeapAllocatedClassBinder
     {

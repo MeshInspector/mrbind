@@ -19,7 +19,7 @@
 #include <string>
 #include <unordered_set>
 
-namespace mrbind::CBindings
+namespace mrbind::C
 {
     struct HeapAllocatedClassBinder;
     struct Module;
@@ -164,7 +164,7 @@ namespace mrbind::CBindings
             std::string relative_name;
 
             // This sets `relative_name` and all the fields above.
-            void InitRelativeName(CBindings::Generator &self, std::string new_relative_name, bool is_public);
+            void InitRelativeName(C::Generator &self, std::string new_relative_name, bool is_public);
 
 
             struct SpecificFileContents
@@ -1172,7 +1172,7 @@ namespace mrbind::CBindings
             };
             std::vector<Param> params;
 
-            void AddParams(CBindings::Generator &self, const std::vector<FuncParam> &new_params)
+            void AddParams(C::Generator &self, const std::vector<FuncParam> &new_params)
             {
                 params.reserve(params.size() + new_params.size());
 
@@ -1393,7 +1393,7 @@ namespace mrbind::CBindings
 
             // Appends the parsed parameters to this function.
             // Appends to the existing parameters, doesn't remove them.
-            void AddParamsFromParsedFunc(CBindings::Generator &self, const std::vector<FuncParam> &new_params);
+            void AddParamsFromParsedFunc(C::Generator &self, const std::vector<FuncParam> &new_params);
 
             // Only call if you're sure that this is a post-increment/decrement. Removes the `int` parameter, replacing it with a dummy `0` argument.
             void RemoveIntParamFromPostIncrOrDecr();
@@ -1430,7 +1430,7 @@ namespace mrbind::CBindings
             // Makes an accessor for a field.
             // Returns false if not applicable (e.g. if the member is const and we're trying to generate
             // `interop_field` is mandatory for our own code, but the user code could skip it if they never use `--output-desc-json`.
-            bool SetAsFieldAccessor(CBindings::Generator &self, const ClassEntity &new_class, const ClassField &new_field, FieldAccessorKind kind, CInterop::ClassField *interop_field);
+            bool SetAsFieldAccessor(C::Generator &self, const ClassEntity &new_class, const ClassField &new_field, FieldAccessorKind kind, CInterop::ClassField *interop_field);
         };
         void EmitFunction(OutputFile &file, const EmitFuncParams &params);
 

@@ -23,10 +23,10 @@ int main(int raw_argc, char **raw_argv)
 
     bool verbose = false;
 
-    mrbind::CBindings::Generator generator;
+    mrbind::C::Generator generator;
 
     { // Load the generator modules.
-        const auto &avail_modules = mrbind::CBindings::GetRegisteredModules();
+        const auto &avail_modules = mrbind::C::GetRegisteredModules();
         generator.modules.reserve(avail_modules.size());
         for (const auto &elem : avail_modules)
             generator.modules.push_back(elem.second());
@@ -82,7 +82,7 @@ int main(int raw_argc, char **raw_argv)
 
                 { // Ask modules for thier flags.
                     // This fake implementation just prints the flags that the modules know about.
-                    struct FlagPrinter : mrbind::CBindings::Module::FlagInterface
+                    struct FlagPrinter : mrbind::C::Module::FlagInterface
                     {
                         bool FlagNameMatches(std::string_view name, std::string_view args, std::string_view description) override
                         {
@@ -317,7 +317,7 @@ int main(int raw_argc, char **raw_argv)
 
 
             { // Lastly, ask the modules.
-                struct FlagHandler : mrbind::CBindings::Module::FlagInterface
+                struct FlagHandler : mrbind::C::Module::FlagInterface
                 {
                     int argc = 0;
                     char **argv = nullptr;
@@ -333,7 +333,7 @@ int main(int raw_argc, char **raw_argv)
 
                     std::string_view current_flag;
 
-                    void HandleModule(mrbind::CBindings::Module &m)
+                    void HandleModule(mrbind::C::Module &m)
                     {
                         current_flag = argv[*i];
                         m.ConsumeFlag(*this);

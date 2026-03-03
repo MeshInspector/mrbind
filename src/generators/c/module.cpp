@@ -1,6 +1,6 @@
 #include "module.h"
 
-namespace mrbind::CBindings
+namespace mrbind::C
 {
     ModuleMap &GetRegisteredModules()
     {

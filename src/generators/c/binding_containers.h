@@ -5,7 +5,7 @@
 
 #include <cppdecl/declarations/data.h>
 
-namespace mrbind::CBindings
+namespace mrbind::C
 {
     class ContainerBinder
     {

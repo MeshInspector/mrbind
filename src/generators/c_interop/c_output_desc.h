@@ -18,7 +18,7 @@ namespace mrbind::CInterop
 
 
     // This is here to expose the underlying values of those enum constants.
-    // This must be synced with the enum generated `CBindings::Generator::GetCommonPublicHelpersFile()`.
+    // This must be synced with the enum generated `C::Generator::GetCommonPublicHelpersFile()`.
     // This must be synced with the enum generated `CSharp::Generator::GenerateHelpers()` named `_PassBy`.
     enum class PassBy
     {

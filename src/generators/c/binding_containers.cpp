@@ -2,7 +2,7 @@
 
 #include <stdexcept>
 
-namespace mrbind::CBindings
+namespace mrbind::C
 {
     ContainerBinder::ContainerBinder(
         Generator &generator,

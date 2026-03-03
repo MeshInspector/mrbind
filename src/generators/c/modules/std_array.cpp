@@ -1,7 +1,7 @@
 #include "generators/c/binding_common.h"
 #include "generators/c/module.h"
 
-namespace mrbind::CBindings::Modules
+namespace mrbind::C::Modules
 {
     struct StdArray : DeriveModule<StdArray>
     {

@@ -23,7 +23,7 @@
 #include <set>
 #include <unordered_set>
 
-namespace mrbind::CBindings
+namespace mrbind::C
 {
     Generator::Generator() {}
 

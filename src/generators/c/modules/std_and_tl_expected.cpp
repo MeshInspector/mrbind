@@ -6,7 +6,7 @@
 #include <algorithm>
 #include <vector>
 
-namespace mrbind::CBindings::Modules
+namespace mrbind::C::Modules
 {
     struct StdAndTlExpected : DeriveModule<StdAndTlExpected>
     {

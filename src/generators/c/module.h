@@ -10,7 +10,7 @@
 #include <string_view>
 #include <type_traits>
 
-namespace mrbind::CBindings
+namespace mrbind::C
 {
     // Don't inherit from this directly, use the `DerivedModule` CRTP base.
     struct Module

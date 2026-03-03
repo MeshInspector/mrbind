@@ -5,7 +5,7 @@
 
 // If you change anything in this file, you might need to sync the changes with the C# code.
 
-namespace mrbind::CBindings::Modules
+namespace mrbind::C::Modules
 {
     struct StdFunction : DeriveModule<StdFunction>
     {

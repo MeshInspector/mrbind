@@ -1,7 +1,7 @@
 #include "binding_common.h"
 #include "common/meta.h"
 
-namespace mrbind::CBindings
+namespace mrbind::C
 {
     HeapAllocatedClassBinder HeapAllocatedClassBinder::ForCustomType(Generator &generator, cppdecl::QualifiedName new_cpp_type_name, std::string_view new_c_type_name_base, std::string new_underlying_c_type_base_name)
     {
