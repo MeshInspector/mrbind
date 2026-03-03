@@ -21,7 +21,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdStringView::SetWithDefault`.
-            /// Parameter `s` defaults to `"42"`.
+            /// Parameter `s` defaults to `&quot;42&quot;`.
             /// </summary>
             public static unsafe void setWithDefault(MR.CS.Misc.ReadOnlyCharSpanOpt s = new())
             {

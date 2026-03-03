@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::deque&lt;int&gt;`.
+            /// Generated from C++ container `std::deque&amp;lt;int&amp;gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Deque_Int : MR.CS.Misc.Object<Const_Deque_Int>, System.IDisposable, IEnumerable<int>
@@ -790,7 +790,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::deque&lt;int&gt;`.
+            /// Generated from C++ container `std::deque&amp;lt;int&amp;gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Deque_Int : Const_Deque_Int, IEnumerable<MR.CS.Misc.Ref<int>>
@@ -1073,7 +1073,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
+                /// Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that&apos;s the only difference.
                 /// </summary>
                 public unsafe void insertAtIter(MR.CS.Std.Deque_Int.Const_ConstIterator position, int new_elem)
                 {
@@ -1083,7 +1083,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
+                /// Erases the element at the specified position. This version takes the position in form of a const iterator, that&apos;s the only difference.
                 /// </summary>
                 public unsafe void eraseAtIter(MR.CS.Std.Deque_Int.Const_ConstIterator position)
                 {
@@ -1125,7 +1125,7 @@ public static partial class MR
             /// * Pass `new()` to default-construct the instance.
             /// * Pass an instance of `Deque_Int`/`Const_Deque_Int` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
-            ///   Be careful if your input isn't a unique reference to this object.
+            ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
             public class _ByValue_Deque_Int

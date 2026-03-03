@@ -55,7 +55,7 @@ public static partial class MR
                 public Const_Variant_StdMonostate_Int32T_Float(Variant_StdMonostate_Int32T_Float other) : this((Const_Variant_StdMonostate_Int32T_Float)other) {}
 
                 /// <summary>
-                /// Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
+                /// Returns the index of the stored element type. In rare cases may return -1 if this variant is &quot;valueless by exception&quot;.
                 /// </summary>
                 public unsafe ulong index()
                 {
@@ -110,7 +110,7 @@ public static partial class MR
                 public static unsafe implicit operator Const_Variant_StdMonostate_Int32T_Float(float value) {return new(value);}
 
                 /// <summary>
-                /// Returns the element 0, of type `std::monostate`, read-only. If it's not the active element, returns null.
+                /// Returns the element 0, of type `std::monostate`, read-only. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe MR.CS.Std.Monostate? getStdMonostate()
                 {
@@ -120,7 +120,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 1, of type `int32_t`, read-only. If it's not the active element, returns null.
+                /// Returns the element 1, of type `int32_t`, read-only. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe int? getInt32T()
                 {
@@ -131,7 +131,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 2, of type `float`, read-only. If it's not the active element, returns null.
+                /// Returns the element 2, of type `float`, read-only. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe float? getFloat()
                 {
@@ -267,7 +267,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 1, of type `int32_t`, mutable. If it's not the active element, returns null.
+                /// Returns the element 1, of type `int32_t`, mutable. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<int>? getInt32T()
                 {
@@ -278,7 +278,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 2, of type `float`, mutable. If it's not the active element, returns null.
+                /// Returns the element 2, of type `float`, mutable. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<float>? getFloat()
                 {

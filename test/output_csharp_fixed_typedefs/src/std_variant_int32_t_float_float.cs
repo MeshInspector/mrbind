@@ -55,7 +55,7 @@ public static partial class MR
                 public Const_Variant_Int32T_Float_Float(Variant_Int32T_Float_Float other) : this((Const_Variant_Int32T_Float_Float)other) {}
 
                 /// <summary>
-                /// Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
+                /// Returns the index of the stored element type. In rare cases may return -1 if this variant is &quot;valueless by exception&quot;.
                 /// </summary>
                 public unsafe ulong index()
                 {
@@ -100,7 +100,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 0, of type `int32_t`, read-only. If it's not the active element, returns null.
+                /// Returns the element 0, of type `int32_t`, read-only. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe int? getInt32T()
                 {
@@ -111,7 +111,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 1, of type `float`, read-only. If it's not the active element, returns null.
+                /// Returns the element 1, of type `float`, read-only. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe float? getFloat1()
                 {
@@ -122,7 +122,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 2, of type `float`, read-only. If it's not the active element, returns null.
+                /// Returns the element 2, of type `float`, read-only. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe float? getFloat2()
                 {
@@ -248,7 +248,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 0, of type `int32_t`, mutable. If it's not the active element, returns null.
+                /// Returns the element 0, of type `int32_t`, mutable. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<int>? getInt32T()
                 {
@@ -259,7 +259,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 1, of type `float`, mutable. If it's not the active element, returns null.
+                /// Returns the element 1, of type `float`, mutable. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<float>? getFloat1()
                 {
@@ -270,7 +270,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 2, of type `float`, mutable. If it's not the active element, returns null.
+                /// Returns the element 2, of type `float`, mutable. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<float>? getFloat2()
                 {

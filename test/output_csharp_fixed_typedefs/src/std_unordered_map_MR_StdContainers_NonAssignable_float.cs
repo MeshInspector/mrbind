@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::unordered_map&lt;MR::StdContainers::NonAssignable, float&gt;`.
+            /// Generated from C++ container `std::unordered_map&amp;lt;MR::StdContainers::NonAssignable, float&amp;gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_UnorderedMap_MRStdContainersNonAssignable_Float : MR.CS.Misc.Object<Const_UnorderedMap_MRStdContainersNonAssignable_Float>, System.IDisposable, IEnumerable<MR.CS.Std.Const_Pair_ConstMRStdContainersNonAssignable_Float>
@@ -715,7 +715,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::unordered_map&lt;MR::StdContainers::NonAssignable, float&gt;`.
+            /// Generated from C++ container `std::unordered_map&amp;lt;MR::StdContainers::NonAssignable, float&amp;gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class UnorderedMap_MRStdContainersNonAssignable_Float : Const_UnorderedMap_MRStdContainersNonAssignable_Float, IEnumerable<MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float>
@@ -841,7 +841,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element with the specific key. If it doesn't exist, creates it first. Acts like map's `operator[]` in C++.
+                /// Returns the element with the specific key. If it doesn&apos;t exist, creates it first. Acts like map&apos;s `operator[]` in C++.
                 /// </summary>
                 public unsafe ref float findOrConstructElem(MR.CS.StdContainers.Const_NonAssignable key)
                 {
@@ -896,7 +896,7 @@ public static partial class MR
             /// * Pass `new()` to default-construct the instance.
             /// * Pass an instance of `UnorderedMap_MRStdContainersNonAssignable_Float`/`Const_UnorderedMap_MRStdContainersNonAssignable_Float` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
-            ///   Be careful if your input isn't a unique reference to this object.
+            ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
             public class _ByValue_UnorderedMap_MRStdContainersNonAssignable_Float

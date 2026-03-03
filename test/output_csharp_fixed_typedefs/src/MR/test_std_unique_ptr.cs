@@ -180,7 +180,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdUniquePtr::SetIntDef`.
-            /// Parameter `_1` defaults to `std::make_unique&lt;int&gt;(42)`.
+            /// Parameter `_1` defaults to `std::make_unique&amp;lt;int&amp;gt;(42)`.
             /// </summary>
             public static unsafe void setIntDef(void **_1 = null)
             {
@@ -261,7 +261,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdUniquePtr::SetIntArrDef`.
-            /// Parameter `_1` defaults to `std::make_unique&lt;int[]&gt;(42)`.
+            /// Parameter `_1` defaults to `std::make_unique&amp;lt;int[]&amp;gt;(42)`.
             /// </summary>
             public static unsafe void setIntArrDef(void **_1 = null)
             {
@@ -312,7 +312,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdUniquePtr::SetClassDef`.
-            /// Parameter `_1` defaults to `std::make_unique&lt;MR::StdUniquePtr::A&gt;(MR::StdUniquePtr::A{})`.
+            /// Parameter `_1` defaults to `std::make_unique&amp;lt;MR::StdUniquePtr::A&amp;gt;(MR::StdUniquePtr::A{})`.
             /// </summary>
             public static unsafe void setClassDef(void **_1 = null)
             {
@@ -393,7 +393,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdUniquePtr::SetClassArrDef`.
-            /// Parameter `_1` defaults to `std::make_unique&lt;MR::StdUniquePtr::A[]&gt;(42)`.
+            /// Parameter `_1` defaults to `std::make_unique&amp;lt;MR::StdUniquePtr::A[]&amp;gt;(42)`.
             /// </summary>
             public static unsafe void setClassArrDef(void **_1 = null)
             {

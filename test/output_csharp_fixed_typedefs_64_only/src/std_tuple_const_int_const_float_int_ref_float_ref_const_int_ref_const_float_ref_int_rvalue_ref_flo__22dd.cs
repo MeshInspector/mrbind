@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Stores 10 objects: `const int`, `const float`, `int &`, `float &`, `const int &`, `const float &`, `int &&`, `float &&`, `const int &&`, `const float &&`.
+            /// Stores 10 objects: `const int`, `const float`, `int &amp;`, `float &amp;`, `const int &amp;`, `const float &amp;`, `int &amp;&amp;`, `float &amp;&amp;`, `const int &amp;&amp;`, `const float &amp;&amp;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef : MR.CS.Misc.Object<Const_Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef>, System.IDisposable
@@ -65,7 +65,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 2, of type `int &`, read-only.
+                /// The element 2, of type `int &amp;`, read-only.
                 /// </summary>
                 public unsafe ref int getIntRef()
                 {
@@ -75,7 +75,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 3, of type `float &`, read-only.
+                /// The element 3, of type `float &amp;`, read-only.
                 /// </summary>
                 public unsafe ref float getFloatRef()
                 {
@@ -85,7 +85,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 4, of type `const int &`, read-only.
+                /// The element 4, of type `const int &amp;`, read-only.
                 /// </summary>
                 public unsafe int getConstIntRef()
                 {
@@ -95,7 +95,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 5, of type `const float &`, read-only.
+                /// The element 5, of type `const float &amp;`, read-only.
                 /// </summary>
                 public unsafe float getConstFloatRef()
                 {
@@ -105,7 +105,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 6, of type `int &&`, read-only.
+                /// The element 6, of type `int &amp;&amp;`, read-only.
                 /// </summary>
                 public unsafe int getIntRvalueRef()
                 {
@@ -115,7 +115,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 7, of type `float &&`, read-only.
+                /// The element 7, of type `float &amp;&amp;`, read-only.
                 /// </summary>
                 public unsafe float getFloatRvalueRef()
                 {
@@ -125,7 +125,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 8, of type `const int &&`, read-only.
+                /// The element 8, of type `const int &amp;&amp;`, read-only.
                 /// </summary>
                 public unsafe int getConstIntRvalueRef()
                 {
@@ -135,7 +135,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 9, of type `const float &&`, read-only.
+                /// The element 9, of type `const float &amp;&amp;`, read-only.
                 /// </summary>
                 public unsafe float getConstFloatRvalueRef()
                 {
@@ -162,7 +162,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Stores 10 objects: `const int`, `const float`, `int &`, `float &`, `const int &`, `const float &`, `int &&`, `float &&`, `const int &&`, `const float &&`.
+            /// Stores 10 objects: `const int`, `const float`, `int &amp;`, `float &amp;`, `const int &amp;`, `const float &amp;`, `int &amp;&amp;`, `float &amp;&amp;`, `const int &amp;&amp;`, `const float &amp;&amp;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef : Const_Tuple_ConstInt_ConstFloat_IntRef_FloatRef_ConstIntRef_ConstFloatRef_IntRvalueRef_FloatRvalueRef_ConstIntRvalueRef_ConstFloatRvalueRef

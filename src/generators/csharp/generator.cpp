@@ -342,7 +342,15 @@ namespace mrbind::CSharp
                 doc += "/// <summary>\n";
 
             doc += "/// ";
-            doc += Strings::Replace(Strings::Replace(part, "<", "&lt;"), ">", "&gt;");
+
+            std::string escaped_part(part);
+            escaped_part = Strings::Replace(escaped_part, "<", "&lt;");
+            escaped_part = Strings::Replace(escaped_part, ">", "&gt;");
+            escaped_part = Strings::Replace(escaped_part, "&", "&amp;");
+            escaped_part = Strings::Replace(escaped_part, "'", "&apos;");
+            escaped_part = Strings::Replace(escaped_part, "\"", "&quot;");
+            doc += escaped_part;
+
             doc += '\n';
 
             return false;
@@ -5165,7 +5173,7 @@ namespace mrbind::CSharp
             for (const CInterop::EnumElem &elem : enum_desc.elems)
             {
                 // The comment, if any.
-                file.WriteString(elem.comment.c_style);
+                WriteComment(file, elem.comment.c_style);
 
                 file.WriteString(CppIdentifierToCSharpIdentifier(elem.name));
                 file.WriteString(" = ");

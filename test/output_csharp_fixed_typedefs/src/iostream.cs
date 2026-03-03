@@ -24,7 +24,7 @@ public static partial class MR
                 internal unsafe Ostream(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
-                /// Generated from function `MR::IOStream::operator&lt;&lt;`.
+                /// Generated from function `MR::IOStream::operator&amp;lt;&amp;lt;`.
                 /// </summary>
                 public unsafe void lshift(MR.CS.IOStream.Const_A _2)
                 {
@@ -88,7 +88,7 @@ public static partial class MR
                 internal unsafe Istream(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
-                /// Generated from function `MR::IOStream::operator&gt;&gt;`.
+                /// Generated from function `MR::IOStream::operator&amp;gt;&amp;gt;`.
                 /// </summary>
                 public unsafe void rshift(MR.CS.IOStream.A _2)
                 {

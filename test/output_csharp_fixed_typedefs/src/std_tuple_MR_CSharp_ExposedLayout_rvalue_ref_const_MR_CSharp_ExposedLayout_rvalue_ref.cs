@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Stores 2 objects: `MR::CSharp::ExposedLayout &&`, `const MR::CSharp::ExposedLayout &&`.
+            /// Stores 2 objects: `MR::CSharp::ExposedLayout &amp;&amp;`, `const MR::CSharp::ExposedLayout &amp;&amp;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Tuple_MRCSharpExposedLayoutRvalueRef_ConstMRCSharpExposedLayoutRvalueRef : MR.CS.Misc.Object<Const_Tuple_MRCSharpExposedLayoutRvalueRef_ConstMRCSharpExposedLayoutRvalueRef>, System.IDisposable
@@ -56,7 +56,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 0, of type `MR::CSharp::ExposedLayout &&`, read-only.
+                /// The element 0, of type `MR::CSharp::ExposedLayout &amp;&amp;`, read-only.
                 /// </summary>
                 public unsafe ref readonly MR.CS.CSharp.ExposedLayout getMRCSharpExposedLayoutRvalueRef()
                 {
@@ -66,7 +66,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 1, of type `const MR::CSharp::ExposedLayout &&`, read-only.
+                /// The element 1, of type `const MR::CSharp::ExposedLayout &amp;&amp;`, read-only.
                 /// </summary>
                 public unsafe ref readonly MR.CS.CSharp.ExposedLayout getConstMRCSharpExposedLayoutRvalueRef()
                 {
@@ -85,7 +85,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Stores 2 objects: `MR::CSharp::ExposedLayout &&`, `const MR::CSharp::ExposedLayout &&`.
+            /// Stores 2 objects: `MR::CSharp::ExposedLayout &amp;&amp;`, `const MR::CSharp::ExposedLayout &amp;&amp;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Tuple_MRCSharpExposedLayoutRvalueRef_ConstMRCSharpExposedLayoutRvalueRef : Const_Tuple_MRCSharpExposedLayoutRvalueRef_ConstMRCSharpExposedLayoutRvalueRef

@@ -18,6 +18,7 @@ public static partial class MR
             /// This enum is intended to be boolean.
             public enum E2 : byte
             {
+                ///< Test a same-line documentation comment. Add some >weird< & 'characters".
                 A = 0,
                 B = 1,
             }

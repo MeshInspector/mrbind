@@ -32,7 +32,7 @@ public static partial class MR
 
             // Class templates.
             /// <summary>
-            /// Generated from class `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;`.
+            /// Generated from class `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_ClassTemplate_MRCUint64T : MR.CS.Misc.Object<Const_ClassTemplate_MRCUint64T>, System.IDisposable
@@ -68,7 +68,7 @@ public static partial class MR
                 internal unsafe Const_ClassTemplate_MRCUint64T(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public unsafe Const_ClassTemplate_MRCUint64T(MR.CS.TestSimpleTypes.Const_ClassTemplate_MRCUint64T _other) : this(null, is_owning: true)
                 {
@@ -79,13 +79,13 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public Const_ClassTemplate_MRCUint64T(ClassTemplate_MRCUint64T _other) : this((Const_ClassTemplate_MRCUint64T)_other) {}
 
                 // Constructors.
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public unsafe Const_ClassTemplate_MRCUint64T(ulong _1) : this(null, is_owning: true)
                 {
@@ -96,13 +96,13 @@ public static partial class MR
 
                 // Constructors.
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public static unsafe implicit operator Const_ClassTemplate_MRCUint64T(ulong _1) {return new(_1);}
 
                 // Constructors.
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public unsafe Const_ClassTemplate_MRCUint64T(int _1) : this(null, is_owning: true)
                 {
@@ -113,7 +113,7 @@ public static partial class MR
 
                 // Constructors.
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public static unsafe implicit operator Const_ClassTemplate_MRCUint64T(int _1) {return new(_1);}
 
@@ -125,7 +125,7 @@ public static partial class MR
 
             // Class templates.
             /// <summary>
-            /// Generated from class `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;`.
+            /// Generated from class `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class ClassTemplate_MRCUint64T : Const_ClassTemplate_MRCUint64T
@@ -133,7 +133,7 @@ public static partial class MR
                 internal unsafe ClassTemplate_MRCUint64T(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public unsafe ClassTemplate_MRCUint64T(MR.CS.TestSimpleTypes.Const_ClassTemplate_MRCUint64T _other) : this(null, is_owning: true)
                 {
@@ -144,13 +144,13 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public ClassTemplate_MRCUint64T(ClassTemplate_MRCUint64T _other) : this((Const_ClassTemplate_MRCUint64T)_other) {}
 
                 // Constructors.
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public unsafe ClassTemplate_MRCUint64T(ulong _1) : this(null, is_owning: true)
                 {
@@ -161,13 +161,13 @@ public static partial class MR
 
                 // Constructors.
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public static unsafe implicit operator ClassTemplate_MRCUint64T(ulong _1) {return new(_1);}
 
                 // Constructors.
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public unsafe ClassTemplate_MRCUint64T(int _1) : this(null, is_owning: true)
                 {
@@ -178,12 +178,12 @@ public static partial class MR
 
                 // Constructors.
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public static unsafe implicit operator ClassTemplate_MRCUint64T(int _1) {return new(_1);}
 
                 /// <summary>
-                /// Generated from method `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::operator=`.
+                /// Generated from method `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::operator=`.
                 /// </summary>
                 public unsafe MR.CS.TestSimpleTypes.ClassTemplate_MRCUint64T assign(MR.CS.TestSimpleTypes.Const_ClassTemplate_MRCUint64T _other)
                 {
@@ -196,7 +196,7 @@ public static partial class MR
 
                 // Methods.
                 /// <summary>
-                /// Generated from method `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::foo&lt;MR_C_uint64_t&gt;`.
+                /// Generated from method `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::foo&amp;lt;MR_C_uint64_t&amp;gt;`.
                 /// </summary>
                 public unsafe void foo_MRCUint64T()
                 {
@@ -207,7 +207,7 @@ public static partial class MR
 
                 // Methods.
                 /// <summary>
-                /// Generated from method `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::foo&lt;int32_t&gt;`.
+                /// Generated from method `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::foo&amp;lt;int32_t&amp;gt;`.
                 /// </summary>
                 public unsafe void foo_Int32T()
                 {
@@ -252,13 +252,13 @@ public static partial class MR
 
                 // Constructors.
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_ClassTemplate_MRCUint64T(ulong _1) {return new Const_ClassTemplate_MRCUint64T(_1);}
 
                 // Constructors.
                 /// <summary>
-                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&lt;MR_C_uint64_t&gt;::ClassTemplate`.
+                /// Generated from constructor `MR::TestSimpleTypes::ClassTemplate&amp;lt;MR_C_uint64_t&amp;gt;::ClassTemplate`.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_ClassTemplate_MRCUint64T(int _1) {return new Const_ClassTemplate_MRCUint64T(_1);}
             }
@@ -320,7 +320,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetIntPtrDef`.
-            /// Parameter `_1` defaults to `&global_int`.
+            /// Parameter `_1` defaults to `&amp;global_int`.
             /// </summary>
             public static unsafe void setIntPtrDef(MR.CS.Misc._InOutOpt<int>? _1 = null)
             {
@@ -404,7 +404,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetVoidPtrDef`.
-            /// Parameter `_1` defaults to `&global_int`.
+            /// Parameter `_1` defaults to `&amp;global_int`.
             /// Parameter `_1` is a mutable pointer.
             /// </summary>
             public static unsafe void setVoidPtrDef(void **_1 = null)
@@ -449,7 +449,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetConstVoidPtrDef`.
-            /// Parameter `_1` defaults to `&global_int`.
+            /// Parameter `_1` defaults to `&amp;global_int`.
             /// Parameter `_1` is a read-only pointer.
             /// </summary>
             public static unsafe void setConstVoidPtrDef(void **_1 = null)
@@ -492,7 +492,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetVoidPtrPtrDef`.
-            /// Parameter `_1` defaults to `&global_void_ptr`.
+            /// Parameter `_1` defaults to `&amp;global_void_ptr`.
             /// </summary>
             public static unsafe void setVoidPtrPtrDef(void ***_1 = null)
             {
@@ -568,7 +568,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetEnumPtrDef`.
-            /// Parameter `_1` defaults to `&global_enum`.
+            /// Parameter `_1` defaults to `&amp;global_enum`.
             /// </summary>
             public static unsafe void setEnumPtrDef(MR.CS.Misc._InOutOpt<MR.CS.TestSimpleTypes.E>? _1 = null)
             {
@@ -685,7 +685,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetEnum2PtrDef`.
-            /// Parameter `_1` defaults to `&global_enum2`.
+            /// Parameter `_1` defaults to `&amp;global_enum2`.
             /// </summary>
             public static unsafe void setEnum2PtrDef(MR.CS.Misc._InOutOpt<MR.CS.TestSimpleTypes.E2>? _1 = null)
             {
@@ -804,7 +804,7 @@ public static partial class MR
 
             // Function templates.
             /// <summary>
-            /// Generated from function `MR::TestSimpleTypes::FuncTemplate&lt;MR_C_uint64_t&gt;`.
+            /// Generated from function `MR::TestSimpleTypes::FuncTemplate&amp;lt;MR_C_uint64_t&amp;gt;`.
             /// </summary>
             public static ulong funcTemplate(ulong _1)
             {
@@ -815,7 +815,7 @@ public static partial class MR
 
             // Function templates.
             /// <summary>
-            /// Generated from function `MR::TestSimpleTypes::FuncTemplate&lt;int32_t&gt;`.
+            /// Generated from function `MR::TestSimpleTypes::FuncTemplate&amp;lt;int32_t&amp;gt;`.
             /// </summary>
             public static int funcTemplate(int _1)
             {

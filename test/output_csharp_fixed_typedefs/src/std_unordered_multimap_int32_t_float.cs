@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::unordered_multimap&lt;int32_t, float&gt;`.
+            /// Generated from C++ container `std::unordered_multimap&amp;lt;int32_t, float&amp;gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_UnorderedMultimap_Int32T_Float : MR.CS.Misc.Object<Const_UnorderedMultimap_Int32T_Float>, System.IDisposable, IEnumerable<MR.CS.Std.Const_Pair_ConstInt32T_Float>
@@ -709,7 +709,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::unordered_multimap&lt;int32_t, float&gt;`.
+            /// Generated from C++ container `std::unordered_multimap&amp;lt;int32_t, float&amp;gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class UnorderedMultimap_Int32T_Float : Const_UnorderedMultimap_Int32T_Float, IEnumerable<MR.CS.Std.Pair_ConstInt32T_Float>
@@ -880,7 +880,7 @@ public static partial class MR
             /// * Pass `new()` to default-construct the instance.
             /// * Pass an instance of `UnorderedMultimap_Int32T_Float`/`Const_UnorderedMultimap_Int32T_Float` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
-            ///   Be careful if your input isn't a unique reference to this object.
+            ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
             public class _ByValue_UnorderedMultimap_Int32T_Float

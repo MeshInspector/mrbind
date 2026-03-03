@@ -36,7 +36,7 @@ public static partial class MR
                 /// </summary>
                 public unsafe ConstBox_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) : this(new ConstBox_Array_IntArray4Array3_5((_Underlying *)&other, is_owning: false)) {}
                 /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_Array_IntArray4Array3_5` has this conversion, `Box_Array_IntArray4Array3_5` intentionally doesn't.
+                /// Convert from a struct by copying it. Note that only `ConstBox_Array_IntArray4Array3_5` has this conversion, `Box_Array_IntArray4Array3_5` intentionally doesn&apos;t.
                 /// </summary>
                 public static implicit operator ConstBox_Array_IntArray4Array3_5(Array_IntArray4Array3_5 other) {return new(other);}
 

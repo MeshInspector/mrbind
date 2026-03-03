@@ -105,7 +105,7 @@ public static partial class MR
 
                 /// <summary>
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
-                /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
+                /// The input pointer can be reinterpreted from any other `std::shared_ptr&amp;lt;T&amp;gt;` to avoid constructing a new `std::shared_ptr&amp;lt;void&amp;gt;`.
                 /// Parameter `ptr` is a mutable pointer.
                 /// </summary>
                 public unsafe Const_SharedPtr_Void(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr) : this(null, is_owning: true)
@@ -116,7 +116,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) : this(null, is_owning: true)
                 {
@@ -126,12 +126,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) {return new(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) : this(null, is_owning: true)
                 {
@@ -141,12 +141,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) {return new(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSG _other) : this(null, is_owning: true)
                 {
@@ -156,12 +156,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSG _other) {return new(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) : this(null, is_owning: true)
                 {
@@ -171,12 +171,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) {return new(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32T _other) : this(null, is_owning: true)
                 {
@@ -186,12 +186,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32T _other) {return new(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray _other) : this(null, is_owning: true)
                 {
@@ -201,12 +201,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray _other) {return new(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray42 _other) : this(null, is_owning: true)
                 {
@@ -216,12 +216,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray42 _other) {return new(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) : this(null, is_owning: true)
                 {
@@ -231,12 +231,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) {return new(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray _other) : this(null, is_owning: true)
                 {
@@ -246,12 +246,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray _other) {return new(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42 _other) : this(null, is_owning: true)
                 {
@@ -261,7 +261,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator Const_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42 _other) {return new(_other);}
             }
@@ -352,7 +352,7 @@ public static partial class MR
 
                 /// <summary>
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
-                /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
+                /// The input pointer can be reinterpreted from any other `std::shared_ptr&amp;lt;T&amp;gt;` to avoid constructing a new `std::shared_ptr&amp;lt;void&amp;gt;`.
                 /// Parameter `ptr` is a mutable pointer.
                 /// </summary>
                 public unsafe SharedPtr_Void(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr) : this(null, is_owning: true)
@@ -364,7 +364,7 @@ public static partial class MR
 
                 /// <summary>
                 /// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
-                /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
+                /// The input pointer can be reinterpreted from any other `std::shared_ptr&amp;lt;T&amp;gt;` to avoid constructing a new `std::shared_ptr&amp;lt;void&amp;gt;`.
                 /// Parameter `ptr` is a mutable pointer.
                 /// </summary>
                 public unsafe void assignAliasing(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, void *ptr)
@@ -376,7 +376,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) : this(null, is_owning: true)
                 {
@@ -386,12 +386,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) {return new(_other);}
 
                 /// <summary>
-                /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
+                /// Overwrites an existing `std::shared_ptr&amp;lt;void&amp;gt;` to point to the same object as this instance.
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other)
                 {
@@ -401,7 +401,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) : this(null, is_owning: true)
                 {
@@ -411,12 +411,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) {return new(_other);}
 
                 /// <summary>
-                /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
+                /// Overwrites an existing `std::shared_ptr&amp;lt;void&amp;gt;` to point to the same object as this instance.
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other)
                 {
@@ -426,7 +426,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSG _other) : this(null, is_owning: true)
                 {
@@ -436,12 +436,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSG _other) {return new(_other);}
 
                 /// <summary>
-                /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
+                /// Overwrites an existing `std::shared_ptr&amp;lt;void&amp;gt;` to point to the same object as this instance.
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_MRCSharpSG _other)
                 {
@@ -451,7 +451,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) : this(null, is_owning: true)
                 {
@@ -461,12 +461,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) {return new(_other);}
 
                 /// <summary>
-                /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
+                /// Overwrites an existing `std::shared_ptr&amp;lt;void&amp;gt;` to point to the same object as this instance.
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other)
                 {
@@ -476,7 +476,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32T _other) : this(null, is_owning: true)
                 {
@@ -486,12 +486,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32T _other) {return new(_other);}
 
                 /// <summary>
-                /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
+                /// Overwrites an existing `std::shared_ptr&amp;lt;void&amp;gt;` to point to the same object as this instance.
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_Int32T _other)
                 {
@@ -501,7 +501,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray _other) : this(null, is_owning: true)
                 {
@@ -511,12 +511,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray _other) {return new(_other);}
 
                 /// <summary>
-                /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
+                /// Overwrites an existing `std::shared_ptr&amp;lt;void&amp;gt;` to point to the same object as this instance.
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_Int32TArray _other)
                 {
@@ -526,7 +526,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray42 _other) : this(null, is_owning: true)
                 {
@@ -536,12 +536,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray42 _other) {return new(_other);}
 
                 /// <summary>
-                /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
+                /// Overwrites an existing `std::shared_ptr&amp;lt;void&amp;gt;` to point to the same object as this instance.
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_Int32TArray42 _other)
                 {
@@ -551,7 +551,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) : this(null, is_owning: true)
                 {
@@ -561,12 +561,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) {return new(_other);}
 
                 /// <summary>
-                /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
+                /// Overwrites an existing `std::shared_ptr&amp;lt;void&amp;gt;` to point to the same object as this instance.
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other)
                 {
@@ -576,7 +576,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray _other) : this(null, is_owning: true)
                 {
@@ -586,12 +586,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray _other) {return new(_other);}
 
                 /// <summary>
-                /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
+                /// Overwrites an existing `std::shared_ptr&amp;lt;void&amp;gt;` to point to the same object as this instance.
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray _other)
                 {
@@ -601,7 +601,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public unsafe SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42 _other) : this(null, is_owning: true)
                 {
@@ -611,12 +611,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42 _other) {return new(_other);}
 
                 /// <summary>
-                /// Overwrites an existing `std::shared_ptr&lt;void&gt;` to point to the same object as this instance.
+                /// Overwrites an existing `std::shared_ptr&amp;lt;void&amp;gt;` to point to the same object as this instance.
                 /// </summary>
                 public unsafe void assign(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42 _other)
                 {
@@ -632,7 +632,7 @@ public static partial class MR
             /// * Pass `new()` to default-construct the instance.
             /// * Pass an instance of `SharedPtr_Void`/`Const_SharedPtr_Void` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
-            ///   Be careful if your input isn't a unique reference to this object.
+            ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
             public class _ByValue_SharedPtr_Void
@@ -648,52 +648,52 @@ public static partial class MR
                 public static implicit operator _ByValue_SharedPtr_Void(MR.CS.Misc._Moved<SharedPtr_Void> arg) {return new(arg);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSG _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32T _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray42 _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _ByValue_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42 _other) {return new MR.CS.Misc._Moved<MR.CS.Std.SharedPtr_Void>(_other);}
             }
@@ -732,52 +732,52 @@ public static partial class MR
                 public static implicit operator _InOptConst_SharedPtr_Void(Const_SharedPtr_Void value) {return new(value);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSE _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSA _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpSG _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRCSharpExposedLayoutSh _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32T _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_Int32TArray42 _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrA _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray _other) {return new Const_SharedPtr_Void(_other);}
 
                 /// <summary>
-                /// Creates an untyped `std::shared_ptr&lt;void&gt;` pointing to the same object as the source typed pointer.
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
                 /// </summary>
                 public static unsafe implicit operator _InOptConst_SharedPtr_Void(MR.CS.Std._ByValue_SharedPtr_MRStdSharedPtrAArray42 _other) {return new Const_SharedPtr_Void(_other);}
             }

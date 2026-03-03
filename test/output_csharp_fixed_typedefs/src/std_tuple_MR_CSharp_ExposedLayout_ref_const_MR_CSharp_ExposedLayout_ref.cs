@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Stores 2 objects: `MR::CSharp::ExposedLayout &`, `const MR::CSharp::ExposedLayout &`.
+            /// Stores 2 objects: `MR::CSharp::ExposedLayout &amp;`, `const MR::CSharp::ExposedLayout &amp;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef : MR.CS.Misc.Object<Const_Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef>, System.IDisposable
@@ -45,7 +45,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 0, of type `MR::CSharp::ExposedLayout &`, read-only.
+                /// The element 0, of type `MR::CSharp::ExposedLayout &amp;`, read-only.
                 /// </summary>
                 public unsafe ref MR.CS.CSharp.ExposedLayout getMRCSharpExposedLayoutRef()
                 {
@@ -55,7 +55,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 1, of type `const MR::CSharp::ExposedLayout &`, read-only.
+                /// The element 1, of type `const MR::CSharp::ExposedLayout &amp;`, read-only.
                 /// </summary>
                 public unsafe ref readonly MR.CS.CSharp.ExposedLayout getConstMRCSharpExposedLayoutRef()
                 {
@@ -74,7 +74,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Stores 2 objects: `MR::CSharp::ExposedLayout &`, `const MR::CSharp::ExposedLayout &`.
+            /// Stores 2 objects: `MR::CSharp::ExposedLayout &amp;`, `const MR::CSharp::ExposedLayout &amp;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef : Const_Tuple_MRCSharpExposedLayoutRef_ConstMRCSharpExposedLayoutRef

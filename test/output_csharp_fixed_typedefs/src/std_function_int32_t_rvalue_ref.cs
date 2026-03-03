@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Stores a functor of type: `int32_t &&(void)`. Possibly stateful.
+            /// Stores a functor of type: `int32_t &amp;&amp;(void)`. Possibly stateful.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Function_Int32TRvalueRef : MR.CS.Misc.Object<Const_Function_Int32TRvalueRef>, System.IDisposable
@@ -93,7 +93,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Stores a functor of type: `int32_t &&(void)`. Possibly stateful.
+            /// Stores a functor of type: `int32_t &amp;&amp;(void)`. Possibly stateful.
             /// This is the non-const half of the class.
             /// </summary>
             public class Function_Int32TRvalueRef : Const_Function_Int32TRvalueRef
@@ -177,7 +177,7 @@ public static partial class MR
             /// * Pass `new()` to default-construct the instance.
             /// * Pass an instance of `Function_Int32TRvalueRef`/`Const_Function_Int32TRvalueRef` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
-            ///   Be careful if your input isn't a unique reference to this object.
+            ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
             public class _ByValue_Function_Int32TRvalueRefFunc

@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class IncludesForEnumConstants
         {
             /// <summary>
-            /// Generated from class `MR::IncludesForEnumConstants::A&lt;MR::IncludesForEnumConstants::E::e1&gt;`.
+            /// Generated from class `MR::IncludesForEnumConstants::A&amp;lt;MR::IncludesForEnumConstants::E::e1&amp;gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_A_MRIncludesForEnumConstantsEE1 : MR.CS.Misc.Object<Const_A_MRIncludesForEnumConstantsEE1>, System.IDisposable
@@ -39,7 +39,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::IncludesForEnumConstants::A&lt;MR::IncludesForEnumConstants::E::e1&gt;::A`.
+                /// Generated from constructor `MR::IncludesForEnumConstants::A&amp;lt;MR::IncludesForEnumConstants::E::e1&amp;gt;::A`.
                 /// </summary>
                 public unsafe Const_A_MRIncludesForEnumConstantsEE1(MR.CS.IncludesForEnumConstants.Const_A_MRIncludesForEnumConstantsEE1 _other) : this(null, is_owning: true)
                 {
@@ -50,13 +50,13 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::IncludesForEnumConstants::A&lt;MR::IncludesForEnumConstants::E::e1&gt;::A`.
+                /// Generated from constructor `MR::IncludesForEnumConstants::A&amp;lt;MR::IncludesForEnumConstants::E::e1&amp;gt;::A`.
                 /// </summary>
                 public Const_A_MRIncludesForEnumConstantsEE1(A_MRIncludesForEnumConstantsEE1 _other) : this((Const_A_MRIncludesForEnumConstantsEE1)_other) {}
             }
 
             /// <summary>
-            /// Generated from class `MR::IncludesForEnumConstants::A&lt;MR::IncludesForEnumConstants::E::e1&gt;`.
+            /// Generated from class `MR::IncludesForEnumConstants::A&amp;lt;MR::IncludesForEnumConstants::E::e1&amp;gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class A_MRIncludesForEnumConstantsEE1 : Const_A_MRIncludesForEnumConstantsEE1
@@ -74,7 +74,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::IncludesForEnumConstants::A&lt;MR::IncludesForEnumConstants::E::e1&gt;::A`.
+                /// Generated from constructor `MR::IncludesForEnumConstants::A&amp;lt;MR::IncludesForEnumConstants::E::e1&amp;gt;::A`.
                 /// </summary>
                 public unsafe A_MRIncludesForEnumConstantsEE1(MR.CS.IncludesForEnumConstants.Const_A_MRIncludesForEnumConstantsEE1 _other) : this(null, is_owning: true)
                 {
@@ -85,12 +85,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::IncludesForEnumConstants::A&lt;MR::IncludesForEnumConstants::E::e1&gt;::A`.
+                /// Generated from constructor `MR::IncludesForEnumConstants::A&amp;lt;MR::IncludesForEnumConstants::E::e1&amp;gt;::A`.
                 /// </summary>
                 public A_MRIncludesForEnumConstantsEE1(A_MRIncludesForEnumConstantsEE1 _other) : this((Const_A_MRIncludesForEnumConstantsEE1)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::IncludesForEnumConstants::A&lt;MR::IncludesForEnumConstants::E::e1&gt;::operator=`.
+                /// Generated from method `MR::IncludesForEnumConstants::A&amp;lt;MR::IncludesForEnumConstants::E::e1&amp;gt;::operator=`.
                 /// </summary>
                 public unsafe MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1 assign(MR.CS.IncludesForEnumConstants.Const_A_MRIncludesForEnumConstantsEE1 _other)
                 {

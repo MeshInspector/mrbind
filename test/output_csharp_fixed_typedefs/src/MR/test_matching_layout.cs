@@ -62,7 +62,7 @@ public static partial class MR
                 /// </summary>
                 public unsafe ConstBox_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
                 /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_A` has this conversion, `Box_A` intentionally doesn't.
+                /// Convert from a struct by copying it. Note that only `ConstBox_A` has this conversion, `Box_A` intentionally doesn&apos;t.
                 /// </summary>
                 public static implicit operator ConstBox_A(A other) {return new(other);}
 
@@ -294,7 +294,7 @@ public static partial class MR
                 /// </summary>
                 public unsafe ConstBox_B(B other) : this(new ConstBox_B((_Underlying *)&other, is_owning: false)) {}
                 /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_B` has this conversion, `Box_B` intentionally doesn't.
+                /// Convert from a struct by copying it. Note that only `ConstBox_B` has this conversion, `Box_B` intentionally doesn&apos;t.
                 /// </summary>
                 public static implicit operator ConstBox_B(B other) {return new(other);}
 

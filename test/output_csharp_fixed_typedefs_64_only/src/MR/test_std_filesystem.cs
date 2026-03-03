@@ -67,7 +67,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdFilesystem::SetPathDef`.
-            /// Parameter `_1` defaults to `"hmm"`.
+            /// Parameter `_1` defaults to `&quot;hmm&quot;`.
             /// </summary>
             public static unsafe void setPathDef(MR.CS.Misc.ReadOnlyCharSpanOpt _1 = new())
             {

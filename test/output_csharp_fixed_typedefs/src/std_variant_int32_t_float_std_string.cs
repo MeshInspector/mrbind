@@ -60,7 +60,7 @@ public static partial class MR
                 public Const_Variant_Int32T_Float_StdString(Variant_Int32T_Float_StdString other) : this((Const_Variant_Int32T_Float_StdString)other) {}
 
                 /// <summary>
-                /// Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
+                /// Returns the index of the stored element type. In rare cases may return -1 if this variant is &quot;valueless by exception&quot;.
                 /// </summary>
                 public unsafe ulong index()
                 {
@@ -121,7 +121,7 @@ public static partial class MR
                 public static unsafe implicit operator Const_Variant_Int32T_Float_StdString(string other) {return new(other);}
 
                 /// <summary>
-                /// Returns the element 0, of type `int32_t`, read-only. If it's not the active element, returns null.
+                /// Returns the element 0, of type `int32_t`, read-only. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe int? getInt32T()
                 {
@@ -132,7 +132,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 1, of type `float`, read-only. If it's not the active element, returns null.
+                /// Returns the element 1, of type `float`, read-only. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe float? getFloat()
                 {
@@ -143,7 +143,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 2, of type `std::string`, read-only. If it's not the active element, returns null.
+                /// Returns the element 2, of type `std::string`, read-only. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe MR.CS.Std.Const_String? getStdString()
                 {
@@ -298,7 +298,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 0, of type `int32_t`, mutable. If it's not the active element, returns null.
+                /// Returns the element 0, of type `int32_t`, mutable. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<int>? getInt32T()
                 {
@@ -309,7 +309,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 1, of type `float`, mutable. If it's not the active element, returns null.
+                /// Returns the element 1, of type `float`, mutable. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe new MR.CS.Misc.Ref<float>? getFloat()
                 {
@@ -320,7 +320,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Returns the element 2, of type `std::string`, mutable. If it's not the active element, returns null.
+                /// Returns the element 2, of type `std::string`, mutable. If it&apos;s not the active element, returns null.
                 /// </summary>
                 public unsafe new MR.CS.Std.String? getStdString()
                 {
@@ -340,7 +340,7 @@ public static partial class MR
             /// * Pass `new()` to default-construct the instance.
             /// * Pass an instance of `Variant_Int32T_Float_StdString`/`Const_Variant_Int32T_Float_StdString` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
-            ///   Be careful if your input isn't a unique reference to this object.
+            ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
             public class _ByValue_Variant_Int32T_Float_StdString

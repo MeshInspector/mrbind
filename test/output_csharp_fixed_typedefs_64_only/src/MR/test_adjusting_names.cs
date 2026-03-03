@@ -128,7 +128,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::AdjustingNames::A::foo&lt;MR_C_uint64_t&gt;`.
+                /// Generated from method `MR::AdjustingNames::A::foo&amp;lt;MR_C_uint64_t&amp;gt;`.
                 /// </summary>
                 public unsafe void foo()
                 {
@@ -185,7 +185,7 @@ public static partial class MR
             // When we're gonna call `foo<MR_C_uint64_t>()` in the source file, we must include the header for our typedef (and for the template arguments in general).
             // And we must make sure that the typedef gets applied to the name correctly.
             /// <summary>
-            /// Generated from function `MR::AdjustingNames::foo&lt;MR_C_uint64_t&gt;`.
+            /// Generated from function `MR::AdjustingNames::foo&amp;lt;MR_C_uint64_t&amp;gt;`.
             /// </summary>
             public static void foo()
             {

@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// <summary>
             /// Wraps a pointer to a shared reference-counted heap-allocated array of type `MR::StdSharedPtr::A`, of an unspecified size.
-            /// Doesn't store the size, it has to be obtained separately.
+            /// Doesn&apos;t store the size, it has to be obtained separately.
             /// This is the const half of the class.
             /// </summary>
             public class Const_SharedPtr_MRStdSharedPtrAArray : MR.CS.Misc.Object<Const_SharedPtr_MRStdSharedPtrAArray>, System.IDisposable
@@ -145,7 +145,7 @@ public static partial class MR
 
                 /// <summary>
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
-                /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
+                /// The input pointer can be reinterpreted from any other `std::shared_ptr&amp;lt;T&amp;gt;` to avoid constructing a new `std::shared_ptr&amp;lt;void&amp;gt;`.
                 /// </summary>
                 public unsafe Const_SharedPtr_MRStdSharedPtrAArray(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.A? ptr) : this(null, is_owning: true)
                 {
@@ -158,7 +158,7 @@ public static partial class MR
 
             /// <summary>
             /// Wraps a pointer to a shared reference-counted heap-allocated array of type `MR::StdSharedPtr::A`, of an unspecified size.
-            /// Doesn't store the size, it has to be obtained separately.
+            /// Doesn&apos;t store the size, it has to be obtained separately.
             /// This is the non-const half of the class.
             /// </summary>
             public class SharedPtr_MRStdSharedPtrAArray : Const_SharedPtr_MRStdSharedPtrAArray
@@ -273,7 +273,7 @@ public static partial class MR
 
                 /// <summary>
                 /// The aliasing constructor. Create a new instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
-                /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
+                /// The input pointer can be reinterpreted from any other `std::shared_ptr&amp;lt;T&amp;gt;` to avoid constructing a new `std::shared_ptr&amp;lt;void&amp;gt;`.
                 /// </summary>
                 public unsafe SharedPtr_MRStdSharedPtrAArray(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.A? ptr) : this(null, is_owning: true)
                 {
@@ -285,7 +285,7 @@ public static partial class MR
 
                 /// <summary>
                 /// The aliasing assignment. Overwrite an existing instance, copying ownership from an existing shared pointer and storing an arbitrary raw pointer.
-                /// The input pointer can be reinterpreted from any other `std::shared_ptr&lt;T&gt;` to avoid constructing a new `std::shared_ptr&lt;void&gt;`.
+                /// The input pointer can be reinterpreted from any other `std::shared_ptr&amp;lt;T&amp;gt;` to avoid constructing a new `std::shared_ptr&amp;lt;void&amp;gt;`.
                 /// </summary>
                 public unsafe void assignAliasing(MR.CS.Std.Aliasing tag, MR.CS.Std._ByValue_SharedPtr_ConstVoid ownership, MR.CS.StdSharedPtr.A? ptr)
                 {
@@ -303,7 +303,7 @@ public static partial class MR
             /// * Pass `new()` to default-construct the instance.
             /// * Pass an instance of `SharedPtr_MRStdSharedPtrAArray`/`Const_SharedPtr_MRStdSharedPtrAArray` to copy it into the function.
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
-            ///   Be careful if your input isn't a unique reference to this object.
+            ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
             public class _ByValue_SharedPtr_MRStdSharedPtrAArray

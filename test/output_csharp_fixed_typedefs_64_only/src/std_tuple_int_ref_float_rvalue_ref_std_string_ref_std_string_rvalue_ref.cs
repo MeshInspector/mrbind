@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Stores 4 objects: `int &`, `float &&`, `std::string &`, `std::string &&`.
+            /// Stores 4 objects: `int &amp;`, `float &amp;&amp;`, `std::string &amp;`, `std::string &amp;&amp;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Tuple_IntRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef : MR.CS.Misc.Object<Const_Tuple_IntRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef>, System.IDisposable
@@ -48,7 +48,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 0, of type `int &`, read-only.
+                /// The element 0, of type `int &amp;`, read-only.
                 /// </summary>
                 public unsafe ref int getIntRef()
                 {
@@ -58,7 +58,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 1, of type `float &&`, read-only.
+                /// The element 1, of type `float &amp;&amp;`, read-only.
                 /// </summary>
                 public unsafe float getFloatRvalueRef()
                 {
@@ -68,7 +68,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 2, of type `std::string &`, read-only.
+                /// The element 2, of type `std::string &amp;`, read-only.
                 /// </summary>
                 public unsafe MR.CS.Std.String getStdStringRef()
                 {
@@ -81,7 +81,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// The element 3, of type `std::string &&`, read-only.
+                /// The element 3, of type `std::string &amp;&amp;`, read-only.
                 /// </summary>
                 public unsafe MR.CS.Misc._Moved<MR.CS.Std.String> getStdStringRvalueRef()
                 {
@@ -105,7 +105,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Stores 4 objects: `int &`, `float &&`, `std::string &`, `std::string &&`.
+            /// Stores 4 objects: `int &amp;`, `float &amp;&amp;`, `std::string &amp;`, `std::string &amp;&amp;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Tuple_IntRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef : Const_Tuple_IntRef_FloatRvalueRef_StdStringRef_StdStringRvalueRef

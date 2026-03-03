@@ -104,7 +104,8 @@ namespace MR::CSharp
 
     enum class E2 : bool
     {
-        a, b,
+        a, ///< Test a same-line documentation comment. Add some >weird< & 'characters".
+        b,
     };
     inline E2 default_e2 = E2::b;
 

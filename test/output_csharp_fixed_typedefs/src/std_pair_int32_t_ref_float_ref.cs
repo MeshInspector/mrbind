@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Stores two objects: `int32_t &` and `int32_t &`.
+            /// Stores two objects: `int32_t &amp;` and `int32_t &amp;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Pair_Int32TRef_FloatRef : MR.CS.Misc.Object<Const_Pair_Int32TRef_FloatRef>, System.IDisposable
@@ -74,7 +74,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Stores two objects: `int32_t &` and `int32_t &`.
+            /// Stores two objects: `int32_t &amp;` and `int32_t &amp;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Pair_Int32TRef_FloatRef : Const_Pair_Int32TRef_FloatRef

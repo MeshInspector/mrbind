@@ -73,6 +73,7 @@ typedef enum MR_CSharp_E1
 typedef bool MR_CSharp_E2;
 enum // MR_CSharp_E2
 {
+    ///< Test a same-line documentation comment. Add some >weird< & 'characters".
     MR_CSharp_E2_a = 0,
     MR_CSharp_E2_b = 1,
 };

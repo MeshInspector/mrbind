@@ -37,7 +37,7 @@ public static partial class MR
                 /// </summary>
                 public unsafe ConstBox_A(A other) : this(new ConstBox_A((_Underlying *)&other, is_owning: false)) {}
                 /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_A` has this conversion, `Box_A` intentionally doesn't.
+                /// Convert from a struct by copying it. Note that only `ConstBox_A` has this conversion, `Box_A` intentionally doesn&apos;t.
                 /// </summary>
                 public static implicit operator ConstBox_A(A other) {return new(other);}
 
@@ -206,7 +206,7 @@ public static partial class MR
                     /// </summary>
                     public unsafe ConstBox_B(B other) : this(new ConstBox_B((_Underlying *)&other, is_owning: false)) {}
                     /// <summary>
-                    /// Convert from a struct by copying it. Note that only `ConstBox_B` has this conversion, `Box_B` intentionally doesn't.
+                    /// Convert from a struct by copying it. Note that only `ConstBox_B` has this conversion, `Box_B` intentionally doesn&apos;t.
                     /// </summary>
                     public static implicit operator ConstBox_B(B other) {return new(other);}
 
@@ -498,7 +498,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from class `MR::DeclOrder::C&lt;false&gt;`.
+            /// Generated from class `MR::DeclOrder::C&amp;lt;false&amp;gt;`.
             /// This is the const reference to the struct.
             /// </summary>
             public class ConstBox_C_False : MR.CS.Misc.Object<ConstBox_C_False>, System.IDisposable
@@ -529,7 +529,7 @@ public static partial class MR
                 /// </summary>
                 public unsafe ConstBox_C_False(C_False other) : this(new ConstBox_C_False((_Underlying *)&other, is_owning: false)) {}
                 /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_C_False` has this conversion, `Box_C_False` intentionally doesn't.
+                /// Convert from a struct by copying it. Note that only `ConstBox_C_False` has this conversion, `Box_C_False` intentionally doesn&apos;t.
                 /// </summary>
                 public static implicit operator ConstBox_C_False(C_False other) {return new(other);}
 
@@ -555,7 +555,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from class `MR::DeclOrder::C&lt;false&gt;`.
+            /// Generated from class `MR::DeclOrder::C&amp;lt;false&amp;gt;`.
             /// This is the non-const reference to the struct.
             /// </summary>
             public class Box_C_False : ConstBox_C_False
@@ -598,7 +598,7 @@ public static partial class MR
                 public void Assign(ConstBox_C_False _other) {_Ref = _other._Ref;}
 
                 /// <summary>
-                /// Generated from method `MR::DeclOrder::C&lt;false&gt;::blah`.
+                /// Generated from method `MR::DeclOrder::C&amp;lt;false&amp;gt;::blah`.
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.C_True blah()
                 {
@@ -609,7 +609,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from class `MR::DeclOrder::C&lt;false&gt;`.
+            /// Generated from class `MR::DeclOrder::C&amp;lt;false&amp;gt;`.
             /// This is the by-value version of the struct.
             /// </summary>
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
@@ -629,7 +629,7 @@ public static partial class MR
                 public C_False(C_False _other) {this = _other;}
 
                 /// <summary>
-                /// Generated from method `MR::DeclOrder::C&lt;false&gt;::blah`.
+                /// Generated from method `MR::DeclOrder::C&amp;lt;false&amp;gt;::blah`.
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.C_True blah()
                 {
@@ -718,7 +718,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from class `MR::DeclOrder::C&lt;true&gt;`.
+            /// Generated from class `MR::DeclOrder::C&amp;lt;true&amp;gt;`.
             /// This is the const reference to the struct.
             /// </summary>
             public class ConstBox_C_True : MR.CS.Misc.Object<ConstBox_C_True>, System.IDisposable
@@ -749,7 +749,7 @@ public static partial class MR
                 /// </summary>
                 public unsafe ConstBox_C_True(C_True other) : this(new ConstBox_C_True((_Underlying *)&other, is_owning: false)) {}
                 /// <summary>
-                /// Convert from a struct by copying it. Note that only `ConstBox_C_True` has this conversion, `Box_C_True` intentionally doesn't.
+                /// Convert from a struct by copying it. Note that only `ConstBox_C_True` has this conversion, `Box_C_True` intentionally doesn&apos;t.
                 /// </summary>
                 public static implicit operator ConstBox_C_True(C_True other) {return new(other);}
 
@@ -775,7 +775,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from class `MR::DeclOrder::C&lt;true&gt;`.
+            /// Generated from class `MR::DeclOrder::C&amp;lt;true&amp;gt;`.
             /// This is the non-const reference to the struct.
             /// </summary>
             public class Box_C_True : ConstBox_C_True
@@ -818,7 +818,7 @@ public static partial class MR
                 public void Assign(ConstBox_C_True _other) {_Ref = _other._Ref;}
 
                 /// <summary>
-                /// Generated from method `MR::DeclOrder::C&lt;true&gt;::blah`.
+                /// Generated from method `MR::DeclOrder::C&amp;lt;true&amp;gt;::blah`.
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.C_False blah()
                 {
@@ -829,7 +829,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from class `MR::DeclOrder::C&lt;true&gt;`.
+            /// Generated from class `MR::DeclOrder::C&amp;lt;true&amp;gt;`.
             /// This is the by-value version of the struct.
             /// </summary>
             [System.Runtime.InteropServices.StructLayout(System.Runtime.InteropServices.LayoutKind.Explicit, Size = 4)]
@@ -849,7 +849,7 @@ public static partial class MR
                 public C_True(C_True _other) {this = _other;}
 
                 /// <summary>
-                /// Generated from method `MR::DeclOrder::C&lt;true&gt;::blah`.
+                /// Generated from method `MR::DeclOrder::C&amp;lt;true&amp;gt;::blah`.
                 /// </summary>
                 public unsafe MR.CS.DeclOrder.C_False blah()
                 {

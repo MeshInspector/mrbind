@@ -6,7 +6,7 @@ public static partial class MR
         {
             /// <summary>
             /// Wraps a pointer to a heap-allocated array of type `int32_t`, of an unspecified size.
-            /// Doesn't store the size, it has to be obtained separately.
+            /// Doesn&apos;t store the size, it has to be obtained separately.
             /// This is the const half of the class.
             /// </summary>
             public class Const_UniquePtr_Int32TArray : MR.CS.Misc.Object<Const_UniquePtr_Int32TArray>, System.IDisposable
@@ -92,7 +92,7 @@ public static partial class MR
 
             /// <summary>
             /// Wraps a pointer to a heap-allocated array of type `int32_t`, of an unspecified size.
-            /// Doesn't store the size, it has to be obtained separately.
+            /// Doesn&apos;t store the size, it has to be obtained separately.
             /// This is the non-const half of the class.
             /// </summary>
             public class UniquePtr_Int32TArray : Const_UniquePtr_Int32TArray

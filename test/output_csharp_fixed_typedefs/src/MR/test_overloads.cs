@@ -25,7 +25,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from function `MR::Overloads::b&lt;int32_t&gt;`.
+            /// Generated from function `MR::Overloads::b&amp;lt;int32_t&amp;gt;`.
             /// </summary>
             public static void b_Int32T()
             {
@@ -35,7 +35,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from function `MR::Overloads::b&lt;float&gt;`.
+            /// Generated from function `MR::Overloads::b&amp;lt;float&amp;gt;`.
             /// </summary>
             public static void b_Float()
             {
