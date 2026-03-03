@@ -242,7 +242,7 @@ namespace mrbind::C::Modules
                     }
 
                     // Construct from a value. This is only useful for interop.
-                    if (!is_array && !is_void)
+                    if (!is_array && !is_void && generator.FindTypeTraits(cpp_elem_type).IsDefaultOrCopyOrMoveConstructible())
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Construct from a value.";

@@ -248,6 +248,15 @@ namespace MR::CSharp
     inline std::shared_ptr<const SA> *test_shcptr_ptr(std::shared_ptr<const SA> *a, std::shared_ptr<const SA> *b = &default_shcptr) {(void)a; return b;}
     inline const std::shared_ptr<const SA> *test_shcptr_cptr(const std::shared_ptr<const SA> *a, const std::shared_ptr<const SA> *b = &default_shcptr) {(void)a; return b;}
 
+    // Make sure non-passable classes work fine as `std::shared_ptr` template arguments.
+    struct SG
+    {
+        SG() = delete;
+        SG(const SG &) = delete;
+        SG &operator=(const SG &) = delete;
+    };
+    inline std::shared_ptr<SG> mark_sg_as_shared() {return nullptr;} // Mark as shared.
+
 
     inline std::string default_string;
 

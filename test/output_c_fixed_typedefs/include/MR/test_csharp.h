@@ -43,6 +43,7 @@ typedef struct MR_C_std_pair_int32_t_std_string MR_C_std_pair_int32_t_std_string
 typedef struct MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh; // Defined in `#include <std_shared_ptr_MR_CSharp_ExposedLayoutSh.h>`.
 typedef struct MR_C_std_shared_ptr_MR_CSharp_SA MR_C_std_shared_ptr_MR_CSharp_SA; // Defined in `#include <std_shared_ptr_MR_CSharp_SA.h>`.
 typedef struct MR_C_std_shared_ptr_MR_CSharp_SE MR_C_std_shared_ptr_MR_CSharp_SE; // Defined in `#include <std_shared_ptr_MR_CSharp_SE.h>`.
+typedef struct MR_C_std_shared_ptr_MR_CSharp_SG MR_C_std_shared_ptr_MR_CSharp_SG; // Defined in `#include <std_shared_ptr_MR_CSharp_SG.h>`.
 typedef struct MR_C_std_shared_ptr_const_MR_CSharp_SA MR_C_std_shared_ptr_const_MR_CSharp_SA; // Defined in `#include <std_shared_ptr_const_MR_CSharp_SA.h>`.
 typedef struct MR_C_std_string MR_C_std_string; // Defined in `#include <std_string.h>`.
 typedef struct MR_C_std_string_view MR_C_std_string_view; // Defined in `#include <std_string_view.h>`.
@@ -203,6 +204,10 @@ typedef struct MR_CSharp_SE MR_CSharp_SE;
 //     `MR::CSharp::SE`
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_CSharp_SF MR_CSharp_SF;
+
+// Make sure non-passable classes work fine as `std::shared_ptr` template arguments.
+// Generated from class `MR::CSharp::SG`.
+typedef struct MR_CSharp_SG MR_CSharp_SG;
 
 // Generated from class `MR::CSharp::Outer::Inner`.
 // Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
@@ -2257,6 +2262,24 @@ MR_C_API MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_ptr(MR_C_
 // Generated from function `MR::CSharp::test_shcptr_cptr`.
 // Parameter `b` has a default argument: `&default_shcptr`, pass a null pointer to use it.
 MR_C_API const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_cptr(const MR_C_std_shared_ptr_const_MR_CSharp_SA *a, const MR_C_std_shared_ptr_const_MR_CSharp_SA *const *b);
+
+// Destroys a heap-allocated instance of `MR_CSharp_SG`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_SG_Destroy(const MR_CSharp_SG *_this);
+
+// Destroys a heap-allocated array of `MR_CSharp_SG`. Does nothing if the pointer is null.
+MR_C_API void MR_CSharp_SG_DestroyArray(const MR_CSharp_SG *_this);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API const MR_CSharp_SG *MR_CSharp_SG_OffsetPtr(const MR_CSharp_SG *ptr, ptrdiff_t i);
+
+// Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
+// The reference to the parameter `ptr` might be preserved in the return value.
+MR_C_API MR_CSharp_SG *MR_CSharp_SG_OffsetMutablePtr(MR_CSharp_SG *ptr, ptrdiff_t i);
+
+// Generated from function `MR::CSharp::mark_sg_as_shared`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_CSharp_SG_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_MR_CSharp_SG *MR_CSharp_mark_sg_as_shared(void);
 
 // Generated from function `MR::CSharp::test_string`.
 // Parameter `a` can not be null.
@@ -9455,6 +9478,7 @@ MR_C_API const MR_C_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_exp
 #include <std_shared_ptr_MR_CSharp_ExposedLayoutSh.h>
 #include <std_shared_ptr_MR_CSharp_SA.h>
 #include <std_shared_ptr_MR_CSharp_SE.h>
+#include <std_shared_ptr_MR_CSharp_SG.h>
 #include <std_shared_ptr_const_MR_CSharp_SA.h>
 #include <std_string.h>
 #include <std_string_view.h>

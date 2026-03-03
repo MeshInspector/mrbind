@@ -3260,6 +3260,68 @@ public static partial class MR
                 public static implicit operator _InOptConst_SF(Const_SF value) {return new(value);}
             }
 
+            // Make sure non-passable classes work fine as `std::shared_ptr` template arguments.
+            /// Generated from class `MR::CSharp::SG`.
+            /// This is the const half of the class.
+            public class Const_SG : MR.CS.Misc.Object<Const_SG>, System.IDisposable
+            {
+                internal struct _Underlying {} // Represents the underlying C++ type.
+
+                internal unsafe _Underlying *_UnderlyingPtr;
+
+                protected virtual unsafe void Dispose(bool disposing)
+                {
+                    if (_UnderlyingPtr is null || !_IsOwningVal)
+                        return;
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SG_Destroy", ExactSpelling = true)]
+                    extern static void __MR_CSharp_SG_Destroy(_Underlying *_this);
+                    __MR_CSharp_SG_Destroy(_UnderlyingPtr);
+                    _UnderlyingPtr = null;
+                }
+                public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
+                ~Const_SG() {Dispose(false);}
+
+                internal unsafe Const_SG(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
+            }
+
+            // Make sure non-passable classes work fine as `std::shared_ptr` template arguments.
+            /// Generated from class `MR::CSharp::SG`.
+            /// This is the non-const half of the class.
+            public class SG : Const_SG
+            {
+                internal unsafe SG(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
+            }
+
+            /// This is used for optional parameters of class `SG` with default arguments.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_SG`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SG`/`Const_SG` directly.
+            public class _InOptMut_SG
+            {
+                public SG? Opt;
+
+                public _InOptMut_SG() {}
+                public _InOptMut_SG(SG value) {Opt = value;}
+                public static implicit operator _InOptMut_SG(SG value) {return new(value);}
+            }
+
+            /// This is used for optional parameters of class `SG` with default arguments.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_SG`.
+            /// Usage:
+            /// * Pass `null` to use the default argument.
+            /// * Pass `new()` to pass no object.
+            /// * Pass an instance of `SG`/`Const_SG` to pass it to the function.
+            public class _InOptConst_SG
+            {
+                public Const_SG? Opt;
+
+                public _InOptConst_SG() {}
+                public _InOptConst_SG(Const_SG value) {Opt = value;}
+                public static implicit operator _InOptConst_SG(Const_SG value) {return new(value);}
+            }
+
             // Nested classes.
             /// Generated from class `MR::CSharp::Outer`.
             /// This is the const half of the class.
@@ -22268,6 +22330,14 @@ public static partial class MR
                 MR.CS.Std.Const_SharedPtr_ConstMRCSharpSA._Underlying *__ptr_b = b is not null && b.Opt is not null ? b.Opt._UnderlyingPtr : null;
                 var __c_ret = __MR_CSharp_test_shcptr_cptr(a is not null ? a._UnderlyingPtr : null, b is not null ? &__ptr_b : null);
                 return __c_ret is not null ? new MR.CS.Std.Const_SharedPtr_ConstMRCSharpSA(__c_ret, is_owning: false) : null;
+            }
+
+            /// Generated from function `MR::CSharp::mark_sg_as_shared`.
+            public static unsafe MR.CS.Std.SharedPtr_MRCSharpSG MarkSgAsShared()
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_mark_sg_as_shared", ExactSpelling = true)]
+                extern static MR.CS.Std.SharedPtr_MRCSharpSG._Underlying *__MR_CSharp_mark_sg_as_shared();
+                return new(__MR_CSharp_mark_sg_as_shared(), is_owning: true);
             }
 
             /// Generated from function `MR::CSharp::test_string`.

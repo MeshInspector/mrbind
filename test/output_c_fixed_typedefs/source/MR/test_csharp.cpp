@@ -2042,6 +2042,31 @@ const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_cptr(const M
     ));
 }
 
+void MR_CSharp_SG_Destroy(const MR_CSharp_SG *_this)
+{
+    delete ((const MR::CSharp::SG *)_this);
+}
+
+void MR_CSharp_SG_DestroyArray(const MR_CSharp_SG *_this)
+{
+    delete[] ((const MR::CSharp::SG *)_this);
+}
+
+const MR_CSharp_SG *MR_CSharp_SG_OffsetPtr(const MR_CSharp_SG *ptr, ptrdiff_t i)
+{
+    return (const MR_CSharp_SG *)(((const MR::CSharp::SG *)ptr) + i);
+}
+
+MR_CSharp_SG *MR_CSharp_SG_OffsetMutablePtr(MR_CSharp_SG *ptr, ptrdiff_t i)
+{
+    return (MR_CSharp_SG *)(((MR::CSharp::SG *)ptr) + i);
+}
+
+MR_C_std_shared_ptr_MR_CSharp_SG *MR_CSharp_mark_sg_as_shared(void)
+{
+    return (MR_C_std_shared_ptr_MR_CSharp_SG *)new std::shared_ptr<MR::CSharp::SG>(::MR::CSharp::mark_sg_as_shared());
+}
+
 MR_C_std_string *MR_CSharp_test_string(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     using namespace MR;

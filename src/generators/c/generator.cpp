@@ -2665,7 +2665,7 @@ namespace mrbind::C
             }
             catch (...)
             {
-                std::throw_with_nested(std::runtime_error("While processing parameter " + (is_this_param ? "`this`" : std::to_string(i_onebased_nothis) + (seen_this_param ? " (not counting `this`)" : "")) + ":"));
+                std::throw_with_nested(std::runtime_error("While processing parameter " + (is_this_param ? "`this`" : std::to_string(i_onebased_nothis) + (seen_this_param ? " (not counting `this`)" : "")) + " of type `" + CppdeclToCode(param.cpp_type) + "`:"));
             }
         }
 
