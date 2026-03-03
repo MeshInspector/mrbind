@@ -122,3 +122,4 @@ The rest of `phmap`       | ✅ | ✅ | ❌ | Not yet implemented in Python, sho
 `std::future`             | ❌ | ❌ | ✅ | Not yet implemented in C/C#.
 `std::ostream`            | ⚠️ | ⚠️ | ✅ | C/C# only support `std::cout`/`cerr`/`clog` for now, but it's easy to extend.
 `std::istream`            | ⚠️ | ⚠️ | ✅ | Same as `std::ostream`.
+`std::initializer_list`   | N/A | N/A | N/A | Intentionally not implemented, difficult to implement without hacks. You should either use `--skip-mentions-of '/std::initializer_list<.*>/'` or manually exclude all functions accepting `std::initializer_list`s.
