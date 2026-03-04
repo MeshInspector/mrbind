@@ -348,6 +348,9 @@ namespace mrbind::CInterop
             // Can hold a deprecation message. If holds an empty string, it was deprecated without a message.
             (std::optional<std::string>)(is_deprecated)
 
+            // Is this function `noexcept`?
+            (bool)(is_noexcept, false)
+
             // Lifetime information, in part based on `[[clang::lifetimebound]]` and `[[clang::lifetime_capture_by(...)]]`.
             (Lifetimes)(lifetimes)
         )

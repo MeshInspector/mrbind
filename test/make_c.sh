@@ -121,7 +121,8 @@ build/mrbind_gen_c \
     --merge-std-and-tl-expected \
     --adjust-comments 's|/// |// |g' \
     --add-convenience-includes \
-    --preferred-max-num-aggregate-init-fields 8
+    --preferred-max-num-aggregate-init-fields 8 \
+    --no-handle-exceptions \
 
 # This third build is to test the `--canonicalize-64-to-fixed-size-typedefs` variant of the typedefs (64 bits only).
 build/mrbind \
@@ -144,6 +145,7 @@ build/mrbind_gen_c \
     --use-size_t-typedef-for-uint64_t \
     --bind-shared-ptr-virally \
     --force-emit-common-helpers \
+    --no-handle-exceptions \
 
 
 "$CXX" \

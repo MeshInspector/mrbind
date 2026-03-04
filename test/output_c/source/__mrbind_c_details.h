@@ -3,6 +3,7 @@
 #include <common.h>
 
 #include <stdexcept>
+#include <type_traits>
 #include <utility>
 
 namespace mrbindc_details
@@ -84,4 +85,53 @@ namespace mrbindc_details
 #endif
 
 // ]
+
+
+// Exceptions support:
+
+// Are we compiling with exceptions enabled?
+#ifndef MR_C_ENABLE_EXCEPTIONS
+#  ifdef __cpp_exceptions
+#    define MR_C_ENABLE_EXCEPTIONS 1
+#  else
+#    define MR_C_ENABLE_EXCEPTIONS 0
+#  endif
+#endif
+
+#if MR_C_ENABLE_EXCEPTIONS
+#  define MRBINDC_TRY(...) return mrbindc_details::CatchExceptions([&]{__VA_ARGS__});
+#else
+#  define MRBINDC_TRY(...) __VA_ARGS__
+#endif
+
+#if MR_C_ENABLE_EXCEPTIONS
+namespace mrbindc_details
+{
+    void CatchExceptionsLow(void (*func)(void *data), void *data);
+
+    template <typename F>
+    auto CatchExceptions(F &&func)
+    {
+        if (MR_C_GetCurrentExceptionHandler())
+        {
+            using R = decltype(func());
+            if constexpr (std::is_void_v<R>)
+            {
+                CatchExceptionsLow([](void *f){(*reinterpret_cast<decltype(&func)>(f))();}, &func);
+            }
+            else
+            {
+                R ret{};
+                auto lambda = [&]{ret = func();};
+                CatchExceptionsLow([](void *f){(*reinterpret_cast<decltype(&lambda)>(f))();}, &lambda);
+                return ret;
+            }
+        }
+        else
+        {
+            return func();
+        }
+    }
+}
+#endif
 

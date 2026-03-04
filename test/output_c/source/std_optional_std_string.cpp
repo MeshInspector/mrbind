@@ -11,78 +11,104 @@
 
 MR_C_std_optional_std_string *MR_C_std_optional_std_string_DefaultConstruct(void)
 {
+    MRBINDC_TRY(
     return (MR_C_std_optional_std_string *)new std::optional<std::string>(std::optional<std::string>());
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_optional_std_string *MR_C_std_optional_std_string_DefaultConstructArray(size_t num_elems)
 {
+    MRBINDC_TRY(
     return (MR_C_std_optional_std_string *)(new std::optional<std::string>[num_elems]{});
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_optional_std_string *MR_C_std_optional_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_optional_std_string *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::optional<std::string>);
     return (MR_C_std_optional_std_string *)new std::optional<std::string>(std::optional<std::string>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::optional<std::string>) MRBINDC_CLASSARG_COPY(other, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_MOVE(other, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::optional<std::string>) MRBINDC_CLASSARG_END(other, std::optional<std::string>))
     ));
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_optional_std_string *MR_C_std_optional_std_string_ConstructFrom(const char *other, const char *other_end)
 {
+    MRBINDC_TRY(
     return (MR_C_std_optional_std_string *)new std::optional<std::string>(std::optional<std::string>(
         (other ? std::optional<std::string>(other_end ? std::string(other, other_end) : std::string(other)) : std::nullopt)
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_optional_std_string_AssignFromAnother(MR_C_std_optional_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_optional_std_string *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::optional<std::string>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<std::string> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::optional<std::string>) MRBINDC_CLASSARG_COPY(other, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_MOVE(other, (std::optional<std::string>), std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::optional<std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::optional<std::string>) MRBINDC_CLASSARG_END(other, std::optional<std::string>))
     );
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_optional_std_string_AssignFrom(MR_C_std_optional_std_string *_this, const char *other, const char *other_end)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<std::string> *)(_this)).operator=(
         (other ? std::optional<std::string>(other_end ? std::string(other, other_end) : std::string(other)) : std::nullopt)
     );
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_optional_std_string_Destroy(const MR_C_std_optional_std_string *_this)
 {
+    MRBINDC_TRY(
     delete ((const std::optional<std::string> *)_this);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_optional_std_string_DestroyArray(const MR_C_std_optional_std_string *_this)
 {
+    MRBINDC_TRY(
     delete[] ((const std::optional<std::string> *)_this);
+    ) // MRBINDC_TRY
 }
 
 const MR_C_std_optional_std_string *MR_C_std_optional_std_string_OffsetPtr(const MR_C_std_optional_std_string *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (const MR_C_std_optional_std_string *)(((const std::optional<std::string> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_optional_std_string *MR_C_std_optional_std_string_OffsetMutablePtr(MR_C_std_optional_std_string *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (MR_C_std_optional_std_string *)(((std::optional<std::string> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 bool MR_C_std_optional_std_string_has_value(const MR_C_std_optional_std_string *_this)
 {
+    MRBINDC_TRY(
     return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<std::string> *)(_this)));
+    ) // MRBINDC_TRY
 }
 
 const MR_C_std_string *MR_C_std_optional_std_string_value(const MR_C_std_optional_std_string *_this)
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<std::string> *)(_this));
     return (const MR_C_std_string *)(_self ? &*_self : nullptr);
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_string *MR_C_std_optional_std_string_value_mut(MR_C_std_optional_std_string *_this)
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<std::string> *)(_this));
     return (MR_C_std_string *)(_self ? &*_self : nullptr);
+    ) // MRBINDC_TRY
 }
 

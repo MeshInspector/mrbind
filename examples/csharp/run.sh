@@ -22,10 +22,16 @@ EXTRA_PARSER_FLAGS="
 # Those are optional tunable flags for the C generator.
 EXTRA_GEN_C_FLAGS="
     --max-header-name-length 100
+    --no-handle-exceptions
 "
 
 # Those are optional tunable flags for the C# generator.
 EXTRA_GEN_FLAGS="
+"
+
+# Those are optional tunable flags for the C bindings compilation.
+EXTRA_CXX_FLAGS="
+    -g
 "
 
 set -x
@@ -84,7 +90,9 @@ if [[ $SOURCES ]]; then
         -I.. \
         $SOURCES \
         -shared \
-        -o csharp/c_library/libexample.so
+        -fvisibility=hidden -fvisibility-inlines-hidden \
+        -o csharp/c_library/libexample.so \
+        $EXTRA_CXX_FLAGS
 
     LIBRARY=-lexample
 else

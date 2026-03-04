@@ -2,6 +2,7 @@
 
 #include <exports.h>
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -26,13 +27,46 @@ MR_C_API void *MR_C_Alloc(size_t num_bytes);
 MR_C_API void MR_C_Free(void *ptr);
 
 /// Allocates `n` bytes of memory, which can then be freed using `MR_C_FreeArray()`.
-/// For all purposes this is equivalent to `MR_C_Alloc()` and `MR_C_Free()`, but the deallocation functions are not interchangable.
+/// For most purposes this is equivalent to `MR_C_Alloc()` and `MR_C_Free()`, but the deallocation functions are not interchangable.
 /// This is a bit weird, but we have to have separate deallocation functions for arrays and non-arrays, because ASAN complains otherwise.
 /// So the allocation functions must be provided separately for both too.
 MR_C_API void *MR_C_AllocArray(size_t num_bytes);
 
 /// Deallocates memory that was previously allocated with `MR_C_AllocArray()`. Does nothing if the pointer is null.
 MR_C_API void MR_C_FreeArray(void *ptr);
+
+/// The detailed exception handler. Receives NULL-terminated arrays of exception messages and type names.
+/// `messages` always has at least one element. If there are no nested exceptions, it will have exactly one element.
+/// `type_names` always has either the same size as `messages`, or one less element if the last exception has an unknown type (then the corresponding message is a placeholder).
+/// If the handler doesn't terminate the application, the function that threw the exception will return zero.
+/// If the handler is null, we don't attempt to catch exceptions. Then if the throwing function is called from C++ the callee might be able to catch the exception normally (unless the library is compiled with MSVC with `/EHc`).
+typedef void (*MR_C_SimpleExceptionHandlerFuncPtr)(const char *message);
+
+/// The simple exception handler. Only receives the exception message, which is never null. When several exceptions are nested, their messages are joined with newlines.
+/// If the handler doesn't terminate the application, the function that threw the exception will return zero.
+/// If the handler is null, we don't attempt to catch exceptions. Then if the throwing function is called from C++ the callee might be able to catch the exception normally (unless the library is compiled with MSVC with `/EHc`).
+typedef void (*MR_C_ExceptionHandlerFuncPtr)(const char *const *messages, const char *const *type_names, void *userdata);
+
+/// Returns true if the C++ code was compiled with exceptions enabled.
+/// If this returns false, most other exception-related functions will do nothing.
+MR_C_API bool MR_C_ExceptionSupportEnabled(void);
+
+/// Returns the default exception handler.
+/// The default handler prints the exception message to stderr and calls `abort();`.
+MR_C_API MR_C_ExceptionHandlerFuncPtr MR_C_GetDefaultExceptionHandler(void);
+
+/// Returns the current exception handler.
+/// By default this returns the same handler as `MR_C_GetDefaultExceptionHandler()`.
+MR_C_API MR_C_ExceptionHandlerFuncPtr MR_C_GetCurrentExceptionHandler(void);
+
+/// Returns the current exception handler user data pointer. Null by default.
+MR_C_API void *MR_C_GetCurrentExceptionHandlerUserData(void);
+
+/// Sets the current exception handler. This is not thread-safe.
+MR_C_API void MR_C_SetExceptionHandler(MR_C_ExceptionHandlerFuncPtr func, void *userdata);
+
+/// Sets the current exception handler, using the simplified interface. This is not thread-safe.
+MR_C_API void MR_C_SetSimpleExceptionHandler(MR_C_SimpleExceptionHandlerFuncPtr func);
 
 // The deprecation attribute.
 #if !defined(MR_C_DEPRECATED) && !defined(MR_C_DEPRECATED_REASON)

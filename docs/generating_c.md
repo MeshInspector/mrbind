@@ -109,6 +109,14 @@ Pass `--copy-inherited-members` to the parser (`mrbind`) to paste the members fr
 
 This applies only to the implicitly inherited members. Members explicitly inherited via `using`, including constructors, are copied unconditionally.
 
+### Exception handling
+
+We try to handle C++ exceptions by default.
+
+There is a global callback that gets called when an exception escapes a C function. You can change it using `..._SetSimpleExceptionHandler()`. The default behavior is to print the exception and terminate, but you can change this to set a global variable to indicate the exception and continue, for example. Setting the callback to null disables exception catching at runtime.
+
+You can opt out of exception handling entirely using `--no-handle-exceptions`, but note that this is not necessary to compile with exceptions turned off, as all relevant code is wrapped in `#if`s.
+
 ### Expose simple structs as structs
 
 The default behavior is to expose all classes/structs as opaque heap-allocated pointers.

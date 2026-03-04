@@ -12,26 +12,35 @@
 
 void MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Destroy(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     delete ((const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)_this);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_DestroyArray(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     delete[] ((const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)_this);
+    ) // MRBINDC_TRY
 }
 
 const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_OffsetPtr(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *)(((const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_OffsetMutablePtr(MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *)(((std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_Construct(int _0, float _1, int *_2, float *_3, const int *_4, const float *_5, int *_6, float *_7, const int *_8, const float *_9)
 {
+    MRBINDC_TRY(
     return (MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *)new std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&>(std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&>(
         _0,
         _1,
@@ -44,55 +53,76 @@ MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float
         ((_8 ? void() : throw std::runtime_error("Parameter `_8` can not be null.")), std::move(*_8)),
         ((_9 ? void() : throw std::runtime_error("Parameter `_9` can not be null.")), std::move(*_9))
     ));
+    ) // MRBINDC_TRY
 }
 
 const int *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_int(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     return std::addressof(std::get<0>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)(_this))));
+    ) // MRBINDC_TRY
 }
 
 const float *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_float(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     return std::addressof(std::get<1>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)(_this))));
+    ) // MRBINDC_TRY
 }
 
 int *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_int_ref(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     return std::addressof(std::get<2>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)(_this))));
+    ) // MRBINDC_TRY
 }
 
 float *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_float_ref(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     return std::addressof(std::get<3>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)(_this))));
+    ) // MRBINDC_TRY
 }
 
 const int *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_int_ref(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     return std::addressof(std::get<4>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)(_this))));
+    ) // MRBINDC_TRY
 }
 
 const float *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_float_ref(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     return std::addressof(std::get<5>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)(_this))));
+    ) // MRBINDC_TRY
 }
 
 int *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_int_rvalue_ref(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     return std::addressof(mrbindc_details::unmove(std::get<6>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)(_this)))));
+    ) // MRBINDC_TRY
 }
 
 float *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_float_rvalue_ref(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     return std::addressof(mrbindc_details::unmove(std::get<7>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)(_this)))));
+    ) // MRBINDC_TRY
 }
 
 const int *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_int_rvalue_ref(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     return std::addressof(mrbindc_details::unmove(std::get<8>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)(_this)))));
+    ) // MRBINDC_TRY
 }
 
 const float *MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref_get_const_float_rvalue_ref(const MR_C_std_tuple_const_int_const_float_int_ref_float_ref_const_int_ref_const_float_ref_int_rvalue_ref_float_rvalue_ref_const_int_rvalue_ref_const_float_rvalue_ref *_this)
 {
+    MRBINDC_TRY(
     return std::addressof(mrbindc_details::unmove(std::get<9>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<const int, const float, int &, float &, const int &, const float &, int &&, float &&, const int &&, const float &&> *)(_this)))));
+    ) // MRBINDC_TRY
 }
 

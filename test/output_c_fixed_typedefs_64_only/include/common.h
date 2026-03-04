@@ -36,7 +36,7 @@ MR_C_API void *MR_C_Alloc(size_t num_bytes);
 MR_C_API void MR_C_Free(void *ptr);
 
 /// Allocates `n` bytes of memory, which can then be freed using `MR_C_FreeArray()`.
-/// For all purposes this is equivalent to `MR_C_Alloc()` and `MR_C_Free()`, but the deallocation functions are not interchangable.
+/// For most purposes this is equivalent to `MR_C_Alloc()` and `MR_C_Free()`, but the deallocation functions are not interchangable.
 /// This is a bit weird, but we have to have separate deallocation functions for arrays and non-arrays, because ASAN complains otherwise.
 /// So the allocation functions must be provided separately for both too.
 MR_C_API void *MR_C_AllocArray(size_t num_bytes);

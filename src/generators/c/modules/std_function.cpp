@@ -235,6 +235,7 @@ namespace mrbind::C::Modules
                     auto PrepareLambda = [&](std::string_view called_func_name, std::string &out_comment) -> Generator::EmitFuncParams
                     {
                         Generator::EmitFuncParams ret;
+                        ret.is_noexcept = true; // We don't want to catch exceptions from the user-provided C function.
 
                         const cppdecl::Function &func = *cpp_elem_type.As<cppdecl::Function>();
 
@@ -324,11 +325,11 @@ namespace mrbind::C::Modules
                                     if (!str.empty())
                                     {
                                         assert(str.ends_with('\n'));
-                                        ret += Strings::Indent(str);
+                                        ret += str;
                                     }
                                 }
 
-                                ret += "    return " + callback_return_usage->CParamsToCpp(file.source, output_parameters_base_name, {}) + ";";
+                                ret += "return " + callback_return_usage->CParamsToCpp(file.source, output_parameters_base_name, {}) + ";";
                                 return ret;
                             };
                         }
@@ -370,7 +371,7 @@ namespace mrbind::C::Modules
                         emit.cpp_called_func = "@1@ ? " + generator.CppdeclToCode(binder.cpp_type_name) + "([_f = @1@]";
                         emit.cpp_called_func += generator.CppdeclToCode(strings.decl.type, cppdecl::ToCodeFlags::lambda);
                         emit.cpp_called_func += '\n';
-                        emit.cpp_called_func += generator.IndentString(strings.body, 1, true);
+                        emit.cpp_called_func += strings.body;
                         emit.cpp_called_func += ") : nullptr";
 
                         generator.EmitFunction(file, emit);
@@ -407,7 +408,7 @@ namespace mrbind::C::Modules
                         emit.cpp_called_func = "_self = [_f = @1@]";
                         emit.cpp_called_func += generator.CppdeclToCode(strings.decl.type, cppdecl::ToCodeFlags::lambda);
                         emit.cpp_called_func += '\n';
-                        emit.cpp_called_func += generator.IndentString(strings.body, 1, true);
+                        emit.cpp_called_func += strings.body;
 
                         generator.EmitFunction(file, emit);
                     }

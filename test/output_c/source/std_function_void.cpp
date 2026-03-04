@@ -10,70 +10,93 @@
 
 MR_C_std_function_void *MR_C_std_function_void_DefaultConstruct(void)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_void *)new std::function<void(void)>(std::function<void(void)>());
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_void *MR_C_std_function_void_DefaultConstructArray(size_t num_elems)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_void *)(new std::function<void(void)>[num_elems]{});
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_void *MR_C_std_function_void_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_void *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::function<void(void)>);
     return (MR_C_std_function_void *)new std::function<void(void)>(std::function<void(void)>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<void(void)>) MRBINDC_CLASSARG_COPY(other, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_MOVE(other, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<void(void)>) MRBINDC_CLASSARG_END(other, std::function<void(void)>))
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_void_AssignFromAnother(MR_C_std_function_void *_this, MR_C_PassBy other_pass_by, MR_C_std_function_void *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::function<void(void)>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(void)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<void(void)>) MRBINDC_CLASSARG_COPY(other, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_MOVE(other, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<void(void)>) MRBINDC_CLASSARG_END(other, std::function<void(void)>))
     );
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_void_Destroy(const MR_C_std_function_void *_this)
 {
+    MRBINDC_TRY(
     delete ((const std::function<void(void)> *)_this);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_void_DestroyArray(const MR_C_std_function_void *_this)
 {
+    MRBINDC_TRY(
     delete[] ((const std::function<void(void)> *)_this);
+    ) // MRBINDC_TRY
 }
 
 const MR_C_std_function_void *MR_C_std_function_void_OffsetPtr(const MR_C_std_function_void *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (const MR_C_std_function_void *)(((const std::function<void(void)> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_void *MR_C_std_function_void_OffsetMutablePtr(MR_C_std_function_void *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_void *)(((std::function<void(void)> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 bool MR_C_std_function_void_has_value(const MR_C_std_function_void *_this)
 {
+    MRBINDC_TRY(
     return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<void(void)> *)(_this)));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_void_reset(MR_C_std_function_void *_this)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(void)> *)(_this)) = nullptr;
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_void *MR_C_std_function_void_ConstructStateless(void (*func)(void))
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_void *)new std::function<void(void)>(func ? std::function<void(void)>([_f = func](void) -> void
     {
         _f();
     }) : nullptr);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_void_Assign(MR_C_std_function_void *_this, void (*func)(void))
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(void)> *)(_this));
     if (!func)
     {
@@ -84,6 +107,7 @@ void MR_C_std_function_void_Assign(MR_C_std_function_void *_this, void (*func)(v
     {
         _f();
     };
+    ) // MRBINDC_TRY
 }
 
 namespace
@@ -175,11 +199,14 @@ namespace
 
 MR_C_std_function_void *MR_C_std_function_void_ConstructEx(void (*func)(void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_void *)new std::function<void(void)>(func ? std::function<void(void)>(_functor_MR_C_std_function_void{func, userdata, postcall_callback, userdata_callback}) : nullptr);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_void_AssignEx(MR_C_std_function_void *_this, void (*func)(void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(void)> *)(_this));
     if (!func)
     {
@@ -188,5 +215,6 @@ void MR_C_std_function_void_AssignEx(MR_C_std_function_void *_this, void (*func)
     }
     
     _self = _functor_MR_C_std_function_void{func, userdata, postcall_callback, userdata_callback};
+    ) // MRBINDC_TRY
 }
 

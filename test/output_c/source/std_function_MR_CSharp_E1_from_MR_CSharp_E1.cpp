@@ -11,62 +11,83 @@
 
 MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_DefaultConstruct(void)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)new std::function<MR::CSharp::E1(MR::CSharp::E1)>(std::function<MR::CSharp::E1(MR::CSharp::E1)>());
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_DefaultConstructArray(size_t num_elems)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)(new std::function<MR::CSharp::E1(MR::CSharp::E1)>[num_elems]{});
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::function<MR::CSharp::E1(MR::CSharp::E1)>);
     return (MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)new std::function<MR::CSharp::E1(MR::CSharp::E1)>(std::function<MR::CSharp::E1(MR::CSharp::E1)>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_COPY(other, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_MOVE(other, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_END(other, std::function<MR::CSharp::E1(MR::CSharp::E1)>))
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_AssignFromAnother(MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *_this, MR_C_PassBy other_pass_by, MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::function<MR::CSharp::E1(MR::CSharp::E1)>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::CSharp::E1(MR::CSharp::E1)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_COPY(other, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_MOVE(other, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_END(other, std::function<MR::CSharp::E1(MR::CSharp::E1)>))
     );
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_Destroy(const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *_this)
 {
+    MRBINDC_TRY(
     delete ((const std::function<MR::CSharp::E1(MR::CSharp::E1)> *)_this);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_DestroyArray(const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *_this)
 {
+    MRBINDC_TRY(
     delete[] ((const std::function<MR::CSharp::E1(MR::CSharp::E1)> *)_this);
+    ) // MRBINDC_TRY
 }
 
 const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_OffsetPtr(const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)(((const std::function<MR::CSharp::E1(MR::CSharp::E1)> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_OffsetMutablePtr(MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)(((std::function<MR::CSharp::E1(MR::CSharp::E1)> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 bool MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_has_value(const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *_this)
 {
+    MRBINDC_TRY(
     return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<MR::CSharp::E1(MR::CSharp::E1)> *)(_this)));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_reset(MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *_this)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::CSharp::E1(MR::CSharp::E1)> *)(_this)) = nullptr;
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructStateless(MR_CSharp_E1 (*func)(MR_CSharp_E1 _1))
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)new std::function<MR::CSharp::E1(MR::CSharp::E1)>(func ? std::function<MR::CSharp::E1(MR::CSharp::E1)>([_f = func](MR::CSharp::E1 _1) -> MR::CSharp::E1
     {
         decltype(auto) _return = _f(
@@ -74,10 +95,12 @@ MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_C_std_function_MR_CSharp_E1
         );
         return ((MR::CSharp::E1)_return);
     }) : nullptr);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_Assign(MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *_this, MR_CSharp_E1 (*func)(MR_CSharp_E1 _1))
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::CSharp::E1(MR::CSharp::E1)> *)(_this));
     if (!func)
     {
@@ -91,6 +114,7 @@ void MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_Assign(MR_C_std_function_M
         );
         return ((MR::CSharp::E1)_return);
     };
+    ) // MRBINDC_TRY
 }
 
 namespace
@@ -184,11 +208,14 @@ namespace
 
 MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructEx(MR_CSharp_E1 (*func)(MR_CSharp_E1 _1, void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)new std::function<MR::CSharp::E1(MR::CSharp::E1)>(func ? std::function<MR::CSharp::E1(MR::CSharp::E1)>(_functor_MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1{func, userdata, postcall_callback, userdata_callback}) : nullptr);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_AssignEx(MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *_this, MR_CSharp_E1 (*func)(MR_CSharp_E1 _1, void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::CSharp::E1(MR::CSharp::E1)> *)(_this));
     if (!func)
     {
@@ -197,5 +224,6 @@ void MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_AssignEx(MR_C_std_function
     }
     
     _self = _functor_MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1{func, userdata, postcall_callback, userdata_callback};
+    ) // MRBINDC_TRY
 }
 

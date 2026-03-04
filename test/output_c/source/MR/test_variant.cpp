@@ -11,26 +11,34 @@
 
 MR_C_std_variant_int_float *MR_StdVariant_foo(void)
 {
+    MRBINDC_TRY(
     return (MR_C_std_variant_int_float *)new std::variant<int, float>(::MR::StdVariant::foo());
+    ) // MRBINDC_TRY
 }
 
 void MR_StdVariant_bar(const MR_C_std_variant_int_float_float *_1)
 {
+    MRBINDC_TRY(
     ::MR::StdVariant::bar(
         ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::variant<int, float, float>(*(std::variant<int, float, float> *)_1))
     );
+    ) // MRBINDC_TRY
 }
 
 void MR_StdVariant_baz(MR_C_PassBy _1_pass_by, MR_C_std_variant_int_float_std_string *_1)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(_1, std::variant<int, float, std::string>);
     ::MR::StdVariant::baz(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::variant<int, float, std::string>) MRBINDC_CLASSARG_COPY(_1, (std::variant<int, float, std::string>), std::variant<int, float, std::string>) MRBINDC_CLASSARG_MOVE(_1, (std::variant<int, float, std::string>), std::variant<int, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, std::variant<int, float, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::variant<int, float, std::string>) MRBINDC_CLASSARG_END(_1, std::variant<int, float, std::string>))
     );
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_variant_std_monostate_int_float *MR_StdVariant_blah(void)
 {
+    MRBINDC_TRY(
     return (MR_C_std_variant_std_monostate_int_float *)new std::variant<std::monostate, int, float>(::MR::StdVariant::blah());
+    ) // MRBINDC_TRY
 }
 

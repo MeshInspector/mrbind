@@ -1,6 +1,7 @@
 #define MR_C_BUILD_LIBRARY
 #include "MR/test_member_vars.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_member_vars.h>
 
 #include <cstddef>
@@ -71,28 +72,38 @@ size_t MR_MemberVars_A_GetSize_arr(void)
 
 MR_MemberVars_A *MR_MemberVars_A_ConstructFromAnother(const MR_MemberVars_A *_other)
 {
+    MRBINDC_TRY(
     return (MR_MemberVars_A *)new MR::MemberVars::A(MR::MemberVars::A(
         ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::MemberVars::A(*(MR::MemberVars::A *)_other))
     ));
+    ) // MRBINDC_TRY
 }
 
 const MR_MemberVars_A *MR_MemberVars_A_OffsetPtr(const MR_MemberVars_A *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (const MR_MemberVars_A *)(((const MR::MemberVars::A *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_MemberVars_A *MR_MemberVars_A_OffsetMutablePtr(MR_MemberVars_A *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (MR_MemberVars_A *)(((MR::MemberVars::A *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 void MR_MemberVars_A_Destroy(const MR_MemberVars_A *_this)
 {
+    MRBINDC_TRY(
     delete ((const MR::MemberVars::A *)_this);
+    ) // MRBINDC_TRY
 }
 
 void MR_MemberVars_A_DestroyArray(const MR_MemberVars_A *_this)
 {
+    MRBINDC_TRY(
     delete[] ((const MR::MemberVars::A *)_this);
+    ) // MRBINDC_TRY
 }
 

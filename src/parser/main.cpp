@@ -1860,6 +1860,7 @@ namespace mrbind
                 basic_func->comment = GetCommentString(*ctx, *params, *method);
                 basic_func->params = GetFuncParams(*method, &basic_func->lifetimes, true, is_ctor, is_copy_or_move_ctor_or_assignment);
                 basic_func->deprecation_message = GetDeprecationMessage(*method);
+                basic_func->is_noexcept = clang::isNoexceptExceptionSpec(method->getExceptionSpecType());
 
                 // Lifetime reference. This only runs if there is no existing lifetime information (from the attributes).
                 // This is there in part to avoid circular relations, when the inferred one is the inverse of the one specified with an attribute.
@@ -1934,6 +1935,7 @@ namespace mrbind
             new_func.comment = GetCommentString(*ctx, *params, *decl);
             new_func.params = GetFuncParams(*decl, &new_func.lifetimes, false, false, false);
             new_func.deprecation_message = GetDeprecationMessage(*decl);
+            new_func.is_noexcept = clang::isNoexceptExceptionSpec(decl->getExceptionSpecType());
             new_func.declared_in_file = GetDefinitionLocationFile(*decl, new_func.name);
 
             // Infer lifetime for `begin`/`end`, and for dereferencing.

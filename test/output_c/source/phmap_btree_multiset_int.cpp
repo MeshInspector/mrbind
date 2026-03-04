@@ -11,177 +11,241 @@
 
 MR_C_phmap_btree_multiset_int *MR_C_phmap_btree_multiset_int_DefaultConstruct(void)
 {
+    MRBINDC_TRY(
     return (MR_C_phmap_btree_multiset_int *)new phmap::btree_multiset<int>(phmap::btree_multiset<int>());
+    ) // MRBINDC_TRY
 }
 
 MR_C_phmap_btree_multiset_int *MR_C_phmap_btree_multiset_int_DefaultConstructArray(size_t num_elems)
 {
+    MRBINDC_TRY(
     return (MR_C_phmap_btree_multiset_int *)(new phmap::btree_multiset<int>[num_elems]{});
+    ) // MRBINDC_TRY
 }
 
 MR_C_phmap_btree_multiset_int *MR_C_phmap_btree_multiset_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_phmap_btree_multiset_int *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, phmap::btree_multiset<int>);
     return (MR_C_phmap_btree_multiset_int *)new phmap::btree_multiset<int>(phmap::btree_multiset<int>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::btree_multiset<int>) MRBINDC_CLASSARG_COPY(other, (phmap::btree_multiset<int>), phmap::btree_multiset<int>) MRBINDC_CLASSARG_MOVE(other, (phmap::btree_multiset<int>), phmap::btree_multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::btree_multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::btree_multiset<int>) MRBINDC_CLASSARG_END(other, phmap::btree_multiset<int>))
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_btree_multiset_int_AssignFromAnother(MR_C_phmap_btree_multiset_int *_this, MR_C_PassBy other_pass_by, MR_C_phmap_btree_multiset_int *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, phmap::btree_multiset<int>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_multiset<int> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::btree_multiset<int>) MRBINDC_CLASSARG_COPY(other, (phmap::btree_multiset<int>), phmap::btree_multiset<int>) MRBINDC_CLASSARG_MOVE(other, (phmap::btree_multiset<int>), phmap::btree_multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::btree_multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::btree_multiset<int>) MRBINDC_CLASSARG_END(other, phmap::btree_multiset<int>))
     );
+    ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_btree_multiset_int_Destroy(const MR_C_phmap_btree_multiset_int *_this)
 {
+    MRBINDC_TRY(
     delete ((const phmap::btree_multiset<int> *)_this);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_btree_multiset_int_DestroyArray(const MR_C_phmap_btree_multiset_int *_this)
 {
+    MRBINDC_TRY(
     delete[] ((const phmap::btree_multiset<int> *)_this);
+    ) // MRBINDC_TRY
 }
 
 const MR_C_phmap_btree_multiset_int *MR_C_phmap_btree_multiset_int_OffsetPtr(const MR_C_phmap_btree_multiset_int *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (const MR_C_phmap_btree_multiset_int *)(((const phmap::btree_multiset<int> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_phmap_btree_multiset_int *MR_C_phmap_btree_multiset_int_OffsetMutablePtr(MR_C_phmap_btree_multiset_int *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (MR_C_phmap_btree_multiset_int *)(((phmap::btree_multiset<int> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_phmap_btree_multiset_int *MR_C_phmap_btree_multiset_int_ConstructFromRange(const int *ptr, size_t size)
 {
+    MRBINDC_TRY(
     return (MR_C_phmap_btree_multiset_int *)new phmap::btree_multiset<int>(phmap::btree_multiset<int>(ptr, ptr + size));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_btree_multiset_int_AssignFromRange(MR_C_phmap_btree_multiset_int *_this, const int *ptr, size_t size)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_multiset<int> *)(_this)) = phmap::btree_multiset<int>(ptr, ptr + size);
+    ) // MRBINDC_TRY
 }
 
 size_t MR_C_phmap_btree_multiset_int_size(const MR_C_phmap_btree_multiset_int *_this)
 {
+    MRBINDC_TRY(
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::btree_multiset<int> *)(_this)).size();
+    ) // MRBINDC_TRY
 }
 
 bool MR_C_phmap_btree_multiset_int_empty(const MR_C_phmap_btree_multiset_int *_this)
 {
+    MRBINDC_TRY(
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::btree_multiset<int> *)(_this)).empty();
+    ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_btree_multiset_int_clear(MR_C_phmap_btree_multiset_int *_this)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_multiset<int> *)(_this)).clear();
+    ) // MRBINDC_TRY
 }
 
 size_t MR_C_phmap_btree_multiset_int_count(const MR_C_phmap_btree_multiset_int *_this, const int *key)
 {
+    MRBINDC_TRY(
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::btree_multiset<int> *)(_this)).count(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
     );
+    ) // MRBINDC_TRY
 }
 
 MR_C_phmap_btree_multiset_int_const_iterator *MR_C_phmap_btree_multiset_int_find(const MR_C_phmap_btree_multiset_int *_this, const int *key)
 {
+    MRBINDC_TRY(
     return (MR_C_phmap_btree_multiset_int_const_iterator *)new phmap::btree_multiset<int>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::btree_multiset<int> *)(_this)).find(
         ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_btree_multiset_int_insert(MR_C_phmap_btree_multiset_int *_this, int new_elem)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_multiset<int> *)(_this)).insert(
         new_elem
     );
+    ) // MRBINDC_TRY
 }
 
 MR_C_phmap_btree_multiset_int_const_iterator *MR_C_phmap_btree_multiset_int_begin(const MR_C_phmap_btree_multiset_int *_this)
 {
+    MRBINDC_TRY(
     return (MR_C_phmap_btree_multiset_int_const_iterator *)new phmap::btree_multiset<int>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::btree_multiset<int> *)(_this)).cbegin());
+    ) // MRBINDC_TRY
 }
 
 bool MR_C_phmap_btree_multiset_int_is_begin(const MR_C_phmap_btree_multiset_int *_this, const MR_C_phmap_btree_multiset_int_const_iterator *iter)
 {
+    MRBINDC_TRY(
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::btree_multiset<int> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::btree_multiset<int>::const_iterator *)(iter));
+    ) // MRBINDC_TRY
 }
 
 MR_C_phmap_btree_multiset_int_const_iterator *MR_C_phmap_btree_multiset_int_end(const MR_C_phmap_btree_multiset_int *_this)
 {
+    MRBINDC_TRY(
     return (MR_C_phmap_btree_multiset_int_const_iterator *)new phmap::btree_multiset<int>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::btree_multiset<int> *)(_this)).cend());
+    ) // MRBINDC_TRY
 }
 
 bool MR_C_phmap_btree_multiset_int_is_end(const MR_C_phmap_btree_multiset_int *_this, const MR_C_phmap_btree_multiset_int_const_iterator *iter)
 {
+    MRBINDC_TRY(
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::btree_multiset<int> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::btree_multiset<int>::const_iterator *)(iter));
+    ) // MRBINDC_TRY
 }
 
 MR_C_phmap_btree_multiset_int_const_iterator *MR_C_phmap_btree_multiset_int_const_iterator_DefaultConstruct(void)
 {
+    MRBINDC_TRY(
     return (MR_C_phmap_btree_multiset_int_const_iterator *)new phmap::btree_multiset<int>::const_iterator(phmap::btree_multiset<int>::const_iterator());
+    ) // MRBINDC_TRY
 }
 
 MR_C_phmap_btree_multiset_int_const_iterator *MR_C_phmap_btree_multiset_int_const_iterator_DefaultConstructArray(size_t num_elems)
 {
+    MRBINDC_TRY(
     return (MR_C_phmap_btree_multiset_int_const_iterator *)(new phmap::btree_multiset<int>::const_iterator[num_elems]{});
+    ) // MRBINDC_TRY
 }
 
 MR_C_phmap_btree_multiset_int_const_iterator *MR_C_phmap_btree_multiset_int_const_iterator_ConstructFromAnother(const MR_C_phmap_btree_multiset_int_const_iterator *other)
 {
+    MRBINDC_TRY(
     return (MR_C_phmap_btree_multiset_int_const_iterator *)new phmap::btree_multiset<int>::const_iterator(phmap::btree_multiset<int>::const_iterator(
         ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), phmap::btree_multiset<int>::const_iterator(*(phmap::btree_multiset<int>::const_iterator *)other))
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_btree_multiset_int_const_iterator_AssignFromAnother(MR_C_phmap_btree_multiset_int_const_iterator *_this, const MR_C_phmap_btree_multiset_int_const_iterator *other)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_multiset<int>::const_iterator *)(_this)).operator=(
         ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), phmap::btree_multiset<int>::const_iterator(*(phmap::btree_multiset<int>::const_iterator *)other))
     );
+    ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_btree_multiset_int_const_iterator_Destroy(const MR_C_phmap_btree_multiset_int_const_iterator *_this)
 {
+    MRBINDC_TRY(
     delete ((const phmap::btree_multiset<int>::const_iterator *)_this);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_btree_multiset_int_const_iterator_DestroyArray(const MR_C_phmap_btree_multiset_int_const_iterator *_this)
 {
+    MRBINDC_TRY(
     delete[] ((const phmap::btree_multiset<int>::const_iterator *)_this);
+    ) // MRBINDC_TRY
 }
 
 const MR_C_phmap_btree_multiset_int_const_iterator *MR_C_phmap_btree_multiset_int_const_iterator_OffsetPtr(const MR_C_phmap_btree_multiset_int_const_iterator *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (const MR_C_phmap_btree_multiset_int_const_iterator *)(((const phmap::btree_multiset<int>::const_iterator *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_phmap_btree_multiset_int_const_iterator *MR_C_phmap_btree_multiset_int_const_iterator_OffsetMutablePtr(MR_C_phmap_btree_multiset_int_const_iterator *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (MR_C_phmap_btree_multiset_int_const_iterator *)(((phmap::btree_multiset<int>::const_iterator *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 const int *MR_C_phmap_btree_multiset_int_const_iterator_deref(const MR_C_phmap_btree_multiset_int_const_iterator *_this)
 {
+    MRBINDC_TRY(
     return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::btree_multiset<int>::const_iterator *)(_this)));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_btree_multiset_int_const_iterator_incr(MR_C_phmap_btree_multiset_int_const_iterator *_this)
 {
+    MRBINDC_TRY(
     ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_multiset<int>::const_iterator *)(_this));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_btree_multiset_int_const_iterator_decr(MR_C_phmap_btree_multiset_int_const_iterator *_this)
 {
+    MRBINDC_TRY(
     --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::btree_multiset<int>::const_iterator *)(_this));
+    ) // MRBINDC_TRY
 }
 
 bool MR_C_equal_MR_C_phmap_btree_multiset_int_const_iterator(const MR_C_phmap_btree_multiset_int_const_iterator *a, const MR_C_phmap_btree_multiset_int_const_iterator *b)
 {
+    MRBINDC_TRY(
     return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::btree_multiset<int>::const_iterator(*(phmap::btree_multiset<int>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::btree_multiset<int>::const_iterator(*(phmap::btree_multiset<int>::const_iterator *)b));
+    ) // MRBINDC_TRY
 }
 

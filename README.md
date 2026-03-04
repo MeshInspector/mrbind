@@ -75,7 +75,7 @@ Aggregate initialization                         | ✅ | ✅ | ✅ | Aggregates 
 Overloaded operators                             | ✅ | ✅ | ✅ | In C, they become functions. In C# and Python, they become operators if possible, falling back to functions.
 `operator<=>`                                    | ❌ | ❌ | ❌ | Not implemented yet. It's recommended that you `--ignore '/.*operator<=>.*/'` in the parser.
 Conversion operators                             | ✅ | ✅ | ✅ | Overloaded as conversion operators if possible, falling back to constructors.<br/>In C# and Python, we also generate implicit conversion operators from implicit constructors callable with a single argument.
-Exceptions                                       | ❌ | ❌ | ✅ | In Python, Pybind translates C++ exceptions to Python exceptions.<br/>In C, not implemented yet. The exceptions will just fall out of functions.<br/>In C#, we just call the C functions, so this will probably crash.
+Exceptions                                       | ✅ | ❌ | ✅ | In Python, Pybind translates C++ exceptions to Python exceptions.<br/>In C, we [call a user-provided callback on an exception](/docs/generating_c.md#exception-handling).<br/>In C#, not implemented yet.
 Explicit object parameter, aka "deducing `this`" | ❌ | ❌ | ❌ | Not implemented yet. There is some provisional work in language backends.
 Bitfields                                        | ❌ | ❌ | ❌ | Ignored.
 Non-public members                               | N/A | N/A | N/A | Intentionally ignored by the parser.<br/>It's not supported to return non-public nested classes from public member functions.

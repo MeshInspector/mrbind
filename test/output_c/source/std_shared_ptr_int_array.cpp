@@ -10,135 +10,179 @@
 
 MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_DefaultConstruct(void)
 {
+    MRBINDC_TRY(
     return (MR_C_std_shared_ptr_int_array *)new std::shared_ptr<int[]>(std::shared_ptr<int[]>());
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_DefaultConstructArray(size_t num_elems)
 {
+    MRBINDC_TRY(
     return (MR_C_std_shared_ptr_int_array *)(new std::shared_ptr<int[]>[num_elems]{});
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_int_array *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::shared_ptr<int[]>);
     return (MR_C_std_shared_ptr_int_array *)new std::shared_ptr<int[]>(std::shared_ptr<int[]>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::shared_ptr<int[]>) MRBINDC_CLASSARG_COPY(other, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_MOVE(other, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::shared_ptr<int[]>) MRBINDC_CLASSARG_END(other, std::shared_ptr<int[]>))
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_shared_ptr_int_array_AssignFromAnother(MR_C_std_shared_ptr_int_array *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_int_array *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::shared_ptr<int[]>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int[]> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::shared_ptr<int[]>) MRBINDC_CLASSARG_COPY(other, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_MOVE(other, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::shared_ptr<int[]>) MRBINDC_CLASSARG_END(other, std::shared_ptr<int[]>))
     );
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_shared_ptr_int_array_Destroy(const MR_C_std_shared_ptr_int_array *_this)
 {
+    MRBINDC_TRY(
     delete ((const std::shared_ptr<int[]> *)_this);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_shared_ptr_int_array_DestroyArray(const MR_C_std_shared_ptr_int_array *_this)
 {
+    MRBINDC_TRY(
     delete[] ((const std::shared_ptr<int[]> *)_this);
+    ) // MRBINDC_TRY
 }
 
 const MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_OffsetPtr(const MR_C_std_shared_ptr_int_array *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (const MR_C_std_shared_ptr_int_array *)(((const std::shared_ptr<int[]> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_OffsetMutablePtr(MR_C_std_shared_ptr_int_array *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (MR_C_std_shared_ptr_int_array *)(((std::shared_ptr<int[]> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 int *MR_C_std_shared_ptr_int_array_get(const MR_C_std_shared_ptr_int_array *_this)
 {
+    MRBINDC_TRY(
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int[]> *)(_this)).get();
+    ) // MRBINDC_TRY
 }
 
 bool MR_C_std_shared_ptr_int_array_has_value(const MR_C_std_shared_ptr_int_array *_this)
 {
+    MRBINDC_TRY(
     return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int[]> *)(_this)));
+    ) // MRBINDC_TRY
 }
 
 int *MR_C_std_shared_ptr_int_array_at(const MR_C_std_shared_ptr_int_array *_this, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int[]> *)(_this))[i]);
+    ) // MRBINDC_TRY
 }
 
 int MR_C_std_shared_ptr_int_array_use_count(const MR_C_std_shared_ptr_int_array *_this)
 {
+    MRBINDC_TRY(
     return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int[]> *)(_this)).use_count());
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_shared_ptr_int_array_reset(MR_C_std_shared_ptr_int_array *_this)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int[]> *)(_this)).reset();
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_ConstructFromSize(size_t size)
 {
+    MRBINDC_TRY(
     return (MR_C_std_shared_ptr_int_array *)new std::shared_ptr<int[]>(std::make_shared<int[]>(
         size
     ));
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_Construct(int *ptr)
 {
+    MRBINDC_TRY(
     return (MR_C_std_shared_ptr_int_array *)new std::shared_ptr<int[]>(std::shared_ptr<int[]>(
         std::unique_ptr<int[]>(ptr)
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_shared_ptr_int_array_Assign(MR_C_std_shared_ptr_int_array *_this, int *ptr)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int[]> *)(_this)) = std::shared_ptr<int[]>(
         std::unique_ptr<int[]>(ptr)
     );
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_ConstructNonOwning(int *ptr)
 {
+    MRBINDC_TRY(
     return (MR_C_std_shared_ptr_int_array *)new std::shared_ptr<int[]>(std::shared_ptr<int[]>(std::shared_ptr<void>{}, ptr));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_shared_ptr_int_array_AssignNonOwning(MR_C_std_shared_ptr_int_array *_this, int *ptr)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int[]> *)(_this)) = std::shared_ptr<int[]>(std::shared_ptr<void>{}, ptr);
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_shared_ptr_int_array *MR_C_std_shared_ptr_int_array_ConstructAliasing(MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, int *ptr)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(ownership, std::shared_ptr<const void>);
     return (MR_C_std_shared_ptr_int_array *)new std::shared_ptr<int[]>(std::shared_ptr<int[]>(
         (MRBINDC_CLASSARG_DEF_CTOR(ownership, std::shared_ptr<const void>) MRBINDC_CLASSARG_COPY(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_MOVE(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_DefaultArgument, std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_NoObject, std::shared_ptr<const void>) MRBINDC_CLASSARG_END(ownership, std::shared_ptr<const void>)),
         ptr
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_shared_ptr_int_array_AssignAliasing(MR_C_std_shared_ptr_int_array *_this, MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, int *ptr)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(ownership, std::shared_ptr<const void>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int[]> *)(_this)) = std::shared_ptr<int[]>(
         (MRBINDC_CLASSARG_DEF_CTOR(ownership, std::shared_ptr<const void>) MRBINDC_CLASSARG_COPY(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_MOVE(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_DefaultArgument, std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_NoObject, std::shared_ptr<const void>) MRBINDC_CLASSARG_END(ownership, std::shared_ptr<const void>)),
         ptr
     );
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_shared_ptr_void *MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_int_array(MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_int_array *_other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(_other, std::shared_ptr<int[]>);
     return (MR_C_std_shared_ptr_void *)new std::shared_ptr<void>(std::shared_ptr<void>(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, std::shared_ptr<int[]>) MRBINDC_CLASSARG_COPY(_other, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_MOVE(_other, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, std::shared_ptr<int[]>) MRBINDC_CLASSARG_END(_other, std::shared_ptr<int[]>))
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_int_array(MR_C_std_shared_ptr_void *_this, MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_int_array *_other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(_other, std::shared_ptr<int[]>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<void> *)(_this)) = (MRBINDC_CLASSARG_DEF_CTOR(_other, std::shared_ptr<int[]>) MRBINDC_CLASSARG_COPY(_other, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_MOVE(_other, (std::shared_ptr<int[]>), std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, std::shared_ptr<int[]>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, std::shared_ptr<int[]>) MRBINDC_CLASSARG_END(_other, std::shared_ptr<int[]>));
+    ) // MRBINDC_TRY
 }
 

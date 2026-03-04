@@ -351,6 +351,7 @@ namespace mrbind
             (std::optional<Comment>)(comment)
             (std::vector<FuncParam>)(params)
             (std::optional<std::string>)(deprecation_message) // Null if not deprecated. Empty string if deprecated without a message.
+            (bool)(is_noexcept, false)
             (Lifetimes)(lifetimes) // An ordered `set` to get consistent serialization.
         )
 

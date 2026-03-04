@@ -723,6 +723,7 @@ MR_C_API void MR_CSharp_foo(void);
 /// Parameter `b` has a default argument: `42`, pass a null pointer to use it.
 MR_C_API int MR_CSharp_test_int(int a, const int *b);
 
+// Marking this `noexcept` for testing.
 /// Generated from function `MR::CSharp::test_bool`.
 /// Parameter `b` has a default argument: `true`, pass a null pointer to use it.
 MR_C_API bool MR_CSharp_test_bool(bool a, const bool *b);

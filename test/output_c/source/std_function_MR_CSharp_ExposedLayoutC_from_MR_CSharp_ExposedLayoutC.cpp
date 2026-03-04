@@ -12,62 +12,83 @@
 
 MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_DefaultConstruct(void)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)new std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>(std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>());
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_DefaultConstructArray(size_t num_elems)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)(new std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>[num_elems]{});
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>);
     return (MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)new std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>(std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_COPY(other, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_MOVE(other, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_END(other, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>))
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_AssignFromAnother(MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *_this, MR_C_PassBy other_pass_by, MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_COPY(other, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_MOVE(other, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_END(other, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>))
     );
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_Destroy(const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *_this)
 {
+    MRBINDC_TRY(
     delete ((const std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)> *)_this);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_DestroyArray(const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *_this)
 {
+    MRBINDC_TRY(
     delete[] ((const std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)> *)_this);
+    ) // MRBINDC_TRY
 }
 
 const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_OffsetPtr(const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)(((const std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_OffsetMutablePtr(MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)(((std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 bool MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_has_value(const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *_this)
 {
+    MRBINDC_TRY(
     return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)> *)(_this)));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_reset(MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *_this)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)> *)(_this)) = nullptr;
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_ConstructStateless(MR_CSharp_ExposedLayoutC (*func)(MR_CSharp_ExposedLayoutC *_1))
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)new std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>(func ? std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>([_f = func](MR::CSharp::ExposedLayoutC _1) -> MR::CSharp::ExposedLayoutC
     {
         decltype(auto) _return = _f(
@@ -75,10 +96,12 @@ MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_C_s
         );
         return MRBINDC_BIT_CAST((MR::CSharp::ExposedLayoutC), _return);
     }) : nullptr);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_Assign(MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *_this, MR_CSharp_ExposedLayoutC (*func)(MR_CSharp_ExposedLayoutC *_1))
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)> *)(_this));
     if (!func)
     {
@@ -92,6 +115,7 @@ void MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_As
         );
         return MRBINDC_BIT_CAST((MR::CSharp::ExposedLayoutC), _return);
     };
+    ) // MRBINDC_TRY
 }
 
 namespace
@@ -185,11 +209,14 @@ namespace
 
 MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_ConstructEx(MR_CSharp_ExposedLayoutC (*func)(MR_CSharp_ExposedLayoutC *_1, void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)new std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>(func ? std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>(_functor_MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC{func, userdata, postcall_callback, userdata_callback}) : nullptr);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_AssignEx(MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *_this, MR_CSharp_ExposedLayoutC (*func)(MR_CSharp_ExposedLayoutC *_1, void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)> *)(_this));
     if (!func)
     {
@@ -198,5 +225,6 @@ void MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_As
     }
     
     _self = _functor_MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC{func, userdata, postcall_callback, userdata_callback};
+    ) // MRBINDC_TRY
 }
 

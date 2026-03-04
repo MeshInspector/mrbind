@@ -42,7 +42,8 @@ namespace MR::CSharp
     inline void foo() {std::cout << "Hello!\n";}
     inline int test_int(int a, int b = 42) {return a + b;}
 
-    inline bool test_bool(bool a, bool b = true) {return a || b;}
+    // Marking this `noexcept` for testing.
+    inline bool test_bool(bool a, bool b = true) noexcept {return a || b;}
 
     inline bool default_bool = false;
 

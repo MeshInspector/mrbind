@@ -212,13 +212,13 @@ namespace mrbind::C
         OutputFile &file = iter->second;
 
         file.InitRelativeName(*this, "__mrbind_c_details", false);
+        file.InitDefaultContents(OutputFile::InitFlags::no_extern_c);
         file.header.stdlib_headers.insert("stdexcept");
         file.header.stdlib_headers.insert("utility"); // For `std::move`.
-        file.header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion); // For the pass-by enum.
+        file.header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion); // For the pass-by enum, and for exception-related stuff below.
 
         std::string pass_by_enum_name = GetPassByEnumName();
 
-        // Class by-value argument helpers.
         file.header.contents +=
             "namespace mrbindc_details\n"
             "{\n"
@@ -301,6 +301,130 @@ namespace mrbind::C
             "// ]\n"
         ;
 
+        if (enable_exceptions_support)
+        {
+            const std::string enable_exceptions_macro = GetEnableExceptionsMacro();
+            const std::string handler_typedef = MakePublicHelperName("ExceptionHandlerFuncPtr");
+            const std::string handler_func = MakePublicHelperName("GetCurrentExceptionHandler") + "()";
+            const std::string handler_data = MakePublicHelperName("GetCurrentExceptionHandlerUserData") + "()";
+
+            // We already do this at the beginning of this function.
+            // file.header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion);
+
+            file.header.stdlib_headers.insert("type_traits"); // For `std::is_void_v`.
+
+            file.header.contents +=
+                "\n"
+                "\n"
+                "// Exceptions support:\n"
+                "\n"
+                "// Are we compiling with exceptions enabled?\n"
+                "#ifndef " + enable_exceptions_macro + "\n"
+                "#  ifdef __cpp_exceptions\n"
+                "#    define " + enable_exceptions_macro + " 1\n"
+                "#  else\n"
+                "#    define " + enable_exceptions_macro + " 0\n"
+                "#  endif\n"
+                "#endif\n"
+                "\n"
+                "#if " + enable_exceptions_macro + "\n"
+                "#  define MRBINDC_TRY(...) return mrbindc_details::CatchExceptions([&]{__VA_ARGS__});\n"
+                "#else\n"
+                "#  define MRBINDC_TRY(...) __VA_ARGS__\n"
+                "#endif\n"
+                "\n"
+                "#if " + enable_exceptions_macro + "\n"
+                "namespace mrbindc_details\n"
+                "{\n"
+                "    void CatchExceptionsLow(void (*func)(void *data), void *data);\n"
+                "\n"
+                "    template <typename F>\n"
+                "    auto CatchExceptions(F &&func)\n"
+                "    {\n"
+                "        if (" + handler_func + ")\n"
+                "        {\n"
+                "            using R = decltype(func());\n"
+                "            if constexpr (std::is_void_v<R>)\n"
+                "            {\n"
+                "                CatchExceptionsLow([](void *f){(*reinterpret_cast<decltype(&func)>(f))();}, &func);\n"
+                "            }\n"
+                "            else\n"
+                "            {\n"
+                "                R ret{};\n"
+                "                auto lambda = [&]{ret = func();};\n"
+                "                CatchExceptionsLow([](void *f){(*reinterpret_cast<decltype(&lambda)>(f))();}, &lambda);\n"
+                "                return ret;\n"
+                "            }\n"
+                "        }\n"
+                "        else\n"
+                "        {\n"
+                "            return func();\n"
+                "        }\n"
+                "    }\n"
+                "}\n"
+                "#endif\n"
+                ;
+
+            file.source.stdlib_headers.insert("exception");
+            file.source.stdlib_headers.insert("string");
+            file.source.stdlib_headers.insert("vector");
+            file.source.contents +=
+                "\n"
+                "#if " + enable_exceptions_macro + "\n"
+                "void mrbindc_details::CatchExceptionsLow(void (*func)(void *data), void *data)\n"
+                "{\n"
+                "    try\n"
+                "    {\n"
+                "        func(data);\n"
+                "    }\n"
+                "    catch (std::exception &e)\n"
+                "    {\n"
+                "        std::vector<std::string> messages; // Just in case, make this own the messages.\n"
+                "        std::vector<const char *> type_names;\n"
+                "\n"
+                "        messages.push_back(e.what());\n"
+                "        type_names.push_back(typeid(e).name());\n"
+                "\n"
+                "        auto lambda = [&](auto &self, std::exception &e) -> void\n"
+                "        {\n"
+                "            try\n"
+                "            {\n"
+                "                std::rethrow_if_nested(e);\n"
+                "            }\n"
+                "            catch (std::exception &sub_e)\n"
+                "            {\n"
+                "                messages.push_back(sub_e.what());\n"
+                "                type_names.push_back(typeid(sub_e).name());\n"
+                "                self(self, sub_e);\n"
+                "            }\n"
+                "            catch (...)\n"
+                "            {\n"
+                "                messages.push_back(\"Unknown exception.\\n\");\n"
+                "            }\n"
+                "        };\n"
+                "        lambda(lambda, e);\n"
+                "\n"
+                "        std::vector<const char *> message_ptrs;\n"
+                "        message_ptrs.reserve(messages.size());\n"
+                "        for (const std::string &message : messages)\n"
+                "            message_ptrs.push_back(message.c_str());\n"
+                "        message_ptrs.push_back(nullptr);\n"
+                "\n"
+                "        type_names.push_back(nullptr);\n"
+                "\n"
+                "        " + handler_func + "(message_ptrs.data(), type_names.data(), " + handler_data + ");\n"
+                "    }\n"
+                "    catch (...)\n"
+                "    {\n"
+                "        const char *const messages[2] = {\"Unknown exception.\\n\", nullptr};\n"
+                "        const char *const type_names[1] = {nullptr};\n"
+                "        " + handler_func + "(messages, type_names, " + handler_data + ");\n"
+                "    }\n"
+                "}\n"
+                "#endif\n"
+            ;
+        }
+
         return file;
     }
 
@@ -363,7 +487,7 @@ namespace mrbind::C
                     if (is_array)
                     {
                         emit.c_comment +=
-                            "\n/// For all purposes this is equivalent to `" + GetMemoryAllocFuncName(false, nullptr).c + "()` and `" + GetMemoryDeallocFuncName(false, nullptr).c + "()`, but the deallocation functions are not interchangable."
+                            "\n/// For most purposes this is equivalent to `" + GetMemoryAllocFuncName(false, nullptr).c + "()` and `" + GetMemoryDeallocFuncName(false, nullptr).c + "()`, but the deallocation functions are not interchangable."
                             "\n/// This is a bit weird, but we have to have separate deallocation functions for arrays and non-arrays, because ASAN complains otherwise."
                             "\n/// So the allocation functions must be provided separately for both too.";
                     }
@@ -402,6 +526,227 @@ namespace mrbind::C
 
                     EmitFunction(*file, emit);
                 }
+            }
+        }
+
+        // Exception handling.
+        if (enable_exceptions_support)
+        {
+            cppdecl::Type c_simple_exception_handler_funcptr_type = cppdecl::Type::FromSingleWord("void");
+            c_simple_exception_handler_funcptr_type.AddModifier(cppdecl::Function{});
+            c_simple_exception_handler_funcptr_type.As<cppdecl::Function>()->params.push_back(cppdecl::Decl{.type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{}), .name = cppdecl::QualifiedName::FromSingleWord("message")});
+            c_simple_exception_handler_funcptr_type.AddModifier(cppdecl::Pointer{});
+
+            cppdecl::Type c_exception_handler_funcptr_type = cppdecl::Type::FromSingleWord("void");
+            c_exception_handler_funcptr_type.AddModifier(cppdecl::Function{});
+            c_exception_handler_funcptr_type.As<cppdecl::Function>()->params.push_back(cppdecl::Decl{.type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{}).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{}), .name = cppdecl::QualifiedName::FromSingleWord("messages")});
+            c_exception_handler_funcptr_type.As<cppdecl::Function>()->params.push_back(cppdecl::Decl{.type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{}).AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{}), .name = cppdecl::QualifiedName::FromSingleWord("type_names")});
+            c_exception_handler_funcptr_type.As<cppdecl::Function>()->params.push_back(cppdecl::Decl{.type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}), .name = cppdecl::QualifiedName::FromSingleWord("userdata")});
+            c_exception_handler_funcptr_type.AddModifier(cppdecl::Pointer{});
+
+            const std::string typedef_name_simple_handler = MakePublicHelperName("SimpleExceptionHandlerFuncPtr");
+            const std::string typedef_name_handler = MakePublicHelperName("ExceptionHandlerFuncPtr");
+            const std::string enable_exceptions_macro = GetEnableExceptionsMacro();
+
+            file->header.contents +=
+                "\n"
+                "/// The detailed exception handler. Receives NULL-terminated arrays of exception messages and type names.\n"
+                "/// `messages` always has at least one element. If there are no nested exceptions, it will have exactly one element.\n"
+                "/// `type_names` always has either the same size as `messages`, or one less element if the last exception has an unknown type (then the corresponding message is a placeholder).\n"
+                "/// If the handler doesn't terminate the application, the function that threw the exception will return zero.\n"
+                "/// If the handler is null, we don't attempt to catch exceptions. Then if the throwing function is called from C++ the callee might be able to catch the exception normally (unless the library is compiled with MSVC with `/EHc`).\n"
+                "typedef " + CppdeclToCode(cppdecl::Decl{.type = c_simple_exception_handler_funcptr_type, .name = cppdecl::QualifiedName::FromSingleWord(typedef_name_simple_handler)}) + ";\n"
+                "\n"
+                "/// The simple exception handler. Only receives the exception message, which is never null. When several exceptions are nested, their messages are joined with newlines.\n"
+                "/// If the handler doesn't terminate the application, the function that threw the exception will return zero.\n"
+                "/// If the handler is null, we don't attempt to catch exceptions. Then if the throwing function is called from C++ the callee might be able to catch the exception normally (unless the library is compiled with MSVC with `/EHc`).\n"
+                "typedef " + CppdeclToCode(cppdecl::Decl{.type = c_exception_handler_funcptr_type, .name = cppdecl::QualifiedName::FromSingleWord(typedef_name_handler)}) + ";\n"
+                ;
+
+            file->source.custom_headers.insert(GetInternalDetailsFile().header.path_for_inclusion); // For the `enable_exceptions_macro` macro.
+            file->source.stdlib_headers.insert("cstdio"); // For `std::fprintf()`
+            file->source.stdlib_headers.insert("cstdlib"); // For `std::abort()`.
+            file->source.stdlib_headers.insert("string"); // For `std::string`.
+            file->source.contents +=
+                "\n"
+                // Also not hiding this when exceptions are disabled, again for simplicity.
+                "static void _default_exception_handler(const char *const *messages, const char *const *type_names, void *userdata)\n"
+                "{\n"
+                "    (void)type_names;\n"
+                "    (void)userdata;\n"
+                "\n"
+                "    std::fprintf(stderr, \"Uncaught C++ exception:\\n\");\n"
+                "\n"
+                "    while (*messages)\n"
+                "        std::fprintf(stderr, \"%s\\n\", *messages++);\n"
+                "\n"
+                "    std::abort();\n"
+                "}\n"
+                "\n"
+                "#if " + enable_exceptions_macro + "\n"
+                "static void _simple_exception_handler(const char *const *messages, const char *const *type_names, void *userdata)\n"
+                "{\n"
+                "    (void)type_names;\n"
+                "\n"
+                "    std::string combined_message = *messages++;\n"
+                "\n"
+                "    while (*messages)\n"
+                "    {\n"
+                "        combined_message += '\\n';\n"
+                "        combined_message += *messages++;\n"
+                "    }\n"
+                "\n"
+                "    reinterpret_cast<" + typedef_name_simple_handler + ">(userdata)(combined_message.c_str());\n"
+                "}\n"
+                "\n"
+                "static " + typedef_name_handler + " _current_exception_handler = _default_exception_handler;\n"
+                "static void *_current_exception_handler_userdata = nullptr;\n"
+                "#endif\n"
+                ;
+
+
+            const auto default_handler_getter_name = MakeFreeFuncName("GetDefaultExceptionHandler");
+            const auto setter_name = MakeFreeFuncName("SetExceptionHandler");
+
+            { // Check if the C++ library is compiled with exceptions enabled.
+                EmitFuncParams emit;
+
+                emit.c_comment =
+                    "/// Returns true if the C++ code was compiled with exceptions enabled.\n"
+                    "/// If this returns false, most other exception-related functions will do nothing.";
+
+                emit.name = MakeFreeFuncName("ExceptionSupportEnabled");
+                emit.name.ignore_in_interop = true;
+
+                emit.is_noexcept = true;
+
+                emit.cpp_return_type = cppdecl::Type::FromSingleWord("bool");
+
+                emit.cpp_called_func = enable_exceptions_macro;
+                emit.cpp_called_func_parens = {};
+
+                EmitFunction(*file, emit);
+            }
+
+            { // Get default handler.
+                EmitFuncParams emit;
+
+                emit.c_comment =
+                    "/// Returns the default exception handler.\n"
+                    "/// The default handler prints the exception message to stderr and calls `abort();`.";
+
+                emit.name = default_handler_getter_name;
+                emit.name.ignore_in_interop = true;
+
+                emit.is_noexcept = true;
+
+                emit.cpp_return_type = cppdecl::Type::FromSingleWord(typedef_name_handler);
+                emit.use_return_type_as_is = true;
+
+                emit.cpp_called_func = "_default_exception_handler";
+                emit.cpp_called_func_parens = {};
+
+                EmitFunction(*file, emit);
+            }
+
+            { // Get the current handler.
+                EmitFuncParams emit;
+
+                emit.c_comment =
+                    "/// Returns the current exception handler.\n"
+                    "/// By default this returns the same handler as `" + default_handler_getter_name.c + "()`.";
+
+                emit.name = MakeFreeFuncName("GetCurrentExceptionHandler");
+                emit.name.ignore_in_interop = true;
+
+                emit.is_noexcept = true;
+
+                emit.cpp_return_type = cppdecl::Type::FromSingleWord(typedef_name_handler);
+                emit.use_return_type_as_is = true;
+
+                emit.cpp_extra_statements = "#if " + enable_exceptions_macro;
+                emit.cpp_extra_code_after = "#else\nreturn nullptr;\n#endif";
+
+                emit.cpp_called_func = "_current_exception_handler";
+                emit.cpp_called_func_parens = {};
+
+                EmitFunction(*file, emit);
+            }
+
+            { // Get the current handler userdata.
+                EmitFuncParams emit;
+
+                emit.c_comment = "/// Returns the current exception handler user data pointer. Null by default.";
+
+                emit.name = MakeFreeFuncName("GetCurrentExceptionHandlerUserData");
+                emit.name.ignore_in_interop = true;
+
+                emit.is_noexcept = true;
+
+                emit.cpp_return_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{});
+
+                emit.cpp_extra_statements = "#if " + enable_exceptions_macro;
+                emit.cpp_extra_code_after = "#else\nreturn nullptr;\n#endif";
+
+                emit.cpp_called_func = "_current_exception_handler_userdata";
+                emit.cpp_called_func_parens = {};
+
+                EmitFunction(*file, emit);
+            }
+
+            { // Set the current handler.
+                EmitFuncParams emit;
+
+                emit.c_comment = "/// Sets the current exception handler. This is not thread-safe.";
+
+                emit.name = setter_name;
+                emit.name.ignore_in_interop = true;
+
+                emit.is_noexcept = true;
+
+                emit.params.push_back({
+                    .name = "func",
+                    .cpp_type = cppdecl::Type::FromSingleWord(typedef_name_handler),
+                    .use_type_as_is = true,
+                });
+
+                emit.params.push_back({
+                    .name = "userdata",
+                    .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
+                });
+
+                emit.cpp_extra_statements = "#if " + enable_exceptions_macro;
+                emit.cpp_extra_code_after = "#else\n(void)func;\n(void)userdata;\n#endif";
+
+                emit.cpp_called_func = "_current_exception_handler = @1@;\n_current_exception_handler_userdata = @2@";
+
+                EmitFunction(*file, emit);
+            }
+
+            { // Set the current handler (simple).
+                EmitFuncParams emit;
+
+                emit.c_comment = "/// Sets the current exception handler, using the simplified interface. This is not thread-safe.";
+
+                emit.name = MakeFreeFuncName("SetSimpleExceptionHandler");
+                emit.name.ignore_in_interop = true;
+
+                emit.is_noexcept = true;
+
+                emit.params.push_back({
+                    .name = "func",
+                    .omit_from_call = true,
+                    .cpp_type = cppdecl::Type::FromSingleWord(typedef_name_simple_handler),
+                    .use_type_as_is = true,
+                });
+
+                emit.cpp_extra_statements = "#if " + enable_exceptions_macro;
+                emit.cpp_extra_code_after = "#else\n(void)func;\n#endif";
+
+                emit.cpp_called_func = "if (func)\n    " + setter_name.c + "(_simple_exception_handler, reinterpret_cast<void *>(func));\nelse\n    " + setter_name.c + "(nullptr, nullptr)";
+                emit.cpp_called_func_parens = {};
+
+                EmitFunction(*file, emit);
             }
         }
 
@@ -557,6 +902,12 @@ namespace mrbind::C
 
         (void)target_file;
         return MakePublicHelperMacroName("BUILD_LIBRARY");
+    }
+
+    // Only call this if `enable_exceptions_support` is true.
+    std::string Generator::GetEnableExceptionsMacro()
+    {
+        return MakePublicHelperMacroName("ENABLE_EXCEPTIONS");
     }
 
     std::string Generator::GetDisableConvenienceIncludesMacro()
@@ -1809,6 +2160,7 @@ namespace mrbind::C
     {
         mark_deprecated = new_func.deprecation_message;
         silence_deprecation |= bool(new_func.deprecation_message);
+        is_noexcept = new_func.is_noexcept;
 
         SetLifetimesFromParsedFunc(new_func, false, false);
 
@@ -1886,6 +2238,7 @@ namespace mrbind::C
     {
         mark_deprecated = new_ctor.deprecation_message;
         silence_deprecation |= bool(new_ctor.deprecation_message);
+        is_noexcept = new_ctor.is_noexcept;
 
         SetLifetimesFromParsedFunc(new_ctor, true, true);
 
@@ -1945,6 +2298,7 @@ namespace mrbind::C
     {
         mark_deprecated = new_method.deprecation_message;
         silence_deprecation |= bool(new_method.deprecation_message);
+        is_noexcept = new_method.is_noexcept;
 
         SetLifetimesFromParsedFunc(new_method, true, false);
 
@@ -2054,6 +2408,7 @@ namespace mrbind::C
     {
         mark_deprecated = new_conv_op.deprecation_message;
         silence_deprecation |= bool(new_conv_op.deprecation_message);
+        is_noexcept = new_conv_op.is_noexcept;
 
         mark_virtual = new_conv_op.is_virtual;
 
@@ -2099,6 +2454,8 @@ namespace mrbind::C
 
     bool Generator::EmitFuncParams::SetAsFieldAccessor(Generator &self, const ClassEntity &new_class, const ClassField &new_field, FieldAccessorKind kind, CInterop::ClassField *interop_field)
     {
+        is_noexcept = true;
+
         const cppdecl::Type field_type = self.ParseTypeOrThrow(new_field.type.canonical);
         const cppdecl::QualifiedName class_cpp_type = self.ParseQualNameOrThrow(new_class.full_type);
         const std::string class_cpp_type_str = self.CppdeclToCode(class_cpp_type);
@@ -2357,7 +2714,7 @@ namespace mrbind::C
             else
                 body_return += ',';
 
-            body_return += "\n        ";
+            body_return += "\n    ";
             body_return += arg_expr;
         };
 
@@ -2683,7 +3040,7 @@ namespace mrbind::C
             if (first_arg_in_call_expr)
                 body_return += params.cpp_called_func_parens.begin;
             else
-                body_return += "\n    ";
+                body_return += "\n";
             body_return += params.cpp_called_func_parens.end;
         }
 
@@ -2824,6 +3181,15 @@ namespace mrbind::C
         { // Assemble the returned body.
             ret.body += "{\n";
 
+            const bool catch_exceptions = enable_exceptions_support && !params.is_noexcept;
+
+            // Begin `try`.
+            if (catch_exceptions)
+            {
+                file.source.custom_headers.insert(GetInternalDetailsFile().header.path_for_inclusion);
+                ret.body += "    MRBINDC_TRY(\n";
+            }
+
             // Add the `using namespace`s, just in case the default arguments miss some qualifiers. (Can this still happen?)
             if (has_any_useful_default_args)
             {
@@ -2859,14 +3225,26 @@ namespace mrbind::C
 
             if (!body_return.empty())
             {
-                ret.body += "    ";
-                ret.body += body_return;
+                ret.body += Strings::Indent(body_return);
+                ret.body += "\n";
+            }
+
+            if (!params.cpp_extra_code_after.empty())
+            {
+                ret.body += IndentString(params.cpp_extra_code_after, 1, true);
                 ret.body += "\n";
             }
 
             // End silencing deprecation.
             if (should_silence_deprecation)
                 ret.body += "    ) // MRBINDC_IGNORE_DEPRECATION\n";
+
+            // End `try`.
+            if (catch_exceptions)
+            {
+                file.source.custom_headers.insert(GetInternalDetailsFile().header.path_for_inclusion);
+                ret.body += "    ) // MRBINDC_TRY\n";
+            }
 
             ret.body += "}";
         }
@@ -3208,6 +3586,9 @@ namespace mrbind::C
 
                 // Deprecation attribute?
                 func_like->is_deprecated = params.mark_deprecated;
+
+                // Noexcept?
+                func_like->is_noexcept = params.is_noexcept;
 
                 // Lifetime stuff.
                 func_like->lifetimes = std::move(strings.lifetimes);

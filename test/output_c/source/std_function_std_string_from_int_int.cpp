@@ -11,62 +11,83 @@
 
 MR_C_std_function_std_string_from_int_int *MR_C_std_function_std_string_from_int_int_DefaultConstruct(void)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_std_string_from_int_int *)new std::function<std::string(int, int)>(std::function<std::string(int, int)>());
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_std_string_from_int_int *MR_C_std_function_std_string_from_int_int_DefaultConstructArray(size_t num_elems)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_std_string_from_int_int *)(new std::function<std::string(int, int)>[num_elems]{});
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_std_string_from_int_int *MR_C_std_function_std_string_from_int_int_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_function_std_string_from_int_int *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::function<std::string(int, int)>);
     return (MR_C_std_function_std_string_from_int_int *)new std::function<std::string(int, int)>(std::function<std::string(int, int)>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<std::string(int, int)>) MRBINDC_CLASSARG_COPY(other, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_MOVE(other, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<std::string(int, int)>) MRBINDC_CLASSARG_END(other, std::function<std::string(int, int)>))
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_std_string_from_int_int_AssignFromAnother(MR_C_std_function_std_string_from_int_int *_this, MR_C_PassBy other_pass_by, MR_C_std_function_std_string_from_int_int *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::function<std::string(int, int)>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<std::string(int, int)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<std::string(int, int)>) MRBINDC_CLASSARG_COPY(other, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_MOVE(other, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<std::string(int, int)>) MRBINDC_CLASSARG_END(other, std::function<std::string(int, int)>))
     );
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_std_string_from_int_int_Destroy(const MR_C_std_function_std_string_from_int_int *_this)
 {
+    MRBINDC_TRY(
     delete ((const std::function<std::string(int, int)> *)_this);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_std_string_from_int_int_DestroyArray(const MR_C_std_function_std_string_from_int_int *_this)
 {
+    MRBINDC_TRY(
     delete[] ((const std::function<std::string(int, int)> *)_this);
+    ) // MRBINDC_TRY
 }
 
 const MR_C_std_function_std_string_from_int_int *MR_C_std_function_std_string_from_int_int_OffsetPtr(const MR_C_std_function_std_string_from_int_int *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (const MR_C_std_function_std_string_from_int_int *)(((const std::function<std::string(int, int)> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_std_string_from_int_int *MR_C_std_function_std_string_from_int_int_OffsetMutablePtr(MR_C_std_function_std_string_from_int_int *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_std_string_from_int_int *)(((std::function<std::string(int, int)> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 bool MR_C_std_function_std_string_from_int_int_has_value(const MR_C_std_function_std_string_from_int_int *_this)
 {
+    MRBINDC_TRY(
     return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<std::string(int, int)> *)(_this)));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_std_string_from_int_int_reset(MR_C_std_function_std_string_from_int_int *_this)
 {
+    MRBINDC_TRY(
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<std::string(int, int)> *)(_this)) = nullptr;
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_function_std_string_from_int_int *MR_C_std_function_std_string_from_int_int_ConstructStateless(MR_C_std_string *(*func)(MR_C_PassBy *_return_pass_by, int _1, int _2))
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_std_string_from_int_int *)new std::function<std::string(int, int)>(func ? std::function<std::string(int, int)>([_f = func](int _1, int _2) -> std::string
     {
         MR_C_PassBy _return_pass_by = {};
@@ -78,10 +99,12 @@ MR_C_std_function_std_string_from_int_int *MR_C_std_function_std_string_from_int
         MRBINDC_CLASSARG_GUARD(_return, std::string);
         return (MRBINDC_CLASSARG_DEF_CTOR(_return, std::string) MRBINDC_CLASSARG_COPY(_return, (std::string), std::string) MRBINDC_CLASSARG_MOVE(_return, (std::string), std::string) MRBINDC_CLASSARG_NO_DEF_ARG(_return, MR_C_PassBy_DefaultArgument, std::string) MRBINDC_CLASSARG_NO_DEF_ARG(_return, MR_C_PassBy_NoObject, std::string) MRBINDC_CLASSARG_END(_return, std::string));
     }) : nullptr);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_std_string_from_int_int_Assign(MR_C_std_function_std_string_from_int_int *_this, MR_C_std_string *(*func)(MR_C_PassBy *_return_pass_by, int _1, int _2))
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<std::string(int, int)> *)(_this));
     if (!func)
     {
@@ -99,6 +122,7 @@ void MR_C_std_function_std_string_from_int_int_Assign(MR_C_std_function_std_stri
         MRBINDC_CLASSARG_GUARD(_return, std::string);
         return (MRBINDC_CLASSARG_DEF_CTOR(_return, std::string) MRBINDC_CLASSARG_COPY(_return, (std::string), std::string) MRBINDC_CLASSARG_MOVE(_return, (std::string), std::string) MRBINDC_CLASSARG_NO_DEF_ARG(_return, MR_C_PassBy_DefaultArgument, std::string) MRBINDC_CLASSARG_NO_DEF_ARG(_return, MR_C_PassBy_NoObject, std::string) MRBINDC_CLASSARG_END(_return, std::string));
     };
+    ) // MRBINDC_TRY
 }
 
 namespace
@@ -196,11 +220,14 @@ namespace
 
 MR_C_std_function_std_string_from_int_int *MR_C_std_function_std_string_from_int_int_ConstructEx(MR_C_std_string *(*func)(MR_C_PassBy *_return_pass_by, int _1, int _2, void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
+    MRBINDC_TRY(
     return (MR_C_std_function_std_string_from_int_int *)new std::function<std::string(int, int)>(func ? std::function<std::string(int, int)>(_functor_MR_C_std_function_std_string_from_int_int{func, userdata, postcall_callback, userdata_callback}) : nullptr);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_std_string_from_int_int_AssignEx(MR_C_std_function_std_string_from_int_int *_this, MR_C_std_string *(*func)(MR_C_PassBy *_return_pass_by, int _1, int _2, void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<std::string(int, int)> *)(_this));
     if (!func)
     {
@@ -209,5 +236,6 @@ void MR_C_std_function_std_string_from_int_int_AssignEx(MR_C_std_function_std_st
     }
     
     _self = _functor_MR_C_std_function_std_string_from_int_int{func, userdata, postcall_callback, userdata_callback};
+    ) // MRBINDC_TRY
 }
 

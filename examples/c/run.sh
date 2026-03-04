@@ -23,6 +23,17 @@ EXTRA_PARSER_FLAGS="
 # Those are optional tunable flags for the C generator.
 EXTRA_GEN_FLAGS="
     --max-header-name-length 100
+    --no-handle-exceptions
+"
+
+# Those are optional tunable flags for the library compilation.
+EXTRA_CXX_FLAGS="
+    -g
+"
+
+# Those are optional tunable flags for the example program compilation.
+EXTRA_C_FLAGS="
+    -g
 "
 
 set -x
@@ -65,7 +76,9 @@ if [[ $SOURCES ]]; then
         -I.. \
         $SOURCES \
         -shared \
-        -o c/output/libexample.so
+        -fvisibility=hidden -fvisibility-inlines-hidden \
+        -o c/output/libexample.so \
+        $EXTRA_CXX_FLAGS \
 
     LIBRARY=-lexample
 else
@@ -78,7 +91,8 @@ gcc \
     c/example_consumer.c \
     -Ic/output/include \
     -Lc/output $LIBRARY \
-    -o c/output/example_consumer
+    -o c/output/example_consumer \
+    $EXTRA_C_FLAGS
 
 # Run the test executable.
 LD_LIBRARY_PATH=c/output c/output/example_consumer

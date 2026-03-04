@@ -97,6 +97,10 @@ namespace mrbind::C
         // This is tested against the last component of qualified names, and ignoring the templale arguments.
         std::set<std::string, std::less<>> skip_template_arguments_on_functions = {"begin", "end", "swap"};
 
+        // If try, generate the code for exception handling.
+        // Note that the resulting C++ code will still build even with exceptions turned off, as the exception handling is wrapped in `#if`s.
+        bool enable_exceptions_support = true;
+
         // ]
 
         // Output JSON description: [
@@ -301,6 +305,10 @@ namespace mrbind::C
         // Returns the macro that when defined enables the function exporting. It's defined automatically in all our source files.
         // This function doesn't modify the file, unlike `GetExportMacroForFile()`.
         [[nodiscard]] std::string GetBuildLibraryMacroForFile(const OutputFile &target_file);
+
+        // Returns the macro that can be used for checking if the exception support is enabled or not.
+        // Only call this if `enable_exceptions_support` is true.
+        [[nodiscard]] std::string GetEnableExceptionsMacro();
 
         // Returns the macro that `--add-convenience-incldues` uses for internal purposes.
         // But you can also define it manually to disable the convenience includes in certain places, like we do in our implementation files
@@ -1219,6 +1227,9 @@ namespace mrbind::C
             // This is primarily for interop, the C generator doesn't care about it.
             bool mark_virtual = false;
 
+            // Omit exception handling code.
+            bool is_noexcept = false;
+
             // The C++ return type. We'll translate it to C automatically.
             cppdecl::Type cpp_return_type = cppdecl::Type::FromSingleWord("void");
 
@@ -1242,7 +1253,11 @@ namespace mrbind::C
             // Do not add trailing newline. Do not add indentation.
             std::string cpp_extra_statements;
 
-            // What function are we calling on the C++ side. Or any arbitrary expression.
+            // Additional code to add after `return ...;`.
+            // This only makes sense for `#endif` and such.
+            std::string cpp_extra_code_after;
+
+            // What function are we calling on the C++ side. Or any arbitrary expression (can be multiple statements and/or multiple lines, but don't add the trailing newline or `;`).
             // If this is empty, the return statement isn't generated at all, the arguments are ignored, and `cpp_called_func_parens` is also ignored.
             // The arguments are typically pasted after this, enclosed in `cpp_called_func_parens`.
             // But if this string contains a placeholder for this argument: `@1@`, `@2@`, etc, or `@this@` for the `this` argument if any (which a reference rather than a pointer, to support rvalues),

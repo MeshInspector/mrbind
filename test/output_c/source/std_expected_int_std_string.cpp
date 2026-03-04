@@ -11,76 +11,102 @@
 
 MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_DefaultConstruct(void)
 {
+    MRBINDC_TRY(
     return (MR_C_std_expected_int_std_string *)new std::expected<int, std::string>(std::expected<int, std::string>());
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_DefaultConstructArray(size_t num_elems)
 {
+    MRBINDC_TRY(
     return (MR_C_std_expected_int_std_string *)(new std::expected<int, std::string>[num_elems]{});
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_expected_int_std_string *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::expected<int, std::string>);
     return (MR_C_std_expected_int_std_string *)new std::expected<int, std::string>(std::expected<int, std::string>(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::expected<int, std::string>) MRBINDC_CLASSARG_COPY(other, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::expected<int, std::string>) MRBINDC_CLASSARG_END(other, std::expected<int, std::string>))
     ));
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_expected_int_std_string_AssignFromAnother(MR_C_std_expected_int_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_expected_int_std_string *other)
 {
+    MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::expected<int, std::string>);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int, std::string> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::expected<int, std::string>) MRBINDC_CLASSARG_COPY(other, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_MOVE(other, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::expected<int, std::string>) MRBINDC_CLASSARG_END(other, std::expected<int, std::string>))
     );
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_expected_int_std_string_Destroy(const MR_C_std_expected_int_std_string *_this)
 {
+    MRBINDC_TRY(
     delete ((const std::expected<int, std::string> *)_this);
+    ) // MRBINDC_TRY
 }
 
 void MR_C_std_expected_int_std_string_DestroyArray(const MR_C_std_expected_int_std_string *_this)
 {
+    MRBINDC_TRY(
     delete[] ((const std::expected<int, std::string> *)_this);
+    ) // MRBINDC_TRY
 }
 
 const MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_OffsetPtr(const MR_C_std_expected_int_std_string *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (const MR_C_std_expected_int_std_string *)(((const std::expected<int, std::string> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_expected_int_std_string *MR_C_std_expected_int_std_string_OffsetMutablePtr(MR_C_std_expected_int_std_string *ptr, ptrdiff_t i)
 {
+    MRBINDC_TRY(
     return (MR_C_std_expected_int_std_string *)(((std::expected<int, std::string> *)ptr) + i);
+    ) // MRBINDC_TRY
 }
 
 bool MR_C_std_expected_int_std_string_success(const MR_C_std_expected_int_std_string *_this)
 {
+    MRBINDC_TRY(
     return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int, std::string> *)(_this)));
+    ) // MRBINDC_TRY
 }
 
 const int *MR_C_std_expected_int_std_string_value(const MR_C_std_expected_int_std_string *_this)
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int, std::string> *)(_this));
     return _self ? &*_self : nullptr;
+    ) // MRBINDC_TRY
 }
 
 const MR_C_std_string *MR_C_std_expected_int_std_string_error(const MR_C_std_expected_int_std_string *_this)
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int, std::string> *)(_this));
     return (const MR_C_std_string *)(_self ? nullptr : &_self.error());
+    ) // MRBINDC_TRY
 }
 
 int *MR_C_std_expected_int_std_string_value_mut(MR_C_std_expected_int_std_string *_this)
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int, std::string> *)(_this));
     return _self ? &*_self : nullptr;
+    ) // MRBINDC_TRY
 }
 
 MR_C_std_string *MR_C_std_expected_int_std_string_error_mut(MR_C_std_expected_int_std_string *_this)
 {
+    MRBINDC_TRY(
     auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int, std::string> *)(_this));
     return (MR_C_std_string *)(_self ? nullptr : &_self.error());
+    ) // MRBINDC_TRY
 }
 

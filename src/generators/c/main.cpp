@@ -161,6 +161,14 @@ int main(int raw_argc, char **raw_argv)
             },
         });
 
+        args_parser.AddFlag("--no-handle-exceptions", {
+            .desc = "Don't try to handle exceptions. Note that you don't have to pass this to build with exceptions disabled, since the exception handling code is wrapped in `#if`s.",
+            .func = [&](mrbind::CommandLineParser::ArgSpan)
+            {
+                generator.enable_exceptions_support = false;
+            },
+        });
+
         args_parser.AddFlag("--add-convenience-includes", {
             .desc = "Add more include directives to the output, that are not strictly necessary, but might help the user. This isn't enabled by default because it add too much bloat in large projects. Even if this is enabled, you can define a macro to revert to the default behavior when consuming the headers.",
             .func = [&](mrbind::CommandLineParser::ArgSpan)
