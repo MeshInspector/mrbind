@@ -1,4 +1,4 @@
-/build
+/build*
 /compile_commands.json
 .cache
 /.vscode/launch.json
@@ -12,6 +12,11 @@
 /test/**/obj
 parallel-hashmap/
 pybind11/
-/example/output_c
-/example/cxx.txt
-/example/run_example_c
+/examples/cxx.txt
+/examples/c/output
+/examples/csharp/c_library
+/examples/csharp/csharp_library/src
+/examples/csharp/csharp_library/bin
+/examples/csharp/csharp_library/obj
+/examples/csharp/example_consumer/bin
+/examples/csharp/example_consumer/obj

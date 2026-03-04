@@ -6,9 +6,9 @@ MRBind parses C++ headers and generates **C**, **C#**, and **Python** bindings f
 
 * The C backend is custom.
 
-* The C# backend is custom, and uses `[DllImport]` to load the C bindings. The resulting C# assembly is cross-platform as long as you compile the C DLL for every platform you want to support (at least portable across x64 and ARM64).
+* The C# backend is custom, and uses `[DllImport]` to load the C bindings. The resulting C# assembly is cross-platform (at least across all of: Win/Linux/Mac, both x64 and ARM64) as long as you compile the generated C shared library for every platform you want to support.
 
-Out main selling points are:
+Out main features are:
 
 * No separate interface description files (as in SWIG).
 
@@ -32,9 +32,11 @@ The point is making maintaining large bindings easy, with decent binding quality
 
 1. [Build MRBind itself.](/docs/building_mrbind.md)
 
-2. [Run the parser on your code.](/docs/running_parser.md)
+2. [Run examples.](/examples/README.md)
 
-3. Follow language-specific instructions:
+3. [Run the parser on your code.](/docs/running_parser.md)
+
+4. Follow language-specific instructions:
 
    * [Generate Python bindings.](/docs/generating_python.md)
 
@@ -42,7 +44,7 @@ The point is making maintaining large bindings easy, with decent binding quality
 
    * [Generate C# / .NET bindings.](/docs/generating_csharp.md)
 
-4. Additional articles:
+5. Additional articles:
 
    * [Skipping certain types/functions/etc.](/docs/skipping_entities.md)
 

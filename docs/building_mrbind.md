@@ -20,13 +20,13 @@ MRBind depends on Clang's libraries for parsing, which you have to install. Clan
 
 * **On Windows**:
 
-  The official LLVM/Clang installer doesn't include the C++ libraries.
+  The official LLVM/Clang installer doesn't include the C++ Clang libraries.
 
   You could install LLVM in Vcpkg, but that would build it from source.
 
-  One option is installing it in MSYS2, as they provide prebuilt packages. Yes, even if you're not planning to use MinGW. MSYS2 Clang can operate in MSVC-compatible mode.
+  If you don't have an aversion to MinGW, one option is installing Clang in MSYS2, as they provide prebuilt packages with the necessary libraries. MinGW Clang is able to produce MSVC-compatble executables.
 
-  If using MSYS2, I recommend using MSYS2 CLANG64 environment (use the corresponding shortcut in the Start menu), but any of them should work. Install the required packages via:
+  If using MSYS2, I recommend using the MSYS2 CLANG64 environment (use the corresponding shortcut in the Start menu), but any of them should work. Install the required packages via:
 
   ```sh
   pacman -S $MINGW_PACKAGE_PREFIX-{clang,clang-tools-extra,cmake} procps-ng
@@ -39,7 +39,7 @@ MRBind depends on Clang's libraries for parsing, which you have to install. Clan
 
 ### Building MRBind itself
 
-Ensure the Git submodules are cloned: `git submodule update --recursive --init`. (If you get errors about `cppdecl` includes not being found, it means you forgot the submodules.)
+Ensure the Git submodules are cloned: `git submodule update --recursive --init`. If you get errors about `cppdecl` includes not being found, it means you forgot the submodules.
 
 Then build with CMake. Use the same Clang compiler that provides the parsing libraries. Other compilers may work, but that is not supported.
 
@@ -49,11 +49,15 @@ Then build with CMake. Use the same Clang compiler that provides the parsing lib
   cmake --build build -j$(nproc)
   ```
 
-  Notice the `-DClang_DIR=...` flag. It forces a specific version of Clang's libraries to be used. Without it, an arbitrary installed version will be picked, and not necessarily the most recent one.
+  Notice the `-DClang_DIR=...` flag. It forces a specific version of Clang's libraries to be used. Without it, an arbitrary installed version will be picked, and not necessarily the one you want.
 
 * **On other OSes:**
 
-  Just `cmake -B build && cmake --build build -j$(nproc)` as usual.
+  `cmake -B build && cmake --build build -j$(nproc)` usually just works.
+
+  If there is any chance you have multiple versions of Clang libraries installed, you must pass `-DClang_DIR=...` as shown above.
+
+  If you built Clang from source, then pass `.../lib/cmake/clang`, where `...` is the directory you `cmake --installed`ed Clang into.
 
 If you get errors like `/usr/bin/ld: /usr/bin/ld: DWARF error: invalid or unhandled FORM value: 0x23`, switch to the LLD linker via `-DCMAKE_LINKER_TYPE=LLD`.
 
