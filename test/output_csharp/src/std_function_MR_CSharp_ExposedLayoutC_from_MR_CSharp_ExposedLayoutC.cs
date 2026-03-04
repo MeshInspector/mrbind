@@ -86,7 +86,8 @@ public static partial class MR
                     extern static Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *__MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     _UnderlyingPtr = __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
-            }
+
+                public static unsafe implicit operator Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC.Delegate func) {return new(func);}}
 
             /// Stores a functor of type: `MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)`. Possibly stateful.
             /// This is the non-const half of the class.
@@ -167,7 +168,8 @@ public static partial class MR
                 public static implicit operator _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC arg) {return new(arg);}
                 public _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(MR.CS.Misc._Moved<Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(MR.CS.Misc._Moved<Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC> arg) {return new(arg);}
-            }
+
+                public static unsafe implicit operator _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC.Delegate func) {return new Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(func);}}
 
             /// This is used for optional parameters of class `Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC`.
@@ -197,7 +199,8 @@ public static partial class MR
                 public _InOptConst_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC() {}
                 public _InOptConst_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC value) {Opt = value;}
                 public static implicit operator _InOptConst_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC value) {return new(value);}
-            }
+
+                public static unsafe implicit operator _InOptConst_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC.Delegate func) {return new Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(func);}}
         }
     }
 }

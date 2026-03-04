@@ -107,7 +107,8 @@ public static partial class MR
                     extern static Const_Function_Int_From_StdString._Underlying *__MR_C_std_function_int_from_std_string_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     _UnderlyingPtr = __MR_C_std_function_int_from_std_string_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
-            }
+
+                public static unsafe implicit operator Const_Function_Int_From_StdString(MR.CS.Std.Function_Int_From_StdString.Delegate func) {return new(func);}}
 
             /// <summary>
             /// Stores a functor of type: `int(std::string)`. Possibly stateful.
@@ -208,7 +209,8 @@ public static partial class MR
                 public static implicit operator _ByValue_Function_IntFuncFromStdString(Const_Function_Int_From_StdString arg) {return new(arg);}
                 public _ByValue_Function_IntFuncFromStdString(MR.CS.Misc._Moved<Function_Int_From_StdString> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Function_IntFuncFromStdString(MR.CS.Misc._Moved<Function_Int_From_StdString> arg) {return new(arg);}
-            }
+
+                public static unsafe implicit operator _ByValue_Function_IntFuncFromStdString(MR.CS.Std.Function_Int_From_StdString.Delegate func) {return new Function_Int_From_StdString(func);}}
 
             /// <summary>
             /// This is used for optional parameters of class `Function_Int_From_StdString` with default arguments.
@@ -242,7 +244,8 @@ public static partial class MR
                 public _InOptConst_Function_IntFuncFromStdString() {}
                 public _InOptConst_Function_IntFuncFromStdString(Const_Function_Int_From_StdString value) {Opt = value;}
                 public static implicit operator _InOptConst_Function_IntFuncFromStdString(Const_Function_Int_From_StdString value) {return new(value);}
-            }
+
+                public static unsafe implicit operator _InOptConst_Function_IntFuncFromStdString(MR.CS.Std.Function_Int_From_StdString.Delegate func) {return new Function_Int_From_StdString(func);}}
         }
     }
 }

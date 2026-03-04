@@ -102,7 +102,8 @@ public static partial class MR
                     extern static Const_Function_MRCSharpE1_From_MRCSharpE1._Underlying *__MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     _UnderlyingPtr = __MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
-            }
+
+                public static unsafe implicit operator Const_Function_MRCSharpE1_From_MRCSharpE1(MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1.Delegate func) {return new(func);}}
 
             /// <summary>
             /// Stores a functor of type: `MR::CSharp::E1(MR::CSharp::E1)`. Possibly stateful.
@@ -203,7 +204,8 @@ public static partial class MR
                 public static implicit operator _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 arg) {return new(arg);}
                 public _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1(MR.CS.Misc._Moved<Function_MRCSharpE1_From_MRCSharpE1> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1(MR.CS.Misc._Moved<Function_MRCSharpE1_From_MRCSharpE1> arg) {return new(arg);}
-            }
+
+                public static unsafe implicit operator _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1(MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1.Delegate func) {return new Function_MRCSharpE1_From_MRCSharpE1(func);}}
 
             /// <summary>
             /// This is used for optional parameters of class `Function_MRCSharpE1_From_MRCSharpE1` with default arguments.
@@ -237,7 +239,8 @@ public static partial class MR
                 public _InOptConst_Function_MRCSharpE1FuncFromMRCSharpE1() {}
                 public _InOptConst_Function_MRCSharpE1FuncFromMRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 value) {Opt = value;}
                 public static implicit operator _InOptConst_Function_MRCSharpE1FuncFromMRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 value) {return new(value);}
-            }
+
+                public static unsafe implicit operator _InOptConst_Function_MRCSharpE1FuncFromMRCSharpE1(MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1.Delegate func) {return new Function_MRCSharpE1_From_MRCSharpE1(func);}}
         }
     }
 }

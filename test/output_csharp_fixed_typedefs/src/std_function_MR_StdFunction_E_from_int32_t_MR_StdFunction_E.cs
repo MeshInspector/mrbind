@@ -104,7 +104,8 @@ public static partial class MR
                     extern static Const_Function_MRStdFunctionE_From_Int32T_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
-            }
+
+                public static unsafe implicit operator Const_Function_MRStdFunctionE_From_Int32T_MRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int32T_MRStdFunctionE.Delegate func) {return new(func);}}
 
             /// <summary>
             /// Stores a functor of type: `MR::StdFunction::E(int32_t, MR::StdFunction::E)`. Possibly stateful.
@@ -205,7 +206,8 @@ public static partial class MR
                 public static implicit operator _ByValue_Function_MRStdFunctionEFuncFromInt32TMRStdFunctionE(Const_Function_MRStdFunctionE_From_Int32T_MRStdFunctionE arg) {return new(arg);}
                 public _ByValue_Function_MRStdFunctionEFuncFromInt32TMRStdFunctionE(MR.CS.Misc._Moved<Function_MRStdFunctionE_From_Int32T_MRStdFunctionE> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Function_MRStdFunctionEFuncFromInt32TMRStdFunctionE(MR.CS.Misc._Moved<Function_MRStdFunctionE_From_Int32T_MRStdFunctionE> arg) {return new(arg);}
-            }
+
+                public static unsafe implicit operator _ByValue_Function_MRStdFunctionEFuncFromInt32TMRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int32T_MRStdFunctionE.Delegate func) {return new Function_MRStdFunctionE_From_Int32T_MRStdFunctionE(func);}}
 
             /// <summary>
             /// This is used for optional parameters of class `Function_MRStdFunctionE_From_Int32T_MRStdFunctionE` with default arguments.
@@ -239,7 +241,8 @@ public static partial class MR
                 public _InOptConst_Function_MRStdFunctionEFuncFromInt32TMRStdFunctionE() {}
                 public _InOptConst_Function_MRStdFunctionEFuncFromInt32TMRStdFunctionE(Const_Function_MRStdFunctionE_From_Int32T_MRStdFunctionE value) {Opt = value;}
                 public static implicit operator _InOptConst_Function_MRStdFunctionEFuncFromInt32TMRStdFunctionE(Const_Function_MRStdFunctionE_From_Int32T_MRStdFunctionE value) {return new(value);}
-            }
+
+                public static unsafe implicit operator _InOptConst_Function_MRStdFunctionEFuncFromInt32TMRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int32T_MRStdFunctionE.Delegate func) {return new Function_MRStdFunctionE_From_Int32T_MRStdFunctionE(func);}}
         }
     }
 }

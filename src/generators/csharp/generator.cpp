@@ -3415,6 +3415,13 @@ namespace mrbind::CSharp
                             "}\n";
                     }
                 }
+
+                { // Register the implicit conversion from the delegate.
+                    ret.implicit_conversions.push_back({
+                        .csharp_param_type = CppToCSharpClassName(cpp_name, false) + ".Delegate",
+                        .csharp_param_name = "func",
+                    });
+                }
             }
             catch (...)
             {

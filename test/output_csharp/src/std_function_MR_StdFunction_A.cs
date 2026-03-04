@@ -86,7 +86,8 @@ public static partial class MR
                     extern static Const_Function_MRStdFunctionA._Underlying *__MR_C_std_function_MR_StdFunction_A_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_A_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
-            }
+
+                public static unsafe implicit operator Const_Function_MRStdFunctionA(MR.CS.Std.Function_MRStdFunctionA.Delegate func) {return new(func);}}
 
             /// Stores a functor of type: `MR::StdFunction::A(void)`. Possibly stateful.
             /// This is the non-const half of the class.
@@ -167,7 +168,8 @@ public static partial class MR
                 public static implicit operator _ByValue_Function_MRStdFunctionAFunc(Const_Function_MRStdFunctionA arg) {return new(arg);}
                 public _ByValue_Function_MRStdFunctionAFunc(MR.CS.Misc._Moved<Function_MRStdFunctionA> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Function_MRStdFunctionAFunc(MR.CS.Misc._Moved<Function_MRStdFunctionA> arg) {return new(arg);}
-            }
+
+                public static unsafe implicit operator _ByValue_Function_MRStdFunctionAFunc(MR.CS.Std.Function_MRStdFunctionA.Delegate func) {return new Function_MRStdFunctionA(func);}}
 
             /// This is used for optional parameters of class `Function_MRStdFunctionA` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_MRStdFunctionAFunc`.
@@ -197,7 +199,8 @@ public static partial class MR
                 public _InOptConst_Function_MRStdFunctionAFunc() {}
                 public _InOptConst_Function_MRStdFunctionAFunc(Const_Function_MRStdFunctionA value) {Opt = value;}
                 public static implicit operator _InOptConst_Function_MRStdFunctionAFunc(Const_Function_MRStdFunctionA value) {return new(value);}
-            }
+
+                public static unsafe implicit operator _InOptConst_Function_MRStdFunctionAFunc(MR.CS.Std.Function_MRStdFunctionA.Delegate func) {return new Function_MRStdFunctionA(func);}}
         }
     }
 }

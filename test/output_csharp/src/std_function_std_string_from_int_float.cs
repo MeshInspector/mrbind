@@ -90,7 +90,8 @@ public static partial class MR
                     extern static Const_Function_StdString_From_Int_Float._Underlying *__MR_C_std_function_std_string_from_int_float_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     _UnderlyingPtr = __MR_C_std_function_std_string_from_int_float_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
-            }
+
+                public static unsafe implicit operator Const_Function_StdString_From_Int_Float(MR.CS.Std.Function_StdString_From_Int_Float.Delegate func) {return new(func);}}
 
             /// Stores a functor of type: `std::string(int, float)`. Possibly stateful.
             /// This is the non-const half of the class.
@@ -171,7 +172,8 @@ public static partial class MR
                 public static implicit operator _ByValue_Function_StdStringFuncFromIntFloat(Const_Function_StdString_From_Int_Float arg) {return new(arg);}
                 public _ByValue_Function_StdStringFuncFromIntFloat(MR.CS.Misc._Moved<Function_StdString_From_Int_Float> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Function_StdStringFuncFromIntFloat(MR.CS.Misc._Moved<Function_StdString_From_Int_Float> arg) {return new(arg);}
-            }
+
+                public static unsafe implicit operator _ByValue_Function_StdStringFuncFromIntFloat(MR.CS.Std.Function_StdString_From_Int_Float.Delegate func) {return new Function_StdString_From_Int_Float(func);}}
 
             /// This is used for optional parameters of class `Function_StdString_From_Int_Float` with default arguments.
             /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_StdStringFuncFromIntFloat`.
@@ -201,7 +203,8 @@ public static partial class MR
                 public _InOptConst_Function_StdStringFuncFromIntFloat() {}
                 public _InOptConst_Function_StdStringFuncFromIntFloat(Const_Function_StdString_From_Int_Float value) {Opt = value;}
                 public static implicit operator _InOptConst_Function_StdStringFuncFromIntFloat(Const_Function_StdString_From_Int_Float value) {return new(value);}
-            }
+
+                public static unsafe implicit operator _InOptConst_Function_StdStringFuncFromIntFloat(MR.CS.Std.Function_StdString_From_Int_Float.Delegate func) {return new Function_StdString_From_Int_Float(func);}}
         }
     }
 }

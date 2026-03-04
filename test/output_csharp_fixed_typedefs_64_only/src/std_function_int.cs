@@ -100,7 +100,8 @@ public static partial class MR
                     extern static Const_Function_Int._Underlying *__MR_C_std_function_int_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     _UnderlyingPtr = __MR_C_std_function_int_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
-            }
+
+                public static unsafe implicit operator Const_Function_Int(MR.CS.Std.Function_Int.Delegate func) {return new(func);}}
 
             /// <summary>
             /// Stores a functor of type: `int(void)`. Possibly stateful.
@@ -201,7 +202,8 @@ public static partial class MR
                 public static implicit operator _ByValue_Function_IntFunc(Const_Function_Int arg) {return new(arg);}
                 public _ByValue_Function_IntFunc(MR.CS.Misc._Moved<Function_Int> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Function_IntFunc(MR.CS.Misc._Moved<Function_Int> arg) {return new(arg);}
-            }
+
+                public static unsafe implicit operator _ByValue_Function_IntFunc(MR.CS.Std.Function_Int.Delegate func) {return new Function_Int(func);}}
 
             /// <summary>
             /// This is used for optional parameters of class `Function_Int` with default arguments.
@@ -235,7 +237,8 @@ public static partial class MR
                 public _InOptConst_Function_IntFunc() {}
                 public _InOptConst_Function_IntFunc(Const_Function_Int value) {Opt = value;}
                 public static implicit operator _InOptConst_Function_IntFunc(Const_Function_Int value) {return new(value);}
-            }
+
+                public static unsafe implicit operator _InOptConst_Function_IntFunc(MR.CS.Std.Function_Int.Delegate func) {return new Function_Int(func);}}
         }
     }
 }

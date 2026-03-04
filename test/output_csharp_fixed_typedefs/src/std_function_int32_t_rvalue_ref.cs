@@ -100,7 +100,8 @@ public static partial class MR
                     extern static Const_Function_Int32TRvalueRef._Underlying *__MR_C_std_function_int32_t_rvalue_ref_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
                     _UnderlyingPtr = __MR_C_std_function_int32_t_rvalue_ref_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
-            }
+
+                public static unsafe implicit operator Const_Function_Int32TRvalueRef(MR.CS.Std.Function_Int32TRvalueRef.Delegate func) {return new(func);}}
 
             /// <summary>
             /// Stores a functor of type: `int32_t &amp;&amp;(void)`. Possibly stateful.
@@ -201,7 +202,8 @@ public static partial class MR
                 public static implicit operator _ByValue_Function_Int32TRvalueRefFunc(Const_Function_Int32TRvalueRef arg) {return new(arg);}
                 public _ByValue_Function_Int32TRvalueRefFunc(MR.CS.Misc._Moved<Function_Int32TRvalueRef> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
                 public static implicit operator _ByValue_Function_Int32TRvalueRefFunc(MR.CS.Misc._Moved<Function_Int32TRvalueRef> arg) {return new(arg);}
-            }
+
+                public static unsafe implicit operator _ByValue_Function_Int32TRvalueRefFunc(MR.CS.Std.Function_Int32TRvalueRef.Delegate func) {return new Function_Int32TRvalueRef(func);}}
 
             /// <summary>
             /// This is used for optional parameters of class `Function_Int32TRvalueRef` with default arguments.
@@ -235,7 +237,8 @@ public static partial class MR
                 public _InOptConst_Function_Int32TRvalueRefFunc() {}
                 public _InOptConst_Function_Int32TRvalueRefFunc(Const_Function_Int32TRvalueRef value) {Opt = value;}
                 public static implicit operator _InOptConst_Function_Int32TRvalueRefFunc(Const_Function_Int32TRvalueRef value) {return new(value);}
-            }
+
+                public static unsafe implicit operator _InOptConst_Function_Int32TRvalueRefFunc(MR.CS.Std.Function_Int32TRvalueRef.Delegate func) {return new Function_Int32TRvalueRef(func);}}
         }
     }
 }
