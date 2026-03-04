@@ -114,7 +114,7 @@ Type | C | C# | Python | Comments
 `std::span`               | ❌ | ❌ | ❌ | Unclear how to implement in Python, ideas welcome. Simple in C/C# but not yet implemented there.
 `std::filesystem::path`   | ✅ | ✅ | ✅ |
 `std::unique_ptr`         | ✅ | ✅ | ⚠️ | In Python it dissolves into the underlying type.<br/>In Python it can't be a function parameter. (Newer Pybind would allow us to suppor this via `pybind11::smart_holder`, but our minimum target version is too old for that.)
-`std::shared_ptr`         | ✅ | ❌ | ⚠️ | In Python it dissolves into the underlying type.<br/>In Python it can't point to built-in types, such as `int`, but can point to user classes (due to Pybind limitations).<br/>In C# it's currently buggy.
+`std::shared_ptr`         | ✅ | ✅ | ⚠️ | In Python it dissolves into the underlying type.<br/>In Python it can't point to built-in types, such as `int`, but can point to user classes (due to Pybind limitations).
 `std::weak_ptr`           | ❌ | ❌ | ❌ | In Python difficult to support because of Pybind limitations. In C/C# simply not implemented yet.
 `std::expected`           | ✅ | ✅ | ✅ | In C# and Python it's auto-dereferenced when returned, throwing if it holds an error.
 `tl::expected`            | ✅ | ✅ | ✅ | Same as `std::expected`.
