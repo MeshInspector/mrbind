@@ -5,3 +5,4 @@ cd "$SCRIPT_DIR"
 
 c/clean.sh
 csharp/clean.sh
+python/clean.sh

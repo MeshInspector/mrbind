@@ -30,6 +30,7 @@ EXTRA_GEN_FLAGS="
 
 set -x
 
+# Parse the input header.
 ../build/mrbind \
     input.h \
     -o csharp/c_library/tmp/parse_result.json \
@@ -42,6 +43,7 @@ set -x
     -resource-dir="$("$CLANG_CXX" -print-resource-dir)" \
     $EXTRA_PARSER_CXX_FLAGS
 
+# Generate the C bindings, required by the C# bindings.
 ../build/mrbind_gen_c \
     --input csharp/c_library/tmp/parse_result.json \
     --output-header-dir csharp/c_library/include \
@@ -54,6 +56,7 @@ set -x
     --force-emit-common-helpers \
     $EXTRA_GEN_C_FLAGS
 
+# Generate the C# bindings.
 ../build/mrbind_gen_csharp \
     --input-json csharp/c_library/tmp/c_desc.json \
     --output-dir csharp/csharp_library/src \
@@ -62,15 +65,19 @@ set -x
     --force-namespace Example \
     $EXTRA_GEN_FLAGS
 
-# The build step is only for clarity, since `dotnet run` below would do this automatically.
+# Build the C# library.
+# This is only done for clarity, since `dotnet run` below does this automatically.
 dotnet build csharp/csharp_library
 
+# Find the generated source files of the C bindings.
+# Those are C++ sources. Only the generated headers are C.
 SOURCES="$(find csharp/c_library/src -name *.cpp)"
 LIBRARY=
 
+# Compile the C bindings into a library. Using the C# bindings loads this library at runtime.
 if [[ $SOURCES ]]; then
     # The C bindings can be compiled with any C++ compiler, not necessarily Clang.
-    $CLANG_CXX \
+    "$CLANG_CXX" \
         -std=c++20 -Wall -Wextra -pedantic-errors \
         -Icsharp/c_library/include \
         -Icsharp/c_library/src \
@@ -84,4 +91,5 @@ else
     echo "The generator didn't produce any source files that need to be compiled."
 fi
 
+# Run a test executable.
 LD_LIBRARY_PATH=csharp/c_library dotnet run --project csharp/example_consumer

@@ -1,12 +1,14 @@
 # Generating Python bindings
 
+<!-- TODO: If Pybind fixes their bug, update this advice, and sync with `examples/python/run.sh`. -->
+
 We generate Python bindings using [Pybind11](https://github.com/pybind/pybind11). You can try using the latest version of it; or, at the time of writing this, the commit [`741d86f`](https://github.com/pybind/pybind11/commit/741d86f2e3527b667ba85d273a5eea19a0978ef5) is known to work. (Note that latest Pybind has a [bug](https://github.com/pybind/pybind11/issues/5976) that makes it crash when exiting Python when binding enums, consider using [this commit](https://github.com/pybind/pybind11/commit/15d9dae14b148509f3e1e7a42d5b1260fffff3ad) or older.)
 
 You're expected to have a basic understanding of how to work with Pybind. I recommend going through [the basic Pybind tutorial](https://pybind11.readthedocs.io/en/stable/basics.html), compiling at least one test module, and making sure you can import it in Python.
 
 Python modules are shared libraries (sometimes with a customized extension, typically `.pyd` instead of `.dll` on Windows, and `.so` elsewhere). When using Pybind, you create a `.cpp` file with a function that gets called on module import (using the `PYBIND11_MODULE` macro, the name passed to it must match the module filename minus the extension), where you register all your functions/classes using Pybind API (see the link above).
 
-Pybind is a header-only library, so you'll need to clone it and add it to your include paths. You also need some [platform-dependent linker flags](https://pybind11.readthedocs.io/en/stable/compiling.html#building-manually). On Windows, you must link `pythonXY.lib`. On Linux, you don't link anything (and rely on the default behavior of not checking for undefined references when building shared libraries). On Mac, you don't link anything and additionally pass `-Xlinker -undefined -Xlinker dynamic_lookup`.
+Pybind is a header-only library, so you'll need to clone it and add it to your include paths. You also need to add Python to the include paths (on Linux use `pkg-config --cflags python3-embed` or `... python-3.??-embed`). You also need some [platform-dependent linker flags](https://pybind11.readthedocs.io/en/stable/compiling.html#building-manually): On Windows, you must link `pythonXY.lib`. On Linux, you don't link anything (and rely on the default behavior of not checking for undefined references when building shared libraries). On Mac, you don't link anything and additionally pass `-Xlinker -undefined -Xlinker dynamic_lookup`.
 
 Modules generated with Pybind need to be recompiled on every OS, for every minor Python version (X.Y, e.g. 3.13) that you want to support. We have a [Pybind fork](https://github.com/MeshInspector/mrbind-pybind11) that produces Python-version-agnostic modules, but I suggest getting the upstream version to work first, and then thinking about portability.
 
@@ -69,7 +71,7 @@ There are more optional knobs to tune, but this should work.
 
 Try importing the resulting module and use `help(...)` and <kbd>Tab</kbd> to navigate around the contents.
 
-## Completeness of bindings
+## Completeness of the bindings
 
 Python bindings aren't checked for completeness neither on build nor when importing the Python module.
 
@@ -83,7 +85,7 @@ Stubs are the `.pyi` files that Python IDEs use to provide code completion for m
 
 Use the [`pybind11-stubgen`](https://pypi.org/project/pybind11-stubgen/) utility to generate them, same as you would with pure Pybind11 bindings.
 
-This also has a side effect of testing the bindings for [completeness](#completeness-of-bindings), `pybind11-stubgen` will complain if something is missing (but will still produce usable stubs, so this doesn't have to be a blocker).
+This also has a side effect of testing the bindings for [completeness](#completeness-of-the-bindings), `pybind11-stubgen` will complain if something is missing (but will still produce usable stubs, so this doesn't have to be a blocker).
 
 ## RAM usage during compilation; compiling in multiple fragments
 

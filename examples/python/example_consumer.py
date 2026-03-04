@@ -1,0 +1,3 @@
+import example
+
+example.SayHello()

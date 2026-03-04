@@ -27,6 +27,7 @@ EXTRA_GEN_FLAGS="
 
 set -x
 
+# Parse the input header.
 ../build/mrbind \
     input.h \
     -o c/output/tmp/parse_result.json \
@@ -38,6 +39,7 @@ set -x
     -resource-dir="$("$CLANG_CXX" -print-resource-dir)" \
     $EXTRA_PARSER_CXX_FLAGS
 
+# Generate the C bindings.
 ../build/mrbind_gen_c \
     --input c/output/tmp/parse_result.json \
     --output-header-dir c/output/include \
@@ -48,12 +50,15 @@ set -x
     --assume-include-dir .. \
     $EXTRA_GEN_FLAGS
 
+# Find the generated source files.
+# Those are C++ sources. Only the generated headers are C.
 SOURCES="$(find c/output/src -name *.cpp)"
 LIBRARY=
 
+# Compile the generated sources into a library.
 if [[ $SOURCES ]]; then
     # The C bindings can be compiled with any C++ compiler, not necessarily Clang.
-    $CLANG_CXX \
+    "$CLANG_CXX" \
         -std=c++20 -Wall -Wextra -pedantic-errors \
         -Ic/output/include \
         -Ic/output/src \
@@ -67,6 +72,7 @@ else
     echo "The generator didn't produce any source files that need to be compiled."
 fi
 
+# Compile the test executable.
 gcc \
     -std=c11 -Wall -Wextra -pedantic-errors \
     c/example_consumer.c \
@@ -74,4 +80,5 @@ gcc \
     -Lc/output $LIBRARY \
     -o c/output/example_consumer
 
+# Run the test executable.
 LD_LIBRARY_PATH=c/output c/output/example_consumer

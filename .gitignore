@@ -20,3 +20,5 @@ pybind11/
 /examples/csharp/csharp_library/obj
 /examples/csharp/example_consumer/bin
 /examples/csharp/example_consumer/obj
+/examples/python/pybind11
+/examples/python/output
