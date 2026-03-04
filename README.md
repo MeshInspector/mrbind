@@ -4,7 +4,7 @@ MRBind parses C++ headers and generates **C**, **C#**, and **Python** bindings f
 
 * The Python backend uses [pybind11](https://github.com/pybind/pybind11), with some custom logic to better handle certain types.
 
-* The C backend is custom.
+* The C backend is custom. We can dump the information about the generated C functions as JSON, so you can build bindings for other languages on top of those, like we do with C#.
 
 * The C# backend is custom, and uses `[DllImport]` to load the C bindings. The resulting C# assembly is cross-platform (at least across all of: Win/Linux/Mac, both x64 and ARM64) as long as you compile the generated C shared library for every platform you want to support.
 
