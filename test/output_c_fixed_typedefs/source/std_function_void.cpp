@@ -65,6 +65,11 @@ void MR_C_std_function_void_reset(MR_C_std_function_void *_this)
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(void)> *)(_this)) = nullptr;
 }
 
+void MR_C_std_function_void_call(const MR_C_std_function_void *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<void(void)> *)(_this)).operator()();
+}
+
 MR_C_std_function_void *MR_C_std_function_void_ConstructStateless(void (*func)(void))
 {
     return (MR_C_std_function_void *)new std::function<void(void)>(func ? std::function<void(void)>([_f = func](void) -> void

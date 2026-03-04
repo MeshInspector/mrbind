@@ -84,6 +84,13 @@ void MR_C_std_function_int_reset(MR_C_std_function_int *_this)
     ) // MRBINDC_TRY
 }
 
+int MR_C_std_function_int_call(const MR_C_std_function_int *_this)
+{
+    MRBINDC_TRY(
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<int(void)> *)(_this)).operator()();
+    ) // MRBINDC_TRY
+}
+
 MR_C_std_function_int *MR_C_std_function_int_ConstructStateless(int (*func)(void))
 {
     MRBINDC_TRY(

@@ -58,6 +58,10 @@ MR_C_API bool MR_C_std_function_int_from_int_int_has_value(const MR_C_std_functi
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_int_from_int_int_reset(MR_C_std_function_int_from_int_int *_this);
 
+/// Calls the stored callable.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API int MR_C_std_function_int_from_int_int_call(const MR_C_std_function_int_from_int_int *_this, int _1, int _2);
+
 /// Construct a stateless function.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_int_from_int_int_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_function_int_from_int_int *MR_C_std_function_int_from_int_int_ConstructStateless(int (*func)(int _1, int _2));

@@ -63,6 +63,10 @@ MR_C_API bool MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_has_value(const M
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_reset(MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *_this);
 
+// Calls the stored callable.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API MR_CSharp_E1 MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_call(const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *_this, MR_CSharp_E1 _1);
+
 // Construct a stateless function.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructStateless(MR_CSharp_E1 (*func)(MR_CSharp_E1 _1));

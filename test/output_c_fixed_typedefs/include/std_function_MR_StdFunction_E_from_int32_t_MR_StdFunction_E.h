@@ -64,6 +64,10 @@ MR_C_API bool MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_h
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_reset(MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this);
 
+// Calls the stored callable.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API MR_StdFunction_E MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_call(const MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *_this, int32_t _1, MR_StdFunction_E _2);
+
 // Construct a stateless function.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_ConstructStateless(MR_StdFunction_E (*func)(int32_t _1, MR_StdFunction_E _2));

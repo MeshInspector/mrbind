@@ -69,6 +69,19 @@ public static partial class MR
                     return __MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_has_value(_this._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
+                /// Calls the stored callable.
+                /// </summary>
+                public unsafe ref int call(ref int _1, MR.CS.Misc._MoveRef _move__2, int _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_call", ExactSpelling = true)]
+                    extern static int *__MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_call(_Underlying *_this, int *_1, int *_2);
+                    fixed (int *__ptr__1 = &_1)
+                    {
+                        return ref *__MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_call(_UnderlyingPtr, __ptr__1, &_2);
+                    }
+                }
+
                 // Custom extras:
 
                 public delegate ref int Delegate(ref int _1, ref readonly int _2);

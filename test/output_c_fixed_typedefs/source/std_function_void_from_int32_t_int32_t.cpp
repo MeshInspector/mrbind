@@ -66,6 +66,14 @@ void MR_C_std_function_void_from_int32_t_int32_t_reset(MR_C_std_function_void_fr
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(int32_t, int32_t)> *)(_this)) = nullptr;
 }
 
+void MR_C_std_function_void_from_int32_t_int32_t_call(const MR_C_std_function_void_from_int32_t_int32_t *_this, int32_t _1, int32_t _2)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<void(int32_t, int32_t)> *)(_this)).operator()(
+        _1,
+        _2
+    );
+}
+
 MR_C_std_function_void_from_int32_t_int32_t *MR_C_std_function_void_from_int32_t_int32_t_ConstructStateless(void (*func)(int32_t _1, int32_t _2))
 {
     return (MR_C_std_function_void_from_int32_t_int32_t *)new std::function<void(int32_t, int32_t)>(func ? std::function<void(int32_t, int32_t)>([_f = func](int32_t _1, int32_t _2) -> void

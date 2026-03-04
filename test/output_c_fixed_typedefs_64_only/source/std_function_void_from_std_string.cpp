@@ -66,6 +66,13 @@ void MR_C_std_function_void_from_std_string_reset(MR_C_std_function_void_from_st
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(std::string)> *)(_this)) = nullptr;
 }
 
+void MR_C_std_function_void_from_std_string_call(const MR_C_std_function_void_from_std_string *_this, const char *_1, const char *_1_end)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<void(std::string)> *)(_this)).operator()(
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), (_1_end ? std::string(_1, _1_end) : std::string(_1)))
+    );
+}
+
 MR_C_std_function_void_from_std_string *MR_C_std_function_void_from_std_string_ConstructStateless(void (*func)(MR_C_std_string *_1))
 {
     return (MR_C_std_function_void_from_std_string *)new std::function<void(std::string)>(func ? std::function<void(std::string)>([_f = func](std::string _1) -> void

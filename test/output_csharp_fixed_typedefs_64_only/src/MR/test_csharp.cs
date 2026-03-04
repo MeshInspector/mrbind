@@ -26651,6 +26651,7 @@ public static partial class MR
                 return __MR_CSharp_test_int(a, b.HasValue ? &__deref_b : null);
             }
 
+            // Marking this `noexcept` for testing.
             /// <summary>
             /// Generated from function `MR::CSharp::test_bool`.
             /// Parameter `b` defaults to `true`.

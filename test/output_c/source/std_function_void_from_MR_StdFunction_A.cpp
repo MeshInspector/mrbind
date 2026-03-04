@@ -86,6 +86,16 @@ void MR_C_std_function_void_from_MR_StdFunction_A_reset(MR_C_std_function_void_f
     ) // MRBINDC_TRY
 }
 
+void MR_C_std_function_void_from_MR_StdFunction_A_call(const MR_C_std_function_void_from_MR_StdFunction_A *_this, MR_C_PassBy _1_pass_by, MR_StdFunction_A *_1)
+{
+    MRBINDC_TRY(
+    MRBINDC_CLASSARG_GUARD(_1, MR::StdFunction::A);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<void(MR::StdFunction::A)> *)(_this)).operator()(
+        (MRBINDC_CLASSARG_DEF_CTOR(_1, MR::StdFunction::A) MRBINDC_CLASSARG_COPY(_1, (MR::StdFunction::A), MR::StdFunction::A) MRBINDC_CLASSARG_MOVE(_1, (MR::StdFunction::A), MR::StdFunction::A) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::StdFunction::A) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::StdFunction::A) MRBINDC_CLASSARG_END(_1, MR::StdFunction::A))
+    );
+    ) // MRBINDC_TRY
+}
+
 MR_C_std_function_void_from_MR_StdFunction_A *MR_C_std_function_void_from_MR_StdFunction_A_ConstructStateless(void (*func)(MR_StdFunction_A *_1))
 {
     MRBINDC_TRY(

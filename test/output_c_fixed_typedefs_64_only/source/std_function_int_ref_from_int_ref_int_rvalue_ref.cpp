@@ -7,6 +7,7 @@
 #include <functional>
 #include <memory>
 #include <stdexcept>
+#include <utility>
 
 
 MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_DefaultConstruct(void)
@@ -63,6 +64,14 @@ bool MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_has_value(const MR_C_
 void MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_reset(MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int &(int &, int &&)> *)(_this)) = nullptr;
+}
+
+int *MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_call(const MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *_this, int *_1, int *_2)
+{
+    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<int &(int &, int &&)> *)(_this)).operator()(
+        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1),
+        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), std::move(*_2))
+    ));
 }
 
 MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_ConstructStateless(int *(*func)(int *_1, int *_2))

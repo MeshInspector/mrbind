@@ -60,6 +60,12 @@ MR_C_API bool MR_C_std_function_int_from_std_string_has_value(const MR_C_std_fun
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_int_from_std_string_reset(MR_C_std_function_int_from_std_string *_this);
 
+/// Calls the stored callable.
+/// Parameter `_this` can not be null. It is a single object.
+/// Parameter `_1` can not be null.
+/// If `_1_end` is null, then `_1` is assumed to be null-terminated.
+MR_C_API int MR_C_std_function_int_from_std_string_call(const MR_C_std_function_int_from_std_string *_this, const char *_1, const char *_1_end);
+
 /// Construct a stateless function.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_int_from_std_string_Destroy()` to free it when you're done using it.
 /// Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.

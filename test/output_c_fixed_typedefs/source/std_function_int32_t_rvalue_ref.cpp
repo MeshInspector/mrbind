@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <functional>
+#include <memory>
 #include <stdexcept>
 #include <utility>
 
@@ -65,6 +66,11 @@ bool MR_C_std_function_int32_t_rvalue_ref_has_value(const MR_C_std_function_int3
 void MR_C_std_function_int32_t_rvalue_ref_reset(MR_C_std_function_int32_t_rvalue_ref *_this)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int32_t &&(void)> *)(_this)) = nullptr;
+}
+
+int32_t *MR_C_std_function_int32_t_rvalue_ref_call(const MR_C_std_function_int32_t_rvalue_ref *_this)
+{
+    return std::addressof(mrbindc_details::unmove(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<int32_t &&(void)> *)(_this)).operator()()));
 }
 
 MR_C_std_function_int32_t_rvalue_ref *MR_C_std_function_int32_t_rvalue_ref_ConstructStateless(int32_t *(*func)(void))

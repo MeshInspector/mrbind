@@ -89,11 +89,18 @@ namespace mrbind::C::Modules
             }
 
 
-            // Find parameter usages for the wrapped function.
+            // Find parameter types and usages for the wrapped function.
+
+            std::vector<cppdecl::Type> callback_param_cpp_types;
+            callback_param_cpp_types.reserve(cpp_elem_type.As<cppdecl::Function>()->params.size());
+
             std::vector<const Generator::BindableType::ReturnUsage *> callback_param_usages;
             callback_param_usages.reserve(cpp_elem_type.As<cppdecl::Function>()->params.size());
+
             for (const auto &param : cpp_elem_type.As<cppdecl::Function>()->params)
             {
+                callback_param_cpp_types.push_back(param.type);
+
                 // Adjust the type by replacing non-references with rvalue references, but only if they are not simple enough types, such as scalars or enums.
                 // This adds the weird comments, but at least the callback no longer needs to deallocate heap objects all the time. This is too dumb otherwise.
                 // This condition (`IsSimplyBindableDirectCast()`) needs to be synced with C#.
@@ -187,6 +194,7 @@ namespace mrbind::C::Modules
                 type,
                 cpp_elem_type,
                 cpp_callback_return_type,
+                callback_param_cpp_types,
                 output_parameters_base_name,
                 c_type_name_base,
                 c_func_type,
@@ -226,6 +234,26 @@ namespace mrbind::C::Modules
                         emit.name = binder.MakeMemberFuncName(generator, "reset");
                         emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), false);
                         emit.cpp_called_func = "@this@ = nullptr";
+                        generator.EmitFunction(file, emit);
+                    }
+
+                    { // Call.
+                        Generator::EmitFuncParams emit;
+                        emit.c_comment += "/// Calls the stored callable.";
+                        emit.name = binder.MakeMemberFuncName(generator, "call", CInterop::MethodKinds::Operator{.token = "()"});
+
+                        emit.AddThisParam(cppdecl::Type::FromQualifiedName(binder.cpp_type_name), true);
+
+                        emit.cpp_return_type = cpp_callback_return_type;
+                        for (std::size_t i = 0; i < callback_param_cpp_types.size(); i++)
+                        {
+                            emit.params.push_back({
+                                .name = "_" + std::to_string(i + 1), // 1-based indices for user-friendliness.
+                                .cpp_type = callback_param_cpp_types[i],
+                            });
+                        }
+
+                        emit.cpp_called_func = "operator()"; // It's easier to do this than `"@this@"`, since the latter will omit `()` when there are no arguments.
                         generator.EmitFunction(file, emit);
                     }
 

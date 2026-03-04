@@ -58,6 +58,12 @@ MR_C_API bool MR_C_std_function_int_rvalue_ref_has_value(const MR_C_std_function
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_int_rvalue_ref_reset(MR_C_std_function_int_rvalue_ref *_this);
 
+/// Calls the stored callable.
+/// Parameter `_this` can not be null. It is a single object.
+/// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+/// In C++ returns an rvalue reference.
+MR_C_API int *MR_C_std_function_int_rvalue_ref_call(const MR_C_std_function_int_rvalue_ref *_this);
+
 /// Construct a stateless function.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_int_rvalue_ref_Destroy()` to free it when you're done using it.
 /// Callback return value can not be null.

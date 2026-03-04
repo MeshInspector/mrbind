@@ -66,6 +66,14 @@ void MR_C_std_function_int32_t_from_int32_t_int32_t_reset(MR_C_std_function_int3
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int32_t(int32_t, int32_t)> *)(_this)) = nullptr;
 }
 
+int32_t MR_C_std_function_int32_t_from_int32_t_int32_t_call(const MR_C_std_function_int32_t_from_int32_t_int32_t *_this, int32_t _1, int32_t _2)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<int32_t(int32_t, int32_t)> *)(_this)).operator()(
+        _1,
+        _2
+    );
+}
+
 MR_C_std_function_int32_t_from_int32_t_int32_t *MR_C_std_function_int32_t_from_int32_t_int32_t_ConstructStateless(int32_t (*func)(int32_t _1, int32_t _2))
 {
     return (MR_C_std_function_int32_t_from_int32_t_int32_t *)new std::function<int32_t(int32_t, int32_t)>(func ? std::function<int32_t(int32_t, int32_t)>([_f = func](int32_t _1, int32_t _2) -> int32_t

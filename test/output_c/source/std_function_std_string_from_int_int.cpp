@@ -85,6 +85,16 @@ void MR_C_std_function_std_string_from_int_int_reset(MR_C_std_function_std_strin
     ) // MRBINDC_TRY
 }
 
+MR_C_std_string *MR_C_std_function_std_string_from_int_int_call(const MR_C_std_function_std_string_from_int_int *_this, int _1, int _2)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_string *)new std::string(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<std::string(int, int)> *)(_this)).operator()(
+        _1,
+        _2
+    ));
+    ) // MRBINDC_TRY
+}
+
 MR_C_std_function_std_string_from_int_int *MR_C_std_function_std_string_from_int_int_ConstructStateless(MR_C_std_string *(*func)(MR_C_PassBy *_return_pass_by, int _1, int _2))
 {
     MRBINDC_TRY(

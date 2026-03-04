@@ -57,6 +57,14 @@ public static partial class MR
                     return __MR_C_std_function_void_has_value(_this._UnderlyingPtr) != 0;
                 }
 
+                /// Calls the stored callable.
+                public unsafe void Call()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_call", ExactSpelling = true)]
+                    extern static void __MR_C_std_function_void_call(_Underlying *_this);
+                    __MR_C_std_function_void_call(_UnderlyingPtr);
+                }
+
                 // Custom extras:
 
                 public delegate void Delegate();

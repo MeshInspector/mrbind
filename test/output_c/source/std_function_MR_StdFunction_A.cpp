@@ -85,6 +85,13 @@ void MR_C_std_function_MR_StdFunction_A_reset(MR_C_std_function_MR_StdFunction_A
     ) // MRBINDC_TRY
 }
 
+MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_call(const MR_C_std_function_MR_StdFunction_A *_this)
+{
+    MRBINDC_TRY(
+    return (MR_StdFunction_A *)new MR::StdFunction::A(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<MR::StdFunction::A(void)> *)(_this)).operator()());
+    ) // MRBINDC_TRY
+}
+
 MR_C_std_function_MR_StdFunction_A *MR_C_std_function_MR_StdFunction_A_ConstructStateless(MR_StdFunction_A *(*func)(MR_C_PassBy *_return_pass_by))
 {
     MRBINDC_TRY(

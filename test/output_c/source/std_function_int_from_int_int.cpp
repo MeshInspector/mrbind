@@ -84,6 +84,16 @@ void MR_C_std_function_int_from_int_int_reset(MR_C_std_function_int_from_int_int
     ) // MRBINDC_TRY
 }
 
+int MR_C_std_function_int_from_int_int_call(const MR_C_std_function_int_from_int_int *_this, int _1, int _2)
+{
+    MRBINDC_TRY(
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<int(int, int)> *)(_this)).operator()(
+        _1,
+        _2
+    );
+    ) // MRBINDC_TRY
+}
+
 MR_C_std_function_int_from_int_int *MR_C_std_function_int_from_int_int_ConstructStateless(int (*func)(int _1, int _2))
 {
     MRBINDC_TRY(

@@ -57,6 +57,14 @@ public static partial class MR
                     return __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_has_value(_this._UnderlyingPtr) != 0;
                 }
 
+                /// Calls the stored callable.
+                public unsafe MR.CS.CSharp.ExposedLayoutC Call(MR.CS.CSharp.ExposedLayoutC _1)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call", ExactSpelling = true)]
+                    extern static MR.CS.CSharp.ExposedLayoutC __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(_Underlying *_this, MR.CS.CSharp.ExposedLayoutC _1);
+                    return __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(_UnderlyingPtr, _1);
+                }
+
                 // Custom extras:
 
                 public delegate MR.CS.CSharp.ExposedLayoutC Delegate(ref readonly MR.CS.CSharp.ExposedLayoutC _1);

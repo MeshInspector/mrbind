@@ -66,6 +66,13 @@ void MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_re
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)> *)(_this)) = nullptr;
 }
 
+MR_CSharp_ExposedLayoutC MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *_this, MR_CSharp_ExposedLayoutC _1)
+{
+    return MRBINDC_BIT_CAST((MR_CSharp_ExposedLayoutC), ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)> *)(_this)).operator()(
+        MRBINDC_BIT_CAST((MR::CSharp::ExposedLayoutC), _1)
+    ));
+}
+
 MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_ConstructStateless(MR_CSharp_ExposedLayoutC (*func)(MR_CSharp_ExposedLayoutC *_1))
 {
     return (MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)new std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>(func ? std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>([_f = func](MR::CSharp::ExposedLayoutC _1) -> MR::CSharp::ExposedLayoutC

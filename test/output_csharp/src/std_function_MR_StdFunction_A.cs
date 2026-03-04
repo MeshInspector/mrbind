@@ -57,6 +57,14 @@ public static partial class MR
                     return __MR_C_std_function_MR_StdFunction_A_has_value(_this._UnderlyingPtr) != 0;
                 }
 
+                /// Calls the stored callable.
+                public unsafe MR.CS.StdFunction.A Call()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_A_call", ExactSpelling = true)]
+                    extern static MR.CS.StdFunction.A._Underlying *__MR_C_std_function_MR_StdFunction_A_call(_Underlying *_this);
+                    return new(__MR_C_std_function_MR_StdFunction_A_call(_UnderlyingPtr), is_owning: true);
+                }
+
                 // Custom extras:
 
                 public delegate MR.CS.StdFunction._ByValue_A Delegate();

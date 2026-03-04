@@ -63,6 +63,10 @@ MR_C_API bool MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedL
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_reset(MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *_this);
 
+// Calls the stored callable.
+// Parameter `_this` can not be null. It is a single object.
+MR_C_API MR_CSharp_ExposedLayoutC MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_call(const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *_this, MR_CSharp_ExposedLayoutC _1);
+
 // Construct a stateless function.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_Destroy()` to free it when you're done using it.
 // Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.

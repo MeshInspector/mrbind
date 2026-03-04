@@ -85,6 +85,16 @@ void MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_reset(MR_C_std
     ) // MRBINDC_TRY
 }
 
+MR_StdFunction_E MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_call(const MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *_this, int _1, MR_StdFunction_E _2)
+{
+    MRBINDC_TRY(
+    return (MR_StdFunction_E)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<MR::StdFunction::E(int, MR::StdFunction::E)> *)(_this)).operator()(
+        _1,
+        ((MR::StdFunction::E)_2)
+    ));
+    ) // MRBINDC_TRY
+}
+
 MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E *MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructStateless(MR_StdFunction_E (*func)(int _1, MR_StdFunction_E _2))
 {
     MRBINDC_TRY(

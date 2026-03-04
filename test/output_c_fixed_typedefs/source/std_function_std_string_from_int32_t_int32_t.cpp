@@ -67,6 +67,14 @@ void MR_C_std_function_std_string_from_int32_t_int32_t_reset(MR_C_std_function_s
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<std::string(int32_t, int32_t)> *)(_this)) = nullptr;
 }
 
+MR_C_std_string *MR_C_std_function_std_string_from_int32_t_int32_t_call(const MR_C_std_function_std_string_from_int32_t_int32_t *_this, int32_t _1, int32_t _2)
+{
+    return (MR_C_std_string *)new std::string(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<std::string(int32_t, int32_t)> *)(_this)).operator()(
+        _1,
+        _2
+    ));
+}
+
 MR_C_std_function_std_string_from_int32_t_int32_t *MR_C_std_function_std_string_from_int32_t_int32_t_ConstructStateless(MR_C_std_string *(*func)(MR_C_PassBy *_return_pass_by, int32_t _1, int32_t _2))
 {
     return (MR_C_std_function_std_string_from_int32_t_int32_t *)new std::function<std::string(int32_t, int32_t)>(func ? std::function<std::string(int32_t, int32_t)>([_f = func](int32_t _1, int32_t _2) -> std::string

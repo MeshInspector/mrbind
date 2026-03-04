@@ -60,6 +60,10 @@ MR_C_API bool MR_C_std_function_void_from_MR_StdFunction_A_has_value(const MR_C_
 /// Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_void_from_MR_StdFunction_A_reset(MR_C_std_function_void_from_MR_StdFunction_A *_this);
 
+/// Calls the stored callable.
+/// Parameter `_this` can not be null. It is a single object.
+MR_C_API void MR_C_std_function_void_from_MR_StdFunction_A_call(const MR_C_std_function_void_from_MR_StdFunction_A *_this, MR_C_PassBy _1_pass_by, MR_StdFunction_A *_1);
+
 /// Construct a stateless function.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_void_from_MR_StdFunction_A_Destroy()` to free it when you're done using it.
 /// Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.

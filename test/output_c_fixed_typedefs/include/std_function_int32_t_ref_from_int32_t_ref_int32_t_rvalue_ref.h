@@ -63,6 +63,15 @@ MR_C_API bool MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_
 // Parameter `_this` can not be null. It is a single object.
 MR_C_API void MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_reset(MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref *_this);
 
+// Calls the stored callable.
+// Parameter `_this` can not be null. It is a single object.
+// Parameter `_1` can not be null. It is a single object.
+// Parameter `_2` can not be null. It is a single object.
+// In C++ this parameter takes an rvalue reference: it might invalidate the passed object,
+//   but if your pointer is owning, you must still destroy it manually later.
+// The returned pointer will never be null. It is non-owning, do NOT destroy it.
+MR_C_API int32_t *MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_call(const MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref *_this, int32_t *_1, int32_t *_2);
+
 // Construct a stateless function.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_function_int32_t_ref_from_int32_t_ref_int32_t_rvalue_ref_Destroy()` to free it when you're done using it.
 // Callback parameter `_1` will never be null. It is non-owning, do NOT destroy it.

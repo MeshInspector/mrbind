@@ -85,6 +85,15 @@ void MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_reset(MR_C_std_function_MR
     ) // MRBINDC_TRY
 }
 
+MR_CSharp_E1 MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_call(const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *_this, MR_CSharp_E1 _1)
+{
+    MRBINDC_TRY(
+    return (MR_CSharp_E1)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<MR::CSharp::E1(MR::CSharp::E1)> *)(_this)).operator()(
+        ((MR::CSharp::E1)_1)
+    ));
+    ) // MRBINDC_TRY
+}
+
 MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructStateless(MR_CSharp_E1 (*func)(MR_CSharp_E1 _1))
 {
     MRBINDC_TRY(

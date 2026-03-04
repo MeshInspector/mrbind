@@ -69,6 +69,16 @@ public static partial class MR
                     return __MR_C_std_function_std_string_from_int32_t_int32_t_has_value(_this._UnderlyingPtr) != 0;
                 }
 
+                /// <summary>
+                /// Calls the stored callable.
+                /// </summary>
+                public unsafe MR.CS.Misc._Moved<MR.CS.Std.String> call(int _1, int _2)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int32_t_int32_t_call", ExactSpelling = true)]
+                    extern static MR.CS.Std.String._Underlying *__MR_C_std_function_std_string_from_int32_t_int32_t_call(_Underlying *_this, int _1, int _2);
+                    return MR.CS.Misc.Move(new MR.CS.Std.String(__MR_C_std_function_std_string_from_int32_t_int32_t_call(_UnderlyingPtr, _1, _2), is_owning: true));
+                }
+
                 // Custom extras:
 
                 public delegate MR.CS.Std._ByValue_String Delegate(int _1, int _2);
