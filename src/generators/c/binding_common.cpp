@@ -704,7 +704,6 @@ namespace mrbind::C
     {
         Generator::BindableType ret;
 
-        ret.traits = Generator::TypeTraits::Trivial{};
 
         // Custom handling for `void`.
         if (cpp_type.AsSingleWord() == "void")
@@ -716,8 +715,12 @@ namespace mrbind::C
 
             ret.interop_info = CInterop::TypeKinds::Void{};
 
+            ret.traits = Generator::TypeTraits::Nothing{};
+
             return ret;
         }
+
+        ret.traits = Generator::TypeTraits::Trivial{};
 
         if (override_size_and_alignment)
         {

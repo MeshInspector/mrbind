@@ -52,7 +52,8 @@ namespace mrbind::C::Modules
             HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name, std::move(customized_c_name));
 
             binder.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{}; // The triviality can get reset by the `CombineCommonProperties()` below if necessary.
-            binder.traits->CombineCommonProperties(generator.FindTypeTraits(cpp_elem_type_value));
+            if (cpp_elem_type_value.AsSingleWord() != "void")
+                binder.traits->CombineCommonProperties(generator.FindTypeTraits(cpp_elem_type_value));
             binder.traits->CombineCommonProperties(generator.FindTypeTraits(cpp_elem_type_error));
 
             const bool value_type_is_void = cpp_elem_type_value == cppdecl::Type::FromSingleWord("void");
