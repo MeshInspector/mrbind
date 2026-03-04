@@ -15,9 +15,9 @@ pybind11/
 /examples/cxx.txt
 /examples/c/output
 /examples/csharp/c_library
-/examples/csharp/csharp_library/src
-/examples/csharp/csharp_library/bin
-/examples/csharp/csharp_library/obj
+/examples/csharp/library/src
+/examples/csharp/library/bin
+/examples/csharp/library/obj
 /examples/csharp/example_consumer/bin
 /examples/csharp/example_consumer/obj
 /examples/python/pybind11

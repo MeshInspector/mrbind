@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\csharp_library\csharp_library.csproj" />
+    <ProjectReference Include="..\library\library.csproj" />
   </ItemGroup>
 
 </Project>

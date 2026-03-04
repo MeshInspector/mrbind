@@ -59,7 +59,7 @@ set -x
 # Generate the C# bindings.
 ../build/mrbind_gen_csharp \
     --input-json csharp/c_library/tmp/c_desc.json \
-    --output-dir csharp/csharp_library/src \
+    --output-dir csharp/library/src \
     --imported-lib-name example \
     --helpers-namespace Example \
     --force-namespace Example \
@@ -67,7 +67,7 @@ set -x
 
 # Build the C# library.
 # This is only done for clarity, since `dotnet run` below does this automatically.
-dotnet build csharp/csharp_library
+dotnet build csharp/library
 
 # Find the generated source files of the C bindings.
 # Those are C++ sources. Only the generated headers are C.
