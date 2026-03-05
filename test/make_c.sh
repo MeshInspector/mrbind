@@ -12,7 +12,7 @@ fi
 # Clone phmap if missing:
 [[ -d test/input/parallel-hashmap ]] || git clone https://github.com/greg7mdp/parallel-hashmap test/input/parallel-hashmap
 
-echo test/input/MR/*.h | perl -pe 's|[\s\n]*test/([^\s\n]+)[\s\n]*|#include <\1>\n|g' >test/input/all.h
+echo test/input/{MR,A,B}/*.h | perl -pe 's|[\s\n]*test/([^\s\n]+)[\s\n]*|#include <\1>\n|g' >test/input/all.h
 
 
 MRBIND_FLAGS=(
@@ -123,6 +123,8 @@ build/mrbind_gen_c \
     --add-convenience-includes \
     --preferred-max-num-aggregate-init-fields 8 \
     --no-handle-exceptions \
+    --split-library MR_CA_ A \
+    --split-library MR_CB_ B \
 
 # This third build is to test the `--canonicalize-64-to-fixed-size-typedefs` variant of the typedefs (64 bits only).
 build/mrbind \
@@ -146,6 +148,7 @@ build/mrbind_gen_c \
     --bind-shared-ptr-virally \
     --force-emit-common-helpers \
     --no-handle-exceptions \
+    --split-library MR_CAB_ AB/common:A:B \
 
 
 "$CXX" \

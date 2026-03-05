@@ -89,16 +89,16 @@ namespace mrbind
             static constexpr bool is_map_like = false;
             using value_type = T;
         };
-        template <typename T>
-        struct RangeTraits<OrderedSet<T>>
+        template <typename T, typename Less>
+        struct RangeTraits<OrderedSet<T, Less>>
         {
             static constexpr bool is_range = true;
             static constexpr bool is_fixed_size = false;
             static constexpr bool is_map_like = false;
             using value_type = T;
         };
-        template <typename T, typename U>
-        struct RangeTraits<OrderedMap<T, U>>
+        template <typename T, typename U, typename Less>
+        struct RangeTraits<OrderedMap<T, U, Less>>
         {
             static constexpr bool is_range = true;
             static constexpr bool is_fixed_size = false;

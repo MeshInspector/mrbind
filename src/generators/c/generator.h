@@ -64,6 +64,24 @@ namespace mrbind::C
         // Same, but for macros. If not specified, defaults to `helper_name_prefix_opt`.
         std::string helper_macro_name_prefix_opt;
 
+        // This is used to customize behavior for certain groups of output files.
+        struct OutputGroup
+        {
+            // The macro prefix. Replaces `helper_macro_name_prefix_opt` for this group.
+            std::string helper_macro_name_prefix;
+
+            // Will output the exports header relative to this. This is a relative path.
+            std::filesystem::path primary_relative_file_dir;
+        };
+
+        // This is used to give customized export macros to certain files.
+        // Use `output_group_indices` to select the index.
+        std::vector<OutputGroup> output_groups;
+
+        // The keys are relative output directories. Those must end with a slash.
+        // The values are indices into `output_groups`.
+        std::map<std::string, std::size_t, Strings::OrderByDecreasingLength> output_group_indices;
+
         // Always emit the helpers file, even if not needed.
         bool force_emit_helpers_file = false;
 
@@ -131,34 +149,6 @@ namespace mrbind::C
 
         // The extra modules that were loaded.
         std::vector<std::unique_ptr<Module>> modules;
-
-
-        // Prefixes the name with whatever was passed to `--custom-name-prefix`.
-        // This is for the custom names, as opposed to the parsed ones.
-        [[nodiscard]] std::string MakePublicHelperName(std::string_view name) const
-        {
-            std::string ret = helper_name_prefix_opt;
-            if (ret.empty())
-                throw std::runtime_error("Must specify `--helper-name-prefix ...`.");
-            ret += name;
-            return ret;
-        }
-        // Same, but for macros.
-        [[nodiscard]] std::string MakePublicHelperMacroName(std::string_view name) const
-        {
-            // Default to `MakePublicHelperName()` if not specified.
-            if (helper_macro_name_prefix_opt.empty())
-                return MakePublicHelperName(name);
-
-            std::string ret = helper_macro_name_prefix_opt;
-            ret += name;
-            return ret;
-        }
-        // Same, but for private macros.
-        [[nodiscard]] std::string MakeDetailHelperMacroName(std::string_view name) const
-        {
-            return MakePublicHelperMacroName("DETAIL_" + std::string(name));
-        }
 
 
         // Describes one header and its source file that we're generating.
@@ -241,6 +231,11 @@ namespace mrbind::C
             // This is automatically included into `source` only if it's non-empty.
             SpecificFileContents internal_header;
 
+            // The cached export macro name for this file.
+            // For internal use by `GetOutputGroupForFile()`. Use that function, don't access this directly.
+            // This gets set to `-1` if this file doesn't belong to any group.
+            std::optional<std::size_t> cached_output_group;
+
             enum class InitFlags
             {
                 no_extern_c = 1 << 0,
@@ -259,6 +254,47 @@ namespace mrbind::C
         // The filenames that are too long (and get shortened with the name hash added at the end) get added here, in their shortened form.
         // We use this to check for duplicates.
         std::unordered_set<std::string> long_filenames_with_hashes;
+
+
+        // Prefixes the name with whatever was passed to `--custom-name-prefix`.
+        // This is for the custom names, as opposed to the parsed ones.
+        [[nodiscard]] std::string MakePublicHelperName(std::string_view name) const
+        {
+            std::string ret = helper_name_prefix_opt;
+            if (ret.empty())
+                throw std::runtime_error("Must specify `--helper-name-prefix ...`.");
+            ret += name;
+            return ret;
+        }
+        // Same, but for macros.
+        [[nodiscard]] std::string MakePublicHelperMacroName(std::string_view name) const
+        {
+            // Default to `MakePublicHelperName()` if not specified.
+            if (helper_macro_name_prefix_opt.empty())
+                return MakePublicHelperName(name);
+
+            std::string ret = helper_macro_name_prefix_opt;
+            ret += name;
+            return ret;
+        }
+        // Same, but for private macros.
+        [[nodiscard]] std::string MakeDetailHelperMacroName(std::string_view name) const
+        {
+            return MakePublicHelperMacroName("DETAIL_" + std::string(name));
+        }
+
+        // Determines the output group for `file` (as specified by `--split-library`), or null if it doesn't belong to any group.
+        [[nodiscard]] const OutputGroup *GetOutputGroupForFile(OutputFile &file);
+
+        // Same as `MakePublicHelperMacroName`, but allowing file-specific names, affected by `--split-library`.
+        [[nodiscard]] std::string MakePublicHelperMacroNameForFile(OutputFile &file, std::string_view name)
+        {
+            auto ptr = GetOutputGroupForFile(file);
+            if (ptr && !ptr->helper_macro_name_prefix.empty())
+                return ptr->helper_macro_name_prefix + std::string(name);
+            else
+                return MakePublicHelperMacroName(name);
+        }
 
 
         // Which directories are expected added via the `-I` flags. We use this to decide what filenames to pass to `#include`.
@@ -292,19 +328,26 @@ namespace mrbind::C
 
         // Returns a public helper header with this name.
         // Normally it gets created on the first use, so this never returns null. But if you pass `can_create == false`, it'll return null if the file doesn't exist.
-        [[nodiscard]] OutputFile *GetPublicHelperFile(std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {}, bool can_create = true);
+        [[nodiscard]] OutputFile *GetPublicHelperFile(std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {}, bool can_create = true)
+        {
+            return GetPublicHelperFileForFile(nullptr, name, is_new, init_flags, can_create);
+        }
+
+        // Like `GetPublicHelperFile()`, but lets you optionally specify a file. We determine its group, and if there's one, then place the header in group-specific directory.
+        [[nodiscard]] OutputFile *GetPublicHelperFileForFile(OutputFile *file, std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {}, bool can_create = true);
+
+
+        // Those are names (as passed to `#include`) of headers that are known to be export headers.
+        // This is read-only, it's filled by `GetExportMacroForFile()` which creates those export headers.
+        std::unordered_set<std::string> known_export_headers;
 
         // Returns the appropriate export macro for the specified output file.
-        // Also modifies that file to include the header where the macro is declared, and creates that header on the first use too.
-        // If `for_internal_header` is false, acts on the public C header. If true, acts on the internal C++ header.
-        [[nodiscard]] std::string GetExportMacroForFile(OutputFile &target_file, bool for_internal_header);
-
-        // Returns true if this header is a header created by `GetExportMacroForFile()`.
-        [[nodiscard]] bool IsExportHeader(std::string_view path_for_inclusion);
+        // Also modifies that file to include the header where the macro is declared, and creates that header on the first use.
+        [[nodiscard]] std::string GetExportMacroForFile(OutputFile &target_file);
 
         // Returns the macro that when defined enables the function exporting. It's defined automatically in all our source files.
         // This function doesn't modify the file, unlike `GetExportMacroForFile()`.
-        [[nodiscard]] std::string GetBuildLibraryMacroForFile(const OutputFile &target_file);
+        [[nodiscard]] std::string GetBuildLibraryMacroForFile(OutputFile &target_file);
 
         // Returns the macro that can be used for checking if the exception support is enabled or not.
         // Only call this if `enable_exceptions_support` is true.
@@ -1564,7 +1607,10 @@ namespace mrbind::C
         // Creates a description of an output file for interop purposes.
         [[nodiscard]] CInterop::OutputFile MakeOutputFileDescForInterop(OutputFile &file)
         {
-            return {.relative_name = file.relative_name};
+            return {
+                .relative_name = file.relative_name,
+                .group = MakePublicHelperMacroNameForFile(file, ""), // Pass an empty string to extract only the macro prefix.
+            };
         }
 
 
@@ -1730,6 +1776,6 @@ namespace mrbind::C
         void Generate();
 
 
-        void DumpFileToOstream(const OutputFile &context, const OutputFile::SpecificFileContents &file, std::ostream &out);
+        void DumpFileToOstream(OutputFile &context, const OutputFile::SpecificFileContents &file, std::ostream &out);
     };
 }

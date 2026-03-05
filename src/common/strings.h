@@ -2,9 +2,21 @@
 
 #include <string_view>
 #include <string>
+#include <tuple>
 
 namespace mrbind::Strings
 {
+    // This orders strings by decreasing length, and falls back to the regular `<` for equal lengths.
+    struct OrderByDecreasingLength
+    {
+        using is_transparent = void;
+
+        bool operator()(std::string_view a, std::string_view b) const
+        {
+            return std::forward_as_tuple(b.size(), a) < std::forward_as_tuple(a.size(), b);
+        }
+    };
+
     // Replaces `a` with `b` in `source`.
     [[nodiscard]] inline std::string Replace(std::string_view source, std::string_view a, std::string_view b)
     {

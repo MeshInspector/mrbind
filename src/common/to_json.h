@@ -357,20 +357,20 @@ namespace mrbind
     };
 
     // Our custom ordered sets.
-    template <typename T>
-    struct WriteToJsonTraits<OrderedSet<T>>
+    template <typename T, typename Less>
+    struct WriteToJsonTraits<OrderedSet<T, Less>>
     {
-        void operator()(JsonWriter &json, const OrderedSet<T> &value)
+        void operator()(JsonWriter &json, const OrderedSet<T, Less> &value)
         {
-            WriteToJsonTraits<typename OrderedSet<T>::VecType>{}(json, value.Vec());
+            WriteToJsonTraits<typename OrderedSet<T, Less>::VecType>{}(json, value.Vec());
         }
     };
 
     // Our custom ordered maps.
-    template <typename T, typename U>
-    struct WriteToJsonTraits<OrderedMap<T, U>>
+    template <typename T, typename U, typename Less>
+    struct WriteToJsonTraits<OrderedMap<T, U, Less>>
     {
-        void operator()(JsonWriter &json, const OrderedMap<T, U> &value)
+        void operator()(JsonWriter &json, const OrderedMap<T, U, Less> &value)
         {
             if constexpr (IsKeyValuePair<std::pair<const T, U>>)
             {

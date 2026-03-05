@@ -94,12 +94,14 @@ int main(int raw_argc, char **raw_argv)
                 std::string from = mrbind::PathToString(std::filesystem::weakly_canonical(mrbind::MakePath(args[0])));
                 std::string to(args[1]);
 
-                if (!mrbind::MakePath(to).is_relative())
+                std::filesystem::path to_path = mrbind::MakePath(to).lexically_normal();
+
+                if (!to_path.is_relative())
                     throw std::runtime_error("The second argument of `--map-path` must be a relative path.");
 
                 // Don't check for duplicates, who cares.
                 // If you decide to add the check, keep in mind that different input paths can canonicalize to the same string.
-                generator.path_mappings.try_emplace(from, to);
+                generator.path_mappings.try_emplace(from, mrbind::PathToString(to));
             },
         });
 
@@ -108,7 +110,7 @@ int main(int raw_argc, char **raw_argv)
             .desc = "Where to generate the additional helper files, relative to `--output-header-dir`. Unless your entire output directory is named after your library, you probably to pass the library name to this flag, something like `--helper-header-dir=MyLib_helpers`.",
             .func = [&](mrbind::CommandLineParser::ArgSpan args)
             {
-                generator.helper_header_relative_dir = mrbind::MakePath(args.front());
+                generator.helper_header_relative_dir = mrbind::MakePath(args.front()).lexically_normal();
                 if (!generator.helper_header_relative_dir.is_relative())
                     throw std::runtime_error("The argument of `--helper-header-dir` must be a relative path.");
             },
@@ -129,6 +131,41 @@ int main(int raw_argc, char **raw_argv)
             .func = [&](mrbind::CommandLineParser::ArgSpan args)
             {
                 generator.helper_macro_name_prefix_opt = args.front();
+            },
+        });
+
+        args_parser.AddFlag("--split-library", {
+            .allow_repeat = true,
+            .arg_names = {"macro_prefix", "dirs"},
+            .desc = "Optional, can be repeated. If specified, gives a custom export macro to a certain part of the output files, using `<macro_prefix>` instead of `--helper[-macro]-name-prefix`. `dirs` is a `:`-separated list of output directories relative to `--output-{header,source}-dir`. Always use forward slashes in those directory names; the trailing slash is ignored. The export header will be placed into the first directory in the list (which doesn't necessarily need to exist otherwise, if you only want to store the exports header there).",
+            .func = [&](mrbind::CommandLineParser::ArgSpan args)
+            {
+                const std::size_t group_index = generator.output_groups.size();
+
+                generator.output_groups.emplace_back().helper_macro_name_prefix = args[0];
+
+                bool first = true;
+                mrbind::Strings::Split(args[1], ":", [&](std::string_view part)
+                {
+                    std::string_view fixed_part = part;
+
+                    while (fixed_part.ends_with('/'))
+                        fixed_part.remove_suffix(1);
+
+                    std::filesystem::path path = mrbind::MakePath(fixed_part);
+
+                    if (!path.is_relative())
+                        throw std::runtime_error("The second argument of `--split-library` only accepts relative paths, but got `" + std::string(part) + "`.");
+
+                    path = path.lexically_normal(); // Just in case.
+
+                    if (std::exchange(first, false))
+                        generator.output_groups.back().primary_relative_file_dir = path;
+
+                    generator.output_group_indices.insert_or_assign(mrbind::PathToString(path) + "/", group_index);
+
+                    return false;
+                });
             },
         });
 
@@ -318,7 +355,7 @@ int main(int raw_argc, char **raw_argv)
         std::filesystem::create_directories(elem);
 
     // Write the generated files.
-    for (const auto &elem : generator.outputs)
+    for (auto &elem : generator.outputs)
     {
         // Write files.
         for (auto file : {&elem.second.header, &elem.second.internal_header, &elem.second.source})

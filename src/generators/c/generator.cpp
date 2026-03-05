@@ -109,6 +109,28 @@ namespace mrbind::C
         internal_header.preamble += "#include \"" + header.path_for_inclusion + "\"\n";
     }
 
+    const Generator::OutputGroup *Generator::GetOutputGroupForFile(OutputFile &file)
+    {
+        if (!file.cached_output_group)
+        {
+            file.cached_output_group = std::size_t(-1);
+
+            for (const auto &[prefix, group_index] : output_group_indices)
+            {
+                if (file.relative_name.starts_with(prefix))
+                {
+                    file.cached_output_group = group_index;
+                    break;
+                }
+            }
+        }
+
+        if (file.cached_output_group.value() == std::size_t(-1))
+            return nullptr; // No group.
+
+        return &output_groups.at(file.cached_output_group.value());
+    }
+
     std::set<std::string, std::less<>> Generator::ParsedFilenameToRelativeNamesForInclusion(const DeclFileName &input)
     {
         std::set<std::string, std::less<>> ret;
@@ -807,9 +829,18 @@ namespace mrbind::C
         return header && header->header.path_for_inclusion == path_for_inclusion;
     }
 
-    Generator::OutputFile *Generator::GetPublicHelperFile(std::string_view name, bool *is_new, OutputFile::InitFlags init_flags, bool can_create)
+    Generator::OutputFile *Generator::GetPublicHelperFileForFile(OutputFile *file, std::string_view name, bool *is_new, OutputFile::InitFlags init_flags, bool can_create)
     {
-        const std::string map_key = "//" + std::string(name);
+        std::string group_str;
+        const OutputGroup *group = nullptr;
+        if (file)
+        {
+            group = GetOutputGroupForFile(*file);
+            if (group)
+                group_str = PathToString(group->primary_relative_file_dir) + "//";
+        }
+
+        const std::string map_key = "//" + group_str + std::string(name);
 
         if (!can_create && !outputs.contains(map_key)) // Double map access, but oh well!
             return nullptr;
@@ -821,9 +852,9 @@ namespace mrbind::C
         if (!iter_is_new)
             return &iter->second;
 
-        OutputFile &file = iter->second;
+        OutputFile &ret = iter->second;
 
-        std::string full_name = PathToString(helper_header_relative_dir / name);
+        std::string full_name = PathToString((group ? group->primary_relative_file_dir : helper_header_relative_dir) / name);
 
         // Shorten the name if needed.
         if (max_output_filename_len != 0 && full_name.size() > max_output_filename_len)
@@ -844,32 +875,28 @@ namespace mrbind::C
             full_name += view;
         }
 
-        file.InitRelativeName(*this, std::move(full_name), true);
-        file.InitDefaultContents(init_flags);
+        ret.InitRelativeName(*this, std::move(full_name), true);
+        ret.InitDefaultContents(init_flags);
 
-        return &file;
+        return &ret;
     }
 
-    static Generator::OutputFile *GetGlobalExportsHeader(Generator &generator, bool *file_is_new, bool can_create)
-    {
-        return generator.GetPublicHelperFile("exports", file_is_new, Generator::OutputFile::InitFlags::no_extern_c, can_create);
-    }
-
-    std::string Generator::GetExportMacroForFile(OutputFile &target_file, bool for_internal_header)
+    std::string Generator::GetExportMacroForFile(OutputFile &target_file)
     {
         // This function could be changed later to depend on the `target_file` path, e.g. if we want multiple separate export files for multiple libraries in the output.
         // Then we could also use different macro names, and so on.
 
+        std::string macro_name = MakePublicHelperMacroNameForFile(target_file, "API");
+
         bool file_is_new = false;
-        OutputFile &file = *GetGlobalExportsHeader(*this, &file_is_new, true);
+        OutputFile &file = *GetPublicHelperFileForFile(&target_file, "exports", &file_is_new, Generator::OutputFile::InitFlags::no_extern_c);
 
-        OutputFile::SpecificFileContents &contents = for_internal_header ? target_file.internal_header : target_file.header;
-        contents.custom_headers.insert(file.header.path_for_inclusion);
-
-        std::string macro_name = MakePublicHelperMacroName("API");
+        target_file.header.custom_headers.insert(file.header.path_for_inclusion);
 
         if (file_is_new)
         {
+            known_export_headers.insert(file.header.path_for_inclusion);
+
             file.header.contents +=
                 "#ifndef " + macro_name + "\n"
                 "#  ifdef _WIN32\n"
@@ -888,20 +915,13 @@ namespace mrbind::C
         return macro_name;
     }
 
-    bool Generator::IsExportHeader(std::string_view path_for_inclusion)
-    {
-        // If we make multiple export headers, this won't work anymore, and we'll need some flags in them or something.
-        auto header = GetGlobalExportsHeader(*this, nullptr, false);
-        return header && header->header.path_for_inclusion == path_for_inclusion;
-    }
-
-    std::string Generator::GetBuildLibraryMacroForFile(const OutputFile &target_file)
+    std::string Generator::GetBuildLibraryMacroForFile(OutputFile &target_file)
     {
         // This function could be changed later to depend on the `target_file` path, e.g. if we want multiple separate export files for multiple libraries in the output.
         // Then we could also use different macro names, and so on.
 
         (void)target_file;
-        return MakePublicHelperMacroName("BUILD_LIBRARY");
+        return MakePublicHelperMacroNameForFile(target_file, "BUILD_LIBRARY");
     }
 
     // Only call this if `enable_exceptions_support` is true.
@@ -3419,7 +3439,7 @@ namespace mrbind::C
             file.header.contents += '\n';
             file.header.contents += strings.comment;
             file.header.contents += strings.attributes;
-            file.header.contents += GetExportMacroForFile(file, false);
+            file.header.contents += GetExportMacroForFile(file);
             file.header.contents += ' ';
             file.header.contents += new_decl_str;
             file.header.contents += ";\n";
@@ -5455,7 +5475,7 @@ namespace mrbind::C
         }
     }
 
-    void Generator::DumpFileToOstream(const OutputFile &context, const OutputFile::SpecificFileContents &file, std::ostream &out)
+    void Generator::DumpFileToOstream(OutputFile &context, const OutputFile::SpecificFileContents &file, std::ostream &out)
     {
         const bool is_header = &file != &context.source;
 
@@ -5648,7 +5668,7 @@ namespace mrbind::C
                 for (const auto &header : late_custom_headers)
                 {
                     // Reject some special headers that don't have anything interesting in them.
-                    if (IsExportHeader(header) || IsCommonPublicHelpersHeader(header))
+                    if (known_export_headers.contains(header) || IsCommonPublicHelpersHeader(header))
                         continue;
 
                     MakeCommentOnce();

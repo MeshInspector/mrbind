@@ -154,6 +154,10 @@ namespace mrbind::CInterop
             // This is the relative name of the output header and source declaring this entity, minus the extension (which are the same).
             // Forward slashes are used as separators.
             (std::string)(relative_name)
+
+            // If not empty, this is the group this file belongs to, as specified using `--split-library`.
+            // This is the macro prefix string, the first argument passed to `--split-library`. We use those to identify groups.
+            (std::string)(group)
         )
     };
 

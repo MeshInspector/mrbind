@@ -11,12 +11,12 @@
 namespace mrbind
 {
     // A simple `set`-like class that doesn't support erasing elements (except all at once), and keeps track of the original insertion order.
-    template <typename T>
+    template <typename T, typename Less = std::less<>>
     class OrderedSet
     {
       public:
         using VecType = std::vector<T>;
-        using SetType = std::set<T, std::less<>>;
+        using SetType = std::set<T, Less>;
 
       private:
         VecType vec;
@@ -48,12 +48,12 @@ namespace mrbind
     };
 
     // A simple `map`-like class that doesn't support erasing elements (except all at once), and keeps track of the original insertion order of the keys.
-    template <typename T, typename U>
+    template <typename T, typename U, typename Less = std::less<>>
     class OrderedMap
     {
       public:
         using VecType = std::vector<T>;
-        using MapType = std::map<T, U, std::less<>>;
+        using MapType = std::map<T, U, Less>;
 
       private:
         VecType vec;
@@ -74,11 +74,22 @@ namespace mrbind
                 vec.push_back(ret.first->first);
             return {ret.first->second, ret.second};
         }
+
         // Insert an entire pair. This is used in container deserialization.
         template <typename Pair>
         bool Insert(Pair &&pair)
         {
             return TryEmplace(std::forward<Pair>(pair).first, std::forward<Pair>(pair).second).second;
+        }
+
+        // Returns a reference to the value, and whether this is a new element.
+        template <typename TT = T, typename ...P>
+        std::pair<U &, bool> InsertOrAssign(TT &&key, P &&... args)
+        {
+            auto ret = map.insert_or_assign(std::forward<TT>(key), std::forward<P>(args)...);
+            if (ret.second)
+                vec.push_back(ret.first->first);
+            return {ret.first->second, ret.second};
         }
 
         [[nodiscard]] MapType::iterator FindMutable(const auto &key)

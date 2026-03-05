@@ -50,6 +50,8 @@ The point is making maintaining large bindings easy, with decent binding quality
 
    * [Adding specific template specializations.](/docs/adding_template_specializations.md)
 
+   * [Generating multiple libraries at the same time](/docs/splitting_libraries.md)
+
    * [Lifetime extension / keep-alive.](/docs/keep_alive.md)
 
    * [Customizing type names.](/docs/customizing_type_names.md)
