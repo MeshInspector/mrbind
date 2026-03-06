@@ -687,7 +687,7 @@ namespace mrbind::CSharp
 
                     ret.csharp_elem_type = CppToCSharpClassName(cpp_array_type.simple_type.name, is_const);
                     ret.kind = RequestedMaybeOpaqueArray::ElemKind::ptr_maybeowning;
-                    ret.ptr_offset_func = class_desc->c_name + "_OffsetPtr";
+                    ret.ptr_offset_func = {.func_name = class_desc->c_name + "_OffsetPtr", .file = class_desc->output_file};
 
                     ret.strings.csharp_underlying_ptr_target_type = ret.csharp_elem_type + "._Underlying";
                     ret.strings.construct = [](const std::string &expr){return "new(" + expr + ")";};
@@ -3351,7 +3351,10 @@ namespace mrbind::CSharp
 
                     const bool class_backed_by_shared_ptr = GetTransparentSharedPtrTypeDescForCppTypeOpt(CppdeclToCode(cpp_name));
 
+                    const auto &class_file = FindCFileDescForClass(cpp_name);
+
                     auto dllimport_construct = MakeDllImportDecl(
+                        class_file,
                         // Name.
                         std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(cpp_name))->var).c_name + "_ConstructEx",
                         // Return type.
@@ -3361,6 +3364,7 @@ namespace mrbind::CSharp
                     );
 
                     auto dllimport_assign = MakeDllImportDecl(
+                        class_file,
                         // Name.
                         std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(cpp_name))->var).c_name + "_AssignEx",
                         // Return type.
@@ -3566,7 +3570,7 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    Generator::FuncLikeEmitter::FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string new_csharp_name, std::optional<bool> class_part_kind, EmitVariant emit_variant)
+    Generator::FuncLikeEmitter::FuncLikeEmitter(Generator &generator, const CInterop::OutputFile &c_file, AnyFuncLikePtr any_func_like, std::string new_csharp_name, std::optional<bool> class_part_kind, EmitVariant emit_variant)
     try
         : generator(generator),
         any_func_like(any_func_like),
@@ -3915,7 +3919,7 @@ namespace mrbind::CSharp
         }
 
         // Generate the dllimport declaration.
-        dllimport_strings = generator.MakeDllImportDecl(func_like.c_name, ret_binding->dllimport_return_type, dllimport_param_string);
+        dllimport_strings = generator.MakeDllImportDecl(c_file, func_like.c_name, ret_binding->dllimport_return_type, dllimport_param_string);
     }
     catch (...)
     {
@@ -5104,7 +5108,13 @@ namespace mrbind::CSharp
         return GetTypeBinding(ParseTypeOrThrow(ret.cpp_type), TypeBindingFlagsForReturn(ret) | extra_flags).return_usage.value();
     }
 
-    Generator::DllImportDeclStrings Generator::MakeDllImportDecl(std::string_view c_name, std::string_view return_type, std::string_view params)
+    const CInterop::OutputFile &Generator::FindCFileDescForClass(const cppdecl::QualifiedName &cpp_class_name)
+    {
+        const CInterop::TypeDesc &desc = *c_desc.FindTypeOpt(CppdeclToCode(cpp_class_name));
+        return std::get<CInterop::TypeKinds::Class>(desc.var).output_file;
+    }
+
+    Generator::DllImportDeclStrings Generator::MakeDllImportDecl(const CInterop::OutputFile &file, std::string_view c_name, std::string_view return_type, std::string_view params)
     {
         DllImportDeclStrings ret;
 
@@ -5114,7 +5124,24 @@ namespace mrbind::CSharp
         // Note! If it turns out that we need to specify the calling convention here, don't forget to also add it
         //   to our `std::function` implementation and its numerous delegates.
         ret.dllimport_decl = "[System.Runtime.InteropServices.DllImport(";
-        ret.dllimport_decl += EscapeQuoteString(imported_lib_name);
+
+        std::string_view lib_name;
+        { // Decide what library to load.
+
+            if (file.group.empty())
+            {
+                lib_name = imported_lib_names.at(""); // Using `at` because this element should always exist.
+            }
+            else
+            {
+                auto iter = imported_lib_names.find(file.group);
+                if (iter == imported_lib_names.end())
+                    throw std::runtime_error("Missing `--imported-split-lib-name " + file.group + " ...`.");
+                lib_name = iter->second;
+            }
+        }
+        ret.dllimport_decl += EscapeQuoteString(lib_name);
+
         ret.dllimport_decl += ", EntryPoint = \"";
         ret.dllimport_decl += c_name;
         ret.dllimport_decl += "\", ExactSpelling = true)]\nextern static ";
@@ -5776,7 +5803,7 @@ namespace mrbind::CSharp
                         {
                             if (ShouldEmitMethodHere(method, class_part_kind, EmitVariant::regular) && IsEqualityComparisonForIEquatable(method))
                             {
-                                FuncLikeEmitter dummy_emitter(*this, &method, MakeUnqualCSharpMethodName(method, class_part_kind, EmitVariant::regular), class_part_kind, EmitVariant::regular);
+                                FuncLikeEmitter dummy_emitter(*this, class_desc.output_file, &method, MakeUnqualCSharpMethodName(method, class_part_kind, EmitVariant::regular), class_part_kind, EmitVariant::regular);
 
                                 const ManagedKind param_managed_kind =
                                     is_exposed_struct_by_value && dummy_emitter.is_op_with_symmetric_self_args
@@ -6040,7 +6067,7 @@ namespace mrbind::CSharp
 
                                 file.WriteString("System.Diagnostics.Trace.Assert(_SharedPtrIsNotNull, \"Internal error: This object holds a null shared pointer.\");\n");
 
-                                auto dllimport_get_ptr_from_shared = MakeDllImportDecl(c_sharedptr_name.value() + "_get", "_Underlying *", "_UnderlyingShared *_this");
+                                auto dllimport_get_ptr_from_shared = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_get", "_Underlying *", "_UnderlyingShared *_this");
                                 file.WriteString(dllimport_get_ptr_from_shared.dllimport_decl);
                                 file.WriteString("return " + dllimport_get_ptr_from_shared.csharp_name + "(_UnderlyingSharedPtr);\n");
 
@@ -6055,7 +6082,7 @@ namespace mrbind::CSharp
                                 file.PushScope();
                                 file.PushScope({}, "get\n{\n", "}\n");
 
-                                auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_use_count", "int", "_UnderlyingShared *_this");
+                                auto dllimport_use_count = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_use_count", "int", "_UnderlyingShared *_this");
                                 file.WriteString(dllimport_use_count.dllimport_decl);
                                 file.WriteString("return " + dllimport_use_count.csharp_name + "(_UnderlyingSharedPtr) > 0;\n");
 
@@ -6073,7 +6100,7 @@ namespace mrbind::CSharp
                                 file.PushScope();
                                 file.PushScope({}, "get\n{\n", "}\n");
 
-                                auto dllimport_use_count = MakeDllImportDecl(c_sharedptr_name.value() + "_get", "void *", "_UnderlyingShared *_this");
+                                auto dllimport_use_count = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_get", "void *", "_UnderlyingShared *_this");
                                 file.WriteString(dllimport_use_count.dllimport_decl);
                                 file.WriteString("return " + dllimport_use_count.csharp_name + "(_UnderlyingSharedPtr) is not null;\n");
 
@@ -6114,8 +6141,8 @@ namespace mrbind::CSharp
                         {
                             dllimport_free =
                                 shared_ptr_desc
-                                ? MakeDllImportDecl(c_sharedptr_name.value() + "_Destroy", "void", "_UnderlyingShared *_this")
-                                : MakeDllImportDecl(class_desc.c_name + "_Destroy", "void", "_Underlying *_this");
+                                ? MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_Destroy", "void", "_UnderlyingShared *_this")
+                                : MakeDllImportDecl(class_desc.output_file, class_desc.c_name + "_Destroy", "void", "_Underlying *_this");
                         }
 
                         file.WriteSeparatingNewline();
@@ -6266,7 +6293,7 @@ namespace mrbind::CSharp
                                 file.PushScope();
 
 
-                                auto dllimport_decl = MakeDllImportDecl(class_desc.c_name + "_UpcastTo_" + base_desc.c_name, CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *", "_Underlying *_this");
+                                auto dllimport_decl = MakeDllImportDecl(class_desc.output_file, class_desc.c_name + "_UpcastTo_" + base_desc.c_name, CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *", "_Underlying *_this");
                                 file.WriteString(dllimport_decl.dllimport_decl);
 
                                 if (!shared_ptr_desc)
@@ -6314,7 +6341,7 @@ namespace mrbind::CSharp
                                 file.WriteString("public static unsafe explicit operator " + unqual_csharp_name + "?(" + csharp_base_name + " parent)\n");
                                 file.PushScope();
 
-                                auto dllimport_decl = MakeDllImportDecl(base_desc.c_name + "_DynamicDowncastTo_" + class_desc.c_name, "_Underlying *", CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *_this");
+                                auto dllimport_decl = MakeDllImportDecl(class_desc.output_file, base_desc.c_name + "_DynamicDowncastTo_" + class_desc.c_name, "_Underlying *", CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *_this");
                                 file.WriteString(dllimport_decl.dllimport_decl);
 
                                 file.WriteString(
@@ -6581,10 +6608,10 @@ namespace mrbind::CSharp
 
                             file.PushScope();
 
-                            auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
+                            auto dllimport_construct_owning = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
                             file.WriteString(dllimport_construct_owning.dllimport_decl);
 
-                            auto dllimport_construct_nonowning = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructNonOwning", "_UnderlyingShared *", "_Underlying *other");
+                            auto dllimport_construct_nonowning = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_ConstructNonOwning", "_UnderlyingShared *", "_Underlying *other");
                             file.WriteString(dllimport_construct_nonowning.dllimport_decl);
 
                             file.WriteString(
@@ -6671,7 +6698,7 @@ namespace mrbind::CSharp
                             file.WriteString("internal static unsafe " + CppToCSharpUnqualClassName(cpp_qual_name, false) + " _MakeAliasing(" + sharedptr_constvoid_underlying_ptr_type.value() + "ownership, _Underlying *ptr)\n");
                             file.PushScope();
 
-                            auto dllimport_construct_aliasing = MakeDllImportDecl(c_sharedptr_name.value() + "_ConstructAliasing", "_UnderlyingShared *", RequestHelper("_PassBy") + " ownership_pass_by, " + sharedptr_constvoid_underlying_ptr_type.value() + "ownership, _Underlying *ptr");
+                            auto dllimport_construct_aliasing = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_ConstructAliasing", "_UnderlyingShared *", RequestHelper("_PassBy") + " ownership_pass_by, " + sharedptr_constvoid_underlying_ptr_type.value() + "ownership, _Underlying *ptr");
                             file.WriteString(dllimport_construct_aliasing.dllimport_decl);
                             file.WriteString("return new(" + dllimport_construct_aliasing.csharp_name + "(" + RequestHelper("_PassBy") + ".copy, ownership, ptr), is_owning: true);\n");
 
@@ -6694,7 +6721,7 @@ namespace mrbind::CSharp
                             file.WriteString("System.Diagnostics.Trace.Assert(_IsOwningVal == true);\n");
                             file.WriteString("System.Diagnostics.Trace.Assert(_UnderlyingSharedPtr is null);\n");
 
-                            auto dllimport_construct_owning = MakeDllImportDecl(c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
+                            auto dllimport_construct_owning = MakeDllImportDecl(class_desc.output_file, c_sharedptr_name.value() + "_Construct", "_UnderlyingShared *", "_Underlying *other");
                             file.WriteString(dllimport_construct_owning.dllimport_decl);
 
                             file.WriteString("_UnderlyingSharedPtr = " + dllimport_construct_owning.csharp_name + "(ptr);\n");
@@ -6840,7 +6867,7 @@ namespace mrbind::CSharp
                                     }
                                 }
 
-                                FuncLikeEmitter emit(*this, &method, unqual_method_name, class_part_kind, emit_variant);
+                                FuncLikeEmitter emit(*this, class_desc.output_file, &method, unqual_method_name, class_part_kind, emit_variant);
 
                                 emit.Emit(file, is_exposed_struct_by_value ? std::nullopt : std::optional(FuncLikeEmitter::ShadowingDesc{.shadowing_data = shadowing_data, .write = IsConst()}));
                             }
@@ -6949,7 +6976,7 @@ namespace mrbind::CSharp
                             emit_variant = this_variant;
 
                             if (ShouldEmitMethodHere(method, false/*doesn't matter*/, emit_variant))
-                                FuncLikeEmitter(*this, &method, MakeUnqualCSharpMethodName(method, false/*doesn't matter*/, emit_variant), false/*doesn't matter*/, emit_variant).Emit(file);
+                                FuncLikeEmitter(*this, class_desc.output_file, &method, MakeUnqualCSharpMethodName(method, false/*doesn't matter*/, emit_variant), false/*doesn't matter*/, emit_variant).Emit(file);
                         }
                     }
 
@@ -7310,6 +7337,9 @@ namespace mrbind::CSharp
             // Need this in a few places to avoid conflicts with function parameters with the same name.
             const std::string this_or_enclosing_class_prefix = field.is_static ? csharp_enclosing_class_name + "." : "this.";
 
+            // Find the class description.
+            const auto &class_desc = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(cpp_class))->var);
+
             // Special-case array fields.
             if (field.getter_array_size)
             {
@@ -7361,7 +7391,7 @@ namespace mrbind::CSharp
                             "private protected " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_underlying_ptr_target_type + " *" + csharp_storage_field_name + ";\n"
                         );
 
-                        auto dllimport_decl = MakeDllImportDecl(getter->c_name, arr_strings.csharp_underlying_ptr_target_type + " *", getter->is_static ? "" : GetParameterBinding(getter->params.at(0), getter->is_static).DllImportDeclParamsString());
+                        auto dllimport_decl = MakeDllImportDecl(class_desc.output_file, getter->c_name, arr_strings.csharp_underlying_ptr_target_type + " *", getter->is_static ? "" : GetParameterBinding(getter->params.at(0), getter->is_static).DllImportDeclParamsString());
                         *init_code +=
                             "\n{ // " + csharp_field_name + " (ref array)\n" +
                             Strings::Indent(
@@ -7381,7 +7411,7 @@ namespace mrbind::CSharp
                 // Using `get; private protected set;` to allow the derived class to modify this.
                 file.WriteString("public " + std::string(field.is_static ? "static " : "") + "unsafe " + arr_strings.csharp_type + " " + csharp_field_name + (init_code ? " {get; private protected set;}" : "") + "\n");
 
-                auto dllimport_decl = MakeDllImportDecl(getter->c_name, arr_strings.csharp_underlying_ptr_target_type + " *", getter->is_static ? "" : GetParameterBinding(getter->params.at(0), getter->is_static).DllImportDeclParamsString());
+                auto dllimport_decl = MakeDllImportDecl(class_desc.output_file, getter->c_name, arr_strings.csharp_underlying_ptr_target_type + " *", getter->is_static ? "" : GetParameterBinding(getter->params.at(0), getter->is_static).DllImportDeclParamsString());
                 std::string body =
                     dllimport_decl.dllimport_decl +
                     (init_code ? this_or_enclosing_class_prefix + csharp_field_name + " = " : "return ") + arr_strings.construct(dllimport_decl.csharp_name + "(_UnderlyingPtr)") + ";\n";
@@ -7466,7 +7496,7 @@ namespace mrbind::CSharp
                         const std::string maybe_static_str = field.is_static ? "Static" : "";
                         const std::string csharp_storage_field_name = "__ptr_storage_" + csharp_field_name;
 
-                        auto dllimport_getter = MakeDllImportDecl(field.getter_const->c_name, (is_class ? csharp_field_wrapper_type + "._Underlying" : *csharp_nonclass_type) + " **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
+                        auto dllimport_getter = MakeDllImportDecl(class_desc.output_file, field.getter_const->c_name, (is_class ? csharp_field_wrapper_type + "._Underlying" : *csharp_nonclass_type) + " **", field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
 
                         // Only in the const half because the backing pointer is only emitted in the const half.
                         if (init_code && is_const)
@@ -7528,7 +7558,7 @@ namespace mrbind::CSharp
                             // Begin getter.
                             file.PushScope({}, "set\n{\n", "}\n");
 
-                            auto dllimport_setter = MakeDllImportDecl(field.getter_mutable->c_name, csharp_underlying_double_pointer_type, field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
+                            auto dllimport_setter = MakeDllImportDecl(class_desc.output_file, field.getter_mutable->c_name, csharp_underlying_double_pointer_type, field.is_static ? "" : csharp_enclosing_class_name + "._Underlying *_this");
 
                             file.WriteString(
                                 (init_code ? "" :
@@ -7613,7 +7643,7 @@ namespace mrbind::CSharp
                     file.WriteString("private protected " + std::string(field.is_static ? "static " : "") + "unsafe " + ret_binding_ptr.csharp_return_type + csharp_storage_field_name + ";\n");\
 
                     // It's easier to assemble the dllimport declaration by hand here.
-                    auto dllimport_getter = MakeDllImportDecl(maybe_const_getter->c_name, ret_binding.dllimport_return_type, field.is_static ? "" : CppToCSharpClassName(cpp_class, is_const) + "._Underlying *_this");
+                    auto dllimport_getter = MakeDllImportDecl(class_desc.output_file, maybe_const_getter->c_name, ret_binding.dllimport_return_type, field.is_static ? "" : CppToCSharpClassName(cpp_class, is_const) + "._Underlying *_this");
 
                     *init_code +=
                         "\n{ // " + csharp_field_name + " (ref)\n" +
@@ -7648,7 +7678,7 @@ namespace mrbind::CSharp
             if (!is_const)
                 file.WriteString("new ");
 
-            FuncLikeEmitter emit_getter(*this, &maybe_const_getter.value(), "get{}", false/*doesn't matter since we're not in a ctor*/);
+            FuncLikeEmitter emit_getter(*this, class_desc.output_file, &maybe_const_getter.value(), "get{}", false/*doesn't matter since we're not in a ctor*/);
             if (emit_getter.IsUnsafe())
                 file.WriteString("unsafe ");
 
@@ -7666,7 +7696,7 @@ namespace mrbind::CSharp
                 file.WriteString(" {get; private protected set;}\n");
 
                 // We have to assemble the dllimport declaration by hand here. While we could `.Emit()` to a fake file, that would produce the function header too, and we only need the body, so it's easier to just do this.
-                auto dllimport_getter = MakeDllImportDecl(maybe_const_getter->c_name, ret_binding.dllimport_return_type, field.is_static ? "" : CppToCSharpClassName(cpp_class, is_const) + "._Underlying *_this");
+                auto dllimport_getter = MakeDllImportDecl(class_desc.output_file, maybe_const_getter->c_name, ret_binding.dllimport_return_type, field.is_static ? "" : CppToCSharpClassName(cpp_class, is_const) + "._Underlying *_this");
 
                 *init_code +=
                     "\n{ // " + csharp_field_name + "\n" +
@@ -8097,7 +8127,7 @@ namespace mrbind::CSharp
 
             const std::string unqual_csharp_name = MakeUnqualCSharpFreeFuncName(free_func);
 
-            FuncLikeEmitter(*this, &free_func, unqual_csharp_name, false/*Doesn't really matter, we're not in a class.*/).Emit(file);
+            FuncLikeEmitter(*this, free_func.output_file, &free_func, unqual_csharp_name, false/*Doesn't really matter, we're not in a class.*/).Emit(file);
         }
 
         // Generate the requested helpers. This must be after all user code generation, but before closing the namespaces.
@@ -8752,7 +8782,7 @@ namespace mrbind::CSharp
                     );
                     file.PushScope();
 
-                    auto dllimport_alloc = MakeDllImportDecl(c_desc.helpers_prefix + "Alloc", "void *", "nuint size");
+                    auto dllimport_alloc = MakeDllImportDecl(GetFilePlaceholderForCHelpers(), c_desc.helpers_prefix + "Alloc", "void *", "nuint size");
                     file.WriteString(dllimport_alloc.dllimport_decl);
                     file.WriteString("return " + dllimport_alloc.csharp_name + "(size);\n");
 
@@ -8771,7 +8801,7 @@ namespace mrbind::CSharp
                     );
                     file.PushScope();
 
-                    auto dllimport_free = MakeDllImportDecl(c_desc.helpers_prefix + "Free", "void", "void *ptr");
+                    auto dllimport_free = MakeDllImportDecl(GetFilePlaceholderForCHelpers(), c_desc.helpers_prefix + "Free", "void", "void *ptr");
                     file.WriteString(dllimport_free.dllimport_decl);
                     file.WriteString(dllimport_free.csharp_name + "(ptr);\n");
 
@@ -8929,7 +8959,7 @@ namespace mrbind::CSharp
                     std::optional<DllImportDeclStrings> dllimport_offset_func;
                     if (desc.ptr_offset_func)
                     {
-                        dllimport_offset_func = MakeDllImportDecl(*desc.ptr_offset_func, desc.strings.csharp_underlying_ptr_target_type + " *", desc.strings.csharp_underlying_ptr_target_type + " *ptr, nint i");
+                        dllimport_offset_func = MakeDllImportDecl(desc.ptr_offset_func->file, desc.ptr_offset_func->func_name, desc.strings.csharp_underlying_ptr_target_type + " *", desc.strings.csharp_underlying_ptr_target_type + " *ptr, nint i");
                     }
 
                     // If offsetting this pointer needs a function call, writes a dllimport for that call.

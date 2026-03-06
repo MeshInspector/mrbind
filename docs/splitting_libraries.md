@@ -8,7 +8,7 @@ The parser and generator should be ran only once, on the combined public API.
 
 In the resulting hierarchy, there must be one main library that all others depend on (maybe indirectly), even if it contains no parsed code at all, just the basic generated helpers.
 
-All other libraries must be created by passing `--split-library A_ foo/bar:foo/baz` to the generator (this flag can be used multiple times), where:
+All other libraries must be created by passing `--split-library A_ "" foo/bar:foo/baz` to the generator (this flag can be used multiple times), where:
 
 * `A_` is a macro prefix that this split library should use for its export macros, to replace the similar prefix passed to `--helper[-macro]-name-prefix`.
 
@@ -16,11 +16,43 @@ All other libraries must be created by passing `--split-library A_ foo/bar:foo/b
 
   The first directory in the list will have `exports.h` generated in it. If you want, you can pass an otherwise empty directory as the first element, to have `exports.h` generated there, away from any other headers.
 
+* `""` is a list of other sub-libraries that this one depends on, which should match the list of libraries you will link into this one.
+
+  This information is only used in rare cases to determine where to place generated bindings for standard containers and such, more on this below.
+
+  `""` (an empty string) indicates that it only depends on the main sub-library. Otherwise it's a `:`-separate list of macro prefixes of its depedencies, which can include an empty string to indicate the main sub-library.
+
+  For example, to express following hierarchy: (where the arrows mean "depends on")
+
+  ```
+      default
+       ^   ^
+      /     \
+    Foo     Bar
+      ^     ^
+       \   /
+       FooBar
+  ```
+
+  You would use:
+  ```
+  --split-library FOO_ "" foo
+  --split-library BAR_ "" bar
+  --split-library FOOBAR_ "FOO_:BAR_" foobar
+  ```
+  Where `FOO_`, `BAR_`, `FOOBAR_` are macro prefixes, and `foo`, `bar`, `foobar` are output directories.
+
+  Then if the sub-library `Foo` defines `struct Foo {};` and the sub-library `Bar` defines `struct Bar {};`, and you try to use `std::vector<std::pair<Foo, Bar>>`, we will use this dependency information to determine that the vector belongs in `FooBar`. And of course it is a bad idea to use this vector in sub-libraries `FooBar` (or those depending on it, if any).
+
 After that, just compile the sources of each library separately, and link the resulting shared libraries to each other.
 
 ## C#
 
-TODO
+Same process as for C, but then you must also tell the C# generator the name of the shared library for each of the sub-libraries.
+
+For example, if you passed `--split-library BLAH_ ....` to the C generator, you must pass `--imported-split-lib-name BLAH_ blah` to C#, where `blah` is the shared library name for this sub-library, that replaces `--imported-lib-name` for it.
+
+The flag `--imported-split-lib-name` can be repeated multiple times if you have multiple sub-libraries.
 
 ## Python
 

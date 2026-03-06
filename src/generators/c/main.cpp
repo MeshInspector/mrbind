@@ -136,16 +136,34 @@ int main(int raw_argc, char **raw_argv)
 
         args_parser.AddFlag("--split-library", {
             .allow_repeat = true,
-            .arg_names = {"macro_prefix", "dirs"},
-            .desc = "Optional, can be repeated. If specified, gives a custom export macro to a certain part of the output files, using `<macro_prefix>` instead of `--helper[-macro]-name-prefix`. `dirs` is a `:`-separated list of output directories relative to `--output-{header,source}-dir`. Always use forward slashes in those directory names; the trailing slash is ignored. The export header will be placed into the first directory in the list (which doesn't necessarily need to exist otherwise, if you only want to store the exports header there).",
+            .arg_names = {"macro_prefix", "deps", "dirs"},
+            .desc = "Optional, can be repeated. If specified, splits certain output files into separate libraries, by giving them a custom export macro, and moving some generated helpers into them (such as for the standard containers using types from this library). The `<macro_prefix>` is used to prefix the export macro of this sub-library instead of `--helper[-macro]-name-prefix`. `deps` is a list of other sublibraries this one depends on; it is a `:`-separated list of their macro prefixes. An empty string in the list means the dependency on the main library; all sublibraries must directly or indirectly depend on the main library. Passing an empty string as `<dirs>` means that this sub-library only depends on the main library and nothing else. `<dirs>` is a `:`-separated list of output directories relative to `--output-{header,source}-dir` that should be moved to a sub-library. Always use forward slashes in those directory names; the trailing slash is ignored. The export header and certain helpers (such as the standard containers) will be placed into the first directory in the list (which doesn't necessarily need to exist otherwise, if you only want to store the helpers in there).",
             .func = [&](mrbind::CommandLineParser::ArgSpan args)
             {
+                const std::string macro_prefix(args[0]);
+
+                if (args[0].empty())
+                    throw std::runtime_error("Empty macro prefix passed to `--split-library`.");
+
                 const std::size_t group_index = generator.output_groups.size();
 
-                generator.output_groups.emplace_back().helper_macro_name_prefix = args[0];
+                if (!generator.macro_prefixes_to_group_indices.try_emplace(macro_prefix, group_index).second)
+                    throw std::runtime_error("Duplicate macro prefix `" + macro_prefix + "` passed to `--split-library`. The prefixes must be unique.");
 
-                bool first = true;
+                mrbind::C::Generator::OutputGroup &new_group = generator.output_groups.emplace_back();
+
+                new_group.helper_macro_name_prefix = macro_prefix;
+
+                // Get the dependencies for this group.
                 mrbind::Strings::Split(args[1], ":", [&](std::string_view part)
+                {
+                    new_group.direct_dep_macro_prefixes.insert(std::string(part));
+                    return false;
+                });
+
+                // Get the output directories for this group.
+                bool first = true;
+                mrbind::Strings::Split(args[2], ":", [&](std::string_view part)
                 {
                     std::string_view fixed_part = part;
 
@@ -155,14 +173,14 @@ int main(int raw_argc, char **raw_argv)
                     std::filesystem::path path = mrbind::MakePath(fixed_part);
 
                     if (!path.is_relative())
-                        throw std::runtime_error("The second argument of `--split-library` only accepts relative paths, but got `" + std::string(part) + "`.");
+                        throw std::runtime_error("The third argument of `--split-library` only accepts relative paths, but got `" + std::string(part) + "`.");
 
                     path = path.lexically_normal(); // Just in case.
 
                     if (std::exchange(first, false))
                         generator.output_groups.back().primary_relative_file_dir = path;
 
-                    generator.output_group_indices.insert_or_assign(mrbind::PathToString(path) + "/", group_index);
+                    generator.output_dirs_to_group_indices.insert_or_assign(mrbind::PathToString(path) + "/", group_index);
 
                     return false;
                 });
@@ -315,6 +333,66 @@ int main(int raw_argc, char **raw_argv)
 
     generator.output_header_dir_path = mrbind::MakePath(generator.output_header_dir);
     generator.output_source_dir_path = mrbind::MakePath(generator.output_source_dir);
+
+    { // Resolve the `--split-library` sublibraries.
+        // This is used to avoid infinite recursion in `FinalizeGroup()` below.
+        std::unordered_set<std::string> currently_processed_groups;
+
+        const std::string default_macro_prefix = generator.MakePublicHelperMacroName(""); // Using an empty string to extract just the prefix.
+
+        auto FinalizeGroup = [&](auto &self, mrbind::C::Generator::OutputGroup &group)
+        {
+            if (!group.recursive_dep_indices.empty())
+                return; // Already finalized, nothing to do. Note that `recursive_dep_indices` always contains at least `-1` after being finalized, so we can use `.empty()` just fine for this check.
+
+            // Check for infinite recursion.
+            if (!currently_processed_groups.insert(group.helper_macro_name_prefix).second)
+                throw std::runtime_error("Circular dependency between sublibraries specified via `--split-library`, involving `" + group.helper_macro_name_prefix + "`.");
+
+            // Check that the macro prefix doesn't match the default one.
+            if (group.helper_macro_name_prefix == default_macro_prefix)
+                throw std::runtime_error("Sublibrary `" + group.helper_macro_name_prefix + "` specified via `--split-library` uses the same macro prefix as the default sub-library, as specified via `--helper[-macro]-name-prefix`.");
+
+            for (const std::string &dep_macro_prefix : group.direct_dep_macro_prefixes)
+            {
+                if (dep_macro_prefix.empty())
+                {
+                    // The dependency is the default group.
+                    group.recursive_dep_indices.insert(std::size_t(-1));
+                }
+                else
+                {
+                    auto iter = generator.macro_prefixes_to_group_indices.find(dep_macro_prefix);
+                    if (iter == generator.macro_prefixes_to_group_indices.end())
+                        throw std::runtime_error("Sublibrary `" + group.helper_macro_name_prefix + "` specified via `--split-library` depends on an unknown sub-library `" + dep_macro_prefix + "`.");
+
+                    mrbind::C::Generator::OutputGroup &dep_group = generator.output_groups.at(iter->second);
+
+                    // Not checking `&dep_group != &group`, as `currently_processed_groups` will catch that.
+
+                    // Recurse into the dependency.
+                    self(self, dep_group);
+
+                    // Append the index of the base itself.
+                    group.recursive_dep_indices.insert(iter->second);
+
+                    // Append `recursive_dep_indices` from the base.
+                    group.recursive_dep_indices.insert(dep_group.recursive_dep_indices.begin(), dep_group.recursive_dep_indices.end());
+                }
+            }
+
+            // Make sure we have a dependency on the default sub-library, possibly indirectly.
+            // I'm not sure this condition can ever be true, because this should be impossible without a circular dependency,
+            //   since `--split-library` doesn't let you specify an empty list of dependencies, as `""` gets understood as a dependency on the default library.
+            if (!group.recursive_dep_indices.contains(std::size_t(-1)))
+                throw std::runtime_error("Sublibrary `" + group.helper_macro_name_prefix + "` specified via `--split-library` must directly or indirectly depend on the default sub-library (represented by an empty string), but it doesn't.");
+
+            currently_processed_groups.erase(group.helper_macro_name_prefix);
+        };
+
+        for (auto &group : generator.output_groups)
+            FinalizeGroup(FinalizeGroup, group);
+    }
 
     // Parse the input file.
     generator.data = mrbind::LoadDataFromFile(input_filename.c_str());

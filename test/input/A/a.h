@@ -1,6 +1,10 @@
 #pragma once
 
+#include <vector>
+
 namespace MR
 {
-    inline void separate_file_a() {}
+    struct SeparateA {};
+
+    inline std::vector<SeparateA> GetSeparateVecA() {return {};}
 }

@@ -10,44 +10,49 @@ cd "$SCRIPT_DIR/.."
 mkdir -p csharp/c_library/tmp
 
 # Those are the Clang-style flags for the parser.
-EXTRA_PARSER_CXX_FLAGS="
+EXTRA_PARSER_CXX_FLAGS=(
     -std=c++20 -Wall -Wextra -pedantic-errors
     -fparse-all-comments
-"
+)
 
 # Those are optional tunable flags for the parser.
-EXTRA_PARSER_FLAGS="
-"
+EXTRA_PARSER_FLAGS=(
+)
 
 # Those are optional tunable flags for the C generator.
-EXTRA_GEN_C_FLAGS="
+EXTRA_GEN_C_FLAGS=(
     --max-header-name-length 100
     --no-handle-exceptions
-"
+)
 
 # Those are optional tunable flags for the C# generator.
-EXTRA_GEN_FLAGS="
-"
+EXTRA_GEN_FLAGS=(
+)
 
 # Those are optional tunable flags for the C bindings compilation.
-EXTRA_CXX_FLAGS="
+EXTRA_CXX_FLAGS=(
     -g
-"
+)
 
 set -x
 
+# Assemble the combined input header.
+echo "#pragma once" >csharp/c_library/tmp/combined_input.h
+find input \( -name '*.h' -or -name '*.hpp' \) -printf "#include <%p>\n" >>csharp/c_library/tmp/combined_input.h
+
 # Parse the input header.
 ../build/mrbind \
-    input.h \
+    csharp/c_library/tmp/combined_input.h \
     -o csharp/c_library/tmp/parse_result.json \
     --ignore :: \
     --allow Example \
     --copy-inherited-members \
-    $EXTRA_PARSER_FLAGS \
+    "${EXTRA_PARSER_FLAGS[@]}" \
     -- \
     -xc++-header \
     -resource-dir="$("$CLANG_CXX" -print-resource-dir)" \
-    $EXTRA_PARSER_CXX_FLAGS
+    -I. \
+    "${EXTRA_PARSER_CXX_FLAGS[@]}"
 
 # Generate the C bindings, required by the C# bindings.
 ../build/mrbind_gen_c \
@@ -57,10 +62,10 @@ set -x
     --output-desc-json csharp/c_library/tmp/c_desc.json \
     --helper-name-prefix Example_ \
     --helper-macro-name-prefix EXAMPLE_ \
-    --map-path . . \
-    --assume-include-dir .. \
+    --map-path input . \
+    --assume-include-dir . \
     --force-emit-common-helpers \
-    $EXTRA_GEN_C_FLAGS
+    "${EXTRA_GEN_C_FLAGS[@]}"
 
 # Generate the C# bindings.
 ../build/mrbind_gen_csharp \
@@ -69,7 +74,7 @@ set -x
     --imported-lib-name example \
     --helpers-namespace Example \
     --force-namespace Example \
-    $EXTRA_GEN_FLAGS
+    "${EXTRA_GEN_FLAGS[@]}"
 
 # Build the C# library.
 # This is only done for clarity, since `dotnet run` below does this automatically.
@@ -87,12 +92,12 @@ if [[ $SOURCES ]]; then
         -std=c++20 -Wall -Wextra -pedantic-errors \
         -Icsharp/c_library/include \
         -Icsharp/c_library/src \
-        -I.. \
+        -I. \
         $SOURCES \
         -shared \
         -fvisibility=hidden -fvisibility-inlines-hidden \
         -o csharp/c_library/libexample.so \
-        $EXTRA_CXX_FLAGS
+        "${EXTRA_CXX_FLAGS[@]}"
 
     LIBRARY=-lexample
 else

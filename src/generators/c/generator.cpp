@@ -29,6 +29,136 @@ namespace mrbind::C
 
     Generator::~Generator() {}
 
+    std::optional<std::size_t> Generator::FindCommonGroupIndex(std::size_t a, std::size_t b, std::string *out_error)
+    {
+        if (out_error)
+            *out_error = "";
+
+        auto WriteErrorPrefix = [&]
+        {
+            // Wasn't sure if I should add a trailing newline or not. Decided to add it.
+            *out_error = "While trying to find a common sub-library that depends on both `" + output_groups.at(a).helper_macro_name_prefix + "` and `" + output_groups.at(b).helper_macro_name_prefix + "`:\n";
+        };
+
+        if (a == std::size_t(-1))
+            return b;
+        if (b == std::size_t(-1))
+            return a;
+        if (a == b)
+            return a;
+
+        if (a > b)
+            std::swap(a, b); // This helps reduce the number of lookups in `cached_common_group_indices`.
+
+        auto [iter, is_new] = cached_common_group_indices.try_emplace(std::pair(a, b));
+        if (!is_new)
+            return iter->second;
+
+        // Begin checking possible candidates.
+
+        auto &ret = iter->second;
+
+        for (std::size_t i = 0; i < output_groups.size(); i++)
+        {
+            const OutputGroup &group = output_groups[i];
+
+            if (!group.recursive_dep_indices.contains(a) || !group.recursive_dep_indices.contains(b))
+                continue; // Doesn't depend on both `a` and `b`.
+
+            if (!ret)
+            {
+                ret = i; // This is the first match.
+                continue;
+            }
+
+            // Check if either the old or the new match subsumes the other, by being its dependency.
+
+            if (group.recursive_dep_indices.contains(*ret))
+                continue; // The old match is better.
+
+            if (output_groups.at(*ret).recursive_dep_indices.contains(i))
+            {
+                ret = i; // The new match is better.
+                continue;
+            }
+
+            // Neither subsumes the other, complain.
+            if (ret)
+            {
+                if (out_error)
+                {
+                    WriteErrorPrefix();
+                    *out_error += "Found at least two candidates, neither of which is a better match than the other (neither is a dependency of the other): `" + output_groups.at(*ret).helper_macro_name_prefix + "` and `" + group.helper_macro_name_prefix + "`.";
+                }
+                ret.reset();
+                return {};
+            }
+        }
+
+        // Found nothing.
+        if (!ret)
+        {
+            if (out_error)
+            {
+                WriteErrorPrefix();
+                *out_error += "Found no such sublibraries.";
+            }
+            return {};
+        }
+
+        // Success!
+        return ret;
+    }
+
+    static std::size_t FindGroupIndexForCppdeclEntity(Generator &generator, const auto &entity, const cppdecl::QualifiedName *skipped_root_name)
+    {
+        if (generator.output_groups.empty())
+            return std::size_t(-1); // I don't want to generate a bunch of same-address bindings if there are no groups anyway.
+
+        std::size_t ret = std::size_t(-1);
+        (void)entity.template VisitEachComponent<cppdecl::QualifiedName>({}, [&](const cppdecl::QualifiedName &name)
+        {
+            // Sometimes we get empty names.
+            if (name.IsEmpty())
+                return cppdecl::VisitResult::recurse;
+
+            // We don't want to visit the root name, as that leads to infinite recursion when we're generating the binding for the same exact entity.
+            if (&name == skipped_root_name)
+                return cppdecl::VisitResult::recurse;
+
+            if (auto opt = generator.FindTypeBindableWithSameAddressOpt(generator.CppdeclToCode(name)))
+            {
+                if (opt->declared_in_file)
+                {
+                    // Alas, must generate the file (by calling `declared_in_file()`). I don't think this will cause any issues though, for most usecases it should get generated either way.
+
+                    std::string error;
+                    auto new_index = generator.FindCommonGroupIndex(ret, generator.GetOutputGroupForFile(opt->declared_in_file()), &error);
+                    if (!new_index)
+                        throw std::runtime_error("While trying to choose a suitable sub-library for `" + generator.CppdeclToCode(entity) + "`:\n" + error);
+
+                    ret = *new_index;
+
+                    // If we have an exact match, no need to recurse further.
+                    return cppdecl::VisitResult::no_recurse;
+                }
+            }
+
+            return cppdecl::VisitResult::recurse;
+        });
+        return ret;
+    }
+
+    std::size_t Generator::FindGroupIndexForName(const cppdecl::QualifiedName &name)
+    {
+        return FindGroupIndexForCppdeclEntity(*this, name, &name);
+    }
+
+    std::size_t Generator::FindGroupIndexForType(const cppdecl::Type &type)
+    {
+        return FindGroupIndexForCppdeclEntity(*this, type, type.IsOnlyQualifiedName() ? &type.simple_type.name : nullptr);
+    }
+
     void Generator::OutputFile::InitRelativeName(Generator &self, std::string new_relative_name, bool is_public)
     {
         relative_name = std::move(new_relative_name);
@@ -109,13 +239,13 @@ namespace mrbind::C
         internal_header.preamble += "#include \"" + header.path_for_inclusion + "\"\n";
     }
 
-    const Generator::OutputGroup *Generator::GetOutputGroupForFile(OutputFile &file)
+    std::size_t Generator::GetOutputGroupForFile(OutputFile &file)
     {
         if (!file.cached_output_group)
         {
             file.cached_output_group = std::size_t(-1);
 
-            for (const auto &[prefix, group_index] : output_group_indices)
+            for (const auto &[prefix, group_index] : output_dirs_to_group_indices)
             {
                 if (file.relative_name.starts_with(prefix))
                 {
@@ -125,10 +255,7 @@ namespace mrbind::C
             }
         }
 
-        if (file.cached_output_group.value() == std::size_t(-1))
-            return nullptr; // No group.
-
-        return &output_groups.at(file.cached_output_group.value());
+        return file.cached_output_group.value();
     }
 
     std::set<std::string, std::less<>> Generator::ParsedFilenameToRelativeNamesForInclusion(const DeclFileName &input)
@@ -829,15 +956,14 @@ namespace mrbind::C
         return header && header->header.path_for_inclusion == path_for_inclusion;
     }
 
-    Generator::OutputFile *Generator::GetPublicHelperFileForFile(OutputFile *file, std::string_view name, bool *is_new, OutputFile::InitFlags init_flags, bool can_create)
+    Generator::OutputFile *Generator::GetPublicHelperFileForGroup(std::size_t group_index, std::string_view name, bool *is_new, OutputFile::InitFlags init_flags, bool can_create)
     {
         std::string group_str;
         const OutputGroup *group = nullptr;
-        if (file)
+        if (group_index != std::size_t(-1))
         {
-            group = GetOutputGroupForFile(*file);
-            if (group)
-                group_str = PathToString(group->primary_relative_file_dir) + "//";
+            group = &output_groups.at(group_index);
+            group_str = PathToString(group->primary_relative_file_dir) + "//";
         }
 
         const std::string map_key = "//" + group_str + std::string(name);
@@ -1062,12 +1188,12 @@ namespace mrbind::C
         // The reason why this visits `Type` instead of `QualifiedName` is because we need to know if a type is an array or not,
         //   because arrays in C (unlike in C++) need their element types to be complete, which is something `FillDefaultTypeDependencies()` needs to know.
         (void)type.VisitEachComponent<cppdecl::Type>(
-            cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
+            cppdecl::VisitFlags::no_visit_nontype_names | cppdecl::VisitFlags::no_recurse_into_names,
             [&](const cppdecl::Type &simple_type)
             {
                 if (!simple_type.simple_type.name.IsEmpty() && !TypeNameIsCBuiltIn(simple_type.simple_type.name, cppdecl::IsBuiltInTypeFlags::allow_all & ~cppdecl::IsBuiltInTypeFlags::allow_bool))
                     func(simple_type.simple_type.name, simple_type.Is<cppdecl::Array>(simple_type.modifiers.size() - 1)); // The underflow is fine here, because `Is()` silently returns false on out-of-range indices.
-                return false;
+                return cppdecl::VisitResult{};
             }
         );
     }
@@ -1188,7 +1314,7 @@ namespace mrbind::C
         if (reject_long_and_long_long)
         {
             (void)type.VisitEachComponent<cppdecl::QualifiedName>(
-                cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
+                cppdecl::VisitFlags::no_visit_nontype_names,
                 [](const cppdecl::QualifiedName &name)
                 {
                     std::string_view word = name.AsSingleWord();
@@ -1197,7 +1323,7 @@ namespace mrbind::C
                         throw std::runtime_error("`--reject-long-and-long-long` was specified, but the type `" + std::string(word) + "` fas found in the input. Assuming you run the parser with `--canonicalize-to-fixed-size-typedefs`, this means you should replace `" + std::string(word) + "` in the parsed code with a standard typedef of the same size.");
                     }
 
-                    return false;
+                    return cppdecl::VisitResult{};
                 }
             );
         }
@@ -1512,7 +1638,7 @@ namespace mrbind::C
         std::string unsigned_name = generator.MakePublicHelperName("uint64_t");
 
         (void)input.template VisitEachComponent<cppdecl::QualifiedName>(
-            cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
+            cppdecl::VisitFlags::no_visit_nontype_names,
             [&](cppdecl::QualifiedName &name)
             {
                 const std::string_view word = name.AsSingleWord();
@@ -1522,7 +1648,7 @@ namespace mrbind::C
                 if (word == unsigned_name)
                     name = cppdecl::QualifiedName::FromSingleWord("uint64_t");
 
-                return false;
+                return cppdecl::VisitResult{};
             }
         );
     }
@@ -1612,7 +1738,7 @@ namespace mrbind::C
         storage = input;
 
         (void)storage.template VisitEachComponent<cppdecl::QualifiedName>(
-            cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
+            cppdecl::VisitFlags::no_visit_nontype_names,
             [&](cppdecl::QualifiedName &name)
             {
                 const std::string_view word = name.AsSingleWord();
@@ -1622,7 +1748,7 @@ namespace mrbind::C
                 else if (word == "uint64_t")
                     name = cppdecl::QualifiedName::FromSingleWord(generator.MakePublicHelperName("uint64_t"));
 
-                return false;
+                return cppdecl::VisitResult{};
             }
         );
 
@@ -1810,11 +1936,11 @@ namespace mrbind::C
     void Generator::ReplaceAllNamesInTypeWithCNames(cppdecl::Type &type)
     {
         (void)type.VisitEachComponent<cppdecl::QualifiedName>(
-            cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_names,
+            cppdecl::VisitFlags::no_visit_nontype_names | cppdecl::VisitFlags::no_recurse_into_names,
             [&](cppdecl::QualifiedName &name)
             {
                 name = cppdecl::QualifiedName::FromSingleWord(CppTypeNameToCTypeName(name));
-                return false;
+                return cppdecl::VisitResult{};
             }
         );
     }
@@ -2027,12 +2153,12 @@ namespace mrbind::C
         // Can't use `Generator::ForEachNonBuiltInNestedTypeInType()` here, because that uses `no_recurse_into_names`, while here we need only `no_recurse_into_nontype_names`.
         // Consider e.g. how we process `std::vector<T>`. Here we do need to visit `T`, and `no_recurse_into_names` would prevent that.
         (void)entity.template VisitEachComponent<cppdecl::QualifiedName>(
-            cppdecl::VisitEachComponentFlags::no_visit_nontype_names | cppdecl::VisitEachComponentFlags::no_recurse_into_nontype_names,
+            cppdecl::VisitFlags::no_visit_nontype_names | cppdecl::VisitFlags::no_recurse_into_nontype_names,
             [&](cppdecl::QualifiedName name)
             {
                 // Those are here primarily as a little optimization. Even without this, `parsed_type_info.find()` below should find nothing for those types.
                 if (name.IsEmpty() || generator.TypeNameIsCBuiltIn(name))
-                    return false;
+                    return cppdecl::VisitResult{};
 
                 auto lambda = [&](auto &self) -> const Generator::CachedIncludesForType &
                 {
@@ -2082,7 +2208,7 @@ namespace mrbind::C
                 custom_in_source_file.insert(result.generated.begin(), result.generated.end());
                 ret.stdlib_in_source_file.insert(result.stdlib.begin(), result.stdlib.end());
 
-                return false;
+                return cppdecl::VisitResult{};
             }
         );
 
@@ -2876,7 +3002,7 @@ namespace mrbind::C
                         has_any_useful_default_args = true;
 
                     // Include C++ headers for the C++ parameter type. This usually isn't necessary, but helps
-                    //   if the parsed code is sloppy about what headers it includes, and perhaps in some other cases
+                    //   if the parsed code is sloppy about what headers it includes, and perhaps in some other cases.
                     TryFindHeadersForCppTypeForSourceFile(param.cpp_type).InsertToFile(file);
 
                     const BindableType::ParamUsageWithDefaultArg *const param_usage_defarg = has_useful_default_arg || !bindable_param_type.param_usage ? &bindable_param_type.param_usage_with_default_arg.value() : nullptr;
@@ -3653,6 +3779,19 @@ namespace mrbind::C
             if (emit.SetAsFieldAccessor(*this, new_class, new_field, kind, interop_field))
                 EmitFunction(file, emit);
         }
+    }
+
+    CInterop::OutputFile Generator::MakeOutputFileDescForInterop(OutputFile &file)
+    {
+        CInterop::OutputFile ret = {
+            .relative_name = file.relative_name,
+            .group = MakePublicHelperMacroNameForFile(file, ""), // Pass an empty string to extract only the macro prefix.
+        };
+
+        if (ret.group == MakePublicHelperMacroName(""))
+            ret.group = ""; // The default group must be represented by an empty string.
+
+        return ret;
     }
 
     void Generator::EmitExposedStruct(OutputFile &file, std::string comment, const cppdecl::QualifiedName &cpp_type_name, std::string_view c_type_str, TypeSizeAndAlignment expected_size_and_alignment, std::function<void(EmitExposedStructFieldFunc emit_field)> func)

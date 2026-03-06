@@ -207,7 +207,7 @@ namespace mrbind::C::Modules
             ](Generator &generator) -> Generator::OutputFile &
             {
                 bool is_new = false;
-                Generator::OutputFile &file = *generator.GetPublicHelperFile(c_type_name_base, &is_new);
+                Generator::OutputFile &file = *generator.GetPublicHelperFileForGroup(generator.FindGroupIndexForType(type), c_type_name_base, &is_new);
 
                 if (is_new)
                 {

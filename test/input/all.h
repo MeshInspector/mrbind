@@ -7,6 +7,7 @@
 #include <input/MR/test_arrays_of_incomplete_types_2.h>
 #include <input/MR/test_arrays_of_incomplete_types.h>
 #include <input/MR/test_bases.h>
+#include <input/MR/test_combined_a_b.h>
 #include <input/MR/test_conv_ops.h>
 #include <input/MR/test_copy_inherited_members.h>
 #include <input/MR/test_csharp.h>
@@ -45,4 +46,4 @@
 #include <input/MR/test_using_decls.h>
 #include <input/MR/test_variant.h>
 #include <input/A/a.h>
-#include <input/B/a.h>
+#include <input/B/b.h>

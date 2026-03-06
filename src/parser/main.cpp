@@ -366,7 +366,7 @@ namespace mrbind
         if (canonicalize && (params.canonicalize_to_fixed_size_typedefs || params.canonicalize_64_to_fixed_size_typedefs))
         {
             (void)entity.template VisitEachComponent<cppdecl::SimpleType>(
-                cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
+                cppdecl::VisitFlags::no_visit_nontype_names,
                 [&](cppdecl::SimpleType &simple_type)
                 {
                     const std::string_view word = simple_type.name.AsSingleWord();
@@ -438,7 +438,7 @@ namespace mrbind
                         }
                     }
 
-                    return false;
+                    return cppdecl::VisitResult{};
                 }
             );
         }
@@ -465,13 +465,13 @@ namespace mrbind
             if (params.canonincalization_respects_custom_preferred_names && !params.custom_preferred_names.empty())
             {
                 (void)cppdecl_type.VisitEachComponent<cppdecl::QualifiedName>(
-                    cppdecl::VisitEachComponentFlags::no_visit_nontype_names,
+                    cppdecl::VisitFlags::no_visit_nontype_names,
                     [&](cppdecl::QualifiedName &name)
                     {
                         auto iter = params.custom_preferred_names.find(cppdecl::ToCode(name, cppdecl::ToCodeFlags::canonical_c_style));
                         if (iter != params.custom_preferred_names.end())
                             name = iter->second;
-                        return false;
+                        return cppdecl::VisitResult{};
                     }
                 );
             }
@@ -2311,7 +2311,7 @@ namespace mrbind
                                     }
                                 }
 
-                                return false;
+                                return cppdecl::VisitResult{};
                             });
 
                             // If we've made any changes to the type, re-serialzie it.

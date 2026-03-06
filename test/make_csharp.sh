@@ -20,6 +20,9 @@ build/mrbind_gen_csharp \
     --output-dir test/output_csharp_fixed_typedefs/src \
     --clean-output-dir \
     --imported-lib-name bleh \
+    --imported-split-lib-name MR_A_ bleh_A \
+    --imported-split-lib-name MR_B_ bleh_B \
+    --imported-split-lib-name MR_AB_ bleh_AB \
     --helpers-namespace MR::Misc \
     --replace-namespace MR :: \
     --force-namespace MR::CS \
@@ -34,6 +37,7 @@ build/mrbind_gen_csharp \
     --output-dir test/output_csharp_fixed_typedefs_64_only/src \
     --clean-output-dir \
     --imported-lib-name bleh \
+    --imported-split-lib-name MR_AB_ bleh_AB \
     --helpers-namespace MR::Misc \
     --replace-namespace MR :: \
     --force-namespace MR::CS \

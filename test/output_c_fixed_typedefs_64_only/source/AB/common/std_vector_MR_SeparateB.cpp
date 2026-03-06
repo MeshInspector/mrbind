@@ -1,0 +1,396 @@
+#define MR_AB_BUILD_LIBRARY
+#include "AB/common/std_vector_MR_SeparateB.h"
+
+#include <__mrbind_c_details.h>
+#include <input/B/b.h>
+
+#include <cstddef>
+#include <memory>
+#include <stdexcept>
+#include <vector>
+
+
+MR_C_std_vector_MR_SeparateB *MR_C_std_vector_MR_SeparateB_DefaultConstruct(void)
+{
+    return (MR_C_std_vector_MR_SeparateB *)new std::vector<MR::SeparateB>(std::vector<MR::SeparateB>());
+}
+
+MR_C_std_vector_MR_SeparateB *MR_C_std_vector_MR_SeparateB_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_vector_MR_SeparateB *)(new std::vector<MR::SeparateB>[num_elems]{});
+}
+
+MR_C_std_vector_MR_SeparateB *MR_C_std_vector_MR_SeparateB_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_vector_MR_SeparateB *other)
+{
+    MRBINDC_CLASSARG_GUARD(other, std::vector<MR::SeparateB>);
+    return (MR_C_std_vector_MR_SeparateB *)new std::vector<MR::SeparateB>(std::vector<MR::SeparateB>(
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<MR::SeparateB>) MRBINDC_CLASSARG_COPY(other, (std::vector<MR::SeparateB>), std::vector<MR::SeparateB>) MRBINDC_CLASSARG_MOVE(other, (std::vector<MR::SeparateB>), std::vector<MR::SeparateB>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<MR::SeparateB>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<MR::SeparateB>) MRBINDC_CLASSARG_END(other, std::vector<MR::SeparateB>))
+    ));
+}
+
+void MR_C_std_vector_MR_SeparateB_AssignFromAnother(MR_C_std_vector_MR_SeparateB *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_MR_SeparateB *other)
+{
+    MRBINDC_CLASSARG_GUARD(other, std::vector<MR::SeparateB>);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).operator=(
+        (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<MR::SeparateB>) MRBINDC_CLASSARG_COPY(other, (std::vector<MR::SeparateB>), std::vector<MR::SeparateB>) MRBINDC_CLASSARG_MOVE(other, (std::vector<MR::SeparateB>), std::vector<MR::SeparateB>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<MR::SeparateB>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<MR::SeparateB>) MRBINDC_CLASSARG_END(other, std::vector<MR::SeparateB>))
+    );
+}
+
+void MR_C_std_vector_MR_SeparateB_Destroy(const MR_C_std_vector_MR_SeparateB *_this)
+{
+    delete ((const std::vector<MR::SeparateB> *)_this);
+}
+
+void MR_C_std_vector_MR_SeparateB_DestroyArray(const MR_C_std_vector_MR_SeparateB *_this)
+{
+    delete[] ((const std::vector<MR::SeparateB> *)_this);
+}
+
+const MR_C_std_vector_MR_SeparateB *MR_C_std_vector_MR_SeparateB_OffsetPtr(const MR_C_std_vector_MR_SeparateB *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_vector_MR_SeparateB *)(((const std::vector<MR::SeparateB> *)ptr) + i);
+}
+
+MR_C_std_vector_MR_SeparateB *MR_C_std_vector_MR_SeparateB_OffsetMutablePtr(MR_C_std_vector_MR_SeparateB *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_vector_MR_SeparateB *)(((std::vector<MR::SeparateB> *)ptr) + i);
+}
+
+size_t MR_C_std_vector_MR_SeparateB_size(const MR_C_std_vector_MR_SeparateB *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).size();
+}
+
+bool MR_C_std_vector_MR_SeparateB_empty(const MR_C_std_vector_MR_SeparateB *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).empty();
+}
+
+void MR_C_std_vector_MR_SeparateB_resize(MR_C_std_vector_MR_SeparateB *_this, size_t new_size)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).resize(
+        new_size
+    );
+}
+
+void MR_C_std_vector_MR_SeparateB_resize_with_default_value(MR_C_std_vector_MR_SeparateB *_this, size_t new_size, const MR_SeparateB *value)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).resize(
+        new_size,
+        ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), *(const MR::SeparateB *)(value))
+    );
+}
+
+void MR_C_std_vector_MR_SeparateB_clear(MR_C_std_vector_MR_SeparateB *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).clear();
+}
+
+size_t MR_C_std_vector_MR_SeparateB_capacity(const MR_C_std_vector_MR_SeparateB *_this)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).capacity();
+}
+
+void MR_C_std_vector_MR_SeparateB_reserve(MR_C_std_vector_MR_SeparateB *_this, size_t new_capacity)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).reserve(
+        new_capacity
+    );
+}
+
+void MR_C_std_vector_MR_SeparateB_shrink_to_fit(MR_C_std_vector_MR_SeparateB *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).shrink_to_fit();
+}
+
+const MR_SeparateB *MR_C_std_vector_MR_SeparateB_at(const MR_C_std_vector_MR_SeparateB *_this, size_t i)
+{
+    return (const MR_SeparateB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).at(
+        i
+    ));
+}
+
+MR_SeparateB *MR_C_std_vector_MR_SeparateB_at_mut(MR_C_std_vector_MR_SeparateB *_this, size_t i)
+{
+    return (MR_SeparateB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).at(
+        i
+    ));
+}
+
+const MR_SeparateB *MR_C_std_vector_MR_SeparateB_front(const MR_C_std_vector_MR_SeparateB *_this)
+{
+    return (const MR_SeparateB *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).front());
+}
+
+MR_SeparateB *MR_C_std_vector_MR_SeparateB_front_mut(MR_C_std_vector_MR_SeparateB *_this)
+{
+    return (MR_SeparateB *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).front());
+}
+
+const MR_SeparateB *MR_C_std_vector_MR_SeparateB_back(const MR_C_std_vector_MR_SeparateB *_this)
+{
+    return (const MR_SeparateB *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).back());
+}
+
+MR_SeparateB *MR_C_std_vector_MR_SeparateB_back_mut(MR_C_std_vector_MR_SeparateB *_this)
+{
+    return (MR_SeparateB *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).back());
+}
+
+void MR_C_std_vector_MR_SeparateB_push_back(MR_C_std_vector_MR_SeparateB *_this, const MR_SeparateB *new_elem)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).push_back(
+        ((new_elem ? void() : throw std::runtime_error("Parameter `new_elem` can not be null.")), MR::SeparateB(*(MR::SeparateB *)new_elem))
+    );
+}
+
+void MR_C_std_vector_MR_SeparateB_pop_back(MR_C_std_vector_MR_SeparateB *_this)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).pop_back();
+}
+
+void MR_C_std_vector_MR_SeparateB_insert(MR_C_std_vector_MR_SeparateB *_this, size_t position, const MR_SeparateB *new_elem)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).insert(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).begin() + ptrdiff_t(position), ((new_elem ? void() : throw std::runtime_error("Parameter `new_elem` can not be null.")), MR::SeparateB(*(MR::SeparateB *)new_elem)));
+}
+
+void MR_C_std_vector_MR_SeparateB_erase(MR_C_std_vector_MR_SeparateB *_this, size_t position)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).erase(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).begin() + ptrdiff_t(position));
+}
+
+void MR_C_std_vector_MR_SeparateB_insert_at_mutable_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_iterator *position, const MR_SeparateB *new_elem)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).insert(
+        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::SeparateB>::iterator(*(std::vector<MR::SeparateB>::iterator *)position)),
+        ((new_elem ? void() : throw std::runtime_error("Parameter `new_elem` can not be null.")), MR::SeparateB(*(MR::SeparateB *)new_elem))
+    );
+}
+
+void MR_C_std_vector_MR_SeparateB_erase_at_mutable_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_iterator *position)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).erase(
+        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::SeparateB>::iterator(*(std::vector<MR::SeparateB>::iterator *)position))
+    );
+}
+
+void MR_C_std_vector_MR_SeparateB_insert_at_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_const_iterator *position, const MR_SeparateB *new_elem)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).insert(
+        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::SeparateB>::const_iterator(*(std::vector<MR::SeparateB>::const_iterator *)position)),
+        ((new_elem ? void() : throw std::runtime_error("Parameter `new_elem` can not be null.")), MR::SeparateB(*(MR::SeparateB *)new_elem))
+    );
+}
+
+void MR_C_std_vector_MR_SeparateB_erase_at_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_const_iterator *position)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).erase(
+        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::SeparateB>::const_iterator(*(std::vector<MR::SeparateB>::const_iterator *)position))
+    );
+}
+
+MR_C_std_vector_MR_SeparateB_const_iterator *MR_C_std_vector_MR_SeparateB_begin(const MR_C_std_vector_MR_SeparateB *_this)
+{
+    return (MR_C_std_vector_MR_SeparateB_const_iterator *)new std::vector<MR::SeparateB>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).cbegin());
+}
+
+bool MR_C_std_vector_MR_SeparateB_is_begin(const MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_const_iterator *iter)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR::SeparateB>::const_iterator *)(iter));
+}
+
+MR_C_std_vector_MR_SeparateB_iterator *MR_C_std_vector_MR_SeparateB_begin_mut(MR_C_std_vector_MR_SeparateB *_this)
+{
+    return (MR_C_std_vector_MR_SeparateB_iterator *)new std::vector<MR::SeparateB>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).begin());
+}
+
+bool MR_C_std_vector_MR_SeparateB_is_begin_mut(const MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_iterator *iter)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR::SeparateB>::iterator *)(iter));
+}
+
+MR_C_std_vector_MR_SeparateB_const_iterator *MR_C_std_vector_MR_SeparateB_end(const MR_C_std_vector_MR_SeparateB *_this)
+{
+    return (MR_C_std_vector_MR_SeparateB_const_iterator *)new std::vector<MR::SeparateB>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).cend());
+}
+
+bool MR_C_std_vector_MR_SeparateB_is_end(const MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_const_iterator *iter)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR::SeparateB>::const_iterator *)(iter));
+}
+
+MR_C_std_vector_MR_SeparateB_iterator *MR_C_std_vector_MR_SeparateB_end_mut(MR_C_std_vector_MR_SeparateB *_this)
+{
+    return (MR_C_std_vector_MR_SeparateB_iterator *)new std::vector<MR::SeparateB>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).end());
+}
+
+bool MR_C_std_vector_MR_SeparateB_is_end_mut(const MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_iterator *iter)
+{
+    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<MR::SeparateB>::iterator *)(iter));
+}
+
+ptrdiff_t MR_C_std_vector_MR_SeparateB_to_index(const MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_const_iterator *iter)
+{
+    return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<MR::SeparateB>::const_iterator(*(std::vector<MR::SeparateB>::const_iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).cbegin();
+}
+
+ptrdiff_t MR_C_std_vector_MR_SeparateB_to_index_mut(const MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_iterator *iter)
+{
+    return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<MR::SeparateB>::iterator(*(std::vector<MR::SeparateB>::iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).begin();
+}
+
+MR_C_std_vector_MR_SeparateB_const_iterator *MR_C_std_vector_MR_SeparateB_const_iterator_DefaultConstruct(void)
+{
+    return (MR_C_std_vector_MR_SeparateB_const_iterator *)new std::vector<MR::SeparateB>::const_iterator(std::vector<MR::SeparateB>::const_iterator());
+}
+
+MR_C_std_vector_MR_SeparateB_const_iterator *MR_C_std_vector_MR_SeparateB_const_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_vector_MR_SeparateB_const_iterator *)(new std::vector<MR::SeparateB>::const_iterator[num_elems]{});
+}
+
+MR_C_std_vector_MR_SeparateB_const_iterator *MR_C_std_vector_MR_SeparateB_const_iterator_ConstructFromAnother(const MR_C_std_vector_MR_SeparateB_const_iterator *other)
+{
+    return (MR_C_std_vector_MR_SeparateB_const_iterator *)new std::vector<MR::SeparateB>::const_iterator(std::vector<MR::SeparateB>::const_iterator(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<MR::SeparateB>::const_iterator(*(std::vector<MR::SeparateB>::const_iterator *)other))
+    ));
+}
+
+void MR_C_std_vector_MR_SeparateB_const_iterator_AssignFromAnother(MR_C_std_vector_MR_SeparateB_const_iterator *_this, const MR_C_std_vector_MR_SeparateB_const_iterator *other)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB>::const_iterator *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<MR::SeparateB>::const_iterator(*(std::vector<MR::SeparateB>::const_iterator *)other))
+    );
+}
+
+void MR_C_std_vector_MR_SeparateB_const_iterator_Destroy(const MR_C_std_vector_MR_SeparateB_const_iterator *_this)
+{
+    delete ((const std::vector<MR::SeparateB>::const_iterator *)_this);
+}
+
+void MR_C_std_vector_MR_SeparateB_const_iterator_DestroyArray(const MR_C_std_vector_MR_SeparateB_const_iterator *_this)
+{
+    delete[] ((const std::vector<MR::SeparateB>::const_iterator *)_this);
+}
+
+const MR_C_std_vector_MR_SeparateB_const_iterator *MR_C_std_vector_MR_SeparateB_const_iterator_OffsetPtr(const MR_C_std_vector_MR_SeparateB_const_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_vector_MR_SeparateB_const_iterator *)(((const std::vector<MR::SeparateB>::const_iterator *)ptr) + i);
+}
+
+MR_C_std_vector_MR_SeparateB_const_iterator *MR_C_std_vector_MR_SeparateB_const_iterator_OffsetMutablePtr(MR_C_std_vector_MR_SeparateB_const_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_vector_MR_SeparateB_const_iterator *)(((std::vector<MR::SeparateB>::const_iterator *)ptr) + i);
+}
+
+MR_C_std_vector_MR_SeparateB_const_iterator *MR_C_std_vector_MR_SeparateB_const_iterator_from_mutable(const MR_C_std_vector_MR_SeparateB_iterator *iter)
+{
+    return (MR_C_std_vector_MR_SeparateB_const_iterator *)new std::vector<MR::SeparateB>::const_iterator(std::vector<MR::SeparateB>::iterator(
+        ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<MR::SeparateB>::iterator(*(std::vector<MR::SeparateB>::iterator *)iter))
+    ));
+}
+
+MR_C_std_vector_MR_SeparateB_iterator *MR_C_std_vector_MR_SeparateB_iterator_DefaultConstruct(void)
+{
+    return (MR_C_std_vector_MR_SeparateB_iterator *)new std::vector<MR::SeparateB>::iterator(std::vector<MR::SeparateB>::iterator());
+}
+
+MR_C_std_vector_MR_SeparateB_iterator *MR_C_std_vector_MR_SeparateB_iterator_DefaultConstructArray(size_t num_elems)
+{
+    return (MR_C_std_vector_MR_SeparateB_iterator *)(new std::vector<MR::SeparateB>::iterator[num_elems]{});
+}
+
+MR_C_std_vector_MR_SeparateB_iterator *MR_C_std_vector_MR_SeparateB_iterator_ConstructFromAnother(const MR_C_std_vector_MR_SeparateB_iterator *other)
+{
+    return (MR_C_std_vector_MR_SeparateB_iterator *)new std::vector<MR::SeparateB>::iterator(std::vector<MR::SeparateB>::iterator(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<MR::SeparateB>::iterator(*(std::vector<MR::SeparateB>::iterator *)other))
+    ));
+}
+
+void MR_C_std_vector_MR_SeparateB_iterator_AssignFromAnother(MR_C_std_vector_MR_SeparateB_iterator *_this, const MR_C_std_vector_MR_SeparateB_iterator *other)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB>::iterator *)(_this)).operator=(
+        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<MR::SeparateB>::iterator(*(std::vector<MR::SeparateB>::iterator *)other))
+    );
+}
+
+void MR_C_std_vector_MR_SeparateB_iterator_Destroy(const MR_C_std_vector_MR_SeparateB_iterator *_this)
+{
+    delete ((const std::vector<MR::SeparateB>::iterator *)_this);
+}
+
+void MR_C_std_vector_MR_SeparateB_iterator_DestroyArray(const MR_C_std_vector_MR_SeparateB_iterator *_this)
+{
+    delete[] ((const std::vector<MR::SeparateB>::iterator *)_this);
+}
+
+const MR_C_std_vector_MR_SeparateB_iterator *MR_C_std_vector_MR_SeparateB_iterator_OffsetPtr(const MR_C_std_vector_MR_SeparateB_iterator *ptr, ptrdiff_t i)
+{
+    return (const MR_C_std_vector_MR_SeparateB_iterator *)(((const std::vector<MR::SeparateB>::iterator *)ptr) + i);
+}
+
+MR_C_std_vector_MR_SeparateB_iterator *MR_C_std_vector_MR_SeparateB_iterator_OffsetMutablePtr(MR_C_std_vector_MR_SeparateB_iterator *ptr, ptrdiff_t i)
+{
+    return (MR_C_std_vector_MR_SeparateB_iterator *)(((std::vector<MR::SeparateB>::iterator *)ptr) + i);
+}
+
+const MR_SeparateB *MR_C_std_vector_MR_SeparateB_const_iterator_deref(const MR_C_std_vector_MR_SeparateB_const_iterator *_this)
+{
+    return (const MR_SeparateB *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB>::const_iterator *)(_this)));
+}
+
+void MR_C_std_vector_MR_SeparateB_const_iterator_incr(MR_C_std_vector_MR_SeparateB_const_iterator *_this)
+{
+    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB>::const_iterator *)(_this));
+}
+
+void MR_C_std_vector_MR_SeparateB_const_iterator_decr(MR_C_std_vector_MR_SeparateB_const_iterator *_this)
+{
+    --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB>::const_iterator *)(_this));
+}
+
+void MR_C_std_vector_MR_SeparateB_const_iterator_add_assign(MR_C_std_vector_MR_SeparateB_const_iterator *_this, ptrdiff_t delta)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB>::const_iterator *)(_this)) += delta;
+}
+
+ptrdiff_t MR_C_sub_MR_C_std_vector_MR_SeparateB_const_iterator(const MR_C_std_vector_MR_SeparateB_const_iterator *a, const MR_C_std_vector_MR_SeparateB_const_iterator *b)
+{
+    return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::SeparateB>::const_iterator(*(std::vector<MR::SeparateB>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::SeparateB>::const_iterator(*(std::vector<MR::SeparateB>::const_iterator *)a));
+}
+
+bool MR_C_equal_MR_C_std_vector_MR_SeparateB_const_iterator(const MR_C_std_vector_MR_SeparateB_const_iterator *a, const MR_C_std_vector_MR_SeparateB_const_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::SeparateB>::const_iterator(*(std::vector<MR::SeparateB>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::SeparateB>::const_iterator(*(std::vector<MR::SeparateB>::const_iterator *)b));
+}
+
+MR_SeparateB *MR_C_std_vector_MR_SeparateB_iterator_deref(const MR_C_std_vector_MR_SeparateB_iterator *_this)
+{
+    return (MR_SeparateB *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB>::iterator *)(_this)));
+}
+
+void MR_C_std_vector_MR_SeparateB_iterator_incr(MR_C_std_vector_MR_SeparateB_iterator *_this)
+{
+    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB>::iterator *)(_this));
+}
+
+void MR_C_std_vector_MR_SeparateB_iterator_decr(MR_C_std_vector_MR_SeparateB_iterator *_this)
+{
+    --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB>::iterator *)(_this));
+}
+
+void MR_C_std_vector_MR_SeparateB_iterator_add_assign(MR_C_std_vector_MR_SeparateB_iterator *_this, ptrdiff_t delta)
+{
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB>::iterator *)(_this)) += delta;
+}
+
+ptrdiff_t MR_C_sub_MR_C_std_vector_MR_SeparateB_iterator(const MR_C_std_vector_MR_SeparateB_iterator *a, const MR_C_std_vector_MR_SeparateB_iterator *b)
+{
+    return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::SeparateB>::iterator(*(std::vector<MR::SeparateB>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::SeparateB>::iterator(*(std::vector<MR::SeparateB>::iterator *)a));
+}
+
+bool MR_C_equal_MR_C_std_vector_MR_SeparateB_iterator(const MR_C_std_vector_MR_SeparateB_iterator *a, const MR_C_std_vector_MR_SeparateB_iterator *b)
+{
+    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<MR::SeparateB>::iterator(*(std::vector<MR::SeparateB>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<MR::SeparateB>::iterator(*(std::vector<MR::SeparateB>::iterator *)b));
+}
+

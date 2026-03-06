@@ -37,14 +37,14 @@ namespace mrbind::CSharp
     [[nodiscard]] std::string CppToCSharpIdentifier(auto value)
     {
         // Do an early pass to special-case some names.
-        (void)value.template VisitEachComponent<cppdecl::QualifiedName>({}, [](cppdecl::QualifiedName &name)
+        (void)value.template VisitEachComponent<cppdecl::QualifiedName>(cppdecl::VisitFlags::post_order, [](cppdecl::QualifiedName &name)
         {
             AdjustCppQualNameForCSharpSpelling(name);
-            return false;
+            return cppdecl::VisitResult{};
         });
 
         // Now the main part. Adjust qualified names.
-        (void)value.template VisitEachComponent<cppdecl::UnqualifiedName, cppdecl::QualifiedName>({}, Overload{
+        (void)value.template VisitEachComponent<cppdecl::UnqualifiedName, cppdecl::QualifiedName>(cppdecl::VisitFlags::post_order, Overload{
             [](cppdecl::UnqualifiedName &name)
             {
                 std::string ret = CppIdentifierToCSharpIdentifier(cppdecl::ToString(name.var, cppdecl::ToStringFlags::identifier));
@@ -62,7 +62,7 @@ namespace mrbind::CSharp
                 // `FromSingleWord()` doesn't like our `char(1)` placeholders, so avoid it.
                 name = cppdecl::UnqualifiedName{.var = std::move(ret), .template_args = {}};
 
-                return false;
+                return cppdecl::VisitResult{};
             },
             [](cppdecl::QualifiedName &name)
             {
@@ -85,7 +85,7 @@ namespace mrbind::CSharp
 
                 name = cppdecl::QualifiedName::FromSinglePart(cppdecl::UnqualifiedName{.var = std::move(ret), .template_args = {}});
 
-                return false;
+                return cppdecl::VisitResult{};
             },
         });
 
@@ -376,8 +376,11 @@ namespace mrbind::CSharp
         // Don't modify this, since we need pointer stability in a few places.
         CInterop::OutputDesc c_desc;
 
-        // The library name to pass to `DllImport`.
-        std::string imported_lib_name;
+        // The library names to pass to `DllImport`.
+        // The values are the library names, and the keys are the file groups that should use that name.
+        // The default group is empty, it always exists. Other groups are the macro prefixes that were passed as the first argument to the `--split-library` flag of the C generator.
+        // This map is filled by passing `--imported-lib-name` and `--imported-split-lib-name`.
+        std::unordered_map<std::string, std::string> imported_lib_names;
 
         // The C# namespace to store the additional generated utilties.
         cppdecl::QualifiedName helpers_namespace;
@@ -569,9 +572,16 @@ namespace mrbind::CSharp
             };
             ElemKind kind{};
 
+            struct PtrOffsetFunc
+            {
+                std::string func_name;
+                CInterop::OutputFile file; // Which file this function comes from.
+            };
+
             // If null, use `size_for_ptr_offsets` to directly compute pointer offsets.
             // If set, multiply the offset by `size_for_ptr_offsets` and then pass it to this function.
-            std::optional<std::string> ptr_offset_func;
+            std::optional<PtrOffsetFunc> ptr_offset_func;
+
 
             // Used in pointer offset calculation, see `ptr_offset_func`.
             std::size_t size_for_ptr_offsets = 1;
@@ -971,7 +981,7 @@ namespace mrbind::CSharp
             // `csharp_name` can be "get" or "set" if we're creating a property, in that case we won't emit the return type or the parameters,
             //   and the parameter name (of the setter) will be replaced with "value".
             // If `class_part_kind` is null, we're in an exposed struct.
-            FuncLikeEmitter(Generator &generator, AnyFuncLikePtr any_func_like, std::string csharp_name, std::optional<bool> class_part_kind, EmitVariant emit_variant = Generator::EmitVariant::regular);
+            FuncLikeEmitter(Generator &generator, const CInterop::OutputFile &c_file, AnyFuncLikePtr any_func_like, std::string csharp_name, std::optional<bool> class_part_kind, EmitVariant emit_variant = Generator::EmitVariant::regular);
 
             struct ShadowingDesc
             {
@@ -1025,10 +1035,20 @@ namespace mrbind::CSharp
         // Returns the binding information for a function return type.
         [[nodiscard]] const TypeBinding::ReturnUsage &GetReturnBinding(const CInterop::FuncReturn &ret, TypeBindingFlags extra_flags = {});
 
+        // Pass this to `MakeDllImportDecl()` to indicate that this is a generated common helper function.
+        [[nodiscard]] CInterop::OutputFile GetFilePlaceholderForCHelpers()
+        {
+            return {}; // The important part is having the empty `.group` here.
+        }
+
+        // Find the file that this class comes from, so you can call some of its generated member functions.
+        [[nodiscard]] const CInterop::OutputFile &FindCFileDescForClass(const cppdecl::QualifiedName &cpp_class_name);
+
         // Creates a C function declaration for C# code.
         // `c_name` is the underlying C function name. `return_type` is the return type as it should be spelled in C#.
         // `params` is a comma-separated list as it should be spelled in C#.
-        [[nodiscard]] DllImportDeclStrings MakeDllImportDecl(std::string_view c_name, std::string_view return_type, std::string_view params);
+        // `file` is the C file that declares and defines this function. Pass `GetFilePlaceholderForCHelpers()` for the common generated helpers.
+        [[nodiscard]] DllImportDeclStrings MakeDllImportDecl(const CInterop::OutputFile &file, std::string_view c_name, std::string_view return_type, std::string_view params);
 
         // A low-level function to emit a wrapper for a single C enum.
         // Assumes that the correct namespace or class was already entered in `file`.

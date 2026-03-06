@@ -123,8 +123,10 @@ build/mrbind_gen_c \
     --add-convenience-includes \
     --preferred-max-num-aggregate-init-fields 8 \
     --no-handle-exceptions \
-    --split-library MR_CA_ A \
-    --split-library MR_CB_ B \
+    --split-library MR_A_ "" A \
+    --split-library MR_B_ "" B \
+    --split-library MR_ABC_ "MR_AB_" ABC \
+    --split-library MR_AB_ "MR_A_:MR_B_" AB \
 
 # This third build is to test the `--canonicalize-64-to-fixed-size-typedefs` variant of the typedefs (64 bits only).
 build/mrbind \
@@ -148,12 +150,15 @@ build/mrbind_gen_c \
     --bind-shared-ptr-virally \
     --force-emit-common-helpers \
     --no-handle-exceptions \
-    --split-library MR_CAB_ AB/common:A:B \
+    --split-library MR_AB_ "" AB/common:A:B \
 
 
 "$CXX" \
     test/output_c/source/*.cpp \
     test/output_c/source/MR/*.cpp \
+    test/output_c/source/A/*.cpp \
+    test/output_c/source/B/*.cpp \
+    test/output_c/source/AB/*.cpp \
     -o test/output_c/libbleh$EXT_SHARED \
     -Itest/output_c/include \
     -Itest/output_c/source \
@@ -162,6 +167,9 @@ build/mrbind_gen_c \
 "$CXX" \
     test/output_c_fixed_typedefs/source/*.cpp \
     test/output_c_fixed_typedefs/source/MR/*.cpp \
+    test/output_c_fixed_typedefs/source/A/*.cpp \
+    test/output_c_fixed_typedefs/source/B/*.cpp \
+    test/output_c_fixed_typedefs/source/AB/*.cpp \
     -o test/output_c_fixed_typedefs/libbleh$EXT_SHARED \
     -Itest/output_c_fixed_typedefs/include \
     -Itest/output_c_fixed_typedefs/source \
@@ -170,6 +178,9 @@ build/mrbind_gen_c \
 "$CXX" \
     test/output_c_fixed_typedefs_64_only/source/*.cpp \
     test/output_c_fixed_typedefs_64_only/source/MR/*.cpp \
+    test/output_c_fixed_typedefs_64_only/source/A/*.cpp \
+    test/output_c_fixed_typedefs_64_only/source/B/*.cpp \
+    test/output_c_fixed_typedefs_64_only/source/AB/*.cpp \
     -o test/output_c_fixed_typedefs_64_only/libbleh$EXT_SHARED \
     -Itest/output_c_fixed_typedefs_64_only/include \
     -Itest/output_c_fixed_typedefs_64_only/source \

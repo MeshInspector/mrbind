@@ -58,7 +58,7 @@ namespace mrbind::C
 
         // The prefix to add to the names that we generate, as opposed to parsing (since the parsed names naturally use the namespace prefix).
         // Do not access directly! Use `MakePublicHelperName()` instead. That throws if this is not specified.
-        // This is only optional wasn't needed.
+        // This is only optional when not needed.
         std::string helper_name_prefix_opt;
 
         // Same, but for macros. If not specified, defaults to `helper_name_prefix_opt`.
@@ -68,19 +68,35 @@ namespace mrbind::C
         struct OutputGroup
         {
             // The macro prefix. Replaces `helper_macro_name_prefix_opt` for this group.
+            // This is never empty.
             std::string helper_macro_name_prefix;
 
             // Will output the exports header relative to this. This is a relative path.
             std::filesystem::path primary_relative_file_dir;
+
+            // What other output groups this depends on directly.
+            // Those strings are the `helper_macro_name_prefix`es of those groups, and possibly an empty string to indicate the default group.
+            std::unordered_set<std::string> direct_dep_macro_prefixes;
+
+            // All dependencies, including indirect ones. Those are their indices in `output_groups`, or `-1` for the default group. The default group will always be included here.
+            // This is a superset of `direct_deps`, but as indices instead of strings. This should always include `-1`, which is the default group.
+            std::unordered_set<std::size_t> recursive_dep_indices;
         };
 
         // This is used to give customized export macros to certain files.
-        // Use `output_group_indices` to select the index.
+        // Use `output_dirs_to_group_indices` to select the index.
+        // This doesn't include the default group.
         std::vector<OutputGroup> output_groups;
 
         // The keys are relative output directories. Those must end with a slash.
         // The values are indices into `output_groups`.
-        std::map<std::string, std::size_t, Strings::OrderByDecreasingLength> output_group_indices;
+        // This doesn't include the default group.
+        std::map<std::string, std::size_t, Strings::OrderByDecreasingLength> output_dirs_to_group_indices;
+
+        // A mapping from `OutputGroup::helper_macro_name_prefix` to the index in `output_groups`.
+        // This doesn't include the default group. The keys are never empty.
+        std::unordered_map<std::string, std::size_t> macro_prefixes_to_group_indices;
+
 
         // Always emit the helpers file, even if not needed.
         bool force_emit_helpers_file = false;
@@ -149,6 +165,25 @@ namespace mrbind::C
 
         // The extra modules that were loaded.
         std::vector<std::unique_ptr<Module>> modules;
+
+
+        // This is a cache for `FindCommonGroupIndex()`, don't use directly.
+        std::map<std::pair<std::size_t, std::size_t>, std::optional<std::size_t>> cached_common_group_indices;
+
+        // Given two output group indices, find another group index of a group that depends on both of those.
+        // Returns null if no such group, or if there are multiple such groups. Returns `-1` to indicate the default group.
+        // If either `a` or `b` is `-1` (indicating the default group), returns the other argument. If both are `-1`, returns `-1` as well.
+        // If `a == b`, returns that value.
+        // You should be able to fold a list of groups over this in any order and get the same result.
+        // When null is returned, if `out_error` is specified, it receives an error message explaining what happened.
+        [[nodiscard]] std::optional<std::size_t> FindCommonGroupIndex(std::size_t a, std::size_t b, std::string *out_error = nullptr);
+
+        // Returns a group index that should be used to emit a custom binding for `name`. Can return `-1` to indicate the default group.
+        // Note that this recurses into `name`, but doesn't visit the `name` itself (as that causes infinite recursion if we're generating a binding for `name` right now).
+        [[nodiscard]] std::size_t FindGroupIndexForName(const cppdecl::QualifiedName &name);
+        // Returns a group index that should be used to emit a custom binding for `type`. Can return `-1` to indicate the default group.
+        // Note that this recurses into `type`, but doesn't visit the `type` itself (if it's only a qualified name; as that causes infinite recursion if we're generating a binding for `type` right now).
+        [[nodiscard]] std::size_t FindGroupIndexForType(const cppdecl::Type &type);
 
 
         // Describes one header and its source file that we're generating.
@@ -283,17 +318,17 @@ namespace mrbind::C
             return MakePublicHelperMacroName("DETAIL_" + std::string(name));
         }
 
-        // Determines the output group for `file` (as specified by `--split-library`), or null if it doesn't belong to any group.
-        [[nodiscard]] const OutputGroup *GetOutputGroupForFile(OutputFile &file);
+        // Determines the output group for `file` (as specified by `--split-library`) and returns its index, or `-1` for the default group.
+        [[nodiscard]] std::size_t GetOutputGroupForFile(OutputFile &file);
 
         // Same as `MakePublicHelperMacroName`, but allowing file-specific names, affected by `--split-library`.
         [[nodiscard]] std::string MakePublicHelperMacroNameForFile(OutputFile &file, std::string_view name)
         {
-            auto ptr = GetOutputGroupForFile(file);
-            if (ptr && !ptr->helper_macro_name_prefix.empty())
-                return ptr->helper_macro_name_prefix + std::string(name);
-            else
+            std::size_t group_index = GetOutputGroupForFile(file);
+            if (group_index == std::size_t(-1))
                 return MakePublicHelperMacroName(name);
+            else
+                return output_groups.at(group_index).helper_macro_name_prefix + std::string(name);
         }
 
 
@@ -330,11 +365,17 @@ namespace mrbind::C
         // Normally it gets created on the first use, so this never returns null. But if you pass `can_create == false`, it'll return null if the file doesn't exist.
         [[nodiscard]] OutputFile *GetPublicHelperFile(std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {}, bool can_create = true)
         {
-            return GetPublicHelperFileForFile(nullptr, name, is_new, init_flags, can_create);
+            return GetPublicHelperFileForGroup(std::size_t(-1), name, is_new, init_flags, can_create);
         }
 
         // Like `GetPublicHelperFile()`, but lets you optionally specify a file. We determine its group, and if there's one, then place the header in group-specific directory.
-        [[nodiscard]] OutputFile *GetPublicHelperFileForFile(OutputFile *file, std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {}, bool can_create = true);
+        [[nodiscard]] OutputFile *GetPublicHelperFileForFile(OutputFile *file, std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {}, bool can_create = true)
+        {
+            return GetPublicHelperFileForGroup(file ? GetOutputGroupForFile(*file) : std::size_t(-1), name, is_new, init_flags, can_create);
+        }
+
+        // Like `GetPublicHelperFile()`, but lets you optionally specify a group to put it into. `-1` means the default group.
+        [[nodiscard]] OutputFile *GetPublicHelperFileForGroup(std::size_t group_index, std::string_view name, bool *is_new = nullptr, OutputFile::InitFlags init_flags = {}, bool can_create = true);
 
 
         // Those are names (as passed to `#include`) of headers that are known to be export headers.
@@ -1605,13 +1646,7 @@ namespace mrbind::C
         }
 
         // Creates a description of an output file for interop purposes.
-        [[nodiscard]] CInterop::OutputFile MakeOutputFileDescForInterop(OutputFile &file)
-        {
-            return {
-                .relative_name = file.relative_name,
-                .group = MakePublicHelperMacroNameForFile(file, ""), // Pass an empty string to extract only the macro prefix.
-            };
-        }
+        [[nodiscard]] CInterop::OutputFile MakeOutputFileDescForInterop(OutputFile &file);
 
 
         // Here if `field_expected_size_and_alignment.{size,alignment}` and `field_expected_offset` are not `-1`, they are validated against what `type` is known to have.

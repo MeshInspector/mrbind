@@ -55,7 +55,16 @@ int main(int argc, char **argv)
         .desc = "Mandatory. Sets the shared library name that the C# code should load. This must match the library you compiled from the generated C bindings. To make the result cross-platform, omit the `.dll`/`.so` suffix and the `lib` prefix if any.",
         .func = [&](mrbind::CommandLineParser::ArgSpan args)
         {
-            generator.imported_lib_name = args.front();
+            generator.imported_lib_names.insert_or_assign("", args.front());
+        },
+    });
+    args_parser.AddFlag("--imported-split-lib-name", {
+        .allow_repeat = true,
+        .arg_names = {"macro_prefix", "name"},
+        .desc = "Optional, can be repeated. Replaces the value of `--imported-lib-name` for some of the generated files. This should be used with the `--split-library <macro_prefix> ...' flag of the C generator. You should pass the exact same macro prefixes that you passed to the C generator to this flag, to associate each of them with a library name that those files should load (files listed in the `...` in the C generator's flag).",
+        .func = [&](mrbind::CommandLineParser::ArgSpan args)
+        {
+            generator.imported_lib_names.insert_or_assign(std::string(args[0]), args[1]);
         },
     });
     args_parser.AddFlag("--helpers-namespace", {
@@ -228,7 +237,7 @@ int main(int argc, char **argv)
     const std::filesystem::path output_dir_fs_path = mrbind::MakePath(*output_dir_path);
     mrbind::PrepareOutputDir(output_dir_fs_path, clean_output_dir ? "" : "--clean-output-dir");
 
-    if (generator.imported_lib_name.empty())
+    if (!generator.imported_lib_names.contains(""))
         throw std::runtime_error("`--imported-lib-name` is required.");
 
     if (generator.helpers_namespace.IsEmpty())

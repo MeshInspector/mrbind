@@ -19,7 +19,7 @@ Then run any of the language-specific examples:
 
 Run `examples/c/run.sh`.
 
-It parses the C++ header `examples/input.h` and generates the C bindings in `examples/c/output`.
+It parses all C++ headers in  `examples/input` and generates the C bindings in `examples/c/output`.
 
 Then it compiles and runs `examples/run_example.c`, which calls into this library.
 
@@ -28,7 +28,7 @@ Then it compiles and runs `examples/run_example.c`, which calls into this librar
 
 Run `examples/csharp/run.sh`.
 
-It parses the C++ header `examples/input.h` and generates the C# bindings in `examples/csharp/library`. It also generates the C bindings required for C#, like the C example, in `examples/csharp/c_library`.
+It parses all C++ headers in  `examples/input` and generates the C# bindings in `examples/csharp/library`. It also generates the C bindings required for C#, like the C example, in `examples/csharp/c_library`.
 
 Then it runs the test executable at `examples/csharp/example_consumer`, which calls into this library.
 
@@ -36,6 +36,6 @@ Then it runs the test executable at `examples/csharp/example_consumer`, which ca
 
 Run `examples/python/run.sh`.
 
-It parses the C++ header `examples/input.h` and generates the Python module for it using Pybind. The Pybind is cloned automatically on first build.
+It parses all C++ headers in  `examples/input` and generates the Python module for it using Pybind. The Pybind is cloned automatically on first build.
 
 It then runs a test Python program at `examples/python/example_consumer.py`.

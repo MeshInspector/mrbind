@@ -26,9 +26,14 @@ EXTRA_CXX_FLAGS="
 
 set -x
 
+
+# Assemble the combined input header.
+echo "#pragma once" >python/output/tmp/combined_input.h
+find input \( -name '*.h' -or -name '*.hpp' \) -printf "#include <%p>\n" >>python/output/tmp/combined_input.h
+
 # Parse the input header.
 ../build/mrbind \
-    input.h \
+    python/output/tmp/combined_input.h \
     --format=macros \
     -o python/output/tmp/generated.cpp \
     --ignore :: \
@@ -37,6 +42,7 @@ set -x
     -- \
     -xc++-header \
     -resource-dir="$("$CLANG_CXX" -print-resource-dir)" \
+    -I. \
     $EXTRA_PARSER_CXX_FLAGS
 
 # Clone Pybind, if it doesn't already exist.
