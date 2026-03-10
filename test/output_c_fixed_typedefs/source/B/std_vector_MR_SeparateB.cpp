@@ -67,13 +67,6 @@ bool MR_C_std_vector_MR_SeparateB_empty(const MR_C_std_vector_MR_SeparateB *_thi
     return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<MR::SeparateB> *)(_this)).empty();
 }
 
-void MR_C_std_vector_MR_SeparateB_resize(MR_C_std_vector_MR_SeparateB *_this, size_t new_size)
-{
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).resize(
-        new_size
-    );
-}
-
 void MR_C_std_vector_MR_SeparateB_resize_with_default_value(MR_C_std_vector_MR_SeparateB *_this, size_t new_size, const MR_SeparateB *value)
 {
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).resize(
@@ -138,10 +131,11 @@ MR_SeparateB *MR_C_std_vector_MR_SeparateB_back_mut(MR_C_std_vector_MR_SeparateB
     return (MR_SeparateB *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).back());
 }
 
-void MR_C_std_vector_MR_SeparateB_push_back(MR_C_std_vector_MR_SeparateB *_this, const MR_SeparateB *new_elem)
+void MR_C_std_vector_MR_SeparateB_push_back(MR_C_std_vector_MR_SeparateB *_this, MR_C_PassBy new_elem_pass_by, MR_SeparateB *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::SeparateB);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).push_back(
-        ((new_elem ? void() : throw std::runtime_error("Parameter `new_elem` can not be null.")), MR::SeparateB(*(MR::SeparateB *)new_elem))
+        (MRBINDC_CLASSARG_COPY(new_elem, (MR::SeparateB), MR::SeparateB) MRBINDC_CLASSARG_MOVE(new_elem, (MR::SeparateB), MR::SeparateB) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::SeparateB) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::SeparateB) MRBINDC_CLASSARG_END(new_elem, MR::SeparateB))
     );
 }
 
@@ -150,9 +144,10 @@ void MR_C_std_vector_MR_SeparateB_pop_back(MR_C_std_vector_MR_SeparateB *_this)
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).pop_back();
 }
 
-void MR_C_std_vector_MR_SeparateB_insert(MR_C_std_vector_MR_SeparateB *_this, size_t position, const MR_SeparateB *new_elem)
+void MR_C_std_vector_MR_SeparateB_insert(MR_C_std_vector_MR_SeparateB *_this, size_t position, MR_C_PassBy new_elem_pass_by, MR_SeparateB *new_elem)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).insert(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).begin() + ptrdiff_t(position), ((new_elem ? void() : throw std::runtime_error("Parameter `new_elem` can not be null.")), MR::SeparateB(*(MR::SeparateB *)new_elem)));
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::SeparateB);
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).insert(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).begin() + ptrdiff_t(position), (MRBINDC_CLASSARG_COPY(new_elem, (MR::SeparateB), MR::SeparateB) MRBINDC_CLASSARG_MOVE(new_elem, (MR::SeparateB), MR::SeparateB) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::SeparateB) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::SeparateB) MRBINDC_CLASSARG_END(new_elem, MR::SeparateB)));
 }
 
 void MR_C_std_vector_MR_SeparateB_erase(MR_C_std_vector_MR_SeparateB *_this, size_t position)
@@ -160,11 +155,12 @@ void MR_C_std_vector_MR_SeparateB_erase(MR_C_std_vector_MR_SeparateB *_this, siz
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).erase(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).begin() + ptrdiff_t(position));
 }
 
-void MR_C_std_vector_MR_SeparateB_insert_at_mutable_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_iterator *position, const MR_SeparateB *new_elem)
+void MR_C_std_vector_MR_SeparateB_insert_at_mutable_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_iterator *position, MR_C_PassBy new_elem_pass_by, MR_SeparateB *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::SeparateB);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::SeparateB>::iterator(*(std::vector<MR::SeparateB>::iterator *)position)),
-        ((new_elem ? void() : throw std::runtime_error("Parameter `new_elem` can not be null.")), MR::SeparateB(*(MR::SeparateB *)new_elem))
+        (MRBINDC_CLASSARG_COPY(new_elem, (MR::SeparateB), MR::SeparateB) MRBINDC_CLASSARG_MOVE(new_elem, (MR::SeparateB), MR::SeparateB) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::SeparateB) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::SeparateB) MRBINDC_CLASSARG_END(new_elem, MR::SeparateB))
     );
 }
 
@@ -175,11 +171,12 @@ void MR_C_std_vector_MR_SeparateB_erase_at_mutable_iter(MR_C_std_vector_MR_Separ
     );
 }
 
-void MR_C_std_vector_MR_SeparateB_insert_at_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_const_iterator *position, const MR_SeparateB *new_elem)
+void MR_C_std_vector_MR_SeparateB_insert_at_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_const_iterator *position, MR_C_PassBy new_elem_pass_by, MR_SeparateB *new_elem)
 {
+    MRBINDC_CLASSARG_GUARD(new_elem, MR::SeparateB);
     ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<MR::SeparateB> *)(_this)).insert(
         ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<MR::SeparateB>::const_iterator(*(std::vector<MR::SeparateB>::const_iterator *)position)),
-        ((new_elem ? void() : throw std::runtime_error("Parameter `new_elem` can not be null.")), MR::SeparateB(*(MR::SeparateB *)new_elem))
+        (MRBINDC_CLASSARG_COPY(new_elem, (MR::SeparateB), MR::SeparateB) MRBINDC_CLASSARG_MOVE(new_elem, (MR::SeparateB), MR::SeparateB) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::SeparateB) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::SeparateB) MRBINDC_CLASSARG_END(new_elem, MR::SeparateB))
     );
 }
 

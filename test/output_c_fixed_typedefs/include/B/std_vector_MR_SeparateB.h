@@ -72,10 +72,6 @@ MR_B_API size_t MR_C_std_vector_MR_SeparateB_size(const MR_C_std_vector_MR_Separ
 // Parameter `_this` can not be null. It is a single object.
 MR_B_API bool MR_C_std_vector_MR_SeparateB_empty(const MR_C_std_vector_MR_SeparateB *_this);
 
-// Resizes the container. The new elements if any are zeroed.
-// Parameter `_this` can not be null. It is a single object.
-MR_B_API void MR_C_std_vector_MR_SeparateB_resize(MR_C_std_vector_MR_SeparateB *_this, size_t new_size);
-
 // Resizes the container. The new elements if any are set to the specified value.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `value` can not be null. It is a single object.
@@ -132,9 +128,8 @@ MR_B_API MR_SeparateB *MR_C_std_vector_MR_SeparateB_back_mut(MR_C_std_vector_MR_
 
 // Inserts a new element at the end.
 // Parameter `_this` can not be null. It is a single object.
-// Parameter `new_elem` can not be null. It is a single object.
 // The reference to the parameter `new_elem` might be preserved in this object.
-MR_B_API void MR_C_std_vector_MR_SeparateB_push_back(MR_C_std_vector_MR_SeparateB *_this, const MR_SeparateB *new_elem);
+MR_B_API void MR_C_std_vector_MR_SeparateB_push_back(MR_C_std_vector_MR_SeparateB *_this, MR_C_PassBy new_elem_pass_by, MR_SeparateB *new_elem);
 
 // Removes one element from the end.
 // Parameter `_this` can not be null. It is a single object.
@@ -142,9 +137,8 @@ MR_B_API void MR_C_std_vector_MR_SeparateB_pop_back(MR_C_std_vector_MR_SeparateB
 
 // Inserts a new element right before the specified position.
 // Parameter `_this` can not be null. It is a single object.
-// Parameter `new_elem` can not be null. It is a single object.
 // The reference to the parameter `new_elem` might be preserved in this object.
-MR_B_API void MR_C_std_vector_MR_SeparateB_insert(MR_C_std_vector_MR_SeparateB *_this, size_t position, const MR_SeparateB *new_elem);
+MR_B_API void MR_C_std_vector_MR_SeparateB_insert(MR_C_std_vector_MR_SeparateB *_this, size_t position, MR_C_PassBy new_elem_pass_by, MR_SeparateB *new_elem);
 
 // Erases the element at the specified position.
 // Parameter `_this` can not be null. It is a single object.
@@ -153,9 +147,8 @@ MR_B_API void MR_C_std_vector_MR_SeparateB_erase(MR_C_std_vector_MR_SeparateB *_
 // Inserts a new element right before the specified position.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `position` can not be null. It is a single object.
-// Parameter `new_elem` can not be null. It is a single object.
 // The reference to the parameter `new_elem` might be preserved in this object.
-MR_B_API void MR_C_std_vector_MR_SeparateB_insert_at_mutable_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_iterator *position, const MR_SeparateB *new_elem);
+MR_B_API void MR_C_std_vector_MR_SeparateB_insert_at_mutable_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_iterator *position, MR_C_PassBy new_elem_pass_by, MR_SeparateB *new_elem);
 
 // Erases the element at the specified position.
 // Parameter `_this` can not be null. It is a single object.
@@ -165,9 +158,8 @@ MR_B_API void MR_C_std_vector_MR_SeparateB_erase_at_mutable_iter(MR_C_std_vector
 // Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that's the only difference.
 // Parameter `_this` can not be null. It is a single object.
 // Parameter `position` can not be null. It is a single object.
-// Parameter `new_elem` can not be null. It is a single object.
 // The reference to the parameter `new_elem` might be preserved in this object.
-MR_B_API void MR_C_std_vector_MR_SeparateB_insert_at_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_const_iterator *position, const MR_SeparateB *new_elem);
+MR_B_API void MR_C_std_vector_MR_SeparateB_insert_at_iter(MR_C_std_vector_MR_SeparateB *_this, const MR_C_std_vector_MR_SeparateB_const_iterator *position, MR_C_PassBy new_elem_pass_by, MR_SeparateB *new_elem);
 
 // Erases the element at the specified position. This version takes the position in form of a const iterator, that's the only difference.
 // Parameter `_this` can not be null. It is a single object.

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <AB/common/exports.h>
+#include <common.h>
 
 #include <stddef.h>
 
@@ -13,31 +14,20 @@ typedef struct MR_SeparateB MR_SeparateB; // Defined in `#include <B/b.h>`.
 
 
 /// Stores two objects: `MR::SeparateA` and `MR::SeparateA`.
-/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_DefaultConstruct`, `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
+/// Supported `MR_C_PassBy` modes: `MR_C_PassBy_Copy`, `MR_C_PassBy_Move` (and `MR_C_PassBy_DefaultArgument` and `MR_C_PassBy_NoObject` if supported by the callee).
 typedef struct MR_C_std_pair_MR_SeparateA_MR_SeparateB MR_C_std_pair_MR_SeparateA_MR_SeparateB;
 
-/// Constructs an empty (default-constructed) instance.
-/// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_MR_SeparateA_MR_SeparateB_Destroy()` to free it when you're done using it.
-MR_AB_API MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_pair_MR_SeparateA_MR_SeparateB_DefaultConstruct(void);
-
-/// Constructs an array of empty (default-constructed) instances, of the specified size. Will never return null.
-/// The array must be destroyed using `MR_C_std_pair_MR_SeparateA_MR_SeparateB_DestroyArray()`.
-/// Use `MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetMutablePtr()` and `MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetPtr()` to access the array elements.
-MR_AB_API MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_pair_MR_SeparateA_MR_SeparateB_DefaultConstructArray(size_t num_elems);
-
 /// Constructs a copy of another instance. The source remains alive.
-/// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_MR_SeparateA_MR_SeparateB_Destroy()` to free it when you're done using it.
 /// When this function is called, this object will drop any object references it held previously.
-MR_AB_API MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(const MR_C_std_pair_MR_SeparateA_MR_SeparateB *other);
+MR_AB_API MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(MR_C_PassBy other_pass_by, MR_C_std_pair_MR_SeparateA_MR_SeparateB *other);
 
 /// Assigns the contents from another instance. Both objects remain alive after the call.
 /// Parameter `_this` can not be null. It is a single object.
-/// Parameter `other` can not be null. It is a single object.
 /// The reference to the parameter `other` might be preserved in this object.
 /// When this function is called, this object will drop any object references it held previously.
-MR_AB_API void MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother(MR_C_std_pair_MR_SeparateA_MR_SeparateB *_this, const MR_C_std_pair_MR_SeparateA_MR_SeparateB *other);
+MR_AB_API void MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother(MR_C_std_pair_MR_SeparateA_MR_SeparateB *_this, MR_C_PassBy other_pass_by, MR_C_std_pair_MR_SeparateA_MR_SeparateB *other);
 
 /// Destroys a heap-allocated instance of `MR_C_std_pair_MR_SeparateA_MR_SeparateB`. Does nothing if the pointer is null.
 MR_AB_API void MR_C_std_pair_MR_SeparateA_MR_SeparateB_Destroy(const MR_C_std_pair_MR_SeparateA_MR_SeparateB *_this);
@@ -54,13 +44,11 @@ MR_AB_API const MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_pair_MR_Separa
 MR_AB_API MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_pair_MR_SeparateA_MR_SeparateB_OffsetMutablePtr(MR_C_std_pair_MR_SeparateA_MR_SeparateB *ptr, ptrdiff_t i);
 
 /// Constructs the pair elementwise.
-/// Parameter `first` can not be null. It is a single object.
 /// The reference to the parameter `first` might be preserved in the constructed object.
-/// Parameter `second` can not be null. It is a single object.
 /// The reference to the parameter `second` might be preserved in the constructed object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_pair_MR_SeparateA_MR_SeparateB_Destroy()` to free it when you're done using it.
 /// When this function is called, this object will drop any object references it held previously.
-MR_AB_API MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(const MR_SeparateA *first, const MR_SeparateB *second);
+MR_AB_API MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(MR_C_PassBy first_pass_by, MR_SeparateA *first, MR_C_PassBy second_pass_by, MR_SeparateB *second);
 
 /// The first of the two elements, read-only.
 /// Parameter `_this` can not be null. It is a single object.
