@@ -161,50 +161,6 @@ MR_C_API const MR_Bases_A *MR_Bases_A_OffsetPtr(const MR_Bases_A *ptr, ptrdiff_t
 // The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_Bases_A *MR_Bases_A_OffsetMutablePtr(MR_Bases_A *ptr, ptrdiff_t i);
 
-// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::B`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_B *MR_Bases_A_StaticDowncastTo_MR_Bases_B(const MR_Bases_A *object);
-
-// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::B`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_B *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_B(MR_Bases_A *object);
-
-// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::B2`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_B2 *MR_Bases_A_StaticDowncastTo_MR_Bases_B2(const MR_Bases_A *object);
-
-// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::B2`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_B2 *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_B2(MR_Bases_A *object);
-
-// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::C`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_C *MR_Bases_A_StaticDowncastTo_MR_Bases_C(const MR_Bases_A *object);
-
-// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::C`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_C *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_C(MR_Bases_A *object);
-
-// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::H`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_H *MR_Bases_A_StaticDowncastTo_MR_Bases_H(const MR_Bases_A *object);
-
-// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::H`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_H *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_H(MR_Bases_A *object);
-
 // Generated from constructor `MR::Bases::A::A`.
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -251,49 +207,16 @@ MR_C_API const MR_Bases_A *MR_Bases_B_UpcastTo_MR_Bases_A(const MR_Bases_B *obje
 // The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_Bases_A *MR_Bases_B_MutableUpcastTo_MR_Bases_A(MR_Bases_B *object);
 
-// Downcasts an instance of `MR::Bases::B` to a derived class `MR::Bases::B2`.
+// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::B`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
 // The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_B2 *MR_Bases_B_StaticDowncastTo_MR_Bases_B2(const MR_Bases_B *object);
+MR_C_API const MR_Bases_B *MR_Bases_A_StaticDowncastTo_MR_Bases_B(const MR_Bases_A *object);
 
-// Downcasts an instance of `MR::Bases::B` to a derived class `MR::Bases::B2`.
+// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::B`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_B2 *MR_Bases_B_MutableStaticDowncastTo_MR_Bases_B2(MR_Bases_B *object);
-
-// Downcasts an instance of `MR::Bases::B` to a derived class `MR::Bases::D`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_D *MR_Bases_B_StaticDowncastTo_MR_Bases_D(const MR_Bases_B *object);
-
-// Downcasts an instance of `MR::Bases::B` to a derived class `MR::Bases::D`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_D *MR_Bases_B_MutableStaticDowncastTo_MR_Bases_D(MR_Bases_B *object);
-
-// Downcasts an instance of `MR::Bases::B` to a derived class `MR::Bases::D2`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_D2 *MR_Bases_B_StaticDowncastTo_MR_Bases_D2(const MR_Bases_B *object);
-
-// Downcasts an instance of `MR::Bases::B` to a derived class `MR::Bases::D2`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_D2 *MR_Bases_B_MutableStaticDowncastTo_MR_Bases_D2(MR_Bases_B *object);
-
-// Downcasts an instance of `MR::Bases::B` to a derived class `MR::Bases::D3`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_D3 *MR_Bases_B_StaticDowncastTo_MR_Bases_D3(const MR_Bases_B *object);
-
-// Downcasts an instance of `MR::Bases::B` to a derived class `MR::Bases::D3`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_D3 *MR_Bases_B_MutableStaticDowncastTo_MR_Bases_D3(MR_Bases_B *object);
+MR_C_API MR_Bases_B *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_B(MR_Bases_A *object);
 
 // Generated from constructor `MR::Bases::B::B`.
 // Parameter `_other` can not be null. It is a single object.
@@ -341,6 +264,17 @@ MR_C_API const MR_Bases_A *MR_Bases_B2_UpcastTo_MR_Bases_A(const MR_Bases_B2 *ob
 // The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_Bases_A *MR_Bases_B2_MutableUpcastTo_MR_Bases_A(MR_Bases_B2 *object);
 
+// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::B2`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// This version is acting on mutable pointers.
+// The reference to the parameter `object` might be preserved in the return value.
+MR_C_API const MR_Bases_B2 *MR_Bases_A_StaticDowncastTo_MR_Bases_B2(const MR_Bases_A *object);
+
+// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::B2`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// The reference to the parameter `object` might be preserved in the return value.
+MR_C_API MR_Bases_B2 *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_B2(MR_Bases_A *object);
+
 // Upcasts an instance of `MR::Bases::B2` to its base class `MR::Bases::B`.
 // This version is acting on mutable pointers.
 // The reference to the parameter `object` might be preserved in the return value.
@@ -349,6 +283,17 @@ MR_C_API const MR_Bases_B *MR_Bases_B2_UpcastTo_MR_Bases_B(const MR_Bases_B2 *ob
 // Upcasts an instance of `MR::Bases::B2` to its base class `MR::Bases::B`.
 // The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_Bases_B *MR_Bases_B2_MutableUpcastTo_MR_Bases_B(MR_Bases_B2 *object);
+
+// Downcasts an instance of `MR::Bases::B` to a derived class `MR::Bases::B2`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// This version is acting on mutable pointers.
+// The reference to the parameter `object` might be preserved in the return value.
+MR_C_API const MR_Bases_B2 *MR_Bases_B_StaticDowncastTo_MR_Bases_B2(const MR_Bases_B *object);
+
+// Downcasts an instance of `MR::Bases::B` to a derived class `MR::Bases::B2`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// The reference to the parameter `object` might be preserved in the return value.
+MR_C_API MR_Bases_B2 *MR_Bases_B_MutableStaticDowncastTo_MR_Bases_B2(MR_Bases_B *object);
 
 // Generated from constructor `MR::Bases::B2::B2`.
 // Parameter `_other` can not be null. It is a single object.
@@ -396,16 +341,16 @@ MR_C_API const MR_Bases_A *MR_Bases_C_UpcastTo_MR_Bases_A(const MR_Bases_C *obje
 // The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_Bases_A *MR_Bases_C_MutableUpcastTo_MR_Bases_A(MR_Bases_C *object);
 
-// Downcasts an instance of `MR::Bases::C` to a derived class `MR::Bases::D`.
+// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::C`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
 // The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_D *MR_Bases_C_StaticDowncastTo_MR_Bases_D(const MR_Bases_C *object);
+MR_C_API const MR_Bases_C *MR_Bases_A_StaticDowncastTo_MR_Bases_C(const MR_Bases_A *object);
 
-// Downcasts an instance of `MR::Bases::C` to a derived class `MR::Bases::D`.
+// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::C`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_D *MR_Bases_C_MutableStaticDowncastTo_MR_Bases_D(MR_Bases_C *object);
+MR_C_API MR_Bases_C *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_C(MR_Bases_A *object);
 
 // Generated from constructor `MR::Bases::C::C`.
 // Parameter `_other` can not be null. It is a single object.
@@ -444,24 +389,6 @@ MR_C_API const MR_Bases_D *MR_Bases_D_OffsetPtr(const MR_Bases_D *ptr, ptrdiff_t
 // The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_Bases_D *MR_Bases_D_OffsetMutablePtr(MR_Bases_D *ptr, ptrdiff_t i);
 
-// Upcasts an instance of `MR::Bases::D` to its base class `MR::Bases::B`.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_B *MR_Bases_D_UpcastTo_MR_Bases_B(const MR_Bases_D *object);
-
-// Upcasts an instance of `MR::Bases::D` to its base class `MR::Bases::B`.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_B *MR_Bases_D_MutableUpcastTo_MR_Bases_B(MR_Bases_D *object);
-
-// Upcasts an instance of `MR::Bases::D` to its base class `MR::Bases::C`.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_C *MR_Bases_D_UpcastTo_MR_Bases_C(const MR_Bases_D *object);
-
-// Upcasts an instance of `MR::Bases::D` to its base class `MR::Bases::C`.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_C *MR_Bases_D_MutableUpcastTo_MR_Bases_C(MR_Bases_D *object);
-
 // Generated from constructor `MR::Bases::D::D`.
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -498,15 +425,6 @@ MR_C_API const MR_Bases_D2 *MR_Bases_D2_OffsetPtr(const MR_Bases_D2 *ptr, ptrdif
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 // The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_Bases_D2 *MR_Bases_D2_OffsetMutablePtr(MR_Bases_D2 *ptr, ptrdiff_t i);
-
-// Upcasts an instance of `MR::Bases::D2` to its base class `MR::Bases::B`.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_B *MR_Bases_D2_UpcastTo_MR_Bases_B(const MR_Bases_D2 *object);
-
-// Upcasts an instance of `MR::Bases::D2` to its base class `MR::Bases::B`.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_B *MR_Bases_D2_MutableUpcastTo_MR_Bases_B(MR_Bases_D2 *object);
 
 // Generated from constructor `MR::Bases::D2::D2`.
 // Parameter `_other` can not be null. It is a single object.
@@ -545,15 +463,6 @@ MR_C_API const MR_Bases_D3 *MR_Bases_D3_OffsetPtr(const MR_Bases_D3 *ptr, ptrdif
 // The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_Bases_D3 *MR_Bases_D3_OffsetMutablePtr(MR_Bases_D3 *ptr, ptrdiff_t i);
 
-// Upcasts an instance of `MR::Bases::D3` to its base class `MR::Bases::B`.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_B *MR_Bases_D3_UpcastTo_MR_Bases_B(const MR_Bases_D3 *object);
-
-// Upcasts an instance of `MR::Bases::D3` to its base class `MR::Bases::B`.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_B *MR_Bases_D3_MutableUpcastTo_MR_Bases_B(MR_Bases_D3 *object);
-
 // Generated from constructor `MR::Bases::D3::D3`.
 // Parameter `_other` can not be null. It is a single object.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -590,17 +499,6 @@ MR_C_API const MR_Bases_E *MR_Bases_E_OffsetPtr(const MR_Bases_E *ptr, ptrdiff_t
 // Offsets a pointer to an array element by `i` positions (not bytes). Use only if you're certain that the pointer points to an array element.
 // The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_Bases_E *MR_Bases_E_OffsetMutablePtr(MR_Bases_E *ptr, ptrdiff_t i);
-
-// Downcasts an instance of `MR::Bases::E` to a derived class `MR::Bases::F`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_Bases_F *MR_Bases_E_StaticDowncastTo_MR_Bases_F(const MR_Bases_E *object);
-
-// Downcasts an instance of `MR::Bases::E` to a derived class `MR::Bases::F`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_Bases_F *MR_Bases_E_MutableStaticDowncastTo_MR_Bases_F(MR_Bases_E *object);
 
 // Generated from constructor `MR::Bases::E::E`.
 // Parameter `_other` can not be null. It is a single object.
@@ -647,6 +545,17 @@ MR_C_API const MR_Bases_E *MR_Bases_F_UpcastTo_MR_Bases_E(const MR_Bases_F *obje
 // Upcasts an instance of `MR::Bases::F` to its base class `MR::Bases::E`.
 // The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_Bases_E *MR_Bases_F_MutableUpcastTo_MR_Bases_E(MR_Bases_F *object);
+
+// Downcasts an instance of `MR::Bases::E` to a derived class `MR::Bases::F`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// This version is acting on mutable pointers.
+// The reference to the parameter `object` might be preserved in the return value.
+MR_C_API const MR_Bases_F *MR_Bases_E_StaticDowncastTo_MR_Bases_F(const MR_Bases_E *object);
+
+// Downcasts an instance of `MR::Bases::E` to a derived class `MR::Bases::F`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// The reference to the parameter `object` might be preserved in the return value.
+MR_C_API MR_Bases_F *MR_Bases_E_MutableStaticDowncastTo_MR_Bases_F(MR_Bases_E *object);
 
 // Generated from constructor `MR::Bases::F::F`.
 // Parameter `_other` can not be null. It is a single object.
@@ -764,6 +673,17 @@ MR_C_API const MR_Bases_A *MR_Bases_H_UpcastTo_MR_Bases_A(const MR_Bases_H *obje
 // Upcasts an instance of `MR::Bases::H` to its base class `MR::Bases::A`.
 // The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_Bases_A *MR_Bases_H_MutableUpcastTo_MR_Bases_A(MR_Bases_H *object);
+
+// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::H`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// This version is acting on mutable pointers.
+// The reference to the parameter `object` might be preserved in the return value.
+MR_C_API const MR_Bases_H *MR_Bases_A_StaticDowncastTo_MR_Bases_H(const MR_Bases_A *object);
+
+// Downcasts an instance of `MR::Bases::A` to a derived class `MR::Bases::H`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// The reference to the parameter `object` might be preserved in the return value.
+MR_C_API MR_Bases_H *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_H(MR_Bases_A *object);
 
 // Generated from constructor `MR::Bases::H::H`.
 // The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.

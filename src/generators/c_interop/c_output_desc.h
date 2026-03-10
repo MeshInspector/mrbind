@@ -15,6 +15,8 @@ namespace mrbind::CInterop
 {
     // NOTE: When emitting this from the C generator, all cppdecl strings must be produced using `CppdeclToCodeForComments`,
     //   to e.g. adjust `std/tl::expected` to just `expected`, if that's enabled.
+    //
+    // BUT! While still in the C generator, `InheritanceInfo` will temporarily have the original names in it.
 
 
     // This is here to expose the underlying values of those enum constants.

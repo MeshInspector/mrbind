@@ -176,7 +176,8 @@ namespace mrbind::C
         // If `a == b`, returns that value.
         // You should be able to fold a list of groups over this in any order and get the same result.
         // When null is returned, if `out_error` is specified, it receives an error message explaining what happened.
-        [[nodiscard]] std::optional<std::size_t> FindCommonGroupIndex(std::size_t a, std::size_t b, std::string *out_error = nullptr);
+        // If `only_allow_input_groups == true`, then can return only `a` or `b`, and will return an error otherwise.
+        [[nodiscard]] std::optional<std::size_t> FindCommonGroupIndex(std::size_t a, std::size_t b, std::string *out_error = nullptr, bool only_allow_input_groups = false);
 
         // Returns a group index that should be used to emit a custom binding for `name`. Can return `-1` to indicate the default group.
         // Note that this recurses into `name`, but doesn't visit the `name` itself (as that causes infinite recursion if we're generating a binding for `name` right now).

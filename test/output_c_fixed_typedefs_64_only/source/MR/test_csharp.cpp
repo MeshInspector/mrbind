@@ -404,160 +404,6 @@ MR_CSharp_A *MR_CSharp_A_OffsetMutablePtr(MR_CSharp_A *ptr, ptrdiff_t i)
     return (MR_CSharp_A *)(((MR::CSharp::A *)ptr) + i);
 }
 
-const MR_CSharp_B *MR_CSharp_A_StaticDowncastTo_MR_CSharp_B(const MR_CSharp_A *object)
-{
-    return (const MR_CSharp_B *)(static_cast<const MR::CSharp::B *>(
-        ((const MR::CSharp::A *)object)
-    ));
-}
-
-MR_CSharp_B *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_B(MR_CSharp_A *object)
-{
-    return (MR_CSharp_B *)(static_cast<MR::CSharp::B *>(
-        ((MR::CSharp::A *)object)
-    ));
-}
-
-const MR_CSharp_B *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(const MR_CSharp_A *object)
-{
-    return (const MR_CSharp_B *)(dynamic_cast<const MR::CSharp::B *>(
-        ((const MR::CSharp::A *)object)
-    ));
-}
-
-MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_B(MR_CSharp_A *object)
-{
-    return (MR_CSharp_B *)(dynamic_cast<MR::CSharp::B *>(
-        ((MR::CSharp::A *)object)
-    ));
-}
-
-const MR_CSharp_B *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_B(const MR_CSharp_A *object)
-{
-    return (const MR_CSharp_B *)std::addressof(dynamic_cast<const MR::CSharp::B &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
-    ));
-}
-
-MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_B(MR_CSharp_A *object)
-{
-    return (MR_CSharp_B *)std::addressof(dynamic_cast<MR::CSharp::B &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
-    ));
-}
-
-const MR_CSharp_C *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(const MR_CSharp_A *object)
-{
-    return (const MR_CSharp_C *)(dynamic_cast<const MR::CSharp::C *>(
-        ((const MR::CSharp::A *)object)
-    ));
-}
-
-MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_C(MR_CSharp_A *object)
-{
-    return (MR_CSharp_C *)(dynamic_cast<MR::CSharp::C *>(
-        ((MR::CSharp::A *)object)
-    ));
-}
-
-const MR_CSharp_C *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_C(const MR_CSharp_A *object)
-{
-    return (const MR_CSharp_C *)std::addressof(dynamic_cast<const MR::CSharp::C &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
-    ));
-}
-
-MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_C(MR_CSharp_A *object)
-{
-    return (MR_CSharp_C *)std::addressof(dynamic_cast<MR::CSharp::C &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
-    ));
-}
-
-const MR_CSharp_F *MR_CSharp_A_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_A *object)
-{
-    return (const MR_CSharp_F *)(static_cast<const MR::CSharp::F *>(
-        ((const MR::CSharp::A *)object)
-    ));
-}
-
-MR_CSharp_F *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_A *object)
-{
-    return (MR_CSharp_F *)(static_cast<MR::CSharp::F *>(
-        ((MR::CSharp::A *)object)
-    ));
-}
-
-const MR_CSharp_F *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(const MR_CSharp_A *object)
-{
-    return (const MR_CSharp_F *)(dynamic_cast<const MR::CSharp::F *>(
-        ((const MR::CSharp::A *)object)
-    ));
-}
-
-MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_F(MR_CSharp_A *object)
-{
-    return (MR_CSharp_F *)(dynamic_cast<MR::CSharp::F *>(
-        ((MR::CSharp::A *)object)
-    ));
-}
-
-const MR_CSharp_F *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_F(const MR_CSharp_A *object)
-{
-    return (const MR_CSharp_F *)std::addressof(dynamic_cast<const MR::CSharp::F &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
-    ));
-}
-
-MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_F(MR_CSharp_A *object)
-{
-    return (MR_CSharp_F *)std::addressof(dynamic_cast<MR::CSharp::F &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
-    ));
-}
-
-const MR_CSharp_G *MR_CSharp_A_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_A *object)
-{
-    return (const MR_CSharp_G *)(static_cast<const MR::CSharp::G *>(
-        ((const MR::CSharp::A *)object)
-    ));
-}
-
-MR_CSharp_G *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_G(MR_CSharp_A *object)
-{
-    return (MR_CSharp_G *)(static_cast<MR::CSharp::G *>(
-        ((MR::CSharp::A *)object)
-    ));
-}
-
-const MR_CSharp_G *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(const MR_CSharp_A *object)
-{
-    return (const MR_CSharp_G *)(dynamic_cast<const MR::CSharp::G *>(
-        ((const MR::CSharp::A *)object)
-    ));
-}
-
-MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_G(MR_CSharp_A *object)
-{
-    return (MR_CSharp_G *)(dynamic_cast<MR::CSharp::G *>(
-        ((MR::CSharp::A *)object)
-    ));
-}
-
-const MR_CSharp_G *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_G(const MR_CSharp_A *object)
-{
-    return (const MR_CSharp_G *)std::addressof(dynamic_cast<const MR::CSharp::G &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
-    ));
-}
-
-MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_G(MR_CSharp_A *object)
-{
-    return (MR_CSharp_G *)std::addressof(dynamic_cast<MR::CSharp::G &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
-    ));
-}
-
 MR_CSharp_A *MR_CSharp_A_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_A *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::A);
@@ -662,6 +508,48 @@ MR_CSharp_A *MR_CSharp_B_MutableUpcastTo_MR_CSharp_A(MR_CSharp_B *object)
 {
     return (MR_CSharp_A *)(static_cast<MR::CSharp::A *>(
         ((MR::CSharp::B *)object)
+    ));
+}
+
+const MR_CSharp_B *MR_CSharp_A_StaticDowncastTo_MR_CSharp_B(const MR_CSharp_A *object)
+{
+    return (const MR_CSharp_B *)(static_cast<const MR::CSharp::B *>(
+        ((const MR::CSharp::A *)object)
+    ));
+}
+
+MR_CSharp_B *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_B(MR_CSharp_A *object)
+{
+    return (MR_CSharp_B *)(static_cast<MR::CSharp::B *>(
+        ((MR::CSharp::A *)object)
+    ));
+}
+
+const MR_CSharp_B *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(const MR_CSharp_A *object)
+{
+    return (const MR_CSharp_B *)(dynamic_cast<const MR::CSharp::B *>(
+        ((const MR::CSharp::A *)object)
+    ));
+}
+
+MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_B(MR_CSharp_A *object)
+{
+    return (MR_CSharp_B *)(dynamic_cast<MR::CSharp::B *>(
+        ((MR::CSharp::A *)object)
+    ));
+}
+
+const MR_CSharp_B *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_B(const MR_CSharp_A *object)
+{
+    return (const MR_CSharp_B *)std::addressof(dynamic_cast<const MR::CSharp::B &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
+    ));
+}
+
+MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_B(MR_CSharp_A *object)
+{
+    return (MR_CSharp_B *)std::addressof(dynamic_cast<MR::CSharp::B &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
     ));
 }
 
@@ -780,6 +668,34 @@ MR_CSharp_A *MR_CSharp_C_MutableUpcastTo_MR_CSharp_A(MR_CSharp_C *object)
     ));
 }
 
+const MR_CSharp_C *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(const MR_CSharp_A *object)
+{
+    return (const MR_CSharp_C *)(dynamic_cast<const MR::CSharp::C *>(
+        ((const MR::CSharp::A *)object)
+    ));
+}
+
+MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_C(MR_CSharp_A *object)
+{
+    return (MR_CSharp_C *)(dynamic_cast<MR::CSharp::C *>(
+        ((MR::CSharp::A *)object)
+    ));
+}
+
+const MR_CSharp_C *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_C(const MR_CSharp_A *object)
+{
+    return (const MR_CSharp_C *)std::addressof(dynamic_cast<const MR::CSharp::C &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
+    ));
+}
+
+MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_C(MR_CSharp_A *object)
+{
+    return (MR_CSharp_C *)std::addressof(dynamic_cast<MR::CSharp::C &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
+    ));
+}
+
 MR_CSharp_C *MR_CSharp_C_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_C *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::C);
@@ -873,34 +789,6 @@ MR_CSharp_D *MR_CSharp_D_OffsetMutablePtr(MR_CSharp_D *ptr, ptrdiff_t i)
     return (MR_CSharp_D *)(((MR::CSharp::D *)ptr) + i);
 }
 
-const MR_CSharp_F *MR_CSharp_D_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_D *object)
-{
-    return (const MR_CSharp_F *)(static_cast<const MR::CSharp::F *>(
-        ((const MR::CSharp::D *)object)
-    ));
-}
-
-MR_CSharp_F *MR_CSharp_D_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_D *object)
-{
-    return (MR_CSharp_F *)(static_cast<MR::CSharp::F *>(
-        ((MR::CSharp::D *)object)
-    ));
-}
-
-const MR_CSharp_G *MR_CSharp_D_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_D *object)
-{
-    return (const MR_CSharp_G *)(static_cast<const MR::CSharp::G *>(
-        ((const MR::CSharp::D *)object)
-    ));
-}
-
-MR_CSharp_G *MR_CSharp_D_MutableStaticDowncastTo_MR_CSharp_G(MR_CSharp_D *object)
-{
-    return (MR_CSharp_G *)(static_cast<MR::CSharp::G *>(
-        ((MR::CSharp::D *)object)
-    ));
-}
-
 MR_CSharp_D *MR_CSharp_D_ConstructFromAnother(const MR_CSharp_D *_other)
 {
     return (MR_CSharp_D *)new MR::CSharp::D(MR::CSharp::D(
@@ -953,20 +841,6 @@ const MR_CSharp_E *MR_CSharp_E_OffsetPtr(const MR_CSharp_E *ptr, ptrdiff_t i)
 MR_CSharp_E *MR_CSharp_E_OffsetMutablePtr(MR_CSharp_E *ptr, ptrdiff_t i)
 {
     return (MR_CSharp_E *)(((MR::CSharp::E *)ptr) + i);
-}
-
-const MR_CSharp_F *MR_CSharp_E_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_E *object)
-{
-    return (const MR_CSharp_F *)(static_cast<const MR::CSharp::F *>(
-        ((const MR::CSharp::E *)object)
-    ));
-}
-
-MR_CSharp_F *MR_CSharp_E_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_E *object)
-{
-    return (MR_CSharp_F *)(static_cast<MR::CSharp::F *>(
-        ((MR::CSharp::E *)object)
-    ));
 }
 
 MR_CSharp_E *MR_CSharp_E_ConstructFromAnother(const MR_CSharp_E *_other)
@@ -1037,6 +911,48 @@ MR_CSharp_A *MR_CSharp_F_MutableUpcastTo_MR_CSharp_A(MR_CSharp_F *object)
     ));
 }
 
+const MR_CSharp_F *MR_CSharp_A_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_A *object)
+{
+    return (const MR_CSharp_F *)(static_cast<const MR::CSharp::F *>(
+        ((const MR::CSharp::A *)object)
+    ));
+}
+
+MR_CSharp_F *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_A *object)
+{
+    return (MR_CSharp_F *)(static_cast<MR::CSharp::F *>(
+        ((MR::CSharp::A *)object)
+    ));
+}
+
+const MR_CSharp_F *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(const MR_CSharp_A *object)
+{
+    return (const MR_CSharp_F *)(dynamic_cast<const MR::CSharp::F *>(
+        ((const MR::CSharp::A *)object)
+    ));
+}
+
+MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_F(MR_CSharp_A *object)
+{
+    return (MR_CSharp_F *)(dynamic_cast<MR::CSharp::F *>(
+        ((MR::CSharp::A *)object)
+    ));
+}
+
+const MR_CSharp_F *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_F(const MR_CSharp_A *object)
+{
+    return (const MR_CSharp_F *)std::addressof(dynamic_cast<const MR::CSharp::F &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
+    ));
+}
+
+MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_F(MR_CSharp_A *object)
+{
+    return (MR_CSharp_F *)std::addressof(dynamic_cast<MR::CSharp::F &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
+    ));
+}
+
 const MR_CSharp_D *MR_CSharp_F_UpcastTo_MR_CSharp_D(const MR_CSharp_F *object)
 {
     return (const MR_CSharp_D *)(static_cast<const MR::CSharp::D *>(
@@ -1051,6 +967,20 @@ MR_CSharp_D *MR_CSharp_F_MutableUpcastTo_MR_CSharp_D(MR_CSharp_F *object)
     ));
 }
 
+const MR_CSharp_F *MR_CSharp_D_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_D *object)
+{
+    return (const MR_CSharp_F *)(static_cast<const MR::CSharp::F *>(
+        ((const MR::CSharp::D *)object)
+    ));
+}
+
+MR_CSharp_F *MR_CSharp_D_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_D *object)
+{
+    return (MR_CSharp_F *)(static_cast<MR::CSharp::F *>(
+        ((MR::CSharp::D *)object)
+    ));
+}
+
 const MR_CSharp_E *MR_CSharp_F_UpcastTo_MR_CSharp_E(const MR_CSharp_F *object)
 {
     return (const MR_CSharp_E *)(static_cast<const MR::CSharp::E *>(
@@ -1062,6 +992,20 @@ MR_CSharp_E *MR_CSharp_F_MutableUpcastTo_MR_CSharp_E(MR_CSharp_F *object)
 {
     return (MR_CSharp_E *)(static_cast<MR::CSharp::E *>(
         ((MR::CSharp::F *)object)
+    ));
+}
+
+const MR_CSharp_F *MR_CSharp_E_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_E *object)
+{
+    return (const MR_CSharp_F *)(static_cast<const MR::CSharp::F *>(
+        ((const MR::CSharp::E *)object)
+    ));
+}
+
+MR_CSharp_F *MR_CSharp_E_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_E *object)
+{
+    return (MR_CSharp_F *)(static_cast<MR::CSharp::F *>(
+        ((MR::CSharp::E *)object)
     ));
 }
 
@@ -1192,6 +1136,48 @@ MR_CSharp_A *MR_CSharp_G_MutableUpcastTo_MR_CSharp_A(MR_CSharp_G *object)
     ));
 }
 
+const MR_CSharp_G *MR_CSharp_A_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_A *object)
+{
+    return (const MR_CSharp_G *)(static_cast<const MR::CSharp::G *>(
+        ((const MR::CSharp::A *)object)
+    ));
+}
+
+MR_CSharp_G *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_G(MR_CSharp_A *object)
+{
+    return (MR_CSharp_G *)(static_cast<MR::CSharp::G *>(
+        ((MR::CSharp::A *)object)
+    ));
+}
+
+const MR_CSharp_G *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(const MR_CSharp_A *object)
+{
+    return (const MR_CSharp_G *)(dynamic_cast<const MR::CSharp::G *>(
+        ((const MR::CSharp::A *)object)
+    ));
+}
+
+MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_G(MR_CSharp_A *object)
+{
+    return (MR_CSharp_G *)(dynamic_cast<MR::CSharp::G *>(
+        ((MR::CSharp::A *)object)
+    ));
+}
+
+const MR_CSharp_G *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_G(const MR_CSharp_A *object)
+{
+    return (const MR_CSharp_G *)std::addressof(dynamic_cast<const MR::CSharp::G &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
+    ));
+}
+
+MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_G(MR_CSharp_A *object)
+{
+    return (MR_CSharp_G *)std::addressof(dynamic_cast<MR::CSharp::G &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
+    ));
+}
+
 const MR_CSharp_D *MR_CSharp_G_UpcastTo_MR_CSharp_D(const MR_CSharp_G *object)
 {
     return (const MR_CSharp_D *)(static_cast<const MR::CSharp::D *>(
@@ -1203,6 +1189,20 @@ MR_CSharp_D *MR_CSharp_G_MutableUpcastTo_MR_CSharp_D(MR_CSharp_G *object)
 {
     return (MR_CSharp_D *)(static_cast<MR::CSharp::D *>(
         ((MR::CSharp::G *)object)
+    ));
+}
+
+const MR_CSharp_G *MR_CSharp_D_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_D *object)
+{
+    return (const MR_CSharp_G *)(static_cast<const MR::CSharp::G *>(
+        ((const MR::CSharp::D *)object)
+    ));
+}
+
+MR_CSharp_G *MR_CSharp_D_MutableStaticDowncastTo_MR_CSharp_G(MR_CSharp_D *object)
+{
+    return (MR_CSharp_G *)(static_cast<MR::CSharp::G *>(
+        ((MR::CSharp::D *)object)
     ));
 }
 
@@ -1681,20 +1681,6 @@ MR_CSharp_SA *MR_CSharp_SA_OffsetMutablePtr(MR_CSharp_SA *ptr, ptrdiff_t i)
     return (MR_CSharp_SA *)(((MR::CSharp::SA *)ptr) + i);
 }
 
-const MR_CSharp_SC *MR_CSharp_SA_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_SA *object)
-{
-    return (const MR_CSharp_SC *)(static_cast<const MR::CSharp::SC *>(
-        ((const MR::CSharp::SA *)object)
-    ));
-}
-
-MR_CSharp_SC *MR_CSharp_SA_MutableStaticDowncastTo_MR_CSharp_SC(MR_CSharp_SA *object)
-{
-    return (MR_CSharp_SC *)(static_cast<MR::CSharp::SC *>(
-        ((MR::CSharp::SA *)object)
-    ));
-}
-
 MR_CSharp_SA *MR_CSharp_SA_ConstructFromAnother(const MR_CSharp_SA *_other)
 {
     return (MR_CSharp_SA *)new MR::CSharp::SA(MR::CSharp::SA(
@@ -1759,20 +1745,6 @@ const MR_CSharp_SB *MR_CSharp_SB_OffsetPtr(const MR_CSharp_SB *ptr, ptrdiff_t i)
 MR_CSharp_SB *MR_CSharp_SB_OffsetMutablePtr(MR_CSharp_SB *ptr, ptrdiff_t i)
 {
     return (MR_CSharp_SB *)(((MR::CSharp::SB *)ptr) + i);
-}
-
-const MR_CSharp_SC *MR_CSharp_SB_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_SB *object)
-{
-    return (const MR_CSharp_SC *)(static_cast<const MR::CSharp::SC *>(
-        ((const MR::CSharp::SB *)object)
-    ));
-}
-
-MR_CSharp_SC *MR_CSharp_SB_MutableStaticDowncastTo_MR_CSharp_SC(MR_CSharp_SB *object)
-{
-    return (MR_CSharp_SC *)(static_cast<MR::CSharp::SC *>(
-        ((MR::CSharp::SB *)object)
-    ));
 }
 
 MR_CSharp_SB *MR_CSharp_SB_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SB *_other)
@@ -1850,6 +1822,20 @@ MR_CSharp_SA *MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SA(MR_CSharp_SC *object)
     ));
 }
 
+const MR_CSharp_SC *MR_CSharp_SA_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_SA *object)
+{
+    return (const MR_CSharp_SC *)(static_cast<const MR::CSharp::SC *>(
+        ((const MR::CSharp::SA *)object)
+    ));
+}
+
+MR_CSharp_SC *MR_CSharp_SA_MutableStaticDowncastTo_MR_CSharp_SC(MR_CSharp_SA *object)
+{
+    return (MR_CSharp_SC *)(static_cast<MR::CSharp::SC *>(
+        ((MR::CSharp::SA *)object)
+    ));
+}
+
 const MR_CSharp_SB *MR_CSharp_SC_UpcastTo_MR_CSharp_SB(const MR_CSharp_SC *object)
 {
     return (const MR_CSharp_SB *)(static_cast<const MR::CSharp::SB *>(
@@ -1861,6 +1847,20 @@ MR_CSharp_SB *MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SB(MR_CSharp_SC *object)
 {
     return (MR_CSharp_SB *)(static_cast<MR::CSharp::SB *>(
         ((MR::CSharp::SC *)object)
+    ));
+}
+
+const MR_CSharp_SC *MR_CSharp_SB_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_SB *object)
+{
+    return (const MR_CSharp_SC *)(static_cast<const MR::CSharp::SC *>(
+        ((const MR::CSharp::SB *)object)
+    ));
+}
+
+MR_CSharp_SC *MR_CSharp_SB_MutableStaticDowncastTo_MR_CSharp_SC(MR_CSharp_SB *object)
+{
+    return (MR_CSharp_SC *)(static_cast<MR::CSharp::SC *>(
+        ((MR::CSharp::SB *)object)
     ));
 }
 
@@ -1908,48 +1908,6 @@ const MR_CSharp_SD *MR_CSharp_SD_OffsetPtr(const MR_CSharp_SD *ptr, ptrdiff_t i)
 MR_CSharp_SD *MR_CSharp_SD_OffsetMutablePtr(MR_CSharp_SD *ptr, ptrdiff_t i)
 {
     return (MR_CSharp_SD *)(((MR::CSharp::SD *)ptr) + i);
-}
-
-const MR_CSharp_SF *MR_CSharp_SD_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object)
-{
-    return (const MR_CSharp_SF *)(static_cast<const MR::CSharp::SF *>(
-        ((const MR::CSharp::SD *)object)
-    ));
-}
-
-MR_CSharp_SF *MR_CSharp_SD_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object)
-{
-    return (MR_CSharp_SF *)(static_cast<MR::CSharp::SF *>(
-        ((MR::CSharp::SD *)object)
-    ));
-}
-
-const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object)
-{
-    return (const MR_CSharp_SF *)(dynamic_cast<const MR::CSharp::SF *>(
-        ((const MR::CSharp::SD *)object)
-    ));
-}
-
-MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object)
-{
-    return (MR_CSharp_SF *)(dynamic_cast<MR::CSharp::SF *>(
-        ((MR::CSharp::SD *)object)
-    ));
-}
-
-const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastToOrFail_MR_CSharp_SF(const MR_CSharp_SD *object)
-{
-    return (const MR_CSharp_SF *)std::addressof(dynamic_cast<const MR::CSharp::SF &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::SD *)(object))
-    ));
-}
-
-MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastToOrFail_MR_CSharp_SF(MR_CSharp_SD *object)
-{
-    return (MR_CSharp_SF *)std::addressof(dynamic_cast<MR::CSharp::SF &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::SD *)(object))
-    ));
 }
 
 MR_CSharp_SD *MR_CSharp_SD_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other)
@@ -2018,20 +1976,6 @@ const MR_CSharp_SE *MR_CSharp_SE_OffsetPtr(const MR_CSharp_SE *ptr, ptrdiff_t i)
 MR_CSharp_SE *MR_CSharp_SE_OffsetMutablePtr(MR_CSharp_SE *ptr, ptrdiff_t i)
 {
     return (MR_CSharp_SE *)(((MR::CSharp::SE *)ptr) + i);
-}
-
-const MR_CSharp_SF *MR_CSharp_SE_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SE *object)
-{
-    return (const MR_CSharp_SF *)(static_cast<const MR::CSharp::SF *>(
-        ((const MR::CSharp::SE *)object)
-    ));
-}
-
-MR_CSharp_SF *MR_CSharp_SE_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SE *object)
-{
-    return (MR_CSharp_SF *)(static_cast<MR::CSharp::SF *>(
-        ((MR::CSharp::SE *)object)
-    ));
 }
 
 MR_CSharp_SE *MR_CSharp_SE_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_SE *_other)
@@ -2109,6 +2053,48 @@ MR_CSharp_SD *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SD(MR_CSharp_SF *object)
     ));
 }
 
+const MR_CSharp_SF *MR_CSharp_SD_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object)
+{
+    return (const MR_CSharp_SF *)(static_cast<const MR::CSharp::SF *>(
+        ((const MR::CSharp::SD *)object)
+    ));
+}
+
+MR_CSharp_SF *MR_CSharp_SD_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object)
+{
+    return (MR_CSharp_SF *)(static_cast<MR::CSharp::SF *>(
+        ((MR::CSharp::SD *)object)
+    ));
+}
+
+const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object)
+{
+    return (const MR_CSharp_SF *)(dynamic_cast<const MR::CSharp::SF *>(
+        ((const MR::CSharp::SD *)object)
+    ));
+}
+
+MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object)
+{
+    return (MR_CSharp_SF *)(dynamic_cast<MR::CSharp::SF *>(
+        ((MR::CSharp::SD *)object)
+    ));
+}
+
+const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastToOrFail_MR_CSharp_SF(const MR_CSharp_SD *object)
+{
+    return (const MR_CSharp_SF *)std::addressof(dynamic_cast<const MR::CSharp::SF &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::SD *)(object))
+    ));
+}
+
+MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastToOrFail_MR_CSharp_SF(MR_CSharp_SD *object)
+{
+    return (MR_CSharp_SF *)std::addressof(dynamic_cast<MR::CSharp::SF &>(
+        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::SD *)(object))
+    ));
+}
+
 const MR_CSharp_SE *MR_CSharp_SF_UpcastTo_MR_CSharp_SE(const MR_CSharp_SF *object)
 {
     return (const MR_CSharp_SE *)(static_cast<const MR::CSharp::SE *>(
@@ -2120,6 +2106,20 @@ MR_CSharp_SE *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SE(MR_CSharp_SF *object)
 {
     return (MR_CSharp_SE *)(static_cast<MR::CSharp::SE *>(
         ((MR::CSharp::SF *)object)
+    ));
+}
+
+const MR_CSharp_SF *MR_CSharp_SE_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SE *object)
+{
+    return (const MR_CSharp_SF *)(static_cast<const MR::CSharp::SF *>(
+        ((const MR::CSharp::SE *)object)
+    ));
+}
+
+MR_CSharp_SF *MR_CSharp_SE_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SE *object)
+{
+    return (MR_CSharp_SF *)(static_cast<MR::CSharp::SF *>(
+        ((MR::CSharp::SE *)object)
     ));
 }
 

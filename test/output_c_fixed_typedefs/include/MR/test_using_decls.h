@@ -76,17 +76,6 @@ MR_C_API const MR_UsingDecls_A *MR_UsingDecls_A_OffsetPtr(const MR_UsingDecls_A 
 // The reference to the parameter `ptr` might be preserved in the return value.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_A_OffsetMutablePtr(MR_UsingDecls_A *ptr, ptrdiff_t i);
 
-// Downcasts an instance of `MR::UsingDecls::A` to a derived class `MR::UsingDecls::B`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// This version is acting on mutable pointers.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_UsingDecls_B *MR_UsingDecls_A_StaticDowncastTo_MR_UsingDecls_B(const MR_UsingDecls_A *object);
-
-// Downcasts an instance of `MR::UsingDecls::A` to a derived class `MR::UsingDecls::B`.
-// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
-// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_UsingDecls_B *MR_UsingDecls_A_MutableStaticDowncastTo_MR_UsingDecls_B(MR_UsingDecls_A *object);
-
 // Generated from constructor `MR::UsingDecls::A::A`.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_UsingDecls_A_Destroy()` to free it when you're done using it.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_A_Construct(int32_t _1);
@@ -142,6 +131,17 @@ MR_C_API const MR_UsingDecls_A *MR_UsingDecls_B_UpcastTo_MR_UsingDecls_A(const M
 // Upcasts an instance of `MR::UsingDecls::B` to its base class `MR::UsingDecls::A`.
 // The reference to the parameter `object` might be preserved in the return value.
 MR_C_API MR_UsingDecls_A *MR_UsingDecls_B_MutableUpcastTo_MR_UsingDecls_A(MR_UsingDecls_B *object);
+
+// Downcasts an instance of `MR::UsingDecls::A` to a derived class `MR::UsingDecls::B`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// This version is acting on mutable pointers.
+// The reference to the parameter `object` might be preserved in the return value.
+MR_C_API const MR_UsingDecls_B *MR_UsingDecls_A_StaticDowncastTo_MR_UsingDecls_B(const MR_UsingDecls_A *object);
+
+// Downcasts an instance of `MR::UsingDecls::A` to a derived class `MR::UsingDecls::B`.
+// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
+// The reference to the parameter `object` might be preserved in the return value.
+MR_C_API MR_UsingDecls_B *MR_UsingDecls_A_MutableStaticDowncastTo_MR_UsingDecls_B(MR_UsingDecls_A *object);
 
 // Destroys a heap-allocated instance of `MR_UsingDecls_B`. Does nothing if the pointer is null.
 MR_C_API void MR_UsingDecls_B_Destroy(const MR_UsingDecls_B *_this);

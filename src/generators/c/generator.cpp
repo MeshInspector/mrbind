@@ -29,16 +29,10 @@ namespace mrbind::C
 
     Generator::~Generator() {}
 
-    std::optional<std::size_t> Generator::FindCommonGroupIndex(std::size_t a, std::size_t b, std::string *out_error)
+    std::optional<std::size_t> Generator::FindCommonGroupIndex(std::size_t a, std::size_t b, std::string *out_error, bool only_allow_input_groups)
     {
         if (out_error)
             *out_error = "";
-
-        auto WriteErrorPrefix = [&]
-        {
-            // Wasn't sure if I should add a trailing newline or not. Decided to add it.
-            *out_error = "While trying to find a common sub-library that depends on both `" + output_groups.at(a).helper_macro_name_prefix + "` and `" + output_groups.at(b).helper_macro_name_prefix + "`:\n";
-        };
 
         if (a == std::size_t(-1))
             return b;
@@ -58,40 +52,64 @@ namespace mrbind::C
 
         auto &ret = iter->second;
 
-        for (std::size_t i = 0; i < output_groups.size(); i++)
+        // Maybe one of the input groups depends on the other?
+        if (!ret && output_groups.at(a).recursive_dep_indices.contains(b))
+            ret = a;
+        if (!ret && output_groups.at(b).recursive_dep_indices.contains(a))
+            ret = b;
+
+        // If we're only allowed to use the input groups, must exit now if we didn't find anything yet.
+        if (!ret && only_allow_input_groups)
         {
-            const OutputGroup &group = output_groups[i];
+            if (out_error)
+                *out_error = "Neither of the two sub-libraries depends on the other: `" + output_groups.at(a).helper_macro_name_prefix + "` and `" + output_groups.at(b).helper_macro_name_prefix + "`.";
+            return ret;
+        }
 
-            if (!group.recursive_dep_indices.contains(a) || !group.recursive_dep_indices.contains(b))
-                continue; // Doesn't depend on both `a` and `b`.
+        auto WriteErrorPrefix = [&]
+        {
+            // Wasn't sure if I should add a trailing newline or not. Decided to add it.
+            *out_error = "While trying to find a common sub-library that depends on both `" + output_groups.at(a).helper_macro_name_prefix + "` and `" + output_groups.at(b).helper_macro_name_prefix + "`:\n";
+        };
 
-            if (!ret)
+        // Otherwise find a group that depends on both input groups.
+        if (!only_allow_input_groups && !ret)
+        {
+            for (std::size_t i = 0; i < output_groups.size(); i++)
             {
-                ret = i; // This is the first match.
-                continue;
-            }
+                const OutputGroup &group = output_groups[i];
 
-            // Check if either the old or the new match subsumes the other, by being its dependency.
+                if (!group.recursive_dep_indices.contains(a) || !group.recursive_dep_indices.contains(b))
+                    continue; // Doesn't depend on both `a` and `b`.
 
-            if (group.recursive_dep_indices.contains(*ret))
-                continue; // The old match is better.
-
-            if (output_groups.at(*ret).recursive_dep_indices.contains(i))
-            {
-                ret = i; // The new match is better.
-                continue;
-            }
-
-            // Neither subsumes the other, complain.
-            if (ret)
-            {
-                if (out_error)
+                if (!ret)
                 {
-                    WriteErrorPrefix();
-                    *out_error += "Found at least two candidates, neither of which is a better match than the other (neither is a dependency of the other): `" + output_groups.at(*ret).helper_macro_name_prefix + "` and `" + group.helper_macro_name_prefix + "`.";
+                    ret = i; // This is the first match.
+                    continue;
                 }
-                ret.reset();
-                return {};
+
+                // Check if either the old or the new match subsumes the other, by being its dependency.
+
+                if (group.recursive_dep_indices.contains(*ret))
+                    continue; // The old match is better.
+
+                if (output_groups.at(*ret).recursive_dep_indices.contains(i))
+                {
+                    ret = i; // The new match is better.
+                    continue;
+                }
+
+                // Neither subsumes the other, complain.
+                if (ret)
+                {
+                    if (out_error)
+                    {
+                        WriteErrorPrefix();
+                        *out_error += "Found at least two candidates, neither of which is a better match than the other (neither is a dependency of the other): `" + output_groups.at(*ret).helper_macro_name_prefix + "` and `" + group.helper_macro_name_prefix + "`.";
+                    }
+                    ret.reset();
+                    return {};
+                }
             }
         }
 
@@ -1290,7 +1308,7 @@ namespace mrbind::C
 
             // A builtin type? Or something like `int32_t`.
             // A bit sketchy, but this needs to pass for `int32_t` for it to work as a member of an `--expose-as-struct` struct.
-            if (!FindTypeBindableWithSameAddress(type.simple_type.name, false).needs_reinterpret_cast)
+            if (auto opt = FindTypeBindableWithSameAddressOpt(type.simple_type.name, false); opt && !opt->needs_reinterpret_cast)
                 return true;
         }
 
@@ -5154,27 +5172,60 @@ namespace mrbind::C
                     }
 
                     { // Upcasts and downcasts.
-                        for (bool is_downcast : {false, true})
+                        // Here we can do one of two things:
+                        // 1. Visit all bases, and cast to and from them.
+                        // 2. Visit both bases and derived classes, and cast only to them.
+                        // (2) looks promising at fase value, since all those casts are implemented as non-static methods of this class (rigth now),
+                        //   so it makes sense for them to be in the file of the input class.
+                        // But (1) is actually needed to properly support the separation into sub-libraries, since we want the derived classes
+                        //   in the sub-libraries to hold all related functions within their own files.
+                        //
+                        // We might eventually want to rename downcasts to have the derived name first, not the base name first, to make this look nicer.
+                        //
+                        // Even with this system, there's still some minor leakage of sub-libraries into their dependencies: the inheritance hierarchy comments in the dependency
+                        //   will mention the dependent libraries.
+                        //
+                        // Also notice that we don't implement side casts, both for simplicity, and to avoid deciding where to place them when sub-libraries are involved,
+                        //   which could realistically be impossible (it would be a bad idea to force the user to add a common sub-library to depend on all sub-libraries that
+                        //   inherit classes from a certain base).
+                        for (const auto &base_class : inheritance_info.bases_indirect.Vec())
                         {
-                            inheritance_info.ForEachIndirect(is_downcast, [&](const auto &target)
-                            {
-                                if (target.second == CInterop::InheritanceInfo::Kind::ambiguous)
-                                    return;
+                            const CInterop::InheritanceInfo::Kind base_kind = inheritance_info.bases_indirect.Map().at(base_class);
 
-                                // The C type name of the target.
-                                const cppdecl::QualifiedName target_cpp_qual_name = self.ParseQualNameOrThrow(target.first);
-                                const std::string target_c_name = self.CppTypeNameToCTypeName(target_cpp_qual_name);
+                            if (base_kind == CInterop::InheritanceInfo::Kind::ambiguous)
+                                return;
+
+                            // The C type name of the target.
+                            const cppdecl::QualifiedName base_cpp_qual_name = self.ParseQualNameOrThrow(base_class);
+                            const std::string base_c_name = self.CppTypeNameToCTypeName(base_cpp_qual_name);
+                            const std::string base_cpp_name_deco = self.CppdeclToCodeForComments(base_cpp_qual_name);
+
+
+                            for (bool is_downcast : {false, true})
+                            {
+                                const cppdecl::QualifiedName target_class_cpp_qual_name = is_downcast ? cpp_class_name : base_cpp_qual_name;
+                                const cppdecl::QualifiedName source_class_cpp_qual_name = is_downcast ? base_cpp_qual_name : cpp_class_name;
+
+                                // The decorated C++ name of the target class we're casting into (which is either this class or the base).
+                                const std::string target_class_cpp_name_deco = is_downcast ? cpp_class_name_str_deco : base_cpp_name_deco;
+                                // The decorated C++ name of the target class we're casting from (which is either this class or the base).
+                                const std::string source_class_cpp_name_deco = is_downcast ? base_cpp_name_deco : cpp_class_name_str_deco;
+
+                                const std::string target_class_c_name = is_downcast ? binder.c_type_name : base_c_name;
+                                const std::string source_class_c_name = is_downcast ? base_c_name : binder.c_type_name;
+
+                                const ParsedTypeInfo::ClassDesc &source_class_info = is_downcast ? std::get<ParsedTypeInfo::ClassDesc>(self.parsed_type_info.at(base_class).input_type) : parsed_class_info;
 
                                 // Do not reorder, because we stop on the first successfully generated upcast, and the static one should have precedence.
                                 for (bool is_dynamic : {false, true})
                                 {
                                     // Virtual downcasts must be dynamic.
-                                    if (is_downcast && !is_dynamic && (target.second == CInterop::InheritanceInfo::Kind::true_virt || target.second == CInterop::InheritanceInfo::Kind::virt_path))
+                                    if (is_downcast && !is_dynamic && (base_kind == CInterop::InheritanceInfo::Kind::true_virt || base_kind == CInterop::InheritanceInfo::Kind::virt_path))
                                         continue;
 
                                     // If this is a dynamic cast, then the source type must be polymorphic.
                                     // Note that the target type doesn't have to be polymorphic.
-                                    if (is_dynamic && !parsed_class_info.is_polymorphic)
+                                    if (is_dynamic && !source_class_info.is_polymorphic)
                                         continue;
 
                                     // Do not reorder, because we stop on the first successfully generated upcast, and the ptr one should have precedence.
@@ -5187,13 +5238,13 @@ namespace mrbind::C
 
                                         // Must include the type definition in the implementation file.
                                         // Otherwise the C++ type might not even be declared. We only automatically declare the C type in the public header.
-                                        self.TryFindHeadersForCppNameForSourceFile(target_cpp_qual_name).InsertToFile(file);
+                                        self.TryFindHeadersForCppNameForSourceFile(base_cpp_qual_name).InsertToFile(file);
 
                                         for (bool is_const : {true, false})
                                         {
                                             EmitFuncParams emit;
 
-                                            emit.c_comment = "/// " + std::string(is_downcast ? "Downcasts" : "Upcasts") + " an instance of `" + cpp_class_name_str_deco + "` to " + (is_downcast ? "a derived class" : "its base class") + " `" + target.first + "`.";
+                                            emit.c_comment = "/// " + std::string(is_downcast ? "Downcasts" : "Upcasts") + " an instance of `" + source_class_cpp_name_deco + "` to " + (is_downcast ? "a derived class" : "its base class") + " `" + target_class_cpp_name_deco + "`.";
                                             if (is_downcast)
                                             {
                                                 if (is_dynamic)
@@ -5213,18 +5264,18 @@ namespace mrbind::C
                                                 emit.c_comment += "\n/// This version is acting on mutable pointers.";
 
                                             // The upcasts don't need the static-vs-dynamic part in the name, because there is always at most one anyway.
-                                            emit.name = binder.MakeMemberFuncName(
-                                                self,
+                                            emit.name = self.MakeMemberFuncName(
+                                                source_class_c_name,
                                                 std::string(is_const ? "" : "Mutable") +
                                                 (!is_downcast ? "UpcastTo" : is_dynamic ? (acts_on_ref ? "DynamicDowncastToOrFail" : "DynamicDowncastTo") : "StaticDowncastTo") +
                                                 "_" +
-                                                target_c_name
+                                                target_class_c_name
                                             );
                                             // Hide from interop. Call those functions directly by their names if you need them.
                                             emit.name.ignore_in_interop = true;
 
                                             // Will add a pointer or a reference later.
-                                            emit.cpp_return_type = cppdecl::Type::FromQualifiedName(target_cpp_qual_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_);
+                                            emit.cpp_return_type = cppdecl::Type::FromQualifiedName(target_class_cpp_qual_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_);
 
                                             // Add a `static this` parameter to make some of our internal checks happy.
                                             // This is considered to be a static function.
@@ -5232,7 +5283,7 @@ namespace mrbind::C
                                                 .name = "_this",
                                                 .kind = EmitFuncParams::Param::Kind::static_,
                                                 .omit_from_call = true,
-                                                .cpp_type = cppdecl::Type::FromQualifiedName(cpp_class_name),
+                                                .cpp_type = cppdecl::Type::FromQualifiedName(source_class_cpp_qual_name),
                                             });
 
                                             // This is not a `this` parameter, because for some of the casts it's a nullable pointer,
@@ -5241,7 +5292,7 @@ namespace mrbind::C
                                             emit.params.push_back({
                                                 .name = "object",
                                                 // Will add a pointer or a reference later.
-                                                .cpp_type = cppdecl::Type::FromQualifiedName(cpp_class_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_),
+                                                .cpp_type = cppdecl::Type::FromQualifiedName(source_class_cpp_qual_name).AddQualifiers(is_const * cppdecl::CvQualifiers::const_),
                                                 .reference_returned = true,
                                             });
 
@@ -5267,7 +5318,7 @@ namespace mrbind::C
                                     if (!is_downcast)
                                         break;
                                 }
-                            });
+                            }
                         }
                     }
                 };

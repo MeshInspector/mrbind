@@ -65,6 +65,59 @@ MR_AbstractClasses_B *MR_AbstractClasses_B_OffsetMutablePtr(MR_AbstractClasses_B
     ) // MRBINDC_TRY
 }
 
+void MR_AbstractClasses_C_Destroy(const MR_AbstractClasses_C *_this)
+{
+    MRBINDC_TRY(
+    delete ((const MR::AbstractClasses::C *)_this);
+    ) // MRBINDC_TRY
+}
+
+void MR_AbstractClasses_C_DestroyArray(const MR_AbstractClasses_C *_this)
+{
+    MRBINDC_TRY(
+    delete[] ((const MR::AbstractClasses::C *)_this);
+    ) // MRBINDC_TRY
+}
+
+void MR_AbstractClasses_C_foo(MR_AbstractClasses_C *_this)
+{
+    MRBINDC_TRY(
+    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AbstractClasses::C *)(_this)).foo();
+    ) // MRBINDC_TRY
+}
+
+const MR_AbstractClasses_C *MR_AbstractClasses_C_OffsetPtr(const MR_AbstractClasses_C *ptr, ptrdiff_t i)
+{
+    MRBINDC_TRY(
+    return (const MR_AbstractClasses_C *)(((const MR::AbstractClasses::C *)ptr) + i);
+    ) // MRBINDC_TRY
+}
+
+MR_AbstractClasses_C *MR_AbstractClasses_C_OffsetMutablePtr(MR_AbstractClasses_C *ptr, ptrdiff_t i)
+{
+    MRBINDC_TRY(
+    return (MR_AbstractClasses_C *)(((MR::AbstractClasses::C *)ptr) + i);
+    ) // MRBINDC_TRY
+}
+
+const MR_AbstractClasses_B *MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(const MR_AbstractClasses_C *object)
+{
+    MRBINDC_TRY(
+    return (const MR_AbstractClasses_B *)(static_cast<const MR::AbstractClasses::B *>(
+        ((const MR::AbstractClasses::C *)object)
+    ));
+    ) // MRBINDC_TRY
+}
+
+MR_AbstractClasses_B *MR_AbstractClasses_C_MutableUpcastTo_MR_AbstractClasses_B(MR_AbstractClasses_C *object)
+{
+    MRBINDC_TRY(
+    return (MR_AbstractClasses_B *)(static_cast<MR::AbstractClasses::B *>(
+        ((MR::AbstractClasses::C *)object)
+    ));
+    ) // MRBINDC_TRY
+}
+
 const MR_AbstractClasses_C *MR_AbstractClasses_B_StaticDowncastTo_MR_AbstractClasses_C(const MR_AbstractClasses_B *object)
 {
     MRBINDC_TRY(
@@ -115,59 +168,6 @@ MR_AbstractClasses_C *MR_AbstractClasses_B_MutableDynamicDowncastToOrFail_MR_Abs
     MRBINDC_TRY(
     return (MR_AbstractClasses_C *)std::addressof(dynamic_cast<MR::AbstractClasses::C &>(
         ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::AbstractClasses::B *)(object))
-    ));
-    ) // MRBINDC_TRY
-}
-
-void MR_AbstractClasses_C_Destroy(const MR_AbstractClasses_C *_this)
-{
-    MRBINDC_TRY(
-    delete ((const MR::AbstractClasses::C *)_this);
-    ) // MRBINDC_TRY
-}
-
-void MR_AbstractClasses_C_DestroyArray(const MR_AbstractClasses_C *_this)
-{
-    MRBINDC_TRY(
-    delete[] ((const MR::AbstractClasses::C *)_this);
-    ) // MRBINDC_TRY
-}
-
-void MR_AbstractClasses_C_foo(MR_AbstractClasses_C *_this)
-{
-    MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AbstractClasses::C *)(_this)).foo();
-    ) // MRBINDC_TRY
-}
-
-const MR_AbstractClasses_C *MR_AbstractClasses_C_OffsetPtr(const MR_AbstractClasses_C *ptr, ptrdiff_t i)
-{
-    MRBINDC_TRY(
-    return (const MR_AbstractClasses_C *)(((const MR::AbstractClasses::C *)ptr) + i);
-    ) // MRBINDC_TRY
-}
-
-MR_AbstractClasses_C *MR_AbstractClasses_C_OffsetMutablePtr(MR_AbstractClasses_C *ptr, ptrdiff_t i)
-{
-    MRBINDC_TRY(
-    return (MR_AbstractClasses_C *)(((MR::AbstractClasses::C *)ptr) + i);
-    ) // MRBINDC_TRY
-}
-
-const MR_AbstractClasses_B *MR_AbstractClasses_C_UpcastTo_MR_AbstractClasses_B(const MR_AbstractClasses_C *object)
-{
-    MRBINDC_TRY(
-    return (const MR_AbstractClasses_B *)(static_cast<const MR::AbstractClasses::B *>(
-        ((const MR::AbstractClasses::C *)object)
-    ));
-    ) // MRBINDC_TRY
-}
-
-MR_AbstractClasses_B *MR_AbstractClasses_C_MutableUpcastTo_MR_AbstractClasses_B(MR_AbstractClasses_C *object)
-{
-    MRBINDC_TRY(
-    return (MR_AbstractClasses_B *)(static_cast<MR::AbstractClasses::B *>(
-        ((MR::AbstractClasses::C *)object)
     ));
     ) // MRBINDC_TRY
 }

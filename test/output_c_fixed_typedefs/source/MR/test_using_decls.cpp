@@ -57,20 +57,6 @@ MR_UsingDecls_A *MR_UsingDecls_A_OffsetMutablePtr(MR_UsingDecls_A *ptr, ptrdiff_
     return (MR_UsingDecls_A *)(((MR::UsingDecls::A *)ptr) + i);
 }
 
-const MR_UsingDecls_B *MR_UsingDecls_A_StaticDowncastTo_MR_UsingDecls_B(const MR_UsingDecls_A *object)
-{
-    return (const MR_UsingDecls_B *)(static_cast<const MR::UsingDecls::B *>(
-        ((const MR::UsingDecls::A *)object)
-    ));
-}
-
-MR_UsingDecls_B *MR_UsingDecls_A_MutableStaticDowncastTo_MR_UsingDecls_B(MR_UsingDecls_A *object)
-{
-    return (MR_UsingDecls_B *)(static_cast<MR::UsingDecls::B *>(
-        ((MR::UsingDecls::A *)object)
-    ));
-}
-
 MR_UsingDecls_A *MR_UsingDecls_A_Construct(int32_t _1)
 {
     return (MR_UsingDecls_A *)new MR::UsingDecls::A(MR::UsingDecls::A(
@@ -145,6 +131,20 @@ MR_UsingDecls_A *MR_UsingDecls_B_MutableUpcastTo_MR_UsingDecls_A(MR_UsingDecls_B
 {
     return (MR_UsingDecls_A *)(static_cast<MR::UsingDecls::A *>(
         ((MR::UsingDecls::B *)object)
+    ));
+}
+
+const MR_UsingDecls_B *MR_UsingDecls_A_StaticDowncastTo_MR_UsingDecls_B(const MR_UsingDecls_A *object)
+{
+    return (const MR_UsingDecls_B *)(static_cast<const MR::UsingDecls::B *>(
+        ((const MR::UsingDecls::A *)object)
+    ));
+}
+
+MR_UsingDecls_B *MR_UsingDecls_A_MutableStaticDowncastTo_MR_UsingDecls_B(MR_UsingDecls_A *object)
+{
+    return (MR_UsingDecls_B *)(static_cast<MR::UsingDecls::B *>(
+        ((MR::UsingDecls::A *)object)
     ));
 }
 
