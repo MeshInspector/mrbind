@@ -5180,8 +5180,6 @@ namespace mrbind::C
                         // But (1) is actually needed to properly support the separation into sub-libraries, since we want the derived classes
                         //   in the sub-libraries to hold all related functions within their own files.
                         //
-                        // We might eventually want to rename downcasts to have the derived name first, not the base name first, to make this look nicer.
-                        //
                         // Even with this system, there's still some minor leakage of sub-libraries into their dependencies: the inheritance hierarchy comments in the dependency
                         //   will mention the dependent libraries.
                         //
@@ -5210,9 +5208,6 @@ namespace mrbind::C
                                 const std::string target_class_cpp_name_deco = is_downcast ? cpp_class_name_str_deco : base_cpp_name_deco;
                                 // The decorated C++ name of the target class we're casting from (which is either this class or the base).
                                 const std::string source_class_cpp_name_deco = is_downcast ? base_cpp_name_deco : cpp_class_name_str_deco;
-
-                                const std::string target_class_c_name = is_downcast ? binder.c_type_name : base_c_name;
-                                const std::string source_class_c_name = is_downcast ? base_c_name : binder.c_type_name;
 
                                 const ParsedTypeInfo::ClassDesc &source_class_info = is_downcast ? std::get<ParsedTypeInfo::ClassDesc>(self.parsed_type_info.at(base_class).input_type) : parsed_class_info;
 
@@ -5264,12 +5259,12 @@ namespace mrbind::C
                                                 emit.c_comment += "\n/// This version is acting on mutable pointers.";
 
                                             // The upcasts don't need the static-vs-dynamic part in the name, because there is always at most one anyway.
-                                            emit.name = self.MakeMemberFuncName(
-                                                source_class_c_name,
+                                            emit.name = binder.MakeMemberFuncName(
+                                                self,
                                                 std::string(is_const ? "" : "Mutable") +
-                                                (!is_downcast ? "UpcastTo" : is_dynamic ? (acts_on_ref ? "DynamicDowncastToOrFail" : "DynamicDowncastTo") : "StaticDowncastTo") +
+                                                (!is_downcast ? "UpcastTo" : is_dynamic ? (acts_on_ref ? "DynamicDowncastFromOrFail" : "DynamicDowncastFrom") : "StaticDowncastFrom") +
                                                 "_" +
-                                                target_class_c_name
+                                                base_c_name
                                             );
                                             // Hide from interop. Call those functions directly by their names if you need them.
                                             emit.name.ignore_in_interop = true;

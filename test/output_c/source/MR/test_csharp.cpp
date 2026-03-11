@@ -625,7 +625,7 @@ MR_CSharp_A *MR_CSharp_B_MutableUpcastTo_MR_CSharp_A(MR_CSharp_B *object)
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_B *MR_CSharp_A_StaticDowncastTo_MR_CSharp_B(const MR_CSharp_A *object)
+const MR_CSharp_B *MR_CSharp_B_StaticDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_B *)(static_cast<const MR::CSharp::B *>(
@@ -634,7 +634,7 @@ const MR_CSharp_B *MR_CSharp_A_StaticDowncastTo_MR_CSharp_B(const MR_CSharp_A *o
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_B *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_B(MR_CSharp_A *object)
+MR_CSharp_B *MR_CSharp_B_MutableStaticDowncastFrom_MR_CSharp_A(MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_B *)(static_cast<MR::CSharp::B *>(
@@ -643,7 +643,7 @@ MR_CSharp_B *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_B(MR_CSharp_A *object
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_B *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(const MR_CSharp_A *object)
+const MR_CSharp_B *MR_CSharp_B_DynamicDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_B *)(dynamic_cast<const MR::CSharp::B *>(
@@ -652,7 +652,7 @@ const MR_CSharp_B *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(const MR_CSharp_A *
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_B(MR_CSharp_A *object)
+MR_CSharp_B *MR_CSharp_B_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_B *)(dynamic_cast<MR::CSharp::B *>(
@@ -661,7 +661,7 @@ MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_B(MR_CSharp_A *objec
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_B *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_B(const MR_CSharp_A *object)
+const MR_CSharp_B *MR_CSharp_B_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_B *)std::addressof(dynamic_cast<const MR::CSharp::B &>(
@@ -670,7 +670,7 @@ const MR_CSharp_B *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_B(const MR_CSha
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_B(MR_CSharp_A *object)
+MR_CSharp_B *MR_CSharp_B_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_B *)std::addressof(dynamic_cast<MR::CSharp::B &>(
@@ -830,7 +830,7 @@ MR_CSharp_A *MR_CSharp_C_MutableUpcastTo_MR_CSharp_A(MR_CSharp_C *object)
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_C *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(const MR_CSharp_A *object)
+const MR_CSharp_C *MR_CSharp_C_DynamicDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_C *)(dynamic_cast<const MR::CSharp::C *>(
@@ -839,7 +839,7 @@ const MR_CSharp_C *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(const MR_CSharp_A *
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_C(MR_CSharp_A *object)
+MR_CSharp_C *MR_CSharp_C_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_C *)(dynamic_cast<MR::CSharp::C *>(
@@ -848,7 +848,7 @@ MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_C(MR_CSharp_A *objec
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_C *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_C(const MR_CSharp_A *object)
+const MR_CSharp_C *MR_CSharp_C_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_C *)std::addressof(dynamic_cast<const MR::CSharp::C &>(
@@ -857,7 +857,7 @@ const MR_CSharp_C *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_C(const MR_CSha
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_C(MR_CSharp_A *object)
+MR_CSharp_C *MR_CSharp_C_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_C *)std::addressof(dynamic_cast<MR::CSharp::C &>(
@@ -1155,7 +1155,7 @@ MR_CSharp_A *MR_CSharp_F_MutableUpcastTo_MR_CSharp_A(MR_CSharp_F *object)
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_F *MR_CSharp_A_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_A *object)
+const MR_CSharp_F *MR_CSharp_F_StaticDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_F *)(static_cast<const MR::CSharp::F *>(
@@ -1164,7 +1164,7 @@ const MR_CSharp_F *MR_CSharp_A_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_A *o
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_F *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_A *object)
+MR_CSharp_F *MR_CSharp_F_MutableStaticDowncastFrom_MR_CSharp_A(MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_F *)(static_cast<MR::CSharp::F *>(
@@ -1173,7 +1173,7 @@ MR_CSharp_F *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_A *object
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_F *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(const MR_CSharp_A *object)
+const MR_CSharp_F *MR_CSharp_F_DynamicDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_F *)(dynamic_cast<const MR::CSharp::F *>(
@@ -1182,7 +1182,7 @@ const MR_CSharp_F *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(const MR_CSharp_A *
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_F(MR_CSharp_A *object)
+MR_CSharp_F *MR_CSharp_F_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_F *)(dynamic_cast<MR::CSharp::F *>(
@@ -1191,7 +1191,7 @@ MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_F(MR_CSharp_A *objec
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_F *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_F(const MR_CSharp_A *object)
+const MR_CSharp_F *MR_CSharp_F_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_F *)std::addressof(dynamic_cast<const MR::CSharp::F &>(
@@ -1200,7 +1200,7 @@ const MR_CSharp_F *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_F(const MR_CSha
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_F(MR_CSharp_A *object)
+MR_CSharp_F *MR_CSharp_F_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_F *)std::addressof(dynamic_cast<MR::CSharp::F &>(
@@ -1227,7 +1227,7 @@ MR_CSharp_D *MR_CSharp_F_MutableUpcastTo_MR_CSharp_D(MR_CSharp_F *object)
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_F *MR_CSharp_D_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_D *object)
+const MR_CSharp_F *MR_CSharp_F_StaticDowncastFrom_MR_CSharp_D(const MR_CSharp_D *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_F *)(static_cast<const MR::CSharp::F *>(
@@ -1236,7 +1236,7 @@ const MR_CSharp_F *MR_CSharp_D_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_D *o
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_F *MR_CSharp_D_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_D *object)
+MR_CSharp_F *MR_CSharp_F_MutableStaticDowncastFrom_MR_CSharp_D(MR_CSharp_D *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_F *)(static_cast<MR::CSharp::F *>(
@@ -1263,7 +1263,7 @@ MR_CSharp_E *MR_CSharp_F_MutableUpcastTo_MR_CSharp_E(MR_CSharp_F *object)
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_F *MR_CSharp_E_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_E *object)
+const MR_CSharp_F *MR_CSharp_F_StaticDowncastFrom_MR_CSharp_E(const MR_CSharp_E *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_F *)(static_cast<const MR::CSharp::F *>(
@@ -1272,7 +1272,7 @@ const MR_CSharp_F *MR_CSharp_E_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_E *o
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_F *MR_CSharp_E_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_E *object)
+MR_CSharp_F *MR_CSharp_F_MutableStaticDowncastFrom_MR_CSharp_E(MR_CSharp_E *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_F *)(static_cast<MR::CSharp::F *>(
@@ -1450,7 +1450,7 @@ MR_CSharp_A *MR_CSharp_G_MutableUpcastTo_MR_CSharp_A(MR_CSharp_G *object)
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_G *MR_CSharp_A_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_A *object)
+const MR_CSharp_G *MR_CSharp_G_StaticDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_G *)(static_cast<const MR::CSharp::G *>(
@@ -1459,7 +1459,7 @@ const MR_CSharp_G *MR_CSharp_A_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_A *o
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_G *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_G(MR_CSharp_A *object)
+MR_CSharp_G *MR_CSharp_G_MutableStaticDowncastFrom_MR_CSharp_A(MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_G *)(static_cast<MR::CSharp::G *>(
@@ -1468,7 +1468,7 @@ MR_CSharp_G *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_G(MR_CSharp_A *object
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_G *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(const MR_CSharp_A *object)
+const MR_CSharp_G *MR_CSharp_G_DynamicDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_G *)(dynamic_cast<const MR::CSharp::G *>(
@@ -1477,7 +1477,7 @@ const MR_CSharp_G *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(const MR_CSharp_A *
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_G(MR_CSharp_A *object)
+MR_CSharp_G *MR_CSharp_G_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_G *)(dynamic_cast<MR::CSharp::G *>(
@@ -1486,7 +1486,7 @@ MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_G(MR_CSharp_A *objec
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_G *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_G(const MR_CSharp_A *object)
+const MR_CSharp_G *MR_CSharp_G_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_G *)std::addressof(dynamic_cast<const MR::CSharp::G &>(
@@ -1495,7 +1495,7 @@ const MR_CSharp_G *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_G(const MR_CSha
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_G(MR_CSharp_A *object)
+MR_CSharp_G *MR_CSharp_G_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_G *)std::addressof(dynamic_cast<MR::CSharp::G &>(
@@ -1522,7 +1522,7 @@ MR_CSharp_D *MR_CSharp_G_MutableUpcastTo_MR_CSharp_D(MR_CSharp_G *object)
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_G *MR_CSharp_D_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_D *object)
+const MR_CSharp_G *MR_CSharp_G_StaticDowncastFrom_MR_CSharp_D(const MR_CSharp_D *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_G *)(static_cast<const MR::CSharp::G *>(
@@ -1531,7 +1531,7 @@ const MR_CSharp_G *MR_CSharp_D_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_D *o
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_G *MR_CSharp_D_MutableStaticDowncastTo_MR_CSharp_G(MR_CSharp_D *object)
+MR_CSharp_G *MR_CSharp_G_MutableStaticDowncastFrom_MR_CSharp_D(MR_CSharp_D *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_G *)(static_cast<MR::CSharp::G *>(
@@ -2320,7 +2320,7 @@ MR_CSharp_SA *MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SA(MR_CSharp_SC *object)
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_SC *MR_CSharp_SA_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_SA *object)
+const MR_CSharp_SC *MR_CSharp_SC_StaticDowncastFrom_MR_CSharp_SA(const MR_CSharp_SA *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_SC *)(static_cast<const MR::CSharp::SC *>(
@@ -2329,7 +2329,7 @@ const MR_CSharp_SC *MR_CSharp_SA_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_S
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_SC *MR_CSharp_SA_MutableStaticDowncastTo_MR_CSharp_SC(MR_CSharp_SA *object)
+MR_CSharp_SC *MR_CSharp_SC_MutableStaticDowncastFrom_MR_CSharp_SA(MR_CSharp_SA *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_SC *)(static_cast<MR::CSharp::SC *>(
@@ -2356,7 +2356,7 @@ MR_CSharp_SB *MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SB(MR_CSharp_SC *object)
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_SC *MR_CSharp_SB_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_SB *object)
+const MR_CSharp_SC *MR_CSharp_SC_StaticDowncastFrom_MR_CSharp_SB(const MR_CSharp_SB *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_SC *)(static_cast<const MR::CSharp::SC *>(
@@ -2365,7 +2365,7 @@ const MR_CSharp_SC *MR_CSharp_SB_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_S
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_SC *MR_CSharp_SB_MutableStaticDowncastTo_MR_CSharp_SC(MR_CSharp_SB *object)
+MR_CSharp_SC *MR_CSharp_SC_MutableStaticDowncastFrom_MR_CSharp_SB(MR_CSharp_SB *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_SC *)(static_cast<MR::CSharp::SC *>(
@@ -2617,7 +2617,7 @@ MR_CSharp_SD *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SD(MR_CSharp_SF *object)
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_SF *MR_CSharp_SD_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object)
+const MR_CSharp_SF *MR_CSharp_SF_StaticDowncastFrom_MR_CSharp_SD(const MR_CSharp_SD *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_SF *)(static_cast<const MR::CSharp::SF *>(
@@ -2626,7 +2626,7 @@ const MR_CSharp_SF *MR_CSharp_SD_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_S
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_SF *MR_CSharp_SD_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object)
+MR_CSharp_SF *MR_CSharp_SF_MutableStaticDowncastFrom_MR_CSharp_SD(MR_CSharp_SD *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_SF *)(static_cast<MR::CSharp::SF *>(
@@ -2635,7 +2635,7 @@ MR_CSharp_SF *MR_CSharp_SD_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SD *ob
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object)
+const MR_CSharp_SF *MR_CSharp_SF_DynamicDowncastFrom_MR_CSharp_SD(const MR_CSharp_SD *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_SF *)(dynamic_cast<const MR::CSharp::SF *>(
@@ -2644,7 +2644,7 @@ const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(const MR_CSharp_
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object)
+MR_CSharp_SF *MR_CSharp_SF_MutableDynamicDowncastFrom_MR_CSharp_SD(MR_CSharp_SD *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_SF *)(dynamic_cast<MR::CSharp::SF *>(
@@ -2653,7 +2653,7 @@ MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastTo_MR_CSharp_SF(MR_CSharp_SD *o
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastToOrFail_MR_CSharp_SF(const MR_CSharp_SD *object)
+const MR_CSharp_SF *MR_CSharp_SF_DynamicDowncastFromOrFail_MR_CSharp_SD(const MR_CSharp_SD *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_SF *)std::addressof(dynamic_cast<const MR::CSharp::SF &>(
@@ -2662,7 +2662,7 @@ const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastToOrFail_MR_CSharp_SF(const MR_C
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastToOrFail_MR_CSharp_SF(MR_CSharp_SD *object)
+MR_CSharp_SF *MR_CSharp_SF_MutableDynamicDowncastFromOrFail_MR_CSharp_SD(MR_CSharp_SD *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_SF *)std::addressof(dynamic_cast<MR::CSharp::SF &>(
@@ -2689,7 +2689,7 @@ MR_CSharp_SE *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SE(MR_CSharp_SF *object)
     ) // MRBINDC_TRY
 }
 
-const MR_CSharp_SF *MR_CSharp_SE_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SE *object)
+const MR_CSharp_SF *MR_CSharp_SF_StaticDowncastFrom_MR_CSharp_SE(const MR_CSharp_SE *object)
 {
     MRBINDC_TRY(
     return (const MR_CSharp_SF *)(static_cast<const MR::CSharp::SF *>(
@@ -2698,7 +2698,7 @@ const MR_CSharp_SF *MR_CSharp_SE_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_S
     ) // MRBINDC_TRY
 }
 
-MR_CSharp_SF *MR_CSharp_SE_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SE *object)
+MR_CSharp_SF *MR_CSharp_SF_MutableStaticDowncastFrom_MR_CSharp_SE(MR_CSharp_SE *object)
 {
     MRBINDC_TRY(
     return (MR_CSharp_SF *)(static_cast<MR::CSharp::SF *>(

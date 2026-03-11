@@ -26,34 +26,29 @@ public static partial class MR
 
                 internal unsafe Const_Pair_MRSeparateA_MRSeparateB(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
-                /// Constructs an empty (default-constructed) instance.
-                public unsafe Const_Pair_MRSeparateA_MRSeparateB() : this(null, is_owning: true)
+                /// Constructs a copy of another instance. The source remains alive.
+                public unsafe Const_Pair_MRSeparateA_MRSeparateB(MR.CS.Std._ByValue_Pair_MRSeparateA_MRSeparateB other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_DefaultConstruct();
-                    _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_DefaultConstruct();
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *other);
+                    _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Const_Pair_MRSeparateA_MRSeparateB(MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB other) : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *other);
-                    _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(other._UnderlyingPtr);
-                    _KeepAlive(other);
-                }
+                public Const_Pair_MRSeparateA_MRSeparateB(Const_Pair_MRSeparateA_MRSeparateB other) : this(new _ByValue_Pair_MRSeparateA_MRSeparateB(other)) {}
 
                 /// Constructs a copy of another instance. The source remains alive.
                 public Const_Pair_MRSeparateA_MRSeparateB(Pair_MRSeparateA_MRSeparateB other) : this((Const_Pair_MRSeparateA_MRSeparateB)other) {}
 
                 /// Constructs the pair elementwise.
-                public unsafe Const_Pair_MRSeparateA_MRSeparateB(MR.CS.Const_SeparateA first, MR.CS.Const_SeparateB second) : this(null, is_owning: true)
+                public unsafe Const_Pair_MRSeparateA_MRSeparateB(MR.CS._ByValue_SeparateA first, MR.CS._ByValue_SeparateB second) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(MR.CS.SeparateA._Underlying *first, MR.CS.SeparateB._Underlying *second);
-                    _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(first._UnderlyingPtr, second._UnderlyingPtr);
-                    _KeepAlive(first);
-                    _KeepAlive(second);
+                    extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(MR.CS.Misc._PassBy first_pass_by, MR.CS.SeparateA._Underlying *first, MR.CS.Misc._PassBy second_pass_by, MR.CS.SeparateB._Underlying *second);
+                    _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(first.PassByMode, first.Value is not null ? first.Value._UnderlyingPtr : null, second.PassByMode, second.Value is not null ? second.Value._UnderlyingPtr : null);
+                    if (first.Value is not null) _KeepAlive(first.Value);
+                    if (second.Value is not null) _KeepAlive(second.Value);
                 }
 
                 /// The first of the two elements, read-only.
@@ -93,44 +88,39 @@ public static partial class MR
             {
                 internal unsafe Pair_MRSeparateA_MRSeparateB(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
-                /// Constructs an empty (default-constructed) instance.
-                public unsafe Pair_MRSeparateA_MRSeparateB() : this(null, is_owning: true)
+                /// Constructs a copy of another instance. The source remains alive.
+                public unsafe Pair_MRSeparateA_MRSeparateB(MR.CS.Std._ByValue_Pair_MRSeparateA_MRSeparateB other) : this(null, is_owning: true)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_DefaultConstruct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_DefaultConstruct();
-                    _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_DefaultConstruct();
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother", ExactSpelling = true)]
+                    extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *other);
+                    _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
+                    if (other.Value is not null) _KeepAlive(other.Value);
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Pair_MRSeparateA_MRSeparateB(MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB other) : this(null, is_owning: true)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *other);
-                    _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(other._UnderlyingPtr);
-                    _KeepAlive(other);
-                }
+                public Pair_MRSeparateA_MRSeparateB(Const_Pair_MRSeparateA_MRSeparateB other) : this(new _ByValue_Pair_MRSeparateA_MRSeparateB(other)) {}
 
                 /// Constructs a copy of another instance. The source remains alive.
                 public Pair_MRSeparateA_MRSeparateB(Pair_MRSeparateA_MRSeparateB other) : this((Const_Pair_MRSeparateA_MRSeparateB)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB other)
+                public unsafe void Assign(MR.CS.Std._ByValue_Pair_MRSeparateA_MRSeparateB other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother", ExactSpelling = true)]
-                    extern static void __MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother(_Underlying *_this, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *other);
+                    extern static void __MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *other);
                     _DiscardKeepAlive();
-                    _KeepAlive(other);
-                    __MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
+                    if (other.Value is not null) _KeepAlive(other.Value);
+                    __MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
                 /// Constructs the pair elementwise.
-                public unsafe Pair_MRSeparateA_MRSeparateB(MR.CS.Const_SeparateA first, MR.CS.Const_SeparateB second) : this(null, is_owning: true)
+                public unsafe Pair_MRSeparateA_MRSeparateB(MR.CS._ByValue_SeparateA first, MR.CS._ByValue_SeparateB second) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct", ExactSpelling = true)]
-                    extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(MR.CS.SeparateA._Underlying *first, MR.CS.SeparateB._Underlying *second);
-                    _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(first._UnderlyingPtr, second._UnderlyingPtr);
-                    _KeepAlive(first);
-                    _KeepAlive(second);
+                    extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(MR.CS.Misc._PassBy first_pass_by, MR.CS.SeparateA._Underlying *first, MR.CS.Misc._PassBy second_pass_by, MR.CS.SeparateB._Underlying *second);
+                    _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(first.PassByMode, first.Value is not null ? first.Value._UnderlyingPtr : null, second.PassByMode, second.Value is not null ? second.Value._UnderlyingPtr : null);
+                    if (first.Value is not null) _KeepAlive(first.Value);
+                    if (second.Value is not null) _KeepAlive(second.Value);
                 }
 
                 /// The first of the two elements, mutable.
@@ -162,6 +152,24 @@ public static partial class MR
                     _1 = First();
                     _2 = Second();
                 }
+            }
+
+            /// This is used as a function parameter when the underlying function receives `Pair_MRSeparateA_MRSeparateB` by value.
+            /// Usage:
+            /// * Pass an instance of `Pair_MRSeparateA_MRSeparateB`/`Const_Pair_MRSeparateA_MRSeparateB` to copy it into the function.
+            /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+            ///   Be careful if your input isn't a unique reference to this object.
+            /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+            public class _ByValue_Pair_MRSeparateA_MRSeparateB
+            {
+                #pragma warning disable CS0649
+                internal readonly Const_Pair_MRSeparateA_MRSeparateB? Value;
+                #pragma warning restore CS0649
+                internal readonly MR.CS.Misc._PassBy PassByMode;
+                public _ByValue_Pair_MRSeparateA_MRSeparateB(Const_Pair_MRSeparateA_MRSeparateB new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Pair_MRSeparateA_MRSeparateB(Const_Pair_MRSeparateA_MRSeparateB arg) {return new(arg);}
+                public _ByValue_Pair_MRSeparateA_MRSeparateB(MR.CS.Misc._Moved<Pair_MRSeparateA_MRSeparateB> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Pair_MRSeparateA_MRSeparateB(MR.CS.Misc._Moved<Pair_MRSeparateA_MRSeparateB> arg) {return new(arg);}
             }
 
             /// This is used for optional parameters of class `Pair_MRSeparateA_MRSeparateB` with default arguments.

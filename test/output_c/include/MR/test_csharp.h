@@ -1066,23 +1066,23 @@ MR_C_API MR_CSharp_A *MR_CSharp_B_MutableUpcastTo_MR_CSharp_A(MR_CSharp_B *objec
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_B *MR_CSharp_A_StaticDowncastTo_MR_CSharp_B(const MR_CSharp_A *object);
+MR_C_API const MR_CSharp_B *MR_CSharp_B_StaticDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::B`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_B *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_B(MR_CSharp_A *object);
+MR_C_API MR_CSharp_B *MR_CSharp_B_MutableStaticDowncastFrom_MR_CSharp_A(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::B`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_B *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(const MR_CSharp_A *object);
+MR_C_API const MR_CSharp_B *MR_CSharp_B_DynamicDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::B`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_B(MR_CSharp_A *object);
+MR_C_API MR_CSharp_B *MR_CSharp_B_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::B`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
@@ -1090,14 +1090,14 @@ MR_C_API MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_B(MR_CSharp
 /// Parameter `object` can not be null. It is a single object.
 /// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_CSharp_B *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_B(const MR_CSharp_A *object);
+MR_C_API const MR_CSharp_B *MR_CSharp_B_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::B`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// Parameter `object` can not be null. It is a single object.
 /// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_CSharp_B *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_B(MR_CSharp_A *object);
+MR_C_API MR_CSharp_B *MR_CSharp_B_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object);
 
 /// Generated from constructor `MR::CSharp::B::B`.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -1180,12 +1180,12 @@ MR_C_API MR_CSharp_A *MR_CSharp_C_MutableUpcastTo_MR_CSharp_A(MR_CSharp_C *objec
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_C *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(const MR_CSharp_A *object);
+MR_C_API const MR_CSharp_C *MR_CSharp_C_DynamicDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_C(MR_CSharp_A *object);
+MR_C_API MR_CSharp_C *MR_CSharp_C_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
@@ -1193,14 +1193,14 @@ MR_C_API MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_C(MR_CSharp
 /// Parameter `object` can not be null. It is a single object.
 /// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_CSharp_C *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_C(const MR_CSharp_A *object);
+MR_C_API const MR_CSharp_C *MR_CSharp_C_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::C`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// Parameter `object` can not be null. It is a single object.
 /// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_CSharp_C *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_C(MR_CSharp_A *object);
+MR_C_API MR_CSharp_C *MR_CSharp_C_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object);
 
 /// Generated from constructor `MR::CSharp::C::C`.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -1369,23 +1369,23 @@ MR_C_API MR_CSharp_A *MR_CSharp_F_MutableUpcastTo_MR_CSharp_A(MR_CSharp_F *objec
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_F *MR_CSharp_A_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_A *object);
+MR_C_API const MR_CSharp_F *MR_CSharp_F_StaticDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_F *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_A *object);
+MR_C_API MR_CSharp_F *MR_CSharp_F_MutableStaticDowncastFrom_MR_CSharp_A(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::F`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_F *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(const MR_CSharp_A *object);
+MR_C_API const MR_CSharp_F *MR_CSharp_F_DynamicDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::F`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_F(MR_CSharp_A *object);
+MR_C_API MR_CSharp_F *MR_CSharp_F_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::F`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
@@ -1393,14 +1393,14 @@ MR_C_API MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_F(MR_CSharp
 /// Parameter `object` can not be null. It is a single object.
 /// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_CSharp_F *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_F(const MR_CSharp_A *object);
+MR_C_API const MR_CSharp_F *MR_CSharp_F_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::F`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// Parameter `object` can not be null. It is a single object.
 /// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_CSharp_F *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_F(MR_CSharp_A *object);
+MR_C_API MR_CSharp_F *MR_CSharp_F_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object);
 
 /// Upcasts an instance of `MR::CSharp::F` to its base class `MR::CSharp::D`.
 /// This version is acting on mutable pointers.
@@ -1415,12 +1415,12 @@ MR_C_API MR_CSharp_D *MR_CSharp_F_MutableUpcastTo_MR_CSharp_D(MR_CSharp_F *objec
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_F *MR_CSharp_D_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_D *object);
+MR_C_API const MR_CSharp_F *MR_CSharp_F_StaticDowncastFrom_MR_CSharp_D(const MR_CSharp_D *object);
 
 /// Downcasts an instance of `MR::CSharp::D` to a derived class `MR::CSharp::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_F *MR_CSharp_D_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_D *object);
+MR_C_API MR_CSharp_F *MR_CSharp_F_MutableStaticDowncastFrom_MR_CSharp_D(MR_CSharp_D *object);
 
 /// Upcasts an instance of `MR::CSharp::F` to its base class `MR::CSharp::E`.
 /// This version is acting on mutable pointers.
@@ -1435,12 +1435,12 @@ MR_C_API MR_CSharp_E *MR_CSharp_F_MutableUpcastTo_MR_CSharp_E(MR_CSharp_F *objec
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_F *MR_CSharp_E_StaticDowncastTo_MR_CSharp_F(const MR_CSharp_E *object);
+MR_C_API const MR_CSharp_F *MR_CSharp_F_StaticDowncastFrom_MR_CSharp_E(const MR_CSharp_E *object);
 
 /// Downcasts an instance of `MR::CSharp::E` to a derived class `MR::CSharp::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_F *MR_CSharp_E_MutableStaticDowncastTo_MR_CSharp_F(MR_CSharp_E *object);
+MR_C_API MR_CSharp_F *MR_CSharp_F_MutableStaticDowncastFrom_MR_CSharp_E(MR_CSharp_E *object);
 
 /// Generated from constructor `MR::CSharp::F::F`.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -1535,23 +1535,23 @@ MR_C_API MR_CSharp_A *MR_CSharp_G_MutableUpcastTo_MR_CSharp_A(MR_CSharp_G *objec
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_G *MR_CSharp_A_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_A *object);
+MR_C_API const MR_CSharp_G *MR_CSharp_G_StaticDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::G`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_G *MR_CSharp_A_MutableStaticDowncastTo_MR_CSharp_G(MR_CSharp_A *object);
+MR_C_API MR_CSharp_G *MR_CSharp_G_MutableStaticDowncastFrom_MR_CSharp_A(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::G`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_G *MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(const MR_CSharp_A *object);
+MR_C_API const MR_CSharp_G *MR_CSharp_G_DynamicDowncastFrom_MR_CSharp_A(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::G`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_G(MR_CSharp_A *object);
+MR_C_API MR_CSharp_G *MR_CSharp_G_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::G`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
@@ -1559,14 +1559,14 @@ MR_C_API MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastTo_MR_CSharp_G(MR_CSharp
 /// Parameter `object` can not be null. It is a single object.
 /// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_CSharp_G *MR_CSharp_A_DynamicDowncastToOrFail_MR_CSharp_G(const MR_CSharp_A *object);
+MR_C_API const MR_CSharp_G *MR_CSharp_G_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object);
 
 /// Downcasts an instance of `MR::CSharp::A` to a derived class `MR::CSharp::G`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// Parameter `object` can not be null. It is a single object.
 /// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_CSharp_G *MR_CSharp_A_MutableDynamicDowncastToOrFail_MR_CSharp_G(MR_CSharp_A *object);
+MR_C_API MR_CSharp_G *MR_CSharp_G_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object);
 
 /// Upcasts an instance of `MR::CSharp::G` to its base class `MR::CSharp::D`.
 /// This version is acting on mutable pointers.
@@ -1581,12 +1581,12 @@ MR_C_API MR_CSharp_D *MR_CSharp_G_MutableUpcastTo_MR_CSharp_D(MR_CSharp_G *objec
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_G *MR_CSharp_D_StaticDowncastTo_MR_CSharp_G(const MR_CSharp_D *object);
+MR_C_API const MR_CSharp_G *MR_CSharp_G_StaticDowncastFrom_MR_CSharp_D(const MR_CSharp_D *object);
 
 /// Downcasts an instance of `MR::CSharp::D` to a derived class `MR::CSharp::G`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_G *MR_CSharp_D_MutableStaticDowncastTo_MR_CSharp_G(MR_CSharp_D *object);
+MR_C_API MR_CSharp_G *MR_CSharp_G_MutableStaticDowncastFrom_MR_CSharp_D(MR_CSharp_D *object);
 
 /// Upcasts an instance of `MR::CSharp::G` to its base class `MR::CSharp::E`.
 /// This version is acting on mutable pointers.
@@ -2078,12 +2078,12 @@ MR_C_API MR_CSharp_SA *MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SA(MR_CSharp_SC *o
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_SC *MR_CSharp_SA_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_SA *object);
+MR_C_API const MR_CSharp_SC *MR_CSharp_SC_StaticDowncastFrom_MR_CSharp_SA(const MR_CSharp_SA *object);
 
 /// Downcasts an instance of `MR::CSharp::SA` to a derived class `MR::CSharp::SC`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_SC *MR_CSharp_SA_MutableStaticDowncastTo_MR_CSharp_SC(MR_CSharp_SA *object);
+MR_C_API MR_CSharp_SC *MR_CSharp_SC_MutableStaticDowncastFrom_MR_CSharp_SA(MR_CSharp_SA *object);
 
 /// Upcasts an instance of `MR::CSharp::SC` to its base class `MR::CSharp::SB`.
 /// This version is acting on mutable pointers.
@@ -2098,12 +2098,12 @@ MR_C_API MR_CSharp_SB *MR_CSharp_SC_MutableUpcastTo_MR_CSharp_SB(MR_CSharp_SC *o
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_SC *MR_CSharp_SB_StaticDowncastTo_MR_CSharp_SC(const MR_CSharp_SB *object);
+MR_C_API const MR_CSharp_SC *MR_CSharp_SC_StaticDowncastFrom_MR_CSharp_SB(const MR_CSharp_SB *object);
 
 /// Downcasts an instance of `MR::CSharp::SB` to a derived class `MR::CSharp::SC`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_SC *MR_CSharp_SB_MutableStaticDowncastTo_MR_CSharp_SC(MR_CSharp_SB *object);
+MR_C_API MR_CSharp_SC *MR_CSharp_SC_MutableStaticDowncastFrom_MR_CSharp_SB(MR_CSharp_SB *object);
 
 /// Generated from constructor `MR::CSharp::SC::SC`.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -2278,23 +2278,23 @@ MR_C_API MR_CSharp_SD *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SD(MR_CSharp_SF *o
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_SF *MR_CSharp_SD_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object);
+MR_C_API const MR_CSharp_SF *MR_CSharp_SF_StaticDowncastFrom_MR_CSharp_SD(const MR_CSharp_SD *object);
 
 /// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_SF *MR_CSharp_SD_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object);
+MR_C_API MR_CSharp_SF *MR_CSharp_SF_MutableStaticDowncastFrom_MR_CSharp_SD(MR_CSharp_SD *object);
 
 /// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(const MR_CSharp_SD *object);
+MR_C_API const MR_CSharp_SF *MR_CSharp_SF_DynamicDowncastFrom_MR_CSharp_SD(const MR_CSharp_SD *object);
 
 /// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
 /// This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastTo_MR_CSharp_SF(MR_CSharp_SD *object);
+MR_C_API MR_CSharp_SF *MR_CSharp_SF_MutableDynamicDowncastFrom_MR_CSharp_SD(MR_CSharp_SD *object);
 
 /// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
@@ -2302,14 +2302,14 @@ MR_C_API MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastTo_MR_CSharp_SF(MR_CSh
 /// Parameter `object` can not be null. It is a single object.
 /// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API const MR_CSharp_SF *MR_CSharp_SD_DynamicDowncastToOrFail_MR_CSharp_SF(const MR_CSharp_SD *object);
+MR_C_API const MR_CSharp_SF *MR_CSharp_SF_DynamicDowncastFromOrFail_MR_CSharp_SD(const MR_CSharp_SD *object);
 
 /// Downcasts an instance of `MR::CSharp::SD` to a derived class `MR::CSharp::SF`.
 /// This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 /// Parameter `object` can not be null. It is a single object.
 /// The reference to the parameter `object` might be preserved in the return value.
 /// The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_C_API MR_CSharp_SF *MR_CSharp_SD_MutableDynamicDowncastToOrFail_MR_CSharp_SF(MR_CSharp_SD *object);
+MR_C_API MR_CSharp_SF *MR_CSharp_SF_MutableDynamicDowncastFromOrFail_MR_CSharp_SD(MR_CSharp_SD *object);
 
 /// Upcasts an instance of `MR::CSharp::SF` to its base class `MR::CSharp::SE`.
 /// This version is acting on mutable pointers.
@@ -2324,12 +2324,12 @@ MR_C_API MR_CSharp_SE *MR_CSharp_SF_MutableUpcastTo_MR_CSharp_SE(MR_CSharp_SF *o
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CSharp_SF *MR_CSharp_SE_StaticDowncastTo_MR_CSharp_SF(const MR_CSharp_SE *object);
+MR_C_API const MR_CSharp_SF *MR_CSharp_SF_StaticDowncastFrom_MR_CSharp_SE(const MR_CSharp_SE *object);
 
 /// Downcasts an instance of `MR::CSharp::SE` to a derived class `MR::CSharp::SF`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CSharp_SF *MR_CSharp_SE_MutableStaticDowncastTo_MR_CSharp_SF(MR_CSharp_SE *object);
+MR_C_API MR_CSharp_SF *MR_CSharp_SF_MutableStaticDowncastFrom_MR_CSharp_SE(MR_CSharp_SE *object);
 
 /// Generated from constructor `MR::CSharp::SF::SF`.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.

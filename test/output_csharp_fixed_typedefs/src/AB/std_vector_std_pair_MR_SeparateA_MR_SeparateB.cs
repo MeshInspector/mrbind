@@ -919,16 +919,6 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Resizes the container. The new elements if any are zeroed.
-                /// </summary>
-                public unsafe void resize(ulong new_size)
-                {
-                    [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_resize", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_resize(_Underlying *_this, ulong new_size);
-                    __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_resize(_UnderlyingPtr, new_size);
-                }
-
-                /// <summary>
                 /// Resizes the container. The new elements if any are set to the specified value.
                 /// </summary>
                 public unsafe void resizeWithDefaultValue(ulong new_size, MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB value)
@@ -1016,12 +1006,12 @@ public static partial class MR
                 /// <summary>
                 /// Inserts a new element at the end.
                 /// </summary>
-                public unsafe void pushBack(MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB new_elem)
+                public unsafe void pushBack(MR.CS.Std._ByValue_Pair_MRSeparateA_MRSeparateB new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_push_back", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_push_back(_Underlying *_this, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *new_elem);
-                    _KeepAlive(new_elem);
-                    __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_push_back(_UnderlyingPtr, new_elem._UnderlyingPtr);
+                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_push_back(_Underlying *_this, MR.CS.Misc._PassBy new_elem_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *new_elem);
+                    if (new_elem.Value is not null) _KeepAlive(new_elem.Value);
+                    __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_push_back(_UnderlyingPtr, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
@@ -1037,12 +1027,12 @@ public static partial class MR
                 /// <summary>
                 /// Inserts a new element right before the specified position.
                 /// </summary>
-                public unsafe void insert(ulong position, MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB new_elem)
+                public unsafe void insert(ulong position, MR.CS.Std._ByValue_Pair_MRSeparateA_MRSeparateB new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert(_Underlying *_this, ulong position, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *new_elem);
-                    _KeepAlive(new_elem);
-                    __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert(_UnderlyingPtr, position, new_elem._UnderlyingPtr);
+                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert(_Underlying *_this, ulong position, MR.CS.Misc._PassBy new_elem_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *new_elem);
+                    if (new_elem.Value is not null) _KeepAlive(new_elem.Value);
+                    __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert(_UnderlyingPtr, position, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
@@ -1058,12 +1048,12 @@ public static partial class MR
                 /// <summary>
                 /// Inserts a new element right before the specified position.
                 /// </summary>
-                public unsafe void insertAtMutableIter(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_Iterator position, MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB new_elem)
+                public unsafe void insertAtMutableIter(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_Iterator position, MR.CS.Std._ByValue_Pair_MRSeparateA_MRSeparateB new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert_at_mutable_iter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Iterator._Underlying *position, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *new_elem);
-                    _KeepAlive(new_elem);
-                    __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem._UnderlyingPtr);
+                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert_at_mutable_iter(_Underlying *_this, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Iterator._Underlying *position, MR.CS.Misc._PassBy new_elem_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *new_elem);
+                    if (new_elem.Value is not null) _KeepAlive(new_elem.Value);
+                    __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>
@@ -1079,12 +1069,12 @@ public static partial class MR
                 /// <summary>
                 /// Inserts a new element right before the specified position. This version takes the position in form of a const iterator, that&apos;s the only difference.
                 /// </summary>
-                public unsafe void insertAtIter(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_ConstIterator position, MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB new_elem)
+                public unsafe void insertAtIter(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_ConstIterator position, MR.CS.Std._ByValue_Pair_MRSeparateA_MRSeparateB new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert_at_iter", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert_at_iter(_Underlying *_this, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.ConstIterator._Underlying *position, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *new_elem);
-                    _KeepAlive(new_elem);
-                    __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert_at_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem._UnderlyingPtr);
+                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert_at_iter(_Underlying *_this, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.ConstIterator._Underlying *position, MR.CS.Misc._PassBy new_elem_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *new_elem);
+                    if (new_elem.Value is not null) _KeepAlive(new_elem.Value);
+                    __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert_at_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
 
                 /// <summary>

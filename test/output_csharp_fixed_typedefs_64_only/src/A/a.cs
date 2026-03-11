@@ -4,6 +4,9 @@ public static partial class MR
     {
         /// <summary>
         /// Generated from class `MR::SeparateA`.
+        /// Base classes:
+        ///   Direct: (non-virtual)
+        ///     `MR::CommonBaseAB`
         /// This is the const half of the class.
         /// </summary>
         public class Const_SeparateA : MR.CS.Misc.Object<Const_SeparateA>, System.IDisposable
@@ -24,28 +27,45 @@ public static partial class MR
             public virtual void Dispose() {Dispose(true); GC.SuppressFinalize(this);}
             ~Const_SeparateA() {Dispose(false);}
 
+            // Upcasts:
+            public static unsafe implicit operator MR.CS.Const_CommonBaseAB(Const_SeparateA self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_UpcastTo_MR_CommonBaseAB", ExactSpelling = true)]
+                extern static MR.CS.Const_CommonBaseAB._Underlying *__MR_SeparateA_UpcastTo_MR_CommonBaseAB(_Underlying *_this);
+                MR.CS.Const_CommonBaseAB ret = new(__MR_SeparateA_UpcastTo_MR_CommonBaseAB(self._UnderlyingPtr), is_owning: false);
+                ret._KeepAliveEnclosingObject = self;
+                return ret;
+            }
+
+            // Downcasts:
+            public static unsafe explicit operator Const_SeparateA?(MR.CS.Const_CommonBaseAB parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB", ExactSpelling = true)]
+                extern static _Underlying *__MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB(MR.CS.Const_CommonBaseAB._Underlying *_this);
+                var ptr = __MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB(parent._UnderlyingPtr);
+                if (ptr is null) return null;
+                Const_SeparateA ret = new(ptr, is_owning: false);
+                ret._KeepAliveEnclosingObject = parent;
+                return ret;
+            }
+
             internal unsafe Const_SeparateA(_Underlying *ptr, bool is_owning) : base(is_owning) {_UnderlyingPtr = ptr;}
 
             /// <summary>
-            /// Constructs an empty (default-constructed) instance.
+            /// Generated from constructor `MR::SeparateA::SeparateA`.
             /// </summary>
-            public unsafe Const_SeparateA() : this(null, is_owning: true)
+            public unsafe Const_SeparateA(MR.CS._ByValue_SeparateA _other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_DefaultConstruct", ExactSpelling = true)]
-                extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_DefaultConstruct();
-                _UnderlyingPtr = __MR_SeparateA_DefaultConstruct();
+                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_ConstructFromAnother", ExactSpelling = true)]
+                extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateA._Underlying *_other);
+                _UnderlyingPtr = __MR_SeparateA_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                if (_other.Value is not null) _KeepAlive(_other.Value);
             }
 
             /// <summary>
             /// Generated from constructor `MR::SeparateA::SeparateA`.
             /// </summary>
-            public unsafe Const_SeparateA(MR.CS.Const_SeparateA _other) : this(null, is_owning: true)
-            {
-                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_ConstructFromAnother(MR.CS.SeparateA._Underlying *_other);
-                _UnderlyingPtr = __MR_SeparateA_ConstructFromAnother(_other._UnderlyingPtr);
-                _KeepAlive(_other);
-            }
+            public Const_SeparateA(Const_SeparateA _other) : this(new _ByValue_SeparateA(_other)) {}
 
             /// <summary>
             /// Generated from constructor `MR::SeparateA::SeparateA`.
@@ -55,32 +75,52 @@ public static partial class MR
 
         /// <summary>
         /// Generated from class `MR::SeparateA`.
+        /// Base classes:
+        ///   Direct: (non-virtual)
+        ///     `MR::CommonBaseAB`
         /// This is the non-const half of the class.
         /// </summary>
         public class SeparateA : Const_SeparateA
         {
+            // Upcasts:
+            public static unsafe implicit operator MR.CS.CommonBaseAB(SeparateA self)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_UpcastTo_MR_CommonBaseAB", ExactSpelling = true)]
+                extern static MR.CS.CommonBaseAB._Underlying *__MR_SeparateA_UpcastTo_MR_CommonBaseAB(_Underlying *_this);
+                MR.CS.CommonBaseAB ret = new(__MR_SeparateA_UpcastTo_MR_CommonBaseAB(self._UnderlyingPtr), is_owning: false);
+                ret._KeepAliveEnclosingObject = self;
+                return ret;
+            }
+
+            // Downcasts:
+            public static unsafe explicit operator SeparateA?(MR.CS.CommonBaseAB parent)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB", ExactSpelling = true)]
+                extern static _Underlying *__MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB(MR.CS.CommonBaseAB._Underlying *_this);
+                var ptr = __MR_SeparateA_DynamicDowncastFrom_MR_CommonBaseAB(parent._UnderlyingPtr);
+                if (ptr is null) return null;
+                SeparateA ret = new(ptr, is_owning: false);
+                ret._KeepAliveEnclosingObject = parent;
+                return ret;
+            }
+
             internal unsafe SeparateA(_Underlying *ptr, bool is_owning) : base(ptr, is_owning) {}
 
             /// <summary>
-            /// Constructs an empty (default-constructed) instance.
+            /// Generated from constructor `MR::SeparateA::SeparateA`.
             /// </summary>
-            public unsafe SeparateA() : this(null, is_owning: true)
+            public unsafe SeparateA(MR.CS._ByValue_SeparateA _other) : this(null, is_owning: true)
             {
-                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_DefaultConstruct", ExactSpelling = true)]
-                extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_DefaultConstruct();
-                _UnderlyingPtr = __MR_SeparateA_DefaultConstruct();
+                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_ConstructFromAnother", ExactSpelling = true)]
+                extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateA._Underlying *_other);
+                _UnderlyingPtr = __MR_SeparateA_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
+                if (_other.Value is not null) _KeepAlive(_other.Value);
             }
 
             /// <summary>
             /// Generated from constructor `MR::SeparateA::SeparateA`.
             /// </summary>
-            public unsafe SeparateA(MR.CS.Const_SeparateA _other) : this(null, is_owning: true)
-            {
-                [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_ConstructFromAnother", ExactSpelling = true)]
-                extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_ConstructFromAnother(MR.CS.SeparateA._Underlying *_other);
-                _UnderlyingPtr = __MR_SeparateA_ConstructFromAnother(_other._UnderlyingPtr);
-                _KeepAlive(_other);
-            }
+            public SeparateA(Const_SeparateA _other) : this(new _ByValue_SeparateA(_other)) {}
 
             /// <summary>
             /// Generated from constructor `MR::SeparateA::SeparateA`.
@@ -90,14 +130,34 @@ public static partial class MR
             /// <summary>
             /// Generated from method `MR::SeparateA::operator=`.
             /// </summary>
-            public unsafe MR.CS.SeparateA assign(MR.CS.Const_SeparateA _other)
+            public unsafe MR.CS.SeparateA assign(MR.CS._ByValue_SeparateA _other)
             {
                 [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_SeparateA_AssignFromAnother", ExactSpelling = true)]
-                extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_AssignFromAnother(_Underlying *_this, MR.CS.SeparateA._Underlying *_other);
+                extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateA._Underlying *_other);
                 _DiscardKeepAlive();
-                _KeepAlive(_other);
-                return new(__MR_SeparateA_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                if (_other.Value is not null) _KeepAlive(_other.Value);
+                return new(__MR_SeparateA_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
             }
+        }
+
+        /// <summary>
+        /// This is used as a function parameter when the underlying function receives `SeparateA` by value.
+        /// Usage:
+        /// * Pass an instance of `SeparateA`/`Const_SeparateA` to copy it into the function.
+        /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
+        ///   Be careful if your input isn&apos;t a unique reference to this object.
+        /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
+        /// </summary>
+        public class _ByValue_SeparateA
+        {
+            #pragma warning disable CS0649
+            internal readonly Const_SeparateA? Value;
+            #pragma warning restore CS0649
+            internal readonly MR.CS.Misc._PassBy PassByMode;
+            public _ByValue_SeparateA(Const_SeparateA new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+            public static implicit operator _ByValue_SeparateA(Const_SeparateA arg) {return new(arg);}
+            public _ByValue_SeparateA(MR.CS.Misc._Moved<SeparateA> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+            public static implicit operator _ByValue_SeparateA(MR.CS.Misc._Moved<SeparateA> arg) {return new(arg);}
         }
 
         /// <summary>

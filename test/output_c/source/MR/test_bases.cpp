@@ -115,7 +115,7 @@ MR_Bases_A *MR_Bases_B_MutableUpcastTo_MR_Bases_A(MR_Bases_B *object)
     ) // MRBINDC_TRY
 }
 
-const MR_Bases_B *MR_Bases_A_StaticDowncastTo_MR_Bases_B(const MR_Bases_A *object)
+const MR_Bases_B *MR_Bases_B_StaticDowncastFrom_MR_Bases_A(const MR_Bases_A *object)
 {
     MRBINDC_TRY(
     return (const MR_Bases_B *)(static_cast<const MR::Bases::B *>(
@@ -124,7 +124,7 @@ const MR_Bases_B *MR_Bases_A_StaticDowncastTo_MR_Bases_B(const MR_Bases_A *objec
     ) // MRBINDC_TRY
 }
 
-MR_Bases_B *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_B(MR_Bases_A *object)
+MR_Bases_B *MR_Bases_B_MutableStaticDowncastFrom_MR_Bases_A(MR_Bases_A *object)
 {
     MRBINDC_TRY(
     return (MR_Bases_B *)(static_cast<MR::Bases::B *>(
@@ -211,7 +211,7 @@ MR_Bases_A *MR_Bases_B2_MutableUpcastTo_MR_Bases_A(MR_Bases_B2 *object)
     ) // MRBINDC_TRY
 }
 
-const MR_Bases_B2 *MR_Bases_A_StaticDowncastTo_MR_Bases_B2(const MR_Bases_A *object)
+const MR_Bases_B2 *MR_Bases_B2_StaticDowncastFrom_MR_Bases_A(const MR_Bases_A *object)
 {
     MRBINDC_TRY(
     return (const MR_Bases_B2 *)(static_cast<const MR::Bases::B2 *>(
@@ -220,7 +220,7 @@ const MR_Bases_B2 *MR_Bases_A_StaticDowncastTo_MR_Bases_B2(const MR_Bases_A *obj
     ) // MRBINDC_TRY
 }
 
-MR_Bases_B2 *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_B2(MR_Bases_A *object)
+MR_Bases_B2 *MR_Bases_B2_MutableStaticDowncastFrom_MR_Bases_A(MR_Bases_A *object)
 {
     MRBINDC_TRY(
     return (MR_Bases_B2 *)(static_cast<MR::Bases::B2 *>(
@@ -247,7 +247,7 @@ MR_Bases_B *MR_Bases_B2_MutableUpcastTo_MR_Bases_B(MR_Bases_B2 *object)
     ) // MRBINDC_TRY
 }
 
-const MR_Bases_B2 *MR_Bases_B_StaticDowncastTo_MR_Bases_B2(const MR_Bases_B *object)
+const MR_Bases_B2 *MR_Bases_B2_StaticDowncastFrom_MR_Bases_B(const MR_Bases_B *object)
 {
     MRBINDC_TRY(
     return (const MR_Bases_B2 *)(static_cast<const MR::Bases::B2 *>(
@@ -256,7 +256,7 @@ const MR_Bases_B2 *MR_Bases_B_StaticDowncastTo_MR_Bases_B2(const MR_Bases_B *obj
     ) // MRBINDC_TRY
 }
 
-MR_Bases_B2 *MR_Bases_B_MutableStaticDowncastTo_MR_Bases_B2(MR_Bases_B *object)
+MR_Bases_B2 *MR_Bases_B2_MutableStaticDowncastFrom_MR_Bases_B(MR_Bases_B *object)
 {
     MRBINDC_TRY(
     return (MR_Bases_B2 *)(static_cast<MR::Bases::B2 *>(
@@ -343,7 +343,7 @@ MR_Bases_A *MR_Bases_C_MutableUpcastTo_MR_Bases_A(MR_Bases_C *object)
     ) // MRBINDC_TRY
 }
 
-const MR_Bases_C *MR_Bases_A_StaticDowncastTo_MR_Bases_C(const MR_Bases_A *object)
+const MR_Bases_C *MR_Bases_C_StaticDowncastFrom_MR_Bases_A(const MR_Bases_A *object)
 {
     MRBINDC_TRY(
     return (const MR_Bases_C *)(static_cast<const MR::Bases::C *>(
@@ -352,7 +352,7 @@ const MR_Bases_C *MR_Bases_A_StaticDowncastTo_MR_Bases_C(const MR_Bases_A *objec
     ) // MRBINDC_TRY
 }
 
-MR_Bases_C *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_C(MR_Bases_A *object)
+MR_Bases_C *MR_Bases_C_MutableStaticDowncastFrom_MR_Bases_A(MR_Bases_A *object)
 {
     MRBINDC_TRY(
     return (MR_Bases_C *)(static_cast<MR::Bases::C *>(
@@ -679,7 +679,7 @@ MR_Bases_E *MR_Bases_F_MutableUpcastTo_MR_Bases_E(MR_Bases_F *object)
     ) // MRBINDC_TRY
 }
 
-const MR_Bases_F *MR_Bases_E_StaticDowncastTo_MR_Bases_F(const MR_Bases_E *object)
+const MR_Bases_F *MR_Bases_F_StaticDowncastFrom_MR_Bases_E(const MR_Bases_E *object)
 {
     MRBINDC_TRY(
     return (const MR_Bases_F *)(static_cast<const MR::Bases::F *>(
@@ -688,7 +688,7 @@ const MR_Bases_F *MR_Bases_E_StaticDowncastTo_MR_Bases_F(const MR_Bases_E *objec
     ) // MRBINDC_TRY
 }
 
-MR_Bases_F *MR_Bases_E_MutableStaticDowncastTo_MR_Bases_F(MR_Bases_E *object)
+MR_Bases_F *MR_Bases_F_MutableStaticDowncastFrom_MR_Bases_E(MR_Bases_E *object)
 {
     MRBINDC_TRY(
     return (MR_Bases_F *)(static_cast<MR::Bases::F *>(
@@ -909,7 +909,7 @@ MR_Bases_A *MR_Bases_H_MutableUpcastTo_MR_Bases_A(MR_Bases_H *object)
     ) // MRBINDC_TRY
 }
 
-const MR_Bases_H *MR_Bases_A_StaticDowncastTo_MR_Bases_H(const MR_Bases_A *object)
+const MR_Bases_H *MR_Bases_H_StaticDowncastFrom_MR_Bases_A(const MR_Bases_A *object)
 {
     MRBINDC_TRY(
     return (const MR_Bases_H *)(static_cast<const MR::Bases::H *>(
@@ -918,7 +918,7 @@ const MR_Bases_H *MR_Bases_A_StaticDowncastTo_MR_Bases_H(const MR_Bases_A *objec
     ) // MRBINDC_TRY
 }
 
-MR_Bases_H *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_H(MR_Bases_A *object)
+MR_Bases_H *MR_Bases_H_MutableStaticDowncastFrom_MR_Bases_A(MR_Bases_A *object)
 {
     MRBINDC_TRY(
     return (MR_Bases_H *)(static_cast<MR::Bases::H *>(

@@ -87,42 +87,42 @@ MR_AbstractClasses_B *MR_AbstractClasses_C_MutableUpcastTo_MR_AbstractClasses_B(
     ));
 }
 
-const MR_AbstractClasses_C *MR_AbstractClasses_B_StaticDowncastTo_MR_AbstractClasses_C(const MR_AbstractClasses_B *object)
+const MR_AbstractClasses_C *MR_AbstractClasses_C_StaticDowncastFrom_MR_AbstractClasses_B(const MR_AbstractClasses_B *object)
 {
     return (const MR_AbstractClasses_C *)(static_cast<const MR::AbstractClasses::C *>(
         ((const MR::AbstractClasses::B *)object)
     ));
 }
 
-MR_AbstractClasses_C *MR_AbstractClasses_B_MutableStaticDowncastTo_MR_AbstractClasses_C(MR_AbstractClasses_B *object)
+MR_AbstractClasses_C *MR_AbstractClasses_C_MutableStaticDowncastFrom_MR_AbstractClasses_B(MR_AbstractClasses_B *object)
 {
     return (MR_AbstractClasses_C *)(static_cast<MR::AbstractClasses::C *>(
         ((MR::AbstractClasses::B *)object)
     ));
 }
 
-const MR_AbstractClasses_C *MR_AbstractClasses_B_DynamicDowncastTo_MR_AbstractClasses_C(const MR_AbstractClasses_B *object)
+const MR_AbstractClasses_C *MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(const MR_AbstractClasses_B *object)
 {
     return (const MR_AbstractClasses_C *)(dynamic_cast<const MR::AbstractClasses::C *>(
         ((const MR::AbstractClasses::B *)object)
     ));
 }
 
-MR_AbstractClasses_C *MR_AbstractClasses_B_MutableDynamicDowncastTo_MR_AbstractClasses_C(MR_AbstractClasses_B *object)
+MR_AbstractClasses_C *MR_AbstractClasses_C_MutableDynamicDowncastFrom_MR_AbstractClasses_B(MR_AbstractClasses_B *object)
 {
     return (MR_AbstractClasses_C *)(dynamic_cast<MR::AbstractClasses::C *>(
         ((MR::AbstractClasses::B *)object)
     ));
 }
 
-const MR_AbstractClasses_C *MR_AbstractClasses_B_DynamicDowncastToOrFail_MR_AbstractClasses_C(const MR_AbstractClasses_B *object)
+const MR_AbstractClasses_C *MR_AbstractClasses_C_DynamicDowncastFromOrFail_MR_AbstractClasses_B(const MR_AbstractClasses_B *object)
 {
     return (const MR_AbstractClasses_C *)std::addressof(dynamic_cast<const MR::AbstractClasses::C &>(
         ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::AbstractClasses::B *)(object))
     ));
 }
 
-MR_AbstractClasses_C *MR_AbstractClasses_B_MutableDynamicDowncastToOrFail_MR_AbstractClasses_C(MR_AbstractClasses_B *object)
+MR_AbstractClasses_C *MR_AbstractClasses_C_MutableDynamicDowncastFromOrFail_MR_AbstractClasses_B(MR_AbstractClasses_B *object)
 {
     return (MR_AbstractClasses_C *)std::addressof(dynamic_cast<MR::AbstractClasses::C &>(
         ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::AbstractClasses::B *)(object))

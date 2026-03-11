@@ -383,12 +383,12 @@ MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_C_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_A_StaticDowncastTo_MR_CopyInheritedMembers_C(const MR_CopyInheritedMembers_A *object);
+MR_C_API const MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_C_StaticDowncastFrom_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_A *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::C`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_A_MutableStaticDowncastTo_MR_CopyInheritedMembers_C(MR_CopyInheritedMembers_A *object);
+MR_C_API MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_C_MutableStaticDowncastFrom_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_A *object);
 
 /// Upcasts an instance of `MR::CopyInheritedMembers::C` to its base class `MR::CopyInheritedMembers::B`.
 /// This version is acting on mutable pointers.
@@ -403,12 +403,12 @@ MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_C_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_B_StaticDowncastTo_MR_CopyInheritedMembers_C(const MR_CopyInheritedMembers_B *object);
+MR_C_API const MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_C_StaticDowncastFrom_MR_CopyInheritedMembers_B(const MR_CopyInheritedMembers_B *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::C`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_B_MutableStaticDowncastTo_MR_CopyInheritedMembers_C(MR_CopyInheritedMembers_B *object);
+MR_C_API MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_C_MutableStaticDowncastFrom_MR_CopyInheritedMembers_B(MR_CopyInheritedMembers_B *object);
 
 /// Generated from constructor `MR::CopyInheritedMembers::C::C`.
 /// Parameter `_other` can not be null. It is a single object.
@@ -489,12 +489,12 @@ MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_D_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_B_StaticDowncastTo_MR_CopyInheritedMembers_D(const MR_CopyInheritedMembers_B *object);
+MR_C_API const MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_D_StaticDowncastFrom_MR_CopyInheritedMembers_B(const MR_CopyInheritedMembers_B *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::D`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_B_MutableStaticDowncastTo_MR_CopyInheritedMembers_D(MR_CopyInheritedMembers_B *object);
+MR_C_API MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_D_MutableStaticDowncastFrom_MR_CopyInheritedMembers_B(MR_CopyInheritedMembers_B *object);
 
 /// Generated from constructor `MR::CopyInheritedMembers::D::D`.
 /// Parameter `_other` can not be null. It is a single object.
@@ -557,12 +557,12 @@ MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_E_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_A_StaticDowncastTo_MR_CopyInheritedMembers_E(const MR_CopyInheritedMembers_A *object);
+MR_C_API const MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_StaticDowncastFrom_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_A *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::E`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_A_MutableStaticDowncastTo_MR_CopyInheritedMembers_E(MR_CopyInheritedMembers_A *object);
+MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_MutableStaticDowncastFrom_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_A *object);
 
 /// Upcasts an instance of `MR::CopyInheritedMembers::E` to its base class `MR::CopyInheritedMembers::B`.
 /// This version is acting on mutable pointers.
@@ -577,12 +577,12 @@ MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_E_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_B_StaticDowncastTo_MR_CopyInheritedMembers_E(const MR_CopyInheritedMembers_B *object);
+MR_C_API const MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_StaticDowncastFrom_MR_CopyInheritedMembers_B(const MR_CopyInheritedMembers_B *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::E`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_B_MutableStaticDowncastTo_MR_CopyInheritedMembers_E(MR_CopyInheritedMembers_B *object);
+MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_MutableStaticDowncastFrom_MR_CopyInheritedMembers_B(MR_CopyInheritedMembers_B *object);
 
 /// Upcasts an instance of `MR::CopyInheritedMembers::E` to its base class `MR::CopyInheritedMembers::D`.
 /// This version is acting on mutable pointers.
@@ -597,12 +597,12 @@ MR_C_API MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_E_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_D_StaticDowncastTo_MR_CopyInheritedMembers_E(const MR_CopyInheritedMembers_D *object);
+MR_C_API const MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_StaticDowncastFrom_MR_CopyInheritedMembers_D(const MR_CopyInheritedMembers_D *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::D` to a derived class `MR::CopyInheritedMembers::E`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_D_MutableStaticDowncastTo_MR_CopyInheritedMembers_E(MR_CopyInheritedMembers_D *object);
+MR_C_API MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_MutableStaticDowncastFrom_MR_CopyInheritedMembers_D(MR_CopyInheritedMembers_D *object);
 
 /// Generated from constructor `MR::CopyInheritedMembers::E::E`.
 /// Parameter `_other` can not be null. It is a single object.
@@ -654,12 +654,12 @@ MR_C_API MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_F_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_B_StaticDowncastTo_MR_CopyInheritedMembers_F(const MR_CopyInheritedMembers_B *object);
+MR_C_API const MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_StaticDowncastFrom_MR_CopyInheritedMembers_B(const MR_CopyInheritedMembers_B *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::B` to a derived class `MR::CopyInheritedMembers::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_B_MutableStaticDowncastTo_MR_CopyInheritedMembers_F(MR_CopyInheritedMembers_B *object);
+MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_MutableStaticDowncastFrom_MR_CopyInheritedMembers_B(MR_CopyInheritedMembers_B *object);
 
 /// Upcasts an instance of `MR::CopyInheritedMembers::F` to its base class `MR::CopyInheritedMembers::D`.
 /// This version is acting on mutable pointers.
@@ -674,12 +674,12 @@ MR_C_API MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_F_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_D_StaticDowncastTo_MR_CopyInheritedMembers_F(const MR_CopyInheritedMembers_D *object);
+MR_C_API const MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_StaticDowncastFrom_MR_CopyInheritedMembers_D(const MR_CopyInheritedMembers_D *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::D` to a derived class `MR::CopyInheritedMembers::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_D_MutableStaticDowncastTo_MR_CopyInheritedMembers_F(MR_CopyInheritedMembers_D *object);
+MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_MutableStaticDowncastFrom_MR_CopyInheritedMembers_D(MR_CopyInheritedMembers_D *object);
 
 /// Upcasts an instance of `MR::CopyInheritedMembers::F` to its base class `MR::CopyInheritedMembers::A`.
 /// This version is acting on mutable pointers.
@@ -694,12 +694,12 @@ MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_F_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_A_StaticDowncastTo_MR_CopyInheritedMembers_F(const MR_CopyInheritedMembers_A *object);
+MR_C_API const MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_StaticDowncastFrom_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_A *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::F`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_A_MutableStaticDowncastTo_MR_CopyInheritedMembers_F(MR_CopyInheritedMembers_A *object);
+MR_C_API MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_MutableStaticDowncastFrom_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_A *object);
 
 /// Generated from constructor `MR::CopyInheritedMembers::F::F`.
 /// Parameter `_other` can not be null. It is a single object.
@@ -873,12 +873,12 @@ MR_C_API MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_H_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_H *MR_CopyInheritedMembers_G_StaticDowncastTo_MR_CopyInheritedMembers_H(const MR_CopyInheritedMembers_G *object);
+MR_C_API const MR_CopyInheritedMembers_H *MR_CopyInheritedMembers_H_StaticDowncastFrom_MR_CopyInheritedMembers_G(const MR_CopyInheritedMembers_G *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::G` to a derived class `MR::CopyInheritedMembers::H`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_H *MR_CopyInheritedMembers_G_MutableStaticDowncastTo_MR_CopyInheritedMembers_H(MR_CopyInheritedMembers_G *object);
+MR_C_API MR_CopyInheritedMembers_H *MR_CopyInheritedMembers_H_MutableStaticDowncastFrom_MR_CopyInheritedMembers_G(MR_CopyInheritedMembers_G *object);
 
 /// Generated from constructor `MR::CopyInheritedMembers::H::H`.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -977,12 +977,12 @@ MR_C_API MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_I_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_I *MR_CopyInheritedMembers_G_StaticDowncastTo_MR_CopyInheritedMembers_I(const MR_CopyInheritedMembers_G *object);
+MR_C_API const MR_CopyInheritedMembers_I *MR_CopyInheritedMembers_I_StaticDowncastFrom_MR_CopyInheritedMembers_G(const MR_CopyInheritedMembers_G *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::G` to a derived class `MR::CopyInheritedMembers::I`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_I *MR_CopyInheritedMembers_G_MutableStaticDowncastTo_MR_CopyInheritedMembers_I(MR_CopyInheritedMembers_G *object);
+MR_C_API MR_CopyInheritedMembers_I *MR_CopyInheritedMembers_I_MutableStaticDowncastFrom_MR_CopyInheritedMembers_G(MR_CopyInheritedMembers_G *object);
 
 /// Generated from constructor `MR::CopyInheritedMembers::I::I`.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -1072,12 +1072,12 @@ MR_C_API MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_J_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_A_StaticDowncastTo_MR_CopyInheritedMembers_J(const MR_CopyInheritedMembers_A *object);
+MR_C_API const MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_J_StaticDowncastFrom_MR_CopyInheritedMembers_A(const MR_CopyInheritedMembers_A *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::A` to a derived class `MR::CopyInheritedMembers::J`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_A_MutableStaticDowncastTo_MR_CopyInheritedMembers_J(MR_CopyInheritedMembers_A *object);
+MR_C_API MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_J_MutableStaticDowncastFrom_MR_CopyInheritedMembers_A(MR_CopyInheritedMembers_A *object);
 
 /// Generated from constructor `MR::CopyInheritedMembers::J::J`.
 /// Parameter `_other` can not be null. It is a single object.
@@ -1350,12 +1350,12 @@ MR_C_API MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_N_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_M_StaticDowncastTo_MR_CopyInheritedMembers_N(const MR_CopyInheritedMembers_M *object);
+MR_C_API const MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_StaticDowncastFrom_MR_CopyInheritedMembers_M(const MR_CopyInheritedMembers_M *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::M` to a derived class `MR::CopyInheritedMembers::N`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_M_MutableStaticDowncastTo_MR_CopyInheritedMembers_N(MR_CopyInheritedMembers_M *object);
+MR_C_API MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_MutableStaticDowncastFrom_MR_CopyInheritedMembers_M(MR_CopyInheritedMembers_M *object);
 
 /// Generated from constructor `MR::CopyInheritedMembers::N::N`.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.
@@ -1463,12 +1463,12 @@ MR_C_API MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_O_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_M_StaticDowncastTo_MR_CopyInheritedMembers_O(const MR_CopyInheritedMembers_M *object);
+MR_C_API const MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_StaticDowncastFrom_MR_CopyInheritedMembers_M(const MR_CopyInheritedMembers_M *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::M` to a derived class `MR::CopyInheritedMembers::O`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_M_MutableStaticDowncastTo_MR_CopyInheritedMembers_O(MR_CopyInheritedMembers_M *object);
+MR_C_API MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_MutableStaticDowncastFrom_MR_CopyInheritedMembers_M(MR_CopyInheritedMembers_M *object);
 
 /// Upcasts an instance of `MR::CopyInheritedMembers::O` to its base class `MR::CopyInheritedMembers::N`.
 /// This version is acting on mutable pointers.
@@ -1483,12 +1483,12 @@ MR_C_API MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_O_MutableUpcastTo_MR
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// This version is acting on mutable pointers.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API const MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_N_StaticDowncastTo_MR_CopyInheritedMembers_O(const MR_CopyInheritedMembers_N *object);
+MR_C_API const MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_StaticDowncastFrom_MR_CopyInheritedMembers_N(const MR_CopyInheritedMembers_N *object);
 
 /// Downcasts an instance of `MR::CopyInheritedMembers::N` to a derived class `MR::CopyInheritedMembers::O`.
 /// This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 /// The reference to the parameter `object` might be preserved in the return value.
-MR_C_API MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_N_MutableStaticDowncastTo_MR_CopyInheritedMembers_O(MR_CopyInheritedMembers_N *object);
+MR_C_API MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_MutableStaticDowncastFrom_MR_CopyInheritedMembers_N(MR_CopyInheritedMembers_N *object);
 
 /// Generated from constructor `MR::CopyInheritedMembers::O::O`.
 /// The reference to things referred to by the parameter `_other` (if any) might be preserved in the constructed object.

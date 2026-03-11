@@ -50,23 +50,23 @@ MR_B_API MR_CommonBaseAB *MR_SeparateB_MutableUpcastTo_MR_CommonBaseAB(MR_Separa
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // This version is acting on mutable pointers.
 // The reference to the parameter `object` might be preserved in the return value.
-MR_B_API const MR_SeparateB *MR_CommonBaseAB_StaticDowncastTo_MR_SeparateB(const MR_CommonBaseAB *object);
+MR_B_API const MR_SeparateB *MR_SeparateB_StaticDowncastFrom_MR_CommonBaseAB(const MR_CommonBaseAB *object);
 
 // Downcasts an instance of `MR::CommonBaseAB` to a derived class `MR::SeparateB`.
 // This is a static downcast, it trusts the programmer that the target type is correct. Results in UB and returns an invalid pointer otherwise.
 // The reference to the parameter `object` might be preserved in the return value.
-MR_B_API MR_SeparateB *MR_CommonBaseAB_MutableStaticDowncastTo_MR_SeparateB(MR_CommonBaseAB *object);
+MR_B_API MR_SeparateB *MR_SeparateB_MutableStaticDowncastFrom_MR_CommonBaseAB(MR_CommonBaseAB *object);
 
 // Downcasts an instance of `MR::CommonBaseAB` to a derived class `MR::SeparateB`.
 // This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 // This version is acting on mutable pointers.
 // The reference to the parameter `object` might be preserved in the return value.
-MR_B_API const MR_SeparateB *MR_CommonBaseAB_DynamicDowncastTo_MR_SeparateB(const MR_CommonBaseAB *object);
+MR_B_API const MR_SeparateB *MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB(const MR_CommonBaseAB *object);
 
 // Downcasts an instance of `MR::CommonBaseAB` to a derived class `MR::SeparateB`.
 // This is a dynamic downcast, it checks the type before casting. This version will return zero if the target type is wrong.
 // The reference to the parameter `object` might be preserved in the return value.
-MR_B_API MR_SeparateB *MR_CommonBaseAB_MutableDynamicDowncastTo_MR_SeparateB(MR_CommonBaseAB *object);
+MR_B_API MR_SeparateB *MR_SeparateB_MutableDynamicDowncastFrom_MR_CommonBaseAB(MR_CommonBaseAB *object);
 
 // Downcasts an instance of `MR::CommonBaseAB` to a derived class `MR::SeparateB`.
 // This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
@@ -74,14 +74,14 @@ MR_B_API MR_SeparateB *MR_CommonBaseAB_MutableDynamicDowncastTo_MR_SeparateB(MR_
 // Parameter `object` can not be null. It is a single object.
 // The reference to the parameter `object` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_B_API const MR_SeparateB *MR_CommonBaseAB_DynamicDowncastToOrFail_MR_SeparateB(const MR_CommonBaseAB *object);
+MR_B_API const MR_SeparateB *MR_SeparateB_DynamicDowncastFromOrFail_MR_CommonBaseAB(const MR_CommonBaseAB *object);
 
 // Downcasts an instance of `MR::CommonBaseAB` to a derived class `MR::SeparateB`.
 // This is a dynamic downcast, it checks the type before casting. This version will throw if the target type is wrong.
 // Parameter `object` can not be null. It is a single object.
 // The reference to the parameter `object` might be preserved in the return value.
 // The returned pointer will never be null. It is non-owning, do NOT destroy it.
-MR_B_API MR_SeparateB *MR_CommonBaseAB_MutableDynamicDowncastToOrFail_MR_SeparateB(MR_CommonBaseAB *object);
+MR_B_API MR_SeparateB *MR_SeparateB_MutableDynamicDowncastFromOrFail_MR_CommonBaseAB(MR_CommonBaseAB *object);
 
 // Destroys a heap-allocated instance of `MR_SeparateB`. Does nothing if the pointer is null.
 MR_B_API void MR_SeparateB_Destroy(const MR_SeparateB *_this);

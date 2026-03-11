@@ -170,9 +170,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator Const_C?(MR.CS.AbstractClasses.Const_B parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_B_DynamicDowncastTo_MR_AbstractClasses_C", ExactSpelling = true)]
-                    extern static _Underlying *__MR_AbstractClasses_B_DynamicDowncastTo_MR_AbstractClasses_C(MR.CS.AbstractClasses.Const_B._Underlying *_this);
-                    var ptr = __MR_AbstractClasses_B_DynamicDowncastTo_MR_AbstractClasses_C(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B", ExactSpelling = true)]
+                    extern static _Underlying *__MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(MR.CS.AbstractClasses.Const_B._Underlying *_this);
+                    var ptr = __MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     Const_C ret = new(ptr, is_owning: false);
                     ret._KeepAliveEnclosingObject = parent;
@@ -202,9 +202,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator C?(MR.CS.AbstractClasses.B parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_B_DynamicDowncastTo_MR_AbstractClasses_C", ExactSpelling = true)]
-                    extern static _Underlying *__MR_AbstractClasses_B_DynamicDowncastTo_MR_AbstractClasses_C(MR.CS.AbstractClasses.B._Underlying *_this);
-                    var ptr = __MR_AbstractClasses_B_DynamicDowncastTo_MR_AbstractClasses_C(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B", ExactSpelling = true)]
+                    extern static _Underlying *__MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(MR.CS.AbstractClasses.B._Underlying *_this);
+                    var ptr = __MR_AbstractClasses_C_DynamicDowncastFrom_MR_AbstractClasses_B(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     C ret = new(ptr, is_owning: false);
                     ret._KeepAliveEnclosingObject = parent;

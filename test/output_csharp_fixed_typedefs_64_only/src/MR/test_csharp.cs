@@ -324,9 +324,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator Const_B?(MR.CS.CSharp.Const_A parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B", ExactSpelling = true)]
-                    extern static _Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(MR.CS.CSharp.Const_A._Underlying *_this);
-                    var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_DynamicDowncastFrom_MR_CSharp_A", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_B_DynamicDowncastFrom_MR_CSharp_A(MR.CS.CSharp.Const_A._Underlying *_this);
+                    var ptr = __MR_CSharp_B_DynamicDowncastFrom_MR_CSharp_A(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     Const_B ret = new(ptr, is_owning: false);
                     ret._KeepAliveEnclosingObject = parent;
@@ -439,9 +439,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator B?(MR.CS.CSharp.A parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B", ExactSpelling = true)]
-                    extern static _Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(MR.CS.CSharp.A._Underlying *_this);
-                    var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_B(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_B_DynamicDowncastFrom_MR_CSharp_A", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_B_DynamicDowncastFrom_MR_CSharp_A(MR.CS.CSharp.A._Underlying *_this);
+                    var ptr = __MR_CSharp_B_DynamicDowncastFrom_MR_CSharp_A(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     B ret = new(ptr, is_owning: false);
                     ret._KeepAliveEnclosingObject = parent;
@@ -634,9 +634,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator Const_C?(MR.CS.CSharp.Const_A parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C", ExactSpelling = true)]
-                    extern static _Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(MR.CS.CSharp.Const_A._Underlying *_this);
-                    var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_DynamicDowncastFrom_MR_CSharp_A", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_C_DynamicDowncastFrom_MR_CSharp_A(MR.CS.CSharp.Const_A._Underlying *_this);
+                    var ptr = __MR_CSharp_C_DynamicDowncastFrom_MR_CSharp_A(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     Const_C ret = new(ptr, is_owning: false);
                     ret._KeepAliveEnclosingObject = parent;
@@ -739,9 +739,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator C?(MR.CS.CSharp.A parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C", ExactSpelling = true)]
-                    extern static _Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(MR.CS.CSharp.A._Underlying *_this);
-                    var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_C(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_C_DynamicDowncastFrom_MR_CSharp_A", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_C_DynamicDowncastFrom_MR_CSharp_A(MR.CS.CSharp.A._Underlying *_this);
+                    var ptr = __MR_CSharp_C_DynamicDowncastFrom_MR_CSharp_A(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     C ret = new(ptr, is_owning: false);
                     ret._KeepAliveEnclosingObject = parent;
@@ -1264,9 +1264,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator Const_F?(MR.CS.CSharp.Const_A parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F", ExactSpelling = true)]
-                    extern static _Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(MR.CS.CSharp.Const_A._Underlying *_this);
-                    var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_DynamicDowncastFrom_MR_CSharp_A", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_F_DynamicDowncastFrom_MR_CSharp_A(MR.CS.CSharp.Const_A._Underlying *_this);
+                    var ptr = __MR_CSharp_F_DynamicDowncastFrom_MR_CSharp_A(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     Const_F ret = new(ptr, is_owning: false);
                     ret._KeepAliveEnclosingObject = parent;
@@ -1407,9 +1407,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator F?(MR.CS.CSharp.A parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F", ExactSpelling = true)]
-                    extern static _Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(MR.CS.CSharp.A._Underlying *_this);
-                    var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_F(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_F_DynamicDowncastFrom_MR_CSharp_A", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_F_DynamicDowncastFrom_MR_CSharp_A(MR.CS.CSharp.A._Underlying *_this);
+                    var ptr = __MR_CSharp_F_DynamicDowncastFrom_MR_CSharp_A(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     F ret = new(ptr, is_owning: false);
                     ret._KeepAliveEnclosingObject = parent;
@@ -1632,9 +1632,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator Const_G?(MR.CS.CSharp.Const_A parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G", ExactSpelling = true)]
-                    extern static _Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(MR.CS.CSharp.Const_A._Underlying *_this);
-                    var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_DynamicDowncastFrom_MR_CSharp_A", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_G_DynamicDowncastFrom_MR_CSharp_A(MR.CS.CSharp.Const_A._Underlying *_this);
+                    var ptr = __MR_CSharp_G_DynamicDowncastFrom_MR_CSharp_A(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     Const_G ret = new(ptr, is_owning: false);
                     ret._KeepAliveEnclosingObject = parent;
@@ -1777,9 +1777,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator G?(MR.CS.CSharp.A parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G", ExactSpelling = true)]
-                    extern static _Underlying *__MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(MR.CS.CSharp.A._Underlying *_this);
-                    var ptr = __MR_CSharp_A_DynamicDowncastTo_MR_CSharp_G(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_G_DynamicDowncastFrom_MR_CSharp_A", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_G_DynamicDowncastFrom_MR_CSharp_A(MR.CS.CSharp.A._Underlying *_this);
+                    var ptr = __MR_CSharp_G_DynamicDowncastFrom_MR_CSharp_A(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     G ret = new(ptr, is_owning: false);
                     ret._KeepAliveEnclosingObject = parent;
@@ -4203,9 +4203,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator Const_SF?(MR.CS.CSharp.Const_SD parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF", ExactSpelling = true)]
-                    extern static _Underlying *__MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(MR.CS.CSharp.Const_SD._Underlying *_this);
-                    var ptr = __MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_DynamicDowncastFrom_MR_CSharp_SD", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_SF_DynamicDowncastFrom_MR_CSharp_SD(MR.CS.CSharp.Const_SD._Underlying *_this);
+                    var ptr = __MR_CSharp_SF_DynamicDowncastFrom_MR_CSharp_SD(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     return Const_SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
                 }
@@ -4330,9 +4330,9 @@ public static partial class MR
                 // Downcasts:
                 public static unsafe explicit operator SF?(MR.CS.CSharp.SD parent)
                 {
-                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF", ExactSpelling = true)]
-                    extern static _Underlying *__MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(MR.CS.CSharp.SD._Underlying *_this);
-                    var ptr = __MR_CSharp_SD_DynamicDowncastTo_MR_CSharp_SF(parent._UnderlyingPtr);
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_DynamicDowncastFrom_MR_CSharp_SD", ExactSpelling = true)]
+                    extern static _Underlying *__MR_CSharp_SF_DynamicDowncastFrom_MR_CSharp_SD(MR.CS.CSharp.SD._Underlying *_this);
+                    var ptr = __MR_CSharp_SF_DynamicDowncastFrom_MR_CSharp_SD(parent._UnderlyingPtr);
                     if (ptr is null) return null;
                     return SF._MakeAliasing((MR.CS.Std.Const_SharedPtr_ConstVoid._Underlying *)parent._UnderlyingSharedPtr, ptr);
                 }

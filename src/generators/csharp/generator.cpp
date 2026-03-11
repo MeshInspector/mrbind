@@ -6341,7 +6341,7 @@ namespace mrbind::CSharp
                                 file.WriteString("public static unsafe explicit operator " + unqual_csharp_name + "?(" + csharp_base_name + " parent)\n");
                                 file.PushScope();
 
-                                auto dllimport_decl = MakeDllImportDecl(class_desc.output_file, base_desc.c_name + "_DynamicDowncastTo_" + class_desc.c_name, "_Underlying *", CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *_this");
+                                auto dllimport_decl = MakeDllImportDecl(class_desc.output_file, class_desc.c_name + "_DynamicDowncastFrom_" + base_desc.c_name, "_Underlying *", CppToCSharpClassName(ParseNameOrThrow(base_name), IsConst()) + "._Underlying *_this");
                                 file.WriteString(dllimport_decl.dllimport_decl);
 
                                 file.WriteString(

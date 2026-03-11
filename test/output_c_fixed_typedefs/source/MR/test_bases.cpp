@@ -88,14 +88,14 @@ MR_Bases_A *MR_Bases_B_MutableUpcastTo_MR_Bases_A(MR_Bases_B *object)
     ));
 }
 
-const MR_Bases_B *MR_Bases_A_StaticDowncastTo_MR_Bases_B(const MR_Bases_A *object)
+const MR_Bases_B *MR_Bases_B_StaticDowncastFrom_MR_Bases_A(const MR_Bases_A *object)
 {
     return (const MR_Bases_B *)(static_cast<const MR::Bases::B *>(
         ((const MR::Bases::A *)object)
     ));
 }
 
-MR_Bases_B *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_B(MR_Bases_A *object)
+MR_Bases_B *MR_Bases_B_MutableStaticDowncastFrom_MR_Bases_A(MR_Bases_A *object)
 {
     return (MR_Bases_B *)(static_cast<MR::Bases::B *>(
         ((MR::Bases::A *)object)
@@ -160,14 +160,14 @@ MR_Bases_A *MR_Bases_B2_MutableUpcastTo_MR_Bases_A(MR_Bases_B2 *object)
     ));
 }
 
-const MR_Bases_B2 *MR_Bases_A_StaticDowncastTo_MR_Bases_B2(const MR_Bases_A *object)
+const MR_Bases_B2 *MR_Bases_B2_StaticDowncastFrom_MR_Bases_A(const MR_Bases_A *object)
 {
     return (const MR_Bases_B2 *)(static_cast<const MR::Bases::B2 *>(
         ((const MR::Bases::A *)object)
     ));
 }
 
-MR_Bases_B2 *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_B2(MR_Bases_A *object)
+MR_Bases_B2 *MR_Bases_B2_MutableStaticDowncastFrom_MR_Bases_A(MR_Bases_A *object)
 {
     return (MR_Bases_B2 *)(static_cast<MR::Bases::B2 *>(
         ((MR::Bases::A *)object)
@@ -188,14 +188,14 @@ MR_Bases_B *MR_Bases_B2_MutableUpcastTo_MR_Bases_B(MR_Bases_B2 *object)
     ));
 }
 
-const MR_Bases_B2 *MR_Bases_B_StaticDowncastTo_MR_Bases_B2(const MR_Bases_B *object)
+const MR_Bases_B2 *MR_Bases_B2_StaticDowncastFrom_MR_Bases_B(const MR_Bases_B *object)
 {
     return (const MR_Bases_B2 *)(static_cast<const MR::Bases::B2 *>(
         ((const MR::Bases::B *)object)
     ));
 }
 
-MR_Bases_B2 *MR_Bases_B_MutableStaticDowncastTo_MR_Bases_B2(MR_Bases_B *object)
+MR_Bases_B2 *MR_Bases_B2_MutableStaticDowncastFrom_MR_Bases_B(MR_Bases_B *object)
 {
     return (MR_Bases_B2 *)(static_cast<MR::Bases::B2 *>(
         ((MR::Bases::B *)object)
@@ -260,14 +260,14 @@ MR_Bases_A *MR_Bases_C_MutableUpcastTo_MR_Bases_A(MR_Bases_C *object)
     ));
 }
 
-const MR_Bases_C *MR_Bases_A_StaticDowncastTo_MR_Bases_C(const MR_Bases_A *object)
+const MR_Bases_C *MR_Bases_C_StaticDowncastFrom_MR_Bases_A(const MR_Bases_A *object)
 {
     return (const MR_Bases_C *)(static_cast<const MR::Bases::C *>(
         ((const MR::Bases::A *)object)
     ));
 }
 
-MR_Bases_C *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_C(MR_Bases_A *object)
+MR_Bases_C *MR_Bases_C_MutableStaticDowncastFrom_MR_Bases_A(MR_Bases_A *object)
 {
     return (MR_Bases_C *)(static_cast<MR::Bases::C *>(
         ((MR::Bases::A *)object)
@@ -508,14 +508,14 @@ MR_Bases_E *MR_Bases_F_MutableUpcastTo_MR_Bases_E(MR_Bases_F *object)
     ));
 }
 
-const MR_Bases_F *MR_Bases_E_StaticDowncastTo_MR_Bases_F(const MR_Bases_E *object)
+const MR_Bases_F *MR_Bases_F_StaticDowncastFrom_MR_Bases_E(const MR_Bases_E *object)
 {
     return (const MR_Bases_F *)(static_cast<const MR::Bases::F *>(
         ((const MR::Bases::E *)object)
     ));
 }
 
-MR_Bases_F *MR_Bases_E_MutableStaticDowncastTo_MR_Bases_F(MR_Bases_E *object)
+MR_Bases_F *MR_Bases_F_MutableStaticDowncastFrom_MR_Bases_E(MR_Bases_E *object)
 {
     return (MR_Bases_F *)(static_cast<MR::Bases::F *>(
         ((MR::Bases::E *)object)
@@ -682,14 +682,14 @@ MR_Bases_A *MR_Bases_H_MutableUpcastTo_MR_Bases_A(MR_Bases_H *object)
     ));
 }
 
-const MR_Bases_H *MR_Bases_A_StaticDowncastTo_MR_Bases_H(const MR_Bases_A *object)
+const MR_Bases_H *MR_Bases_H_StaticDowncastFrom_MR_Bases_A(const MR_Bases_A *object)
 {
     return (const MR_Bases_H *)(static_cast<const MR::Bases::H *>(
         ((const MR::Bases::A *)object)
     ));
 }
 
-MR_Bases_H *MR_Bases_A_MutableStaticDowncastTo_MR_Bases_H(MR_Bases_A *object)
+MR_Bases_H *MR_Bases_H_MutableStaticDowncastFrom_MR_Bases_A(MR_Bases_A *object)
 {
     return (MR_Bases_H *)(static_cast<MR::Bases::H *>(
         ((MR::Bases::A *)object)

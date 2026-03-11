@@ -195,7 +195,7 @@ MR_UsingDecls_A *MR_UsingDecls_B_MutableUpcastTo_MR_UsingDecls_A(MR_UsingDecls_B
     ) // MRBINDC_TRY
 }
 
-const MR_UsingDecls_B *MR_UsingDecls_A_StaticDowncastTo_MR_UsingDecls_B(const MR_UsingDecls_A *object)
+const MR_UsingDecls_B *MR_UsingDecls_B_StaticDowncastFrom_MR_UsingDecls_A(const MR_UsingDecls_A *object)
 {
     MRBINDC_TRY(
     return (const MR_UsingDecls_B *)(static_cast<const MR::UsingDecls::B *>(
@@ -204,7 +204,7 @@ const MR_UsingDecls_B *MR_UsingDecls_A_StaticDowncastTo_MR_UsingDecls_B(const MR
     ) // MRBINDC_TRY
 }
 
-MR_UsingDecls_B *MR_UsingDecls_A_MutableStaticDowncastTo_MR_UsingDecls_B(MR_UsingDecls_A *object)
+MR_UsingDecls_B *MR_UsingDecls_B_MutableStaticDowncastFrom_MR_UsingDecls_A(MR_UsingDecls_A *object)
 {
     MRBINDC_TRY(
     return (MR_UsingDecls_B *)(static_cast<MR::UsingDecls::B *>(

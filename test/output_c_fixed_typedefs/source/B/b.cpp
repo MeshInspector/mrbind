@@ -44,42 +44,42 @@ MR_CommonBaseAB *MR_SeparateB_MutableUpcastTo_MR_CommonBaseAB(MR_SeparateB *obje
     ));
 }
 
-const MR_SeparateB *MR_CommonBaseAB_StaticDowncastTo_MR_SeparateB(const MR_CommonBaseAB *object)
+const MR_SeparateB *MR_SeparateB_StaticDowncastFrom_MR_CommonBaseAB(const MR_CommonBaseAB *object)
 {
     return (const MR_SeparateB *)(static_cast<const MR::SeparateB *>(
         ((const MR::CommonBaseAB *)object)
     ));
 }
 
-MR_SeparateB *MR_CommonBaseAB_MutableStaticDowncastTo_MR_SeparateB(MR_CommonBaseAB *object)
+MR_SeparateB *MR_SeparateB_MutableStaticDowncastFrom_MR_CommonBaseAB(MR_CommonBaseAB *object)
 {
     return (MR_SeparateB *)(static_cast<MR::SeparateB *>(
         ((MR::CommonBaseAB *)object)
     ));
 }
 
-const MR_SeparateB *MR_CommonBaseAB_DynamicDowncastTo_MR_SeparateB(const MR_CommonBaseAB *object)
+const MR_SeparateB *MR_SeparateB_DynamicDowncastFrom_MR_CommonBaseAB(const MR_CommonBaseAB *object)
 {
     return (const MR_SeparateB *)(dynamic_cast<const MR::SeparateB *>(
         ((const MR::CommonBaseAB *)object)
     ));
 }
 
-MR_SeparateB *MR_CommonBaseAB_MutableDynamicDowncastTo_MR_SeparateB(MR_CommonBaseAB *object)
+MR_SeparateB *MR_SeparateB_MutableDynamicDowncastFrom_MR_CommonBaseAB(MR_CommonBaseAB *object)
 {
     return (MR_SeparateB *)(dynamic_cast<MR::SeparateB *>(
         ((MR::CommonBaseAB *)object)
     ));
 }
 
-const MR_SeparateB *MR_CommonBaseAB_DynamicDowncastToOrFail_MR_SeparateB(const MR_CommonBaseAB *object)
+const MR_SeparateB *MR_SeparateB_DynamicDowncastFromOrFail_MR_CommonBaseAB(const MR_CommonBaseAB *object)
 {
     return (const MR_SeparateB *)std::addressof(dynamic_cast<const MR::SeparateB &>(
         ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CommonBaseAB *)(object))
     ));
 }
 
-MR_SeparateB *MR_CommonBaseAB_MutableDynamicDowncastToOrFail_MR_SeparateB(MR_CommonBaseAB *object)
+MR_SeparateB *MR_SeparateB_MutableDynamicDowncastFromOrFail_MR_CommonBaseAB(MR_CommonBaseAB *object)
 {
     return (MR_SeparateB *)std::addressof(dynamic_cast<MR::SeparateB &>(
         ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CommonBaseAB *)(object))
