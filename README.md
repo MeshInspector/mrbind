@@ -50,7 +50,7 @@ The point is making maintaining large bindings easy, with decent binding quality
 
    * [Adding specific template specializations.](/docs/adding_template_specializations.md)
 
-   * [Generating multiple libraries at the same time](/docs/splitting_libraries.md)
+   * [Splitting the output library.](/docs/splitting_libraries.md)
 
    * [Lifetime extension / keep-alive.](/docs/keep_alive.md)
 
@@ -82,6 +82,8 @@ Explicit object parameter, aka "deducing `this`" | ❌ | ❌ | ❌ | Not impleme
 Bitfields                                        | ❌ | ❌ | ❌ | Ignored.
 Non-public members                               | N/A | N/A | N/A | Intentionally ignored by the parser.<br/>It's not supported to return non-public nested classes from public member functions.
 `typedef`/`using`                                | ❌ | ❌ | ✅ | Ignored in C/C#. Become aliases in Python. Python also automatically builds aliases from different spellings of a type used in code.
+`union`                                          | N/A | N/A | N/A | Not planned.
+Global variables (outside of classes)            | ❌ | ❌ | ❌ | Not yet implemented.
 
 ### Types
 

@@ -48,11 +48,17 @@ After that, just compile the sources of each library separately, and link the re
 
 ## C#
 
-Same process as for C, but then you must also tell the C# generator the name of the shared library for each of the sub-libraries.
+Currently you might not be able to split C# output to several C# assemblies, but even when using one big assembly, it can still consume the split C libraries (which are loaded on demand at runtime).
+
+You must tell the C# generator the name of the shared library for each of the sub-libraries.
 
 For example, if you passed `--split-library BLAH_ ....` to the C generator, you must pass `--imported-split-lib-name BLAH_ blah` to C#, where `blah` is the shared library name for this sub-library, that replaces `--imported-lib-name` for it.
 
 The flag `--imported-split-lib-name` can be repeated multiple times if you have multiple sub-libraries.
+
+The reason why we don't currently recommend splitting the C# assemblies is because C# doesn't let us populate the same partial class (which we use as namespaces) from different assemblies. We might fix this eventually by adding per-sub-library namespace customization rules.
+
+Simply using different C++ namespaces in the input for different C# assemblies might work in simple cases, but the namespace `Std` will still be used by all of them if you use the standard containers in several different sub-libraries.
 
 ## Python
 
