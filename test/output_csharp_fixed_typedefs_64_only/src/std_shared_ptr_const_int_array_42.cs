@@ -139,6 +139,26 @@ public static partial class MR
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_int_array_42_ConstructAliasing(ownership.PassByMode, ownership.Value is not null ? ownership.Value._UnderlyingPtr : null, ptr.HasValue ? &__deref_ptr : null);
                 }
+
+                /// <summary>
+                /// Creates an untyped `std::shared_ptr&amp;lt;void&amp;gt;` pointing to the same object as the source typed pointer.
+                /// </summary>
+                public static unsafe implicit operator MR.CS.Std.SharedPtr_ConstVoid(MR.CS.Std.Const_SharedPtr_ConstIntArray42 _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_42_ConvertTo_MR_C_std_shared_ptr_const_void", ExactSpelling = true)]
+                    extern static MR.CS.Std.SharedPtr_ConstVoid._Underlying *__MR_C_std_shared_ptr_const_int_array_42_ConvertTo_MR_C_std_shared_ptr_const_void(MR.CS.Std.Const_SharedPtr_ConstIntArray42._Underlying *_this);
+                    return new(__MR_C_std_shared_ptr_const_int_array_42_ConvertTo_MR_C_std_shared_ptr_const_void(_this._UnderlyingPtr), is_owning: true);
+                }
+
+                /// <summary>
+                /// Overwrites an existing `std::shared_ptr&amp;lt;void&amp;gt;` to point to the same object as this instance.
+                /// </summary>
+                public unsafe void assignToMRCStdSharedPtrConstVoid(MR.CS.Std.SharedPtr_ConstVoid _target)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_int_array_42_AssignTo_MR_C_std_shared_ptr_const_void", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_const_int_array_42_AssignTo_MR_C_std_shared_ptr_const_void(_Underlying *_this, MR.CS.Std.SharedPtr_ConstVoid._Underlying *_target);
+                    __MR_C_std_shared_ptr_const_int_array_42_AssignTo_MR_C_std_shared_ptr_const_void(_UnderlyingPtr, _target._UnderlyingPtr);
+                }
             }
 
             /// <summary>

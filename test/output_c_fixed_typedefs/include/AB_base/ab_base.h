@@ -13,6 +13,8 @@
 extern "C" {
 #endif
 
+typedef struct MR_C_std_shared_ptr_MR_CommonBaseAB MR_C_std_shared_ptr_MR_CommonBaseAB; // Defined in `#include <std_shared_ptr_MR_CommonBaseAB.h>`.
+
 
 // Generated from class `MR::CommonBaseAB`.
 // Derived classes:
@@ -49,8 +51,22 @@ MR_C_API void MR_CommonBaseAB_DestroyArray(const MR_CommonBaseAB *_this);
 // When this function is called, this object will drop any object references it held previously.
 MR_C_API MR_CommonBaseAB *MR_CommonBaseAB_AssignFromAnother(MR_CommonBaseAB *_this, MR_C_PassBy _other_pass_by, MR_CommonBaseAB *_other);
 
+// Generate a `shared_ptr` for this as well, to test how that gets separated.
+// Generated from function `MR::mark_shared_common_base_ab`.
+// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_MR_CommonBaseAB_Destroy()` to free it when you're done using it.
+MR_C_API MR_C_std_shared_ptr_MR_CommonBaseAB *MR_mark_shared_common_base_ab(void);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif
 
 #endif // MR_C_DETAIL_INCLUDED_AB_BASE_AB_BASE_H
+
+#if !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_AB_BASE_AB_BASE_H_2)
+#define MR_C_DETAIL_INCLUDED_AB_BASE_AB_BASE_H_2
+
+// Convenience includes for types mentioned in this header. They are here at the bottom to make circular includes harmless.
+
+#include <std_shared_ptr_MR_CommonBaseAB.h>
+
+#endif // !defined(MR_C_DISABLE_CONVENIENCE_INCLUDES) && !defined(MR_C_DETAIL_INCLUDED_AB_BASE_AB_BASE_H_2)

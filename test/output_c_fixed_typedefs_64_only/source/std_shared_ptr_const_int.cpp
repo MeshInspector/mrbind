@@ -137,17 +137,13 @@ void MR_C_std_shared_ptr_const_int_AssignAliasing(MR_C_std_shared_ptr_const_int 
     );
 }
 
-MR_C_std_shared_ptr_const_void *MR_C_std_shared_ptr_const_void_ConstructFrom_MR_C_std_shared_ptr_const_int(MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_const_int *_other)
+MR_C_std_shared_ptr_const_void *MR_C_std_shared_ptr_const_int_ConvertTo_MR_C_std_shared_ptr_const_void(const MR_C_std_shared_ptr_const_int *_this)
 {
-    MRBINDC_CLASSARG_GUARD(_other, std::shared_ptr<const int>);
-    return (MR_C_std_shared_ptr_const_void *)new std::shared_ptr<const void>(std::shared_ptr<const void>(
-        (MRBINDC_CLASSARG_DEF_CTOR(_other, std::shared_ptr<const int>) MRBINDC_CLASSARG_COPY(_other, (std::shared_ptr<const int>), std::shared_ptr<const int>) MRBINDC_CLASSARG_MOVE(_other, (std::shared_ptr<const int>), std::shared_ptr<const int>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, std::shared_ptr<const int>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, std::shared_ptr<const int>) MRBINDC_CLASSARG_END(_other, std::shared_ptr<const int>))
-    ));
+    return (MR_C_std_shared_ptr_const_void *)new std::shared_ptr<const void>(std::shared_ptr<const void>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const int> *)(_this))));
 }
 
-void MR_C_std_shared_ptr_const_void_AssignFrom_MR_C_std_shared_ptr_const_int(MR_C_std_shared_ptr_const_void *_this, MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_const_int *_other)
+void MR_C_std_shared_ptr_const_int_AssignTo_MR_C_std_shared_ptr_const_void(const MR_C_std_shared_ptr_const_int *_this, MR_C_std_shared_ptr_const_void *_target)
 {
-    MRBINDC_CLASSARG_GUARD(_other, std::shared_ptr<const int>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<const void> *)(_this)) = (MRBINDC_CLASSARG_DEF_CTOR(_other, std::shared_ptr<const int>) MRBINDC_CLASSARG_COPY(_other, (std::shared_ptr<const int>), std::shared_ptr<const int>) MRBINDC_CLASSARG_MOVE(_other, (std::shared_ptr<const int>), std::shared_ptr<const int>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, std::shared_ptr<const int>) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, std::shared_ptr<const int>) MRBINDC_CLASSARG_END(_other, std::shared_ptr<const int>));
+    ((_target ? void() : throw std::runtime_error("Parameter `_target` can not be null.")), *(std::shared_ptr<const void> *)(_target)) = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<const int> *)(_this));
 }
 

@@ -128,6 +128,22 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_MR_CSharp_SA_ConstructAliasing(ownership.PassByMode, ownership.Value is not null ? ownership.Value._UnderlyingPtr : null, ptr is not null ? ptr._UnderlyingPtr : null);
                     if (ptr is not null) _KeepAlive(ptr);
                 }
+
+                /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
+                public static unsafe implicit operator MR.CS.Std.SharedPtr_ConstVoid(MR.CS.Std.Const_SharedPtr_ConstMRCSharpSA _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_CSharp_SA_ConvertTo_MR_C_std_shared_ptr_const_void", ExactSpelling = true)]
+                    extern static MR.CS.Std.SharedPtr_ConstVoid._Underlying *__MR_C_std_shared_ptr_const_MR_CSharp_SA_ConvertTo_MR_C_std_shared_ptr_const_void(MR.CS.Std.Const_SharedPtr_ConstMRCSharpSA._Underlying *_this);
+                    return new(__MR_C_std_shared_ptr_const_MR_CSharp_SA_ConvertTo_MR_C_std_shared_ptr_const_void(_this._UnderlyingPtr), is_owning: true);
+                }
+
+                /// Overwrites an existing `std::shared_ptr<void>` to point to the same object as this instance.
+                public unsafe void AssignToMRCStdSharedPtrConstVoid(MR.CS.Std.SharedPtr_ConstVoid _target)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_CSharp_SA_AssignTo_MR_C_std_shared_ptr_const_void", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_const_MR_CSharp_SA_AssignTo_MR_C_std_shared_ptr_const_void(_Underlying *_this, MR.CS.Std.SharedPtr_ConstVoid._Underlying *_target);
+                    __MR_C_std_shared_ptr_const_MR_CSharp_SA_AssignTo_MR_C_std_shared_ptr_const_void(_UnderlyingPtr, _target._UnderlyingPtr);
+                }
             }
 
             /// Wraps a pointer to a single shared reference-counted heap-allocated `const MR::CSharp::SA`.

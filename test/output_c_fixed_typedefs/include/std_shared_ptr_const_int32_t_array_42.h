@@ -124,12 +124,14 @@ MR_C_API MR_C_std_shared_ptr_const_int32_t_array_42 *MR_C_std_shared_ptr_const_i
 MR_C_API void MR_C_std_shared_ptr_const_int32_t_array_42_AssignAliasing(MR_C_std_shared_ptr_const_int32_t_array_42 *_this, MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, const int32_t *ptr);
 
 // Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
+// Parameter `_this` can not be null. It is a single object.
 // Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_const_void_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_shared_ptr_const_void *MR_C_std_shared_ptr_const_void_ConstructFrom_MR_C_std_shared_ptr_const_int32_t_array_42(MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_const_int32_t_array_42 *_other);
+MR_C_API MR_C_std_shared_ptr_const_void *MR_C_std_shared_ptr_const_int32_t_array_42_ConvertTo_MR_C_std_shared_ptr_const_void(const MR_C_std_shared_ptr_const_int32_t_array_42 *_this);
 
 // Overwrites an existing `std::shared_ptr<void>` to point to the same object as this instance.
 // Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_shared_ptr_const_void_AssignFrom_MR_C_std_shared_ptr_const_int32_t_array_42(MR_C_std_shared_ptr_const_void *_this, MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_const_int32_t_array_42 *_other);
+// Parameter `_target` can not be null. It is a single object.
+MR_C_API void MR_C_std_shared_ptr_const_int32_t_array_42_AssignTo_MR_C_std_shared_ptr_const_void(const MR_C_std_shared_ptr_const_int32_t_array_42 *_this, MR_C_std_shared_ptr_const_void *_target);
 
 #ifdef __cplusplus
 } // extern "C"

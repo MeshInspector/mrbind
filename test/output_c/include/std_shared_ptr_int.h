@@ -116,12 +116,14 @@ MR_C_API MR_C_std_shared_ptr_int *MR_C_std_shared_ptr_int_ConstructAliasing(MR_C
 MR_C_API void MR_C_std_shared_ptr_int_AssignAliasing(MR_C_std_shared_ptr_int *_this, MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, int *ptr);
 
 /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
+/// Parameter `_this` can not be null. It is a single object.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_shared_ptr_void_Destroy()` to free it when you're done using it.
-MR_C_API MR_C_std_shared_ptr_void *MR_C_std_shared_ptr_void_ConstructFrom_MR_C_std_shared_ptr_int(MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_int *_other);
+MR_C_API MR_C_std_shared_ptr_void *MR_C_std_shared_ptr_int_ConvertTo_MR_C_std_shared_ptr_void(const MR_C_std_shared_ptr_int *_this);
 
 /// Overwrites an existing `std::shared_ptr<void>` to point to the same object as this instance.
 /// Parameter `_this` can not be null. It is a single object.
-MR_C_API void MR_C_std_shared_ptr_void_AssignFrom_MR_C_std_shared_ptr_int(MR_C_std_shared_ptr_void *_this, MR_C_PassBy _other_pass_by, MR_C_std_shared_ptr_int *_other);
+/// Parameter `_target` can not be null. It is a single object.
+MR_C_API void MR_C_std_shared_ptr_int_AssignTo_MR_C_std_shared_ptr_void(const MR_C_std_shared_ptr_int *_this, MR_C_std_shared_ptr_void *_target);
 
 #ifdef __cplusplus
 } // extern "C"

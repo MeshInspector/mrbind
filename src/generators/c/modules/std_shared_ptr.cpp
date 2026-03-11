@@ -498,55 +498,53 @@ namespace mrbind::C::Modules
                         }
                     }
 
-                    // Interop with `std::shared_ptr<void>`:
+                    // Interop with `std::shared_ptr<void>`.
                     if (!is_void)
                     {
+                        // We used to inject the operations directly into `std::shared_ptr<void>` here, but we no longer do that.
+                        // Other than being ugly, it caused issues with splitting sub-libraries, since it caused `std::shared_ptr<void>` to mention all the sublibraries.
+
                         // The element type here has the same constness as that in the input.
                         const cppdecl::Type sharedptr_void_type = cppdecl::Type::FromQualifiedName(cppdecl::QualifiedName{}.AddPart("std").AddPart("shared_ptr").AddTemplateArgument(cppdecl::Type::FromSingleWord("void").AddQualifiers(cppdecl::CvQualifiers::const_ * is_const)));
+                        const std::string sharedptr_void_c_name = generator.CppTypeNameToCTypeName(sharedptr_void_type.simple_type.name);
 
-                        // Here we boldly inject constructors and assignments into `std::shared_ptr<[const] void>`.
-                        const HeapAllocatedClassBinder void_binder = MakeSharedPtrBinder(generator, sharedptr_void_type.simple_type.name);
-
-                        { // Construct `std::shared_ptr<void>`.
+                        { // Convert to `std::shared_ptr<void>`.
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.";
 
                             // We could use either the template parameter name or the full shared pointer name here.
                             // I guess it's more consistent to use the full type, even though it's uglier.
                             // And similarly for the assignment operator below.
-                            emit.name = void_binder.MakeMemberFuncName(generator, "ConstructFrom_" + binder.c_type_name, CInterop::MethodKinds::Constructor{});
+                            emit.name = binder.MakeMemberFuncName(generator, "ConvertTo_" + sharedptr_void_c_name, CInterop::MethodKinds::ConversionOperator{});
 
                             emit.cpp_return_type = sharedptr_void_type;
 
+                            emit.AddThisParam(type, true);
+
                             // No tag here.
 
-                            emit.params.push_back({
-                                .name = "_other",
-                                .cpp_type = type,
-                            });
-
-                            emit.cpp_called_func = generator.CppdeclToCode(sharedptr_void_type);
+                            emit.cpp_called_func = generator.CppdeclToCode(sharedptr_void_type) + "(@this@)";
 
                             generator.EmitFunction(file, emit);
                         }
 
-                        { // Copy-assign to an existing `std::shared_ptr<void>`.
+                        { // Assign to an existing `std::shared_ptr<void>`.
                             Generator::EmitFuncParams emit;
                             emit.c_comment = "/// Overwrites an existing `std::shared_ptr<void>` to point to the same object as this instance.";
 
                             // See the comment in the similar constructor above for how we chose this name.
-                            emit.name = void_binder.MakeMemberFuncName(generator, "AssignFrom_" + binder.c_type_name, CInterop::MethodKinds::Operator{.token = "="});
+                            emit.name = binder.MakeMemberFuncName(generator, "AssignTo_" + sharedptr_void_c_name); // This is not an overloaded operator, since the target is the second operand, not the first one.
 
-                            emit.AddThisParam(cppdecl::Type::FromQualifiedName(void_binder.cpp_type_name), false);
+                            emit.AddThisParam(type, true);
 
                             // No tag here.
 
                             emit.params.push_back({
-                                .name = "_other",
-                                .cpp_type = type,
+                                .name = "_target",
+                                .cpp_type = cppdecl::Type(sharedptr_void_type).AddModifier(cppdecl::Reference{}),
                             });
 
-                            emit.cpp_called_func = "@this@ = @1@";
+                            emit.cpp_called_func = "@1@ = @this@";
 
                             generator.EmitFunction(file, emit);
                         }

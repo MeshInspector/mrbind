@@ -57,3 +57,10 @@ MR_CommonBaseAB *MR_CommonBaseAB_AssignFromAnother(MR_CommonBaseAB *_this, MR_C_
     ) // MRBINDC_TRY
 }
 
+MR_C_std_shared_ptr_MR_CommonBaseAB *MR_mark_shared_common_base_ab(void)
+{
+    MRBINDC_TRY(
+    return (MR_C_std_shared_ptr_MR_CommonBaseAB *)new std::shared_ptr<MR::CommonBaseAB>(::MR::mark_shared_common_base_ab());
+    ) // MRBINDC_TRY
+}
+

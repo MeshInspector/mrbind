@@ -115,6 +115,22 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_shared_ptr_int_ConstructAliasing(ownership.PassByMode, ownership.Value is not null ? ownership.Value._UnderlyingPtr : null, ptr is not null ? &__value_ptr : null);
                     if (ptr is not null) ptr.Value = __value_ptr;
                 }
+
+                /// Creates an untyped `std::shared_ptr<void>` pointing to the same object as the source typed pointer.
+                public static unsafe implicit operator MR.CS.Std.SharedPtr_Void(MR.CS.Std.Const_SharedPtr_Int _this)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_ConvertTo_MR_C_std_shared_ptr_void", ExactSpelling = true)]
+                    extern static MR.CS.Std.SharedPtr_Void._Underlying *__MR_C_std_shared_ptr_int_ConvertTo_MR_C_std_shared_ptr_void(MR.CS.Std.Const_SharedPtr_Int._Underlying *_this);
+                    return new(__MR_C_std_shared_ptr_int_ConvertTo_MR_C_std_shared_ptr_void(_this._UnderlyingPtr), is_owning: true);
+                }
+
+                /// Overwrites an existing `std::shared_ptr<void>` to point to the same object as this instance.
+                public unsafe void AssignToMRCStdSharedPtrVoid(MR.CS.Std.SharedPtr_Void _target)
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_int_AssignTo_MR_C_std_shared_ptr_void", ExactSpelling = true)]
+                    extern static void __MR_C_std_shared_ptr_int_AssignTo_MR_C_std_shared_ptr_void(_Underlying *_this, MR.CS.Std.SharedPtr_Void._Underlying *_target);
+                    __MR_C_std_shared_ptr_int_AssignTo_MR_C_std_shared_ptr_void(_UnderlyingPtr, _target._UnderlyingPtr);
+                }
             }
 
             /// Wraps a pointer to a single shared reference-counted heap-allocated `int`.

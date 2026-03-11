@@ -130,5 +130,14 @@ public static partial class MR
             public _InOptConst_CommonBaseAB(Const_CommonBaseAB value) {Opt = value;}
             public static implicit operator _InOptConst_CommonBaseAB(Const_CommonBaseAB value) {return new(value);}
         }
+
+        // Generate a `shared_ptr` for this as well, to test how that gets separated.
+        /// Generated from function `MR::mark_shared_common_base_ab`.
+        public static unsafe MR.CS.Std.SharedPtr_MRCommonBaseAB MarkSharedCommonBaseAb()
+        {
+            [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_mark_shared_common_base_ab", ExactSpelling = true)]
+            extern static MR.CS.Std.SharedPtr_MRCommonBaseAB._Underlying *__MR_mark_shared_common_base_ab();
+            return new(__MR_mark_shared_common_base_ab(), is_owning: true);
+        }
     }
 }
