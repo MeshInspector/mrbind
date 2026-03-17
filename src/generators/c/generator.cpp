@@ -144,7 +144,9 @@ namespace mrbind::C
             if (&name == skipped_root_name)
                 return cppdecl::VisitResult::recurse;
 
-            if (auto opt = generator.FindTypeBindableWithSameAddressOpt(generator.CppdeclToCode(name)))
+            // Note, `generator.CppdeclToCode(name)` doesn't work here, since we can't roundtrip `long long` correctly, since cppdecl::ParseQualifiedName()` doesn't understand those.
+            // This is annoying. This asks for the `redundant int` flag to be moved to the name.
+            if (auto opt = generator.FindTypeBindableWithSameAddressOpt(name))
             {
                 if (opt->declared_in_file)
                 {
