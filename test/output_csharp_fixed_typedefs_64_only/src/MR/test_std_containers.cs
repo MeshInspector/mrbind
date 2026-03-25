@@ -344,7 +344,7 @@ public static partial class MR
                 public Const_NonAssignable(NonAssignable _other) : this((Const_NonAssignable)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::StdContainers::NonAssignable::operator&amp;lt;`.
+                /// Generated from method `MR::StdContainers::NonAssignable::operator&lt;`.
                 /// </summary>
                 public unsafe bool less(MR.CS.StdContainers._ByValue_NonAssignable _1)
                 {

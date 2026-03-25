@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::unordered_map&amp;lt;MR::StdContainers::NonAssignable, float&amp;gt;`.
+            /// Generated from C++ container `std::unordered_map&lt;MR::StdContainers::NonAssignable, float&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_UnorderedMap_MRStdContainersNonAssignable_Float : MR.CS.Misc.Object<Const_UnorderedMap_MRStdContainersNonAssignable_Float>, System.IDisposable, IEnumerable<MR.CS.Std.Const_Pair_ConstMRStdContainersNonAssignable_Float>
@@ -715,7 +715,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::unordered_map&amp;lt;MR::StdContainers::NonAssignable, float&amp;gt;`.
+            /// Generated from C++ container `std::unordered_map&lt;MR::StdContainers::NonAssignable, float&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class UnorderedMap_MRStdContainersNonAssignable_Float : Const_UnorderedMap_MRStdContainersNonAssignable_Float, IEnumerable<MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float>

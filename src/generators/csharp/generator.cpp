@@ -344,9 +344,9 @@ namespace mrbind::CSharp
             doc += "/// ";
 
             std::string escaped_part(part);
+            escaped_part = Strings::Replace(escaped_part, "&", "&amp;"); // This must be first, to prevent double escaping.
             escaped_part = Strings::Replace(escaped_part, "<", "&lt;");
             escaped_part = Strings::Replace(escaped_part, ">", "&gt;");
-            escaped_part = Strings::Replace(escaped_part, "&", "&amp;");
             escaped_part = Strings::Replace(escaped_part, "'", "&apos;");
             escaped_part = Strings::Replace(escaped_part, "\"", "&quot;");
             doc += escaped_part;

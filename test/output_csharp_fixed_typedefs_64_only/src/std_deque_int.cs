@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::deque&amp;lt;int&amp;gt;`.
+            /// Generated from C++ container `std::deque&lt;int&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Deque_Int : MR.CS.Misc.Object<Const_Deque_Int>, System.IDisposable, IEnumerable<int>
@@ -790,7 +790,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::deque&amp;lt;int&amp;gt;`.
+            /// Generated from C++ container `std::deque&lt;int&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Deque_Int : Const_Deque_Int, IEnumerable<MR.CS.Misc.Ref<int>>

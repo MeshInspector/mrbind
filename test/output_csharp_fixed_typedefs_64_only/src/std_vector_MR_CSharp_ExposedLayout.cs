@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::vector&amp;lt;MR::CSharp::ExposedLayout&amp;gt;`.
+            /// Generated from C++ container `std::vector&lt;MR::CSharp::ExposedLayout&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Vector_MRCSharpExposedLayout : MR.CS.Misc.Object<Const_Vector_MRCSharpExposedLayout>, System.IDisposable, IEnumerable<MR.CS.Misc.ConstRef<MR.CS.CSharp.ExposedLayout>>
@@ -811,7 +811,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::vector&amp;lt;MR::CSharp::ExposedLayout&amp;gt;`.
+            /// Generated from C++ container `std::vector&lt;MR::CSharp::ExposedLayout&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Vector_MRCSharpExposedLayout : Const_Vector_MRCSharpExposedLayout, IEnumerable<MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>>

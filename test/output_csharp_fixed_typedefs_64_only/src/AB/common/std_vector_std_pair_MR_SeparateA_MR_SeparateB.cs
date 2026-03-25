@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::vector&amp;lt;std::pair&amp;lt;MR::SeparateA, MR::SeparateB&amp;gt;&amp;gt;`.
+            /// Generated from C++ container `std::vector&lt;std::pair&lt;MR::SeparateA, MR::SeparateB&gt;&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Vector_StdPairMRSeparateAMRSeparateB : MR.CS.Misc.Object<Const_Vector_StdPairMRSeparateAMRSeparateB>, System.IDisposable, IEnumerable<MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB>
@@ -804,7 +804,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::vector&amp;lt;std::pair&amp;lt;MR::SeparateA, MR::SeparateB&amp;gt;&amp;gt;`.
+            /// Generated from C++ container `std::vector&lt;std::pair&lt;MR::SeparateA, MR::SeparateB&gt;&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Vector_StdPairMRSeparateAMRSeparateB : Const_Vector_StdPairMRSeparateAMRSeparateB, IEnumerable<MR.CS.Std.Pair_MRSeparateA_MRSeparateB>

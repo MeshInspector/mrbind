@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Phmap
         {
             /// <summary>
-            /// Generated from C++ container `phmap::btree_set&amp;lt;int&amp;gt;`.
+            /// Generated from C++ container `phmap::btree_set&lt;int&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_BtreeSet_Int : MR.CS.Misc.Object<Const_BtreeSet_Int>, System.IDisposable, IEnumerable<int>
@@ -444,7 +444,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `phmap::btree_set&amp;lt;int&amp;gt;`.
+            /// Generated from C++ container `phmap::btree_set&lt;int&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class BtreeSet_Int : Const_BtreeSet_Int

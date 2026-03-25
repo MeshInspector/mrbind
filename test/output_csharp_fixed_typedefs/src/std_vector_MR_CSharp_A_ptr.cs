@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::vector&amp;lt;MR::CSharp::A *&amp;gt;`.
+            /// Generated from C++ container `std::vector&lt;MR::CSharp::A *&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Vector_MRCSharpAPtr : MR.CS.Misc.Object<Const_Vector_MRCSharpAPtr>, System.IDisposable
@@ -726,7 +726,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::vector&amp;lt;MR::CSharp::A *&amp;gt;`.
+            /// Generated from C++ container `std::vector&lt;MR::CSharp::A *&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Vector_MRCSharpAPtr : Const_Vector_MRCSharpAPtr

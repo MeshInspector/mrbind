@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Phmap
         {
             /// <summary>
-            /// Generated from C++ container `phmap::node_hash_map&amp;lt;int32_t, float&amp;gt;`.
+            /// Generated from C++ container `phmap::node_hash_map&lt;int32_t, float&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_NodeHashMap_Int32T_Float : MR.CS.Misc.Object<Const_NodeHashMap_Int32T_Float>, System.IDisposable, IEnumerable<MR.CS.Std.Const_Pair_ConstInt32T_Float>
@@ -709,7 +709,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `phmap::node_hash_map&amp;lt;int32_t, float&amp;gt;`.
+            /// Generated from C++ container `phmap::node_hash_map&lt;int32_t, float&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class NodeHashMap_Int32T_Float : Const_NodeHashMap_Int32T_Float, IEnumerable<MR.CS.Std.Pair_ConstInt32T_Float>

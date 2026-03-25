@@ -23,7 +23,7 @@ public static partial class MR
             public enum E2 : byte
             {
                 /// <summary>
-                /// Test a same-line documentation comment. Add some &amp;gt;weird&amp;lt; &amp; &apos;characters&quot;.
+                /// Test a same-line documentation comment. Add some &gt;weird&lt; &amp; &apos;characters&quot;.
                 /// </summary>
                 A = 0,
                 B = 1,
@@ -7875,7 +7875,7 @@ public static partial class MR
                 public Const_RelationalA(RelationalA _other) : this((Const_RelationalA)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalA::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::RelationalA::operator&lt;`.
                 /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.Const_RelationalA _this, MR.CS.CSharp.Const_RelationalA _1)
                 {
@@ -8082,7 +8082,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalB::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::RelationalB::operator&lt;`.
                 /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.RelationalB _this, MR.CS.CSharp.RelationalB _1)
                 {
@@ -8193,7 +8193,7 @@ public static partial class MR
                 public Const_RelationalC(RelationalC _other) : this((Const_RelationalC)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalC::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::RelationalC::operator&lt;`.
                 /// </summary>
                 public unsafe bool less(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8203,7 +8203,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalC::operator&amp;gt;`.
+                /// Generated from method `MR::CSharp::RelationalC::operator&gt;`.
                 /// </summary>
                 public unsafe bool greater(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8214,7 +8214,7 @@ public static partial class MR
 
                 // bool operator<=(RelationalC &) const {return false;} // Skip one operator to observe the function missing.
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalC::operator&amp;gt;=`.
+                /// Generated from method `MR::CSharp::RelationalC::operator&gt;=`.
                 /// </summary>
                 public unsafe bool greaterEqual(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8358,7 +8358,7 @@ public static partial class MR
                 public Const_RelationalD(RelationalD _other) : this((Const_RelationalD)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalD::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::RelationalD::operator&lt;`.
                 /// </summary>
                 public unsafe bool less(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8368,7 +8368,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalD::operator&amp;gt;`.
+                /// Generated from method `MR::CSharp::RelationalD::operator&gt;`.
                 /// </summary>
                 public unsafe bool greater(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8378,7 +8378,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalD::operator&amp;lt;=`.
+                /// Generated from method `MR::CSharp::RelationalD::operator&lt;=`.
                 /// </summary>
                 public unsafe bool lessEqual(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8388,7 +8388,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalD::operator&amp;gt;=`.
+                /// Generated from method `MR::CSharp::RelationalD::operator&gt;=`.
                 /// </summary>
                 public unsafe bool greaterEqual(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8532,7 +8532,7 @@ public static partial class MR
                 public Const_RelationalE(RelationalE _other) : this((Const_RelationalE)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalE::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::RelationalE::operator&lt;`.
                 /// </summary>
                 public unsafe int less(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8542,7 +8542,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalE::operator&amp;gt;`.
+                /// Generated from method `MR::CSharp::RelationalE::operator&gt;`.
                 /// </summary>
                 public unsafe int greater(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8552,7 +8552,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalE::operator&amp;lt;=`.
+                /// Generated from method `MR::CSharp::RelationalE::operator&lt;=`.
                 /// </summary>
                 public unsafe int lessEqual(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8562,7 +8562,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalE::operator&amp;gt;=`.
+                /// Generated from method `MR::CSharp::RelationalE::operator&gt;=`.
                 /// </summary>
                 public unsafe int greaterEqual(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8706,7 +8706,7 @@ public static partial class MR
                 public Const_RelationalF(RelationalF _other) : this((Const_RelationalF)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalF::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::RelationalF::operator&lt;`.
                 /// </summary>
                 public unsafe void less(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8716,7 +8716,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalF::operator&amp;gt;`.
+                /// Generated from method `MR::CSharp::RelationalF::operator&gt;`.
                 /// </summary>
                 public unsafe void greater(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8726,7 +8726,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalF::operator&amp;lt;=`.
+                /// Generated from method `MR::CSharp::RelationalF::operator&lt;=`.
                 /// </summary>
                 public unsafe void lessEqual(MR.CS.CSharp.RelationalC _1)
                 {
@@ -8736,7 +8736,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::RelationalF::operator&amp;gt;=`.
+                /// Generated from method `MR::CSharp::RelationalF::operator&gt;=`.
                 /// </summary>
                 public unsafe void greaterEqual(MR.CS.CSharp.RelationalC _1)
                 {
@@ -12075,7 +12075,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsA::operator&amp;lt;&amp;lt;`.
+                /// Generated from method `MR::CSharp::TestOpsA::operator&lt;&lt;`.
                 /// </summary>
                 public static unsafe int operator<<(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -12085,7 +12085,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsA::operator&amp;gt;&amp;gt;`.
+                /// Generated from method `MR::CSharp::TestOpsA::operator&gt;&gt;`.
                 /// </summary>
                 public static unsafe int operator>>(MR.CS.CSharp.TestOpsA _this, MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -12095,7 +12095,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsA::operator&amp;lt;&amp;lt;=`.
+                /// Generated from method `MR::CSharp::TestOpsA::operator&lt;&lt;=`.
                 /// </summary>
                 public unsafe int lshiftAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -12105,7 +12105,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsA::operator&amp;gt;&amp;gt;=`.
+                /// Generated from method `MR::CSharp::TestOpsA::operator&gt;&gt;=`.
                 /// </summary>
                 public unsafe int rshiftAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -12115,7 +12115,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsA::operator&amp;lt;=&amp;gt;`.
+                /// Generated from method `MR::CSharp::TestOpsA::operator&lt;=&gt;`.
                 /// </summary>
                 public unsafe int compareThreeWay(MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -12155,7 +12155,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsA::operator-&amp;gt;*`.
+                /// Generated from method `MR::CSharp::TestOpsA::operator-&gt;*`.
                 /// </summary>
                 public unsafe int arrowStar(MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -12165,7 +12165,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsA::operator-&amp;gt;`.
+                /// Generated from method `MR::CSharp::TestOpsA::operator-&gt;`.
                 /// </summary>
                 public unsafe int arrow()
                 {
@@ -12540,7 +12540,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsB::operator&amp;lt;&amp;lt;`.
+                /// Generated from method `MR::CSharp::TestOpsB::operator&lt;&lt;`.
                 /// </summary>
                 public static unsafe int operator<<(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
@@ -12550,7 +12550,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsB::operator&amp;gt;&amp;gt;`.
+                /// Generated from method `MR::CSharp::TestOpsB::operator&gt;&gt;`.
                 /// </summary>
                 public static unsafe int operator>>(MR.CS.CSharp.TestOpsB _this, MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
@@ -12560,7 +12560,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsB::operator&amp;lt;&amp;lt;=`.
+                /// Generated from method `MR::CSharp::TestOpsB::operator&lt;&lt;=`.
                 /// </summary>
                 public unsafe int lshiftAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
@@ -12570,7 +12570,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsB::operator&amp;gt;&amp;gt;=`.
+                /// Generated from method `MR::CSharp::TestOpsB::operator&gt;&gt;=`.
                 /// </summary>
                 public unsafe int rshiftAssign(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
@@ -12580,7 +12580,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsB::operator&amp;lt;=&amp;gt;`.
+                /// Generated from method `MR::CSharp::TestOpsB::operator&lt;=&gt;`.
                 /// </summary>
                 public unsafe int compareThreeWay(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
@@ -12620,7 +12620,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsB::operator-&amp;gt;*`.
+                /// Generated from method `MR::CSharp::TestOpsB::operator-&gt;*`.
                 /// </summary>
                 public unsafe int arrowStar(MR.CS.CSharp._ByValue_TestOpsB _1)
                 {
@@ -12630,7 +12630,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsB::operator-&amp;gt;`.
+                /// Generated from method `MR::CSharp::TestOpsB::operator-&gt;`.
                 /// </summary>
                 public unsafe int arrow()
                 {
@@ -13021,7 +13021,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsC::operator&amp;lt;&amp;lt;`.
+                /// Generated from method `MR::CSharp::TestOpsC::operator&lt;&lt;`.
                 /// </summary>
                 public unsafe void lshift(MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -13031,7 +13031,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsC::operator&amp;gt;&amp;gt;`.
+                /// Generated from method `MR::CSharp::TestOpsC::operator&gt;&gt;`.
                 /// </summary>
                 public unsafe void rshift(MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -13041,7 +13041,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsC::operator&amp;lt;&amp;lt;=`.
+                /// Generated from method `MR::CSharp::TestOpsC::operator&lt;&lt;=`.
                 /// </summary>
                 public unsafe void lshiftAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -13051,7 +13051,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsC::operator&amp;gt;&amp;gt;=`.
+                /// Generated from method `MR::CSharp::TestOpsC::operator&gt;&gt;=`.
                 /// </summary>
                 public unsafe void rshiftAssign(MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -13061,7 +13061,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsC::operator&amp;lt;=&amp;gt;`.
+                /// Generated from method `MR::CSharp::TestOpsC::operator&lt;=&gt;`.
                 /// </summary>
                 public unsafe void compareThreeWay(MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -13101,7 +13101,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsC::operator-&amp;gt;*`.
+                /// Generated from method `MR::CSharp::TestOpsC::operator-&gt;*`.
                 /// </summary>
                 public unsafe void arrowStar(MR.CS.CSharp.Const_TestOpsA _1)
                 {
@@ -13111,7 +13111,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::TestOpsC::operator-&amp;gt;`.
+                /// Generated from method `MR::CSharp::TestOpsC::operator-&gt;`.
                 /// </summary>
                 public unsafe void arrow()
                 {
@@ -16083,7 +16083,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::ExposedLayout::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::ExposedLayout::operator&lt;`.
                 /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.ConstBox_ExposedLayout _this, MR.CS.CSharp.ConstBox_ExposedLayout _1)
                 {
@@ -16252,7 +16252,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::ExposedLayout::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::ExposedLayout::operator&lt;`.
                 /// </summary>
                 public unsafe bool less(byte _1)
                 {
@@ -16425,7 +16425,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::ExposedLayout::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::ExposedLayout::operator&lt;`.
                 /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.ExposedLayout _this, MR.CS.CSharp.ExposedLayout _1)
                 {
@@ -16468,7 +16468,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::ExposedLayout::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::ExposedLayout::operator&lt;`.
                 /// </summary>
                 public unsafe bool less(byte _1)
                 {
@@ -16807,7 +16807,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::ExposedLayoutSh::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::ExposedLayoutSh::operator&lt;`.
                 /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.ConstBox_ExposedLayoutSh _this, MR.CS.CSharp.ConstBox_ExposedLayoutSh _1)
                 {
@@ -17038,7 +17038,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::ExposedLayoutSh::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::ExposedLayoutSh::operator&lt;`.
                 /// </summary>
                 public unsafe bool less(byte _1)
                 {
@@ -17199,7 +17199,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::ExposedLayoutSh::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::ExposedLayoutSh::operator&lt;`.
                 /// </summary>
                 public static unsafe bool operator<(MR.CS.CSharp.ExposedLayoutSh _this, MR.CS.CSharp.ExposedLayoutSh _1)
                 {
@@ -17242,7 +17242,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::ExposedLayoutSh::operator&amp;lt;`.
+                /// Generated from method `MR::CSharp::ExposedLayoutSh::operator&lt;`.
                 /// </summary>
                 public unsafe bool less(byte _1)
                 {
@@ -19200,7 +19200,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_a&amp;lt;int&amp;gt;`.
+                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_a&lt;int&gt;`.
                 /// </summary>
                 public unsafe void templateA(int _1)
                 {
@@ -19210,7 +19210,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_a&amp;lt;float&amp;gt;`.
+                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_a&lt;float&gt;`.
                 /// </summary>
                 public unsafe void templateA(float _1)
                 {
@@ -19220,7 +19220,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_b&amp;lt;int&amp;gt;`.
+                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_b&lt;int&gt;`.
                 /// </summary>
                 public unsafe int templateB_Int()
                 {
@@ -19230,7 +19230,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_b&amp;lt;float&amp;gt;`.
+                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_b&lt;float&gt;`.
                 /// </summary>
                 public unsafe float templateB_Float()
                 {
@@ -19240,7 +19240,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_c&amp;lt;int&amp;gt;`.
+                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_c&lt;int&gt;`.
                 /// </summary>
                 public unsafe void templateC_Int()
                 {
@@ -19250,7 +19250,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_c&amp;lt;float&amp;gt;`.
+                /// Generated from method `MR::CSharp::AmbiguousTemplates::template_c&lt;float&gt;`.
                 /// </summary>
                 public unsafe void templateC_Float()
                 {
@@ -26006,7 +26006,7 @@ public static partial class MR
 
             // Templated free functions.
             /// <summary>
-            /// Generated from class `MR::CSharp::IterableL&amp;lt;int&amp;gt;`.
+            /// Generated from class `MR::CSharp::IterableL&lt;int&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_IterableL_Int : MR.CS.Misc.Object<Const_IterableL_Int>, System.IDisposable, IEnumerable<int>
@@ -26128,7 +26128,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::CSharp::IterableL&amp;lt;int&amp;gt;::IterableL`.
+                /// Generated from constructor `MR::CSharp::IterableL&lt;int&gt;::IterableL`.
                 /// </summary>
                 public unsafe Const_IterableL_Int(MR.CS.CSharp.Const_IterableL_Int _other) : this(null, is_owning: true)
                 {
@@ -26140,12 +26140,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::CSharp::IterableL&amp;lt;int&amp;gt;::IterableL`.
+                /// Generated from constructor `MR::CSharp::IterableL&lt;int&gt;::IterableL`.
                 /// </summary>
                 public Const_IterableL_Int(IterableL_Int _other) : this((Const_IterableL_Int)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::IterableL&amp;lt;int&amp;gt;::begin`.
+                /// Generated from method `MR::CSharp::IterableL&lt;int&gt;::begin`.
                 /// </summary>
                 public unsafe MR.CS.ConstPtrInt begin()
                 {
@@ -26155,7 +26155,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::IterableL&amp;lt;int&amp;gt;::end`.
+                /// Generated from method `MR::CSharp::IterableL&lt;int&gt;::end`.
                 /// </summary>
                 public unsafe MR.CS.ConstPtrInt end()
                 {
@@ -26167,7 +26167,7 @@ public static partial class MR
 
             // Templated free functions.
             /// <summary>
-            /// Generated from class `MR::CSharp::IterableL&amp;lt;int&amp;gt;`.
+            /// Generated from class `MR::CSharp::IterableL&lt;int&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class IterableL_Int : Const_IterableL_Int
@@ -26195,7 +26195,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::CSharp::IterableL&amp;lt;int&amp;gt;::IterableL`.
+                /// Generated from constructor `MR::CSharp::IterableL&lt;int&gt;::IterableL`.
                 /// </summary>
                 public unsafe IterableL_Int(MR.CS.CSharp.Const_IterableL_Int _other) : this(null, is_owning: true)
                 {
@@ -26207,12 +26207,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::CSharp::IterableL&amp;lt;int&amp;gt;::IterableL`.
+                /// Generated from constructor `MR::CSharp::IterableL&lt;int&gt;::IterableL`.
                 /// </summary>
                 public IterableL_Int(IterableL_Int _other) : this((Const_IterableL_Int)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::CSharp::IterableL&amp;lt;int&amp;gt;::operator=`.
+                /// Generated from method `MR::CSharp::IterableL&lt;int&gt;::operator=`.
                 /// </summary>
                 public unsafe MR.CS.CSharp.IterableL_Int assign(MR.CS.CSharp.Const_IterableL_Int _other)
                 {
@@ -27409,7 +27409,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_rref`.
-            /// Parameter `b` defaults to `(std::shared_ptr&amp;lt;MR::CSharp::SA&amp;gt;&amp;&amp;)default_shptr`.
+            /// Parameter `b` defaults to `(std::shared_ptr&lt;MR::CSharp::SA&gt;&amp;&amp;)default_shptr`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> testShptrRref(MR.CS.Misc._Moved<MR.CS.CSharp.SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.SA>? b = null)
             {
@@ -27420,7 +27420,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_crref`.
-            /// Parameter `b` defaults to `(std::shared_ptr&amp;lt;MR::CSharp::SA&amp;gt;&amp;&amp;)default_shptr`.
+            /// Parameter `b` defaults to `(std::shared_ptr&lt;MR::CSharp::SA&gt;&amp;&amp;)default_shptr`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> testShptrCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA>? b = null)
             {
@@ -27490,7 +27490,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_rref`.
-            /// Parameter `b` defaults to `(std::shared_ptr&amp;lt;const MR::CSharp::SA&amp;gt;&amp;&amp;)default_shcptr`.
+            /// Parameter `b` defaults to `(std::shared_ptr&lt;const MR::CSharp::SA&gt;&amp;&amp;)default_shcptr`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> testShcptrRref(MR.CS.Misc._Moved<MR.CS.CSharp.SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.SA>? b = null)
             {
@@ -27501,7 +27501,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_crref`.
-            /// Parameter `b` defaults to `(std::shared_ptr&amp;lt;const MR::CSharp::SA&amp;gt;&amp;&amp;)default_shcptr`.
+            /// Parameter `b` defaults to `(std::shared_ptr&lt;const MR::CSharp::SA&gt;&amp;&amp;)default_shcptr`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> testShcptrCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA>? b = null)
             {
@@ -29618,7 +29618,7 @@ public static partial class MR
 
             // Test how template arguments are added to function names when needed to avoid ambiguities.
             /// <summary>
-            /// Generated from function `MR::CSharp::template_a&amp;lt;int&amp;gt;`.
+            /// Generated from function `MR::CSharp::template_a&lt;int&gt;`.
             /// </summary>
             public static void templateA(int _1)
             {
@@ -29629,7 +29629,7 @@ public static partial class MR
 
             // Test how template arguments are added to function names when needed to avoid ambiguities.
             /// <summary>
-            /// Generated from function `MR::CSharp::template_a&amp;lt;float&amp;gt;`.
+            /// Generated from function `MR::CSharp::template_a&lt;float&gt;`.
             /// </summary>
             public static void templateA(float _1)
             {
@@ -29639,7 +29639,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from function `MR::CSharp::template_b&amp;lt;int&amp;gt;`.
+            /// Generated from function `MR::CSharp::template_b&lt;int&gt;`.
             /// </summary>
             public static int templateB_Int()
             {
@@ -29649,7 +29649,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from function `MR::CSharp::template_b&amp;lt;float&amp;gt;`.
+            /// Generated from function `MR::CSharp::template_b&lt;float&gt;`.
             /// </summary>
             public static float templateB_Float()
             {
@@ -29659,7 +29659,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from function `MR::CSharp::template_c&amp;lt;int&amp;gt;`.
+            /// Generated from function `MR::CSharp::template_c&lt;int&gt;`.
             /// </summary>
             public static void templateC_Int()
             {
@@ -29669,7 +29669,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from function `MR::CSharp::template_c&amp;lt;float&amp;gt;`.
+            /// Generated from function `MR::CSharp::template_c&lt;float&gt;`.
             /// </summary>
             public static void templateC_Float()
             {
@@ -29815,7 +29815,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from function `MR::CSharp::begin&amp;lt;int&amp;gt;`.
+            /// Generated from function `MR::CSharp::begin&lt;int&gt;`.
             /// </summary>
             public static unsafe MR.CS.ConstPtrInt begin(MR.CS.CSharp.Const_IterableL_Int self)
             {
@@ -29825,7 +29825,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from function `MR::CSharp::end&amp;lt;int&amp;gt;`.
+            /// Generated from function `MR::CSharp::end&lt;int&gt;`.
             /// </summary>
             public static unsafe MR.CS.ConstPtrInt end(MR.CS.CSharp.Const_IterableL_Int self)
             {
@@ -29959,7 +29959,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_int`.
-            /// Parameter `b` defaults to `std::expected&amp;lt;int, float&amp;gt;{42}`.
+            /// Parameter `b` defaults to `std::expected&lt;int, float&gt;{42}`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_Int_Float testExpectedInt(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)
             {
@@ -30018,7 +30018,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_void`.
-            /// Parameter `b` defaults to `std::expected&amp;lt;void, float&amp;gt;{}`.
+            /// Parameter `b` defaults to `std::expected&lt;void, float&gt;{}`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_Void_Float testExpectedVoid(MR.CS.Std.Const_Expected_Void_Float a, MR.CS.Std.Const_Expected_Void_Float? b = null)
             {
@@ -30077,7 +30077,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_enum`.
-            /// Parameter `b` defaults to `std::expected&amp;lt;MR::CSharp::E1, float&amp;gt;{E1::b}`.
+            /// Parameter `b` defaults to `std::expected&lt;MR::CSharp::E1, float&gt;{E1::b}`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpE1_Float testExpectedEnum(MR.CS.Std.Const_Expected_MRCSharpE1_Float a, MR.CS.Std.Const_Expected_MRCSharpE1_Float? b = null)
             {
@@ -30136,7 +30136,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_triv`.
-            /// Parameter `b` defaults to `std::expected&amp;lt;MR::CSharp::Trivial, float&amp;gt;{MR::CSharp::Trivial{}}`.
+            /// Parameter `b` defaults to `std::expected&lt;MR::CSharp::Trivial, float&gt;{MR::CSharp::Trivial{}}`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpTrivial_Float testExpectedTriv(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float a, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? b = null)
             {
@@ -30195,7 +30195,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_nontriv`.
-            /// Parameter `b` defaults to `std::expected&amp;lt;MR::CSharp::NonTrivial, float&amp;gt;{MR::CSharp::NonTrivial{}}`.
+            /// Parameter `b` defaults to `std::expected&lt;MR::CSharp::NonTrivial, float&gt;{MR::CSharp::NonTrivial{}}`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Expected_MRCSharpNonTrivial_Float> testExpectedNontriv(MR.CS.Std._ByValue_Expected_MRCSharpNonTrivial_Float a, MR.CS.Std._ByValue_Expected_MRCSharpNonTrivial_Float? b = null)
             {
@@ -30254,7 +30254,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_shared`.
-            /// Parameter `b` defaults to `std::expected&amp;lt;MR::CSharp::SA, float&amp;gt;{MR::CSharp::SA{}}`.
+            /// Parameter `b` defaults to `std::expected&lt;MR::CSharp::SA, float&gt;{MR::CSharp::SA{}}`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpSA_Float testExpectedShared(MR.CS.Std.Const_Expected_MRCSharpSA_Float a, MR.CS.Std.Const_Expected_MRCSharpSA_Float? b = null)
             {
@@ -30313,7 +30313,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed`.
-            /// Parameter `b` defaults to `std::expected&amp;lt;MR::CSharp::ExposedLayout, float&amp;gt;{MR::CSharp::ExposedLayout{}}`.
+            /// Parameter `b` defaults to `std::expected&lt;MR::CSharp::ExposedLayout, float&gt;{MR::CSharp::ExposedLayout{}}`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayout_Float testExpectedExposed(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? b = null)
             {
@@ -30372,7 +30372,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_shared`.
-            /// Parameter `b` defaults to `std::expected&amp;lt;MR::CSharp::ExposedLayoutSh, float&amp;gt;{MR::CSharp::ExposedLayoutSh{}}`.
+            /// Parameter `b` defaults to `std::expected&lt;MR::CSharp::ExposedLayoutSh, float&gt;{MR::CSharp::ExposedLayoutSh{}}`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float testExpectedExposedShared(MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? b = null)
             {

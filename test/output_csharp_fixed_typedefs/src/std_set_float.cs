@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::set&amp;lt;float&amp;gt;`.
+            /// Generated from C++ container `std::set&lt;float&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Set_Float : MR.CS.Misc.Object<Const_Set_Float>, System.IDisposable, IEnumerable<float>
@@ -444,7 +444,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::set&amp;lt;float&amp;gt;`.
+            /// Generated from C++ container `std::set&lt;float&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Set_Float : Const_Set_Float

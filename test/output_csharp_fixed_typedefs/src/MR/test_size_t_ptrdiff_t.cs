@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class TestSizeT
         {
             /// <summary>
-            /// Generated from class `MR::TestSizeT::A&amp;lt;MR_C_uint64_t&amp;gt;`.
+            /// Generated from class `MR::TestSizeT::A&lt;MR_C_uint64_t&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_A_MRCUint64T : MR.CS.Misc.Object<Const_A_MRCUint64T>, System.IDisposable
@@ -39,7 +39,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TestSizeT::A&amp;lt;MR_C_uint64_t&amp;gt;::A`.
+                /// Generated from constructor `MR::TestSizeT::A&lt;MR_C_uint64_t&gt;::A`.
                 /// </summary>
                 public unsafe Const_A_MRCUint64T(MR.CS.TestSizeT.Const_A_MRCUint64T _other) : this(null, is_owning: true)
                 {
@@ -50,13 +50,13 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TestSizeT::A&amp;lt;MR_C_uint64_t&amp;gt;::A`.
+                /// Generated from constructor `MR::TestSizeT::A&lt;MR_C_uint64_t&gt;::A`.
                 /// </summary>
                 public Const_A_MRCUint64T(A_MRCUint64T _other) : this((Const_A_MRCUint64T)_other) {}
             }
 
             /// <summary>
-            /// Generated from class `MR::TestSizeT::A&amp;lt;MR_C_uint64_t&amp;gt;`.
+            /// Generated from class `MR::TestSizeT::A&lt;MR_C_uint64_t&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class A_MRCUint64T : Const_A_MRCUint64T
@@ -74,7 +74,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TestSizeT::A&amp;lt;MR_C_uint64_t&amp;gt;::A`.
+                /// Generated from constructor `MR::TestSizeT::A&lt;MR_C_uint64_t&gt;::A`.
                 /// </summary>
                 public unsafe A_MRCUint64T(MR.CS.TestSizeT.Const_A_MRCUint64T _other) : this(null, is_owning: true)
                 {
@@ -85,12 +85,12 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from constructor `MR::TestSizeT::A&amp;lt;MR_C_uint64_t&amp;gt;::A`.
+                /// Generated from constructor `MR::TestSizeT::A&lt;MR_C_uint64_t&gt;::A`.
                 /// </summary>
                 public A_MRCUint64T(A_MRCUint64T _other) : this((Const_A_MRCUint64T)_other) {}
 
                 /// <summary>
-                /// Generated from method `MR::TestSizeT::A&amp;lt;MR_C_uint64_t&amp;gt;::operator=`.
+                /// Generated from method `MR::TestSizeT::A&lt;MR_C_uint64_t&gt;::operator=`.
                 /// </summary>
                 public unsafe MR.CS.TestSizeT.A_MRCUint64T assign(MR.CS.TestSizeT.Const_A_MRCUint64T _other)
                 {
@@ -102,7 +102,7 @@ public static partial class MR
                 }
 
                 /// <summary>
-                /// Generated from method `MR::TestSizeT::A&amp;lt;MR_C_uint64_t&amp;gt;::foo`.
+                /// Generated from method `MR::TestSizeT::A&lt;MR_C_uint64_t&gt;::foo`.
                 /// </summary>
                 public unsafe ulong foo()
                 {

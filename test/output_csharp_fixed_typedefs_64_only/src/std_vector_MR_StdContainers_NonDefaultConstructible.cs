@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::vector&amp;lt;MR::StdContainers::NonDefaultConstructible&amp;gt;`.
+            /// Generated from C++ container `std::vector&lt;MR::StdContainers::NonDefaultConstructible&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_Vector_MRStdContainersNonDefaultConstructible : MR.CS.Misc.Object<Const_Vector_MRStdContainersNonDefaultConstructible>, System.IDisposable, IEnumerable<MR.CS.StdContainers.Const_NonDefaultConstructible>
@@ -804,7 +804,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::vector&amp;lt;MR::StdContainers::NonDefaultConstructible&amp;gt;`.
+            /// Generated from C++ container `std::vector&lt;MR::StdContainers::NonDefaultConstructible&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class Vector_MRStdContainersNonDefaultConstructible : Const_Vector_MRStdContainersNonDefaultConstructible, IEnumerable<MR.CS.StdContainers.NonDefaultConstructible>

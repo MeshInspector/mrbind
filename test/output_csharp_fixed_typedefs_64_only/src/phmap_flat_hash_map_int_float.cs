@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Phmap
         {
             /// <summary>
-            /// Generated from C++ container `phmap::flat_hash_map&amp;lt;int, float&amp;gt;`.
+            /// Generated from C++ container `phmap::flat_hash_map&lt;int, float&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_FlatHashMap_Int_Float : MR.CS.Misc.Object<Const_FlatHashMap_Int_Float>, System.IDisposable, IEnumerable<MR.CS.Std.Const_Pair_ConstInt_Float>
@@ -709,7 +709,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `phmap::flat_hash_map&amp;lt;int, float&amp;gt;`.
+            /// Generated from C++ container `phmap::flat_hash_map&lt;int, float&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class FlatHashMap_Int_Float : Const_FlatHashMap_Int_Float, IEnumerable<MR.CS.Std.Pair_ConstInt_Float>

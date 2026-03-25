@@ -5,7 +5,7 @@ public static partial class MR
         public static partial class Std
         {
             /// <summary>
-            /// Generated from C++ container `std::unordered_multiset&amp;lt;MR::StdContainers::NonAssignable&amp;gt;`.
+            /// Generated from C++ container `std::unordered_multiset&lt;MR::StdContainers::NonAssignable&gt;`.
             /// This is the const half of the class.
             /// </summary>
             public class Const_UnorderedMultiset_MRStdContainersNonAssignable : MR.CS.Misc.Object<Const_UnorderedMultiset_MRStdContainersNonAssignable>, System.IDisposable, IEnumerable<MR.CS.StdContainers.Const_NonAssignable>
@@ -414,7 +414,7 @@ public static partial class MR
             }
 
             /// <summary>
-            /// Generated from C++ container `std::unordered_multiset&amp;lt;MR::StdContainers::NonAssignable&amp;gt;`.
+            /// Generated from C++ container `std::unordered_multiset&lt;MR::StdContainers::NonAssignable&gt;`.
             /// This is the non-const half of the class.
             /// </summary>
             public class UnorderedMultiset_MRStdContainersNonAssignable : Const_UnorderedMultiset_MRStdContainersNonAssignable
