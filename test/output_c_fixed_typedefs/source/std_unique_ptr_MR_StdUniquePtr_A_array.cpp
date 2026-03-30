@@ -2,6 +2,7 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_unique_ptr_MR_StdUniquePtr_A_array.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_std_unique_ptr.h>
 
 #include <cstddef>
@@ -23,7 +24,7 @@ MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr
 MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_ConstructFromAnother(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *other)
 {
     return (MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *)new std::unique_ptr<MR::StdUniquePtr::A[]>(std::unique_ptr<MR::StdUniquePtr::A[]>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unique_ptr<MR::StdUniquePtr::A[]>(std::move(*(std::unique_ptr<MR::StdUniquePtr::A[]> *)other)))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unique_ptr<MR::StdUniquePtr::A[]>(std::move(*(std::unique_ptr<MR::StdUniquePtr::A[]> *)other)))
     ));
 }
 
@@ -36,14 +37,14 @@ MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr
 
 void MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_AssignFromAnother(MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this, const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unique_ptr<MR::StdUniquePtr::A[]>(std::move(*(std::unique_ptr<MR::StdUniquePtr::A[]> *)other)))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unique_ptr<MR::StdUniquePtr::A[]>(std::move(*(std::unique_ptr<MR::StdUniquePtr::A[]> *)other)))
     );
 }
 
 void MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_AssignFrom(MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this, MR_StdUniquePtr_A *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).operator=(
         std::unique_ptr<MR::StdUniquePtr::A[]>((MR::StdUniquePtr::A *)other)
     );
 }
@@ -70,16 +71,16 @@ MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *MR_C_std_unique_ptr_MR_StdUniquePtr
 
 MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_get(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this)
 {
-    return (MR_StdUniquePtr_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).get());
+    return (MR_StdUniquePtr_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).get());
 }
 
 MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_at(const MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this, size_t i)
 {
-    return (MR_StdUniquePtr_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this))[i]);
+    return (MR_StdUniquePtr_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this))[i]);
 }
 
 MR_StdUniquePtr_A *MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_release(MR_C_std_unique_ptr_MR_StdUniquePtr_A_array *_this)
 {
-    return (MR_StdUniquePtr_A *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).release());
+    return (MR_StdUniquePtr_A *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unique_ptr<MR::StdUniquePtr::A[]> *)(_this)).release());
 }
 

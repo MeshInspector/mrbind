@@ -31,7 +31,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs the pair elementwise.
@@ -39,8 +41,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(MR.CS.Misc._PassBy first_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *first, float second);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(first.PassByMode, first.Value is not null ? first.Value._UnderlyingPtr : null, second);
                     if (first.Value is not null) _KeepAlive(first.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// The first of the two elements, read-only.
@@ -48,9 +52,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first", ExactSpelling = true)]
                     extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first(_UnderlyingPtr);
                     MR.CS.StdContainers.Const_NonAssignable __ret;
-                    __ret = new(__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first(_UnderlyingPtr), is_owning: false);
+                    __ret = new(__c_ret, is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 
@@ -59,7 +66,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second", ExactSpelling = true)]
                     extern static float *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second(_Underlying *_this);
-                    return *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return *__c_ret;
                 }
 
                 // Custom extras:
@@ -82,7 +92,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs the pair elementwise.
@@ -90,8 +102,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_ConstMRStdContainersNonAssignable_Float._Underlying *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(MR.CS.Misc._PassBy first_pass_by, MR.CS.StdContainers.NonAssignable._Underlying *first, float second);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_Construct(first.PassByMode, first.Value is not null ? first.Value._UnderlyingPtr : null, second);
                     if (first.Value is not null) _KeepAlive(first.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// The second of the two elements, mutable.
@@ -99,7 +113,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut", ExactSpelling = true)]
                     extern static float *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut(_Underlying *_this);
-                    return ref *__MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return ref *__c_ret;
                 }
 
                 // Custom extras:

@@ -83,7 +83,7 @@ void MR_TestSimpleTypes_SetIntRef(int *_1)
 {
     MRBINDC_TRY(
     ::MR::TestSimpleTypes::SetIntRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1)
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *_1)
     );
     ) // MRBINDC_TRY
 }
@@ -281,7 +281,7 @@ void MR_TestSimpleTypes_SetEnumRef(MR_TestSimpleTypes_E *_1)
 {
     MRBINDC_TRY(
     ::MR::TestSimpleTypes::SetEnumRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::TestSimpleTypes::E *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::TestSimpleTypes::E *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -371,7 +371,7 @@ void MR_TestSimpleTypes_SetEnum2Ref(MR_TestSimpleTypes_E2 *_1)
 {
     MRBINDC_TRY(
     ::MR::TestSimpleTypes::SetEnum2Ref(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::TestSimpleTypes::E2 *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::TestSimpleTypes::E2 *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -478,7 +478,7 @@ MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate
 {
     MRBINDC_TRY(
     return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)new MR::TestSimpleTypes::ClassTemplate<unsigned long>(MR::TestSimpleTypes::ClassTemplate<unsigned long>(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::TestSimpleTypes::ClassTemplate<unsigned long>(*(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::TestSimpleTypes::ClassTemplate<unsigned long>(*(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -532,8 +532,8 @@ void MR_TestSimpleTypes_ClassTemplate_unsigned_long_DestroyArray(const MR_TestSi
 MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate_unsigned_long_AssignFromAnother(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this, const MR_TestSimpleTypes_ClassTemplate_unsigned_long *_other)
 {
     MRBINDC_TRY(
-    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::TestSimpleTypes::ClassTemplate<unsigned long>(*(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)_other))
+    return (MR_TestSimpleTypes_ClassTemplate_unsigned_long *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::TestSimpleTypes::ClassTemplate<unsigned long>(*(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -541,14 +541,14 @@ MR_TestSimpleTypes_ClassTemplate_unsigned_long *MR_TestSimpleTypes_ClassTemplate
 void MR_TestSimpleTypes_ClassTemplate_unsigned_long_foo_unsigned_long(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this)).foo<unsigned long>();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this)).foo<unsigned long>();
     ) // MRBINDC_TRY
 }
 
 void MR_TestSimpleTypes_ClassTemplate_unsigned_long_foo_int(MR_TestSimpleTypes_ClassTemplate_unsigned_long *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this)).foo<int>();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::TestSimpleTypes::ClassTemplate<unsigned long> *)(_this)).foo<int>();
     ) // MRBINDC_TRY
 }
 

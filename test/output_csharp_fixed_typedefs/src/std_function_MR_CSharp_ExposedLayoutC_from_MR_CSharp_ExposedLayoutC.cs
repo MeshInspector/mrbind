@@ -103,7 +103,8 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
 
-                public static unsafe implicit operator Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC.Delegate func) {return new(func);}}
+                public static unsafe implicit operator Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC.Delegate func) {return new(func);}
+            }
 
             /// <summary>
             /// Stores a functor of type: `MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)`. Possibly stateful.

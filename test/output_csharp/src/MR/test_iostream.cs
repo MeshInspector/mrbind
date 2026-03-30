@@ -31,7 +31,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.IOStream.A._Underlying *__MR_IOStream_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_IOStream_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::IOStream::A::A`.
@@ -39,8 +41,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.IOStream.A._Underlying *__MR_IOStream_A_ConstructFromAnother(MR.CS.IOStream.A._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_IOStream_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::IOStream::A::A`.
@@ -58,7 +62,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.IOStream.A._Underlying *__MR_IOStream_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_IOStream_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::IOStream::A::A`.
@@ -66,8 +72,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.IOStream.A._Underlying *__MR_IOStream_A_ConstructFromAnother(MR.CS.IOStream.A._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_IOStream_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::IOStream::A::A`.
@@ -78,9 +86,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IOStream_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.IOStream.A._Underlying *__MR_IOStream_A_AssignFromAnother(_Underlying *_this, MR.CS.IOStream.A._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_IOStream_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
-                    return new(__MR_IOStream_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
                 }
             }
 

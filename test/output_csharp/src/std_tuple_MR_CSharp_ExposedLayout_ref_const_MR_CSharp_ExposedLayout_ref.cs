@@ -35,7 +35,9 @@ public static partial class MR
                     {
                         fixed (MR.CS.CSharp.ExposedLayout *__ptr__1 = &_1)
                         {
+                            MR.CS.Misc._Exceptions.Prepare();
                             _UnderlyingPtr = __MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Construct(__ptr__0, __ptr__1);
+                            MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         }
                     }
                 }
@@ -45,7 +47,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_MR_CSharp_ExposedLayout_ref", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_MR_CSharp_ExposedLayout_ref(_Underlying *_this);
-                    return ref *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_MR_CSharp_ExposedLayout_ref(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_MR_CSharp_ExposedLayout_ref(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return ref *__c_ret;
                 }
 
                 /// The element 1, of type `const MR::CSharp::ExposedLayout &`, read-only.
@@ -53,7 +58,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_const_MR_CSharp_ExposedLayout_ref", ExactSpelling = true)]
                     extern static MR.CS.CSharp.ExposedLayout *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_const_MR_CSharp_ExposedLayout_ref(_Underlying *_this);
-                    return ref *__MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_const_MR_CSharp_ExposedLayout_ref(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_const_MR_CSharp_ExposedLayout_ref(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return ref *__c_ret;
                 }
 
                 // Custom extras:
@@ -80,7 +88,9 @@ public static partial class MR
                     {
                         fixed (MR.CS.CSharp.ExposedLayout *__ptr__1 = &_1)
                         {
+                            MR.CS.Misc._Exceptions.Prepare();
                             _UnderlyingPtr = __MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_Construct(__ptr__0, __ptr__1);
+                            MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         }
                     }
                 }

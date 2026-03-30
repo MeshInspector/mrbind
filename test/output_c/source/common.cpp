@@ -6,6 +6,7 @@
 #include <cstddef>
 #include <cstdio>
 #include <cstdlib>
+#include <stdexcept>
 #include <string>
 
 
@@ -20,11 +21,9 @@ void *MR_C_Alloc(size_t num_bytes)
 
 void MR_C_Free(void *ptr)
 {
-    MRBINDC_TRY(
     operator delete(
         ptr
     );
-    ) // MRBINDC_TRY
 }
 
 void *MR_C_AllocArray(size_t num_bytes)
@@ -38,11 +37,9 @@ void *MR_C_AllocArray(size_t num_bytes)
 
 void MR_C_FreeArray(void *ptr)
 {
-    MRBINDC_TRY(
     operator delete[](
         ptr
     );
-    ) // MRBINDC_TRY
 }
 
 static void _default_exception_handler(const char *const *messages, const char *const *type_names, void *userdata)
@@ -50,7 +47,7 @@ static void _default_exception_handler(const char *const *messages, const char *
     (void)type_names;
     (void)userdata;
 
-    std::fprintf(stderr, "Uncaught C++ exception:\n");
+    std::fputs("Uncaught C++ exception:\n", stderr);
 
     while (*messages)
         std::fprintf(stderr, "%s\n", *messages++);
@@ -126,6 +123,37 @@ void MR_C_SetSimpleExceptionHandler(MR_C_SimpleExceptionHandlerFuncPtr func)
         MR_C_SetExceptionHandler(nullptr, nullptr);
     #else
     (void)func;
+    #endif
+}
+
+void MR_C_ThrowException(const char *message)
+{
+    #if MR_C_ENABLE_EXCEPTIONS
+    throw std::runtime_error(
+        message
+    );
+    #else
+    std::fprintf(stderr, "Attempt to throw an exception, but the library was compiled with no exception support. The exception was:\n%s\n", message);
+    std::abort();
+    #endif
+}
+
+void MR_C_ThrowExceptionOnCallbackExit(const char *message)
+{
+    #if MR_C_ENABLE_EXCEPTIONS
+    if (mrbindc_details::queued_exception_for_callbacks)
+    {
+        *mrbindc_details::queued_exception_for_callbacks = std::make_exception_ptr(std::runtime_error(message));
+    }
+    else
+    {
+        std::fprintf(stderr, "Attempt to throw an exception on a callback exit, but no callback is running. The exception was:\n%s\n", message);
+        std::abort();
+    }
+    ;
+    #else
+    std::fprintf(stderr, "Attempt to throw an exception on a callback exit, but the library was compiled with no exception support. The exception was:\n%s\n", message);
+    std::abort();
     #endif
 }
 

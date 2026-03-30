@@ -64,17 +64,17 @@ namespace mrbind::C
                 comment += '`';
             };
 
-            if (traits.value().is_default_constructible)
+            if (bool(traits.value().default_constructible))
                 AddMode("DefaultConstruct");
 
-            if (traits.value().is_copy_constructible)
+            if (bool(traits.value().copy_constructible))
             {
                 AddMode("Copy");
                 if (traits.value().copy_constructor_takes_nonconst_ref)
                     comment += " (for this type it can modify the source object)";
             }
 
-            if (traits.value().is_move_constructible)
+            if (bool(traits.value().move_constructible))
                 AddMode("Move");
 
             if (!first)
@@ -178,8 +178,9 @@ namespace mrbind::C
             param_usage.c_params.back().c_type.AddModifier(cppdecl::Pointer{}); // This should be the only modifier at this point.
 
             param_usage.c_params_to_cpp = [
+                &generator,
                 cpp_type_str,
-                only_trivially_move_constructible = traits.value().is_trivially_move_constructible && !traits.value().is_trivially_copy_constructible
+                only_trivially_move_constructible = traits.value().move_constructible == CInterop::SpecialMemberKind::trivial && traits.value().copy_constructible != CInterop::SpecialMemberKind::trivial
             ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
             {
                 const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
@@ -190,9 +191,10 @@ namespace mrbind::C
                 if (std::holds_alternative<Generator::BindableType::ParamUsage::DefaultArgNone>(default_arg))
                 {
                     source_file.stdlib_headers.insert("stdexcept");
+                    source_file.custom_headers.insert(generator.GetInternalDetailsFile().header.path_for_inclusion);
                     ret += "(";
                     ret += cpp_param_name;
-                    ret += " ? void() : throw std::runtime_error(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\")";
+                    ret += " ? void() : MRBINDC_THROW(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\", void)";
                     ret += "), ";
                 }
                 else
@@ -289,9 +291,9 @@ namespace mrbind::C
             param_usage.c_params_to_cpp = [
                 &generator,
                 cpp_type_str,
-                is_default_constructible = traits.value().is_default_constructible,
-                is_copy_constructible = traits.value().is_copy_constructible,
-                is_move_constructible = traits.value().is_move_constructible,
+                is_default_constructible = bool(traits.value().default_constructible),
+                is_copy_constructible = bool(traits.value().copy_constructible),
+                is_move_constructible = bool(traits.value().move_constructible),
                 pass_by_defarg = generator.GetPassByEnumName() + "_DefaultArgument",
                 pass_by_nullopt = generator.GetPassByEnumName() + "_NoObject"
             ](Generator::OutputFile::SpecificFileContents &source_file, std::string_view cpp_param_name, Generator::BindableType::ParamUsage::DefaultArgVar default_arg)
@@ -413,27 +415,27 @@ namespace mrbind::C
 
     void HeapAllocatedClassBinder::EmitSpecialMemberFunctions(Generator &generator, Generator::OutputFile &file, bool with_param_sugar) const
     {
-        if (traits.value().is_default_constructible)
+        if (bool(traits.value().default_constructible))
         {
             generator.EmitFunction(file, PrepareFuncDefaultCtor(generator));
             generator.EmitFunction(file, PrepareFuncDefaultCtorArray(generator));
         }
 
-        if (traits.value().is_move_constructible)
+        if (bool(traits.value().move_constructible))
         {
             generator.EmitFunction(file, PrepareFuncCopyMoveCtor(generator));
             if (with_param_sugar)
                 generator.EmitFunction(file, PrepareFuncCopyMoveCtor(generator, true));
         }
 
-        if (traits.value().is_move_assignable)
+        if (bool(traits.value().move_assignable))
         {
             generator.EmitFunction(file, PrepareFuncCopyMoveAssignment(generator));
             if (with_param_sugar)
                 generator.EmitFunction(file, PrepareFuncCopyMoveAssignment(generator, true));
         }
 
-        if (traits.value().is_destructible)
+        if (bool(traits.value().destructible))
         {
             generator.EmitFunction(file, PrepareFuncDestroy(generator));
             generator.EmitFunction(file, PrepareFuncDestroyArray(generator));
@@ -1103,6 +1105,7 @@ namespace mrbind::C
                 param_def_arg.explanation_how_to_use_default_arg = [](std::string_view cpp_param_name, bool use_wrapper, bool is_returned_from_callback){(void)cpp_param_name; (void)use_wrapper; return is_returned_from_callback ? "return a null pointer" : "pass a null pointer";};
 
                 param_def_arg.c_params_to_cpp = [
+                    &generator,
                     cpp_type_str,
                     cpp_ptr_type_str = generator.CppdeclToCode(cppdecl::Type(ref_target_type).AddModifier(cppdecl::Pointer{})),
                     with_cast,
@@ -1116,10 +1119,11 @@ namespace mrbind::C
                     // This obtuse way of writing the conditional is to work around MSVC bug: https://developercommunity.visualstudio.com/t/Regression-array-access-on-result-on-te/10968165?
                     if (std::holds_alternative<Generator::BindableType::ParamUsage::DefaultArgNone>(default_arg))
                     {
-                        source_file.stdlib_headers.insert("stdexcept");
+                        source_file.stdlib_headers.insert("stdexcept");\
+                        source_file.custom_headers.insert(generator.GetInternalDetailsFile().header.path_for_inclusion);
                         ret += "(";
                         ret += cpp_param_name;
-                        ret += " ? void() : throw std::runtime_error(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\")";
+                        ret += " ? void() : MRBINDC_THROW(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\", void)";
                         ret += "), ";
                     }
                     else
@@ -1371,6 +1375,7 @@ namespace mrbind::C
     }
 
     Generator::BindableType::ParamUsageWithDefaultArg MakeStringLikeParamUsageSupportingDefaultArg(
+        Generator &generator,
         std::string_view cpp_type_name,
         std::function<std::string(std::string_view begin)> from_one_pointer,
         std::function<std::string(std::string_view begin, std::string_view end)> from_two_pointers
@@ -1383,6 +1388,7 @@ namespace mrbind::C
         ret.c_params.emplace_back().c_type = const_char_ptr_type; // A second one.
         ret.c_params.back().name_suffix += "_end";
         ret.c_params_to_cpp = [
+            &generator,
             cpp_type_name = std::string(cpp_type_name), // Capture a copy of the string
             from_one_pointer,
             from_two_pointers
@@ -1394,9 +1400,10 @@ namespace mrbind::C
             if (std::holds_alternative<Generator::BindableType::ParamUsage::DefaultArgNone>(default_arg))
             {
                 source_file.stdlib_headers.insert("stdexcept");
+                source_file.custom_headers.insert(generator.GetInternalDetailsFile().header.path_for_inclusion);
                 ret += "(";
                 ret += cpp_param_name;
-                ret += " ? void() : throw std::runtime_error(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\")";
+                ret += " ? void() : MRBINDC_THROW(\"Parameter `" + std::string(cpp_param_name) + "` can not be null.\", void)";
                 ret += "), ";
             }
             else
@@ -1406,6 +1413,7 @@ namespace mrbind::C
             }
 
             const auto *wrapper = std::get_if<Generator::BindableType::ParamUsage::DefaultArgWrapper>(&default_arg);
+
             if (wrapper)
                 ret += wrapper->wrapper_cpp_type;
 

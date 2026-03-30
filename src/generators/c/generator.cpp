@@ -383,22 +383,39 @@ namespace mrbind::C
         file.InitRelativeName(*this, "__mrbind_c_details", false);
         file.InitDefaultContents(OutputFile::InitFlags::no_extern_c);
         file.header.stdlib_headers.insert("stdexcept");
-        file.header.stdlib_headers.insert("utility"); // For `std::move`.
+        file.header.stdlib_headers.insert("utility"); // For `std::move()`.
         file.header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion); // For the pass-by enum, and for exception-related stuff below.
 
-        std::string pass_by_enum_name = GetPassByEnumName();
+        const std::string pass_by_enum_name = GetPassByEnumName();
+        const std::string enable_exceptions_macro = GetEnableExceptionsMacro(nullptr);
 
         file.header.contents +=
+            "// Are we compiling with exceptions enabled?\n"
+            "#ifndef " + enable_exceptions_macro + "\n"
+            "#  ifdef __cpp_exceptions\n"
+            "#    define " + enable_exceptions_macro + " 1\n"
+            "#  else\n"
+            "#    define " + enable_exceptions_macro + " 0\n"
+            "#  endif\n"
+            "#endif\n"
+            "\n"
             "namespace mrbindc_details\n"
             "{\n"
+            "    #if " + enable_exceptions_macro + "\n"
+            "    #define MRBINDC_THROW(message_, .../*result_cpp_type_*/) throw std::runtime_error(+(message_))\n" // `+` forces this to be a string literal. This makes the `#else` branch simpler.
+            "    #else\n"
+            "    [[noreturn]] " + GetExportMacroForFile(file) + " void ThrowWithExceptionsDisabled(const char *message);\n"
+            "    #define MRBINDC_THROW(message_, .../*result_cpp_type_*/) (mrbindc_details::ThrowWithExceptionsDisabled(message_), ((__VA_ARGS__ (*)())0)())\n"
+            "    #endif\n"
+            "\n"
             "    // Those are used to handle by-value arguments of class types, which are passed as a pointer plus a enum explaining how to handle it.\n"
             "    // The `cpp_type_without_wrapper_` vs `cpp_type_` are different for optionals: `cpp_type_` is either `T` or `std::optional<T>`, while `cpp_type_without_wrapper_` is always the `T` itself.\n"
-            "    #define MRBINDC_CLASSARG_DEF_CTOR(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultConstruct ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `" + pass_by_enum_name + "_DefaultConstruct` was used.\") : __VA_ARGS__{}) :\n"
+            "    #define MRBINDC_CLASSARG_DEF_CTOR(param_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_DefaultConstruct ? (param_ ? MRBINDC_THROW(\"Expected a null pointer to be passed to `\" #param_ \" because `" + pass_by_enum_name + "_DefaultConstruct` was used.\", __VA_ARGS__) : __VA_ARGS__{}) :\n"
             "    #define MRBINDC_CLASSARG_COPY(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Copy ? __VA_ARGS__(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_) :\n"
             "    #define MRBINDC_CLASSARG_MOVE(param_, cpp_type_without_wrapper_, .../*cpp_type_*/) param_##_pass_by == " + pass_by_enum_name + "_Move ? __VA_ARGS__(std::move(*(MRBINDC_IDENTITY cpp_type_without_wrapper_ *)param_)) :\n"
-            "    #define MRBINDC_CLASSARG_DEF_ARG(param_, enum_constant_, default_arg_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? (param_ ? throw std::runtime_error(\"Expected a null pointer to be passed to `\" #param_ \" because `\" #enum_constant_ \"` was used.\") : __VA_ARGS__(default_arg_)) :\n"
-            "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, enum_constant_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? throw std::runtime_error(\"Function parameter `\" #param_ \" doesn't support `\" #enum_constant_ \"`.\") :\n"
-            "    #define MRBINDC_CLASSARG_END(param_, .../*cpp_type_*/) true ? throw std::runtime_error(\"Invalid `" + pass_by_enum_name + "` enum value specified for function parameter `\" #param_ \".\") : ((__VA_ARGS__ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n"
+            "    #define MRBINDC_CLASSARG_DEF_ARG(param_, enum_constant_, default_arg_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? (param_ ? MRBINDC_THROW(\"Expected a null pointer to be passed to `\" #param_ \" because `\" #enum_constant_ \"` was used.\", __VA_ARGS__) : __VA_ARGS__(default_arg_)) :\n"
+            "    #define MRBINDC_CLASSARG_NO_DEF_ARG(param_, enum_constant_, .../*cpp_type_*/) param_##_pass_by == enum_constant_ ? MRBINDC_THROW(\"Function parameter `\" #param_ \" doesn't support `\" #enum_constant_ \"`.\", __VA_ARGS__) :\n"
+            "    #define MRBINDC_CLASSARG_END(param_, .../*cpp_type_*/) true ? MRBINDC_THROW(\"Invalid `" + pass_by_enum_name + "` enum value specified for function parameter `\" #param_ \".\", __VA_ARGS__) : ((__VA_ARGS__ (*)())0)() // We need the dumb fallback to keep the overall type equal to `cpptype_` instead of `void`, which messes things up.\n"
             "\n"
             "    // This is used by the `MRBINDC_CLASSARG_GUARD()` macro, see below.\n"
             "    template <typename T>\n"
@@ -470,9 +487,19 @@ namespace mrbind::C
             "// ]\n"
         ;
 
+        file.source.stdlib_headers.insert("cstdio");
+        file.source.stdlib_headers.insert("cstdlib"); // For `std::abort()`.
+        file.source.contents +=
+            "#if !" + enable_exceptions_macro + "\n"
+            "void mrbindc_details::ThrowWithExceptionsDisabled(const char *message)\n"
+            "{\n"
+            "    std::fputs(message, stderr);\n"
+            "    std::abort();\n"
+            "}\n"
+            "#endif\n";
+
         if (enable_exceptions_support)
         {
-            const std::string enable_exceptions_macro = GetEnableExceptionsMacro();
             const std::string handler_typedef = MakePublicHelperName("ExceptionHandlerFuncPtr");
             const std::string handler_func = MakePublicHelperName("GetCurrentExceptionHandler") + "()";
             const std::string handler_data = MakePublicHelperName("GetCurrentExceptionHandlerUserData") + "()";
@@ -480,21 +507,13 @@ namespace mrbind::C
             // We already do this at the beginning of this function.
             // file.header.custom_headers.insert(GetCommonPublicHelpersFile()->header.path_for_inclusion);
 
+            file.header.stdlib_headers.insert("exception"); // For `std::exception_ptr`.
             file.header.stdlib_headers.insert("type_traits"); // For `std::is_void_v`.
 
             file.header.contents +=
                 "\n"
                 "\n"
                 "// Exceptions support:\n"
-                "\n"
-                "// Are we compiling with exceptions enabled?\n"
-                "#ifndef " + enable_exceptions_macro + "\n"
-                "#  ifdef __cpp_exceptions\n"
-                "#    define " + enable_exceptions_macro + " 1\n"
-                "#  else\n"
-                "#    define " + enable_exceptions_macro + " 0\n"
-                "#  endif\n"
-                "#endif\n"
                 "\n"
                 "#if " + enable_exceptions_macro + "\n"
                 "#  define MRBINDC_TRY(...) return mrbindc_details::CatchExceptions([&]{__VA_ARGS__});\n"
@@ -505,7 +524,8 @@ namespace mrbind::C
                 "#if " + enable_exceptions_macro + "\n"
                 "namespace mrbindc_details\n"
                 "{\n"
-                "    void CatchExceptionsLow(void (*func)(void *data), void *data);\n"
+                // Exporting this for other sub-libraries.
+                "    " + GetExportMacroForFile(file) + " void CatchExceptionsLow(void (*func)(void *data), void *data);\n"
                 "\n"
                 "    template <typename F>\n"
                 "    auto CatchExceptions(F &&func)\n"
@@ -530,6 +550,10 @@ namespace mrbind::C
                 "            return func();\n"
                 "        }\n"
                 "    }\n"
+                "\n"
+                // Exporting this for other sub-libraries.
+                "    // This will be thrown when exiting the current `std::function` callback.\n"
+                "    " + GetExportMacroForFile(file) + " extern std::exception_ptr *queued_exception_for_callbacks;\n"
                 "}\n"
                 "#endif\n"
                 ;
@@ -590,6 +614,8 @@ namespace mrbind::C
                 "        " + handler_func + "(messages, type_names, " + handler_data + ");\n"
                 "    }\n"
                 "}\n"
+                "\n"
+                "std::exception_ptr *mrbindc_details::queued_exception_for_callbacks = nullptr;\n"
                 "#endif\n"
             ;
         }
@@ -684,6 +710,8 @@ namespace mrbind::C
 
                     emit.name = GetMemoryDeallocFuncName(is_array, nullptr);
 
+                    emit.is_noexcept = true; // `operator delete` is noexcept, but `operator new` isn't. This must be synced with C#.
+
                     emit.params.push_back({
                         .name = "ptr",
                         .cpp_type = cppdecl::Type::FromSingleWord("void").AddModifier(cppdecl::Pointer{}),
@@ -715,7 +743,7 @@ namespace mrbind::C
 
             const std::string typedef_name_simple_handler = MakePublicHelperName("SimpleExceptionHandlerFuncPtr");
             const std::string typedef_name_handler = MakePublicHelperName("ExceptionHandlerFuncPtr");
-            const std::string enable_exceptions_macro = GetEnableExceptionsMacro();
+            const std::string enable_exceptions_macro = GetEnableExceptionsMacro(nullptr);
 
             file->header.contents +=
                 "\n"
@@ -724,17 +752,18 @@ namespace mrbind::C
                 "/// `type_names` always has either the same size as `messages`, or one less element if the last exception has an unknown type (then the corresponding message is a placeholder).\n"
                 "/// If the handler doesn't terminate the application, the function that threw the exception will return zero.\n"
                 "/// If the handler is null, we don't attempt to catch exceptions. Then if the throwing function is called from C++ the callee might be able to catch the exception normally (unless the library is compiled with MSVC with `/EHc`).\n"
-                "typedef " + CppdeclToCode(cppdecl::Decl{.type = c_simple_exception_handler_funcptr_type, .name = cppdecl::QualifiedName::FromSingleWord(typedef_name_simple_handler)}) + ";\n"
+                "typedef " + CppdeclToCode(cppdecl::Decl{.type = c_exception_handler_funcptr_type, .name = cppdecl::QualifiedName::FromSingleWord(typedef_name_handler)}) + ";\n"
                 "\n"
                 "/// The simple exception handler. Only receives the exception message, which is never null. When several exceptions are nested, their messages are joined with newlines.\n"
                 "/// If the handler doesn't terminate the application, the function that threw the exception will return zero.\n"
                 "/// If the handler is null, we don't attempt to catch exceptions. Then if the throwing function is called from C++ the callee might be able to catch the exception normally (unless the library is compiled with MSVC with `/EHc`).\n"
-                "typedef " + CppdeclToCode(cppdecl::Decl{.type = c_exception_handler_funcptr_type, .name = cppdecl::QualifiedName::FromSingleWord(typedef_name_handler)}) + ";\n"
+                "typedef " + CppdeclToCode(cppdecl::Decl{.type = c_simple_exception_handler_funcptr_type, .name = cppdecl::QualifiedName::FromSingleWord(typedef_name_simple_handler)}) + ";\n"
                 ;
 
             file->source.custom_headers.insert(GetInternalDetailsFile().header.path_for_inclusion); // For the `enable_exceptions_macro` macro.
             file->source.stdlib_headers.insert("cstdio"); // For `std::fprintf()`
             file->source.stdlib_headers.insert("cstdlib"); // For `std::abort()`.
+            file->source.stdlib_headers.insert("stdexcept"); // For `std::rutime_error`.
             file->source.stdlib_headers.insert("string"); // For `std::string`.
             file->source.contents +=
                 "\n"
@@ -744,7 +773,7 @@ namespace mrbind::C
                 "    (void)type_names;\n"
                 "    (void)userdata;\n"
                 "\n"
-                "    std::fprintf(stderr, \"Uncaught C++ exception:\\n\");\n"
+                "    std::fputs(\"Uncaught C++ exception:\\n\", stderr);\n"
                 "\n"
                 "    while (*messages)\n"
                 "        std::fprintf(stderr, \"%s\\n\", *messages++);\n"
@@ -777,6 +806,8 @@ namespace mrbind::C
             const auto default_handler_getter_name = MakeFreeFuncName("GetDefaultExceptionHandler");
             const auto setter_name = MakeFreeFuncName("SetExceptionHandler");
 
+            std::string exceptions_enabled_name;
+
             { // Check if the C++ library is compiled with exceptions enabled.
                 EmitFuncParams emit;
 
@@ -785,6 +816,8 @@ namespace mrbind::C
                     "/// If this returns false, most other exception-related functions will do nothing.";
 
                 emit.name = MakeFreeFuncName("ExceptionSupportEnabled");
+                exceptions_enabled_name = emit.name.c;
+
                 emit.name.ignore_in_interop = true;
 
                 emit.is_noexcept = true;
@@ -914,6 +947,78 @@ namespace mrbind::C
 
                 emit.cpp_called_func = "if (func)\n    " + setter_name.c + "(_simple_exception_handler, reinterpret_cast<void *>(func));\nelse\n    " + setter_name.c + "(nullptr, nullptr)";
                 emit.cpp_called_func_parens = {};
+
+                EmitFunction(*file, emit);
+            }
+
+            std::string throw_func_name;
+            { // Throw a C++ exception.
+                EmitFuncParams emit;
+
+                emit.c_comment =
+                    "/// Throws a C++ exception with the specified message.\n"
+                    "/// This is intended to be used from callbacks passed to C++.\n"
+                    "/// This doesn't directly call our C exception handling callbacks. Those are only called if this is used called in a callback (unrelated to exception handling), and the resulting exception would leak into the C code.\n"
+                    "/// If `" + exceptions_enabled_name + "() == false`, terminates the application."
+                    ;
+
+                emit.name = MakeFreeFuncName("ThrowException");
+                throw_func_name = emit.name.c;
+
+                emit.name.ignore_in_interop = true;
+
+                emit.is_noexcept = true; // Because we want to disable exception handling, not because it's actually noexcept.
+
+                emit.params.push_back({
+                    .name = "message",
+                    // No need to allocate a full `std::string`, and exceptions don't accept a `std::string_view`, so might as well pass a raw pointer as is.
+                    .cpp_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{}),
+                    .use_type_as_is = true,
+                });
+
+                emit.cpp_extra_statements = "#if " + enable_exceptions_macro;
+                emit.cpp_extra_code_after = "#else\nstd::fprintf(stderr, \"Attempt to throw an exception, but the library was compiled with no exception support. The exception was:\\n%s\\n\", message);\nstd::abort();\n#endif";
+
+                emit.cpp_called_func = "throw std::runtime_error";
+
+                EmitFunction(*file, emit);
+            }
+
+            { // Throw a C++ exception on the next callback exit.
+                EmitFuncParams emit;
+
+                emit.c_comment =
+                    "/// When called from a callback passed to `std::function`, copies the string, and throws a C++ exception with this message when the callback finishes executing.\n"
+                    "/// Must not be executed outside of a callback.\n"
+                    "/// This is an alternative to `" + throw_func_name + "()` that can be used if the callback is passed from a language that can't tolerate C++ exceptions being thrown across the language boundary with C++."
+                    ;
+
+                emit.name = MakeFreeFuncName("ThrowExceptionOnCallbackExit");
+                emit.name.ignore_in_interop = true;
+
+                emit.is_noexcept = true; // Because we want to disable exception handling, not because it's actually noexcept.
+
+                emit.params.push_back({
+                    .name = "message",
+                    // No need to allocate a full `std::string`, and exceptions don't accept a `std::string_view`, so might as well pass a raw pointer as is.
+                    .cpp_type = cppdecl::Type::FromSingleWord("char").AddQualifiers(cppdecl::CvQualifiers::const_).AddModifier(cppdecl::Pointer{}),
+                    .use_type_as_is = true,
+                });
+
+                emit.cpp_extra_statements = "#if " + enable_exceptions_macro;
+                emit.cpp_extra_code_after = "#else\nstd::fprintf(stderr, \"Attempt to throw an exception on a callback exit, but the library was compiled with no exception support. The exception was:\\n%s\\n\", message);\nstd::abort();\n#endif";
+
+                emit.cpp_called_func =
+                    "if (mrbindc_details::queued_exception_for_callbacks)\n"
+                    "{\n"
+                    "    *mrbindc_details::queued_exception_for_callbacks = std::make_exception_ptr(std::runtime_error(@1@));\n"
+                    "}\n"
+                    "else\n"
+                    "{\n"
+                    "    std::fprintf(stderr, \"Attempt to throw an exception on a callback exit, but no callback is running. The exception was:\\n%s\\n\", message);\n"
+                    "    std::abort();\n"
+                    "}\n"
+                ;
 
                 EmitFunction(*file, emit);
             }
@@ -1071,8 +1176,10 @@ namespace mrbind::C
     }
 
     // Only call this if `enable_exceptions_support` is true.
-    std::string Generator::GetEnableExceptionsMacro()
+    std::string Generator::GetEnableExceptionsMacro(OutputFile *target_file)
     {
+        if (target_file)
+            target_file->source.custom_headers.insert(GetInternalDetailsFile().header.path_for_inclusion);
         return MakePublicHelperMacroName("ENABLE_EXCEPTIONS");
     }
 
@@ -2510,7 +2617,7 @@ namespace mrbind::C
 
                 // If this is a weird type that's copy-assignable but not move-assignable, unmove the argument!
                 const auto &traits = self.FindTypeTraits(params.at(1).cpp_type);
-                if (traits.is_copy_assignable && !traits.is_move_assignable)
+                if (bool(traits.copy_assignable) && !bool(traits.move_assignable))
                 {
                     // Include the details header.
                     extra_headers.custom_in_source_file = [next = std::move(extra_headers.custom_in_source_file), &self]
@@ -2692,7 +2799,7 @@ namespace mrbind::C
         // Setters additionally need assignability.
         // This kinda makes the `.IsEffectivelyConst()` check above redundant, but I guess it's still an optimization, so let's keep it.
         // Also reject arrays, because those obviously can't be assigned, but `FindTypeTraits()` will throw on them.
-        if (is_setter && (field_type.Is<cppdecl::Array>() || !self.FindTypeTraits(field_type).is_move_assignable))
+        if (is_setter && (field_type.Is<cppdecl::Array>() || !bool(self.FindTypeTraits(field_type).move_assignable)))
             return false;
 
         AddThisParamFromParsedClass(self, new_class, {is_const, false, new_field.is_static});
@@ -2844,6 +2951,7 @@ namespace mrbind::C
 
         if (!params.c_comment.empty())
         {
+            assert(!params.c_comment.ends_with('\n'));
             ret.comment += params.c_comment;
             ret.comment += '\n';
         }
@@ -3543,7 +3651,7 @@ namespace mrbind::C
 
             // Make sure it's destructible, because otherwise there will be no deallocation function.
             // This will also throw if `FindBindableType` doesn't find anything, which is fine, and I don't see how it could possibly happen anyway.
-            if (!FindTypeTraits(type).is_destructible)
+            if (!bool(FindTypeTraits(type).destructible))
                 throw std::runtime_error("Type `" + CppdeclToCode(type) + "` doesn't have an accessible destructor, so we can't bind a `std::unique_ptr` with it as the element type.");
 
             return GetClassDestroyFuncName(*c_name, is_array).c;
@@ -4177,7 +4285,8 @@ namespace mrbind::C
                     throw std::runtime_error("The class `" + cpp_type_name + "` is whitelisted by `--expose-as-struct`, but it has a base class. This flag only supports the structs/classes with no base classes.");
             }
 
-            bool has_by_value_assignment = false;
+            // This is never `trivial`.
+            CInterop::SpecialMemberKind by_value_assignable = CInterop::SpecialMemberKind::disabled;
 
             // Check what constructors and assignments we have.
             for (const auto &member_var : cl.members)
@@ -4196,48 +4305,56 @@ namespace mrbind::C
 
                             // If we've already seen the `const T &` constructor, and this one is `T &`, there's nothing useful we could possibly get from it.
                             // We want to preserve the variables (such as trivial-ness) set from the `cosnt T &` constructor.
-                            if (class_info.traits.is_copy_constructible && !param_is_const)
+                            if (bool(class_info.traits.copy_constructible) && !param_is_const)
                                 return;
 
-                            class_info.traits.is_copy_constructible = true;
+                            class_info.traits.copy_constructible =
+                                ctor.is_trivial ? CInterop::SpecialMemberKind::trivial :
+                                ctor.is_noexcept ? CInterop::SpecialMemberKind::nontrivial_nonthrowing :
+                                CInterop::SpecialMemberKind::nontrivial_throwing;
 
-                            // Must assign unconditionally, to overwrite the existing value from the `T &` constructor, if any.
-                            class_info.traits.is_trivially_copy_constructible = ctor.is_trivial;
+                            // Now we must overwrite all existing information from the `T &` constructor, if any.
                             class_info.traits.copy_constructor_takes_nonconst_ref = !param_is_const;
                         }
                         else if (ctor.kind == CopyMoveKind::move)
                         {
                             // Currently this doesn't handle `const T &&` well (and doesn't handle having multiple move constructors in general).
 
-                            class_info.traits.is_move_constructible = true;
-                            if (ctor.is_trivial)
-                                class_info.traits.is_trivially_move_constructible = true;
+                            class_info.traits.move_constructible =
+                                ctor.is_trivial ? CInterop::SpecialMemberKind::trivial :
+                                ctor.is_noexcept ? CInterop::SpecialMemberKind::nontrivial_nonthrowing :
+                                CInterop::SpecialMemberKind::nontrivial_throwing;
                         }
                         else if (ctor.IsCallableWithNumArgs(0))
                         {
-                            class_info.traits.is_default_constructible = true;
-                            if (ctor.is_trivial)
-                                class_info.traits.is_trivially_default_constructible = true;
+                            class_info.traits.default_constructible =
+                                ctor.is_trivial ? CInterop::SpecialMemberKind::trivial :
+                                ctor.is_noexcept ? CInterop::SpecialMemberKind::nontrivial_nonthrowing :
+                                CInterop::SpecialMemberKind::nontrivial_throwing;
                         }
                     },
                     [&](const ClassMethod &method)
                     {
                         if (method.assignment_kind == CopyMoveKind::copy)
                         {
-                            class_info.traits.is_copy_assignable = true;
-                            if (method.is_trivial_assignment)
-                                class_info.traits.is_trivially_copy_assignable = true;
+                            class_info.traits.copy_assignable =
+                                method.is_trivial_assignment ? CInterop::SpecialMemberKind::trivial :
+                                method.is_noexcept ? CInterop::SpecialMemberKind::nontrivial_nonthrowing :
+                                CInterop::SpecialMemberKind::nontrivial_throwing;
                         }
                         else if (method.assignment_kind == CopyMoveKind::move)
                         {
-                            class_info.traits.is_move_assignable = true;
-                            if (method.is_trivial_assignment)
-                                class_info.traits.is_trivially_move_assignable = true;
+                            class_info.traits.move_assignable =
+                                method.is_trivial_assignment ? CInterop::SpecialMemberKind::trivial :
+                                method.is_noexcept ? CInterop::SpecialMemberKind::nontrivial_nonthrowing :
+                                CInterop::SpecialMemberKind::nontrivial_throwing;
                         }
                         else if (method.assignment_kind == CopyMoveKind::by_value_assignment)
                         {
                             // Note that those are never trivial.
-                            has_by_value_assignment = true;
+                            by_value_assignable =
+                                method.is_noexcept ? CInterop::SpecialMemberKind::nontrivial_nonthrowing :
+                                CInterop::SpecialMemberKind::nontrivial_throwing;
                         }
                     },
                     [&](const ClassConvOp &) {},
@@ -4246,29 +4363,24 @@ namespace mrbind::C
                         if (class_info.is_abstract && !dtor.is_virtual)
                             return; // Don't allow calling non-virtual destructors on abstract classes.
 
-                        class_info.traits.is_destructible = true;
-                        if (dtor.is_trivial)
-                            class_info.traits.is_trivially_destructible = true;
+                        class_info.traits.destructible =
+                            dtor.is_trivial ? CInterop::SpecialMemberKind::trivial :
+                            dtor.is_noexcept ? CInterop::SpecialMemberKind::nontrivial_nonthrowing :
+                            CInterop::SpecialMemberKind::nontrivial_throwing;
                     },
                 }, member_var);
             }
 
-            if (has_by_value_assignment)
+            if (bool(by_value_assignable))
             {
                 // Since this assignment operator in practice causes overload resolution conflicts with any other copy/move assignment, we don't have to be very accurate about overwriting exiting copy/move assignability data.
-                // Here we OR it, but it probably doesn't matter too much.
+                // Here we overwrite it, but it probably doesn't matter too much.
 
-                if (class_info.traits.is_copy_constructible)
-                {
-                    class_info.traits.is_copy_assignable = true;
-                    class_info.traits.is_trivially_copy_assignable = false; // Because by-value assignments can't be trivial.
-                }
+                if (bool(class_info.traits.copy_constructible))
+                    class_info.traits.copy_assignable = by_value_assignable;
 
-                if (class_info.traits.is_move_constructible)
-                {
-                    class_info.traits.is_move_assignable = true;
-                    class_info.traits.is_trivially_move_assignable = false; // Because by-value assignments can't be trivial.
-                }
+                if (bool(class_info.traits.move_constructible))
+                    class_info.traits.move_assignable = by_value_assignable;
             }
         }
 
@@ -5041,7 +5153,7 @@ namespace mrbind::C
 
 
                 // If this is a same-layout struct that is trivially-default-constructible, we don't want the default constructor (and its array version).
-                const bool skip_trivial_default_ctor = parsed_class_info.is_same_layout_struct && parsed_class_info.traits.is_trivially_default_constructible;
+                const bool skip_trivial_default_ctor = parsed_class_info.is_same_layout_struct && parsed_class_info.traits.default_constructible == CInterop::SpecialMemberKind::trivial;
 
                 // We need to do stuff on the first default ctor emitted (there can be multiple such ctors, because of default arguments).
                 bool emitted_any_default_ctor = false;
@@ -5139,7 +5251,7 @@ namespace mrbind::C
                             // and we either either don't have too many fields, OR the class isn't default constructible, so we have to ignore the limit.
                             // This limit is configurable with a command-line flag.
                             (
-                                !parsed_class_info.traits.is_default_constructible ||
+                                !bool(parsed_class_info.traits.default_constructible) ||
                                 member_descs.size() <= self.max_num_fields_for_default_constructible_aggregate_init
                             )
                         )
@@ -5362,7 +5474,7 @@ namespace mrbind::C
                                 {
                                     // If the class isn't destructible, don't even try, since emitting the by-value parameter apparently causes
                                     //   the compiler the want to use the destructor too, probably for exception reasons.
-                                    if (!parsed_class_info.traits.is_destructible)
+                                    if (!bool(parsed_class_info.traits.destructible))
                                         return;
 
                                     if (std::exchange(emitted_any_copy_or_move_ctor, true))
@@ -5429,7 +5541,7 @@ namespace mrbind::C
 
                                     // If the class isn't destructible, don't even try, since emitting the by-value parameter apparently causes
                                     //   the compiler the want to use the destructor too, probably for exception reasons.
-                                    if (!parsed_class_info.traits.is_destructible)
+                                    if (!bool(parsed_class_info.traits.destructible))
                                         return;
 
                                     if (std::exchange(emitted_any_special_assignment, true))
@@ -5559,6 +5671,8 @@ namespace mrbind::C
         if (output_desc)
         {
             output_desc->platform_info = data.platform_info;
+
+            output_desc->exception_handling_enabled = enable_exceptions_support;
         }
 
         { // Construct the `type_alt_spelling_to_canonical` mapping.

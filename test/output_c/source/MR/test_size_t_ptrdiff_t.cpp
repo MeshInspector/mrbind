@@ -23,7 +23,7 @@ unsigned long **MR_TestSizeT_foo_unsigned_long_ptr(unsigned long **_1)
 {
     MRBINDC_TRY(
     return std::addressof(::MR::TestSizeT::foo(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1)
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *_1)
     ));
     ) // MRBINDC_TRY
 }
@@ -51,7 +51,7 @@ long **MR_TestSizeT_foo_long_ptr(long **_1)
 {
     MRBINDC_TRY(
     return std::addressof(::MR::TestSizeT::foo(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1)
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *_1)
     ));
     ) // MRBINDC_TRY
 }
@@ -98,7 +98,7 @@ MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_ConstructFromAnother(
 {
     MRBINDC_TRY(
     return (MR_TestSizeT_A_unsigned_long *)new MR::TestSizeT::A<unsigned long>(MR::TestSizeT::A<unsigned long>(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::TestSizeT::A<unsigned long>(*(MR::TestSizeT::A<unsigned long> *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::TestSizeT::A<unsigned long>(*(MR::TestSizeT::A<unsigned long> *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -120,8 +120,8 @@ void MR_TestSizeT_A_unsigned_long_DestroyArray(const MR_TestSizeT_A_unsigned_lon
 MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_AssignFromAnother(MR_TestSizeT_A_unsigned_long *_this, const MR_TestSizeT_A_unsigned_long *_other)
 {
     MRBINDC_TRY(
-    return (MR_TestSizeT_A_unsigned_long *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSizeT::A<unsigned long> *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::TestSizeT::A<unsigned long>(*(MR::TestSizeT::A<unsigned long> *)_other))
+    return (MR_TestSizeT_A_unsigned_long *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::TestSizeT::A<unsigned long> *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::TestSizeT::A<unsigned long>(*(MR::TestSizeT::A<unsigned long> *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -129,7 +129,7 @@ MR_TestSizeT_A_unsigned_long *MR_TestSizeT_A_unsigned_long_AssignFromAnother(MR_
 unsigned long MR_TestSizeT_A_unsigned_long_foo(MR_TestSizeT_A_unsigned_long *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::TestSizeT::A<unsigned long> *)(_this)).foo();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::TestSizeT::A<unsigned long> *)(_this)).foo();
     ) // MRBINDC_TRY
 }
 

@@ -31,7 +31,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_unsigned_long_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_UnsignedLong._Underlying *__MR_TestSizeT_A_unsigned_long_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TestSizeT_A_unsigned_long_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TestSizeT::A<unsigned long>::A`.
@@ -39,8 +41,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_unsigned_long_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_UnsignedLong._Underlying *__MR_TestSizeT_A_unsigned_long_ConstructFromAnother(MR.CS.TestSizeT.A_UnsignedLong._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TestSizeT_A_unsigned_long_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TestSizeT::A<unsigned long>::A`.
@@ -58,7 +62,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_unsigned_long_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_UnsignedLong._Underlying *__MR_TestSizeT_A_unsigned_long_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TestSizeT_A_unsigned_long_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TestSizeT::A<unsigned long>::A`.
@@ -66,8 +72,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_unsigned_long_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_UnsignedLong._Underlying *__MR_TestSizeT_A_unsigned_long_ConstructFromAnother(MR.CS.TestSizeT.A_UnsignedLong._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TestSizeT_A_unsigned_long_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TestSizeT::A<unsigned long>::A`.
@@ -78,9 +86,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_unsigned_long_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TestSizeT.A_UnsignedLong._Underlying *__MR_TestSizeT_A_unsigned_long_AssignFromAnother(_Underlying *_this, MR.CS.TestSizeT.A_UnsignedLong._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_TestSizeT_A_unsigned_long_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
-                    return new(__MR_TestSizeT_A_unsigned_long_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
                 }
 
                 /// Generated from method `MR::TestSizeT::A<unsigned long>::foo`.
@@ -88,7 +99,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_A_unsigned_long_foo", ExactSpelling = true)]
                     extern static ulong __MR_TestSizeT_A_unsigned_long_foo(_Underlying *_this);
-                    return __MR_TestSizeT_A_unsigned_long_foo(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_TestSizeT_A_unsigned_long_foo(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
                 }
             }
 
@@ -127,7 +141,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_unsigned_long", ExactSpelling = true)]
                 extern static ulong __MR_TestSizeT_foo_unsigned_long(ulong _1);
-                return __MR_TestSizeT_foo_unsigned_long(_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_TestSizeT_foo_unsigned_long(_1);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
@@ -138,7 +155,10 @@ public static partial class MR
                 extern static ulong **__MR_TestSizeT_foo_unsigned_long_ptr(ulong **_1);
                 fixed (ulong **__ptr__1 = &_1)
                 {
-                    return ref *__MR_TestSizeT_foo_unsigned_long_ptr(__ptr__1);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_TestSizeT_foo_unsigned_long_ptr(__ptr__1);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return ref *__c_ret;
                 }
             }
 
@@ -147,7 +167,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_unsigned_long", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_UnsignedLong._Underlying *__MR_TestSizeT_foo_std_vector_unsigned_long(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_UnsignedLong._Underlying *_1);
-                return new(__MR_TestSizeT_foo_std_vector_unsigned_long(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_TestSizeT_foo_std_vector_unsigned_long(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return new(__c_ret, is_owning: true);
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
@@ -155,7 +178,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_long", ExactSpelling = true)]
                 extern static long __MR_TestSizeT_foo_long(long _1);
-                return __MR_TestSizeT_foo_long(_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_TestSizeT_foo_long(_1);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             /// Generated from function `MR::TestSizeT::foo`.
@@ -166,7 +192,10 @@ public static partial class MR
                 extern static long **__MR_TestSizeT_foo_long_ptr(long **_1);
                 fixed (long **__ptr__1 = &_1)
                 {
-                    return ref *__MR_TestSizeT_foo_long_ptr(__ptr__1);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_TestSizeT_foo_long_ptr(__ptr__1);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return ref *__c_ret;
                 }
             }
 
@@ -175,7 +204,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSizeT_foo_std_vector_long", ExactSpelling = true)]
                 extern static MR.CS.Std.Vector_Long._Underlying *__MR_TestSizeT_foo_std_vector_long(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Std.Vector_Long._Underlying *_1);
-                return new(__MR_TestSizeT_foo_std_vector_long(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null), is_owning: true);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_TestSizeT_foo_std_vector_long(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return new(__c_ret, is_owning: true);
             }
         }
     }

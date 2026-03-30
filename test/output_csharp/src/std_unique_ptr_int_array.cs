@@ -32,7 +32,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.UniquePtr_IntArray._Underlying *__MR_C_std_unique_ptr_int_array_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_array_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -40,8 +42,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.UniquePtr_IntArray._Underlying *__MR_C_std_unique_ptr_int_array_ConstructFromAnother(MR.CS.Std.UniquePtr_IntArray._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_array_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a new instance.
@@ -49,7 +53,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.UniquePtr_IntArray._Underlying *__MR_C_std_unique_ptr_int_array_ConstructFrom(void *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_array_ConstructFrom(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a new instance.
@@ -60,7 +66,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_get", ExactSpelling = true)]
                     extern static int *__MR_C_std_unique_ptr_int_array_get(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_unique_ptr_int_array_get(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
 
@@ -71,7 +79,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_at", ExactSpelling = true)]
                         extern static int *__MR_C_std_unique_ptr_int_array_at(_Underlying *_this, ulong i);
-                        return ref *__MR_C_std_unique_ptr_int_array_at(_UnderlyingPtr, i);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_C_std_unique_ptr_int_array_at(_UnderlyingPtr, i);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
             }
@@ -88,7 +99,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.UniquePtr_IntArray._Underlying *__MR_C_std_unique_ptr_int_array_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_array_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -96,8 +109,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.UniquePtr_IntArray._Underlying *__MR_C_std_unique_ptr_int_array_ConstructFromAnother(MR.CS.Std.UniquePtr_IntArray._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_array_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a new instance.
@@ -105,7 +120,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.UniquePtr_IntArray._Underlying *__MR_C_std_unique_ptr_int_array_ConstructFrom(void *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_unique_ptr_int_array_ConstructFrom(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a new instance.
@@ -116,8 +133,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_unique_ptr_int_array_AssignFromAnother(_Underlying *_this, MR.CS.Std.UniquePtr_IntArray._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_unique_ptr_int_array_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
@@ -126,6 +145,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_unique_ptr_int_array_AssignFrom(_Underlying *_this, void *other);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_unique_ptr_int_array_AssignFrom(_UnderlyingPtr, other);
                 }
 
@@ -135,7 +156,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int_array_release", ExactSpelling = true)]
                     extern static int *__MR_C_std_unique_ptr_int_array_release(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_unique_ptr_int_array_release(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
             }

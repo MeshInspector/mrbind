@@ -32,7 +32,7 @@ MR_C_std_unordered_set_int32_t *MR_C_std_unordered_set_int32_t_ConstructFromAnot
 void MR_C_std_unordered_set_int32_t_AssignFromAnother(MR_C_std_unordered_set_int32_t *_this, MR_C_PassBy other_pass_by, MR_C_std_unordered_set_int32_t *other)
 {
     MRBINDC_CLASSARG_GUARD(other, std::unordered_set<int32_t>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_set<int32_t> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_set<int32_t> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::unordered_set<int32_t>) MRBINDC_CLASSARG_COPY(other, (std::unordered_set<int32_t>), std::unordered_set<int32_t>) MRBINDC_CLASSARG_MOVE(other, (std::unordered_set<int32_t>), std::unordered_set<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::unordered_set<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::unordered_set<int32_t>) MRBINDC_CLASSARG_END(other, std::unordered_set<int32_t>))
     );
 }
@@ -64,63 +64,63 @@ MR_C_std_unordered_set_int32_t *MR_C_std_unordered_set_int32_t_ConstructFromRang
 
 void MR_C_std_unordered_set_int32_t_AssignFromRange(MR_C_std_unordered_set_int32_t *_this, const int32_t *ptr, size_t size)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_set<int32_t> *)(_this)) = std::unordered_set<int32_t>(ptr, ptr + size);
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_set<int32_t> *)(_this)) = std::unordered_set<int32_t>(ptr, ptr + size);
 }
 
 size_t MR_C_std_unordered_set_int32_t_size(const MR_C_std_unordered_set_int32_t *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<int32_t> *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<int32_t> *)(_this)).size();
 }
 
 bool MR_C_std_unordered_set_int32_t_empty(const MR_C_std_unordered_set_int32_t *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<int32_t> *)(_this)).empty();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<int32_t> *)(_this)).empty();
 }
 
 void MR_C_std_unordered_set_int32_t_clear(MR_C_std_unordered_set_int32_t *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_set<int32_t> *)(_this)).clear();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_set<int32_t> *)(_this)).clear();
 }
 
 bool MR_C_std_unordered_set_int32_t_contains(const MR_C_std_unordered_set_int32_t *_this, const int32_t *key)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<int32_t> *)(_this)).contains(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<int32_t> *)(_this)).contains(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     );
 }
 
 MR_C_std_unordered_set_int32_t_const_iterator *MR_C_std_unordered_set_int32_t_find(const MR_C_std_unordered_set_int32_t *_this, const int32_t *key)
 {
-    return (MR_C_std_unordered_set_int32_t_const_iterator *)new std::unordered_set<int32_t>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<int32_t> *)(_this)).find(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return (MR_C_std_unordered_set_int32_t_const_iterator *)new std::unordered_set<int32_t>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<int32_t> *)(_this)).find(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     ));
 }
 
 void MR_C_std_unordered_set_int32_t_insert(MR_C_std_unordered_set_int32_t *_this, int32_t new_elem)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_set<int32_t> *)(_this)).insert(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_set<int32_t> *)(_this)).insert(
         new_elem
     );
 }
 
 MR_C_std_unordered_set_int32_t_const_iterator *MR_C_std_unordered_set_int32_t_begin(const MR_C_std_unordered_set_int32_t *_this)
 {
-    return (MR_C_std_unordered_set_int32_t_const_iterator *)new std::unordered_set<int32_t>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<int32_t> *)(_this)).cbegin());
+    return (MR_C_std_unordered_set_int32_t_const_iterator *)new std::unordered_set<int32_t>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<int32_t> *)(_this)).cbegin());
 }
 
 bool MR_C_std_unordered_set_int32_t_is_begin(const MR_C_std_unordered_set_int32_t *_this, const MR_C_std_unordered_set_int32_t_const_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<int32_t> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_set<int32_t>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<int32_t> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::unordered_set<int32_t>::const_iterator *)(iter));
 }
 
 MR_C_std_unordered_set_int32_t_const_iterator *MR_C_std_unordered_set_int32_t_end(const MR_C_std_unordered_set_int32_t *_this)
 {
-    return (MR_C_std_unordered_set_int32_t_const_iterator *)new std::unordered_set<int32_t>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<int32_t> *)(_this)).cend());
+    return (MR_C_std_unordered_set_int32_t_const_iterator *)new std::unordered_set<int32_t>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<int32_t> *)(_this)).cend());
 }
 
 bool MR_C_std_unordered_set_int32_t_is_end(const MR_C_std_unordered_set_int32_t *_this, const MR_C_std_unordered_set_int32_t_const_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<int32_t> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_set<int32_t>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<int32_t> *)(_this)).cend() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::unordered_set<int32_t>::const_iterator *)(iter));
 }
 
 MR_C_std_unordered_set_int32_t_const_iterator *MR_C_std_unordered_set_int32_t_const_iterator_DefaultConstruct(void)
@@ -136,14 +136,14 @@ MR_C_std_unordered_set_int32_t_const_iterator *MR_C_std_unordered_set_int32_t_co
 MR_C_std_unordered_set_int32_t_const_iterator *MR_C_std_unordered_set_int32_t_const_iterator_ConstructFromAnother(const MR_C_std_unordered_set_int32_t_const_iterator *other)
 {
     return (MR_C_std_unordered_set_int32_t_const_iterator *)new std::unordered_set<int32_t>::const_iterator(std::unordered_set<int32_t>::const_iterator(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unordered_set<int32_t>::const_iterator(*(std::unordered_set<int32_t>::const_iterator *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unordered_set<int32_t>::const_iterator(*(std::unordered_set<int32_t>::const_iterator *)other))
     ));
 }
 
 void MR_C_std_unordered_set_int32_t_const_iterator_AssignFromAnother(MR_C_std_unordered_set_int32_t_const_iterator *_this, const MR_C_std_unordered_set_int32_t_const_iterator *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_set<int32_t>::const_iterator *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unordered_set<int32_t>::const_iterator(*(std::unordered_set<int32_t>::const_iterator *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_set<int32_t>::const_iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unordered_set<int32_t>::const_iterator(*(std::unordered_set<int32_t>::const_iterator *)other))
     );
 }
 
@@ -169,16 +169,16 @@ MR_C_std_unordered_set_int32_t_const_iterator *MR_C_std_unordered_set_int32_t_co
 
 const int32_t *MR_C_std_unordered_set_int32_t_const_iterator_deref(const MR_C_std_unordered_set_int32_t_const_iterator *_this)
 {
-    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_set<int32_t>::const_iterator *)(_this)));
+    return std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_set<int32_t>::const_iterator *)(_this)));
 }
 
 void MR_C_std_unordered_set_int32_t_const_iterator_incr(MR_C_std_unordered_set_int32_t_const_iterator *_this)
 {
-    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_set<int32_t>::const_iterator *)(_this));
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_set<int32_t>::const_iterator *)(_this));
 }
 
 bool MR_C_equal_MR_C_std_unordered_set_int32_t_const_iterator(const MR_C_std_unordered_set_int32_t_const_iterator *a, const MR_C_std_unordered_set_int32_t_const_iterator *b)
 {
-    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::unordered_set<int32_t>::const_iterator(*(std::unordered_set<int32_t>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::unordered_set<int32_t>::const_iterator(*(std::unordered_set<int32_t>::const_iterator *)b));
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::unordered_set<int32_t>::const_iterator(*(std::unordered_set<int32_t>::const_iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::unordered_set<int32_t>::const_iterator(*(std::unordered_set<int32_t>::const_iterator *)b));
 }
 

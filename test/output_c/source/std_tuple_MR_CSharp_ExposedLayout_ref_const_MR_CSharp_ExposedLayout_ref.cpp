@@ -42,8 +42,8 @@ MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref *MR
 {
     MRBINDC_TRY(
     return (MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref *)new std::tuple<MR::CSharp::ExposedLayout &, const MR::CSharp::ExposedLayout &>(std::tuple<MR::CSharp::ExposedLayout &, const MR::CSharp::ExposedLayout &>(
-        ((_0 ? void() : throw std::runtime_error("Parameter `_0` can not be null.")), *(MR::CSharp::ExposedLayout *)(_0)),
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_1))
+        ((_0 ? void() : MRBINDC_THROW("Parameter `_0` can not be null.", void)), *(MR::CSharp::ExposedLayout *)(_0)),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ExposedLayout *)(_1))
     ));
     ) // MRBINDC_TRY
 }
@@ -51,14 +51,14 @@ MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref *MR
 MR_CSharp_ExposedLayout *MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_MR_CSharp_ExposedLayout_ref(const MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref *_this)
 {
     MRBINDC_TRY(
-    return (MR_CSharp_ExposedLayout *)std::addressof(std::get<0>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<MR::CSharp::ExposedLayout &, const MR::CSharp::ExposedLayout &> *)(_this))));
+    return (MR_CSharp_ExposedLayout *)std::addressof(std::get<0>(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::tuple<MR::CSharp::ExposedLayout &, const MR::CSharp::ExposedLayout &> *)(_this))));
     ) // MRBINDC_TRY
 }
 
 const MR_CSharp_ExposedLayout *MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref_get_const_MR_CSharp_ExposedLayout_ref(const MR_C_std_tuple_MR_CSharp_ExposedLayout_ref_const_MR_CSharp_ExposedLayout_ref *_this)
 {
     MRBINDC_TRY(
-    return (const MR_CSharp_ExposedLayout *)std::addressof(std::get<1>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<MR::CSharp::ExposedLayout &, const MR::CSharp::ExposedLayout &> *)(_this))));
+    return (const MR_CSharp_ExposedLayout *)std::addressof(std::get<1>(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::tuple<MR::CSharp::ExposedLayout &, const MR::CSharp::ExposedLayout &> *)(_this))));
     ) // MRBINDC_TRY
 }
 

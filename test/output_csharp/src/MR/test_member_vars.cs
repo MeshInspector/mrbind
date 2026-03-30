@@ -30,7 +30,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_GetMutable_z", ExactSpelling = true)]
                         extern static int *__MR_MemberVars_A_GetMutable_z();
-                        return ref *__MR_MemberVars_A_GetMutable_z();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_MemberVars_A_GetMutable_z();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -40,7 +43,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_w", ExactSpelling = true)]
                         extern static int *__MR_MemberVars_A_Get_w();
-                        return *__MR_MemberVars_A_Get_w();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_MemberVars_A_Get_w();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return *__c_ret;
                     }
                 }
 
@@ -50,7 +56,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_x", ExactSpelling = true)]
                         extern static int *__MR_MemberVars_A_Get_x(_Underlying *_this);
-                        return *__MR_MemberVars_A_Get_x(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_MemberVars_A_Get_x(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return *__c_ret;
                     }
                 }
 
@@ -60,7 +69,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_y", ExactSpelling = true)]
                         extern static int *__MR_MemberVars_A_Get_y(_Underlying *_this);
-                        return *__MR_MemberVars_A_Get_y(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_MemberVars_A_Get_y(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return *__c_ret;
                     }
                 }
 
@@ -71,7 +83,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_Get_ref", ExactSpelling = true)]
                         extern static int *__MR_MemberVars_A_Get_ref(_Underlying *_this);
-                        return ref *__MR_MemberVars_A_Get_ref(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_MemberVars_A_Get_ref(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -93,8 +108,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.MemberVars.A._Underlying *__MR_MemberVars_A_ConstructFromAnother(MR.CS.MemberVars.A._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_MemberVars_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::MemberVars::A::A`.
@@ -133,8 +150,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MemberVars_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.MemberVars.A._Underlying *__MR_MemberVars_A_ConstructFromAnother(MR.CS.MemberVars.A._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_MemberVars_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::MemberVars::A::A`.

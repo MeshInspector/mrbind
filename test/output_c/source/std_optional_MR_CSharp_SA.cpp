@@ -27,7 +27,7 @@ MR_C_std_optional_MR_CSharp_SA *MR_C_std_optional_MR_CSharp_SA_ConstructFromAnot
 {
     MRBINDC_TRY(
     return (MR_C_std_optional_MR_CSharp_SA *)new std::optional<MR::CSharp::SA>(std::optional<MR::CSharp::SA>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::optional<MR::CSharp::SA>(*(std::optional<MR::CSharp::SA> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::optional<MR::CSharp::SA>(*(std::optional<MR::CSharp::SA> *)other))
     ));
     ) // MRBINDC_TRY
 }
@@ -44,8 +44,8 @@ MR_C_std_optional_MR_CSharp_SA *MR_C_std_optional_MR_CSharp_SA_ConstructFrom(con
 void MR_C_std_optional_MR_CSharp_SA_AssignFromAnother(MR_C_std_optional_MR_CSharp_SA *_this, const MR_C_std_optional_MR_CSharp_SA *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::CSharp::SA> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::optional<MR::CSharp::SA>(*(std::optional<MR::CSharp::SA> *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::optional<MR::CSharp::SA> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::optional<MR::CSharp::SA>(*(std::optional<MR::CSharp::SA> *)other))
     );
     ) // MRBINDC_TRY
 }
@@ -53,7 +53,7 @@ void MR_C_std_optional_MR_CSharp_SA_AssignFromAnother(MR_C_std_optional_MR_CShar
 void MR_C_std_optional_MR_CSharp_SA_AssignFrom(MR_C_std_optional_MR_CSharp_SA *_this, const MR_CSharp_SA *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::CSharp::SA> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::optional<MR::CSharp::SA> *)(_this)).operator=(
         (other ? std::optional<MR::CSharp::SA>(MR::CSharp::SA(*(MR::CSharp::SA *)other)) : std::nullopt)
     );
     ) // MRBINDC_TRY
@@ -90,14 +90,14 @@ MR_C_std_optional_MR_CSharp_SA *MR_C_std_optional_MR_CSharp_SA_OffsetMutablePtr(
 bool MR_C_std_optional_MR_CSharp_SA_has_value(const MR_C_std_optional_MR_CSharp_SA *_this)
 {
     MRBINDC_TRY(
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::CSharp::SA> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::optional<MR::CSharp::SA> *)(_this)));
     ) // MRBINDC_TRY
 }
 
 const MR_CSharp_SA *MR_C_std_optional_MR_CSharp_SA_value(const MR_C_std_optional_MR_CSharp_SA *_this)
 {
     MRBINDC_TRY(
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::CSharp::SA> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::optional<MR::CSharp::SA> *)(_this));
     return (const MR_CSharp_SA *)(_self ? &*_self : nullptr);
     ) // MRBINDC_TRY
 }
@@ -105,7 +105,7 @@ const MR_CSharp_SA *MR_C_std_optional_MR_CSharp_SA_value(const MR_C_std_optional
 MR_CSharp_SA *MR_C_std_optional_MR_CSharp_SA_value_mut(MR_C_std_optional_MR_CSharp_SA *_this)
 {
     MRBINDC_TRY(
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::CSharp::SA> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::optional<MR::CSharp::SA> *)(_this));
     return (MR_CSharp_SA *)(_self ? &*_self : nullptr);
     ) // MRBINDC_TRY
 }

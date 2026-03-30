@@ -62,7 +62,7 @@ namespace mrbind::C::Modules
 
             HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name, c_type_name_base);
 
-            binder.traits = Generator::TypeTraits::CopyableNonTrivial{};
+            binder.traits = Generator::TypeTraits::CopyableNonTrivialMaybeThrowing{};
 
 
             // Note that usages of the return type and parameter types of the wrapped callback are INVERTED.
@@ -484,8 +484,36 @@ namespace mrbind::C::Modules
                                 "    }\n"
                                 "};\n"
                                 "_cleanup_guard_type _cleanup_guard;\n"
-                                "_cleanup_guard._self = this;" +
+                                "_cleanup_guard._self = this;\n" +
                                 (emit_lambda.cpp_extra_statements.empty() ? "" : "\n" + emit_lambda.cpp_extra_statements);
+
+                            if (generator.enable_exceptions_support)
+                            {
+                                emit_lambda.cpp_extra_statements =
+                                    "#if " + generator.GetEnableExceptionsMacro(&file) + "\n"
+                                    "struct _exception_guard_type\n"
+                                    "{\n"
+                                    "    std::exception_ptr _exception_ptr = nullptr;\n"
+                                    "    std::exception_ptr *_old_exception_ptr_ptr;\n"
+                                    "\n"
+                                    "    _exception_guard_type() : _old_exception_ptr_ptr(mrbindc_details::queued_exception_for_callbacks)\n"
+                                    "    {\n"
+                                    "        mrbindc_details::queued_exception_for_callbacks = &_exception_ptr;\n"
+                                    "    }\n"
+                                    "\n"
+                                    "    ~_exception_guard_type() noexcept(false)\n"
+                                    "    {\n"
+                                    "        mrbindc_details::queued_exception_for_callbacks = _old_exception_ptr_ptr;\n"
+                                    "        if (_exception_ptr)\n"
+                                    "            std::rethrow_exception(_exception_ptr);\n"
+                                    "    }\n"
+                                    "};\n"
+                                    "_exception_guard_type _exception_guard;\n"
+                                    "#endif\n"
+                                    "\n" +
+                                    emit_lambda.cpp_extra_statements;
+                            }
+
                             emit_lambda.extra_args_after.push_back("_userdata");
                             emit_lambda.extra_args_after.push_back("_postcall_cb ? &_cleanup_guard._value : nullptr");
 

@@ -1,6 +1,7 @@
 #define MR_C_BUILD_LIBRARY
 #include "std_optional_MR_CSharp_Trivial.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_csharp.h>
 
 #include <cstddef>
@@ -21,7 +22,7 @@ MR_C_std_optional_MR_CSharp_Trivial *MR_C_std_optional_MR_CSharp_Trivial_Default
 MR_C_std_optional_MR_CSharp_Trivial *MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(const MR_C_std_optional_MR_CSharp_Trivial *other)
 {
     return (MR_C_std_optional_MR_CSharp_Trivial *)new std::optional<MR::CSharp::Trivial>(std::optional<MR::CSharp::Trivial>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::optional<MR::CSharp::Trivial>(*(std::optional<MR::CSharp::Trivial> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::optional<MR::CSharp::Trivial>(*(std::optional<MR::CSharp::Trivial> *)other))
     ));
 }
 
@@ -34,14 +35,14 @@ MR_C_std_optional_MR_CSharp_Trivial *MR_C_std_optional_MR_CSharp_Trivial_Constru
 
 void MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother(MR_C_std_optional_MR_CSharp_Trivial *_this, const MR_C_std_optional_MR_CSharp_Trivial *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::CSharp::Trivial> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::optional<MR::CSharp::Trivial>(*(std::optional<MR::CSharp::Trivial> *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::optional<MR::CSharp::Trivial> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::optional<MR::CSharp::Trivial>(*(std::optional<MR::CSharp::Trivial> *)other))
     );
 }
 
 void MR_C_std_optional_MR_CSharp_Trivial_AssignFrom(MR_C_std_optional_MR_CSharp_Trivial *_this, const MR_CSharp_Trivial *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::CSharp::Trivial> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::optional<MR::CSharp::Trivial> *)(_this)).operator=(
         (other ? std::optional<MR::CSharp::Trivial>(MR::CSharp::Trivial(*(MR::CSharp::Trivial *)other)) : std::nullopt)
     );
 }
@@ -68,18 +69,18 @@ MR_C_std_optional_MR_CSharp_Trivial *MR_C_std_optional_MR_CSharp_Trivial_OffsetM
 
 bool MR_C_std_optional_MR_CSharp_Trivial_has_value(const MR_C_std_optional_MR_CSharp_Trivial *_this)
 {
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::CSharp::Trivial> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::optional<MR::CSharp::Trivial> *)(_this)));
 }
 
 const MR_CSharp_Trivial *MR_C_std_optional_MR_CSharp_Trivial_value(const MR_C_std_optional_MR_CSharp_Trivial *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::CSharp::Trivial> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::optional<MR::CSharp::Trivial> *)(_this));
     return (const MR_CSharp_Trivial *)(_self ? &*_self : nullptr);
 }
 
 MR_CSharp_Trivial *MR_C_std_optional_MR_CSharp_Trivial_value_mut(MR_C_std_optional_MR_CSharp_Trivial *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::CSharp::Trivial> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::optional<MR::CSharp::Trivial> *)(_this));
     return (MR_CSharp_Trivial *)(_self ? &*_self : nullptr);
 }
 

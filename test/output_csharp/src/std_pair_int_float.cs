@@ -31,7 +31,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_Int_Float._Underlying *__MR_C_std_pair_int_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_int_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -39,8 +41,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_Int_Float._Underlying *__MR_C_std_pair_int_float_ConstructFromAnother(MR.CS.Std.Pair_Int_Float._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_int_float_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -51,7 +55,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_Int_Float._Underlying *__MR_C_std_pair_int_float_Construct(int first, float second);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_int_float_Construct(first, second);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// The first of the two elements, read-only.
@@ -59,7 +65,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_first", ExactSpelling = true)]
                     extern static int *__MR_C_std_pair_int_float_first(_Underlying *_this);
-                    return *__MR_C_std_pair_int_float_first(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_int_float_first(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return *__c_ret;
                 }
 
                 /// The second of the two elements, read-only.
@@ -67,7 +76,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_second", ExactSpelling = true)]
                     extern static float *__MR_C_std_pair_int_float_second(_Underlying *_this);
-                    return *__MR_C_std_pair_int_float_second(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_int_float_second(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return *__c_ret;
                 }
 
                 // Custom extras:
@@ -90,7 +102,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_Int_Float._Underlying *__MR_C_std_pair_int_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_int_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -98,8 +112,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_Int_Float._Underlying *__MR_C_std_pair_int_float_ConstructFromAnother(MR.CS.Std.Pair_Int_Float._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_int_float_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -110,8 +126,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_pair_int_float_AssignFromAnother(_Underlying *_this, MR.CS.Std.Pair_Int_Float._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_pair_int_float_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
@@ -120,7 +138,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_Int_Float._Underlying *__MR_C_std_pair_int_float_Construct(int first, float second);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_int_float_Construct(first, second);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// The first of the two elements, mutable.
@@ -128,7 +148,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_first_mut", ExactSpelling = true)]
                     extern static int *__MR_C_std_pair_int_float_first_mut(_Underlying *_this);
-                    return ref *__MR_C_std_pair_int_float_first_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_int_float_first_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return ref *__c_ret;
                 }
 
                 /// The second of the two elements, mutable.
@@ -136,7 +159,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_float_second_mut", ExactSpelling = true)]
                     extern static float *__MR_C_std_pair_int_float_second_mut(_Underlying *_this);
-                    return ref *__MR_C_std_pair_int_float_second_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_int_float_second_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return ref *__c_ret;
                 }
 
                 // Custom extras:

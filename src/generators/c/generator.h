@@ -10,6 +10,7 @@
 #include <cppdecl/declarations/data.h>
 #include <cppdecl/declarations/to_string.h>
 
+#include <algorithm>
 #include <filesystem>
 #include <functional>
 #include <map>
@@ -393,7 +394,9 @@ namespace mrbind::C
 
         // Returns the macro that can be used for checking if the exception support is enabled or not.
         // Only call this if `enable_exceptions_support` is true.
-        [[nodiscard]] std::string GetEnableExceptionsMacro();
+        // You need to include the `GetInternalDetailsFile()` for this macro to work. Pass a non-null `target_file` to include it automatically, in the source file (not in the header).
+        // This macro can't be used in C headers.
+        [[nodiscard]] std::string GetEnableExceptionsMacro(OutputFile *target_file);
 
         // Returns the macro that `--add-convenience-incldues` uses for internal purposes.
         // But you can also define it manually to disable the convenience includes in certain places, like we do in our implementation files
@@ -473,21 +476,14 @@ namespace mrbind::C
         {
             // Note that those don't have to 100% match true C++ traits. We can adjust them for our sanity.
 
-            bool is_default_constructible = false;
-            bool is_copy_constructible = false;
-            bool is_move_constructible = false;
-            bool is_copy_assignable = false;
-            bool is_move_assignable = false;
-            bool is_destructible = false;
+            // We sometimes set this to `trivial` even if the operation isn't formally trivial, but is effectively trivial in practice.
 
-            // Those require the respective bits above to be set.
-            // We sometimes set this to true even if the operation isn't formally trivial, but is effectively trivial in practice.
-            bool is_trivially_default_constructible = false;
-            bool is_trivially_copy_constructible = false;
-            bool is_trivially_move_constructible = false;
-            bool is_trivially_copy_assignable = false;
-            bool is_trivially_move_assignable = false;
-            bool is_trivially_destructible = false;
+            CInterop::SpecialMemberKind default_constructible = CInterop::SpecialMemberKind::disabled;
+            CInterop::SpecialMemberKind copy_constructible = CInterop::SpecialMemberKind::disabled;
+            CInterop::SpecialMemberKind move_constructible = CInterop::SpecialMemberKind::disabled;
+            CInterop::SpecialMemberKind copy_assignable = CInterop::SpecialMemberKind::disabled;
+            CInterop::SpecialMemberKind move_assignable = CInterop::SpecialMemberKind::disabled;
+            CInterop::SpecialMemberKind destructible = CInterop::SpecialMemberKind::disabled;
 
             // This includes custom constructors in addition to default/copy/move.
             bool is_any_constructible = false;
@@ -508,47 +504,40 @@ namespace mrbind::C
             // This is for types that are copyable and have all their operations trivial.
             TypeTraits(Trivial)
             {
-                is_default_constructible = true;
-                is_copy_constructible = true;
-                is_move_constructible = true;
-                is_copy_assignable = true;
-                is_move_assignable = true;
-                is_destructible = true;
-
-                is_trivially_default_constructible = true;
-                is_trivially_copy_constructible = true;
-                is_trivially_move_constructible = true;
-                is_trivially_copy_assignable = true;
-                is_trivially_move_assignable = true;
-                is_trivially_destructible = true;
+                default_constructible = CInterop::SpecialMemberKind::trivial;
+                copy_constructible = CInterop::SpecialMemberKind::trivial;
+                move_constructible = CInterop::SpecialMemberKind::trivial;
+                copy_assignable = CInterop::SpecialMemberKind::trivial;
+                move_assignable = CInterop::SpecialMemberKind::trivial;
+                destructible = CInterop::SpecialMemberKind::trivial;
 
                 is_any_constructible = true;
             }
 
-            struct CopyableNonTrivial {explicit CopyableNonTrivial() = default;};
+            struct CopyableNonTrivialMaybeThrowing {explicit CopyableNonTrivialMaybeThrowing() = default;};
             // This is for copyable types that don't have any trivial operations.
-            TypeTraits(CopyableNonTrivial)
+            TypeTraits(CopyableNonTrivialMaybeThrowing)
             {
-                is_default_constructible = true;
-                is_copy_constructible = true;
-                is_move_constructible = true;
-                is_copy_assignable = true;
-                is_move_assignable = true;
-                is_destructible = true;
+                default_constructible = CInterop::SpecialMemberKind::nontrivial_throwing;
+                copy_constructible = CInterop::SpecialMemberKind::nontrivial_throwing;
+                move_constructible = CInterop::SpecialMemberKind::nontrivial_throwing;
+                copy_assignable = CInterop::SpecialMemberKind::nontrivial_throwing;
+                move_assignable = CInterop::SpecialMemberKind::nontrivial_throwing;
+                destructible = CInterop::SpecialMemberKind::nontrivial_throwing;
 
                 is_any_constructible = true;
             }
 
-            struct CopyableNonTrivialButCheap {explicit CopyableNonTrivialButCheap() = default;};
+            struct CopyableNonTrivialButCheapAndNonThrowing {explicit CopyableNonTrivialButCheapAndNonThrowing() = default;};
             // This is for copyable types that don't have any trivial operations.
-            TypeTraits(CopyableNonTrivialButCheap)
+            TypeTraits(CopyableNonTrivialButCheapAndNonThrowing)
             {
-                is_default_constructible = true;
-                is_copy_constructible = true;
-                is_move_constructible = true;
-                is_copy_assignable = true;
-                is_move_assignable = true;
-                is_destructible = true;
+                default_constructible = CInterop::SpecialMemberKind::nontrivial_nonthrowing;
+                copy_constructible = CInterop::SpecialMemberKind::nontrivial_nonthrowing;
+                move_constructible = CInterop::SpecialMemberKind::nontrivial_nonthrowing;
+                copy_assignable = CInterop::SpecialMemberKind::nontrivial_nonthrowing;
+                move_assignable = CInterop::SpecialMemberKind::nontrivial_nonthrowing;
+                destructible = CInterop::SpecialMemberKind::nontrivial_nonthrowing;
 
                 is_any_constructible = true;
 
@@ -556,22 +545,15 @@ namespace mrbind::C
             }
 
             struct CopyableAndTrivialExceptForDefaultCtor {explicit CopyableAndTrivialExceptForDefaultCtor() = default;};
-            // This is for copyable types that are mostly trivial, but don't have a trivial default constructor.
+            // This is for copyable types that are mostly trivial, but don't have a trivial default constructor. And this default consturctor is non-throwing.
             TypeTraits(CopyableAndTrivialExceptForDefaultCtor)
             {
-                is_default_constructible = true;
-                is_copy_constructible = true;
-                is_move_constructible = true;
-                is_copy_assignable = true;
-                is_move_assignable = true;
-                is_destructible = true;
-
-                is_trivially_default_constructible = false; // !!
-                is_trivially_copy_constructible = true;
-                is_trivially_move_constructible = true;
-                is_trivially_copy_assignable = true;
-                is_trivially_move_assignable = true;
-                is_trivially_destructible = true;
+                default_constructible = CInterop::SpecialMemberKind::nontrivial_nonthrowing; // !!
+                copy_constructible = CInterop::SpecialMemberKind::trivial;
+                move_constructible = CInterop::SpecialMemberKind::trivial;
+                copy_assignable = CInterop::SpecialMemberKind::trivial;
+                move_assignable = CInterop::SpecialMemberKind::trivial;
+                destructible = CInterop::SpecialMemberKind::trivial;
 
                 is_any_constructible = true;
             }
@@ -580,36 +562,26 @@ namespace mrbind::C
             // E.g. `std::unique_ptr` goes here, even if not technically trivial.
             TypeTraits(MoveOnlyAndTrivialExceptForDefaultCtorAndDtor)
             {
-                is_default_constructible = true;
-                is_move_constructible = true;
-                is_move_assignable = true;
-                is_destructible = true;
+                // The throwing-ness here is tuned for `std::unique_ptr`.
 
-                is_trivially_default_constructible = false; // !!
-                is_trivially_move_constructible = true;
-                is_trivially_move_assignable = true;
-                is_trivially_destructible = false; // !!
+                default_constructible = CInterop::SpecialMemberKind::nontrivial_nonthrowing;
+                move_constructible = CInterop::SpecialMemberKind::trivial;
+                move_assignable = CInterop::SpecialMemberKind::trivial;
+                destructible = CInterop::SpecialMemberKind::nontrivial_throwing;
 
                 is_any_constructible = true;
             }
 
             struct ReferenceType {explicit ReferenceType() = default;};
             // No idea why would one query this for references, but still have to set it.
-            TypeTraits(ReferenceType, bool const_, bool rvalue_)
+            TypeTraits(ReferenceType, bool const_, bool rvalue)
             {
-                is_default_constructible = false; // !!
-                is_copy_constructible = !rvalue_;
-                is_move_constructible = rvalue_ || const_; // Hmm.
-                is_copy_assignable = false; // !! Inconsistent with standard traits, but helps our sanity a lot.
-                is_move_assignable = false; // Same.
-                is_destructible = true;
-
-                is_trivially_default_constructible = false; // Because the respective bit above is false too.
-                is_trivially_copy_constructible = is_copy_constructible;
-                is_trivially_move_constructible = is_move_constructible;
-                is_trivially_copy_assignable = false; // Because the respective bit above is false too.
-                is_trivially_move_assignable = false; // Because the respective bit above is false too.
-                is_trivially_destructible = true;
+                default_constructible = CInterop::SpecialMemberKind::disabled; // !!
+                copy_constructible = rvalue ? CInterop::SpecialMemberKind::disabled : CInterop::SpecialMemberKind::trivial;
+                move_constructible = rvalue || const_ ? CInterop::SpecialMemberKind::trivial : CInterop::SpecialMemberKind::disabled; // Hmm.
+                copy_assignable = CInterop::SpecialMemberKind::disabled; // !! Inconsistent with standard traits, but helps our sanity a lot.
+                move_assignable = CInterop::SpecialMemberKind::disabled; // Same.
+                destructible = CInterop::SpecialMemberKind::trivial;
 
                 is_any_constructible = true;
             }
@@ -623,13 +595,13 @@ namespace mrbind::C
 
             [[nodiscard]] bool IsDefaultOrCopyOrMoveConstructible() const
             {
-                return is_default_constructible || is_copy_constructible || is_move_constructible;
+                return bool(default_constructible) || bool(copy_constructible) || bool(move_constructible);
             }
 
             // If true, passing by value should always copy, instead of offering the pass-by enum.
             [[nodiscard]] bool UnconditionallyCopyOnPassByValue() const
             {
-                return is_trivially_copy_constructible || is_trivially_move_constructible || assume_copying_is_cheap;
+                return copy_constructible == CInterop::SpecialMemberKind::trivial || move_constructible == CInterop::SpecialMemberKind::trivial || assume_copying_is_cheap;
             }
 
             [[nodiscard]] bool NeedsPassByEnum() const
@@ -640,22 +612,19 @@ namespace mrbind::C
 
             void MakeNonAssignable()
             {
-                is_copy_assignable = false;
-                is_move_assignable = false;
-                is_trivially_copy_assignable = false;
-                is_trivially_move_assignable = false;
+                copy_assignable = CInterop::SpecialMemberKind::disabled;
+                move_assignable = CInterop::SpecialMemberKind::disabled;
             }
 
             // Merges some properties of `other` with `this`, mostly via AND (such as constructability, destructability, assignability, etc).
-            // This is intended for `std::pair`, `std::tuple`, etc. Start with `CopyableNonTrivialButCheap{}` and stack the member traits on top.
+            // This is intended for `std::pair`, `std::tuple`, etc. Start with `CopyableNonTrivialButCheapAndNonThrowing{}` and stack the member traits on top.
             void CombineCommonProperties(const TypeTraits &other)
             {
                 #define DETAIL_MRBIND_MERGE_TRAIT_AND(name_) name_ &= other.name_;
                 #define DETAIL_MRBIND_MERGE_TRAIT_OR(name_) name_ |= other.name_;
 
                 #define DETAIL_MRBIND_MERGE_SMF_TRAIT(name_) \
-                    is_##name_ &= other.is_##name_; \
-                    is_trivially_##name_ &= other.is_trivially_##name_ && is_##name_; /* Note, this gets zeroed if the base non-trivial set became false. */
+                    name_ = std::min(name_, other.name_); \
 
                 DETAIL_MRBIND_MERGE_SMF_TRAIT(default_constructible)
                 DETAIL_MRBIND_MERGE_SMF_TRAIT(copy_constructible)
@@ -669,7 +638,7 @@ namespace mrbind::C
 
                 // Note this trick.
                 // This is important, because naively `&`-ing just the `assume_copying_is_cheap` causes issues in some cases.
-                // E.g. if you start with `CopyableNonTrivialButCheap{}` and then `Combine` a trivial trait on top of it (that has `assume_copying_is_cheap == false`, because it's not needed when copying/moving is trivial),
+                // E.g. if you start with `CopyableNonTrivialButCheapAndNonThrowing{}` and then `Combine` a trivial trait on top of it (that has `assume_copying_is_cheap == false`, because it's not needed when copying/moving is trivial),
                 //   then doing this naively would cause BOTH triviality and `assume_copying_is_cheap` be false, so `UnconditionallyCopyOnPassByValue()` would incorrectly return false in the resulting traits, which isn't what we want.
                 assume_copying_is_cheap &= other.UnconditionallyCopyOnPassByValue();
 

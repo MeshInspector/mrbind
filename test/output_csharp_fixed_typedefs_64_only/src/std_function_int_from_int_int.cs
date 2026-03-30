@@ -105,7 +105,8 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_int_from_int_int_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
 
-                public static unsafe implicit operator Const_Function_Int_From_Int_Int(MR.CS.Std.Function_Int_From_Int_Int.Delegate func) {return new(func);}}
+                public static unsafe implicit operator Const_Function_Int_From_Int_Int(MR.CS.Std.Function_Int_From_Int_Int.Delegate func) {return new(func);}
+            }
 
             /// <summary>
             /// Stores a functor of type: `int(int, int)`. Possibly stateful.

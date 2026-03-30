@@ -27,6 +27,8 @@ EXTRA_GEN_C_FLAGS=(
 
 # Those are optional tunable flags for the C# generator.
 EXTRA_GEN_FLAGS=(
+    --csharp-version=12
+    --dotnet-version=std2.0
 )
 
 # Those are optional tunable flags for the C bindings compilation.
@@ -94,7 +96,7 @@ if [[ $SOURCES ]]; then
         -Icsharp/c_library/src \
         -I. \
         $SOURCES \
-        -shared \
+        -shared -fPIC \
         -fvisibility=hidden -fvisibility-inlines-hidden \
         -o csharp/c_library/libexample.so \
         "${EXTRA_CXX_FLAGS[@]}"

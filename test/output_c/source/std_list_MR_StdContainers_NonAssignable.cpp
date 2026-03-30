@@ -38,7 +38,7 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_AssignFromAnother(MR_C_std_lis
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::list<MR::StdContainers::NonAssignable>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_COPY(other, (std::list<MR::StdContainers::NonAssignable>), std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_MOVE(other, (std::list<MR::StdContainers::NonAssignable>), std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::list<MR::StdContainers::NonAssignable>) MRBINDC_CLASSARG_END(other, std::list<MR::StdContainers::NonAssignable>))
     );
     ) // MRBINDC_TRY
@@ -75,21 +75,21 @@ MR_C_std_list_MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_Non
 size_t MR_C_std_list_MR_StdContainers_NonAssignable_size(const MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).size();
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_list_MR_StdContainers_NonAssignable_empty(const MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).empty();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).empty();
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_resize(MR_C_std_list_MR_StdContainers_NonAssignable *_this, size_t new_size)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).resize(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).resize(
         new_size
     );
     ) // MRBINDC_TRY
@@ -98,9 +98,9 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_resize(MR_C_std_list_MR_StdCon
 void MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value(MR_C_std_list_MR_StdContainers_NonAssignable *_this, size_t new_size, const MR_StdContainers_NonAssignable *value)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).resize(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).resize(
         new_size,
-        ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), *(const MR::StdContainers::NonAssignable *)(value))
+        ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), *(const MR::StdContainers::NonAssignable *)(value))
     );
     ) // MRBINDC_TRY
 }
@@ -108,35 +108,35 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value(MR_C
 void MR_C_std_list_MR_StdContainers_NonAssignable_clear(MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).clear();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).clear();
     ) // MRBINDC_TRY
 }
 
 const MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_NonAssignable_front(const MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    return (const MR_StdContainers_NonAssignable *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).front());
+    return (const MR_StdContainers_NonAssignable *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).empty() ? nullptr : &((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).front());
     ) // MRBINDC_TRY
 }
 
 MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_NonAssignable_front_mut(MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    return (MR_StdContainers_NonAssignable *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).front());
+    return (MR_StdContainers_NonAssignable *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).empty() ? nullptr : &((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).front());
     ) // MRBINDC_TRY
 }
 
 const MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_NonAssignable_back(const MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    return (const MR_StdContainers_NonAssignable *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).back());
+    return (const MR_StdContainers_NonAssignable *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).empty() ? nullptr : &((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).back());
     ) // MRBINDC_TRY
 }
 
 MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_NonAssignable_back_mut(MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    return (MR_StdContainers_NonAssignable *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).back());
+    return (MR_StdContainers_NonAssignable *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).empty() ? nullptr : &((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).back());
     ) // MRBINDC_TRY
 }
 
@@ -144,7 +144,7 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_push_back(MR_C_std_list_MR_Std
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(new_elem, MR::StdContainers::NonAssignable);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).push_back(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).push_back(
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(new_elem, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(new_elem, MR::StdContainers::NonAssignable))
     );
     ) // MRBINDC_TRY
@@ -153,7 +153,7 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_push_back(MR_C_std_list_MR_Std
 void MR_C_std_list_MR_StdContainers_NonAssignable_pop_back(MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).pop_back();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).pop_back();
     ) // MRBINDC_TRY
 }
 
@@ -161,7 +161,7 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_push_front(MR_C_std_list_MR_St
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(new_elem, MR::StdContainers::NonAssignable);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).push_front(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).push_front(
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(new_elem, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(new_elem, MR::StdContainers::NonAssignable))
     );
     ) // MRBINDC_TRY
@@ -170,7 +170,7 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_push_front(MR_C_std_list_MR_St
 void MR_C_std_list_MR_StdContainers_NonAssignable_pop_front(MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).pop_front();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).pop_front();
     ) // MRBINDC_TRY
 }
 
@@ -178,8 +178,8 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_mutable_iter(MR_C_st
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(new_elem, MR::StdContainers::NonAssignable);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).insert(
-        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)position)),
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).insert(
+        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)position)),
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(new_elem, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(new_elem, MR::StdContainers::NonAssignable))
     );
     ) // MRBINDC_TRY
@@ -188,8 +188,8 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_mutable_iter(MR_C_st
 void MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_mutable_iter(MR_C_std_list_MR_StdContainers_NonAssignable *_this, const MR_C_std_list_MR_StdContainers_NonAssignable_iterator *position)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).erase(
-        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)position))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).erase(
+        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)position))
     );
     ) // MRBINDC_TRY
 }
@@ -198,8 +198,8 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_iter(MR_C_std_list_M
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(new_elem, MR::StdContainers::NonAssignable);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).insert(
-        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)position)),
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).insert(
+        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)position)),
         (MRBINDC_CLASSARG_DEF_CTOR(new_elem, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(new_elem, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(new_elem, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(new_elem, MR::StdContainers::NonAssignable))
     );
     ) // MRBINDC_TRY
@@ -208,8 +208,8 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_insert_at_iter(MR_C_std_list_M
 void MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_iter(MR_C_std_list_MR_StdContainers_NonAssignable *_this, const MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *position)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).erase(
-        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)position))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).erase(
+        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)position))
     );
     ) // MRBINDC_TRY
 }
@@ -217,56 +217,56 @@ void MR_C_std_list_MR_StdContainers_NonAssignable_erase_at_iter(MR_C_std_list_MR
 MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_list_MR_StdContainers_NonAssignable_begin(const MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *)new std::list<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).cbegin());
+    return (MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *)new std::list<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).cbegin());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_list_MR_StdContainers_NonAssignable_is_begin(const MR_C_std_list_MR_StdContainers_NonAssignable *_this, const MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable>::const_iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
 MR_C_std_list_MR_StdContainers_NonAssignable_iterator *MR_C_std_list_MR_StdContainers_NonAssignable_begin_mut(MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_std_list_MR_StdContainers_NonAssignable_iterator *)new std::list<MR::StdContainers::NonAssignable>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).begin());
+    return (MR_C_std_list_MR_StdContainers_NonAssignable_iterator *)new std::list<MR::StdContainers::NonAssignable>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).begin());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_list_MR_StdContainers_NonAssignable_is_begin_mut(const MR_C_std_list_MR_StdContainers_NonAssignable *_this, const MR_C_std_list_MR_StdContainers_NonAssignable_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable>::iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).begin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable>::iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
 MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_list_MR_StdContainers_NonAssignable_end(const MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *)new std::list<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).cend());
+    return (MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *)new std::list<MR::StdContainers::NonAssignable>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).cend());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_list_MR_StdContainers_NonAssignable_is_end(const MR_C_std_list_MR_StdContainers_NonAssignable *_this, const MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).cend() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable>::const_iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
 MR_C_std_list_MR_StdContainers_NonAssignable_iterator *MR_C_std_list_MR_StdContainers_NonAssignable_end_mut(MR_C_std_list_MR_StdContainers_NonAssignable *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_std_list_MR_StdContainers_NonAssignable_iterator *)new std::list<MR::StdContainers::NonAssignable>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).end());
+    return (MR_C_std_list_MR_StdContainers_NonAssignable_iterator *)new std::list<MR::StdContainers::NonAssignable>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable> *)(_this)).end());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_list_MR_StdContainers_NonAssignable_is_end_mut(const MR_C_std_list_MR_StdContainers_NonAssignable *_this, const MR_C_std_list_MR_StdContainers_NonAssignable_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable>::iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable> *)(_this)).end() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable>::iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
@@ -288,7 +288,7 @@ MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_list_MR_St
 {
     MRBINDC_TRY(
     return (MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *)new std::list<MR::StdContainers::NonAssignable>::const_iterator(std::list<MR::StdContainers::NonAssignable>::const_iterator(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)other))
     ));
     ) // MRBINDC_TRY
 }
@@ -296,8 +296,8 @@ MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_list_MR_St
 void MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_AssignFromAnother(MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *_this, const MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable>::const_iterator *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable>::const_iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)other))
     );
     ) // MRBINDC_TRY
 }
@@ -334,7 +334,7 @@ MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *MR_C_std_list_MR_St
 {
     MRBINDC_TRY(
     return (MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *)new std::list<MR::StdContainers::NonAssignable>::const_iterator(std::list<MR::StdContainers::NonAssignable>::iterator(
-        ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)iter))
+        ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)iter))
     ));
     ) // MRBINDC_TRY
 }
@@ -357,7 +357,7 @@ MR_C_std_list_MR_StdContainers_NonAssignable_iterator *MR_C_std_list_MR_StdConta
 {
     MRBINDC_TRY(
     return (MR_C_std_list_MR_StdContainers_NonAssignable_iterator *)new std::list<MR::StdContainers::NonAssignable>::iterator(std::list<MR::StdContainers::NonAssignable>::iterator(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)other))
     ));
     ) // MRBINDC_TRY
 }
@@ -365,8 +365,8 @@ MR_C_std_list_MR_StdContainers_NonAssignable_iterator *MR_C_std_list_MR_StdConta
 void MR_C_std_list_MR_StdContainers_NonAssignable_iterator_AssignFromAnother(MR_C_std_list_MR_StdContainers_NonAssignable_iterator *_this, const MR_C_std_list_MR_StdContainers_NonAssignable_iterator *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable>::iterator *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable>::iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)other))
     );
     ) // MRBINDC_TRY
 }
@@ -402,56 +402,56 @@ MR_C_std_list_MR_StdContainers_NonAssignable_iterator *MR_C_std_list_MR_StdConta
 const MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_deref(const MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *_this)
 {
     MRBINDC_TRY(
-    return (const MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable>::const_iterator *)(_this)));
+    return (const MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable>::const_iterator *)(_this)));
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_incr(MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *_this)
 {
     MRBINDC_TRY(
-    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable>::const_iterator *)(_this));
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable>::const_iterator *)(_this));
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator_decr(MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *_this)
 {
     MRBINDC_TRY(
-    --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable>::const_iterator *)(_this));
+    --((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable>::const_iterator *)(_this));
     ) // MRBINDC_TRY
 }
 
 bool MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator(const MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *a, const MR_C_std_list_MR_StdContainers_NonAssignable_const_iterator *b)
 {
     MRBINDC_TRY(
-    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)b));
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::const_iterator(*(std::list<MR::StdContainers::NonAssignable>::const_iterator *)b));
     ) // MRBINDC_TRY
 }
 
 MR_StdContainers_NonAssignable *MR_C_std_list_MR_StdContainers_NonAssignable_iterator_deref(const MR_C_std_list_MR_StdContainers_NonAssignable_iterator *_this)
 {
     MRBINDC_TRY(
-    return (MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::list<MR::StdContainers::NonAssignable>::iterator *)(_this)));
+    return (MR_StdContainers_NonAssignable *)std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::list<MR::StdContainers::NonAssignable>::iterator *)(_this)));
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_iterator_incr(MR_C_std_list_MR_StdContainers_NonAssignable_iterator *_this)
 {
     MRBINDC_TRY(
-    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable>::iterator *)(_this));
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable>::iterator *)(_this));
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_list_MR_StdContainers_NonAssignable_iterator_decr(MR_C_std_list_MR_StdContainers_NonAssignable_iterator *_this)
 {
     MRBINDC_TRY(
-    --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::list<MR::StdContainers::NonAssignable>::iterator *)(_this));
+    --((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::list<MR::StdContainers::NonAssignable>::iterator *)(_this));
     ) // MRBINDC_TRY
 }
 
 bool MR_C_equal_MR_C_std_list_MR_StdContainers_NonAssignable_iterator(const MR_C_std_list_MR_StdContainers_NonAssignable_iterator *a, const MR_C_std_list_MR_StdContainers_NonAssignable_iterator *b)
 {
     MRBINDC_TRY(
-    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)b));
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::list<MR::StdContainers::NonAssignable>::iterator(*(std::list<MR::StdContainers::NonAssignable>::iterator *)b));
     ) // MRBINDC_TRY
 }
 

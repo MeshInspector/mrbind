@@ -26,6 +26,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_A_foo", ExactSpelling = true)]
                     extern static void __MR_AbstractClasses_A_foo(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_AbstractClasses_A_foo(_UnderlyingPtr);
                 }
             }
@@ -100,6 +102,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_B_foo", ExactSpelling = true)]
                     extern static void __MR_AbstractClasses_B_foo(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_AbstractClasses_B_foo(_UnderlyingPtr);
                 }
             }
@@ -218,6 +222,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_AbstractClasses_C_foo", ExactSpelling = true)]
                     extern static void __MR_AbstractClasses_C_foo(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_AbstractClasses_C_foo(_UnderlyingPtr);
                 }
             }

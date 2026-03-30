@@ -9,7 +9,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdFilesystem_GetPath", ExactSpelling = true)]
                 extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_StdFilesystem_GetPath();
-                return new(__MR_StdFilesystem_GetPath(), is_owning: true);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdFilesystem_GetPath();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return new(__c_ret, is_owning: true);
             }
 
             /// Generated from function `MR::StdFilesystem::SetPath`.
@@ -20,6 +23,8 @@ public static partial class MR
                 byte[] __bytes__1 = System.Text.Encoding.UTF8.GetBytes(_1);
                 fixed (byte *__ptr__1 = __bytes__1)
                 {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_StdFilesystem_SetPath(__ptr__1, __ptr__1 + __bytes__1.Length);
                 }
             }
@@ -32,6 +37,8 @@ public static partial class MR
                 byte[] __bytes__1 = System.Text.Encoding.UTF8.GetBytes(_1);
                 fixed (byte *__ptr__1 = __bytes__1)
                 {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_StdFilesystem_SetPathConstRef(__ptr__1, __ptr__1 + __bytes__1.Length);
                 }
             }
@@ -50,6 +57,8 @@ public static partial class MR
                 }
                 fixed (byte *__ptr__1 = __bytes__1)
                 {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_StdFilesystem_SetPathDefTrivial(_1 is not null ? __ptr__1 : null, _1 is not null ? __ptr__1 + __len__1 : null);
                 }
             }
@@ -68,6 +77,8 @@ public static partial class MR
                 }
                 fixed (byte *__ptr__1 = __bytes__1)
                 {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_StdFilesystem_SetPathDef(_1 is not null ? __ptr__1 : null, _1 is not null ? __ptr__1 + __len__1 : null);
                 }
             }

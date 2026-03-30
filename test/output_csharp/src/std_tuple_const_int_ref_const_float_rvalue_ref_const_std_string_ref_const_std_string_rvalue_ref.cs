@@ -31,8 +31,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Tuple_ConstIntRef_ConstFloatRvalueRef_ConstStdStringRef_ConstStdStringRvalueRef._Underlying *__MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_ConstructFromAnother(MR.CS.Std.Tuple_ConstIntRef_ConstFloatRvalueRef_ConstStdStringRef_ConstStdStringRvalueRef._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs the tuple elementwise.
@@ -46,7 +48,9 @@ public static partial class MR
                         byte[] __bytes__3 = System.Text.Encoding.UTF8.GetBytes(_3);
                         fixed (byte *__ptr__3 = __bytes__3)
                         {
+                            MR.CS.Misc._Exceptions.Prepare();
                             _UnderlyingPtr = __MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_Construct(&_0, &_1, __ptr__2, __ptr__2 + __bytes__2.Length, __ptr__3, __ptr__3 + __bytes__3.Length);
+                            MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         }
                     }
                 }
@@ -56,7 +60,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_int_ref", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_int_ref(_Underlying *_this);
-                    return *__MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_int_ref(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_int_ref(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return *__c_ret;
                 }
 
                 /// The element 1, of type `const float &&`, read-only.
@@ -64,7 +71,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_float_rvalue_ref", ExactSpelling = true)]
                     extern static float *__MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_float_rvalue_ref(_Underlying *_this);
-                    return *__MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_float_rvalue_ref(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_float_rvalue_ref(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return *__c_ret;
                 }
 
                 /// The element 2, of type `const std::string &`, read-only.
@@ -72,9 +82,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_ref", ExactSpelling = true)]
                     extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_ref(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_ref(_UnderlyingPtr);
                     MR.CS.Std.Const_String __ret;
-                    __ret = new(__MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_ref(_UnderlyingPtr), is_owning: false);
+                    __ret = new(__c_ret, is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 
@@ -83,9 +96,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_rvalue_ref", ExactSpelling = true)]
                     extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_rvalue_ref(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_rvalue_ref(_UnderlyingPtr);
                     MR.CS.Misc._Moved<MR.CS.Std.Const_String> __ret;
-                    __ret = MR.CS.Misc.Move(new MR.CS.Std.Const_String(__MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_get_const_std_string_rvalue_ref(_UnderlyingPtr), is_owning: false));
+                    __ret = MR.CS.Misc.Move(new MR.CS.Std.Const_String(__c_ret, is_owning: false));
                     __ret.Value._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 
@@ -111,8 +127,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Tuple_ConstIntRef_ConstFloatRvalueRef_ConstStdStringRef_ConstStdStringRvalueRef._Underlying *__MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_ConstructFromAnother(MR.CS.Std.Tuple_ConstIntRef_ConstFloatRvalueRef_ConstStdStringRef_ConstStdStringRvalueRef._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs the tuple elementwise.
@@ -126,7 +144,9 @@ public static partial class MR
                         byte[] __bytes__3 = System.Text.Encoding.UTF8.GetBytes(_3);
                         fixed (byte *__ptr__3 = __bytes__3)
                         {
+                            MR.CS.Misc._Exceptions.Prepare();
                             _UnderlyingPtr = __MR_C_std_tuple_const_int_ref_const_float_rvalue_ref_const_std_string_ref_const_std_string_rvalue_ref_Construct(&_0, &_1, __ptr__2, __ptr__2 + __bytes__2.Length, __ptr__3, __ptr__3 + __bytes__3.Length);
+                            MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         }
                     }
                 }

@@ -36,7 +36,7 @@ MR_C_std_string *MR_C_std_string_ConstructFrom(const char *other, const char *ot
 {
     MRBINDC_TRY(
     return (MR_C_std_string *)new std::string(std::string(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), (other_end ? std::string(other, other_end) : std::string(other)))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), (other_end ? std::string(other, other_end) : std::string(other)))
     ));
     ) // MRBINDC_TRY
 }
@@ -45,7 +45,7 @@ void MR_C_std_string_AssignFromAnother(MR_C_std_string *_this, MR_C_PassBy other
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::string);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::string *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::string) MRBINDC_CLASSARG_COPY(other, (std::string), std::string) MRBINDC_CLASSARG_MOVE(other, (std::string), std::string) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::string) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::string) MRBINDC_CLASSARG_END(other, std::string))
     );
     ) // MRBINDC_TRY
@@ -54,8 +54,8 @@ void MR_C_std_string_AssignFromAnother(MR_C_std_string *_this, MR_C_PassBy other
 void MR_C_std_string_AssignFrom(MR_C_std_string *_this, const char *other, const char *other_end)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), (other_end ? std::string(other, other_end) : std::string(other)))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::string *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), (other_end ? std::string(other, other_end) : std::string(other)))
     );
     ) // MRBINDC_TRY
 }
@@ -91,35 +91,35 @@ MR_C_std_string *MR_C_std_string_OffsetMutablePtr(MR_C_std_string *ptr, ptrdiff_
 size_t MR_C_std_string_size(const MR_C_std_string *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::string *)(_this)).size();
     ) // MRBINDC_TRY
 }
 
 const char *MR_C_std_string_data(const MR_C_std_string *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string *)(_this)).data();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::string *)(_this)).data();
     ) // MRBINDC_TRY
 }
 
 const char *MR_C_std_string_data_mut(MR_C_std_string *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string *)(_this)).data();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::string *)(_this)).data();
     ) // MRBINDC_TRY
 }
 
 const char *MR_C_std_string_data_end(const MR_C_std_string *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string *)(_this)).data() + ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::string *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::string *)(_this)).size();
     ) // MRBINDC_TRY
 }
 
 char *MR_C_std_string_data_end_mut(MR_C_std_string *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string *)(_this)).data() + ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::string *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::string *)(_this)).size();
     ) // MRBINDC_TRY
 }
 

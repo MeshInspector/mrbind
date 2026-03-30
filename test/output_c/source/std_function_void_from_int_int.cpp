@@ -36,7 +36,7 @@ void MR_C_std_function_void_from_int_int_AssignFromAnother(MR_C_std_function_voi
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::function<void(int, int)>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(int, int)> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<void(int, int)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<void(int, int)>) MRBINDC_CLASSARG_COPY(other, (std::function<void(int, int)>), std::function<void(int, int)>) MRBINDC_CLASSARG_MOVE(other, (std::function<void(int, int)>), std::function<void(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<void(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<void(int, int)>) MRBINDC_CLASSARG_END(other, std::function<void(int, int)>))
     );
     ) // MRBINDC_TRY
@@ -73,21 +73,21 @@ MR_C_std_function_void_from_int_int *MR_C_std_function_void_from_int_int_OffsetM
 bool MR_C_std_function_void_from_int_int_has_value(const MR_C_std_function_void_from_int_int *_this)
 {
     MRBINDC_TRY(
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<void(int, int)> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::function<void(int, int)> *)(_this)));
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_void_from_int_int_reset(MR_C_std_function_void_from_int_int *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(int, int)> *)(_this)) = nullptr;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<void(int, int)> *)(_this)) = nullptr;
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_void_from_int_int_call(const MR_C_std_function_void_from_int_int *_this, int _1, int _2)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<void(int, int)> *)(_this)).operator()(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::function<void(int, int)> *)(_this)).operator()(
         _1,
         _2
     );
@@ -110,7 +110,7 @@ MR_C_std_function_void_from_int_int *MR_C_std_function_void_from_int_int_Constru
 void MR_C_std_function_void_from_int_int_Assign(MR_C_std_function_void_from_int_int *_this, void (*func)(int _1, int _2))
 {
     MRBINDC_TRY(
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(int, int)> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<void(int, int)> *)(_this));
     if (!func)
     {
         _self = nullptr;
@@ -193,6 +193,27 @@ namespace
 
         auto operator()(int _1, int _2) -> void
         {
+            #if MR_C_ENABLE_EXCEPTIONS
+            struct _exception_guard_type
+            {
+                std::exception_ptr _exception_ptr = nullptr;
+                std::exception_ptr *_old_exception_ptr_ptr;
+            
+                _exception_guard_type() : _old_exception_ptr_ptr(mrbindc_details::queued_exception_for_callbacks)
+                {
+                    mrbindc_details::queued_exception_for_callbacks = &_exception_ptr;
+                }
+            
+                ~_exception_guard_type() noexcept(false)
+                {
+                    mrbindc_details::queued_exception_for_callbacks = _old_exception_ptr_ptr;
+                    if (_exception_ptr)
+                        std::rethrow_exception(_exception_ptr);
+                }
+            };
+            _exception_guard_type _exception_guard;
+            #endif
+            
             struct _cleanup_guard_type
             {
                 _functor_MR_C_std_function_void_from_int_int *_self = nullptr;
@@ -205,6 +226,7 @@ namespace
             };
             _cleanup_guard_type _cleanup_guard;
             _cleanup_guard._self = this;
+            
             _func(
                 _1,
                 _2,
@@ -225,7 +247,7 @@ MR_C_std_function_void_from_int_int *MR_C_std_function_void_from_int_int_Constru
 void MR_C_std_function_void_from_int_int_AssignEx(MR_C_std_function_void_from_int_int *_this, void (*func)(int _1, int _2, void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
     MRBINDC_TRY(
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(int, int)> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<void(int, int)> *)(_this));
     if (!func)
     {
         _self = nullptr;

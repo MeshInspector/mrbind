@@ -38,7 +38,7 @@ void MR_C_phmap_flat_hash_map_int_float_AssignFromAnother(MR_C_phmap_flat_hash_m
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, phmap::flat_hash_map<int, float>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::flat_hash_map<int, float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::flat_hash_map<int, float>) MRBINDC_CLASSARG_COPY(other, (phmap::flat_hash_map<int, float>), phmap::flat_hash_map<int, float>) MRBINDC_CLASSARG_MOVE(other, (phmap::flat_hash_map<int, float>), phmap::flat_hash_map<int, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::flat_hash_map<int, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::flat_hash_map<int, float>) MRBINDC_CLASSARG_END(other, phmap::flat_hash_map<int, float>))
     );
     ) // MRBINDC_TRY
@@ -75,36 +75,36 @@ MR_C_phmap_flat_hash_map_int_float *MR_C_phmap_flat_hash_map_int_float_OffsetMut
 size_t MR_C_phmap_flat_hash_map_int_float_size(const MR_C_phmap_flat_hash_map_int_float *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float> *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float> *)(_this)).size();
     ) // MRBINDC_TRY
 }
 
 bool MR_C_phmap_flat_hash_map_int_float_empty(const MR_C_phmap_flat_hash_map_int_float *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float> *)(_this)).empty();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float> *)(_this)).empty();
     ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_flat_hash_map_int_float_clear(MR_C_phmap_flat_hash_map_int_float *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float> *)(_this)).clear();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::flat_hash_map<int, float> *)(_this)).clear();
     ) // MRBINDC_TRY
 }
 
 float *MR_C_phmap_flat_hash_map_int_float_find_or_construct_elem(MR_C_phmap_flat_hash_map_int_float *_this, const int *key)
 {
     MRBINDC_TRY(
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float> *)(_this))[((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::flat_hash_map<int, float> *)(_this))[((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)]);
     ) // MRBINDC_TRY
 }
 
 bool MR_C_phmap_flat_hash_map_int_float_contains(const MR_C_phmap_flat_hash_map_int_float *_this, const int *key)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float> *)(_this)).contains(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float> *)(_this)).contains(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     );
     ) // MRBINDC_TRY
 }
@@ -112,8 +112,8 @@ bool MR_C_phmap_flat_hash_map_int_float_contains(const MR_C_phmap_flat_hash_map_
 MR_C_phmap_flat_hash_map_int_float_const_iterator *MR_C_phmap_flat_hash_map_int_float_find(const MR_C_phmap_flat_hash_map_int_float *_this, const int *key)
 {
     MRBINDC_TRY(
-    return (MR_C_phmap_flat_hash_map_int_float_const_iterator *)new phmap::flat_hash_map<int, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float> *)(_this)).find(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return (MR_C_phmap_flat_hash_map_int_float_const_iterator *)new phmap::flat_hash_map<int, float>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float> *)(_this)).find(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     ));
     ) // MRBINDC_TRY
 }
@@ -121,8 +121,8 @@ MR_C_phmap_flat_hash_map_int_float_const_iterator *MR_C_phmap_flat_hash_map_int_
 MR_C_phmap_flat_hash_map_int_float_iterator *MR_C_phmap_flat_hash_map_int_float_find_mut(MR_C_phmap_flat_hash_map_int_float *_this, const int *key)
 {
     MRBINDC_TRY(
-    return (MR_C_phmap_flat_hash_map_int_float_iterator *)new phmap::flat_hash_map<int, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float> *)(_this)).find(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return (MR_C_phmap_flat_hash_map_int_float_iterator *)new phmap::flat_hash_map<int, float>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::flat_hash_map<int, float> *)(_this)).find(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     ));
     ) // MRBINDC_TRY
 }
@@ -130,56 +130,56 @@ MR_C_phmap_flat_hash_map_int_float_iterator *MR_C_phmap_flat_hash_map_int_float_
 MR_C_phmap_flat_hash_map_int_float_const_iterator *MR_C_phmap_flat_hash_map_int_float_begin(const MR_C_phmap_flat_hash_map_int_float *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_phmap_flat_hash_map_int_float_const_iterator *)new phmap::flat_hash_map<int, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float> *)(_this)).cbegin());
+    return (MR_C_phmap_flat_hash_map_int_float_const_iterator *)new phmap::flat_hash_map<int, float>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float> *)(_this)).cbegin());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_phmap_flat_hash_map_int_float_is_begin(const MR_C_phmap_flat_hash_map_int_float *_this, const MR_C_phmap_flat_hash_map_int_float_const_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::flat_hash_map<int, float>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::flat_hash_map<int, float>::const_iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
 MR_C_phmap_flat_hash_map_int_float_iterator *MR_C_phmap_flat_hash_map_int_float_begin_mut(MR_C_phmap_flat_hash_map_int_float *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_phmap_flat_hash_map_int_float_iterator *)new phmap::flat_hash_map<int, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float> *)(_this)).begin());
+    return (MR_C_phmap_flat_hash_map_int_float_iterator *)new phmap::flat_hash_map<int, float>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::flat_hash_map<int, float> *)(_this)).begin());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_phmap_flat_hash_map_int_float_is_begin_mut(const MR_C_phmap_flat_hash_map_int_float *_this, const MR_C_phmap_flat_hash_map_int_float_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::flat_hash_map<int, float>::iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float> *)(_this)).begin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::flat_hash_map<int, float>::iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
 MR_C_phmap_flat_hash_map_int_float_const_iterator *MR_C_phmap_flat_hash_map_int_float_end(const MR_C_phmap_flat_hash_map_int_float *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_phmap_flat_hash_map_int_float_const_iterator *)new phmap::flat_hash_map<int, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float> *)(_this)).cend());
+    return (MR_C_phmap_flat_hash_map_int_float_const_iterator *)new phmap::flat_hash_map<int, float>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float> *)(_this)).cend());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_phmap_flat_hash_map_int_float_is_end(const MR_C_phmap_flat_hash_map_int_float *_this, const MR_C_phmap_flat_hash_map_int_float_const_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::flat_hash_map<int, float>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float> *)(_this)).cend() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::flat_hash_map<int, float>::const_iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
 MR_C_phmap_flat_hash_map_int_float_iterator *MR_C_phmap_flat_hash_map_int_float_end_mut(MR_C_phmap_flat_hash_map_int_float *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_phmap_flat_hash_map_int_float_iterator *)new phmap::flat_hash_map<int, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float> *)(_this)).end());
+    return (MR_C_phmap_flat_hash_map_int_float_iterator *)new phmap::flat_hash_map<int, float>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::flat_hash_map<int, float> *)(_this)).end());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_phmap_flat_hash_map_int_float_is_end_mut(const MR_C_phmap_flat_hash_map_int_float *_this, const MR_C_phmap_flat_hash_map_int_float_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::flat_hash_map<int, float>::iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float> *)(_this)).end() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::flat_hash_map<int, float>::iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
@@ -201,7 +201,7 @@ MR_C_phmap_flat_hash_map_int_float_const_iterator *MR_C_phmap_flat_hash_map_int_
 {
     MRBINDC_TRY(
     return (MR_C_phmap_flat_hash_map_int_float_const_iterator *)new phmap::flat_hash_map<int, float>::const_iterator(phmap::flat_hash_map<int, float>::const_iterator(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), phmap::flat_hash_map<int, float>::const_iterator(*(phmap::flat_hash_map<int, float>::const_iterator *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), phmap::flat_hash_map<int, float>::const_iterator(*(phmap::flat_hash_map<int, float>::const_iterator *)other))
     ));
     ) // MRBINDC_TRY
 }
@@ -209,8 +209,8 @@ MR_C_phmap_flat_hash_map_int_float_const_iterator *MR_C_phmap_flat_hash_map_int_
 void MR_C_phmap_flat_hash_map_int_float_const_iterator_AssignFromAnother(MR_C_phmap_flat_hash_map_int_float_const_iterator *_this, const MR_C_phmap_flat_hash_map_int_float_const_iterator *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float>::const_iterator *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), phmap::flat_hash_map<int, float>::const_iterator(*(phmap::flat_hash_map<int, float>::const_iterator *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::flat_hash_map<int, float>::const_iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), phmap::flat_hash_map<int, float>::const_iterator(*(phmap::flat_hash_map<int, float>::const_iterator *)other))
     );
     ) // MRBINDC_TRY
 }
@@ -247,7 +247,7 @@ MR_C_phmap_flat_hash_map_int_float_const_iterator *MR_C_phmap_flat_hash_map_int_
 {
     MRBINDC_TRY(
     return (MR_C_phmap_flat_hash_map_int_float_const_iterator *)new phmap::flat_hash_map<int, float>::const_iterator(phmap::flat_hash_map<int, float>::iterator(
-        ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)iter))
+        ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)iter))
     ));
     ) // MRBINDC_TRY
 }
@@ -270,7 +270,7 @@ MR_C_phmap_flat_hash_map_int_float_iterator *MR_C_phmap_flat_hash_map_int_float_
 {
     MRBINDC_TRY(
     return (MR_C_phmap_flat_hash_map_int_float_iterator *)new phmap::flat_hash_map<int, float>::iterator(phmap::flat_hash_map<int, float>::iterator(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)other))
     ));
     ) // MRBINDC_TRY
 }
@@ -278,8 +278,8 @@ MR_C_phmap_flat_hash_map_int_float_iterator *MR_C_phmap_flat_hash_map_int_float_
 void MR_C_phmap_flat_hash_map_int_float_iterator_AssignFromAnother(MR_C_phmap_flat_hash_map_int_float_iterator *_this, const MR_C_phmap_flat_hash_map_int_float_iterator *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float>::iterator *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::flat_hash_map<int, float>::iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)other))
     );
     ) // MRBINDC_TRY
 }
@@ -315,70 +315,70 @@ MR_C_phmap_flat_hash_map_int_float_iterator *MR_C_phmap_flat_hash_map_int_float_
 const MR_C_std_pair_const_int_float *MR_C_phmap_flat_hash_map_int_float_const_iterator_deref(const MR_C_phmap_flat_hash_map_int_float_const_iterator *_this)
 {
     MRBINDC_TRY(
-    return (const MR_C_std_pair_const_int_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float>::const_iterator *)(_this)));
+    return (const MR_C_std_pair_const_int_float *)std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float>::const_iterator *)(_this)));
     ) // MRBINDC_TRY
 }
 
 const int *MR_C_phmap_flat_hash_map_int_float_const_iterator_deref_key(const MR_C_phmap_flat_hash_map_int_float_const_iterator *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float>::const_iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float>::const_iterator *)(_this))->first);
     ) // MRBINDC_TRY
 }
 
 const float *MR_C_phmap_flat_hash_map_int_float_const_iterator_deref_value(const MR_C_phmap_flat_hash_map_int_float_const_iterator *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float>::const_iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float>::const_iterator *)(_this))->second);
     ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_flat_hash_map_int_float_const_iterator_incr(MR_C_phmap_flat_hash_map_int_float_const_iterator *_this)
 {
     MRBINDC_TRY(
-    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float>::const_iterator *)(_this));
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::flat_hash_map<int, float>::const_iterator *)(_this));
     ) // MRBINDC_TRY
 }
 
 bool MR_C_equal_MR_C_phmap_flat_hash_map_int_float_const_iterator(const MR_C_phmap_flat_hash_map_int_float_const_iterator *a, const MR_C_phmap_flat_hash_map_int_float_const_iterator *b)
 {
     MRBINDC_TRY(
-    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::flat_hash_map<int, float>::const_iterator(*(phmap::flat_hash_map<int, float>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::flat_hash_map<int, float>::const_iterator(*(phmap::flat_hash_map<int, float>::const_iterator *)b));
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), phmap::flat_hash_map<int, float>::const_iterator(*(phmap::flat_hash_map<int, float>::const_iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), phmap::flat_hash_map<int, float>::const_iterator(*(phmap::flat_hash_map<int, float>::const_iterator *)b));
     ) // MRBINDC_TRY
 }
 
 MR_C_std_pair_const_int_float *MR_C_phmap_flat_hash_map_int_float_iterator_deref(const MR_C_phmap_flat_hash_map_int_float_iterator *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_std_pair_const_int_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float>::iterator *)(_this)));
+    return (MR_C_std_pair_const_int_float *)std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float>::iterator *)(_this)));
     ) // MRBINDC_TRY
 }
 
 const int *MR_C_phmap_flat_hash_map_int_float_iterator_deref_key(const MR_C_phmap_flat_hash_map_int_float_iterator *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float>::iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float>::iterator *)(_this))->first);
     ) // MRBINDC_TRY
 }
 
 float *MR_C_phmap_flat_hash_map_int_float_iterator_deref_value(const MR_C_phmap_flat_hash_map_int_float_iterator *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::flat_hash_map<int, float>::iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::flat_hash_map<int, float>::iterator *)(_this))->second);
     ) // MRBINDC_TRY
 }
 
 void MR_C_phmap_flat_hash_map_int_float_iterator_incr(MR_C_phmap_flat_hash_map_int_float_iterator *_this)
 {
     MRBINDC_TRY(
-    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::flat_hash_map<int, float>::iterator *)(_this));
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::flat_hash_map<int, float>::iterator *)(_this));
     ) // MRBINDC_TRY
 }
 
 bool MR_C_equal_MR_C_phmap_flat_hash_map_int_float_iterator(const MR_C_phmap_flat_hash_map_int_float_iterator *a, const MR_C_phmap_flat_hash_map_int_float_iterator *b)
 {
     MRBINDC_TRY(
-    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)b));
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), phmap::flat_hash_map<int, float>::iterator(*(phmap::flat_hash_map<int, float>::iterator *)b));
     ) // MRBINDC_TRY
 }
 

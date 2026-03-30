@@ -31,7 +31,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_C_std_expected_int_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_expected_int_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -39,8 +41,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_C_std_expected_int_float_ConstructFromAnother(MR.CS.Std.Expected_Int_Float._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_expected_int_float_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -51,7 +55,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_success", ExactSpelling = true)]
                     extern static byte __MR_C_std_expected_int_float_success(MR.CS.Std.Const_Expected_Int_Float._Underlying *_this);
-                    return __MR_C_std_expected_int_float_success(_this._UnderlyingPtr) != 0;
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_expected_int_float_success(_this._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
                 }
 
                 /// If this instance represents success, returns the stored `int`. Otherwise null.
@@ -59,7 +66,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_value", ExactSpelling = true)]
                     extern static int *__MR_C_std_expected_int_float_value(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_expected_int_float_value(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? *__c_ret : null;
                 }
 
@@ -68,7 +77,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_error", ExactSpelling = true)]
                     extern static float *__MR_C_std_expected_int_float_error(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_expected_int_float_error(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? *__c_ret : null;
                 }
             }
@@ -84,7 +95,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_C_std_expected_int_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_expected_int_float_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -92,8 +105,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Expected_Int_Float._Underlying *__MR_C_std_expected_int_float_ConstructFromAnother(MR.CS.Std.Expected_Int_Float._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_expected_int_float_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -104,8 +119,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_expected_int_float_AssignFromAnother(_Underlying *_this, MR.CS.Std.Expected_Int_Float._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_expected_int_float_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
@@ -114,7 +131,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_value_mut", ExactSpelling = true)]
                     extern static int *__MR_C_std_expected_int_float_value_mut(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_expected_int_float_value_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
 
@@ -123,7 +142,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_expected_int_float_error_mut", ExactSpelling = true)]
                     extern static float *__MR_C_std_expected_int_float_error_mut(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_expected_int_float_error_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? new MR.CS.Misc.Ref<float>(__c_ret) : null;
                 }
             }

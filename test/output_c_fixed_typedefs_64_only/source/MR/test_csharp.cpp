@@ -51,7 +51,7 @@ void MR_CSharp_test_bool_ref(bool *a, bool *b)
     using namespace MR;
     using namespace CSharp;
     ::MR::CSharp::test_bool_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<bool &>(default_bool))
     );
 }
@@ -61,7 +61,7 @@ int MR_CSharp_test_bool_ref2(bool *a, bool *b)
     using namespace MR;
     using namespace CSharp;
     return ::MR::CSharp::test_bool_ref2(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<bool &>(default_bool))
     );
 }
@@ -81,7 +81,7 @@ const bool *MR_CSharp_test_bool_cref(const bool *_1, const bool *_2)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_bool_cref(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *_1),
         (_2 ? *_2 : static_cast<const bool &>(default_bool))
     ));
 }
@@ -91,7 +91,7 @@ int *MR_CSharp_test_int_ref(int *a, int *b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_int_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int &>(default_int))
     ));
 }
@@ -101,7 +101,7 @@ const int *MR_CSharp_test_int_cref(const int *a, const int *b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_int_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int &>(default_int))
     ));
 }
@@ -111,7 +111,7 @@ int *MR_CSharp_test_int_rref(int *a, int *b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_int_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<int &&>(42))
     )));
 }
@@ -121,7 +121,7 @@ const int *MR_CSharp_test_int_crref(const int *a, const int *b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_int_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<const int &&>(42))
     )));
 }
@@ -163,7 +163,7 @@ unsigned short *MR_CSharp_test_ushort_ref(unsigned short *a, unsigned short *b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_ushort_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<unsigned short &>(default_ushort))
     ));
 }
@@ -173,7 +173,7 @@ const unsigned short *MR_CSharp_test_ushort_cref(const unsigned short *a, const 
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_ushort_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const unsigned short &>(default_ushort))
     ));
 }
@@ -183,7 +183,7 @@ unsigned short *MR_CSharp_test_ushort_rref(unsigned short *a, unsigned short *b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_ushort_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<unsigned short &&>((unsigned short &&)default_ushort))
     )));
 }
@@ -193,7 +193,7 @@ const unsigned short *MR_CSharp_test_ushort_crref(const unsigned short *a, const
     using namespace MR;
     using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_ushort_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<const unsigned short &&>((unsigned short &&)default_ushort))
     )));
 }
@@ -235,7 +235,7 @@ MR_C_std_string *MR_CSharp_test_constness_str(const char *_1, const char *_1_end
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string *)new std::string(::MR::CSharp::test_constness_str(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), (_1_end ? std::string(_1, _1_end) : std::string(_1))),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), (_1_end ? std::string(_1, _1_end) : std::string(_1))),
         (_2 ? (_2_end ? std::string(_2, _2_end) : std::string(_2)) : std::string("42"))
     ));
 }
@@ -255,7 +255,7 @@ MR_CSharp_E1 *MR_CSharp_test_enum_ref_MR_CSharp_E1(MR_CSharp_E1 *a, MR_CSharp_E1
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_E1 *)std::addressof(::MR::CSharp::test_enum_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::CSharp::E1 *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::E1 *)(a)),
         (b ? *(MR::CSharp::E1 *)(b) : static_cast<MR::CSharp::E1 &>(default_e1))
     ));
 }
@@ -265,7 +265,7 @@ const MR_CSharp_E1 *MR_CSharp_test_enum_cref_MR_CSharp_E1(const MR_CSharp_E1 *a,
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_E1 *)std::addressof(::MR::CSharp::test_enum_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::E1 *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::E1 *)(a)),
         (b ? *(const MR::CSharp::E1 *)(b) : static_cast<const MR::CSharp::E1 &>(default_e1))
     ));
 }
@@ -275,7 +275,7 @@ MR_CSharp_E1 *MR_CSharp_test_enum_rref_MR_CSharp_E1(MR_CSharp_E1 *a, MR_CSharp_E
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_E1 *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_enum_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(MR::CSharp::E1 *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(MR::CSharp::E1 *)(a))),
         (b ? std::move(*(MR::CSharp::E1 *)(b)) : static_cast<MR::CSharp::E1 &&>((MR::CSharp::E1 &&)default_e1))
     )));
 }
@@ -285,7 +285,7 @@ const MR_CSharp_E1 *MR_CSharp_test_enum_crref_MR_CSharp_E1(const MR_CSharp_E1 *a
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_E1 *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_enum_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const MR::CSharp::E1 *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const MR::CSharp::E1 *)(a))),
         (b ? std::move(*(const MR::CSharp::E1 *)(b)) : static_cast<const MR::CSharp::E1 &&>((MR::CSharp::E1 &&)default_e1))
     )));
 }
@@ -327,7 +327,7 @@ MR_CSharp_E2 *MR_CSharp_test_enum_ref_MR_CSharp_E2(MR_CSharp_E2 *a, MR_CSharp_E2
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_E2 *)std::addressof(::MR::CSharp::test_enum_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::CSharp::E2 *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::E2 *)(a)),
         (b ? *(MR::CSharp::E2 *)(b) : static_cast<MR::CSharp::E2 &>(default_e2))
     ));
 }
@@ -337,7 +337,7 @@ const MR_CSharp_E2 *MR_CSharp_test_enum_cref_MR_CSharp_E2(const MR_CSharp_E2 *a,
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_E2 *)std::addressof(::MR::CSharp::test_enum_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::E2 *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::E2 *)(a)),
         (b ? *(const MR::CSharp::E2 *)(b) : static_cast<const MR::CSharp::E2 &>(default_e2))
     ));
 }
@@ -347,7 +347,7 @@ MR_CSharp_E2 *MR_CSharp_test_enum_rref_MR_CSharp_E2(MR_CSharp_E2 *a, MR_CSharp_E
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_E2 *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_enum_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(MR::CSharp::E2 *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(MR::CSharp::E2 *)(a))),
         (b ? std::move(*(MR::CSharp::E2 *)(b)) : static_cast<MR::CSharp::E2 &&>((MR::CSharp::E2 &&)default_e2))
     )));
 }
@@ -357,7 +357,7 @@ const MR_CSharp_E2 *MR_CSharp_test_enum_crref_MR_CSharp_E2(const MR_CSharp_E2 *a
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_E2 *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_enum_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const MR::CSharp::E2 *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const MR::CSharp::E2 *)(a))),
         (b ? std::move(*(const MR::CSharp::E2 *)(b)) : static_cast<const MR::CSharp::E2 &&>((MR::CSharp::E2 &&)default_e2))
     )));
 }
@@ -425,19 +425,19 @@ void MR_CSharp_A_DestroyArray(const MR_CSharp_A *_this)
 MR_CSharp_A *MR_CSharp_A_AssignFromAnother(MR_CSharp_A *_this, MR_C_PassBy _other_pass_by, MR_CSharp_A *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::A);
-    return (MR_CSharp_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::A *)(_this)).operator=(
+    return (MR_CSharp_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::A *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::A) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::A), MR::CSharp::A) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::A), MR::CSharp::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::A) MRBINDC_CLASSARG_END(_other, MR::CSharp::A))
     ));
 }
 
 void MR_CSharp_A_foo(MR_CSharp_A *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::A *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::A *)(_this)).foo();
 }
 
 void MR_CSharp_A_bar(const MR_CSharp_A *_this, int _1, int _2)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::A *)(_this)).bar(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::A *)(_this)).bar(
         _1,
         _2
     );
@@ -458,12 +458,12 @@ void MR_CSharp_A_static_bar(int _1, int _2)
 
 void MR_CSharp_A_virtual_foo(MR_CSharp_A *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::A *)(_this)).virtual_foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::A *)(_this)).virtual_foo();
 }
 
 void MR_CSharp_A_virtual_bar(const MR_CSharp_A *_this, int _1, int _2)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::A *)(_this)).virtual_bar(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::A *)(_this)).virtual_bar(
         _1,
         _2
     );
@@ -471,9 +471,9 @@ void MR_CSharp_A_virtual_bar(const MR_CSharp_A *_this, int _1, int _2)
 
 int *MR_CSharp_A_refs(MR_CSharp_A *_this, int *x, int *_2)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::A *)(_this)).refs(
-        ((x ? void() : throw std::runtime_error("Parameter `x` can not be null.")), *x),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *_2)
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::A *)(_this)).refs(
+        ((x ? void() : MRBINDC_THROW("Parameter `x` can not be null.", void)), *x),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *_2)
     ));
 }
 
@@ -542,14 +542,14 @@ MR_CSharp_B *MR_CSharp_B_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *obj
 const MR_CSharp_B *MR_CSharp_B_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object)
 {
     return (const MR_CSharp_B *)std::addressof(dynamic_cast<const MR::CSharp::B &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(const MR::CSharp::A *)(object))
     ));
 }
 
 MR_CSharp_B *MR_CSharp_B_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object)
 {
     return (MR_CSharp_B *)std::addressof(dynamic_cast<MR::CSharp::B &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(MR::CSharp::A *)(object))
     ));
 }
 
@@ -582,19 +582,19 @@ void MR_CSharp_B_DestroyArray(const MR_CSharp_B *_this)
 MR_CSharp_B *MR_CSharp_B_AssignFromAnother(MR_CSharp_B *_this, MR_C_PassBy _other_pass_by, MR_CSharp_B *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::B);
-    return (MR_CSharp_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::B *)(_this)).operator=(
+    return (MR_CSharp_B *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::B *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::B) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::B), MR::CSharp::B) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::B), MR::CSharp::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::B) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::B) MRBINDC_CLASSARG_END(_other, MR::CSharp::B))
     ));
 }
 
 void MR_CSharp_B_foo(MR_CSharp_B *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::B *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::B *)(_this)).foo();
 }
 
 void MR_CSharp_B_bar(const MR_CSharp_B *_this, int _1, int _2)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::B *)(_this)).bar(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::B *)(_this)).bar(
         _1,
         _2
     );
@@ -615,12 +615,12 @@ void MR_CSharp_B_static_bar(int _1, int _2)
 
 void MR_CSharp_B_virtual_foo(MR_CSharp_B *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::B *)(_this)).virtual_foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::B *)(_this)).virtual_foo();
 }
 
 void MR_CSharp_B_virtual_bar(const MR_CSharp_B *_this, int _1, int _2)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::B *)(_this)).virtual_bar(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::B *)(_this)).virtual_bar(
         _1,
         _2
     );
@@ -628,9 +628,9 @@ void MR_CSharp_B_virtual_bar(const MR_CSharp_B *_this, int _1, int _2)
 
 int *MR_CSharp_B_refs(MR_CSharp_B *_this, int *x, int *_2)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::B *)(_this)).refs(
-        ((x ? void() : throw std::runtime_error("Parameter `x` can not be null.")), *x),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *_2)
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::B *)(_this)).refs(
+        ((x ? void() : MRBINDC_THROW("Parameter `x` can not be null.", void)), *x),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *_2)
     ));
 }
 
@@ -685,14 +685,14 @@ MR_CSharp_C *MR_CSharp_C_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *obj
 const MR_CSharp_C *MR_CSharp_C_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object)
 {
     return (const MR_CSharp_C *)std::addressof(dynamic_cast<const MR::CSharp::C &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(const MR::CSharp::A *)(object))
     ));
 }
 
 MR_CSharp_C *MR_CSharp_C_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object)
 {
     return (MR_CSharp_C *)std::addressof(dynamic_cast<MR::CSharp::C &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(MR::CSharp::A *)(object))
     ));
 }
 
@@ -717,19 +717,19 @@ void MR_CSharp_C_DestroyArray(const MR_CSharp_C *_this)
 MR_CSharp_C *MR_CSharp_C_AssignFromAnother(MR_CSharp_C *_this, MR_C_PassBy _other_pass_by, MR_CSharp_C *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::C);
-    return (MR_CSharp_C *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::C *)(_this)).operator=(
+    return (MR_CSharp_C *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::C *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::C) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::C), MR::CSharp::C) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::C), MR::CSharp::C) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::C) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::C) MRBINDC_CLASSARG_END(_other, MR::CSharp::C))
     ));
 }
 
 void MR_CSharp_C_foo(MR_CSharp_C *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::C *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::C *)(_this)).foo();
 }
 
 void MR_CSharp_C_bar(const MR_CSharp_C *_this, int _1, int _2)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::C *)(_this)).bar(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::C *)(_this)).bar(
         _1,
         _2
     );
@@ -750,12 +750,12 @@ void MR_CSharp_C_static_bar(int _1, int _2)
 
 void MR_CSharp_C_virtual_foo(MR_CSharp_C *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::C *)(_this)).virtual_foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::C *)(_this)).virtual_foo();
 }
 
 void MR_CSharp_C_virtual_bar(const MR_CSharp_C *_this, int _1, int _2)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::C *)(_this)).virtual_bar(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::C *)(_this)).virtual_bar(
         _1,
         _2
     );
@@ -763,9 +763,9 @@ void MR_CSharp_C_virtual_bar(const MR_CSharp_C *_this, int _1, int _2)
 
 int *MR_CSharp_C_refs(MR_CSharp_C *_this, int *x, int *_2)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::C *)(_this)).refs(
-        ((x ? void() : throw std::runtime_error("Parameter `x` can not be null.")), *x),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *_2)
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::C *)(_this)).refs(
+        ((x ? void() : MRBINDC_THROW("Parameter `x` can not be null.", void)), *x),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *_2)
     ));
 }
 
@@ -792,7 +792,7 @@ MR_CSharp_D *MR_CSharp_D_OffsetMutablePtr(MR_CSharp_D *ptr, ptrdiff_t i)
 MR_CSharp_D *MR_CSharp_D_ConstructFromAnother(const MR_CSharp_D *_other)
 {
     return (MR_CSharp_D *)new MR::CSharp::D(MR::CSharp::D(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::D(*(MR::CSharp::D *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::D(*(MR::CSharp::D *)_other))
     ));
 }
 
@@ -808,19 +808,19 @@ void MR_CSharp_D_DestroyArray(const MR_CSharp_D *_this)
 
 MR_CSharp_D *MR_CSharp_D_AssignFromAnother(MR_CSharp_D *_this, const MR_CSharp_D *_other)
 {
-    return (MR_CSharp_D *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::D *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::D(*(MR::CSharp::D *)_other))
+    return (MR_CSharp_D *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::D *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::D(*(MR::CSharp::D *)_other))
     ));
 }
 
 void MR_CSharp_D_d1(const MR_CSharp_D *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::D *)(_this)).d1();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::D *)(_this)).d1();
 }
 
 void MR_CSharp_D_d2(MR_CSharp_D *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::D *)(_this)).d2();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::D *)(_this)).d2();
 }
 
 MR_CSharp_E *MR_CSharp_E_DefaultConstruct(void)
@@ -846,7 +846,7 @@ MR_CSharp_E *MR_CSharp_E_OffsetMutablePtr(MR_CSharp_E *ptr, ptrdiff_t i)
 MR_CSharp_E *MR_CSharp_E_ConstructFromAnother(const MR_CSharp_E *_other)
 {
     return (MR_CSharp_E *)new MR::CSharp::E(MR::CSharp::E(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::E(*(MR::CSharp::E *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::E(*(MR::CSharp::E *)_other))
     ));
 }
 
@@ -862,19 +862,19 @@ void MR_CSharp_E_DestroyArray(const MR_CSharp_E *_this)
 
 MR_CSharp_E *MR_CSharp_E_AssignFromAnother(MR_CSharp_E *_this, const MR_CSharp_E *_other)
 {
-    return (MR_CSharp_E *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::E *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::E(*(MR::CSharp::E *)_other))
+    return (MR_CSharp_E *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::E *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::E(*(MR::CSharp::E *)_other))
     ));
 }
 
 void MR_CSharp_E_e1(const MR_CSharp_E *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::E *)(_this)).e1();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::E *)(_this)).e1();
 }
 
 void MR_CSharp_E_e2(MR_CSharp_E *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::E *)(_this)).e2();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::E *)(_this)).e2();
 }
 
 MR_CSharp_F *MR_CSharp_F_DefaultConstruct(void)
@@ -942,14 +942,14 @@ MR_CSharp_F *MR_CSharp_F_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *obj
 const MR_CSharp_F *MR_CSharp_F_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object)
 {
     return (const MR_CSharp_F *)std::addressof(dynamic_cast<const MR::CSharp::F &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(const MR::CSharp::A *)(object))
     ));
 }
 
 MR_CSharp_F *MR_CSharp_F_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object)
 {
     return (MR_CSharp_F *)std::addressof(dynamic_cast<MR::CSharp::F &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(MR::CSharp::A *)(object))
     ));
 }
 
@@ -1030,19 +1030,19 @@ void MR_CSharp_F_DestroyArray(const MR_CSharp_F *_this)
 MR_CSharp_F *MR_CSharp_F_AssignFromAnother(MR_CSharp_F *_this, MR_C_PassBy _other_pass_by, MR_CSharp_F *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::F);
-    return (MR_CSharp_F *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::F *)(_this)).operator=(
+    return (MR_CSharp_F *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::F *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::F) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::F), MR::CSharp::F) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::F), MR::CSharp::F) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::F) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::F) MRBINDC_CLASSARG_END(_other, MR::CSharp::F))
     ));
 }
 
 void MR_CSharp_F_foo(MR_CSharp_F *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::F *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::F *)(_this)).foo();
 }
 
 void MR_CSharp_F_bar(const MR_CSharp_F *_this, int _1, int _2)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::F *)(_this)).bar(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::F *)(_this)).bar(
         _1,
         _2
     );
@@ -1063,12 +1063,12 @@ void MR_CSharp_F_static_bar(int _1, int _2)
 
 void MR_CSharp_F_virtual_foo(MR_CSharp_F *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::F *)(_this)).virtual_foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::F *)(_this)).virtual_foo();
 }
 
 void MR_CSharp_F_virtual_bar(const MR_CSharp_F *_this, int _1, int _2)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::F *)(_this)).virtual_bar(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::F *)(_this)).virtual_bar(
         _1,
         _2
     );
@@ -1076,30 +1076,30 @@ void MR_CSharp_F_virtual_bar(const MR_CSharp_F *_this, int _1, int _2)
 
 int *MR_CSharp_F_refs(MR_CSharp_F *_this, int *x, int *_2)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::F *)(_this)).refs(
-        ((x ? void() : throw std::runtime_error("Parameter `x` can not be null.")), *x),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *_2)
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::F *)(_this)).refs(
+        ((x ? void() : MRBINDC_THROW("Parameter `x` can not be null.", void)), *x),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *_2)
     ));
 }
 
 void MR_CSharp_F_d1(const MR_CSharp_F *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::F *)(_this)).d1();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::F *)(_this)).d1();
 }
 
 void MR_CSharp_F_d2(MR_CSharp_F *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::F *)(_this)).d2();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::F *)(_this)).d2();
 }
 
 void MR_CSharp_F_e1(const MR_CSharp_F *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::F *)(_this)).e1();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::F *)(_this)).e1();
 }
 
 void MR_CSharp_F_e2(MR_CSharp_F *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::F *)(_this)).e2();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::F *)(_this)).e2();
 }
 
 MR_CSharp_G *MR_CSharp_G_DefaultConstruct(void)
@@ -1167,14 +1167,14 @@ MR_CSharp_G *MR_CSharp_G_MutableDynamicDowncastFrom_MR_CSharp_A(MR_CSharp_A *obj
 const MR_CSharp_G *MR_CSharp_G_DynamicDowncastFromOrFail_MR_CSharp_A(const MR_CSharp_A *object)
 {
     return (const MR_CSharp_G *)std::addressof(dynamic_cast<const MR::CSharp::G &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::A *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(const MR::CSharp::A *)(object))
     ));
 }
 
 MR_CSharp_G *MR_CSharp_G_MutableDynamicDowncastFromOrFail_MR_CSharp_A(MR_CSharp_A *object)
 {
     return (MR_CSharp_G *)std::addressof(dynamic_cast<MR::CSharp::G &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::A *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(MR::CSharp::A *)(object))
     ));
 }
 
@@ -1241,19 +1241,19 @@ void MR_CSharp_G_DestroyArray(const MR_CSharp_G *_this)
 MR_CSharp_G *MR_CSharp_G_AssignFromAnother(MR_CSharp_G *_this, MR_C_PassBy _other_pass_by, MR_CSharp_G *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::G);
-    return (MR_CSharp_G *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::G *)(_this)).operator=(
+    return (MR_CSharp_G *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::G *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::G) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::G), MR::CSharp::G) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::G), MR::CSharp::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::G) MRBINDC_CLASSARG_END(_other, MR::CSharp::G))
     ));
 }
 
 void MR_CSharp_G_foo(MR_CSharp_G *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::G *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::G *)(_this)).foo();
 }
 
 void MR_CSharp_G_bar(const MR_CSharp_G *_this, int _1, int _2)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::G *)(_this)).bar(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::G *)(_this)).bar(
         _1,
         _2
     );
@@ -1274,12 +1274,12 @@ void MR_CSharp_G_static_bar(int _1, int _2)
 
 void MR_CSharp_G_virtual_foo(MR_CSharp_G *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::G *)(_this)).virtual_foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::G *)(_this)).virtual_foo();
 }
 
 void MR_CSharp_G_virtual_bar(const MR_CSharp_G *_this, int _1, int _2)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::G *)(_this)).virtual_bar(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::G *)(_this)).virtual_bar(
         _1,
         _2
     );
@@ -1287,30 +1287,30 @@ void MR_CSharp_G_virtual_bar(const MR_CSharp_G *_this, int _1, int _2)
 
 int *MR_CSharp_G_refs(MR_CSharp_G *_this, int *x, int *_2)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::G *)(_this)).refs(
-        ((x ? void() : throw std::runtime_error("Parameter `x` can not be null.")), *x),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *_2)
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::G *)(_this)).refs(
+        ((x ? void() : MRBINDC_THROW("Parameter `x` can not be null.", void)), *x),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *_2)
     ));
 }
 
 void MR_CSharp_G_d1(const MR_CSharp_G *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::G *)(_this)).d1();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::G *)(_this)).d1();
 }
 
 void MR_CSharp_G_d2(MR_CSharp_G *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::G *)(_this)).d2();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::G *)(_this)).d2();
 }
 
 void MR_CSharp_G_e1(const MR_CSharp_G *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::G *)(_this)).e1();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::G *)(_this)).e1();
 }
 
 void MR_CSharp_G_e2(MR_CSharp_G *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::G *)(_this)).e2();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::G *)(_this)).e2();
 }
 
 MR_CSharp_Trivial *MR_CSharp_Trivial_DefaultConstruct(void)
@@ -1336,7 +1336,7 @@ MR_CSharp_Trivial *MR_CSharp_Trivial_OffsetMutablePtr(MR_CSharp_Trivial *ptr, pt
 MR_CSharp_Trivial *MR_CSharp_Trivial_ConstructFromAnother(const MR_CSharp_Trivial *_other)
 {
     return (MR_CSharp_Trivial *)new MR::CSharp::Trivial(MR::CSharp::Trivial(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::Trivial(*(MR::CSharp::Trivial *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::Trivial(*(MR::CSharp::Trivial *)_other))
     ));
 }
 
@@ -1352,8 +1352,8 @@ void MR_CSharp_Trivial_DestroyArray(const MR_CSharp_Trivial *_this)
 
 MR_CSharp_Trivial *MR_CSharp_Trivial_AssignFromAnother(MR_CSharp_Trivial *_this, const MR_CSharp_Trivial *_other)
 {
-    return (MR_CSharp_Trivial *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::Trivial *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::Trivial(*(MR::CSharp::Trivial *)_other))
+    return (MR_CSharp_Trivial *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::Trivial *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::Trivial(*(MR::CSharp::Trivial *)_other))
     ));
 }
 
@@ -1380,7 +1380,7 @@ MR_CSharp_TrivialDerived *MR_CSharp_TrivialDerived_OffsetMutablePtr(MR_CSharp_Tr
 MR_CSharp_TrivialDerived *MR_CSharp_TrivialDerived_ConstructFromAnother(const MR_CSharp_TrivialDerived *_other)
 {
     return (MR_CSharp_TrivialDerived *)new MR::CSharp::TrivialDerived(MR::CSharp::TrivialDerived(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::TrivialDerived(*(MR::CSharp::TrivialDerived *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::TrivialDerived(*(MR::CSharp::TrivialDerived *)_other))
     ));
 }
 
@@ -1396,8 +1396,8 @@ void MR_CSharp_TrivialDerived_DestroyArray(const MR_CSharp_TrivialDerived *_this
 
 MR_CSharp_TrivialDerived *MR_CSharp_TrivialDerived_AssignFromAnother(MR_CSharp_TrivialDerived *_this, const MR_CSharp_TrivialDerived *_other)
 {
-    return (MR_CSharp_TrivialDerived *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TrivialDerived *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::TrivialDerived(*(MR::CSharp::TrivialDerived *)_other))
+    return (MR_CSharp_TrivialDerived *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TrivialDerived *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::TrivialDerived(*(MR::CSharp::TrivialDerived *)_other))
     ));
 }
 
@@ -1406,7 +1406,7 @@ MR_CSharp_Trivial *MR_CSharp_test_class_trivial(const MR_CSharp_Trivial *a, cons
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_Trivial *)new MR::CSharp::Trivial(::MR::CSharp::test_class_trivial(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), MR::CSharp::Trivial(*(MR::CSharp::Trivial *)a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), MR::CSharp::Trivial(*(MR::CSharp::Trivial *)a)),
         (b ? MR::CSharp::Trivial(*(MR::CSharp::Trivial *)b) : static_cast<MR::CSharp::Trivial>(MR::CSharp::Trivial{}))
     ));
 }
@@ -1416,7 +1416,7 @@ MR_CSharp_Trivial *MR_CSharp_test_class_trivial_ref(MR_CSharp_Trivial *a, MR_CSh
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_Trivial *)std::addressof(::MR::CSharp::test_class_trivial_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::CSharp::Trivial *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::Trivial *)(a)),
         (b ? *(MR::CSharp::Trivial *)(b) : static_cast<MR::CSharp::Trivial &>(default_trivial))
     ));
 }
@@ -1426,7 +1426,7 @@ const MR_CSharp_Trivial *MR_CSharp_test_class_trivial_cref(const MR_CSharp_Trivi
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_Trivial *)std::addressof(::MR::CSharp::test_class_trivial_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::Trivial *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::Trivial *)(a)),
         (b ? *(const MR::CSharp::Trivial *)(b) : static_cast<const MR::CSharp::Trivial &>(default_trivial))
     ));
 }
@@ -1436,7 +1436,7 @@ MR_CSharp_Trivial *MR_CSharp_test_class_trivial_rref(MR_CSharp_Trivial *a, MR_CS
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_Trivial *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_class_trivial_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(MR::CSharp::Trivial *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(MR::CSharp::Trivial *)(a))),
         (b ? std::move(*(MR::CSharp::Trivial *)(b)) : static_cast<MR::CSharp::Trivial &&>((MR::CSharp::Trivial &&)default_trivial))
     )));
 }
@@ -1446,7 +1446,7 @@ const MR_CSharp_Trivial *MR_CSharp_test_class_trivial_crref(const MR_CSharp_Triv
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_Trivial *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_class_trivial_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const MR::CSharp::Trivial *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const MR::CSharp::Trivial *)(a))),
         (b ? std::move(*(const MR::CSharp::Trivial *)(b)) : static_cast<const MR::CSharp::Trivial &&>((MR::CSharp::Trivial &&)default_trivial))
     )));
 }
@@ -1514,7 +1514,7 @@ void MR_CSharp_NonTrivial_DestroyArray(const MR_CSharp_NonTrivial *_this)
 MR_CSharp_NonTrivial *MR_CSharp_NonTrivial_AssignFromAnother(MR_CSharp_NonTrivial *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivial *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::NonTrivial);
-    return (MR_CSharp_NonTrivial *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NonTrivial *)(_this)).operator=(
+    return (MR_CSharp_NonTrivial *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NonTrivial *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::NonTrivial), MR::CSharp::NonTrivial) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::NonTrivial), MR::CSharp::NonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::NonTrivial) MRBINDC_CLASSARG_END(_other, MR::CSharp::NonTrivial))
     ));
 }
@@ -1560,7 +1560,7 @@ void MR_CSharp_NonTrivialDerived_DestroyArray(const MR_CSharp_NonTrivialDerived 
 MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_AssignFromAnother(MR_CSharp_NonTrivialDerived *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialDerived *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::NonTrivialDerived);
-    return (MR_CSharp_NonTrivialDerived *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NonTrivialDerived *)(_this)).operator=(
+    return (MR_CSharp_NonTrivialDerived *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NonTrivialDerived *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::NonTrivialDerived), MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::NonTrivialDerived), MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::NonTrivialDerived) MRBINDC_CLASSARG_END(_other, MR::CSharp::NonTrivialDerived))
     ));
 }
@@ -1582,7 +1582,7 @@ MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_ref(MR_CSharp_NonTrivial *
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_NonTrivial *)std::addressof(::MR::CSharp::test_class_nontrivial_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::CSharp::NonTrivial *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::NonTrivial *)(a)),
         (b ? *(MR::CSharp::NonTrivial *)(b) : static_cast<MR::CSharp::NonTrivial &>(default_nontrivial))
     ));
 }
@@ -1592,7 +1592,7 @@ const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_cref(const MR_CSharp
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_NonTrivial *)std::addressof(::MR::CSharp::test_class_nontrivial_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::NonTrivial *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::NonTrivial *)(a)),
         (b ? *(const MR::CSharp::NonTrivial *)(b) : static_cast<const MR::CSharp::NonTrivial &>(default_nontrivial))
     ));
 }
@@ -1602,7 +1602,7 @@ MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_rref(MR_CSharp_NonTrivial 
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_NonTrivial *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_class_nontrivial_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(MR::CSharp::NonTrivial *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(MR::CSharp::NonTrivial *)(a))),
         (b ? std::move(*(MR::CSharp::NonTrivial *)(b)) : static_cast<MR::CSharp::NonTrivial &&>((MR::CSharp::NonTrivial &&)default_nontrivial))
     )));
 }
@@ -1612,7 +1612,7 @@ const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_crref(const MR_CShar
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_NonTrivial *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_class_nontrivial_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const MR::CSharp::NonTrivial *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const MR::CSharp::NonTrivial *)(a))),
         (b ? std::move(*(const MR::CSharp::NonTrivial *)(b)) : static_cast<const MR::CSharp::NonTrivial &&>((MR::CSharp::NonTrivial &&)default_nontrivial))
     )));
 }
@@ -1684,7 +1684,7 @@ MR_CSharp_SA *MR_CSharp_SA_OffsetMutablePtr(MR_CSharp_SA *ptr, ptrdiff_t i)
 MR_CSharp_SA *MR_CSharp_SA_ConstructFromAnother(const MR_CSharp_SA *_other)
 {
     return (MR_CSharp_SA *)new MR::CSharp::SA(MR::CSharp::SA(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::SA(*(MR::CSharp::SA *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::SA(*(MR::CSharp::SA *)_other))
     ));
 }
 
@@ -1700,24 +1700,24 @@ void MR_CSharp_SA_DestroyArray(const MR_CSharp_SA *_this)
 
 MR_CSharp_SA *MR_CSharp_SA_AssignFromAnother(MR_CSharp_SA *_this, const MR_CSharp_SA *_other)
 {
-    return (MR_CSharp_SA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SA *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::SA(*(MR::CSharp::SA *)_other))
+    return (MR_CSharp_SA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SA *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::SA(*(MR::CSharp::SA *)_other))
     ));
 }
 
 const MR_C_std_string *MR_CSharp_SB_Get_s(const MR_CSharp_SB *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::SB *)(_this)).s);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::SB *)(_this)).s);
 }
 
 void MR_CSharp_SB_Set_s(MR_CSharp_SB *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SB *)(_this)).s = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SB *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_SB_GetMutable_s(MR_CSharp_SB *_this)
 {
-    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SB *)(_this)).s);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SB *)(_this)).s);
 }
 
 MR_CSharp_SB *MR_CSharp_SB_DefaultConstruct(void)
@@ -1733,7 +1733,7 @@ MR_CSharp_SB *MR_CSharp_SB_DefaultConstructArray(size_t num_elems)
 MR_CSharp_SB *MR_CSharp_SB_ConstructFrom(const char *s, const char *s_end)
 {
     return (MR_CSharp_SB *)new MR::CSharp::SB(MR::CSharp::SB{
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string(s, s_end) : std::string(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, s_end) : std::string(s)))
     });
 }
 
@@ -1768,24 +1768,24 @@ void MR_CSharp_SB_DestroyArray(const MR_CSharp_SB *_this)
 MR_CSharp_SB *MR_CSharp_SB_AssignFromAnother(MR_CSharp_SB *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SB *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SB);
-    return (MR_CSharp_SB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SB *)(_this)).operator=(
+    return (MR_CSharp_SB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SB *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SB) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SB), MR::CSharp::SB) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SB), MR::CSharp::SB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SB) MRBINDC_CLASSARG_END(_other, MR::CSharp::SB))
     ));
 }
 
 const MR_C_std_string *MR_CSharp_SC_Get_s(const MR_CSharp_SC *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::SC *)(_this)).s);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::SC *)(_this)).s);
 }
 
 void MR_CSharp_SC_Set_s(MR_CSharp_SC *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SC *)(_this)).s = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SC *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_SC_GetMutable_s(MR_CSharp_SC *_this)
 {
-    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SC *)(_this)).s);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SC *)(_this)).s);
 }
 
 MR_CSharp_SC *MR_CSharp_SC_DefaultConstruct(void)
@@ -1885,7 +1885,7 @@ void MR_CSharp_SC_DestroyArray(const MR_CSharp_SC *_this)
 MR_CSharp_SC *MR_CSharp_SC_AssignFromAnother(MR_CSharp_SC *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SC *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SC);
-    return (MR_CSharp_SC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SC *)(_this)).operator=(
+    return (MR_CSharp_SC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SC *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SC) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SC), MR::CSharp::SC) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SC), MR::CSharp::SC) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SC) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SC) MRBINDC_CLASSARG_END(_other, MR::CSharp::SC))
     ));
 }
@@ -1931,24 +1931,24 @@ void MR_CSharp_SD_DestroyArray(const MR_CSharp_SD *_this)
 MR_CSharp_SD *MR_CSharp_SD_AssignFromAnother(MR_CSharp_SD *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SD *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SD);
-    return (MR_CSharp_SD *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SD *)(_this)).operator=(
+    return (MR_CSharp_SD *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SD *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SD) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SD), MR::CSharp::SD) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SD), MR::CSharp::SD) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SD) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SD) MRBINDC_CLASSARG_END(_other, MR::CSharp::SD))
     ));
 }
 
 const MR_C_std_string *MR_CSharp_SE_Get_s(const MR_CSharp_SE *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::SE *)(_this)).s);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::SE *)(_this)).s);
 }
 
 void MR_CSharp_SE_Set_s(MR_CSharp_SE *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SE *)(_this)).s = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SE *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_SE_GetMutable_s(MR_CSharp_SE *_this)
 {
-    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SE *)(_this)).s);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SE *)(_this)).s);
 }
 
 MR_CSharp_SE *MR_CSharp_SE_DefaultConstruct(void)
@@ -1964,7 +1964,7 @@ MR_CSharp_SE *MR_CSharp_SE_DefaultConstructArray(size_t num_elems)
 MR_CSharp_SE *MR_CSharp_SE_ConstructFrom(const char *s, const char *s_end)
 {
     return (MR_CSharp_SE *)new MR::CSharp::SE(MR::CSharp::SE{
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string(s, s_end) : std::string(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, s_end) : std::string(s)))
     });
 }
 
@@ -1999,24 +1999,24 @@ void MR_CSharp_SE_DestroyArray(const MR_CSharp_SE *_this)
 MR_CSharp_SE *MR_CSharp_SE_AssignFromAnother(MR_CSharp_SE *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SE *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SE);
-    return (MR_CSharp_SE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SE *)(_this)).operator=(
+    return (MR_CSharp_SE *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SE *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SE) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SE), MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SE) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SE) MRBINDC_CLASSARG_END(_other, MR::CSharp::SE))
     ));
 }
 
 const MR_C_std_string *MR_CSharp_SF_Get_s(const MR_CSharp_SF *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::SF *)(_this)).s);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::SF *)(_this)).s);
 }
 
 void MR_CSharp_SF_Set_s(MR_CSharp_SF *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SF *)(_this)).s = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SF *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_SF_GetMutable_s(MR_CSharp_SF *_this)
 {
-    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SF *)(_this)).s);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SF *)(_this)).s);
 }
 
 MR_CSharp_SF *MR_CSharp_SF_DefaultConstruct(void)
@@ -2084,14 +2084,14 @@ MR_CSharp_SF *MR_CSharp_SF_MutableDynamicDowncastFrom_MR_CSharp_SD(MR_CSharp_SD 
 const MR_CSharp_SF *MR_CSharp_SF_DynamicDowncastFromOrFail_MR_CSharp_SD(const MR_CSharp_SD *object)
 {
     return (const MR_CSharp_SF *)std::addressof(dynamic_cast<const MR::CSharp::SF &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CSharp::SD *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(const MR::CSharp::SD *)(object))
     ));
 }
 
 MR_CSharp_SF *MR_CSharp_SF_MutableDynamicDowncastFromOrFail_MR_CSharp_SD(MR_CSharp_SD *object)
 {
     return (MR_CSharp_SF *)std::addressof(dynamic_cast<MR::CSharp::SF &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CSharp::SD *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(MR::CSharp::SD *)(object))
     ));
 }
 
@@ -2144,7 +2144,7 @@ void MR_CSharp_SF_DestroyArray(const MR_CSharp_SF *_this)
 MR_CSharp_SF *MR_CSharp_SF_AssignFromAnother(MR_CSharp_SF *_this, MR_C_PassBy _other_pass_by, MR_CSharp_SF *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::SF);
-    return (MR_CSharp_SF *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::SF *)(_this)).operator=(
+    return (MR_CSharp_SF *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::SF *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::SF) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::SF), MR::CSharp::SF) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::SF), MR::CSharp::SF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::SF) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::SF) MRBINDC_CLASSARG_END(_other, MR::CSharp::SF))
     ));
 }
@@ -2171,7 +2171,7 @@ MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_ref(MR_C_std_shared_ptr_M
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_shared_ptr_MR_CSharp_SA *)std::addressof(::MR::CSharp::test_shptr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::shared_ptr<MR::CSharp::SA> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::shared_ptr<MR::CSharp::SA> *)(a)),
         (b ? *(std::shared_ptr<MR::CSharp::SA> *)(b) : static_cast<std::shared_ptr<MR::CSharp::SA> &>(default_shptr))
     ));
 }
@@ -2181,7 +2181,7 @@ const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_cref(const MR_C_std
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_shared_ptr_MR_CSharp_SA *)std::addressof(::MR::CSharp::test_shptr_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::shared_ptr<MR::CSharp::SA> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::shared_ptr<MR::CSharp::SA> *)(a)),
         (b ? *(const std::shared_ptr<MR::CSharp::SA> *)(b) : static_cast<const std::shared_ptr<MR::CSharp::SA> &>(default_shptr))
     ));
 }
@@ -2191,7 +2191,7 @@ MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_rref(MR_C_std_shared_ptr_
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_shared_ptr_MR_CSharp_SA *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_shptr_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(std::shared_ptr<MR::CSharp::SA> *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(std::shared_ptr<MR::CSharp::SA> *)(a))),
         (b ? std::move(*(std::shared_ptr<MR::CSharp::SA> *)(b)) : static_cast<std::shared_ptr<MR::CSharp::SA> &&>((std::shared_ptr<MR::CSharp::SA> &&)default_shptr))
     )));
 }
@@ -2201,7 +2201,7 @@ const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_crref(const MR_C_st
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_shared_ptr_MR_CSharp_SA *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_shptr_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const std::shared_ptr<MR::CSharp::SA> *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const std::shared_ptr<MR::CSharp::SA> *)(a))),
         (b ? std::move(*(const std::shared_ptr<MR::CSharp::SA> *)(b)) : static_cast<const std::shared_ptr<MR::CSharp::SA> &&>((std::shared_ptr<MR::CSharp::SA> &&)default_shptr))
     )));
 }
@@ -2243,7 +2243,7 @@ MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_ref(MR_C_std_share
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_shared_ptr_const_MR_CSharp_SA *)std::addressof(::MR::CSharp::test_shcptr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::shared_ptr<const MR::CSharp::SA> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::shared_ptr<const MR::CSharp::SA> *)(a)),
         (b ? *(std::shared_ptr<const MR::CSharp::SA> *)(b) : static_cast<std::shared_ptr<const MR::CSharp::SA> &>(default_shcptr))
     ));
 }
@@ -2253,7 +2253,7 @@ const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_cref(const M
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_shared_ptr_const_MR_CSharp_SA *)std::addressof(::MR::CSharp::test_shcptr_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::shared_ptr<const MR::CSharp::SA> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::shared_ptr<const MR::CSharp::SA> *)(a)),
         (b ? *(const std::shared_ptr<const MR::CSharp::SA> *)(b) : static_cast<const std::shared_ptr<const MR::CSharp::SA> &>(default_shcptr))
     ));
 }
@@ -2263,7 +2263,7 @@ MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_rref(MR_C_std_shar
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_shared_ptr_const_MR_CSharp_SA *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_shcptr_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(std::shared_ptr<const MR::CSharp::SA> *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(std::shared_ptr<const MR::CSharp::SA> *)(a))),
         (b ? std::move(*(std::shared_ptr<const MR::CSharp::SA> *)(b)) : static_cast<std::shared_ptr<const MR::CSharp::SA> &&>((std::shared_ptr<const MR::CSharp::SA> &&)default_shcptr))
     )));
 }
@@ -2273,7 +2273,7 @@ const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_crref(const 
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_shared_ptr_const_MR_CSharp_SA *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_shcptr_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const std::shared_ptr<const MR::CSharp::SA> *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const std::shared_ptr<const MR::CSharp::SA> *)(a))),
         (b ? std::move(*(const std::shared_ptr<const MR::CSharp::SA> *)(b)) : static_cast<const std::shared_ptr<const MR::CSharp::SA> &&>((std::shared_ptr<const MR::CSharp::SA> &&)default_shcptr))
     )));
 }
@@ -2328,7 +2328,7 @@ MR_C_std_string *MR_CSharp_test_string(const char *a, const char *a_end, const c
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string *)new std::string(::MR::CSharp::test_string(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string(a, a_end) : std::string(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
         (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string(default_string))
     ));
 }
@@ -2338,7 +2338,7 @@ MR_C_std_string *MR_CSharp_test_string_ref(MR_C_std_string *a, MR_C_std_string *
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string *)std::addressof(::MR::CSharp::test_string_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::string *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::string *)(a)),
         (b ? *(std::string *)(b) : static_cast<std::string &>(default_string))
     ));
 }
@@ -2348,7 +2348,7 @@ const MR_C_std_string *MR_CSharp_test_string_cref(const char *a, const char *a_e
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_string *)std::addressof(::MR::CSharp::test_string_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string(a, a_end) : std::string(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
         (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string(default_string))
     ));
 }
@@ -2358,7 +2358,7 @@ MR_C_std_string *MR_CSharp_test_string_rref(const char *a, const char *a_end, co
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_string_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string(a, a_end) : std::string(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
         (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string((std::string &&)default_string))
     )));
 }
@@ -2368,7 +2368,7 @@ const MR_C_std_string *MR_CSharp_test_string_crref(const char *a, const char *a_
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_string *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_string_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string(a, a_end) : std::string(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
         (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string((std::string &&)default_string))
     )));
 }
@@ -2398,7 +2398,7 @@ MR_C_std_string_view *MR_CSharp_test_stringview(const char *a, const char *a_end
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string_view *)new std::string_view(::MR::CSharp::test_stringview(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
         (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view(default_stringview))
     ));
 }
@@ -2408,7 +2408,7 @@ MR_C_std_string_view *MR_CSharp_test_stringview_ref(MR_C_std_string_view *a, MR_
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string_view *)std::addressof(::MR::CSharp::test_stringview_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::string_view *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::string_view *)(a)),
         (b ? *(std::string_view *)(b) : static_cast<std::string_view &>(default_stringview))
     ));
 }
@@ -2418,7 +2418,7 @@ const MR_C_std_string_view *MR_CSharp_test_stringview_cref(const char *a, const 
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_string_view *)std::addressof(::MR::CSharp::test_stringview_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
         (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view(default_stringview))
     ));
 }
@@ -2428,7 +2428,7 @@ MR_C_std_string_view *MR_CSharp_test_stringview_rref(const char *a, const char *
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_string_view *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_stringview_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
         (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view((std::string_view &&)default_stringview))
     )));
 }
@@ -2438,7 +2438,7 @@ const MR_C_std_string_view *MR_CSharp_test_stringview_crref(const char *a, const
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_string_view *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_stringview_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
         (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view((std::string_view &&)default_stringview))
     )));
 }
@@ -2469,7 +2469,7 @@ MR_C_std_filesystem_path *MR_CSharp_test_fspath(const char *a, const char *a_end
     using namespace CSharp;
     MRBINDC_IGNORE_DEPRECATION(
     return (MR_C_std_filesystem_path *)new std::filesystem::path(::MR::CSharp::test_fspath(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
         (b ? (b_end ? std::filesystem::u8path(b, b_end) : std::filesystem::u8path(b)) : std::filesystem::path(default_fspath))
     ));
     ) // MRBINDC_IGNORE_DEPRECATION
@@ -2480,7 +2480,7 @@ MR_C_std_filesystem_path *MR_CSharp_test_fspath_ref(MR_C_std_filesystem_path *a,
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_filesystem_path *)std::addressof(::MR::CSharp::test_fspath_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::filesystem::path *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::filesystem::path *)(a)),
         (b ? *(std::filesystem::path *)(b) : static_cast<std::filesystem::path &>(default_fspath))
     ));
 }
@@ -2491,7 +2491,7 @@ const MR_C_std_filesystem_path *MR_CSharp_test_fspath_cref(const char *a, const 
     using namespace CSharp;
     MRBINDC_IGNORE_DEPRECATION(
     return (const MR_C_std_filesystem_path *)std::addressof(::MR::CSharp::test_fspath_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
         (b ? (b_end ? std::filesystem::u8path(b, b_end) : std::filesystem::u8path(b)) : std::filesystem::path(default_fspath))
     ));
     ) // MRBINDC_IGNORE_DEPRECATION
@@ -2503,7 +2503,7 @@ MR_C_std_filesystem_path *MR_CSharp_test_fspath_rref(const char *a, const char *
     using namespace CSharp;
     MRBINDC_IGNORE_DEPRECATION(
     return (MR_C_std_filesystem_path *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_fspath_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
         (b ? (b_end ? std::filesystem::u8path(b, b_end) : std::filesystem::u8path(b)) : std::filesystem::path((std::filesystem::path &&)default_fspath))
     )));
     ) // MRBINDC_IGNORE_DEPRECATION
@@ -2515,7 +2515,7 @@ const MR_C_std_filesystem_path *MR_CSharp_test_fspath_crref(const char *a, const
     using namespace CSharp;
     MRBINDC_IGNORE_DEPRECATION(
     return (const MR_C_std_filesystem_path *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_fspath_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
         (b ? (b_end ? std::filesystem::u8path(b, b_end) : std::filesystem::u8path(b)) : std::filesystem::path((std::filesystem::path &&)default_fspath))
     )));
     ) // MRBINDC_IGNORE_DEPRECATION
@@ -2564,7 +2564,7 @@ MR_CSharp_Outer *MR_CSharp_Outer_OffsetMutablePtr(MR_CSharp_Outer *ptr, ptrdiff_
 MR_CSharp_Outer *MR_CSharp_Outer_ConstructFromAnother(const MR_CSharp_Outer *_other)
 {
     return (MR_CSharp_Outer *)new MR::CSharp::Outer(MR::CSharp::Outer(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::Outer(*(MR::CSharp::Outer *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::Outer(*(MR::CSharp::Outer *)_other))
     ));
 }
 
@@ -2580,14 +2580,14 @@ void MR_CSharp_Outer_DestroyArray(const MR_CSharp_Outer *_this)
 
 MR_CSharp_Outer *MR_CSharp_Outer_AssignFromAnother(MR_CSharp_Outer *_this, const MR_CSharp_Outer *_other)
 {
-    return (MR_CSharp_Outer *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::Outer *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::Outer(*(MR::CSharp::Outer *)_other))
+    return (MR_CSharp_Outer *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::Outer *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::Outer(*(MR::CSharp::Outer *)_other))
     ));
 }
 
 void MR_CSharp_Outer_foo(MR_CSharp_Outer *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::Outer *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::Outer *)(_this)).foo();
 }
 
 MR_CSharp_Outer_Inner *MR_CSharp_Outer_Inner_DefaultConstruct(void)
@@ -2613,7 +2613,7 @@ MR_CSharp_Outer_Inner *MR_CSharp_Outer_Inner_OffsetMutablePtr(MR_CSharp_Outer_In
 MR_CSharp_Outer_Inner *MR_CSharp_Outer_Inner_ConstructFromAnother(const MR_CSharp_Outer_Inner *_other)
 {
     return (MR_CSharp_Outer_Inner *)new MR::CSharp::Outer::Inner(MR::CSharp::Outer::Inner(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::Outer::Inner(*(MR::CSharp::Outer::Inner *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::Outer::Inner(*(MR::CSharp::Outer::Inner *)_other))
     ));
 }
 
@@ -2629,14 +2629,14 @@ void MR_CSharp_Outer_Inner_DestroyArray(const MR_CSharp_Outer_Inner *_this)
 
 MR_CSharp_Outer_Inner *MR_CSharp_Outer_Inner_AssignFromAnother(MR_CSharp_Outer_Inner *_this, const MR_CSharp_Outer_Inner *_other)
 {
-    return (MR_CSharp_Outer_Inner *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::Outer::Inner *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::Outer::Inner(*(MR::CSharp::Outer::Inner *)_other))
+    return (MR_CSharp_Outer_Inner *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::Outer::Inner *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::Outer::Inner(*(MR::CSharp::Outer::Inner *)_other))
     ));
 }
 
 void MR_CSharp_Outer_Inner_bar(MR_CSharp_Outer_Inner *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::Outer::Inner *)(_this)).bar();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::Outer::Inner *)(_this)).bar();
 }
 
 const int *MR_CSharp_TestFields_Get_static_i(void)
@@ -2676,7 +2676,7 @@ const MR_C_std_string *MR_CSharp_TestFields_Get_static_s(void)
 
 void MR_CSharp_TestFields_Set_static_s(const char *value, const char *value_end)
 {
-    MR::CSharp::TestFields::static_s = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+    MR::CSharp::TestFields::static_s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_TestFields_GetMutable_static_s(void)
@@ -2701,62 +2701,62 @@ const MR_C_std_string *MR_CSharp_TestFields_Get_static_const_s_ref(void)
 
 const int *MR_CSharp_TestFields_Get_i(const MR_CSharp_TestFields *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestFields *)(_this)).i);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestFields *)(_this)).i);
 }
 
 void MR_CSharp_TestFields_Set_i(MR_CSharp_TestFields *_this, int value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestFields *)(_this)).i = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestFields *)(_this)).i = value;
 }
 
 int *MR_CSharp_TestFields_GetMutable_i(MR_CSharp_TestFields *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestFields *)(_this)).i);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestFields *)(_this)).i);
 }
 
 const int *MR_CSharp_TestFields_Get_const_i(const MR_CSharp_TestFields *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestFields *)(_this)).const_i);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestFields *)(_this)).const_i);
 }
 
 int *MR_CSharp_TestFields_Get_i_ref(const MR_CSharp_TestFields *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestFields *)(_this)).i_ref);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestFields *)(_this)).i_ref);
 }
 
 const int *MR_CSharp_TestFields_Get_const_i_ref(const MR_CSharp_TestFields *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestFields *)(_this)).const_i_ref);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestFields *)(_this)).const_i_ref);
 }
 
 const MR_C_std_string *MR_CSharp_TestFields_Get_s(const MR_CSharp_TestFields *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestFields *)(_this)).s);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestFields *)(_this)).s);
 }
 
 void MR_CSharp_TestFields_Set_s(MR_CSharp_TestFields *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestFields *)(_this)).s = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestFields *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_TestFields_GetMutable_s(MR_CSharp_TestFields *_this)
 {
-    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestFields *)(_this)).s);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestFields *)(_this)).s);
 }
 
 const MR_C_std_string *MR_CSharp_TestFields_Get_const_s(const MR_CSharp_TestFields *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestFields *)(_this)).const_s);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestFields *)(_this)).const_s);
 }
 
 MR_C_std_string *MR_CSharp_TestFields_Get_s_ref(const MR_CSharp_TestFields *_this)
 {
-    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestFields *)(_this)).s_ref);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestFields *)(_this)).s_ref);
 }
 
 const MR_C_std_string *MR_CSharp_TestFields_Get_const_s_ref(const MR_CSharp_TestFields *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestFields *)(_this)).const_s_ref);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestFields *)(_this)).const_s_ref);
 }
 
 MR_CSharp_TestFields *MR_CSharp_TestFields_ConstructFromAnother(MR_C_PassBy _other_pass_by, MR_CSharp_TestFields *_other)
@@ -2772,12 +2772,12 @@ MR_CSharp_TestFields *MR_CSharp_TestFields_ConstructFrom(int i, int const_i, int
     return (MR_CSharp_TestFields *)new MR::CSharp::TestFields(MR::CSharp::TestFields{
         i,
         const_i,
-        ((i_ref ? void() : throw std::runtime_error("Parameter `i_ref` can not be null.")), *i_ref),
-        ((const_i_ref ? void() : throw std::runtime_error("Parameter `const_i_ref` can not be null.")), *const_i_ref),
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string(s, s_end) : std::string(s))),
-        ((const_s ? void() : throw std::runtime_error("Parameter `const_s` can not be null.")), (const_s_end ? std::string(const_s, const_s_end) : std::string(const_s))),
-        ((s_ref ? void() : throw std::runtime_error("Parameter `s_ref` can not be null.")), *(std::string *)(s_ref)),
-        ((const_s_ref ? void() : throw std::runtime_error("Parameter `const_s_ref` can not be null.")), (const_s_ref_end ? std::string(const_s_ref, const_s_ref_end) : std::string(const_s_ref)))
+        ((i_ref ? void() : MRBINDC_THROW("Parameter `i_ref` can not be null.", void)), *i_ref),
+        ((const_i_ref ? void() : MRBINDC_THROW("Parameter `const_i_ref` can not be null.", void)), *const_i_ref),
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string(s, s_end) : std::string(s))),
+        ((const_s ? void() : MRBINDC_THROW("Parameter `const_s` can not be null.", void)), (const_s_end ? std::string(const_s, const_s_end) : std::string(const_s))),
+        ((s_ref ? void() : MRBINDC_THROW("Parameter `s_ref` can not be null.", void)), *(std::string *)(s_ref)),
+        ((const_s_ref ? void() : MRBINDC_THROW("Parameter `const_s_ref` can not be null.", void)), (const_s_ref_end ? std::string(const_s_ref, const_s_ref_end) : std::string(const_s_ref)))
     });
 }
 
@@ -2824,7 +2824,7 @@ MR_CSharp_TestConstness *MR_CSharp_TestConstness_OffsetMutablePtr(MR_CSharp_Test
 MR_CSharp_TestConstness *MR_CSharp_TestConstness_ConstructFromAnother(const MR_CSharp_TestConstness *_other)
 {
     return (MR_CSharp_TestConstness *)new MR::CSharp::TestConstness(MR::CSharp::TestConstness(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::TestConstness(*(MR::CSharp::TestConstness *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::TestConstness(*(MR::CSharp::TestConstness *)_other))
     ));
 }
 
@@ -2840,19 +2840,19 @@ void MR_CSharp_TestConstness_DestroyArray(const MR_CSharp_TestConstness *_this)
 
 MR_CSharp_TestConstness *MR_CSharp_TestConstness_AssignFromAnother(MR_CSharp_TestConstness *_this, const MR_CSharp_TestConstness *_other)
 {
-    return (MR_CSharp_TestConstness *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestConstness *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::TestConstness(*(MR::CSharp::TestConstness *)_other))
+    return (MR_CSharp_TestConstness *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestConstness *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::TestConstness(*(MR::CSharp::TestConstness *)_other))
     ));
 }
 
 void MR_CSharp_TestConstness_foo_mut(MR_CSharp_TestConstness *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestConstness *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestConstness *)(_this)).foo();
 }
 
 void MR_CSharp_TestConstness_foo(const MR_CSharp_TestConstness *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestConstness *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestConstness *)(_this)).foo();
 }
 
 MR_CSharp_IncrDecrA *MR_CSharp_IncrDecrA_DefaultConstruct(void)
@@ -2878,7 +2878,7 @@ MR_CSharp_IncrDecrA *MR_CSharp_IncrDecrA_OffsetMutablePtr(MR_CSharp_IncrDecrA *p
 MR_CSharp_IncrDecrA *MR_CSharp_IncrDecrA_ConstructFromAnother(const MR_CSharp_IncrDecrA *_other)
 {
     return (MR_CSharp_IncrDecrA *)new MR::CSharp::IncrDecrA(MR::CSharp::IncrDecrA(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrA(*(MR::CSharp::IncrDecrA *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrA(*(MR::CSharp::IncrDecrA *)_other))
     ));
 }
 
@@ -2894,31 +2894,31 @@ void MR_CSharp_IncrDecrA_DestroyArray(const MR_CSharp_IncrDecrA *_this)
 
 MR_CSharp_IncrDecrA *MR_CSharp_IncrDecrA_AssignFromAnother(MR_CSharp_IncrDecrA *_this, const MR_CSharp_IncrDecrA *_other)
 {
-    return (MR_CSharp_IncrDecrA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrA *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrA(*(MR::CSharp::IncrDecrA *)_other))
+    return (MR_CSharp_IncrDecrA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrA *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrA(*(MR::CSharp::IncrDecrA *)_other))
     ));
 }
 
 MR_CSharp_IncrDecrA *MR_C_incr_MR_CSharp_IncrDecrA(MR_CSharp_IncrDecrA *_this)
 {
-    return (MR_CSharp_IncrDecrA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrA *)(_this)).operator++());
+    return (MR_CSharp_IncrDecrA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrA *)(_this)).operator++());
 }
 
 MR_CSharp_IncrDecrA *MR_C_post_incr_MR_CSharp_IncrDecrA(MR_CSharp_IncrDecrA *_this)
 {
-    return (MR_CSharp_IncrDecrA *)new MR::CSharp::IncrDecrA(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrA *)(_this)).operator++(
+    return (MR_CSharp_IncrDecrA *)new MR::CSharp::IncrDecrA(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrA *)(_this)).operator++(
         0
     ));
 }
 
 MR_CSharp_IncrDecrA *MR_C_decr_MR_CSharp_IncrDecrA(MR_CSharp_IncrDecrA *_this)
 {
-    return (MR_CSharp_IncrDecrA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrA *)(_this)).operator--());
+    return (MR_CSharp_IncrDecrA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrA *)(_this)).operator--());
 }
 
 MR_CSharp_IncrDecrA *MR_C_post_decr_MR_CSharp_IncrDecrA(MR_CSharp_IncrDecrA *_this)
 {
-    return (MR_CSharp_IncrDecrA *)new MR::CSharp::IncrDecrA(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrA *)(_this)).operator--(
+    return (MR_CSharp_IncrDecrA *)new MR::CSharp::IncrDecrA(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrA *)(_this)).operator--(
         0
     ));
 }
@@ -2946,7 +2946,7 @@ MR_CSharp_IncrDecrB *MR_CSharp_IncrDecrB_OffsetMutablePtr(MR_CSharp_IncrDecrB *p
 MR_CSharp_IncrDecrB *MR_CSharp_IncrDecrB_ConstructFromAnother(const MR_CSharp_IncrDecrB *_other)
 {
     return (MR_CSharp_IncrDecrB *)new MR::CSharp::IncrDecrB(MR::CSharp::IncrDecrB(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrB(*(MR::CSharp::IncrDecrB *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrB(*(MR::CSharp::IncrDecrB *)_other))
     ));
 }
 
@@ -2962,31 +2962,31 @@ void MR_CSharp_IncrDecrB_DestroyArray(const MR_CSharp_IncrDecrB *_this)
 
 MR_CSharp_IncrDecrB *MR_CSharp_IncrDecrB_AssignFromAnother(MR_CSharp_IncrDecrB *_this, const MR_CSharp_IncrDecrB *_other)
 {
-    return (MR_CSharp_IncrDecrB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrB *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrB(*(MR::CSharp::IncrDecrB *)_other))
+    return (MR_CSharp_IncrDecrB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrB *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrB(*(MR::CSharp::IncrDecrB *)_other))
     ));
 }
 
 const MR_CSharp_IncrDecrB *MR_C_incr_MR_CSharp_IncrDecrB(const MR_CSharp_IncrDecrB *_this)
 {
-    return (const MR_CSharp_IncrDecrB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrB *)(_this)).operator++());
+    return (const MR_CSharp_IncrDecrB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrB *)(_this)).operator++());
 }
 
 MR_CSharp_IncrDecrB *MR_C_post_incr_MR_CSharp_IncrDecrB(const MR_CSharp_IncrDecrB *_this)
 {
-    return (MR_CSharp_IncrDecrB *)new MR::CSharp::IncrDecrB(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrB *)(_this)).operator++(
+    return (MR_CSharp_IncrDecrB *)new MR::CSharp::IncrDecrB(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrB *)(_this)).operator++(
         0
     ));
 }
 
 const MR_CSharp_IncrDecrB *MR_C_decr_MR_CSharp_IncrDecrB(const MR_CSharp_IncrDecrB *_this)
 {
-    return (const MR_CSharp_IncrDecrB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrB *)(_this)).operator--());
+    return (const MR_CSharp_IncrDecrB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrB *)(_this)).operator--());
 }
 
 MR_CSharp_IncrDecrB *MR_C_post_decr_MR_CSharp_IncrDecrB(const MR_CSharp_IncrDecrB *_this)
 {
-    return (MR_CSharp_IncrDecrB *)new MR::CSharp::IncrDecrB(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrB *)(_this)).operator--(
+    return (MR_CSharp_IncrDecrB *)new MR::CSharp::IncrDecrB(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrB *)(_this)).operator--(
         0
     ));
 }
@@ -3014,7 +3014,7 @@ MR_CSharp_IncrDecrC *MR_CSharp_IncrDecrC_OffsetMutablePtr(MR_CSharp_IncrDecrC *p
 MR_CSharp_IncrDecrC *MR_CSharp_IncrDecrC_ConstructFromAnother(const MR_CSharp_IncrDecrC *_other)
 {
     return (MR_CSharp_IncrDecrC *)new MR::CSharp::IncrDecrC(MR::CSharp::IncrDecrC(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrC(*(MR::CSharp::IncrDecrC *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrC(*(MR::CSharp::IncrDecrC *)_other))
     ));
 }
 
@@ -3030,31 +3030,31 @@ void MR_CSharp_IncrDecrC_DestroyArray(const MR_CSharp_IncrDecrC *_this)
 
 MR_CSharp_IncrDecrC *MR_CSharp_IncrDecrC_AssignFromAnother(MR_CSharp_IncrDecrC *_this, const MR_CSharp_IncrDecrC *_other)
 {
-    return (MR_CSharp_IncrDecrC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrC *)(_this)).operator=(
-        mrbindc_details::unmove(((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrC(*(MR::CSharp::IncrDecrC *)_other)))
+    return (MR_CSharp_IncrDecrC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrC *)(_this)).operator=(
+        mrbindc_details::unmove(((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrC(*(MR::CSharp::IncrDecrC *)_other)))
     ));
 }
 
 MR_CSharp_IncrDecrC *MR_C_incr_MR_CSharp_IncrDecrC(MR_CSharp_IncrDecrC *_this)
 {
-    return (MR_CSharp_IncrDecrC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrC *)(_this)).operator++());
+    return (MR_CSharp_IncrDecrC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrC *)(_this)).operator++());
 }
 
 MR_CSharp_IncrDecrC *MR_C_post_incr_MR_CSharp_IncrDecrC(MR_CSharp_IncrDecrC *_this)
 {
-    return (MR_CSharp_IncrDecrC *)new MR::CSharp::IncrDecrC(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrC *)(_this)).operator++(
+    return (MR_CSharp_IncrDecrC *)new MR::CSharp::IncrDecrC(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrC *)(_this)).operator++(
         0
     ));
 }
 
 MR_CSharp_IncrDecrC *MR_C_decr_MR_CSharp_IncrDecrC(MR_CSharp_IncrDecrC *_this)
 {
-    return (MR_CSharp_IncrDecrC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrC *)(_this)).operator--());
+    return (MR_CSharp_IncrDecrC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrC *)(_this)).operator--());
 }
 
 MR_CSharp_IncrDecrC *MR_C_post_decr_MR_CSharp_IncrDecrC(MR_CSharp_IncrDecrC *_this)
 {
-    return (MR_CSharp_IncrDecrC *)new MR::CSharp::IncrDecrC(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrC *)(_this)).operator--(
+    return (MR_CSharp_IncrDecrC *)new MR::CSharp::IncrDecrC(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrC *)(_this)).operator--(
         0
     ));
 }
@@ -3082,7 +3082,7 @@ MR_CSharp_IncrDecrD *MR_CSharp_IncrDecrD_OffsetMutablePtr(MR_CSharp_IncrDecrD *p
 MR_CSharp_IncrDecrD *MR_CSharp_IncrDecrD_ConstructFromAnother(const MR_CSharp_IncrDecrD *_other)
 {
     return (MR_CSharp_IncrDecrD *)new MR::CSharp::IncrDecrD(MR::CSharp::IncrDecrD(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrD(*(MR::CSharp::IncrDecrD *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrD(*(MR::CSharp::IncrDecrD *)_other))
     ));
 }
 
@@ -3098,31 +3098,31 @@ void MR_CSharp_IncrDecrD_DestroyArray(const MR_CSharp_IncrDecrD *_this)
 
 MR_CSharp_IncrDecrD *MR_CSharp_IncrDecrD_AssignFromAnother(MR_CSharp_IncrDecrD *_this, const MR_CSharp_IncrDecrD *_other)
 {
-    return (MR_CSharp_IncrDecrD *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrD *)(_this)).operator=(
-        mrbindc_details::unmove(((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrD(*(MR::CSharp::IncrDecrD *)_other)))
+    return (MR_CSharp_IncrDecrD *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrD *)(_this)).operator=(
+        mrbindc_details::unmove(((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrD(*(MR::CSharp::IncrDecrD *)_other)))
     ));
 }
 
 const MR_CSharp_IncrDecrD *MR_C_incr_MR_CSharp_IncrDecrD(const MR_CSharp_IncrDecrD *_this)
 {
-    return (const MR_CSharp_IncrDecrD *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrD *)(_this)).operator++());
+    return (const MR_CSharp_IncrDecrD *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrD *)(_this)).operator++());
 }
 
 MR_CSharp_IncrDecrD *MR_C_post_incr_MR_CSharp_IncrDecrD(const MR_CSharp_IncrDecrD *_this)
 {
-    return (MR_CSharp_IncrDecrD *)new MR::CSharp::IncrDecrD(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrD *)(_this)).operator++(
+    return (MR_CSharp_IncrDecrD *)new MR::CSharp::IncrDecrD(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrD *)(_this)).operator++(
         0
     ));
 }
 
 const MR_CSharp_IncrDecrD *MR_C_decr_MR_CSharp_IncrDecrD(const MR_CSharp_IncrDecrD *_this)
 {
-    return (const MR_CSharp_IncrDecrD *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrD *)(_this)).operator--());
+    return (const MR_CSharp_IncrDecrD *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrD *)(_this)).operator--());
 }
 
 MR_CSharp_IncrDecrD *MR_C_post_decr_MR_CSharp_IncrDecrD(const MR_CSharp_IncrDecrD *_this)
 {
-    return (MR_CSharp_IncrDecrD *)new MR::CSharp::IncrDecrD(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrD *)(_this)).operator--(
+    return (MR_CSharp_IncrDecrD *)new MR::CSharp::IncrDecrD(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrD *)(_this)).operator--(
         0
     ));
 }
@@ -3167,24 +3167,24 @@ void MR_CSharp_IncrDecrE_DestroyArray(const MR_CSharp_IncrDecrE *_this)
 
 MR_CSharp_IncrDecrE *MR_C_incr_MR_CSharp_IncrDecrE(MR_CSharp_IncrDecrE *_this)
 {
-    return (MR_CSharp_IncrDecrE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrE *)(_this)).operator++());
+    return (MR_CSharp_IncrDecrE *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrE *)(_this)).operator++());
 }
 
 MR_CSharp_IncrDecrE *MR_C_post_incr_MR_CSharp_IncrDecrE(MR_CSharp_IncrDecrE *_this)
 {
-    return (MR_CSharp_IncrDecrE *)new MR::CSharp::IncrDecrE(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrE *)(_this)).operator++(
+    return (MR_CSharp_IncrDecrE *)new MR::CSharp::IncrDecrE(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrE *)(_this)).operator++(
         0
     ));
 }
 
 MR_CSharp_IncrDecrE *MR_C_decr_MR_CSharp_IncrDecrE(MR_CSharp_IncrDecrE *_this)
 {
-    return (MR_CSharp_IncrDecrE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrE *)(_this)).operator--());
+    return (MR_CSharp_IncrDecrE *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrE *)(_this)).operator--());
 }
 
 MR_CSharp_IncrDecrE *MR_C_post_decr_MR_CSharp_IncrDecrE(MR_CSharp_IncrDecrE *_this)
 {
-    return (MR_CSharp_IncrDecrE *)new MR::CSharp::IncrDecrE(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrE *)(_this)).operator--(
+    return (MR_CSharp_IncrDecrE *)new MR::CSharp::IncrDecrE(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrE *)(_this)).operator--(
         0
     ));
 }
@@ -3229,24 +3229,24 @@ void MR_CSharp_IncrDecrF_DestroyArray(const MR_CSharp_IncrDecrF *_this)
 
 const MR_CSharp_IncrDecrF *MR_C_incr_MR_CSharp_IncrDecrF(const MR_CSharp_IncrDecrF *_this)
 {
-    return (const MR_CSharp_IncrDecrF *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrF *)(_this)).operator++());
+    return (const MR_CSharp_IncrDecrF *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrF *)(_this)).operator++());
 }
 
 MR_CSharp_IncrDecrF *MR_C_post_incr_MR_CSharp_IncrDecrF(const MR_CSharp_IncrDecrF *_this)
 {
-    return (MR_CSharp_IncrDecrF *)new MR::CSharp::IncrDecrF(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrF *)(_this)).operator++(
+    return (MR_CSharp_IncrDecrF *)new MR::CSharp::IncrDecrF(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrF *)(_this)).operator++(
         0
     ));
 }
 
 const MR_CSharp_IncrDecrF *MR_C_decr_MR_CSharp_IncrDecrF(const MR_CSharp_IncrDecrF *_this)
 {
-    return (const MR_CSharp_IncrDecrF *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrF *)(_this)).operator--());
+    return (const MR_CSharp_IncrDecrF *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrF *)(_this)).operator--());
 }
 
 MR_CSharp_IncrDecrF *MR_C_post_decr_MR_CSharp_IncrDecrF(const MR_CSharp_IncrDecrF *_this)
 {
-    return (MR_CSharp_IncrDecrF *)new MR::CSharp::IncrDecrF(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrF *)(_this)).operator--(
+    return (MR_CSharp_IncrDecrF *)new MR::CSharp::IncrDecrF(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrF *)(_this)).operator--(
         0
     ));
 }
@@ -3274,7 +3274,7 @@ MR_CSharp_IncrDecrG *MR_CSharp_IncrDecrG_OffsetMutablePtr(MR_CSharp_IncrDecrG *p
 MR_CSharp_IncrDecrG *MR_CSharp_IncrDecrG_ConstructFromAnother(const MR_CSharp_IncrDecrG *_other)
 {
     return (MR_CSharp_IncrDecrG *)new MR::CSharp::IncrDecrG(MR::CSharp::IncrDecrG(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrG(std::move(*(MR::CSharp::IncrDecrG *)_other)))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrG(std::move(*(MR::CSharp::IncrDecrG *)_other)))
     ));
 }
 
@@ -3290,24 +3290,24 @@ void MR_CSharp_IncrDecrG_DestroyArray(const MR_CSharp_IncrDecrG *_this)
 
 MR_CSharp_IncrDecrG *MR_C_incr_MR_CSharp_IncrDecrG(MR_CSharp_IncrDecrG *_this)
 {
-    return (MR_CSharp_IncrDecrG *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrG *)(_this)).operator++());
+    return (MR_CSharp_IncrDecrG *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrG *)(_this)).operator++());
 }
 
 MR_CSharp_IncrDecrG *MR_C_post_incr_MR_CSharp_IncrDecrG(MR_CSharp_IncrDecrG *_this)
 {
-    return (MR_CSharp_IncrDecrG *)new MR::CSharp::IncrDecrG(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrG *)(_this)).operator++(
+    return (MR_CSharp_IncrDecrG *)new MR::CSharp::IncrDecrG(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrG *)(_this)).operator++(
         0
     ));
 }
 
 MR_CSharp_IncrDecrG *MR_C_decr_MR_CSharp_IncrDecrG(MR_CSharp_IncrDecrG *_this)
 {
-    return (MR_CSharp_IncrDecrG *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrG *)(_this)).operator--());
+    return (MR_CSharp_IncrDecrG *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrG *)(_this)).operator--());
 }
 
 MR_CSharp_IncrDecrG *MR_C_post_decr_MR_CSharp_IncrDecrG(MR_CSharp_IncrDecrG *_this)
 {
-    return (MR_CSharp_IncrDecrG *)new MR::CSharp::IncrDecrG(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrG *)(_this)).operator--(
+    return (MR_CSharp_IncrDecrG *)new MR::CSharp::IncrDecrG(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrG *)(_this)).operator--(
         0
     ));
 }
@@ -3335,7 +3335,7 @@ MR_CSharp_IncrDecrH *MR_CSharp_IncrDecrH_OffsetMutablePtr(MR_CSharp_IncrDecrH *p
 MR_CSharp_IncrDecrH *MR_CSharp_IncrDecrH_ConstructFromAnother(const MR_CSharp_IncrDecrH *_other)
 {
     return (MR_CSharp_IncrDecrH *)new MR::CSharp::IncrDecrH(MR::CSharp::IncrDecrH(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrH(std::move(*(MR::CSharp::IncrDecrH *)_other)))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrH(std::move(*(MR::CSharp::IncrDecrH *)_other)))
     ));
 }
 
@@ -3351,24 +3351,24 @@ void MR_CSharp_IncrDecrH_DestroyArray(const MR_CSharp_IncrDecrH *_this)
 
 const MR_CSharp_IncrDecrH *MR_C_incr_MR_CSharp_IncrDecrH(const MR_CSharp_IncrDecrH *_this)
 {
-    return (const MR_CSharp_IncrDecrH *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrH *)(_this)).operator++());
+    return (const MR_CSharp_IncrDecrH *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrH *)(_this)).operator++());
 }
 
 MR_CSharp_IncrDecrH *MR_C_post_incr_MR_CSharp_IncrDecrH(const MR_CSharp_IncrDecrH *_this)
 {
-    return (MR_CSharp_IncrDecrH *)new MR::CSharp::IncrDecrH(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrH *)(_this)).operator++(
+    return (MR_CSharp_IncrDecrH *)new MR::CSharp::IncrDecrH(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrH *)(_this)).operator++(
         0
     ));
 }
 
 const MR_CSharp_IncrDecrH *MR_C_decr_MR_CSharp_IncrDecrH(const MR_CSharp_IncrDecrH *_this)
 {
-    return (const MR_CSharp_IncrDecrH *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrH *)(_this)).operator--());
+    return (const MR_CSharp_IncrDecrH *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrH *)(_this)).operator--());
 }
 
 MR_CSharp_IncrDecrH *MR_C_post_decr_MR_CSharp_IncrDecrH(const MR_CSharp_IncrDecrH *_this)
 {
-    return (MR_CSharp_IncrDecrH *)new MR::CSharp::IncrDecrH(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IncrDecrH *)(_this)).operator--(
+    return (MR_CSharp_IncrDecrH *)new MR::CSharp::IncrDecrH(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IncrDecrH *)(_this)).operator--(
         0
     ));
 }
@@ -3396,7 +3396,7 @@ MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_OffsetMutablePtr(MR_CSharp_IncrDecrI *p
 MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_ConstructFromAnother(const MR_CSharp_IncrDecrI *_other)
 {
     return (MR_CSharp_IncrDecrI *)new MR::CSharp::IncrDecrI(MR::CSharp::IncrDecrI(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_other))
     ));
 }
 
@@ -3412,22 +3412,22 @@ void MR_CSharp_IncrDecrI_DestroyArray(const MR_CSharp_IncrDecrI *_this)
 
 MR_CSharp_IncrDecrI *MR_CSharp_IncrDecrI_AssignFromAnother(MR_CSharp_IncrDecrI *_this, const MR_CSharp_IncrDecrI *_other)
 {
-    return (MR_CSharp_IncrDecrI *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IncrDecrI *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_other))
+    return (MR_CSharp_IncrDecrI *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IncrDecrI *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_other))
     ));
 }
 
 int MR_C_incr_MR_CSharp_IncrDecrI(const MR_CSharp_IncrDecrI *_1)
 {
     return operator++(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_1))
     );
 }
 
 int MR_C_post_incr_MR_CSharp_IncrDecrI(const MR_CSharp_IncrDecrI *_1)
 {
     return operator++(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_1)),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_1)),
         0
     );
 }
@@ -3435,14 +3435,14 @@ int MR_C_post_incr_MR_CSharp_IncrDecrI(const MR_CSharp_IncrDecrI *_1)
 int MR_C_decr_MR_CSharp_IncrDecrI(const MR_CSharp_IncrDecrI *_1)
 {
     return operator--(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_1))
     );
 }
 
 int MR_C_post_decr_MR_CSharp_IncrDecrI(const MR_CSharp_IncrDecrI *_1)
 {
     return operator--(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_1)),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::IncrDecrI(*(MR::CSharp::IncrDecrI *)_1)),
         0
     );
 }
@@ -3470,7 +3470,7 @@ MR_CSharp_EqualityA *MR_CSharp_EqualityA_OffsetMutablePtr(MR_CSharp_EqualityA *p
 MR_CSharp_EqualityA *MR_CSharp_EqualityA_ConstructFromAnother(const MR_CSharp_EqualityA *_other)
 {
     return (MR_CSharp_EqualityA *)new MR::CSharp::EqualityA(MR::CSharp::EqualityA(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::EqualityA(*(MR::CSharp::EqualityA *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::EqualityA(*(MR::CSharp::EqualityA *)_other))
     ));
 }
 
@@ -3486,29 +3486,29 @@ void MR_CSharp_EqualityA_DestroyArray(const MR_CSharp_EqualityA *_this)
 
 MR_CSharp_EqualityA *MR_CSharp_EqualityA_AssignFromAnother(MR_CSharp_EqualityA *_this, const MR_CSharp_EqualityA *_other)
 {
-    return (MR_CSharp_EqualityA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityA *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::EqualityA(*(MR::CSharp::EqualityA *)_other))
+    return (MR_CSharp_EqualityA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityA *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::EqualityA(*(MR::CSharp::EqualityA *)_other))
     ));
 }
 
 bool MR_C_equal_MR_CSharp_EqualityA_int(MR_CSharp_EqualityA *_this, int _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityA *)(_this)).operator==(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityA *)(_this)).operator==(
         _1
     );
 }
 
 bool MR_C_not_equal_MR_CSharp_EqualityA_int(MR_CSharp_EqualityA *_this, int _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityA *)(_this)).operator!=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityA *)(_this)).operator!=(
         _1
     );
 }
 
 bool MR_C_equal_MR_CSharp_EqualityA(const MR_CSharp_EqualityA *_this, const MR_CSharp_EqualityA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::EqualityA *)(_this)).operator==(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::EqualityA *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::EqualityA *)(_this)).operator==(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::EqualityA *)(_1))
     );
 }
 
@@ -3535,7 +3535,7 @@ MR_CSharp_EqualityB *MR_CSharp_EqualityB_OffsetMutablePtr(MR_CSharp_EqualityB *p
 MR_CSharp_EqualityB *MR_CSharp_EqualityB_ConstructFromAnother(const MR_CSharp_EqualityB *_other)
 {
     return (MR_CSharp_EqualityB *)new MR::CSharp::EqualityB(MR::CSharp::EqualityB(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::EqualityB(*(MR::CSharp::EqualityB *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::EqualityB(*(MR::CSharp::EqualityB *)_other))
     ));
 }
 
@@ -3551,29 +3551,29 @@ void MR_CSharp_EqualityB_DestroyArray(const MR_CSharp_EqualityB *_this)
 
 MR_CSharp_EqualityB *MR_CSharp_EqualityB_AssignFromAnother(MR_CSharp_EqualityB *_this, const MR_CSharp_EqualityB *_other)
 {
-    return (MR_CSharp_EqualityB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityB *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::EqualityB(*(MR::CSharp::EqualityB *)_other))
+    return (MR_CSharp_EqualityB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityB *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::EqualityB(*(MR::CSharp::EqualityB *)_other))
     ));
 }
 
 int MR_C_equal_MR_CSharp_EqualityB_int(MR_CSharp_EqualityB *_this, int _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityB *)(_this)).operator==(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityB *)(_this)).operator==(
         _1
     );
 }
 
 int MR_C_not_equal_MR_CSharp_EqualityB_int(MR_CSharp_EqualityB *_this, int _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityB *)(_this)).operator!=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityB *)(_this)).operator!=(
         _1
     );
 }
 
 int MR_C_equal_MR_CSharp_EqualityB(const MR_CSharp_EqualityB *_this, const MR_CSharp_EqualityB *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::EqualityB *)(_this)).operator==(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::EqualityB *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::EqualityB *)(_this)).operator==(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::EqualityB *)(_1))
     );
 }
 
@@ -3600,7 +3600,7 @@ MR_CSharp_EqualityC *MR_CSharp_EqualityC_OffsetMutablePtr(MR_CSharp_EqualityC *p
 MR_CSharp_EqualityC *MR_CSharp_EqualityC_ConstructFromAnother(const MR_CSharp_EqualityC *_other)
 {
     return (MR_CSharp_EqualityC *)new MR::CSharp::EqualityC(MR::CSharp::EqualityC(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::EqualityC(*(MR::CSharp::EqualityC *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::EqualityC(*(MR::CSharp::EqualityC *)_other))
     ));
 }
 
@@ -3616,29 +3616,29 @@ void MR_CSharp_EqualityC_DestroyArray(const MR_CSharp_EqualityC *_this)
 
 MR_CSharp_EqualityC *MR_CSharp_EqualityC_AssignFromAnother(MR_CSharp_EqualityC *_this, const MR_CSharp_EqualityC *_other)
 {
-    return (MR_CSharp_EqualityC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityC *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::EqualityC(*(MR::CSharp::EqualityC *)_other))
+    return (MR_CSharp_EqualityC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityC *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::EqualityC(*(MR::CSharp::EqualityC *)_other))
     ));
 }
 
 void MR_C_equal_MR_CSharp_EqualityC_int(MR_CSharp_EqualityC *_this, int _1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityC *)(_this)).operator==(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityC *)(_this)).operator==(
         _1
     );
 }
 
 void MR_C_not_equal_MR_CSharp_EqualityC_int(MR_CSharp_EqualityC *_this, int _1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityC *)(_this)).operator!=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityC *)(_this)).operator!=(
         _1
     );
 }
 
 void MR_C_equal_MR_CSharp_EqualityC(const MR_CSharp_EqualityC *_this, const MR_CSharp_EqualityC *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::EqualityC *)(_this)).operator==(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::EqualityC *)(_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::EqualityC *)(_this)).operator==(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::EqualityC *)(_1))
     );
 }
 
@@ -3665,7 +3665,7 @@ MR_CSharp_EqualityD *MR_CSharp_EqualityD_OffsetMutablePtr(MR_CSharp_EqualityD *p
 MR_CSharp_EqualityD *MR_CSharp_EqualityD_ConstructFromAnother(const MR_CSharp_EqualityD *_other)
 {
     return (MR_CSharp_EqualityD *)new MR::CSharp::EqualityD(MR::CSharp::EqualityD(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::EqualityD(*(MR::CSharp::EqualityD *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::EqualityD(*(MR::CSharp::EqualityD *)_other))
     ));
 }
 
@@ -3681,14 +3681,14 @@ void MR_CSharp_EqualityD_DestroyArray(const MR_CSharp_EqualityD *_this)
 
 MR_CSharp_EqualityD *MR_CSharp_EqualityD_AssignFromAnother(MR_CSharp_EqualityD *_this, const MR_CSharp_EqualityD *_other)
 {
-    return (MR_CSharp_EqualityD *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityD *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::EqualityD(*(MR::CSharp::EqualityD *)_other))
+    return (MR_CSharp_EqualityD *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityD *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::EqualityD(*(MR::CSharp::EqualityD *)_other))
     ));
 }
 
 bool MR_C_equal_MR_CSharp_EqualityD_const_int_ptr(MR_CSharp_EqualityD *_this, const int *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityD *)(_this)).operator==(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityD *)(_this)).operator==(
         _1
     );
 }
@@ -3716,7 +3716,7 @@ MR_CSharp_EqualityE *MR_CSharp_EqualityE_OffsetMutablePtr(MR_CSharp_EqualityE *p
 MR_CSharp_EqualityE *MR_CSharp_EqualityE_ConstructFromAnother(const MR_CSharp_EqualityE *_other)
 {
     return (MR_CSharp_EqualityE *)new MR::CSharp::EqualityE(MR::CSharp::EqualityE(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::EqualityE(*(MR::CSharp::EqualityE *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::EqualityE(*(MR::CSharp::EqualityE *)_other))
     ));
 }
 
@@ -3732,14 +3732,14 @@ void MR_CSharp_EqualityE_DestroyArray(const MR_CSharp_EqualityE *_this)
 
 MR_CSharp_EqualityE *MR_CSharp_EqualityE_AssignFromAnother(MR_CSharp_EqualityE *_this, const MR_CSharp_EqualityE *_other)
 {
-    return (MR_CSharp_EqualityE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityE *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::EqualityE(*(MR::CSharp::EqualityE *)_other))
+    return (MR_CSharp_EqualityE *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityE *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::EqualityE(*(MR::CSharp::EqualityE *)_other))
     ));
 }
 
 bool MR_C_equal_MR_CSharp_EqualityE_MR_CSharp_EqualityD_ptr(MR_CSharp_EqualityE *_this, MR_CSharp_EqualityD *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::EqualityE *)(_this)).operator==(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::EqualityE *)(_this)).operator==(
         ((MR::CSharp::EqualityD *)_1)
     );
 }
@@ -3767,7 +3767,7 @@ MR_CSharp_RelationalA *MR_CSharp_RelationalA_OffsetMutablePtr(MR_CSharp_Relation
 MR_CSharp_RelationalA *MR_CSharp_RelationalA_ConstructFromAnother(const MR_CSharp_RelationalA *_other)
 {
     return (MR_CSharp_RelationalA *)new MR::CSharp::RelationalA(MR::CSharp::RelationalA(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalA(*(MR::CSharp::RelationalA *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalA(*(MR::CSharp::RelationalA *)_other))
     ));
 }
 
@@ -3783,36 +3783,36 @@ void MR_CSharp_RelationalA_DestroyArray(const MR_CSharp_RelationalA *_this)
 
 MR_CSharp_RelationalA *MR_CSharp_RelationalA_AssignFromAnother(MR_CSharp_RelationalA *_this, const MR_CSharp_RelationalA *_other)
 {
-    return (MR_CSharp_RelationalA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::RelationalA *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalA(*(MR::CSharp::RelationalA *)_other))
+    return (MR_CSharp_RelationalA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::RelationalA *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalA(*(MR::CSharp::RelationalA *)_other))
     ));
 }
 
 bool MR_C_less_MR_CSharp_RelationalA(const MR_CSharp_RelationalA *_this, const MR_CSharp_RelationalA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalA *)(_this)).operator<(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::RelationalA *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalA *)(_this)).operator<(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::RelationalA *)(_1))
     );
 }
 
 bool MR_C_greater_MR_CSharp_RelationalA(const MR_CSharp_RelationalA *_this, const MR_CSharp_RelationalA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalA *)(_this)).operator>(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::RelationalA *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalA *)(_this)).operator>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::RelationalA *)(_1))
     );
 }
 
 bool MR_C_less_equal_MR_CSharp_RelationalA(const MR_CSharp_RelationalA *_this, const MR_CSharp_RelationalA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalA *)(_this)).operator<=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::RelationalA *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalA *)(_this)).operator<=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::RelationalA *)(_1))
     );
 }
 
 bool MR_C_greater_equal_MR_CSharp_RelationalA(const MR_CSharp_RelationalA *_this, const MR_CSharp_RelationalA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalA *)(_this)).operator>=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::RelationalA *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalA *)(_this)).operator>=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::RelationalA *)(_1))
     );
 }
 
@@ -3839,7 +3839,7 @@ MR_CSharp_RelationalB *MR_CSharp_RelationalB_OffsetMutablePtr(MR_CSharp_Relation
 MR_CSharp_RelationalB *MR_CSharp_RelationalB_ConstructFromAnother(const MR_CSharp_RelationalB *_other)
 {
     return (MR_CSharp_RelationalB *)new MR::CSharp::RelationalB(MR::CSharp::RelationalB(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalB(*(MR::CSharp::RelationalB *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalB(*(MR::CSharp::RelationalB *)_other))
     ));
 }
 
@@ -3855,36 +3855,36 @@ void MR_CSharp_RelationalB_DestroyArray(const MR_CSharp_RelationalB *_this)
 
 MR_CSharp_RelationalB *MR_CSharp_RelationalB_AssignFromAnother(MR_CSharp_RelationalB *_this, const MR_CSharp_RelationalB *_other)
 {
-    return (MR_CSharp_RelationalB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::RelationalB *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalB(*(MR::CSharp::RelationalB *)_other))
+    return (MR_CSharp_RelationalB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::RelationalB *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalB(*(MR::CSharp::RelationalB *)_other))
     ));
 }
 
 bool MR_C_less_MR_CSharp_RelationalB(MR_CSharp_RelationalB *_this, MR_CSharp_RelationalB *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::RelationalB *)(_this)).operator<(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalB *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::RelationalB *)(_this)).operator<(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalB *)(_1))
     );
 }
 
 bool MR_C_greater_MR_CSharp_RelationalB(MR_CSharp_RelationalB *_this, MR_CSharp_RelationalB *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::RelationalB *)(_this)).operator>(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalB *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::RelationalB *)(_this)).operator>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalB *)(_1))
     );
 }
 
 bool MR_C_less_equal_MR_CSharp_RelationalB(MR_CSharp_RelationalB *_this, MR_CSharp_RelationalB *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::RelationalB *)(_this)).operator<=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalB *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::RelationalB *)(_this)).operator<=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalB *)(_1))
     );
 }
 
 bool MR_C_greater_equal_MR_CSharp_RelationalB(MR_CSharp_RelationalB *_this, MR_CSharp_RelationalB *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::RelationalB *)(_this)).operator>=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalB *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::RelationalB *)(_this)).operator>=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalB *)(_1))
     );
 }
 
@@ -3911,7 +3911,7 @@ MR_CSharp_RelationalC *MR_CSharp_RelationalC_OffsetMutablePtr(MR_CSharp_Relation
 MR_CSharp_RelationalC *MR_CSharp_RelationalC_ConstructFromAnother(const MR_CSharp_RelationalC *_other)
 {
     return (MR_CSharp_RelationalC *)new MR::CSharp::RelationalC(MR::CSharp::RelationalC(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalC(*(MR::CSharp::RelationalC *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalC(*(MR::CSharp::RelationalC *)_other))
     ));
 }
 
@@ -3927,29 +3927,29 @@ void MR_CSharp_RelationalC_DestroyArray(const MR_CSharp_RelationalC *_this)
 
 MR_CSharp_RelationalC *MR_CSharp_RelationalC_AssignFromAnother(MR_CSharp_RelationalC *_this, const MR_CSharp_RelationalC *_other)
 {
-    return (MR_CSharp_RelationalC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::RelationalC *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalC(*(MR::CSharp::RelationalC *)_other))
+    return (MR_CSharp_RelationalC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::RelationalC *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalC(*(MR::CSharp::RelationalC *)_other))
     ));
 }
 
 bool MR_C_less_MR_CSharp_RelationalC(const MR_CSharp_RelationalC *_this, MR_CSharp_RelationalC *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalC *)(_this)).operator<(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalC *)(_this)).operator<(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
 bool MR_C_greater_MR_CSharp_RelationalC(const MR_CSharp_RelationalC *_this, MR_CSharp_RelationalC *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalC *)(_this)).operator>(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalC *)(_this)).operator>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
 bool MR_C_greater_equal_MR_CSharp_RelationalC(const MR_CSharp_RelationalC *_this, MR_CSharp_RelationalC *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalC *)(_this)).operator>=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalC *)(_this)).operator>=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
@@ -3976,7 +3976,7 @@ MR_CSharp_RelationalD *MR_CSharp_RelationalD_OffsetMutablePtr(MR_CSharp_Relation
 MR_CSharp_RelationalD *MR_CSharp_RelationalD_ConstructFromAnother(const MR_CSharp_RelationalD *_other)
 {
     return (MR_CSharp_RelationalD *)new MR::CSharp::RelationalD(MR::CSharp::RelationalD(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalD(*(MR::CSharp::RelationalD *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalD(*(MR::CSharp::RelationalD *)_other))
     ));
 }
 
@@ -3992,36 +3992,36 @@ void MR_CSharp_RelationalD_DestroyArray(const MR_CSharp_RelationalD *_this)
 
 MR_CSharp_RelationalD *MR_CSharp_RelationalD_AssignFromAnother(MR_CSharp_RelationalD *_this, const MR_CSharp_RelationalD *_other)
 {
-    return (MR_CSharp_RelationalD *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::RelationalD *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalD(*(MR::CSharp::RelationalD *)_other))
+    return (MR_CSharp_RelationalD *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::RelationalD *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalD(*(MR::CSharp::RelationalD *)_other))
     ));
 }
 
 bool MR_C_less_MR_CSharp_RelationalD_MR_CSharp_RelationalC(const MR_CSharp_RelationalD *_this, MR_CSharp_RelationalC *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalD *)(_this)).operator<(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalD *)(_this)).operator<(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
 bool MR_C_greater_MR_CSharp_RelationalD_MR_CSharp_RelationalC(const MR_CSharp_RelationalD *_this, MR_CSharp_RelationalC *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalD *)(_this)).operator>(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalD *)(_this)).operator>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
 bool MR_C_less_equal_MR_CSharp_RelationalD_MR_CSharp_RelationalC(const MR_CSharp_RelationalD *_this, MR_CSharp_RelationalC *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalD *)(_this)).operator<=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalD *)(_this)).operator<=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
 bool MR_C_greater_equal_MR_CSharp_RelationalD_MR_CSharp_RelationalC(const MR_CSharp_RelationalD *_this, MR_CSharp_RelationalC *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalD *)(_this)).operator>=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalD *)(_this)).operator>=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
@@ -4048,7 +4048,7 @@ MR_CSharp_RelationalE *MR_CSharp_RelationalE_OffsetMutablePtr(MR_CSharp_Relation
 MR_CSharp_RelationalE *MR_CSharp_RelationalE_ConstructFromAnother(const MR_CSharp_RelationalE *_other)
 {
     return (MR_CSharp_RelationalE *)new MR::CSharp::RelationalE(MR::CSharp::RelationalE(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalE(*(MR::CSharp::RelationalE *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalE(*(MR::CSharp::RelationalE *)_other))
     ));
 }
 
@@ -4064,36 +4064,36 @@ void MR_CSharp_RelationalE_DestroyArray(const MR_CSharp_RelationalE *_this)
 
 MR_CSharp_RelationalE *MR_CSharp_RelationalE_AssignFromAnother(MR_CSharp_RelationalE *_this, const MR_CSharp_RelationalE *_other)
 {
-    return (MR_CSharp_RelationalE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::RelationalE *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalE(*(MR::CSharp::RelationalE *)_other))
+    return (MR_CSharp_RelationalE *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::RelationalE *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalE(*(MR::CSharp::RelationalE *)_other))
     ));
 }
 
 int MR_C_less_MR_CSharp_RelationalE_MR_CSharp_RelationalC(const MR_CSharp_RelationalE *_this, MR_CSharp_RelationalC *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalE *)(_this)).operator<(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalE *)(_this)).operator<(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
 int MR_C_greater_MR_CSharp_RelationalE_MR_CSharp_RelationalC(const MR_CSharp_RelationalE *_this, MR_CSharp_RelationalC *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalE *)(_this)).operator>(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalE *)(_this)).operator>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
 int MR_C_less_equal_MR_CSharp_RelationalE_MR_CSharp_RelationalC(const MR_CSharp_RelationalE *_this, MR_CSharp_RelationalC *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalE *)(_this)).operator<=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalE *)(_this)).operator<=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
 int MR_C_greater_equal_MR_CSharp_RelationalE_MR_CSharp_RelationalC(const MR_CSharp_RelationalE *_this, MR_CSharp_RelationalC *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalE *)(_this)).operator>=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalE *)(_this)).operator>=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
@@ -4120,7 +4120,7 @@ MR_CSharp_RelationalF *MR_CSharp_RelationalF_OffsetMutablePtr(MR_CSharp_Relation
 MR_CSharp_RelationalF *MR_CSharp_RelationalF_ConstructFromAnother(const MR_CSharp_RelationalF *_other)
 {
     return (MR_CSharp_RelationalF *)new MR::CSharp::RelationalF(MR::CSharp::RelationalF(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalF(*(MR::CSharp::RelationalF *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalF(*(MR::CSharp::RelationalF *)_other))
     ));
 }
 
@@ -4136,36 +4136,36 @@ void MR_CSharp_RelationalF_DestroyArray(const MR_CSharp_RelationalF *_this)
 
 MR_CSharp_RelationalF *MR_CSharp_RelationalF_AssignFromAnother(MR_CSharp_RelationalF *_this, const MR_CSharp_RelationalF *_other)
 {
-    return (MR_CSharp_RelationalF *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::RelationalF *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::RelationalF(*(MR::CSharp::RelationalF *)_other))
+    return (MR_CSharp_RelationalF *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::RelationalF *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::RelationalF(*(MR::CSharp::RelationalF *)_other))
     ));
 }
 
 void MR_C_less_MR_CSharp_RelationalF_MR_CSharp_RelationalC(const MR_CSharp_RelationalF *_this, MR_CSharp_RelationalC *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalF *)(_this)).operator<(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalF *)(_this)).operator<(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
 void MR_C_greater_MR_CSharp_RelationalF_MR_CSharp_RelationalC(const MR_CSharp_RelationalF *_this, MR_CSharp_RelationalC *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalF *)(_this)).operator>(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalF *)(_this)).operator>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
 void MR_C_less_equal_MR_CSharp_RelationalF_MR_CSharp_RelationalC(const MR_CSharp_RelationalF *_this, MR_CSharp_RelationalC *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalF *)(_this)).operator<=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalF *)(_this)).operator<=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
 void MR_C_greater_equal_MR_CSharp_RelationalF_MR_CSharp_RelationalC(const MR_CSharp_RelationalF *_this, MR_CSharp_RelationalC *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::RelationalF *)(_this)).operator>=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::RelationalC *)(_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::RelationalF *)(_this)).operator>=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::RelationalC *)(_1))
     );
 }
 
@@ -4192,7 +4192,7 @@ MR_CSharp_StaticOpsLhsA *MR_CSharp_StaticOpsLhsA_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsLhsA *MR_CSharp_StaticOpsLhsA_ConstructFromAnother(const MR_CSharp_StaticOpsLhsA *_other)
 {
     return (MR_CSharp_StaticOpsLhsA *)new MR::CSharp::StaticOpsLhsA(MR::CSharp::StaticOpsLhsA(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsA(*(MR::CSharp::StaticOpsLhsA *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsA(*(MR::CSharp::StaticOpsLhsA *)_other))
     ));
 }
 
@@ -4208,15 +4208,15 @@ void MR_CSharp_StaticOpsLhsA_DestroyArray(const MR_CSharp_StaticOpsLhsA *_this)
 
 MR_CSharp_StaticOpsLhsA *MR_CSharp_StaticOpsLhsA_AssignFromAnother(MR_CSharp_StaticOpsLhsA *_this, const MR_CSharp_StaticOpsLhsA *_other)
 {
-    return (MR_CSharp_StaticOpsLhsA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsLhsA *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsA(*(MR::CSharp::StaticOpsLhsA *)_other))
+    return (MR_CSharp_StaticOpsLhsA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsLhsA *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsA(*(MR::CSharp::StaticOpsLhsA *)_other))
     ));
 }
 
 int MR_C_add_MR_CSharp_StaticOpsLhsA_int(const MR_CSharp_StaticOpsLhsA *_1, int _2)
 {
     return ::MR::CSharp::operator+(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::StaticOpsLhsA(*(MR::CSharp::StaticOpsLhsA *)_1)),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::StaticOpsLhsA(*(MR::CSharp::StaticOpsLhsA *)_1)),
         _2
     );
 }
@@ -4244,7 +4244,7 @@ MR_CSharp_StaticOpsLhsB *MR_CSharp_StaticOpsLhsB_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsLhsB *MR_CSharp_StaticOpsLhsB_ConstructFromAnother(const MR_CSharp_StaticOpsLhsB *_other)
 {
     return (MR_CSharp_StaticOpsLhsB *)new MR::CSharp::StaticOpsLhsB(MR::CSharp::StaticOpsLhsB(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsB(*(MR::CSharp::StaticOpsLhsB *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsB(*(MR::CSharp::StaticOpsLhsB *)_other))
     ));
 }
 
@@ -4260,15 +4260,15 @@ void MR_CSharp_StaticOpsLhsB_DestroyArray(const MR_CSharp_StaticOpsLhsB *_this)
 
 MR_CSharp_StaticOpsLhsB *MR_CSharp_StaticOpsLhsB_AssignFromAnother(MR_CSharp_StaticOpsLhsB *_this, const MR_CSharp_StaticOpsLhsB *_other)
 {
-    return (MR_CSharp_StaticOpsLhsB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsLhsB *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsB(*(MR::CSharp::StaticOpsLhsB *)_other))
+    return (MR_CSharp_StaticOpsLhsB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsLhsB *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsB(*(MR::CSharp::StaticOpsLhsB *)_other))
     ));
 }
 
 void MR_C_add_MR_CSharp_StaticOpsLhsB_int(const MR_CSharp_StaticOpsLhsB *_1, int _2)
 {
     ::MR::CSharp::operator+(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::StaticOpsLhsB(*(MR::CSharp::StaticOpsLhsB *)_1)),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::StaticOpsLhsB(*(MR::CSharp::StaticOpsLhsB *)_1)),
         _2
     );
 }
@@ -4343,7 +4343,7 @@ MR_CSharp_StaticOpsLhsD *MR_CSharp_StaticOpsLhsD_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsLhsD *MR_CSharp_StaticOpsLhsD_ConstructFromAnother(const MR_CSharp_StaticOpsLhsD *_other)
 {
     return (MR_CSharp_StaticOpsLhsD *)new MR::CSharp::StaticOpsLhsD(MR::CSharp::StaticOpsLhsD(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsD(std::move(*(MR::CSharp::StaticOpsLhsD *)_other)))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsD(std::move(*(MR::CSharp::StaticOpsLhsD *)_other)))
     ));
 }
 
@@ -4360,7 +4360,7 @@ void MR_CSharp_StaticOpsLhsD_DestroyArray(const MR_CSharp_StaticOpsLhsD *_this)
 int MR_C_add_MR_CSharp_StaticOpsLhsD_int(const MR_CSharp_StaticOpsLhsD *_1, int _2)
 {
     return ::MR::CSharp::operator+(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::StaticOpsLhsD(std::move(*(MR::CSharp::StaticOpsLhsD *)_1))),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::StaticOpsLhsD(std::move(*(MR::CSharp::StaticOpsLhsD *)_1))),
         _2
     );
 }
@@ -4388,7 +4388,7 @@ MR_CSharp_StaticOpsLhsE *MR_CSharp_StaticOpsLhsE_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsLhsE *MR_CSharp_StaticOpsLhsE_ConstructFromAnother(const MR_CSharp_StaticOpsLhsE *_other)
 {
     return (MR_CSharp_StaticOpsLhsE *)new MR::CSharp::StaticOpsLhsE(MR::CSharp::StaticOpsLhsE(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsE(std::move(*(MR::CSharp::StaticOpsLhsE *)_other)))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsE(std::move(*(MR::CSharp::StaticOpsLhsE *)_other)))
     ));
 }
 
@@ -4404,15 +4404,15 @@ void MR_CSharp_StaticOpsLhsE_DestroyArray(const MR_CSharp_StaticOpsLhsE *_this)
 
 MR_CSharp_StaticOpsLhsE *MR_CSharp_StaticOpsLhsE_AssignFromAnother(MR_CSharp_StaticOpsLhsE *_this, const MR_CSharp_StaticOpsLhsE *_other)
 {
-    return (MR_CSharp_StaticOpsLhsE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsLhsE *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsE(std::move(*(MR::CSharp::StaticOpsLhsE *)_other)))
+    return (MR_CSharp_StaticOpsLhsE *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsLhsE *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsE(std::move(*(MR::CSharp::StaticOpsLhsE *)_other)))
     ));
 }
 
 int MR_C_add_MR_CSharp_StaticOpsLhsE_int(MR_CSharp_StaticOpsLhsE *_1, int _2)
 {
     return ::MR::CSharp::operator+(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::StaticOpsLhsE *)(_1)),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::StaticOpsLhsE *)(_1)),
         _2
     );
 }
@@ -4440,7 +4440,7 @@ MR_CSharp_StaticOpsLhsF *MR_CSharp_StaticOpsLhsF_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsLhsF *MR_CSharp_StaticOpsLhsF_ConstructFromAnother(const MR_CSharp_StaticOpsLhsF *_other)
 {
     return (MR_CSharp_StaticOpsLhsF *)new MR::CSharp::StaticOpsLhsF(MR::CSharp::StaticOpsLhsF(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsF(std::move(*(MR::CSharp::StaticOpsLhsF *)_other)))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsF(std::move(*(MR::CSharp::StaticOpsLhsF *)_other)))
     ));
 }
 
@@ -4456,15 +4456,15 @@ void MR_CSharp_StaticOpsLhsF_DestroyArray(const MR_CSharp_StaticOpsLhsF *_this)
 
 MR_CSharp_StaticOpsLhsF *MR_CSharp_StaticOpsLhsF_AssignFromAnother(MR_CSharp_StaticOpsLhsF *_this, const MR_CSharp_StaticOpsLhsF *_other)
 {
-    return (MR_CSharp_StaticOpsLhsF *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsLhsF *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsF(std::move(*(MR::CSharp::StaticOpsLhsF *)_other)))
+    return (MR_CSharp_StaticOpsLhsF *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsLhsF *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsF(std::move(*(MR::CSharp::StaticOpsLhsF *)_other)))
     ));
 }
 
 int MR_C_add_MR_CSharp_StaticOpsLhsF_int(const MR_CSharp_StaticOpsLhsF *_1, int _2)
 {
     return ::MR::CSharp::operator+(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::StaticOpsLhsF *)(_1)),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::StaticOpsLhsF *)(_1)),
         _2
     );
 }
@@ -4492,7 +4492,7 @@ MR_CSharp_StaticOpsLhsG *MR_CSharp_StaticOpsLhsG_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsLhsG *MR_CSharp_StaticOpsLhsG_ConstructFromAnother(const MR_CSharp_StaticOpsLhsG *_other)
 {
     return (MR_CSharp_StaticOpsLhsG *)new MR::CSharp::StaticOpsLhsG(MR::CSharp::StaticOpsLhsG(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsG(*(MR::CSharp::StaticOpsLhsG *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsG(*(MR::CSharp::StaticOpsLhsG *)_other))
     ));
 }
 
@@ -4508,15 +4508,15 @@ void MR_CSharp_StaticOpsLhsG_DestroyArray(const MR_CSharp_StaticOpsLhsG *_this)
 
 MR_CSharp_StaticOpsLhsG *MR_CSharp_StaticOpsLhsG_AssignFromAnother(MR_CSharp_StaticOpsLhsG *_this, const MR_CSharp_StaticOpsLhsG *_other)
 {
-    return (MR_CSharp_StaticOpsLhsG *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsLhsG *)(_this)).operator=(
-        mrbindc_details::unmove(((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsG(*(MR::CSharp::StaticOpsLhsG *)_other)))
+    return (MR_CSharp_StaticOpsLhsG *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsLhsG *)(_this)).operator=(
+        mrbindc_details::unmove(((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsG(*(MR::CSharp::StaticOpsLhsG *)_other)))
     ));
 }
 
 int MR_C_add_MR_CSharp_StaticOpsLhsG_int(const MR_CSharp_StaticOpsLhsG *_1, int _2)
 {
     return ::MR::CSharp::operator+(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::StaticOpsLhsG(*(MR::CSharp::StaticOpsLhsG *)_1)),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::StaticOpsLhsG(*(MR::CSharp::StaticOpsLhsG *)_1)),
         _2
     );
 }
@@ -4544,7 +4544,7 @@ MR_CSharp_StaticOpsLhsH *MR_CSharp_StaticOpsLhsH_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsLhsH *MR_CSharp_StaticOpsLhsH_ConstructFromAnother(const MR_CSharp_StaticOpsLhsH *_other)
 {
     return (MR_CSharp_StaticOpsLhsH *)new MR::CSharp::StaticOpsLhsH(MR::CSharp::StaticOpsLhsH(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsH(*(MR::CSharp::StaticOpsLhsH *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsH(*(MR::CSharp::StaticOpsLhsH *)_other))
     ));
 }
 
@@ -4560,15 +4560,15 @@ void MR_CSharp_StaticOpsLhsH_DestroyArray(const MR_CSharp_StaticOpsLhsH *_this)
 
 MR_CSharp_StaticOpsLhsH *MR_CSharp_StaticOpsLhsH_AssignFromAnother(MR_CSharp_StaticOpsLhsH *_this, const MR_CSharp_StaticOpsLhsH *_other)
 {
-    return (MR_CSharp_StaticOpsLhsH *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsLhsH *)(_this)).operator=(
-        mrbindc_details::unmove(((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsLhsH(*(MR::CSharp::StaticOpsLhsH *)_other)))
+    return (MR_CSharp_StaticOpsLhsH *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsLhsH *)(_this)).operator=(
+        mrbindc_details::unmove(((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsLhsH(*(MR::CSharp::StaticOpsLhsH *)_other)))
     ));
 }
 
 int MR_C_add_MR_CSharp_StaticOpsLhsH_int(const MR_CSharp_StaticOpsLhsH *_1, int _2)
 {
     return ::MR::CSharp::operator+(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::StaticOpsLhsH *)(_1)),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::StaticOpsLhsH *)(_1)),
         _2
     );
 }
@@ -4596,7 +4596,7 @@ MR_CSharp_StaticOpsRhsA *MR_CSharp_StaticOpsRhsA_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsRhsA *MR_CSharp_StaticOpsRhsA_ConstructFromAnother(const MR_CSharp_StaticOpsRhsA *_other)
 {
     return (MR_CSharp_StaticOpsRhsA *)new MR::CSharp::StaticOpsRhsA(MR::CSharp::StaticOpsRhsA(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsA(*(MR::CSharp::StaticOpsRhsA *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsA(*(MR::CSharp::StaticOpsRhsA *)_other))
     ));
 }
 
@@ -4612,8 +4612,8 @@ void MR_CSharp_StaticOpsRhsA_DestroyArray(const MR_CSharp_StaticOpsRhsA *_this)
 
 MR_CSharp_StaticOpsRhsA *MR_CSharp_StaticOpsRhsA_AssignFromAnother(MR_CSharp_StaticOpsRhsA *_this, const MR_CSharp_StaticOpsRhsA *_other)
 {
-    return (MR_CSharp_StaticOpsRhsA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsRhsA *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsA(*(MR::CSharp::StaticOpsRhsA *)_other))
+    return (MR_CSharp_StaticOpsRhsA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsRhsA *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsA(*(MR::CSharp::StaticOpsRhsA *)_other))
     ));
 }
 
@@ -4621,7 +4621,7 @@ int MR_C_add_int_MR_CSharp_StaticOpsRhsA(int _1, const MR_CSharp_StaticOpsRhsA *
 {
     return ::MR::CSharp::operator+(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), MR::CSharp::StaticOpsRhsA(*(MR::CSharp::StaticOpsRhsA *)_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), MR::CSharp::StaticOpsRhsA(*(MR::CSharp::StaticOpsRhsA *)_2))
     );
 }
 
@@ -4648,7 +4648,7 @@ MR_CSharp_StaticOpsRhsB *MR_CSharp_StaticOpsRhsB_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsRhsB *MR_CSharp_StaticOpsRhsB_ConstructFromAnother(const MR_CSharp_StaticOpsRhsB *_other)
 {
     return (MR_CSharp_StaticOpsRhsB *)new MR::CSharp::StaticOpsRhsB(MR::CSharp::StaticOpsRhsB(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsB(*(MR::CSharp::StaticOpsRhsB *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsB(*(MR::CSharp::StaticOpsRhsB *)_other))
     ));
 }
 
@@ -4664,8 +4664,8 @@ void MR_CSharp_StaticOpsRhsB_DestroyArray(const MR_CSharp_StaticOpsRhsB *_this)
 
 MR_CSharp_StaticOpsRhsB *MR_CSharp_StaticOpsRhsB_AssignFromAnother(MR_CSharp_StaticOpsRhsB *_this, const MR_CSharp_StaticOpsRhsB *_other)
 {
-    return (MR_CSharp_StaticOpsRhsB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsRhsB *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsB(*(MR::CSharp::StaticOpsRhsB *)_other))
+    return (MR_CSharp_StaticOpsRhsB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsRhsB *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsB(*(MR::CSharp::StaticOpsRhsB *)_other))
     ));
 }
 
@@ -4673,7 +4673,7 @@ void MR_C_add_int_MR_CSharp_StaticOpsRhsB(int _1, const MR_CSharp_StaticOpsRhsB 
 {
     ::MR::CSharp::operator+(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), MR::CSharp::StaticOpsRhsB(*(MR::CSharp::StaticOpsRhsB *)_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), MR::CSharp::StaticOpsRhsB(*(MR::CSharp::StaticOpsRhsB *)_2))
     );
 }
 
@@ -4747,7 +4747,7 @@ MR_CSharp_StaticOpsRhsD *MR_CSharp_StaticOpsRhsD_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsRhsD *MR_CSharp_StaticOpsRhsD_ConstructFromAnother(const MR_CSharp_StaticOpsRhsD *_other)
 {
     return (MR_CSharp_StaticOpsRhsD *)new MR::CSharp::StaticOpsRhsD(MR::CSharp::StaticOpsRhsD(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsD(std::move(*(MR::CSharp::StaticOpsRhsD *)_other)))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsD(std::move(*(MR::CSharp::StaticOpsRhsD *)_other)))
     ));
 }
 
@@ -4765,7 +4765,7 @@ int MR_C_add_int_MR_CSharp_StaticOpsRhsD(int _1, const MR_CSharp_StaticOpsRhsD *
 {
     return ::MR::CSharp::operator+(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), MR::CSharp::StaticOpsRhsD(std::move(*(MR::CSharp::StaticOpsRhsD *)_2)))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), MR::CSharp::StaticOpsRhsD(std::move(*(MR::CSharp::StaticOpsRhsD *)_2)))
     );
 }
 
@@ -4792,7 +4792,7 @@ MR_CSharp_StaticOpsRhsE *MR_CSharp_StaticOpsRhsE_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsRhsE *MR_CSharp_StaticOpsRhsE_ConstructFromAnother(const MR_CSharp_StaticOpsRhsE *_other)
 {
     return (MR_CSharp_StaticOpsRhsE *)new MR::CSharp::StaticOpsRhsE(MR::CSharp::StaticOpsRhsE(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsE(std::move(*(MR::CSharp::StaticOpsRhsE *)_other)))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsE(std::move(*(MR::CSharp::StaticOpsRhsE *)_other)))
     ));
 }
 
@@ -4808,8 +4808,8 @@ void MR_CSharp_StaticOpsRhsE_DestroyArray(const MR_CSharp_StaticOpsRhsE *_this)
 
 MR_CSharp_StaticOpsRhsE *MR_CSharp_StaticOpsRhsE_AssignFromAnother(MR_CSharp_StaticOpsRhsE *_this, const MR_CSharp_StaticOpsRhsE *_other)
 {
-    return (MR_CSharp_StaticOpsRhsE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsRhsE *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsE(std::move(*(MR::CSharp::StaticOpsRhsE *)_other)))
+    return (MR_CSharp_StaticOpsRhsE *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsRhsE *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsE(std::move(*(MR::CSharp::StaticOpsRhsE *)_other)))
     ));
 }
 
@@ -4817,7 +4817,7 @@ int MR_C_add_int_MR_CSharp_StaticOpsRhsE(int _1, MR_CSharp_StaticOpsRhsE *_2)
 {
     return ::MR::CSharp::operator+(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(MR::CSharp::StaticOpsRhsE *)(_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(MR::CSharp::StaticOpsRhsE *)(_2))
     );
 }
 
@@ -4844,7 +4844,7 @@ MR_CSharp_StaticOpsRhsF *MR_CSharp_StaticOpsRhsF_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsRhsF *MR_CSharp_StaticOpsRhsF_ConstructFromAnother(const MR_CSharp_StaticOpsRhsF *_other)
 {
     return (MR_CSharp_StaticOpsRhsF *)new MR::CSharp::StaticOpsRhsF(MR::CSharp::StaticOpsRhsF(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsF(std::move(*(MR::CSharp::StaticOpsRhsF *)_other)))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsF(std::move(*(MR::CSharp::StaticOpsRhsF *)_other)))
     ));
 }
 
@@ -4860,8 +4860,8 @@ void MR_CSharp_StaticOpsRhsF_DestroyArray(const MR_CSharp_StaticOpsRhsF *_this)
 
 MR_CSharp_StaticOpsRhsF *MR_CSharp_StaticOpsRhsF_AssignFromAnother(MR_CSharp_StaticOpsRhsF *_this, const MR_CSharp_StaticOpsRhsF *_other)
 {
-    return (MR_CSharp_StaticOpsRhsF *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsRhsF *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsF(std::move(*(MR::CSharp::StaticOpsRhsF *)_other)))
+    return (MR_CSharp_StaticOpsRhsF *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsRhsF *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsF(std::move(*(MR::CSharp::StaticOpsRhsF *)_other)))
     ));
 }
 
@@ -4869,7 +4869,7 @@ int MR_C_add_int_MR_CSharp_StaticOpsRhsF(int _1, const MR_CSharp_StaticOpsRhsF *
 {
     return ::MR::CSharp::operator+(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(const MR::CSharp::StaticOpsRhsF *)(_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::CSharp::StaticOpsRhsF *)(_2))
     );
 }
 
@@ -4896,7 +4896,7 @@ MR_CSharp_StaticOpsRhsG *MR_CSharp_StaticOpsRhsG_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsRhsG *MR_CSharp_StaticOpsRhsG_ConstructFromAnother(const MR_CSharp_StaticOpsRhsG *_other)
 {
     return (MR_CSharp_StaticOpsRhsG *)new MR::CSharp::StaticOpsRhsG(MR::CSharp::StaticOpsRhsG(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsG(*(MR::CSharp::StaticOpsRhsG *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsG(*(MR::CSharp::StaticOpsRhsG *)_other))
     ));
 }
 
@@ -4912,8 +4912,8 @@ void MR_CSharp_StaticOpsRhsG_DestroyArray(const MR_CSharp_StaticOpsRhsG *_this)
 
 MR_CSharp_StaticOpsRhsG *MR_CSharp_StaticOpsRhsG_AssignFromAnother(MR_CSharp_StaticOpsRhsG *_this, const MR_CSharp_StaticOpsRhsG *_other)
 {
-    return (MR_CSharp_StaticOpsRhsG *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsRhsG *)(_this)).operator=(
-        mrbindc_details::unmove(((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsG(*(MR::CSharp::StaticOpsRhsG *)_other)))
+    return (MR_CSharp_StaticOpsRhsG *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsRhsG *)(_this)).operator=(
+        mrbindc_details::unmove(((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsG(*(MR::CSharp::StaticOpsRhsG *)_other)))
     ));
 }
 
@@ -4921,7 +4921,7 @@ int MR_C_add_int_MR_CSharp_StaticOpsRhsG(int _1, const MR_CSharp_StaticOpsRhsG *
 {
     return ::MR::CSharp::operator+(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), MR::CSharp::StaticOpsRhsG(*(MR::CSharp::StaticOpsRhsG *)_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), MR::CSharp::StaticOpsRhsG(*(MR::CSharp::StaticOpsRhsG *)_2))
     );
 }
 
@@ -4948,7 +4948,7 @@ MR_CSharp_StaticOpsRhsH *MR_CSharp_StaticOpsRhsH_OffsetMutablePtr(MR_CSharp_Stat
 MR_CSharp_StaticOpsRhsH *MR_CSharp_StaticOpsRhsH_ConstructFromAnother(const MR_CSharp_StaticOpsRhsH *_other)
 {
     return (MR_CSharp_StaticOpsRhsH *)new MR::CSharp::StaticOpsRhsH(MR::CSharp::StaticOpsRhsH(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsH(*(MR::CSharp::StaticOpsRhsH *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsH(*(MR::CSharp::StaticOpsRhsH *)_other))
     ));
 }
 
@@ -4964,8 +4964,8 @@ void MR_CSharp_StaticOpsRhsH_DestroyArray(const MR_CSharp_StaticOpsRhsH *_this)
 
 MR_CSharp_StaticOpsRhsH *MR_CSharp_StaticOpsRhsH_AssignFromAnother(MR_CSharp_StaticOpsRhsH *_this, const MR_CSharp_StaticOpsRhsH *_other)
 {
-    return (MR_CSharp_StaticOpsRhsH *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsRhsH *)(_this)).operator=(
-        mrbindc_details::unmove(((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsRhsH(*(MR::CSharp::StaticOpsRhsH *)_other)))
+    return (MR_CSharp_StaticOpsRhsH *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsRhsH *)(_this)).operator=(
+        mrbindc_details::unmove(((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsRhsH(*(MR::CSharp::StaticOpsRhsH *)_other)))
     ));
 }
 
@@ -4973,7 +4973,7 @@ int MR_C_add_int_MR_CSharp_StaticOpsRhsH(int _1, const MR_CSharp_StaticOpsRhsH *
 {
     return ::MR::CSharp::operator+(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(const MR::CSharp::StaticOpsRhsH *)(_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::CSharp::StaticOpsRhsH *)(_2))
     );
 }
 
@@ -5008,7 +5008,7 @@ MR_CSharp_StaticOpsMixedLhs *MR_CSharp_StaticOpsMixedLhs_OffsetMutablePtr(MR_CSh
 MR_CSharp_StaticOpsMixedLhs *MR_CSharp_StaticOpsMixedLhs_ConstructFromAnother(const MR_CSharp_StaticOpsMixedLhs *_other)
 {
     return (MR_CSharp_StaticOpsMixedLhs *)new MR::CSharp::StaticOpsMixedLhs(MR::CSharp::StaticOpsMixedLhs(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsMixedLhs(*(MR::CSharp::StaticOpsMixedLhs *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsMixedLhs(*(MR::CSharp::StaticOpsMixedLhs *)_other))
     ));
 }
 
@@ -5024,8 +5024,8 @@ void MR_CSharp_StaticOpsMixedLhs_DestroyArray(const MR_CSharp_StaticOpsMixedLhs 
 
 MR_CSharp_StaticOpsMixedLhs *MR_CSharp_StaticOpsMixedLhs_AssignFromAnother(MR_CSharp_StaticOpsMixedLhs *_this, const MR_CSharp_StaticOpsMixedLhs *_other)
 {
-    return (MR_CSharp_StaticOpsMixedLhs *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsMixedLhs *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsMixedLhs(*(MR::CSharp::StaticOpsMixedLhs *)_other))
+    return (MR_CSharp_StaticOpsMixedLhs *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsMixedLhs *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsMixedLhs(*(MR::CSharp::StaticOpsMixedLhs *)_other))
     ));
 }
 
@@ -5052,7 +5052,7 @@ MR_CSharp_StaticOpsMixedRhs *MR_CSharp_StaticOpsMixedRhs_OffsetMutablePtr(MR_CSh
 MR_CSharp_StaticOpsMixedRhs *MR_CSharp_StaticOpsMixedRhs_ConstructFromAnother(const MR_CSharp_StaticOpsMixedRhs *_other)
 {
     return (MR_CSharp_StaticOpsMixedRhs *)new MR::CSharp::StaticOpsMixedRhs(MR::CSharp::StaticOpsMixedRhs(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsMixedRhs(*(MR::CSharp::StaticOpsMixedRhs *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsMixedRhs(*(MR::CSharp::StaticOpsMixedRhs *)_other))
     ));
 }
 
@@ -5068,16 +5068,16 @@ void MR_CSharp_StaticOpsMixedRhs_DestroyArray(const MR_CSharp_StaticOpsMixedRhs 
 
 MR_CSharp_StaticOpsMixedRhs *MR_CSharp_StaticOpsMixedRhs_AssignFromAnother(MR_CSharp_StaticOpsMixedRhs *_this, const MR_CSharp_StaticOpsMixedRhs *_other)
 {
-    return (MR_CSharp_StaticOpsMixedRhs *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StaticOpsMixedRhs *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StaticOpsMixedRhs(*(MR::CSharp::StaticOpsMixedRhs *)_other))
+    return (MR_CSharp_StaticOpsMixedRhs *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StaticOpsMixedRhs *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StaticOpsMixedRhs(*(MR::CSharp::StaticOpsMixedRhs *)_other))
     ));
 }
 
 int MR_C_add_MR_CSharp_StaticOpsMixedLhs_MR_CSharp_StaticOpsMixedRhs(const MR_CSharp_StaticOpsMixedLhs *_1, const MR_CSharp_StaticOpsMixedRhs *_2)
 {
     return ::MR::CSharp::operator+(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::StaticOpsMixedLhs(*(MR::CSharp::StaticOpsMixedLhs *)_1)),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), MR::CSharp::StaticOpsMixedRhs(*(MR::CSharp::StaticOpsMixedRhs *)_2))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::StaticOpsMixedLhs(*(MR::CSharp::StaticOpsMixedLhs *)_1)),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), MR::CSharp::StaticOpsMixedRhs(*(MR::CSharp::StaticOpsMixedRhs *)_2))
     );
 }
 
@@ -5122,14 +5122,14 @@ void MR_CSharp_NonTrivialClassOps_DestroyArray(const MR_CSharp_NonTrivialClassOp
 MR_CSharp_NonTrivialClassOps *MR_CSharp_NonTrivialClassOps_AssignFromAnother(MR_CSharp_NonTrivialClassOps *_this, MR_C_PassBy _other_pass_by, MR_CSharp_NonTrivialClassOps *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::NonTrivialClassOps);
-    return (MR_CSharp_NonTrivialClassOps *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NonTrivialClassOps *)(_this)).operator=(
+    return (MR_CSharp_NonTrivialClassOps *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NonTrivialClassOps *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::NonTrivialClassOps), MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::NonTrivialClassOps), MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::NonTrivialClassOps) MRBINDC_CLASSARG_END(_other, MR::CSharp::NonTrivialClassOps))
     ));
 }
 
 int MR_C_add_MR_CSharp_NonTrivialClassOps_int(MR_CSharp_NonTrivialClassOps *_this, int _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NonTrivialClassOps *)(_this)).operator+(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NonTrivialClassOps *)(_this)).operator+(
         _1
     );
 }
@@ -5175,7 +5175,7 @@ MR_CSharp_NonCopyableClassByValueOps *MR_CSharp_NonCopyableClassByValueOps_Offse
 MR_CSharp_NonCopyableClassByValueOps *MR_CSharp_NonCopyableClassByValueOps_ConstructFromAnother(const MR_CSharp_NonCopyableClassByValueOps *_other)
 {
     return (MR_CSharp_NonCopyableClassByValueOps *)new MR::CSharp::NonCopyableClassByValueOps(MR::CSharp::NonCopyableClassByValueOps(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::NonCopyableClassByValueOps(std::move(*(MR::CSharp::NonCopyableClassByValueOps *)_other)))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::NonCopyableClassByValueOps(std::move(*(MR::CSharp::NonCopyableClassByValueOps *)_other)))
     ));
 }
 
@@ -5191,15 +5191,15 @@ void MR_CSharp_NonCopyableClassByValueOps_DestroyArray(const MR_CSharp_NonCopyab
 
 MR_CSharp_NonCopyableClassByValueOps *MR_CSharp_NonCopyableClassByValueOps_AssignFromAnother(MR_CSharp_NonCopyableClassByValueOps *_this, const MR_CSharp_NonCopyableClassByValueOps *_other)
 {
-    return (MR_CSharp_NonCopyableClassByValueOps *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NonCopyableClassByValueOps *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::NonCopyableClassByValueOps(std::move(*(MR::CSharp::NonCopyableClassByValueOps *)_other)))
+    return (MR_CSharp_NonCopyableClassByValueOps *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NonCopyableClassByValueOps *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::NonCopyableClassByValueOps(std::move(*(MR::CSharp::NonCopyableClassByValueOps *)_other)))
     ));
 }
 
 int MR_C_add_MR_CSharp_NonCopyableClassByValueOps_int(const MR_CSharp_NonCopyableClassByValueOps *_1, int _2)
 {
     return ::MR::CSharp::operator+(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::NonCopyableClassByValueOps(std::move(*(MR::CSharp::NonCopyableClassByValueOps *)_1))),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::NonCopyableClassByValueOps(std::move(*(MR::CSharp::NonCopyableClassByValueOps *)_1))),
         _2
     );
 }
@@ -5208,7 +5208,7 @@ int MR_C_add_int_MR_CSharp_NonCopyableClassByValueOps(int _1, const MR_CSharp_No
 {
     return ::MR::CSharp::operator+(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), MR::CSharp::NonCopyableClassByValueOps(std::move(*(MR::CSharp::NonCopyableClassByValueOps *)_2)))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), MR::CSharp::NonCopyableClassByValueOps(std::move(*(MR::CSharp::NonCopyableClassByValueOps *)_2)))
     );
 }
 
@@ -5235,7 +5235,7 @@ MR_CSharp_CallOp *MR_CSharp_CallOp_OffsetMutablePtr(MR_CSharp_CallOp *ptr, ptrdi
 MR_CSharp_CallOp *MR_CSharp_CallOp_ConstructFromAnother(const MR_CSharp_CallOp *_other)
 {
     return (MR_CSharp_CallOp *)new MR::CSharp::CallOp(MR::CSharp::CallOp(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::CallOp(*(MR::CSharp::CallOp *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::CallOp(*(MR::CSharp::CallOp *)_other))
     ));
 }
 
@@ -5251,19 +5251,19 @@ void MR_CSharp_CallOp_DestroyArray(const MR_CSharp_CallOp *_this)
 
 MR_CSharp_CallOp *MR_CSharp_CallOp_AssignFromAnother(MR_CSharp_CallOp *_this, const MR_CSharp_CallOp *_other)
 {
-    return (MR_CSharp_CallOp *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::CallOp *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::CallOp(*(MR::CSharp::CallOp *)_other))
+    return (MR_CSharp_CallOp *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::CallOp *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::CallOp(*(MR::CSharp::CallOp *)_other))
     ));
 }
 
 void MR_CSharp_CallOp_call_0(MR_CSharp_CallOp *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::CallOp *)(_this)).operator()();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::CallOp *)(_this)).operator()();
 }
 
 int MR_CSharp_CallOp_call_3(MR_CSharp_CallOp *_this, int _1, int _2, int _3)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::CallOp *)(_this)).operator()(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::CallOp *)(_this)).operator()(
         _1,
         _2,
         _3
@@ -5273,7 +5273,7 @@ int MR_CSharp_CallOp_call_3(MR_CSharp_CallOp *_this, int _1, int _2, int _3)
 MR_CSharp_TestOpsA *MR_CSharp_TestOpsA_ConstructFromAnother(const MR_CSharp_TestOpsA *_other)
 {
     return (MR_CSharp_TestOpsA *)new MR::CSharp::TestOpsA(MR::CSharp::TestOpsA(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_other))
     ));
 }
 
@@ -5299,232 +5299,232 @@ void MR_CSharp_TestOpsA_DestroyArray(const MR_CSharp_TestOpsA *_this)
 
 int MR_CSharp_TestOpsA_AssignFromAnother(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_other)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_other))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_other))
     );
 }
 
 int MR_C_pos_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator+();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator+();
 }
 
 int MR_C_add_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator+(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator+(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_neg_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator-();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator-();
 }
 
 int MR_C_sub_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator-(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator-(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_deref_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator*();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator*();
 }
 
 int MR_C_mul_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator*(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator*(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_div_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator/(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator/(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_mod_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator%(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator%(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_xor_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator^(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator^(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_addressof_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator&();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator&();
 }
 
 int MR_C_bitand_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator&(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator&(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_bitor_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator|(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator|(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_compl_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator~();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator~();
 }
 
 int MR_C_not_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator!();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator!();
 }
 
 int MR_CSharp_TestOpsA_add_assign(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator+=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator+=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_sub_assign(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator-=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator-=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_mul_assign(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator*=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator*=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_div_assign(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator/=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator/=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_mod_assign(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator%=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator%=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_xor_assign(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator^=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator^=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_bitand_assign(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator&=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator&=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_bitor_assign(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator|=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator|=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_lshift_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator<<(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator<<(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_rshift_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator>>(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator>>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_lshift_assign(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator<<=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator<<=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_rshift_assign(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator>>=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator>>=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_compare_three_way_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator<=>(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator<=>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_and_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator&&(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator&&(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_or_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator||(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator||(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_C_comma_MR_CSharp_TestOpsA(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator,(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator,(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_arrow_star(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator->*(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator->*(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_arrow(MR_CSharp_TestOpsA *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator->();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator->();
 }
 
 int MR_CSharp_TestOpsA_call(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator()(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator()(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 int MR_CSharp_TestOpsA_index(MR_CSharp_TestOpsA *_this, const MR_CSharp_TestOpsA *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsA *)(_this)).operator[](
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsA *)(_this)).operator[](
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
@@ -5559,46 +5559,46 @@ void MR_CSharp_TestOpsB_DestroyArray(const MR_CSharp_TestOpsB *_this)
 int MR_CSharp_TestOpsB_AssignFromAnother(MR_CSharp_TestOpsB *_this, MR_C_PassBy _other_pass_by, MR_CSharp_TestOpsB *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator=(
         (MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_other, MR::CSharp::TestOpsB))
     );
 }
 
 int MR_C_pos_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator+();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator+();
 }
 
 int MR_C_add_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator+(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator+(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
 
 int MR_C_neg_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator-();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator-();
 }
 
 int MR_C_sub_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator-(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator-(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
 
 int MR_C_deref_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator*();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator*();
 }
 
 int MR_C_mul_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator*(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator*(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5606,7 +5606,7 @@ int MR_C_mul_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_b
 int MR_C_div_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator/(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator/(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5614,7 +5614,7 @@ int MR_C_div_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_b
 int MR_C_mod_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator%(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator%(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5622,20 +5622,20 @@ int MR_C_mod_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_b
 int MR_C_xor_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator^(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator^(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
 
 int MR_C_addressof_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator&();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator&();
 }
 
 int MR_C_bitand_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator&(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator&(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5643,25 +5643,25 @@ int MR_C_bitand_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pas
 int MR_C_bitor_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator|(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator|(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
 
 int MR_C_compl_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator~();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator~();
 }
 
 int MR_C_not_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator!();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator!();
 }
 
 int MR_CSharp_TestOpsB_add_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator+=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator+=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5669,7 +5669,7 @@ int MR_CSharp_TestOpsB_add_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 int MR_CSharp_TestOpsB_sub_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator-=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator-=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5677,7 +5677,7 @@ int MR_CSharp_TestOpsB_sub_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 int MR_CSharp_TestOpsB_mul_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator*=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator*=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5685,7 +5685,7 @@ int MR_CSharp_TestOpsB_mul_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 int MR_CSharp_TestOpsB_div_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator/=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator/=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5693,7 +5693,7 @@ int MR_CSharp_TestOpsB_div_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 int MR_CSharp_TestOpsB_mod_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator%=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator%=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5701,7 +5701,7 @@ int MR_CSharp_TestOpsB_mod_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 int MR_CSharp_TestOpsB_xor_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator^=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator^=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5709,7 +5709,7 @@ int MR_CSharp_TestOpsB_xor_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 int MR_CSharp_TestOpsB_bitand_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator&=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator&=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5717,7 +5717,7 @@ int MR_CSharp_TestOpsB_bitand_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_p
 int MR_CSharp_TestOpsB_bitor_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator|=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator|=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5725,7 +5725,7 @@ int MR_CSharp_TestOpsB_bitor_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pa
 int MR_C_lshift_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator<<(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator<<(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5733,7 +5733,7 @@ int MR_C_lshift_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pas
 int MR_C_rshift_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator>>(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator>>(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5741,7 +5741,7 @@ int MR_C_rshift_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pas
 int MR_CSharp_TestOpsB_lshift_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator<<=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator<<=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5749,7 +5749,7 @@ int MR_CSharp_TestOpsB_lshift_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_p
 int MR_CSharp_TestOpsB_rshift_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator>>=(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator>>=(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5757,7 +5757,7 @@ int MR_CSharp_TestOpsB_rshift_assign(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_p
 int MR_C_compare_three_way_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator<=>(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator<=>(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5765,7 +5765,7 @@ int MR_C_compare_three_way_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_Pa
 int MR_C_and_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator&&(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator&&(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5773,7 +5773,7 @@ int MR_C_and_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_b
 int MR_C_or_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator||(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator||(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5781,7 +5781,7 @@ int MR_C_or_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by
 int MR_C_comma_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator,(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator,(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5789,20 +5789,20 @@ int MR_C_comma_MR_CSharp_TestOpsB(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass
 int MR_CSharp_TestOpsB_arrow_star(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator->*(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator->*(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
 
 int MR_CSharp_TestOpsB_arrow(MR_CSharp_TestOpsB *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator->();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator->();
 }
 
 int MR_CSharp_TestOpsB_call(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator()(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator()(
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5810,7 +5810,7 @@ int MR_CSharp_TestOpsB_call(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, M
 int MR_CSharp_TestOpsB_index(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, MR_CSharp_TestOpsB *_1)
 {
     MRBINDC_CLASSARG_GUARD(_1, MR::CSharp::TestOpsB);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsB *)(_this)).operator[](
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsB *)(_this)).operator[](
         (MRBINDC_CLASSARG_COPY(_1, (MR::CSharp::TestOpsB), MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::CSharp::TestOpsB) MRBINDC_CLASSARG_END(_1, MR::CSharp::TestOpsB))
     );
 }
@@ -5818,7 +5818,7 @@ int MR_CSharp_TestOpsB_index(MR_CSharp_TestOpsB *_this, MR_C_PassBy _1_pass_by, 
 MR_CSharp_TestOpsC *MR_CSharp_TestOpsC_ConstructFromAnother(const MR_CSharp_TestOpsC *_other)
 {
     return (MR_CSharp_TestOpsC *)new MR::CSharp::TestOpsC(MR::CSharp::TestOpsC(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::TestOpsC(*(MR::CSharp::TestOpsC *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::TestOpsC(*(MR::CSharp::TestOpsC *)_other))
     ));
 }
 
@@ -5844,255 +5844,255 @@ void MR_CSharp_TestOpsC_DestroyArray(const MR_CSharp_TestOpsC *_this)
 
 MR_CSharp_TestOpsC *MR_CSharp_TestOpsC_AssignFromAnother(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsC *_other)
 {
-    return (MR_CSharp_TestOpsC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator=(
-        mrbindc_details::unmove(((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::TestOpsC(*(MR::CSharp::TestOpsC *)_other)))
+    return (MR_CSharp_TestOpsC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator=(
+        mrbindc_details::unmove(((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::TestOpsC(*(MR::CSharp::TestOpsC *)_other)))
     ));
 }
 
 void MR_C_pos_MR_CSharp_TestOpsC(MR_CSharp_TestOpsC *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator+();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator+();
 }
 
 void MR_C_add_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator+(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator+(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_neg_MR_CSharp_TestOpsC(MR_CSharp_TestOpsC *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator-();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator-();
 }
 
 void MR_C_sub_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator-(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator-(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_deref_MR_CSharp_TestOpsC(MR_CSharp_TestOpsC *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator*();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator*();
 }
 
 void MR_C_mul_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator*(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator*(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_div_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator/(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator/(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_mod_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator%(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator%(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_xor_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator^(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator^(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_addressof_MR_CSharp_TestOpsC(MR_CSharp_TestOpsC *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator&();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator&();
 }
 
 void MR_C_bitand_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator&(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator&(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_bitor_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator|(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator|(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_compl_MR_CSharp_TestOpsC(MR_CSharp_TestOpsC *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator~();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator~();
 }
 
 void MR_C_not_MR_CSharp_TestOpsC(MR_CSharp_TestOpsC *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator!();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator!();
 }
 
 void MR_CSharp_TestOpsC_assign(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_add_assign(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator+=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator+=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_sub_assign(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator-=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator-=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_mul_assign(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator*=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator*=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_div_assign(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator/=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator/=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_mod_assign(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator%=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator%=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_xor_assign(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator^=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator^=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_bitand_assign(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator&=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator&=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_bitor_assign(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator|=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator|=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_lshift_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator<<(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator<<(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_rshift_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator>>(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator>>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_lshift_assign(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator<<=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator<<=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_rshift_assign(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator>>=(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator>>=(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_compare_three_way_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator<=>(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator<=>(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_and_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator&&(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator&&(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_or_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator||(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator||(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_C_comma_MR_CSharp_TestOpsC_MR_CSharp_TestOpsA(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator,(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator,(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_arrow_star(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator->*(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator->*(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_arrow(MR_CSharp_TestOpsC *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator->();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator->();
 }
 
 void MR_CSharp_TestOpsC_call(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator()(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator()(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 void MR_CSharp_TestOpsC_index(MR_CSharp_TestOpsC *_this, const MR_CSharp_TestOpsA *_1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestOpsC *)(_this)).operator[](
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestOpsC *)(_this)).operator[](
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::CSharp::TestOpsA(*(MR::CSharp::TestOpsA *)_1))
     );
 }
 
 const int *MR_CSharp_IndexerA_Get_x(const MR_CSharp_IndexerA *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerA *)(_this)).x);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IndexerA *)(_this)).x);
 }
 
 void MR_CSharp_IndexerA_Set_x(MR_CSharp_IndexerA *_this, int value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerA *)(_this)).x = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IndexerA *)(_this)).x = value;
 }
 
 int *MR_CSharp_IndexerA_GetMutable_x(MR_CSharp_IndexerA *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerA *)(_this)).x);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IndexerA *)(_this)).x);
 }
 
 MR_CSharp_IndexerA *MR_CSharp_IndexerA_DefaultConstruct(void)
@@ -6125,7 +6125,7 @@ MR_CSharp_IndexerA *MR_CSharp_IndexerA_OffsetMutablePtr(MR_CSharp_IndexerA *ptr,
 MR_CSharp_IndexerA *MR_CSharp_IndexerA_ConstructFromAnother(const MR_CSharp_IndexerA *_other)
 {
     return (MR_CSharp_IndexerA *)new MR::CSharp::IndexerA(MR::CSharp::IndexerA(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)_other))
     ));
 }
 
@@ -6141,31 +6141,31 @@ void MR_CSharp_IndexerA_DestroyArray(const MR_CSharp_IndexerA *_this)
 
 MR_CSharp_IndexerA *MR_CSharp_IndexerA_AssignFromAnother(MR_CSharp_IndexerA *_this, const MR_CSharp_IndexerA *_other)
 {
-    return (MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerA *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)_other))
+    return (MR_CSharp_IndexerA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IndexerA *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)_other))
     ));
 }
 
 int *MR_CSharp_IndexerA_index(MR_CSharp_IndexerA *_this, int i)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerA *)(_this)).operator[](
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IndexerA *)(_this)).operator[](
         i
     ));
 }
 
 const MR_CSharp_IndexerA *MR_CSharp_IndexerB_Get_a(const MR_CSharp_IndexerB *_this)
 {
-    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerB *)(_this)).a);
+    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IndexerB *)(_this)).a);
 }
 
 void MR_CSharp_IndexerB_Set_a(MR_CSharp_IndexerB *_this, const MR_CSharp_IndexerA *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerB *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)value));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IndexerB *)(_this)).a = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)value));
 }
 
 MR_CSharp_IndexerA *MR_CSharp_IndexerB_GetMutable_a(MR_CSharp_IndexerB *_this)
 {
-    return (MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerB *)(_this)).a);
+    return (MR_CSharp_IndexerA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IndexerB *)(_this)).a);
 }
 
 MR_CSharp_IndexerB *MR_CSharp_IndexerB_DefaultConstruct(void)
@@ -6181,7 +6181,7 @@ MR_CSharp_IndexerB *MR_CSharp_IndexerB_DefaultConstructArray(size_t num_elems)
 MR_CSharp_IndexerB *MR_CSharp_IndexerB_ConstructFrom(const MR_CSharp_IndexerA *a)
 {
     return (MR_CSharp_IndexerB *)new MR::CSharp::IndexerB(MR::CSharp::IndexerB{
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)a))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), MR::CSharp::IndexerA(*(MR::CSharp::IndexerA *)a))
     });
 }
 
@@ -6198,7 +6198,7 @@ MR_CSharp_IndexerB *MR_CSharp_IndexerB_OffsetMutablePtr(MR_CSharp_IndexerB *ptr,
 MR_CSharp_IndexerB *MR_CSharp_IndexerB_ConstructFromAnother(const MR_CSharp_IndexerB *_other)
 {
     return (MR_CSharp_IndexerB *)new MR::CSharp::IndexerB(MR::CSharp::IndexerB(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerB(*(MR::CSharp::IndexerB *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IndexerB(*(MR::CSharp::IndexerB *)_other))
     ));
 }
 
@@ -6214,21 +6214,21 @@ void MR_CSharp_IndexerB_DestroyArray(const MR_CSharp_IndexerB *_this)
 
 MR_CSharp_IndexerB *MR_CSharp_IndexerB_AssignFromAnother(MR_CSharp_IndexerB *_this, const MR_CSharp_IndexerB *_other)
 {
-    return (MR_CSharp_IndexerB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerB *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerB(*(MR::CSharp::IndexerB *)_other))
+    return (MR_CSharp_IndexerB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IndexerB *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IndexerB(*(MR::CSharp::IndexerB *)_other))
     ));
 }
 
 const MR_CSharp_IndexerA *MR_CSharp_IndexerB_index_1(const MR_CSharp_IndexerB *_this, int i)
 {
-    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerB *)(_this)).operator[](
+    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IndexerB *)(_this)).operator[](
         i
     ));
 }
 
 const MR_CSharp_IndexerA *MR_CSharp_IndexerB_index_2(const MR_CSharp_IndexerB *_this, int i, int j)
 {
-    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerB *)(_this)).operator[](
+    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IndexerB *)(_this)).operator[](
         i,
         j
     ));
@@ -6236,7 +6236,7 @@ const MR_CSharp_IndexerA *MR_CSharp_IndexerB_index_2(const MR_CSharp_IndexerB *_
 
 const MR_CSharp_IndexerA *MR_CSharp_IndexerB_index_0(const MR_CSharp_IndexerB *_this)
 {
-    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerB *)(_this)).operator[]());
+    return (const MR_CSharp_IndexerA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IndexerB *)(_this)).operator[]());
 }
 
 MR_CSharp_IndexerC *MR_CSharp_IndexerC_DefaultConstruct(void)
@@ -6262,7 +6262,7 @@ MR_CSharp_IndexerC *MR_CSharp_IndexerC_OffsetMutablePtr(MR_CSharp_IndexerC *ptr,
 MR_CSharp_IndexerC *MR_CSharp_IndexerC_ConstructFromAnother(const MR_CSharp_IndexerC *_other)
 {
     return (MR_CSharp_IndexerC *)new MR::CSharp::IndexerC(MR::CSharp::IndexerC(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerC(*(MR::CSharp::IndexerC *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IndexerC(*(MR::CSharp::IndexerC *)_other))
     ));
 }
 
@@ -6278,21 +6278,21 @@ void MR_CSharp_IndexerC_DestroyArray(const MR_CSharp_IndexerC *_this)
 
 MR_CSharp_IndexerC *MR_CSharp_IndexerC_AssignFromAnother(MR_CSharp_IndexerC *_this, const MR_CSharp_IndexerC *_other)
 {
-    return (MR_CSharp_IndexerC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerC *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IndexerC(*(MR::CSharp::IndexerC *)_other))
+    return (MR_CSharp_IndexerC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IndexerC *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IndexerC(*(MR::CSharp::IndexerC *)_other))
     ));
 }
 
 int MR_CSharp_IndexerC_index_mut(MR_CSharp_IndexerC *_this, int i)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IndexerC *)(_this)).operator[](
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IndexerC *)(_this)).operator[](
         i
     );
 }
 
 float MR_CSharp_IndexerC_index(const MR_CSharp_IndexerC *_this, int i)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IndexerC *)(_this)).operator[](
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IndexerC *)(_this)).operator[](
         i
     );
 }
@@ -6320,7 +6320,7 @@ MR_CSharp_ConvOp *MR_CSharp_ConvOp_OffsetMutablePtr(MR_CSharp_ConvOp *ptr, ptrdi
 MR_CSharp_ConvOp *MR_CSharp_ConvOp_ConstructFromAnother(const MR_CSharp_ConvOp *_other)
 {
     return (MR_CSharp_ConvOp *)new MR::CSharp::ConvOp(MR::CSharp::ConvOp(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvOp(*(MR::CSharp::ConvOp *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ConvOp(*(MR::CSharp::ConvOp *)_other))
     ));
 }
 
@@ -6336,18 +6336,18 @@ void MR_CSharp_ConvOp_DestroyArray(const MR_CSharp_ConvOp *_this)
 
 int MR_CSharp_ConvOp_ConvertTo_int(MR_CSharp_ConvOp *_this)
 {
-    return (int)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvOp *)(_this)));
+    return (int)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvOp *)(_this)));
 }
 
 float MR_CSharp_ConvOp_ConvertTo_float(MR_CSharp_ConvOp *_this)
 {
-    return (float)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvOp *)(_this)));
+    return (float)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvOp *)(_this)));
 }
 
 MR_CSharp_ConvOp *MR_CSharp_ConvOp_AssignFromAnother(MR_CSharp_ConvOp *_this, const MR_CSharp_ConvOp *_other)
 {
-    return (MR_CSharp_ConvOp *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvOp *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvOp(*(MR::CSharp::ConvOp *)_other))
+    return (MR_CSharp_ConvOp *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvOp *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ConvOp(*(MR::CSharp::ConvOp *)_other))
     ));
 }
 
@@ -6374,7 +6374,7 @@ MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_OffsetMutablePtr(MR_CSharp_ConvOpTo
 MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_ConstructFromAnother(const MR_CSharp_ConvOpToRef *_other)
 {
     return (MR_CSharp_ConvOpToRef *)new MR::CSharp::ConvOpToRef(MR::CSharp::ConvOpToRef(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvOpToRef(*(MR::CSharp::ConvOpToRef *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ConvOpToRef(*(MR::CSharp::ConvOpToRef *)_other))
     ));
 }
 
@@ -6390,23 +6390,23 @@ void MR_CSharp_ConvOpToRef_DestroyArray(const MR_CSharp_ConvOpToRef *_this)
 
 int MR_CSharp_ConvOpToRef_ConvertTo_int(MR_CSharp_ConvOpToRef *_this)
 {
-    return (int)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvOpToRef *)(_this)));
+    return (int)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvOpToRef *)(_this)));
 }
 
 float *MR_CSharp_ConvOpToRef_ConvertTo_float_ref(MR_CSharp_ConvOpToRef *_this)
 {
-    return std::addressof((float &)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvOpToRef *)(_this))));
+    return std::addressof((float &)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvOpToRef *)(_this))));
 }
 
 unsigned short *MR_CSharp_ConvOpToRef_ConvertTo_unsigned_short_ref(MR_CSharp_ConvOpToRef *_this)
 {
-    return std::addressof((unsigned short &)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvOpToRef *)(_this))));
+    return std::addressof((unsigned short &)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvOpToRef *)(_this))));
 }
 
 MR_CSharp_ConvOpToRef *MR_CSharp_ConvOpToRef_AssignFromAnother(MR_CSharp_ConvOpToRef *_this, const MR_CSharp_ConvOpToRef *_other)
 {
-    return (MR_CSharp_ConvOpToRef *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvOpToRef *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvOpToRef(*(MR::CSharp::ConvOpToRef *)_other))
+    return (MR_CSharp_ConvOpToRef *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvOpToRef *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ConvOpToRef(*(MR::CSharp::ConvOpToRef *)_other))
     ));
 }
 
@@ -6433,7 +6433,7 @@ MR_CSharp_StringConvString *MR_CSharp_StringConvString_OffsetMutablePtr(MR_CShar
 MR_CSharp_StringConvString *MR_CSharp_StringConvString_ConstructFromAnother(const MR_CSharp_StringConvString *_other)
 {
     return (MR_CSharp_StringConvString *)new MR::CSharp::StringConvString(MR::CSharp::StringConvString(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvString(*(MR::CSharp::StringConvString *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StringConvString(*(MR::CSharp::StringConvString *)_other))
     ));
 }
 
@@ -6449,13 +6449,13 @@ void MR_CSharp_StringConvString_DestroyArray(const MR_CSharp_StringConvString *_
 
 MR_C_std_string *MR_CSharp_StringConvString_ConvertTo_std_string(MR_CSharp_StringConvString *_this)
 {
-    return (MR_C_std_string *)new std::string((std::string)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StringConvString *)(_this))));
+    return (MR_C_std_string *)new std::string((std::string)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StringConvString *)(_this))));
 }
 
 MR_CSharp_StringConvString *MR_CSharp_StringConvString_AssignFromAnother(MR_CSharp_StringConvString *_this, const MR_CSharp_StringConvString *_other)
 {
-    return (MR_CSharp_StringConvString *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StringConvString *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvString(*(MR::CSharp::StringConvString *)_other))
+    return (MR_CSharp_StringConvString *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StringConvString *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StringConvString(*(MR::CSharp::StringConvString *)_other))
     ));
 }
 
@@ -6482,7 +6482,7 @@ MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_OffsetMutablePtr(
 MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_ConstructFromAnother(const MR_CSharp_StringConvStringView *_other)
 {
     return (MR_CSharp_StringConvStringView *)new MR::CSharp::StringConvStringView(MR::CSharp::StringConvStringView(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvStringView(*(MR::CSharp::StringConvStringView *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StringConvStringView(*(MR::CSharp::StringConvStringView *)_other))
     ));
 }
 
@@ -6498,13 +6498,13 @@ void MR_CSharp_StringConvStringView_DestroyArray(const MR_CSharp_StringConvStrin
 
 MR_C_std_string_view *MR_CSharp_StringConvStringView_ConvertTo_std_string_view(const MR_CSharp_StringConvStringView *_this)
 {
-    return (MR_C_std_string_view *)new std::string_view((std::string_view)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::StringConvStringView *)(_this))));
+    return (MR_C_std_string_view *)new std::string_view((std::string_view)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::StringConvStringView *)(_this))));
 }
 
 MR_CSharp_StringConvStringView *MR_CSharp_StringConvStringView_AssignFromAnother(MR_CSharp_StringConvStringView *_this, const MR_CSharp_StringConvStringView *_other)
 {
-    return (MR_CSharp_StringConvStringView *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StringConvStringView *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvStringView(*(MR::CSharp::StringConvStringView *)_other))
+    return (MR_CSharp_StringConvStringView *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StringConvStringView *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StringConvStringView(*(MR::CSharp::StringConvStringView *)_other))
     ));
 }
 
@@ -6531,7 +6531,7 @@ MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_OffsetMutablePtr(MR_CShar
 MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_ConstructFromAnother(const MR_CSharp_StringConvFsPath *_other)
 {
     return (MR_CSharp_StringConvFsPath *)new MR::CSharp::StringConvFsPath(MR::CSharp::StringConvFsPath(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvFsPath(*(MR::CSharp::StringConvFsPath *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StringConvFsPath(*(MR::CSharp::StringConvFsPath *)_other))
     ));
 }
 
@@ -6547,13 +6547,13 @@ void MR_CSharp_StringConvFsPath_DestroyArray(const MR_CSharp_StringConvFsPath *_
 
 MR_C_std_filesystem_path *MR_CSharp_StringConvFsPath_ConvertTo_std_filesystem_path(MR_CSharp_StringConvFsPath *_this)
 {
-    return (MR_C_std_filesystem_path *)new std::filesystem::path((std::filesystem::path)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StringConvFsPath *)(_this))));
+    return (MR_C_std_filesystem_path *)new std::filesystem::path((std::filesystem::path)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StringConvFsPath *)(_this))));
 }
 
 MR_CSharp_StringConvFsPath *MR_CSharp_StringConvFsPath_AssignFromAnother(MR_CSharp_StringConvFsPath *_this, const MR_CSharp_StringConvFsPath *_other)
 {
-    return (MR_CSharp_StringConvFsPath *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::StringConvFsPath *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::StringConvFsPath(*(MR::CSharp::StringConvFsPath *)_other))
+    return (MR_CSharp_StringConvFsPath *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::StringConvFsPath *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::StringConvFsPath(*(MR::CSharp::StringConvFsPath *)_other))
     ));
 }
 
@@ -6580,7 +6580,7 @@ MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_OffsetMutablePtr(MR_CSharp_ConvCtor *ptr,
 MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_ConstructFromAnother(const MR_CSharp_ConvCtor *_other)
 {
     return (MR_CSharp_ConvCtor *)new MR::CSharp::ConvCtor(MR::CSharp::ConvCtor(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvCtor(*(MR::CSharp::ConvCtor *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ConvCtor(*(MR::CSharp::ConvCtor *)_other))
     ));
 }
 
@@ -6636,8 +6636,8 @@ void MR_CSharp_ConvCtor_DestroyArray(const MR_CSharp_ConvCtor *_this)
 
 MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_AssignFromAnother(MR_CSharp_ConvCtor *_this, const MR_CSharp_ConvCtor *_other)
 {
-    return (MR_CSharp_ConvCtor *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvCtor *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvCtor(*(MR::CSharp::ConvCtor *)_other))
+    return (MR_CSharp_ConvCtor *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvCtor *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ConvCtor(*(MR::CSharp::ConvCtor *)_other))
     ));
 }
 
@@ -6668,7 +6668,7 @@ MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_OffsetMutablePtr(MR_C
 MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_ConstructFromAnother(const MR_CSharp_ConvCtorWithDefArg *_other)
 {
     return (MR_CSharp_ConvCtorWithDefArg *)new MR::CSharp::ConvCtorWithDefArg(MR::CSharp::ConvCtorWithDefArg(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvCtorWithDefArg(*(MR::CSharp::ConvCtorWithDefArg *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ConvCtorWithDefArg(*(MR::CSharp::ConvCtorWithDefArg *)_other))
     ));
 }
 
@@ -6684,8 +6684,8 @@ void MR_CSharp_ConvCtorWithDefArg_DestroyArray(const MR_CSharp_ConvCtorWithDefAr
 
 MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_AssignFromAnother(MR_CSharp_ConvCtorWithDefArg *_this, const MR_CSharp_ConvCtorWithDefArg *_other)
 {
-    return (MR_CSharp_ConvCtorWithDefArg *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvCtorWithDefArg *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvCtorWithDefArg(*(MR::CSharp::ConvCtorWithDefArg *)_other))
+    return (MR_CSharp_ConvCtorWithDefArg *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvCtorWithDefArg *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ConvCtorWithDefArg(*(MR::CSharp::ConvCtorWithDefArg *)_other))
     ));
 }
 
@@ -6727,7 +6727,7 @@ void MR_CSharp_ConvCtorNonTrivialRestricted_DestroyArray(const MR_CSharp_ConvCto
 MR_CSharp_ConvCtorNonTrivialRestricted *MR_CSharp_ConvCtorNonTrivialRestricted_AssignFromAnother(MR_CSharp_ConvCtorNonTrivialRestricted *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivialRestricted *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::ConvCtorNonTrivialRestricted);
-    return (MR_CSharp_ConvCtorNonTrivialRestricted *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvCtorNonTrivialRestricted *)(_this)).operator=(
+    return (MR_CSharp_ConvCtorNonTrivialRestricted *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvCtorNonTrivialRestricted *)(_this)).operator=(
         (MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::ConvCtorNonTrivialRestricted), MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorNonTrivialRestricted) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorNonTrivialRestricted))
     ));
 }
@@ -6777,7 +6777,7 @@ void MR_CSharp_ConvCtorCopyButNoMove_DestroyArray(const MR_CSharp_ConvCtorCopyBu
 MR_CSharp_ConvCtorCopyButNoMove *MR_CSharp_ConvCtorCopyButNoMove_AssignFromAnother(MR_CSharp_ConvCtorCopyButNoMove *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorCopyButNoMove *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::ConvCtorCopyButNoMove);
-    return (MR_CSharp_ConvCtorCopyButNoMove *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvCtorCopyButNoMove *)(_this)).operator=(
+    return (MR_CSharp_ConvCtorCopyButNoMove *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvCtorCopyButNoMove *)(_this)).operator=(
         mrbindc_details::unmove((MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::ConvCtorCopyButNoMove), MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorCopyButNoMove) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorCopyButNoMove)))
     ));
 }
@@ -6805,7 +6805,7 @@ MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_OffsetMutablePtr(MR_CSharp_
 MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_ConstructFromAnother(const MR_CSharp_ConvCtorTrivial *_other)
 {
     return (MR_CSharp_ConvCtorTrivial *)new MR::CSharp::ConvCtorTrivial(MR::CSharp::ConvCtorTrivial(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvCtorTrivial(*(MR::CSharp::ConvCtorTrivial *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ConvCtorTrivial(*(MR::CSharp::ConvCtorTrivial *)_other))
     ));
 }
 
@@ -6828,8 +6828,8 @@ void MR_CSharp_ConvCtorTrivial_DestroyArray(const MR_CSharp_ConvCtorTrivial *_th
 
 MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_AssignFromAnother(MR_CSharp_ConvCtorTrivial *_this, const MR_CSharp_ConvCtorTrivial *_other)
 {
-    return (MR_CSharp_ConvCtorTrivial *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvCtorTrivial *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ConvCtorTrivial(*(MR::CSharp::ConvCtorTrivial *)_other))
+    return (MR_CSharp_ConvCtorTrivial *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvCtorTrivial *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ConvCtorTrivial(*(MR::CSharp::ConvCtorTrivial *)_other))
     ));
 }
 
@@ -6838,7 +6838,7 @@ MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial(const MR_CSharp_Conv
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_ConvCtorTrivial *)new MR::CSharp::ConvCtorTrivial(::MR::CSharp::test_class_convtrivial(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), MR::CSharp::ConvCtorTrivial(*(MR::CSharp::ConvCtorTrivial *)a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), MR::CSharp::ConvCtorTrivial(*(MR::CSharp::ConvCtorTrivial *)a)),
         (b ? MR::CSharp::ConvCtorTrivial(*(MR::CSharp::ConvCtorTrivial *)b) : static_cast<MR::CSharp::ConvCtorTrivial>(MR::CSharp::ConvCtorTrivial{}))
     ));
 }
@@ -6848,7 +6848,7 @@ MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial_ref(MR_CSharp_ConvCt
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_ConvCtorTrivial *)std::addressof(::MR::CSharp::test_class_convtrivial_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::CSharp::ConvCtorTrivial *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::ConvCtorTrivial *)(a)),
         (b ? *(MR::CSharp::ConvCtorTrivial *)(b) : static_cast<MR::CSharp::ConvCtorTrivial &>(default_convtrivial))
     ));
 }
@@ -6858,7 +6858,7 @@ const MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial_cref(const MR_
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_ConvCtorTrivial *)std::addressof(::MR::CSharp::test_class_convtrivial_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::ConvCtorTrivial *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::ConvCtorTrivial *)(a)),
         (b ? *(const MR::CSharp::ConvCtorTrivial *)(b) : static_cast<const MR::CSharp::ConvCtorTrivial &>(default_convtrivial))
     ));
 }
@@ -6933,7 +6933,7 @@ void MR_CSharp_ConvCtorNonTrivial_DestroyArray(const MR_CSharp_ConvCtorNonTrivia
 MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_AssignFromAnother(MR_CSharp_ConvCtorNonTrivial *_this, MR_C_PassBy _other_pass_by, MR_CSharp_ConvCtorNonTrivial *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::ConvCtorNonTrivial);
-    return (MR_CSharp_ConvCtorNonTrivial *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConvCtorNonTrivial *)(_this)).operator=(
+    return (MR_CSharp_ConvCtorNonTrivial *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConvCtorNonTrivial *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::ConvCtorNonTrivial), MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::ConvCtorNonTrivial), MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::ConvCtorNonTrivial) MRBINDC_CLASSARG_END(_other, MR::CSharp::ConvCtorNonTrivial))
     ));
 }
@@ -6955,7 +6955,7 @@ MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial_ref(MR_CSharp_
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_ConvCtorNonTrivial *)std::addressof(::MR::CSharp::test_class_convnontrivial_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::CSharp::ConvCtorNonTrivial *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::ConvCtorNonTrivial *)(a)),
         (b ? *(MR::CSharp::ConvCtorNonTrivial *)(b) : static_cast<MR::CSharp::ConvCtorNonTrivial &>(default_convnontrivial))
     ));
 }
@@ -6965,7 +6965,7 @@ const MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial_cref(con
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_ConvCtorNonTrivial *)std::addressof(::MR::CSharp::test_class_convnontrivial_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::ConvCtorNonTrivial *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::ConvCtorNonTrivial *)(a)),
         (b ? *(const MR::CSharp::ConvCtorNonTrivial *)(b) : static_cast<const MR::CSharp::ConvCtorNonTrivial &>(default_convnontrivial))
     ));
 }
@@ -6994,12 +6994,12 @@ const MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial_cptr(con
 
 void MR_CSharp_ExposedLayout_foo(MR_CSharp_ExposedLayout *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayout *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ExposedLayout *)(_this)).foo();
 }
 
 void MR_CSharp_ExposedLayout_bar(const MR_CSharp_ExposedLayout *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_this)).bar();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ExposedLayout *)(_this)).bar();
 }
 
 void MR_CSharp_ExposedLayout_blah(void)
@@ -7009,47 +7009,47 @@ void MR_CSharp_ExposedLayout_blah(void)
 
 void MR_C_incr_MR_CSharp_ExposedLayout(MR_CSharp_ExposedLayout *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayout *)(_this)).operator++();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ExposedLayout *)(_this)).operator++();
 }
 
 int MR_C_add_MR_CSharp_ExposedLayout_ref_int(MR_CSharp_ExposedLayout *_this, int _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayout *)(_this)).operator+(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ExposedLayout *)(_this)).operator+(
         _1
     );
 }
 
 MR_CSharp_ExposedLayout *MR_C_mul_MR_CSharp_ExposedLayout_int(const MR_CSharp_ExposedLayout *_this, int _1)
 {
-    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_this)).operator*(
+    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ExposedLayout *)(_this)).operator*(
         _1
     ));
 }
 
 const MR_CSharp_ExposedLayout *MR_C_add_const_MR_CSharp_ExposedLayout_ref_int(const MR_CSharp_ExposedLayout *_this, int _1)
 {
-    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_this)).operator+(
+    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ExposedLayout *)(_this)).operator+(
         _1
     ));
 }
 
 bool MR_C_less_MR_CSharp_ExposedLayout(const MR_CSharp_ExposedLayout *_this, const MR_CSharp_ExposedLayout *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_this)).operator<(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ExposedLayout *)(_this)).operator<(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ExposedLayout *)(_1))
     );
 }
 
 bool MR_C_equal_MR_CSharp_ExposedLayout_float(MR_CSharp_ExposedLayout *_this, float _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayout *)(_this)).operator==(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ExposedLayout *)(_this)).operator==(
         _1
     );
 }
 
 bool MR_C_less_MR_CSharp_ExposedLayout_char(MR_CSharp_ExposedLayout *_this, char _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayout *)(_this)).operator<(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ExposedLayout *)(_this)).operator<(
         _1
     );
 }
@@ -7066,7 +7066,7 @@ int MR_C_div_int_MR_CSharp_ExposedLayout(int _1, MR_CSharp_ExposedLayout *_2)
 {
     return operator/(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(MR::CSharp::ExposedLayout *)(_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(MR::CSharp::ExposedLayout *)(_2))
     );
 }
 
@@ -7074,7 +7074,7 @@ int MR_C_mod_int_MR_CSharp_ExposedLayout(int _1, const MR_CSharp_ExposedLayout *
 {
     return operator%(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::CSharp::ExposedLayout *)(_2))
     );
 }
 
@@ -7100,7 +7100,7 @@ MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayout(MR_C
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_ExposedLayout *)std::addressof(::MR::CSharp::test_exposed_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::CSharp::ExposedLayout *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::ExposedLayout *)(a)),
         (b ? *(MR::CSharp::ExposedLayout *)(b) : static_cast<MR::CSharp::ExposedLayout &>(default_exposed))
     ));
 }
@@ -7110,7 +7110,7 @@ const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayo
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_ExposedLayout *)std::addressof(::MR::CSharp::test_exposed_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::ExposedLayout *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::ExposedLayout *)(a)),
         (b ? *(const MR::CSharp::ExposedLayout *)(b) : static_cast<const MR::CSharp::ExposedLayout &>(default_exposed))
     ));
 }
@@ -7120,7 +7120,7 @@ MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_rref(MR_CSharp_ExposedLayout *a,
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_ExposedLayout *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_exposed_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(MR::CSharp::ExposedLayout *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(MR::CSharp::ExposedLayout *)(a))),
         (b ? std::move(*(MR::CSharp::ExposedLayout *)(b)) : static_cast<MR::CSharp::ExposedLayout &&>((MR::CSharp::ExposedLayout &&)default_exposed))
     )));
 }
@@ -7130,7 +7130,7 @@ const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_crref(const MR_CSharp_Expo
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_ExposedLayout *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_exposed_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*(const MR::CSharp::ExposedLayout *)(a))),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const MR::CSharp::ExposedLayout *)(a))),
         (b ? std::move(*(const MR::CSharp::ExposedLayout *)(b)) : static_cast<const MR::CSharp::ExposedLayout &&>((MR::CSharp::ExposedLayout &&)default_exposed))
     )));
 }
@@ -7165,18 +7165,18 @@ MR_C_std_vector_MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_vec(void)
 MR_CSharp_NonTrivial *MR_CSharp_asave_ref_in_exposed_layout(MR_CSharp_ExposedLayout *ref)
 {
     return (MR_CSharp_NonTrivial *)std::addressof(::MR::CSharp::asave_ref_in_exposed_layout(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::ExposedLayout *)(ref))
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::ExposedLayout *)(ref))
     ));
 }
 
 void MR_CSharp_ExposedLayoutSh_foo(MR_CSharp_ExposedLayoutSh *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayoutSh *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ExposedLayoutSh *)(_this)).foo();
 }
 
 void MR_CSharp_ExposedLayoutSh_bar(const MR_CSharp_ExposedLayoutSh *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(_this)).bar();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ExposedLayoutSh *)(_this)).bar();
 }
 
 void MR_CSharp_ExposedLayoutSh_blah(void)
@@ -7186,55 +7186,55 @@ void MR_CSharp_ExposedLayoutSh_blah(void)
 
 void MR_C_incr_MR_CSharp_ExposedLayoutSh(MR_CSharp_ExposedLayoutSh *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayoutSh *)(_this)).operator++();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ExposedLayoutSh *)(_this)).operator++();
 }
 
 int MR_C_add_MR_CSharp_ExposedLayoutSh_int(MR_CSharp_ExposedLayoutSh *_this, int _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayoutSh *)(_this)).operator+(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ExposedLayoutSh *)(_this)).operator+(
         _1
     );
 }
 
 int MR_C_mul_MR_CSharp_ExposedLayoutSh_int(const MR_CSharp_ExposedLayoutSh *_this, int _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(_this)).operator*(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ExposedLayoutSh *)(_this)).operator*(
         _1
     );
 }
 
 bool MR_C_less_MR_CSharp_ExposedLayoutSh(const MR_CSharp_ExposedLayoutSh *_this, const MR_CSharp_ExposedLayoutSh *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(_this)).operator<(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ExposedLayoutSh *)(_this)).operator<(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ExposedLayoutSh *)(_1))
     );
 }
 
 bool MR_C_equal_MR_CSharp_ExposedLayoutSh_float(MR_CSharp_ExposedLayoutSh *_this, float _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayoutSh *)(_this)).operator==(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ExposedLayoutSh *)(_this)).operator==(
         _1
     );
 }
 
 bool MR_C_less_MR_CSharp_ExposedLayoutSh_char(MR_CSharp_ExposedLayoutSh *_this, char _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ExposedLayoutSh *)(_this)).operator<(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ExposedLayoutSh *)(_this)).operator<(
         _1
     );
 }
 
 bool MR_C_equal_MR_CSharp_ExposedLayoutSh_MR_CSharp_ExposedLayout(const MR_CSharp_ExposedLayoutSh *_this, const MR_CSharp_ExposedLayout *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(_this)).operator==(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ExposedLayout *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ExposedLayoutSh *)(_this)).operator==(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ExposedLayout *)(_1))
     );
 }
 
 bool MR_C_equal_MR_CSharp_ExposedLayoutSh(const MR_CSharp_ExposedLayoutSh *_this, const MR_CSharp_ExposedLayoutSh *_1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(_this)).operator==(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(_1))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ExposedLayoutSh *)(_this)).operator==(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ExposedLayoutSh *)(_1))
     );
 }
 
@@ -7250,7 +7250,7 @@ int MR_C_div_int_MR_CSharp_ExposedLayoutSh(int _1, MR_CSharp_ExposedLayoutSh *_2
 {
     return operator/(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(MR::CSharp::ExposedLayoutSh *)(_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(MR::CSharp::ExposedLayoutSh *)(_2))
     );
 }
 
@@ -7258,7 +7258,7 @@ int MR_C_mod_int_MR_CSharp_ExposedLayoutSh(int _1, const MR_CSharp_ExposedLayout
 {
     return operator%(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::CSharp::ExposedLayoutSh *)(_2))
     );
 }
 
@@ -7289,7 +7289,7 @@ MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayoutSh(
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_ExposedLayoutSh *)std::addressof(::MR::CSharp::test_exposed_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::CSharp::ExposedLayoutSh *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::ExposedLayoutSh *)(a)),
         (b ? *(MR::CSharp::ExposedLayoutSh *)(b) : static_cast<MR::CSharp::ExposedLayoutSh &>(default_exposed_sh))
     ));
 }
@@ -7299,7 +7299,7 @@ const MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLa
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_ExposedLayoutSh *)std::addressof(::MR::CSharp::test_exposed_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::ExposedLayoutSh *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::ExposedLayoutSh *)(a)),
         (b ? *(const MR::CSharp::ExposedLayoutSh *)(b) : static_cast<const MR::CSharp::ExposedLayoutSh &>(default_exposed_sh))
     ));
 }
@@ -7337,41 +7337,41 @@ MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB_Construct_2(int _1, int _2)
 MR_CSharp_ExposedLayoutB MR_CSharp_ExposedLayoutB_Construct_1(const MR_CSharp_A *_1)
 {
     return MRBINDC_BIT_CAST((MR_CSharp_ExposedLayoutB), MR::CSharp::ExposedLayoutB(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::A *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::A *)(_1))
     ));
 }
 
 bool MR_C_equal_MR_CSharp_ExposedLayoutB(const MR_CSharp_ExposedLayoutB *_1, const MR_CSharp_ExposedLayoutB *_2)
 {
     return operator==(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ExposedLayoutB *)(_1)),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(const MR::CSharp::ExposedLayoutB *)(_2))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ExposedLayoutB *)(_1)),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::CSharp::ExposedLayoutB *)(_2))
     );
 }
 
 const int *MR_CSharp_ArrayMembers_Get_i(const MR_CSharp_ArrayMembers *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ArrayMembers *)(_this)).i);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ArrayMembers *)(_this)).i);
 }
 
 void MR_CSharp_ArrayMembers_Set_i(MR_CSharp_ArrayMembers *_this, int value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ArrayMembers *)(_this)).i = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ArrayMembers *)(_this)).i = value;
 }
 
 int *MR_CSharp_ArrayMembers_GetMutable_i(MR_CSharp_ArrayMembers *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ArrayMembers *)(_this)).i);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ArrayMembers *)(_this)).i);
 }
 
 const int *MR_CSharp_ArrayMembers_Get_ia(const MR_CSharp_ArrayMembers *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ArrayMembers *)(_this)).ia[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ArrayMembers *)(_this)).ia[0]);
 }
 
 int *MR_CSharp_ArrayMembers_GetMutable_ia(MR_CSharp_ArrayMembers *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ArrayMembers *)(_this)).ia[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ArrayMembers *)(_this)).ia[0]);
 }
 
 size_t MR_CSharp_ArrayMembers_GetSize_ia(void)
@@ -7381,12 +7381,12 @@ size_t MR_CSharp_ArrayMembers_GetSize_ia(void)
 
 const int (*MR_CSharp_ArrayMembers_Get_iaa(const MR_CSharp_ArrayMembers *_this))[4]
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ArrayMembers *)(_this)).iaa[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ArrayMembers *)(_this)).iaa[0]);
 }
 
 int (*MR_CSharp_ArrayMembers_GetMutable_iaa(MR_CSharp_ArrayMembers *_this))[4]
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ArrayMembers *)(_this)).iaa[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ArrayMembers *)(_this)).iaa[0]);
 }
 
 size_t MR_CSharp_ArrayMembers_GetSize_iaa(void)
@@ -7396,12 +7396,12 @@ size_t MR_CSharp_ArrayMembers_GetSize_iaa(void)
 
 const int *MR_CSharp_ArrayMembers_Get_ci(const MR_CSharp_ArrayMembers *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ArrayMembers *)(_this)).ci);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ArrayMembers *)(_this)).ci);
 }
 
 const int *MR_CSharp_ArrayMembers_Get_cia(const MR_CSharp_ArrayMembers *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ArrayMembers *)(_this)).cia[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ArrayMembers *)(_this)).cia[0]);
 }
 
 size_t MR_CSharp_ArrayMembers_GetSize_cia(void)
@@ -7411,7 +7411,7 @@ size_t MR_CSharp_ArrayMembers_GetSize_cia(void)
 
 const int (*MR_CSharp_ArrayMembers_Get_ciaa(const MR_CSharp_ArrayMembers *_this))[4]
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ArrayMembers *)(_this)).ciaa[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ArrayMembers *)(_this)).ciaa[0]);
 }
 
 size_t MR_CSharp_ArrayMembers_GetSize_ciaa(void)
@@ -7421,27 +7421,27 @@ size_t MR_CSharp_ArrayMembers_GetSize_ciaa(void)
 
 const MR_C_std_string *MR_CSharp_ArrayMembers_Get_s(const MR_CSharp_ArrayMembers *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ArrayMembers *)(_this)).s);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ArrayMembers *)(_this)).s);
 }
 
 void MR_CSharp_ArrayMembers_Set_s(MR_CSharp_ArrayMembers *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ArrayMembers *)(_this)).s = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ArrayMembers *)(_this)).s = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
 }
 
 MR_C_std_string *MR_CSharp_ArrayMembers_GetMutable_s(MR_CSharp_ArrayMembers *_this)
 {
-    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ArrayMembers *)(_this)).s);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ArrayMembers *)(_this)).s);
 }
 
 const MR_C_std_string *MR_CSharp_ArrayMembers_Get_sa(const MR_CSharp_ArrayMembers *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ArrayMembers *)(_this)).sa[0]);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ArrayMembers *)(_this)).sa[0]);
 }
 
 MR_C_std_string *MR_CSharp_ArrayMembers_GetMutable_sa(MR_CSharp_ArrayMembers *_this)
 {
-    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ArrayMembers *)(_this)).sa[0]);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ArrayMembers *)(_this)).sa[0]);
 }
 
 size_t MR_CSharp_ArrayMembers_GetSize_sa(void)
@@ -7451,12 +7451,12 @@ size_t MR_CSharp_ArrayMembers_GetSize_sa(void)
 
 const MR_C_std_string *MR_CSharp_ArrayMembers_Get_cs(const MR_CSharp_ArrayMembers *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ArrayMembers *)(_this)).cs);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ArrayMembers *)(_this)).cs);
 }
 
 const MR_C_std_string *MR_CSharp_ArrayMembers_Get_csa(const MR_CSharp_ArrayMembers *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ArrayMembers *)(_this)).csa[0]);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ArrayMembers *)(_this)).csa[0]);
 }
 
 size_t MR_CSharp_ArrayMembers_GetSize_csa(void)
@@ -7518,7 +7518,7 @@ MR_C_std_optional_int *MR_CSharp_test_optint_ref(MR_C_std_optional_int *a, MR_C_
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_optional_int *)std::addressof(::MR::CSharp::test_optint_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::optional<int> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<int> *)(a)),
         (b ? *(std::optional<int> *)(b) : static_cast<std::optional<int> &>(default_optint))
     ));
 }
@@ -7573,7 +7573,7 @@ MR_C_std_optional_std_string *MR_CSharp_test_optstr_ref(MR_C_std_optional_std_st
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_optional_std_string *)std::addressof(::MR::CSharp::test_optstr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::optional<std::string> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<std::string> *)(a)),
         (b ? *(std::optional<std::string> *)(b) : static_cast<std::optional<std::string> &>(default_optstr))
     ));
 }
@@ -7627,7 +7627,7 @@ MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_ref(MR_C_std_optiona
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_Trivial *)std::addressof(::MR::CSharp::test_opttriv_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::optional<MR::CSharp::Trivial> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<MR::CSharp::Trivial> *)(a)),
         (b ? *(std::optional<MR::CSharp::Trivial> *)(b) : static_cast<std::optional<MR::CSharp::Trivial> &>(default_opttriv))
     ));
 }
@@ -7683,7 +7683,7 @@ MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_ref(MR_C_std_o
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_NonTrivial *)std::addressof(::MR::CSharp::test_optnontriv_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::optional<MR::CSharp::NonTrivial> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<MR::CSharp::NonTrivial> *)(a)),
         (b ? *(std::optional<MR::CSharp::NonTrivial> *)(b) : static_cast<std::optional<MR::CSharp::NonTrivial> &>(default_optnontriv))
     ));
 }
@@ -7738,7 +7738,7 @@ MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_ref(MR_C_st
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_ExposedLayoutSh *)std::addressof(::MR::CSharp::test_optshexp_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::optional<MR::CSharp::ExposedLayoutSh> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<MR::CSharp::ExposedLayoutSh> *)(a)),
         (b ? *(std::optional<MR::CSharp::ExposedLayoutSh> *)(b) : static_cast<std::optional<MR::CSharp::ExposedLayoutSh> &>(default_optshexp))
     ));
 }
@@ -7791,7 +7791,7 @@ MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_ref(MR_C_std_optional_M
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_SA *)std::addressof(::MR::CSharp::test_optshtriv_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::optional<MR::CSharp::SA> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<MR::CSharp::SA> *)(a)),
         (b ? *(std::optional<MR::CSharp::SA> *)(b) : static_cast<std::optional<MR::CSharp::SA> &>(default_optshtriv))
     ));
 }
@@ -7859,7 +7859,7 @@ MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant(const MR_C_std_
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_variant_std_monostate_int_float *)new std::variant<std::monostate, int, float>(::MR::CSharp::test_variant(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::variant<std::monostate, int, float>(*(std::variant<std::monostate, int, float> *)a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::variant<std::monostate, int, float>(*(std::variant<std::monostate, int, float> *)a)),
         (b ? std::variant<std::monostate, int, float>(*(std::variant<std::monostate, int, float> *)b) : static_cast<std::variant<std::monostate, int, float>>(default_variant))
     ));
 }
@@ -7869,7 +7869,7 @@ MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_ref(MR_C_std_va
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_variant_std_monostate_int_float *)std::addressof(::MR::CSharp::test_variant_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::variant<std::monostate, int, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::variant<std::monostate, int, float> *)(a)),
         (b ? *(std::variant<std::monostate, int, float> *)(b) : static_cast<std::variant<std::monostate, int, float> &>(default_variant))
     ));
 }
@@ -7879,7 +7879,7 @@ const MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_cref(cons
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_variant_std_monostate_int_float *)std::addressof(::MR::CSharp::test_variant_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::variant<std::monostate, int, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::variant<std::monostate, int, float> *)(a)),
         (b ? *(const std::variant<std::monostate, int, float> *)(b) : static_cast<const std::variant<std::monostate, int, float> &>(default_variant))
     ));
 }
@@ -7912,7 +7912,7 @@ MR_C_std_variant_std_monostate_int_float_float *MR_CSharp_test_variant_with_repe
 MR_C_std_ostream *MR_CSharp_test_iostreams_ref(MR_C_std_istream *_1)
 {
     return (MR_C_std_ostream *)std::addressof(::MR::CSharp::test_iostreams_ref(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(std::istream *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(std::istream *)(_1))
     ));
 }
 
@@ -7926,7 +7926,7 @@ MR_C_std_ostream *MR_CSharp_test_iostreams_ptr(MR_C_std_istream *_1)
 const MR_C_std_ostream *MR_CSharp_test_iostreams_cref(const MR_C_std_istream *_1)
 {
     return (const MR_C_std_ostream *)std::addressof(::MR::CSharp::test_iostreams_cref(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::istream *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const std::istream *)(_1))
     ));
 }
 
@@ -7952,7 +7952,7 @@ MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_ref(MR_C_std_unique_ptr_int *a
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_unique_ptr_int *)std::addressof(::MR::CSharp::test_uniqueptr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::unique_ptr<int> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::unique_ptr<int> *)(a)),
         (b ? *(std::unique_ptr<int> *)(b) : static_cast<std::unique_ptr<int> &>(default_uniqueptr))
     ));
 }
@@ -7962,7 +7962,7 @@ const MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_cref(const MR_C_std_uniq
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_unique_ptr_int *)std::addressof(::MR::CSharp::test_uniqueptr_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::unique_ptr<int> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::unique_ptr<int> *)(a)),
         (b ? *(const std::unique_ptr<int> *)(b) : static_cast<const std::unique_ptr<int> &>(default_uniqueptr))
     ));
 }
@@ -7994,7 +7994,7 @@ int (*MR_CSharp_test_plainarr_ref(int (*a)[42], int (*b)[42]))[42]
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_plainarr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int (&)[42]>(default_plainarr))
     ));
 }
@@ -8004,7 +8004,7 @@ const int (*MR_CSharp_test_plainarr_cref(const int (*a)[42], const int (*b)[42])
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_plainarr_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int (&)[42]>(default_plainarr))
     ));
 }
@@ -8014,7 +8014,7 @@ int (*MR_CSharp_test_plainarr_rref(int (*a)[42], int (*b)[42]))[42]
     using namespace MR;
     using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_plainarr_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<int (&&)[42]>((MR::CSharp::PlainArray &&)default_plainarr))
     )));
 }
@@ -8024,7 +8024,7 @@ const int (*MR_CSharp_test_plainarr_crref(const int (*a)[42], const int (*b)[42]
     using namespace MR;
     using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_plainarr_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<const int (&&)[42]>((MR::CSharp::PlainArray &&)default_plainarr))
     )));
 }
@@ -8056,7 +8056,7 @@ int (*MR_CSharp_test_plainarr2_ref(int (*a)[10][20], int (*b)[10][20]))[10][20]
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_plainarr2_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int (&)[10][20]>(default_plainarr2))
     ));
 }
@@ -8066,7 +8066,7 @@ const int (*MR_CSharp_test_plainarr2_cref(const int (*a)[10][20], const int (*b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_plainarr2_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int (&)[10][20]>(default_plainarr2))
     ));
 }
@@ -8076,7 +8076,7 @@ int (*MR_CSharp_test_plainarr2_rref(int (*a)[10][20], int (*b)[10][20]))[10][20]
     using namespace MR;
     using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_plainarr2_rref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<int (&&)[10][20]>((MR::CSharp::PlainArray2 &&)default_plainarr2))
     )));
 }
@@ -8086,7 +8086,7 @@ const int (*MR_CSharp_test_plainarr2_crref(const int (*a)[10][20], const int (*b
     using namespace MR;
     using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_plainarr2_crref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::move(*a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<const int (&&)[10][20]>((MR::CSharp::PlainArray2 &&)default_plainarr2))
     )));
 }
@@ -8118,7 +8118,7 @@ MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_ref(MR_CSharp_E1 (*a)[42], MR_CSharp_
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_E1 (*)[42])std::addressof(::MR::CSharp::test_plainarrenum_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::CSharp::E1 (*)[42])(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::E1 (*)[42])(a)),
         (b ? *(MR::CSharp::E1 (*)[42])(b) : static_cast<MR::CSharp::E1 (&)[42]>(default_plainarrenum))
     ));
 }
@@ -8128,7 +8128,7 @@ const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_cref(const MR_CSharp_E1 (*a)[42
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_E1 (*)[42])std::addressof(::MR::CSharp::test_plainarrenum_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::E1 (*)[42])(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::E1 (*)[42])(a)),
         (b ? *(const MR::CSharp::E1 (*)[42])(b) : static_cast<const MR::CSharp::E1 (&)[42]>(default_plainarrenum))
     ));
 }
@@ -8160,7 +8160,7 @@ MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_ref(MR_CSharp_E1 (*a)[10][20], MR_CS
     using namespace MR;
     using namespace CSharp;
     return (MR_CSharp_E1 (*)[10][20])std::addressof(::MR::CSharp::test_plainarrenum2_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::CSharp::E1 (*)[10][20])(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::E1 (*)[10][20])(a)),
         (b ? *(MR::CSharp::E1 (*)[10][20])(b) : static_cast<MR::CSharp::E1 (&)[10][20]>(default_plainarrenum2))
     ));
 }
@@ -8170,7 +8170,7 @@ const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_cref(const MR_CSharp_E1 (*a)[1
     using namespace MR;
     using namespace CSharp;
     return (const MR_CSharp_E1 (*)[10][20])std::addressof(::MR::CSharp::test_plainarrenum2_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const MR::CSharp::E1 (*)[10][20])(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::E1 (*)[10][20])(a)),
         (b ? *(const MR::CSharp::E1 (*)[10][20])(b) : static_cast<const MR::CSharp::E1 (&)[10][20]>(default_plainarrenum2))
     ));
 }
@@ -8201,7 +8201,7 @@ int (**MR_CSharp_test_ptrs1(int (**ptr)[42], int (**ref)[42]))[42]
 {
     return ::MR::CSharp::test_ptrs1(
         ptr,
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *ref)
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *ref)
     );
 }
 
@@ -8209,7 +8209,7 @@ int (***MR_CSharp_test_ptrs2(int (***ptr)[42], int (***ref)[42]))[42]
 {
     return ::MR::CSharp::test_ptrs2(
         ptr,
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *ref)
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *ref)
     );
 }
 
@@ -8218,7 +8218,7 @@ int **MR_CSharp_test_intptr_ref(int **a, int **b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intptr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int *&>(default_intptr))
     ));
 }
@@ -8228,7 +8228,7 @@ int *const *MR_CSharp_test_intptr_cref(int *const *a, int *const *b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intptr_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int *const &>(default_intptr))
     ));
 }
@@ -8260,7 +8260,7 @@ const int **MR_CSharp_test_intcptr_ref(const int **a, const int **b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intcptr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int *&>(default_intcptr))
     ));
 }
@@ -8270,7 +8270,7 @@ const int *const *MR_CSharp_test_intcptr_cref(const int *const *a, const int *co
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intcptr_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int *const &>(default_intcptr))
     ));
 }
@@ -8302,7 +8302,7 @@ int ***MR_CSharp_test_intptrptr_ref(int ***a, int ***b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intptrptr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int **&>(default_intptrptr))
     ));
 }
@@ -8312,7 +8312,7 @@ int **const *MR_CSharp_test_intptrptr_cref(int **const *a, int **const *b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intptrptr_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int **const &>(default_intptrptr))
     ));
 }
@@ -8344,7 +8344,7 @@ void **MR_CSharp_test_voidptr_ref(void **a, void **b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_voidptr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<void *&>(default_voidptr))
     ));
 }
@@ -8354,7 +8354,7 @@ void *const *MR_CSharp_test_voidptr_cref(void *const *a, void *const *b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_voidptr_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<void *const &>(default_voidptr))
     ));
 }
@@ -8386,7 +8386,7 @@ void ***MR_CSharp_test_voidptrptr_ref(void ***a, void ***b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_voidptrptr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<void **&>(default_voidptrptr))
     ));
 }
@@ -8396,7 +8396,7 @@ void **const *MR_CSharp_test_voidptrptr_cref(void **const *a, void **const *b)
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_voidptrptr_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<void **const &>(default_voidptrptr))
     ));
 }
@@ -8428,7 +8428,7 @@ int (**MR_CSharp_test_arrptr_ref(int (**a)[42], int (**b)[42]))[42]
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_arrptr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int (*&)[42]>(default_arrptr))
     ));
 }
@@ -8438,7 +8438,7 @@ int (*const *MR_CSharp_test_arrptr_cref(int (*const *a)[42], int (*const *b)[42]
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_arrptr_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int (*const &)[42]>(default_arrptr))
     ));
 }
@@ -8470,7 +8470,7 @@ const int (**MR_CSharp_test_arrcptr_ref(const int (**a)[42], const int (**b)[42]
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_arrcptr_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int (*&)[42]>(default_arrcptr))
     ));
 }
@@ -8480,7 +8480,7 @@ const int (*const *MR_CSharp_test_arrcptr_cref(const int (*const *a)[42], const 
     using namespace MR;
     using namespace CSharp;
     return std::addressof(::MR::CSharp::test_arrcptr_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *a),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int (*const &)[42]>(default_arrcptr))
     ));
 }
@@ -8509,32 +8509,32 @@ const int (*const *MR_CSharp_test_arrcptr_cptr(const int (*const *a)[42], const 
 
 const int *MR_CSharp_NameConflicts_Get_name_conflicts(const MR_CSharp_NameConflicts *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::NameConflicts *)(_this)).name_conflicts);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::NameConflicts *)(_this)).name_conflicts);
 }
 
 void MR_CSharp_NameConflicts_Set_name_conflicts(MR_CSharp_NameConflicts *_this, int value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NameConflicts *)(_this)).name_conflicts = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NameConflicts *)(_this)).name_conflicts = value;
 }
 
 int *MR_CSharp_NameConflicts_GetMutable_name_conflicts(MR_CSharp_NameConflicts *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NameConflicts *)(_this)).name_conflicts);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NameConflicts *)(_this)).name_conflicts);
 }
 
 const MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_Get_a(const MR_CSharp_NameConflicts *_this)
 {
-    return (const MR_CSharp_NameConflicts_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::NameConflicts *)(_this)).a);
+    return (const MR_CSharp_NameConflicts_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::NameConflicts *)(_this)).a);
 }
 
 void MR_CSharp_NameConflicts_Set_a(MR_CSharp_NameConflicts *_this, const MR_CSharp_NameConflicts_A *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NameConflicts *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::CSharp::NameConflicts::A(*(MR::CSharp::NameConflicts::A *)value));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NameConflicts *)(_this)).a = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), MR::CSharp::NameConflicts::A(*(MR::CSharp::NameConflicts::A *)value));
 }
 
 MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_GetMutable_a(MR_CSharp_NameConflicts *_this)
 {
-    return (MR_CSharp_NameConflicts_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NameConflicts *)(_this)).a);
+    return (MR_CSharp_NameConflicts_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NameConflicts *)(_this)).a);
 }
 
 MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_DefaultConstruct(void)
@@ -8551,7 +8551,7 @@ MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_ConstructFrom(int name_conflict
 {
     return (MR_CSharp_NameConflicts *)new MR::CSharp::NameConflicts(MR::CSharp::NameConflicts{
         name_conflicts,
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), MR::CSharp::NameConflicts::A(*(MR::CSharp::NameConflicts::A *)a))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), MR::CSharp::NameConflicts::A(*(MR::CSharp::NameConflicts::A *)a))
     });
 }
 
@@ -8568,7 +8568,7 @@ MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_OffsetMutablePtr(MR_CSharp_Name
 MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_ConstructFromAnother(const MR_CSharp_NameConflicts *_other)
 {
     return (MR_CSharp_NameConflicts *)new MR::CSharp::NameConflicts(MR::CSharp::NameConflicts(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::NameConflicts(*(MR::CSharp::NameConflicts *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::NameConflicts(*(MR::CSharp::NameConflicts *)_other))
     ));
 }
 
@@ -8584,14 +8584,14 @@ void MR_CSharp_NameConflicts_DestroyArray(const MR_CSharp_NameConflicts *_this)
 
 MR_CSharp_NameConflicts *MR_CSharp_NameConflicts_AssignFromAnother(MR_CSharp_NameConflicts *_this, const MR_CSharp_NameConflicts *_other)
 {
-    return (MR_CSharp_NameConflicts *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NameConflicts *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::NameConflicts(*(MR::CSharp::NameConflicts *)_other))
+    return (MR_CSharp_NameConflicts *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NameConflicts *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::NameConflicts(*(MR::CSharp::NameConflicts *)_other))
     ));
 }
 
 void MR_CSharp_NameConflicts_name_Conflicts(MR_CSharp_NameConflicts *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NameConflicts *)(_this)).name_Conflicts();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NameConflicts *)(_this)).name_Conflicts();
 }
 
 MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_DefaultConstruct(void)
@@ -8617,7 +8617,7 @@ MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_OffsetMutablePtr(MR_CSharp_
 MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_ConstructFromAnother(const MR_CSharp_NameConflicts_A *_other)
 {
     return (MR_CSharp_NameConflicts_A *)new MR::CSharp::NameConflicts::A(MR::CSharp::NameConflicts::A(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::NameConflicts::A(*(MR::CSharp::NameConflicts::A *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::NameConflicts::A(*(MR::CSharp::NameConflicts::A *)_other))
     ));
 }
 
@@ -8633,8 +8633,8 @@ void MR_CSharp_NameConflicts_A_DestroyArray(const MR_CSharp_NameConflicts_A *_th
 
 MR_CSharp_NameConflicts_A *MR_CSharp_NameConflicts_A_AssignFromAnother(MR_CSharp_NameConflicts_A *_this, const MR_CSharp_NameConflicts_A *_other)
 {
-    return (MR_CSharp_NameConflicts_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NameConflicts::A *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::NameConflicts::A(*(MR::CSharp::NameConflicts::A *)_other))
+    return (MR_CSharp_NameConflicts_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NameConflicts::A *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::NameConflicts::A(*(MR::CSharp::NameConflicts::A *)_other))
     ));
 }
 
@@ -8645,7 +8645,7 @@ void MR_CSharp_nameConflicts(void)
 
 void MR_CSharp_NameConflictsExposed_name_Conflicts_exposed(MR_CSharp_NameConflictsExposed *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::NameConflictsExposed *)(_this)).name_Conflicts_exposed();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::NameConflictsExposed *)(_this)).name_Conflicts_exposed();
 }
 
 void MR_CSharp_nameConflictsExposed(void)
@@ -8715,7 +8715,7 @@ MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_OffsetMutablePtr(MR_C
 MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_ConstructFromAnother(const MR_CSharp_AmbiguousTemplates *_other)
 {
     return (MR_CSharp_AmbiguousTemplates *)new MR::CSharp::AmbiguousTemplates(MR::CSharp::AmbiguousTemplates(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::AmbiguousTemplates(*(MR::CSharp::AmbiguousTemplates *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::AmbiguousTemplates(*(MR::CSharp::AmbiguousTemplates *)_other))
     ));
 }
 
@@ -8731,108 +8731,108 @@ void MR_CSharp_AmbiguousTemplates_DestroyArray(const MR_CSharp_AmbiguousTemplate
 
 MR_CSharp_AmbiguousTemplates *MR_CSharp_AmbiguousTemplates_AssignFromAnother(MR_CSharp_AmbiguousTemplates *_this, const MR_CSharp_AmbiguousTemplates *_other)
 {
-    return (MR_CSharp_AmbiguousTemplates *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::AmbiguousTemplates *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::AmbiguousTemplates(*(MR::CSharp::AmbiguousTemplates *)_other))
+    return (MR_CSharp_AmbiguousTemplates *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::AmbiguousTemplates *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::AmbiguousTemplates(*(MR::CSharp::AmbiguousTemplates *)_other))
     ));
 }
 
 void MR_CSharp_AmbiguousTemplates_template_a_int(MR_CSharp_AmbiguousTemplates *_this, int _1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_a<int>(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_a<int>(
         _1
     );
 }
 
 void MR_CSharp_AmbiguousTemplates_template_a_float(MR_CSharp_AmbiguousTemplates *_this, float _1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_a<float>(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_a<float>(
         _1
     );
 }
 
 int MR_CSharp_AmbiguousTemplates_template_b_int(MR_CSharp_AmbiguousTemplates *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_b<int>();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_b<int>();
 }
 
 float MR_CSharp_AmbiguousTemplates_template_b_float(MR_CSharp_AmbiguousTemplates *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_b<float>();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_b<float>();
 }
 
 void MR_CSharp_AmbiguousTemplates_template_c_int(MR_CSharp_AmbiguousTemplates *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_c<int>();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_c<int>();
 }
 
 void MR_CSharp_AmbiguousTemplates_template_c_float(MR_CSharp_AmbiguousTemplates *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_c<float>();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::AmbiguousTemplates *)(_this)).template_c<float>();
 }
 
 void MR_CSharp_AmbiguousTemplates_instantiate(MR_CSharp_AmbiguousTemplates *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::AmbiguousTemplates *)(_this)).instantiate();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::AmbiguousTemplates *)(_this)).instantiate();
 }
 
 void MR_CSharp_ConstNonconstConflicts_foo_mut_int(MR_CSharp_ConstNonconstConflicts *_this, int _1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
         _1
     );
 }
 
 void MR_CSharp_ConstNonconstConflicts_foo_float(const MR_CSharp_ConstNonconstConflicts *_this, float _1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
         _1
     );
 }
 
 void MR_CSharp_ConstNonconstConflicts_foo_mut_char(MR_CSharp_ConstNonconstConflicts *_this, char _1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
         _1
     );
 }
 
 void MR_CSharp_ConstNonconstConflicts_foo_char(const MR_CSharp_ConstNonconstConflicts *_this, char _1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).foo(
         _1
     );
 }
 
 int MR_C_pos_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).operator+();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConstNonconstConflicts *)(_this)).operator+();
 }
 
 int MR_C_pos_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).operator+();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).operator+();
 }
 
 void MR_C_compl_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).operator~();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConstNonconstConflicts *)(_this)).operator~();
 }
 
 void MR_C_compl_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).operator~();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).operator~();
 }
 
 int MR_C_div_MR_CSharp_ConstNonconstConflicts_ref_int(MR_CSharp_ConstNonconstConflicts *_this, int _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_this)).operator/(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ConstNonconstConflicts *)(_this)).operator/(
         _1
     );
 }
 
 int MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int(const MR_CSharp_ConstNonconstConflicts *_this, int _1)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).operator/(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ConstNonconstConflicts *)(_this)).operator/(
         _1
     );
 }
@@ -8840,28 +8840,28 @@ int MR_C_div_const_MR_CSharp_ConstNonconstConflicts_ref_int(const MR_CSharp_Cons
 int MR_C_neg_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_1)
 {
     return operator-(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::ConstNonconstConflicts *)(_1))
     );
 }
 
 int MR_C_neg_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_1)
 {
     return operator-(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ConstNonconstConflicts *)(_1))
     );
 }
 
 void MR_C_not_MR_CSharp_ConstNonconstConflicts_ref(MR_CSharp_ConstNonconstConflicts *_1)
 {
     operator!(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::CSharp::ConstNonconstConflicts *)(_1))
     );
 }
 
 void MR_C_not_const_MR_CSharp_ConstNonconstConflicts_ref(const MR_CSharp_ConstNonconstConflicts *_1)
 {
     operator!(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::CSharp::ConstNonconstConflicts *)(_1))
     );
 }
 
@@ -8869,7 +8869,7 @@ int MR_C_bitand_int_MR_CSharp_ConstNonconstConflicts_ref(int _1, MR_CSharp_Const
 {
     return operator&(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(MR::CSharp::ConstNonconstConflicts *)(_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(MR::CSharp::ConstNonconstConflicts *)(_2))
     );
 }
 
@@ -8877,7 +8877,7 @@ int MR_C_bitand_int_const_MR_CSharp_ConstNonconstConflicts_ref(int _1, const MR_
 {
     return operator&(
         _1,
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *(const MR::CSharp::ConstNonconstConflicts *)(_2))
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *(const MR::CSharp::ConstNonconstConflicts *)(_2))
     );
 }
 
@@ -8923,48 +8923,48 @@ const MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_sd(void)
 
 MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_a(const MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (MR_CSharp_A *const *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).a);
+    return (MR_CSharp_A *const *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).a);
 }
 
 void MR_CSharp_ClassMemberPointersClass_Set_a(MR_CSharp_ClassMemberPointersClass *_this, MR_CSharp_A *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersClass *)(_this)).a = ((MR::CSharp::A *)value);
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersClass *)(_this)).a = ((MR::CSharp::A *)value);
 }
 
 MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_a(MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (MR_CSharp_A **)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersClass *)(_this)).a);
+    return (MR_CSharp_A **)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersClass *)(_this)).a);
 }
 
 const MR_CSharp_A *const *MR_CSharp_ClassMemberPointersClass_Get_b(const MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (const MR_CSharp_A *const *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).b);
+    return (const MR_CSharp_A *const *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).b);
 }
 
 void MR_CSharp_ClassMemberPointersClass_Set_b(MR_CSharp_ClassMemberPointersClass *_this, const MR_CSharp_A *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersClass *)(_this)).b = ((const MR::CSharp::A *)value);
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersClass *)(_this)).b = ((const MR::CSharp::A *)value);
 }
 
 const MR_CSharp_A **MR_CSharp_ClassMemberPointersClass_GetMutable_b(MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (const MR_CSharp_A **)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersClass *)(_this)).b);
+    return (const MR_CSharp_A **)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersClass *)(_this)).b);
 }
 
 MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_c(const MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (MR_CSharp_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).c);
+    return (MR_CSharp_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).c);
 }
 
 const MR_CSharp_A *MR_CSharp_ClassMemberPointersClass_Get_d(const MR_CSharp_ClassMemberPointersClass *_this)
 {
-    return (const MR_CSharp_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).d);
+    return (const MR_CSharp_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersClass *)(_this)).d);
 }
 
 MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_ConstructFromAnother(const MR_CSharp_ClassMemberPointersClass *_other)
 {
     return (MR_CSharp_ClassMemberPointersClass *)new MR::CSharp::ClassMemberPointersClass(MR::CSharp::ClassMemberPointersClass(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ClassMemberPointersClass(*(MR::CSharp::ClassMemberPointersClass *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ClassMemberPointersClass(*(MR::CSharp::ClassMemberPointersClass *)_other))
     ));
 }
 
@@ -8973,8 +8973,8 @@ MR_CSharp_ClassMemberPointersClass *MR_CSharp_ClassMemberPointersClass_Construct
     return (MR_CSharp_ClassMemberPointersClass *)new MR::CSharp::ClassMemberPointersClass(MR::CSharp::ClassMemberPointersClass{
         ((MR::CSharp::A *)a),
         ((const MR::CSharp::A *)b),
-        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(MR::CSharp::A *)(c)),
-        ((d ? void() : throw std::runtime_error("Parameter `d` can not be null.")), *(const MR::CSharp::A *)(d))
+        ((c ? void() : MRBINDC_THROW("Parameter `c` can not be null.", void)), *(MR::CSharp::A *)(c)),
+        ((d ? void() : MRBINDC_THROW("Parameter `d` can not be null.", void)), *(const MR::CSharp::A *)(d))
     });
 }
 
@@ -9040,48 +9040,48 @@ const MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_sd(void)
 
 MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_a(const MR_CSharp_ClassMemberPointersExposed *_this)
 {
-    return (MR_CSharp_ExposedLayout *const *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).a);
+    return (MR_CSharp_ExposedLayout *const *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).a);
 }
 
 void MR_CSharp_ClassMemberPointersExposed_Set_a(MR_CSharp_ClassMemberPointersExposed *_this, MR_CSharp_ExposedLayout *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).a = ((MR::CSharp::ExposedLayout *)value);
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).a = ((MR::CSharp::ExposedLayout *)value);
 }
 
 MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_a(MR_CSharp_ClassMemberPointersExposed *_this)
 {
-    return (MR_CSharp_ExposedLayout **)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).a);
+    return (MR_CSharp_ExposedLayout **)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).a);
 }
 
 const MR_CSharp_ExposedLayout *const *MR_CSharp_ClassMemberPointersExposed_Get_b(const MR_CSharp_ClassMemberPointersExposed *_this)
 {
-    return (const MR_CSharp_ExposedLayout *const *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).b);
+    return (const MR_CSharp_ExposedLayout *const *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).b);
 }
 
 void MR_CSharp_ClassMemberPointersExposed_Set_b(MR_CSharp_ClassMemberPointersExposed *_this, const MR_CSharp_ExposedLayout *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).b = ((const MR::CSharp::ExposedLayout *)value);
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).b = ((const MR::CSharp::ExposedLayout *)value);
 }
 
 const MR_CSharp_ExposedLayout **MR_CSharp_ClassMemberPointersExposed_GetMutable_b(MR_CSharp_ClassMemberPointersExposed *_this)
 {
-    return (const MR_CSharp_ExposedLayout **)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).b);
+    return (const MR_CSharp_ExposedLayout **)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersExposed *)(_this)).b);
 }
 
 MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_c(const MR_CSharp_ClassMemberPointersExposed *_this)
 {
-    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).c);
+    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).c);
 }
 
 const MR_CSharp_ExposedLayout *MR_CSharp_ClassMemberPointersExposed_Get_d(const MR_CSharp_ClassMemberPointersExposed *_this)
 {
-    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).d);
+    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersExposed *)(_this)).d);
 }
 
 MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_ConstructFromAnother(const MR_CSharp_ClassMemberPointersExposed *_other)
 {
     return (MR_CSharp_ClassMemberPointersExposed *)new MR::CSharp::ClassMemberPointersExposed(MR::CSharp::ClassMemberPointersExposed(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ClassMemberPointersExposed(*(MR::CSharp::ClassMemberPointersExposed *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ClassMemberPointersExposed(*(MR::CSharp::ClassMemberPointersExposed *)_other))
     ));
 }
 
@@ -9090,8 +9090,8 @@ MR_CSharp_ClassMemberPointersExposed *MR_CSharp_ClassMemberPointersExposed_Const
     return (MR_CSharp_ClassMemberPointersExposed *)new MR::CSharp::ClassMemberPointersExposed(MR::CSharp::ClassMemberPointersExposed{
         ((MR::CSharp::ExposedLayout *)a),
         ((const MR::CSharp::ExposedLayout *)b),
-        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(MR::CSharp::ExposedLayout *)(c)),
-        ((d ? void() : throw std::runtime_error("Parameter `d` can not be null.")), *(const MR::CSharp::ExposedLayout *)(d))
+        ((c ? void() : MRBINDC_THROW("Parameter `c` can not be null.", void)), *(MR::CSharp::ExposedLayout *)(c)),
+        ((d ? void() : MRBINDC_THROW("Parameter `d` can not be null.", void)), *(const MR::CSharp::ExposedLayout *)(d))
     });
 }
 
@@ -9157,48 +9157,48 @@ const unsigned short *MR_CSharp_ClassMemberPointersUshort_Get_sd(void)
 
 unsigned short *const *MR_CSharp_ClassMemberPointersUshort_Get_a(const MR_CSharp_ClassMemberPointersUshort *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).a);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).a);
 }
 
 void MR_CSharp_ClassMemberPointersUshort_Set_a(MR_CSharp_ClassMemberPointersUshort *_this, unsigned short *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).a = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).a = value;
 }
 
 unsigned short **MR_CSharp_ClassMemberPointersUshort_GetMutable_a(MR_CSharp_ClassMemberPointersUshort *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).a);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).a);
 }
 
 const unsigned short *const *MR_CSharp_ClassMemberPointersUshort_Get_b(const MR_CSharp_ClassMemberPointersUshort *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).b);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).b);
 }
 
 void MR_CSharp_ClassMemberPointersUshort_Set_b(MR_CSharp_ClassMemberPointersUshort *_this, const unsigned short *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).b = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).b = value;
 }
 
 const unsigned short **MR_CSharp_ClassMemberPointersUshort_GetMutable_b(MR_CSharp_ClassMemberPointersUshort *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).b);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersUshort *)(_this)).b);
 }
 
 unsigned short *MR_CSharp_ClassMemberPointersUshort_Get_c(const MR_CSharp_ClassMemberPointersUshort *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).c);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).c);
 }
 
 const unsigned short *MR_CSharp_ClassMemberPointersUshort_Get_d(const MR_CSharp_ClassMemberPointersUshort *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).d);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersUshort *)(_this)).d);
 }
 
 MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_ConstructFromAnother(const MR_CSharp_ClassMemberPointersUshort *_other)
 {
     return (MR_CSharp_ClassMemberPointersUshort *)new MR::CSharp::ClassMemberPointersUshort(MR::CSharp::ClassMemberPointersUshort(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ClassMemberPointersUshort(*(MR::CSharp::ClassMemberPointersUshort *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ClassMemberPointersUshort(*(MR::CSharp::ClassMemberPointersUshort *)_other))
     ));
 }
 
@@ -9207,8 +9207,8 @@ MR_CSharp_ClassMemberPointersUshort *MR_CSharp_ClassMemberPointersUshort_Constru
     return (MR_CSharp_ClassMemberPointersUshort *)new MR::CSharp::ClassMemberPointersUshort(MR::CSharp::ClassMemberPointersUshort{
         a,
         b,
-        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *c),
-        ((d ? void() : throw std::runtime_error("Parameter `d` can not be null.")), *d)
+        ((c ? void() : MRBINDC_THROW("Parameter `c` can not be null.", void)), *c),
+        ((d ? void() : MRBINDC_THROW("Parameter `d` can not be null.", void)), *d)
     });
 }
 
@@ -9274,48 +9274,48 @@ const bool *MR_CSharp_ClassMemberPointersBool_Get_sd(void)
 
 bool *const *MR_CSharp_ClassMemberPointersBool_Get_a(const MR_CSharp_ClassMemberPointersBool *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).a);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).a);
 }
 
 void MR_CSharp_ClassMemberPointersBool_Set_a(MR_CSharp_ClassMemberPointersBool *_this, bool *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersBool *)(_this)).a = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersBool *)(_this)).a = value;
 }
 
 bool **MR_CSharp_ClassMemberPointersBool_GetMutable_a(MR_CSharp_ClassMemberPointersBool *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersBool *)(_this)).a);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersBool *)(_this)).a);
 }
 
 const bool *const *MR_CSharp_ClassMemberPointersBool_Get_b(const MR_CSharp_ClassMemberPointersBool *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).b);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).b);
 }
 
 void MR_CSharp_ClassMemberPointersBool_Set_b(MR_CSharp_ClassMemberPointersBool *_this, const bool *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersBool *)(_this)).b = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersBool *)(_this)).b = value;
 }
 
 const bool **MR_CSharp_ClassMemberPointersBool_GetMutable_b(MR_CSharp_ClassMemberPointersBool *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::ClassMemberPointersBool *)(_this)).b);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::ClassMemberPointersBool *)(_this)).b);
 }
 
 bool *MR_CSharp_ClassMemberPointersBool_Get_c(const MR_CSharp_ClassMemberPointersBool *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).c);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).c);
 }
 
 const bool *MR_CSharp_ClassMemberPointersBool_Get_d(const MR_CSharp_ClassMemberPointersBool *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).d);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::ClassMemberPointersBool *)(_this)).d);
 }
 
 MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_ConstructFromAnother(const MR_CSharp_ClassMemberPointersBool *_other)
 {
     return (MR_CSharp_ClassMemberPointersBool *)new MR::CSharp::ClassMemberPointersBool(MR::CSharp::ClassMemberPointersBool(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::ClassMemberPointersBool(*(MR::CSharp::ClassMemberPointersBool *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::ClassMemberPointersBool(*(MR::CSharp::ClassMemberPointersBool *)_other))
     ));
 }
 
@@ -9324,8 +9324,8 @@ MR_CSharp_ClassMemberPointersBool *MR_CSharp_ClassMemberPointersBool_ConstructFr
     return (MR_CSharp_ClassMemberPointersBool *)new MR::CSharp::ClassMemberPointersBool(MR::CSharp::ClassMemberPointersBool{
         a,
         b,
-        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *c),
-        ((d ? void() : throw std::runtime_error("Parameter `d` can not be null.")), *d)
+        ((c ? void() : MRBINDC_THROW("Parameter `c` can not be null.", void)), *c),
+        ((d ? void() : MRBINDC_THROW("Parameter `d` can not be null.", void)), *d)
     });
 }
 
@@ -9351,17 +9351,17 @@ void MR_CSharp_ClassMemberPointersBool_DestroyArray(const MR_CSharp_ClassMemberP
 
 const int *MR_CSharp_LifetimesA_Get_x(const MR_CSharp_LifetimesA *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::LifetimesA *)(_this)).x);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::LifetimesA *)(_this)).x);
 }
 
 void MR_CSharp_LifetimesA_Set_x(MR_CSharp_LifetimesA *_this, int value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesA *)(_this)).x = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesA *)(_this)).x = value;
 }
 
 int *MR_CSharp_LifetimesA_GetMutable_x(MR_CSharp_LifetimesA *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesA *)(_this)).x);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesA *)(_this)).x);
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesA_DefaultConstruct(void)
@@ -9394,7 +9394,7 @@ MR_CSharp_LifetimesA *MR_CSharp_LifetimesA_OffsetMutablePtr(MR_CSharp_LifetimesA
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesA_ConstructFromAnother(const MR_CSharp_LifetimesA *_other)
 {
     return (MR_CSharp_LifetimesA *)new MR::CSharp::LifetimesA(MR::CSharp::LifetimesA(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)_other))
     ));
 }
 
@@ -9410,36 +9410,36 @@ void MR_CSharp_LifetimesA_DestroyArray(const MR_CSharp_LifetimesA *_this)
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesA_AssignFromAnother(MR_CSharp_LifetimesA *_this, const MR_CSharp_LifetimesA *_other)
 {
-    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesA *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)_other))
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesA *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)_other))
     ));
 }
 
 int *MR_CSharp_LifetimesA_foo(MR_CSharp_LifetimesA *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesA *)(_this)).foo());
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesA *)(_this)).foo());
 }
 
 void MR_CSharp_LifetimesA_bar(MR_CSharp_LifetimesA *_this, int *ref)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesA *)(_this)).bar(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *ref)
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesA *)(_this)).bar(
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *ref)
     );
 }
 
 const MR_CSharp_LifetimesA *MR_CSharp_LifetimesB_Get_a(const MR_CSharp_LifetimesB *_this)
 {
-    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::LifetimesB *)(_this)).a);
+    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::LifetimesB *)(_this)).a);
 }
 
 void MR_CSharp_LifetimesB_Set_a(MR_CSharp_LifetimesB *_this, const MR_CSharp_LifetimesA *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesB *)(_this)).a = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesB_GetMutable_a(MR_CSharp_LifetimesB *_this)
 {
-    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).a);
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesB *)(_this)).a);
 }
 
 MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_DefaultConstruct(void)
@@ -9455,7 +9455,7 @@ MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_DefaultConstructArray(size_t num_elem
 MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_ConstructFrom(const MR_CSharp_LifetimesA *a)
 {
     return (MR_CSharp_LifetimesB *)new MR::CSharp::LifetimesB(MR::CSharp::LifetimesB{
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)a))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)a))
     });
 }
 
@@ -9472,7 +9472,7 @@ MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_OffsetMutablePtr(MR_CSharp_LifetimesB
 MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_ConstructFromAnother(const MR_CSharp_LifetimesB *_other)
 {
     return (MR_CSharp_LifetimesB *)new MR::CSharp::LifetimesB(MR::CSharp::LifetimesB(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesB(*(MR::CSharp::LifetimesB *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::LifetimesB(*(MR::CSharp::LifetimesB *)_other))
     ));
 }
 
@@ -9488,60 +9488,60 @@ void MR_CSharp_LifetimesB_DestroyArray(const MR_CSharp_LifetimesB *_this)
 
 MR_CSharp_LifetimesB *MR_CSharp_LifetimesB_AssignFromAnother(MR_CSharp_LifetimesB *_this, const MR_CSharp_LifetimesB *_other)
 {
-    return (MR_CSharp_LifetimesB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesB(*(MR::CSharp::LifetimesB *)_other))
+    return (MR_CSharp_LifetimesB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesB *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::LifetimesB(*(MR::CSharp::LifetimesB *)_other))
     ));
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesB_begin(MR_CSharp_LifetimesB *_this)
 {
-    return (MR_CSharp_LifetimesA *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).begin());
+    return (MR_CSharp_LifetimesA *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesB *)(_this)).begin());
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesB_end(MR_CSharp_LifetimesB *_this)
 {
-    return (MR_CSharp_LifetimesA *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).end());
+    return (MR_CSharp_LifetimesA *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesB *)(_this)).end());
 }
 
 MR_CSharp_LifetimesA *MR_C_deref_MR_CSharp_LifetimesB_ref(MR_CSharp_LifetimesB *_this)
 {
-    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesB *)(_this)).operator*());
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesB *)(_this)).operator*());
 }
 
 const MR_CSharp_LifetimesA *MR_CSharp_begin_const_MR_CSharp_LifetimesB_ref(const MR_CSharp_LifetimesB *b)
 {
     return (const MR_CSharp_LifetimesA *)(::MR::CSharp::begin(
-        ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), *(const MR::CSharp::LifetimesB *)(b))
+        ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), *(const MR::CSharp::LifetimesB *)(b))
     ));
 }
 
 const MR_CSharp_LifetimesA *MR_CSharp_end_const_MR_CSharp_LifetimesB_ref(const MR_CSharp_LifetimesB *b)
 {
     return (const MR_CSharp_LifetimesA *)(::MR::CSharp::end(
-        ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), *(const MR::CSharp::LifetimesB *)(b))
+        ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), *(const MR::CSharp::LifetimesB *)(b))
     ));
 }
 
 const MR_CSharp_LifetimesA *MR_C_deref_const_MR_CSharp_LifetimesB_ref(const MR_CSharp_LifetimesB *b)
 {
     return (const MR_CSharp_LifetimesA *)std::addressof(::MR::CSharp::operator*(
-        ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), *(const MR::CSharp::LifetimesB *)(b))
+        ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), *(const MR::CSharp::LifetimesB *)(b))
     ));
 }
 
 const MR_CSharp_LifetimesA *MR_CSharp_LifetimesC_Get_a(const MR_CSharp_LifetimesC *_this)
 {
-    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::LifetimesC *)(_this)).a);
+    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::LifetimesC *)(_this)).a);
 }
 
 void MR_CSharp_LifetimesC_Set_a(MR_CSharp_LifetimesC *_this, const MR_CSharp_LifetimesA *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesC *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesC *)(_this)).a = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesC_GetMutable_a(MR_CSharp_LifetimesC *_this)
 {
-    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesC *)(_this)).a);
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesC *)(_this)).a);
 }
 
 MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_DefaultConstruct(void)
@@ -9557,7 +9557,7 @@ MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_DefaultConstructArray(size_t num_elem
 MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_ConstructFrom(const MR_CSharp_LifetimesA *a)
 {
     return (MR_CSharp_LifetimesC *)new MR::CSharp::LifetimesC(MR::CSharp::LifetimesC{
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)a))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)a))
     });
 }
 
@@ -9574,7 +9574,7 @@ MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_OffsetMutablePtr(MR_CSharp_LifetimesC
 MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_ConstructFromAnother(const MR_CSharp_LifetimesC *_other)
 {
     return (MR_CSharp_LifetimesC *)new MR::CSharp::LifetimesC(MR::CSharp::LifetimesC(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesC(*(MR::CSharp::LifetimesC *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::LifetimesC(*(MR::CSharp::LifetimesC *)_other))
     ));
 }
 
@@ -9590,51 +9590,51 @@ void MR_CSharp_LifetimesC_DestroyArray(const MR_CSharp_LifetimesC *_this)
 
 MR_CSharp_LifetimesC *MR_CSharp_LifetimesC_AssignFromAnother(MR_CSharp_LifetimesC *_this, const MR_CSharp_LifetimesC *_other)
 {
-    return (MR_CSharp_LifetimesC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesC *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesC(*(MR::CSharp::LifetimesC *)_other))
+    return (MR_CSharp_LifetimesC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesC *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::LifetimesC(*(MR::CSharp::LifetimesC *)_other))
     ));
 }
 
 const MR_CSharp_LifetimesA *MR_CSharp_begin_const_MR_CSharp_LifetimesC_ref(const MR_CSharp_LifetimesC *c)
 {
     return (const MR_CSharp_LifetimesA *)(begin(
-        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(const MR::CSharp::LifetimesC *)(c))
+        ((c ? void() : MRBINDC_THROW("Parameter `c` can not be null.", void)), *(const MR::CSharp::LifetimesC *)(c))
     ));
 }
 
 const MR_CSharp_LifetimesA *MR_CSharp_end_const_MR_CSharp_LifetimesC_ref(const MR_CSharp_LifetimesC *c)
 {
     return (const MR_CSharp_LifetimesA *)(end(
-        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(const MR::CSharp::LifetimesC *)(c))
+        ((c ? void() : MRBINDC_THROW("Parameter `c` can not be null.", void)), *(const MR::CSharp::LifetimesC *)(c))
     ));
 }
 
 const MR_CSharp_LifetimesA *MR_C_deref_MR_CSharp_LifetimesC(const MR_CSharp_LifetimesC *c)
 {
     return (const MR_CSharp_LifetimesA *)std::addressof(operator*(
-        ((c ? void() : throw std::runtime_error("Parameter `c` can not be null.")), *(const MR::CSharp::LifetimesC *)(c))
+        ((c ? void() : MRBINDC_THROW("Parameter `c` can not be null.", void)), *(const MR::CSharp::LifetimesC *)(c))
     ));
 }
 
 const MR_CSharp_LifetimesA *MR_CSharp_LifetimesD_Get_a(const MR_CSharp_LifetimesD *_this)
 {
-    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::LifetimesD *)(_this)).a);
+    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::LifetimesD *)(_this)).a);
 }
 
 void MR_CSharp_LifetimesD_Set_a(MR_CSharp_LifetimesD *_this, const MR_CSharp_LifetimesA *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesD *)(_this)).a = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesD_GetMutable_a(MR_CSharp_LifetimesD *_this)
 {
-    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).a);
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesD *)(_this)).a);
 }
 
 MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_ConstructFromAnother(const MR_CSharp_LifetimesD *_other)
 {
     return (MR_CSharp_LifetimesD *)new MR::CSharp::LifetimesD(MR::CSharp::LifetimesD(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesD(*(MR::CSharp::LifetimesD *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::LifetimesD(*(MR::CSharp::LifetimesD *)_other))
     ));
 }
 
@@ -9651,22 +9651,22 @@ MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_OffsetMutablePtr(MR_CSharp_LifetimesD
 MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_Construct_2(MR_CSharp_LifetimesA *ref, MR_CSharp_LifetimesB *other_ref)
 {
     return (MR_CSharp_LifetimesD *)new MR::CSharp::LifetimesD(MR::CSharp::LifetimesD(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref)),
-        ((other_ref ? void() : throw std::runtime_error("Parameter `other_ref` can not be null.")), *(MR::CSharp::LifetimesB *)(other_ref))
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::LifetimesA *)(ref)),
+        ((other_ref ? void() : MRBINDC_THROW("Parameter `other_ref` can not be null.", void)), *(MR::CSharp::LifetimesB *)(other_ref))
     ));
 }
 
 MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesA(MR_CSharp_LifetimesA *ref)
 {
     return (MR_CSharp_LifetimesD *)new MR::CSharp::LifetimesD(MR::CSharp::LifetimesD(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::LifetimesA *)(ref))
     ));
 }
 
 MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_Construct_1_MR_CSharp_LifetimesB(MR_CSharp_LifetimesB *ref)
 {
     return (MR_CSharp_LifetimesD *)new MR::CSharp::LifetimesD(MR::CSharp::LifetimesD(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesB *)(ref))
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::LifetimesB *)(ref))
     ));
 }
 
@@ -9682,71 +9682,71 @@ void MR_CSharp_LifetimesD_DestroyArray(const MR_CSharp_LifetimesD *_this)
 
 MR_CSharp_LifetimesD *MR_CSharp_LifetimesD_AssignFromAnother(MR_CSharp_LifetimesD *_this, const MR_CSharp_LifetimesD *_other)
 {
-    return (MR_CSharp_LifetimesD *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesD(*(MR::CSharp::LifetimesD *)_other))
+    return (MR_CSharp_LifetimesD *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesD *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::LifetimesD(*(MR::CSharp::LifetimesD *)_other))
     ));
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesD_get(MR_CSharp_LifetimesD *_this)
 {
-    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).get());
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesD *)(_this)).get());
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesD_return_ref(MR_CSharp_LifetimesD *_this, MR_CSharp_LifetimesA *ref)
 {
-    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).return_ref(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesD *)(_this)).return_ref(
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::LifetimesA *)(ref))
     ));
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesD_return_ref_static(MR_CSharp_LifetimesA *ref)
 {
     return (MR_CSharp_LifetimesA *)std::addressof(MR::CSharp::LifetimesD::return_ref_static(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::LifetimesA *)(ref))
     ));
 }
 
 void MR_CSharp_LifetimesD_store_ref_in_this(MR_CSharp_LifetimesD *_this, MR_CSharp_LifetimesA *ref)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).store_ref_in_this(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesD *)(_this)).store_ref_in_this(
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::LifetimesA *)(ref))
     );
 }
 
 void MR_CSharp_LifetimesD_store_ref_in_param(MR_CSharp_LifetimesD *_this, MR_CSharp_LifetimesA *ref, MR_CSharp_LifetimesB *other_ref)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).store_ref_in_param(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref)),
-        ((other_ref ? void() : throw std::runtime_error("Parameter `other_ref` can not be null.")), *(MR::CSharp::LifetimesB *)(other_ref))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesD *)(_this)).store_ref_in_param(
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::LifetimesA *)(ref)),
+        ((other_ref ? void() : MRBINDC_THROW("Parameter `other_ref` can not be null.", void)), *(MR::CSharp::LifetimesB *)(other_ref))
     );
 }
 
 void MR_CSharp_LifetimesD_store_this_in_param(MR_CSharp_LifetimesD *_this, MR_CSharp_LifetimesA *ref)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesD *)(_this)).store_this_in_param(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesD *)(_this)).store_this_in_param(
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::LifetimesA *)(ref))
     );
 }
 
 const MR_CSharp_LifetimesA *MR_CSharp_LifetimesE_Get_a(const MR_CSharp_LifetimesE *_this)
 {
-    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::LifetimesE *)(_this)).a);
+    return (const MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::LifetimesE *)(_this)).a);
 }
 
 void MR_CSharp_LifetimesE_Set_a(MR_CSharp_LifetimesE *_this, const MR_CSharp_LifetimesA *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesE *)(_this)).a = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), MR::CSharp::LifetimesA(*(MR::CSharp::LifetimesA *)value));
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesE_GetMutable_a(MR_CSharp_LifetimesE *_this)
 {
-    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).a);
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesE *)(_this)).a);
 }
 
 MR_CSharp_LifetimesE *MR_CSharp_LifetimesE_ConstructFromAnother(const MR_CSharp_LifetimesE *_other)
 {
     return (MR_CSharp_LifetimesE *)new MR::CSharp::LifetimesE(MR::CSharp::LifetimesE(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesE(*(MR::CSharp::LifetimesE *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::LifetimesE(*(MR::CSharp::LifetimesE *)_other))
     ));
 }
 
@@ -9763,7 +9763,7 @@ MR_CSharp_LifetimesE *MR_CSharp_LifetimesE_OffsetMutablePtr(MR_CSharp_LifetimesE
 MR_CSharp_LifetimesE *MR_CSharp_LifetimesE_Construct(MR_CSharp_LifetimesB *ref)
 {
     return (MR_CSharp_LifetimesE *)new MR::CSharp::LifetimesE(MR::CSharp::LifetimesE(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesB *)(ref))
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::LifetimesB *)(ref))
     ));
 }
 
@@ -9779,38 +9779,38 @@ void MR_CSharp_LifetimesE_DestroyArray(const MR_CSharp_LifetimesE *_this)
 
 MR_CSharp_LifetimesE *MR_CSharp_LifetimesE_AssignFromAnother(MR_CSharp_LifetimesE *_this, const MR_CSharp_LifetimesE *_other)
 {
-    return (MR_CSharp_LifetimesE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::LifetimesE(*(MR::CSharp::LifetimesE *)_other))
+    return (MR_CSharp_LifetimesE *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesE *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::LifetimesE(*(MR::CSharp::LifetimesE *)_other))
     ));
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesE_get(MR_CSharp_LifetimesE *_this)
 {
-    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).get());
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesE *)(_this)).get());
 }
 
 MR_CSharp_LifetimesA *MR_CSharp_LifetimesE_return_ref(MR_CSharp_LifetimesE *_this, MR_CSharp_LifetimesA *ref)
 {
-    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).return_ref(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    return (MR_CSharp_LifetimesA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesE *)(_this)).return_ref(
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::LifetimesA *)(ref))
     ));
 }
 
 void MR_CSharp_LifetimesE_store_ref_in_this(MR_CSharp_LifetimesE *_this, MR_CSharp_LifetimesA *ref)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::LifetimesE *)(_this)).store_ref_in_this(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(MR::CSharp::LifetimesA *)(ref))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::LifetimesE *)(_this)).store_ref_in_this(
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(MR::CSharp::LifetimesA *)(ref))
     );
 }
 
 const int *MR_CSharp_IterableA_Get_arr(const MR_CSharp_IterableA *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableA *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableA *)(_this)).arr[0]);
 }
 
 int *MR_CSharp_IterableA_GetMutable_arr(MR_CSharp_IterableA *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableA *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableA *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableA_GetSize_arr(void)
@@ -9841,7 +9841,7 @@ MR_CSharp_IterableA *MR_CSharp_IterableA_OffsetMutablePtr(MR_CSharp_IterableA *p
 MR_CSharp_IterableA *MR_CSharp_IterableA_ConstructFromAnother(const MR_CSharp_IterableA *_other)
 {
     return (MR_CSharp_IterableA *)new MR::CSharp::IterableA(MR::CSharp::IterableA(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableA(*(MR::CSharp::IterableA *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableA(*(MR::CSharp::IterableA *)_other))
     ));
 }
 
@@ -9857,29 +9857,29 @@ void MR_CSharp_IterableA_DestroyArray(const MR_CSharp_IterableA *_this)
 
 MR_CSharp_IterableA *MR_CSharp_IterableA_AssignFromAnother(MR_CSharp_IterableA *_this, const MR_CSharp_IterableA *_other)
 {
-    return (MR_CSharp_IterableA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableA *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableA(*(MR::CSharp::IterableA *)_other))
+    return (MR_CSharp_IterableA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableA *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableA(*(MR::CSharp::IterableA *)_other))
     ));
 }
 
 const int *MR_CSharp_IterableA_begin(const MR_CSharp_IterableA *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableA *)(_this)).begin();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableA *)(_this)).begin();
 }
 
 const int *MR_CSharp_IterableA_end(const MR_CSharp_IterableA *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableA *)(_this)).end();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableA *)(_this)).end();
 }
 
 const int *MR_CSharp_IterableB_Get_arr(const MR_CSharp_IterableB *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableB *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableB *)(_this)).arr[0]);
 }
 
 int *MR_CSharp_IterableB_GetMutable_arr(MR_CSharp_IterableB *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableB *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableB *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableB_GetSize_arr(void)
@@ -9910,7 +9910,7 @@ MR_CSharp_IterableB *MR_CSharp_IterableB_OffsetMutablePtr(MR_CSharp_IterableB *p
 MR_CSharp_IterableB *MR_CSharp_IterableB_ConstructFromAnother(const MR_CSharp_IterableB *_other)
 {
     return (MR_CSharp_IterableB *)new MR::CSharp::IterableB(MR::CSharp::IterableB(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableB(*(MR::CSharp::IterableB *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableB(*(MR::CSharp::IterableB *)_other))
     ));
 }
 
@@ -9926,29 +9926,29 @@ void MR_CSharp_IterableB_DestroyArray(const MR_CSharp_IterableB *_this)
 
 MR_CSharp_IterableB *MR_CSharp_IterableB_AssignFromAnother(MR_CSharp_IterableB *_this, const MR_CSharp_IterableB *_other)
 {
-    return (MR_CSharp_IterableB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableB *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableB(*(MR::CSharp::IterableB *)_other))
+    return (MR_CSharp_IterableB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableB *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableB(*(MR::CSharp::IterableB *)_other))
     ));
 }
 
 int *MR_CSharp_IterableB_begin(MR_CSharp_IterableB *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableB *)(_this)).begin();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableB *)(_this)).begin();
 }
 
 int *MR_CSharp_IterableB_end(MR_CSharp_IterableB *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableB *)(_this)).end();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableB *)(_this)).end();
 }
 
 const int *MR_CSharp_IterableC_Get_arr(const MR_CSharp_IterableC *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableC *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableC *)(_this)).arr[0]);
 }
 
 int *MR_CSharp_IterableC_GetMutable_arr(MR_CSharp_IterableC *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableC *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableC *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableC_GetSize_arr(void)
@@ -9979,7 +9979,7 @@ MR_CSharp_IterableC *MR_CSharp_IterableC_OffsetMutablePtr(MR_CSharp_IterableC *p
 MR_CSharp_IterableC *MR_CSharp_IterableC_ConstructFromAnother(const MR_CSharp_IterableC *_other)
 {
     return (MR_CSharp_IterableC *)new MR::CSharp::IterableC(MR::CSharp::IterableC(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableC(*(MR::CSharp::IterableC *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableC(*(MR::CSharp::IterableC *)_other))
     ));
 }
 
@@ -9995,39 +9995,39 @@ void MR_CSharp_IterableC_DestroyArray(const MR_CSharp_IterableC *_this)
 
 MR_CSharp_IterableC *MR_CSharp_IterableC_AssignFromAnother(MR_CSharp_IterableC *_this, const MR_CSharp_IterableC *_other)
 {
-    return (MR_CSharp_IterableC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableC *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableC(*(MR::CSharp::IterableC *)_other))
+    return (MR_CSharp_IterableC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableC *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableC(*(MR::CSharp::IterableC *)_other))
     ));
 }
 
 int *MR_CSharp_IterableC_begin_mut(MR_CSharp_IterableC *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableC *)(_this)).begin();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableC *)(_this)).begin();
 }
 
 int *MR_CSharp_IterableC_end_mut(MR_CSharp_IterableC *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableC *)(_this)).end();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableC *)(_this)).end();
 }
 
 const int *MR_CSharp_IterableC_begin(const MR_CSharp_IterableC *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableC *)(_this)).begin();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableC *)(_this)).begin();
 }
 
 const int *MR_CSharp_IterableC_end(const MR_CSharp_IterableC *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableC *)(_this)).end();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableC *)(_this)).end();
 }
 
 const int *MR_CSharp_IterableD_Get_arr(const MR_CSharp_IterableD *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableD *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableD *)(_this)).arr[0]);
 }
 
 int *MR_CSharp_IterableD_GetMutable_arr(MR_CSharp_IterableD *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableD *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableD *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableD_GetSize_arr(void)
@@ -10058,7 +10058,7 @@ MR_CSharp_IterableD *MR_CSharp_IterableD_OffsetMutablePtr(MR_CSharp_IterableD *p
 MR_CSharp_IterableD *MR_CSharp_IterableD_ConstructFromAnother(const MR_CSharp_IterableD *_other)
 {
     return (MR_CSharp_IterableD *)new MR::CSharp::IterableD(MR::CSharp::IterableD(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableD(*(MR::CSharp::IterableD *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableD(*(MR::CSharp::IterableD *)_other))
     ));
 }
 
@@ -10074,33 +10074,33 @@ void MR_CSharp_IterableD_DestroyArray(const MR_CSharp_IterableD *_this)
 
 MR_CSharp_IterableD *MR_CSharp_IterableD_AssignFromAnother(MR_CSharp_IterableD *_this, const MR_CSharp_IterableD *_other)
 {
-    return (MR_CSharp_IterableD *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableD *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableD(*(MR::CSharp::IterableD *)_other))
+    return (MR_CSharp_IterableD *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableD *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableD(*(MR::CSharp::IterableD *)_other))
     ));
 }
 
 const int *MR_CSharp_begin_const_MR_CSharp_IterableD_ref(const MR_CSharp_IterableD *self)
 {
     return begin(
-        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(const MR::CSharp::IterableD *)(self))
+        ((self ? void() : MRBINDC_THROW("Parameter `self` can not be null.", void)), *(const MR::CSharp::IterableD *)(self))
     );
 }
 
 const int *MR_CSharp_end_const_MR_CSharp_IterableD_ref(const MR_CSharp_IterableD *self)
 {
     return end(
-        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(const MR::CSharp::IterableD *)(self))
+        ((self ? void() : MRBINDC_THROW("Parameter `self` can not be null.", void)), *(const MR::CSharp::IterableD *)(self))
     );
 }
 
 const int *MR_CSharp_IterableE_Get_arr(const MR_CSharp_IterableE *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableE *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableE *)(_this)).arr[0]);
 }
 
 int *MR_CSharp_IterableE_GetMutable_arr(MR_CSharp_IterableE *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableE *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableE *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableE_GetSize_arr(void)
@@ -10131,7 +10131,7 @@ MR_CSharp_IterableE *MR_CSharp_IterableE_OffsetMutablePtr(MR_CSharp_IterableE *p
 MR_CSharp_IterableE *MR_CSharp_IterableE_ConstructFromAnother(const MR_CSharp_IterableE *_other)
 {
     return (MR_CSharp_IterableE *)new MR::CSharp::IterableE(MR::CSharp::IterableE(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableE(*(MR::CSharp::IterableE *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableE(*(MR::CSharp::IterableE *)_other))
     ));
 }
 
@@ -10147,33 +10147,33 @@ void MR_CSharp_IterableE_DestroyArray(const MR_CSharp_IterableE *_this)
 
 MR_CSharp_IterableE *MR_CSharp_IterableE_AssignFromAnother(MR_CSharp_IterableE *_this, const MR_CSharp_IterableE *_other)
 {
-    return (MR_CSharp_IterableE *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableE *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableE(*(MR::CSharp::IterableE *)_other))
+    return (MR_CSharp_IterableE *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableE *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableE(*(MR::CSharp::IterableE *)_other))
     ));
 }
 
 int *MR_CSharp_begin_MR_CSharp_IterableE_ref(MR_CSharp_IterableE *self)
 {
     return begin(
-        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(MR::CSharp::IterableE *)(self))
+        ((self ? void() : MRBINDC_THROW("Parameter `self` can not be null.", void)), *(MR::CSharp::IterableE *)(self))
     );
 }
 
 int *MR_CSharp_end_MR_CSharp_IterableE_ref(MR_CSharp_IterableE *self)
 {
     return end(
-        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(MR::CSharp::IterableE *)(self))
+        ((self ? void() : MRBINDC_THROW("Parameter `self` can not be null.", void)), *(MR::CSharp::IterableE *)(self))
     );
 }
 
 const int *MR_CSharp_IterableF_Get_arr(const MR_CSharp_IterableF *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableF *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableF *)(_this)).arr[0]);
 }
 
 int *MR_CSharp_IterableF_GetMutable_arr(MR_CSharp_IterableF *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableF *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableF *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableF_GetSize_arr(void)
@@ -10204,7 +10204,7 @@ MR_CSharp_IterableF *MR_CSharp_IterableF_OffsetMutablePtr(MR_CSharp_IterableF *p
 MR_CSharp_IterableF *MR_CSharp_IterableF_ConstructFromAnother(const MR_CSharp_IterableF *_other)
 {
     return (MR_CSharp_IterableF *)new MR::CSharp::IterableF(MR::CSharp::IterableF(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableF(*(MR::CSharp::IterableF *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableF(*(MR::CSharp::IterableF *)_other))
     ));
 }
 
@@ -10220,47 +10220,47 @@ void MR_CSharp_IterableF_DestroyArray(const MR_CSharp_IterableF *_this)
 
 MR_CSharp_IterableF *MR_CSharp_IterableF_AssignFromAnother(MR_CSharp_IterableF *_this, const MR_CSharp_IterableF *_other)
 {
-    return (MR_CSharp_IterableF *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableF *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableF(*(MR::CSharp::IterableF *)_other))
+    return (MR_CSharp_IterableF *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableF *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableF(*(MR::CSharp::IterableF *)_other))
     ));
 }
 
 const int *MR_CSharp_begin_const_MR_CSharp_IterableF_ref(const MR_CSharp_IterableF *self)
 {
     return begin(
-        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(const MR::CSharp::IterableF *)(self))
+        ((self ? void() : MRBINDC_THROW("Parameter `self` can not be null.", void)), *(const MR::CSharp::IterableF *)(self))
     );
 }
 
 const int *MR_CSharp_end_const_MR_CSharp_IterableF_ref(const MR_CSharp_IterableF *self)
 {
     return end(
-        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(const MR::CSharp::IterableF *)(self))
+        ((self ? void() : MRBINDC_THROW("Parameter `self` can not be null.", void)), *(const MR::CSharp::IterableF *)(self))
     );
 }
 
 int *MR_CSharp_begin_MR_CSharp_IterableF_ref(MR_CSharp_IterableF *self)
 {
     return begin(
-        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(MR::CSharp::IterableF *)(self))
+        ((self ? void() : MRBINDC_THROW("Parameter `self` can not be null.", void)), *(MR::CSharp::IterableF *)(self))
     );
 }
 
 int *MR_CSharp_end_MR_CSharp_IterableF_ref(MR_CSharp_IterableF *self)
 {
     return end(
-        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(MR::CSharp::IterableF *)(self))
+        ((self ? void() : MRBINDC_THROW("Parameter `self` can not be null.", void)), *(MR::CSharp::IterableF *)(self))
     );
 }
 
 const MR_C_std_string *MR_CSharp_IterableG_Get_arr(const MR_CSharp_IterableG *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableG *)(_this)).arr[0]);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableG *)(_this)).arr[0]);
 }
 
 MR_C_std_string *MR_CSharp_IterableG_GetMutable_arr(MR_CSharp_IterableG *_this)
 {
-    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableG *)(_this)).arr[0]);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableG *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableG_GetSize_arr(void)
@@ -10309,29 +10309,29 @@ void MR_CSharp_IterableG_DestroyArray(const MR_CSharp_IterableG *_this)
 MR_CSharp_IterableG *MR_CSharp_IterableG_AssignFromAnother(MR_CSharp_IterableG *_this, MR_C_PassBy _other_pass_by, MR_CSharp_IterableG *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::IterableG);
-    return (MR_CSharp_IterableG *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableG *)(_this)).operator=(
+    return (MR_CSharp_IterableG *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableG *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IterableG) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::IterableG), MR::CSharp::IterableG) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IterableG), MR::CSharp::IterableG) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IterableG) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IterableG) MRBINDC_CLASSARG_END(_other, MR::CSharp::IterableG))
     ));
 }
 
 MR_C_std_string *MR_CSharp_IterableG_begin(MR_CSharp_IterableG *_this)
 {
-    return (MR_C_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableG *)(_this)).begin());
+    return (MR_C_std_string *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableG *)(_this)).begin());
 }
 
 MR_C_std_string *MR_CSharp_IterableG_end(MR_CSharp_IterableG *_this)
 {
-    return (MR_C_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableG *)(_this)).end());
+    return (MR_C_std_string *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableG *)(_this)).end());
 }
 
 const MR_C_std_string *MR_CSharp_IterableH_Get_arr(const MR_CSharp_IterableH *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableH *)(_this)).arr[0]);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableH *)(_this)).arr[0]);
 }
 
 MR_C_std_string *MR_CSharp_IterableH_GetMutable_arr(MR_CSharp_IterableH *_this)
 {
-    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableH *)(_this)).arr[0]);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableH *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableH_GetSize_arr(void)
@@ -10380,29 +10380,29 @@ void MR_CSharp_IterableH_DestroyArray(const MR_CSharp_IterableH *_this)
 MR_CSharp_IterableH *MR_CSharp_IterableH_AssignFromAnother(MR_CSharp_IterableH *_this, MR_C_PassBy _other_pass_by, MR_CSharp_IterableH *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::IterableH);
-    return (MR_CSharp_IterableH *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableH *)(_this)).operator=(
+    return (MR_CSharp_IterableH *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableH *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::IterableH) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::IterableH), MR::CSharp::IterableH) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::IterableH), MR::CSharp::IterableH) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::IterableH) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::IterableH) MRBINDC_CLASSARG_END(_other, MR::CSharp::IterableH))
     ));
 }
 
 const MR_C_std_string *MR_CSharp_IterableH_begin(MR_CSharp_IterableH *_this)
 {
-    return (const MR_C_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableH *)(_this)).begin());
+    return (const MR_C_std_string *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableH *)(_this)).begin());
 }
 
 const MR_C_std_string *MR_CSharp_IterableH_end(MR_CSharp_IterableH *_this)
 {
-    return (const MR_C_std_string *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableH *)(_this)).end());
+    return (const MR_C_std_string *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableH *)(_this)).end());
 }
 
 const MR_CSharp_ExposedLayout *MR_CSharp_IterableI_Get_arr(const MR_CSharp_IterableI *_this)
 {
-    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableI *)(_this)).arr[0]);
+    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableI *)(_this)).arr[0]);
 }
 
 MR_CSharp_ExposedLayout *MR_CSharp_IterableI_GetMutable_arr(MR_CSharp_IterableI *_this)
 {
-    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableI *)(_this)).arr[0]);
+    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableI *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableI_GetSize_arr(void)
@@ -10433,7 +10433,7 @@ MR_CSharp_IterableI *MR_CSharp_IterableI_OffsetMutablePtr(MR_CSharp_IterableI *p
 MR_CSharp_IterableI *MR_CSharp_IterableI_ConstructFromAnother(const MR_CSharp_IterableI *_other)
 {
     return (MR_CSharp_IterableI *)new MR::CSharp::IterableI(MR::CSharp::IterableI(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableI(*(MR::CSharp::IterableI *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableI(*(MR::CSharp::IterableI *)_other))
     ));
 }
 
@@ -10449,29 +10449,29 @@ void MR_CSharp_IterableI_DestroyArray(const MR_CSharp_IterableI *_this)
 
 MR_CSharp_IterableI *MR_CSharp_IterableI_AssignFromAnother(MR_CSharp_IterableI *_this, const MR_CSharp_IterableI *_other)
 {
-    return (MR_CSharp_IterableI *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableI *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableI(*(MR::CSharp::IterableI *)_other))
+    return (MR_CSharp_IterableI *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableI *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableI(*(MR::CSharp::IterableI *)_other))
     ));
 }
 
 MR_CSharp_ExposedLayout *MR_CSharp_IterableI_begin(MR_CSharp_IterableI *_this)
 {
-    return (MR_CSharp_ExposedLayout *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableI *)(_this)).begin());
+    return (MR_CSharp_ExposedLayout *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableI *)(_this)).begin());
 }
 
 MR_CSharp_ExposedLayout *MR_CSharp_IterableI_end(MR_CSharp_IterableI *_this)
 {
-    return (MR_CSharp_ExposedLayout *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableI *)(_this)).end());
+    return (MR_CSharp_ExposedLayout *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableI *)(_this)).end());
 }
 
 const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_Get_arr(const MR_CSharp_IterableJ *_this)
 {
-    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableJ *)(_this)).arr[0]);
+    return (const MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableJ *)(_this)).arr[0]);
 }
 
 MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_GetMutable_arr(MR_CSharp_IterableJ *_this)
 {
-    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableJ *)(_this)).arr[0]);
+    return (MR_CSharp_ExposedLayout *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableJ *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableJ_GetSize_arr(void)
@@ -10502,7 +10502,7 @@ MR_CSharp_IterableJ *MR_CSharp_IterableJ_OffsetMutablePtr(MR_CSharp_IterableJ *p
 MR_CSharp_IterableJ *MR_CSharp_IterableJ_ConstructFromAnother(const MR_CSharp_IterableJ *_other)
 {
     return (MR_CSharp_IterableJ *)new MR::CSharp::IterableJ(MR::CSharp::IterableJ(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableJ(*(MR::CSharp::IterableJ *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableJ(*(MR::CSharp::IterableJ *)_other))
     ));
 }
 
@@ -10518,29 +10518,29 @@ void MR_CSharp_IterableJ_DestroyArray(const MR_CSharp_IterableJ *_this)
 
 MR_CSharp_IterableJ *MR_CSharp_IterableJ_AssignFromAnother(MR_CSharp_IterableJ *_this, const MR_CSharp_IterableJ *_other)
 {
-    return (MR_CSharp_IterableJ *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableJ *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableJ(*(MR::CSharp::IterableJ *)_other))
+    return (MR_CSharp_IterableJ *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableJ *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableJ(*(MR::CSharp::IterableJ *)_other))
     ));
 }
 
 const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_begin(MR_CSharp_IterableJ *_this)
 {
-    return (const MR_CSharp_ExposedLayout *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableJ *)(_this)).begin());
+    return (const MR_CSharp_ExposedLayout *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableJ *)(_this)).begin());
 }
 
 const MR_CSharp_ExposedLayout *MR_CSharp_IterableJ_end(MR_CSharp_IterableJ *_this)
 {
-    return (const MR_CSharp_ExposedLayout *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableJ *)(_this)).end());
+    return (const MR_CSharp_ExposedLayout *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableJ *)(_this)).end());
 }
 
 const int *MR_CSharp_IterableK_Get_arr(const MR_CSharp_IterableK *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableK *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableK *)(_this)).arr[0]);
 }
 
 int *MR_CSharp_IterableK_GetMutable_arr(MR_CSharp_IterableK *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableK_GetSize_arr(void)
@@ -10571,7 +10571,7 @@ MR_CSharp_IterableK *MR_CSharp_IterableK_OffsetMutablePtr(MR_CSharp_IterableK *p
 MR_CSharp_IterableK *MR_CSharp_IterableK_ConstructFromAnother(const MR_CSharp_IterableK *_other)
 {
     return (MR_CSharp_IterableK *)new MR::CSharp::IterableK(MR::CSharp::IterableK(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK(*(MR::CSharp::IterableK *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableK(*(MR::CSharp::IterableK *)_other))
     ));
 }
 
@@ -10587,34 +10587,34 @@ void MR_CSharp_IterableK_DestroyArray(const MR_CSharp_IterableK *_this)
 
 MR_CSharp_IterableK *MR_CSharp_IterableK_AssignFromAnother(MR_CSharp_IterableK *_this, const MR_CSharp_IterableK *_other)
 {
-    return (MR_CSharp_IterableK *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK(*(MR::CSharp::IterableK *)_other))
+    return (MR_CSharp_IterableK *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableK(*(MR::CSharp::IterableK *)_other))
     ));
 }
 
 MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_begin(MR_CSharp_IterableK *_this)
 {
-    return (MR_CSharp_IterableK_Iter *)new MR::CSharp::IterableK::Iter(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK *)(_this)).begin());
+    return (MR_CSharp_IterableK_Iter *)new MR::CSharp::IterableK::Iter(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK *)(_this)).begin());
 }
 
 MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_end(MR_CSharp_IterableK *_this)
 {
-    return (MR_CSharp_IterableK_Sentinel *)new MR::CSharp::IterableK::Sentinel(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK *)(_this)).end());
+    return (MR_CSharp_IterableK_Sentinel *)new MR::CSharp::IterableK::Sentinel(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK *)(_this)).end());
 }
 
 int *const *MR_CSharp_IterableK_Sentinel_Get_ptr(const MR_CSharp_IterableK_Sentinel *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableK::Sentinel *)(_this)).ptr);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableK::Sentinel *)(_this)).ptr);
 }
 
 void MR_CSharp_IterableK_Sentinel_Set_ptr(MR_CSharp_IterableK_Sentinel *_this, int *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Sentinel *)(_this)).ptr = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK::Sentinel *)(_this)).ptr = value;
 }
 
 int **MR_CSharp_IterableK_Sentinel_GetMutable_ptr(MR_CSharp_IterableK_Sentinel *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Sentinel *)(_this)).ptr);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK::Sentinel *)(_this)).ptr);
 }
 
 MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_DefaultConstruct(void)
@@ -10647,7 +10647,7 @@ MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_OffsetMutablePtr(MR_C
 MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_ConstructFromAnother(const MR_CSharp_IterableK_Sentinel *_other)
 {
     return (MR_CSharp_IterableK_Sentinel *)new MR::CSharp::IterableK::Sentinel(MR::CSharp::IterableK::Sentinel(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK::Sentinel(*(MR::CSharp::IterableK::Sentinel *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableK::Sentinel(*(MR::CSharp::IterableK::Sentinel *)_other))
     ));
 }
 
@@ -10663,24 +10663,24 @@ void MR_CSharp_IterableK_Sentinel_DestroyArray(const MR_CSharp_IterableK_Sentine
 
 MR_CSharp_IterableK_Sentinel *MR_CSharp_IterableK_Sentinel_AssignFromAnother(MR_CSharp_IterableK_Sentinel *_this, const MR_CSharp_IterableK_Sentinel *_other)
 {
-    return (MR_CSharp_IterableK_Sentinel *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Sentinel *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK::Sentinel(*(MR::CSharp::IterableK::Sentinel *)_other))
+    return (MR_CSharp_IterableK_Sentinel *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK::Sentinel *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableK::Sentinel(*(MR::CSharp::IterableK::Sentinel *)_other))
     ));
 }
 
 int *const *MR_CSharp_IterableK_Iter_Get_ptr(const MR_CSharp_IterableK_Iter *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableK::Iter *)(_this)).ptr);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableK::Iter *)(_this)).ptr);
 }
 
 void MR_CSharp_IterableK_Iter_Set_ptr(MR_CSharp_IterableK_Iter *_this, int *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Iter *)(_this)).ptr = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK::Iter *)(_this)).ptr = value;
 }
 
 int **MR_CSharp_IterableK_Iter_GetMutable_ptr(MR_CSharp_IterableK_Iter *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Iter *)(_this)).ptr);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK::Iter *)(_this)).ptr);
 }
 
 MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_DefaultConstruct(void)
@@ -10713,7 +10713,7 @@ MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_OffsetMutablePtr(MR_CSharp_It
 MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_ConstructFromAnother(const MR_CSharp_IterableK_Iter *_other)
 {
     return (MR_CSharp_IterableK_Iter *)new MR::CSharp::IterableK::Iter(MR::CSharp::IterableK::Iter(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK::Iter(*(MR::CSharp::IterableK::Iter *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableK::Iter(*(MR::CSharp::IterableK::Iter *)_other))
     ));
 }
 
@@ -10729,36 +10729,36 @@ void MR_CSharp_IterableK_Iter_DestroyArray(const MR_CSharp_IterableK_Iter *_this
 
 MR_CSharp_IterableK_Iter *MR_CSharp_IterableK_Iter_AssignFromAnother(MR_CSharp_IterableK_Iter *_this, const MR_CSharp_IterableK_Iter *_other)
 {
-    return (MR_CSharp_IterableK_Iter *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Iter *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableK::Iter(*(MR::CSharp::IterableK::Iter *)_other))
+    return (MR_CSharp_IterableK_Iter *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK::Iter *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableK::Iter(*(MR::CSharp::IterableK::Iter *)_other))
     ));
 }
 
 int MR_C_deref_MR_CSharp_IterableK_Iter(const MR_CSharp_IterableK_Iter *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableK::Iter *)(_this)).operator*();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableK::Iter *)(_this)).operator*();
 }
 
 void MR_C_incr_MR_CSharp_IterableK_Iter(MR_CSharp_IterableK_Iter *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Iter *)(_this)).operator++();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK::Iter *)(_this)).operator++();
 }
 
 bool MR_C_equal_MR_CSharp_IterableK_Iter_MR_CSharp_IterableK_Sentinel(MR_CSharp_IterableK_Iter *_this, const MR_CSharp_IterableK_Sentinel *s)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableK::Iter *)(_this)).operator==(
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), MR::CSharp::IterableK::Sentinel(*(MR::CSharp::IterableK::Sentinel *)s))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableK::Iter *)(_this)).operator==(
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), MR::CSharp::IterableK::Sentinel(*(MR::CSharp::IterableK::Sentinel *)s))
     );
 }
 
 const int *MR_CSharp_IterableL_int_Get_arr(const MR_CSharp_IterableL_int *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableL<int> *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableL<int> *)(_this)).arr[0]);
 }
 
 int *MR_CSharp_IterableL_int_GetMutable_arr(MR_CSharp_IterableL_int *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableL<int> *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableL<int> *)(_this)).arr[0]);
 }
 
 size_t MR_CSharp_IterableL_int_GetSize_arr(void)
@@ -10789,7 +10789,7 @@ MR_CSharp_IterableL_int *MR_CSharp_IterableL_int_OffsetMutablePtr(MR_CSharp_Iter
 MR_CSharp_IterableL_int *MR_CSharp_IterableL_int_ConstructFromAnother(const MR_CSharp_IterableL_int *_other)
 {
     return (MR_CSharp_IterableL_int *)new MR::CSharp::IterableL<int>(MR::CSharp::IterableL<int>(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableL<int>(*(MR::CSharp::IterableL<int> *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableL<int>(*(MR::CSharp::IterableL<int> *)_other))
     ));
 }
 
@@ -10805,32 +10805,32 @@ void MR_CSharp_IterableL_int_DestroyArray(const MR_CSharp_IterableL_int *_this)
 
 MR_CSharp_IterableL_int *MR_CSharp_IterableL_int_AssignFromAnother(MR_CSharp_IterableL_int *_this, const MR_CSharp_IterableL_int *_other)
 {
-    return (MR_CSharp_IterableL_int *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::IterableL<int> *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CSharp::IterableL<int>(*(MR::CSharp::IterableL<int> *)_other))
+    return (MR_CSharp_IterableL_int *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::IterableL<int> *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CSharp::IterableL<int>(*(MR::CSharp::IterableL<int> *)_other))
     ));
 }
 
 const int *MR_CSharp_IterableL_int_begin(const MR_CSharp_IterableL_int *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableL<int> *)(_this)).begin();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableL<int> *)(_this)).begin();
 }
 
 const int *MR_CSharp_IterableL_int_end(const MR_CSharp_IterableL_int *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::IterableL<int> *)(_this)).end();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::IterableL<int> *)(_this)).end();
 }
 
 const int *MR_CSharp_begin_int(const MR_CSharp_IterableL_int *self)
 {
     return ::MR::CSharp::begin(
-        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(const MR::CSharp::IterableL<int> *)(self))
+        ((self ? void() : MRBINDC_THROW("Parameter `self` can not be null.", void)), *(const MR::CSharp::IterableL<int> *)(self))
     );
 }
 
 const int *MR_CSharp_end_int(const MR_CSharp_IterableL_int *self)
 {
     return ::MR::CSharp::end(
-        ((self ? void() : throw std::runtime_error("Parameter `self` can not be null.")), *(const MR::CSharp::IterableL<int> *)(self))
+        ((self ? void() : MRBINDC_THROW("Parameter `self` can not be null.", void)), *(const MR::CSharp::IterableL<int> *)(self))
     );
 }
 
@@ -10896,114 +10896,114 @@ MR_C_std_tuple_MR_CSharp_ExposedLayout_rvalue_ref_const_MR_CSharp_ExposedLayout_
 
 const MR_C_std_function_int_from_std_string *MR_CSharp_TestStdFunction_Get_f1(const MR_CSharp_TestStdFunction *_this)
 {
-    return (const MR_C_std_function_int_from_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f1);
+    return (const MR_C_std_function_int_from_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestStdFunction *)(_this)).f1);
 }
 
 void MR_CSharp_TestStdFunction_Set_f1(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_int_from_std_string *value)
 {
     MRBINDC_CLASSARG_GUARD(value, std::function<int(std::string)>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f1 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<int(std::string)>) MRBINDC_CLASSARG_COPY(value, (std::function<int(std::string)>), std::function<int(std::string)>) MRBINDC_CLASSARG_MOVE(value, (std::function<int(std::string)>), std::function<int(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<int(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<int(std::string)>) MRBINDC_CLASSARG_END(value, std::function<int(std::string)>));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f1 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<int(std::string)>) MRBINDC_CLASSARG_COPY(value, (std::function<int(std::string)>), std::function<int(std::string)>) MRBINDC_CLASSARG_MOVE(value, (std::function<int(std::string)>), std::function<int(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<int(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<int(std::string)>) MRBINDC_CLASSARG_END(value, std::function<int(std::string)>));
 }
 
 MR_C_std_function_int_from_std_string *MR_CSharp_TestStdFunction_GetMutable_f1(MR_CSharp_TestStdFunction *_this)
 {
-    return (MR_C_std_function_int_from_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f1);
+    return (MR_C_std_function_int_from_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f1);
 }
 
 const MR_C_std_function_std_string_from_int_int *MR_CSharp_TestStdFunction_Get_f2(const MR_CSharp_TestStdFunction *_this)
 {
-    return (const MR_C_std_function_std_string_from_int_int *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f2);
+    return (const MR_C_std_function_std_string_from_int_int *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestStdFunction *)(_this)).f2);
 }
 
 void MR_CSharp_TestStdFunction_Set_f2(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_std_string_from_int_int *value)
 {
     MRBINDC_CLASSARG_GUARD(value, std::function<std::string(int, int)>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f2 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<std::string(int, int)>) MRBINDC_CLASSARG_COPY(value, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_MOVE(value, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<std::string(int, int)>) MRBINDC_CLASSARG_END(value, std::function<std::string(int, int)>));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f2 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<std::string(int, int)>) MRBINDC_CLASSARG_COPY(value, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_MOVE(value, (std::function<std::string(int, int)>), std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<std::string(int, int)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<std::string(int, int)>) MRBINDC_CLASSARG_END(value, std::function<std::string(int, int)>));
 }
 
 MR_C_std_function_std_string_from_int_int *MR_CSharp_TestStdFunction_GetMutable_f2(MR_CSharp_TestStdFunction *_this)
 {
-    return (MR_C_std_function_std_string_from_int_int *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f2);
+    return (MR_C_std_function_std_string_from_int_int *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f2);
 }
 
 const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_CSharp_TestStdFunction_Get_f3(const MR_CSharp_TestStdFunction *_this)
 {
-    return (const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f3);
+    return (const MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestStdFunction *)(_this)).f3);
 }
 
 void MR_CSharp_TestStdFunction_Set_f3(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *value)
 {
     MRBINDC_CLASSARG_GUARD(value, std::function<MR::CSharp::E1(MR::CSharp::E1)>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f3 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_COPY(value, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_MOVE(value, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_END(value, std::function<MR::CSharp::E1(MR::CSharp::E1)>));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f3 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_COPY(value, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_MOVE(value, (std::function<MR::CSharp::E1(MR::CSharp::E1)>), std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<MR::CSharp::E1(MR::CSharp::E1)>) MRBINDC_CLASSARG_END(value, std::function<MR::CSharp::E1(MR::CSharp::E1)>));
 }
 
 MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *MR_CSharp_TestStdFunction_GetMutable_f3(MR_CSharp_TestStdFunction *_this)
 {
-    return (MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f3);
+    return (MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1 *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f3);
 }
 
 const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_CSharp_TestStdFunction_Get_f4(const MR_CSharp_TestStdFunction *_this)
 {
-    return (const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f4);
+    return (const MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestStdFunction *)(_this)).f4);
 }
 
 void MR_CSharp_TestStdFunction_Set_f4(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *value)
 {
     MRBINDC_CLASSARG_GUARD(value, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f4 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_COPY(value, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_MOVE(value, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_END(value, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f4 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_COPY(value, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_MOVE(value, (std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>), std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>) MRBINDC_CLASSARG_END(value, std::function<MR::CSharp::ExposedLayoutC(MR::CSharp::ExposedLayoutC)>));
 }
 
 MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *MR_CSharp_TestStdFunction_GetMutable_f4(MR_CSharp_TestStdFunction *_this)
 {
-    return (MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f4);
+    return (MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f4);
 }
 
 const MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *MR_CSharp_TestStdFunction_Get_f5(const MR_CSharp_TestStdFunction *_this)
 {
-    return (const MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f5);
+    return (const MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestStdFunction *)(_this)).f5);
 }
 
 void MR_CSharp_TestStdFunction_Set_f5(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *value)
 {
     MRBINDC_CLASSARG_GUARD(value, std::function<int &(int &, int &&)>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f5 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_COPY(value, (std::function<int &(int &, int &&)>), std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_MOVE(value, (std::function<int &(int &, int &&)>), std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_END(value, std::function<int &(int &, int &&)>));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f5 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_COPY(value, (std::function<int &(int &, int &&)>), std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_MOVE(value, (std::function<int &(int &, int &&)>), std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_END(value, std::function<int &(int &, int &&)>));
 }
 
 MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *MR_CSharp_TestStdFunction_GetMutable_f5(MR_CSharp_TestStdFunction *_this)
 {
-    return (MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f5);
+    return (MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f5);
 }
 
 const MR_C_std_function_int_rvalue_ref *MR_CSharp_TestStdFunction_Get_f6(const MR_CSharp_TestStdFunction *_this)
 {
-    return (const MR_C_std_function_int_rvalue_ref *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f6);
+    return (const MR_C_std_function_int_rvalue_ref *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestStdFunction *)(_this)).f6);
 }
 
 void MR_CSharp_TestStdFunction_Set_f6(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_int_rvalue_ref *value)
 {
     MRBINDC_CLASSARG_GUARD(value, std::function<int &&(void)>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f6 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<int &&(void)>) MRBINDC_CLASSARG_COPY(value, (std::function<int &&(void)>), std::function<int &&(void)>) MRBINDC_CLASSARG_MOVE(value, (std::function<int &&(void)>), std::function<int &&(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<int &&(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<int &&(void)>) MRBINDC_CLASSARG_END(value, std::function<int &&(void)>));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f6 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<int &&(void)>) MRBINDC_CLASSARG_COPY(value, (std::function<int &&(void)>), std::function<int &&(void)>) MRBINDC_CLASSARG_MOVE(value, (std::function<int &&(void)>), std::function<int &&(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<int &&(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<int &&(void)>) MRBINDC_CLASSARG_END(value, std::function<int &&(void)>));
 }
 
 MR_C_std_function_int_rvalue_ref *MR_CSharp_TestStdFunction_GetMutable_f6(MR_CSharp_TestStdFunction *_this)
 {
-    return (MR_C_std_function_int_rvalue_ref *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f6);
+    return (MR_C_std_function_int_rvalue_ref *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f6);
 }
 
 const MR_C_std_function_void *MR_CSharp_TestStdFunction_Get_f7(const MR_CSharp_TestStdFunction *_this)
 {
-    return (const MR_C_std_function_void *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CSharp::TestStdFunction *)(_this)).f7);
+    return (const MR_C_std_function_void *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CSharp::TestStdFunction *)(_this)).f7);
 }
 
 void MR_CSharp_TestStdFunction_Set_f7(MR_CSharp_TestStdFunction *_this, MR_C_PassBy value_pass_by, MR_C_std_function_void *value)
 {
     MRBINDC_CLASSARG_GUARD(value, std::function<void(void)>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f7 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<void(void)>) MRBINDC_CLASSARG_COPY(value, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_MOVE(value, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<void(void)>) MRBINDC_CLASSARG_END(value, std::function<void(void)>));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f7 = (MRBINDC_CLASSARG_DEF_CTOR(value, std::function<void(void)>) MRBINDC_CLASSARG_COPY(value, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_MOVE(value, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_DefaultArgument, std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(value, MR_C_PassBy_NoObject, std::function<void(void)>) MRBINDC_CLASSARG_END(value, std::function<void(void)>));
 }
 
 MR_C_std_function_void *MR_CSharp_TestStdFunction_GetMutable_f7(MR_CSharp_TestStdFunction *_this)
 {
-    return (MR_C_std_function_void *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).f7);
+    return (MR_C_std_function_void *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).f7);
 }
 
 MR_CSharp_TestStdFunction *MR_CSharp_TestStdFunction_DefaultConstruct(void)
@@ -11067,14 +11067,14 @@ void MR_CSharp_TestStdFunction_DestroyArray(const MR_CSharp_TestStdFunction *_th
 MR_CSharp_TestStdFunction *MR_CSharp_TestStdFunction_AssignFromAnother(MR_CSharp_TestStdFunction *_this, MR_C_PassBy _other_pass_by, MR_CSharp_TestStdFunction *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CSharp::TestStdFunction);
-    return (MR_CSharp_TestStdFunction *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).operator=(
+    return (MR_CSharp_TestStdFunction *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_COPY(_other, (MR::CSharp::TestStdFunction), MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_MOVE(_other, (MR::CSharp::TestStdFunction), MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CSharp::TestStdFunction) MRBINDC_CLASSARG_END(_other, MR::CSharp::TestStdFunction))
     ));
 }
 
 void MR_CSharp_TestStdFunction_Call(MR_CSharp_TestStdFunction *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CSharp::TestStdFunction *)(_this)).Call();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CSharp::TestStdFunction *)(_this)).Call();
 }
 
 MR_C_std_expected_int_float *MR_CSharp_test_expected_int(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b)
@@ -11082,7 +11082,7 @@ MR_C_std_expected_int_float *MR_CSharp_test_expected_int(const MR_C_std_expected
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_int_float *)new std::expected<int, float>(::MR::CSharp::test_expected_int(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<int, float>(*(std::expected<int, float> *)a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<int, float>(*(std::expected<int, float> *)a)),
         (b ? std::expected<int, float>(*(std::expected<int, float> *)b) : static_cast<std::expected<int, float>>(std::expected<int, float>{42}))
     ));
 }
@@ -11092,7 +11092,7 @@ MR_C_std_expected_int_float *MR_CSharp_test_expected_int_ref(MR_C_std_expected_i
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_int_float *)std::addressof(::MR::CSharp::test_expected_int_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<int, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<int, float> *)(a)),
         (b ? *(std::expected<int, float> *)(b) : static_cast<std::expected<int, float> &>(default_expected_int))
     ));
 }
@@ -11102,7 +11102,7 @@ const MR_C_std_expected_int_float *MR_CSharp_test_expected_int_cref(const MR_C_s
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_expected_int_float *)std::addressof(::MR::CSharp::test_expected_int_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<int, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<int, float> *)(a)),
         (b ? *(const std::expected<int, float> *)(b) : static_cast<const std::expected<int, float> &>(default_expected_int))
     ));
 }
@@ -11134,7 +11134,7 @@ MR_C_std_expected_void_float *MR_CSharp_test_expected_void(const MR_C_std_expect
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_void_float *)new std::expected<void, float>(::MR::CSharp::test_expected_void(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<void, float>(*(std::expected<void, float> *)a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<void, float>(*(std::expected<void, float> *)a)),
         (b ? std::expected<void, float>(*(std::expected<void, float> *)b) : static_cast<std::expected<void, float>>(std::expected<void, float>{}))
     ));
 }
@@ -11144,7 +11144,7 @@ MR_C_std_expected_void_float *MR_CSharp_test_expected_void_ref(MR_C_std_expected
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_void_float *)std::addressof(::MR::CSharp::test_expected_void_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<void, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<void, float> *)(a)),
         (b ? *(std::expected<void, float> *)(b) : static_cast<std::expected<void, float> &>(default_expected_void))
     ));
 }
@@ -11154,7 +11154,7 @@ const MR_C_std_expected_void_float *MR_CSharp_test_expected_void_cref(const MR_C
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_expected_void_float *)std::addressof(::MR::CSharp::test_expected_void_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<void, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<void, float> *)(a)),
         (b ? *(const std::expected<void, float> *)(b) : static_cast<const std::expected<void, float> &>(default_expected_void))
     ));
 }
@@ -11186,7 +11186,7 @@ MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum(const MR_C_st
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_E1_float *)new std::expected<MR::CSharp::E1, float>(::MR::CSharp::test_expected_enum(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<MR::CSharp::E1, float>(*(std::expected<MR::CSharp::E1, float> *)a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<MR::CSharp::E1, float>(*(std::expected<MR::CSharp::E1, float> *)a)),
         (b ? std::expected<MR::CSharp::E1, float>(*(std::expected<MR::CSharp::E1, float> *)b) : static_cast<std::expected<MR::CSharp::E1, float>>(std::expected<MR::CSharp::E1, float>{E1::b}))
     ));
 }
@@ -11196,7 +11196,7 @@ MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_ref(MR_C_std_
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_E1_float *)std::addressof(::MR::CSharp::test_expected_enum_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::E1, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::E1, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::E1, float> *)(b) : static_cast<std::expected<MR::CSharp::E1, float> &>(default_expected_enum))
     ));
 }
@@ -11206,7 +11206,7 @@ const MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_cref(co
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_E1_float *)std::addressof(::MR::CSharp::test_expected_enum_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::E1, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::E1, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::E1, float> *)(b) : static_cast<const std::expected<MR::CSharp::E1, float> &>(default_expected_enum))
     ));
 }
@@ -11238,7 +11238,7 @@ MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv(const MR
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_Trivial_float *)new std::expected<MR::CSharp::Trivial, float>(::MR::CSharp::test_expected_triv(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<MR::CSharp::Trivial, float>(*(std::expected<MR::CSharp::Trivial, float> *)a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<MR::CSharp::Trivial, float>(*(std::expected<MR::CSharp::Trivial, float> *)a)),
         (b ? std::expected<MR::CSharp::Trivial, float>(*(std::expected<MR::CSharp::Trivial, float> *)b) : static_cast<std::expected<MR::CSharp::Trivial, float>>(std::expected<MR::CSharp::Trivial, float>{MR::CSharp::Trivial{}}))
     ));
 }
@@ -11248,7 +11248,7 @@ MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_ref(MR_C
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_Trivial_float *)std::addressof(::MR::CSharp::test_expected_triv_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::Trivial, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::Trivial, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::Trivial, float> *)(b) : static_cast<std::expected<MR::CSharp::Trivial, float> &>(default_expected_triv))
     ));
 }
@@ -11258,7 +11258,7 @@ const MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_cr
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_Trivial_float *)std::addressof(::MR::CSharp::test_expected_triv_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::Trivial, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::Trivial, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::Trivial, float> *)(b) : static_cast<const std::expected<MR::CSharp::Trivial, float> &>(default_expected_triv))
     ));
 }
@@ -11302,7 +11302,7 @@ MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_re
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_NonTrivial_float *)std::addressof(::MR::CSharp::test_expected_nontriv_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::NonTrivial, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::NonTrivial, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::NonTrivial, float> *)(b) : static_cast<std::expected<MR::CSharp::NonTrivial, float> &>(default_expected_nontriv))
     ));
 }
@@ -11312,7 +11312,7 @@ const MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nont
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_NonTrivial_float *)std::addressof(::MR::CSharp::test_expected_nontriv_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::NonTrivial, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::NonTrivial, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::NonTrivial, float> *)(b) : static_cast<const std::expected<MR::CSharp::NonTrivial, float> &>(default_expected_nontriv))
     ));
 }
@@ -11344,7 +11344,7 @@ MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared(const MR_C_
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_SA_float *)new std::expected<MR::CSharp::SA, float>(::MR::CSharp::test_expected_shared(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<MR::CSharp::SA, float>(*(std::expected<MR::CSharp::SA, float> *)a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<MR::CSharp::SA, float>(*(std::expected<MR::CSharp::SA, float> *)a)),
         (b ? std::expected<MR::CSharp::SA, float>(*(std::expected<MR::CSharp::SA, float> *)b) : static_cast<std::expected<MR::CSharp::SA, float>>(std::expected<MR::CSharp::SA, float>{MR::CSharp::SA{}}))
     ));
 }
@@ -11354,7 +11354,7 @@ MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_ref(MR_C_st
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_SA_float *)std::addressof(::MR::CSharp::test_expected_shared_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::SA, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::SA, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::SA, float> *)(b) : static_cast<std::expected<MR::CSharp::SA, float> &>(default_expected_shared))
     ));
 }
@@ -11364,7 +11364,7 @@ const MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_cref(
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_SA_float *)std::addressof(::MR::CSharp::test_expected_shared_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::SA, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::SA, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::SA, float> *)(b) : static_cast<const std::expected<MR::CSharp::SA, float> &>(default_expected_shared))
     ));
 }
@@ -11396,7 +11396,7 @@ MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_ExposedLayout_float *)new std::expected<MR::CSharp::ExposedLayout, float>(::MR::CSharp::test_expected_exposed(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<MR::CSharp::ExposedLayout, float>(*(std::expected<MR::CSharp::ExposedLayout, float> *)a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<MR::CSharp::ExposedLayout, float>(*(std::expected<MR::CSharp::ExposedLayout, float> *)a)),
         (b ? std::expected<MR::CSharp::ExposedLayout, float>(*(std::expected<MR::CSharp::ExposedLayout, float> *)b) : static_cast<std::expected<MR::CSharp::ExposedLayout, float>>(std::expected<MR::CSharp::ExposedLayout, float>{MR::CSharp::ExposedLayout{}}))
     ));
 }
@@ -11406,7 +11406,7 @@ MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_ExposedLayout_float *)std::addressof(::MR::CSharp::test_expected_exposed_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::ExposedLayout, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::ExposedLayout, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::ExposedLayout, float> *)(b) : static_cast<std::expected<MR::CSharp::ExposedLayout, float> &>(default_expected_exposed))
     ));
 }
@@ -11416,7 +11416,7 @@ const MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_e
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_ExposedLayout_float *)std::addressof(::MR::CSharp::test_expected_exposed_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::ExposedLayout, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::ExposedLayout, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::ExposedLayout, float> *)(b) : static_cast<const std::expected<MR::CSharp::ExposedLayout, float> &>(default_expected_exposed))
     ));
 }
@@ -11448,7 +11448,7 @@ MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_expos
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *)new std::expected<MR::CSharp::ExposedLayoutSh, float>(::MR::CSharp::test_expected_exposed_shared(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::expected<MR::CSharp::ExposedLayoutSh, float>(*(std::expected<MR::CSharp::ExposedLayoutSh, float> *)a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<MR::CSharp::ExposedLayoutSh, float>(*(std::expected<MR::CSharp::ExposedLayoutSh, float> *)a)),
         (b ? std::expected<MR::CSharp::ExposedLayoutSh, float>(*(std::expected<MR::CSharp::ExposedLayoutSh, float> *)b) : static_cast<std::expected<MR::CSharp::ExposedLayoutSh, float>>(std::expected<MR::CSharp::ExposedLayoutSh, float>{MR::CSharp::ExposedLayoutSh{}}))
     ));
 }
@@ -11458,7 +11458,7 @@ MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_expos
     using namespace MR;
     using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *)std::addressof(::MR::CSharp::test_expected_exposed_shared_ref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(std::expected<MR::CSharp::ExposedLayoutSh, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::ExposedLayoutSh, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::ExposedLayoutSh, float> *)(b) : static_cast<std::expected<MR::CSharp::ExposedLayoutSh, float> &>(default_expected_exposed_shared))
     ));
 }
@@ -11468,7 +11468,7 @@ const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected
     using namespace MR;
     using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *)std::addressof(::MR::CSharp::test_expected_exposed_shared_cref(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(const std::expected<MR::CSharp::ExposedLayoutSh, float> *)(a)),
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::ExposedLayoutSh, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::ExposedLayoutSh, float> *)(b) : static_cast<const std::expected<MR::CSharp::ExposedLayoutSh, float> &>(default_expected_exposed_shared))
     ));
 }

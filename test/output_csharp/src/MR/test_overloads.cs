@@ -9,6 +9,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_a_1", ExactSpelling = true)]
                 extern static void __MR_Overloads_a_1(int _1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_a_1(_1);
             }
 
@@ -17,6 +19,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_a_2", ExactSpelling = true)]
                 extern static void __MR_Overloads_a_2(int _1, int _2);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_a_2(_1, _2);
             }
 
@@ -25,6 +29,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_b_int", ExactSpelling = true)]
                 extern static void __MR_Overloads_b_int();
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_b_int();
             }
 
@@ -33,6 +39,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_b_float", ExactSpelling = true)]
                 extern static void __MR_Overloads_b_float();
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_b_float();
             }
 
@@ -41,6 +49,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_c_int", ExactSpelling = true)]
                 extern static void __MR_Overloads_c_int(int _1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_c_int(_1);
             }
 
@@ -49,6 +59,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_c_float", ExactSpelling = true)]
                 extern static void __MR_Overloads_c_float(float _1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_c_float(_1);
             }
 
@@ -57,6 +69,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_d_int", ExactSpelling = true)]
                 extern static void __MR_Overloads_d_int(byte _1, int _2, byte _3);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_d_int(_1, _2, _3);
             }
 
@@ -65,6 +79,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_d_float", ExactSpelling = true)]
                 extern static void __MR_Overloads_d_float(byte _1, float _2, byte _3);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_d_float(_1, _2, _3);
             }
 
@@ -73,6 +89,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_const_int_ref", ExactSpelling = true)]
                 extern static void __MR_Overloads_e_const_int_ref(int *_1, int *_2);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_e_const_int_ref(&_1, &_2);
             }
 
@@ -81,6 +99,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_int_rvalue_ref_int", ExactSpelling = true)]
                 extern static void __MR_Overloads_e_int_rvalue_ref_int(int *_1, int *_2);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_e_int_rvalue_ref_int(&_1, &_2);
             }
 
@@ -89,6 +109,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_e_int_rvalue_ref_float", ExactSpelling = true)]
                 extern static void __MR_Overloads_e_int_rvalue_ref_float(int *_1, float *_2);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_e_int_rvalue_ref_float(&_1, &_2);
             }
 
@@ -100,6 +122,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_f_float", ExactSpelling = true)]
                 extern static void __MR_Overloads_f_float(float _1, int _2);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_f_float(_1, _2);
             }
 
@@ -108,6 +132,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_f_int_rvalue_ref", ExactSpelling = true)]
                 extern static void __MR_Overloads_f_int_rvalue_ref(int *_1, float _2);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_f_int_rvalue_ref(&_1, _2);
             }
 
@@ -116,6 +142,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Overloads_f_const_int_ref", ExactSpelling = true)]
                 extern static void __MR_Overloads_f_const_int_ref(int *_1, float _2);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Overloads_f_const_int_ref(&_1, _2);
             }
         }

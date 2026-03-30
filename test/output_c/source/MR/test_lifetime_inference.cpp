@@ -11,17 +11,17 @@
 
 const int *MR_LifetimeInference_A_Get_x(const MR_LifetimeInference_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::LifetimeInference::A *)(_this)).x);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::LifetimeInference::A *)(_this)).x);
 }
 
 void MR_LifetimeInference_A_Set_x(MR_LifetimeInference_A *_this, int value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::LifetimeInference::A *)(_this)).x = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::LifetimeInference::A *)(_this)).x = value;
 }
 
 int *MR_LifetimeInference_A_GetMutable_x(MR_LifetimeInference_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::LifetimeInference::A *)(_this)).x);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::LifetimeInference::A *)(_this)).x);
 }
 
 MR_LifetimeInference_A *MR_LifetimeInference_A_DefaultConstruct(void)
@@ -65,7 +65,7 @@ MR_LifetimeInference_A *MR_LifetimeInference_A_ConstructFromAnother(const MR_Lif
 {
     MRBINDC_TRY(
     return (MR_LifetimeInference_A *)new MR::LifetimeInference::A(MR::LifetimeInference::A(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::LifetimeInference::A(*(MR::LifetimeInference::A *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::LifetimeInference::A(*(MR::LifetimeInference::A *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -87,8 +87,8 @@ void MR_LifetimeInference_A_DestroyArray(const MR_LifetimeInference_A *_this)
 MR_LifetimeInference_A *MR_LifetimeInference_A_AssignFromAnother(MR_LifetimeInference_A *_this, const MR_LifetimeInference_A *_other)
 {
     MRBINDC_TRY(
-    return (MR_LifetimeInference_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::LifetimeInference::A *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::LifetimeInference::A(*(MR::LifetimeInference::A *)_other))
+    return (MR_LifetimeInference_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::LifetimeInference::A *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::LifetimeInference::A(*(MR::LifetimeInference::A *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -96,14 +96,14 @@ MR_LifetimeInference_A *MR_LifetimeInference_A_AssignFromAnother(MR_LifetimeInfe
 int *MR_LifetimeInference_A_begin(MR_LifetimeInference_A *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::LifetimeInference::A *)(_this)).begin();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::LifetimeInference::A *)(_this)).begin();
     ) // MRBINDC_TRY
 }
 
 int *MR_LifetimeInference_A_end(MR_LifetimeInference_A *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::LifetimeInference::A *)(_this)).end();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::LifetimeInference::A *)(_this)).end();
     ) // MRBINDC_TRY
 }
 
@@ -111,7 +111,7 @@ int *MR_LifetimeInference_begin_MR_LifetimeInference_A(MR_LifetimeInference_A *a
 {
     MRBINDC_TRY(
     return ::MR::LifetimeInference::begin(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::LifetimeInference::A *)(a))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::LifetimeInference::A *)(a))
     );
     ) // MRBINDC_TRY
 }
@@ -120,24 +120,24 @@ int *MR_LifetimeInference_end_MR_LifetimeInference_A(MR_LifetimeInference_A *a)
 {
     MRBINDC_TRY(
     return ::MR::LifetimeInference::end(
-        ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), *(MR::LifetimeInference::A *)(a))
+        ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::LifetimeInference::A *)(a))
     );
     ) // MRBINDC_TRY
 }
 
 const int *MR_LifetimeInference_B_Get_x(const MR_LifetimeInference_B *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::LifetimeInference::B *)(_this)).x);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::LifetimeInference::B *)(_this)).x);
 }
 
 void MR_LifetimeInference_B_Set_x(MR_LifetimeInference_B *_this, int value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::LifetimeInference::B *)(_this)).x = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::LifetimeInference::B *)(_this)).x = value;
 }
 
 int *MR_LifetimeInference_B_GetMutable_x(MR_LifetimeInference_B *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::LifetimeInference::B *)(_this)).x);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::LifetimeInference::B *)(_this)).x);
 }
 
 MR_LifetimeInference_B *MR_LifetimeInference_B_DefaultConstruct(void)
@@ -181,7 +181,7 @@ MR_LifetimeInference_B *MR_LifetimeInference_B_ConstructFromAnother(const MR_Lif
 {
     MRBINDC_TRY(
     return (MR_LifetimeInference_B *)new MR::LifetimeInference::B(MR::LifetimeInference::B(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::LifetimeInference::B(*(MR::LifetimeInference::B *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::LifetimeInference::B(*(MR::LifetimeInference::B *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -203,8 +203,8 @@ void MR_LifetimeInference_B_DestroyArray(const MR_LifetimeInference_B *_this)
 MR_LifetimeInference_B *MR_LifetimeInference_B_AssignFromAnother(MR_LifetimeInference_B *_this, const MR_LifetimeInference_B *_other)
 {
     MRBINDC_TRY(
-    return (MR_LifetimeInference_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::LifetimeInference::B *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::LifetimeInference::B(*(MR::LifetimeInference::B *)_other))
+    return (MR_LifetimeInference_B *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::LifetimeInference::B *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::LifetimeInference::B(*(MR::LifetimeInference::B *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -213,7 +213,7 @@ int *MR_LifetimeInference_begin_MR_LifetimeInference_B(MR_LifetimeInference_B *b
 {
     MRBINDC_TRY(
     return begin(
-        ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), *(MR::LifetimeInference::B *)(b))
+        ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), *(MR::LifetimeInference::B *)(b))
     );
     ) // MRBINDC_TRY
 }
@@ -222,7 +222,7 @@ int *MR_LifetimeInference_end_MR_LifetimeInference_B(MR_LifetimeInference_B *b)
 {
     MRBINDC_TRY(
     return end(
-        ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), *(MR::LifetimeInference::B *)(b))
+        ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), *(MR::LifetimeInference::B *)(b))
     );
     ) // MRBINDC_TRY
 }
@@ -231,7 +231,7 @@ MR_LifetimeInference_C *MR_LifetimeInference_C_ConstructFromAnother(const MR_Lif
 {
     MRBINDC_TRY(
     return (MR_LifetimeInference_C *)new MR::LifetimeInference::C(MR::LifetimeInference::C(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::LifetimeInference::C(*(MR::LifetimeInference::C *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::LifetimeInference::C(*(MR::LifetimeInference::C *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -254,8 +254,8 @@ MR_LifetimeInference_C *MR_LifetimeInference_C_Construct(MR_LifetimeInference_A 
 {
     MRBINDC_TRY(
     return (MR_LifetimeInference_C *)new MR::LifetimeInference::C(MR::LifetimeInference::C(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::LifetimeInference::A *)(_1)),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), *_2),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::LifetimeInference::A *)(_1)),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), *_2),
         _3
     ));
     ) // MRBINDC_TRY
@@ -278,8 +278,8 @@ void MR_LifetimeInference_C_DestroyArray(const MR_LifetimeInference_C *_this)
 MR_LifetimeInference_C *MR_LifetimeInference_C_AssignFromAnother(MR_LifetimeInference_C *_this, const MR_LifetimeInference_C *_other)
 {
     MRBINDC_TRY(
-    return (MR_LifetimeInference_C *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::LifetimeInference::C *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::LifetimeInference::C(*(MR::LifetimeInference::C *)_other))
+    return (MR_LifetimeInference_C *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::LifetimeInference::C *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::LifetimeInference::C(*(MR::LifetimeInference::C *)_other))
     ));
     ) // MRBINDC_TRY
 }

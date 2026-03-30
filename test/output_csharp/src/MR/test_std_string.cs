@@ -12,6 +12,8 @@ public static partial class MR
                 byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
                 fixed (byte *__ptr_s = __bytes_s)
                 {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_StdString_Set(__ptr_s, __ptr_s + __bytes_s.Length);
                 }
             }
@@ -30,6 +32,8 @@ public static partial class MR
                 }
                 fixed (byte *__ptr_s = __bytes_s)
                 {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_StdString_SetWithDefault(s is not null ? __ptr_s : null, s is not null ? __ptr_s + __len_s : null);
                 }
             }
@@ -39,7 +43,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_Get", ExactSpelling = true)]
                 extern static MR.CS.Std.String._Underlying *__MR_StdString_Get();
-                return new(__MR_StdString_Get(), is_owning: true);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdString_Get();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return new(__c_ret, is_owning: true);
             }
 
             /// Generated from function `MR::StdString::WriteToRef`.
@@ -47,6 +54,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_WriteToRef", ExactSpelling = true)]
                 extern static void __MR_StdString_WriteToRef(MR.CS.Std.String._Underlying *ref_);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdString_WriteToRef(ref_._UnderlyingPtr);
             }
 
@@ -55,6 +64,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdString_WriteToPtr", ExactSpelling = true)]
                 extern static void __MR_StdString_WriteToPtr(MR.CS.Std.String._Underlying *ptr);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdString_WriteToPtr(ptr is not null ? ptr._UnderlyingPtr : null);
             }
 
@@ -66,6 +77,8 @@ public static partial class MR
                 byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
                 fixed (byte *__ptr_s = __bytes_s)
                 {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_StdString_ConstRef(__ptr_s, __ptr_s + __bytes_s.Length);
                 }
             }
@@ -78,6 +91,8 @@ public static partial class MR
                 byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
                 fixed (byte *__ptr_s = __bytes_s)
                 {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_StdString_RvalueRef(__ptr_s, __ptr_s + __bytes_s.Length);
                 }
             }
@@ -90,6 +105,8 @@ public static partial class MR
                 byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
                 fixed (byte *__ptr_s = __bytes_s)
                 {
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_StdString_ConstRvalueRef(__ptr_s, __ptr_s + __bytes_s.Length);
                 }
             }

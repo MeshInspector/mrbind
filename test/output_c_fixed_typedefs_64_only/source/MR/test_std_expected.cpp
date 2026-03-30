@@ -26,7 +26,7 @@ void MR_StdExpected_SetExp(MR_C_PassBy _1_pass_by, MR_C_std_expected_int_std_str
 void MR_StdExpected_SetExpConstRef(const MR_C_std_expected_int_std_string *_1)
 {
     ::MR::StdExpected::SetExpConstRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::expected<int, std::string> *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const std::expected<int, std::string> *)(_1))
     );
 }
 
@@ -58,14 +58,14 @@ MR_C_std_expected_void_float *MR_StdExpected_GetExpVoid(void)
 void MR_StdExpected_SetExpVoid(const MR_C_std_expected_void_float *_1)
 {
     ::MR::StdExpected::SetExpVoid(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::expected<void, float>(*(std::expected<void, float> *)_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::expected<void, float>(*(std::expected<void, float> *)_1))
     );
 }
 
 void MR_StdExpected_SetExpVoidConstRef(const MR_C_std_expected_void_float *_1)
 {
     ::MR::StdExpected::SetExpVoidConstRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::expected<void, float> *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const std::expected<void, float> *)(_1))
     );
 }
 

@@ -35,7 +35,9 @@ public static partial class MR
                     {
                         fixed (float *__ptr_second = &second)
                         {
+                            MR.CS.Misc._Exceptions.Prepare();
                             _UnderlyingPtr = __MR_C_std_pair_int_ref_float_ref_Construct(__ptr_first, __ptr_second);
+                            MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         }
                     }
                 }
@@ -45,7 +47,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_ref_float_ref_first", ExactSpelling = true)]
                     extern static int *__MR_C_std_pair_int_ref_float_ref_first(_Underlying *_this);
-                    return ref *__MR_C_std_pair_int_ref_float_ref_first(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_int_ref_float_ref_first(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return ref *__c_ret;
                 }
 
                 /// The second of the two elements, read-only.
@@ -53,7 +58,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_ref_float_ref_second", ExactSpelling = true)]
                     extern static float *__MR_C_std_pair_int_ref_float_ref_second(_Underlying *_this);
-                    return ref *__MR_C_std_pair_int_ref_float_ref_second(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_int_ref_float_ref_second(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return ref *__c_ret;
                 }
 
                 // Custom extras:
@@ -80,7 +88,9 @@ public static partial class MR
                     {
                         fixed (float *__ptr_second = &second)
                         {
+                            MR.CS.Misc._Exceptions.Prepare();
                             _UnderlyingPtr = __MR_C_std_pair_int_ref_float_ref_Construct(__ptr_first, __ptr_second);
+                            MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         }
                     }
                 }

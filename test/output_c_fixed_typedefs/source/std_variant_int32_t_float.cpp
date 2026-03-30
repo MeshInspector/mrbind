@@ -2,6 +2,8 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_variant_int32_t_float.h"
 
+#include <__mrbind_c_details.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <stdexcept>
@@ -21,14 +23,14 @@ MR_C_std_variant_int32_t_float *MR_C_std_variant_int32_t_float_DefaultConstructA
 MR_C_std_variant_int32_t_float *MR_C_std_variant_int32_t_float_ConstructFromAnother(const MR_C_std_variant_int32_t_float *other)
 {
     return (MR_C_std_variant_int32_t_float *)new std::variant<int32_t, float>(std::variant<int32_t, float>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::variant<int32_t, float>(*(std::variant<int32_t, float> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::variant<int32_t, float>(*(std::variant<int32_t, float> *)other))
     ));
 }
 
 void MR_C_std_variant_int32_t_float_AssignFromAnother(MR_C_std_variant_int32_t_float *_this, const MR_C_std_variant_int32_t_float *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int32_t, float> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::variant<int32_t, float>(*(std::variant<int32_t, float> *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::variant<int32_t, float> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::variant<int32_t, float>(*(std::variant<int32_t, float> *)other))
     );
 }
 
@@ -54,7 +56,7 @@ MR_C_std_variant_int32_t_float *MR_C_std_variant_int32_t_float_OffsetMutablePtr(
 
 size_t MR_C_std_variant_int32_t_float_index(const MR_C_std_variant_int32_t_float *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::variant<int32_t, float> *)(_this)).index();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::variant<int32_t, float> *)(_this)).index();
 }
 
 MR_C_std_variant_int32_t_float *MR_C_std_variant_int32_t_float_ConstructAs_int32_t(int32_t value)
@@ -69,7 +71,7 @@ MR_C_std_variant_int32_t_float *MR_C_std_variant_int32_t_float_ConstructAs_float
 
 void MR_C_std_variant_int32_t_float_AssignAs_int32_t(MR_C_std_variant_int32_t_float *_this, int32_t value)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int32_t, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::variant<int32_t, float> *)(_this));
     if (_self.index() == 0)
         std::get<0>(_self) = value;
     else
@@ -78,7 +80,7 @@ void MR_C_std_variant_int32_t_float_AssignAs_int32_t(MR_C_std_variant_int32_t_fl
 
 void MR_C_std_variant_int32_t_float_AssignAs_float(MR_C_std_variant_int32_t_float *_this, float value)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int32_t, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::variant<int32_t, float> *)(_this));
     if (_self.index() == 1)
         std::get<1>(_self) = value;
     else
@@ -87,21 +89,21 @@ void MR_C_std_variant_int32_t_float_AssignAs_float(MR_C_std_variant_int32_t_floa
 
 const int32_t *MR_C_std_variant_int32_t_float_get_int32_t(const MR_C_std_variant_int32_t_float *_this)
 {
-    return std::get_if<0>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::variant<int32_t, float> *)(_this)));
+    return std::get_if<0>(&((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::variant<int32_t, float> *)(_this)));
 }
 
 int32_t *MR_C_std_variant_int32_t_float_get_int32_t_mut(MR_C_std_variant_int32_t_float *_this)
 {
-    return std::get_if<0>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int32_t, float> *)(_this)));
+    return std::get_if<0>(&((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::variant<int32_t, float> *)(_this)));
 }
 
 const float *MR_C_std_variant_int32_t_float_get_float(const MR_C_std_variant_int32_t_float *_this)
 {
-    return std::get_if<1>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::variant<int32_t, float> *)(_this)));
+    return std::get_if<1>(&((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::variant<int32_t, float> *)(_this)));
 }
 
 float *MR_C_std_variant_int32_t_float_get_float_mut(MR_C_std_variant_int32_t_float *_this)
 {
-    return std::get_if<1>(&((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::variant<int32_t, float> *)(_this)));
+    return std::get_if<1>(&((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::variant<int32_t, float> *)(_this)));
 }
 

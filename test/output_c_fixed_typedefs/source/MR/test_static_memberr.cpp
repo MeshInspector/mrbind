@@ -2,6 +2,7 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "MR/test_static_memberr.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_static_memberr.h>
 
 #include <cstddef>
@@ -48,7 +49,7 @@ MR_StaticFuncs_A *MR_StaticFuncs_A_OffsetMutablePtr(MR_StaticFuncs_A *ptr, ptrdi
 MR_StaticFuncs_A *MR_StaticFuncs_A_ConstructFromAnother(const MR_StaticFuncs_A *_other)
 {
     return (MR_StaticFuncs_A *)new MR::StaticFuncs::A(MR::StaticFuncs::A(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StaticFuncs::A(*(MR::StaticFuncs::A *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::StaticFuncs::A(*(MR::StaticFuncs::A *)_other))
     ));
 }
 
@@ -64,8 +65,8 @@ void MR_StaticFuncs_A_DestroyArray(const MR_StaticFuncs_A *_this)
 
 MR_StaticFuncs_A *MR_StaticFuncs_A_AssignFromAnother(MR_StaticFuncs_A *_this, const MR_StaticFuncs_A *_other)
 {
-    return (MR_StaticFuncs_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StaticFuncs::A *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StaticFuncs::A(*(MR::StaticFuncs::A *)_other))
+    return (MR_StaticFuncs_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::StaticFuncs::A *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::StaticFuncs::A(*(MR::StaticFuncs::A *)_other))
     ));
 }
 

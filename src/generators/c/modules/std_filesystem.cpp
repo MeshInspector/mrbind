@@ -20,7 +20,7 @@ namespace mrbind::C::Modules
                 return ret;
 
             HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, type.simple_type.name);
-            binder.traits = Generator::TypeTraits::CopyableNonTrivial{};
+            binder.traits = Generator::TypeTraits::CopyableNonTrivialMaybeThrowing{};
 
             auto get_output_file = [
                 type,
@@ -70,6 +70,7 @@ namespace mrbind::C::Modules
 
             // Replace the parameter callback.
             new_type.param_usage_with_default_arg = MakeStringLikeParamUsageSupportingDefaultArg(
+                generator,
                 type_str,
                 [](std::string_view begin) -> std::string
                 {

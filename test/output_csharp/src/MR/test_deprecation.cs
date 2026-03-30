@@ -10,6 +10,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Deprecation_foo", ExactSpelling = true)]
                 extern static void __MR_Deprecation_foo();
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Deprecation_foo();
             }
 
@@ -19,6 +21,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Deprecation_bar", ExactSpelling = true)]
                 extern static void __MR_Deprecation_bar();
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Deprecation_bar();
             }
         }

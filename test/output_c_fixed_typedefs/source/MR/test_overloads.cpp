@@ -2,6 +2,7 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "MR/test_overloads.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_overloads.h>
 
 #include <cstdint>
@@ -69,24 +70,24 @@ void MR_Overloads_d_float(char _1, float _2, char _3)
 void MR_Overloads_e_const_int32_t_ref(const int32_t *_1, int32_t *_2)
 {
     ::MR::Overloads::e(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), std::move(*_2))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *_1),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), std::move(*_2))
     );
 }
 
 void MR_Overloads_e_int32_t_rvalue_ref_int32_t(int32_t *_1, int32_t *_2)
 {
     ::MR::Overloads::e(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::move(*_1)),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), std::move(*_2))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*_1)),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), std::move(*_2))
     );
 }
 
 void MR_Overloads_e_int32_t_rvalue_ref_float(int32_t *_1, float *_2)
 {
     ::MR::Overloads::e(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::move(*_1)),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), std::move(*_2))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*_1)),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), std::move(*_2))
     );
 }
 
@@ -101,7 +102,7 @@ void MR_Overloads_f_float(float _1, int32_t _2)
 void MR_Overloads_f_int32_t_rvalue_ref(int32_t *_1, float _2)
 {
     ::MR::Overloads::f(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::move(*_1)),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*_1)),
         _2
     );
 }
@@ -109,7 +110,7 @@ void MR_Overloads_f_int32_t_rvalue_ref(int32_t *_1, float _2)
 void MR_Overloads_f_const_int32_t_ref(const int32_t *_1, float _2)
 {
     ::MR::Overloads::f(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1),
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *_1),
         _2
     );
 }

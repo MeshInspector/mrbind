@@ -1758,6 +1758,7 @@ namespace mrbind
                     ClassDtor &new_dtor = target_class.members.emplace_back().emplace<ClassDtor>();
                     new_dtor.comment = GetCommentString(*ctx, *params, *method);
                     new_dtor.is_trivial = dtor->isTrivial();
+                    new_dtor.is_noexcept = clang::isNoexceptExceptionSpec(method->getExceptionSpecType());
                     new_dtor.is_virtual = dtor->isVirtual();
                     return true; // Done processing the destructor. The rest is only for other kinds of members.
                 }

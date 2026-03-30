@@ -37,7 +37,7 @@ void MR_C_std_shared_ptr_MR_CommonBaseAB_AssignFromAnother(MR_C_std_shared_ptr_M
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::shared_ptr<MR::CommonBaseAB>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::CommonBaseAB> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<MR::CommonBaseAB> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::shared_ptr<MR::CommonBaseAB>) MRBINDC_CLASSARG_COPY(other, (std::shared_ptr<MR::CommonBaseAB>), std::shared_ptr<MR::CommonBaseAB>) MRBINDC_CLASSARG_MOVE(other, (std::shared_ptr<MR::CommonBaseAB>), std::shared_ptr<MR::CommonBaseAB>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::shared_ptr<MR::CommonBaseAB>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::shared_ptr<MR::CommonBaseAB>) MRBINDC_CLASSARG_END(other, std::shared_ptr<MR::CommonBaseAB>))
     );
     ) // MRBINDC_TRY
@@ -74,28 +74,28 @@ MR_C_std_shared_ptr_MR_CommonBaseAB *MR_C_std_shared_ptr_MR_CommonBaseAB_OffsetM
 MR_CommonBaseAB *MR_C_std_shared_ptr_MR_CommonBaseAB_get(const MR_C_std_shared_ptr_MR_CommonBaseAB *_this)
 {
     MRBINDC_TRY(
-    return (MR_CommonBaseAB *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CommonBaseAB> *)(_this)).get());
+    return (MR_CommonBaseAB *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<MR::CommonBaseAB> *)(_this)).get());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_shared_ptr_MR_CommonBaseAB_has_value(const MR_C_std_shared_ptr_MR_CommonBaseAB *_this)
 {
     MRBINDC_TRY(
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CommonBaseAB> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<MR::CommonBaseAB> *)(_this)));
     ) // MRBINDC_TRY
 }
 
 int MR_C_std_shared_ptr_MR_CommonBaseAB_use_count(const MR_C_std_shared_ptr_MR_CommonBaseAB *_this)
 {
     MRBINDC_TRY(
-    return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CommonBaseAB> *)(_this)).use_count());
+    return int(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<MR::CommonBaseAB> *)(_this)).use_count());
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_shared_ptr_MR_CommonBaseAB_reset(MR_C_std_shared_ptr_MR_CommonBaseAB *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::CommonBaseAB> *)(_this)).reset();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<MR::CommonBaseAB> *)(_this)).reset();
     ) // MRBINDC_TRY
 }
 
@@ -121,7 +121,7 @@ MR_C_std_shared_ptr_MR_CommonBaseAB *MR_C_std_shared_ptr_MR_CommonBaseAB_Constru
 void MR_C_std_shared_ptr_MR_CommonBaseAB_Assign(MR_C_std_shared_ptr_MR_CommonBaseAB *_this, MR_CommonBaseAB *ptr)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::CommonBaseAB> *)(_this)) = std::shared_ptr<MR::CommonBaseAB>(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<MR::CommonBaseAB> *)(_this)) = std::shared_ptr<MR::CommonBaseAB>(
         std::unique_ptr<MR::CommonBaseAB>((MR::CommonBaseAB *)ptr)
     );
     ) // MRBINDC_TRY
@@ -137,7 +137,7 @@ MR_C_std_shared_ptr_MR_CommonBaseAB *MR_C_std_shared_ptr_MR_CommonBaseAB_Constru
 void MR_C_std_shared_ptr_MR_CommonBaseAB_AssignNonOwning(MR_C_std_shared_ptr_MR_CommonBaseAB *_this, MR_CommonBaseAB *ptr)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::CommonBaseAB> *)(_this)) = std::shared_ptr<MR::CommonBaseAB>(std::shared_ptr<void>{}, ((MR::CommonBaseAB *)ptr));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<MR::CommonBaseAB> *)(_this)) = std::shared_ptr<MR::CommonBaseAB>(std::shared_ptr<void>{}, ((MR::CommonBaseAB *)ptr));
     ) // MRBINDC_TRY
 }
 
@@ -156,7 +156,7 @@ void MR_C_std_shared_ptr_MR_CommonBaseAB_AssignAliasing(MR_C_std_shared_ptr_MR_C
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(ownership, std::shared_ptr<const void>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::CommonBaseAB> *)(_this)) = std::shared_ptr<MR::CommonBaseAB>(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<MR::CommonBaseAB> *)(_this)) = std::shared_ptr<MR::CommonBaseAB>(
         (MRBINDC_CLASSARG_DEF_CTOR(ownership, std::shared_ptr<const void>) MRBINDC_CLASSARG_COPY(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_MOVE(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_DefaultArgument, std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_NoObject, std::shared_ptr<const void>) MRBINDC_CLASSARG_END(ownership, std::shared_ptr<const void>)),
         ((MR::CommonBaseAB *)ptr)
     );
@@ -166,14 +166,14 @@ void MR_C_std_shared_ptr_MR_CommonBaseAB_AssignAliasing(MR_C_std_shared_ptr_MR_C
 MR_C_std_shared_ptr_void *MR_C_std_shared_ptr_MR_CommonBaseAB_ConvertTo_MR_C_std_shared_ptr_void(const MR_C_std_shared_ptr_MR_CommonBaseAB *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_std_shared_ptr_void *)new std::shared_ptr<void>(std::shared_ptr<void>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CommonBaseAB> *)(_this))));
+    return (MR_C_std_shared_ptr_void *)new std::shared_ptr<void>(std::shared_ptr<void>(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<MR::CommonBaseAB> *)(_this))));
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_shared_ptr_MR_CommonBaseAB_AssignTo_MR_C_std_shared_ptr_void(const MR_C_std_shared_ptr_MR_CommonBaseAB *_this, MR_C_std_shared_ptr_void *_target)
 {
     MRBINDC_TRY(
-    ((_target ? void() : throw std::runtime_error("Parameter `_target` can not be null.")), *(std::shared_ptr<void> *)(_target)) = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CommonBaseAB> *)(_this));
+    ((_target ? void() : MRBINDC_THROW("Parameter `_target` can not be null.", void)), *(std::shared_ptr<void> *)(_target)) = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<MR::CommonBaseAB> *)(_this));
     ) // MRBINDC_TRY
 }
 

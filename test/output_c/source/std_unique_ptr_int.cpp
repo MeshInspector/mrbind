@@ -27,7 +27,7 @@ MR_C_std_unique_ptr_int *MR_C_std_unique_ptr_int_ConstructFromAnother(const MR_C
 {
     MRBINDC_TRY(
     return (MR_C_std_unique_ptr_int *)new std::unique_ptr<int>(std::unique_ptr<int>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unique_ptr<int>(std::move(*(std::unique_ptr<int> *)other)))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unique_ptr<int>(std::move(*(std::unique_ptr<int> *)other)))
     ));
     ) // MRBINDC_TRY
 }
@@ -44,8 +44,8 @@ MR_C_std_unique_ptr_int *MR_C_std_unique_ptr_int_ConstructFrom(int *other)
 void MR_C_std_unique_ptr_int_AssignFromAnother(MR_C_std_unique_ptr_int *_this, const MR_C_std_unique_ptr_int *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<int> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unique_ptr<int>(std::move(*(std::unique_ptr<int> *)other)))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unique_ptr<int> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unique_ptr<int>(std::move(*(std::unique_ptr<int> *)other)))
     );
     ) // MRBINDC_TRY
 }
@@ -53,7 +53,7 @@ void MR_C_std_unique_ptr_int_AssignFromAnother(MR_C_std_unique_ptr_int *_this, c
 void MR_C_std_unique_ptr_int_AssignFrom(MR_C_std_unique_ptr_int *_this, int *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<int> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unique_ptr<int> *)(_this)).operator=(
         std::unique_ptr<int>(other)
     );
     ) // MRBINDC_TRY
@@ -90,14 +90,14 @@ MR_C_std_unique_ptr_int *MR_C_std_unique_ptr_int_OffsetMutablePtr(MR_C_std_uniqu
 int *MR_C_std_unique_ptr_int_get(const MR_C_std_unique_ptr_int *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unique_ptr<int> *)(_this)).get();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unique_ptr<int> *)(_this)).get();
     ) // MRBINDC_TRY
 }
 
 int *MR_C_std_unique_ptr_int_release(MR_C_std_unique_ptr_int *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<int> *)(_this)).release();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unique_ptr<int> *)(_this)).release();
     ) // MRBINDC_TRY
 }
 

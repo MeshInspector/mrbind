@@ -31,8 +31,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -46,9 +48,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(MR.CS.Misc._PassBy first_pass_by, MR.CS.SeparateA._Underlying *first, MR.CS.Misc._PassBy second_pass_by, MR.CS.SeparateB._Underlying *second);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(first.PassByMode, first.Value is not null ? first.Value._UnderlyingPtr : null, second.PassByMode, second.Value is not null ? second.Value._UnderlyingPtr : null);
                     if (first.Value is not null) _KeepAlive(first.Value);
                     if (second.Value is not null) _KeepAlive(second.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// The first of the two elements, read-only.
@@ -56,9 +60,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_first", ExactSpelling = true)]
                     extern static MR.CS.Const_SeparateA._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_first(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_first(_UnderlyingPtr);
                     MR.CS.Const_SeparateA __ret;
-                    __ret = new(__MR_C_std_pair_MR_SeparateA_MR_SeparateB_first(_UnderlyingPtr), is_owning: false);
+                    __ret = new(__c_ret, is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 
@@ -67,9 +74,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_second", ExactSpelling = true)]
                     extern static MR.CS.Const_SeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_second(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_second(_UnderlyingPtr);
                     MR.CS.Const_SeparateB __ret;
-                    __ret = new(__MR_C_std_pair_MR_SeparateA_MR_SeparateB_second(_UnderlyingPtr), is_owning: false);
+                    __ret = new(__c_ret, is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 
@@ -93,8 +103,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -108,8 +120,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -118,9 +132,11 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(MR.CS.Misc._PassBy first_pass_by, MR.CS.SeparateA._Underlying *first, MR.CS.Misc._PassBy second_pass_by, MR.CS.SeparateB._Underlying *second);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_Construct(first.PassByMode, first.Value is not null ? first.Value._UnderlyingPtr : null, second.PassByMode, second.Value is not null ? second.Value._UnderlyingPtr : null);
                     if (first.Value is not null) _KeepAlive(first.Value);
                     if (second.Value is not null) _KeepAlive(second.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// The first of the two elements, mutable.
@@ -128,9 +144,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_first_mut", ExactSpelling = true)]
                     extern static MR.CS.SeparateA._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_first_mut(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_first_mut(_UnderlyingPtr);
                     MR.CS.SeparateA __ret;
-                    __ret = new(__MR_C_std_pair_MR_SeparateA_MR_SeparateB_first_mut(_UnderlyingPtr), is_owning: false);
+                    __ret = new(__c_ret, is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 
@@ -139,9 +158,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_MR_SeparateA_MR_SeparateB_second_mut", ExactSpelling = true)]
                     extern static MR.CS.SeparateB._Underlying *__MR_C_std_pair_MR_SeparateA_MR_SeparateB_second_mut(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_MR_SeparateA_MR_SeparateB_second_mut(_UnderlyingPtr);
                     MR.CS.SeparateB __ret;
-                    __ret = new(__MR_C_std_pair_MR_SeparateA_MR_SeparateB_second_mut(_UnderlyingPtr), is_owning: false);
+                    __ret = new(__c_ret, is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 

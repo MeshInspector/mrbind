@@ -54,8 +54,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateA_ConstructFromAnother", ExactSpelling = true)]
                 extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateA._Underlying *_other);
+                MR.CS.Misc._Exceptions.Prepare();
                 _UnderlyingPtr = __MR_SeparateA_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
             }
 
             /// Generated from constructor `MR::SeparateA::SeparateA`.
@@ -101,8 +103,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_SeparateA_ConstructFromAnother", ExactSpelling = true)]
                 extern static MR.CS.SeparateA._Underlying *__MR_SeparateA_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.SeparateA._Underlying *_other);
+                MR.CS.Misc._Exceptions.Prepare();
                 _UnderlyingPtr = __MR_SeparateA_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
             }
 
             /// Generated from constructor `MR::SeparateA::SeparateA`.
@@ -175,7 +179,10 @@ public static partial class MR
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_GetSeparateVecA", ExactSpelling = true)]
             extern static MR.CS.Std.Vector_MRSeparateA._Underlying *__MR_GetSeparateVecA();
-            return new(__MR_GetSeparateVecA(), is_owning: true);
+            MR.CS.Misc._Exceptions.Prepare();
+            var __c_ret = __MR_GetSeparateVecA();
+            MR.CS.Misc._Exceptions.ThrowIfNeeded();
+            return new(__c_ret, is_owning: true);
         }
     }
 }

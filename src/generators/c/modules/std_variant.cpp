@@ -47,7 +47,7 @@ namespace mrbind::C::Modules
                 binder.traits->CombineCommonProperties(generator.FindTypeTraits(elem_type));
             // Except the default constructability of the whole variant depends only on that of the first member.
             if (!elem_types.empty())
-                binder.traits->is_default_constructible = generator.FindTypeTraits(elem_types.front()).is_default_constructible;
+                binder.traits->default_constructible = generator.FindTypeTraits(elem_types.front()).default_constructible;
 
             auto get_output_file = [
                 type,

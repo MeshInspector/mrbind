@@ -27,7 +27,7 @@ MR_C_std_tuple_int *MR_C_std_tuple_int_ConstructFromAnother(const MR_C_std_tuple
 {
     MRBINDC_TRY(
     return (MR_C_std_tuple_int *)new std::tuple<int>(std::tuple<int>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::tuple<int>(*(std::tuple<int> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::tuple<int>(*(std::tuple<int> *)other))
     ));
     ) // MRBINDC_TRY
 }
@@ -35,8 +35,8 @@ MR_C_std_tuple_int *MR_C_std_tuple_int_ConstructFromAnother(const MR_C_std_tuple
 void MR_C_std_tuple_int_AssignFromAnother(MR_C_std_tuple_int *_this, const MR_C_std_tuple_int *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<int> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::tuple<int>(*(std::tuple<int> *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::tuple<int> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::tuple<int>(*(std::tuple<int> *)other))
     );
     ) // MRBINDC_TRY
 }
@@ -81,14 +81,14 @@ MR_C_std_tuple_int *MR_C_std_tuple_int_Construct(int _0)
 const int *MR_C_std_tuple_int_get_int(const MR_C_std_tuple_int *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(std::get<0>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<int> *)(_this))));
+    return std::addressof(std::get<0>(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::tuple<int> *)(_this))));
     ) // MRBINDC_TRY
 }
 
 int *MR_C_std_tuple_int_get_int_mut(MR_C_std_tuple_int *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(std::get<0>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<int> *)(_this))));
+    return std::addressof(std::get<0>(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::tuple<int> *)(_this))));
     ) // MRBINDC_TRY
 }
 

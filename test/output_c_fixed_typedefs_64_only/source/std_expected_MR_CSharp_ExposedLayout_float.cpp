@@ -1,6 +1,7 @@
 #define MR_C_BUILD_LIBRARY
 #include "std_expected_MR_CSharp_ExposedLayout_float.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_csharp.h>
 
 #include <cstddef>
@@ -21,14 +22,14 @@ MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_C_std_expected_MR_CSharp_Exp
 MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_C_std_expected_MR_CSharp_ExposedLayout_float_ConstructFromAnother(const MR_C_std_expected_MR_CSharp_ExposedLayout_float *other)
 {
     return (MR_C_std_expected_MR_CSharp_ExposedLayout_float *)new std::expected<MR::CSharp::ExposedLayout, float>(std::expected<MR::CSharp::ExposedLayout, float>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<MR::CSharp::ExposedLayout, float>(*(std::expected<MR::CSharp::ExposedLayout, float> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::expected<MR::CSharp::ExposedLayout, float>(*(std::expected<MR::CSharp::ExposedLayout, float> *)other))
     ));
 }
 
 void MR_C_std_expected_MR_CSharp_ExposedLayout_float_AssignFromAnother(MR_C_std_expected_MR_CSharp_ExposedLayout_float *_this, const MR_C_std_expected_MR_CSharp_ExposedLayout_float *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<MR::CSharp::ExposedLayout, float> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<MR::CSharp::ExposedLayout, float>(*(std::expected<MR::CSharp::ExposedLayout, float> *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::expected<MR::CSharp::ExposedLayout, float> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::expected<MR::CSharp::ExposedLayout, float>(*(std::expected<MR::CSharp::ExposedLayout, float> *)other))
     );
 }
 
@@ -54,30 +55,30 @@ MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_C_std_expected_MR_CSharp_Exp
 
 bool MR_C_std_expected_MR_CSharp_ExposedLayout_float_success(const MR_C_std_expected_MR_CSharp_ExposedLayout_float *_this)
 {
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<MR::CSharp::ExposedLayout, float> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::expected<MR::CSharp::ExposedLayout, float> *)(_this)));
 }
 
 const MR_CSharp_ExposedLayout *MR_C_std_expected_MR_CSharp_ExposedLayout_float_value(const MR_C_std_expected_MR_CSharp_ExposedLayout_float *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<MR::CSharp::ExposedLayout, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::expected<MR::CSharp::ExposedLayout, float> *)(_this));
     return (const MR_CSharp_ExposedLayout *)(_self ? &*_self : nullptr);
 }
 
 const float *MR_C_std_expected_MR_CSharp_ExposedLayout_float_error(const MR_C_std_expected_MR_CSharp_ExposedLayout_float *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<MR::CSharp::ExposedLayout, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::expected<MR::CSharp::ExposedLayout, float> *)(_this));
     return _self ? nullptr : &_self.error();
 }
 
 MR_CSharp_ExposedLayout *MR_C_std_expected_MR_CSharp_ExposedLayout_float_value_mut(MR_C_std_expected_MR_CSharp_ExposedLayout_float *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<MR::CSharp::ExposedLayout, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::expected<MR::CSharp::ExposedLayout, float> *)(_this));
     return (MR_CSharp_ExposedLayout *)(_self ? &*_self : nullptr);
 }
 
 float *MR_C_std_expected_MR_CSharp_ExposedLayout_float_error_mut(MR_C_std_expected_MR_CSharp_ExposedLayout_float *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<MR::CSharp::ExposedLayout, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::expected<MR::CSharp::ExposedLayout, float> *)(_this));
     return _self ? nullptr : &_self.error();
 }
 

@@ -33,7 +33,7 @@ MR_C_std_function_int32_t_from_std_string *MR_C_std_function_int32_t_from_std_st
 void MR_C_std_function_int32_t_from_std_string_AssignFromAnother(MR_C_std_function_int32_t_from_std_string *_this, MR_C_PassBy other_pass_by, MR_C_std_function_int32_t_from_std_string *other)
 {
     MRBINDC_CLASSARG_GUARD(other, std::function<int32_t(std::string)>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int32_t(std::string)> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<int32_t(std::string)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<int32_t(std::string)>) MRBINDC_CLASSARG_COPY(other, (std::function<int32_t(std::string)>), std::function<int32_t(std::string)>) MRBINDC_CLASSARG_MOVE(other, (std::function<int32_t(std::string)>), std::function<int32_t(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<int32_t(std::string)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<int32_t(std::string)>) MRBINDC_CLASSARG_END(other, std::function<int32_t(std::string)>))
     );
 }
@@ -60,18 +60,18 @@ MR_C_std_function_int32_t_from_std_string *MR_C_std_function_int32_t_from_std_st
 
 bool MR_C_std_function_int32_t_from_std_string_has_value(const MR_C_std_function_int32_t_from_std_string *_this)
 {
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<int32_t(std::string)> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::function<int32_t(std::string)> *)(_this)));
 }
 
 void MR_C_std_function_int32_t_from_std_string_reset(MR_C_std_function_int32_t_from_std_string *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int32_t(std::string)> *)(_this)) = nullptr;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<int32_t(std::string)> *)(_this)) = nullptr;
 }
 
 int32_t MR_C_std_function_int32_t_from_std_string_call(const MR_C_std_function_int32_t_from_std_string *_this, const char *_1, const char *_1_end)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<int32_t(std::string)> *)(_this)).operator()(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), (_1_end ? std::string(_1, _1_end) : std::string(_1)))
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::function<int32_t(std::string)> *)(_this)).operator()(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), (_1_end ? std::string(_1, _1_end) : std::string(_1)))
     );
 }
 
@@ -88,7 +88,7 @@ MR_C_std_function_int32_t_from_std_string *MR_C_std_function_int32_t_from_std_st
 
 void MR_C_std_function_int32_t_from_std_string_Assign(MR_C_std_function_int32_t_from_std_string *_this, int32_t (*func)(MR_C_std_string *_1))
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int32_t(std::string)> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<int32_t(std::string)> *)(_this));
     if (!func)
     {
         _self = nullptr;
@@ -182,6 +182,7 @@ namespace
             };
             _cleanup_guard_type _cleanup_guard;
             _cleanup_guard._self = this;
+            
             decltype(auto) _return = _func(
                 (MR_C_std_string *)std::addressof(mrbindc_details::unmove(_1)),
                 _userdata,
@@ -199,7 +200,7 @@ MR_C_std_function_int32_t_from_std_string *MR_C_std_function_int32_t_from_std_st
 
 void MR_C_std_function_int32_t_from_std_string_AssignEx(MR_C_std_function_int32_t_from_std_string *_this, int32_t (*func)(MR_C_std_string *_1, void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int32_t(std::string)> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<int32_t(std::string)> *)(_this));
     if (!func)
     {
         _self = nullptr;

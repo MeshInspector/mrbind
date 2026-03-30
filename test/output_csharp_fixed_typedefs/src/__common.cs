@@ -387,16 +387,6 @@ public static partial class MR
             }
 
             /// <summary>
-            /// This is thrown when dereferencing an invalid enumerator (a C++ iterator).
-            /// </summary>
-            public class InvalidEnumeratorExpression : System.InvalidOperationException
-            {
-                public InvalidEnumeratorExpression() {}
-                public InvalidEnumeratorExpression(string message) : base(message) {}
-                public InvalidEnumeratorExpression(string message, Exception inner) : base(message, inner) {}
-            }
-
-            /// <summary>
             /// An internal function for allocating memory through C++.
             /// </summary>
             internal static unsafe void *_Alloc(nuint size)
@@ -414,6 +404,16 @@ public static partial class MR
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Free", ExactSpelling = true)]
                 extern static void __MR_C_Free(void *ptr);
                 __MR_C_Free(ptr);
+            }
+
+            /// <summary>
+            /// This is thrown when dereferencing an invalid enumerator (a C++ iterator).
+            /// </summary>
+            public class InvalidEnumeratorExpression : System.InvalidOperationException
+            {
+                public InvalidEnumeratorExpression() {}
+                public InvalidEnumeratorExpression(string message) : base(message) {}
+                public InvalidEnumeratorExpression(string message, Exception inner) : base(message, inner) {}
             }
 
         }

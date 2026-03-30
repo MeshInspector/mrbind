@@ -9,6 +9,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_flat_hash_set_int", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_flat_hash_set_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.FlatHashSet_Int._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_flat_hash_set_int(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -17,6 +19,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_flat_hash_map_int_float", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_flat_hash_map_int_float(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.FlatHashMap_Int_Float._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_flat_hash_map_int_float(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -25,6 +29,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_node_hash_set_int", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_node_hash_set_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.NodeHashSet_Int._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_node_hash_set_int(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -33,6 +39,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_node_hash_map_int_float", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_node_hash_map_int_float(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.NodeHashMap_Int_Float._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_node_hash_map_int_float(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -41,6 +49,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_parallel_flat_hash_set_int", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_parallel_flat_hash_set_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.ParallelFlatHashSet_Int._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_parallel_flat_hash_set_int(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -49,6 +59,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_parallel_flat_hash_map_int_float", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_parallel_flat_hash_map_int_float(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.ParallelFlatHashMap_Int_Float._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_parallel_flat_hash_map_int_float(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -57,6 +69,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_parallel_node_hash_set_int", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_parallel_node_hash_set_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.ParallelNodeHashSet_Int._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_parallel_node_hash_set_int(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -65,6 +79,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_parallel_node_hash_map_int_float", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_parallel_node_hash_map_int_float(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.ParallelNodeHashMap_Int_Float._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_parallel_node_hash_map_int_float(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -73,6 +89,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_btree_set_int", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_btree_set_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.BtreeSet_Int._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_btree_set_int(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -81,6 +99,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_btree_map_int_float", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_btree_map_int_float(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.BtreeMap_Int_Float._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_btree_map_int_float(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -89,6 +109,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_btree_multiset_int", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_btree_multiset_int(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.BtreeMultiset_Int._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_btree_multiset_int(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -97,6 +119,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Phmap_foo_phmap_btree_multimap_int_float", ExactSpelling = true)]
                 extern static void __MR_Phmap_foo_phmap_btree_multimap_int_float(MR.CS.Misc._PassBy _1_pass_by, MR.CS.Phmap.BtreeMultimap_Int_Float._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_Phmap_foo_phmap_btree_multimap_int_float(_1.PassByMode, _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
         }

@@ -31,7 +31,7 @@ void MR_StdSharedPtr_SetIntConstRef(const MR_C_std_shared_ptr_int *_1)
 {
     MRBINDC_TRY(
     ::MR::StdSharedPtr::SetIntConstRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::shared_ptr<int> *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const std::shared_ptr<int> *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -64,7 +64,7 @@ void MR_StdSharedPtr_SetIntLvalueRef(MR_C_std_shared_ptr_int *_1)
 {
     MRBINDC_TRY(
     ::MR::StdSharedPtr::SetIntLvalueRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(std::shared_ptr<int> *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(std::shared_ptr<int> *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -73,7 +73,7 @@ void MR_StdSharedPtr_SetIntLvalueConstRef(const MR_C_std_shared_ptr_int *_1)
 {
     MRBINDC_TRY(
     ::MR::StdSharedPtr::SetIntLvalueConstRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::shared_ptr<int> *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const std::shared_ptr<int> *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -82,7 +82,7 @@ void MR_StdSharedPtr_SetIntRvalueRef(MR_C_std_shared_ptr_int *_1)
 {
     MRBINDC_TRY(
     ::MR::StdSharedPtr::SetIntRvalueRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::move(*(std::shared_ptr<int> *)(_1)))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*(std::shared_ptr<int> *)(_1)))
     );
     ) // MRBINDC_TRY
 }
@@ -91,7 +91,7 @@ void MR_StdSharedPtr_SetIntRvalueConstRef(const MR_C_std_shared_ptr_int *_1)
 {
     MRBINDC_TRY(
     ::MR::StdSharedPtr::SetIntRvalueConstRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::move(*(const std::shared_ptr<int> *)(_1)))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*(const std::shared_ptr<int> *)(_1)))
     );
     ) // MRBINDC_TRY
 }
@@ -210,7 +210,7 @@ MR_StdSharedPtr_A *MR_StdSharedPtr_A_ConstructFromAnother(const MR_StdSharedPtr_
 {
     MRBINDC_TRY(
     return (MR_StdSharedPtr_A *)new MR::StdSharedPtr::A(MR::StdSharedPtr::A(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdSharedPtr::A(*(MR::StdSharedPtr::A *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::StdSharedPtr::A(*(MR::StdSharedPtr::A *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -232,8 +232,8 @@ void MR_StdSharedPtr_A_DestroyArray(const MR_StdSharedPtr_A *_this)
 MR_StdSharedPtr_A *MR_StdSharedPtr_A_AssignFromAnother(MR_StdSharedPtr_A *_this, const MR_StdSharedPtr_A *_other)
 {
     MRBINDC_TRY(
-    return (MR_StdSharedPtr_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdSharedPtr::A *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdSharedPtr::A(*(MR::StdSharedPtr::A *)_other))
+    return (MR_StdSharedPtr_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::StdSharedPtr::A *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::StdSharedPtr::A(*(MR::StdSharedPtr::A *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -259,7 +259,7 @@ void MR_StdSharedPtr_SetClassConstRef(const MR_C_std_shared_ptr_MR_StdSharedPtr_
 {
     MRBINDC_TRY(
     ::MR::StdSharedPtr::SetClassConstRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::shared_ptr<MR::StdSharedPtr::A> *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const std::shared_ptr<MR::StdSharedPtr::A> *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -292,7 +292,7 @@ void MR_StdSharedPtr_SetClassLvalueRef(MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1
 {
     MRBINDC_TRY(
     ::MR::StdSharedPtr::SetClassLvalueRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(std::shared_ptr<MR::StdSharedPtr::A> *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(std::shared_ptr<MR::StdSharedPtr::A> *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -301,7 +301,7 @@ void MR_StdSharedPtr_SetClassLvalueConstRef(const MR_C_std_shared_ptr_MR_StdShar
 {
     MRBINDC_TRY(
     ::MR::StdSharedPtr::SetClassLvalueConstRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::shared_ptr<MR::StdSharedPtr::A> *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const std::shared_ptr<MR::StdSharedPtr::A> *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -310,7 +310,7 @@ void MR_StdSharedPtr_SetClassRvalueRef(MR_C_std_shared_ptr_MR_StdSharedPtr_A *_1
 {
     MRBINDC_TRY(
     ::MR::StdSharedPtr::SetClassRvalueRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::move(*(std::shared_ptr<MR::StdSharedPtr::A> *)(_1)))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*(std::shared_ptr<MR::StdSharedPtr::A> *)(_1)))
     );
     ) // MRBINDC_TRY
 }
@@ -319,7 +319,7 @@ void MR_StdSharedPtr_SetClassRvalueConstRef(const MR_C_std_shared_ptr_MR_StdShar
 {
     MRBINDC_TRY(
     ::MR::StdSharedPtr::SetClassRvalueConstRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::move(*(const std::shared_ptr<MR::StdSharedPtr::A> *)(_1)))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*(const std::shared_ptr<MR::StdSharedPtr::A> *)(_1)))
     );
     ) // MRBINDC_TRY
 }

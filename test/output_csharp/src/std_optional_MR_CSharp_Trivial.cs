@@ -31,7 +31,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -39,8 +41,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -51,7 +55,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(MR.CS.CSharp.Trivial._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(other is not null ? other._UnderlyingPtr : null);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a new instance.
@@ -62,7 +68,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_has_value", ExactSpelling = true)]
                     extern static byte __MR_C_std_optional_MR_CSharp_Trivial_has_value(MR.CS.Std.Const_Optional_MRCSharpTrivial._Underlying *_this);
-                    return __MR_C_std_optional_MR_CSharp_Trivial_has_value(_this._UnderlyingPtr) != 0;
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_optional_MR_CSharp_Trivial_has_value(_this._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
                 }
 
                 /// The stored element or null if none, read-only.
@@ -70,10 +79,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_value", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Const_Trivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_value(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_optional_MR_CSharp_Trivial_value(_UnderlyingPtr);
                     MR.CS.CSharp.Const_Trivial? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.Const_Trivial(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
             }
@@ -89,7 +100,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -97,8 +110,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -109,7 +124,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_MRCSharpTrivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(MR.CS.CSharp.Trivial._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_MR_CSharp_Trivial_ConstructFrom(other is not null ? other._UnderlyingPtr : null);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a new instance.
@@ -120,8 +137,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_MRCSharpTrivial._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_optional_MR_CSharp_Trivial_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
@@ -130,6 +149,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_MR_CSharp_Trivial_AssignFrom(_Underlying *_this, MR.CS.CSharp.Trivial._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_optional_MR_CSharp_Trivial_AssignFrom(_UnderlyingPtr, other is not null ? other._UnderlyingPtr : null);
                 }
 
@@ -138,10 +159,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_MR_CSharp_Trivial_value_mut", ExactSpelling = true)]
                     extern static MR.CS.CSharp.Trivial._Underlying *__MR_C_std_optional_MR_CSharp_Trivial_value_mut(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_optional_MR_CSharp_Trivial_value_mut(_UnderlyingPtr);
                     MR.CS.CSharp.Trivial? __ret;
                     __ret = __c_ret is not null ? new MR.CS.CSharp.Trivial(__c_ret, is_owning: false) : null;
                     if (__ret is not null) __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
             }

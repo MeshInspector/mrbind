@@ -2,6 +2,8 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_unique_ptr_int32_t.h"
 
+#include <__mrbind_c_details.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <memory>
@@ -22,7 +24,7 @@ MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_DefaultConstructArray(s
 MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_ConstructFromAnother(const MR_C_std_unique_ptr_int32_t *other)
 {
     return (MR_C_std_unique_ptr_int32_t *)new std::unique_ptr<int32_t>(std::unique_ptr<int32_t>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unique_ptr<int32_t>(std::move(*(std::unique_ptr<int32_t> *)other)))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unique_ptr<int32_t>(std::move(*(std::unique_ptr<int32_t> *)other)))
     ));
 }
 
@@ -35,14 +37,14 @@ MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_ConstructFrom(int32_t *
 
 void MR_C_std_unique_ptr_int32_t_AssignFromAnother(MR_C_std_unique_ptr_int32_t *_this, const MR_C_std_unique_ptr_int32_t *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<int32_t> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unique_ptr<int32_t>(std::move(*(std::unique_ptr<int32_t> *)other)))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unique_ptr<int32_t> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unique_ptr<int32_t>(std::move(*(std::unique_ptr<int32_t> *)other)))
     );
 }
 
 void MR_C_std_unique_ptr_int32_t_AssignFrom(MR_C_std_unique_ptr_int32_t *_this, int32_t *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<int32_t> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unique_ptr<int32_t> *)(_this)).operator=(
         std::unique_ptr<int32_t>(other)
     );
 }
@@ -69,11 +71,11 @@ MR_C_std_unique_ptr_int32_t *MR_C_std_unique_ptr_int32_t_OffsetMutablePtr(MR_C_s
 
 int32_t *MR_C_std_unique_ptr_int32_t_get(const MR_C_std_unique_ptr_int32_t *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unique_ptr<int32_t> *)(_this)).get();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unique_ptr<int32_t> *)(_this)).get();
 }
 
 int32_t *MR_C_std_unique_ptr_int32_t_release(MR_C_std_unique_ptr_int32_t *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unique_ptr<int32_t> *)(_this)).release();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unique_ptr<int32_t> *)(_this)).release();
 }
 

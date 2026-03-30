@@ -1,5 +1,6 @@
 #include "binding_containers.h"
 
+#include <algorithm>
 #include <stdexcept>
 
 namespace mrbind::C
@@ -34,12 +35,12 @@ namespace mrbind::C
         mapped_elem_traits = params.is_map ? generator.FindTypeTraits(cpp_mapped_elem_type) : elem_traits;
 
         class_binder.traits.emplace();
-        class_binder.traits->is_default_constructible = true;
-        class_binder.traits->is_copy_constructible = elem_traits.is_copy_constructible && mapped_elem_traits.is_copy_constructible;
-        class_binder.traits->is_move_constructible = true;
-        class_binder.traits->is_copy_assignable = elem_traits.is_copy_assignable && mapped_elem_traits.is_copy_assignable;
-        class_binder.traits->is_move_assignable = true;
-        class_binder.traits->is_destructible = true;
+        class_binder.traits->default_constructible = CInterop::SpecialMemberKind::nontrivial_throwing; // May or may not be non-throwing. We can't know for sure, and MSVC STL likes to allocate sentinel nodes...
+        class_binder.traits->copy_constructible = std::min({elem_traits.copy_constructible, mapped_elem_traits.copy_constructible, CInterop::SpecialMemberKind::nontrivial_nonthrowing}); // Those can't be trivial.
+        class_binder.traits->move_constructible = CInterop::SpecialMemberKind::nontrivial_throwing; // May or may not be non-throwing. We can't know for sure, and MSVC STL likes to allocate sentinel nodes...
+        class_binder.traits->copy_assignable = std::min({elem_traits.copy_assignable, mapped_elem_traits.copy_assignable, CInterop::SpecialMemberKind::nontrivial_nonthrowing}); // Those can't be trivial.
+        class_binder.traits->move_assignable = CInterop::SpecialMemberKind::nontrivial_throwing; // May or may not be non-throwing. We can't know for sure, and MSVC STL likes to allocate sentinel nodes...
+        class_binder.traits->destructible = CInterop::SpecialMemberKind::nontrivial_nonthrowing; // Assuming this is non-throwing. Stdlib containers generally trigger UB on throwing element destructors.
         // All `is_trivial_...` traits are false.
         class_binder.traits->is_any_constructible = true;
 
@@ -59,11 +60,11 @@ namespace mrbind::C
         iterator_name.parts.emplace_back("iterator");
         auto iter = generator.type_alt_spelling_to_canonical.find(generator.CppdeclToCode(iterator_name));
         iterator_binder_mutable = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, {}, iter != generator.type_alt_spelling_to_canonical.end() ? generator.CppdeclToIdentifier(iter->second) : "");
-        iterator_binder_mutable.traits = Generator::TypeTraits::CopyableNonTrivialButCheap{};
+        iterator_binder_mutable.traits = Generator::TypeTraits::CopyableNonTrivialButCheapAndNonThrowing{}; // Those better not throw.
         iterator_name.parts.back().var = "const_iterator";
         iter = generator.type_alt_spelling_to_canonical.find(generator.CppdeclToCode(iterator_name));
         iterator_binder_const = HeapAllocatedClassBinder::ForCustomType(generator, iterator_name, {}, iter != generator.type_alt_spelling_to_canonical.end() ? generator.CppdeclToIdentifier(iter->second) : "");
-        iterator_binder_const.traits = Generator::TypeTraits::CopyableNonTrivialButCheap{};
+        iterator_binder_const.traits = Generator::TypeTraits::CopyableNonTrivialButCheapAndNonThrowing{}; // Those better not throw.
     }
 
     Generator::BindableType ContainerBinder::MakeBinding(Generator &generator)
@@ -173,7 +174,7 @@ namespace mrbind::C
                 }
 
                 // resize
-                if (params.has_resize && elem_traits.is_default_constructible)
+                if (params.has_resize && bool(elem_traits.default_constructible))
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Resizes the container. The new elements if any are zeroed.";
@@ -189,9 +190,9 @@ namespace mrbind::C
 
                 // resize with default value
                 if (
-                    params.has_resize && elem_traits.is_copy_constructible &&
+                    params.has_resize && bool(elem_traits.copy_constructible) &&
                     // libstdc++ (last tested on 15) is bugged and requires the element type to be assignable for this function, for vectors: https://gcc.gnu.org/bugzilla/show_bug.cgi?id=121348
-                    (params.insert_requires_assignment <= elem_traits.is_move_assignable)
+                    (params.insert_requires_assignment <= bool(elem_traits.move_assignable))
                 )
                 {
                     Generator::EmitFuncParams emit;
@@ -449,7 +450,7 @@ namespace mrbind::C
                         continue;
 
                     // Check assignability requirements.
-                    if ((is_front ? params.push_front_requires_assignment : params.push_back_requires_assignment) && !elem_traits.is_move_assignable)
+                    if ((is_front ? params.push_front_requires_assignment : params.push_back_requires_assignment) && !bool(elem_traits.move_assignable))
                         continue;
 
                     const std::string end_or_beginning = is_front ? "beginning" : "end";
@@ -482,7 +483,7 @@ namespace mrbind::C
 
                 // insert, without the iterator parameter
                 // Checking `insert_requires_assignment` here for consistency, but I don't think it matters right now.
-                if (params.is_set && !params.is_map && (params.insert_requires_assignment <= elem_traits.is_move_assignable))
+                if (params.is_set && !params.is_map && (params.insert_requires_assignment <= bool(elem_traits.move_assignable)))
                 {
                     Generator::EmitFuncParams emit;
                     emit.c_comment = "/// Inserts a new element.";
@@ -498,7 +499,7 @@ namespace mrbind::C
                 }
 
                 // insert and erase at index
-                if (params.iter_category >= IteratorCategory::random_access && (params.insert_requires_assignment <= elem_traits.is_move_assignable))
+                if (params.iter_category >= IteratorCategory::random_access && (params.insert_requires_assignment <= bool(elem_traits.move_assignable)))
                 {
                     { // insert
                         Generator::EmitFuncParams emit;
@@ -536,7 +537,7 @@ namespace mrbind::C
                 // We could omit those when dealing with random-access containers, but let's keep them for consistency with other containers.
                 // We also disable them for maps, because for maps we hide the underlying pairs.
                 // And we also disable them for sets, because there the iterator acts merely as an insertion hint, and we don't expose those hints to C.
-                if (!params.is_set && !params.is_map && (params.insert_requires_assignment <= elem_traits.is_move_assignable))
+                if (!params.is_set && !params.is_map && (params.insert_requires_assignment <= bool(elem_traits.move_assignable)))
                 {
                     for (bool is_const_iter : {false, true})
                     {

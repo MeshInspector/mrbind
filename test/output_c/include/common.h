@@ -40,12 +40,12 @@ MR_C_API void MR_C_FreeArray(void *ptr);
 /// `type_names` always has either the same size as `messages`, or one less element if the last exception has an unknown type (then the corresponding message is a placeholder).
 /// If the handler doesn't terminate the application, the function that threw the exception will return zero.
 /// If the handler is null, we don't attempt to catch exceptions. Then if the throwing function is called from C++ the callee might be able to catch the exception normally (unless the library is compiled with MSVC with `/EHc`).
-typedef void (*MR_C_SimpleExceptionHandlerFuncPtr)(const char *message);
+typedef void (*MR_C_ExceptionHandlerFuncPtr)(const char *const *messages, const char *const *type_names, void *userdata);
 
 /// The simple exception handler. Only receives the exception message, which is never null. When several exceptions are nested, their messages are joined with newlines.
 /// If the handler doesn't terminate the application, the function that threw the exception will return zero.
 /// If the handler is null, we don't attempt to catch exceptions. Then if the throwing function is called from C++ the callee might be able to catch the exception normally (unless the library is compiled with MSVC with `/EHc`).
-typedef void (*MR_C_ExceptionHandlerFuncPtr)(const char *const *messages, const char *const *type_names, void *userdata);
+typedef void (*MR_C_SimpleExceptionHandlerFuncPtr)(const char *message);
 
 /// Returns true if the C++ code was compiled with exceptions enabled.
 /// If this returns false, most other exception-related functions will do nothing.
@@ -67,6 +67,17 @@ MR_C_API void MR_C_SetExceptionHandler(MR_C_ExceptionHandlerFuncPtr func, void *
 
 /// Sets the current exception handler, using the simplified interface. This is not thread-safe.
 MR_C_API void MR_C_SetSimpleExceptionHandler(MR_C_SimpleExceptionHandlerFuncPtr func);
+
+/// Throws a C++ exception with the specified message.
+/// This is intended to be used from callbacks passed to C++.
+/// This doesn't directly call our C exception handling callbacks. Those are only called if this is used called in a callback (unrelated to exception handling), and the resulting exception would leak into the C code.
+/// If `MR_C_ExceptionSupportEnabled() == false`, terminates the application.
+MR_C_API void MR_C_ThrowException(const char *message);
+
+/// When called from a callback passed to `std::function`, copies the string, and throws a C++ exception with this message when the callback finishes executing.
+/// Must not be executed outside of a callback.
+/// This is an alternative to `MR_C_ThrowException()` that can be used if the callback is passed from a language that can't tolerate C++ exceptions being thrown across the language boundary with C++.
+MR_C_API void MR_C_ThrowExceptionOnCallbackExit(const char *message);
 
 // The deprecation attribute.
 #if !defined(MR_C_DEPRECATED) && !defined(MR_C_DEPRECATED_REASON)

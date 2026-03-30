@@ -41,7 +41,7 @@ MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_ConstructFromAnother(co
 {
     MRBINDC_TRY(
     return (MR_NestedTemplateInst_A_int *)new MR::NestedTemplateInst::A<int>(MR::NestedTemplateInst::A<int>(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::NestedTemplateInst::A<int>(*(MR::NestedTemplateInst::A<int> *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::NestedTemplateInst::A<int>(*(MR::NestedTemplateInst::A<int> *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -63,8 +63,8 @@ void MR_NestedTemplateInst_A_int_DestroyArray(const MR_NestedTemplateInst_A_int 
 MR_NestedTemplateInst_A_int *MR_NestedTemplateInst_A_int_AssignFromAnother(MR_NestedTemplateInst_A_int *_this, const MR_NestedTemplateInst_A_int *_other)
 {
     MRBINDC_TRY(
-    return (MR_NestedTemplateInst_A_int *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTemplateInst::A<int> *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::NestedTemplateInst::A<int>(*(MR::NestedTemplateInst::A<int> *)_other))
+    return (MR_NestedTemplateInst_A_int *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::NestedTemplateInst::A<int> *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::NestedTemplateInst::A<int>(*(MR::NestedTemplateInst::A<int> *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -101,7 +101,7 @@ MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_Const
 {
     MRBINDC_TRY(
     return (MR_NestedTemplateInst_A_int_AA_float *)new MR::NestedTemplateInst::A<int>::AA<float>(MR::NestedTemplateInst::A<int>::AA<float>(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::NestedTemplateInst::A<int>::AA<float>(*(MR::NestedTemplateInst::A<int>::AA<float> *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::NestedTemplateInst::A<int>::AA<float>(*(MR::NestedTemplateInst::A<int>::AA<float> *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -123,8 +123,8 @@ void MR_NestedTemplateInst_A_int_AA_float_DestroyArray(const MR_NestedTemplateIn
 MR_NestedTemplateInst_A_int_AA_float *MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother(MR_NestedTemplateInst_A_int_AA_float *_this, const MR_NestedTemplateInst_A_int_AA_float *_other)
 {
     MRBINDC_TRY(
-    return (MR_NestedTemplateInst_A_int_AA_float *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::NestedTemplateInst::A<int>::AA<float> *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::NestedTemplateInst::A<int>::AA<float>(*(MR::NestedTemplateInst::A<int>::AA<float> *)_other))
+    return (MR_NestedTemplateInst_A_int_AA_float *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::NestedTemplateInst::A<int>::AA<float> *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::NestedTemplateInst::A<int>::AA<float>(*(MR::NestedTemplateInst::A<int>::AA<float> *)_other))
     ));
     ) // MRBINDC_TRY
 }

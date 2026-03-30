@@ -27,7 +27,7 @@ MR_C_std_expected_MR_CSharp_Trivial_float *MR_C_std_expected_MR_CSharp_Trivial_f
 {
     MRBINDC_TRY(
     return (MR_C_std_expected_MR_CSharp_Trivial_float *)new std::expected<MR::CSharp::Trivial, float>(std::expected<MR::CSharp::Trivial, float>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<MR::CSharp::Trivial, float>(*(std::expected<MR::CSharp::Trivial, float> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::expected<MR::CSharp::Trivial, float>(*(std::expected<MR::CSharp::Trivial, float> *)other))
     ));
     ) // MRBINDC_TRY
 }
@@ -35,8 +35,8 @@ MR_C_std_expected_MR_CSharp_Trivial_float *MR_C_std_expected_MR_CSharp_Trivial_f
 void MR_C_std_expected_MR_CSharp_Trivial_float_AssignFromAnother(MR_C_std_expected_MR_CSharp_Trivial_float *_this, const MR_C_std_expected_MR_CSharp_Trivial_float *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<MR::CSharp::Trivial, float> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<MR::CSharp::Trivial, float>(*(std::expected<MR::CSharp::Trivial, float> *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::expected<MR::CSharp::Trivial, float> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::expected<MR::CSharp::Trivial, float>(*(std::expected<MR::CSharp::Trivial, float> *)other))
     );
     ) // MRBINDC_TRY
 }
@@ -72,14 +72,14 @@ MR_C_std_expected_MR_CSharp_Trivial_float *MR_C_std_expected_MR_CSharp_Trivial_f
 bool MR_C_std_expected_MR_CSharp_Trivial_float_success(const MR_C_std_expected_MR_CSharp_Trivial_float *_this)
 {
     MRBINDC_TRY(
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<MR::CSharp::Trivial, float> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::expected<MR::CSharp::Trivial, float> *)(_this)));
     ) // MRBINDC_TRY
 }
 
 const MR_CSharp_Trivial *MR_C_std_expected_MR_CSharp_Trivial_float_value(const MR_C_std_expected_MR_CSharp_Trivial_float *_this)
 {
     MRBINDC_TRY(
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<MR::CSharp::Trivial, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::expected<MR::CSharp::Trivial, float> *)(_this));
     return (const MR_CSharp_Trivial *)(_self ? &*_self : nullptr);
     ) // MRBINDC_TRY
 }
@@ -87,7 +87,7 @@ const MR_CSharp_Trivial *MR_C_std_expected_MR_CSharp_Trivial_float_value(const M
 const float *MR_C_std_expected_MR_CSharp_Trivial_float_error(const MR_C_std_expected_MR_CSharp_Trivial_float *_this)
 {
     MRBINDC_TRY(
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<MR::CSharp::Trivial, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::expected<MR::CSharp::Trivial, float> *)(_this));
     return _self ? nullptr : &_self.error();
     ) // MRBINDC_TRY
 }
@@ -95,7 +95,7 @@ const float *MR_C_std_expected_MR_CSharp_Trivial_float_error(const MR_C_std_expe
 MR_CSharp_Trivial *MR_C_std_expected_MR_CSharp_Trivial_float_value_mut(MR_C_std_expected_MR_CSharp_Trivial_float *_this)
 {
     MRBINDC_TRY(
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<MR::CSharp::Trivial, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::expected<MR::CSharp::Trivial, float> *)(_this));
     return (MR_CSharp_Trivial *)(_self ? &*_self : nullptr);
     ) // MRBINDC_TRY
 }
@@ -103,7 +103,7 @@ MR_CSharp_Trivial *MR_C_std_expected_MR_CSharp_Trivial_float_value_mut(MR_C_std_
 float *MR_C_std_expected_MR_CSharp_Trivial_float_error_mut(MR_C_std_expected_MR_CSharp_Trivial_float *_this)
 {
     MRBINDC_TRY(
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<MR::CSharp::Trivial, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::expected<MR::CSharp::Trivial, float> *)(_this));
     return _self ? nullptr : &_self.error();
     ) // MRBINDC_TRY
 }

@@ -2,6 +2,8 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_pair_const_int32_t_ref_const_float_ref.h"
 
+#include <__mrbind_c_details.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <memory>
@@ -12,7 +14,7 @@
 MR_C_std_pair_const_int32_t_ref_const_float_ref *MR_C_std_pair_const_int32_t_ref_const_float_ref_ConstructFromAnother(const MR_C_std_pair_const_int32_t_ref_const_float_ref *other)
 {
     return (MR_C_std_pair_const_int32_t_ref_const_float_ref *)new std::pair<const int32_t &, const float &>(std::pair<const int32_t &, const float &>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::pair<const int32_t &, const float &>(*(std::pair<const int32_t &, const float &> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::pair<const int32_t &, const float &>(*(std::pair<const int32_t &, const float &> *)other))
     ));
 }
 
@@ -39,18 +41,18 @@ MR_C_std_pair_const_int32_t_ref_const_float_ref *MR_C_std_pair_const_int32_t_ref
 MR_C_std_pair_const_int32_t_ref_const_float_ref *MR_C_std_pair_const_int32_t_ref_const_float_ref_Construct(const int32_t *first, const float *second)
 {
     return (MR_C_std_pair_const_int32_t_ref_const_float_ref *)new std::pair<const int32_t &, const float &>(std::pair<const int32_t &, const float &>(
-        ((first ? void() : throw std::runtime_error("Parameter `first` can not be null.")), *first),
-        ((second ? void() : throw std::runtime_error("Parameter `second` can not be null.")), *second)
+        ((first ? void() : MRBINDC_THROW("Parameter `first` can not be null.", void)), *first),
+        ((second ? void() : MRBINDC_THROW("Parameter `second` can not be null.", void)), *second)
     ));
 }
 
 const int32_t *MR_C_std_pair_const_int32_t_ref_const_float_ref_first(const MR_C_std_pair_const_int32_t_ref_const_float_ref *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const int32_t &, const float &> *)(_this)).first);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::pair<const int32_t &, const float &> *)(_this)).first);
 }
 
 const float *MR_C_std_pair_const_int32_t_ref_const_float_ref_second(const MR_C_std_pair_const_int32_t_ref_const_float_ref *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const int32_t &, const float &> *)(_this)).second);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::pair<const int32_t &, const float &> *)(_this)).second);
 }
 

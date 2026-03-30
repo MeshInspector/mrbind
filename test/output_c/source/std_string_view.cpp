@@ -26,7 +26,7 @@ MR_C_std_string_view *MR_C_std_string_view_ConstructFromAnother(const MR_C_std_s
 {
     MRBINDC_TRY(
     return (MR_C_std_string_view *)new std::string_view(std::string_view(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::string_view(*(std::string_view *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::string_view(*(std::string_view *)other))
     ));
     ) // MRBINDC_TRY
 }
@@ -35,7 +35,7 @@ MR_C_std_string_view *MR_C_std_string_view_ConstructFrom(const char *other, cons
 {
     MRBINDC_TRY(
     return (MR_C_std_string_view *)new std::string_view(std::string_view(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), (other_end ? std::string_view(other, other_end) : std::string_view(other)))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), (other_end ? std::string_view(other, other_end) : std::string_view(other)))
     ));
     ) // MRBINDC_TRY
 }
@@ -43,8 +43,8 @@ MR_C_std_string_view *MR_C_std_string_view_ConstructFrom(const char *other, cons
 void MR_C_std_string_view_AssignFromAnother(MR_C_std_string_view *_this, const MR_C_std_string_view *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string_view *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::string_view(*(std::string_view *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::string_view *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::string_view(*(std::string_view *)other))
     );
     ) // MRBINDC_TRY
 }
@@ -52,8 +52,8 @@ void MR_C_std_string_view_AssignFromAnother(MR_C_std_string_view *_this, const M
 void MR_C_std_string_view_AssignFrom(MR_C_std_string_view *_this, const char *other, const char *other_end)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::string_view *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), (other_end ? std::string_view(other, other_end) : std::string_view(other)))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::string_view *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), (other_end ? std::string_view(other, other_end) : std::string_view(other)))
     );
     ) // MRBINDC_TRY
 }
@@ -89,21 +89,21 @@ MR_C_std_string_view *MR_C_std_string_view_OffsetMutablePtr(MR_C_std_string_view
 size_t MR_C_std_string_view_size(const MR_C_std_string_view *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::string_view *)(_this)).size();
     ) // MRBINDC_TRY
 }
 
 const char *MR_C_std_string_view_data(const MR_C_std_string_view *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).data();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::string_view *)(_this)).data();
     ) // MRBINDC_TRY
 }
 
 const char *MR_C_std_string_view_data_end(const MR_C_std_string_view *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).data() + ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::string_view *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::string_view *)(_this)).data() + ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::string_view *)(_this)).size();
     ) // MRBINDC_TRY
 }
 

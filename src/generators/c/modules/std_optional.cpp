@@ -32,7 +32,7 @@ namespace mrbind::C::Modules
             // Copy the traits from the element type.
             // This will throw if the element type is unknown.
             binder.traits = generator.FindTypeTraits(cpp_elem_type);
-            binder.traits->is_trivially_default_constructible = false; // This can't be trivial, but the rest of the operations can probably be considered trivial enough.
+            binder.traits->default_constructible = std::min(binder.traits->default_constructible, CInterop::SpecialMemberKind::nontrivial_nonthrowing); // This can't be trivial, but the rest of the operations can probably be considered trivial enough.
 
             auto get_output_file = [
                 type,

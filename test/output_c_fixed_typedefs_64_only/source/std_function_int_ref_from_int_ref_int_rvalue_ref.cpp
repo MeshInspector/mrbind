@@ -31,7 +31,7 @@ MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *MR_C_std_function_int_ref
 void MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_AssignFromAnother(MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *_this, MR_C_PassBy other_pass_by, MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *other)
 {
     MRBINDC_CLASSARG_GUARD(other, std::function<int &(int &, int &&)>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int &(int &, int &&)> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<int &(int &, int &&)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_COPY(other, (std::function<int &(int &, int &&)>), std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_MOVE(other, (std::function<int &(int &, int &&)>), std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<int &(int &, int &&)>) MRBINDC_CLASSARG_END(other, std::function<int &(int &, int &&)>))
     );
 }
@@ -58,19 +58,19 @@ MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *MR_C_std_function_int_ref
 
 bool MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_has_value(const MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *_this)
 {
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<int &(int &, int &&)> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::function<int &(int &, int &&)> *)(_this)));
 }
 
 void MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_reset(MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int &(int &, int &&)> *)(_this)) = nullptr;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<int &(int &, int &&)> *)(_this)) = nullptr;
 }
 
 int *MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_call(const MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *_this, int *_1, int *_2)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<int &(int &, int &&)> *)(_this)).operator()(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *_1),
-        ((_2 ? void() : throw std::runtime_error("Parameter `_2` can not be null.")), std::move(*_2))
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::function<int &(int &, int &&)> *)(_this)).operator()(
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *_1),
+        ((_2 ? void() : MRBINDC_THROW("Parameter `_2` can not be null.", void)), std::move(*_2))
     ));
 }
 
@@ -82,13 +82,13 @@ MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *MR_C_std_function_int_ref
             std::addressof(_1),
             std::addressof(mrbindc_details::unmove(_2))
         );
-        return ((_return ? void() : throw std::runtime_error("Parameter `_return` can not be null.")), *_return);
+        return ((_return ? void() : MRBINDC_THROW("Parameter `_return` can not be null.", void)), *_return);
     }) : nullptr);
 }
 
 void MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_Assign(MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *_this, int *(*func)(int *_1, int *_2))
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int &(int &, int &&)> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<int &(int &, int &&)> *)(_this));
     if (!func)
     {
         _self = nullptr;
@@ -100,7 +100,7 @@ void MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_Assign(MR_C_std_funct
             std::addressof(_1),
             std::addressof(mrbindc_details::unmove(_2))
         );
-        return ((_return ? void() : throw std::runtime_error("Parameter `_return` can not be null.")), *_return);
+        return ((_return ? void() : MRBINDC_THROW("Parameter `_return` can not be null.", void)), *_return);
     };
 }
 
@@ -183,13 +183,14 @@ namespace
             };
             _cleanup_guard_type _cleanup_guard;
             _cleanup_guard._self = this;
+            
             decltype(auto) _return = _func(
                 std::addressof(_1),
                 std::addressof(mrbindc_details::unmove(_2)),
                 _userdata,
                 _postcall_cb ? &_cleanup_guard._value : nullptr
             );
-            return ((_return ? void() : throw std::runtime_error("Parameter `_return` can not be null.")), *_return);
+            return ((_return ? void() : MRBINDC_THROW("Parameter `_return` can not be null.", void)), *_return);
         }
     };
 }
@@ -201,7 +202,7 @@ MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *MR_C_std_function_int_ref
 
 void MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_AssignEx(MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref *_this, int *(*func)(int *_1, int *_2, void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<int &(int &, int &&)> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<int &(int &, int &&)> *)(_this));
     if (!func)
     {
         _self = nullptr;

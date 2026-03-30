@@ -22,7 +22,7 @@ MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_pair_MR_SeparateA_MR_SeparateB
 void MR_C_std_pair_MR_SeparateA_MR_SeparateB_AssignFromAnother(MR_C_std_pair_MR_SeparateA_MR_SeparateB *_this, MR_C_PassBy other_pass_by, MR_C_std_pair_MR_SeparateA_MR_SeparateB *other)
 {
     MRBINDC_CLASSARG_GUARD(other, std::pair<MR::SeparateA, MR::SeparateB>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<MR::SeparateA, MR::SeparateB> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::pair<MR::SeparateA, MR::SeparateB> *)(_this)).operator=(
         (MRBINDC_CLASSARG_COPY(other, (std::pair<MR::SeparateA, MR::SeparateB>), std::pair<MR::SeparateA, MR::SeparateB>) MRBINDC_CLASSARG_MOVE(other, (std::pair<MR::SeparateA, MR::SeparateB>), std::pair<MR::SeparateA, MR::SeparateB>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::pair<MR::SeparateA, MR::SeparateB>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::pair<MR::SeparateA, MR::SeparateB>) MRBINDC_CLASSARG_END(other, std::pair<MR::SeparateA, MR::SeparateB>))
     );
 }
@@ -59,21 +59,21 @@ MR_C_std_pair_MR_SeparateA_MR_SeparateB *MR_C_std_pair_MR_SeparateA_MR_SeparateB
 
 const MR_SeparateA *MR_C_std_pair_MR_SeparateA_MR_SeparateB_first(const MR_C_std_pair_MR_SeparateA_MR_SeparateB *_this)
 {
-    return (const MR_SeparateA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<MR::SeparateA, MR::SeparateB> *)(_this)).first);
+    return (const MR_SeparateA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::pair<MR::SeparateA, MR::SeparateB> *)(_this)).first);
 }
 
 MR_SeparateA *MR_C_std_pair_MR_SeparateA_MR_SeparateB_first_mut(MR_C_std_pair_MR_SeparateA_MR_SeparateB *_this)
 {
-    return (MR_SeparateA *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<MR::SeparateA, MR::SeparateB> *)(_this)).first);
+    return (MR_SeparateA *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::pair<MR::SeparateA, MR::SeparateB> *)(_this)).first);
 }
 
 const MR_SeparateB *MR_C_std_pair_MR_SeparateA_MR_SeparateB_second(const MR_C_std_pair_MR_SeparateA_MR_SeparateB *_this)
 {
-    return (const MR_SeparateB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<MR::SeparateA, MR::SeparateB> *)(_this)).second);
+    return (const MR_SeparateB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::pair<MR::SeparateA, MR::SeparateB> *)(_this)).second);
 }
 
 MR_SeparateB *MR_C_std_pair_MR_SeparateA_MR_SeparateB_second_mut(MR_C_std_pair_MR_SeparateA_MR_SeparateB *_this)
 {
-    return (MR_SeparateB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<MR::SeparateA, MR::SeparateB> *)(_this)).second);
+    return (MR_SeparateB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::pair<MR::SeparateA, MR::SeparateB> *)(_this)).second);
 }
 

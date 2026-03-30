@@ -175,23 +175,30 @@ namespace mrbind::CInterop
         )
     };
 
+    // Represents status of a member function.
+    // Useful operations on this are:
+    // * Cast to `bool` - check that the SMF exists.
+    // * `== trivial` - check that the SMF exists and is trivial (which implies non-throwing).
+    // * `>= nontrivial_nonthrowing` - check that the SMF exists and doesn't throw.
+    // * `std::min(...)` - choose the lowest common denominator.
+    MBREFL_ENUM( SpecialMemberKind,
+        // Those must be ordered in this exact way. This allows us to use min/max to combine the values.
+        (disabled) // No such member. This must be first.
+        (nontrivial_throwing) // Non-trivial, but can throw.
+        (nontrivial_nonthrowing) // Non-trivial, but can't throw.
+        (trivial) // Trivial, and by extension non-throwing.
+    )
+
     // Some select type traits.
     struct TypeTraits
     {
         MBREFL_STRUCT(
-            (bool)(is_default_constructible, false)
-            (bool)(is_copy_constructible, false)
-            (bool)(is_move_constructible, false)
-            (bool)(is_copy_assignable, false)
-            (bool)(is_move_assignable, false)
-            (bool)(is_destructible, false)
-
-            (bool)(is_trivially_default_constructible, false)
-            (bool)(is_trivially_copy_constructible, false)
-            (bool)(is_trivially_move_constructible, false)
-            (bool)(is_trivially_copy_assignable, false)
-            (bool)(is_trivially_move_assignable, false)
-            (bool)(is_trivially_destructible, false)
+            (SpecialMemberKind)(default_constructible, SpecialMemberKind::disabled)
+            (SpecialMemberKind)(copy_constructible, SpecialMemberKind::disabled)
+            (SpecialMemberKind)(move_constructible, SpecialMemberKind::disabled)
+            (SpecialMemberKind)(copy_assignable, SpecialMemberKind::disabled)
+            (SpecialMemberKind)(move_assignable, SpecialMemberKind::disabled)
+            (SpecialMemberKind)(destructible, SpecialMemberKind::disabled)
 
             // If true, the copy constructor has the form `T(T &)` instead of `T(const T &)`.
             (bool)(copy_constructor_takes_nonconst_ref, false)
@@ -202,25 +209,19 @@ namespace mrbind::CInterop
         //   using just a pointer.
         [[nodiscard]] bool IsCopyableOrTriviallyMovable() const
         {
-            return is_copy_constructible || is_trivially_move_constructible;
+            return bool(copy_constructible) || move_constructible == SpecialMemberKind::trivial;
         }
 
         // This is used to tie together all member of this class, and the similarly named methods of `Generator::TypeTraits`.`
         static auto TieSimilarType(auto &&input)
         {
             return std::tie(
-                input.is_default_constructible,
-                input.is_copy_constructible,
-                input.is_move_constructible,
-                input.is_copy_assignable,
-                input.is_move_assignable,
-                input.is_destructible,
-                input.is_trivially_default_constructible,
-                input.is_trivially_copy_constructible,
-                input.is_trivially_move_constructible,
-                input.is_trivially_copy_assignable,
-                input.is_trivially_move_assignable,
-                input.is_trivially_destructible,
+                input.default_constructible,
+                input.copy_constructible,
+                input.move_constructible,
+                input.copy_assignable,
+                input.move_assignable,
+                input.destructible,
                 input.copy_constructor_takes_nonconst_ref
             );
         }
@@ -668,6 +669,9 @@ namespace mrbind::CInterop
 
             // The platform information, propagated as is from the parser output.
             (PlatformInfo)(platform_info)
+
+            // Do the C bindings have exception handling enabled?
+            (bool)(exception_handling_enabled, false)
         )
 
         [[nodiscard]] const TypeDesc *FindTypeOpt(std::string_view type)

@@ -33,7 +33,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
@@ -41,8 +43,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.A_Int._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
@@ -62,7 +66,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
@@ -70,8 +76,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.A_Int._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TypedefsInTemplates::A<int>::A`.
@@ -82,9 +90,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.A_Int._Underlying *__MR_TypedefsInTemplates_A_int_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.A_Int._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_TypedefsInTemplates_A_int_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
-                    return new(__MR_TypedefsInTemplates_A_int_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
                 }
 
                 /// Generated from method `MR::TypedefsInTemplates::A<int>::foo`.
@@ -92,7 +103,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_A_int_foo", ExactSpelling = true)]
                     extern static int __MR_TypedefsInTemplates_A_int_foo(_Underlying *_this);
-                    return __MR_TypedefsInTemplates_A_int_foo(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_TypedefsInTemplates_A_int_foo(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
                 }
             }
 
@@ -153,7 +167,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
@@ -161,8 +177,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
@@ -195,7 +213,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct", ExactSpelling = true)]
                         extern static MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
@@ -203,8 +223,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *_other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
@@ -222,7 +244,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct", ExactSpelling = true)]
                         extern static MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
@@ -230,8 +254,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *_other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_BB_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Generated from constructor `MR::TypedefsInTemplates::B<int>::BB<float>::BB`.
@@ -242,9 +268,12 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother", ExactSpelling = true)]
                         extern static MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *__MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int.BB_Float._Underlying *_other);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                         _DiscardKeepAlive();
                         _KeepAlive(_other);
-                        return new(__MR_TypedefsInTemplates_B_int_BB_float_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return new(__c_ret, is_owning: false);
                     }
 
                     /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::foo`.
@@ -252,7 +281,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_foo", ExactSpelling = true)]
                         extern static int __MR_TypedefsInTemplates_B_int_BB_float_foo(_Underlying *_this);
-                        return __MR_TypedefsInTemplates_B_int_BB_float_foo(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_TypedefsInTemplates_B_int_BB_float_foo(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return __c_ret;
                     }
 
                     /// Generated from method `MR::TypedefsInTemplates::B<int>::BB<float>::foo2`.
@@ -260,7 +292,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_BB_float_foo2", ExactSpelling = true)]
                         extern static int __MR_TypedefsInTemplates_B_int_BB_float_foo2(_Underlying *_this);
-                        return __MR_TypedefsInTemplates_B_int_BB_float_foo2(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_TypedefsInTemplates_B_int_BB_float_foo2(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return __c_ret;
                     }
                 }
 
@@ -306,7 +341,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
@@ -314,8 +351,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_ConstructFromAnother(MR.CS.TypedefsInTemplates.B_Int._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_TypedefsInTemplates_B_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::TypedefsInTemplates::B<int>::B`.
@@ -326,9 +365,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_B_int_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.TypedefsInTemplates.B_Int._Underlying *__MR_TypedefsInTemplates_B_int_AssignFromAnother(_Underlying *_this, MR.CS.TypedefsInTemplates.B_Int._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_TypedefsInTemplates_B_int_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
-                    return new(__MR_TypedefsInTemplates_B_int_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
                 }
             }
 
@@ -367,6 +409,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TypedefsInTemplates_bar", ExactSpelling = true)]
                 extern static void __MR_TypedefsInTemplates_bar(int _1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_TypedefsInTemplates_bar(_1);
             }
         }

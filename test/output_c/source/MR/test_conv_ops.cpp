@@ -41,7 +41,7 @@ MR_ConvOps_A *MR_ConvOps_A_ConstructFromAnother(const MR_ConvOps_A *_other)
 {
     MRBINDC_TRY(
     return (MR_ConvOps_A *)new MR::ConvOps::A(MR::ConvOps::A(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::ConvOps::A(*(MR::ConvOps::A *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::ConvOps::A(*(MR::ConvOps::A *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -63,15 +63,15 @@ void MR_ConvOps_A_DestroyArray(const MR_ConvOps_A *_this)
 bool MR_ConvOps_A_ConvertTo_bool(const MR_ConvOps_A *_this)
 {
     MRBINDC_TRY(
-    return (bool)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::ConvOps::A *)(_this)));
+    return (bool)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::ConvOps::A *)(_this)));
     ) // MRBINDC_TRY
 }
 
 MR_ConvOps_A *MR_ConvOps_A_AssignFromAnother(MR_ConvOps_A *_this, const MR_ConvOps_A *_other)
 {
     MRBINDC_TRY(
-    return (MR_ConvOps_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::ConvOps::A *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::ConvOps::A(*(MR::ConvOps::A *)_other))
+    return (MR_ConvOps_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::ConvOps::A *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::ConvOps::A(*(MR::ConvOps::A *)_other))
     ));
     ) // MRBINDC_TRY
 }

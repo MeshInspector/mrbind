@@ -33,8 +33,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CommonBaseAB_ConstructFromAnother", ExactSpelling = true)]
                 extern static MR.CS.CommonBaseAB._Underlying *__MR_CommonBaseAB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CommonBaseAB._Underlying *_other);
+                MR.CS.Misc._Exceptions.Prepare();
                 _UnderlyingPtr = __MR_CommonBaseAB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
             }
 
             /// Generated from constructor `MR::CommonBaseAB::CommonBaseAB`.
@@ -59,8 +61,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CommonBaseAB_ConstructFromAnother", ExactSpelling = true)]
                 extern static MR.CS.CommonBaseAB._Underlying *__MR_CommonBaseAB_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.CommonBaseAB._Underlying *_other);
+                MR.CS.Misc._Exceptions.Prepare();
                 _UnderlyingPtr = __MR_CommonBaseAB_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 if (_other.Value is not null) _KeepAlive(_other.Value);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
             }
 
             /// Generated from constructor `MR::CommonBaseAB::CommonBaseAB`.
@@ -74,11 +78,14 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CommonBaseAB_AssignFromAnother", ExactSpelling = true)]
                 extern static MR.CS.CommonBaseAB._Underlying *__MR_CommonBaseAB_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy _other_pass_by, MR.CS.CommonBaseAB._Underlying *_other);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_CommonBaseAB_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                 MR.CS.CommonBaseAB __ret;
-                __ret = new(__MR_CommonBaseAB_AssignFromAnother(_UnderlyingPtr, _other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null), is_owning: false);
+                __ret = new(__c_ret, is_owning: false);
                 _DiscardKeepAlive();
                 if (_other.Value is not null) _KeepAlive(_other.Value);
                 __ret._KeepAlive(this);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 return __ret;
             }
         }
@@ -137,7 +144,10 @@ public static partial class MR
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_mark_shared_common_base_ab", ExactSpelling = true)]
             extern static MR.CS.Std.SharedPtr_MRCommonBaseAB._Underlying *__MR_mark_shared_common_base_ab();
-            return new(__MR_mark_shared_common_base_ab(), is_owning: true);
+            MR.CS.Misc._Exceptions.Prepare();
+            var __c_ret = __MR_mark_shared_common_base_ab();
+            MR.CS.Misc._Exceptions.ThrowIfNeeded();
+            return new(__c_ret, is_owning: true);
         }
     }
 }

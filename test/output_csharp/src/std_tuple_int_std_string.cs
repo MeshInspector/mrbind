@@ -31,7 +31,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_std_string_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Tuple_Int_StdString._Underlying *__MR_C_std_tuple_int_std_string_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_int_std_string_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -39,8 +41,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Tuple_Int_StdString._Underlying *__MR_C_std_tuple_int_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Tuple_Int_StdString._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_int_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -57,7 +61,9 @@ public static partial class MR
                     byte[] __bytes__1 = System.Text.Encoding.UTF8.GetBytes(_1);
                     fixed (byte *__ptr__1 = __bytes__1)
                     {
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_tuple_int_std_string_Construct(_0, __ptr__1, __ptr__1 + __bytes__1.Length);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
                 }
 
@@ -66,7 +72,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_std_string_get_int", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_int_std_string_get_int(_Underlying *_this);
-                    return *__MR_C_std_tuple_int_std_string_get_int(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_tuple_int_std_string_get_int(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return *__c_ret;
                 }
 
                 /// The element 1, of type `std::string`, read-only.
@@ -74,9 +83,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_std_string_get_std_string", ExactSpelling = true)]
                     extern static MR.CS.Std.Const_String._Underlying *__MR_C_std_tuple_int_std_string_get_std_string(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_tuple_int_std_string_get_std_string(_UnderlyingPtr);
                     MR.CS.Std.Const_String __ret;
-                    __ret = new(__MR_C_std_tuple_int_std_string_get_std_string(_UnderlyingPtr), is_owning: false);
+                    __ret = new(__c_ret, is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 
@@ -100,7 +112,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_std_string_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Tuple_Int_StdString._Underlying *__MR_C_std_tuple_int_std_string_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_int_std_string_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -108,8 +122,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Tuple_Int_StdString._Underlying *__MR_C_std_tuple_int_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Tuple_Int_StdString._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_tuple_int_std_string_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -123,8 +139,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_std_string_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_tuple_int_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Tuple_Int_StdString._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_tuple_int_std_string_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -136,7 +154,9 @@ public static partial class MR
                     byte[] __bytes__1 = System.Text.Encoding.UTF8.GetBytes(_1);
                     fixed (byte *__ptr__1 = __bytes__1)
                     {
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_tuple_int_std_string_Construct(_0, __ptr__1, __ptr__1 + __bytes__1.Length);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
                 }
 
@@ -145,7 +165,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_std_string_get_int_mut", ExactSpelling = true)]
                     extern static int *__MR_C_std_tuple_int_std_string_get_int_mut(_Underlying *_this);
-                    return ref *__MR_C_std_tuple_int_std_string_get_int_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_tuple_int_std_string_get_int_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return ref *__c_ret;
                 }
 
                 /// The element 1, of type `std::string`, mutable.
@@ -153,9 +176,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_tuple_int_std_string_get_std_string_mut", ExactSpelling = true)]
                     extern static MR.CS.Std.String._Underlying *__MR_C_std_tuple_int_std_string_get_std_string_mut(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_tuple_int_std_string_get_std_string_mut(_UnderlyingPtr);
                     MR.CS.Std.String __ret;
-                    __ret = new(__MR_C_std_tuple_int_std_string_get_std_string_mut(_UnderlyingPtr), is_owning: false);
+                    __ret = new(__c_ret, is_owning: false);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 

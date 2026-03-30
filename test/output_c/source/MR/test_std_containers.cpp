@@ -51,7 +51,7 @@ void MR_StdContainers_WriteToRef(MR_C_std_vector_int *_1)
 {
     MRBINDC_TRY(
     ::MR::StdContainers::WriteToRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(std::vector<int> *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(std::vector<int> *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -69,7 +69,7 @@ void MR_StdContainers_ConstRef(const MR_C_std_vector_int *_1)
 {
     MRBINDC_TRY(
     ::MR::StdContainers::ConstRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const std::vector<int> *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const std::vector<int> *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -78,7 +78,7 @@ void MR_StdContainers_RvalueRef(MR_C_std_vector_int *_1)
 {
     MRBINDC_TRY(
     ::MR::StdContainers::RvalueRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::move(*(std::vector<int> *)(_1)))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*(std::vector<int> *)(_1)))
     );
     ) // MRBINDC_TRY
 }
@@ -87,7 +87,7 @@ void MR_StdContainers_ConstRvalueRef(const MR_C_std_vector_int *_1)
 {
     MRBINDC_TRY(
     ::MR::StdContainers::ConstRvalueRef(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::move(*(const std::vector<int> *)(_1)))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*(const std::vector<int> *)(_1)))
     );
     ) // MRBINDC_TRY
 }
@@ -194,7 +194,7 @@ MR_StdContainers_A *MR_StdContainers_A_ConstructFromAnother(const MR_StdContaine
 {
     MRBINDC_TRY(
     return (MR_StdContainers_A *)new MR::StdContainers::A(MR::StdContainers::A(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdContainers::A(*(MR::StdContainers::A *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::StdContainers::A(*(MR::StdContainers::A *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -216,8 +216,8 @@ void MR_StdContainers_A_DestroyArray(const MR_StdContainers_A *_this)
 MR_StdContainers_A *MR_StdContainers_A_AssignFromAnother(MR_StdContainers_A *_this, const MR_StdContainers_A *_other)
 {
     MRBINDC_TRY(
-    return (MR_StdContainers_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdContainers::A *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdContainers::A(*(MR::StdContainers::A *)_other))
+    return (MR_StdContainers_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::StdContainers::A *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::StdContainers::A(*(MR::StdContainers::A *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -279,7 +279,7 @@ MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructib
 {
     MRBINDC_TRY(
     return (MR_StdContainers_NonDefaultConstructible *)new MR::StdContainers::NonDefaultConstructible(MR::StdContainers::NonDefaultConstructible(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdContainers::NonDefaultConstructible(*(MR::StdContainers::NonDefaultConstructible *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::StdContainers::NonDefaultConstructible(*(MR::StdContainers::NonDefaultConstructible *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -324,8 +324,8 @@ void MR_StdContainers_NonDefaultConstructible_DestroyArray(const MR_StdContainer
 MR_StdContainers_NonDefaultConstructible *MR_StdContainers_NonDefaultConstructible_AssignFromAnother(MR_StdContainers_NonDefaultConstructible *_this, const MR_StdContainers_NonDefaultConstructible *_other)
 {
     MRBINDC_TRY(
-    return (MR_StdContainers_NonDefaultConstructible *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::StdContainers::NonDefaultConstructible *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::StdContainers::NonDefaultConstructible(*(MR::StdContainers::NonDefaultConstructible *)_other))
+    return (MR_StdContainers_NonDefaultConstructible *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::StdContainers::NonDefaultConstructible *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::StdContainers::NonDefaultConstructible(*(MR::StdContainers::NonDefaultConstructible *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -393,7 +393,7 @@ bool MR_C_less_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssignab
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(_1, MR::StdContainers::NonAssignable);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::StdContainers::NonAssignable *)(_this)).operator<(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::StdContainers::NonAssignable *)(_this)).operator<(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(_1, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(_1, MR::StdContainers::NonAssignable))
     );
     ) // MRBINDC_TRY
@@ -403,7 +403,7 @@ bool MR_C_equal_MR_StdContainers_NonAssignable(const MR_StdContainers_NonAssigna
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(_1, MR::StdContainers::NonAssignable);
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::StdContainers::NonAssignable *)(_this)).operator==(
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::StdContainers::NonAssignable *)(_this)).operator==(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_COPY(_1, (MR::StdContainers::NonAssignable), MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_DefaultArgument, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, MR::StdContainers::NonAssignable) MRBINDC_CLASSARG_END(_1, MR::StdContainers::NonAssignable))
     );
     ) // MRBINDC_TRY

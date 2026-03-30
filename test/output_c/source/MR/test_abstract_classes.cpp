@@ -12,7 +12,7 @@
 void MR_AbstractClasses_A_foo(MR_AbstractClasses_A *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AbstractClasses::A *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::AbstractClasses::A *)(_this)).foo();
     ) // MRBINDC_TRY
 }
 
@@ -47,7 +47,7 @@ void MR_AbstractClasses_B_DestroyArray(const MR_AbstractClasses_B *_this)
 void MR_AbstractClasses_B_foo(MR_AbstractClasses_B *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AbstractClasses::B *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::AbstractClasses::B *)(_this)).foo();
     ) // MRBINDC_TRY
 }
 
@@ -82,7 +82,7 @@ void MR_AbstractClasses_C_DestroyArray(const MR_AbstractClasses_C *_this)
 void MR_AbstractClasses_C_foo(MR_AbstractClasses_C *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AbstractClasses::C *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::AbstractClasses::C *)(_this)).foo();
     ) // MRBINDC_TRY
 }
 
@@ -158,7 +158,7 @@ const MR_AbstractClasses_C *MR_AbstractClasses_C_DynamicDowncastFromOrFail_MR_Ab
 {
     MRBINDC_TRY(
     return (const MR_AbstractClasses_C *)std::addressof(dynamic_cast<const MR::AbstractClasses::C &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::AbstractClasses::B *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(const MR::AbstractClasses::B *)(object))
     ));
     ) // MRBINDC_TRY
 }
@@ -167,7 +167,7 @@ MR_AbstractClasses_C *MR_AbstractClasses_C_MutableDynamicDowncastFromOrFail_MR_A
 {
     MRBINDC_TRY(
     return (MR_AbstractClasses_C *)std::addressof(dynamic_cast<MR::AbstractClasses::C &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::AbstractClasses::B *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(MR::AbstractClasses::B *)(object))
     ));
     ) // MRBINDC_TRY
 }

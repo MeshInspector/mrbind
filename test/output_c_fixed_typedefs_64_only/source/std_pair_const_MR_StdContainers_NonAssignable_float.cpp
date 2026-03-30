@@ -51,16 +51,16 @@ MR_C_std_pair_const_MR_StdContainers_NonAssignable_float *MR_C_std_pair_const_MR
 
 const MR_StdContainers_NonAssignable *MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_first(const MR_C_std_pair_const_MR_StdContainers_NonAssignable_float *_this)
 {
-    return (const MR_StdContainers_NonAssignable *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const MR::StdContainers::NonAssignable, float> *)(_this)).first);
+    return (const MR_StdContainers_NonAssignable *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::pair<const MR::StdContainers::NonAssignable, float> *)(_this)).first);
 }
 
 const float *MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second(const MR_C_std_pair_const_MR_StdContainers_NonAssignable_float *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const MR::StdContainers::NonAssignable, float> *)(_this)).second);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::pair<const MR::StdContainers::NonAssignable, float> *)(_this)).second);
 }
 
 float *MR_C_std_pair_const_MR_StdContainers_NonAssignable_float_second_mut(MR_C_std_pair_const_MR_StdContainers_NonAssignable_float *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<const MR::StdContainers::NonAssignable, float> *)(_this)).second);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::pair<const MR::StdContainers::NonAssignable, float> *)(_this)).second);
 }
 

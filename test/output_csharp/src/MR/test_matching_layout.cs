@@ -266,8 +266,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
                     *(MR.CS.MatchingLayout.B *)_UnderlyingPtr = __MR_MatchingLayout_B_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
             }
 
@@ -304,8 +306,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = (_Underlying *)MR.CS.Misc._Alloc(136);
                     *(MR.CS.MatchingLayout.B *)_UnderlyingPtr = __MR_MatchingLayout_B_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
             }
 
@@ -334,7 +338,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_B_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_B_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     this = __MR_MatchingLayout_B_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
             }
 
@@ -412,7 +418,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_foo", ExactSpelling = true)]
                 extern static MR.CS.MatchingLayout.B __MR_MatchingLayout_foo();
-                return __MR_MatchingLayout_foo();
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_MatchingLayout_foo();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             /// Generated from function `MR::MatchingLayout::bar`.
@@ -420,6 +429,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_bar", ExactSpelling = true)]
                 extern static void __MR_MatchingLayout_bar(MR.CS.MatchingLayout.B _1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_MatchingLayout_bar(_1);
             }
 
@@ -429,6 +440,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_baz", ExactSpelling = true)]
                 extern static void __MR_MatchingLayout_baz(MR.CS.MatchingLayout.B *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_MatchingLayout_baz(_1.HasValue ? &_1.Object : null);
             }
 
@@ -437,9 +450,11 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_MatchingLayout_bleh", ExactSpelling = true)]
                 extern static MR.CS.MatchingLayout.B *__MR_MatchingLayout_bleh(MR.CS.MatchingLayout.B *_1);
+                MR.CS.Misc._Exceptions.Prepare();
                 MR.CS.MatchingLayout.B __value__1 = _1 is not null ? _1.Value : default(MR.CS.MatchingLayout.B);
                 var __c_ret = __MR_MatchingLayout_bleh(_1 is not null ? &__value__1 : null);
                 if (_1 is not null) _1.Value = __value__1;
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 return __c_ret is not null ? new MR.CS.Misc.Ref<MR.CS.MatchingLayout.B>(__c_ret) : null;
             }
         }

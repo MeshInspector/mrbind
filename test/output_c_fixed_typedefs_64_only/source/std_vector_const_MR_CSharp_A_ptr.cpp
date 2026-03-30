@@ -31,7 +31,7 @@ MR_C_std_vector_const_MR_CSharp_A_ptr *MR_C_std_vector_const_MR_CSharp_A_ptr_Con
 void MR_C_std_vector_const_MR_CSharp_A_ptr_AssignFromAnother(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, MR_C_PassBy other_pass_by, MR_C_std_vector_const_MR_CSharp_A_ptr *other)
 {
     MRBINDC_CLASSARG_GUARD(other, std::vector<const MR::CSharp::A *>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::vector<const MR::CSharp::A *>) MRBINDC_CLASSARG_COPY(other, (std::vector<const MR::CSharp::A *>), std::vector<const MR::CSharp::A *>) MRBINDC_CLASSARG_MOVE(other, (std::vector<const MR::CSharp::A *>), std::vector<const MR::CSharp::A *>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::vector<const MR::CSharp::A *>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::vector<const MR::CSharp::A *>) MRBINDC_CLASSARG_END(other, std::vector<const MR::CSharp::A *>))
     );
 }
@@ -58,24 +58,24 @@ MR_C_std_vector_const_MR_CSharp_A_ptr *MR_C_std_vector_const_MR_CSharp_A_ptr_Off
 
 size_t MR_C_std_vector_const_MR_CSharp_A_ptr_size(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).size();
 }
 
 bool MR_C_std_vector_const_MR_CSharp_A_ptr_empty(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).empty();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).empty();
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_resize(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, size_t new_size)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).resize(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).resize(
         new_size
     );
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_resize_with_default_value(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, size_t new_size, const MR_CSharp_A *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).resize(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).resize(
         new_size,
         ((const MR::CSharp::A *)value)
     );
@@ -83,160 +83,160 @@ void MR_C_std_vector_const_MR_CSharp_A_ptr_resize_with_default_value(MR_C_std_ve
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_clear(MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).clear();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).clear();
 }
 
 size_t MR_C_std_vector_const_MR_CSharp_A_ptr_capacity(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).capacity();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).capacity();
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_reserve(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, size_t new_capacity)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).reserve(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).reserve(
         new_capacity
     );
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_shrink_to_fit(MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).shrink_to_fit();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).shrink_to_fit();
 }
 
 const MR_CSharp_A *const *MR_C_std_vector_const_MR_CSharp_A_ptr_at(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this, size_t i)
 {
-    return (const MR_CSharp_A *const *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).at(
+    return (const MR_CSharp_A *const *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).at(
         i
     ));
 }
 
 const MR_CSharp_A **MR_C_std_vector_const_MR_CSharp_A_ptr_at_mut(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, size_t i)
 {
-    return (const MR_CSharp_A **)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).at(
+    return (const MR_CSharp_A **)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).at(
         i
     ));
 }
 
 const MR_CSharp_A *const *MR_C_std_vector_const_MR_CSharp_A_ptr_front(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    return (const MR_CSharp_A *const *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).front());
+    return (const MR_CSharp_A *const *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).empty() ? nullptr : &((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).front());
 }
 
 const MR_CSharp_A **MR_C_std_vector_const_MR_CSharp_A_ptr_front_mut(MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    return (const MR_CSharp_A **)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).front());
+    return (const MR_CSharp_A **)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).empty() ? nullptr : &((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).front());
 }
 
 const MR_CSharp_A *const *MR_C_std_vector_const_MR_CSharp_A_ptr_back(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    return (const MR_CSharp_A *const *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).back());
+    return (const MR_CSharp_A *const *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).empty() ? nullptr : &((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).back());
 }
 
 const MR_CSharp_A **MR_C_std_vector_const_MR_CSharp_A_ptr_back_mut(MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    return (const MR_CSharp_A **)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).empty() ? nullptr : &((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).back());
+    return (const MR_CSharp_A **)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).empty() ? nullptr : &((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).back());
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_push_back(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, const MR_CSharp_A *new_elem)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).push_back(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).push_back(
         ((const MR::CSharp::A *)new_elem)
     );
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_pop_back(MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).pop_back();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).pop_back();
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_insert(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, size_t position, const MR_CSharp_A *new_elem)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).insert(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).begin() + ptrdiff_t(position), ((const MR::CSharp::A *)new_elem));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).insert(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).begin() + ptrdiff_t(position), ((const MR::CSharp::A *)new_elem));
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_erase(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, size_t position)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).erase(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).begin() + ptrdiff_t(position));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).erase(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).begin() + ptrdiff_t(position));
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_insert_at_mutable_iter(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *position, const MR_CSharp_A *new_elem)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).insert(
-        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)position)),
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).insert(
+        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)position)),
         ((const MR::CSharp::A *)new_elem)
     );
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_erase_at_mutable_iter(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *position)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).erase(
-        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)position))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).erase(
+        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)position))
     );
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_insert_at_iter(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *position, const MR_CSharp_A *new_elem)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).insert(
-        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)position)),
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).insert(
+        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)position)),
         ((const MR::CSharp::A *)new_elem)
     );
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_erase_at_iter(MR_C_std_vector_const_MR_CSharp_A_ptr *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *position)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).erase(
-        ((position ? void() : throw std::runtime_error("Parameter `position` can not be null.")), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)position))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).erase(
+        ((position ? void() : MRBINDC_THROW("Parameter `position` can not be null.", void)), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)position))
     );
 }
 
 MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *MR_C_std_vector_const_MR_CSharp_A_ptr_begin(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    return (MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *)new std::vector<const MR::CSharp::A *>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).cbegin());
+    return (MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *)new std::vector<const MR::CSharp::A *>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).cbegin());
 }
 
 bool MR_C_std_vector_const_MR_CSharp_A_ptr_is_begin(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<const MR::CSharp::A *>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::vector<const MR::CSharp::A *>::const_iterator *)(iter));
 }
 
 MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *MR_C_std_vector_const_MR_CSharp_A_ptr_begin_mut(MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    return (MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *)new std::vector<const MR::CSharp::A *>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).begin());
+    return (MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *)new std::vector<const MR::CSharp::A *>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).begin());
 }
 
 bool MR_C_std_vector_const_MR_CSharp_A_ptr_is_begin_mut(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<const MR::CSharp::A *>::iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).begin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::vector<const MR::CSharp::A *>::iterator *)(iter));
 }
 
 MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *MR_C_std_vector_const_MR_CSharp_A_ptr_end(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    return (MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *)new std::vector<const MR::CSharp::A *>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).cend());
+    return (MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *)new std::vector<const MR::CSharp::A *>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).cend());
 }
 
 bool MR_C_std_vector_const_MR_CSharp_A_ptr_is_end(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<const MR::CSharp::A *>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).cend() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::vector<const MR::CSharp::A *>::const_iterator *)(iter));
 }
 
 MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *MR_C_std_vector_const_MR_CSharp_A_ptr_end_mut(MR_C_std_vector_const_MR_CSharp_A_ptr *_this)
 {
-    return (MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *)new std::vector<const MR::CSharp::A *>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *> *)(_this)).end());
+    return (MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *)new std::vector<const MR::CSharp::A *>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *> *)(_this)).end());
 }
 
 bool MR_C_std_vector_const_MR_CSharp_A_ptr_is_end_mut(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::vector<const MR::CSharp::A *>::iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).end() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::vector<const MR::CSharp::A *>::iterator *)(iter));
 }
 
 ptrdiff_t MR_C_std_vector_const_MR_CSharp_A_ptr_to_index(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *iter)
 {
-    return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).cbegin();
+    return ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)iter)) - ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).cbegin();
 }
 
 ptrdiff_t MR_C_std_vector_const_MR_CSharp_A_ptr_to_index_mut(const MR_C_std_vector_const_MR_CSharp_A_ptr *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *iter)
 {
-    return ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)iter)) - ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *> *)(_this)).begin();
+    return ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)iter)) - ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *> *)(_this)).begin();
 }
 
 MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_DefaultConstruct(void)
@@ -252,14 +252,14 @@ MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *MR_C_std_vector_const_MR_C
 MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_ConstructFromAnother(const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *other)
 {
     return (MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *)new std::vector<const MR::CSharp::A *>::const_iterator(std::vector<const MR::CSharp::A *>::const_iterator(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)other))
     ));
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_AssignFromAnother(MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *>::const_iterator *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *>::const_iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)other))
     );
 }
 
@@ -286,7 +286,7 @@ MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *MR_C_std_vector_const_MR_C
 MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_from_mutable(const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *iter)
 {
     return (MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *)new std::vector<const MR::CSharp::A *>::const_iterator(std::vector<const MR::CSharp::A *>::iterator(
-        ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)iter))
+        ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)iter))
     ));
 }
 
@@ -303,14 +303,14 @@ MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *MR_C_std_vector_const_MR_CSharp_
 MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *MR_C_std_vector_const_MR_CSharp_A_ptr_iterator_ConstructFromAnother(const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *other)
 {
     return (MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *)new std::vector<const MR::CSharp::A *>::iterator(std::vector<const MR::CSharp::A *>::iterator(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)other))
     ));
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_iterator_AssignFromAnother(MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *_this, const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *>::iterator *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *>::iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)other))
     );
 }
 
@@ -336,61 +336,61 @@ MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *MR_C_std_vector_const_MR_CSharp_
 
 const MR_CSharp_A *const *MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_deref(const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *_this)
 {
-    return (const MR_CSharp_A *const *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *>::const_iterator *)(_this)));
+    return (const MR_CSharp_A *const *)std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *>::const_iterator *)(_this)));
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_incr(MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *_this)
 {
-    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *>::const_iterator *)(_this));
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *>::const_iterator *)(_this));
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_decr(MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *_this)
 {
-    --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *>::const_iterator *)(_this));
+    --((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *>::const_iterator *)(_this));
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_add_assign(MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *_this, ptrdiff_t delta)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *>::const_iterator *)(_this)) += delta;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *>::const_iterator *)(_this)) += delta;
 }
 
 ptrdiff_t MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator(const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *a, const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *b)
 {
-    return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)a));
+    return ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)b)) - ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)a));
 }
 
 bool MR_C_equal_MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator(const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *a, const MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator *b)
 {
-    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)b));
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::vector<const MR::CSharp::A *>::const_iterator(*(std::vector<const MR::CSharp::A *>::const_iterator *)b));
 }
 
 const MR_CSharp_A **MR_C_std_vector_const_MR_CSharp_A_ptr_iterator_deref(const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *_this)
 {
-    return (const MR_CSharp_A **)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::vector<const MR::CSharp::A *>::iterator *)(_this)));
+    return (const MR_CSharp_A **)std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::vector<const MR::CSharp::A *>::iterator *)(_this)));
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_iterator_incr(MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *_this)
 {
-    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *>::iterator *)(_this));
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *>::iterator *)(_this));
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_iterator_decr(MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *_this)
 {
-    --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *>::iterator *)(_this));
+    --((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *>::iterator *)(_this));
 }
 
 void MR_C_std_vector_const_MR_CSharp_A_ptr_iterator_add_assign(MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *_this, ptrdiff_t delta)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::vector<const MR::CSharp::A *>::iterator *)(_this)) += delta;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::vector<const MR::CSharp::A *>::iterator *)(_this)) += delta;
 }
 
 ptrdiff_t MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_iterator(const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *a, const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *b)
 {
-    return ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)b)) - ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)a));
+    return ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)b)) - ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)a));
 }
 
 bool MR_C_equal_MR_C_std_vector_const_MR_CSharp_A_ptr_iterator(const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *a, const MR_C_std_vector_const_MR_CSharp_A_ptr_iterator *b)
 {
-    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)b));
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::vector<const MR::CSharp::A *>::iterator(*(std::vector<const MR::CSharp::A *>::iterator *)b));
 }
 

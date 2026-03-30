@@ -27,7 +27,7 @@ MR_C_std_pair_int_float *MR_C_std_pair_int_float_ConstructFromAnother(const MR_C
 {
     MRBINDC_TRY(
     return (MR_C_std_pair_int_float *)new std::pair<int, float>(std::pair<int, float>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::pair<int, float>(*(std::pair<int, float> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::pair<int, float>(*(std::pair<int, float> *)other))
     ));
     ) // MRBINDC_TRY
 }
@@ -35,8 +35,8 @@ MR_C_std_pair_int_float *MR_C_std_pair_int_float_ConstructFromAnother(const MR_C
 void MR_C_std_pair_int_float_AssignFromAnother(MR_C_std_pair_int_float *_this, const MR_C_std_pair_int_float *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<int, float> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::pair<int, float>(*(std::pair<int, float> *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::pair<int, float> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::pair<int, float>(*(std::pair<int, float> *)other))
     );
     ) // MRBINDC_TRY
 }
@@ -82,28 +82,28 @@ MR_C_std_pair_int_float *MR_C_std_pair_int_float_Construct(int first, float seco
 const int *MR_C_std_pair_int_float_first(const MR_C_std_pair_int_float *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int, float> *)(_this)).first);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::pair<int, float> *)(_this)).first);
     ) // MRBINDC_TRY
 }
 
 int *MR_C_std_pair_int_float_first_mut(MR_C_std_pair_int_float *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<int, float> *)(_this)).first);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::pair<int, float> *)(_this)).first);
     ) // MRBINDC_TRY
 }
 
 const float *MR_C_std_pair_int_float_second(const MR_C_std_pair_int_float *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<int, float> *)(_this)).second);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::pair<int, float> *)(_this)).second);
     ) // MRBINDC_TRY
 }
 
 float *MR_C_std_pair_int_float_second_mut(MR_C_std_pair_int_float *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<int, float> *)(_this)).second);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::pair<int, float> *)(_this)).second);
     ) // MRBINDC_TRY
 }
 

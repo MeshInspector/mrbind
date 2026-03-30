@@ -1,10 +1,19 @@
 #define MR_C_BUILD_LIBRARY
 #include "__mrbind_c_details.h"
 
+#include <cstdio>
+#include <cstdlib>
 #include <exception>
 #include <string>
 #include <vector>
 
+#if !MR_C_ENABLE_EXCEPTIONS
+void mrbindc_details::ThrowWithExceptionsDisabled(const char *message)
+{
+    std::fputs(message, stderr);
+    std::abort();
+}
+#endif
 
 #if MR_C_ENABLE_EXCEPTIONS
 void mrbindc_details::CatchExceptionsLow(void (*func)(void *data), void *data)
@@ -57,5 +66,7 @@ void mrbindc_details::CatchExceptionsLow(void (*func)(void *data), void *data)
         MR_C_GetCurrentExceptionHandler()(messages, type_names, MR_C_GetCurrentExceptionHandlerUserData());
     }
 }
+
+std::exception_ptr *mrbindc_details::queued_exception_for_callbacks = nullptr;
 #endif
 

@@ -2,6 +2,8 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_tuple_int32_t_float.h"
 
+#include <__mrbind_c_details.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <memory>
@@ -22,14 +24,14 @@ MR_C_std_tuple_int32_t_float *MR_C_std_tuple_int32_t_float_DefaultConstructArray
 MR_C_std_tuple_int32_t_float *MR_C_std_tuple_int32_t_float_ConstructFromAnother(const MR_C_std_tuple_int32_t_float *other)
 {
     return (MR_C_std_tuple_int32_t_float *)new std::tuple<int32_t, float>(std::tuple<int32_t, float>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::tuple<int32_t, float>(*(std::tuple<int32_t, float> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::tuple<int32_t, float>(*(std::tuple<int32_t, float> *)other))
     ));
 }
 
 void MR_C_std_tuple_int32_t_float_AssignFromAnother(MR_C_std_tuple_int32_t_float *_this, const MR_C_std_tuple_int32_t_float *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<int32_t, float> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::tuple<int32_t, float>(*(std::tuple<int32_t, float> *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::tuple<int32_t, float> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::tuple<int32_t, float>(*(std::tuple<int32_t, float> *)other))
     );
 }
 
@@ -63,21 +65,21 @@ MR_C_std_tuple_int32_t_float *MR_C_std_tuple_int32_t_float_Construct(int32_t _0,
 
 const int32_t *MR_C_std_tuple_int32_t_float_get_int32_t(const MR_C_std_tuple_int32_t_float *_this)
 {
-    return std::addressof(std::get<0>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<int32_t, float> *)(_this))));
+    return std::addressof(std::get<0>(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::tuple<int32_t, float> *)(_this))));
 }
 
 int32_t *MR_C_std_tuple_int32_t_float_get_int32_t_mut(MR_C_std_tuple_int32_t_float *_this)
 {
-    return std::addressof(std::get<0>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<int32_t, float> *)(_this))));
+    return std::addressof(std::get<0>(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::tuple<int32_t, float> *)(_this))));
 }
 
 const float *MR_C_std_tuple_int32_t_float_get_float(const MR_C_std_tuple_int32_t_float *_this)
 {
-    return std::addressof(std::get<1>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::tuple<int32_t, float> *)(_this))));
+    return std::addressof(std::get<1>(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::tuple<int32_t, float> *)(_this))));
 }
 
 float *MR_C_std_tuple_int32_t_float_get_float_mut(MR_C_std_tuple_int32_t_float *_this)
 {
-    return std::addressof(std::get<1>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<int32_t, float> *)(_this))));
+    return std::addressof(std::get<1>(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::tuple<int32_t, float> *)(_this))));
 }
 

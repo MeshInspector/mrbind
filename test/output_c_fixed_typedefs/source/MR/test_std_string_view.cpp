@@ -2,6 +2,7 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "MR/test_std_string_view.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_std_string_view.h>
 
 #include <stdexcept>
@@ -11,7 +12,7 @@
 void MR_StdStringView_Set(const char *s, const char *s_end)
 {
     ::MR::StdStringView::Set(
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
 }
 
@@ -32,7 +33,7 @@ MR_C_std_string_view *MR_StdStringView_Get(void)
 void MR_StdStringView_WriteToRef(MR_C_std_string_view *ref)
 {
     ::MR::StdStringView::WriteToRef(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(std::string_view *)(ref))
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(std::string_view *)(ref))
     );
 }
 
@@ -46,21 +47,21 @@ void MR_StdStringView_WriteToPtr(MR_C_std_string_view *ptr)
 void MR_StdStringView_ConstRef(const char *s, const char *s_end)
 {
     ::MR::StdStringView::ConstRef(
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
 }
 
 void MR_StdStringView_RvalueRef(const char *s, const char *s_end)
 {
     ::MR::StdStringView::RvalueRef(
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
 }
 
 void MR_StdStringView_ConstRvalueRef(const char *s, const char *s_end)
 {
     ::MR::StdStringView::ConstRvalueRef(
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
 }
 

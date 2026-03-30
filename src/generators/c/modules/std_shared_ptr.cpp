@@ -76,7 +76,7 @@ namespace mrbind::C::Modules
             static constexpr auto MakeSharedPtrBinder = [&](Generator &generator, const cppdecl::QualifiedName &shared_ptr_name) -> HeapAllocatedClassBinder
             {
                 HeapAllocatedClassBinder binder = HeapAllocatedClassBinder::ForCustomType(generator, shared_ptr_name);
-                binder.traits = Generator::TypeTraits::CopyableNonTrivial{}; // Not using `CopyableNonTrivialButCheap`, because refcount increments are not necessarily cheap, I assume?
+                binder.traits = Generator::TypeTraits::CopyableNonTrivialMaybeThrowing{}; // Nor marking as cheap, because refcount increments are not necessarily cheap, I assume?
                 return binder;
             };
             const HeapAllocatedClassBinder binder = MakeSharedPtrBinder(generator, type.simple_type.name);
@@ -262,7 +262,7 @@ namespace mrbind::C::Modules
                     }
 
                     // Construct an array from size. This is only useful for interop.
-                    if (is_array_of_unknown_bound && generator.FindTypeTraits(cpp_elem_type).is_default_constructible)
+                    if (is_array_of_unknown_bound && bool(generator.FindTypeTraits(cpp_elem_type).default_constructible))
                     {
                         Generator::EmitFuncParams emit;
                         emit.c_comment = "/// Construct an array of the specified size.";

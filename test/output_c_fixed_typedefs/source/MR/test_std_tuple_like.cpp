@@ -2,6 +2,7 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "MR/test_std_tuple_like.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_std_tuple_like.h>
 
 #include <cstdint>
@@ -13,7 +14,7 @@
 void MR_StdTupleLike_SetPair(const MR_C_std_pair_int32_t_float *_1)
 {
     ::MR::StdTupleLike::SetPair(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::pair<int32_t, float>(*(std::pair<int32_t, float> *)_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::pair<int32_t, float>(*(std::pair<int32_t, float> *)_1))
     );
 }
 
@@ -50,7 +51,7 @@ MR_C_std_pair_const_int32_t_rvalue_ref_const_float_rvalue_ref *MR_StdTupleLike_G
 void MR_StdTupleLike_SetTuple(const MR_C_std_tuple_int32_t_float *_1)
 {
     ::MR::StdTupleLike::SetTuple(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::tuple<int32_t, float>(*(std::tuple<int32_t, float> *)_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::tuple<int32_t, float>(*(std::tuple<int32_t, float> *)_1))
     );
 }
 

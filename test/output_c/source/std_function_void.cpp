@@ -36,7 +36,7 @@ void MR_C_std_function_void_AssignFromAnother(MR_C_std_function_void *_this, MR_
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::function<void(void)>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(void)> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<void(void)> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::function<void(void)>) MRBINDC_CLASSARG_COPY(other, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_MOVE(other, (std::function<void(void)>), std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::function<void(void)>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::function<void(void)>) MRBINDC_CLASSARG_END(other, std::function<void(void)>))
     );
     ) // MRBINDC_TRY
@@ -73,21 +73,21 @@ MR_C_std_function_void *MR_C_std_function_void_OffsetMutablePtr(MR_C_std_functio
 bool MR_C_std_function_void_has_value(const MR_C_std_function_void *_this)
 {
     MRBINDC_TRY(
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<void(void)> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::function<void(void)> *)(_this)));
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_void_reset(MR_C_std_function_void *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(void)> *)(_this)) = nullptr;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<void(void)> *)(_this)) = nullptr;
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_function_void_call(const MR_C_std_function_void *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::function<void(void)> *)(_this)).operator()();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::function<void(void)> *)(_this)).operator()();
     ) // MRBINDC_TRY
 }
 
@@ -104,7 +104,7 @@ MR_C_std_function_void *MR_C_std_function_void_ConstructStateless(void (*func)(v
 void MR_C_std_function_void_Assign(MR_C_std_function_void *_this, void (*func)(void))
 {
     MRBINDC_TRY(
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(void)> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<void(void)> *)(_this));
     if (!func)
     {
         _self = nullptr;
@@ -184,6 +184,27 @@ namespace
 
         auto operator()(void) -> void
         {
+            #if MR_C_ENABLE_EXCEPTIONS
+            struct _exception_guard_type
+            {
+                std::exception_ptr _exception_ptr = nullptr;
+                std::exception_ptr *_old_exception_ptr_ptr;
+            
+                _exception_guard_type() : _old_exception_ptr_ptr(mrbindc_details::queued_exception_for_callbacks)
+                {
+                    mrbindc_details::queued_exception_for_callbacks = &_exception_ptr;
+                }
+            
+                ~_exception_guard_type() noexcept(false)
+                {
+                    mrbindc_details::queued_exception_for_callbacks = _old_exception_ptr_ptr;
+                    if (_exception_ptr)
+                        std::rethrow_exception(_exception_ptr);
+                }
+            };
+            _exception_guard_type _exception_guard;
+            #endif
+            
             struct _cleanup_guard_type
             {
                 _functor_MR_C_std_function_void *_self = nullptr;
@@ -196,6 +217,7 @@ namespace
             };
             _cleanup_guard_type _cleanup_guard;
             _cleanup_guard._self = this;
+            
             _func(
                 _userdata,
                 _postcall_cb ? &_cleanup_guard._value : nullptr
@@ -214,7 +236,7 @@ MR_C_std_function_void *MR_C_std_function_void_ConstructEx(void (*func)(void *_u
 void MR_C_std_function_void_AssignEx(MR_C_std_function_void *_this, void (*func)(void *_userdata, void **_cleanup_value), void *userdata, void (*postcall_callback)(void *_userdata, void *_cleanup_value), void (*userdata_callback)(void **_this_userdata, void *_other_userdata))
 {
     MRBINDC_TRY(
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::function<void(void)> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::function<void(void)> *)(_this));
     if (!func)
     {
         _self = nullptr;

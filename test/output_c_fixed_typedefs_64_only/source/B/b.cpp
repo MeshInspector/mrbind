@@ -74,14 +74,14 @@ MR_SeparateB *MR_SeparateB_MutableDynamicDowncastFrom_MR_CommonBaseAB(MR_CommonB
 const MR_SeparateB *MR_SeparateB_DynamicDowncastFromOrFail_MR_CommonBaseAB(const MR_CommonBaseAB *object)
 {
     return (const MR_SeparateB *)std::addressof(dynamic_cast<const MR::SeparateB &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::CommonBaseAB *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(const MR::CommonBaseAB *)(object))
     ));
 }
 
 MR_SeparateB *MR_SeparateB_MutableDynamicDowncastFromOrFail_MR_CommonBaseAB(MR_CommonBaseAB *object)
 {
     return (MR_SeparateB *)std::addressof(dynamic_cast<MR::SeparateB &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::CommonBaseAB *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(MR::CommonBaseAB *)(object))
     ));
 }
 
@@ -98,7 +98,7 @@ void MR_SeparateB_DestroyArray(const MR_SeparateB *_this)
 MR_SeparateB *MR_SeparateB_AssignFromAnother(MR_SeparateB *_this, MR_C_PassBy _other_pass_by, MR_SeparateB *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::SeparateB);
-    return (MR_SeparateB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::SeparateB *)(_this)).operator=(
+    return (MR_SeparateB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::SeparateB *)(_this)).operator=(
         (MRBINDC_CLASSARG_COPY(_other, (MR::SeparateB), MR::SeparateB) MRBINDC_CLASSARG_MOVE(_other, (MR::SeparateB), MR::SeparateB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::SeparateB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::SeparateB) MRBINDC_CLASSARG_END(_other, MR::SeparateB))
     ));
 }

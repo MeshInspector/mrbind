@@ -33,7 +33,7 @@ MR_C_phmap_node_hash_map_int32_t_float *MR_C_phmap_node_hash_map_int32_t_float_C
 void MR_C_phmap_node_hash_map_int32_t_float_AssignFromAnother(MR_C_phmap_node_hash_map_int32_t_float *_this, MR_C_PassBy other_pass_by, MR_C_phmap_node_hash_map_int32_t_float *other)
 {
     MRBINDC_CLASSARG_GUARD(other, phmap::node_hash_map<int32_t, float>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int32_t, float> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int32_t, float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_COPY(other, (phmap::node_hash_map<int32_t, float>), phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_MOVE(other, (phmap::node_hash_map<int32_t, float>), phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, phmap::node_hash_map<int32_t, float>) MRBINDC_CLASSARG_END(other, phmap::node_hash_map<int32_t, float>))
     );
 }
@@ -60,83 +60,83 @@ MR_C_phmap_node_hash_map_int32_t_float *MR_C_phmap_node_hash_map_int32_t_float_O
 
 size_t MR_C_phmap_node_hash_map_int32_t_float_size(const MR_C_phmap_node_hash_map_int32_t_float *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float> *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float> *)(_this)).size();
 }
 
 bool MR_C_phmap_node_hash_map_int32_t_float_empty(const MR_C_phmap_node_hash_map_int32_t_float *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float> *)(_this)).empty();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float> *)(_this)).empty();
 }
 
 void MR_C_phmap_node_hash_map_int32_t_float_clear(MR_C_phmap_node_hash_map_int32_t_float *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int32_t, float> *)(_this)).clear();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int32_t, float> *)(_this)).clear();
 }
 
 float *MR_C_phmap_node_hash_map_int32_t_float_find_or_construct_elem(MR_C_phmap_node_hash_map_int32_t_float *_this, const int32_t *key)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int32_t, float> *)(_this))[((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int32_t, float> *)(_this))[((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)]);
 }
 
 bool MR_C_phmap_node_hash_map_int32_t_float_contains(const MR_C_phmap_node_hash_map_int32_t_float *_this, const int32_t *key)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float> *)(_this)).contains(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float> *)(_this)).contains(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     );
 }
 
 MR_C_phmap_node_hash_map_int32_t_float_const_iterator *MR_C_phmap_node_hash_map_int32_t_float_find(const MR_C_phmap_node_hash_map_int32_t_float *_this, const int32_t *key)
 {
-    return (MR_C_phmap_node_hash_map_int32_t_float_const_iterator *)new phmap::node_hash_map<int32_t, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float> *)(_this)).find(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return (MR_C_phmap_node_hash_map_int32_t_float_const_iterator *)new phmap::node_hash_map<int32_t, float>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float> *)(_this)).find(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     ));
 }
 
 MR_C_phmap_node_hash_map_int32_t_float_iterator *MR_C_phmap_node_hash_map_int32_t_float_find_mut(MR_C_phmap_node_hash_map_int32_t_float *_this, const int32_t *key)
 {
-    return (MR_C_phmap_node_hash_map_int32_t_float_iterator *)new phmap::node_hash_map<int32_t, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int32_t, float> *)(_this)).find(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return (MR_C_phmap_node_hash_map_int32_t_float_iterator *)new phmap::node_hash_map<int32_t, float>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int32_t, float> *)(_this)).find(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     ));
 }
 
 MR_C_phmap_node_hash_map_int32_t_float_const_iterator *MR_C_phmap_node_hash_map_int32_t_float_begin(const MR_C_phmap_node_hash_map_int32_t_float *_this)
 {
-    return (MR_C_phmap_node_hash_map_int32_t_float_const_iterator *)new phmap::node_hash_map<int32_t, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float> *)(_this)).cbegin());
+    return (MR_C_phmap_node_hash_map_int32_t_float_const_iterator *)new phmap::node_hash_map<int32_t, float>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float> *)(_this)).cbegin());
 }
 
 bool MR_C_phmap_node_hash_map_int32_t_float_is_begin(const MR_C_phmap_node_hash_map_int32_t_float *_this, const MR_C_phmap_node_hash_map_int32_t_float_const_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::node_hash_map<int32_t, float>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float>::const_iterator *)(iter));
 }
 
 MR_C_phmap_node_hash_map_int32_t_float_iterator *MR_C_phmap_node_hash_map_int32_t_float_begin_mut(MR_C_phmap_node_hash_map_int32_t_float *_this)
 {
-    return (MR_C_phmap_node_hash_map_int32_t_float_iterator *)new phmap::node_hash_map<int32_t, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int32_t, float> *)(_this)).begin());
+    return (MR_C_phmap_node_hash_map_int32_t_float_iterator *)new phmap::node_hash_map<int32_t, float>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int32_t, float> *)(_this)).begin());
 }
 
 bool MR_C_phmap_node_hash_map_int32_t_float_is_begin_mut(const MR_C_phmap_node_hash_map_int32_t_float *_this, const MR_C_phmap_node_hash_map_int32_t_float_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float> *)(_this)).begin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::node_hash_map<int32_t, float>::iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float> *)(_this)).begin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float>::iterator *)(iter));
 }
 
 MR_C_phmap_node_hash_map_int32_t_float_const_iterator *MR_C_phmap_node_hash_map_int32_t_float_end(const MR_C_phmap_node_hash_map_int32_t_float *_this)
 {
-    return (MR_C_phmap_node_hash_map_int32_t_float_const_iterator *)new phmap::node_hash_map<int32_t, float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float> *)(_this)).cend());
+    return (MR_C_phmap_node_hash_map_int32_t_float_const_iterator *)new phmap::node_hash_map<int32_t, float>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float> *)(_this)).cend());
 }
 
 bool MR_C_phmap_node_hash_map_int32_t_float_is_end(const MR_C_phmap_node_hash_map_int32_t_float *_this, const MR_C_phmap_node_hash_map_int32_t_float_const_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::node_hash_map<int32_t, float>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float> *)(_this)).cend() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float>::const_iterator *)(iter));
 }
 
 MR_C_phmap_node_hash_map_int32_t_float_iterator *MR_C_phmap_node_hash_map_int32_t_float_end_mut(MR_C_phmap_node_hash_map_int32_t_float *_this)
 {
-    return (MR_C_phmap_node_hash_map_int32_t_float_iterator *)new phmap::node_hash_map<int32_t, float>::iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int32_t, float> *)(_this)).end());
+    return (MR_C_phmap_node_hash_map_int32_t_float_iterator *)new phmap::node_hash_map<int32_t, float>::iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int32_t, float> *)(_this)).end());
 }
 
 bool MR_C_phmap_node_hash_map_int32_t_float_is_end_mut(const MR_C_phmap_node_hash_map_int32_t_float *_this, const MR_C_phmap_node_hash_map_int32_t_float_iterator *iter)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float> *)(_this)).end() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const phmap::node_hash_map<int32_t, float>::iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float> *)(_this)).end() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float>::iterator *)(iter));
 }
 
 MR_C_phmap_node_hash_map_int32_t_float_const_iterator *MR_C_phmap_node_hash_map_int32_t_float_const_iterator_DefaultConstruct(void)
@@ -152,14 +152,14 @@ MR_C_phmap_node_hash_map_int32_t_float_const_iterator *MR_C_phmap_node_hash_map_
 MR_C_phmap_node_hash_map_int32_t_float_const_iterator *MR_C_phmap_node_hash_map_int32_t_float_const_iterator_ConstructFromAnother(const MR_C_phmap_node_hash_map_int32_t_float_const_iterator *other)
 {
     return (MR_C_phmap_node_hash_map_int32_t_float_const_iterator *)new phmap::node_hash_map<int32_t, float>::const_iterator(phmap::node_hash_map<int32_t, float>::const_iterator(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), phmap::node_hash_map<int32_t, float>::const_iterator(*(phmap::node_hash_map<int32_t, float>::const_iterator *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), phmap::node_hash_map<int32_t, float>::const_iterator(*(phmap::node_hash_map<int32_t, float>::const_iterator *)other))
     ));
 }
 
 void MR_C_phmap_node_hash_map_int32_t_float_const_iterator_AssignFromAnother(MR_C_phmap_node_hash_map_int32_t_float_const_iterator *_this, const MR_C_phmap_node_hash_map_int32_t_float_const_iterator *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int32_t, float>::const_iterator *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), phmap::node_hash_map<int32_t, float>::const_iterator(*(phmap::node_hash_map<int32_t, float>::const_iterator *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int32_t, float>::const_iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), phmap::node_hash_map<int32_t, float>::const_iterator(*(phmap::node_hash_map<int32_t, float>::const_iterator *)other))
     );
 }
 
@@ -186,7 +186,7 @@ MR_C_phmap_node_hash_map_int32_t_float_const_iterator *MR_C_phmap_node_hash_map_
 MR_C_phmap_node_hash_map_int32_t_float_const_iterator *MR_C_phmap_node_hash_map_int32_t_float_const_iterator_from_mutable(const MR_C_phmap_node_hash_map_int32_t_float_iterator *iter)
 {
     return (MR_C_phmap_node_hash_map_int32_t_float_const_iterator *)new phmap::node_hash_map<int32_t, float>::const_iterator(phmap::node_hash_map<int32_t, float>::iterator(
-        ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), phmap::node_hash_map<int32_t, float>::iterator(*(phmap::node_hash_map<int32_t, float>::iterator *)iter))
+        ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), phmap::node_hash_map<int32_t, float>::iterator(*(phmap::node_hash_map<int32_t, float>::iterator *)iter))
     ));
 }
 
@@ -203,14 +203,14 @@ MR_C_phmap_node_hash_map_int32_t_float_iterator *MR_C_phmap_node_hash_map_int32_
 MR_C_phmap_node_hash_map_int32_t_float_iterator *MR_C_phmap_node_hash_map_int32_t_float_iterator_ConstructFromAnother(const MR_C_phmap_node_hash_map_int32_t_float_iterator *other)
 {
     return (MR_C_phmap_node_hash_map_int32_t_float_iterator *)new phmap::node_hash_map<int32_t, float>::iterator(phmap::node_hash_map<int32_t, float>::iterator(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), phmap::node_hash_map<int32_t, float>::iterator(*(phmap::node_hash_map<int32_t, float>::iterator *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), phmap::node_hash_map<int32_t, float>::iterator(*(phmap::node_hash_map<int32_t, float>::iterator *)other))
     ));
 }
 
 void MR_C_phmap_node_hash_map_int32_t_float_iterator_AssignFromAnother(MR_C_phmap_node_hash_map_int32_t_float_iterator *_this, const MR_C_phmap_node_hash_map_int32_t_float_iterator *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int32_t, float>::iterator *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), phmap::node_hash_map<int32_t, float>::iterator(*(phmap::node_hash_map<int32_t, float>::iterator *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int32_t, float>::iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), phmap::node_hash_map<int32_t, float>::iterator(*(phmap::node_hash_map<int32_t, float>::iterator *)other))
     );
 }
 
@@ -236,51 +236,51 @@ MR_C_phmap_node_hash_map_int32_t_float_iterator *MR_C_phmap_node_hash_map_int32_
 
 const MR_C_std_pair_const_int32_t_float *MR_C_phmap_node_hash_map_int32_t_float_const_iterator_deref(const MR_C_phmap_node_hash_map_int32_t_float_const_iterator *_this)
 {
-    return (const MR_C_std_pair_const_int32_t_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float>::const_iterator *)(_this)));
+    return (const MR_C_std_pair_const_int32_t_float *)std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float>::const_iterator *)(_this)));
 }
 
 const int32_t *MR_C_phmap_node_hash_map_int32_t_float_const_iterator_deref_key(const MR_C_phmap_node_hash_map_int32_t_float_const_iterator *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float>::const_iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float>::const_iterator *)(_this))->first);
 }
 
 const float *MR_C_phmap_node_hash_map_int32_t_float_const_iterator_deref_value(const MR_C_phmap_node_hash_map_int32_t_float_const_iterator *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float>::const_iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float>::const_iterator *)(_this))->second);
 }
 
 void MR_C_phmap_node_hash_map_int32_t_float_const_iterator_incr(MR_C_phmap_node_hash_map_int32_t_float_const_iterator *_this)
 {
-    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int32_t, float>::const_iterator *)(_this));
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int32_t, float>::const_iterator *)(_this));
 }
 
 bool MR_C_equal_MR_C_phmap_node_hash_map_int32_t_float_const_iterator(const MR_C_phmap_node_hash_map_int32_t_float_const_iterator *a, const MR_C_phmap_node_hash_map_int32_t_float_const_iterator *b)
 {
-    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::node_hash_map<int32_t, float>::const_iterator(*(phmap::node_hash_map<int32_t, float>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::node_hash_map<int32_t, float>::const_iterator(*(phmap::node_hash_map<int32_t, float>::const_iterator *)b));
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), phmap::node_hash_map<int32_t, float>::const_iterator(*(phmap::node_hash_map<int32_t, float>::const_iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), phmap::node_hash_map<int32_t, float>::const_iterator(*(phmap::node_hash_map<int32_t, float>::const_iterator *)b));
 }
 
 MR_C_std_pair_const_int32_t_float *MR_C_phmap_node_hash_map_int32_t_float_iterator_deref(const MR_C_phmap_node_hash_map_int32_t_float_iterator *_this)
 {
-    return (MR_C_std_pair_const_int32_t_float *)std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float>::iterator *)(_this)));
+    return (MR_C_std_pair_const_int32_t_float *)std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float>::iterator *)(_this)));
 }
 
 const int32_t *MR_C_phmap_node_hash_map_int32_t_float_iterator_deref_key(const MR_C_phmap_node_hash_map_int32_t_float_iterator *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float>::iterator *)(_this))->first);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float>::iterator *)(_this))->first);
 }
 
 float *MR_C_phmap_node_hash_map_int32_t_float_iterator_deref_value(const MR_C_phmap_node_hash_map_int32_t_float_iterator *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const phmap::node_hash_map<int32_t, float>::iterator *)(_this))->second);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const phmap::node_hash_map<int32_t, float>::iterator *)(_this))->second);
 }
 
 void MR_C_phmap_node_hash_map_int32_t_float_iterator_incr(MR_C_phmap_node_hash_map_int32_t_float_iterator *_this)
 {
-    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(phmap::node_hash_map<int32_t, float>::iterator *)(_this));
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(phmap::node_hash_map<int32_t, float>::iterator *)(_this));
 }
 
 bool MR_C_equal_MR_C_phmap_node_hash_map_int32_t_float_iterator(const MR_C_phmap_node_hash_map_int32_t_float_iterator *a, const MR_C_phmap_node_hash_map_int32_t_float_iterator *b)
 {
-    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), phmap::node_hash_map<int32_t, float>::iterator(*(phmap::node_hash_map<int32_t, float>::iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), phmap::node_hash_map<int32_t, float>::iterator(*(phmap::node_hash_map<int32_t, float>::iterator *)b));
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), phmap::node_hash_map<int32_t, float>::iterator(*(phmap::node_hash_map<int32_t, float>::iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), phmap::node_hash_map<int32_t, float>::iterator(*(phmap::node_hash_map<int32_t, float>::iterator *)b));
 }
 

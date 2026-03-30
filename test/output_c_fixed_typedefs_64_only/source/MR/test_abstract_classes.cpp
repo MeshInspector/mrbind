@@ -1,6 +1,7 @@
 #define MR_C_BUILD_LIBRARY
 #include "MR/test_abstract_classes.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_abstract_classes.h>
 
 #include <cstddef>
@@ -10,7 +11,7 @@
 
 void MR_AbstractClasses_A_foo(MR_AbstractClasses_A *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AbstractClasses::A *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::AbstractClasses::A *)(_this)).foo();
 }
 
 const MR_AbstractClasses_A *MR_AbstractClasses_A_OffsetPtr(const MR_AbstractClasses_A *ptr, ptrdiff_t i)
@@ -35,7 +36,7 @@ void MR_AbstractClasses_B_DestroyArray(const MR_AbstractClasses_B *_this)
 
 void MR_AbstractClasses_B_foo(MR_AbstractClasses_B *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AbstractClasses::B *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::AbstractClasses::B *)(_this)).foo();
 }
 
 const MR_AbstractClasses_B *MR_AbstractClasses_B_OffsetPtr(const MR_AbstractClasses_B *ptr, ptrdiff_t i)
@@ -60,7 +61,7 @@ void MR_AbstractClasses_C_DestroyArray(const MR_AbstractClasses_C *_this)
 
 void MR_AbstractClasses_C_foo(MR_AbstractClasses_C *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AbstractClasses::C *)(_this)).foo();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::AbstractClasses::C *)(_this)).foo();
 }
 
 const MR_AbstractClasses_C *MR_AbstractClasses_C_OffsetPtr(const MR_AbstractClasses_C *ptr, ptrdiff_t i)
@@ -118,14 +119,14 @@ MR_AbstractClasses_C *MR_AbstractClasses_C_MutableDynamicDowncastFrom_MR_Abstrac
 const MR_AbstractClasses_C *MR_AbstractClasses_C_DynamicDowncastFromOrFail_MR_AbstractClasses_B(const MR_AbstractClasses_B *object)
 {
     return (const MR_AbstractClasses_C *)std::addressof(dynamic_cast<const MR::AbstractClasses::C &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(const MR::AbstractClasses::B *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(const MR::AbstractClasses::B *)(object))
     ));
 }
 
 MR_AbstractClasses_C *MR_AbstractClasses_C_MutableDynamicDowncastFromOrFail_MR_AbstractClasses_B(MR_AbstractClasses_B *object)
 {
     return (MR_AbstractClasses_C *)std::addressof(dynamic_cast<MR::AbstractClasses::C &>(
-        ((object ? void() : throw std::runtime_error("Parameter `object` can not be null.")), *(MR::AbstractClasses::B *)(object))
+        ((object ? void() : MRBINDC_THROW("Parameter `object` can not be null.", void)), *(MR::AbstractClasses::B *)(object))
     ));
 }
 

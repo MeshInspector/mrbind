@@ -30,7 +30,7 @@ MR_C_std_shared_ptr_MR_CSharp_SD *MR_C_std_shared_ptr_MR_CSharp_SD_ConstructFrom
 void MR_C_std_shared_ptr_MR_CSharp_SD_AssignFromAnother(MR_C_std_shared_ptr_MR_CSharp_SD *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_MR_CSharp_SD *other)
 {
     MRBINDC_CLASSARG_GUARD(other, std::shared_ptr<MR::CSharp::SD>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::CSharp::SD> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<MR::CSharp::SD> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::shared_ptr<MR::CSharp::SD>) MRBINDC_CLASSARG_COPY(other, (std::shared_ptr<MR::CSharp::SD>), std::shared_ptr<MR::CSharp::SD>) MRBINDC_CLASSARG_MOVE(other, (std::shared_ptr<MR::CSharp::SD>), std::shared_ptr<MR::CSharp::SD>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::shared_ptr<MR::CSharp::SD>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::shared_ptr<MR::CSharp::SD>) MRBINDC_CLASSARG_END(other, std::shared_ptr<MR::CSharp::SD>))
     );
 }
@@ -57,22 +57,22 @@ MR_C_std_shared_ptr_MR_CSharp_SD *MR_C_std_shared_ptr_MR_CSharp_SD_OffsetMutable
 
 MR_CSharp_SD *MR_C_std_shared_ptr_MR_CSharp_SD_get(const MR_C_std_shared_ptr_MR_CSharp_SD *_this)
 {
-    return (MR_CSharp_SD *)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CSharp::SD> *)(_this)).get());
+    return (MR_CSharp_SD *)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<MR::CSharp::SD> *)(_this)).get());
 }
 
 bool MR_C_std_shared_ptr_MR_CSharp_SD_has_value(const MR_C_std_shared_ptr_MR_CSharp_SD *_this)
 {
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CSharp::SD> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<MR::CSharp::SD> *)(_this)));
 }
 
 int MR_C_std_shared_ptr_MR_CSharp_SD_use_count(const MR_C_std_shared_ptr_MR_CSharp_SD *_this)
 {
-    return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CSharp::SD> *)(_this)).use_count());
+    return int(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<MR::CSharp::SD> *)(_this)).use_count());
 }
 
 void MR_C_std_shared_ptr_MR_CSharp_SD_reset(MR_C_std_shared_ptr_MR_CSharp_SD *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::CSharp::SD> *)(_this)).reset();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<MR::CSharp::SD> *)(_this)).reset();
 }
 
 MR_C_std_shared_ptr_MR_CSharp_SD *MR_C_std_shared_ptr_MR_CSharp_SD_ConstructFromValue(MR_C_PassBy value_pass_by, MR_CSharp_SD *value)
@@ -92,7 +92,7 @@ MR_C_std_shared_ptr_MR_CSharp_SD *MR_C_std_shared_ptr_MR_CSharp_SD_Construct(MR_
 
 void MR_C_std_shared_ptr_MR_CSharp_SD_Assign(MR_C_std_shared_ptr_MR_CSharp_SD *_this, MR_CSharp_SD *ptr)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::CSharp::SD> *)(_this)) = std::shared_ptr<MR::CSharp::SD>(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<MR::CSharp::SD> *)(_this)) = std::shared_ptr<MR::CSharp::SD>(
         std::unique_ptr<MR::CSharp::SD>((MR::CSharp::SD *)ptr)
     );
 }
@@ -104,7 +104,7 @@ MR_C_std_shared_ptr_MR_CSharp_SD *MR_C_std_shared_ptr_MR_CSharp_SD_ConstructNonO
 
 void MR_C_std_shared_ptr_MR_CSharp_SD_AssignNonOwning(MR_C_std_shared_ptr_MR_CSharp_SD *_this, MR_CSharp_SD *ptr)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::CSharp::SD> *)(_this)) = std::shared_ptr<MR::CSharp::SD>(std::shared_ptr<void>{}, ((MR::CSharp::SD *)ptr));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<MR::CSharp::SD> *)(_this)) = std::shared_ptr<MR::CSharp::SD>(std::shared_ptr<void>{}, ((MR::CSharp::SD *)ptr));
 }
 
 MR_C_std_shared_ptr_MR_CSharp_SD *MR_C_std_shared_ptr_MR_CSharp_SD_ConstructAliasing(MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, MR_CSharp_SD *ptr)
@@ -119,7 +119,7 @@ MR_C_std_shared_ptr_MR_CSharp_SD *MR_C_std_shared_ptr_MR_CSharp_SD_ConstructAlia
 void MR_C_std_shared_ptr_MR_CSharp_SD_AssignAliasing(MR_C_std_shared_ptr_MR_CSharp_SD *_this, MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, MR_CSharp_SD *ptr)
 {
     MRBINDC_CLASSARG_GUARD(ownership, std::shared_ptr<const void>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<MR::CSharp::SD> *)(_this)) = std::shared_ptr<MR::CSharp::SD>(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<MR::CSharp::SD> *)(_this)) = std::shared_ptr<MR::CSharp::SD>(
         (MRBINDC_CLASSARG_DEF_CTOR(ownership, std::shared_ptr<const void>) MRBINDC_CLASSARG_COPY(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_MOVE(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_DefaultArgument, std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_NoObject, std::shared_ptr<const void>) MRBINDC_CLASSARG_END(ownership, std::shared_ptr<const void>)),
         ((MR::CSharp::SD *)ptr)
     );
@@ -127,11 +127,11 @@ void MR_C_std_shared_ptr_MR_CSharp_SD_AssignAliasing(MR_C_std_shared_ptr_MR_CSha
 
 MR_C_std_shared_ptr_void *MR_C_std_shared_ptr_MR_CSharp_SD_ConvertTo_MR_C_std_shared_ptr_void(const MR_C_std_shared_ptr_MR_CSharp_SD *_this)
 {
-    return (MR_C_std_shared_ptr_void *)new std::shared_ptr<void>(std::shared_ptr<void>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CSharp::SD> *)(_this))));
+    return (MR_C_std_shared_ptr_void *)new std::shared_ptr<void>(std::shared_ptr<void>(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<MR::CSharp::SD> *)(_this))));
 }
 
 void MR_C_std_shared_ptr_MR_CSharp_SD_AssignTo_MR_C_std_shared_ptr_void(const MR_C_std_shared_ptr_MR_CSharp_SD *_this, MR_C_std_shared_ptr_void *_target)
 {
-    ((_target ? void() : throw std::runtime_error("Parameter `_target` can not be null.")), *(std::shared_ptr<void> *)(_target)) = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<MR::CSharp::SD> *)(_this));
+    ((_target ? void() : MRBINDC_THROW("Parameter `_target` can not be null.", void)), *(std::shared_ptr<void> *)(_target)) = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<MR::CSharp::SD> *)(_this));
 }
 

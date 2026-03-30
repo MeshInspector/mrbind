@@ -2,6 +2,8 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_tuple.h"
 
+#include <__mrbind_c_details.h>
+
 #include <cstddef>
 #include <stdexcept>
 #include <tuple>
@@ -20,14 +22,14 @@ MR_C_std_tuple *MR_C_std_tuple_DefaultConstructArray(size_t num_elems)
 MR_C_std_tuple *MR_C_std_tuple_ConstructFromAnother(const MR_C_std_tuple *other)
 {
     return (MR_C_std_tuple *)new std::tuple<>(std::tuple<>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::tuple<>(*(std::tuple<> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::tuple<>(*(std::tuple<> *)other))
     ));
 }
 
 void MR_C_std_tuple_AssignFromAnother(MR_C_std_tuple *_this, const MR_C_std_tuple *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::tuple<> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::tuple<>(*(std::tuple<> *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::tuple<> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::tuple<>(*(std::tuple<> *)other))
     );
 }
 

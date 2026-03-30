@@ -38,7 +38,7 @@ MR_C_std_optional_MR_CSharp_NonTrivial *MR_C_std_optional_MR_CSharp_NonTrivial_C
 void MR_C_std_optional_MR_CSharp_NonTrivial_AssignFromAnother(MR_C_std_optional_MR_CSharp_NonTrivial *_this, MR_C_PassBy other_pass_by, MR_C_std_optional_MR_CSharp_NonTrivial *other)
 {
     MRBINDC_CLASSARG_GUARD(other, std::optional<MR::CSharp::NonTrivial>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::CSharp::NonTrivial> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::optional<MR::CSharp::NonTrivial> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_COPY(other, (std::optional<MR::CSharp::NonTrivial>), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_MOVE(other, (std::optional<MR::CSharp::NonTrivial>), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_END(other, std::optional<MR::CSharp::NonTrivial>))
     );
 }
@@ -46,7 +46,7 @@ void MR_C_std_optional_MR_CSharp_NonTrivial_AssignFromAnother(MR_C_std_optional_
 void MR_C_std_optional_MR_CSharp_NonTrivial_AssignFrom(MR_C_std_optional_MR_CSharp_NonTrivial *_this, MR_C_PassBy other_pass_by, MR_CSharp_NonTrivial *other)
 {
     MRBINDC_CLASSARG_GUARD(other, MR::CSharp::NonTrivial);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::CSharp::NonTrivial> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::optional<MR::CSharp::NonTrivial> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_COPY(other, (MR::CSharp::NonTrivial), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_MOVE(other, (MR::CSharp::NonTrivial), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_DEF_ARG(other, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::CSharp::NonTrivial>) MRBINDC_CLASSARG_END(other, std::optional<MR::CSharp::NonTrivial>))
     );
 }
@@ -73,18 +73,18 @@ MR_C_std_optional_MR_CSharp_NonTrivial *MR_C_std_optional_MR_CSharp_NonTrivial_O
 
 bool MR_C_std_optional_MR_CSharp_NonTrivial_has_value(const MR_C_std_optional_MR_CSharp_NonTrivial *_this)
 {
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::CSharp::NonTrivial> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::optional<MR::CSharp::NonTrivial> *)(_this)));
 }
 
 const MR_CSharp_NonTrivial *MR_C_std_optional_MR_CSharp_NonTrivial_value(const MR_C_std_optional_MR_CSharp_NonTrivial *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::optional<MR::CSharp::NonTrivial> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::optional<MR::CSharp::NonTrivial> *)(_this));
     return (const MR_CSharp_NonTrivial *)(_self ? &*_self : nullptr);
 }
 
 MR_CSharp_NonTrivial *MR_C_std_optional_MR_CSharp_NonTrivial_value_mut(MR_C_std_optional_MR_CSharp_NonTrivial *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::optional<MR::CSharp::NonTrivial> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::optional<MR::CSharp::NonTrivial> *)(_this));
     return (MR_CSharp_NonTrivial *)(_self ? &*_self : nullptr);
 }
 

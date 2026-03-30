@@ -16,7 +16,7 @@ namespace mrbind::C::Modules
         {
             binder_stdstring = HeapAllocatedClassBinder::ForCustomType(generator, target_name_stdstring);
             binder_stdstringview = HeapAllocatedClassBinder::ForCustomType(generator, target_name_stdstringview);
-            binder_stdstring.traits = Generator::TypeTraits::CopyableNonTrivial{};
+            binder_stdstring.traits = Generator::TypeTraits::CopyableNonTrivialMaybeThrowing{};
             binder_stdstringview.traits = Generator::TypeTraits::CopyableAndTrivialExceptForDefaultCtor{};
 
             binder_stdstringview.sugared_constructor_preserves_reference = true;
@@ -128,7 +128,7 @@ namespace mrbind::C::Modules
 
                 new_type.return_usage = binder.MakeReturnUsage(generator);
 
-                new_type.param_usage_with_default_arg = MakeStringLikeParamUsageSupportingDefaultArg(type_str);
+                new_type.param_usage_with_default_arg = MakeStringLikeParamUsageSupportingDefaultArg(generator, type_str);
             }
 
             return ret;

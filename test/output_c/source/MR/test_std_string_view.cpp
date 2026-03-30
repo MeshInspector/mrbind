@@ -12,7 +12,7 @@ void MR_StdStringView_Set(const char *s, const char *s_end)
 {
     MRBINDC_TRY(
     ::MR::StdStringView::Set(
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
     ) // MRBINDC_TRY
 }
@@ -39,7 +39,7 @@ void MR_StdStringView_WriteToRef(MR_C_std_string_view *ref)
 {
     MRBINDC_TRY(
     ::MR::StdStringView::WriteToRef(
-        ((ref ? void() : throw std::runtime_error("Parameter `ref` can not be null.")), *(std::string_view *)(ref))
+        ((ref ? void() : MRBINDC_THROW("Parameter `ref` can not be null.", void)), *(std::string_view *)(ref))
     );
     ) // MRBINDC_TRY
 }
@@ -57,7 +57,7 @@ void MR_StdStringView_ConstRef(const char *s, const char *s_end)
 {
     MRBINDC_TRY(
     ::MR::StdStringView::ConstRef(
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
     ) // MRBINDC_TRY
 }
@@ -66,7 +66,7 @@ void MR_StdStringView_RvalueRef(const char *s, const char *s_end)
 {
     MRBINDC_TRY(
     ::MR::StdStringView::RvalueRef(
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
     ) // MRBINDC_TRY
 }
@@ -75,7 +75,7 @@ void MR_StdStringView_ConstRvalueRef(const char *s, const char *s_end)
 {
     MRBINDC_TRY(
     ::MR::StdStringView::ConstRvalueRef(
-        ((s ? void() : throw std::runtime_error("Parameter `s` can not be null.")), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
+        ((s ? void() : MRBINDC_THROW("Parameter `s` can not be null.", void)), (s_end ? std::string_view(s, s_end) : std::string_view(s)))
     );
     ) // MRBINDC_TRY
 }

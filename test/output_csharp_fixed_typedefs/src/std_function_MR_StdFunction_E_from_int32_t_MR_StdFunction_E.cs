@@ -105,7 +105,8 @@ public static partial class MR
                     _UnderlyingPtr = __MR_C_std_function_MR_StdFunction_E_from_int32_t_MR_StdFunction_E_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
                 }
 
-                public static unsafe implicit operator Const_Function_MRStdFunctionE_From_Int32T_MRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int32T_MRStdFunctionE.Delegate func) {return new(func);}}
+                public static unsafe implicit operator Const_Function_MRStdFunctionE_From_Int32T_MRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int32T_MRStdFunctionE.Delegate func) {return new(func);}
+            }
 
             /// <summary>
             /// Stores a functor of type: `MR::StdFunction::E(int32_t, MR::StdFunction::E)`. Possibly stateful.

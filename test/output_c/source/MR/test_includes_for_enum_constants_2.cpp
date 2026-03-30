@@ -42,7 +42,7 @@ MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *MR_IncludesForEn
 {
     MRBINDC_TRY(
     return (MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *)new MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>(MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>(*(MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1> *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>(*(MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1> *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -64,8 +64,8 @@ void MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_DestroyArray
 MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1_AssignFromAnother(MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *_this, const MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *_other)
 {
     MRBINDC_TRY(
-    return (MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1> *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>(*(MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1> *)_other))
+    return (MR_IncludesForEnumConstants_A_MR_IncludesForEnumConstants_E_e1 *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1> *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1>(*(MR::IncludesForEnumConstants::A<MR::IncludesForEnumConstants::E::e1> *)_other))
     ));
     ) // MRBINDC_TRY
 }

@@ -80,7 +80,7 @@ if [[ $SOURCES ]]; then
         -Ic/output/src \
         -I. \
         $SOURCES \
-        -shared \
+        -shared -fPIC \
         -fvisibility=hidden -fvisibility-inlines-hidden \
         -o c/output/libexample.so \
         "${EXTRA_CXX_FLAGS[@]}" \

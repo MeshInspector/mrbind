@@ -51,7 +51,7 @@ MR_CommonBaseAB *MR_CommonBaseAB_AssignFromAnother(MR_CommonBaseAB *_this, MR_C_
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(_other, MR::CommonBaseAB);
-    return (MR_CommonBaseAB *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CommonBaseAB *)(_this)).operator=(
+    return (MR_CommonBaseAB *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CommonBaseAB *)(_this)).operator=(
         (MRBINDC_CLASSARG_COPY(_other, (MR::CommonBaseAB), MR::CommonBaseAB) MRBINDC_CLASSARG_MOVE(_other, (MR::CommonBaseAB), MR::CommonBaseAB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CommonBaseAB) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CommonBaseAB) MRBINDC_CLASSARG_END(_other, MR::CommonBaseAB))
     ));
     ) // MRBINDC_TRY

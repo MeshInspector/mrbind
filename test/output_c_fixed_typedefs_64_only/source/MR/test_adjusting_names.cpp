@@ -1,6 +1,7 @@
 #define MR_C_BUILD_LIBRARY
 #include "MR/test_adjusting_names.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_adjusting_names.h>
 
 #include <common.h>
@@ -57,7 +58,7 @@ MR_AdjustingNames_A *MR_AdjustingNames_A_OffsetMutablePtr(MR_AdjustingNames_A *p
 MR_AdjustingNames_A *MR_AdjustingNames_A_ConstructFromAnother(const MR_AdjustingNames_A *_other)
 {
     return (MR_AdjustingNames_A *)new MR::AdjustingNames::A(MR::AdjustingNames::A(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::AdjustingNames::A(*(MR::AdjustingNames::A *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::AdjustingNames::A(*(MR::AdjustingNames::A *)_other))
     ));
 }
 
@@ -73,23 +74,23 @@ void MR_AdjustingNames_A_DestroyArray(const MR_AdjustingNames_A *_this)
 
 MR_C_uint64_t MR_AdjustingNames_A_ConvertTo_uint64_t(MR_AdjustingNames_A *_this)
 {
-    return (MR_C_uint64_t)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)));
+    return (MR_C_uint64_t)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::AdjustingNames::A *)(_this)));
 }
 
 MR_AdjustingNames_A *MR_AdjustingNames_A_AssignFromAnother(MR_AdjustingNames_A *_this, const MR_AdjustingNames_A *_other)
 {
-    return (MR_AdjustingNames_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::AdjustingNames::A(*(MR::AdjustingNames::A *)_other))
+    return (MR_AdjustingNames_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::AdjustingNames::A *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::AdjustingNames::A(*(MR::AdjustingNames::A *)_other))
     ));
 }
 
 void MR_AdjustingNames_A_foo(MR_AdjustingNames_A *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)).foo<MR_C_uint64_t>();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::AdjustingNames::A *)(_this)).foo<MR_C_uint64_t>();
 }
 
 void MR_AdjustingNames_A_bar(MR_AdjustingNames_A *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::AdjustingNames::A *)(_this)).bar();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::AdjustingNames::A *)(_this)).bar();
 }
 

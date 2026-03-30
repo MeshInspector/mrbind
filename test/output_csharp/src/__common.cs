@@ -297,6 +297,72 @@ public static partial class MR
                 *this_userdata = (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)other_userdata).Target));
             }
 
+            /// An internal function for allocating memory through C++.
+            internal static unsafe void *_Alloc(nuint size)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
+                extern static void *__MR_C_Alloc(nuint size);
+                MR.CS.Misc._Exceptions.Prepare();
+                var ret = __MR_C_Alloc(size);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return ret;
+            }
+
+            /// An internal function for deallocating memory through C++.
+            internal static unsafe void _Free(void *ptr)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Free", ExactSpelling = true)]
+                extern static void __MR_C_Free(void *ptr);
+                __MR_C_Free(ptr);
+            }
+
+            /// An internal class used to propagate C++ exceptions.
+            internal static class _Exceptions
+            {
+                static System.Threading.ThreadLocal<string?> CurrentMessage = new(() =>
+                {
+                    return null;
+                });
+
+                unsafe delegate void HandlerDelegate(byte *message);
+
+                unsafe static _Exceptions()
+                {
+                    [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_SetSimpleExceptionHandler", ExactSpelling = true)]
+                    extern static void __MR_C_SetSimpleExceptionHandler(HandlerDelegate func);
+                    __MR_C_SetSimpleExceptionHandler((byte *message) => {
+                        byte *end = message;
+                        while (*end != 0)
+                            end++;
+                        CurrentMessage.Value = System.Text.Encoding.UTF8.GetString(message, (int)(end - message));
+                    });
+                }
+
+                public static void Prepare()
+                {
+                    System.Diagnostics.Trace.Assert(CurrentMessage.Value is null);
+                }
+
+                public static void ThrowIfNeeded()
+                {
+                    var message = CurrentMessage.Value;
+                    if (message is not null)
+                    {
+                        var ex = new MR.CS.Misc.NativeException(message);
+                        CurrentMessage.Value = null;
+                        throw ex;
+                    }
+                }
+            }
+
+            /// A C++ exception propagated to C#.
+            public class NativeException : System.Exception
+            {
+                public NativeException() {}
+                public NativeException(string message) : base(message) {}
+                public NativeException(string message, Exception inner) : base(message, inner) {}
+            }
+
             /// This is thrown when the underlying C++ function returns an error via `expected<>`.
             public class UnexpectedResultException : System.Exception
             {
@@ -311,22 +377,6 @@ public static partial class MR
                 public InvalidEnumeratorExpression() {}
                 public InvalidEnumeratorExpression(string message) : base(message) {}
                 public InvalidEnumeratorExpression(string message, Exception inner) : base(message, inner) {}
-            }
-
-            /// An internal function for allocating memory through C++.
-            internal static unsafe void *_Alloc(nuint size)
-            {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Alloc", ExactSpelling = true)]
-                extern static void *__MR_C_Alloc(nuint size);
-                return __MR_C_Alloc(size);
-            }
-
-            /// An internal function for deallocating memory through C++.
-            internal static unsafe void _Free(void *ptr)
-            {
-                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_Free", ExactSpelling = true)]
-                extern static void __MR_C_Free(void *ptr);
-                __MR_C_Free(ptr);
             }
 
         }

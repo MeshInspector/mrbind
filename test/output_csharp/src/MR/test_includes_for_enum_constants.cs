@@ -10,7 +10,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncludesForEnumConstants_foo", ExactSpelling = true)]
                 extern static MR.CS.IncludesForEnumConstants.A_MRIncludesForEnumConstantsEE1._Underlying *__MR_IncludesForEnumConstants_foo();
-                return new(__MR_IncludesForEnumConstants_foo(), is_owning: true);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_IncludesForEnumConstants_foo();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return new(__c_ret, is_owning: true);
             }
         }
     }

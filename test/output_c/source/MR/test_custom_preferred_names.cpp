@@ -41,7 +41,7 @@ MR_CustomPrefNames_Ai *MR_CustomPrefNames_Ai_ConstructFromAnother(const MR_Custo
 {
     MRBINDC_TRY(
     return (MR_CustomPrefNames_Ai *)new MR::CustomPrefNames::Ai(MR::CustomPrefNames::Ai(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CustomPrefNames::Ai(*(MR::CustomPrefNames::Ai *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CustomPrefNames::Ai(*(MR::CustomPrefNames::Ai *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -63,8 +63,8 @@ void MR_CustomPrefNames_Ai_DestroyArray(const MR_CustomPrefNames_Ai *_this)
 MR_CustomPrefNames_Ai *MR_CustomPrefNames_Ai_AssignFromAnother(MR_CustomPrefNames_Ai *_this, const MR_CustomPrefNames_Ai *_other)
 {
     MRBINDC_TRY(
-    return (MR_CustomPrefNames_Ai *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CustomPrefNames::Ai *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CustomPrefNames::Ai(*(MR::CustomPrefNames::Ai *)_other))
+    return (MR_CustomPrefNames_Ai *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CustomPrefNames::Ai *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CustomPrefNames::Ai(*(MR::CustomPrefNames::Ai *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -101,7 +101,7 @@ MR_CustomPrefNames_Af *MR_CustomPrefNames_Af_ConstructFromAnother(const MR_Custo
 {
     MRBINDC_TRY(
     return (MR_CustomPrefNames_Af *)new MR::CustomPrefNames::Af(MR::CustomPrefNames::Af(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CustomPrefNames::Af(*(MR::CustomPrefNames::Af *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CustomPrefNames::Af(*(MR::CustomPrefNames::Af *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -123,8 +123,8 @@ void MR_CustomPrefNames_Af_DestroyArray(const MR_CustomPrefNames_Af *_this)
 MR_CustomPrefNames_Af *MR_CustomPrefNames_Af_AssignFromAnother(MR_CustomPrefNames_Af *_this, const MR_CustomPrefNames_Af *_other)
 {
     MRBINDC_TRY(
-    return (MR_CustomPrefNames_Af *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CustomPrefNames::Af *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CustomPrefNames::Af(*(MR::CustomPrefNames::Af *)_other))
+    return (MR_CustomPrefNames_Af *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CustomPrefNames::Af *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CustomPrefNames::Af(*(MR::CustomPrefNames::Af *)_other))
     ));
     ) // MRBINDC_TRY
 }

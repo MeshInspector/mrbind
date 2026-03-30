@@ -42,7 +42,7 @@ MR_SignatureFilters_A *MR_SignatureFilters_A_ConstructFromAnother(const MR_Signa
 {
     MRBINDC_TRY(
     return (MR_SignatureFilters_A *)new MR::SignatureFilters::A(MR::SignatureFilters::A(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::SignatureFilters::A(*(MR::SignatureFilters::A *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::SignatureFilters::A(*(MR::SignatureFilters::A *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -64,8 +64,8 @@ void MR_SignatureFilters_A_DestroyArray(const MR_SignatureFilters_A *_this)
 MR_SignatureFilters_A *MR_SignatureFilters_A_AssignFromAnother(MR_SignatureFilters_A *_this, const MR_SignatureFilters_A *_other)
 {
     MRBINDC_TRY(
-    return (MR_SignatureFilters_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::SignatureFilters::A *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::SignatureFilters::A(*(MR::SignatureFilters::A *)_other))
+    return (MR_SignatureFilters_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::SignatureFilters::A *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::SignatureFilters::A(*(MR::SignatureFilters::A *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -74,7 +74,7 @@ void MR_SignatureFilters_foo_1(const MR_SignatureFilters_A *_1)
 {
     MRBINDC_TRY(
     ::MR::SignatureFilters::foo(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), MR::SignatureFilters::A(*(MR::SignatureFilters::A *)_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), MR::SignatureFilters::A(*(MR::SignatureFilters::A *)_1))
     );
     ) // MRBINDC_TRY
 }
@@ -90,7 +90,7 @@ void MR_SignatureFilters_foo2_1(MR_SignatureFilters_A *_1)
 {
     MRBINDC_TRY(
     ::MR::SignatureFilters::foo2(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(MR::SignatureFilters::A *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(MR::SignatureFilters::A *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -106,7 +106,7 @@ void MR_SignatureFilters_foo3_1(MR_SignatureFilters_A *_1)
 {
     MRBINDC_TRY(
     ::MR::SignatureFilters::foo3(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::move(*(MR::SignatureFilters::A *)(_1)))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*(MR::SignatureFilters::A *)(_1)))
     );
     ) // MRBINDC_TRY
 }
@@ -122,7 +122,7 @@ void MR_SignatureFilters_foo4_1(const MR_SignatureFilters_A *_1)
 {
     MRBINDC_TRY(
     ::MR::SignatureFilters::foo4(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), *(const MR::SignatureFilters::A *)(_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *(const MR::SignatureFilters::A *)(_1))
     );
     ) // MRBINDC_TRY
 }
@@ -138,7 +138,7 @@ void MR_SignatureFilters_foo5_1(const MR_SignatureFilters_A *_1)
 {
     MRBINDC_TRY(
     ::MR::SignatureFilters::foo5(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::move(*(const MR::SignatureFilters::A *)(_1)))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::move(*(const MR::SignatureFilters::A *)(_1)))
     );
     ) // MRBINDC_TRY
 }
@@ -152,17 +152,17 @@ const MR_SignatureFilters_A *MR_SignatureFilters_foo5_0(void)
 
 const MR_SignatureFilters_A *MR_SignatureFilters_Blah_Get_a(const MR_SignatureFilters_Blah *_this)
 {
-    return (const MR_SignatureFilters_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::SignatureFilters::Blah *)(_this)).a);
+    return (const MR_SignatureFilters_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::SignatureFilters::Blah *)(_this)).a);
 }
 
 void MR_SignatureFilters_Blah_Set_a(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_A *value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::SignatureFilters::Blah *)(_this)).a = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), MR::SignatureFilters::A(*(MR::SignatureFilters::A *)value));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::SignatureFilters::Blah *)(_this)).a = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), MR::SignatureFilters::A(*(MR::SignatureFilters::A *)value));
 }
 
 MR_SignatureFilters_A *MR_SignatureFilters_Blah_GetMutable_a(MR_SignatureFilters_Blah *_this)
 {
-    return (MR_SignatureFilters_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::SignatureFilters::Blah *)(_this)).a);
+    return (MR_SignatureFilters_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::SignatureFilters::Blah *)(_this)).a);
 }
 
 MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_DefaultConstruct(void)
@@ -197,7 +197,7 @@ MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_ConstructFromAnother(const MR
 {
     MRBINDC_TRY(
     return (MR_SignatureFilters_Blah *)new MR::SignatureFilters::Blah(MR::SignatureFilters::Blah(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::SignatureFilters::Blah(*(MR::SignatureFilters::Blah *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::SignatureFilters::Blah(*(MR::SignatureFilters::Blah *)_other))
     ));
     ) // MRBINDC_TRY
 }
@@ -219,8 +219,8 @@ void MR_SignatureFilters_Blah_DestroyArray(const MR_SignatureFilters_Blah *_this
 MR_SignatureFilters_Blah *MR_SignatureFilters_Blah_AssignFromAnother(MR_SignatureFilters_Blah *_this, const MR_SignatureFilters_Blah *_other)
 {
     MRBINDC_TRY(
-    return (MR_SignatureFilters_Blah *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::SignatureFilters::Blah *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::SignatureFilters::Blah(*(MR::SignatureFilters::Blah *)_other))
+    return (MR_SignatureFilters_Blah *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::SignatureFilters::Blah *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::SignatureFilters::Blah(*(MR::SignatureFilters::Blah *)_other))
     ));
     ) // MRBINDC_TRY
 }

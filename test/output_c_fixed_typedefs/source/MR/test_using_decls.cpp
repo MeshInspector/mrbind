@@ -2,6 +2,7 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "MR/test_using_decls.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_using_decls.h>
 
 #include <cstddef>
@@ -27,23 +28,23 @@ int32_t *MR_UsingDecls_A_GetMutable_StaticVar(void)
 
 const int32_t *MR_UsingDecls_A_Get_Field(const MR_UsingDecls_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::UsingDecls::A *)(_this)).Field);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::UsingDecls::A *)(_this)).Field);
 }
 
 void MR_UsingDecls_A_Set_Field(MR_UsingDecls_A *_this, int32_t value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::A *)(_this)).Field = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::UsingDecls::A *)(_this)).Field = value;
 }
 
 int32_t *MR_UsingDecls_A_GetMutable_Field(MR_UsingDecls_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::A *)(_this)).Field);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::UsingDecls::A *)(_this)).Field);
 }
 
 MR_UsingDecls_A *MR_UsingDecls_A_ConstructFromAnother(const MR_UsingDecls_A *_other)
 {
     return (MR_UsingDecls_A *)new MR::UsingDecls::A(MR::UsingDecls::A(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::UsingDecls::A(*(MR::UsingDecls::A *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::UsingDecls::A(*(MR::UsingDecls::A *)_other))
     ));
 }
 
@@ -76,26 +77,26 @@ void MR_UsingDecls_A_DestroyArray(const MR_UsingDecls_A *_this)
 
 int32_t MR_UsingDecls_A_ConvertTo_int32_t(MR_UsingDecls_A *_this)
 {
-    return (int32_t)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::A *)(_this)));
+    return (int32_t)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::UsingDecls::A *)(_this)));
 }
 
 MR_UsingDecls_A *MR_UsingDecls_A_AssignFromAnother(MR_UsingDecls_A *_this, const MR_UsingDecls_A *_other)
 {
-    return (MR_UsingDecls_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::A *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::UsingDecls::A(*(MR::UsingDecls::A *)_other))
+    return (MR_UsingDecls_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::UsingDecls::A *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::UsingDecls::A(*(MR::UsingDecls::A *)_other))
     ));
 }
 
 void MR_UsingDecls_A_assign(MR_UsingDecls_A *_this, int32_t _1)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::A *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::UsingDecls::A *)(_this)).operator=(
         _1
     );
 }
 
 void MR_UsingDecls_A_Method(MR_UsingDecls_A *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::A *)(_this)).Method();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::UsingDecls::A *)(_this)).Method();
 }
 
 void MR_UsingDecls_A_StaticFunc(void)
@@ -106,7 +107,7 @@ void MR_UsingDecls_A_StaticFunc(void)
 MR_UsingDecls_B *MR_UsingDecls_B_ConstructFromAnother(const MR_UsingDecls_B *_other)
 {
     return (MR_UsingDecls_B *)new MR::UsingDecls::B(MR::UsingDecls::B(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::UsingDecls::B(*(MR::UsingDecls::B *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::UsingDecls::B(*(MR::UsingDecls::B *)_other))
     ));
 }
 
@@ -160,8 +161,8 @@ void MR_UsingDecls_B_DestroyArray(const MR_UsingDecls_B *_this)
 
 MR_UsingDecls_B *MR_UsingDecls_B_AssignFromAnother(MR_UsingDecls_B *_this, const MR_UsingDecls_B *_other)
 {
-    return (MR_UsingDecls_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::UsingDecls::B *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::UsingDecls::B(*(MR::UsingDecls::B *)_other))
+    return (MR_UsingDecls_B *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::UsingDecls::B *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::UsingDecls::B(*(MR::UsingDecls::B *)_other))
     ));
 }
 

@@ -31,7 +31,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -39,8 +41,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFromAnother(MR.CS.Std.Optional_Int._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -51,8 +55,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFrom(int *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     int __deref_other = other.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_optional_int_ConstructFrom(other.HasValue ? &__deref_other : null);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a new instance.
@@ -63,7 +69,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_has_value", ExactSpelling = true)]
                     extern static byte __MR_C_std_optional_int_has_value(MR.CS.Std.Const_Optional_Int._Underlying *_this);
-                    return __MR_C_std_optional_int_has_value(_this._UnderlyingPtr) != 0;
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_optional_int_has_value(_this._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
                 }
 
                 /// The stored element or null if none, read-only.
@@ -71,7 +80,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_value", ExactSpelling = true)]
                     extern static int *__MR_C_std_optional_int_value(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_optional_int_value(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? *__c_ret : null;
                 }
             }
@@ -87,7 +98,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -95,8 +108,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFromAnother(MR.CS.Std.Optional_Int._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_optional_int_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -107,8 +122,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.Std.Optional_Int._Underlying *__MR_C_std_optional_int_ConstructFrom(int *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     int __deref_other = other.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_optional_int_ConstructFrom(other.HasValue ? &__deref_other : null);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a new instance.
@@ -119,8 +136,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_int_AssignFromAnother(_Underlying *_this, MR.CS.Std.Optional_Int._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_optional_int_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
@@ -129,7 +148,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_AssignFrom", ExactSpelling = true)]
                     extern static void __MR_C_std_optional_int_AssignFrom(_Underlying *_this, int *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     int __deref_other = other.GetValueOrDefault();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_optional_int_AssignFrom(_UnderlyingPtr, other.HasValue ? &__deref_other : null);
                 }
 
@@ -138,7 +159,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_optional_int_value_mut", ExactSpelling = true)]
                     extern static int *__MR_C_std_optional_int_value_mut(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_optional_int_value_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
             }

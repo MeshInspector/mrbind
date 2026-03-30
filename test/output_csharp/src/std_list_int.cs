@@ -95,7 +95,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_list_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -103,8 +105,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.List_Int._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_list_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -118,8 +122,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_ConstructFromRange", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromRange(int *ptr, ulong size);
+                    MR.CS.Misc._Exceptions.Prepare();
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_list_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// The number of elements.
@@ -127,7 +133,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_size", ExactSpelling = true)]
                     extern static ulong __MR_C_std_list_int_size(_Underlying *_this);
-                    return __MR_C_std_list_int_size(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_list_int_size(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
                 }
 
                 /// Returns true if the size is zero.
@@ -135,7 +144,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_empty", ExactSpelling = true)]
                     extern static byte __MR_C_std_list_int_empty(_Underlying *_this);
-                    return __MR_C_std_list_int_empty(_UnderlyingPtr) != 0;
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_list_int_empty(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
                 }
 
                 /// The first element or null if empty, read-only.
@@ -143,7 +155,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_front", ExactSpelling = true)]
                     extern static int *__MR_C_std_list_int_front(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_list_int_front(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? *__c_ret : null;
                 }
 
@@ -152,7 +166,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_back", ExactSpelling = true)]
                     extern static int *__MR_C_std_list_int_back(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_list_int_back(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? *__c_ret : null;
                 }
 
@@ -161,9 +177,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_begin", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_begin(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_list_int_begin(_UnderlyingPtr);
                     MR.CS.Std.List_Int.ConstIterator __ret;
-                    __ret = new(__MR_C_std_list_int_begin(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__c_ret, is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 
@@ -172,7 +191,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_is_begin", ExactSpelling = true)]
                     extern static byte __MR_C_std_list_int_is_begin(_Underlying *_this, MR.CS.Std.List_Int.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_list_int_is_begin(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_list_int_is_begin(_UnderlyingPtr, iter._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
                 }
 
                 /// Tests whether a mutable iterator is the begin iterator.
@@ -180,7 +202,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_is_begin_mut", ExactSpelling = true)]
                     extern static byte __MR_C_std_list_int_is_begin_mut(_Underlying *_this, MR.CS.Std.List_Int.Const_Iterator._Underlying *iter);
-                    return __MR_C_std_list_int_is_begin_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_list_int_is_begin_mut(_UnderlyingPtr, iter._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
                 }
 
                 /// The end iterator, const.
@@ -188,9 +213,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_end", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_end(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_list_int_end(_UnderlyingPtr);
                     MR.CS.Std.List_Int.ConstIterator __ret;
-                    __ret = new(__MR_C_std_list_int_end(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__c_ret, is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 
@@ -199,7 +227,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_is_end", ExactSpelling = true)]
                     extern static byte __MR_C_std_list_int_is_end(_Underlying *_this, MR.CS.Std.List_Int.Const_ConstIterator._Underlying *iter);
-                    return __MR_C_std_list_int_is_end(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_list_int_is_end(_UnderlyingPtr, iter._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
                 }
 
                 /// Tests whether a mutable iterator is the end iterator.
@@ -207,7 +238,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_is_end_mut", ExactSpelling = true)]
                     extern static byte __MR_C_std_list_int_is_end_mut(_Underlying *_this, MR.CS.Std.List_Int.Const_Iterator._Underlying *iter);
-                    return __MR_C_std_list_int_is_end_mut(_UnderlyingPtr, iter._UnderlyingPtr) != 0;
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_list_int_is_end_mut(_UnderlyingPtr, iter._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
                 }
 
                 /// Read-only iterator for `MR_C_std_list_int`.
@@ -237,7 +271,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_DefaultConstruct", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_const_iterator_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_list_int_const_iterator_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -245,8 +281,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_const_iterator_ConstructFromAnother(MR.CS.Std.List_Int.ConstIterator._Underlying *other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_list_int_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -257,7 +295,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_from_mutable", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_const_iterator_from_mutable(MR.CS.Std.List_Int.Iterator._Underlying *iter);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_list_int_const_iterator_from_mutable(iter._UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Makes a const iterator from a mutable one.
@@ -268,7 +308,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_deref", ExactSpelling = true)]
                         extern static int *__MR_C_std_list_int_const_iterator_deref(_Underlying *_this);
-                        return *__MR_C_std_list_int_const_iterator_deref(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_C_std_list_int_const_iterator_deref(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return *__c_ret;
                     }
 
                     /// Increments a const iterator.
@@ -277,7 +320,9 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_incr", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_const_iterator_incr(MR.CS.Std.List_Int.Const_ConstIterator._Underlying *_this);
                         ConstIterator __this_copy = new(_this);
+                        MR.CS.Misc._Exceptions.Prepare();
                         __MR_C_std_list_int_const_iterator_incr(__this_copy._UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __this_copy;
                     }
 
@@ -287,7 +332,9 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_decr", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_const_iterator_decr(MR.CS.Std.List_Int.Const_ConstIterator._Underlying *_this);
                         ConstIterator __this_copy = new(_this);
+                        MR.CS.Misc._Exceptions.Prepare();
                         __MR_C_std_list_int_const_iterator_decr(__this_copy._UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __this_copy;
                     }
 
@@ -296,7 +343,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_list_int_const_iterator", ExactSpelling = true)]
                         extern static byte __MR_C_equal_MR_C_std_list_int_const_iterator(MR.CS.Std.List_Int.ConstIterator._Underlying *a, MR.CS.Std.List_Int.ConstIterator._Underlying *b);
-                        return __MR_C_equal_MR_C_std_list_int_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_C_equal_MR_C_std_list_int_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return __c_ret != 0;
                     }
 
                     public static unsafe bool operator!=(Const_ConstIterator a, Const_ConstIterator b)
@@ -334,7 +384,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_DefaultConstruct", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_const_iterator_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_list_int_const_iterator_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -342,8 +394,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_const_iterator_ConstructFromAnother(MR.CS.Std.List_Int.ConstIterator._Underlying *other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_list_int_const_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -354,8 +408,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_const_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.List_Int.ConstIterator._Underlying *other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _DiscardKeepAlive();
                         _KeepAlive(other);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         __MR_C_std_list_int_const_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
@@ -364,7 +420,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_from_mutable", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.ConstIterator._Underlying *__MR_C_std_list_int_const_iterator_from_mutable(MR.CS.Std.List_Int.Iterator._Underlying *iter);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_list_int_const_iterator_from_mutable(iter._UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Makes a const iterator from a mutable one.
@@ -375,7 +433,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_incr", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_const_iterator_incr(_Underlying *_this);
+                        MR.CS.Misc._Exceptions.Prepare();
                         __MR_C_std_list_int_const_iterator_incr(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Decrements a const iterator.
@@ -383,7 +443,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_const_iterator_decr", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_const_iterator_decr(_Underlying *_this);
+                        MR.CS.Misc._Exceptions.Prepare();
                         __MR_C_std_list_int_const_iterator_decr(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
                 }
 
@@ -447,7 +509,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_DefaultConstruct", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.Iterator._Underlying *__MR_C_std_list_int_iterator_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_list_int_iterator_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -455,8 +519,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.Iterator._Underlying *__MR_C_std_list_int_iterator_ConstructFromAnother(MR.CS.Std.List_Int.Iterator._Underlying *other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_list_int_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -467,7 +533,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_deref", ExactSpelling = true)]
                         extern static int *__MR_C_std_list_int_iterator_deref(_Underlying *_this);
-                        return ref *__MR_C_std_list_int_iterator_deref(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_C_std_list_int_iterator_deref(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
 
                     /// Increments a mutable iterator.
@@ -476,7 +545,9 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_incr", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_iterator_incr(MR.CS.Std.List_Int.Const_Iterator._Underlying *_this);
                         Iterator __this_copy = new(_this);
+                        MR.CS.Misc._Exceptions.Prepare();
                         __MR_C_std_list_int_iterator_incr(__this_copy._UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __this_copy;
                     }
 
@@ -486,7 +557,9 @@ public static partial class MR
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_decr", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_iterator_decr(MR.CS.Std.List_Int.Const_Iterator._Underlying *_this);
                         Iterator __this_copy = new(_this);
+                        MR.CS.Misc._Exceptions.Prepare();
                         __MR_C_std_list_int_iterator_decr(__this_copy._UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __this_copy;
                     }
 
@@ -495,7 +568,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_equal_MR_C_std_list_int_iterator", ExactSpelling = true)]
                         extern static byte __MR_C_equal_MR_C_std_list_int_iterator(MR.CS.Std.List_Int.Iterator._Underlying *a, MR.CS.Std.List_Int.Iterator._Underlying *b);
-                        return __MR_C_equal_MR_C_std_list_int_iterator(a._UnderlyingPtr, b._UnderlyingPtr) != 0;
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_C_equal_MR_C_std_list_int_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return __c_ret != 0;
                     }
 
                     public static unsafe bool operator!=(Const_Iterator a, Const_Iterator b)
@@ -533,7 +609,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_DefaultConstruct", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.Iterator._Underlying *__MR_C_std_list_int_iterator_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_list_int_iterator_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -541,8 +619,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.List_Int.Iterator._Underlying *__MR_C_std_list_int_iterator_ConstructFromAnother(MR.CS.Std.List_Int.Iterator._Underlying *other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_list_int_iterator_ConstructFromAnother(other._UnderlyingPtr);
                         _KeepAlive(other);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -553,8 +633,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_iterator_AssignFromAnother(_Underlying *_this, MR.CS.Std.List_Int.Iterator._Underlying *other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _DiscardKeepAlive();
                         _KeepAlive(other);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         __MR_C_std_list_int_iterator_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                     }
 
@@ -563,7 +645,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_incr", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_iterator_incr(_Underlying *_this);
+                        MR.CS.Misc._Exceptions.Prepare();
                         __MR_C_std_list_int_iterator_incr(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Decrements a mutable iterator.
@@ -571,7 +655,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_iterator_decr", ExactSpelling = true)]
                         extern static void __MR_C_std_list_int_iterator_decr(_Underlying *_this);
+                        MR.CS.Misc._Exceptions.Prepare();
                         __MR_C_std_list_int_iterator_decr(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
                 }
 
@@ -681,7 +767,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_list_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -689,8 +777,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.List_Int._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_list_int_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -704,8 +794,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.List_Int._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -714,8 +806,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_ConstructFromRange", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromRange(int *ptr, ulong size);
+                    MR.CS.Misc._Exceptions.Prepare();
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_list_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Assign from a range of elements, overwriting previous contents.
@@ -723,7 +817,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_AssignFromRange", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_AssignFromRange(_Underlying *_this, int *ptr, ulong size);
+                    MR.CS.Misc._Exceptions.Prepare();
                     int __deref_ptr = ptr.GetValueOrDefault();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_AssignFromRange(_UnderlyingPtr, ptr.HasValue ? &__deref_ptr : null, size);
                 }
 
@@ -732,6 +828,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_resize", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_resize(_Underlying *_this, ulong new_size);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_resize(_UnderlyingPtr, new_size);
                 }
 
@@ -740,6 +838,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_resize_with_default_value", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_resize_with_default_value(_Underlying *_this, ulong new_size, int value);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_resize_with_default_value(_UnderlyingPtr, new_size, value);
                 }
 
@@ -748,7 +848,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_clear", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_clear(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_clear(_UnderlyingPtr);
                 }
 
@@ -757,7 +859,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_front_mut", ExactSpelling = true)]
                     extern static int *__MR_C_std_list_int_front_mut(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_list_int_front_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
 
@@ -766,7 +870,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_back_mut", ExactSpelling = true)]
                     extern static int *__MR_C_std_list_int_back_mut(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_list_int_back_mut(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __c_ret is not null ? new MR.CS.Misc.Ref<int>(__c_ret) : null;
                 }
 
@@ -775,6 +881,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_push_back", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_push_back(_Underlying *_this, int new_elem);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_push_back(_UnderlyingPtr, new_elem);
                 }
 
@@ -783,6 +891,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_pop_back", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_pop_back(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_pop_back(_UnderlyingPtr);
                 }
 
@@ -791,6 +901,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_push_front", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_push_front(_Underlying *_this, int new_elem);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_push_front(_UnderlyingPtr, new_elem);
                 }
 
@@ -799,6 +911,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_pop_front", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_pop_front(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_pop_front(_UnderlyingPtr);
                 }
 
@@ -807,6 +921,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_insert_at_mutable_iter", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_insert_at_mutable_iter(_Underlying *_this, MR.CS.Std.List_Int.Iterator._Underlying *position, int new_elem);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_insert_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem);
                 }
 
@@ -815,6 +931,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_erase_at_mutable_iter", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_erase_at_mutable_iter(_Underlying *_this, MR.CS.Std.List_Int.Iterator._Underlying *position);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_erase_at_mutable_iter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
@@ -823,6 +941,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_insert_at_iter", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_insert_at_iter(_Underlying *_this, MR.CS.Std.List_Int.ConstIterator._Underlying *position, int new_elem);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_insert_at_iter(_UnderlyingPtr, position._UnderlyingPtr, new_elem);
                 }
 
@@ -831,6 +951,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_erase_at_iter", ExactSpelling = true)]
                     extern static void __MR_C_std_list_int_erase_at_iter(_Underlying *_this, MR.CS.Std.List_Int.ConstIterator._Underlying *position);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_erase_at_iter(_UnderlyingPtr, position._UnderlyingPtr);
                 }
 
@@ -839,9 +961,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_begin_mut", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int.Iterator._Underlying *__MR_C_std_list_int_begin_mut(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_list_int_begin_mut(_UnderlyingPtr);
                     MR.CS.Std.List_Int.Iterator __ret;
-                    __ret = new(__MR_C_std_list_int_begin_mut(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__c_ret, is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
 
@@ -850,9 +975,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_end_mut", ExactSpelling = true)]
                     extern static MR.CS.Std.List_Int.Iterator._Underlying *__MR_C_std_list_int_end_mut(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_list_int_end_mut(_UnderlyingPtr);
                     MR.CS.Std.List_Int.Iterator __ret;
-                    __ret = new(__MR_C_std_list_int_end_mut(_UnderlyingPtr), is_owning: true);
+                    __ret = new(__c_ret, is_owning: true);
                     __ret._KeepAliveEnclosingObject = this;
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     return __ret;
                 }
             }

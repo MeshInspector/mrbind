@@ -24,6 +24,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_print_MR_IOStream_A", ExactSpelling = true)]
                     extern static void __MR_C_print_MR_IOStream_A(_Underlying *_1, MR.CS.IOStream.Const_A._Underlying *_2);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_print_MR_IOStream_A(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
             }
@@ -78,6 +80,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_input_MR_IOStream_A", ExactSpelling = true)]
                     extern static void __MR_C_input_MR_IOStream_A(_Underlying *_1, MR.CS.IOStream.A._Underlying *_2);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_input_MR_IOStream_A(_UnderlyingPtr, _2._UnderlyingPtr);
                 }
             }
@@ -118,7 +122,10 @@ public static partial class MR
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCout", ExactSpelling = true)]
             extern static MR.CS.Std.Ostream._Underlying *__MR_C_GetStdCout();
-            return new(__MR_C_GetStdCout(), is_owning: false);
+            MR.CS.Misc._Exceptions.Prepare();
+            var __c_ret = __MR_C_GetStdCout();
+            MR.CS.Misc._Exceptions.ThrowIfNeeded();
+            return new(__c_ret, is_owning: false);
         }
 
         /// Returns the `stderr` stream, buffered.
@@ -126,7 +133,10 @@ public static partial class MR
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCerr", ExactSpelling = true)]
             extern static MR.CS.Std.Ostream._Underlying *__MR_C_GetStdCerr();
-            return new(__MR_C_GetStdCerr(), is_owning: false);
+            MR.CS.Misc._Exceptions.Prepare();
+            var __c_ret = __MR_C_GetStdCerr();
+            MR.CS.Misc._Exceptions.ThrowIfNeeded();
+            return new(__c_ret, is_owning: false);
         }
 
         /// Returns the `stderr` stream, unbuffered.
@@ -134,7 +144,10 @@ public static partial class MR
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdClog", ExactSpelling = true)]
             extern static MR.CS.Std.Ostream._Underlying *__MR_C_GetStdClog();
-            return new(__MR_C_GetStdClog(), is_owning: false);
+            MR.CS.Misc._Exceptions.Prepare();
+            var __c_ret = __MR_C_GetStdClog();
+            MR.CS.Misc._Exceptions.ThrowIfNeeded();
+            return new(__c_ret, is_owning: false);
         }
 
         /// Returns the `stdin` stream.
@@ -142,7 +155,10 @@ public static partial class MR
         {
             [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_GetStdCin", ExactSpelling = true)]
             extern static MR.CS.Std.Istream._Underlying *__MR_C_GetStdCin();
-            return new(__MR_C_GetStdCin(), is_owning: false);
+            MR.CS.Misc._Exceptions.Prepare();
+            var __c_ret = __MR_C_GetStdCin();
+            MR.CS.Misc._Exceptions.ThrowIfNeeded();
+            return new(__c_ret, is_owning: false);
         }
     }
 }

@@ -31,7 +31,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_string_view_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -39,8 +41,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_string_view_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -54,7 +58,9 @@ public static partial class MR
                     byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                     fixed (byte *__ptr_other = __bytes_other)
                     {
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_string_view_ConstructFrom(__ptr_other, __ptr_other + __bytes_other.Length);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
                 }
 
@@ -66,7 +72,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_size", ExactSpelling = true)]
                     extern static ulong __MR_C_std_string_view_size(_Underlying *_this);
-                    return __MR_C_std_string_view_size(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_string_view_size(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret;
                 }
 
                 /// Returns the string contents, NOT necessarily null-terminated.
@@ -74,7 +83,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_data", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_view_data(_Underlying *_this);
-                    return new(__MR_C_std_string_view_data(_UnderlyingPtr));
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_string_view_data(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret);
                 }
 
                 /// Returns a pointer to the end of string. Not dereferencable.
@@ -82,7 +94,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_data_end", ExactSpelling = true)]
                     extern static byte *__MR_C_std_string_view_data_end(_Underlying *_this);
-                    return new(__MR_C_std_string_view_data_end(_UnderlyingPtr));
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_string_view_data_end(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret);
                 }
 
                 // Custom extras:
@@ -105,7 +120,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_string_view_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -113,8 +130,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.StringView._Underlying *__MR_C_std_string_view_ConstructFromAnother(MR.CS.Std.StringView._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_string_view_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -128,7 +147,9 @@ public static partial class MR
                     byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                     fixed (byte *__ptr_other = __bytes_other)
                     {
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_string_view_ConstructFrom(__ptr_other, __ptr_other + __bytes_other.Length);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
                 }
 
@@ -140,8 +161,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_view_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_string_view_AssignFromAnother(_Underlying *_this, MR.CS.Std.StringView._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_string_view_AssignFromAnother(_UnderlyingPtr, other._UnderlyingPtr);
                 }
 
@@ -153,7 +176,9 @@ public static partial class MR
                     byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                     fixed (byte *__ptr_other = __bytes_other)
                     {
+                        MR.CS.Misc._Exceptions.Prepare();
                         _DiscardKeepAlive();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         __MR_C_std_string_view_AssignFrom(_UnderlyingPtr, __ptr_other, __ptr_other + __bytes_other.Length);
                     }
                 }

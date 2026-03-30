@@ -35,7 +35,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_Get_x", ExactSpelling = true)]
                         extern static int *__MR_StdOptional_A_Get_x(_Underlying *_this);
-                        return *__MR_StdOptional_A_Get_x(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_StdOptional_A_Get_x(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return *__c_ret;
                     }
                 }
 
@@ -46,7 +49,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.A._Underlying *__MR_StdOptional_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdOptional_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs `MR::StdOptional::A` elementwise.
@@ -54,7 +59,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.A._Underlying *__MR_StdOptional_A_ConstructFrom(int x);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdOptional_A_ConstructFrom(x);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::StdOptional::A::A`.
@@ -62,8 +69,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.A._Underlying *__MR_StdOptional_A_ConstructFromAnother(MR.CS.StdOptional.A._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdOptional_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::StdOptional::A::A`.
@@ -91,7 +100,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.A._Underlying *__MR_StdOptional_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdOptional_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs `MR::StdOptional::A` elementwise.
@@ -99,7 +110,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_ConstructFrom", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.A._Underlying *__MR_StdOptional_A_ConstructFrom(int x);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdOptional_A_ConstructFrom(x);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::StdOptional::A::A`.
@@ -107,8 +120,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.A._Underlying *__MR_StdOptional_A_ConstructFromAnother(MR.CS.StdOptional.A._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdOptional_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::StdOptional::A::A`.
@@ -181,9 +196,12 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_Get_s", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_StdOptional_B_Get_s(_Underlying *_this);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_StdOptional_B_Get_s(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__MR_StdOptional_B_Get_s(_UnderlyingPtr), is_owning: false);
+                        __ret = new(__c_ret, is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -195,7 +213,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_StdOptional_B_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdOptional_B_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs `MR::StdOptional::B` elementwise.
@@ -206,7 +226,9 @@ public static partial class MR
                     byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
                     fixed (byte *__ptr_s = __bytes_s)
                     {
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_StdOptional_B_ConstructFrom(__ptr_s, __ptr_s + __bytes_s.Length);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
                 }
 
@@ -215,8 +237,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_StdOptional_B_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdOptional.B._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdOptional_B_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::StdOptional::B::B`.
@@ -236,9 +260,12 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_StdOptional_B_GetMutable_s(_Underlying *_this);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_StdOptional_B_GetMutable_s(_UnderlyingPtr);
                         MR.CS.Std.String __ret;
-                        __ret = new(__MR_StdOptional_B_GetMutable_s(_UnderlyingPtr), is_owning: false);
+                        __ret = new(__c_ret, is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -250,7 +277,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_StdOptional_B_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdOptional_B_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs `MR::StdOptional::B` elementwise.
@@ -261,7 +290,9 @@ public static partial class MR
                     byte[] __bytes_s = System.Text.Encoding.UTF8.GetBytes(s);
                     fixed (byte *__ptr_s = __bytes_s)
                     {
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_StdOptional_B_ConstructFrom(__ptr_s, __ptr_s + __bytes_s.Length);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
                 }
 
@@ -270,8 +301,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdOptional.B._Underlying *__MR_StdOptional_B_ConstructFromAnother(MR.CS.Misc._PassBy _other_pass_by, MR.CS.StdOptional.B._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdOptional_B_ConstructFromAnother(_other.PassByMode, _other.Value is not null ? _other.Value._UnderlyingPtr : null);
                     if (_other.Value is not null) _KeepAlive(_other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::StdOptional::B::B`.
@@ -370,7 +403,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_GetInt", ExactSpelling = true)]
                 extern static MR.CS.Std.Optional_Int._Underlying *__MR_StdOptional_GetInt();
-                return new(__MR_StdOptional_GetInt(), is_owning: true);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdOptional_GetInt();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return new(__c_ret, is_owning: true);
             }
 
             /// Generated from function `MR::StdOptional::SetInt`.
@@ -378,7 +414,9 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetInt", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetInt(int *_1);
+                MR.CS.Misc._Exceptions.Prepare();
                 int __deref__1 = _1.GetValueOrDefault();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetInt(_1.HasValue ? &__deref__1 : null);
             }
 
@@ -387,7 +425,9 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetIntConstRef", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetIntConstRef(int *_1);
+                MR.CS.Misc._Exceptions.Prepare();
                 int __deref__1 = _1.GetValueOrDefault();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetIntConstRef(_1.HasValue ? &__deref__1 : null);
             }
 
@@ -396,7 +436,9 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetIntDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetIntDefTrivial(int *_1);
+                MR.CS.Misc._Exceptions.Prepare();
                 int __deref__1 = _1.GetValueOrDefault();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetIntDefTrivial(_1.HasValue ? &__deref__1 : null);
             }
 
@@ -406,6 +448,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetIntDef", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetIntDef(MR.CS.Std.Optional_Int._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetIntDef(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
@@ -414,7 +458,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_GetEnum", ExactSpelling = true)]
                 extern static MR.CS.Std.Optional_MRStdOptionalE._Underlying *__MR_StdOptional_GetEnum();
-                return new(__MR_StdOptional_GetEnum(), is_owning: true);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdOptional_GetEnum();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return new(__c_ret, is_owning: true);
             }
 
             /// Generated from function `MR::StdOptional::SetEnum`.
@@ -422,7 +469,9 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetEnum", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetEnum(MR.CS.StdOptional.E *_1);
+                MR.CS.Misc._Exceptions.Prepare();
                 MR.CS.StdOptional.E __deref__1 = _1.GetValueOrDefault();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetEnum(_1.HasValue ? &__deref__1 : null);
             }
 
@@ -431,7 +480,9 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetEnumConstRef", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetEnumConstRef(MR.CS.StdOptional.E *_1);
+                MR.CS.Misc._Exceptions.Prepare();
                 MR.CS.StdOptional.E __deref__1 = _1.GetValueOrDefault();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetEnumConstRef(_1.HasValue ? &__deref__1 : null);
             }
 
@@ -440,7 +491,9 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetEnumDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetEnumDefTrivial(MR.CS.StdOptional.E *_1);
+                MR.CS.Misc._Exceptions.Prepare();
                 MR.CS.StdOptional.E __deref__1 = _1.GetValueOrDefault();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetEnumDefTrivial(_1.HasValue ? &__deref__1 : null);
             }
 
@@ -450,6 +503,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetEnumDef", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetEnumDef(MR.CS.Std.Optional_MRStdOptionalE._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetEnumDef(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
@@ -458,7 +513,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_GetClass", ExactSpelling = true)]
                 extern static MR.CS.Std.Optional_MRStdOptionalA._Underlying *__MR_StdOptional_GetClass();
-                return new(__MR_StdOptional_GetClass(), is_owning: true);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdOptional_GetClass();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return new(__c_ret, is_owning: true);
             }
 
             /// Generated from function `MR::StdOptional::SetClass`.
@@ -466,6 +524,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClass", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetClass(MR.CS.StdOptional.A._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetClass(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
@@ -474,6 +534,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClassConstRef", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetClassConstRef(MR.CS.StdOptional.A._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetClassConstRef(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
@@ -482,6 +544,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClassDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetClassDefTrivial(MR.CS.StdOptional.A._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetClassDefTrivial(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
@@ -491,6 +555,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClassDef", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetClassDef(MR.CS.Std.Optional_MRStdOptionalA._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetClassDef(_1 is not null ? _1._UnderlyingPtr : null);
             }
 
@@ -499,7 +565,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_GetClass2", ExactSpelling = true)]
                 extern static MR.CS.Std.Optional_MRStdOptionalB._Underlying *__MR_StdOptional_GetClass2();
-                return new(__MR_StdOptional_GetClass2(), is_owning: true);
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdOptional_GetClass2();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return new(__c_ret, is_owning: true);
             }
 
             /// Generated from function `MR::StdOptional::SetClass2`.
@@ -507,6 +576,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClass2", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetClass2(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdOptional.B._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetClass2(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.no_object, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -515,6 +586,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClass2ConstRef", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetClass2ConstRef(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdOptional.B._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetClass2ConstRef(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.no_object, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -523,6 +596,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClass2DefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetClass2DefTrivial(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdOptional.B._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetClass2DefTrivial(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.no_object, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
 
@@ -532,6 +607,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetClass2Def", ExactSpelling = true)]
                 extern static void __MR_StdOptional_SetClass2Def(MR.CS.Misc._PassBy _1_pass_by, MR.CS.StdOptional.B._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdOptional_SetClass2Def(_1 is not null ? _1.PassByMode : MR.CS.Misc._PassBy.default_arg, _1 is not null && _1.Value is not null ? _1.Value._UnderlyingPtr : null);
             }
         }

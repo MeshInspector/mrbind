@@ -31,7 +31,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.NestedTemplateInst.A_Int._Underlying *__MR_NestedTemplateInst_A_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_NestedTemplateInst_A_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::NestedTemplateInst::A<int>::A`.
@@ -39,8 +41,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.NestedTemplateInst.A_Int._Underlying *__MR_NestedTemplateInst_A_int_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_NestedTemplateInst_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::NestedTemplateInst::A<int>::A`.
@@ -74,7 +78,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_AA_float_DefaultConstruct", ExactSpelling = true)]
                         extern static MR.CS.NestedTemplateInst.A_Int.AA_Float._Underlying *__MR_NestedTemplateInst_A_int_AA_float_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int_AA_float_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Generated from constructor `MR::NestedTemplateInst::A<int>::AA<float>::AA`.
@@ -82,8 +88,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.NestedTemplateInst.A_Int.AA_Float._Underlying *__MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int.AA_Float._Underlying *_other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Generated from constructor `MR::NestedTemplateInst::A<int>::AA<float>::AA`.
@@ -102,7 +110,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_AA_float_DefaultConstruct", ExactSpelling = true)]
                         extern static MR.CS.NestedTemplateInst.A_Int.AA_Float._Underlying *__MR_NestedTemplateInst_A_int_AA_float_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int_AA_float_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Generated from constructor `MR::NestedTemplateInst::A<int>::AA<float>::AA`.
@@ -110,8 +120,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.NestedTemplateInst.A_Int.AA_Float._Underlying *__MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int.AA_Float._Underlying *_other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_NestedTemplateInst_A_int_AA_float_ConstructFromAnother(_other._UnderlyingPtr);
                         _KeepAlive(_other);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Generated from constructor `MR::NestedTemplateInst::A<int>::AA<float>::AA`.
@@ -122,9 +134,12 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother", ExactSpelling = true)]
                         extern static MR.CS.NestedTemplateInst.A_Int.AA_Float._Underlying *__MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother(_Underlying *_this, MR.CS.NestedTemplateInst.A_Int.AA_Float._Underlying *_other);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                         _DiscardKeepAlive();
                         _KeepAlive(_other);
-                        return new(__MR_NestedTemplateInst_A_int_AA_float_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return new(__c_ret, is_owning: false);
                     }
                 }
 
@@ -170,7 +185,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.NestedTemplateInst.A_Int._Underlying *__MR_NestedTemplateInst_A_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_NestedTemplateInst_A_int_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::NestedTemplateInst::A<int>::A`.
@@ -178,8 +195,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.NestedTemplateInst.A_Int._Underlying *__MR_NestedTemplateInst_A_int_ConstructFromAnother(MR.CS.NestedTemplateInst.A_Int._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_NestedTemplateInst_A_int_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::NestedTemplateInst::A<int>::A`.
@@ -190,9 +209,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTemplateInst_A_int_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.NestedTemplateInst.A_Int._Underlying *__MR_NestedTemplateInst_A_int_AssignFromAnother(_Underlying *_this, MR.CS.NestedTemplateInst.A_Int._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_NestedTemplateInst_A_int_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
-                    return new(__MR_NestedTemplateInst_A_int_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
                 }
             }
 

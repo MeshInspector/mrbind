@@ -176,6 +176,10 @@ namespace mrbind::CSharp
 
             struct Strings
             {
+                // If true, we may omit exception handling.
+                // Incorrectly setting this to false doesn't cause any issues, other than redundant exception handling.
+                bool cpp_never_throws;
+
                 // An extra comment to be added on the function. Should end with a newline, and should usually have the form `/// Parameter `x` ...`.
                 std::string extra_comment = "";
 
@@ -300,6 +304,10 @@ namespace mrbind::CSharp
 
         struct ReturnUsage
         {
+            // If true, we may omit exception handling.
+            // Incorrectly setting this to false doesn't cause any issues, other than redundant exception handling.
+            bool cpp_never_throws;
+
             // An extra comment to be added on the function. Should end with a newline, and should usually have the form `/// Parameter `x` ...`.
             std::string extra_comment = "";
 
@@ -465,6 +473,17 @@ namespace mrbind::CSharp
         // Use this when calling generated C# functions manually from handwritten C# code.
         // This will adjust `str` to the correct naming style, as per `begin_func_names_with_lowercase`.
         [[nodiscard]] std::string AdjustCalledFuncName(std::string str);
+
+        // Wraps a piece of code to handle possible exceptions from the native code.
+        // `str` should end with a newline.
+        // `str` shouldn't be indented. Instead indent the result of this function.
+        // If `can_throw == false` or `c_desc.exception_handling_enabled == false`, returns the string unchanged.
+        // Note that `str` shouldn't contain return statements, or this won't work properly. We check this with an assert.
+        [[nodiscard]] std::string WrapForExceptionHandling(std::string str, bool can_throw = true);
+
+        // Those are the two halves that `WrapForExceptionHandling()` wraps things into. Both end with a newline (if not empty).
+        [[nodiscard]] std::string ExceptionHandlingPre(bool can_throw = true);
+        [[nodiscard]] std::string ExceptionHandlingPost(bool can_throw = true);
 
 
         struct BeginEndFuncStatus
@@ -955,6 +974,8 @@ namespace mrbind::CSharp
             const bool is_property_get;
             const bool is_property_set;
             const bool is_property;
+
+            bool must_handle_exceptions;
 
             const bool ctor_class_backed_by_shared_ptr;
 

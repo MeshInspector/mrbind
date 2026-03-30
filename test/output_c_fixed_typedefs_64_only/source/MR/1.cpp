@@ -13,17 +13,17 @@
 
 const MR_C_std_string *MR_A_Get_x(const MR_A *_this)
 {
-    return (const MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::A *)(_this)).x);
+    return (const MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::A *)(_this)).x);
 }
 
 void MR_A_Set_x(MR_A *_this, const char *value, const char *value_end)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::A *)(_this)).x = ((value ? void() : throw std::runtime_error("Parameter `value` can not be null.")), (value_end ? std::string(value, value_end) : std::string(value)));
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::A *)(_this)).x = ((value ? void() : MRBINDC_THROW("Parameter `value` can not be null.", void)), (value_end ? std::string(value, value_end) : std::string(value)));
 }
 
 MR_C_std_string *MR_A_GetMutable_x(MR_A *_this)
 {
-    return (MR_C_std_string *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::A *)(_this)).x);
+    return (MR_C_std_string *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::A *)(_this)).x);
 }
 
 MR_A *MR_A_DefaultConstruct(void)
@@ -67,7 +67,7 @@ void MR_A_DestroyArray(const MR_A *_this)
 MR_A *MR_A_AssignFromAnother(MR_A *_this, MR_C_PassBy _other_pass_by, MR_A *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::A);
-    return (MR_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::A *)(_this)).operator=(
+    return (MR_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::A *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::A) MRBINDC_CLASSARG_COPY(_other, (MR::A), MR::A) MRBINDC_CLASSARG_MOVE(_other, (MR::A), MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::A) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::A) MRBINDC_CLASSARG_END(_other, MR::A))
     ));
 }

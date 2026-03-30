@@ -668,6 +668,7 @@ namespace mrbind
             (std::optional<Comment>)(comment)
             (bool)(is_trivial, false)
             (bool)(is_virtual, false)
+            (bool)(is_noexcept, false)
         )
 
         void VisitTypes(const std::function<void(Type &type)> &func)

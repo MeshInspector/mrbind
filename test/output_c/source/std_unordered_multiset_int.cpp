@@ -37,7 +37,7 @@ void MR_C_std_unordered_multiset_int_AssignFromAnother(MR_C_std_unordered_multis
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::unordered_multiset<int>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multiset<int> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_multiset<int> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::unordered_multiset<int>) MRBINDC_CLASSARG_COPY(other, (std::unordered_multiset<int>), std::unordered_multiset<int>) MRBINDC_CLASSARG_MOVE(other, (std::unordered_multiset<int>), std::unordered_multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::unordered_multiset<int>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::unordered_multiset<int>) MRBINDC_CLASSARG_END(other, std::unordered_multiset<int>))
     );
     ) // MRBINDC_TRY
@@ -81,36 +81,36 @@ MR_C_std_unordered_multiset_int *MR_C_std_unordered_multiset_int_ConstructFromRa
 void MR_C_std_unordered_multiset_int_AssignFromRange(MR_C_std_unordered_multiset_int *_this, const int *ptr, size_t size)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multiset<int> *)(_this)) = std::unordered_multiset<int>(ptr, ptr + size);
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_multiset<int> *)(_this)) = std::unordered_multiset<int>(ptr, ptr + size);
     ) // MRBINDC_TRY
 }
 
 size_t MR_C_std_unordered_multiset_int_size(const MR_C_std_unordered_multiset_int *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multiset<int> *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_multiset<int> *)(_this)).size();
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_unordered_multiset_int_empty(const MR_C_std_unordered_multiset_int *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multiset<int> *)(_this)).empty();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_multiset<int> *)(_this)).empty();
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_unordered_multiset_int_clear(MR_C_std_unordered_multiset_int *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multiset<int> *)(_this)).clear();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_multiset<int> *)(_this)).clear();
     ) // MRBINDC_TRY
 }
 
 size_t MR_C_std_unordered_multiset_int_count(const MR_C_std_unordered_multiset_int *_this, const int *key)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multiset<int> *)(_this)).count(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_multiset<int> *)(_this)).count(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     );
     ) // MRBINDC_TRY
 }
@@ -118,8 +118,8 @@ size_t MR_C_std_unordered_multiset_int_count(const MR_C_std_unordered_multiset_i
 MR_C_std_unordered_multiset_int_const_iterator *MR_C_std_unordered_multiset_int_find(const MR_C_std_unordered_multiset_int *_this, const int *key)
 {
     MRBINDC_TRY(
-    return (MR_C_std_unordered_multiset_int_const_iterator *)new std::unordered_multiset<int>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multiset<int> *)(_this)).find(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return (MR_C_std_unordered_multiset_int_const_iterator *)new std::unordered_multiset<int>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_multiset<int> *)(_this)).find(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     ));
     ) // MRBINDC_TRY
 }
@@ -127,7 +127,7 @@ MR_C_std_unordered_multiset_int_const_iterator *MR_C_std_unordered_multiset_int_
 void MR_C_std_unordered_multiset_int_insert(MR_C_std_unordered_multiset_int *_this, int new_elem)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multiset<int> *)(_this)).insert(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_multiset<int> *)(_this)).insert(
         new_elem
     );
     ) // MRBINDC_TRY
@@ -136,28 +136,28 @@ void MR_C_std_unordered_multiset_int_insert(MR_C_std_unordered_multiset_int *_th
 MR_C_std_unordered_multiset_int_const_iterator *MR_C_std_unordered_multiset_int_begin(const MR_C_std_unordered_multiset_int *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_std_unordered_multiset_int_const_iterator *)new std::unordered_multiset<int>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multiset<int> *)(_this)).cbegin());
+    return (MR_C_std_unordered_multiset_int_const_iterator *)new std::unordered_multiset<int>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_multiset<int> *)(_this)).cbegin());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_unordered_multiset_int_is_begin(const MR_C_std_unordered_multiset_int *_this, const MR_C_std_unordered_multiset_int_const_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multiset<int> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_multiset<int>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_multiset<int> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::unordered_multiset<int>::const_iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
 MR_C_std_unordered_multiset_int_const_iterator *MR_C_std_unordered_multiset_int_end(const MR_C_std_unordered_multiset_int *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_std_unordered_multiset_int_const_iterator *)new std::unordered_multiset<int>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multiset<int> *)(_this)).cend());
+    return (MR_C_std_unordered_multiset_int_const_iterator *)new std::unordered_multiset<int>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_multiset<int> *)(_this)).cend());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_unordered_multiset_int_is_end(const MR_C_std_unordered_multiset_int *_this, const MR_C_std_unordered_multiset_int_const_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multiset<int> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::unordered_multiset<int>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_multiset<int> *)(_this)).cend() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::unordered_multiset<int>::const_iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
@@ -179,7 +179,7 @@ MR_C_std_unordered_multiset_int_const_iterator *MR_C_std_unordered_multiset_int_
 {
     MRBINDC_TRY(
     return (MR_C_std_unordered_multiset_int_const_iterator *)new std::unordered_multiset<int>::const_iterator(std::unordered_multiset<int>::const_iterator(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unordered_multiset<int>::const_iterator(*(std::unordered_multiset<int>::const_iterator *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unordered_multiset<int>::const_iterator(*(std::unordered_multiset<int>::const_iterator *)other))
     ));
     ) // MRBINDC_TRY
 }
@@ -187,8 +187,8 @@ MR_C_std_unordered_multiset_int_const_iterator *MR_C_std_unordered_multiset_int_
 void MR_C_std_unordered_multiset_int_const_iterator_AssignFromAnother(MR_C_std_unordered_multiset_int_const_iterator *_this, const MR_C_std_unordered_multiset_int_const_iterator *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multiset<int>::const_iterator *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::unordered_multiset<int>::const_iterator(*(std::unordered_multiset<int>::const_iterator *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_multiset<int>::const_iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::unordered_multiset<int>::const_iterator(*(std::unordered_multiset<int>::const_iterator *)other))
     );
     ) // MRBINDC_TRY
 }
@@ -224,21 +224,21 @@ MR_C_std_unordered_multiset_int_const_iterator *MR_C_std_unordered_multiset_int_
 const int *MR_C_std_unordered_multiset_int_const_iterator_deref(const MR_C_std_unordered_multiset_int_const_iterator *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::unordered_multiset<int>::const_iterator *)(_this)));
+    return std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::unordered_multiset<int>::const_iterator *)(_this)));
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_unordered_multiset_int_const_iterator_incr(MR_C_std_unordered_multiset_int_const_iterator *_this)
 {
     MRBINDC_TRY(
-    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::unordered_multiset<int>::const_iterator *)(_this));
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::unordered_multiset<int>::const_iterator *)(_this));
     ) // MRBINDC_TRY
 }
 
 bool MR_C_equal_MR_C_std_unordered_multiset_int_const_iterator(const MR_C_std_unordered_multiset_int_const_iterator *a, const MR_C_std_unordered_multiset_int_const_iterator *b)
 {
     MRBINDC_TRY(
-    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::unordered_multiset<int>::const_iterator(*(std::unordered_multiset<int>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::unordered_multiset<int>::const_iterator(*(std::unordered_multiset<int>::const_iterator *)b));
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::unordered_multiset<int>::const_iterator(*(std::unordered_multiset<int>::const_iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::unordered_multiset<int>::const_iterator(*(std::unordered_multiset<int>::const_iterator *)b));
     ) // MRBINDC_TRY
 }
 

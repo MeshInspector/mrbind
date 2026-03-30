@@ -31,7 +31,7 @@ MR_C_std_shared_ptr_int32_t_array_42 *MR_C_std_shared_ptr_int32_t_array_42_Const
 void MR_C_std_shared_ptr_int32_t_array_42_AssignFromAnother(MR_C_std_shared_ptr_int32_t_array_42 *_this, MR_C_PassBy other_pass_by, MR_C_std_shared_ptr_int32_t_array_42 *other)
 {
     MRBINDC_CLASSARG_GUARD(other, std::shared_ptr<int32_t[42]>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int32_t[42]> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<int32_t[42]> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::shared_ptr<int32_t[42]>) MRBINDC_CLASSARG_COPY(other, (std::shared_ptr<int32_t[42]>), std::shared_ptr<int32_t[42]>) MRBINDC_CLASSARG_MOVE(other, (std::shared_ptr<int32_t[42]>), std::shared_ptr<int32_t[42]>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::shared_ptr<int32_t[42]>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::shared_ptr<int32_t[42]>) MRBINDC_CLASSARG_END(other, std::shared_ptr<int32_t[42]>))
     );
 }
@@ -58,22 +58,22 @@ MR_C_std_shared_ptr_int32_t_array_42 *MR_C_std_shared_ptr_int32_t_array_42_Offse
 
 int32_t *MR_C_std_shared_ptr_int32_t_array_42_get(const MR_C_std_shared_ptr_int32_t_array_42 *_this)
 {
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int32_t[42]> *)(_this)).get();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<int32_t[42]> *)(_this)).get();
 }
 
 bool MR_C_std_shared_ptr_int32_t_array_42_has_value(const MR_C_std_shared_ptr_int32_t_array_42 *_this)
 {
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int32_t[42]> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<int32_t[42]> *)(_this)));
 }
 
 int MR_C_std_shared_ptr_int32_t_array_42_use_count(const MR_C_std_shared_ptr_int32_t_array_42 *_this)
 {
-    return int(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int32_t[42]> *)(_this)).use_count());
+    return int(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<int32_t[42]> *)(_this)).use_count());
 }
 
 void MR_C_std_shared_ptr_int32_t_array_42_reset(MR_C_std_shared_ptr_int32_t_array_42 *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int32_t[42]> *)(_this)).reset();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<int32_t[42]> *)(_this)).reset();
 }
 
 MR_C_std_shared_ptr_int32_t_array_42 *MR_C_std_shared_ptr_int32_t_array_42_Construct(int32_t *ptr)
@@ -83,7 +83,7 @@ MR_C_std_shared_ptr_int32_t_array_42 *MR_C_std_shared_ptr_int32_t_array_42_Const
 
 void MR_C_std_shared_ptr_int32_t_array_42_Assign(MR_C_std_shared_ptr_int32_t_array_42 *_this, int32_t *ptr)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int32_t[42]> *)(_this)) = std::shared_ptr<int32_t[42]>(std::unique_ptr<int32_t[]>(ptr).release());
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<int32_t[42]> *)(_this)) = std::shared_ptr<int32_t[42]>(std::unique_ptr<int32_t[]>(ptr).release());
 }
 
 MR_C_std_shared_ptr_int32_t_array_42 *MR_C_std_shared_ptr_int32_t_array_42_ConstructNonOwning(int32_t *ptr)
@@ -93,7 +93,7 @@ MR_C_std_shared_ptr_int32_t_array_42 *MR_C_std_shared_ptr_int32_t_array_42_Const
 
 void MR_C_std_shared_ptr_int32_t_array_42_AssignNonOwning(MR_C_std_shared_ptr_int32_t_array_42 *_this, int32_t *ptr)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int32_t[42]> *)(_this)) = std::shared_ptr<int32_t[42]>(std::shared_ptr<void>{}, ptr);
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<int32_t[42]> *)(_this)) = std::shared_ptr<int32_t[42]>(std::shared_ptr<void>{}, ptr);
 }
 
 MR_C_std_shared_ptr_int32_t_array_42 *MR_C_std_shared_ptr_int32_t_array_42_ConstructAliasing(MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, int32_t *ptr)
@@ -108,7 +108,7 @@ MR_C_std_shared_ptr_int32_t_array_42 *MR_C_std_shared_ptr_int32_t_array_42_Const
 void MR_C_std_shared_ptr_int32_t_array_42_AssignAliasing(MR_C_std_shared_ptr_int32_t_array_42 *_this, MR_C_PassBy ownership_pass_by, MR_C_std_shared_ptr_const_void *ownership, int32_t *ptr)
 {
     MRBINDC_CLASSARG_GUARD(ownership, std::shared_ptr<const void>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::shared_ptr<int32_t[42]> *)(_this)) = std::shared_ptr<int32_t[42]>(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::shared_ptr<int32_t[42]> *)(_this)) = std::shared_ptr<int32_t[42]>(
         (MRBINDC_CLASSARG_DEF_CTOR(ownership, std::shared_ptr<const void>) MRBINDC_CLASSARG_COPY(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_MOVE(ownership, (std::shared_ptr<const void>), std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_DefaultArgument, std::shared_ptr<const void>) MRBINDC_CLASSARG_NO_DEF_ARG(ownership, MR_C_PassBy_NoObject, std::shared_ptr<const void>) MRBINDC_CLASSARG_END(ownership, std::shared_ptr<const void>)),
         ptr
     );
@@ -116,11 +116,11 @@ void MR_C_std_shared_ptr_int32_t_array_42_AssignAliasing(MR_C_std_shared_ptr_int
 
 MR_C_std_shared_ptr_void *MR_C_std_shared_ptr_int32_t_array_42_ConvertTo_MR_C_std_shared_ptr_void(const MR_C_std_shared_ptr_int32_t_array_42 *_this)
 {
-    return (MR_C_std_shared_ptr_void *)new std::shared_ptr<void>(std::shared_ptr<void>(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int32_t[42]> *)(_this))));
+    return (MR_C_std_shared_ptr_void *)new std::shared_ptr<void>(std::shared_ptr<void>(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<int32_t[42]> *)(_this))));
 }
 
 void MR_C_std_shared_ptr_int32_t_array_42_AssignTo_MR_C_std_shared_ptr_void(const MR_C_std_shared_ptr_int32_t_array_42 *_this, MR_C_std_shared_ptr_void *_target)
 {
-    ((_target ? void() : throw std::runtime_error("Parameter `_target` can not be null.")), *(std::shared_ptr<void> *)(_target)) = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::shared_ptr<int32_t[42]> *)(_this));
+    ((_target ? void() : MRBINDC_THROW("Parameter `_target` can not be null.", void)), *(std::shared_ptr<void> *)(_target)) = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::shared_ptr<int32_t[42]> *)(_this));
 }
 

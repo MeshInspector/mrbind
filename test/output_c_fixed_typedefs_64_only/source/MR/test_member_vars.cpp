@@ -1,6 +1,7 @@
 #define MR_C_BUILD_LIBRARY
 #include "MR/test_member_vars.h"
 
+#include <__mrbind_c_details.h>
 #include <input/MR/test_member_vars.h>
 
 #include <cstddef>
@@ -31,37 +32,37 @@ const int *MR_MemberVars_A_Get_w(void)
 
 const int *MR_MemberVars_A_Get_x(const MR_MemberVars_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::MemberVars::A *)(_this)).x);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::MemberVars::A *)(_this)).x);
 }
 
 void MR_MemberVars_A_Set_x(MR_MemberVars_A *_this, int value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::MemberVars::A *)(_this)).x = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::MemberVars::A *)(_this)).x = value;
 }
 
 int *MR_MemberVars_A_GetMutable_x(MR_MemberVars_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::MemberVars::A *)(_this)).x);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::MemberVars::A *)(_this)).x);
 }
 
 const int *MR_MemberVars_A_Get_y(const MR_MemberVars_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::MemberVars::A *)(_this)).y);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::MemberVars::A *)(_this)).y);
 }
 
 int *MR_MemberVars_A_Get_ref(const MR_MemberVars_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::MemberVars::A *)(_this)).ref);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::MemberVars::A *)(_this)).ref);
 }
 
 const int *MR_MemberVars_A_Get_arr(const MR_MemberVars_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::MemberVars::A *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::MemberVars::A *)(_this)).arr[0]);
 }
 
 int *MR_MemberVars_A_GetMutable_arr(MR_MemberVars_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::MemberVars::A *)(_this)).arr[0]);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::MemberVars::A *)(_this)).arr[0]);
 }
 
 size_t MR_MemberVars_A_GetSize_arr(void)
@@ -72,7 +73,7 @@ size_t MR_MemberVars_A_GetSize_arr(void)
 MR_MemberVars_A *MR_MemberVars_A_ConstructFromAnother(const MR_MemberVars_A *_other)
 {
     return (MR_MemberVars_A *)new MR::MemberVars::A(MR::MemberVars::A(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::MemberVars::A(*(MR::MemberVars::A *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::MemberVars::A(*(MR::MemberVars::A *)_other))
     ));
 }
 

@@ -28,17 +28,17 @@ int32_t *MR_CopyInheritedMembers_A_GetMutable_StaticField(void)
 
 const int32_t *MR_CopyInheritedMembers_A_Get_Field(const MR_CopyInheritedMembers_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CopyInheritedMembers::A *)(_this)).Field);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CopyInheritedMembers::A *)(_this)).Field);
 }
 
 void MR_CopyInheritedMembers_A_Set_Field(MR_CopyInheritedMembers_A *_this, int32_t value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::A *)(_this)).Field = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::A *)(_this)).Field = value;
 }
 
 int32_t *MR_CopyInheritedMembers_A_GetMutable_Field(MR_CopyInheritedMembers_A *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::A *)(_this)).Field);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::A *)(_this)).Field);
 }
 
 MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_A_DefaultConstruct(void)
@@ -71,7 +71,7 @@ MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_A_OffsetMutablePtr(MR_CopyInh
 MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_A_ConstructFromAnother(const MR_CopyInheritedMembers_A *_other)
 {
     return (MR_CopyInheritedMembers_A *)new MR::CopyInheritedMembers::A(MR::CopyInheritedMembers::A(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::A(*(MR::CopyInheritedMembers::A *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::A(*(MR::CopyInheritedMembers::A *)_other))
     ));
 }
 
@@ -87,19 +87,19 @@ void MR_CopyInheritedMembers_A_DestroyArray(const MR_CopyInheritedMembers_A *_th
 
 int32_t MR_CopyInheritedMembers_A_ConvertTo_int32_t(MR_CopyInheritedMembers_A *_this)
 {
-    return (int32_t)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::A *)(_this)));
+    return (int32_t)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::A *)(_this)));
 }
 
 MR_CopyInheritedMembers_A *MR_CopyInheritedMembers_A_AssignFromAnother(MR_CopyInheritedMembers_A *_this, const MR_CopyInheritedMembers_A *_other)
 {
-    return (MR_CopyInheritedMembers_A *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::A *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::A(*(MR::CopyInheritedMembers::A *)_other))
+    return (MR_CopyInheritedMembers_A *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::A *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::A(*(MR::CopyInheritedMembers::A *)_other))
     ));
 }
 
 void MR_CopyInheritedMembers_A_Method(MR_CopyInheritedMembers_A *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::A *)(_this)).Method();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::A *)(_this)).Method();
 }
 
 void MR_CopyInheritedMembers_A_StaticFunc(void)
@@ -124,17 +124,17 @@ int32_t *MR_CopyInheritedMembers_B_GetMutable_StaticField(void)
 
 const int32_t *MR_CopyInheritedMembers_B_Get_Field(const MR_CopyInheritedMembers_B *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const MR::CopyInheritedMembers::B *)(_this)).Field);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const MR::CopyInheritedMembers::B *)(_this)).Field);
 }
 
 void MR_CopyInheritedMembers_B_Set_Field(MR_CopyInheritedMembers_B *_this, int32_t value)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::B *)(_this)).Field = value;
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::B *)(_this)).Field = value;
 }
 
 int32_t *MR_CopyInheritedMembers_B_GetMutable_Field(MR_CopyInheritedMembers_B *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::B *)(_this)).Field);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::B *)(_this)).Field);
 }
 
 MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_B_DefaultConstruct(void)
@@ -167,7 +167,7 @@ MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_B_OffsetMutablePtr(MR_CopyInh
 MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_B_ConstructFromAnother(const MR_CopyInheritedMembers_B *_other)
 {
     return (MR_CopyInheritedMembers_B *)new MR::CopyInheritedMembers::B(MR::CopyInheritedMembers::B(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::B(*(MR::CopyInheritedMembers::B *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::B(*(MR::CopyInheritedMembers::B *)_other))
     ));
 }
 
@@ -183,19 +183,19 @@ void MR_CopyInheritedMembers_B_DestroyArray(const MR_CopyInheritedMembers_B *_th
 
 int32_t MR_CopyInheritedMembers_B_ConvertTo_int32_t(MR_CopyInheritedMembers_B *_this)
 {
-    return (int32_t)(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::B *)(_this)));
+    return (int32_t)(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::B *)(_this)));
 }
 
 MR_CopyInheritedMembers_B *MR_CopyInheritedMembers_B_AssignFromAnother(MR_CopyInheritedMembers_B *_this, const MR_CopyInheritedMembers_B *_other)
 {
-    return (MR_CopyInheritedMembers_B *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::B *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::B(*(MR::CopyInheritedMembers::B *)_other))
+    return (MR_CopyInheritedMembers_B *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::B *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::B(*(MR::CopyInheritedMembers::B *)_other))
     ));
 }
 
 void MR_CopyInheritedMembers_B_Method(MR_CopyInheritedMembers_B *_this)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::B *)(_this)).Method();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::B *)(_this)).Method();
 }
 
 void MR_CopyInheritedMembers_B_StaticFunc(void)
@@ -282,7 +282,7 @@ MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_C_MutableStaticDowncastFrom_M
 MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_C_ConstructFromAnother(const MR_CopyInheritedMembers_C *_other)
 {
     return (MR_CopyInheritedMembers_C *)new MR::CopyInheritedMembers::C(MR::CopyInheritedMembers::C(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::C(*(MR::CopyInheritedMembers::C *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::C(*(MR::CopyInheritedMembers::C *)_other))
     ));
 }
 
@@ -298,8 +298,8 @@ void MR_CopyInheritedMembers_C_DestroyArray(const MR_CopyInheritedMembers_C *_th
 
 MR_CopyInheritedMembers_C *MR_CopyInheritedMembers_C_AssignFromAnother(MR_CopyInheritedMembers_C *_this, const MR_CopyInheritedMembers_C *_other)
 {
-    return (MR_CopyInheritedMembers_C *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::C *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::C(*(MR::CopyInheritedMembers::C *)_other))
+    return (MR_CopyInheritedMembers_C *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::C *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::C(*(MR::CopyInheritedMembers::C *)_other))
     ));
 }
 
@@ -354,7 +354,7 @@ MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_D_MutableStaticDowncastFrom_M
 MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_D_ConstructFromAnother(const MR_CopyInheritedMembers_D *_other)
 {
     return (MR_CopyInheritedMembers_D *)new MR::CopyInheritedMembers::D(MR::CopyInheritedMembers::D(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::D(*(MR::CopyInheritedMembers::D *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::D(*(MR::CopyInheritedMembers::D *)_other))
     ));
 }
 
@@ -370,8 +370,8 @@ void MR_CopyInheritedMembers_D_DestroyArray(const MR_CopyInheritedMembers_D *_th
 
 MR_CopyInheritedMembers_D *MR_CopyInheritedMembers_D_AssignFromAnother(MR_CopyInheritedMembers_D *_this, const MR_CopyInheritedMembers_D *_other)
 {
-    return (MR_CopyInheritedMembers_D *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::D *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::D(*(MR::CopyInheritedMembers::D *)_other))
+    return (MR_CopyInheritedMembers_D *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::D *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::D(*(MR::CopyInheritedMembers::D *)_other))
     ));
 }
 
@@ -482,7 +482,7 @@ MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_MutableStaticDowncastFrom_M
 MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_ConstructFromAnother(const MR_CopyInheritedMembers_E *_other)
 {
     return (MR_CopyInheritedMembers_E *)new MR::CopyInheritedMembers::E(MR::CopyInheritedMembers::E(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::E(*(MR::CopyInheritedMembers::E *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::E(*(MR::CopyInheritedMembers::E *)_other))
     ));
 }
 
@@ -498,8 +498,8 @@ void MR_CopyInheritedMembers_E_DestroyArray(const MR_CopyInheritedMembers_E *_th
 
 MR_CopyInheritedMembers_E *MR_CopyInheritedMembers_E_AssignFromAnother(MR_CopyInheritedMembers_E *_this, const MR_CopyInheritedMembers_E *_other)
 {
-    return (MR_CopyInheritedMembers_E *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::E *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::E(*(MR::CopyInheritedMembers::E *)_other))
+    return (MR_CopyInheritedMembers_E *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::E *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::E(*(MR::CopyInheritedMembers::E *)_other))
     ));
 }
 
@@ -610,7 +610,7 @@ MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_MutableStaticDowncastFrom_M
 MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_ConstructFromAnother(const MR_CopyInheritedMembers_F *_other)
 {
     return (MR_CopyInheritedMembers_F *)new MR::CopyInheritedMembers::F(MR::CopyInheritedMembers::F(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::F(*(MR::CopyInheritedMembers::F *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::F(*(MR::CopyInheritedMembers::F *)_other))
     ));
 }
 
@@ -626,8 +626,8 @@ void MR_CopyInheritedMembers_F_DestroyArray(const MR_CopyInheritedMembers_F *_th
 
 MR_CopyInheritedMembers_F *MR_CopyInheritedMembers_F_AssignFromAnother(MR_CopyInheritedMembers_F *_this, const MR_CopyInheritedMembers_F *_other)
 {
-    return (MR_CopyInheritedMembers_F *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::F *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::F(*(MR::CopyInheritedMembers::F *)_other))
+    return (MR_CopyInheritedMembers_F *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::F *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::F(*(MR::CopyInheritedMembers::F *)_other))
     ));
 }
 
@@ -686,7 +686,7 @@ void MR_CopyInheritedMembers_G_DestroyArray(const MR_CopyInheritedMembers_G *_th
 MR_CopyInheritedMembers_G *MR_CopyInheritedMembers_G_AssignFromAnother(MR_CopyInheritedMembers_G *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_G *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CopyInheritedMembers::G);
-    return (MR_CopyInheritedMembers_G *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::G *)(_this)).operator=(
+    return (MR_CopyInheritedMembers_G *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::G *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::G) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::G), MR::CopyInheritedMembers::G) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::G), MR::CopyInheritedMembers::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::G) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::G) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::G))
     ));
 }
@@ -774,7 +774,7 @@ void MR_CopyInheritedMembers_H_DestroyArray(const MR_CopyInheritedMembers_H *_th
 MR_CopyInheritedMembers_H *MR_CopyInheritedMembers_H_AssignFromAnother(MR_CopyInheritedMembers_H *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_H *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CopyInheritedMembers::H);
-    return (MR_CopyInheritedMembers_H *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::H *)(_this)).operator=(
+    return (MR_CopyInheritedMembers_H *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::H *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::H) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::H), MR::CopyInheritedMembers::H) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::H), MR::CopyInheritedMembers::H) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::H) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::H) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::H))
     ));
 }
@@ -862,7 +862,7 @@ void MR_CopyInheritedMembers_I_DestroyArray(const MR_CopyInheritedMembers_I *_th
 MR_CopyInheritedMembers_I *MR_CopyInheritedMembers_I_AssignFromAnother(MR_CopyInheritedMembers_I *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_I *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CopyInheritedMembers::I);
-    return (MR_CopyInheritedMembers_I *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::I *)(_this)).operator=(
+    return (MR_CopyInheritedMembers_I *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::I *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::I) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::I), MR::CopyInheritedMembers::I) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::I), MR::CopyInheritedMembers::I) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::I) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::I) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::I))
     ));
 }
@@ -918,7 +918,7 @@ MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_J_MutableStaticDowncastFrom_M
 MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_J_ConstructFromAnother(const MR_CopyInheritedMembers_J *_other)
 {
     return (MR_CopyInheritedMembers_J *)new MR::CopyInheritedMembers::J(MR::CopyInheritedMembers::J(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::J(*(MR::CopyInheritedMembers::J *)_other))
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::J(*(MR::CopyInheritedMembers::J *)_other))
     ));
 }
 
@@ -934,8 +934,8 @@ void MR_CopyInheritedMembers_J_DestroyArray(const MR_CopyInheritedMembers_J *_th
 
 MR_CopyInheritedMembers_J *MR_CopyInheritedMembers_J_AssignFromAnother(MR_CopyInheritedMembers_J *_this, const MR_CopyInheritedMembers_J *_other)
 {
-    return (MR_CopyInheritedMembers_J *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::J *)(_this)).operator=(
-        ((_other ? void() : throw std::runtime_error("Parameter `_other` can not be null.")), MR::CopyInheritedMembers::J(*(MR::CopyInheritedMembers::J *)_other))
+    return (MR_CopyInheritedMembers_J *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::J *)(_this)).operator=(
+        ((_other ? void() : MRBINDC_THROW("Parameter `_other` can not be null.", void)), MR::CopyInheritedMembers::J(*(MR::CopyInheritedMembers::J *)_other))
     ));
 }
 
@@ -980,7 +980,7 @@ void MR_CopyInheritedMembers_K_DestroyArray(const MR_CopyInheritedMembers_K *_th
 MR_CopyInheritedMembers_K *MR_CopyInheritedMembers_K_AssignFromAnother(MR_CopyInheritedMembers_K *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_K *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CopyInheritedMembers::K);
-    return (MR_CopyInheritedMembers_K *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::K *)(_this)).operator=(
+    return (MR_CopyInheritedMembers_K *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::K *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::K) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::K), MR::CopyInheritedMembers::K) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::K), MR::CopyInheritedMembers::K) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::K) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::K) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::K))
     ));
 }
@@ -1026,7 +1026,7 @@ void MR_CopyInheritedMembers_L_DestroyArray(const MR_CopyInheritedMembers_L *_th
 MR_CopyInheritedMembers_L *MR_CopyInheritedMembers_L_AssignFromAnother(MR_CopyInheritedMembers_L *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_L *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CopyInheritedMembers::L);
-    return (MR_CopyInheritedMembers_L *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::L *)(_this)).operator=(
+    return (MR_CopyInheritedMembers_L *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::L *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::L) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::L), MR::CopyInheritedMembers::L) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::L), MR::CopyInheritedMembers::L) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::L) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::L) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::L))
     ));
 }
@@ -1100,7 +1100,7 @@ void MR_CopyInheritedMembers_M_DestroyArray(const MR_CopyInheritedMembers_M *_th
 MR_CopyInheritedMembers_M *MR_CopyInheritedMembers_M_AssignFromAnother(MR_CopyInheritedMembers_M *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_M *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CopyInheritedMembers::M);
-    return (MR_CopyInheritedMembers_M *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::M *)(_this)).operator=(
+    return (MR_CopyInheritedMembers_M *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::M *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::M), MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::M), MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::M) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::M))
     ));
 }
@@ -1202,7 +1202,7 @@ void MR_CopyInheritedMembers_N_DestroyArray(const MR_CopyInheritedMembers_N *_th
 MR_CopyInheritedMembers_N *MR_CopyInheritedMembers_N_AssignFromAnother(MR_CopyInheritedMembers_N *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_N *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CopyInheritedMembers::N);
-    return (MR_CopyInheritedMembers_N *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::N *)(_this)).operator=(
+    return (MR_CopyInheritedMembers_N *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::N *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::N), MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::N), MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::N) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::N))
     ));
 }
@@ -1332,7 +1332,7 @@ void MR_CopyInheritedMembers_O_DestroyArray(const MR_CopyInheritedMembers_O *_th
 MR_CopyInheritedMembers_O *MR_CopyInheritedMembers_O_AssignFromAnother(MR_CopyInheritedMembers_O *_this, MR_C_PassBy _other_pass_by, MR_CopyInheritedMembers_O *_other)
 {
     MRBINDC_CLASSARG_GUARD(_other, MR::CopyInheritedMembers::O);
-    return (MR_CopyInheritedMembers_O *)std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(MR::CopyInheritedMembers::O *)(_this)).operator=(
+    return (MR_CopyInheritedMembers_O *)std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(MR::CopyInheritedMembers::O *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(_other, MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_COPY(_other, (MR::CopyInheritedMembers::O), MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_MOVE(_other, (MR::CopyInheritedMembers::O), MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_DefaultArgument, MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_NO_DEF_ARG(_other, MR_C_PassBy_NoObject, MR::CopyInheritedMembers::O) MRBINDC_CLASSARG_END(_other, MR::CopyInheritedMembers::O))
     ));
 }

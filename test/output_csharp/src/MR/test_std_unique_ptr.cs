@@ -32,7 +32,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_A_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.StdUniquePtr.A._Underlying *__MR_StdUniquePtr_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdUniquePtr_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::StdUniquePtr::A::A`.
@@ -40,8 +42,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdUniquePtr.A._Underlying *__MR_StdUniquePtr_A_ConstructFromAnother(MR.CS.StdUniquePtr.A._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdUniquePtr_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::StdUniquePtr::A::A`.
@@ -60,7 +64,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_A_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.StdUniquePtr.A._Underlying *__MR_StdUniquePtr_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdUniquePtr_A_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::StdUniquePtr::A::A`.
@@ -68,8 +74,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdUniquePtr.A._Underlying *__MR_StdUniquePtr_A_ConstructFromAnother(MR.CS.StdUniquePtr.A._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_StdUniquePtr_A_ConstructFromAnother(_other._UnderlyingPtr);
                     _KeepAlive(_other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Generated from constructor `MR::StdUniquePtr::A::A`.
@@ -80,9 +88,12 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_A_AssignFromAnother", ExactSpelling = true)]
                     extern static MR.CS.StdUniquePtr.A._Underlying *__MR_StdUniquePtr_A_AssignFromAnother(_Underlying *_this, MR.CS.StdUniquePtr.A._Underlying *_other);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_StdUniquePtr_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr);
                     _DiscardKeepAlive();
                     _KeepAlive(_other);
-                    return new(__MR_StdUniquePtr_A_AssignFromAnother(_UnderlyingPtr, _other._UnderlyingPtr), is_owning: false);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return new(__c_ret, is_owning: false);
                 }
             }
 
@@ -121,7 +132,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetInt", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetInt();
-                return __MR_StdUniquePtr_GetInt();
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdUniquePtr_GetInt();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             /// Generated from function `MR::StdUniquePtr::SetInt`.
@@ -129,6 +143,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetInt", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetInt(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetInt(_1);
             }
 
@@ -137,6 +153,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntConstRef(MR.CS.Std.Const_UniquePtr_Int._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetIntConstRef(_1._UnderlyingPtr);
             }
 
@@ -145,6 +163,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntDefTrivial(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetIntDefTrivial(_1);
             }
 
@@ -154,6 +174,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntDef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntDef(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetIntDef(_1);
             }
 
@@ -162,6 +184,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntLvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntLvalueRef(MR.CS.Std.UniquePtr_Int._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetIntLvalueRef(_1._UnderlyingPtr);
             }
 
@@ -170,6 +194,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntLvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntLvalueConstRef(MR.CS.Std.Const_UniquePtr_Int._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetIntLvalueConstRef(_1._UnderlyingPtr);
             }
 
@@ -178,6 +204,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntRvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntRvalueRef(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetIntRvalueRef(_1);
             }
 
@@ -186,6 +214,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntRvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntRvalueConstRef(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetIntRvalueConstRef(_1);
             }
 
@@ -194,7 +224,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetIntArr", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetIntArr();
-                return __MR_StdUniquePtr_GetIntArr();
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdUniquePtr_GetIntArr();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             /// Generated from function `MR::StdUniquePtr::SetIntArr`.
@@ -202,6 +235,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntArr", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntArr(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetIntArr(_1);
             }
 
@@ -210,6 +245,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntArrDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntArrDefTrivial(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetIntArrDefTrivial(_1);
             }
 
@@ -219,6 +256,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetIntArrDef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetIntArrDef(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetIntArrDef(_1);
             }
 
@@ -227,7 +266,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetClass", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetClass();
-                return __MR_StdUniquePtr_GetClass();
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdUniquePtr_GetClass();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             /// Generated from function `MR::StdUniquePtr::SetClass`.
@@ -235,6 +277,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClass", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClass(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetClass(_1);
             }
 
@@ -243,6 +287,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassConstRef(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetClassConstRef(_1._UnderlyingPtr);
             }
 
@@ -251,6 +297,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassDefTrivial(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetClassDefTrivial(_1);
             }
 
@@ -260,6 +308,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassDef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassDef(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetClassDef(_1);
             }
 
@@ -268,6 +318,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassLvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassLvalueRef(MR.CS.Std.UniquePtr_MRStdUniquePtrA._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetClassLvalueRef(_1._UnderlyingPtr);
             }
 
@@ -276,6 +328,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassLvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassLvalueConstRef(MR.CS.Std.Const_UniquePtr_MRStdUniquePtrA._Underlying *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetClassLvalueConstRef(_1._UnderlyingPtr);
             }
 
@@ -284,6 +338,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassRvalueRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassRvalueRef(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetClassRvalueRef(_1);
             }
 
@@ -292,6 +348,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassRvalueConstRef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassRvalueConstRef(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetClassRvalueConstRef(_1);
             }
 
@@ -300,7 +358,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetClassArr", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetClassArr();
-                return __MR_StdUniquePtr_GetClassArr();
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdUniquePtr_GetClassArr();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             /// Generated from function `MR::StdUniquePtr::SetClassArr`.
@@ -308,6 +369,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassArr", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassArr(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetClassArr(_1);
             }
 
@@ -316,6 +379,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassArrDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassArrDefTrivial(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetClassArrDefTrivial(_1);
             }
 
@@ -325,6 +390,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetClassArrDef", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetClassArrDef(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetClassArrDef(_1);
             }
 
@@ -334,7 +401,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetConstInt", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetConstInt();
-                return __MR_StdUniquePtr_GetConstInt();
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdUniquePtr_GetConstInt();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             /// Generated from function `MR::StdUniquePtr::GetConstIntArr`.
@@ -342,7 +412,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetConstIntArr", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetConstIntArr();
-                return __MR_StdUniquePtr_GetConstIntArr();
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdUniquePtr_GetConstIntArr();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             /// Generated from function `MR::StdUniquePtr::GetConstClass`.
@@ -350,7 +423,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetConstClass", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetConstClass();
-                return __MR_StdUniquePtr_GetConstClass();
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdUniquePtr_GetConstClass();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             /// Generated from function `MR::StdUniquePtr::GetConstClassArr`.
@@ -358,7 +434,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetConstClassArr", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetConstClassArr();
-                return __MR_StdUniquePtr_GetConstClassArr();
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdUniquePtr_GetConstClassArr();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             // Here `std::unique_ptr<float>` never gets emitted as an actual type (since we don't have non-null default arguments), so its header should not be emitted.
@@ -367,7 +446,10 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_GetFloat", ExactSpelling = true)]
                 extern static void *__MR_StdUniquePtr_GetFloat();
-                return __MR_StdUniquePtr_GetFloat();
+                MR.CS.Misc._Exceptions.Prepare();
+                var __c_ret = __MR_StdUniquePtr_GetFloat();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret;
             }
 
             /// Generated from function `MR::StdUniquePtr::SetFloat`.
@@ -375,6 +457,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetFloat", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetFloat(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetFloat(_1);
             }
 
@@ -383,6 +467,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdUniquePtr_SetFloatDefTrivial", ExactSpelling = true)]
                 extern static void __MR_StdUniquePtr_SetFloatDefTrivial(void *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_StdUniquePtr_SetFloatDefTrivial(_1);
             }
         }

@@ -37,7 +37,7 @@ void MR_C_std_set_float_AssignFromAnother(MR_C_std_set_float *_this, MR_C_PassBy
 {
     MRBINDC_TRY(
     MRBINDC_CLASSARG_GUARD(other, std::set<float>);
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::set<float> *)(_this)).operator=(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::set<float> *)(_this)).operator=(
         (MRBINDC_CLASSARG_DEF_CTOR(other, std::set<float>) MRBINDC_CLASSARG_COPY(other, (std::set<float>), std::set<float>) MRBINDC_CLASSARG_MOVE(other, (std::set<float>), std::set<float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_DefaultArgument, std::set<float>) MRBINDC_CLASSARG_NO_DEF_ARG(other, MR_C_PassBy_NoObject, std::set<float>) MRBINDC_CLASSARG_END(other, std::set<float>))
     );
     ) // MRBINDC_TRY
@@ -81,36 +81,36 @@ MR_C_std_set_float *MR_C_std_set_float_ConstructFromRange(const float *ptr, size
 void MR_C_std_set_float_AssignFromRange(MR_C_std_set_float *_this, const float *ptr, size_t size)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::set<float> *)(_this)) = std::set<float>(ptr, ptr + size);
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::set<float> *)(_this)) = std::set<float>(ptr, ptr + size);
     ) // MRBINDC_TRY
 }
 
 size_t MR_C_std_set_float_size(const MR_C_std_set_float *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::set<float> *)(_this)).size();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float> *)(_this)).size();
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_set_float_empty(const MR_C_std_set_float *_this)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::set<float> *)(_this)).empty();
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float> *)(_this)).empty();
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_set_float_clear(MR_C_std_set_float *_this)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::set<float> *)(_this)).clear();
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::set<float> *)(_this)).clear();
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_set_float_contains(const MR_C_std_set_float *_this, const float *key)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::set<float> *)(_this)).contains(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float> *)(_this)).contains(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     );
     ) // MRBINDC_TRY
 }
@@ -118,8 +118,8 @@ bool MR_C_std_set_float_contains(const MR_C_std_set_float *_this, const float *k
 MR_C_std_set_float_const_iterator *MR_C_std_set_float_find(const MR_C_std_set_float *_this, const float *key)
 {
     MRBINDC_TRY(
-    return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::set<float> *)(_this)).find(
-        ((key ? void() : throw std::runtime_error("Parameter `key` can not be null.")), *key)
+    return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float> *)(_this)).find(
+        ((key ? void() : MRBINDC_THROW("Parameter `key` can not be null.", void)), *key)
     ));
     ) // MRBINDC_TRY
 }
@@ -127,7 +127,7 @@ MR_C_std_set_float_const_iterator *MR_C_std_set_float_find(const MR_C_std_set_fl
 void MR_C_std_set_float_insert(MR_C_std_set_float *_this, float new_elem)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::set<float> *)(_this)).insert(
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::set<float> *)(_this)).insert(
         new_elem
     );
     ) // MRBINDC_TRY
@@ -136,28 +136,28 @@ void MR_C_std_set_float_insert(MR_C_std_set_float *_this, float new_elem)
 MR_C_std_set_float_const_iterator *MR_C_std_set_float_begin(const MR_C_std_set_float *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::set<float> *)(_this)).cbegin());
+    return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float> *)(_this)).cbegin());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_set_float_is_begin(const MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::set<float> *)(_this)).cbegin() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::set<float>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float> *)(_this)).cbegin() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::set<float>::const_iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
 MR_C_std_set_float_const_iterator *MR_C_std_set_float_end(const MR_C_std_set_float *_this)
 {
     MRBINDC_TRY(
-    return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::set<float> *)(_this)).cend());
+    return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float> *)(_this)).cend());
     ) // MRBINDC_TRY
 }
 
 bool MR_C_std_set_float_is_end(const MR_C_std_set_float *_this, const MR_C_std_set_float_const_iterator *iter)
 {
     MRBINDC_TRY(
-    return ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::set<float> *)(_this)).cend() == ((iter ? void() : throw std::runtime_error("Parameter `iter` can not be null.")), *(const std::set<float>::const_iterator *)(iter));
+    return ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float> *)(_this)).cend() == ((iter ? void() : MRBINDC_THROW("Parameter `iter` can not be null.", void)), *(const std::set<float>::const_iterator *)(iter));
     ) // MRBINDC_TRY
 }
 
@@ -179,7 +179,7 @@ MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_ConstructFr
 {
     MRBINDC_TRY(
     return (MR_C_std_set_float_const_iterator *)new std::set<float>::const_iterator(std::set<float>::const_iterator(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::set<float>::const_iterator(*(std::set<float>::const_iterator *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::set<float>::const_iterator(*(std::set<float>::const_iterator *)other))
     ));
     ) // MRBINDC_TRY
 }
@@ -187,8 +187,8 @@ MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_ConstructFr
 void MR_C_std_set_float_const_iterator_AssignFromAnother(MR_C_std_set_float_const_iterator *_this, const MR_C_std_set_float_const_iterator *other)
 {
     MRBINDC_TRY(
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::set<float>::const_iterator *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::set<float>::const_iterator(*(std::set<float>::const_iterator *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::set<float>::const_iterator *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::set<float>::const_iterator(*(std::set<float>::const_iterator *)other))
     );
     ) // MRBINDC_TRY
 }
@@ -224,28 +224,28 @@ MR_C_std_set_float_const_iterator *MR_C_std_set_float_const_iterator_OffsetMutab
 const float *MR_C_std_set_float_const_iterator_deref(const MR_C_std_set_float_const_iterator *_this)
 {
     MRBINDC_TRY(
-    return std::addressof(*((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::set<float>::const_iterator *)(_this)));
+    return std::addressof(*((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::set<float>::const_iterator *)(_this)));
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_set_float_const_iterator_incr(MR_C_std_set_float_const_iterator *_this)
 {
     MRBINDC_TRY(
-    ++((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::set<float>::const_iterator *)(_this));
+    ++((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::set<float>::const_iterator *)(_this));
     ) // MRBINDC_TRY
 }
 
 void MR_C_std_set_float_const_iterator_decr(MR_C_std_set_float_const_iterator *_this)
 {
     MRBINDC_TRY(
-    --((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::set<float>::const_iterator *)(_this));
+    --((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::set<float>::const_iterator *)(_this));
     ) // MRBINDC_TRY
 }
 
 bool MR_C_equal_MR_C_std_set_float_const_iterator(const MR_C_std_set_float_const_iterator *a, const MR_C_std_set_float_const_iterator *b)
 {
     MRBINDC_TRY(
-    return ((a ? void() : throw std::runtime_error("Parameter `a` can not be null.")), std::set<float>::const_iterator(*(std::set<float>::const_iterator *)a)) == ((b ? void() : throw std::runtime_error("Parameter `b` can not be null.")), std::set<float>::const_iterator(*(std::set<float>::const_iterator *)b));
+    return ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::set<float>::const_iterator(*(std::set<float>::const_iterator *)a)) == ((b ? void() : MRBINDC_THROW("Parameter `b` can not be null.", void)), std::set<float>::const_iterator(*(std::set<float>::const_iterator *)b));
     ) // MRBINDC_TRY
 }
 

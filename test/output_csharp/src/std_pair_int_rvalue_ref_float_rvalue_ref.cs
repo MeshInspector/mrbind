@@ -31,8 +31,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs the pair elementwise.
@@ -40,7 +42,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(int *first, float *second);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(&first, &second);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// The first of the two elements, read-only.
@@ -48,7 +52,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_first", ExactSpelling = true)]
                     extern static int *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_first(_Underlying *_this);
-                    return *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_first(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_first(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return *__c_ret;
                 }
 
                 /// The second of the two elements, read-only.
@@ -56,7 +63,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_second", ExactSpelling = true)]
                     extern static float *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_second(_Underlying *_this);
-                    return *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_second(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_second(_UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return *__c_ret;
                 }
 
                 // Custom extras:
@@ -79,8 +89,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_ConstructFromAnother(other._UnderlyingPtr);
                     _KeepAlive(other);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs the pair elementwise.
@@ -88,7 +100,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct", ExactSpelling = true)]
                     extern static MR.CS.Std.Pair_IntRvalueRef_FloatRvalueRef._Underlying *__MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(int *first, float *second);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_pair_int_rvalue_ref_float_rvalue_ref_Construct(&first, &second);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
             }
 

@@ -33,7 +33,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_DefaultConstruct", ExactSpelling = true)]
                         extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_filesystem_path_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -41,8 +43,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                         if (other.Value is not null) _KeepAlive(other.Value);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -59,7 +63,9 @@ public static partial class MR
                         byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                         fixed (byte *__ptr_other = __bytes_other)
                         {
+                            MR.CS.Misc._Exceptions.Prepare();
                             _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFrom(__ptr_other, __ptr_other + __bytes_other.Length);
+                            MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         }
                     }
 
@@ -71,7 +77,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_string", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_C_std_filesystem_path_string(_Underlying *_this);
-                        return new(__MR_C_std_filesystem_path_string(_UnderlyingPtr), is_owning: true);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_C_std_filesystem_path_string(_UnderlyingPtr);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return new(__c_ret, is_owning: true);
                     }
 
                     // Custom extras:
@@ -94,7 +103,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_DefaultConstruct", ExactSpelling = true)]
                         extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_filesystem_path_DefaultConstruct();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -102,8 +113,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_ConstructFromAnother", ExactSpelling = true)]
                         extern static MR.CS.Std.Filesystem.Path._Underlying *__MR_C_std_filesystem_path_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                         if (other.Value is not null) _KeepAlive(other.Value);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     }
 
                     /// Constructs a copy of another instance. The source remains alive.
@@ -120,7 +133,9 @@ public static partial class MR
                         byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                         fixed (byte *__ptr_other = __bytes_other)
                         {
+                            MR.CS.Misc._Exceptions.Prepare();
                             _UnderlyingPtr = __MR_C_std_filesystem_path_ConstructFrom(__ptr_other, __ptr_other + __bytes_other.Length);
+                            MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         }
                     }
 
@@ -132,8 +147,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_filesystem_path_AssignFromAnother", ExactSpelling = true)]
                         extern static void __MR_C_std_filesystem_path_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Filesystem.Path._Underlying *other);
+                        MR.CS.Misc._Exceptions.Prepare();
                         _DiscardKeepAlive();
                         if (other.Value is not null) _KeepAlive(other.Value);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         __MR_C_std_filesystem_path_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     }
 
@@ -145,6 +162,8 @@ public static partial class MR
                         byte[] __bytes_other = System.Text.Encoding.UTF8.GetBytes(other);
                         fixed (byte *__ptr_other = __bytes_other)
                         {
+                            MR.CS.Misc._Exceptions.Prepare();
+                            MR.CS.Misc._Exceptions.ThrowIfNeeded();
                             __MR_C_std_filesystem_path_AssignFrom(_UnderlyingPtr, __ptr_other, __ptr_other + __bytes_other.Length);
                         }
                     }

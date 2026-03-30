@@ -2,6 +2,8 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "std_pair_const_int32_t_float.h"
 
+#include <__mrbind_c_details.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <memory>
@@ -22,7 +24,7 @@ MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_DefaultCons
 MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_ConstructFromAnother(const MR_C_std_pair_const_int32_t_float *other)
 {
     return (MR_C_std_pair_const_int32_t_float *)new std::pair<const int32_t, float>(std::pair<const int32_t, float>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::pair<const int32_t, float>(*(std::pair<const int32_t, float> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::pair<const int32_t, float>(*(std::pair<const int32_t, float> *)other))
     ));
 }
 
@@ -56,16 +58,16 @@ MR_C_std_pair_const_int32_t_float *MR_C_std_pair_const_int32_t_float_Construct(i
 
 const int32_t *MR_C_std_pair_const_int32_t_float_first(const MR_C_std_pair_const_int32_t_float *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const int32_t, float> *)(_this)).first);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::pair<const int32_t, float> *)(_this)).first);
 }
 
 const float *MR_C_std_pair_const_int32_t_float_second(const MR_C_std_pair_const_int32_t_float *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::pair<const int32_t, float> *)(_this)).second);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::pair<const int32_t, float> *)(_this)).second);
 }
 
 float *MR_C_std_pair_const_int32_t_float_second_mut(MR_C_std_pair_const_int32_t_float *_this)
 {
-    return std::addressof(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::pair<const int32_t, float> *)(_this)).second);
+    return std::addressof(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::pair<const int32_t, float> *)(_this)).second);
 }
 

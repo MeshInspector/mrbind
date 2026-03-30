@@ -20,7 +20,7 @@ void MR_StdVariant_bar(const MR_C_std_variant_int_float_float *_1)
 {
     MRBINDC_TRY(
     ::MR::StdVariant::bar(
-        ((_1 ? void() : throw std::runtime_error("Parameter `_1` can not be null.")), std::variant<int, float, float>(*(std::variant<int, float, float> *)_1))
+        ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), std::variant<int, float, float>(*(std::variant<int, float, float> *)_1))
     );
     ) // MRBINDC_TRY
 }

@@ -9,6 +9,8 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_IncompleteArrayElemType_foo", ExactSpelling = true)]
                 extern static void __MR_IncompleteArrayElemType_foo(MR.CS.IncompleteArrayElemType.ArrayE4 *_1);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 __MR_IncompleteArrayElemType_foo(_1);
             }
         }

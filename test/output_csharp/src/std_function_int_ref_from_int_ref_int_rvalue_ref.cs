@@ -31,7 +31,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef._Underlying *__MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -39,8 +41,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef._Underlying *__MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -54,7 +58,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_has_value", ExactSpelling = true)]
                     extern static byte __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_has_value(MR.CS.Std.Const_Function_IntRef_From_IntRef_IntRvalueRef._Underlying *_this);
-                    return __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_has_value(_this._UnderlyingPtr) != 0;
+                    MR.CS.Misc._Exceptions.Prepare();
+                    var __c_ret = __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_has_value(_this._UnderlyingPtr);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                    return __c_ret != 0;
                 }
 
                 /// Calls the stored callable.
@@ -64,7 +71,10 @@ public static partial class MR
                     extern static int *__MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_call(_Underlying *_this, int *_1, int *_2);
                     fixed (int *__ptr__1 = &_1)
                     {
-                        return ref *__MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_call(_UnderlyingPtr, __ptr__1, &_2);
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_call(_UnderlyingPtr, __ptr__1, &_2);
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -76,14 +86,30 @@ public static partial class MR
 
                 private protected unsafe int *_CCallWrapper(int *_1, int *_2, void *_userdata, void **_cleanup_value)
                 {
-                    ref int _arg_1 = ref *(int *)sizeof(int); // Uninitialized ref.
-                    _arg_1 = ref *_1;
-                    ref readonly int _arg_2 = ref *(int *)sizeof(int); // Uninitialized ref.
-                    _arg_2 = ref *_2;
-                    ref int _ret = ref ((Delegate)System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)_userdata).Target!)(ref _arg_1, in _arg_2);
-                    fixed (int *__ptr__ret = &_ret)
+                    try
                     {
-                        return __ptr__ret;
+                        ref int _arg_1 = ref *(int *)sizeof(int); // Uninitialized ref.
+                        _arg_1 = ref *_1;
+                        ref readonly int _arg_2 = ref *(int *)sizeof(int); // Uninitialized ref.
+                        _arg_2 = ref *_2;
+                        ref int _ret = ref ((Delegate)System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)_userdata).Target!)(ref _arg_1, in _arg_2);
+                        fixed (int *__ptr__ret = &_ret)
+                        {
+                            return __ptr__ret;
+                        }
+                    }
+                    catch (Exception __e)
+                    {
+                        [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_ThrowExceptionOnCallbackExit", ExactSpelling = true)]
+                        extern static void __MR_C_ThrowExceptionOnCallbackExit(byte *message);
+                        byte[] __ex_bytes = new byte[System.Text.Encoding.UTF8.GetMaxByteCount(__e.Message.Length) + 1]; // Plus one byte for a null terminator.
+                        int __ex_len = System.Text.Encoding.UTF8.GetBytes(__e.Message, 0, __e.Message.Length, __ex_bytes, 0);
+                        __ex_bytes[__ex_len] = 0; // A null terminator.
+                        fixed (byte *__ex_bytes_ptr = &__ex_bytes[0])
+                        {
+                            __MR_C_ThrowExceptionOnCallbackExit(__ex_bytes_ptr);
+                        }
+                        return default;
                     }
                 }
 
@@ -92,10 +118,13 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_ConstructEx", ExactSpelling = true)]
                     extern static Const_Function_IntRef_From_IntRef_IntRvalueRef._Underlying *__MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_ConstructEx(_CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_ConstructEx(_CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
-                public static unsafe implicit operator Const_Function_IntRef_From_IntRef_IntRvalueRef(MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef.Delegate func) {return new(func);}}
+                public static unsafe implicit operator Const_Function_IntRef_From_IntRef_IntRvalueRef(MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef.Delegate func) {return new(func);}
+            }
 
             /// Stores a functor of type: `int &(int &, int &&)`. Possibly stateful.
             /// This is the non-const half of the class.
@@ -108,7 +137,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_DefaultConstruct", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef._Underlying *__MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_DefaultConstruct();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -116,8 +147,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef._Underlying *__MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _UnderlyingPtr = __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_ConstructFromAnother(other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
@@ -131,8 +164,10 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef._Underlying *other);
+                    MR.CS.Misc._Exceptions.Prepare();
                     _DiscardKeepAlive();
                     if (other.Value is not null) _KeepAlive(other.Value);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_AssignFromAnother(_UnderlyingPtr, other.PassByMode, other.Value is not null ? other.Value._UnderlyingPtr : null);
                 }
 
@@ -141,6 +176,8 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_reset", ExactSpelling = true)]
                     extern static void __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_reset(_Underlying *_this);
+                    MR.CS.Misc._Exceptions.Prepare();
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_reset(_UnderlyingPtr);
                 }
 
@@ -154,7 +191,9 @@ public static partial class MR
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_AssignEx", ExactSpelling = true)]
                     extern static void __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_AssignEx(Function_IntRef_From_IntRef_IntRvalueRef._Underlying *_this, _CDelegate func, void *userdata, MR.CS.Misc.StdFunctionPostCallCallbackDelegate postcall_callback, MR.CS.Misc.StdFunctionUserdataCallbackDelegate userdata_callback);
+                    MR.CS.Misc._Exceptions.Prepare();
                     __MR_C_std_function_int_ref_from_int_ref_int_rvalue_ref_AssignEx(_UnderlyingPtr, _CCallWrapper, (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(func)), MR.CS.Misc.StdFunctionPostCallCallback, MR.CS.Misc.StdFunctionUserdataCallback);
+                    MR.CS.Misc._Exceptions.ThrowIfNeeded();
                 }
             }
 

@@ -2,6 +2,8 @@
 #define MR_C_DISABLE_CONVENIENCE_INCLUDES
 #include "expected_int32_t_float.h"
 
+#include <__mrbind_c_details.h>
+
 #include <cstddef>
 #include <cstdint>
 #include <expected>
@@ -21,14 +23,14 @@ MR_C_expected_int32_t_float *MR_C_expected_int32_t_float_DefaultConstructArray(s
 MR_C_expected_int32_t_float *MR_C_expected_int32_t_float_ConstructFromAnother(const MR_C_expected_int32_t_float *other)
 {
     return (MR_C_expected_int32_t_float *)new std::expected<int32_t, float>(std::expected<int32_t, float>(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<int32_t, float>(*(std::expected<int32_t, float> *)other))
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::expected<int32_t, float>(*(std::expected<int32_t, float> *)other))
     ));
 }
 
 void MR_C_expected_int32_t_float_AssignFromAnother(MR_C_expected_int32_t_float *_this, const MR_C_expected_int32_t_float *other)
 {
-    ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int32_t, float> *)(_this)).operator=(
-        ((other ? void() : throw std::runtime_error("Parameter `other` can not be null.")), std::expected<int32_t, float>(*(std::expected<int32_t, float> *)other))
+    ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::expected<int32_t, float> *)(_this)).operator=(
+        ((other ? void() : MRBINDC_THROW("Parameter `other` can not be null.", void)), std::expected<int32_t, float>(*(std::expected<int32_t, float> *)other))
     );
 }
 
@@ -54,30 +56,30 @@ MR_C_expected_int32_t_float *MR_C_expected_int32_t_float_OffsetMutablePtr(MR_C_e
 
 bool MR_C_expected_int32_t_float_success(const MR_C_expected_int32_t_float *_this)
 {
-    return bool(((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int32_t, float> *)(_this)));
+    return bool(((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::expected<int32_t, float> *)(_this)));
 }
 
 const int32_t *MR_C_expected_int32_t_float_value(const MR_C_expected_int32_t_float *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int32_t, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::expected<int32_t, float> *)(_this));
     return _self ? &*_self : nullptr;
 }
 
 const float *MR_C_expected_int32_t_float_error(const MR_C_expected_int32_t_float *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(const std::expected<int32_t, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(const std::expected<int32_t, float> *)(_this));
     return _self ? nullptr : &_self.error();
 }
 
 int32_t *MR_C_expected_int32_t_float_value_mut(MR_C_expected_int32_t_float *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int32_t, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::expected<int32_t, float> *)(_this));
     return _self ? &*_self : nullptr;
 }
 
 float *MR_C_expected_int32_t_float_error_mut(MR_C_expected_int32_t_float *_this)
 {
-    auto &_self = ((_this ? void() : throw std::runtime_error("Parameter `_this` can not be null.")), *(std::expected<int32_t, float> *)(_this));
+    auto &_self = ((_this ? void() : MRBINDC_THROW("Parameter `_this` can not be null.", void)), *(std::expected<int32_t, float> *)(_this));
     return _self ? nullptr : &_self.error();
 }
 
