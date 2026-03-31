@@ -49,9 +49,8 @@ find input \( -name '*.h' -or -name '*.hpp' \) -printf "#include <%p>\n" >>pytho
 if [[ ! -d pybind11 ]]; then
     git clone https://github.com/pybind/pybind11
 
-    # This is the latest commit not affected by this bug: https://github.com/pybind/pybind11/issues/5976
-    # If you don't care about that bug, or it doesn't reproduce for you, feel free to use the latest version.
-    (cd pybind11 && git checkout 15d9dae14b148509f3e1e7a42d5b1260fffff3ad)
+    # This is an arbitrary commit that's known to work.
+    (cd pybind11 && git checkout d2413f5bca91a2c091b9b0801e0c1b5bf089e31d)
 fi
 
 # Compile the Python module.

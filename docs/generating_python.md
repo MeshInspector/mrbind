@@ -1,8 +1,8 @@
 # Generating Python bindings
 
-<!-- TODO: If Pybind fixes their bug, update this advice, and sync with `examples/python/run.sh`. -->
+<!-- Bump the commit number here from time to time. -->
 
-We generate Python bindings using [Pybind11](https://github.com/pybind/pybind11). You can try using the latest version of it; or, at the time of writing this, the commit [`741d86f`](https://github.com/pybind/pybind11/commit/741d86f2e3527b667ba85d273a5eea19a0978ef5) is known to work. (Note that latest Pybind has a [bug](https://github.com/pybind/pybind11/issues/5976) that makes it crash when exiting Python when binding enums, consider using [this commit](https://github.com/pybind/pybind11/commit/15d9dae14b148509f3e1e7a42d5b1260fffff3ad) or older.)
+We generate Python bindings using [Pybind11](https://github.com/pybind/pybind11). You can try using the latest version of it; or, at the time of writing this, the commit [`d2413f5`](https://github.com/pybind/pybind11/commit/d2413f5bca91a2c091b9b0801e0c1b5bf089e31d) is known to work.
 
 You're expected to have a basic understanding of how to work with Pybind. I recommend going through [the basic Pybind tutorial](https://pybind11.readthedocs.io/en/stable/basics.html), compiling at least one test module, and making sure you can import it in Python.
 
@@ -12,7 +12,7 @@ Pybind is a header-only library, so you'll need to clone it and add it to your i
 
 Modules generated with Pybind need to be recompiled on every OS, for every minor Python version (X.Y, e.g. 3.13) that you want to support. We have a [Pybind fork](https://github.com/MeshInspector/mrbind-pybind11) that produces Python-version-agnostic modules, but I suggest getting the upstream version to work first, and then thinking about portability.
 
-On Windows, the modules must be built using MSVC or Clang in MSVC-compatible mode (we only support the latter), the ones built with MinGW will not work with the official Python releases.
+On Windows, Python modules must be built using MSVC or Clang in MSVC-compatible mode (we only support the latter), the ones built with MinGW will not work with the official Python releases.
 
 ## The basic idea
 
