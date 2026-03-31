@@ -30,7 +30,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StaticFuncs_A_GetMutable_x", ExactSpelling = true)]
                         extern static int *__MR_StaticFuncs_A_GetMutable_x();
-                        return ref *__MR_StaticFuncs_A_GetMutable_x();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_StaticFuncs_A_GetMutable_x();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 

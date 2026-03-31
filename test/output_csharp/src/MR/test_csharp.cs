@@ -2544,12 +2544,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_Get_s", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SB_Get_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_SB_Get_s(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_SB_Get_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -2612,12 +2609,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SB_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_SB_GetMutable_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_SB_GetMutable_s(_UnderlyingPtr);
                         MR.CS.Std.String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_SB_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -2778,12 +2772,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_Get_s", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SC_Get_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_SC_Get_s(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_SC_Get_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -2851,12 +2842,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SC_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_SC_GetMutable_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_SC_GetMutable_s(_UnderlyingPtr);
                         MR.CS.Std.String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_SC_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -3140,12 +3128,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_Get_s", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SE_Get_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_SE_Get_s(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_SE_Get_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -3208,12 +3193,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SE_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_SE_GetMutable_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_SE_GetMutable_s(_UnderlyingPtr);
                         MR.CS.Std.String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_SE_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -3386,12 +3368,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_Get_s", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_SF_Get_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_SF_Get_s(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_SF_Get_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -3471,12 +3450,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_SF_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_SF_GetMutable_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_SF_GetMutable_s(_UnderlyingPtr);
                         MR.CS.Std.String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_SF_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -4031,10 +4007,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_i", ExactSpelling = true)]
                         extern static int *__MR_CSharp_TestFields_Get_i(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestFields_Get_i(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_CSharp_TestFields_Get_i(_UnderlyingPtr);
                     }
                 }
 
@@ -4044,10 +4017,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_i", ExactSpelling = true)]
                         extern static int *__MR_CSharp_TestFields_Get_const_i(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestFields_Get_const_i(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_CSharp_TestFields_Get_const_i(_UnderlyingPtr);
                     }
                 }
 
@@ -4057,10 +4027,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_i_ref", ExactSpelling = true)]
                         extern static int *__MR_CSharp_TestFields_Get_i_ref(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestFields_Get_i_ref(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CSharp_TestFields_Get_i_ref(_UnderlyingPtr);
                     }
                 }
 
@@ -4070,10 +4037,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_i_ref", ExactSpelling = true)]
                         extern static int *__MR_CSharp_TestFields_Get_const_i_ref(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestFields_Get_const_i_ref(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_CSharp_TestFields_Get_const_i_ref(_UnderlyingPtr);
                     }
                 }
 
@@ -4083,12 +4047,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_s", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestFields_Get_s(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestFields_Get_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -4099,12 +4060,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_s", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_const_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestFields_Get_const_s(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestFields_Get_const_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -4115,12 +4073,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_s_ref", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_Get_s_ref(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestFields_Get_s_ref(_UnderlyingPtr);
                         MR.CS.Std.String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestFields_Get_s_ref(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -4131,12 +4086,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_Get_const_s_ref", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_TestFields_Get_const_s_ref(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestFields_Get_const_s_ref(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestFields_Get_const_s_ref(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -4198,10 +4150,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_i", ExactSpelling = true)]
                         extern static int *__MR_CSharp_TestFields_GetMutable_i(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestFields_GetMutable_i(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CSharp_TestFields_GetMutable_i(_UnderlyingPtr);
                     }
                 }
 
@@ -4211,12 +4160,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestFields_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_TestFields_GetMutable_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestFields_GetMutable_s(_UnderlyingPtr);
                         MR.CS.Std.String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestFields_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -11885,10 +11831,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerA_Get_x", ExactSpelling = true)]
                         extern static int *__MR_CSharp_IndexerA_Get_x(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_IndexerA_Get_x(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_CSharp_IndexerA_Get_x(_UnderlyingPtr);
                     }
                 }
 
@@ -12064,12 +12007,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_Get_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.Const_IndexerA._Underlying *__MR_CSharp_IndexerB_Get_a(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_IndexerB_Get_a(_UnderlyingPtr);
                         MR.CS.CSharp.Const_IndexerA __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_IndexerB_Get_a(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -12161,12 +12101,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_IndexerB_GetMutable_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.IndexerA._Underlying *__MR_CSharp_IndexerB_GetMutable_a(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_IndexerB_GetMutable_a(_UnderlyingPtr);
                         MR.CS.CSharp.IndexerA __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_IndexerB_GetMutable_a(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -16239,10 +16176,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_i", ExactSpelling = true)]
                         extern static int *__MR_CSharp_ArrayMembers_Get_i(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ArrayMembers_Get_i(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_CSharp_ArrayMembers_Get_i(_UnderlyingPtr);
                     }
                 }
 
@@ -16272,10 +16206,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_ci", ExactSpelling = true)]
                         extern static int *__MR_CSharp_ArrayMembers_Get_ci(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ArrayMembers_Get_ci(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_CSharp_ArrayMembers_Get_ci(_UnderlyingPtr);
                     }
                 }
 
@@ -16305,12 +16236,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_s", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_ArrayMembers_Get_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ArrayMembers_Get_s(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_ArrayMembers_Get_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -16332,12 +16260,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_Get_cs", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_CSharp_ArrayMembers_Get_cs(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ArrayMembers_Get_cs(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_ArrayMembers_Get_cs(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -16393,10 +16318,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_i", ExactSpelling = true)]
                         extern static int *__MR_CSharp_ArrayMembers_GetMutable_i(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ArrayMembers_GetMutable_i(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CSharp_ArrayMembers_GetMutable_i(_UnderlyingPtr);
                     }
                 }
 
@@ -16426,12 +16348,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ArrayMembers_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_CSharp_ArrayMembers_GetMutable_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ArrayMembers_GetMutable_s(_UnderlyingPtr);
                         MR.CS.Std.String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_ArrayMembers_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -16563,12 +16482,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_NameConflicts_Get_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.NameConflicts.Const_A._Underlying *__MR_CSharp_NameConflicts_Get_a(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_NameConflicts_Get_a(_UnderlyingPtr);
                         MR.CS.CSharp.NameConflicts.Const_A __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_NameConflicts_Get_a(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -18051,12 +17967,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_c", ExactSpelling = true)]
                         extern static MR.CS.CSharp.A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_c(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ClassMemberPointersClass_Get_c(_UnderlyingPtr);
                         MR.CS.CSharp.A __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_ClassMemberPointersClass_Get_c(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -18067,12 +17980,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersClass_Get_d", ExactSpelling = true)]
                         extern static MR.CS.CSharp.Const_A._Underlying *__MR_CSharp_ClassMemberPointersClass_Get_d(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ClassMemberPointersClass_Get_d(_UnderlyingPtr);
                         MR.CS.CSharp.Const_A __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_ClassMemberPointersClass_Get_d(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -18318,10 +18228,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_c", ExactSpelling = true)]
                         extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_c(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ClassMemberPointersExposed_Get_c(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CSharp_ClassMemberPointersExposed_Get_c(_UnderlyingPtr);
                     }
                 }
 
@@ -18331,10 +18238,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersExposed_Get_d", ExactSpelling = true)]
                         extern static MR.CS.CSharp.ExposedLayout *__MR_CSharp_ClassMemberPointersExposed_Get_d(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ClassMemberPointersExposed_Get_d(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CSharp_ClassMemberPointersExposed_Get_d(_UnderlyingPtr);
                     }
                 }
 
@@ -18588,10 +18492,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_c", ExactSpelling = true)]
                         extern static ushort *__MR_CSharp_ClassMemberPointersUshort_Get_c(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ClassMemberPointersUshort_Get_c(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CSharp_ClassMemberPointersUshort_Get_c(_UnderlyingPtr);
                     }
                 }
 
@@ -18601,10 +18502,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersUshort_Get_d", ExactSpelling = true)]
                         extern static ushort *__MR_CSharp_ClassMemberPointersUshort_Get_d(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ClassMemberPointersUshort_Get_d(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_CSharp_ClassMemberPointersUshort_Get_d(_UnderlyingPtr);
                     }
                 }
 
@@ -18852,10 +18750,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_c", ExactSpelling = true)]
                         extern static bool *__MR_CSharp_ClassMemberPointersBool_Get_c(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ClassMemberPointersBool_Get_c(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CSharp_ClassMemberPointersBool_Get_c(_UnderlyingPtr);
                     }
                 }
 
@@ -18865,10 +18760,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_ClassMemberPointersBool_Get_d", ExactSpelling = true)]
                         extern static bool *__MR_CSharp_ClassMemberPointersBool_Get_d(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_ClassMemberPointersBool_Get_d(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_CSharp_ClassMemberPointersBool_Get_d(_UnderlyingPtr);
                     }
                 }
 
@@ -19280,12 +19172,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesB_Get_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesB_Get_a(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_LifetimesB_Get_a(_UnderlyingPtr);
                         MR.CS.CSharp.Const_LifetimesA __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_LifetimesB_Get_a(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -19631,12 +19520,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_LifetimesC_Get_a", ExactSpelling = true)]
                         extern static MR.CS.CSharp.Const_LifetimesA._Underlying *__MR_CSharp_LifetimesC_Get_a(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_LifetimesC_Get_a(_UnderlyingPtr);
                         MR.CS.CSharp.Const_LifetimesA __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_LifetimesC_Get_a(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23636,12 +23522,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f1", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_Function_Int_From_StdString._Underlying *__MR_CSharp_TestStdFunction_Get_f1(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_Get_f1(_UnderlyingPtr);
                         MR.CS.Std.Const_Function_Int_From_StdString __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_Get_f1(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23652,12 +23535,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f2", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_Function_StdString_From_Int_Int._Underlying *__MR_CSharp_TestStdFunction_Get_f2(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_Get_f2(_UnderlyingPtr);
                         MR.CS.Std.Const_Function_StdString_From_Int_Int __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_Get_f2(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23668,12 +23548,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f3", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_Function_MRCSharpE1_From_MRCSharpE1._Underlying *__MR_CSharp_TestStdFunction_Get_f3(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_Get_f3(_UnderlyingPtr);
                         MR.CS.Std.Const_Function_MRCSharpE1_From_MRCSharpE1 __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_Get_f3(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23684,12 +23561,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f4", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *__MR_CSharp_TestStdFunction_Get_f4(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_Get_f4(_UnderlyingPtr);
                         MR.CS.Std.Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_Get_f4(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23700,12 +23574,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f5", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_Function_IntRef_From_IntRef_IntRvalueRef._Underlying *__MR_CSharp_TestStdFunction_Get_f5(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_Get_f5(_UnderlyingPtr);
                         MR.CS.Std.Const_Function_IntRef_From_IntRef_IntRvalueRef __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_Get_f5(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23716,12 +23587,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f6", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_Function_IntRvalueRef._Underlying *__MR_CSharp_TestStdFunction_Get_f6(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_Get_f6(_UnderlyingPtr);
                         MR.CS.Std.Const_Function_IntRvalueRef __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_Get_f6(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23732,12 +23600,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_Get_f7", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_Function_Void._Underlying *__MR_CSharp_TestStdFunction_Get_f7(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_Get_f7(_UnderlyingPtr);
                         MR.CS.Std.Const_Function_Void __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_Get_f7(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23800,12 +23665,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f1", ExactSpelling = true)]
                         extern static MR.CS.Std.Function_Int_From_StdString._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f1(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_GetMutable_f1(_UnderlyingPtr);
                         MR.CS.Std.Function_Int_From_StdString __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_GetMutable_f1(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23816,12 +23678,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f2", ExactSpelling = true)]
                         extern static MR.CS.Std.Function_StdString_From_Int_Int._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f2(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_GetMutable_f2(_UnderlyingPtr);
                         MR.CS.Std.Function_StdString_From_Int_Int __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_GetMutable_f2(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23832,12 +23691,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f3", ExactSpelling = true)]
                         extern static MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f3(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_GetMutable_f3(_UnderlyingPtr);
                         MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1 __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_GetMutable_f3(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23848,12 +23704,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f4", ExactSpelling = true)]
                         extern static MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f4(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_GetMutable_f4(_UnderlyingPtr);
                         MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_GetMutable_f4(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23864,12 +23717,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f5", ExactSpelling = true)]
                         extern static MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f5(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_GetMutable_f5(_UnderlyingPtr);
                         MR.CS.Std.Function_IntRef_From_IntRef_IntRvalueRef __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_GetMutable_f5(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23880,12 +23730,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f6", ExactSpelling = true)]
                         extern static MR.CS.Std.Function_IntRvalueRef._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f6(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_GetMutable_f6(_UnderlyingPtr);
                         MR.CS.Std.Function_IntRvalueRef __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_GetMutable_f6(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -23896,12 +23743,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_TestStdFunction_GetMutable_f7", ExactSpelling = true)]
                         extern static MR.CS.Std.Function_Void._Underlying *__MR_CSharp_TestStdFunction_GetMutable_f7(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CSharp_TestStdFunction_GetMutable_f7(_UnderlyingPtr);
                         MR.CS.Std.Function_Void __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_CSharp_TestStdFunction_GetMutable_f7(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -24056,8 +23900,11 @@ public static partial class MR
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_bool", ExactSpelling = true)]
                 extern static byte __MR_CSharp_test_bool(byte a, byte *b);
+                MR.CS.Misc._Exceptions.Prepare();
                 byte __deref_b = b.GetValueOrDefault() ? (byte)1 : (byte)0;
-                return __MR_CSharp_test_bool(a ? (byte)1 : (byte)0, b.HasValue ? &__deref_b : null) != 0;
+                var __c_ret = __MR_CSharp_test_bool(a ? (byte)1 : (byte)0, b.HasValue ? &__deref_b : null);
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                return __c_ret != 0;
             }
 
             /// Generated from function `MR::CSharp::test_bool_ref`.

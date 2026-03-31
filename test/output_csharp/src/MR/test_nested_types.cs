@@ -30,12 +30,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_Get_b", ExactSpelling = true)]
                         extern static MR.CS.NestedTypes.A.Const_B._Underlying *__MR_NestedTypes_A_Get_b(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_NestedTypes_A_Get_b(_UnderlyingPtr);
                         MR.CS.NestedTypes.A.Const_B __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_NestedTypes_A_Get_b(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -46,10 +43,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_Get_e", ExactSpelling = true)]
                         extern static MR.CS.NestedTypes.A.E *__MR_NestedTypes_A_Get_e(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_NestedTypes_A_Get_e(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_NestedTypes_A_Get_e(_UnderlyingPtr);
                     }
                 }
 
@@ -239,10 +233,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_NestedTypes_A_GetMutable_e", ExactSpelling = true)]
                         extern static MR.CS.NestedTypes.A.E *__MR_NestedTypes_A_GetMutable_e(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_NestedTypes_A_GetMutable_e(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_NestedTypes_A_GetMutable_e(_UnderlyingPtr);
                     }
                 }
 

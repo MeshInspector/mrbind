@@ -32,10 +32,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_Get_x", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_A_Get_x(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_A_Get_x(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_A_Get_x(_UnderlyingPtr);
                     }
                 }
 
@@ -45,12 +42,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_Get_y", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_Aggregates_A_Get_y(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_A_Get_y(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_Aggregates_A_Get_y(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -111,10 +105,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_GetMutable_x", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_A_GetMutable_x(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_A_GetMutable_x(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_Aggregates_A_GetMutable_x(_UnderlyingPtr);
                     }
                 }
 
@@ -124,12 +115,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_A_GetMutable_y", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_Aggregates_A_GetMutable_y(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_A_GetMutable_y(_UnderlyingPtr);
                         MR.CS.Std.String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_Aggregates_A_GetMutable_y(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -492,10 +480,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_Get_a", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_C_Get_a(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_C_Get_a(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_C_Get_a(_UnderlyingPtr);
                     }
                 }
 
@@ -505,10 +490,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_Get_b", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_C_Get_b(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_C_Get_b(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_C_Get_b(_UnderlyingPtr);
                     }
                 }
 
@@ -518,10 +500,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_Get_c", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_C_Get_c(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_C_Get_c(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_C_Get_c(_UnderlyingPtr);
                     }
                 }
 
@@ -531,10 +510,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_Get_d", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_C_Get_d(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_C_Get_d(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_C_Get_d(_UnderlyingPtr);
                     }
                 }
 
@@ -544,10 +520,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_Get_e", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_C_Get_e(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_C_Get_e(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_C_Get_e(_UnderlyingPtr);
                     }
                 }
 
@@ -557,10 +530,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_Get_f", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_C_Get_f(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_C_Get_f(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_C_Get_f(_UnderlyingPtr);
                     }
                 }
 
@@ -570,10 +540,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_Get_g", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_C_Get_g(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_C_Get_g(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_C_Get_g(_UnderlyingPtr);
                     }
                 }
 
@@ -583,10 +550,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_C_Get_h", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_C_Get_h(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_C_Get_h(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_C_Get_h(_UnderlyingPtr);
                     }
                 }
 
@@ -818,10 +782,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_Get_a", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_D_Get_a(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_D_Get_a(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_D_Get_a(_UnderlyingPtr);
                     }
                 }
 
@@ -831,10 +792,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_Get_b", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_D_Get_b(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_D_Get_b(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_D_Get_b(_UnderlyingPtr);
                     }
                 }
 
@@ -844,10 +802,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_Get_c", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_D_Get_c(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_D_Get_c(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_D_Get_c(_UnderlyingPtr);
                     }
                 }
 
@@ -857,10 +812,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_Get_d", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_D_Get_d(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_D_Get_d(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_D_Get_d(_UnderlyingPtr);
                     }
                 }
 
@@ -870,10 +822,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_Get_e", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_D_Get_e(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_D_Get_e(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_D_Get_e(_UnderlyingPtr);
                     }
                 }
 
@@ -883,10 +832,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_Get_f", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_D_Get_f(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_D_Get_f(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_D_Get_f(_UnderlyingPtr);
                     }
                 }
 
@@ -896,10 +842,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_Get_g", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_D_Get_g(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_D_Get_g(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_D_Get_g(_UnderlyingPtr);
                     }
                 }
 
@@ -909,10 +852,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_Get_h", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_D_Get_h(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_D_Get_h(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_D_Get_h(_UnderlyingPtr);
                     }
                 }
 
@@ -922,10 +862,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_D_Get_i", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_D_Get_i(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_D_Get_i(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_D_Get_i(_UnderlyingPtr);
                     }
                 }
 
@@ -1167,10 +1104,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_Get_a", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_E_Get_a(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_E_Get_a(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_E_Get_a(_UnderlyingPtr);
                     }
                 }
 
@@ -1181,10 +1115,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_Get_b", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_E_Get_b(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_E_Get_b(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_E_Get_b(_UnderlyingPtr);
                     }
                 }
 
@@ -1195,10 +1126,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_Get_c", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_E_Get_c(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_E_Get_c(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_E_Get_c(_UnderlyingPtr);
                     }
                 }
 
@@ -1209,10 +1137,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_Get_d", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_E_Get_d(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_E_Get_d(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_E_Get_d(_UnderlyingPtr);
                     }
                 }
 
@@ -1223,10 +1148,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_Get_e", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_E_Get_e(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_E_Get_e(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_E_Get_e(_UnderlyingPtr);
                     }
                 }
 
@@ -1237,10 +1159,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_Get_f", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_E_Get_f(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_E_Get_f(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_E_Get_f(_UnderlyingPtr);
                     }
                 }
 
@@ -1251,10 +1170,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_Get_g", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_E_Get_g(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_E_Get_g(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_E_Get_g(_UnderlyingPtr);
                     }
                 }
 
@@ -1265,10 +1181,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_Get_h", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_E_Get_h(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_E_Get_h(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_E_Get_h(_UnderlyingPtr);
                     }
                 }
 
@@ -1279,10 +1192,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_Get_i", ExactSpelling = true)]
                         extern static int *__MR_Aggregates_E_Get_i(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_E_Get_i(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_Aggregates_E_Get_i(_UnderlyingPtr);
                     }
                 }
 
@@ -1293,12 +1203,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_Aggregates_E_Get_j", ExactSpelling = true)]
                         extern static MR.CS.Aggregates.Const_NonDefaultConstructible._Underlying *__MR_Aggregates_E_Get_j(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_Aggregates_E_Get_j(_UnderlyingPtr);
                         MR.CS.Aggregates.Const_NonDefaultConstructible __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_Aggregates_E_Get_j(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }

@@ -47,7 +47,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_GetMutable_StaticField", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_A_GetMutable_StaticField();
-                        return ref *__MR_CopyInheritedMembers_A_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_CopyInheritedMembers_A_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -135,10 +138,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_A_GetMutable_Field", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_A_GetMutable_Field(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CopyInheritedMembers_A_GetMutable_Field(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CopyInheritedMembers_A_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
 
@@ -276,7 +276,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_GetMutable_StaticField", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_B_GetMutable_StaticField();
-                        return ref *__MR_CopyInheritedMembers_B_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_CopyInheritedMembers_B_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -354,10 +357,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_B_GetMutable_Field", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_B_GetMutable_Field(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CopyInheritedMembers_B_GetMutable_Field(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CopyInheritedMembers_B_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
 
@@ -670,7 +670,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_GetMutable_StaticField", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_D_GetMutable_StaticField();
-                        return ref *__MR_CopyInheritedMembers_D_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_CopyInheritedMembers_D_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -748,10 +751,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_D_GetMutable_Field", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_D_GetMutable_Field(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CopyInheritedMembers_D_GetMutable_Field(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CopyInheritedMembers_D_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
 
@@ -1261,7 +1261,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_GetMutable_StaticField", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_G_GetMutable_StaticField();
-                        return ref *__MR_CopyInheritedMembers_G_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_CopyInheritedMembers_G_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -1344,10 +1347,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_G_GetMutable_Field", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_G_GetMutable_Field(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CopyInheritedMembers_G_GetMutable_Field(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CopyInheritedMembers_G_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
 
@@ -1514,7 +1514,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_GetMutable_StaticField", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_H_GetMutable_StaticField();
-                        return ref *__MR_CopyInheritedMembers_H_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_CopyInheritedMembers_H_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -1601,10 +1604,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_H_GetMutable_Field", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_H_GetMutable_Field(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CopyInheritedMembers_H_GetMutable_Field(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CopyInheritedMembers_H_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
 
@@ -1771,7 +1771,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_GetMutable_StaticField", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_I_GetMutable_StaticField();
-                        return ref *__MR_CopyInheritedMembers_I_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_CopyInheritedMembers_I_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -1858,10 +1861,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_I_GetMutable_Field", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_I_GetMutable_Field(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CopyInheritedMembers_I_GetMutable_Field(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CopyInheritedMembers_I_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
 
@@ -2026,7 +2026,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_GetMutable_StaticField", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_J_GetMutable_StaticField();
-                        return ref *__MR_CopyInheritedMembers_J_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_CopyInheritedMembers_J_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -2108,10 +2111,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_J_GetMutable_Field", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_J_GetMutable_Field(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CopyInheritedMembers_J_GetMutable_Field(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CopyInheritedMembers_J_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
 
@@ -2651,7 +2651,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_GetMutable_StaticField", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_M_GetMutable_StaticField();
-                        return ref *__MR_CopyInheritedMembers_M_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_CopyInheritedMembers_M_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -2744,10 +2747,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_M_GetMutable_Field", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_M_GetMutable_Field(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CopyInheritedMembers_M_GetMutable_Field(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CopyInheritedMembers_M_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
 
@@ -2927,7 +2927,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_GetMutable_StaticField", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_N_GetMutable_StaticField();
-                        return ref *__MR_CopyInheritedMembers_N_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_CopyInheritedMembers_N_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -3027,10 +3030,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_N_GetMutable_Field", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_N_GetMutable_Field(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CopyInheritedMembers_N_GetMutable_Field(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CopyInheritedMembers_N_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
 
@@ -3217,7 +3217,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_GetMutable_StaticField", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_O_GetMutable_StaticField();
-                        return ref *__MR_CopyInheritedMembers_O_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_CopyInheritedMembers_O_GetMutable_StaticField();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 
@@ -3324,10 +3327,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CopyInheritedMembers_O_GetMutable_Field", ExactSpelling = true)]
                         extern static int *__MR_CopyInheritedMembers_O_GetMutable_Field(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_CopyInheritedMembers_O_GetMutable_Field(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return ref *__c_ret;
+                        return ref *__MR_CopyInheritedMembers_O_GetMutable_Field(_UnderlyingPtr);
                     }
                 }
 

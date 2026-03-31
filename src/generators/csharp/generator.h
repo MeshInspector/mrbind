@@ -178,7 +178,8 @@ namespace mrbind::CSharp
             {
                 // If true, we may omit exception handling.
                 // Incorrectly setting this to false doesn't cause any issues, other than redundant exception handling.
-                bool cpp_never_throws;
+                // We ignore this when a default argument is present, because that expression could throw.
+                bool cpp_never_throws = false;
 
                 // An extra comment to be added on the function. Should end with a newline, and should usually have the form `/// Parameter `x` ...`.
                 std::string extra_comment = "";
@@ -306,7 +307,7 @@ namespace mrbind::CSharp
         {
             // If true, we may omit exception handling.
             // Incorrectly setting this to false doesn't cause any issues, other than redundant exception handling.
-            bool cpp_never_throws;
+            bool cpp_never_throws = false;
 
             // An extra comment to be added on the function. Should end with a newline, and should usually have the form `/// Parameter `x` ...`.
             std::string extra_comment = "";

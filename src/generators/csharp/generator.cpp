@@ -1516,11 +1516,7 @@ namespace mrbind::CSharp
                                     break;
                                   case CInterop::ClassKind::uses_pass_by_enum:
                                     {
-                                        // Note that this permits either non-throwing SMFs or those that are disabled entirely.
-                                        const bool cpp_param_never_throws =
-                                            c_type_desc->traits.value().default_constructible != CInterop::SpecialMemberKind::nontrivial_throwing ||
-                                            c_type_desc->traits.value().copy_constructible != CInterop::SpecialMemberKind::nontrivial_throwing ||
-                                            c_type_desc->traits.value().move_constructible != CInterop::SpecialMemberKind::nontrivial_throwing;
+                                        const bool cpp_param_never_throws = c_type_desc->traits.value().IsNothrowOrNonDefaultAndCopyAndMoveConstructible();
 
                                         // `is_shared_ptr == true` also goes here!
                                         return CreateBinding({
@@ -2685,7 +2681,7 @@ namespace mrbind::CSharp
 
                     // Param usage without the default argument.
                     // This is based on the usage of the underlying type WITH the default argument.
-                    if (elem_binding->param_usage)
+                    if (elem_binding->param_usage_with_default_arg)
                     {
                         ret.param_usage = elem_binding->param_usage_with_default_arg;
 
@@ -2726,12 +2722,13 @@ namespace mrbind::CSharp
                         const std::string by_value_opt_opt_helper = CppToCSharpByValueOptOptHelperName(elem_type.simple_type.name, false); // TODO: handle `shared_ptr` here!
                         const std::string csharp_type_mut = CppToCSharpClassName(elem_type.simple_type.name, false);
                         const std::string csharp_underlying_ptr_type = csharp_type_mut + "._Underlying *";
+                        const bool cpp_never_throws = elem_binding->param_usage->make_strings("x", false).cpp_never_throws; // Ugh.
 
                         ret.param_usage_with_default_arg = TypeBinding::ParamUsage{
-                            .make_strings = [this, by_value_opt_opt_helper, csharp_underlying_ptr_type](const std::string &name, bool /*have_useless_defarg*/)
+                            .make_strings = [this, by_value_opt_opt_helper, csharp_underlying_ptr_type, cpp_never_throws](const std::string &name, bool /*have_useless_defarg*/)
                             {
                                 return TypeBinding::ParamUsage::Strings{
-                                    .cpp_never_throws = false, // Who knows what the default argument is doing.
+                                    .cpp_never_throws = cpp_never_throws,
                                     .need_backup_when_returning_from_callback = true,
                                     .dllimport_decl_params = {{.type = RequestHelper("_PassBy"), .name = name + "_pass_by"}, {.type = csharp_underlying_ptr_type, .name = name}},
                                     .csharp_decl_params = {{.type = by_value_opt_opt_helper + "?", .name = name, .default_arg = "null"}},
@@ -4048,7 +4045,9 @@ namespace mrbind::CSharp
                     forced_unsafe = true;
 
                 // Accumulate throwing-ness.
-                if (!this_param_strings.cpp_never_throws && generator.c_desc.exception_handling_enabled)
+                // Note that default arguments are assumed to always throw, just in case. We could be more clever about this, but it's complicated.
+                const bool have_any_csharp_default_args = std::any_of(this_param_strings.csharp_decl_params.begin(), this_param_strings.csharp_decl_params.end(), [](const auto &p){return bool(p.default_arg);});
+                if ((have_any_csharp_default_args || !this_param_strings.cpp_never_throws) && generator.c_desc.exception_handling_enabled)
                     must_handle_exceptions = true;
 
                 param_strings.push_back(std::move(this_param_strings));
@@ -5155,7 +5154,11 @@ namespace mrbind::CSharp
                 {
                     bool done = false;
 
-                    if (!this_type.Is<cppdecl::Reference>())
+                    if (this_type.Is<cppdecl::Reference>())
+                    {
+                        ret.cpp_never_throws = true;
+                    }
+                    else
                     {
                         // A non-static method with a by-value this parameter (quite unusual).
                         // Our parser doesn't currently support those, but we can still generate them when rewriting non-member operators.
@@ -5165,7 +5168,10 @@ namespace mrbind::CSharp
 
                         assert(this_type.IsOnlyQualifiedName());
 
-                        const CInterop::ClassKind class_kind = std::get<CInterop::TypeKinds::Class>(c_desc.FindTypeOpt(CppdeclToCode(this_type))->var).kind;
+                        const CInterop::TypeDesc &type_desc = *c_desc.FindTypeOpt(CppdeclToCode(this_type));
+                        ret.cpp_never_throws = type_desc.traits.value().IsNothrowOrNonDefaultAndCopyAndMoveConstructible();
+
+                        const CInterop::ClassKind class_kind = std::get<CInterop::TypeKinds::Class>(type_desc.var).kind;
 
                         if (class_kind == CInterop::ClassKind::uses_pass_by_enum)
                         {

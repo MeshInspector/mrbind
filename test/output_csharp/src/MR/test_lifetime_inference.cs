@@ -277,10 +277,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_LifetimeInference_B_Get_x", ExactSpelling = true)]
                         extern static int *__MR_LifetimeInference_B_Get_x(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_LifetimeInference_B_Get_x(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_LifetimeInference_B_Get_x(_UnderlyingPtr);
                     }
                 }
 

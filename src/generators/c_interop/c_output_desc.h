@@ -212,6 +212,16 @@ namespace mrbind::CInterop
             return bool(copy_constructible) || move_constructible == SpecialMemberKind::trivial;
         }
 
+        // Does passing this type with a pass-by enum guarantee to never throw exceptions?
+        // This requires each of the three constructors to either not exist or be non-throwing.
+        [[nodiscard]] bool IsNothrowOrNonDefaultAndCopyAndMoveConstructible() const
+        {
+            return
+                default_constructible != CInterop::SpecialMemberKind::nontrivial_throwing ||
+                copy_constructible != CInterop::SpecialMemberKind::nontrivial_throwing ||
+                move_constructible != CInterop::SpecialMemberKind::nontrivial_throwing;
+        }
+
         // This is used to tie together all member of this class, and the similarly named methods of `Generator::TypeTraits`.`
         static auto TieSimilarType(auto &&input)
         {

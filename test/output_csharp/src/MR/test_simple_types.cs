@@ -57,7 +57,10 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutable_var_unsigned_long", ExactSpelling = true)]
                         extern static ulong *__MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutable_var_unsigned_long();
-                        return ref *__MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutable_var_unsigned_long();
+                        MR.CS.Misc._Exceptions.Prepare();
+                        var __c_ret = __MR_TestSimpleTypes_ClassTemplate_unsigned_long_GetMutable_var_unsigned_long();
+                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                        return ref *__c_ret;
                     }
                 }
 

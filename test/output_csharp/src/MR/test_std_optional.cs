@@ -35,10 +35,7 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_A_Get_x", ExactSpelling = true)]
                         extern static int *__MR_StdOptional_A_Get_x(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_StdOptional_A_Get_x(_UnderlyingPtr);
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
-                        return *__c_ret;
+                        return *__MR_StdOptional_A_Get_x(_UnderlyingPtr);
                     }
                 }
 
@@ -196,12 +193,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_Get_s", ExactSpelling = true)]
                         extern static MR.CS.Std.Const_String._Underlying *__MR_StdOptional_B_Get_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_StdOptional_B_Get_s(_UnderlyingPtr);
                         MR.CS.Std.Const_String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_StdOptional_B_Get_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
@@ -260,12 +254,9 @@ public static partial class MR
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_B_GetMutable_s", ExactSpelling = true)]
                         extern static MR.CS.Std.String._Underlying *__MR_StdOptional_B_GetMutable_s(_Underlying *_this);
-                        MR.CS.Misc._Exceptions.Prepare();
-                        var __c_ret = __MR_StdOptional_B_GetMutable_s(_UnderlyingPtr);
                         MR.CS.Std.String __ret;
-                        __ret = new(__c_ret, is_owning: false);
+                        __ret = new(__MR_StdOptional_B_GetMutable_s(_UnderlyingPtr), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
-                        MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         return __ret;
                     }
                 }
