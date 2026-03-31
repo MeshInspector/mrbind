@@ -26276,7 +26276,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarr_cref`.
             /// Parameter `b` defaults to `default_plainarr`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref MR.CS.ConstArrayInt42 TestPlainarrCref(ref MR.CS.ConstArrayInt42 a, MR.CS.ConstArrayInt42 *b = null)
+            public static unsafe ref readonly MR.CS.ConstArrayInt42 TestPlainarrCref(in MR.CS.ConstArrayInt42 a, MR.CS.ConstArrayInt42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_cref", ExactSpelling = true)]
                 extern static MR.CS.ConstArrayInt42 *__MR_CSharp_test_plainarr_cref(MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 *b);
@@ -26308,7 +26308,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarr_crref`.
             /// Parameter `b` defaults to `(MR::CSharp::PlainArray&&)default_plainarr`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref MR.CS.ConstArrayInt42 TestPlainarrCrref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ConstArrayInt42 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt42 *b = null)
+            public static unsafe ref readonly MR.CS.ConstArrayInt42 TestPlainarrCrref(MR.CS.Misc._MoveRef _move_a, in MR.CS.ConstArrayInt42 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr_crref", ExactSpelling = true)]
                 extern static MR.CS.ConstArrayInt42 *__MR_CSharp_test_plainarr_crref(MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 *b);
@@ -26364,7 +26364,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarr2_cref`.
             /// Parameter `b` defaults to `default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref MR.CS.ConstArrayInt10_20 TestPlainarr2Cref(ref MR.CS.ConstArrayInt10_20 a, MR.CS.ConstArrayInt10_20 *b = null)
+            public static unsafe ref readonly MR.CS.ConstArrayInt10_20 TestPlainarr2Cref(in MR.CS.ConstArrayInt10_20 a, MR.CS.ConstArrayInt10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_cref", ExactSpelling = true)]
                 extern static MR.CS.ConstArrayInt10_20 *__MR_CSharp_test_plainarr2_cref(MR.CS.ConstArrayInt10_20 *a, MR.CS.ConstArrayInt10_20 *b);
@@ -26396,7 +26396,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarr2_crref`.
             /// Parameter `b` defaults to `(MR::CSharp::PlainArray2&&)default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref MR.CS.ConstArrayInt10_20 TestPlainarr2Crref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ConstArrayInt10_20 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt10_20 *b = null)
+            public static unsafe ref readonly MR.CS.ConstArrayInt10_20 TestPlainarr2Crref(MR.CS.Misc._MoveRef _move_a, in MR.CS.ConstArrayInt10_20 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarr2_crref", ExactSpelling = true)]
                 extern static MR.CS.ConstArrayInt10_20 *__MR_CSharp_test_plainarr2_crref(MR.CS.ConstArrayInt10_20 *a, MR.CS.ConstArrayInt10_20 *b);
@@ -26452,7 +26452,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarrenum_cref`.
             /// Parameter `b` defaults to `default_plainarrenum`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref MR.CS.CSharp.ConstArrayE1_42 TestPlainarrenumCref(ref MR.CS.CSharp.ConstArrayE1_42 a, MR.CS.CSharp.ConstArrayE1_42 *b = null)
+            public static unsafe ref readonly MR.CS.CSharp.ConstArrayE1_42 TestPlainarrenumCref(in MR.CS.CSharp.ConstArrayE1_42 a, MR.CS.CSharp.ConstArrayE1_42 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum_cref", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConstArrayE1_42 *__MR_CSharp_test_plainarrenum_cref(MR.CS.CSharp.ConstArrayE1_42 *a, MR.CS.CSharp.ConstArrayE1_42 *b);
@@ -26508,7 +26508,7 @@ public static partial class MR
             /// Generated from function `MR::CSharp::test_plainarrenum2_cref`.
             /// Parameter `b` defaults to `default_plainarrenum2`.
             /// In C++ this function returns an rvalue reference.
-            public static unsafe ref MR.CS.CSharp.ConstArrayE1_10_20 TestPlainarrenum2Cref(ref MR.CS.CSharp.ConstArrayE1_10_20 a, MR.CS.CSharp.ConstArrayE1_10_20 *b = null)
+            public static unsafe ref readonly MR.CS.CSharp.ConstArrayE1_10_20 TestPlainarrenum2Cref(in MR.CS.CSharp.ConstArrayE1_10_20 a, MR.CS.CSharp.ConstArrayE1_10_20 *b = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_plainarrenum2_cref", ExactSpelling = true)]
                 extern static MR.CS.CSharp.ConstArrayE1_10_20 *__MR_CSharp_test_plainarrenum2_cref(MR.CS.CSharp.ConstArrayE1_10_20 *a, MR.CS.CSharp.ConstArrayE1_10_20 *b);
