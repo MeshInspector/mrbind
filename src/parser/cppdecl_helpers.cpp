@@ -2,6 +2,8 @@
 
 #include <cppdecl/declarations/parse.h>
 
+#include <stdexcept>
+
 namespace mrbind
 {
     cppdecl::Type ParseTypeWithCppdecl(std::string_view input)

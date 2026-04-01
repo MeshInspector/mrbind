@@ -3,6 +3,7 @@
 #include <cppdecl/declarations/parse.h>
 #include <cppdecl/declarations/to_string.h>
 
+#include <stdexcept>
 #include <string>
 #include <string_view>
 

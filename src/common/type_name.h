@@ -11,7 +11,7 @@ namespace mrbind
         template <typename T>
         consteval std::string_view RawString()
         {
-            #ifdef _MSC_VER
+            #if defined(_MSC_VER) && !defined(__clang__) // Clang warns about `__FUNCSIG__`, so it's easier to just use `__PRETTY_FUNCTION__` for it.
             return __FUNCSIG__;
             #else
             return __PRETTY_FUNCTION__;

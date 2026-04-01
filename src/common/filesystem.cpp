@@ -4,13 +4,13 @@ namespace mrbind
 {
     std::filesystem::path MakePath(std::string_view string)
     {
-        #ifdef __GNUC__
+        #if defined(__GNUC__) || defined(__clang__)
         #pragma GCC diagnostic push
         #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
         #endif
         // No good alternative to the deprecated `u8path()`.
         return std::filesystem::u8path(string);
-        #ifdef __GNUC__
+        #if defined(__GNUC__) || defined(__clang__)
         #pragma GCC diagnostic pop
         #endif
     }

@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.15)
 
 project(mrbind)
 
@@ -15,6 +15,12 @@ if(NOT MSVC)
         #   though then it's weird that we get no linker errors, but do get segfaults still.
         set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_GLIBCXX_ASSERTIONS -D_LIBCPP_HARDENING_MODE=_LIBCPP_HARDENING_MODE_DEBUG")
     endif()
+endif()
+
+if(WIN32 AND NOT MINGW)
+    # Must set those parameters to match the prebuilt Clang libraries.
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -D_ITERATOR_DEBUG_LEVEL=0")
+    set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded)
 endif()
 
 if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")

@@ -59,6 +59,13 @@
 #include <unordered_map>
 #include <vector>
 
+// Validate clang version vs the compiler version.
+#ifndef __clang__
+#  warning "Building with compilers other than Clang is not supported."
+#elif CLANG_VERSION_MAJOR != __clang_major__
+#  warning "The Clang compiler version doesn't match the version of Clang libraries. You might want to pass `-DClang_DIR=...` to CMake, as explained in the docs."
+#endif
+
 namespace mrbind
 {
     namespace PpDirDumper
