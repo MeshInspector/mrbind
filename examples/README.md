@@ -1,8 +1,8 @@
 # Examples
 
-The scripts for building those examples were only tested on Linux. Windows users can run those in WSL.
+The scripts for building those examples were only tested on Linux and in MSYS2. Windows users can run those either in WSL or in MSYS2.
 
-MRBind itself works on Windows, MacOS, and Linux, but the scripts building the examples weren't ported to other platforms yet.
+MRBind itself works on more platforms (including Windows without MSYS2, and MacOS) but the scripts building the examples weren't ported to other platforms yet.
 
 ## Prerequisites
 
@@ -25,6 +25,8 @@ Then it compiles and runs `examples/run_example.c`, which calls into this librar
 
 
 ## C#
+
+You need to have .NET SDK installed (instructions: [Ubuntu](https://learn.microsoft.com/en-us/dotnet/core/install/linux-ubuntu-install), [Windows](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)). The example uses .NET 8 by default, but you can edit [the project file](/examples/csharp/example_consumer/example_consumer.csproj) to use a different version.
 
 Run `examples/csharp/run.sh`.
 

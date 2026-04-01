@@ -37,9 +37,12 @@ EXTRA_C_FLAGS=(
 )
 
 
+SHARED_LIBRARY_EXT=.so
+
 # Need extra flags on MSYS2.
 if [[ $(uname -o) == Msys ]]; then
     EXTRA_PARSER_CXX_FLAGS+=(--sysroot="$MSYSTEM_PREFIX")
+    SHARED_LIBRARY_EXT=.dll
 fi
 
 set -x
@@ -88,7 +91,7 @@ if [[ $SOURCES ]]; then
         $SOURCES \
         -shared -fPIC \
         -fvisibility=hidden -fvisibility-inlines-hidden \
-        -o c/output/libexample.so \
+        -o c/output/libexample$SHARED_LIBRARY_EXT \
         "${EXTRA_CXX_FLAGS[@]}" \
 
     LIBRARY=-lexample
@@ -97,7 +100,8 @@ else
 fi
 
 # Compile the test executable.
-gcc \
+# Any C compiler works. Using `cc` instead of `gcc` here to support MSYS2 CLANG64.
+cc \
     -std=c11 -Wall -Wextra -pedantic-errors \
     c/example_consumer.c \
     -Ic/output/include \

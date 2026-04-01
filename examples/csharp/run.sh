@@ -37,9 +37,16 @@ EXTRA_CXX_FLAGS=(
 )
 
 
+DOTNET=dotnet
+SHARED_LIBRARY_EXT=.so
+SHARED_LIBRARY_PREFIX=lib
+
 # Need extra flags on MSYS2.
 if [[ $(uname -o) == Msys ]]; then
     EXTRA_PARSER_CXX_FLAGS+=(--sysroot="$MSYSTEM_PREFIX")
+    DOTNET="C:/Program Files/dotnet/dotnet"
+    SHARED_LIBRARY_EXT=.dll
+    SHARED_LIBRARY_PREFIX=
 fi
 
 set -x
@@ -86,12 +93,11 @@ find input \( -name '*.h' -or -name '*.hpp' \) -printf "#include <%p>\n" >>cshar
 
 # Build the C# library.
 # This is only done for clarity, since `dotnet run` below does this automatically.
-dotnet build csharp/library
+"$DOTNET" build csharp/library
 
 # Find the generated source files of the C bindings.
 # Those are C++ sources. Only the generated headers are C.
 SOURCES="$(find csharp/c_library/src -name *.cpp)"
-LIBRARY=
 
 # Compile the C bindings into a library. Using the C# bindings loads this library at runtime.
 if [[ $SOURCES ]]; then
@@ -104,13 +110,15 @@ if [[ $SOURCES ]]; then
         $SOURCES \
         -shared -fPIC \
         -fvisibility=hidden -fvisibility-inlines-hidden \
-        -o csharp/c_library/libexample.so \
+        -o csharp/c_library/${SHARED_LIBRARY_PREFIX}example$SHARED_LIBRARY_EXT \
         "${EXTRA_CXX_FLAGS[@]}"
-
-    LIBRARY=-lexample
 else
     echo "The generator didn't produce any source files that need to be compiled."
 fi
 
 # Run a test executable.
-LD_LIBRARY_PATH=csharp/c_library dotnet run --project csharp/example_consumer
+if [[ $(uname -o) == Msys ]]; then
+    PATH="csharp/c_library:$PATH" "$DOTNET" run --project csharp/example_consumer
+else
+    LD_LIBRARY_PATH=csharp/c_library "$DOTNET" run --project csharp/example_consumer
+fi

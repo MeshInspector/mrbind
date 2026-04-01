@@ -25,9 +25,13 @@ EXTRA_CXX_FLAGS=(
 )
 
 
+PYTHON_MODULE_EXT=.so
+
 # Need extra flags on MSYS2.
 if [[ $(uname -o) == Msys ]]; then
     EXTRA_PARSER_CXX_FLAGS+=(--sysroot="$MSYSTEM_PREFIX")
+    EXTRA_CXX_FLAGS+=($(python3-config --libs))
+    PYTHON_MODULE_EXT=.pyd
 fi
 
 set -x
@@ -63,7 +67,7 @@ fi
 "$CLANG_CXX" \
     python/output/tmp/generated.cpp \
     -shared -fPIC \
-    -o python/output/example.so \
+    -o python/output/example$PYTHON_MODULE_EXT \
     -std=c++20 \
     -Wall -Wextra -pedantic-errors \
     -I../include \

@@ -1,6 +1,6 @@
 #include <example.h>
 
-int main()
+int main(void)
 {
     Example_SayHello();
     return 0;
