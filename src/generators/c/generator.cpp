@@ -402,6 +402,7 @@ namespace mrbind::C
             "namespace mrbindc_details\n"
             "{\n"
             "    #if " + enable_exceptions_macro + "\n"
+            // The specific exception type used here (`std::runtime_error`) must be synced with what `ThrowWithExceptionsDisabled()` is doing.
             "    #define MRBINDC_THROW(message_, .../*result_cpp_type_*/) throw std::runtime_error(+(message_))\n" // `+` forces this to be a string literal. This makes the `#else` branch simpler.
             "    #else\n"
             "    [[noreturn]] " + GetExportMacroForFile(file) + " void ThrowWithExceptionsDisabled(const char *message);\n"
@@ -493,6 +494,9 @@ namespace mrbind::C
             "#if !" + enable_exceptions_macro + "\n"
             "void mrbindc_details::ThrowWithExceptionsDisabled(const char *message)\n"
             "{\n"
+            // You might thing, why not call the handler here?
+            // But if `enable_exceptions_macro == false`, there's no handler to call.
+            // We could change our handler system to exist even with `-fno-exceptions`, solely for the internal exceptions, but shrug.
             "    std::fputs(message, stderr);\n"
             "    std::abort();\n"
             "}\n"

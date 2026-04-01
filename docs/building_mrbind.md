@@ -40,7 +40,7 @@ Note that Clang in the Arch repositories is usually outdated by one major versio
 
 <details><summary><b>Windows + MSVC:</b></summary>
 
-You may wish to test MRBind in WSL first, using the instructions for Ubuntu. We provide bash scripts to run the samples, that won't work on Windows. Otherwise MRBind itself works on Windows just fine.
+You may wish to test MRBind in WSL first, using the instructions for Ubuntu. We provide bash scripts to run the samples, that won't work on Windows (outside of MSYS2). Otherwise MRBind itself works on Windows just fine.
 
 You must have Visual Studio installed, since the official builds of Clang rely on the libraries provided by MSVC by default. Alternative insturctions for MinGW are provided below.
 
@@ -72,6 +72,8 @@ At the time of writing, this archive includes broken CMake files. If you run int
   pacman -S $MINGW_PACKAGE_PREFIX-{clang,clang-tools-extra,llvm,cmake}
   ```
   Notice that we're installing MSYS2's own CMake, since it will find the compilers and libraries installed in MSYS2 by default, which is helpful.
+
+  After you get everything to work, back up your MSYS2 installation, either manually or using [this](https://github.com/HolyBlackCat/msys2-lockfiles). MSYS2 doesn't directly allow downgrading packages, so if a Clang update breaks something, you can get stuck with the newer version.
 
 </details>
 

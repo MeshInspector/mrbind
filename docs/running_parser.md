@@ -35,7 +35,9 @@ You can additionally `--ignore` more namespaces here, such as `--ignore YourLibr
 * `-xc++-header` — if your input header has the `.h` extension, add this flag to treat it as a C++ header rather than a C one.
 * `-resource-dir=...` — on most platforms this is necessary for Clang to find its own internal headers. Skipping this can lead to cryptic errors. Get the `...` by running `clang -print-resource-dir` (or `clang-$CLANG_VER -print-resource-dir` on Ubuntu, use the same version as you [built MRBind with](./building_mrbind.md)).
 * `-fparse-all-comments` — preserve all comments in the bindings, not only Doxygen-style ones.
-* `--target=x86_64-pc-windows-msvc -rtlib=platform -D_DLL -D_MT` — if you're on Windows, using Clang from MSYS2, but the rest of the project uses MSVC, use this to switch Clang to a MSVC-compatible mode (which will make it use MSVC's standard library, among other things).
+* MSYS2 stuff:
+  * `--sysroot=$MSYSTEM_PREFIX` — required for the parser to function.
+  * `--target=x86_64-pc-windows-msvc -rtlib=platform -D_DLL -D_MT` — if you're on Windows, using Clang from MSYS2, but the rest of the project uses MSVC, use this to switch Clang to a MSVC-compatible mode (which will make it use MSVC's standard library, among other things).
 
 Notice that omitting `--` (and the subsequent flags) altogether will make Clang extract the flags from `compile_commands.json` if available. So `--` with nothing after it isn't the same thing as omitting it entirely. I recommend not omitting `--` and spelling out the flags manually.
 

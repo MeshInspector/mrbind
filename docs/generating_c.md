@@ -113,9 +113,19 @@ This applies only to the implicitly inherited members. Members explicitly inheri
 
 We try to handle C++ exceptions by default.
 
-There is a global callback that gets called when an exception escapes a C function. You can change it using `..._SetSimpleExceptionHandler()`. The default behavior is to print the exception and terminate, but you can change this to set a global variable to indicate the exception and continue, for example. Setting the callback to null disables exception catching at runtime.
+There is a global callback that gets called when an exception escapes a C function. You can change it using `..._SetSimpleExceptionHandler()`. The default behavior is to print the exception and terminate, but you can change this, e.g. to set your own global variable to indicate the error and continue, for example. Setting the callback to null disables exception catching at runtime, letting them fall out of the C functions.
 
-You can opt out of exception handling entirely using `--no-handle-exceptions`, but note that this is not necessary to compile with exceptions turned off, as all relevant code is wrapped in `#if`s.
+You can opt out of exception handling entirely using `--no-handle-exceptions`, then we'll pretend that exceptions don't exist.
+
+Note that `--no-handle-exceptions` can be set independently from `-fno-exceptions`:
+
+* If you use `--no-handle-exceptions` but not `-fno-exceptions`, then exceptions will escape C functions.
+
+* If you don't use `--no-handle-exceptions` but use `-fno-exceptions`, then the C headers will still include the functions for dealing with exceptions (such as setting custom handlers for them), but they will do nothing.
+
+  So the C headers are decoupled from whether your C library is internally compiled with `-fno-exceptions` or not. C users can check exception support at runtime.
+
+One more thing: currently, using `-fno-exceptions` makes it impossible to recover from certain errors caused by incorrect usage of the bindings, which would be exceptions if exceptions were enabled. We may or may not fix this eventually.
 
 ### Expose simple structs as structs
 

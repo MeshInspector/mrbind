@@ -46,6 +46,8 @@ The point is making maintaining large bindings easy, with decent binding quality
 
 5. Additional articles:
 
+   * [State of the project.](/docs/state_of_the_project.md)
+
    * [Skipping certain types/functions/etc.](/docs/skipping_entities.md)
 
    * [Adding specific template specializations.](/docs/adding_template_specializations.md)
@@ -57,8 +59,6 @@ The point is making maintaining large bindings easy, with decent binding quality
    * [Customizing type names.](/docs/customizing_type_names.md)
 
    * [Adjusting parsed comments.](/docs/adjusting_comments.md)
-
-   * [State of the project.](/docs/state_of_the_project.md)
 
 ## Supported C++ features
 
@@ -79,7 +79,7 @@ Aggregate initialization                         | ✅ | ✅ | ✅ | Aggregates 
 Overloaded operators                             | ✅ | ✅ | ✅ | In C, they become functions. In C# and Python, they become operators if possible, falling back to functions.
 `operator<=>`                                    | ❌ | ❌ | ❌ | Not implemented yet. It's recommended that you `--ignore '/.*operator<=>.*/'` in the parser.
 Conversion operators                             | ✅ | ✅ | ✅ | Overloaded as conversion operators if possible, falling back to constructors.<br/>In C# and Python, we also generate implicit conversion operators from implicit constructors callable with a single argument.
-Exceptions                                       | ✅ | ❌ | ✅ | In Python, Pybind translates C++ exceptions to Python exceptions.<br/>In C, we [call a user-provided callback on an exception](/docs/generating_c.md#exception-handling).<br/>In C#, not implemented yet.
+Exceptions                                       | ✅ | ✅ | ✅ | In Python, Pybind translates C++ exceptions to Python exceptions.<br/>In C, we [call a user-provided callback on an exception](/docs/generating_c.md#exception-handling).
 Explicit object parameter, aka "deducing `this`" | ❌ | ❌ | ❌ | Not implemented yet. There is some provisional work in language backends.
 Bitfields                                        | ❌ | ❌ | ❌ | Ignored.
 Non-public members                               | N/A | N/A | N/A | Intentionally ignored by the parser.<br/>It's not supported to return non-public nested classes from public member functions.
