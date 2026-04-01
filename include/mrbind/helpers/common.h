@@ -36,7 +36,11 @@ namespace MRBind
 #define MRBIND_END(...) DETAIL_MRBIND_END(__VA_ARGS__)
 #define DETAIL_MRBIND_END(...) __VA_ARGS__##_END
 
+#if __clang_major__ >= 22 // Insanity.
+#define MRBIND_UNIQUE_VAR _Pragma("clang diagnostic push") _Pragma("clang diagnostic ignored \"-Wc2y-extensions\"") MRBIND_CAT(_mrbind_var_, __COUNTER__) _Pragma("clang diagnostic pop")
+#else
 #define MRBIND_UNIQUE_VAR MRBIND_CAT(_mrbind_var_, __COUNTER__)
+#endif
 
 // Given `x`, returns `,x`. But if the argument is empty, returns nothing.
 #define MRBIND_PREPEND_COMMA(...) __VA_OPT__(, __VA_ARGS__)

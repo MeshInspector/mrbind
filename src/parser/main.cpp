@@ -2470,7 +2470,7 @@ namespace mrbind
             }
 
             #if CLANG_VERSION_MAJOR >= 22
-            std::string full_name = RoundtripQualifiedNameThroughCppdecl(decl->getUnderlyingType().getAsString(printing_policies.normal), *ci, *params, true);
+            std::string full_name = RoundtripQualifiedNameThroughCppdecl(ctx->getTypedefType(clang::ElaboratedTypeKeyword::None, std::nullopt, decl).getAsString(printing_policies.normal), *ci, *params, true);
             #else
             std::string full_name = RoundtripQualifiedNameThroughCppdecl(ctx->getTypedefType(decl).getAsString(printing_policies.normal), *ci, *params, true);
             #endif

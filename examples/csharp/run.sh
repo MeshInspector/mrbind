@@ -36,6 +36,12 @@ EXTRA_CXX_FLAGS=(
     -g
 )
 
+
+# Need extra flags on MSYS2.
+if [[ $(uname -o) == Msys ]]; then
+    EXTRA_PARSER_CXX_FLAGS+=(--sysroot="$MSYSTEM_PREFIX")
+fi
+
 set -x
 
 # Assemble the combined input header.

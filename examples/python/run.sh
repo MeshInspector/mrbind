@@ -10,22 +10,27 @@ cd "$SCRIPT_DIR/.."
 mkdir -p python/output/tmp
 
 # Those are the Clang-style flags for the parser.
-EXTRA_PARSER_CXX_FLAGS="
+EXTRA_PARSER_CXX_FLAGS=(
     -std=c++20 -Wall -Wextra -pedantic-errors
     -fparse-all-comments
-"
+)
 
 # Those are optional tunable flags for the parser.
-EXTRA_PARSER_FLAGS="
-"
+EXTRA_PARSER_FLAGS=(
+)
 
 # Those are optional tunable flags for the compilation.
-EXTRA_CXX_FLAGS="
-    -DMB_PB11_STRIPPED_NAMESPACES=\"Example\"
-"
+EXTRA_CXX_FLAGS=(
+    -DMB_PB11_STRIPPED_NAMESPACES='"Example"'
+)
+
+
+# Need extra flags on MSYS2.
+if [[ $(uname -o) == Msys ]]; then
+    EXTRA_PARSER_CXX_FLAGS+=(--sysroot="$MSYSTEM_PREFIX")
+fi
 
 set -x
-
 
 # Assemble the combined input header.
 echo "#pragma once" >python/output/tmp/combined_input.h
@@ -38,19 +43,19 @@ find input \( -name '*.h' -or -name '*.hpp' \) -printf "#include <%p>\n" >>pytho
     -o python/output/tmp/generated.cpp \
     --ignore :: \
     --allow Example \
-    $EXTRA_PARSER_FLAGS \
+    "${EXTRA_PARSER_FLAGS[@]}" \
     -- \
     -xc++-header \
     -resource-dir="$("$CLANG_CXX" -print-resource-dir)" \
     -I. \
-    $EXTRA_PARSER_CXX_FLAGS
+    "${EXTRA_PARSER_CXX_FLAGS[@]}"
 
 # Clone Pybind, if it doesn't already exist.
-if [[ ! -d pybind11 ]]; then
-    git clone https://github.com/pybind/pybind11
+if [[ ! -d python/pybind11 ]]; then
+    git clone https://github.com/pybind/pybind11 python/pybind11
 
     # This is an arbitrary commit that's known to work.
-    (cd pybind11 && git checkout d2413f5bca91a2c091b9b0801e0c1b5bf089e31d)
+    (cd python/pybind11 && git checkout d2413f5bca91a2c091b9b0801e0c1b5bf089e31d)
 fi
 
 # Compile the Python module.
@@ -62,14 +67,14 @@ fi
     -std=c++20 \
     -Wall -Wextra -pedantic-errors \
     -I../include \
-    -Ipybind11/include \
+    -Ipython/pybind11/include \
     -I. \
     -DMRBIND_HEADER='<mrbind/targets/pybind11.h>' \
     -DMB_PB11_MODULE_NAME=example \
     -DMB_DEFINE_IMPLEMENTATION \
     -DPYBIND11_COMPILER_TYPE='"_mrbind_example"' -DPYBIND11_BUILD_ABI='"_mrbind_example"' \
     $(pkg-config --cflags python3-embed) \
-    $EXTRA_CXX_FLAGS
+    "${EXTRA_CXX_FLAGS[@]}"
 
 # Run a test program using the Python module.
 PYTHONPATH=python/output python3 python/example_consumer.py
