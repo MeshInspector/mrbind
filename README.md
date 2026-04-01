@@ -2,11 +2,11 @@
 
 MRBind parses C++ headers and generates **C**, **C#**, and **Python** bindings for them. The parse results can also be dumped for reflection purposes (either as JSON or as C macros).
 
-* The Python backend uses [pybind11](https://github.com/pybind/pybind11), with some custom logic to better handle certain types.
-
 * The C backend is custom. We can dump the information about the generated C functions as JSON, so you can build bindings for other languages on top of those, like we do with C#.
 
 * The C# backend is custom, and uses `[DllImport]` to load the C bindings. The resulting C# assembly is cross-platform (at least across all of: Win/Linux/Mac, both x64 and ARM64) as long as you compile the generated C shared library for every platform you want to support.
+
+* The Python backend uses [pybind11](https://github.com/pybind/pybind11), with some custom logic to better handle certain types.
 
 Out main features are:
 
@@ -57,6 +57,8 @@ The point is making maintaining large bindings easy, with decent binding quality
    * [Customizing type names.](/docs/customizing_type_names.md)
 
    * [Adjusting parsed comments.](/docs/adjusting_comments.md)
+
+   * [State of the project.](/docs/state_of_the_project.md)
 
 ## Supported C++ features
 

@@ -6,13 +6,13 @@ We generate Python bindings using [Pybind11](https://github.com/pybind/pybind11)
 
 You're expected to have a basic understanding of how to work with Pybind. I recommend going through [the basic Pybind tutorial](https://pybind11.readthedocs.io/en/stable/basics.html), compiling at least one test module, and making sure you can import it in Python.
 
-Python modules are shared libraries (sometimes with a customized extension, typically `.pyd` instead of `.dll` on Windows, and `.so` elsewhere). When using Pybind, you create a `.cpp` file with a function that gets called on module import (using the `PYBIND11_MODULE` macro, the name passed to it must match the module filename minus the extension), where you register all your functions/classes using Pybind API (see the link above).
+Python modules are shared libraries (sometimes with a customized extension, typically `.pyd` instead of `.dll` on Windows, and `.so` elsewhere). When using Pybind, you create a `.cpp` file with a function that gets called on module import (using the `PYBIND11_MODULE` macro, the name passed to it must match the module filename minus the extension), where you register all your functions/classes using Pybind API (see the link above). MRBind generates this source file for you, which you just need to compile.
 
-Pybind is a header-only library, so you'll need to clone it and add it to your include paths. You also need to add Python to the include paths (on Linux use `pkg-config --cflags python3-embed` or `... python-3.??-embed`). You also need some [platform-dependent linker flags](https://pybind11.readthedocs.io/en/stable/compiling.html#building-manually): On Windows, you must link `pythonXY.lib`. On Linux, you don't link anything (and rely on the default behavior of not checking for undefined references when building shared libraries). On Mac, you don't link anything and additionally pass `-Xlinker -undefined -Xlinker dynamic_lookup`.
+Pybind is a header-only library, so you'll need to clone it and add it to your include paths. You also need to add Python to the include paths (on Linux use `pkg-config --cflags python3-embed` or `... python-3.??-embed`). You also need some [platform-dependent linker flags](https://pybind11.readthedocs.io/en/stable/compiling.html#building-manually): On Windows, you must link `pythonXY.lib`. (On MSYS2, you can use the flags printed by `python3-config --libs`.) On Linux, you don't link anything (and rely on the default behavior of not checking for undefined references when building shared libraries). On Mac, you don't link anything and additionally pass `-Xlinker -undefined -Xlinker dynamic_lookup`.
 
 Modules generated with Pybind need to be recompiled on every OS, for every minor Python version (X.Y, e.g. 3.13) that you want to support. We have a [Pybind fork](https://github.com/MeshInspector/mrbind-pybind11) that produces Python-version-agnostic modules, but I suggest getting the upstream version to work first, and then thinking about portability.
 
-On Windows, Python modules must be built using MSVC or Clang in MSVC-compatible mode (we only support the latter), the ones built with MinGW will not work with the official Python releases.
+On Windows, Python modules must be built using MSVC or Clang in MSVC-compatible mode (we only support the latter), the ones built with MinGW will not work with Python from the official installer. (But will work with MSYS2 Python.) You can still use MSYS2 Clang if you add some flags to make it operate in MSVC-compatible mode, more on that below.
 
 ## The basic idea
 
@@ -37,11 +37,11 @@ It seemed like a good idea at the time. (c)
 
 ## The build process
 
-[Previously](/docs/running_parser.md) the parser output format was set to JSON for testing (`-o parse_result.json`), but the Python backend requires a different format, `--format=macros`. This generates a `.cpp` file. (See above for more info.)
+[Previously](/docs/running_parser.md) the parser output format was set to JSON for testing (`-o parse_result.json`), but the Python backend requires a different format, as explained above. Use `--format=macros -o parse_result.cpp` to generate a `.cpp` file in this format.
 
-Then you compile this file. Only the Clang compiler is supported, the same version that you used to compile MRBind (the generated code has some complex templating that other compilers may or may not choke on).
+Then you compile this file with specific flags. Only the Clang compiler is supported, the same version that you used to compile MRBind (the generated code has some complex templating that other compilers may or may not choke on).
 
-If the target library is compiled with a different compiler, and you get compatibility issues (`undefined reference`s), consult [the ABI compatibility page](/docs/clang_abi_compat.md).
+If the library you're binding is compiled with a different compiler, and you get compatibility issues (`undefined reference`s), consult [the ABI compatibility page](/docs/clang_abi_compat.md).
 
 Compile with the following flags:
 
@@ -65,7 +65,7 @@ Compile with the following flags:
 
   The values of those macros are logged during compilation, as `Pybind internals magic: ...`.
 
-* If the Clang comes from MSYS2, but you're building in MSVC-compatible mode, then `--target=x86_64-pc-windows-msvc -rtlib=platform -D_DLL -D_MT` (same as what you passed to the parser before), plus additionally in Release mode: `-Xclang --dependent-lib=msvcrt` or in Debug mode: `-Xclang --dependent-lib=msvcrtd -D_DEBUG`.
+* If the Clang comes from MSYS2, you can switch it to MSVC-compatible mode by passing `--target=x86_64-pc-windows-msvc -rtlib=platform -D_DLL -D_MT` (same as what you passed to the parser before), plus additionally in Release mode: `-Xclang --dependent-lib=msvcrt` and in Debug mode: `-Xclang --dependent-lib=msvcrtd -D_DEBUG`.
 
 There are more optional knobs to tune, but this should work.
 
