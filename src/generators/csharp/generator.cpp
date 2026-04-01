@@ -874,6 +874,9 @@ namespace mrbind::CSharp
 
     std::string Generator::CppToCSharpExposedStructName(cppdecl::QualifiedName name)
     {
+        // Must make this before adjusting the name.
+        std::string unqual_part = CppToCSharpUnqualExposedStructName(name);
+
         name = AdjustCppNamespaces(std::move(name));
 
         std::string ret;
@@ -884,7 +887,7 @@ namespace mrbind::CSharp
 
             std::string part;
             if (i + 1 == name.parts.size())
-                part = CppToCSharpUnqualExposedStructName(name);
+                part = std::move(unqual_part);
             else
                 part = CppToCSharpIdentifier(name.parts[i]);
 
@@ -893,14 +896,18 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::CppToCSharpUnqualExposedStructName(const cppdecl::QualifiedName &name)
+    std::string Generator::CppToCSharpUnqualExposedStructName(cppdecl::QualifiedName name)
     {
+        AdjustCppQualNameForCSharpSpelling(name);
         // Return unchanged.
         return CppToCSharpIdentifier(name.parts.back());
     }
 
     std::string Generator::CppToCSharpByValueHelperName(cppdecl::QualifiedName name, bool is_shared)
     {
+        // Must make this before adjusting the name.
+        std::string unqual_part = CppToCSharpUnqualByValueHelperName(name, is_shared);
+
         name = AdjustCppNamespaces(std::move(name));
 
         std::string ret;
@@ -911,7 +918,7 @@ namespace mrbind::CSharp
 
             std::string part;
             if (i + 1 == name.parts.size())
-                part = CppToCSharpUnqualByValueHelperName(name.parts[i], is_shared);
+                part = std::move(unqual_part);
             else
                 part = CppToCSharpIdentifier(name.parts[i]);
 
@@ -920,13 +927,17 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name, bool is_shared)
+    std::string Generator::CppToCSharpUnqualByValueHelperName(cppdecl::QualifiedName name, bool is_shared)
     {
-        return (is_shared ? "_ByValueShared_" : "_ByValue_") + CppToCSharpIdentifier(name);
+        AdjustCppQualNameForCSharpSpelling(name);
+        return (is_shared ? "_ByValueShared_" : "_ByValue_") + CppToCSharpIdentifier(name.parts.back());
     }
 
     std::string Generator::CppToCSharpByValueOptOptHelperName(cppdecl::QualifiedName name, bool is_shared)
     {
+        // Must make this before adjusting the name.
+        std::string unqual_part = CppToCSharpUnqualByValueOptOptHelperName(name, is_shared);
+
         name = AdjustCppNamespaces(std::move(name));
 
         std::string ret;
@@ -937,7 +948,7 @@ namespace mrbind::CSharp
 
             std::string part;
             if (i + 1 == name.parts.size())
-                part = CppToCSharpUnqualByValueOptOptHelperName(name.parts[i], is_shared);
+                part = std::move(unqual_part);
             else
                 part = CppToCSharpIdentifier(name.parts[i]);
 
@@ -946,14 +957,18 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::CppToCSharpUnqualByValueOptOptHelperName(const cppdecl::UnqualifiedName &name, bool is_shared)
+    std::string Generator::CppToCSharpUnqualByValueOptOptHelperName(cppdecl::QualifiedName name, bool is_shared)
     {
+        AdjustCppQualNameForCSharpSpelling(name);
         // Sic, repeating `Opt` two times (once because those always have default arguments, then again because of `std::optional`).
-        return (is_shared ? "_ByValueSharedOptOpt_" : "_ByValueOptOpt_") + CppToCSharpIdentifier(name);
+        return (is_shared ? "_ByValueSharedOptOpt_" : "_ByValueOptOpt_") + CppToCSharpIdentifier(name.parts.back());
     }
 
     std::string Generator::CppToCSharpInOptStructHelperName(cppdecl::QualifiedName name)
     {
+        // Must make this before adjusting the name.
+        std::string unqual_part = CppToCSharpUnqualInOptStructHelperName(name);
+
         name = AdjustCppNamespaces(std::move(name));
 
         std::string ret;
@@ -964,7 +979,7 @@ namespace mrbind::CSharp
 
             std::string part;
             if (i + 1 == name.parts.size())
-                part = CppToCSharpUnqualInOptStructHelperName(name.parts[i]);
+                part = std::move(unqual_part);
             else
                 part = CppToCSharpIdentifier(name.parts[i]);
 
@@ -973,13 +988,17 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::CppToCSharpUnqualInOptStructHelperName(const cppdecl::UnqualifiedName &name)
+    std::string Generator::CppToCSharpUnqualInOptStructHelperName(cppdecl::QualifiedName name)
     {
-        return "_InOpt_" + CppToCSharpIdentifier(name);
+        AdjustCppQualNameForCSharpSpelling(name);
+        return "_InOpt_" + CppToCSharpIdentifier(name.parts.back());
     }
 
     std::string Generator::CppToCSharpInOptMutNontrivialHelperName(cppdecl::QualifiedName name)
     {
+        // Must make this before adjusting the name.
+        std::string unqual_part = CppToCSharpUnqualInOptMutNontrivialHelperName(name);
+
         name = AdjustCppNamespaces(std::move(name));
 
         std::string ret;
@@ -990,7 +1009,7 @@ namespace mrbind::CSharp
 
             std::string part;
             if (i + 1 == name.parts.size())
-                part = CppToCSharpUnqualInOptMutNontrivialHelperName(name.parts[i]);
+                part = std::move(unqual_part);
             else
                 part = CppToCSharpIdentifier(name.parts[i]);
 
@@ -999,13 +1018,17 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::CppToCSharpUnqualInOptMutNontrivialHelperName(const cppdecl::UnqualifiedName &name)
+    std::string Generator::CppToCSharpUnqualInOptMutNontrivialHelperName(cppdecl::QualifiedName name)
     {
-        return "_InOptMut_" + CppToCSharpIdentifier(name);
+        AdjustCppQualNameForCSharpSpelling(name);
+        return "_InOptMut_" + CppToCSharpIdentifier(name.parts.back());
     }
 
     std::string Generator::CppToCSharpInOptConstNontrivialHelperName(cppdecl::QualifiedName name)
     {
+        // Must make this before adjusting the name.
+        std::string unqual_part = CppToCSharpUnqualInOptConstNontrivialHelperName(name);
+
         name = AdjustCppNamespaces(std::move(name));
 
         std::string ret;
@@ -1016,7 +1039,7 @@ namespace mrbind::CSharp
 
             std::string part;
             if (i + 1 == name.parts.size())
-                part = CppToCSharpUnqualInOptConstNontrivialHelperName(name.parts[i]);
+                part = std::move(unqual_part);
             else
                 part = CppToCSharpIdentifier(name.parts[i]);
 
@@ -1025,9 +1048,10 @@ namespace mrbind::CSharp
         return ret;
     }
 
-    std::string Generator::CppToCSharpUnqualInOptConstNontrivialHelperName(const cppdecl::UnqualifiedName &name)
+    std::string Generator::CppToCSharpUnqualInOptConstNontrivialHelperName(cppdecl::QualifiedName name)
     {
-        return "_InOptConst_" + CppToCSharpIdentifier(name);
+        AdjustCppQualNameForCSharpSpelling(name);
+        return "_InOptConst_" + CppToCSharpIdentifier(name.parts.back());
     }
 
     bool Generator::ForEachClassPartName(const cppdecl::QualifiedName &cpp_class, std::function<bool(const std::string &part)> func)
@@ -4132,7 +4156,7 @@ namespace mrbind::CSharp
                         const std::string &param_name = param_strings.at(1).csharp_decl_params.at(0).name;
 
                         file.WriteString(
-                            csharp_name + "(" + generator.CppToCSharpUnqualClassName(enclosing_class, true) + " " + param_name + ") : this(new " + generator.CppToCSharpUnqualByValueHelperName(enclosing_class.parts.back(), false) + "(" + param_name + ")) {}\n"
+                            csharp_name + "(" + generator.CppToCSharpUnqualClassName(enclosing_class, true) + " " + param_name + ") : this(new " + generator.CppToCSharpUnqualByValueHelperName(enclosing_class, false) + "(" + param_name + ")) {}\n"
                         );
                         return;
                     }
@@ -4897,17 +4921,17 @@ namespace mrbind::CSharp
                     ret += elem.is_explicit ? "explicit" : "implicit";
                     ret += " operator ";
                     if      (emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_helper)
-                        ret += CppToCSharpUnqualByValueHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), false);
+                        ret += CppToCSharpUnqualByValueHelperName(ParseNameOrThrow(method.ret.cpp_type), false);
                     else if (emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_shared_helper)
-                        ret += CppToCSharpUnqualByValueHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), true);
+                        ret += CppToCSharpUnqualByValueHelperName(ParseNameOrThrow(method.ret.cpp_type), true);
                     else if (emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_opt_opt_helper)
-                        ret += CppToCSharpUnqualByValueOptOptHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), false);
+                        ret += CppToCSharpUnqualByValueOptOptHelperName(ParseNameOrThrow(method.ret.cpp_type), false);
                     else if (emit_variant == EmitVariant::conv_op_for_ctor_for_by_value_shared_opt_opt_helper)
-                        ret += CppToCSharpUnqualByValueOptOptHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back(), true);
+                        ret += CppToCSharpUnqualByValueOptOptHelperName(ParseNameOrThrow(method.ret.cpp_type), true);
                     else if (emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_const_helper)
-                        ret += CppToCSharpUnqualInOptConstNontrivialHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back());
+                        ret += CppToCSharpUnqualInOptConstNontrivialHelperName(ParseNameOrThrow(method.ret.cpp_type));
                     else if (emit_variant == EmitVariant::conv_op_for_ctor_for_in_opt_struct_helper)
-                        ret += CppToCSharpUnqualInOptStructHelperName(ParseNameOrThrow(method.ret.cpp_type).parts.back());
+                        ret += CppToCSharpUnqualInOptStructHelperName(ParseNameOrThrow(method.ret.cpp_type));
                     else if (!class_part_kind)
                         ret += CppToCSharpUnqualExposedStructName(ParseNameOrThrow(method.ret.cpp_type));
                     else
@@ -7169,7 +7193,7 @@ namespace mrbind::CSharp
                 { // `_ByValue_...`.
                     auto EmitByValueHelper = [&](bool is_opt_opt, bool is_shared)
                     {
-                        const std::string by_val_name = is_opt_opt ? CppToCSharpUnqualByValueOptOptHelperName(cpp_name.parts.back(), is_shared) : CppToCSharpUnqualByValueHelperName(cpp_name.parts.back(), is_shared);
+                        const std::string by_val_name = is_opt_opt ? CppToCSharpUnqualByValueOptOptHelperName(cpp_name, is_shared) : CppToCSharpUnqualByValueHelperName(cpp_name, is_shared);
                         const std::string copy_ctor_param_half_name = type_desc.traits.value().copy_constructor_takes_nonconst_ref ? mut_half_name : const_half_name;
 
                         // Shared pointers get all the operators.
@@ -7291,7 +7315,7 @@ namespace mrbind::CSharp
                 // Note that those `_InOpt_...` wrappers for structs are used for a slightly different purpose than the generic `_InOpt<T>` for classes.
                 if (cl->kind == CInterop::ClassKind::exposed_struct)
                 {
-                    const std::string in_opt_name = CppToCSharpUnqualInOptStructHelperName(cpp_name.parts.back());
+                    const std::string in_opt_name = CppToCSharpUnqualInOptStructHelperName(cpp_name);
 
                     file.WriteSeparatingNewline();
                     WriteComment(file,
@@ -7332,12 +7356,12 @@ namespace mrbind::CSharp
                 }
 
                 { // `_InOptMut_...`.
-                    const std::string in_opt_mut_name = CppToCSharpUnqualInOptMutNontrivialHelperName(cpp_name.parts.back());
+                    const std::string in_opt_mut_name = CppToCSharpUnqualInOptMutNontrivialHelperName(cpp_name);
 
                     file.WriteSeparatingNewline();
                     WriteComment(file,
                         "/// This is used for optional parameters of class `" + mut_half_name + "` with default arguments.\n"
-                        "/// This is only used mutable parameters. For const ones we have `" + CppToCSharpUnqualInOptConstNontrivialHelperName(cpp_name.parts.back()) + "`.\n"
+                        "/// This is only used mutable parameters. For const ones we have `" + CppToCSharpUnqualInOptConstNontrivialHelperName(cpp_name) + "`.\n"
                         "/// Usage:\n"
                         "/// * Pass `null` to use the default argument.\n"
                         "/// * Pass `new()` to pass no object.\n"
@@ -7376,12 +7400,12 @@ namespace mrbind::CSharp
                 }
 
                 { // `_InOptConst_...`.
-                    const std::string in_opt_const_name = CppToCSharpUnqualInOptConstNontrivialHelperName(cpp_name.parts.back());
+                    const std::string in_opt_const_name = CppToCSharpUnqualInOptConstNontrivialHelperName(cpp_name);
 
                     file.WriteSeparatingNewline();
                     WriteComment(file,
                         "/// This is used for optional parameters of class `" + mut_half_name + "` with default arguments.\n"
-                        "/// This is only used const parameters. For non-const ones we have `" + CppToCSharpUnqualInOptMutNontrivialHelperName(cpp_name.parts.back()) + "`.\n"
+                        "/// This is only used const parameters. For non-const ones we have `" + CppToCSharpUnqualInOptMutNontrivialHelperName(cpp_name) + "`.\n"
                         "/// Usage:\n"
                         "/// * Pass `null` to use the default argument.\n"
                         "/// * Pass `new()` to pass no object.\n"

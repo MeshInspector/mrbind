@@ -41,7 +41,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(MR.CS.Std._ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC other) : this(null, is_owning: true)
+                public unsafe Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(MR.CS.Std._ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *__MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *other);
@@ -52,7 +52,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC other) : this(new _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(other)) {}
+                public Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC other) : this(new _ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -127,7 +127,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(MR.CS.Std._ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC other) : this(null, is_owning: true)
+                public unsafe Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(MR.CS.Std._ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *__MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *other);
@@ -138,7 +138,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC other) : this(new _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(other)) {}
+                public Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC other) : this(new _ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -148,7 +148,7 @@ public static partial class MR
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 /// </summary>
-                public unsafe void assign(MR.CS.Std._ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC other)
+                public unsafe void assign(MR.CS.Std._ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_MR_CSharp_ExposedLayoutC_from_MR_CSharp_ExposedLayoutC_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC._Underlying *other);
@@ -194,54 +194,54 @@ public static partial class MR
             ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
-            public class _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC
+            public class _ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC
             {
                 #pragma warning disable CS0649
                 internal readonly Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC? Value;
                 #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC arg) {return new(arg);}
-                public _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(MR.CS.Misc._Moved<Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(MR.CS.Misc._Moved<Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC> arg) {return new(arg);}
+                public _ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC arg) {return new(arg);}
+                public _ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(MR.CS.Misc._Moved<Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(MR.CS.Misc._Moved<Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC.Delegate func) {return new Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(func);}}
+                public static unsafe implicit operator _ByValue_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC.Delegate func) {return new Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(func);}}
 
             /// <summary>
             /// This is used for optional parameters of class `Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC`/`Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC` directly.
             /// </summary>
-            public class _InOptMut_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC
+            public class _InOptMut_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC
             {
                 public Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC? Opt;
 
-                public _InOptMut_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC() {}
-                public _InOptMut_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC value) {Opt = value;}
-                public static implicit operator _InOptMut_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC value) {return new(value);}
+                public _InOptMut_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC() {}
+                public _InOptMut_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC value) {Opt = value;}
+                public static implicit operator _InOptMut_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC value) {return new(value);}
             }
 
             /// <summary>
             /// This is used for optional parameters of class `Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC`/`Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC` to pass it to the function.
             /// </summary>
-            public class _InOptConst_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC
+            public class _InOptConst_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC
             {
                 public Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC? Opt;
 
-                public _InOptConst_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC() {}
-                public _InOptConst_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC value) {Opt = value;}
-                public static implicit operator _InOptConst_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC value) {return new(value);}
+                public _InOptConst_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC() {}
+                public _InOptConst_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC value) {Opt = value;}
+                public static implicit operator _InOptConst_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(Const_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_MRCSharpExposedLayoutCFuncFromMRCSharpExposedLayoutC(MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC.Delegate func) {return new Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(func);}}
+                public static unsafe implicit operator _InOptConst_Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(MR.CS.Std.Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC.Delegate func) {return new Function_MRCSharpExposedLayoutC_From_MRCSharpExposedLayoutC(func);}}
         }
     }
 }

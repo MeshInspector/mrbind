@@ -37,7 +37,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std._ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE other) : this(null, is_owning: true)
+                public unsafe Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std._ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *other);
@@ -48,7 +48,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE other) : this(new _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(other)) {}
+                public Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE other) : this(new _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE(other)) {}
 
                 /// Constructs a copy of another instance. The source remains alive.
                 public Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Function_MRStdFunctionE_From_Int_MRStdFunctionE other) : this((Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE)other) {}
@@ -137,7 +137,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std._ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE other) : this(null, is_owning: true)
+                public unsafe Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std._ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *__MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *other);
@@ -148,13 +148,13 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public Function_MRStdFunctionE_From_Int_MRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE other) : this(new _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(other)) {}
+                public Function_MRStdFunctionE_From_Int_MRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE other) : this(new _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE(other)) {}
 
                 /// Constructs a copy of another instance. The source remains alive.
                 public Function_MRStdFunctionE_From_Int_MRStdFunctionE(Function_MRStdFunctionE_From_Int_MRStdFunctionE other) : this((Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std._ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE other)
+                public unsafe void Assign(MR.CS.Std._ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_MR_StdFunction_E_from_int_MR_StdFunction_E_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE._Underlying *other);
@@ -198,50 +198,50 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
-            public class _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE
+            public class _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE
             {
                 #pragma warning disable CS0649
                 internal readonly Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE? Value;
                 #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE arg) {return new(arg);}
-                public _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(MR.CS.Misc._Moved<Function_MRStdFunctionE_From_Int_MRStdFunctionE> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(MR.CS.Misc._Moved<Function_MRStdFunctionE_From_Int_MRStdFunctionE> arg) {return new(arg);}
+                public _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE arg) {return new(arg);}
+                public _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Misc._Moved<Function_MRStdFunctionE_From_Int_MRStdFunctionE> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Misc._Moved<Function_MRStdFunctionE_From_Int_MRStdFunctionE> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE.Delegate func) {return new Function_MRStdFunctionE_From_Int_MRStdFunctionE(func);}}
+                public static unsafe implicit operator _ByValue_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE.Delegate func) {return new Function_MRStdFunctionE_From_Int_MRStdFunctionE(func);}}
 
             /// This is used for optional parameters of class `Function_MRStdFunctionE_From_Int_MRStdFunctionE` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_MRStdFunctionEFuncFromIntMRStdFunctionE`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_MRStdFunctionE_From_Int_MRStdFunctionE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_MRStdFunctionE_From_Int_MRStdFunctionE`/`Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE` directly.
-            public class _InOptMut_Function_MRStdFunctionEFuncFromIntMRStdFunctionE
+            public class _InOptMut_Function_MRStdFunctionE_From_Int_MRStdFunctionE
             {
                 public Function_MRStdFunctionE_From_Int_MRStdFunctionE? Opt;
 
-                public _InOptMut_Function_MRStdFunctionEFuncFromIntMRStdFunctionE() {}
-                public _InOptMut_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(Function_MRStdFunctionE_From_Int_MRStdFunctionE value) {Opt = value;}
-                public static implicit operator _InOptMut_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(Function_MRStdFunctionE_From_Int_MRStdFunctionE value) {return new(value);}
+                public _InOptMut_Function_MRStdFunctionE_From_Int_MRStdFunctionE() {}
+                public _InOptMut_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Function_MRStdFunctionE_From_Int_MRStdFunctionE value) {Opt = value;}
+                public static implicit operator _InOptMut_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Function_MRStdFunctionE_From_Int_MRStdFunctionE value) {return new(value);}
             }
 
             /// This is used for optional parameters of class `Function_MRStdFunctionE_From_Int_MRStdFunctionE` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_MRStdFunctionEFuncFromIntMRStdFunctionE`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_MRStdFunctionE_From_Int_MRStdFunctionE`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_MRStdFunctionE_From_Int_MRStdFunctionE`/`Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE` to pass it to the function.
-            public class _InOptConst_Function_MRStdFunctionEFuncFromIntMRStdFunctionE
+            public class _InOptConst_Function_MRStdFunctionE_From_Int_MRStdFunctionE
             {
                 public Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE? Opt;
 
-                public _InOptConst_Function_MRStdFunctionEFuncFromIntMRStdFunctionE() {}
-                public _InOptConst_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE value) {Opt = value;}
-                public static implicit operator _InOptConst_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE value) {return new(value);}
+                public _InOptConst_Function_MRStdFunctionE_From_Int_MRStdFunctionE() {}
+                public _InOptConst_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE value) {Opt = value;}
+                public static implicit operator _InOptConst_Function_MRStdFunctionE_From_Int_MRStdFunctionE(Const_Function_MRStdFunctionE_From_Int_MRStdFunctionE value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_MRStdFunctionEFuncFromIntMRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE.Delegate func) {return new Function_MRStdFunctionE_From_Int_MRStdFunctionE(func);}}
+                public static unsafe implicit operator _InOptConst_Function_MRStdFunctionE_From_Int_MRStdFunctionE(MR.CS.Std.Function_MRStdFunctionE_From_Int_MRStdFunctionE.Delegate func) {return new Function_MRStdFunctionE_From_Int_MRStdFunctionE(func);}}
         }
     }
 }

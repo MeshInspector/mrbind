@@ -665,34 +665,34 @@ namespace mrbind::CSharp
         [[nodiscard]] std::string CppToCSharpExposedStructName(cppdecl::QualifiedName name);
         // Same, but produces an unqualified name. This still needs a full name on input,
         //   since the result can be affected by the properties of the class.
-        [[nodiscard]] std::string CppToCSharpUnqualExposedStructName(const cppdecl::QualifiedName &name);
+        [[nodiscard]] std::string CppToCSharpUnqualExposedStructName(cppdecl::QualifiedName name);
 
         // Converts a C++ qualified class name to a C# name of its helper that's used to pass it by value.
         // This only makes sense for classes that use the pass-by enum.
         [[nodiscard]] std::string CppToCSharpByValueHelperName(cppdecl::QualifiedName name, bool is_shared);
         // Same, but for unqualified names.
-        [[nodiscard]] std::string CppToCSharpUnqualByValueHelperName(const cppdecl::UnqualifiedName &name, bool is_shared);
+        [[nodiscard]] std::string CppToCSharpUnqualByValueHelperName(cppdecl::QualifiedName name, bool is_shared);
 
         // Like `CppToCSharpByValueHelperName`, but for `std::optional
         [[nodiscard]] std::string CppToCSharpByValueOptOptHelperName(cppdecl::QualifiedName name, bool is_shared);
         // Same, but for unqualified names.
-        [[nodiscard]] std::string CppToCSharpUnqualByValueOptOptHelperName(const cppdecl::UnqualifiedName &name, bool is_shared);
+        [[nodiscard]] std::string CppToCSharpUnqualByValueOptOptHelperName(cppdecl::QualifiedName name, bool is_shared);
 
         // Converts a C++ qualified exposed struct name to a C# name of its helper that's used to pass this struct by value with an optional parameter.
         // This only makes sense for classes that use the pass-by enum.
         [[nodiscard]] std::string CppToCSharpInOptStructHelperName(cppdecl::QualifiedName name);
         // Same, but for unqualified names.
-        [[nodiscard]] std::string CppToCSharpUnqualInOptStructHelperName(const cppdecl::UnqualifiedName &name);
+        [[nodiscard]] std::string CppToCSharpUnqualInOptStructHelperName(cppdecl::QualifiedName name);
 
         // Converts a C++ qualified class name to a C# name of its helper that's used to pass it by an optional mutable pointer.
         [[nodiscard]] std::string CppToCSharpInOptMutNontrivialHelperName(cppdecl::QualifiedName name);
         // Same, but for unqualified names.
-        [[nodiscard]] std::string CppToCSharpUnqualInOptMutNontrivialHelperName(const cppdecl::UnqualifiedName &name);
+        [[nodiscard]] std::string CppToCSharpUnqualInOptMutNontrivialHelperName(cppdecl::QualifiedName name);
 
         // Converts a C++ qualified class name to a C# name of its helper that's used to pass it by an optional const pointer.
         [[nodiscard]] std::string CppToCSharpInOptConstNontrivialHelperName(cppdecl::QualifiedName name);
         // Same, but for unqualified names.
-        [[nodiscard]] std::string CppToCSharpUnqualInOptConstNontrivialHelperName(const cppdecl::UnqualifiedName &name);
+        [[nodiscard]] std::string CppToCSharpUnqualInOptConstNontrivialHelperName(cppdecl::QualifiedName name);
 
 
         // Calls `func` on each unqualified name of a part of a class `cpp_class`.

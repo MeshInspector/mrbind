@@ -41,7 +41,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Const_Function_Int32T_From_StdString(MR.CS.Std._ByValue_Function_Int32TFuncFromStdString other) : this(null, is_owning: true)
+                public unsafe Const_Function_Int32T_From_StdString(MR.CS.Std._ByValue_Function_Int32T_From_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int32_t_from_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_Int32T_From_StdString._Underlying *__MR_C_std_function_int32_t_from_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Int32T_From_StdString._Underlying *other);
@@ -52,7 +52,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Const_Function_Int32T_From_StdString(Const_Function_Int32T_From_StdString other) : this(new _ByValue_Function_Int32TFuncFromStdString(other)) {}
+                public Const_Function_Int32T_From_StdString(Const_Function_Int32T_From_StdString other) : this(new _ByValue_Function_Int32T_From_StdString(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -132,7 +132,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Function_Int32T_From_StdString(MR.CS.Std._ByValue_Function_Int32TFuncFromStdString other) : this(null, is_owning: true)
+                public unsafe Function_Int32T_From_StdString(MR.CS.Std._ByValue_Function_Int32T_From_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int32_t_from_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_Int32T_From_StdString._Underlying *__MR_C_std_function_int32_t_from_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Int32T_From_StdString._Underlying *other);
@@ -143,7 +143,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Function_Int32T_From_StdString(Const_Function_Int32T_From_StdString other) : this(new _ByValue_Function_Int32TFuncFromStdString(other)) {}
+                public Function_Int32T_From_StdString(Const_Function_Int32T_From_StdString other) : this(new _ByValue_Function_Int32T_From_StdString(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -153,7 +153,7 @@ public static partial class MR
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 /// </summary>
-                public unsafe void assign(MR.CS.Std._ByValue_Function_Int32TFuncFromStdString other)
+                public unsafe void assign(MR.CS.Std._ByValue_Function_Int32T_From_StdString other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int32_t_from_std_string_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_int32_t_from_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Int32T_From_StdString._Underlying *other);
@@ -199,54 +199,54 @@ public static partial class MR
             ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
-            public class _ByValue_Function_Int32TFuncFromStdString
+            public class _ByValue_Function_Int32T_From_StdString
             {
                 #pragma warning disable CS0649
                 internal readonly Const_Function_Int32T_From_StdString? Value;
                 #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_Function_Int32TFuncFromStdString() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_Function_Int32TFuncFromStdString(Const_Function_Int32T_From_StdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_Function_Int32TFuncFromStdString(Const_Function_Int32T_From_StdString arg) {return new(arg);}
-                public _ByValue_Function_Int32TFuncFromStdString(MR.CS.Misc._Moved<Function_Int32T_From_StdString> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_Function_Int32TFuncFromStdString(MR.CS.Misc._Moved<Function_Int32T_From_StdString> arg) {return new(arg);}
+                public _ByValue_Function_Int32T_From_StdString() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_Function_Int32T_From_StdString(Const_Function_Int32T_From_StdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Function_Int32T_From_StdString(Const_Function_Int32T_From_StdString arg) {return new(arg);}
+                public _ByValue_Function_Int32T_From_StdString(MR.CS.Misc._Moved<Function_Int32T_From_StdString> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Function_Int32T_From_StdString(MR.CS.Misc._Moved<Function_Int32T_From_StdString> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_Int32TFuncFromStdString(MR.CS.Std.Function_Int32T_From_StdString.Delegate func) {return new Function_Int32T_From_StdString(func);}}
+                public static unsafe implicit operator _ByValue_Function_Int32T_From_StdString(MR.CS.Std.Function_Int32T_From_StdString.Delegate func) {return new Function_Int32T_From_StdString(func);}}
 
             /// <summary>
             /// This is used for optional parameters of class `Function_Int32T_From_StdString` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_Int32TFuncFromStdString`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_Int32T_From_StdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_Int32T_From_StdString`/`Const_Function_Int32T_From_StdString` directly.
             /// </summary>
-            public class _InOptMut_Function_Int32TFuncFromStdString
+            public class _InOptMut_Function_Int32T_From_StdString
             {
                 public Function_Int32T_From_StdString? Opt;
 
-                public _InOptMut_Function_Int32TFuncFromStdString() {}
-                public _InOptMut_Function_Int32TFuncFromStdString(Function_Int32T_From_StdString value) {Opt = value;}
-                public static implicit operator _InOptMut_Function_Int32TFuncFromStdString(Function_Int32T_From_StdString value) {return new(value);}
+                public _InOptMut_Function_Int32T_From_StdString() {}
+                public _InOptMut_Function_Int32T_From_StdString(Function_Int32T_From_StdString value) {Opt = value;}
+                public static implicit operator _InOptMut_Function_Int32T_From_StdString(Function_Int32T_From_StdString value) {return new(value);}
             }
 
             /// <summary>
             /// This is used for optional parameters of class `Function_Int32T_From_StdString` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_Int32TFuncFromStdString`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_Int32T_From_StdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_Int32T_From_StdString`/`Const_Function_Int32T_From_StdString` to pass it to the function.
             /// </summary>
-            public class _InOptConst_Function_Int32TFuncFromStdString
+            public class _InOptConst_Function_Int32T_From_StdString
             {
                 public Const_Function_Int32T_From_StdString? Opt;
 
-                public _InOptConst_Function_Int32TFuncFromStdString() {}
-                public _InOptConst_Function_Int32TFuncFromStdString(Const_Function_Int32T_From_StdString value) {Opt = value;}
-                public static implicit operator _InOptConst_Function_Int32TFuncFromStdString(Const_Function_Int32T_From_StdString value) {return new(value);}
+                public _InOptConst_Function_Int32T_From_StdString() {}
+                public _InOptConst_Function_Int32T_From_StdString(Const_Function_Int32T_From_StdString value) {Opt = value;}
+                public static implicit operator _InOptConst_Function_Int32T_From_StdString(Const_Function_Int32T_From_StdString value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_Int32TFuncFromStdString(MR.CS.Std.Function_Int32T_From_StdString.Delegate func) {return new Function_Int32T_From_StdString(func);}}
+                public static unsafe implicit operator _InOptConst_Function_Int32T_From_StdString(MR.CS.Std.Function_Int32T_From_StdString.Delegate func) {return new Function_Int32T_From_StdString(func);}}
         }
     }
 }

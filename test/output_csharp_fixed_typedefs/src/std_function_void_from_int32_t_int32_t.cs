@@ -41,7 +41,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Const_Function_Void_From_Int32T_Int32T(MR.CS.Std._ByValue_Function_VoidFuncFromInt32TInt32T other) : this(null, is_owning: true)
+                public unsafe Const_Function_Void_From_Int32T_Int32T(MR.CS.Std._ByValue_Function_Void_From_Int32T_Int32T other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_int32_t_int32_t_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_Void_From_Int32T_Int32T._Underlying *__MR_C_std_function_void_from_int32_t_int32_t_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void_From_Int32T_Int32T._Underlying *other);
@@ -52,7 +52,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Const_Function_Void_From_Int32T_Int32T(Const_Function_Void_From_Int32T_Int32T other) : this(new _ByValue_Function_VoidFuncFromInt32TInt32T(other)) {}
+                public Const_Function_Void_From_Int32T_Int32T(Const_Function_Void_From_Int32T_Int32T other) : this(new _ByValue_Function_Void_From_Int32T_Int32T(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -128,7 +128,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Function_Void_From_Int32T_Int32T(MR.CS.Std._ByValue_Function_VoidFuncFromInt32TInt32T other) : this(null, is_owning: true)
+                public unsafe Function_Void_From_Int32T_Int32T(MR.CS.Std._ByValue_Function_Void_From_Int32T_Int32T other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_int32_t_int32_t_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_Void_From_Int32T_Int32T._Underlying *__MR_C_std_function_void_from_int32_t_int32_t_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void_From_Int32T_Int32T._Underlying *other);
@@ -139,7 +139,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Function_Void_From_Int32T_Int32T(Const_Function_Void_From_Int32T_Int32T other) : this(new _ByValue_Function_VoidFuncFromInt32TInt32T(other)) {}
+                public Function_Void_From_Int32T_Int32T(Const_Function_Void_From_Int32T_Int32T other) : this(new _ByValue_Function_Void_From_Int32T_Int32T(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -149,7 +149,7 @@ public static partial class MR
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 /// </summary>
-                public unsafe void assign(MR.CS.Std._ByValue_Function_VoidFuncFromInt32TInt32T other)
+                public unsafe void assign(MR.CS.Std._ByValue_Function_Void_From_Int32T_Int32T other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_int32_t_int32_t_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_void_from_int32_t_int32_t_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void_From_Int32T_Int32T._Underlying *other);
@@ -195,54 +195,54 @@ public static partial class MR
             ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
-            public class _ByValue_Function_VoidFuncFromInt32TInt32T
+            public class _ByValue_Function_Void_From_Int32T_Int32T
             {
                 #pragma warning disable CS0649
                 internal readonly Const_Function_Void_From_Int32T_Int32T? Value;
                 #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_Function_VoidFuncFromInt32TInt32T() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_Function_VoidFuncFromInt32TInt32T(Const_Function_Void_From_Int32T_Int32T new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_Function_VoidFuncFromInt32TInt32T(Const_Function_Void_From_Int32T_Int32T arg) {return new(arg);}
-                public _ByValue_Function_VoidFuncFromInt32TInt32T(MR.CS.Misc._Moved<Function_Void_From_Int32T_Int32T> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_Function_VoidFuncFromInt32TInt32T(MR.CS.Misc._Moved<Function_Void_From_Int32T_Int32T> arg) {return new(arg);}
+                public _ByValue_Function_Void_From_Int32T_Int32T() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_Function_Void_From_Int32T_Int32T(Const_Function_Void_From_Int32T_Int32T new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Function_Void_From_Int32T_Int32T(Const_Function_Void_From_Int32T_Int32T arg) {return new(arg);}
+                public _ByValue_Function_Void_From_Int32T_Int32T(MR.CS.Misc._Moved<Function_Void_From_Int32T_Int32T> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Function_Void_From_Int32T_Int32T(MR.CS.Misc._Moved<Function_Void_From_Int32T_Int32T> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_VoidFuncFromInt32TInt32T(MR.CS.Std.Function_Void_From_Int32T_Int32T.Delegate func) {return new Function_Void_From_Int32T_Int32T(func);}}
+                public static unsafe implicit operator _ByValue_Function_Void_From_Int32T_Int32T(MR.CS.Std.Function_Void_From_Int32T_Int32T.Delegate func) {return new Function_Void_From_Int32T_Int32T(func);}}
 
             /// <summary>
             /// This is used for optional parameters of class `Function_Void_From_Int32T_Int32T` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_VoidFuncFromInt32TInt32T`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_Void_From_Int32T_Int32T`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_Void_From_Int32T_Int32T`/`Const_Function_Void_From_Int32T_Int32T` directly.
             /// </summary>
-            public class _InOptMut_Function_VoidFuncFromInt32TInt32T
+            public class _InOptMut_Function_Void_From_Int32T_Int32T
             {
                 public Function_Void_From_Int32T_Int32T? Opt;
 
-                public _InOptMut_Function_VoidFuncFromInt32TInt32T() {}
-                public _InOptMut_Function_VoidFuncFromInt32TInt32T(Function_Void_From_Int32T_Int32T value) {Opt = value;}
-                public static implicit operator _InOptMut_Function_VoidFuncFromInt32TInt32T(Function_Void_From_Int32T_Int32T value) {return new(value);}
+                public _InOptMut_Function_Void_From_Int32T_Int32T() {}
+                public _InOptMut_Function_Void_From_Int32T_Int32T(Function_Void_From_Int32T_Int32T value) {Opt = value;}
+                public static implicit operator _InOptMut_Function_Void_From_Int32T_Int32T(Function_Void_From_Int32T_Int32T value) {return new(value);}
             }
 
             /// <summary>
             /// This is used for optional parameters of class `Function_Void_From_Int32T_Int32T` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_VoidFuncFromInt32TInt32T`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_Void_From_Int32T_Int32T`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_Void_From_Int32T_Int32T`/`Const_Function_Void_From_Int32T_Int32T` to pass it to the function.
             /// </summary>
-            public class _InOptConst_Function_VoidFuncFromInt32TInt32T
+            public class _InOptConst_Function_Void_From_Int32T_Int32T
             {
                 public Const_Function_Void_From_Int32T_Int32T? Opt;
 
-                public _InOptConst_Function_VoidFuncFromInt32TInt32T() {}
-                public _InOptConst_Function_VoidFuncFromInt32TInt32T(Const_Function_Void_From_Int32T_Int32T value) {Opt = value;}
-                public static implicit operator _InOptConst_Function_VoidFuncFromInt32TInt32T(Const_Function_Void_From_Int32T_Int32T value) {return new(value);}
+                public _InOptConst_Function_Void_From_Int32T_Int32T() {}
+                public _InOptConst_Function_Void_From_Int32T_Int32T(Const_Function_Void_From_Int32T_Int32T value) {Opt = value;}
+                public static implicit operator _InOptConst_Function_Void_From_Int32T_Int32T(Const_Function_Void_From_Int32T_Int32T value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_VoidFuncFromInt32TInt32T(MR.CS.Std.Function_Void_From_Int32T_Int32T.Delegate func) {return new Function_Void_From_Int32T_Int32T(func);}}
+                public static unsafe implicit operator _InOptConst_Function_Void_From_Int32T_Int32T(MR.CS.Std.Function_Void_From_Int32T_Int32T.Delegate func) {return new Function_Void_From_Int32T_Int32T(func);}}
         }
     }
 }

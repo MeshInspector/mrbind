@@ -41,7 +41,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Const_Function_IntRvalueRef(MR.CS.Std._ByValue_Function_IntRvalueRefFunc other) : this(null, is_owning: true)
+                public unsafe Const_Function_IntRvalueRef(MR.CS.Std._ByValue_Function_IntRvalueRef other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_IntRvalueRef._Underlying *__MR_C_std_function_int_rvalue_ref_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_IntRvalueRef._Underlying *other);
@@ -52,7 +52,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Const_Function_IntRvalueRef(Const_Function_IntRvalueRef other) : this(new _ByValue_Function_IntRvalueRefFunc(other)) {}
+                public Const_Function_IntRvalueRef(Const_Function_IntRvalueRef other) : this(new _ByValue_Function_IntRvalueRef(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -125,7 +125,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Function_IntRvalueRef(MR.CS.Std._ByValue_Function_IntRvalueRefFunc other) : this(null, is_owning: true)
+                public unsafe Function_IntRvalueRef(MR.CS.Std._ByValue_Function_IntRvalueRef other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_rvalue_ref_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_IntRvalueRef._Underlying *__MR_C_std_function_int_rvalue_ref_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_IntRvalueRef._Underlying *other);
@@ -136,7 +136,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Function_IntRvalueRef(Const_Function_IntRvalueRef other) : this(new _ByValue_Function_IntRvalueRefFunc(other)) {}
+                public Function_IntRvalueRef(Const_Function_IntRvalueRef other) : this(new _ByValue_Function_IntRvalueRef(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -146,7 +146,7 @@ public static partial class MR
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 /// </summary>
-                public unsafe void assign(MR.CS.Std._ByValue_Function_IntRvalueRefFunc other)
+                public unsafe void assign(MR.CS.Std._ByValue_Function_IntRvalueRef other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_int_rvalue_ref_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_int_rvalue_ref_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_IntRvalueRef._Underlying *other);
@@ -192,54 +192,54 @@ public static partial class MR
             ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
-            public class _ByValue_Function_IntRvalueRefFunc
+            public class _ByValue_Function_IntRvalueRef
             {
                 #pragma warning disable CS0649
                 internal readonly Const_Function_IntRvalueRef? Value;
                 #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_Function_IntRvalueRefFunc() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_Function_IntRvalueRefFunc(Const_Function_IntRvalueRef new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_Function_IntRvalueRefFunc(Const_Function_IntRvalueRef arg) {return new(arg);}
-                public _ByValue_Function_IntRvalueRefFunc(MR.CS.Misc._Moved<Function_IntRvalueRef> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_Function_IntRvalueRefFunc(MR.CS.Misc._Moved<Function_IntRvalueRef> arg) {return new(arg);}
+                public _ByValue_Function_IntRvalueRef() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_Function_IntRvalueRef(Const_Function_IntRvalueRef new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Function_IntRvalueRef(Const_Function_IntRvalueRef arg) {return new(arg);}
+                public _ByValue_Function_IntRvalueRef(MR.CS.Misc._Moved<Function_IntRvalueRef> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Function_IntRvalueRef(MR.CS.Misc._Moved<Function_IntRvalueRef> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_IntRvalueRefFunc(MR.CS.Std.Function_IntRvalueRef.Delegate func) {return new Function_IntRvalueRef(func);}}
+                public static unsafe implicit operator _ByValue_Function_IntRvalueRef(MR.CS.Std.Function_IntRvalueRef.Delegate func) {return new Function_IntRvalueRef(func);}}
 
             /// <summary>
             /// This is used for optional parameters of class `Function_IntRvalueRef` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_IntRvalueRefFunc`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_IntRvalueRef`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_IntRvalueRef`/`Const_Function_IntRvalueRef` directly.
             /// </summary>
-            public class _InOptMut_Function_IntRvalueRefFunc
+            public class _InOptMut_Function_IntRvalueRef
             {
                 public Function_IntRvalueRef? Opt;
 
-                public _InOptMut_Function_IntRvalueRefFunc() {}
-                public _InOptMut_Function_IntRvalueRefFunc(Function_IntRvalueRef value) {Opt = value;}
-                public static implicit operator _InOptMut_Function_IntRvalueRefFunc(Function_IntRvalueRef value) {return new(value);}
+                public _InOptMut_Function_IntRvalueRef() {}
+                public _InOptMut_Function_IntRvalueRef(Function_IntRvalueRef value) {Opt = value;}
+                public static implicit operator _InOptMut_Function_IntRvalueRef(Function_IntRvalueRef value) {return new(value);}
             }
 
             /// <summary>
             /// This is used for optional parameters of class `Function_IntRvalueRef` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_IntRvalueRefFunc`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_IntRvalueRef`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_IntRvalueRef`/`Const_Function_IntRvalueRef` to pass it to the function.
             /// </summary>
-            public class _InOptConst_Function_IntRvalueRefFunc
+            public class _InOptConst_Function_IntRvalueRef
             {
                 public Const_Function_IntRvalueRef? Opt;
 
-                public _InOptConst_Function_IntRvalueRefFunc() {}
-                public _InOptConst_Function_IntRvalueRefFunc(Const_Function_IntRvalueRef value) {Opt = value;}
-                public static implicit operator _InOptConst_Function_IntRvalueRefFunc(Const_Function_IntRvalueRef value) {return new(value);}
+                public _InOptConst_Function_IntRvalueRef() {}
+                public _InOptConst_Function_IntRvalueRef(Const_Function_IntRvalueRef value) {Opt = value;}
+                public static implicit operator _InOptConst_Function_IntRvalueRef(Const_Function_IntRvalueRef value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_IntRvalueRefFunc(MR.CS.Std.Function_IntRvalueRef.Delegate func) {return new Function_IntRvalueRef(func);}}
+                public static unsafe implicit operator _InOptConst_Function_IntRvalueRef(MR.CS.Std.Function_IntRvalueRef.Delegate func) {return new Function_IntRvalueRef(func);}}
         }
     }
 }

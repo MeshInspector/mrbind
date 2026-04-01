@@ -37,7 +37,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Const_Function_Void_From_StdString(MR.CS.Std._ByValue_Function_VoidFuncFromStdString other) : this(null, is_owning: true)
+                public unsafe Const_Function_Void_From_StdString(MR.CS.Std._ByValue_Function_Void_From_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_Void_From_StdString._Underlying *__MR_C_std_function_void_from_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void_From_StdString._Underlying *other);
@@ -48,7 +48,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public Const_Function_Void_From_StdString(Const_Function_Void_From_StdString other) : this(new _ByValue_Function_VoidFuncFromStdString(other)) {}
+                public Const_Function_Void_From_StdString(Const_Function_Void_From_StdString other) : this(new _ByValue_Function_Void_From_StdString(other)) {}
 
                 /// Constructs a copy of another instance. The source remains alive.
                 public Const_Function_Void_From_StdString(Function_Void_From_StdString other) : this((Const_Function_Void_From_StdString)other) {}
@@ -136,7 +136,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Function_Void_From_StdString(MR.CS.Std._ByValue_Function_VoidFuncFromStdString other) : this(null, is_owning: true)
+                public unsafe Function_Void_From_StdString(MR.CS.Std._ByValue_Function_Void_From_StdString other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_Void_From_StdString._Underlying *__MR_C_std_function_void_from_std_string_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void_From_StdString._Underlying *other);
@@ -147,13 +147,13 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public Function_Void_From_StdString(Const_Function_Void_From_StdString other) : this(new _ByValue_Function_VoidFuncFromStdString(other)) {}
+                public Function_Void_From_StdString(Const_Function_Void_From_StdString other) : this(new _ByValue_Function_Void_From_StdString(other)) {}
 
                 /// Constructs a copy of another instance. The source remains alive.
                 public Function_Void_From_StdString(Function_Void_From_StdString other) : this((Const_Function_Void_From_StdString)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std._ByValue_Function_VoidFuncFromStdString other)
+                public unsafe void Assign(MR.CS.Std._ByValue_Function_Void_From_StdString other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_void_from_std_string_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_void_from_std_string_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_Void_From_StdString._Underlying *other);
@@ -197,50 +197,50 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
-            public class _ByValue_Function_VoidFuncFromStdString
+            public class _ByValue_Function_Void_From_StdString
             {
                 #pragma warning disable CS0649
                 internal readonly Const_Function_Void_From_StdString? Value;
                 #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_Function_VoidFuncFromStdString() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_Function_VoidFuncFromStdString(Const_Function_Void_From_StdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_Function_VoidFuncFromStdString(Const_Function_Void_From_StdString arg) {return new(arg);}
-                public _ByValue_Function_VoidFuncFromStdString(MR.CS.Misc._Moved<Function_Void_From_StdString> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_Function_VoidFuncFromStdString(MR.CS.Misc._Moved<Function_Void_From_StdString> arg) {return new(arg);}
+                public _ByValue_Function_Void_From_StdString() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_Function_Void_From_StdString(Const_Function_Void_From_StdString new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Function_Void_From_StdString(Const_Function_Void_From_StdString arg) {return new(arg);}
+                public _ByValue_Function_Void_From_StdString(MR.CS.Misc._Moved<Function_Void_From_StdString> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Function_Void_From_StdString(MR.CS.Misc._Moved<Function_Void_From_StdString> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_VoidFuncFromStdString(MR.CS.Std.Function_Void_From_StdString.Delegate func) {return new Function_Void_From_StdString(func);}}
+                public static unsafe implicit operator _ByValue_Function_Void_From_StdString(MR.CS.Std.Function_Void_From_StdString.Delegate func) {return new Function_Void_From_StdString(func);}}
 
             /// This is used for optional parameters of class `Function_Void_From_StdString` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_VoidFuncFromStdString`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_Void_From_StdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_Void_From_StdString`/`Const_Function_Void_From_StdString` directly.
-            public class _InOptMut_Function_VoidFuncFromStdString
+            public class _InOptMut_Function_Void_From_StdString
             {
                 public Function_Void_From_StdString? Opt;
 
-                public _InOptMut_Function_VoidFuncFromStdString() {}
-                public _InOptMut_Function_VoidFuncFromStdString(Function_Void_From_StdString value) {Opt = value;}
-                public static implicit operator _InOptMut_Function_VoidFuncFromStdString(Function_Void_From_StdString value) {return new(value);}
+                public _InOptMut_Function_Void_From_StdString() {}
+                public _InOptMut_Function_Void_From_StdString(Function_Void_From_StdString value) {Opt = value;}
+                public static implicit operator _InOptMut_Function_Void_From_StdString(Function_Void_From_StdString value) {return new(value);}
             }
 
             /// This is used for optional parameters of class `Function_Void_From_StdString` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_VoidFuncFromStdString`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_Void_From_StdString`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_Void_From_StdString`/`Const_Function_Void_From_StdString` to pass it to the function.
-            public class _InOptConst_Function_VoidFuncFromStdString
+            public class _InOptConst_Function_Void_From_StdString
             {
                 public Const_Function_Void_From_StdString? Opt;
 
-                public _InOptConst_Function_VoidFuncFromStdString() {}
-                public _InOptConst_Function_VoidFuncFromStdString(Const_Function_Void_From_StdString value) {Opt = value;}
-                public static implicit operator _InOptConst_Function_VoidFuncFromStdString(Const_Function_Void_From_StdString value) {return new(value);}
+                public _InOptConst_Function_Void_From_StdString() {}
+                public _InOptConst_Function_Void_From_StdString(Const_Function_Void_From_StdString value) {Opt = value;}
+                public static implicit operator _InOptConst_Function_Void_From_StdString(Const_Function_Void_From_StdString value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_VoidFuncFromStdString(MR.CS.Std.Function_Void_From_StdString.Delegate func) {return new Function_Void_From_StdString(func);}}
+                public static unsafe implicit operator _InOptConst_Function_Void_From_StdString(MR.CS.Std.Function_Void_From_StdString.Delegate func) {return new Function_Void_From_StdString(func);}}
         }
     }
 }

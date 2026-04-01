@@ -41,7 +41,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Const_Function_MRStdFunctionA(MR.CS.Std._ByValue_Function_MRStdFunctionAFunc other) : this(null, is_owning: true)
+                public unsafe Const_Function_MRStdFunctionA(MR.CS.Std._ByValue_Function_MRStdFunctionA other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_MRStdFunctionA._Underlying *__MR_C_std_function_MR_StdFunction_A_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionA._Underlying *other);
@@ -52,7 +52,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Const_Function_MRStdFunctionA(Const_Function_MRStdFunctionA other) : this(new _ByValue_Function_MRStdFunctionAFunc(other)) {}
+                public Const_Function_MRStdFunctionA(Const_Function_MRStdFunctionA other) : this(new _ByValue_Function_MRStdFunctionA(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -127,7 +127,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Function_MRStdFunctionA(MR.CS.Std._ByValue_Function_MRStdFunctionAFunc other) : this(null, is_owning: true)
+                public unsafe Function_MRStdFunctionA(MR.CS.Std._ByValue_Function_MRStdFunctionA other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_A_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_MRStdFunctionA._Underlying *__MR_C_std_function_MR_StdFunction_A_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionA._Underlying *other);
@@ -138,7 +138,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Function_MRStdFunctionA(Const_Function_MRStdFunctionA other) : this(new _ByValue_Function_MRStdFunctionAFunc(other)) {}
+                public Function_MRStdFunctionA(Const_Function_MRStdFunctionA other) : this(new _ByValue_Function_MRStdFunctionA(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -148,7 +148,7 @@ public static partial class MR
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 /// </summary>
-                public unsafe void assign(MR.CS.Std._ByValue_Function_MRStdFunctionAFunc other)
+                public unsafe void assign(MR.CS.Std._ByValue_Function_MRStdFunctionA other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_StdFunction_A_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_MR_StdFunction_A_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRStdFunctionA._Underlying *other);
@@ -194,54 +194,54 @@ public static partial class MR
             ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
-            public class _ByValue_Function_MRStdFunctionAFunc
+            public class _ByValue_Function_MRStdFunctionA
             {
                 #pragma warning disable CS0649
                 internal readonly Const_Function_MRStdFunctionA? Value;
                 #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_Function_MRStdFunctionAFunc() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_Function_MRStdFunctionAFunc(Const_Function_MRStdFunctionA new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_Function_MRStdFunctionAFunc(Const_Function_MRStdFunctionA arg) {return new(arg);}
-                public _ByValue_Function_MRStdFunctionAFunc(MR.CS.Misc._Moved<Function_MRStdFunctionA> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_Function_MRStdFunctionAFunc(MR.CS.Misc._Moved<Function_MRStdFunctionA> arg) {return new(arg);}
+                public _ByValue_Function_MRStdFunctionA() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_Function_MRStdFunctionA(Const_Function_MRStdFunctionA new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Function_MRStdFunctionA(Const_Function_MRStdFunctionA arg) {return new(arg);}
+                public _ByValue_Function_MRStdFunctionA(MR.CS.Misc._Moved<Function_MRStdFunctionA> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Function_MRStdFunctionA(MR.CS.Misc._Moved<Function_MRStdFunctionA> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_MRStdFunctionAFunc(MR.CS.Std.Function_MRStdFunctionA.Delegate func) {return new Function_MRStdFunctionA(func);}}
+                public static unsafe implicit operator _ByValue_Function_MRStdFunctionA(MR.CS.Std.Function_MRStdFunctionA.Delegate func) {return new Function_MRStdFunctionA(func);}}
 
             /// <summary>
             /// This is used for optional parameters of class `Function_MRStdFunctionA` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_MRStdFunctionAFunc`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_MRStdFunctionA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_MRStdFunctionA`/`Const_Function_MRStdFunctionA` directly.
             /// </summary>
-            public class _InOptMut_Function_MRStdFunctionAFunc
+            public class _InOptMut_Function_MRStdFunctionA
             {
                 public Function_MRStdFunctionA? Opt;
 
-                public _InOptMut_Function_MRStdFunctionAFunc() {}
-                public _InOptMut_Function_MRStdFunctionAFunc(Function_MRStdFunctionA value) {Opt = value;}
-                public static implicit operator _InOptMut_Function_MRStdFunctionAFunc(Function_MRStdFunctionA value) {return new(value);}
+                public _InOptMut_Function_MRStdFunctionA() {}
+                public _InOptMut_Function_MRStdFunctionA(Function_MRStdFunctionA value) {Opt = value;}
+                public static implicit operator _InOptMut_Function_MRStdFunctionA(Function_MRStdFunctionA value) {return new(value);}
             }
 
             /// <summary>
             /// This is used for optional parameters of class `Function_MRStdFunctionA` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_MRStdFunctionAFunc`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_MRStdFunctionA`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_MRStdFunctionA`/`Const_Function_MRStdFunctionA` to pass it to the function.
             /// </summary>
-            public class _InOptConst_Function_MRStdFunctionAFunc
+            public class _InOptConst_Function_MRStdFunctionA
             {
                 public Const_Function_MRStdFunctionA? Opt;
 
-                public _InOptConst_Function_MRStdFunctionAFunc() {}
-                public _InOptConst_Function_MRStdFunctionAFunc(Const_Function_MRStdFunctionA value) {Opt = value;}
-                public static implicit operator _InOptConst_Function_MRStdFunctionAFunc(Const_Function_MRStdFunctionA value) {return new(value);}
+                public _InOptConst_Function_MRStdFunctionA() {}
+                public _InOptConst_Function_MRStdFunctionA(Const_Function_MRStdFunctionA value) {Opt = value;}
+                public static implicit operator _InOptConst_Function_MRStdFunctionA(Const_Function_MRStdFunctionA value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_MRStdFunctionAFunc(MR.CS.Std.Function_MRStdFunctionA.Delegate func) {return new Function_MRStdFunctionA(func);}}
+                public static unsafe implicit operator _InOptConst_Function_MRStdFunctionA(MR.CS.Std.Function_MRStdFunctionA.Delegate func) {return new Function_MRStdFunctionA(func);}}
         }
     }
 }

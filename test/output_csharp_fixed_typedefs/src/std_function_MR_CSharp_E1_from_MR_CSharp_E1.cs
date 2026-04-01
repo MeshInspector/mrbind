@@ -41,7 +41,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Const_Function_MRCSharpE1_From_MRCSharpE1(MR.CS.Std._ByValue_Function_MRCSharpE1FuncFromMRCSharpE1 other) : this(null, is_owning: true)
+                public unsafe Const_Function_MRCSharpE1_From_MRCSharpE1(MR.CS.Std._ByValue_Function_MRCSharpE1_From_MRCSharpE1 other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1._Underlying *__MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1._Underlying *other);
@@ -52,7 +52,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Const_Function_MRCSharpE1_From_MRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 other) : this(new _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1(other)) {}
+                public Const_Function_MRCSharpE1_From_MRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 other) : this(new _ByValue_Function_MRCSharpE1_From_MRCSharpE1(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -127,7 +127,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public unsafe Function_MRCSharpE1_From_MRCSharpE1(MR.CS.Std._ByValue_Function_MRCSharpE1FuncFromMRCSharpE1 other) : this(null, is_owning: true)
+                public unsafe Function_MRCSharpE1_From_MRCSharpE1(MR.CS.Std._ByValue_Function_MRCSharpE1_From_MRCSharpE1 other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1._Underlying *__MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1._Underlying *other);
@@ -138,7 +138,7 @@ public static partial class MR
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
                 /// </summary>
-                public Function_MRCSharpE1_From_MRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 other) : this(new _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1(other)) {}
+                public Function_MRCSharpE1_From_MRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 other) : this(new _ByValue_Function_MRCSharpE1_From_MRCSharpE1(other)) {}
 
                 /// <summary>
                 /// Constructs a copy of another instance. The source remains alive.
@@ -148,7 +148,7 @@ public static partial class MR
                 /// <summary>
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
                 /// </summary>
-                public unsafe void assign(MR.CS.Std._ByValue_Function_MRCSharpE1FuncFromMRCSharpE1 other)
+                public unsafe void assign(MR.CS.Std._ByValue_Function_MRCSharpE1_From_MRCSharpE1 other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_MR_CSharp_E1_from_MR_CSharp_E1_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1._Underlying *other);
@@ -194,54 +194,54 @@ public static partial class MR
             ///   Be careful if your input isn&apos;t a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
             /// </summary>
-            public class _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1
+            public class _ByValue_Function_MRCSharpE1_From_MRCSharpE1
             {
                 #pragma warning disable CS0649
                 internal readonly Const_Function_MRCSharpE1_From_MRCSharpE1? Value;
                 #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 arg) {return new(arg);}
-                public _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1(MR.CS.Misc._Moved<Function_MRCSharpE1_From_MRCSharpE1> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1(MR.CS.Misc._Moved<Function_MRCSharpE1_From_MRCSharpE1> arg) {return new(arg);}
+                public _ByValue_Function_MRCSharpE1_From_MRCSharpE1() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_Function_MRCSharpE1_From_MRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Function_MRCSharpE1_From_MRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 arg) {return new(arg);}
+                public _ByValue_Function_MRCSharpE1_From_MRCSharpE1(MR.CS.Misc._Moved<Function_MRCSharpE1_From_MRCSharpE1> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Function_MRCSharpE1_From_MRCSharpE1(MR.CS.Misc._Moved<Function_MRCSharpE1_From_MRCSharpE1> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_MRCSharpE1FuncFromMRCSharpE1(MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1.Delegate func) {return new Function_MRCSharpE1_From_MRCSharpE1(func);}}
+                public static unsafe implicit operator _ByValue_Function_MRCSharpE1_From_MRCSharpE1(MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1.Delegate func) {return new Function_MRCSharpE1_From_MRCSharpE1(func);}}
 
             /// <summary>
             /// This is used for optional parameters of class `Function_MRCSharpE1_From_MRCSharpE1` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_MRCSharpE1FuncFromMRCSharpE1`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_MRCSharpE1_From_MRCSharpE1`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_MRCSharpE1_From_MRCSharpE1`/`Const_Function_MRCSharpE1_From_MRCSharpE1` directly.
             /// </summary>
-            public class _InOptMut_Function_MRCSharpE1FuncFromMRCSharpE1
+            public class _InOptMut_Function_MRCSharpE1_From_MRCSharpE1
             {
                 public Function_MRCSharpE1_From_MRCSharpE1? Opt;
 
-                public _InOptMut_Function_MRCSharpE1FuncFromMRCSharpE1() {}
-                public _InOptMut_Function_MRCSharpE1FuncFromMRCSharpE1(Function_MRCSharpE1_From_MRCSharpE1 value) {Opt = value;}
-                public static implicit operator _InOptMut_Function_MRCSharpE1FuncFromMRCSharpE1(Function_MRCSharpE1_From_MRCSharpE1 value) {return new(value);}
+                public _InOptMut_Function_MRCSharpE1_From_MRCSharpE1() {}
+                public _InOptMut_Function_MRCSharpE1_From_MRCSharpE1(Function_MRCSharpE1_From_MRCSharpE1 value) {Opt = value;}
+                public static implicit operator _InOptMut_Function_MRCSharpE1_From_MRCSharpE1(Function_MRCSharpE1_From_MRCSharpE1 value) {return new(value);}
             }
 
             /// <summary>
             /// This is used for optional parameters of class `Function_MRCSharpE1_From_MRCSharpE1` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_MRCSharpE1FuncFromMRCSharpE1`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_MRCSharpE1_From_MRCSharpE1`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_MRCSharpE1_From_MRCSharpE1`/`Const_Function_MRCSharpE1_From_MRCSharpE1` to pass it to the function.
             /// </summary>
-            public class _InOptConst_Function_MRCSharpE1FuncFromMRCSharpE1
+            public class _InOptConst_Function_MRCSharpE1_From_MRCSharpE1
             {
                 public Const_Function_MRCSharpE1_From_MRCSharpE1? Opt;
 
-                public _InOptConst_Function_MRCSharpE1FuncFromMRCSharpE1() {}
-                public _InOptConst_Function_MRCSharpE1FuncFromMRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 value) {Opt = value;}
-                public static implicit operator _InOptConst_Function_MRCSharpE1FuncFromMRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 value) {return new(value);}
+                public _InOptConst_Function_MRCSharpE1_From_MRCSharpE1() {}
+                public _InOptConst_Function_MRCSharpE1_From_MRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 value) {Opt = value;}
+                public static implicit operator _InOptConst_Function_MRCSharpE1_From_MRCSharpE1(Const_Function_MRCSharpE1_From_MRCSharpE1 value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_MRCSharpE1FuncFromMRCSharpE1(MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1.Delegate func) {return new Function_MRCSharpE1_From_MRCSharpE1(func);}}
+                public static unsafe implicit operator _InOptConst_Function_MRCSharpE1_From_MRCSharpE1(MR.CS.Std.Function_MRCSharpE1_From_MRCSharpE1.Delegate func) {return new Function_MRCSharpE1_From_MRCSharpE1(func);}}
         }
     }
 }

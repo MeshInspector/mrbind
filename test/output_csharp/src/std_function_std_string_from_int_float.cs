@@ -37,7 +37,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Const_Function_StdString_From_Int_Float(MR.CS.Std._ByValue_Function_StdStringFuncFromIntFloat other) : this(null, is_owning: true)
+                public unsafe Const_Function_StdString_From_Int_Float(MR.CS.Std._ByValue_Function_StdString_From_Int_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_StdString_From_Int_Float._Underlying *__MR_C_std_function_std_string_from_int_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_StdString_From_Int_Float._Underlying *other);
@@ -48,7 +48,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public Const_Function_StdString_From_Int_Float(Const_Function_StdString_From_Int_Float other) : this(new _ByValue_Function_StdStringFuncFromIntFloat(other)) {}
+                public Const_Function_StdString_From_Int_Float(Const_Function_StdString_From_Int_Float other) : this(new _ByValue_Function_StdString_From_Int_Float(other)) {}
 
                 /// Constructs a copy of another instance. The source remains alive.
                 public Const_Function_StdString_From_Int_Float(Function_StdString_From_Int_Float other) : this((Const_Function_StdString_From_Int_Float)other) {}
@@ -139,7 +139,7 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public unsafe Function_StdString_From_Int_Float(MR.CS.Std._ByValue_Function_StdStringFuncFromIntFloat other) : this(null, is_owning: true)
+                public unsafe Function_StdString_From_Int_Float(MR.CS.Std._ByValue_Function_StdString_From_Int_Float other) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int_float_ConstructFromAnother", ExactSpelling = true)]
                     extern static MR.CS.Std.Function_StdString_From_Int_Float._Underlying *__MR_C_std_function_std_string_from_int_float_ConstructFromAnother(MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_StdString_From_Int_Float._Underlying *other);
@@ -150,13 +150,13 @@ public static partial class MR
                 }
 
                 /// Constructs a copy of another instance. The source remains alive.
-                public Function_StdString_From_Int_Float(Const_Function_StdString_From_Int_Float other) : this(new _ByValue_Function_StdStringFuncFromIntFloat(other)) {}
+                public Function_StdString_From_Int_Float(Const_Function_StdString_From_Int_Float other) : this(new _ByValue_Function_StdString_From_Int_Float(other)) {}
 
                 /// Constructs a copy of another instance. The source remains alive.
                 public Function_StdString_From_Int_Float(Function_StdString_From_Int_Float other) : this((Const_Function_StdString_From_Int_Float)other) {}
 
                 /// Assigns the contents from another instance. Both objects remain alive after the call.
-                public unsafe void Assign(MR.CS.Std._ByValue_Function_StdStringFuncFromIntFloat other)
+                public unsafe void Assign(MR.CS.Std._ByValue_Function_StdString_From_Int_Float other)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_function_std_string_from_int_float_AssignFromAnother", ExactSpelling = true)]
                     extern static void __MR_C_std_function_std_string_from_int_float_AssignFromAnother(_Underlying *_this, MR.CS.Misc._PassBy other_pass_by, MR.CS.Std.Function_StdString_From_Int_Float._Underlying *other);
@@ -200,50 +200,50 @@ public static partial class MR
             /// * Pass `Move(instance)` to move it into the function. This is a more efficient form of copying that might invalidate the input object.
             ///   Be careful if your input isn't a unique reference to this object.
             /// * Pass `null` to use the default argument, assuming the parameter has a default argument (has `?` in the type).
-            public class _ByValue_Function_StdStringFuncFromIntFloat
+            public class _ByValue_Function_StdString_From_Int_Float
             {
                 #pragma warning disable CS0649
                 internal readonly Const_Function_StdString_From_Int_Float? Value;
                 #pragma warning restore CS0649
                 internal readonly MR.CS.Misc._PassBy PassByMode;
-                public _ByValue_Function_StdStringFuncFromIntFloat() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
-                public _ByValue_Function_StdStringFuncFromIntFloat(Const_Function_StdString_From_Int_Float new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
-                public static implicit operator _ByValue_Function_StdStringFuncFromIntFloat(Const_Function_StdString_From_Int_Float arg) {return new(arg);}
-                public _ByValue_Function_StdStringFuncFromIntFloat(MR.CS.Misc._Moved<Function_StdString_From_Int_Float> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
-                public static implicit operator _ByValue_Function_StdStringFuncFromIntFloat(MR.CS.Misc._Moved<Function_StdString_From_Int_Float> arg) {return new(arg);}
+                public _ByValue_Function_StdString_From_Int_Float() {PassByMode = MR.CS.Misc._PassBy.default_construct;}
+                public _ByValue_Function_StdString_From_Int_Float(Const_Function_StdString_From_Int_Float new_value) {Value = new_value; PassByMode = MR.CS.Misc._PassBy.copy;}
+                public static implicit operator _ByValue_Function_StdString_From_Int_Float(Const_Function_StdString_From_Int_Float arg) {return new(arg);}
+                public _ByValue_Function_StdString_From_Int_Float(MR.CS.Misc._Moved<Function_StdString_From_Int_Float> moved) {Value = moved.Value; PassByMode = MR.CS.Misc._PassBy.move;}
+                public static implicit operator _ByValue_Function_StdString_From_Int_Float(MR.CS.Misc._Moved<Function_StdString_From_Int_Float> arg) {return new(arg);}
 
-                public static unsafe implicit operator _ByValue_Function_StdStringFuncFromIntFloat(MR.CS.Std.Function_StdString_From_Int_Float.Delegate func) {return new Function_StdString_From_Int_Float(func);}}
+                public static unsafe implicit operator _ByValue_Function_StdString_From_Int_Float(MR.CS.Std.Function_StdString_From_Int_Float.Delegate func) {return new Function_StdString_From_Int_Float(func);}}
 
             /// This is used for optional parameters of class `Function_StdString_From_Int_Float` with default arguments.
-            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_StdStringFuncFromIntFloat`.
+            /// This is only used mutable parameters. For const ones we have `_InOptConst_Function_StdString_From_Int_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_StdString_From_Int_Float`/`Const_Function_StdString_From_Int_Float` directly.
-            public class _InOptMut_Function_StdStringFuncFromIntFloat
+            public class _InOptMut_Function_StdString_From_Int_Float
             {
                 public Function_StdString_From_Int_Float? Opt;
 
-                public _InOptMut_Function_StdStringFuncFromIntFloat() {}
-                public _InOptMut_Function_StdStringFuncFromIntFloat(Function_StdString_From_Int_Float value) {Opt = value;}
-                public static implicit operator _InOptMut_Function_StdStringFuncFromIntFloat(Function_StdString_From_Int_Float value) {return new(value);}
+                public _InOptMut_Function_StdString_From_Int_Float() {}
+                public _InOptMut_Function_StdString_From_Int_Float(Function_StdString_From_Int_Float value) {Opt = value;}
+                public static implicit operator _InOptMut_Function_StdString_From_Int_Float(Function_StdString_From_Int_Float value) {return new(value);}
             }
 
             /// This is used for optional parameters of class `Function_StdString_From_Int_Float` with default arguments.
-            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_StdStringFuncFromIntFloat`.
+            /// This is only used const parameters. For non-const ones we have `_InOptMut_Function_StdString_From_Int_Float`.
             /// Usage:
             /// * Pass `null` to use the default argument.
             /// * Pass `new()` to pass no object.
             /// * Pass an instance of `Function_StdString_From_Int_Float`/`Const_Function_StdString_From_Int_Float` to pass it to the function.
-            public class _InOptConst_Function_StdStringFuncFromIntFloat
+            public class _InOptConst_Function_StdString_From_Int_Float
             {
                 public Const_Function_StdString_From_Int_Float? Opt;
 
-                public _InOptConst_Function_StdStringFuncFromIntFloat() {}
-                public _InOptConst_Function_StdStringFuncFromIntFloat(Const_Function_StdString_From_Int_Float value) {Opt = value;}
-                public static implicit operator _InOptConst_Function_StdStringFuncFromIntFloat(Const_Function_StdString_From_Int_Float value) {return new(value);}
+                public _InOptConst_Function_StdString_From_Int_Float() {}
+                public _InOptConst_Function_StdString_From_Int_Float(Const_Function_StdString_From_Int_Float value) {Opt = value;}
+                public static implicit operator _InOptConst_Function_StdString_From_Int_Float(Const_Function_StdString_From_Int_Float value) {return new(value);}
 
-                public static unsafe implicit operator _InOptConst_Function_StdStringFuncFromIntFloat(MR.CS.Std.Function_StdString_From_Int_Float.Delegate func) {return new Function_StdString_From_Int_Float(func);}}
+                public static unsafe implicit operator _InOptConst_Function_StdString_From_Int_Float(MR.CS.Std.Function_StdString_From_Int_Float.Delegate func) {return new Function_StdString_From_Int_Float(func);}}
         }
     }
 }
