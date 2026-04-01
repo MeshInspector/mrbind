@@ -41,3 +41,19 @@ A const-correctness fix is possible without a rewrite, but difficult.
 ## JS
 
 JS bindings are planned, with Embind as a backend. No timeline yet.
+
+## Code quality
+
+The code quality for the parser, and C and C# backends is alright, though I didn't have time to polish it too much.
+
+The Python backend is inherently hard to read, because of the macros that it's based on. A rewrite is in order.
+
+## Testing
+
+**C, C#:** There are a lot of test headers, the bindings for which are commited to the repo. This lets us see how changes to C and C# backends impact the code generation.
+
+**Python:** Since the generated code is not human-readable, it's not committed. It's not very useful either, because of the macros.
+
+We also rely on the test suite of [MeshLib](https://meshlib.io/), which uses bindings generated with MRBind and has tests for them (MRBind was initially developed for this library).
+
+It would be ideal to have our own test suite that calls into the generated code in all those languages, but we don't have one yet.

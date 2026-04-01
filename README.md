@@ -46,8 +46,6 @@ The point is making maintaining large bindings easy, with decent binding quality
 
 5. Additional articles:
 
-   * [State of the project.](/docs/state_of_the_project.md)
-
    * [Skipping certain types/functions/etc.](/docs/skipping_entities.md)
 
    * [Adding specific template specializations.](/docs/adding_template_specializations.md)
@@ -59,6 +57,8 @@ The point is making maintaining large bindings easy, with decent binding quality
    * [Customizing type names.](/docs/customizing_type_names.md)
 
    * [Adjusting parsed comments.](/docs/adjusting_comments.md)
+
+   * [State of the project.](/docs/state_of_the_project.md)
 
 ## Supported C++ features
 
