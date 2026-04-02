@@ -711,7 +711,8 @@ namespace mrbind
             // Name as a single identifier.
             (std::string)(name)
 
-            // Name with all scope qualifiers added.
+            // Name with all scope qualifiers added, and with template arguments.
+            // Since this respects the attribute `__preferred_name__`, this might not contain `name` at all, and possibly live in a different scope than you'd expect.
             (std::string)(full_type)
 
             // This only holds direct bases, even when they are `virtual`.

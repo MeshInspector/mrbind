@@ -27,6 +27,11 @@ namespace mrbind::JS
         return CppdeclToIdentifierLow(name);
     }
 
+    std::optional<Generator::ParsedTypeVariant> Generator::FindParsedTypeOpt(const cppdecl::QualifiedName &name)
+    {
+
+    }
+
     void Generator::WriteSeparatingNewLine()
     {
         if (output_text.ends_with("{\n"))
@@ -93,7 +98,7 @@ namespace mrbind::JS
             ret += " : ";
             ret += default_arg;
 
-            return "";
+            return ret;
         };
     }
 
@@ -107,22 +112,34 @@ namespace mrbind::JS
 
     const Generator::TypeBinding *Generator::GetTypeBindingOpt(const cppdecl::Type &cpp_type)
     {
-        const std::string type_str = CppdeclToCode(cpp_type);
+        const std::string cpp_type_str = CppdeclToCode(cpp_type);
 
-        auto [iter, is_new] = cached_type_bindings.try_emplace(type_str);
+        auto [iter, is_new] = cached_type_bindings.try_emplace(cpp_type_str);
         TypeBinding &ret = iter->second;
 
         if (!is_new)
         {
             if (!ret.ready)
-                throw std::runtime_error("Cyclical type binding dependency on `" + type_str + "`.");
+                throw std::runtime_error("Cyclical type binding dependency on `" + cpp_type_str + "`.");
             return &ret;
         }
 
 
         { // The bindings for different types.
+            const cppdecl::RefQualifier ref_kind = cpp_type.ReferenceKindIfAny();
+
+            cppdecl::Type cpp_type_without_cvref = cpp_type;
+            cpp_type_without_cvref.TryRemoveReference();
+
+            const bool is_const = cpp_type_without_cvref.IsEffectivelyConst();
+            cpp_type_without_cvref.RemoveQualifiers(cppdecl::CvQualifiers::const_);
+
+            const bool is_mutable_lvalue_ref = ref_kind == cppdecl::RefQualifier::lvalue && !is_const;
+
+            const std::string cpp_type_str_without_cvref = CppdeclToCode(cpp_type_without_cvref);
+
             // Void?
-            if (type_str == "void")
+            if (cpp_type_str == "void")
             {
                 ret.return_usage.emplace().adjusted_type = cpp_type;
                 ret.ready = true;
@@ -130,7 +147,7 @@ namespace mrbind::JS
             }
 
             // A primitive scalar?
-            if (data.platform_info.FindPrimitiveType(type_str))
+            if (!is_mutable_lvalue_ref && data.platform_info.FindPrimitiveType(cpp_type_str_without_cvref))
             {
                 ret.param_usage.emplace().adjusted_type = cpp_type;
                 ret.return_usage.emplace().adjusted_type = cpp_type;
@@ -139,8 +156,39 @@ namespace mrbind::JS
                 ret.ready = true;
                 return &ret;
             }
+
+            // A parsed type.
+            if (auto iter = parsed_types.find(cpp_type_str_without_cvref); iter != parsed_types.end())
+            {
+                bool ok = std::visit(Overload{
+                    [&](const EnumEntity *)
+                    {
+                        ret.param_usage.emplace().adjusted_type = cpp_type;
+                        ret.return_usage.emplace().adjusted_type = cpp_type;
+                        ret.CreateParamUsageWithDefArgUsingStdOptional();
+                        return true;
+                    },
+                    [&](const ClassEntity *elem)
+                    {
+                        #error form the wrapper type here
+
+                        ret.param_usage.emplace().adjusted_type = cpp_type;
+                        ret.return_usage.emplace().adjusted_type = cpp_type;
+                        ret.CreateParamUsageWithDefArgUsingStdOptional();
+                        return true;
+                    },
+                }, iter->second);
+
+                if (ok)
+                {
+                    ret.ready = true;
+                    return &ret;
+                }
+            }
         }
 
+        assert(!ret.ready);
+        cached_type_bindings.erase(iter);
         return nullptr; // No such type.
     }
 
@@ -177,6 +225,11 @@ namespace mrbind::JS
 
         try
         {
+            // If false, we'll pass the function pointer directly to embind, instead of wrapping it in a lambda.
+            bool need_wrapping_lambda = false;
+            // Only matters if `need_wrapping_lambda == false`. Then if this is true, we'll `reinterpret_cast` the function pointer, instead of passing it directly.
+            bool need_reinterpret_cast = false;
+
             // Determine the return type.
             cppdecl::Type return_type;
             if (any_returning_func)
@@ -220,9 +273,7 @@ namespace mrbind::JS
             // Since `func_type` is for a lambda, we want the trailing return type.
             func_modifier.uses_trailing_return_type = true;
 
-            // If false, we'll pass the function pointer directly to embind, instead of wrapping it in a lambda.
-            bool need_wrapping_lambda = false;
-
+            // Should we call the underlying C++ function without template arguments?
             const bool skip_template_args =
                 (free_func && (free_func->IsOverloadedOperator() || funcs_called_without_template_args.contains(free_func->name))) ||
                 (method && method->IsOverloadedOperator());
@@ -256,13 +307,18 @@ namespace mrbind::JS
 
                         const std::string param_name_fixed = param.name ? *param.name : "_" + std::to_string(i + 1);
 
+                        const cppdecl::Type &adjusted_param_type = param_has_useful_def_arg ? param_binding.param_usage_defarg.value().adjusted_type : param_binding.param_usage.value().adjusted_type;
+
                         { // Add the parameter to the function declaration.
                             func_modifier.params.push_back(cppdecl::Decl{
-                                .type = param_has_useful_def_arg ? param_binding.param_usage_defarg.value().adjusted_type : param_binding.param_usage.value().adjusted_type,
+                                .type = adjusted_param_type,
                                 .name = cppdecl::QualifiedName::FromSingleWord(param_name_fixed),
                             });
                         }
 
+                        const bool param_passed_as_is = !param_has_useful_def_arg && adjusted_param_type == param_type;
+
+                        bool param_uses_simple_reinterpret_cast = false;
                         { // Add the argument to the call expression.
                             if (i > 0)
                                 call_expr += ", ";
@@ -276,10 +332,34 @@ namespace mrbind::JS
                             {
                                 std::string arg = param_binding.param_usage.value().GetUnadjustArgumentFunc()(param_name_fixed, output_includes);
                                 call_expr += arg;
-                                if (arg != param_name_fixed && arg != "std::move(" + param_name_fixed + ")")
-                                    need_wrapping_lambda = true;
+
+                                // Analyze the parameter usage. Are we `reinterpret_cast`ing?
+                                if (!param_passed_as_is)
+                                {
+                                    std::string_view arg_view = arg;
+                                    if (
+                                        cppdecl::ConsumePunctuation(arg_view, "reinterpret_cast<") &&
+                                        cppdecl::ConsumeTrailingPunctuation(arg_view, ")") &&
+                                        cppdecl::ConsumeTrailingPunctuation(arg_view, param_name_fixed) &&
+                                        cppdecl::ConsumeTrailingPunctuation(arg_view, ">(")
+                                    )
+                                    {
+                                        cppdecl::Type expected_cast_target_type = param_type;
+                                        if (!expected_cast_target_type.Is<cppdecl::Reference>())
+                                            expected_cast_target_type.AddModifier(cppdecl::Reference{.kind = cppdecl::RefQualifier::rvalue});
+
+                                        if (arg_view == CppdeclToCode(expected_cast_target_type))
+                                            param_uses_simple_reinterpret_cast = true;
+                                    }
+                                }
                             }
                         }
+
+                        // Analyze the parameter usage we got..
+                        if (param_uses_simple_reinterpret_cast)
+                            need_reinterpret_cast = true;
+                        else if (!param_passed_as_is)
+                            need_wrapping_lambda = true;
                     }
                     catch (...)
                     {
@@ -293,8 +373,42 @@ namespace mrbind::JS
             call_expr += ')';
 
             std::string returned_expr = ret_usage.GetAdjustResultFunc()(call_expr, output_includes);
-            if (returned_expr != call_expr)
-                need_wrapping_lambda = true;
+
+            // Analyze the return usage.
+            if (ret_usage.adjusted_type != return_type)
+            {
+                bool result_uses_reinterpret_cast = false;
+                std::string_view returned_expr_view = returned_expr;
+                if (
+                    cppdecl::ConsumePunctuation(returned_expr_view, "reinterpret_cast<") &&
+                    cppdecl::ConsumeTrailingPunctuation(returned_expr_view, ")") &&
+                    cppdecl::ConsumeTrailingPunctuation(returned_expr_view, call_expr) &&
+                    cppdecl::ConsumeTrailingPunctuation(returned_expr_view, ">(")
+                )
+                {
+                    cppdecl::Type expected_cast_target_type = return_type;
+                    if (!expected_cast_target_type.Is<cppdecl::Reference>())
+                        expected_cast_target_type.AddModifier(cppdecl::Reference{.kind = cppdecl::RefQualifier::rvalue});
+
+                    // The result is being `reinterpret_cast`ed.
+                    if (returned_expr_view == CppdeclToCode(call_expr))
+                        result_uses_reinterpret_cast = true;
+                }
+
+                if (result_uses_reinterpret_cast)
+                    need_reinterpret_cast = true;
+                else
+                    need_wrapping_lambda = true;
+            }
+
+            // Figure out the target type for the function pointer `reinterpret_cast`, if any.
+            if (!need_wrapping_lambda && need_reinterpret_cast)
+            {
+                if (free_func || (method && method->is_static))
+                    func_type.AddModifier(cppdecl::Pointer{});
+                else
+                    throw std::logic_error("Not implemented yet!"); // Implement me!
+            }
 
             output_text +=
                 Strings::Indent(
@@ -309,7 +423,9 @@ namespace mrbind::JS
                             ) +
                             "}"
                         :
-                            "&" + free_func->full_qual_name
+                            (need_reinterpret_cast ? "reinterpret_cast<" + CppdeclToCode(func_type) + ">(") +
+                            "&" + free_func->full_qual_name +
+                            (need_reinterpret_cast ? ">" : "")
                     ) +
                     ");\n"
                 );
@@ -487,6 +603,54 @@ namespace mrbind::JS
 
     void Generator::Generate()
     {
+        { // Fill `parsed_types`.
+            auto VisitEntity = [&](auto &self, const Entity &entity) -> void
+            {
+                // Handle this entity.
+                std::visit(Overload{
+                    [&](const EnumEntity &elem)
+                    {
+                        if (!parsed_types.try_emplace(elem.full_type, &elem).second)
+                            throw std::runtime_error("Duplicate type name in the input JSON: `" + elem.full_type + "` (a enum).");
+                    },
+                    [&](const FuncEntity &elem)
+                    {
+                        // Nothing here.
+                        (void)elem;
+                    },
+                    [&](const ClassEntity &elem)
+                    {
+                        if (!parsed_types.try_emplace(elem.full_type, &elem).second)
+                            throw std::runtime_error("Duplicate type name in the input JSON: `" + elem.full_type + "` (a class).");
+
+                        // We recurse separately below.
+                    },
+                    [&](const TypedefEntity &elem)
+                    {
+                        // Nothing here.
+                        (void)elem;
+                    },
+                    [&](const NamespaceEntity &elem)
+                    {
+                        // Nothing here, we recurse separately below.
+                        (void)elem;
+                    },
+                }, *entity.variant);
+
+                // Possibly recurse.
+                std::visit(Overload{
+                    [&]<typename T>(const T &elem)
+                    {
+                        if constexpr (std::is_base_of_v<EntityContainer, T>)
+                        {
+                            for (const Entity &elem : elem.nested)
+                                self(self, elem);
+                        }
+                    },
+                }, *entity.variant);
+            };
+        }
+
         output_text +=
             "#include <" + data.original_file + ">\n"
             "\n"

@@ -59,6 +59,13 @@ namespace mrbind::JS
         [[nodiscard]] std::string CppNameToJsIdentifier(cppdecl::QualifiedName name);
 
 
+        // Those pointers are never null.
+        using ParsedTypeVariant = std::variant<const ClassEntity *, const EnumEntity *>;
+
+        // This maps parsed type names to their descriptions. This is initialized at startup.
+        std::unordered_map<std::string, ParsedTypeVariant> parsed_types;
+
+
         void WriteSeparatingNewLine();
 
         bool in_fragmentable_part = false;
