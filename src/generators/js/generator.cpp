@@ -24,7 +24,7 @@ namespace mrbind::JS
     std::string Generator::CppNameToJsIdentifier(cppdecl::QualifiedName name)
     {
         (void)name.VisitEachComponent<cppdecl::QualifiedName>({}, [&](cppdecl::QualifiedName &name){AdjustCppNameNonRecursively(name); return cppdecl::VisitResult{};});
-        return cppdecl::ToString(name, cppdecl::ToStringFlags::identifier);
+        return CppdeclToIdentifierLow(name);
     }
 
     void Generator::WriteSeparatingNewLine()
@@ -353,18 +353,168 @@ namespace mrbind::JS
         }
     }
 
+    void Generator::EmitClass(const ClassEntity &cl)
+    {
+        const std::string emitted_unqual_mut_name = CppNameToJsIdentifier(name_parser(cl.full_type));
+        const std::string emitted_unqual_const_name = "Const_" + emitted_unqual_mut_name;
+
+        std::string const_wrapper_type = "mrbindjs_details::ConstClass<" + cl.full_type + ">";
+        std::string mut_wrapper_type = "mrbindjs_details::MutClass<" + cl.full_type + ">";
+
+        auto EmitClassPart = [&](bool is_const)
+        {
+            const std::string &this_wrapper_type = is_const ? const_wrapper_type : mut_wrapper_type;
+
+            output_text += "    emscripten::class_<" + this_wrapper_type;
+            if (!is_const)
+                output_text += ", emscripten::base<" + const_wrapper_type + ">";
+            output_text += ">(" + EscapeQuoteString(is_const ? emitted_unqual_const_name : emitted_unqual_mut_name) + ")";
+
+            bool first_member = true;
+
+            for (const ClassMemberVariant &member : cl.members)
+            {
+                auto BeginMember = [&]
+                {
+                    if (std::exchange(first_member, false))
+                        output_text += '\n';
+                };
+
+                std::visit(Overload{
+                    [&](const ClassField &elem)
+                    {
+                        cppdecl::Type type = type_parser(elem.type.canonical);
+
+                        bool field_is_eff_const = type.IsEffectivelyConst();
+
+                        // Don't duplicate const fields into non-const class halves, this is redundant.
+                        // But for some reason static fields are not inherited properly, so we still duplicate them here (by adding `&& !elem.is_static`).
+                        if (field_is_eff_const && !is_const && !elem.is_static)
+                            return;
+
+                        BeginMember();
+
+                        if (elem.is_static)
+                            output_text += "        .class_property(";
+                        else
+                            output_text += "        .property(";
+
+                        output_text += EscapeQuoteString(CppdeclToIdentifierLow(name_parser(elem.full_name)));
+                        output_text += ", ";
+
+                        // Do we need to cast the pointer? If so, with what cast?
+                        const char *cast = nullptr;
+                        if (elem.is_static)
+                        {
+                            if (is_const && !field_is_eff_const)
+                                cast = "const_cast"; // Adding constness.
+                        }
+                        else
+                        {
+                            cast = "reinterpret_cast";
+                        }
+
+                        // Perform the cast.
+                        if (cast)
+                        {
+                            cppdecl::Type cast_target_type = type;
+
+                            if (is_const)
+                                cast_target_type.AddQualifiers(cppdecl::CvQualifiers::const_);
+
+                            if (elem.is_static)
+                                cast_target_type.AddModifier(cppdecl::Pointer{});
+                            else
+                                cast_target_type.AddModifier(cppdecl::MemberPointer{.base = name_parser(this_wrapper_type)});
+
+                            output_text += cast;
+                            output_text += "<" + CppdeclToCode(cast_target_type) + ">(";
+                        }
+
+                        output_text += "&" + cl.full_type + "::" + elem.full_name;
+
+                        if (cast)
+                            output_text += ')';
+
+                        output_text += ")\n";
+                    },
+                    [&](const ClassCtor &elem)
+                    {
+                        // TODO: Need to handle overloading here.
+                        if (elem.kind != CopyMoveKind{})
+                            return; // TODO: Remove this when we add overloading support.
+
+                        BeginMember();
+
+                        output_text += "        .constructor<";
+
+                        bool first_param = true;
+                        for (const FuncParam &param : elem.params)
+                        {
+                            if (!std::exchange(first_param, false))
+                                output_text += ", ";
+
+                            output_text += param.type.canonical;
+                        }
+
+                        output_text += ">()\n";
+                    },
+                    [&](const ClassDtor &elem)
+                    {
+                        // Nothing here.
+                        (void)elem;
+                    },
+                    [&](const ClassConvOp &elem)
+                    {
+                        // TODO: Implement this.
+                        (void)elem;
+                    },
+                    [&](const ClassMethod &elem)
+                    {
+                        // TODO: Implement this.
+                        (void)elem;
+                    },
+                }, member);
+            }
+
+            if (!first_member)
+                output_text += "    ";
+            output_text += ";\n";
+        };
+        EmitClassPart(true);
+        EmitClassPart(false);
+    }
+
     void Generator::Generate()
     {
         output_text +=
+            "#include <" + data.original_file + ">\n"
+            "\n"
             "#include <emscripten/bind.h>\n"
             "\n"
-            "#include <" + data.original_file + ">\n"
+            "#include <utility>\n" // For `std::forward`.
             "\n"
             "#if !defined(MB_NUM_FRAGMENTS) || MB_NUM_FRAGMENTS <= 1\n"
             "#define MB_CHECK_FRAGMENT(x) 1\n"
             "#else\n"
             "#define MB_CHECK_FRAGMENT(x) (x % MB_NUM_FRAGMENTS == MB_FRAGMENT)\n"
             "#endif\n"
+            "\n"
+            "namespace mrbindjs_details\n"
+            "{\n"
+            "    template <typename T>\n"
+            "    struct ConstClass\n"
+            "    {\n"
+            "        T value;\n"
+            "        template <typename ...P> ConstClass(P &&... args) : value(std::forward<P>(args)...) {}\n"
+            "    };\n"
+            "\n"
+            "    template <typename T>\n"
+            "    struct MutClass : ConstClass<T>\n"
+            "    {\n"
+            "        using ConstClass<T>::ConstClass;\n"
+            "    };\n"
+            "}\n"
             "\n"
             "EMSCRIPTEN_BINDINGS(mrbind) // This identifier is only used to create a (TU-local) `static` variable with a constructor that runs your code.\n"
             "{\n";
@@ -387,8 +537,9 @@ namespace mrbind::JS
                 },
                 [&](const ClassEntity &elem)
                 {
-                    // TODO: Implement this.
-                    (void)elem;
+                    BeginFragmentablePart();
+                    EmitClass(elem);
+                    EndFragmentablePart();
 
                     // We recurse separately below.
                 },

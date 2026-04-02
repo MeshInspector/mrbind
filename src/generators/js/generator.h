@@ -17,6 +17,13 @@ namespace mrbind::JS
         return cppdecl::ToCode(value, extra_flags);
     }
 
+    // This is only valid for unqualified names.
+    // Most of the time (for full qualified names) you want `Generator::CppNameToJsIdentifier()` and not this.
+    [[nodiscard]] std::string CppdeclToIdentifierLow(const auto &value)
+    {
+        return cppdecl::ToString(value, cppdecl::ToStringFlags::identifier);
+    }
+
     struct Generator
     {
         // Inputs: [
@@ -144,6 +151,7 @@ namespace mrbind::JS
 
         void EmitFunction(const EmitFuncParams &params);
         void EmitEnum(const EnumEntity &en);
+        void EmitClass(const ClassEntity &cl);
 
         void Generate();
     };

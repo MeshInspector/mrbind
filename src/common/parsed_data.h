@@ -585,7 +585,7 @@ namespace mrbind
     };
 
     MBREFL_ENUM( CopyMoveKind,
-        (none)
+        (none) // This must be first, since we sometimes use `CopyMoveKind{}`.
         (copy) // Copy ctor or copy assignment. Copy&swap assignments happens to go here too.
         (move) // Move ctor or move assignment.
 
