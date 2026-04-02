@@ -1526,10 +1526,12 @@ namespace MRBind::pb11
                 static constexpr pybind11::return_value_policy ret_policy =
                     returns_unique_ptr_to_builtin ?
                         pybind11::return_value_policy::take_ownership :
-                    (std::is_pointer_v<LambdaReturnTypeAdjustedWrapped> || std::is_reference_v<LambdaReturnTypeAdjustedWrapped>) &&
+                    (std::is_pointer_v<LambdaReturnTypeAdjustedWrapped> || std::is_reference_v<LambdaReturnTypeAdjustedWrapped>)
                     // This is important. If we return a const reference to a copyable type, we actually COPY it.
                     // Because otherwise pybind11 casts away constness and propagates changes through that reference!
-                    !std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped>
+                    #if !MB_PB11_CONST_CAST_RETURNED_CONST_REFS // Setting this to `1` `const_cast`s the result instead.
+                    && !std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped>
+                    #endif
                         ? bool(Kind & FuncKind::member_nonstatic) ? pybind11::return_value_policy::reference_internal : pybind11::return_value_policy::reference :
                     // This is important too, otherwise pybind11 will const_cast and then move!
                     std::is_const_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped> ? (std::is_copy_constructible_v<LambdaReturnTypeAdjustedWrapperPtrRefStripped> ? pybind11::return_value_policy::copy : pybind11::return_value_policy::reference/*ugh*/)

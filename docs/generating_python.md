@@ -137,6 +137,10 @@ There are a few additional macros that you can define to tune the bindings:
 
   If you want to import another Python module at startup as a dependency, pass its name to this macro. It acceps a list of quoted module names. `'...'` here is the shell's quoting and not a part of the syntax.
 
+* **`-DMB_PB11_CONST_CAST_RETURNED_CONST_REFS`** — When a const reference is returned from a function, `const_cast` it into a non-const reference instead of copying the result.
+
+  This is faster than copying, but is allows the user to modify C++ objects they're not supposed to.
+
 * **Adding aliases** — Python lets you add aliases for things like functions, types, and even class members, simply using what looks like variable assignment.
 
   E.g. given `struct Vec3 {float x, y, z;};`, which binds to `mylib.Vec3` in Python, you could do `mylib.Vec3.foo = mylib.Vec3.x`, and then `foo` would be usable as an alternative name for `x` in every instance of the class.

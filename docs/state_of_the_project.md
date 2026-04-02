@@ -28,7 +28,9 @@ The Python support works, but could use a rewrite, probably with [Nanobind](http
 
 * Having to rebuild the modules for each minor Python version. We have [a Pybind fork](https://github.com/MeshInspector/mrbind-pybind11) that improves the situation somewhat, but it's not ideal.
 
-* Const-correctness beind implemented crudely. Returning a const reference from a function makes a copy of the object to prevent Pybind from `const_cast`ing it into a mutable reference. Ideally we would replace it with the approach we currently use in C# (each class being split into a const half, and a mutable half inheriting from the const one).
+* Const-correctness beind implemented crudely. Returning a const reference from a function makes a copy of the object to prevent Pybind from `const_cast`ing it into a mutable reference. You can define `-DMB_PB11_CONST_CAST_RETURNED_CONST_REFS` to `const_cast` instead.
+
+  Ideally we would replace it with the approach we currently use in C# (each class being split into a const half, and a mutable half inheriting from the const one).
 
 * Some non-trivial initialization happening at module load. This doesn't cause slowdown in practice even in [a large library](https://meshlib.io/) MRBind was developer for, but is still not ideal.
 
