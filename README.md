@@ -8,7 +8,7 @@ MRBind parses C++ headers and generates **C**, **C#**, and **Python** bindings f
 
 * The Python backend uses [pybind11](https://github.com/pybind/pybind11), with some custom logic to better handle certain types.
 
-Out main features are:
+Our main features are:
 
 * No separate interface description files (as in SWIG).
 
@@ -20,13 +20,7 @@ Out main features are:
 
 MRBind still has some rough edges, but it is used in production for [MeshLib](https://github.com/MeshInspector/MeshLib).
 
-## Setting expectations
-
-MRBind is meant to cover a large API surface area with minimal effort.
-
-It'll never be as flexible as handwritten bindings, and doesn't offer as many customization knobs as raw Pybind11, for example.
-
-The point is making maintaining large bindings easy, with decent binding quality.
+MRBind is meant to cover a large API surface area with minimal effort, but in turn you give up the flexibility of handwritten bindings.
 
 ## Usage
 
