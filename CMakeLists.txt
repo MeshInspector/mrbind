@@ -77,8 +77,9 @@ if(MRBIND_BUILD_PARSER)
 endif()
 
 
-option(MRBIND_BUILD_GENERATOR_C "Build the C binding generator." ON)
-option(MRBIND_BUILD_GENERATOR_CSHARP "Build the C# binding generator." ON)
+option(MRBIND_BUILD_GENERATOR_C "Build the C bindings generator." ON)
+option(MRBIND_BUILD_GENERATOR_CSHARP "Build the C# bindings generator." ON)
+option(MRBIND_BUILD_GENERATOR_JS "Build the JS bindings generator." ON)
 
 if(MRBIND_BUILD_GENERATOR_C OR MRBIND_BUILD_GENERATOR_CSHARP)
     add_library(mrbind_gen_common STATIC
@@ -141,5 +142,19 @@ if(MRBIND_BUILD_GENERATOR_CSHARP)
         mrbind_common
         mrbind_gen_common
         mrbind_c_interop
+    )
+endif()
+
+if(MRBIND_BUILD_GENERATOR_JS)
+    add_executable(mrbind_gen_js
+        src/generators/js/generator.cpp
+        src/generators/js/main.cpp
+    )
+    target_include_directories(mrbind_gen_js PRIVATE
+        deps/cppdecl/include
+    )
+    target_link_libraries(mrbind_gen_js PRIVATE
+        mrbind_common
+        mrbind_gen_common
     )
 endif()
