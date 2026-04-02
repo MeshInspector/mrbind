@@ -54,6 +54,15 @@ namespace mrbind::JS
 
         void WriteSeparatingNewLine();
 
+        bool in_fragmentable_part = false;
+        int fragmentable_part_index = 0;
+
+        // Begins an `#if` block that can be separated between fragments.
+        // Those can't be nested.
+        void BeginFragmentablePart();
+        // Ends such block.
+        void EndFragmentablePart();
+
 
         struct TypeBinding
         {
@@ -134,6 +143,7 @@ namespace mrbind::JS
         };
 
         void EmitFunction(const EmitFuncParams &params);
+        void EmitEnum(const EnumEntity &en);
 
         void Generate();
     };

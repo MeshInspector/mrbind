@@ -35,6 +35,20 @@ namespace mrbind::JS
         output_text += '\n';
     }
 
+    void Generator::BeginFragmentablePart()
+    {
+        if (std::exchange(in_fragmentable_part, true))
+            throw std::logic_error("Internal error: Already in a fragmentable part.");
+        output_text += "    #if MB_CHECK_FRAGMENT(" + std::to_string(fragmentable_part_index++) + ")\n";
+    }
+
+    void Generator::EndFragmentablePart()
+    {
+        if (!std::exchange(in_fragmentable_part, false))
+            throw std::logic_error("Internal error: Already exited a fragmentable part.");
+        output_text += "    #endif\n";
+    }
+
     Generator::TypeBinding::ParamUsage::UnadjustFunc Generator::TypeBinding::ParamUsage::GetUnadjustArgumentFunc() const
     {
         if (unadjust_argument)
@@ -282,7 +296,6 @@ namespace mrbind::JS
             if (returned_expr != call_expr)
                 need_wrapping_lambda = true;
 
-            WriteSeparatingNewLine();
             output_text +=
                 Strings::Indent(
                     "emscripten::function(" + EscapeQuoteString(emitted_unqual_func_name) + ", " +
@@ -314,12 +327,44 @@ namespace mrbind::JS
         }
     }
 
+    void Generator::EmitEnum(const EnumEntity &en)
+    {
+        try
+        {
+            // Decide on the unqualified name of the emitted enum.
+            const std::string emitted_unqual_name = CppNameToJsIdentifier(name_parser(en.full_type));
+
+            output_text += "    emscripten::enum_<" + en.full_type + ">(" + EscapeQuoteString(emitted_unqual_name) + ")";
+
+            if (!en.elems.empty())
+                output_text += '\n';
+
+            for (const EnumElem &elem : en.elems)
+                output_text += "        .value(" + EscapeQuoteString(elem.name) + ", " + en.full_type + "::" + elem.name + ")\n";
+
+            if (!en.elems.empty())
+                output_text += "    ";
+
+            output_text += ";\n";
+        }
+        catch (...)
+        {
+            std::throw_with_nested(std::runtime_error("While emitting enum `" + en.full_type + "`:"));
+        }
+    }
+
     void Generator::Generate()
     {
         output_text +=
             "#include <emscripten/bind.h>\n"
             "\n"
             "#include <" + data.original_file + ">\n"
+            "\n"
+            "#if !defined(MB_NUM_FRAGMENTS) || MB_NUM_FRAGMENTS <= 1\n"
+            "#define MB_CHECK_FRAGMENT(x) 1\n"
+            "#else\n"
+            "#define MB_CHECK_FRAGMENT(x) (x % MB_NUM_FRAGMENTS == MB_FRAGMENT)\n"
+            "#endif\n"
             "\n"
             "EMSCRIPTEN_BINDINGS(mrbind) // This identifier is only used to create a (TU-local) `static` variable with a constructor that runs your code.\n"
             "{\n";
@@ -330,12 +375,15 @@ namespace mrbind::JS
             std::visit(Overload{
                 [&](const EnumEntity &elem)
                 {
-                    // TODO: Implement this.
-                    (void)elem;
+                    BeginFragmentablePart();
+                    EmitEnum(elem);
+                    EndFragmentablePart();
                 },
                 [&](const FuncEntity &elem)
                 {
+                    BeginFragmentablePart();
                     EmitFunction({.var = &elem});
+                    EndFragmentablePart();
                 },
                 [&](const ClassEntity &elem)
                 {
