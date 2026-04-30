@@ -101,7 +101,10 @@ namespace mrbind::CSharp
 
     // If `str` matches one of C# keywords, appends `_` to it to avoid collisions.
     // Returns true if the adjustment has been made.
-    bool AdjustIfMatchesCSharpKeyword(std::string &str);
+    // If `also_adjust` is specified and an adjustment was made, we also apply this replacement to occurences of the offending string in `*also_adjust`,
+    //   but only in specific contexts, to avoid confusing it with plain English words. Those contexts include different kinds of quotes,
+    //   `\param ...` doxygen parameter names, etc.
+    bool AdjustIfMatchesCSharpKeyword(std::string &str, std::string *also_adjust = nullptr);
 
     // You can call this on the result of the `...ToCSharpIdentifier()` functions above, to make the first letter of the result lowercase.
     // Also calls `AdjustIfMatchesCSharpKeyword()` to avoid keyword collisions.

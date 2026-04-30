@@ -88,7 +88,7 @@ namespace mrbind::CSharp
         }
     }
 
-    bool AdjustIfMatchesCSharpKeyword(std::string &str)
+    bool AdjustIfMatchesCSharpKeyword(std::string &str, std::string *also_adjust)
     {
         static const std::unordered_set<std::string> csharp_keywords = {
             // Those are from here: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/
@@ -174,7 +174,35 @@ namespace mrbind::CSharp
 
         if (csharp_keywords.contains(str))
         {
-            str += '_';
+            std::string new_str = str + '_';
+
+            if (also_adjust)
+            {
+                auto HandleOccurence = [&](const std::string &prefix, const std::string &suffix)
+                {
+                    *also_adjust = Strings::Replace(*also_adjust, prefix + str + suffix, prefix + new_str + suffix);
+                };
+
+                // Just some quotes.
+                HandleOccurence("`", "`");
+                HandleOccurence("'", "'");
+                HandleOccurence("\"", "\"");
+
+                // Doxygen.
+                for (std::string symbol : {"@", "\\"})
+                {
+                    // Parameter descriptions.
+                    HandleOccurence(symbol + "param ", " ");
+
+                    // Single words in inline code blocks.
+                    // `c` and `p` do the same thing.
+                    HandleOccurence(symbol + "c ", " ");
+                    HandleOccurence(symbol + "p ", " ");
+                }
+            }
+
+            str = std::move(new_str);
+
             return true;
         }
 
@@ -8232,25 +8260,23 @@ namespace mrbind::CSharp
         }
 
         { // Adjust parameter names to not be C# keywords.
-
-
-            static constexpr auto AdjustParam = [](CInterop::FuncParam &param)
+            static constexpr auto AdjustParam = [](CInterop::FuncParam &param, std::string &comment)
             {
                 if (param.name)
                 {
-                    if (AdjustIfMatchesCSharpKeyword(*param.name))
+                    if (AdjustIfMatchesCSharpKeyword(*param.name, &comment))
                         param.name_or_placeholder = *param.name;
                 }
                 else
                 {
-                    AdjustIfMatchesCSharpKeyword(param.name_or_placeholder); // Just in case?
+                    AdjustIfMatchesCSharpKeyword(param.name_or_placeholder, &comment); // Just in case?
                 }
             };
 
             static constexpr auto AdjustFuncLike = [](CInterop::BasicFuncLike &func)
             {
                 for (auto &param : func.params)
-                    AdjustParam(param);
+                    AdjustParam(param, func.comment.c_style);
             };
 
             // Free functions.

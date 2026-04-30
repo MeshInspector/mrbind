@@ -24207,6 +24207,23 @@ public static partial class MR
                 }
             }
 
+            // Test how we adjust keywords in parameter names.
+            // \param params_ blah
+            // @param params_ blah
+            // `params_` 'params_' "params_" params huhparams paramshuh \p params_ \c params_ @p params_ @c params_ \A params @A params
+            // In this comment, only quoted and `\param ...` uses are adjusted, and not standalone occurences of the word (even if it's a separate word, let alone if it's just a part of a word).
+            // `\c ...` and `\p ...` are handled, but unknown tags like `\A ...` are not.
+            // <param name="params_">This is also handled, naturally, because we handle quotes.</param>
+            /// Generated from function `MR::CSharp::test_keyword_in_param_name`.
+            public static void TestKeywordInParamName(int params_)
+            {
+                [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_CSharp_test_keyword_in_param_name", ExactSpelling = true)]
+                extern static void __MR_CSharp_test_keyword_in_param_name(int params_);
+                MR.CS.Misc._Exceptions.Prepare();
+                MR.CS.Misc._Exceptions.ThrowIfNeeded();
+                __MR_CSharp_test_keyword_in_param_name(params_);
+            }
+
             /// Generated from function `MR::CSharp::test_enum`.
             /// Parameter `b` defaults to `E1::b`.
             public static unsafe MR.CS.CSharp.E1 TestEnum(MR.CS.CSharp.E1 a, MR.CS.CSharp.E1? b = null)

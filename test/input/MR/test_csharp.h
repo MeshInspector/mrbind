@@ -82,6 +82,15 @@ namespace MR::CSharp
     inline const std::string test_constness_str(const std::string, const std::string = "42") {return "43";}
     #pragma clang diagnostic pop
 
+    // Test how we adjust keywords in parameter names.
+    // \param params blah
+    // @param params blah
+    // `params` 'params' "params" params huhparams paramshuh \p params \c params @p params @c params \A params @A params
+    // In this comment, only quoted and `\param ...` uses are adjusted, and not standalone occurences of the word (even if it's a separate word, let alone if it's just a part of a word).
+    // `\c ...` and `\p ...` are handled, but unknown tags like `\A ...` are not.
+    // <param name="params">This is also handled, naturally, because we handle quotes.</param>
+    inline void test_keyword_in_param_name(int params) {(void)params;}
+
 
     /// Enum comment.
     enum class E1

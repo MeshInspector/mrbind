@@ -284,6 +284,15 @@ MR_C_std_string *MR_CSharp_test_constness_str(const char *_1, const char *_1_end
     ) // MRBINDC_TRY
 }
 
+void MR_CSharp_test_keyword_in_param_name(int params)
+{
+    MRBINDC_TRY(
+    ::MR::CSharp::test_keyword_in_param_name(
+        params
+    );
+    ) // MRBINDC_TRY
+}
+
 MR_CSharp_E1 MR_CSharp_test_enum_MR_CSharp_E1(MR_CSharp_E1 a, const MR_CSharp_E1 *b)
 {
     MRBINDC_TRY(

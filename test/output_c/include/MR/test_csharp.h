@@ -867,6 +867,16 @@ MR_C_API int MR_CSharp_test_constness_int(int _1, const int *_2);
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_string_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_string *MR_CSharp_test_constness_str(const char *_1, const char *_1_end, const char *_2, const char *_2_end);
 
+// Test how we adjust keywords in parameter names.
+// \param params blah
+// @param params blah
+// `params` 'params' "params" params huhparams paramshuh \p params \c params @p params @c params \A params @A params
+// In this comment, only quoted and `\param ...` uses are adjusted, and not standalone occurences of the word (even if it's a separate word, let alone if it's just a part of a word).
+// `\c ...` and `\p ...` are handled, but unknown tags like `\A ...` are not.
+// <param name="params">This is also handled, naturally, because we handle quotes.</param>
+/// Generated from function `MR::CSharp::test_keyword_in_param_name`.
+MR_C_API void MR_CSharp_test_keyword_in_param_name(int params);
+
 /// Generated from function `MR::CSharp::test_enum`.
 /// Parameter `b` has a default argument: `E1::b`, pass a null pointer to use it.
 MR_C_API MR_CSharp_E1 MR_CSharp_test_enum_MR_CSharp_E1(MR_CSharp_E1 a, const MR_CSharp_E1 *b);
