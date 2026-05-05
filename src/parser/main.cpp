@@ -2789,18 +2789,26 @@ namespace mrbind
                                 // auto new_decl = ci->getSema().InstantiateFunctionDeclaration(func_templ, targs, decl->getSourceRange().getBegin());
 
                                 { // Inspired by `sema::InstantiateFunctionDeclaration()`.
-                                    auto loc = decl->getSourceRange().getBegin();
-
-                                    // Which one to pick? This one looks kinda relevant.
-                                    auto csc = clang::Sema::CodeSynthesisContext::ExplicitTemplateArgumentSubstitution;
+                                    /*
+                                    The way you test this is as following:
+                                        template <typename T = int> void foo() {}
+                                        template <typename T = int> std::enable_if_t<sizeof(T) == 42> bar() {}
+                                    And pass `--buggy-substitute-default-template-args`.
+                                    The first overload should be parsed, and the second overload should be silently skipped, rather than hard fail.
+                                    */
 
                                     #if CLANG_VERSION_MAJOR >= 22
-                                    clang::Sema::InstantiatingTemplate Inst(ci->getSema(), loc, func_templ, ml_targs.getInnermost(), csc);
+                                    // In v22 and newer, `InstantiatingTemplate` no longer acts as a SFINAE error trap. There's a new class for that now.
+                                    clang::Sema::SFINAETrap trap(ci->getSema());
+                                    if (!trap.hasErrorOccurred())
                                     #else
+                                    auto loc = decl->getSourceRange().getBegin();
+                                    // Which one to pick? This one looks kinda relevant.
+                                    auto csc = clang::Sema::CodeSynthesisContext::ExplicitTemplateArgumentSubstitution;
                                     clang::sema::TemplateDeductionInfo Info(loc);
                                     clang::Sema::InstantiatingTemplate Inst(ci->getSema(), loc, func_templ, ml_targs.getInnermost(), csc, Info);
-                                    #endif
                                     if (!Inst.isInvalid())
+                                    #endif
                                     {
                                         auto templated_decl = func_templ->getTemplatedDecl();
                                         clang::Sema::ContextRAII SavedContext(ci->getSema(), templated_decl);
