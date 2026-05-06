@@ -2102,6 +2102,19 @@ namespace MRBind::pb11
         std::size_t last_good_size = 0;
         for (char ch : name)
         {
+            auto AddSpecialString = [&](std::string_view str)
+            {
+                if (!prev_char_is_special)
+                {
+                    ret += '_';
+                    prev_char_is_special = true;
+                }
+
+                ret += str;
+                last_good_size = ret.size();
+                ret += '_';
+            };
+
             // Somewhat in doubt here. I don't want to treat `_` as a special character, because I want to be able to use this to add
             //   custom functions like `__call__` and stuff.
             if (std::isalnum((unsigned char)ch) || ch == '_')
@@ -2112,9 +2125,14 @@ namespace MRBind::pb11
             }
             else if (ch == '-')
             {
-                prev_char_is_special = false;
-                ret += "minus";
-                last_good_size = ret.size();
+                AddSpecialString("minus");
+            }
+            else if (ch == '*')
+            {
+                // Need this to disambiguate e.g. `std::vector<T>` vs `std::vector<T *>`.
+                // For now we don't support `&`. One reason for that is that it causes `A_ref` and `A_refref` to be defined as aliases for `A`.
+                // Supporting `&` would require filtering out those aliases.
+                AddSpecialString("ptr");
             }
             else
             {
