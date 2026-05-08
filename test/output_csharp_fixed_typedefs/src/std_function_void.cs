@@ -85,7 +85,7 @@ public static partial class MR
 
                 private protected unsafe delegate void _CDelegate(void *_userdata, void **_cleanup_value);
 
-                private protected unsafe void _CCallWrapper(void *_userdata, void **_cleanup_value)
+                private protected static unsafe void _CCallWrapper(void *_userdata, void **_cleanup_value)
                 {
                     ((Delegate)System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)_userdata).Target!)();
                 }

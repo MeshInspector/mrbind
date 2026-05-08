@@ -85,7 +85,7 @@ public static partial class MR
 
                 private protected unsafe delegate MR.CS.StdFunction.A._Underlying *_CDelegate(MR.CS.Misc._PassBy *_ret_pass_by, void *_userdata, void **_cleanup_value);
 
-                private protected unsafe MR.CS.StdFunction.A._Underlying *_CCallWrapper(MR.CS.Misc._PassBy *_ret_pass_by, void *_userdata, void **_cleanup_value)
+                private protected static unsafe MR.CS.StdFunction.A._Underlying *_CCallWrapper(MR.CS.Misc._PassBy *_ret_pass_by, void *_userdata, void **_cleanup_value)
                 {
                     MR.CS.StdFunction._ByValue_A _ret = ((Delegate)System.Runtime.InteropServices.GCHandle.FromIntPtr((nint)_userdata).Target!)();
                     *_cleanup_value = (void *)System.Runtime.InteropServices.GCHandle.ToIntPtr(System.Runtime.InteropServices.GCHandle.Alloc(_ret));

@@ -88,7 +88,7 @@ public static partial class MR
 
                 private protected unsafe delegate int *_CDelegate(int *_1, int *_2, void *_userdata, void **_cleanup_value);
 
-                private protected unsafe int *_CCallWrapper(int *_1, int *_2, void *_userdata, void **_cleanup_value)
+                private protected static unsafe int *_CCallWrapper(int *_1, int *_2, void *_userdata, void **_cleanup_value)
                 {
                     ref int _arg_1 = ref *(int *)sizeof(int); // Uninitialized ref.
                     _arg_1 = ref *_1;

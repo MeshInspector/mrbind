@@ -85,7 +85,7 @@ public static partial class MR
 
                 private protected unsafe delegate MR.CS.CSharp.ExposedLayoutC _CDelegate(MR.CS.CSharp.ExposedLayoutC *_1, void *_userdata, void **_cleanup_value);
 
-                private protected unsafe MR.CS.CSharp.ExposedLayoutC _CCallWrapper(MR.CS.CSharp.ExposedLayoutC *_1, void *_userdata, void **_cleanup_value)
+                private protected static unsafe MR.CS.CSharp.ExposedLayoutC _CCallWrapper(MR.CS.CSharp.ExposedLayoutC *_1, void *_userdata, void **_cleanup_value)
                 {
                     ref readonly MR.CS.CSharp.ExposedLayoutC _arg_1 = ref *(MR.CS.CSharp.ExposedLayoutC *)sizeof(MR.CS.CSharp.ExposedLayoutC); // Uninitialized ref.
                     _arg_1 = ref *_1;

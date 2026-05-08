@@ -85,7 +85,7 @@ public static partial class MR
 
                 private protected unsafe delegate MR.CS.Std.String._Underlying *_CDelegate(MR.CS.Misc._PassBy *_ret_pass_by, int _1, float _2, void *_userdata, void **_cleanup_value);
 
-                private protected unsafe MR.CS.Std.String._Underlying *_CCallWrapper(MR.CS.Misc._PassBy *_ret_pass_by, int _1, float _2, void *_userdata, void **_cleanup_value)
+                private protected static unsafe MR.CS.Std.String._Underlying *_CCallWrapper(MR.CS.Misc._PassBy *_ret_pass_by, int _1, float _2, void *_userdata, void **_cleanup_value)
                 {
                     int _arg_1;
                     _arg_1 = _1;

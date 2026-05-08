@@ -3385,7 +3385,7 @@ namespace mrbind::CSharp
                 {
                     WriteSeparator();
                     ret.text +=
-                        "private protected unsafe " + // This is always unsafe, because `csharp_dllimport_params` always includes `void *_userdata, void **_cleanup_value`.
+                        "private protected static unsafe " + // This is always unsafe, because `csharp_dllimport_params` always includes `void *_userdata, void **_cleanup_value`.
                         csharp_dllimport_return_type +
                         (csharp_dllimport_return_type.ends_with('*') ? "" : " ") +
                         "_CCallWrapper(";

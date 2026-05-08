@@ -81,7 +81,7 @@ public static partial class MR
 
                 private protected unsafe delegate MR.CS.CSharp.E1 _CDelegate(MR.CS.CSharp.E1 _1, void *_userdata, void **_cleanup_value);
 
-                private protected unsafe MR.CS.CSharp.E1 _CCallWrapper(MR.CS.CSharp.E1 _1, void *_userdata, void **_cleanup_value)
+                private protected static unsafe MR.CS.CSharp.E1 _CCallWrapper(MR.CS.CSharp.E1 _1, void *_userdata, void **_cleanup_value)
                 {
                     try
                     {

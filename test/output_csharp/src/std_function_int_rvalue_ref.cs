@@ -81,7 +81,7 @@ public static partial class MR
 
                 private protected unsafe delegate int *_CDelegate(void *_userdata, void **_cleanup_value);
 
-                private protected unsafe int *_CCallWrapper(void *_userdata, void **_cleanup_value)
+                private protected static unsafe int *_CCallWrapper(void *_userdata, void **_cleanup_value)
                 {
                     try
                     {

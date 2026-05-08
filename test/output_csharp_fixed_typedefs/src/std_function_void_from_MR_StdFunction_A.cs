@@ -85,7 +85,7 @@ public static partial class MR
 
                 private protected unsafe delegate void _CDelegate(MR.CS.StdFunction.A._Underlying *_1, void *_userdata, void **_cleanup_value);
 
-                private protected unsafe void _CCallWrapper(MR.CS.StdFunction.A._Underlying *_1, void *_userdata, void **_cleanup_value)
+                private protected static unsafe void _CCallWrapper(MR.CS.StdFunction.A._Underlying *_1, void *_userdata, void **_cleanup_value)
                 {
                     MR.CS.StdFunction.A _arg_1;
                     _arg_1 = new(_1, is_owning: false);
