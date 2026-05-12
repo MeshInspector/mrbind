@@ -1067,6 +1067,13 @@ namespace mrbind
     // If this function returns `auto` that wasn't deduced yet, replace it with the correct return type.
     [[nodiscard]] bool InstantiateReturnTypeIfNeeded(clang::CompilerInstance &ci, clang::FunctionDecl &decl)
     {
+        // Skip primary function templates: `Sema::InstantiateFunctionDefinition` is meant
+        // for instantiations and null-derefs internally on a primary template
+        // (`clang::FunctionDecl::isDefined()` deref of an invalid pattern decl).
+        // Specific instantiations are visited separately and handled correctly.
+        if (decl.isTemplated())
+            return false;
+
         if (decl.getReturnType()->isUndeducedAutoType())
         {
             ci.getSema().InstantiateFunctionDefinition(decl.getBeginLoc(), &decl);
@@ -2833,7 +2840,12 @@ namespace mrbind
             for (clang::ParmVarDecl *p : decl->parameters())
             {
                 // Instantiate the default arguments and the underlying parameter types.
-                if (p->hasUninstantiatedDefaultArg())
+                // Skip primary function templates: `Sema::InstantiateDefaultArgument` is meant
+                // for instantiations, and on a primary template it null-derefs internally
+                // (`FunctionDecl::getTemplateInstantiationPattern(false)` returns `nullptr`,
+                // which `Sema::addInstantiatedParametersToScope` then dereferences). Specific
+                // instantiations are visited separately and handled correctly.
+                if (p->hasUninstantiatedDefaultArg() && !decl->isTemplated())
                 {
                     ci->getSema().InstantiateDefaultArgument(decl->getSourceRange().getBegin(), decl, p);
                     need_another_iteration = true; // Do we need this? Better be safe.
