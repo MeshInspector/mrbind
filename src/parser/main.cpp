@@ -148,6 +148,8 @@ namespace mrbind
 
     struct VisitorParams
     {
+        bool verbose = false;
+
         StringFilter blacklisted_entities;
         StringFilter whitelisted_entities;
 
@@ -261,6 +263,33 @@ namespace mrbind
                 // Not all of them though, we still need to remove the remaining ones manually.
                 p->IncludeNewlines = false;
             }
+        }
+    };
+
+    struct LogScope
+    {
+        std::string message;
+
+        LogScope(const VisitorParams &params, auto &&message_lambda)
+        {
+            if (params.verbose)
+            {
+                message = message_lambda();
+                llvm::errs() << "mrbind: --> " << message << '\n';
+            }
+        }
+
+        LogScope(const LogScope &) = delete;
+        LogScope &operator=(const LogScope &) = delete;
+
+        void Update(std::string_view status) const
+        {
+            llvm::errs() << "mrbind:  -  " << status << ' ' << message << '\n';
+        }
+
+        ~LogScope()
+        {
+            llvm::errs() << "mrbind: <-- Finished " << message << '\n';
         }
     };
 
@@ -1750,8 +1779,12 @@ namespace mrbind
 
         bool VisitFunctionDecl(clang::FunctionDecl *decl) // CRTP override
         {
+            LogScope log(*params, [&]{return "Function at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             if (ShouldRejectFunction(*decl, *ctx, *ci, *params, printing_policies))
                 return true;
+
+            log.Update("Confirmed");
 
             // Custom handling for class methods.
             if (decl->isCXXClassMember())
@@ -1968,11 +2001,15 @@ namespace mrbind
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         bool ProcessRecord(clang::RecordDecl *decl)
         {
+            LogScope log(*params, [&]{return "Class at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             if (ShouldRejectRecord(*decl, *ctx, *params, printing_policies))
             {
                 params->nonrejected_class_stack.push_back(nullptr);
                 return false;
             }
+
+            log.Update("Confirmed");
 
             // Reject non-instantiated templates. This is here rather than in `ShouldRejectRecord()` because that is also used by the instantiating visitor.
             if (!decl->isCompleteDefinition())
@@ -2250,6 +2287,8 @@ namespace mrbind
             // Fix up broken typedef names in the members of this class. See `test_typedefs_in_templates.h` for the context.
             if (params->enable_cppdecl_processing)
             {
+                LogScope log(*params, [&]{return "Finalizing class at " + decl->getLocation().printToString(ci->getSourceManager());});
+
                 EntityContainer *container = params->container_stack.back();
 
                 std::vector<cppdecl::QualifiedName> typedef_names;
@@ -2395,12 +2434,16 @@ namespace mrbind
 
         bool VisitEnumDecl(clang::EnumDecl *decl) // CRTP override
         {
+            LogScope log(*params, [&]{return "Enum at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             if (ShouldRejectEnum(*decl, *ctx, *params, printing_policies))
                 return true;
 
             // This is not in `ShouldRejectEnum()` because it is false before instantiation.
             if (!decl->isCompleteDefinition())
                 return true;
+
+            log.Update("Confirmed");
 
             EnumEntity &new_enum = params->container_stack.back()->nested.emplace_back().emplace<EnumEntity>();
 
@@ -2461,6 +2504,8 @@ namespace mrbind
 
         bool VisitTypedefNameDecl(clang::TypedefNameDecl *decl) // CRTP override
         {
+            LogScope log(*params, [&]{return "Typedef at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             bool should_poison = false;
             if (ShouldRejectTypedef(*decl, *ctx, *params, printing_policies, &should_poison))
                 return true;
@@ -2470,6 +2515,8 @@ namespace mrbind
                 (void)GetTypeStrings(decl->getUnderlyingType(), TypeUses::typedef_target); // Register the type.
                 return true;
             }
+
+            log.Update("Confirmed");
 
             #if CLANG_VERSION_MAJOR >= 22
             std::string full_name = RoundtripQualifiedNameThroughCppdecl(ctx->getTypedefType(clang::ElaboratedTypeKeyword::None, std::nullopt, decl).getAsString(printing_policies.normal), *ci, *params, true);
@@ -2499,7 +2546,11 @@ namespace mrbind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
+            LogScope log(*params, [&]{return "Namespace at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             bool reject = ShouldRejectDeclaration(*decl, *ctx, *params, printing_policies);
+            if (!reject)
+                log.Update("Confirmed");
 
             { // Insert the namespace.
                 NamespaceEntity &new_ns = params->container_stack.back()->nested.emplace_back().emplace<NamespaceEntity>();
@@ -2562,11 +2613,15 @@ namespace mrbind
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         bool ProcessRecord(clang::RecordDecl *decl)
         {
+            LogScope log(*params, [&]{return "Class in initial pass, at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             if (ShouldRejectRecord(*decl, *ctx, *params, printing_policies))
             {
                 params->nonrejected_class_stack.push_back(nullptr);
                 return false;
             }
+
+            log.Update("Confirmed");
 
             // Register the `mrbind::preferred_name` attribute, if any, in the global map.
             // Since it won't be used on (non-full-specialized) templates anyway, it's fine to do it here, before instantiating all templates.
@@ -2630,8 +2685,12 @@ namespace mrbind
 
         bool VisitEnumDecl(clang::EnumDecl *decl) // CRTP override
         {
+            LogScope log(*params, [&]{return "Enum in initial pass, at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             if (ShouldRejectEnum(*decl, *ctx, *params, printing_policies))
                 return true;
+
+            log.Update("Confirmed");
 
             // This rejects non-templates.
             if (auto pat = decl->getTemplateInstantiationPattern())
@@ -2646,7 +2705,11 @@ namespace mrbind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
+            LogScope log(*params, [&]{return "Namespace in initial pass, at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             bool reject = ShouldRejectDeclaration(*decl, *ctx, *params, printing_policies);
+            if (!reject)
+                log.Update("Confirmed");
 
             params->rejected_namespace_stack.push_back(reject);
             bool ret = Base::TraverseNamespaceDecl(decl);
@@ -2685,15 +2748,16 @@ namespace mrbind
 
         bool VisitFunctionDecl(clang::FunctionDecl *decl) // CRTP override
         {
+            LogScope log(*params, [&]{return "Function in instantiation pass, at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             // If this is a template, try instantiating it.
             // This is currently disabled by default because it's buggy: https://github.com/MeshInspector/mrbind/issues/19
             if (params->buggy_substitute_default_template_args && decl->isTemplated() && !ShouldRejectFunction(*decl, *ctx, *ci, *params, printing_policies, ShouldRejectFlags::allow_uninstantiated_templates))
             {
-                // Among other things, we visit the function declarations to instantiate their default arguments,
-                //   which apparently doesn't happen otherwise. This is only needed for free function templates.
-                // Something else already instantiates them for the class member functions.
                 if (auto templ = decl->getDescribedTemplate())
                 {
+                    LogScope log(*params, [&]{return "Instantiating function in instantiation pass, at " + decl->getLocation().printToString(ci->getSourceManager());});
+
                     auto func_templ = llvm::dyn_cast<clang::FunctionTemplateDecl>(templ);
 
                     const clang::TemplateParameterList &tparams = *templ->getTemplateParameters();
@@ -2828,6 +2892,12 @@ namespace mrbind
             if (ShouldRejectFunction(*decl, *ctx, *ci, *params, printing_policies))
                 return true;
 
+            log.Update("Confirmed");
+
+            // Among other things, we visit the function declarations to instantiate their default arguments,
+            //   which apparently doesn't happen otherwise. This is only needed for free function templates.
+            // Something else already instantiates them for the class member functions.
+
             // For each parameter...
             for (clang::ParmVarDecl *p : decl->parameters())
             {
@@ -2868,11 +2938,15 @@ namespace mrbind
 
         bool VisitTypedefNameDecl(clang::TypedefNameDecl *decl) // CRTP override
         {
+            LogScope log(*params, [&]{return "Typedef in instantiation pass, at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             if (ShouldRejectTypedef(*decl, *ctx, *params, printing_policies, nullptr))
                 return true;
 
             if (params->rejected_namespace_stack.back())
                 return true; // The namespace is rejected, don't instantiate things here.
+
+            log.Update("Confirmed");
 
             // Mark the target.
             GetUnderlyingClassOrEnumType(*ci, decl->getUnderlyingType(), [&](clang::TagDecl *subdecl)
@@ -2889,8 +2963,12 @@ namespace mrbind
 
         bool VisitEnumDecl(clang::EnumDecl *decl) // CRTP override
         {
+            LogScope log(*params, [&]{return "Enum in instantiation pass, at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             if (ShouldRejectEnum(*decl, *ctx, *params, printing_policies))
                 return true;
+
+            log.Update("Cofirmed");
 
             // This rejects non-templates.
             if (auto pat = decl->getTemplateInstantiationPattern())
@@ -2918,6 +2996,8 @@ namespace mrbind
         // Note, this is not a CRTP override, and here we do return false when refusing to visit the class.
         bool ProcessRecord(clang::RecordDecl *decl)
         {
+            LogScope log(*params, [&]{return "Class in instantiation pass, at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             if (ShouldRejectRecord(*decl, *ctx, *params, printing_policies))
             {
                 params->nonrejected_class_stack.push_back(nullptr);
@@ -2934,6 +3014,8 @@ namespace mrbind
                 params->nonrejected_class_stack.push_back(nullptr);
                 return false;
             }
+
+            log.Update("Confirmed");
 
             params->nonrejected_class_stack.push_back((ClassEntity *)sizeof(ClassEntity)); // Push some non-zero pointer to allow boolean testing.
 
@@ -3026,7 +3108,11 @@ namespace mrbind
 
         bool TraverseNamespaceDecl(clang::NamespaceDecl *decl) // CRTP override
         {
+            LogScope log(*params, [&]{return "Namespace in instantiation pass, at " + decl->getLocation().printToString(ci->getSourceManager());});
+
             bool reject = ShouldRejectDeclaration(*decl, *ctx, *params, printing_policies);
+            if (!reject)
+                log.Update("Confirmed");
 
             params->rejected_namespace_stack.push_back(reject);
             bool ret = Base::TraverseNamespaceDecl(decl);
@@ -3078,6 +3164,8 @@ namespace mrbind
         VerifyStacks();
 
         { // Collect the initial set of target types.
+            LogScope log(*params, [&]{return "Collecting the initial set of target types";});
+
             ClangAstVisitor_CollectKnownTypes vis(ctx, *ci, *params);
             vis.TraverseDecl(ctx.getTranslationUnitDecl());
             VerifyStacks();
@@ -3086,28 +3174,35 @@ namespace mrbind
             params->canonincalization_respects_custom_preferred_names = true;
         }
 
-        // Instantiate templates.
-        for (int i = 0;; i++)
-        {
-            if (i == 1000)
-                throw std::runtime_error("Too many template instantiation iterations!");
+        { // Instantiate templates.
+            LogScope log(*params, [&]{return "Instantiating templates";});
 
-            ClangAstVisitor_InstTypesAndCollectNewTypes vis(ctx, *ci, *params);
-            vis.TraverseDecl(ctx.getTranslationUnitDecl());
-            VerifyStacks();
-            if (!vis.need_another_iteration)
+            for (int i = 0;; i++)
             {
-                if (i > 1)
-                    llvm::errs() << "mrbind: Used " << i+1 << " iterations to instantiate all templates.\n";
-                break;
+                if (i == 1000)
+                    throw std::runtime_error("Too many template instantiation iterations!");
+
+                LogScope log(*params, [&]{return "Instantiating templates, iteration " + std::to_string(i);});
+
+                ClangAstVisitor_InstTypesAndCollectNewTypes vis(ctx, *ci, *params);
+                vis.TraverseDecl(ctx.getTranslationUnitDecl());
+                VerifyStacks();
+                if (!vis.need_another_iteration)
+                {
+                    if (i > 1)
+                        llvm::errs() << "mrbind: Used " << i+1 << " iterations to instantiate all templates.\n";
+                    break;
+                }
             }
         }
 
-        // Gather the bulk of the information.
+        { // Gather the bulk of the information.
+            LogScope log(*params, [&]{return "Performing the final AST visit";});
 
-        ClangAstVisitor_Final vis(ctx, *ci, *params);
-        vis.TraverseDecl(ctx.getTranslationUnitDecl());
-        VerifyStacks();
+            ClangAstVisitor_Final vis(ctx, *ci, *params);
+            vis.TraverseDecl(ctx.getTranslationUnitDecl());
+            VerifyStacks();
+        }
 
         params->rejected_namespace_stack.pop_back();
 
@@ -3501,6 +3596,14 @@ int main(int raw_argc, char **raw_argv)
 
 
         { // Register flags.
+            args_parser.AddFlag("--verbose", {
+                .desc = "Print more logs.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.verbose = true;
+                },
+            });
+
             args_parser.AddFlag("-o", {
                 .allow_repeat = true,
                 .arg_names = {"output.cpp"},
