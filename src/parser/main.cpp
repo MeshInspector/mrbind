@@ -270,9 +270,16 @@ namespace mrbind
 
     struct LogScope
     {
+        bool enable = false;
         std::string message;
 
-        LogScope(const VisitorParams &params, auto &&message_lambda)
+        LogScope(const VisitorParams &params, std::string message)
+            : LogScope(params, [&]{return std::move(message);})
+        {}
+
+        template <typename F> requires (!std::is_convertible_v<F &, std::string_view>)
+        LogScope(const VisitorParams &params, F &&message_lambda)
+            : enable(params.verbose)
         {
             if (params.verbose)
             {
@@ -286,12 +293,20 @@ namespace mrbind
 
         void Update(std::string_view status) const
         {
-            llvm::errs() << "mrbind:  -  " << status << ' ' << message << '\n';
+            Update([&]{return status;});
+        }
+
+        template <typename F> requires (!std::is_convertible_v<F &, std::string_view>)
+        void Update(F &&status_lambda) const
+        {
+            if (enable)
+                llvm::errs() << "mrbind:  -  " << status_lambda() << '\n';
         }
 
         ~LogScope()
         {
-            llvm::errs() << "mrbind: <-- Finished " << message << '\n';
+            if (enable)
+                llvm::errs() << "mrbind: <-- Finished " << message << '\n';
         }
     };
 
@@ -1175,60 +1190,84 @@ namespace mrbind
     // Passing non-const decl here because `Sema::CheckInstantiatedFunctionTemplateConstraints()` needs that.
     [[nodiscard]] bool ShouldRejectFunction(clang::FunctionDecl &decl, const clang::ASTContext &ctx, const clang::CompilerInstance &ci, const VisitorParams &params, const PrintingPolicies &printing_policies, ShouldRejectFlags flags = {})
     {
+        LogScope log(params, "`ShouldRejectFunction()`");
+
         if (decl.getDeclName().getNameKind() == clang::DeclarationName::CXXLiteralOperatorName)
             return true; // Reject user-defined literals.
+        log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
         if (ShouldRejectDeclaration(decl, ctx, params, printing_policies, flags))
             return true;
+        log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
         // Skip deduction guides.
         // We don't seem to need to check this separately for class members, since they count as non-member functions, just like friend functions.
         if (llvm::isa<clang::CXXDeductionGuideDecl>(decl))
             return true;
+        log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
         if (decl.isDeleted())
             return true; // Skip deleted.
+        log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
         // If we reached here and din't stop at `ShouldRejectDeclaration()`, it means `flags` contains `allow_uninstantiated_templates`.
         bool is_templated = decl.isTemplated();
+        log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
         if (!is_templated && !FuncLooksLikeItHasAccessibleSignatureTypes(decl))
             return true;
+        log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
         // Custom handling for class methods.
         if (decl.isCXXClassMember())
         {
+            log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
             if (decl.getAccess() != clang::AS_public)
                 return true; // Reject non-public methods.
+            log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
             const clang::CXXMethodDecl *method = clang::dyn_cast<clang::CXXMethodDecl>(&decl);
             if (!method)
                 return true; // Unsure when this can happen, but anyway.
+            log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
             // if (method->getRefQualifier() == clang::RefQualifierKind::RQ_RValue)
             //     return true; // Skip rvalue-qualified methods, with the assumption that they're going to have lvalue-ref-qualified versions too.
         }
 
+        log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
         // Check the requires-clause, if any. Why doesn't libclang do this automatically?
         // Note the condition! It means we're checking it for the INSTANTIATIONS, not for the base template.
         if (!is_templated)
         {
+            log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
             // We need two calls to check the constraints properly, not entirey sure why. My best guess so far is that the first one is
             //   for non-template members of templates, and the second is for actual templates.
 
             // Approach 1.
             if (decl.getTrailingRequiresClause())
             {
+                log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
                 clang::ConstraintSatisfaction sat;
                 if (ci.getSema().CheckFunctionConstraints(&decl, sat))
                     throw std::runtime_error("Unable to evaluate the constraints for the method." );
+                log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
                 if (!sat.IsSatisfied)
                     return true; // Constraints are false.
             }
 
+            log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
             // Approach 2.
             if (auto args = decl.getTemplateSpecializationArgs())
             {
+                log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
                 clang::ConstraintSatisfaction sat;
                 #if CLANG_VERSION_MAJOR >= 21
                 if (ci.getSema().CheckFunctionTemplateConstraints(decl.getSourceRange().getBegin(), &decl, args->asArray(), sat))
@@ -1237,25 +1276,34 @@ namespace mrbind
                 if (ci.getSema().CheckInstantiatedFunctionTemplateConstraints(decl.getSourceRange().getBegin(), &decl, args->asArray(), sat))
                     throw std::runtime_error("Unable to evaluate the constraints for the function." );
                 #endif
+                log.Update([&]{return "Line " + std::to_string(__LINE__);});
                 if (!sat.IsSatisfied)
                     return true; // Constraints are false.
             }
         }
 
+        log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
         // Check the return and parameter types. This should be last, because this is relatively expensive.
         if (!is_templated)
         {
+            log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
             // Check return type, except in ctors, which don't have one.
             if (!llvm::isa<clang::CXXConstructorDecl>(decl) && ShouldRejectMentionsOfType(decl.getReturnType(), ci, params, printing_policies))
                 return true;
+            log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
             // Check parameters.
             for (const clang::ParmVarDecl *p : decl.parameters())
             {
                 if (ShouldRejectMentionsOfType(p->getType(), ci, params, printing_policies))
                     return true;
+                log.Update([&]{return "Line " + std::to_string(__LINE__);});
             }
         }
+
+        log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
         return false;
     }
@@ -3166,7 +3214,7 @@ namespace mrbind
         VerifyStacks();
 
         { // Collect the initial set of target types.
-            LogScope log(*params, [&]{return "Collecting the initial set of target types";});
+            LogScope log(*params, "Collecting the initial set of target types");
 
             ClangAstVisitor_CollectKnownTypes vis(ctx, *ci, *params);
             vis.TraverseDecl(ctx.getTranslationUnitDecl());
@@ -3177,7 +3225,7 @@ namespace mrbind
         }
 
         { // Instantiate templates.
-            LogScope log(*params, [&]{return "Instantiating templates";});
+            LogScope log(*params, "Instantiating templates");
 
             for (int i = 0;; i++)
             {
@@ -3199,7 +3247,7 @@ namespace mrbind
         }
 
         { // Gather the bulk of the information.
-            LogScope log(*params, [&]{return "Performing the final AST visit";});
+            LogScope log(*params, "Performing the final AST visit");
 
             ClangAstVisitor_Final vis(ctx, *ci, *params);
             vis.TraverseDecl(ctx.getTranslationUnitDecl());
