@@ -2808,7 +2808,11 @@ namespace mrbind
 
                     auto func_templ = llvm::dyn_cast<clang::FunctionTemplateDecl>(templ);
 
+                    log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
                     const clang::TemplateParameterList &tparams = *templ->getTemplateParameters();
+
+                    log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
                     // Can't use `tparams.getMinRequiredArguments()` because that apparently can return 0 when
                     //   the template arguments are deducible from the function parameters, or something like that.
@@ -2829,14 +2833,22 @@ namespace mrbind
                         }
                     );
 
+                    log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
                     if (all_params_have_default_args)
                     {
+                        log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
                         // Cook up a list of all default template arguments.
                         // Apparently just using an empty list doesn't work. It runs, but then the parser spits out `type-parameter-0-0` instead of the correct type name.
                         std::vector<clang::TemplateArgument> targs_vec(tparams.size());
                         for (unsigned i = 0; i < tparams.size(); i++)
                         {
+                            log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
                             const clang::NamedDecl *tparam = tparams.getParam(i);
+
+                            log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
                             // Here we MUST canonicalize the arguments somehow, because `FunctionTemplateDecl::findSpecialization()` returns
                             //   false negatives if you give it non-canonical types.
@@ -2847,10 +2859,12 @@ namespace mrbind
 
                             if (tparam->isParameterPack())
                             {
+                                log.Update([&]{return "Line " + std::to_string(__LINE__);});
                                 targs_vec[i] = clang::TemplateArgument::getEmptyPack(); // Empty pack is its own thing!
                             }
                             else if (auto ttp = llvm::dyn_cast<clang::TemplateTypeParmDecl>(tparam))
                             {
+                                log.Update([&]{return "Line " + std::to_string(__LINE__);});
                                 #if CLANG_VERSION_MAJOR == 18
                                 targs_vec[i] = ttp->getDefaultArgument().getCanonicalType(); // NOTE! This is important. See above.
                                 #else // 19+
@@ -2859,6 +2873,7 @@ namespace mrbind
                             }
                             else if (auto nttp = llvm::dyn_cast<clang::NonTypeTemplateParmDecl>(tparam))
                             {
+                                log.Update([&]{return "Line " + std::to_string(__LINE__);});
                                 #if CLANG_VERSION_MAJOR == 18
                                 targs_vec[i] = nttp->getDefaultArgument();
                                 #else // 19+
@@ -2867,18 +2882,25 @@ namespace mrbind
                             }
                             else if (auto tetp = llvm::dyn_cast<clang::TemplateTemplateParmDecl>(tparam))
                             {
+                                log.Update([&]{return "Line " + std::to_string(__LINE__);});
                                 targs_vec[i] = tetp->getDefaultArgument().getArgument(); // Hmm.
                             }
                             else
                             {
                                 throw std::logic_error("What is this template argument?");
                             }
+
+                            log.Update([&]{return "Line " + std::to_string(__LINE__);});
                         }
+
+                        log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
                         // For some reason this segfaults?! But it looks completely reasonable to me. Weird.
                         //   clang::MultiLevelTemplateArgumentList ml_targs = ci->getSema().getTemplateInstantiationArgs(func_templ, nullptr, false, targs_vec);
                         // So we do this instead:
                         clang::MultiLevelTemplateArgumentList ml_targs(func_templ, targs_vec, false);
+
+                        log.Update([&]{return "Line " + std::to_string(__LINE__);});
 
                         // Check if already instantiated...
                         // There's also `Sema::FindInstantiatedDecl()`, but I coundn't figure out how it's supposed to be used, of it's applicable here at all or not.
@@ -2886,6 +2908,8 @@ namespace mrbind
                         [[maybe_unused]] void *unused_insertion_point = nullptr;
                         if (!func_templ->findSpecialization(ml_targs.getInnermost(), unused_insertion_point))
                         {
+                            log.Update([&]{return "Line " + std::to_string(__LINE__);});
+
                             // This doesn't crash if already instantiated, and looks like it's a no-op in that case, but I'm not entirely sure.
                             // It doesn't matter anyway, because it doesn't seem to indicate to the caller whether it's already instantiated or not,
                             //   and we need that information to set `need_another_iteration`.
@@ -2919,11 +2943,16 @@ namespace mrbind
                                 if (!Inst.isInvalid())
                                 #endif
                                 {
+                                    log.Update([&]{return "Line " + std::to_string(__LINE__);});
                                     auto templated_decl = func_templ->getTemplatedDecl();
+                                    log.Update([&]{return "Line " + std::to_string(__LINE__);});
                                     clang::Sema::ContextRAII SavedContext(ci->getSema(), templated_decl);
+                                    log.Update([&]{return "Line " + std::to_string(__LINE__);});
                                     auto ret = cast_or_null<clang::FunctionDecl>(ci->getSema().SubstDecl(templated_decl, templated_decl->getParent(), ml_targs));
+                                    log.Update([&]{return "Line " + std::to_string(__LINE__);});
                                     if (ret)
                                     {
+                                        log.Update([&]{return "Line " + std::to_string(__LINE__);});
                                         // `new_decl` CAN be null if the function failed to instantiate because of a SFINAE error.
                                         // But this apparently doesn't happen for `requires` constraints?
                                         // NOTE! Even if it's non-null, you must also check `Sema::CheckInstantiatedFunctionTemplateConstraints()`
