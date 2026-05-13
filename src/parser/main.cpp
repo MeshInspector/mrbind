@@ -42,6 +42,8 @@
 #include <clang/Tooling/CommonOptionsParser.h>
 #include <clang/Tooling/Tooling.h>
 #include <llvm/Support/CommandLine.h>
+#include <llvm/Support/PrettyStackTrace.h>
+#include <llvm/Support/Signals.h>
 #include "post_include_clang.h"
 
 #include <array>
@@ -3470,6 +3472,13 @@ namespace mrbind
 
 int main(int raw_argc, char **raw_argv)
 {
+    // Print a stack trace to stderr on SIGSEGV / SEH access violations.
+    // RelWithDebInfo builds keep DWARF symbols in mrbind.exe, so the mrbind
+    // frames in the trace are line-numbered. libclang-cpp.dll frames will
+    // only show function names (msys2 strips DLL debug info).
+    llvm::sys::PrintStackTraceOnErrorSignal(raw_argv[0]);
+    llvm::PrettyStackTraceProgram pretty_stack(raw_argc, raw_argv);
+
     mrbind::SetErrorHandlers();
 
     std::string dump_command_to_file;
