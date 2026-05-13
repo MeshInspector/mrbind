@@ -2689,7 +2689,12 @@ namespace mrbind
         {
             // If this is a template, try instantiating it.
             // This is currently disabled by default because it's buggy: https://github.com/MeshInspector/mrbind/issues/19
-            if (params->buggy_substitute_default_template_args && decl->isTemplated() && !ShouldRejectFunction(*decl, *ctx, *ci, *params, printing_policies, ShouldRejectFlags::allow_uninstantiated_templates))
+            //
+            // Skip class members entirely (constructors, methods, ...). Per the comment below,
+            // they don't need this path, and `Sema::SubstDecl` on a member function template's
+            // pattern null-derefs internally on at least clang 22 — for example, a constructor
+            // template substitution crashes in `TemplateDeclInstantiator::InitMethodInstantiation`.
+            if (params->buggy_substitute_default_template_args && decl->isTemplated() && !llvm::isa<clang::CXXMethodDecl>(decl) && !ShouldRejectFunction(*decl, *ctx, *ci, *params, printing_policies, ShouldRejectFlags::allow_uninstantiated_templates))
             {
                 // Among other things, we visit the function declarations to instantiate their default arguments,
                 //   which apparently doesn't happen otherwise. This is only needed for free function templates.
