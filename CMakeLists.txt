@@ -65,14 +65,28 @@ if(MRBIND_BUILD_PARSER)
 
     target_include_directories(mrbind PRIVATE ${LLVM_INCLUDE_DIR} ${CLANG_INCLUDE_DIR})
 
-    if (TARGET clangTooling)
-        target_link_libraries(mrbind PRIVATE clangTooling)
-    else()
-        # The only platforms where this branch is used (that I know of) are Arch and Rocky.
-        # The `LLVM` part is only needed on Rocky.
-        # Trying this on e.g. Ubuntu causes the following runtime error when you run the resulting application:
-        #   LLVM ERROR: inconsistency in registered CommandLine options
+    # Opt-in: link against `libclang-cpp.dylib` + `libLLVM.dylib` instead of
+    # statically pulling in `clangTooling`. The dynamic path produces a much
+    # smaller `mrbind` binary (single shared lib resolved at runtime, vs. the
+    # entire clang/LLVM frontend statically linked). Useful for CI caches.
+    #
+    # We don't make it the default because on apt-clang/Ubuntu this branch
+    # caused `LLVM ERROR: inconsistency in registered CommandLine options` at
+    # runtime (duplicate `cl::opt` registrations between libclang-cpp.so and
+    # the granular libs that still slip into the link line). Homebrew's
+    # `llvm@N` on macOS is built with `LLVM_LINK_LLVM_DYLIB=ON` and doesn't
+    # exhibit that problem, so enabling this for Apple is safe.
+    option(MRBIND_LINK_CLANG_CPP_DYLIB
+        "Link mrbind against libclang-cpp + libLLVM dylibs instead of clangTooling. \
+Smaller binary, but the dylibs must be present at the same paths at runtime."
+        OFF)
+    if (MRBIND_LINK_CLANG_CPP_DYLIB OR NOT TARGET clangTooling)
+        # The only platforms where the `NOT TARGET clangTooling` branch is hit
+        # (that we know of) are Arch and Rocky. The `LLVM` part is only needed
+        # on Rocky.
         target_link_libraries(mrbind PRIVATE clang-cpp LLVM LLVMSupport)
+    else()
+        target_link_libraries(mrbind PRIVATE clangTooling)
     endif()
 endif()
 
