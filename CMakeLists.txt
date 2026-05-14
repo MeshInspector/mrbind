@@ -84,7 +84,18 @@ Smaller binary, but the dylibs must be present at the same paths at runtime."
         # The only platforms where the `NOT TARGET clangTooling` branch is hit
         # (that we know of) are Arch and Rocky. The `LLVM` part is only needed
         # on Rocky.
-        target_link_libraries(mrbind PRIVATE clang-cpp LLVM LLVMSupport)
+        #
+        # `$<LINK_ONLY:...>` keeps the targets on the link line but drops their
+        # INTERFACE_INCLUDE_DIRECTORIES. Homebrew's clang-cpp exports
+        # `/opt/homebrew/opt/llvm@N/include` there, which -- if propagated --
+        # comes ahead of libc++'s own header dir and breaks `<cstddef>`'s
+        # include chain at compile time. mrbind already explicitly adds the
+        # required include paths above (`LLVM_INCLUDE_DIR`/`CLANG_INCLUDE_DIR`),
+        # so dropping the link-target propagation is safe everywhere.
+        target_link_libraries(mrbind PRIVATE
+            $<LINK_ONLY:clang-cpp>
+            $<LINK_ONLY:LLVM>
+            $<LINK_ONLY:LLVMSupport>)
     else()
         target_link_libraries(mrbind PRIVATE clangTooling)
     endif()
