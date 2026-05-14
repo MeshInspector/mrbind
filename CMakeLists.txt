@@ -85,17 +85,28 @@ Smaller binary, but the dylibs must be present at the same paths at runtime."
         # (that we know of) are Arch and Rocky. The `LLVM` part is only needed
         # on Rocky.
         #
-        # `$<LINK_ONLY:...>` keeps the targets on the link line but drops their
-        # INTERFACE_INCLUDE_DIRECTORIES. Homebrew's clang-cpp exports
-        # `/opt/homebrew/opt/llvm@N/include` there, which -- if propagated --
-        # comes ahead of libc++'s own header dir and breaks `<cstddef>`'s
-        # include chain at compile time. mrbind already explicitly adds the
-        # required include paths above (`LLVM_INCLUDE_DIR`/`CLANG_INCLUDE_DIR`),
-        # so dropping the link-target propagation is safe everywhere.
-        target_link_libraries(mrbind PRIVATE
-            $<LINK_ONLY:clang-cpp>
-            $<LINK_ONLY:LLVM>
-            $<LINK_ONLY:LLVMSupport>)
+        # Resolve to absolute library paths via `find_library` instead of using
+        # the imported targets `clang-cpp` / `LLVM` / `LLVMSupport` directly.
+        # Linking through the imported targets propagates their
+        # INTERFACE_INCLUDE_DIRECTORIES (and possibly INTERFACE_COMPILE_OPTIONS),
+        # which on Homebrew's `llvm@N` adds `/opt/homebrew/opt/llvm@N/include`
+        # to mrbind's compile line and breaks libc++'s `<cstddef>` include
+        # chain. Linking by absolute path adds the libs to the link line
+        # without any usage-requirement propagation. mrbind already explicitly
+        # adds the include paths it needs above
+        # (`LLVM_INCLUDE_DIR`/`CLANG_INCLUDE_DIR`).
+        find_library(MRBIND_CLANG_CPP_LIB NAMES clang-cpp HINTS ${LLVM_LIBRARY_DIRS} REQUIRED)
+        target_link_libraries(mrbind PRIVATE ${MRBIND_CLANG_CPP_LIB})
+
+        find_library(MRBIND_LLVM_LIB NAMES LLVM HINTS ${LLVM_LIBRARY_DIRS})
+        if (MRBIND_LLVM_LIB)
+            target_link_libraries(mrbind PRIVATE ${MRBIND_LLVM_LIB})
+        endif()
+
+        find_library(MRBIND_LLVM_SUPPORT_LIB NAMES LLVMSupport HINTS ${LLVM_LIBRARY_DIRS})
+        if (MRBIND_LLVM_SUPPORT_LIB)
+            target_link_libraries(mrbind PRIVATE ${MRBIND_LLVM_SUPPORT_LIB})
+        endif()
     else()
         target_link_libraries(mrbind PRIVATE clangTooling)
     endif()
