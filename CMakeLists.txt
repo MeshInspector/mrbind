@@ -65,15 +65,11 @@ if(MRBIND_BUILD_PARSER)
 
     target_include_directories(mrbind PRIVATE ${LLVM_INCLUDE_DIR} ${CLANG_INCLUDE_DIR})
 
-    if (TARGET clangTooling)
-        target_link_libraries(mrbind PRIVATE clangTooling)
-    else()
-        # The only platforms where this branch is used (that I know of) are Arch and Rocky.
-        # The `LLVM` part is only needed on Rocky.
-        # Trying this on e.g. Ubuntu causes the following runtime error when you run the resulting application:
-        #   LLVM ERROR: inconsistency in registered CommandLine options
-        target_link_libraries(mrbind PRIVATE clang-cpp LLVM LLVMSupport)
-    endif()
+    # Clang lets you choose between large dynamic libraries, and fine-grained static libraries.
+    # Those are the large dynamic ones. If they are not available for some reason,
+    #   we could switch to the static ones (probably conditionally here in CMake, by checking what's available).
+    # See the git history to see some related static library names.
+    target_link_libraries(mrbind PRIVATE LLVM clang-cpp)
 endif()
 
 
