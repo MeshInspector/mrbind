@@ -42,6 +42,8 @@
 #include <clang/Tooling/CommonOptionsParser.h>
 #include <clang/Tooling/Tooling.h>
 #include <llvm/Support/CommandLine.h>
+#include <llvm/Support/PrettyStackTrace.h>
+#include <llvm/Support/Signals.h>
 #include "post_include_clang.h"
 
 #include <array>
@@ -3460,13 +3462,23 @@ int main(int raw_argc, char **raw_argv)
 {
     mrbind::SetErrorHandlers();
 
+    mrbind::CommandLineArgsAsUtf8 utf8_args(raw_argc, raw_argv);
+
+    { // Configure LLVM error reporting.
+        // Change the "please report bug" message to not include the LLVM bug tracker URL, since it could be our bug instead.
+        llvm::setBugReportMsg("Consider submitting a bug to https://github.com/MeshInspector/mrbind or directly to Clang if applicable");
+
+        // Set LLVM error handler to print the stack on failure.
+        llvm::sys::PrintStackTraceOnErrorSignal(utf8_args.argv[0]);
+        // When `PrintStackTraceOnErrorSignal()` prints the stack, this inserts `argc` and `argv` into that stack.
+        llvm::PrettyStackTraceProgram pretty_stack(utf8_args.argc, utf8_args.argv);
+    }
+
     std::string dump_command_to_file;
     bool dump_command_with_null_separators = false;
     bool remove_pch_flags = false;
 
     mrbind::VisitorParams params;
-
-    mrbind::CommandLineArgsAsUtf8 utf8_args(raw_argc, raw_argv);
 
     std::vector<const char *> clang_argv;
     { // Handle custom options in `utf8_args`, place the rest in `clang_argv`.
