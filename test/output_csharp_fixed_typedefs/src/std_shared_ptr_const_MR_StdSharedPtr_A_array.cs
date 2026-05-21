@@ -87,12 +87,12 @@ public static partial class MR
                 /// <summary>
                 /// Returns an element from the stored array. The stored pointer must not be null.
                 /// </summary>
-                public unsafe MR.CS.StdSharedPtr.Const_A this[long i]
+                public unsafe MR.CS.StdSharedPtr.Const_A this[nint i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_at", ExactSpelling = true)]
-                        extern static MR.CS.StdSharedPtr.Const_A._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_at(_Underlying *_this, long i);
+                        extern static MR.CS.StdSharedPtr.Const_A._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_at(_Underlying *_this, nint i);
                         MR.CS.StdSharedPtr.Const_A __ret;
                         __ret = new(__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_at(_UnderlyingPtr, i), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
@@ -115,10 +115,10 @@ public static partial class MR
                 /// <summary>
                 /// Construct an array of the specified size.
                 /// </summary>
-                public unsafe Const_SharedPtr_ConstMRStdSharedPtrAArray(ulong size) : this(null, is_owning: true)
+                public unsafe Const_SharedPtr_ConstMRStdSharedPtrAArray(nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(ulong size);
+                    extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(nuint size);
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(size);
                 }
 
@@ -256,10 +256,10 @@ public static partial class MR
                 /// <summary>
                 /// Construct an array of the specified size.
                 /// </summary>
-                public unsafe SharedPtr_ConstMRStdSharedPtrAArray(ulong size) : this(null, is_owning: true)
+                public unsafe SharedPtr_ConstMRStdSharedPtrAArray(nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize", ExactSpelling = true)]
-                    extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(ulong size);
+                    extern static MR.CS.Std.SharedPtr_ConstMRStdSharedPtrAArray._Underlying *__MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(nuint size);
                     _UnderlyingPtr = __MR_C_std_shared_ptr_const_MR_StdSharedPtr_A_array_ConstructFromSize(size);
                 }
 

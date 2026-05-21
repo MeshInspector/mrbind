@@ -126,10 +126,10 @@ public static partial class MR
                 /// <summary>
                 /// Construct from a range of elements.
                 /// </summary>
-                public unsafe Const_Set_Float(float? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Const_Set_Float(float? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.Set_Float._Underlying *__MR_C_std_set_float_ConstructFromRange(float *ptr, ulong size);
+                    extern static MR.CS.Std.Set_Float._Underlying *__MR_C_std_set_float_ConstructFromRange(float *ptr, nuint size);
                     float __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_set_float_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -137,10 +137,10 @@ public static partial class MR
                 /// <summary>
                 /// The number of elements.
                 /// </summary>
-                public unsafe ulong size()
+                public unsafe nuint size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_set_float_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_set_float_size(_Underlying *_this);
                     return __MR_C_std_set_float_size(_UnderlyingPtr);
                 }
 
@@ -497,10 +497,10 @@ public static partial class MR
                 /// <summary>
                 /// Construct from a range of elements.
                 /// </summary>
-                public unsafe Set_Float(float? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Set_Float(float? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.Set_Float._Underlying *__MR_C_std_set_float_ConstructFromRange(float *ptr, ulong size);
+                    extern static MR.CS.Std.Set_Float._Underlying *__MR_C_std_set_float_ConstructFromRange(float *ptr, nuint size);
                     float __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_set_float_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -508,10 +508,10 @@ public static partial class MR
                 /// <summary>
                 /// Assign from a range of elements, overwriting previous contents.
                 /// </summary>
-                public unsafe void assign(float? ptr, ulong size)
+                public unsafe void assign(float? ptr, nuint size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_set_float_AssignFromRange", ExactSpelling = true)]
-                    extern static void __MR_C_std_set_float_AssignFromRange(_Underlying *_this, float *ptr, ulong size);
+                    extern static void __MR_C_std_set_float_AssignFromRange(_Underlying *_this, float *ptr, nuint size);
                     float __deref_ptr = ptr.GetValueOrDefault();
                     __MR_C_std_set_float_AssignFromRange(_UnderlyingPtr, ptr.HasValue ? &__deref_ptr : null, size);
                 }

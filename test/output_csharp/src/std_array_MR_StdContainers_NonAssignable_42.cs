@@ -101,12 +101,12 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, read-only.
-                public unsafe MR.CS.StdContainers.Const_NonAssignable this[ulong i]
+                public unsafe MR.CS.StdContainers.Const_NonAssignable this[nuint i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_at", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_at(_Underlying *_this, ulong i);
+                        extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_at(_Underlying *_this, nuint i);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_std_array_MR_StdContainers_NonAssignable_42_at(_UnderlyingPtr, i);
                         MR.CS.StdContainers.Const_NonAssignable __ret;
@@ -232,12 +232,12 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe new MR.CS.StdContainers.NonAssignable this[ulong i]
+                public unsafe new MR.CS.StdContainers.NonAssignable this[nuint i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_array_MR_StdContainers_NonAssignable_42_at_mut", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_at_mut(_Underlying *_this, ulong i);
+                        extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_array_MR_StdContainers_NonAssignable_42_at_mut(_Underlying *_this, nuint i);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_std_array_MR_StdContainers_NonAssignable_42_at_mut(_UnderlyingPtr, i);
                         MR.CS.StdContainers.NonAssignable __ret;

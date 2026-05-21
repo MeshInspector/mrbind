@@ -118,10 +118,10 @@ public static partial class MR
                 public Const_Multiset_Float(Multiset_Float other) : this((Const_Multiset_Float)other) {}
 
                 /// Construct from a range of elements.
-                public unsafe Const_Multiset_Float(float? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Const_Multiset_Float(float? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multiset_Float._Underlying *__MR_C_std_multiset_float_ConstructFromRange(float *ptr, ulong size);
+                    extern static MR.CS.Std.Multiset_Float._Underlying *__MR_C_std_multiset_float_ConstructFromRange(float *ptr, nuint size);
                     MR.CS.Misc._Exceptions.Prepare();
                     float __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_multiset_float_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
@@ -129,10 +129,10 @@ public static partial class MR
                 }
 
                 /// The number of elements.
-                public unsafe ulong Size()
+                public unsafe nuint Size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_multiset_float_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_multiset_float_size(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_multiset_float_size(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -151,10 +151,10 @@ public static partial class MR
                 }
 
                 /// Checks if the contain contains this key.
-                public unsafe ulong Count(float key)
+                public unsafe nuint Count(float key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_count", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_multiset_float_count(_Underlying *_this, float *key);
+                    extern static nuint __MR_C_std_multiset_float_count(_Underlying *_this, float *key);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_multiset_float_count(_UnderlyingPtr, &key);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -481,10 +481,10 @@ public static partial class MR
                 }
 
                 /// Construct from a range of elements.
-                public unsafe Multiset_Float(float? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Multiset_Float(float? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multiset_Float._Underlying *__MR_C_std_multiset_float_ConstructFromRange(float *ptr, ulong size);
+                    extern static MR.CS.Std.Multiset_Float._Underlying *__MR_C_std_multiset_float_ConstructFromRange(float *ptr, nuint size);
                     MR.CS.Misc._Exceptions.Prepare();
                     float __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_multiset_float_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
@@ -492,10 +492,10 @@ public static partial class MR
                 }
 
                 /// Assign from a range of elements, overwriting previous contents.
-                public unsafe void Assign(float? ptr, ulong size)
+                public unsafe void Assign(float? ptr, nuint size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_float_AssignFromRange", ExactSpelling = true)]
-                    extern static void __MR_C_std_multiset_float_AssignFromRange(_Underlying *_this, float *ptr, ulong size);
+                    extern static void __MR_C_std_multiset_float_AssignFromRange(_Underlying *_this, float *ptr, nuint size);
                     MR.CS.Misc._Exceptions.Prepare();
                     float __deref_ptr = ptr.GetValueOrDefault();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();

@@ -82,12 +82,12 @@ public static partial class MR
                 /// <summary>
                 /// Returns an element from the stored array. The stored pointer must not be null.
                 /// </summary>
-                public unsafe MR.CS.StdUniquePtr.A this[ulong i]
+                public unsafe MR.CS.StdUniquePtr.A this[nuint i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_at", ExactSpelling = true)]
-                        extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_at(_Underlying *_this, ulong i);
+                        extern static MR.CS.StdUniquePtr.A._Underlying *__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_at(_Underlying *_this, nuint i);
                         MR.CS.StdUniquePtr.A __ret;
                         __ret = new(__MR_C_std_unique_ptr_MR_StdUniquePtr_A_array_at(_UnderlyingPtr, i), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;

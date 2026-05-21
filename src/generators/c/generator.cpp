@@ -4066,7 +4066,6 @@ namespace mrbind::C
         // Should we also handle `[u]int32_t` here somehow? Maybe not.
         const bool is_default_underlying_type = cpp_underlying_type_str == "int" || cpp_underlying_type_str == "unsigned int";
 
-        // This can crash if the underlying type isn't a known un
         auto underlying_type_info = data.platform_info.FindPrimitiveType(cpp_underlying_type_str);
         if (!underlying_type_info)
             throw std::runtime_error("Unknown underlying type `" + cpp_underlying_type_str + "` for enum `" + std::string(c_enum_name) + "`.");

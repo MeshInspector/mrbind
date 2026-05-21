@@ -126,10 +126,10 @@ public static partial class MR
                 /// <summary>
                 /// The number of elements.
                 /// </summary>
-                public unsafe ulong size()
+                public unsafe nuint size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int32_t_float_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_phmap_btree_multimap_int32_t_float_size(_Underlying *_this);
+                    extern static nuint __MR_C_phmap_btree_multimap_int32_t_float_size(_Underlying *_this);
                     return __MR_C_phmap_btree_multimap_int32_t_float_size(_UnderlyingPtr);
                 }
 
@@ -146,10 +146,10 @@ public static partial class MR
                 /// <summary>
                 /// Checks if the contain contains this key.
                 /// </summary>
-                public unsafe ulong count(int key)
+                public unsafe nuint count(int key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_multimap_int32_t_float_count", ExactSpelling = true)]
-                    extern static ulong __MR_C_phmap_btree_multimap_int32_t_float_count(_Underlying *_this, int *key);
+                    extern static nuint __MR_C_phmap_btree_multimap_int32_t_float_count(_Underlying *_this, int *key);
                     return __MR_C_phmap_btree_multimap_int32_t_float_count(_UnderlyingPtr, &key);
                 }
 

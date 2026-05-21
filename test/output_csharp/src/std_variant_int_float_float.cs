@@ -51,10 +51,10 @@ public static partial class MR
                 public Const_Variant_Int_Float_Float(Variant_Int_Float_Float other) : this((Const_Variant_Int_Float_Float)other) {}
 
                 /// Returns the index of the stored element type. In rare cases may return -1 if this variant is "valueless by exception".
-                public unsafe ulong Index()
+                public unsafe nuint Index()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_int_float_float_index", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_variant_int_float_float_index(_Underlying *_this);
+                    extern static nuint __MR_C_std_variant_int_float_float_index(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_variant_int_float_float_index(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();

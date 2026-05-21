@@ -492,12 +492,14 @@ namespace mrbind::CSharp
                 if (opt->type_size == 8) return "double";
                 break;
               case PrimitiveTypeInfo::Kind::signed_integral:
+                if (opt->is_size_type) return "nint";
                 if (opt->type_size == 1) return "sbyte";
                 if (opt->type_size == 2) return "short";
                 if (opt->type_size == 4) return "int";
                 if (opt->type_size == 8) return "long"; // `long` is always 8 bytes in C#.
                 break;
               case PrimitiveTypeInfo::Kind::unsigned_integral:
+                if (opt->is_size_type) return "nuint";
                 if (opt->type_size == 1) return "byte";
                 if (opt->type_size == 2) return "ushort";
                 if (opt->type_size == 4) return "uint";
@@ -5407,6 +5409,10 @@ namespace mrbind::CSharp
             auto underlying_type = CToCSharpPrimitiveTypeOpt(enum_desc.underlying_type, false);
             if (!underlying_type)
                 throw std::runtime_error("Unknown underlying C type: `" + enum_desc.underlying_type + "`.");
+
+            if (*underlying_type == "nint" || *underlying_type == "nuint")
+                throw std::runtime_error("C# doesn't support `nint` and `nuint` as underlying types for enums, meaning the input C++ code must not use `std::size_t` and `std::ptrdiff_t` as enum underlying types.");
+
             // Write the underlying type.
             file.WriteString(*underlying_type);
             file.WriteString("\n");

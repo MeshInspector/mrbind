@@ -83,10 +83,10 @@ public static partial class MR
                 /// <summary>
                 /// The number of characters in the string, excluding the null-terminator.
                 /// </summary>
-                public unsafe ulong size()
+                public unsafe nuint size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_string_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_string_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_string_size(_Underlying *_this);
                     return __MR_C_std_string_size(_UnderlyingPtr);
                 }
 

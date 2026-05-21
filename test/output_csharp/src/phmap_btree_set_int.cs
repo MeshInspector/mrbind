@@ -118,10 +118,10 @@ public static partial class MR
                 public Const_BtreeSet_Int(BtreeSet_Int other) : this((Const_BtreeSet_Int)other) {}
 
                 /// Construct from a range of elements.
-                public unsafe Const_BtreeSet_Int(int? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Const_BtreeSet_Int(int? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_set_int_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.BtreeSet_Int._Underlying *__MR_C_phmap_btree_set_int_ConstructFromRange(int *ptr, ulong size);
+                    extern static MR.CS.Phmap.BtreeSet_Int._Underlying *__MR_C_phmap_btree_set_int_ConstructFromRange(int *ptr, nuint size);
                     MR.CS.Misc._Exceptions.Prepare();
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_phmap_btree_set_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
@@ -129,10 +129,10 @@ public static partial class MR
                 }
 
                 /// The number of elements.
-                public unsafe ulong Size()
+                public unsafe nuint Size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_set_int_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_phmap_btree_set_int_size(_Underlying *_this);
+                    extern static nuint __MR_C_phmap_btree_set_int_size(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_phmap_btree_set_int_size(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -481,10 +481,10 @@ public static partial class MR
                 }
 
                 /// Construct from a range of elements.
-                public unsafe BtreeSet_Int(int? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe BtreeSet_Int(int? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_set_int_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.BtreeSet_Int._Underlying *__MR_C_phmap_btree_set_int_ConstructFromRange(int *ptr, ulong size);
+                    extern static MR.CS.Phmap.BtreeSet_Int._Underlying *__MR_C_phmap_btree_set_int_ConstructFromRange(int *ptr, nuint size);
                     MR.CS.Misc._Exceptions.Prepare();
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_phmap_btree_set_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
@@ -492,10 +492,10 @@ public static partial class MR
                 }
 
                 /// Assign from a range of elements, overwriting previous contents.
-                public unsafe void Assign(int? ptr, ulong size)
+                public unsafe void Assign(int? ptr, nuint size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_btree_set_int_AssignFromRange", ExactSpelling = true)]
-                    extern static void __MR_C_phmap_btree_set_int_AssignFromRange(_Underlying *_this, int *ptr, ulong size);
+                    extern static void __MR_C_phmap_btree_set_int_AssignFromRange(_Underlying *_this, int *ptr, nuint size);
                     MR.CS.Misc._Exceptions.Prepare();
                     int __deref_ptr = ptr.GetValueOrDefault();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();

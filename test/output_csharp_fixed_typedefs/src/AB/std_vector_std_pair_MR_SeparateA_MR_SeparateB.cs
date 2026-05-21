@@ -126,10 +126,10 @@ public static partial class MR
                 /// <summary>
                 /// The number of elements.
                 /// </summary>
-                public unsafe ulong size()
+                public unsafe nuint size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_size(_Underlying *_this);
                     return __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_size(_UnderlyingPtr);
                 }
 
@@ -146,22 +146,22 @@ public static partial class MR
                 /// <summary>
                 /// The memory capacity, measued in the number of elements.
                 /// </summary>
-                public unsafe ulong capacity()
+                public unsafe nuint capacity()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_capacity", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_capacity(_Underlying *_this);
+                    extern static nuint __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_capacity(_Underlying *_this);
                     return __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_capacity(_UnderlyingPtr);
                 }
 
                 /// <summary>
                 /// The element at a specific index, read-only.
                 /// </summary>
-                public unsafe MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB this[ulong i]
+                public unsafe MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB this[nuint i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at", ExactSpelling = true)]
-                        extern static MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at(_Underlying *_this, ulong i);
+                        extern static MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at(_Underlying *_this, nuint i);
                         MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB __ret;
                         __ret = new(__MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at(_UnderlyingPtr, i), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
@@ -266,20 +266,20 @@ public static partial class MR
                 /// <summary>
                 /// Convert a const iterator to an index.
                 /// </summary>
-                public unsafe long toIndex(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_ConstIterator iter)
+                public unsafe nint toIndex(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_to_index", ExactSpelling = true)]
-                    extern static long __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_to_index(_Underlying *_this, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.ConstIterator._Underlying *iter);
+                    extern static nint __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_to_index(_Underlying *_this, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.ConstIterator._Underlying *iter);
                     return __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_to_index(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
                 /// <summary>
                 /// Convert a mutable iterator to an index.
                 /// </summary>
-                public unsafe long toIndex(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_Iterator iter)
+                public unsafe nint toIndex(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_to_index_mut", ExactSpelling = true)]
-                    extern static long __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Iterator._Underlying *iter);
+                    extern static nint __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Iterator._Underlying *iter);
                     return __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_to_index_mut(_UnderlyingPtr, iter._UnderlyingPtr);
                 }
 
@@ -388,10 +388,10 @@ public static partial class MR
                     /// <summary>
                     /// Computes the signed difference between two const iterators. Completes in constant time.
                     /// </summary>
-                    public static unsafe long operator-(Const_ConstIterator a, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_ConstIterator b)
+                    public static unsafe nint operator-(Const_ConstIterator a, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_ConstIterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_sub_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator", ExactSpelling = true)]
-                        extern static long __MR_C_sub_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.ConstIterator._Underlying *a, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.ConstIterator._Underlying *b);
+                        extern static nint __MR_C_sub_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.ConstIterator._Underlying *a, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.ConstIterator._Underlying *b);
                         return __MR_C_sub_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                     }
 
@@ -513,10 +513,10 @@ public static partial class MR
                     /// <summary>
                     /// Increments or decrements a const iterator by the specific amount. Completes in constant time.
                     /// </summary>
-                    public unsafe void addAssign(long delta)
+                    public unsafe void addAssign(nint delta)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator_add_assign", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator_add_assign(_Underlying *_this, long delta);
+                        extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator_add_assign(_Underlying *_this, nint delta);
                         __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_const_iterator_add_assign(_UnderlyingPtr, delta);
                     }
                 }
@@ -650,10 +650,10 @@ public static partial class MR
                     /// <summary>
                     /// Computes the signed difference between two mutable iterators. Completes in constant time.
                     /// </summary>
-                    public static unsafe long operator-(Const_Iterator a, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_Iterator b)
+                    public static unsafe nint operator-(Const_Iterator a, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Const_Iterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_sub_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator", ExactSpelling = true)]
-                        extern static long __MR_C_sub_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Iterator._Underlying *a, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Iterator._Underlying *b);
+                        extern static nint __MR_C_sub_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator(MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Iterator._Underlying *a, MR.CS.Std.Vector_StdPairMRSeparateAMRSeparateB.Iterator._Underlying *b);
                         return __MR_C_sub_MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                     }
 
@@ -760,10 +760,10 @@ public static partial class MR
                     /// <summary>
                     /// Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
                     /// </summary>
-                    public unsafe void addAssign(long delta)
+                    public unsafe void addAssign(nint delta)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator_add_assign", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator_add_assign(_Underlying *_this, long delta);
+                        extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator_add_assign(_Underlying *_this, nint delta);
                         __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_iterator_add_assign(_UnderlyingPtr, delta);
                     }
                 }
@@ -921,10 +921,10 @@ public static partial class MR
                 /// <summary>
                 /// Resizes the container. The new elements if any are set to the specified value.
                 /// </summary>
-                public unsafe void resizeWithDefaultValue(ulong new_size, MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB value)
+                public unsafe void resizeWithDefaultValue(nuint new_size, MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_resize_with_default_value", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_resize_with_default_value(_Underlying *_this, ulong new_size, MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *value);
+                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_resize_with_default_value(_Underlying *_this, nuint new_size, MR.CS.Std.Const_Pair_MRSeparateA_MRSeparateB._Underlying *value);
                     __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_resize_with_default_value(_UnderlyingPtr, new_size, value._UnderlyingPtr);
                 }
 
@@ -942,10 +942,10 @@ public static partial class MR
                 /// <summary>
                 /// Reserves memory for a certain number of elements. Never shrinks the memory.
                 /// </summary>
-                public unsafe void reserve(ulong new_capacity)
+                public unsafe void reserve(nuint new_capacity)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_reserve", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_reserve(_Underlying *_this, ulong new_capacity);
+                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_reserve(_Underlying *_this, nuint new_capacity);
                     __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_reserve(_UnderlyingPtr, new_capacity);
                 }
 
@@ -962,12 +962,12 @@ public static partial class MR
                 /// <summary>
                 /// The element at a specific index, mutable.
                 /// </summary>
-                public unsafe new MR.CS.Std.Pair_MRSeparateA_MRSeparateB this[ulong i]
+                public unsafe new MR.CS.Std.Pair_MRSeparateA_MRSeparateB this[nuint i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at_mut", ExactSpelling = true)]
-                        extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at_mut(_Underlying *_this, ulong i);
+                        extern static MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *__MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at_mut(_Underlying *_this, nuint i);
                         MR.CS.Std.Pair_MRSeparateA_MRSeparateB __ret;
                         __ret = new(__MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_at_mut(_UnderlyingPtr, i), is_owning: false);
                         __ret._KeepAliveEnclosingObject = this;
@@ -1027,10 +1027,10 @@ public static partial class MR
                 /// <summary>
                 /// Inserts a new element right before the specified position.
                 /// </summary>
-                public unsafe void insert(ulong position, MR.CS.Std._ByValue_Pair_MRSeparateA_MRSeparateB new_elem)
+                public unsafe void insert(nuint position, MR.CS.Std._ByValue_Pair_MRSeparateA_MRSeparateB new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert(_Underlying *_this, ulong position, MR.CS.Misc._PassBy new_elem_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *new_elem);
+                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert(_Underlying *_this, nuint position, MR.CS.Misc._PassBy new_elem_pass_by, MR.CS.Std.Pair_MRSeparateA_MRSeparateB._Underlying *new_elem);
                     if (new_elem.Value is not null) _KeepAlive(new_elem.Value);
                     __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_insert(_UnderlyingPtr, position, new_elem.PassByMode, new_elem.Value is not null ? new_elem.Value._UnderlyingPtr : null);
                 }
@@ -1038,10 +1038,10 @@ public static partial class MR
                 /// <summary>
                 /// Erases the element at the specified position.
                 /// </summary>
-                public unsafe void erase(ulong position)
+                public unsafe void erase(nuint position)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh_AB", EntryPoint = "MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_erase", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_erase(_Underlying *_this, ulong position);
+                    extern static void __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_erase(_Underlying *_this, nuint position);
                     __MR_C_std_vector_std_pair_MR_SeparateA_MR_SeparateB_erase(_UnderlyingPtr, position);
                 }
 

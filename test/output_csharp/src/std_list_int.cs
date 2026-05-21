@@ -118,10 +118,10 @@ public static partial class MR
                 public Const_List_Int(List_Int other) : this((Const_List_Int)other) {}
 
                 /// Construct from a range of elements.
-                public unsafe Const_List_Int(int? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Const_List_Int(int? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromRange(int *ptr, ulong size);
+                    extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromRange(int *ptr, nuint size);
                     MR.CS.Misc._Exceptions.Prepare();
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_list_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
@@ -129,10 +129,10 @@ public static partial class MR
                 }
 
                 /// The number of elements.
-                public unsafe ulong Size()
+                public unsafe nuint Size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_list_int_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_list_int_size(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_list_int_size(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -802,10 +802,10 @@ public static partial class MR
                 }
 
                 /// Construct from a range of elements.
-                public unsafe List_Int(int? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe List_Int(int? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromRange(int *ptr, ulong size);
+                    extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromRange(int *ptr, nuint size);
                     MR.CS.Misc._Exceptions.Prepare();
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_list_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
@@ -813,10 +813,10 @@ public static partial class MR
                 }
 
                 /// Assign from a range of elements, overwriting previous contents.
-                public unsafe void Assign(int? ptr, ulong size)
+                public unsafe void Assign(int? ptr, nuint size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_AssignFromRange", ExactSpelling = true)]
-                    extern static void __MR_C_std_list_int_AssignFromRange(_Underlying *_this, int *ptr, ulong size);
+                    extern static void __MR_C_std_list_int_AssignFromRange(_Underlying *_this, int *ptr, nuint size);
                     MR.CS.Misc._Exceptions.Prepare();
                     int __deref_ptr = ptr.GetValueOrDefault();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -824,20 +824,20 @@ public static partial class MR
                 }
 
                 /// Resizes the container. The new elements if any are zeroed.
-                public unsafe void Resize(ulong new_size)
+                public unsafe void Resize(nuint new_size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_resize", ExactSpelling = true)]
-                    extern static void __MR_C_std_list_int_resize(_Underlying *_this, ulong new_size);
+                    extern static void __MR_C_std_list_int_resize(_Underlying *_this, nuint new_size);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_resize(_UnderlyingPtr, new_size);
                 }
 
                 /// Resizes the container. The new elements if any are set to the specified value.
-                public unsafe void ResizeWithDefaultValue(ulong new_size, int value)
+                public unsafe void ResizeWithDefaultValue(nuint new_size, int value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_resize_with_default_value", ExactSpelling = true)]
-                    extern static void __MR_C_std_list_int_resize_with_default_value(_Underlying *_this, ulong new_size, int value);
+                    extern static void __MR_C_std_list_int_resize_with_default_value(_Underlying *_this, nuint new_size, int value);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_list_int_resize_with_default_value(_UnderlyingPtr, new_size, value);

@@ -126,10 +126,10 @@ public static partial class MR
                 /// <summary>
                 /// Construct from a range of elements.
                 /// </summary>
-                public unsafe Const_ParallelNodeHashSet_Int32T(int? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Const_ParallelNodeHashSet_Int32T(int? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_set_int32_t_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.ParallelNodeHashSet_Int32T._Underlying *__MR_C_phmap_parallel_node_hash_set_int32_t_ConstructFromRange(int *ptr, ulong size);
+                    extern static MR.CS.Phmap.ParallelNodeHashSet_Int32T._Underlying *__MR_C_phmap_parallel_node_hash_set_int32_t_ConstructFromRange(int *ptr, nuint size);
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_phmap_parallel_node_hash_set_int32_t_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -137,10 +137,10 @@ public static partial class MR
                 /// <summary>
                 /// The number of elements.
                 /// </summary>
-                public unsafe ulong size()
+                public unsafe nuint size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_set_int32_t_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_phmap_parallel_node_hash_set_int32_t_size(_Underlying *_this);
+                    extern static nuint __MR_C_phmap_parallel_node_hash_set_int32_t_size(_Underlying *_this);
                     return __MR_C_phmap_parallel_node_hash_set_int32_t_size(_UnderlyingPtr);
                 }
 
@@ -475,10 +475,10 @@ public static partial class MR
                 /// <summary>
                 /// Construct from a range of elements.
                 /// </summary>
-                public unsafe ParallelNodeHashSet_Int32T(int? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe ParallelNodeHashSet_Int32T(int? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_set_int32_t_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Phmap.ParallelNodeHashSet_Int32T._Underlying *__MR_C_phmap_parallel_node_hash_set_int32_t_ConstructFromRange(int *ptr, ulong size);
+                    extern static MR.CS.Phmap.ParallelNodeHashSet_Int32T._Underlying *__MR_C_phmap_parallel_node_hash_set_int32_t_ConstructFromRange(int *ptr, nuint size);
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_phmap_parallel_node_hash_set_int32_t_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -486,10 +486,10 @@ public static partial class MR
                 /// <summary>
                 /// Assign from a range of elements, overwriting previous contents.
                 /// </summary>
-                public unsafe void assign(int? ptr, ulong size)
+                public unsafe void assign(int? ptr, nuint size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_phmap_parallel_node_hash_set_int32_t_AssignFromRange", ExactSpelling = true)]
-                    extern static void __MR_C_phmap_parallel_node_hash_set_int32_t_AssignFromRange(_Underlying *_this, int *ptr, ulong size);
+                    extern static void __MR_C_phmap_parallel_node_hash_set_int32_t_AssignFromRange(_Underlying *_this, int *ptr, nuint size);
                     int __deref_ptr = ptr.GetValueOrDefault();
                     __MR_C_phmap_parallel_node_hash_set_int32_t_AssignFromRange(_UnderlyingPtr, ptr.HasValue ? &__deref_ptr : null, size);
                 }

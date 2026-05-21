@@ -118,10 +118,10 @@ public static partial class MR
                 public Const_UnorderedMultimap_MRStdContainersNonAssignable_Float(UnorderedMultimap_MRStdContainersNonAssignable_Float other) : this((Const_UnorderedMultimap_MRStdContainersNonAssignable_Float)other) {}
 
                 /// The number of elements.
-                public unsafe ulong Size()
+                public unsafe nuint Size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_size(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_size(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -140,10 +140,10 @@ public static partial class MR
                 }
 
                 /// Checks if the contain contains this key.
-                public unsafe ulong Count(MR.CS.StdContainers.Const_NonAssignable key)
+                public unsafe nuint Count(MR.CS.StdContainers.Const_NonAssignable key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_count", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_count(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
+                    extern static nuint __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_count(_Underlying *_this, MR.CS.StdContainers.Const_NonAssignable._Underlying *key);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_unordered_multimap_MR_StdContainers_NonAssignable_float_count(_UnderlyingPtr, key._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();

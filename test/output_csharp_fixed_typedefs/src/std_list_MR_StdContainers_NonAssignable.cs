@@ -126,10 +126,10 @@ public static partial class MR
                 /// <summary>
                 /// The number of elements.
                 /// </summary>
-                public unsafe ulong size()
+                public unsafe nuint size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_list_MR_StdContainers_NonAssignable_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_list_MR_StdContainers_NonAssignable_size(_Underlying *_this);
                     return __MR_C_std_list_MR_StdContainers_NonAssignable_size(_UnderlyingPtr);
                 }
 
@@ -835,20 +835,20 @@ public static partial class MR
                 /// <summary>
                 /// Resizes the container. The new elements if any are zeroed.
                 /// </summary>
-                public unsafe void resize(ulong new_size)
+                public unsafe void resize(nuint new_size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_resize", ExactSpelling = true)]
-                    extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_resize(_Underlying *_this, ulong new_size);
+                    extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_resize(_Underlying *_this, nuint new_size);
                     __MR_C_std_list_MR_StdContainers_NonAssignable_resize(_UnderlyingPtr, new_size);
                 }
 
                 /// <summary>
                 /// Resizes the container. The new elements if any are set to the specified value.
                 /// </summary>
-                public unsafe void resizeWithDefaultValue(ulong new_size, MR.CS.StdContainers.Const_NonAssignable value)
+                public unsafe void resizeWithDefaultValue(nuint new_size, MR.CS.StdContainers.Const_NonAssignable value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value", ExactSpelling = true)]
-                    extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value(_Underlying *_this, ulong new_size, MR.CS.StdContainers.Const_NonAssignable._Underlying *value);
+                    extern static void __MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value(_Underlying *_this, nuint new_size, MR.CS.StdContainers.Const_NonAssignable._Underlying *value);
                     __MR_C_std_list_MR_StdContainers_NonAssignable_resize_with_default_value(_UnderlyingPtr, new_size, value._UnderlyingPtr);
                 }
 

@@ -941,6 +941,7 @@ namespace mrbind
             (std::size_t)(type_alignment)
             (std::optional<std::string>)(typedef_for, {})
             (Kind)(kind, {})
+            (bool)(is_size_type, false) // True if this is a `size_t` or `ptrdiff_t` typedef.
         )
     };
 

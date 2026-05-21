@@ -57,10 +57,10 @@ public static partial class MR
                 /// <summary>
                 /// Returns the index of the stored element type. In rare cases may return -1 if this variant is &quot;valueless by exception&quot;.
                 /// </summary>
-                public unsafe ulong index()
+                public unsafe nuint index()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_variant_std_monostate_int32_t_float_index", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_variant_std_monostate_int32_t_float_index(_Underlying *_this);
+                    extern static nuint __MR_C_std_variant_std_monostate_int32_t_float_index(_Underlying *_this);
                     return __MR_C_std_variant_std_monostate_int32_t_float_index(_UnderlyingPtr);
                 }
 

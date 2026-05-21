@@ -118,10 +118,10 @@ public static partial class MR
                 public Const_Deque_MRStdContainersNonAssignable(Deque_MRStdContainersNonAssignable other) : this((Const_Deque_MRStdContainersNonAssignable)other) {}
 
                 /// The number of elements.
-                public unsafe ulong Size()
+                public unsafe nuint Size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_deque_MR_StdContainers_NonAssignable_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_deque_MR_StdContainers_NonAssignable_size(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_deque_MR_StdContainers_NonAssignable_size(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -140,12 +140,12 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, read-only.
-                public unsafe MR.CS.StdContainers.Const_NonAssignable this[ulong i]
+                public unsafe MR.CS.StdContainers.Const_NonAssignable this[nuint i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_at", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_deque_MR_StdContainers_NonAssignable_at(_Underlying *_this, ulong i);
+                        extern static MR.CS.StdContainers.Const_NonAssignable._Underlying *__MR_C_std_deque_MR_StdContainers_NonAssignable_at(_Underlying *_this, nuint i);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_std_deque_MR_StdContainers_NonAssignable_at(_UnderlyingPtr, i);
                         MR.CS.StdContainers.Const_NonAssignable __ret;
@@ -257,10 +257,10 @@ public static partial class MR
                 }
 
                 /// Convert a const iterator to an index.
-                public unsafe long ToIndex(MR.CS.Std.Deque_MRStdContainersNonAssignable.Const_ConstIterator iter)
+                public unsafe nint ToIndex(MR.CS.Std.Deque_MRStdContainersNonAssignable.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_to_index", ExactSpelling = true)]
-                    extern static long __MR_C_std_deque_MR_StdContainers_NonAssignable_to_index(_Underlying *_this, MR.CS.Std.Deque_MRStdContainersNonAssignable.ConstIterator._Underlying *iter);
+                    extern static nint __MR_C_std_deque_MR_StdContainers_NonAssignable_to_index(_Underlying *_this, MR.CS.Std.Deque_MRStdContainersNonAssignable.ConstIterator._Underlying *iter);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_deque_MR_StdContainers_NonAssignable_to_index(_UnderlyingPtr, iter._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -268,10 +268,10 @@ public static partial class MR
                 }
 
                 /// Convert a mutable iterator to an index.
-                public unsafe long ToIndex(MR.CS.Std.Deque_MRStdContainersNonAssignable.Const_Iterator iter)
+                public unsafe nint ToIndex(MR.CS.Std.Deque_MRStdContainersNonAssignable.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_to_index_mut", ExactSpelling = true)]
-                    extern static long __MR_C_std_deque_MR_StdContainers_NonAssignable_to_index_mut(_Underlying *_this, MR.CS.Std.Deque_MRStdContainersNonAssignable.Iterator._Underlying *iter);
+                    extern static nint __MR_C_std_deque_MR_StdContainers_NonAssignable_to_index_mut(_Underlying *_this, MR.CS.Std.Deque_MRStdContainersNonAssignable.Iterator._Underlying *iter);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_deque_MR_StdContainers_NonAssignable_to_index_mut(_UnderlyingPtr, iter._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -376,10 +376,10 @@ public static partial class MR
                     }
 
                     /// Computes the signed difference between two const iterators. Completes in constant time.
-                    public static unsafe long operator-(Const_ConstIterator a, MR.CS.Std.Deque_MRStdContainersNonAssignable.Const_ConstIterator b)
+                    public static unsafe nint operator-(Const_ConstIterator a, MR.CS.Std.Deque_MRStdContainersNonAssignable.Const_ConstIterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator", ExactSpelling = true)]
-                        extern static long __MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator(MR.CS.Std.Deque_MRStdContainersNonAssignable.ConstIterator._Underlying *a, MR.CS.Std.Deque_MRStdContainersNonAssignable.ConstIterator._Underlying *b);
+                        extern static nint __MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator(MR.CS.Std.Deque_MRStdContainersNonAssignable.ConstIterator._Underlying *a, MR.CS.Std.Deque_MRStdContainersNonAssignable.ConstIterator._Underlying *b);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -497,10 +497,10 @@ public static partial class MR
                     }
 
                     /// Increments or decrements a const iterator by the specific amount. Completes in constant time.
-                    public unsafe void AddAssign(long delta)
+                    public unsafe void AddAssign(nint delta)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_add_assign", ExactSpelling = true)]
-                        extern static void __MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_add_assign(_Underlying *_this, long delta);
+                        extern static void __MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_add_assign(_Underlying *_this, nint delta);
                         MR.CS.Misc._Exceptions.Prepare();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         __MR_C_std_deque_MR_StdContainers_NonAssignable_const_iterator_add_assign(_UnderlyingPtr, delta);
@@ -625,10 +625,10 @@ public static partial class MR
                     }
 
                     /// Computes the signed difference between two mutable iterators. Completes in constant time.
-                    public static unsafe long operator-(Const_Iterator a, MR.CS.Std.Deque_MRStdContainersNonAssignable.Const_Iterator b)
+                    public static unsafe nint operator-(Const_Iterator a, MR.CS.Std.Deque_MRStdContainersNonAssignable.Const_Iterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator", ExactSpelling = true)]
-                        extern static long __MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator(MR.CS.Std.Deque_MRStdContainersNonAssignable.Iterator._Underlying *a, MR.CS.Std.Deque_MRStdContainersNonAssignable.Iterator._Underlying *b);
+                        extern static nint __MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator(MR.CS.Std.Deque_MRStdContainersNonAssignable.Iterator._Underlying *a, MR.CS.Std.Deque_MRStdContainersNonAssignable.Iterator._Underlying *b);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_sub_MR_C_std_deque_MR_StdContainers_NonAssignable_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -733,10 +733,10 @@ public static partial class MR
                     }
 
                     /// Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
-                    public unsafe void AddAssign(long delta)
+                    public unsafe void AddAssign(nint delta)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_add_assign", ExactSpelling = true)]
-                        extern static void __MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_add_assign(_Underlying *_this, long delta);
+                        extern static void __MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_add_assign(_Underlying *_this, nint delta);
                         MR.CS.Misc._Exceptions.Prepare();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         __MR_C_std_deque_MR_StdContainers_NonAssignable_iterator_add_assign(_UnderlyingPtr, delta);
@@ -884,10 +884,10 @@ public static partial class MR
                 }
 
                 /// Resizes the container. The new elements if any are zeroed.
-                public unsafe void Resize(ulong new_size)
+                public unsafe void Resize(nuint new_size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_resize", ExactSpelling = true)]
-                    extern static void __MR_C_std_deque_MR_StdContainers_NonAssignable_resize(_Underlying *_this, ulong new_size);
+                    extern static void __MR_C_std_deque_MR_StdContainers_NonAssignable_resize(_Underlying *_this, nuint new_size);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_deque_MR_StdContainers_NonAssignable_resize(_UnderlyingPtr, new_size);
@@ -905,12 +905,12 @@ public static partial class MR
                 }
 
                 /// The element at a specific index, mutable.
-                public unsafe new MR.CS.StdContainers.NonAssignable this[ulong i]
+                public unsafe new MR.CS.StdContainers.NonAssignable this[nuint i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_deque_MR_StdContainers_NonAssignable_at_mut", ExactSpelling = true)]
-                        extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_deque_MR_StdContainers_NonAssignable_at_mut(_Underlying *_this, ulong i);
+                        extern static MR.CS.StdContainers.NonAssignable._Underlying *__MR_C_std_deque_MR_StdContainers_NonAssignable_at_mut(_Underlying *_this, nuint i);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_std_deque_MR_StdContainers_NonAssignable_at_mut(_UnderlyingPtr, i);
                         MR.CS.StdContainers.NonAssignable __ret;

@@ -191,6 +191,9 @@ namespace mrbind
         // The difference only matters on Macs, where `size_t` is `unsigned long`, while `uint64_t` is `unsigned long long`.
         bool only_canonicalize_size_t_to_uint64_t = false;
 
+        // Canonicalize `[unsigned] long` to `size_t` and `ptrdiff_t`. This only makes sense if the parser is set to a platform where `size_t` is `long`, `int64_t` is `long long`, and `int32_t` is `int`.
+        bool canonicalize_long_to_size_t = false;
+
         // When the underlying type a enum isn't fixed (only possible for unscoped enums), always pretend it's an `int`, regardless of what Clang reports.
         // Clang will report it as `unsigned int` on Linux (not on Windows) if there are no negative constants.
         bool implicit_enum_underlying_type_is_always_int = false;
@@ -413,8 +416,10 @@ namespace mrbind
         // Most notably this triggers on Windows, where you might want to build the parser in MSYS2, but then run it in MSVC-compatible mode.
         cppdecl::Simplify(cppdecl::SimplifyFlags::all, entity, cppdecl::FullSimplifyTraits{});
 
-        if (canonicalize && (params.canonicalize_to_fixed_size_typedefs || params.canonicalize_64_to_fixed_size_typedefs))
+        const bool canonicalize_any_to_fixed_size_typedefs = params.canonicalize_to_fixed_size_typedefs || params.canonicalize_64_to_fixed_size_typedefs;
+        if (canonicalize && (canonicalize_any_to_fixed_size_typedefs || params.canonicalize_long_to_size_t))
         {
+
             (void)entity.template VisitEachComponent<cppdecl::SimpleType>(
                 cppdecl::VisitFlags::no_visit_nontype_names,
                 [&](cppdecl::SimpleType &simple_type)
@@ -422,6 +427,7 @@ namespace mrbind
                     const std::string_view word = simple_type.name.AsSingleWord();
                     const bool is_unsigned = bool(simple_type.flags & cppdecl::SimpleTypeFlags::unsigned_);
 
+                    // Pass `bit_width == 0` to use `size_t` and `ptrdiff_t`.
                     auto TryApplyTypedef = [&](unsigned int bit_width)
                     {
                         std::string_view str;
@@ -429,7 +435,9 @@ namespace mrbind
                         // Not using `std::` here. Firstly for compatibility with C, secondly because this will look a bit better
                         //   when the resulting names are converted to identifiers.
 
-                        if (bit_width == 8)
+                        if (bit_width == 0)
+                            str = is_unsigned ? "size_t" : "ptrdiff_t";
+                        else if (bit_width == 8)
                             str = is_unsigned ? "uint8_t" : "int8_t";
                         else if (bit_width == 16)
                             str = is_unsigned ? "uint16_t" : "int16_t";
@@ -448,8 +456,12 @@ namespace mrbind
                         }
                     };
 
+                    if (params.canonicalize_long_to_size_t && word == "long")
+                    {
+                        TryApplyTypedef(0);
+                    }
                     // Apparently `int8_t` maps to `signed char` (and not just `char`) on all platforms I've checked: Windows, Linux, and MacOS. Nice.
-                    if (params.canonicalize_to_fixed_size_typedefs && word == "char" && bool(simple_type.flags & (cppdecl::SimpleTypeFlags::unsigned_ | cppdecl::SimpleTypeFlags::explicitly_signed)))
+                    else if (params.canonicalize_to_fixed_size_typedefs && word == "char" && bool(simple_type.flags & (cppdecl::SimpleTypeFlags::unsigned_ | cppdecl::SimpleTypeFlags::explicitly_signed)))
                     {
                         TryApplyTypedef(ci.getTarget().getCharWidth());
                     }
@@ -461,10 +473,8 @@ namespace mrbind
                     {
                         TryApplyTypedef(ci.getTarget().getIntWidth());
                     }
-                    else
+                    else if (canonicalize_any_to_fixed_size_typedefs) // Only for 64-bit types we're checking this instead of `params.canonicalize_to_fixed_size_typedefs`.
                     {
-                        // Only for 64-bit types we aren't checking `params.canonicalize_to_fixed_size_typedefs`.
-
                         bool is_long_long = false;
                         if (word == "long" || (is_long_long = word == "long long"))
                         {
@@ -3260,6 +3270,7 @@ namespace mrbind
                 std::string_view name;
 
                 bool is_typedef = false;
+                bool is_size_type = false;
 
                 clang::TargetInfo::IntType type;
             };
@@ -3286,8 +3297,8 @@ namespace mrbind
                 IntEntry{.name = "uint32_t",           .is_typedef = true, .type = ci->getTarget().getIntTypeByWidth(32, false)},
                 IntEntry{.name = "int64_t",            .is_typedef = true, .type = uint64_typedef_is_size_t ? ci->getTarget().getSignedSizeType() : ci->getTarget().getInt64Type()},
                 IntEntry{.name = "uint64_t",           .is_typedef = true, .type = uint64_typedef_is_size_t ? ci->getTarget().getSizeType()       : ci->getTarget().getCorrespondingUnsignedType(ci->getTarget().getInt64Type())},
-                IntEntry{.name = "ptrdiff_t",          .is_typedef = true, .type = ci->getTarget().getSignedSizeType()}, // There's also `getPtrDiffType(address_space)`, but it should be the same thing.
-                IntEntry{.name = "size_t",             .is_typedef = true, .type = ci->getTarget().getSizeType()},
+                IntEntry{.name = "ptrdiff_t",          .is_typedef = true, .is_size_type = true, .type = ci->getTarget().getSignedSizeType()}, // There's also `getPtrDiffType(address_space)`, but it should be the same thing.
+                IntEntry{.name = "size_t",             .is_typedef = true, .is_size_type = true, .type = ci->getTarget().getSizeType()},
             })
             {
                 params->parsed_result.platform_info.primitive_types.try_emplace(
@@ -3310,6 +3321,7 @@ namespace mrbind
                                 throw std::runtime_error("The standard typedef `" + std::string(e.name) + "` expands to some weird type.")
                             ),
                         .kind           = ci->getTarget().isTypeSigned(e.type) ? PrimitiveTypeInfo::Kind::signed_integral : PrimitiveTypeInfo::Kind::unsigned_integral,
+                        .is_size_type   = e.is_size_type,
                     }
                 );
             }
@@ -3603,6 +3615,14 @@ int main(int raw_argc, char **raw_argv)
                 .func = [&](mrbind::CommandLineParser::ArgSpan)
                 {
                     params.only_canonicalize_size_t_to_uint64_t = true;
+                },
+            });
+
+            args_parser.AddFlag("--canonicalize-long-to-size_t", {
+                .desc = "Canonicalize `[unsigned] long` to `size_t` and `ptrdiff_t`. This only makes sense on targets (which can be set with `--target`) where `size_t` and `ptrdiff_t` expands to `[unsigned] long`, but `int64_t` expands to `long long` and `int32_t` expands to `long`. Using those targets with this is one way to separate `size_t` from `int32_t` and `int64_t`. Known targets that work for this are Emscripten (`--target=wasm32-unknown-emscripten`) and Mac.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.canonicalize_long_to_size_t = true;
                 },
             });
 

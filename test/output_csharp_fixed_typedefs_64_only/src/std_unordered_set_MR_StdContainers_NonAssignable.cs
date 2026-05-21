@@ -126,10 +126,10 @@ public static partial class MR
                 /// <summary>
                 /// The number of elements.
                 /// </summary>
-                public unsafe ulong size()
+                public unsafe nuint size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_MR_StdContainers_NonAssignable_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_unordered_set_MR_StdContainers_NonAssignable_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_unordered_set_MR_StdContainers_NonAssignable_size(_Underlying *_this);
                     return __MR_C_std_unordered_set_MR_StdContainers_NonAssignable_size(_UnderlyingPtr);
                 }
 

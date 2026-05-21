@@ -79,12 +79,12 @@ public static partial class MR
                 /// <summary>
                 /// Returns an element from the stored array. The stored pointer must not be null.
                 /// </summary>
-                public unsafe ref int this[ulong i]
+                public unsafe ref int this[nuint i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unique_ptr_int32_t_array_at", ExactSpelling = true)]
-                        extern static int *__MR_C_std_unique_ptr_int32_t_array_at(_Underlying *_this, ulong i);
+                        extern static int *__MR_C_std_unique_ptr_int32_t_array_at(_Underlying *_this, nuint i);
                         return ref *__MR_C_std_unique_ptr_int32_t_array_at(_UnderlyingPtr, i);
                     }
                 }

@@ -126,10 +126,10 @@ public static partial class MR
                 /// <summary>
                 /// Construct from a range of elements.
                 /// </summary>
-                public unsafe Const_Multiset_Int(int? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Const_Multiset_Int(int? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multiset_Int._Underlying *__MR_C_std_multiset_int_ConstructFromRange(int *ptr, ulong size);
+                    extern static MR.CS.Std.Multiset_Int._Underlying *__MR_C_std_multiset_int_ConstructFromRange(int *ptr, nuint size);
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_multiset_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -137,10 +137,10 @@ public static partial class MR
                 /// <summary>
                 /// The number of elements.
                 /// </summary>
-                public unsafe ulong size()
+                public unsafe nuint size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_multiset_int_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_multiset_int_size(_Underlying *_this);
                     return __MR_C_std_multiset_int_size(_UnderlyingPtr);
                 }
 
@@ -157,10 +157,10 @@ public static partial class MR
                 /// <summary>
                 /// Checks if the contain contains this key.
                 /// </summary>
-                public unsafe ulong count(int key)
+                public unsafe nuint count(int key)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_count", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_multiset_int_count(_Underlying *_this, int *key);
+                    extern static nuint __MR_C_std_multiset_int_count(_Underlying *_this, int *key);
                     return __MR_C_std_multiset_int_count(_UnderlyingPtr, &key);
                 }
 
@@ -497,10 +497,10 @@ public static partial class MR
                 /// <summary>
                 /// Construct from a range of elements.
                 /// </summary>
-                public unsafe Multiset_Int(int? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Multiset_Int(int? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.Multiset_Int._Underlying *__MR_C_std_multiset_int_ConstructFromRange(int *ptr, ulong size);
+                    extern static MR.CS.Std.Multiset_Int._Underlying *__MR_C_std_multiset_int_ConstructFromRange(int *ptr, nuint size);
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_multiset_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -508,10 +508,10 @@ public static partial class MR
                 /// <summary>
                 /// Assign from a range of elements, overwriting previous contents.
                 /// </summary>
-                public unsafe void assign(int? ptr, ulong size)
+                public unsafe void assign(int? ptr, nuint size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_multiset_int_AssignFromRange", ExactSpelling = true)]
-                    extern static void __MR_C_std_multiset_int_AssignFromRange(_Underlying *_this, int *ptr, ulong size);
+                    extern static void __MR_C_std_multiset_int_AssignFromRange(_Underlying *_this, int *ptr, nuint size);
                     int __deref_ptr = ptr.GetValueOrDefault();
                     __MR_C_std_multiset_int_AssignFromRange(_UnderlyingPtr, ptr.HasValue ? &__deref_ptr : null, size);
                 }

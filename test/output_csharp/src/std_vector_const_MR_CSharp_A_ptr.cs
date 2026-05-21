@@ -54,10 +54,10 @@ public static partial class MR
                 public Const_Vector_ConstMRCSharpAPtr(Vector_ConstMRCSharpAPtr other) : this((Const_Vector_ConstMRCSharpAPtr)other) {}
 
                 /// The number of elements.
-                public unsafe ulong Size()
+                public unsafe nuint Size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_vector_const_MR_CSharp_A_ptr_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_vector_const_MR_CSharp_A_ptr_size(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_vector_const_MR_CSharp_A_ptr_size(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -76,10 +76,10 @@ public static partial class MR
                 }
 
                 /// The memory capacity, measued in the number of elements.
-                public unsafe ulong Capacity()
+                public unsafe nuint Capacity()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_capacity", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_vector_const_MR_CSharp_A_ptr_capacity(_Underlying *_this);
+                    extern static nuint __MR_C_std_vector_const_MR_CSharp_A_ptr_capacity(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_vector_const_MR_CSharp_A_ptr_capacity(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -88,12 +88,12 @@ public static partial class MR
 
                 /// The element at a specific index, read-only.
                 /// In C++ this function returns an rvalue reference.
-                public unsafe ref readonly void *this[ulong i]
+                public unsafe ref readonly void *this[nuint i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_at", ExactSpelling = true)]
-                        extern static void **__MR_C_std_vector_const_MR_CSharp_A_ptr_at(_Underlying *_this, ulong i);
+                        extern static void **__MR_C_std_vector_const_MR_CSharp_A_ptr_at(_Underlying *_this, nuint i);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_std_vector_const_MR_CSharp_A_ptr_at(_UnderlyingPtr, i);
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -196,10 +196,10 @@ public static partial class MR
                 }
 
                 /// Convert a const iterator to an index.
-                public unsafe long ToIndex(MR.CS.Std.Vector_ConstMRCSharpAPtr.Const_ConstIterator iter)
+                public unsafe nint ToIndex(MR.CS.Std.Vector_ConstMRCSharpAPtr.Const_ConstIterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_to_index", ExactSpelling = true)]
-                    extern static long __MR_C_std_vector_const_MR_CSharp_A_ptr_to_index(_Underlying *_this, MR.CS.Std.Vector_ConstMRCSharpAPtr.ConstIterator._Underlying *iter);
+                    extern static nint __MR_C_std_vector_const_MR_CSharp_A_ptr_to_index(_Underlying *_this, MR.CS.Std.Vector_ConstMRCSharpAPtr.ConstIterator._Underlying *iter);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_vector_const_MR_CSharp_A_ptr_to_index(_UnderlyingPtr, iter._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -207,10 +207,10 @@ public static partial class MR
                 }
 
                 /// Convert a mutable iterator to an index.
-                public unsafe long ToIndex(MR.CS.Std.Vector_ConstMRCSharpAPtr.Const_Iterator iter)
+                public unsafe nint ToIndex(MR.CS.Std.Vector_ConstMRCSharpAPtr.Const_Iterator iter)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_to_index_mut", ExactSpelling = true)]
-                    extern static long __MR_C_std_vector_const_MR_CSharp_A_ptr_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_ConstMRCSharpAPtr.Iterator._Underlying *iter);
+                    extern static nint __MR_C_std_vector_const_MR_CSharp_A_ptr_to_index_mut(_Underlying *_this, MR.CS.Std.Vector_ConstMRCSharpAPtr.Iterator._Underlying *iter);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_vector_const_MR_CSharp_A_ptr_to_index_mut(_UnderlyingPtr, iter._UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -313,10 +313,10 @@ public static partial class MR
                     }
 
                     /// Computes the signed difference between two const iterators. Completes in constant time.
-                    public static unsafe long operator-(Const_ConstIterator a, MR.CS.Std.Vector_ConstMRCSharpAPtr.Const_ConstIterator b)
+                    public static unsafe nint operator-(Const_ConstIterator a, MR.CS.Std.Vector_ConstMRCSharpAPtr.Const_ConstIterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator", ExactSpelling = true)]
-                        extern static long __MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator(MR.CS.Std.Vector_ConstMRCSharpAPtr.ConstIterator._Underlying *a, MR.CS.Std.Vector_ConstMRCSharpAPtr.ConstIterator._Underlying *b);
+                        extern static nint __MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator(MR.CS.Std.Vector_ConstMRCSharpAPtr.ConstIterator._Underlying *a, MR.CS.Std.Vector_ConstMRCSharpAPtr.ConstIterator._Underlying *b);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -434,10 +434,10 @@ public static partial class MR
                     }
 
                     /// Increments or decrements a const iterator by the specific amount. Completes in constant time.
-                    public unsafe void AddAssign(long delta)
+                    public unsafe void AddAssign(nint delta)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_add_assign", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_add_assign(_Underlying *_this, long delta);
+                        extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_add_assign(_Underlying *_this, nint delta);
                         MR.CS.Misc._Exceptions.Prepare();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         __MR_C_std_vector_const_MR_CSharp_A_ptr_const_iterator_add_assign(_UnderlyingPtr, delta);
@@ -560,10 +560,10 @@ public static partial class MR
                     }
 
                     /// Computes the signed difference between two mutable iterators. Completes in constant time.
-                    public static unsafe long operator-(Const_Iterator a, MR.CS.Std.Vector_ConstMRCSharpAPtr.Const_Iterator b)
+                    public static unsafe nint operator-(Const_Iterator a, MR.CS.Std.Vector_ConstMRCSharpAPtr.Const_Iterator b)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_iterator", ExactSpelling = true)]
-                        extern static long __MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_iterator(MR.CS.Std.Vector_ConstMRCSharpAPtr.Iterator._Underlying *a, MR.CS.Std.Vector_ConstMRCSharpAPtr.Iterator._Underlying *b);
+                        extern static nint __MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_iterator(MR.CS.Std.Vector_ConstMRCSharpAPtr.Iterator._Underlying *a, MR.CS.Std.Vector_ConstMRCSharpAPtr.Iterator._Underlying *b);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_sub_MR_C_std_vector_const_MR_CSharp_A_ptr_iterator(a._UnderlyingPtr, b._UnderlyingPtr);
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -668,10 +668,10 @@ public static partial class MR
                     }
 
                     /// Increments or decrements a mutable iterator by the specific amount. Completes in constant time.
-                    public unsafe void AddAssign(long delta)
+                    public unsafe void AddAssign(nint delta)
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_iterator_add_assign", ExactSpelling = true)]
-                        extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_iterator_add_assign(_Underlying *_this, long delta);
+                        extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_iterator_add_assign(_Underlying *_this, nint delta);
                         MR.CS.Misc._Exceptions.Prepare();
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
                         __MR_C_std_vector_const_MR_CSharp_A_ptr_iterator_add_assign(_UnderlyingPtr, delta);
@@ -755,20 +755,20 @@ public static partial class MR
                 }
 
                 /// Resizes the container. The new elements if any are zeroed.
-                public unsafe void Resize(ulong new_size)
+                public unsafe void Resize(nuint new_size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_resize", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_resize(_Underlying *_this, ulong new_size);
+                    extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_resize(_Underlying *_this, nuint new_size);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_vector_const_MR_CSharp_A_ptr_resize(_UnderlyingPtr, new_size);
                 }
 
                 /// Resizes the container. The new elements if any are set to the specified value.
-                public unsafe void ResizeWithDefaultValue(ulong new_size, MR.CS.CSharp.Const_A? value)
+                public unsafe void ResizeWithDefaultValue(nuint new_size, MR.CS.CSharp.Const_A? value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_resize_with_default_value", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_resize_with_default_value(_Underlying *_this, ulong new_size, MR.CS.CSharp.Const_A._Underlying *value);
+                    extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_resize_with_default_value(_Underlying *_this, nuint new_size, MR.CS.CSharp.Const_A._Underlying *value);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_vector_const_MR_CSharp_A_ptr_resize_with_default_value(_UnderlyingPtr, new_size, value is not null ? value._UnderlyingPtr : null);
@@ -786,10 +786,10 @@ public static partial class MR
                 }
 
                 /// Reserves memory for a certain number of elements. Never shrinks the memory.
-                public unsafe void Reserve(ulong new_capacity)
+                public unsafe void Reserve(nuint new_capacity)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_reserve", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_reserve(_Underlying *_this, ulong new_capacity);
+                    extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_reserve(_Underlying *_this, nuint new_capacity);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_vector_const_MR_CSharp_A_ptr_reserve(_UnderlyingPtr, new_capacity);
@@ -807,12 +807,12 @@ public static partial class MR
 
                 /// The element at a specific index, mutable.
                 /// In C++ this function returns an rvalue reference.
-                public unsafe new ref void *this[ulong i]
+                public unsafe new ref void *this[nuint i]
                 {
                     get
                     {
                         [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_at_mut", ExactSpelling = true)]
-                        extern static void **__MR_C_std_vector_const_MR_CSharp_A_ptr_at_mut(_Underlying *_this, ulong i);
+                        extern static void **__MR_C_std_vector_const_MR_CSharp_A_ptr_at_mut(_Underlying *_this, nuint i);
                         MR.CS.Misc._Exceptions.Prepare();
                         var __c_ret = __MR_C_std_vector_const_MR_CSharp_A_ptr_at_mut(_UnderlyingPtr, i);
                         MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -864,10 +864,10 @@ public static partial class MR
                 }
 
                 /// Inserts a new element right before the specified position.
-                public unsafe void Insert(ulong position, MR.CS.CSharp.Const_A? new_elem)
+                public unsafe void Insert(nuint position, MR.CS.CSharp.Const_A? new_elem)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_insert", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_insert(_Underlying *_this, ulong position, MR.CS.CSharp.Const_A._Underlying *new_elem);
+                    extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_insert(_Underlying *_this, nuint position, MR.CS.CSharp.Const_A._Underlying *new_elem);
                     MR.CS.Misc._Exceptions.Prepare();
                     if (new_elem is not null) _KeepAlive(new_elem);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
@@ -875,10 +875,10 @@ public static partial class MR
                 }
 
                 /// Erases the element at the specified position.
-                public unsafe void Erase(ulong position)
+                public unsafe void Erase(nuint position)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_vector_const_MR_CSharp_A_ptr_erase", ExactSpelling = true)]
-                    extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_erase(_Underlying *_this, ulong position);
+                    extern static void __MR_C_std_vector_const_MR_CSharp_A_ptr_erase(_Underlying *_this, nuint position);
                     MR.CS.Misc._Exceptions.Prepare();
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
                     __MR_C_std_vector_const_MR_CSharp_A_ptr_erase(_UnderlyingPtr, position);

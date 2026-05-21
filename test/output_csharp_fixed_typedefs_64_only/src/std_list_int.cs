@@ -126,10 +126,10 @@ public static partial class MR
                 /// <summary>
                 /// Construct from a range of elements.
                 /// </summary>
-                public unsafe Const_List_Int(int? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe Const_List_Int(int? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromRange(int *ptr, ulong size);
+                    extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromRange(int *ptr, nuint size);
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_list_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -137,10 +137,10 @@ public static partial class MR
                 /// <summary>
                 /// The number of elements.
                 /// </summary>
-                public unsafe ulong size()
+                public unsafe nuint size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_list_int_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_list_int_size(_Underlying *_this);
                     return __MR_C_std_list_int_size(_UnderlyingPtr);
                 }
 
@@ -834,10 +834,10 @@ public static partial class MR
                 /// <summary>
                 /// Construct from a range of elements.
                 /// </summary>
-                public unsafe List_Int(int? ptr, ulong size) : this(null, is_owning: true)
+                public unsafe List_Int(int? ptr, nuint size) : this(null, is_owning: true)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_ConstructFromRange", ExactSpelling = true)]
-                    extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromRange(int *ptr, ulong size);
+                    extern static MR.CS.Std.List_Int._Underlying *__MR_C_std_list_int_ConstructFromRange(int *ptr, nuint size);
                     int __deref_ptr = ptr.GetValueOrDefault();
                     _UnderlyingPtr = __MR_C_std_list_int_ConstructFromRange(ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -845,10 +845,10 @@ public static partial class MR
                 /// <summary>
                 /// Assign from a range of elements, overwriting previous contents.
                 /// </summary>
-                public unsafe void assign(int? ptr, ulong size)
+                public unsafe void assign(int? ptr, nuint size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_AssignFromRange", ExactSpelling = true)]
-                    extern static void __MR_C_std_list_int_AssignFromRange(_Underlying *_this, int *ptr, ulong size);
+                    extern static void __MR_C_std_list_int_AssignFromRange(_Underlying *_this, int *ptr, nuint size);
                     int __deref_ptr = ptr.GetValueOrDefault();
                     __MR_C_std_list_int_AssignFromRange(_UnderlyingPtr, ptr.HasValue ? &__deref_ptr : null, size);
                 }
@@ -856,20 +856,20 @@ public static partial class MR
                 /// <summary>
                 /// Resizes the container. The new elements if any are zeroed.
                 /// </summary>
-                public unsafe void resize(ulong new_size)
+                public unsafe void resize(nuint new_size)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_resize", ExactSpelling = true)]
-                    extern static void __MR_C_std_list_int_resize(_Underlying *_this, ulong new_size);
+                    extern static void __MR_C_std_list_int_resize(_Underlying *_this, nuint new_size);
                     __MR_C_std_list_int_resize(_UnderlyingPtr, new_size);
                 }
 
                 /// <summary>
                 /// Resizes the container. The new elements if any are set to the specified value.
                 /// </summary>
-                public unsafe void resizeWithDefaultValue(ulong new_size, int value)
+                public unsafe void resizeWithDefaultValue(nuint new_size, int value)
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_list_int_resize_with_default_value", ExactSpelling = true)]
-                    extern static void __MR_C_std_list_int_resize_with_default_value(_Underlying *_this, ulong new_size, int value);
+                    extern static void __MR_C_std_list_int_resize_with_default_value(_Underlying *_this, nuint new_size, int value);
                     __MR_C_std_list_int_resize_with_default_value(_UnderlyingPtr, new_size, value);
                 }
 

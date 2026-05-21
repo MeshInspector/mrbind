@@ -118,10 +118,10 @@ public static partial class MR
                 public Const_UnorderedSet_MRStdContainersNonAssignable(UnorderedSet_MRStdContainersNonAssignable other) : this((Const_UnorderedSet_MRStdContainersNonAssignable)other) {}
 
                 /// The number of elements.
-                public unsafe ulong Size()
+                public unsafe nuint Size()
                 {
                     [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_C_std_unordered_set_MR_StdContainers_NonAssignable_size", ExactSpelling = true)]
-                    extern static ulong __MR_C_std_unordered_set_MR_StdContainers_NonAssignable_size(_Underlying *_this);
+                    extern static nuint __MR_C_std_unordered_set_MR_StdContainers_NonAssignable_size(_Underlying *_this);
                     MR.CS.Misc._Exceptions.Prepare();
                     var __c_ret = __MR_C_std_unordered_set_MR_StdContainers_NonAssignable_size(_UnderlyingPtr);
                     MR.CS.Misc._Exceptions.ThrowIfNeeded();
