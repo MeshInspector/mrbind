@@ -3468,8 +3468,8 @@ namespace mrbind::C
                 ret.body += "    MRBINDC_TRY(\n";
             }
 
-            // Add the `using namespace`s, just in case the default arguments miss some qualifiers. (Can this still happen?)
-            if (has_any_useful_default_args)
+            // Add the `using namespace`s, in case the default arguments miss some qualifiers.
+            if (has_any_useful_default_args && data.platform_info.default_arguments_need_using_namespace)
             {
                 for (const NamespaceEntity *ns : params.using_namespace_stack)
                 {

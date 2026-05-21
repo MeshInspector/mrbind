@@ -20,6 +20,14 @@ namespace mrbind
         if (file.num_fragments > 1)
             out << "// Segment " << file.fragment_index << "/" << file.num_fragments << '\n';
 
+        if (file.platform_info.default_arguments_need_using_namespace)
+        {
+            // See the comments on `default_arguments_need_using_namespace` for what this is.
+            out <<
+                "\n"
+                "#define MR_DEFAULT_ARGUMENTS_NEED_USING_NAMESPACE\n";
+        }
+
         out <<
             "\n"
             "#ifdef MRBIND_HEADER\n"

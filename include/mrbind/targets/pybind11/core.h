@@ -3628,11 +3628,17 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define MB_FILE static const char MRBIND_UNIQUE_VAR = []{
 #define MB_END_FILE return char{}; }();
 
+#ifdef MR_DEFAULT_ARGUMENTS_NEED_USING_NAMESPACE
+#define DETAIL_MB_PB11_MAYBE_USING_NAMESPACE(...) using namespace __VA_ARGS__;
+#else
+#define DETAIL_MB_PB11_MAYBE_USING_NAMESPACE(...)
+#endif
+
 // For namespaces, emit braces with `using namespace`.
 // This helps with name lookup for default arguments (where we can't easily fully qualify the types ourselves).
 #define MB_NAMESPACE(namespace_, inline_, ns_stack_, comment_) \
     { \
-        using namespace namespace_; \
+        DETAIL_MB_PB11_MAYBE_USING_NAMESPACE( namespace_ ) \
         using _pb11_this_ns [[maybe_unused]] = DETAIL_MB_PB11_NS_MARKER(ns_stack_(namespace_,ns)); \
         (void)MRBind::pb11::RegisterNamespaceMarker<_pb11_this_ns, DETAIL_MB_PB11_NS_MARKER(ns_stack_)>{}; \
 

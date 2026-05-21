@@ -956,6 +956,10 @@ namespace mrbind
 
             (std::size_t)(pointer_size, std::size_t(-1))
             (std::size_t)(pointer_alignment, std::size_t(-1))
+
+            // This is false starting with Clang 22.
+            // In older versions of Clang, our printing method for default function arguments didn't add the full namespace qualifiers, so you had to `using namespace` all enclosing namespaces if you wanted it to work in more cases.
+            (bool)(default_arguments_need_using_namespace, false)
         )
 
         // Finds information about a primitive type, or returns null if unknown.

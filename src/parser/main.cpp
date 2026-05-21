@@ -3366,6 +3366,9 @@ namespace mrbind
             // Pointers:
             params->parsed_result.platform_info.pointer_size = DivideByByteSize(ci->getTarget().PointerWidth);
             params->parsed_result.platform_info.pointer_alignment = DivideByByteSize(ci->getTarget().PointerAlign);
+
+            // Other stuff:
+            params->parsed_result.platform_info.default_arguments_need_using_namespace = CLANG_VERSION_MAJOR < 22;
         }
 
         // Multiplex the output between several files, if needed.
