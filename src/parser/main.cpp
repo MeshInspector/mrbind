@@ -3622,7 +3622,7 @@ int main(int raw_argc, char **raw_argv)
             });
 
             args_parser.AddFlag("--canonicalize-long-to-size_t", {
-                .desc = "Canonicalize `[unsigned] long` to `size_t` and `ptrdiff_t`. This only makes sense on targets (which can be set with `--target`) where `size_t` and `ptrdiff_t` expands to `[unsigned] long`, but `int64_t` expands to `long long` and `int32_t` expands to `long`. Using those targets with this is one way to separate `size_t` from `int32_t` and `int64_t`. Known targets that work for this are Emscripten (`--target=wasm32-unknown-emscripten`) and Mac.",
+                .desc = "Canonicalize `[unsigned] long` to `size_t` and `ptrdiff_t`. This only makes sense on targets (which can be set with `--target`) where `size_t` and `ptrdiff_t` expands to `[unsigned] long`, but `int64_t` expands to `long long` and `int32_t` expands to `long`. Using those targets with this is one way to separate `size_t` from `int32_t` and `int64_t`. Known targets that work for this are Emscripten (`--target=wasm32-unknown-emscripten`) and Mac. You might also want to add `--canonicalize-64-to-fixed-size-typedefs`.",
                 .func = [&](mrbind::CommandLineParser::ArgSpan)
                 {
                     params.canonicalize_long_to_size_t = true;

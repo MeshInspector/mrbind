@@ -167,7 +167,7 @@ If you don't go out of your way, by default the generated C bindings code code w
 
 But with some care, it's possible to make the resulting code fully consistent and portable across platforms (at least across x64 and ARM64). This section explains how to do it.
 
-After following the steps below, it's *your* job to compare the results from all platforms you support to make sure they're all the same. Each of the platforms (Windows, Linux, Mac) has some unique differences that can affect the output if not addressed.
+After following the steps below, it's *your* job to test on all platforms you support to make sure that everything works (if you generate the bindings on different platforms, you might want to check that they are exactly the same; or if you generate on only one platform but then send the code to other platforms to compile it there, test that it actually compiles). Each of the platforms (Windows, Linux, Mac, Emscripten) has some unique differences that can affect the output if not addressed.
 
 First the simple things:
 
@@ -195,52 +195,86 @@ This is the biggest source of problems and differences between platforms.
 
 The problem:
 
-* MRBind expands the typedefs when generating C. So among other things, it's going to expand `std::size_t`, `std::int64_t`, etc.
+* The MRBind parser expands the typedefs. So among other things, it's going to expand `std::size_t`, `std::int64_t`, etc. It means that in the C bindings, they will appear as `long`, `long long`, etc. (Can't we access the original spelling? Not in any non-trivial cases, more on that below.)
 
-* On different platforms those typedefs expand to different types, causing inconsistency: `long` vs `long long`, etc. (Only the 64-bit wide typedefs have this inconsistency. On all the big platforms, the smaller ones map 1-to-1 to built-in types.)
+* On different platforms those typedefs expand to different types, causing inconsistency: `long` vs `long long`, etc. (On 64-but platforms only the 64-bit wide typedefs have this inconsistency. The smaller ones map 1-to-1 to built-in types.)
 
-The fix described below only makes the bindings portable between 64-bit platforms. 32-bit ones would need a separate set of C sources and headers generated for them.
+  Moreover, if `std::size_t` and `std::uint64_t` expand to the same type, we have no way of restoring the original type.
 
-Here is the TL;DR of the fix. The rationale is discussed after.
+We currently have **two** approaches to solving this:
 
-* **In any API you bind, there are restrictions on what 64-bit integer types you can use:**
+1. Harder to set up, but produces better results.
 
-  * **Bad:** `[unsigned] long` and `[unsigned] long long`
+2. Easy to set up, but `std::size_t` gets merged with `std::uint64_t`, so the resulting bindings are only usable on 64-bit platforms (i.e. with 64-bit `std::size_t`).
 
-  * **Good:** `std::size_t`, `std::ptrdiff_t`, `std::intptr_t`, `std::uintptr_t`
+In both cases, you must remove all mentions of `[unsigned] long` and `[unsigned] long long` from your interface. You can use some standard typedefs instead of those (with approach (2) limiting the choice of those typedefs somewhat), see below.
 
-  * **Bad:** `std::int64_t`, `std::uint64_t`
+First I'll give a quick summary of two approaches, and then explain what's going on in more detail.
 
-  * **Bad:** any of `std::[u]int_fastXX_t` and `std::[u]int_leastXX_t`
+### Summary of approach `1` to handling `size_t`
 
-  Those errors should be caught by the generator automatically, if you enable certain flags mentioned below *and* test on all of: Windows, Linux, Mac, then at least one platform will catch this.
+1. **You must remove `[unsigned] long` and `[unsigned] long long` from the API that you bind.** I.e. from function parameters, return types, template arguments, etc. If you forget, you might get build errors on some platforms.
 
-  So if you can't use `std::[u]int64_t`, then what do you use in its place? You make your own typedef for your library, along the lines of:
+The hard part:
 
-  ```cpp
-  namespace mylib
-  {
-      #ifdef __APPLE__
-      #include <cstddef>
-      using Int64 = std::ptrdiff_t;
-      using Uint64 = std::size_t;
-      static_assert(sizeof(Int64) == 8);
-      static_assert(sizeof(Uint64) == 8);
-      #else
-      #include <cstdint>
-      using Int64 = std::int64_t;
-      using Uint64 = std::uint64_t;
-      #endif
-  }
-  ```
+2. **You must pass `--target=wasm32-unknown-emscripten` to the parser (after `--`) to pretend that we're cross-compiling for WASM.** The resulting bindings will work on any platform, they are not WASM-specific. This flag only affects some predefined macros and include directories of the parser, and importantly this changes the standard typedefs to what is favorable to us.
 
-  This `#ifdef __APPLE__` is somewhat cosmetic, because on other 64-bit platforms (tested Windows and Linux), `std::[u]int64_t` expand to the same type as `std::size_t` and `std::ptrdiff_t` anyway. It's only there to support 32-bit platforms.
+   Normally this flag requires you to have Emscripten headers installed. If you're already building for Emscripten, you can just pass the Emscripten SDK installation directory to `--sysroot=...` (or rather, some subdirectory of it where they store the sysroot with the headers).
 
-  You can **not** replace `#ifdef __APPLE__` with `#ifdef` to check if the parser is running, that's not going to work correctly in general.
+   But remarkably, at least on Linux, you **don't have** to use Emscripten headers. You can just reuse your normal Linux headers. `--target=...` disables the default include directories, but you can re-add them manually. To do that, pass `-stdlib=libstd++`, and also pass the flags printed by the following command: (which add back the include directories)
+   ```sh
+   clang++ -xc++ /dev/null -fsyntax-only -v 2>&1 | awk '/^#include <...> search starts here:$/{x=1; next} !/^ /&&x{exit} x{gsub(/^ /,""); printf " -isystem%s", $0} END{print ""}'
+   ```
 
-  The generated C code will receive a similar typedef, but generated automatically.
+   Note that this entire step is optional on Mac, because Macs have the same typedefs as Emscripten does.
 
-* **And you need the following flags:**
+3. **You must pass `--canonicalize-long-to-size_t --canonicalize-64-to-fixed-size-typedefs` to the parser.**
+
+   Notice that `--canonicalize-64-to-fixed-size-typedefs` is a subset of [`--canonicalize-to-fixed-size-typedefs`](#using-fixed-size-typedefs), so if you're already using the latter, you can skip this flag.
+
+### Summary of approach `2` to handling `size_t`
+
+1. **In any API you bind, there are restrictions on what integer types you can use:**
+
+   * **Bad:** `[unsigned] long` and `[unsigned] long long`
+
+   * **Good:** `std::size_t`, `std::ptrdiff_t`, `std::intptr_t`, `std::uintptr_t`
+
+   * **Bad:** `std::int64_t`, `std::uint64_t`
+
+   * **Bad:** any of `std::[u]int_fastXX_t` and `std::[u]int_leastXX_t`
+
+   Those errors should be caught by the generator automatically, if you enable certain flags mentioned below *and* test on all of: Windows, Linux, Mac, then at least one platform will catch this.
+
+   So if you can't use `std::[u]int64_t`, then what do you use in its place? You make your own typedef for your library, along the lines of:
+
+   ```cpp
+   #ifdef __APPLE__
+   #include <cstddef>
+   namespace mylib
+   {
+       using Int64 = std::ptrdiff_t;
+       using Uint64 = std::size_t;
+       static_assert(sizeof(Int64) == 8);
+       static_assert(sizeof(Uint64) == 8);
+   }
+   #else
+   #include <cstdint>
+   namespace mylib
+   {
+       using Int64 = std::int64_t;
+       using Uint64 = std::uint64_t;
+       #endif
+   }
+   ```
+
+   This `#ifdef __APPLE__` is somewhat cosmetic, because on other 64-bit platforms (tested Windows and Linux), `std::[u]int64_t` expand to the same type as `std::size_t` and `std::ptrdiff_t` anyway. It's only there to support 32-bit platforms.
+
+   You can **not** replace `#ifdef __APPLE__` with `#ifdef` to check if the parser is running, that's not going to work correctly in general.
+
+   The generated C code will receive a similar typedef, but generated automatically.
+
+2. **And you need the following flags:**
 
   * For the generator: `--reject-long-and-long-long --use-size_t-typedef-for-uint64_t`
   * For the parser: `--canonicalize-64-to-fixed-size-typedefs --canonicalize-size_t-to-uint64_t`
@@ -251,17 +285,29 @@ The end effect of all this is that the generator will make its own typedef for 6
 
 Alternatively you have the option of inverting the allowed typedefs, allowing the use of `[u]int64_t` but disabling `size_t` and friends. This is achieved by removing `--use-size_t-typedef-for-uint64_t` and `--canonicalize-size_t-to-uint64_t`. This also makes the custom 64-bit typedefs unnecessary (both in your code and in the generated output).
 
-#### Why are we doing all this?
+### More details about `size_t`
+
+#### Why are we doing all this, again?
 
 This is a long story.
 
 To recap the problem: all 64-bit standard typedefs expand to different types (`long` vs `long long`) on different platforms. In particular:
 
-* On Windows, `long` is 32 bits wide, so `size_t`, `int64_t`, and all other 64-bit wide standard typedefs use `long long`.
+* On Windows, `long` is 32 bits wide. So `size_t`, `int64_t`, and all other 64-bit wide standard typedefs use `long long`.
 * On Linux, `long` is 64 bits wide, so it's used for all those typedefs instead.
-* On Mac, `long` is 64 bits wide, but both `long` and `long long` are used for different typedefs (because of course they are!). The typedefs with digits in their names (e.g. `int64_t`) use `long long`, while all the other ones (e.g. `size_t`) use `long`.
+* On Mac, `long` is 64 bits wide, but both `long` and `long long` are used, for different typedefs (because of course they are!). The typedefs with digits in their names (e.g. `int64_t`) use `long long`, while all the other ones (e.g. `size_t`) use `long`.
+* Emscripten works like Mac. Notably, in both 32-bit and 64-bit Emscripten, `size_t` always expands to `long` (which is 32-bit and 64-bit wide respectively).
 
-#### Why is this a problem? Can't we have the parser *not* expand typedefs in the input?
+In other words:
+
+Typedef|Windows x64|Linux x64|Mac and Emscripten
+---|---|---|---
+`[u]int64_t`|`long long`|`long`|`long long`
+`size_t` and `ptrdiff_t`|`long long`|`long`|`long`
+
+This is a problem if any of those typedefs are included with in bindings. They are going to expand to `long` vs `long long` on different platforms, making the generated code incompatible between platforms.
+
+#### Can't we have the parser *not* expand typedefs in the input?
 
 Turns out we can't. Consider the following code:
 ```cpp
@@ -283,13 +329,13 @@ And we can't just take e.g. `A<long>` and replace every mention of `long` inside
 
 So in the end, a fully generic solution appears to be impossible. So instead we do the next best thing.
 
-#### Unifying Windows and Linux
+#### The simple solution; unifying Windows and Linux
 
-Mac adds its own issues (which I unfortunately realized late), it'll be addressed in the next section.
+This is what's labeled as [the simple approach ("approach 2")](#summary-of-approach-2-to-handling-size_t) above.
 
 The idea is simple. You get rid of all mentions of `long` and `long long` in your API, and instead use the standard typedefs, doesn't matter which ones.
 
-Then on Windows, we have the generator rewrite every `long long` back to `int64_t` (so all typedefs converge to this one), and complain if sees any `long`. And on Linux we do the opposite, rewriting any `long` back to `int64_t`, and complaining if we see any `long long`.
+Then on Windows, we have the generator rewrite every `long long` (that can now only come from expanding `int64_t`) back to `int64_t` (so all typedefs converge to this one), and complain if sees any `long`. And on Linux we do the opposite, rewriting any `long` back to `int64_t`, and complaining if we see any `long long`.
 
 The end result is that you lose the ability to use `long` and `long long` in your API directly. You still can use the standard 64-bit wide typedefs, but all of them get rewritten to `[u]int64_t`. This means `size_t` also gets rewritten as `uint64_t`, which is a bit sad, but acceptable.
 
@@ -301,16 +347,30 @@ This is achieved with the following flags:
 
 Are we done yet? No.
 
-#### Unifying Mac with Windows and Linux
+#### The simple solution continued; unifying Mac with Windows/Linux
 
 Mac breaks this beautiful hack, because it has typedefs for both `long` and `long long`. There `size_t` and `ptrdiff_t` use `[unsigned] long`, while `[u]int64_t` use `[unsigned] long long`. The rule of thumb is that if a typedef has digits in its name, it's going to expand to `long long`, and otherwise to `long`.
 
-Because of this, you can't have both `[u]int64_t` and `size_t` in your API, you must choose one.
+Because of this, you can't have both `[u]int64_t` and `size_t` in your API at the same time, you must choose one.
 
 If you do nothing, `size_t` will get rejected, and `[u]int64_t` will work normally.
 
 Some libraries might want this to stop at this, but since `size_t` seems more valuable then `[u]int64_t`, we provide a workaround that lets you keep it.
 
-Passing `--canonicalize-size_t-to-uint64_t` to the parser (which only has effect on Mac, but can be passed everywhere for consistency) makes it replace the wrong type with with `[u]int64_t`: instead of `long long`, it'll replace `long`.
+Passing `--canonicalize-size_t-to-uint64_t` to the parser (which only has effect on Mac, but can be passed everywhere for consistency) makes it replace the other/wrong type with with `[u]int64_t`: instead of `long long`, it'll replace `long`.
 
 Normally this would produce broken code, but we counteract it with `--use-size_t-typedef-for-uint64_t` in the generator, which then rewrites `[u]int64_t` into a custom typedef `MyLib_[u]int64_t`, which on Mac is made to expand to `std::size_t` or `std::ptrdiff_t` respectively.
+
+#### The fancy solution
+
+This is what's labeled as [the "approach 1"](#summary-of-approach-2-to-handling-size_t) above.
+
+The problem with the simple approach is that the resulting bindings are not portable across 64-bit vs 32-bit platforms. It's not always possible to generate separate sets of bindings for the two (e.g. if you have C# bindings too, and want them to run on both, and those call into the C bindings internally, so your C bindings must be compatible with both).
+
+Also losing the ability to use `[u]int64_t` in the interface directly isn't very convenient.
+
+What we can do instead is to embrace [the convenient typedef structure of Emscripten and Mac](#why-are-we-doing-all-this-again). That is if we only run the parser for those platforms (note that the parser can run in "cross-"compilation mode, so you can it on any platform, but it'll pretend to target Emscripten; then you can compile the resulting bindings for your actual platform).
+
+Since `size_t` and `ptrdiff_t` there uniquely map to `[unsigned] long`, we can have the parser rewrite `[unsigned] long` back to `size_t`/`ptrdiff_t`. But this requires the you to never use `[unsigned] long` in the API directly to avoid conflicts. This is achieved by passing `--canonicalize-long-to-size_t` to the parser.
+
+Then, if you never use `[u]int64_t` in the API, you're done. But can trade the support of `[unsigned] long long` for the support of `[u]int64_t` by also passing `--canonicalize-64-to-fixed-size-typedefs` to the parser to have it rewrite `[unsigned] long long` (which is what `[u]int64_t` expands to on Emscripten) back to `[u]int64_t`. Then `[u]int64_t` will work, but `[unsigned] long long` will stop working, because if you try to use it in your API, you'll get `[u]int64_t` from the parser, which will then be rewritten to `[unsigned] long` on Linux (rather than `long long`), resulting in type mismatches and compilation errors.
