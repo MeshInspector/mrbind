@@ -47,8 +47,6 @@ void MR_MatchingLayout_bar(MR_MatchingLayout_B _1)
 
 void MR_MatchingLayout_baz(const MR_MatchingLayout_B *_1)
 {
-    using namespace MR;
-    using namespace MatchingLayout;
     ::MR::MatchingLayout::baz(
         (_1 ? MRBINDC_BIT_CAST((MR::MatchingLayout::B), *_1) : MR::MatchingLayout::B(MR::MatchingLayout::B{}))
     );

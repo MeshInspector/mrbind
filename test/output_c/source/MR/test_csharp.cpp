@@ -31,8 +31,6 @@ void MR_CSharp_foo(void)
 int MR_CSharp_test_int(int a, const int *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_int(
         a,
         (b ? *b : static_cast<int>(42))
@@ -42,8 +40,6 @@ int MR_CSharp_test_int(int a, const int *b)
 
 bool MR_CSharp_test_bool(bool a, const bool *b)
 {
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_bool(
         a,
         (b ? *b : static_cast<bool>(true))
@@ -53,8 +49,6 @@ bool MR_CSharp_test_bool(bool a, const bool *b)
 void MR_CSharp_test_bool_ref(bool *a, bool *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     ::MR::CSharp::test_bool_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<bool &>(default_bool))
@@ -65,8 +59,6 @@ void MR_CSharp_test_bool_ref(bool *a, bool *b)
 int MR_CSharp_test_bool_ref2(bool *a, bool *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_bool_ref2(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<bool &>(default_bool))
@@ -91,8 +83,6 @@ void MR_CSharp_print_bool_ref(void)
 const bool *MR_CSharp_test_bool_cref(const bool *_1, const bool *_2)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_bool_cref(
         ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), *_1),
         (_2 ? *_2 : static_cast<const bool &>(default_bool))
@@ -103,8 +93,6 @@ const bool *MR_CSharp_test_bool_cref(const bool *_1, const bool *_2)
 int *MR_CSharp_test_int_ref(int *a, int *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_int_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int &>(default_int))
@@ -115,8 +103,6 @@ int *MR_CSharp_test_int_ref(int *a, int *b)
 const int *MR_CSharp_test_int_cref(const int *a, const int *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_int_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int &>(default_int))
@@ -127,8 +113,6 @@ const int *MR_CSharp_test_int_cref(const int *a, const int *b)
 int *MR_CSharp_test_int_rref(int *a, int *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_int_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<int &&>(42))
@@ -139,8 +123,6 @@ int *MR_CSharp_test_int_rref(int *a, int *b)
 const int *MR_CSharp_test_int_crref(const int *a, const int *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_int_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<const int &&>(42))
@@ -151,8 +133,6 @@ const int *MR_CSharp_test_int_crref(const int *a, const int *b)
 int *MR_CSharp_test_int_ptr(int *a, int *b, int *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_int_ptr(
         a,
         b,
@@ -164,8 +144,6 @@ int *MR_CSharp_test_int_ptr(int *a, int *b, int *const *c)
 const int *MR_CSharp_test_int_cptr(const int *a, const int *b, const int *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_int_cptr(
         a,
         b,
@@ -177,8 +155,6 @@ const int *MR_CSharp_test_int_cptr(const int *a, const int *b, const int *const 
 unsigned short MR_CSharp_test_ushort(unsigned short a, const unsigned short *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_ushort(
         a,
         (b ? *b : static_cast<unsigned short>(42))
@@ -189,8 +165,6 @@ unsigned short MR_CSharp_test_ushort(unsigned short a, const unsigned short *b)
 unsigned short *MR_CSharp_test_ushort_ref(unsigned short *a, unsigned short *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_ushort_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<unsigned short &>(default_ushort))
@@ -201,8 +175,6 @@ unsigned short *MR_CSharp_test_ushort_ref(unsigned short *a, unsigned short *b)
 const unsigned short *MR_CSharp_test_ushort_cref(const unsigned short *a, const unsigned short *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_ushort_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const unsigned short &>(default_ushort))
@@ -213,8 +185,6 @@ const unsigned short *MR_CSharp_test_ushort_cref(const unsigned short *a, const 
 unsigned short *MR_CSharp_test_ushort_rref(unsigned short *a, unsigned short *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_ushort_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<unsigned short &&>((unsigned short &&)default_ushort))
@@ -225,8 +195,6 @@ unsigned short *MR_CSharp_test_ushort_rref(unsigned short *a, unsigned short *b)
 const unsigned short *MR_CSharp_test_ushort_crref(const unsigned short *a, const unsigned short *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_ushort_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<const unsigned short &&>((unsigned short &&)default_ushort))
@@ -237,8 +205,6 @@ const unsigned short *MR_CSharp_test_ushort_crref(const unsigned short *a, const
 unsigned short *MR_CSharp_test_ushort_ptr(unsigned short *a, unsigned short *b, unsigned short *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_ushort_ptr(
         a,
         b,
@@ -250,8 +216,6 @@ unsigned short *MR_CSharp_test_ushort_ptr(unsigned short *a, unsigned short *b, 
 const unsigned short *MR_CSharp_test_ushort_cptr(const unsigned short *a, const unsigned short *b, const unsigned short *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_ushort_cptr(
         a,
         b,
@@ -263,8 +227,6 @@ const unsigned short *MR_CSharp_test_ushort_cptr(const unsigned short *a, const 
 int MR_CSharp_test_constness_int(int _1, const int *_2)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_constness_int(
         _1,
         (_2 ? *_2 : static_cast<int>(42))
@@ -275,8 +237,6 @@ int MR_CSharp_test_constness_int(int _1, const int *_2)
 MR_C_std_string *MR_CSharp_test_constness_str(const char *_1, const char *_1_end, const char *_2, const char *_2_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_string *)new std::string(::MR::CSharp::test_constness_str(
         ((_1 ? void() : MRBINDC_THROW("Parameter `_1` can not be null.", void)), (_1_end ? std::string(_1, _1_end) : std::string(_1))),
         (_2 ? (_2_end ? std::string(_2, _2_end) : std::string(_2)) : std::string("42"))
@@ -296,11 +256,9 @@ void MR_CSharp_test_keyword_in_param_name(int params)
 MR_CSharp_E1 MR_CSharp_test_enum_MR_CSharp_E1(MR_CSharp_E1 a, const MR_CSharp_E1 *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E1)(::MR::CSharp::test_enum(
         ((MR::CSharp::E1)a),
-        (b ? (MR::CSharp::E1)(*b) : static_cast<MR::CSharp::E1>(E1::b))
+        (b ? (MR::CSharp::E1)(*b) : static_cast<MR::CSharp::E1>(MR::CSharp::E1::b))
     ));
     ) // MRBINDC_TRY
 }
@@ -308,8 +266,6 @@ MR_CSharp_E1 MR_CSharp_test_enum_MR_CSharp_E1(MR_CSharp_E1 a, const MR_CSharp_E1
 MR_CSharp_E1 *MR_CSharp_test_enum_ref_MR_CSharp_E1(MR_CSharp_E1 *a, MR_CSharp_E1 *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E1 *)std::addressof(::MR::CSharp::test_enum_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::E1 *)(a)),
         (b ? *(MR::CSharp::E1 *)(b) : static_cast<MR::CSharp::E1 &>(default_e1))
@@ -320,8 +276,6 @@ MR_CSharp_E1 *MR_CSharp_test_enum_ref_MR_CSharp_E1(MR_CSharp_E1 *a, MR_CSharp_E1
 const MR_CSharp_E1 *MR_CSharp_test_enum_cref_MR_CSharp_E1(const MR_CSharp_E1 *a, const MR_CSharp_E1 *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_E1 *)std::addressof(::MR::CSharp::test_enum_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::E1 *)(a)),
         (b ? *(const MR::CSharp::E1 *)(b) : static_cast<const MR::CSharp::E1 &>(default_e1))
@@ -332,8 +286,6 @@ const MR_CSharp_E1 *MR_CSharp_test_enum_cref_MR_CSharp_E1(const MR_CSharp_E1 *a,
 MR_CSharp_E1 *MR_CSharp_test_enum_rref_MR_CSharp_E1(MR_CSharp_E1 *a, MR_CSharp_E1 *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E1 *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_enum_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(MR::CSharp::E1 *)(a))),
         (b ? std::move(*(MR::CSharp::E1 *)(b)) : static_cast<MR::CSharp::E1 &&>((MR::CSharp::E1 &&)default_e1))
@@ -344,8 +296,6 @@ MR_CSharp_E1 *MR_CSharp_test_enum_rref_MR_CSharp_E1(MR_CSharp_E1 *a, MR_CSharp_E
 const MR_CSharp_E1 *MR_CSharp_test_enum_crref_MR_CSharp_E1(const MR_CSharp_E1 *a, const MR_CSharp_E1 *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_E1 *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_enum_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const MR::CSharp::E1 *)(a))),
         (b ? std::move(*(const MR::CSharp::E1 *)(b)) : static_cast<const MR::CSharp::E1 &&>((MR::CSharp::E1 &&)default_e1))
@@ -356,8 +306,6 @@ const MR_CSharp_E1 *MR_CSharp_test_enum_crref_MR_CSharp_E1(const MR_CSharp_E1 *a
 MR_CSharp_E1 *MR_CSharp_test_enum_ptr_MR_CSharp_E1_ptr(MR_CSharp_E1 *a, MR_CSharp_E1 *b, MR_CSharp_E1 *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E1 *)(::MR::CSharp::test_enum_ptr(
         ((MR::CSharp::E1 *)a),
         ((MR::CSharp::E1 *)b),
@@ -369,8 +317,6 @@ MR_CSharp_E1 *MR_CSharp_test_enum_ptr_MR_CSharp_E1_ptr(MR_CSharp_E1 *a, MR_CShar
 const MR_CSharp_E1 *MR_CSharp_test_enum_cptr_const_MR_CSharp_E1_ptr(const MR_CSharp_E1 *a, const MR_CSharp_E1 *b, const MR_CSharp_E1 *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_E1 *)(::MR::CSharp::test_enum_cptr(
         ((const MR::CSharp::E1 *)a),
         ((const MR::CSharp::E1 *)b),
@@ -382,11 +328,9 @@ const MR_CSharp_E1 *MR_CSharp_test_enum_cptr_const_MR_CSharp_E1_ptr(const MR_CSh
 MR_CSharp_E2 MR_CSharp_test_enum_MR_CSharp_E2(MR_CSharp_E2 a, const MR_CSharp_E2 *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E2)(::MR::CSharp::test_enum(
         ((MR::CSharp::E2)a),
-        (b ? (MR::CSharp::E2)(*b) : static_cast<MR::CSharp::E2>(E2::b))
+        (b ? (MR::CSharp::E2)(*b) : static_cast<MR::CSharp::E2>(MR::CSharp::E2::b))
     ));
     ) // MRBINDC_TRY
 }
@@ -394,8 +338,6 @@ MR_CSharp_E2 MR_CSharp_test_enum_MR_CSharp_E2(MR_CSharp_E2 a, const MR_CSharp_E2
 MR_CSharp_E2 *MR_CSharp_test_enum_ref_MR_CSharp_E2(MR_CSharp_E2 *a, MR_CSharp_E2 *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E2 *)std::addressof(::MR::CSharp::test_enum_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::E2 *)(a)),
         (b ? *(MR::CSharp::E2 *)(b) : static_cast<MR::CSharp::E2 &>(default_e2))
@@ -406,8 +348,6 @@ MR_CSharp_E2 *MR_CSharp_test_enum_ref_MR_CSharp_E2(MR_CSharp_E2 *a, MR_CSharp_E2
 const MR_CSharp_E2 *MR_CSharp_test_enum_cref_MR_CSharp_E2(const MR_CSharp_E2 *a, const MR_CSharp_E2 *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_E2 *)std::addressof(::MR::CSharp::test_enum_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::E2 *)(a)),
         (b ? *(const MR::CSharp::E2 *)(b) : static_cast<const MR::CSharp::E2 &>(default_e2))
@@ -418,8 +358,6 @@ const MR_CSharp_E2 *MR_CSharp_test_enum_cref_MR_CSharp_E2(const MR_CSharp_E2 *a,
 MR_CSharp_E2 *MR_CSharp_test_enum_rref_MR_CSharp_E2(MR_CSharp_E2 *a, MR_CSharp_E2 *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E2 *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_enum_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(MR::CSharp::E2 *)(a))),
         (b ? std::move(*(MR::CSharp::E2 *)(b)) : static_cast<MR::CSharp::E2 &&>((MR::CSharp::E2 &&)default_e2))
@@ -430,8 +368,6 @@ MR_CSharp_E2 *MR_CSharp_test_enum_rref_MR_CSharp_E2(MR_CSharp_E2 *a, MR_CSharp_E
 const MR_CSharp_E2 *MR_CSharp_test_enum_crref_MR_CSharp_E2(const MR_CSharp_E2 *a, const MR_CSharp_E2 *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_E2 *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_enum_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const MR::CSharp::E2 *)(a))),
         (b ? std::move(*(const MR::CSharp::E2 *)(b)) : static_cast<const MR::CSharp::E2 &&>((MR::CSharp::E2 &&)default_e2))
@@ -442,8 +378,6 @@ const MR_CSharp_E2 *MR_CSharp_test_enum_crref_MR_CSharp_E2(const MR_CSharp_E2 *a
 MR_CSharp_E2 *MR_CSharp_test_enum_ptr_MR_CSharp_E2_ptr(MR_CSharp_E2 *a, MR_CSharp_E2 *b, MR_CSharp_E2 *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E2 *)(::MR::CSharp::test_enum_ptr(
         ((MR::CSharp::E2 *)a),
         ((MR::CSharp::E2 *)b),
@@ -455,8 +389,6 @@ MR_CSharp_E2 *MR_CSharp_test_enum_ptr_MR_CSharp_E2_ptr(MR_CSharp_E2 *a, MR_CShar
 const MR_CSharp_E2 *MR_CSharp_test_enum_cptr_const_MR_CSharp_E2_ptr(const MR_CSharp_E2 *a, const MR_CSharp_E2 *b, const MR_CSharp_E2 *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_E2 *)(::MR::CSharp::test_enum_cptr(
         ((const MR::CSharp::E2 *)a),
         ((const MR::CSharp::E2 *)b),
@@ -1809,8 +1741,6 @@ MR_CSharp_TrivialDerived *MR_CSharp_TrivialDerived_AssignFromAnother(MR_CSharp_T
 MR_CSharp_Trivial *MR_CSharp_test_class_trivial(const MR_CSharp_Trivial *a, const MR_CSharp_Trivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_Trivial *)new MR::CSharp::Trivial(::MR::CSharp::test_class_trivial(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), MR::CSharp::Trivial(*(MR::CSharp::Trivial *)a)),
         (b ? MR::CSharp::Trivial(*(MR::CSharp::Trivial *)b) : static_cast<MR::CSharp::Trivial>(MR::CSharp::Trivial{}))
@@ -1821,8 +1751,6 @@ MR_CSharp_Trivial *MR_CSharp_test_class_trivial(const MR_CSharp_Trivial *a, cons
 MR_CSharp_Trivial *MR_CSharp_test_class_trivial_ref(MR_CSharp_Trivial *a, MR_CSharp_Trivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_Trivial *)std::addressof(::MR::CSharp::test_class_trivial_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::Trivial *)(a)),
         (b ? *(MR::CSharp::Trivial *)(b) : static_cast<MR::CSharp::Trivial &>(default_trivial))
@@ -1833,8 +1761,6 @@ MR_CSharp_Trivial *MR_CSharp_test_class_trivial_ref(MR_CSharp_Trivial *a, MR_CSh
 const MR_CSharp_Trivial *MR_CSharp_test_class_trivial_cref(const MR_CSharp_Trivial *a, const MR_CSharp_Trivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_Trivial *)std::addressof(::MR::CSharp::test_class_trivial_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::Trivial *)(a)),
         (b ? *(const MR::CSharp::Trivial *)(b) : static_cast<const MR::CSharp::Trivial &>(default_trivial))
@@ -1845,8 +1771,6 @@ const MR_CSharp_Trivial *MR_CSharp_test_class_trivial_cref(const MR_CSharp_Trivi
 MR_CSharp_Trivial *MR_CSharp_test_class_trivial_rref(MR_CSharp_Trivial *a, MR_CSharp_Trivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_Trivial *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_class_trivial_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(MR::CSharp::Trivial *)(a))),
         (b ? std::move(*(MR::CSharp::Trivial *)(b)) : static_cast<MR::CSharp::Trivial &&>((MR::CSharp::Trivial &&)default_trivial))
@@ -1857,8 +1781,6 @@ MR_CSharp_Trivial *MR_CSharp_test_class_trivial_rref(MR_CSharp_Trivial *a, MR_CS
 const MR_CSharp_Trivial *MR_CSharp_test_class_trivial_crref(const MR_CSharp_Trivial *a, const MR_CSharp_Trivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_Trivial *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_class_trivial_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const MR::CSharp::Trivial *)(a))),
         (b ? std::move(*(const MR::CSharp::Trivial *)(b)) : static_cast<const MR::CSharp::Trivial &&>((MR::CSharp::Trivial &&)default_trivial))
@@ -1869,8 +1791,6 @@ const MR_CSharp_Trivial *MR_CSharp_test_class_trivial_crref(const MR_CSharp_Triv
 MR_CSharp_Trivial *MR_CSharp_test_class_trivial_ptr(MR_CSharp_Trivial *a, MR_CSharp_Trivial *b, MR_CSharp_Trivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_Trivial *)(::MR::CSharp::test_class_trivial_ptr(
         ((MR::CSharp::Trivial *)a),
         ((MR::CSharp::Trivial *)b),
@@ -1882,8 +1802,6 @@ MR_CSharp_Trivial *MR_CSharp_test_class_trivial_ptr(MR_CSharp_Trivial *a, MR_CSh
 const MR_CSharp_Trivial *MR_CSharp_test_class_trivial_cptr(const MR_CSharp_Trivial *a, const MR_CSharp_Trivial *b, const MR_CSharp_Trivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_Trivial *)(::MR::CSharp::test_class_trivial_cptr(
         ((const MR::CSharp::Trivial *)a),
         ((const MR::CSharp::Trivial *)b),
@@ -2015,8 +1933,6 @@ MR_CSharp_NonTrivialDerived *MR_CSharp_NonTrivialDerived_AssignFromAnother(MR_CS
 MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial(MR_C_PassBy a_pass_by, MR_CSharp_NonTrivial *a, MR_C_PassBy b_pass_by, MR_CSharp_NonTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_CLASSARG_GUARD(a, MR::CSharp::NonTrivial);
     MRBINDC_CLASSARG_GUARD(b, MR::CSharp::NonTrivial);
     return (MR_CSharp_NonTrivial *)new MR::CSharp::NonTrivial(::MR::CSharp::test_class_nontrivial(
@@ -2029,8 +1945,6 @@ MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial(MR_C_PassBy a_pass_by, MR_
 MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_ref(MR_CSharp_NonTrivial *a, MR_CSharp_NonTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_NonTrivial *)std::addressof(::MR::CSharp::test_class_nontrivial_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::NonTrivial *)(a)),
         (b ? *(MR::CSharp::NonTrivial *)(b) : static_cast<MR::CSharp::NonTrivial &>(default_nontrivial))
@@ -2041,8 +1955,6 @@ MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_ref(MR_CSharp_NonTrivial *
 const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_cref(const MR_CSharp_NonTrivial *a, const MR_CSharp_NonTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_NonTrivial *)std::addressof(::MR::CSharp::test_class_nontrivial_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::NonTrivial *)(a)),
         (b ? *(const MR::CSharp::NonTrivial *)(b) : static_cast<const MR::CSharp::NonTrivial &>(default_nontrivial))
@@ -2053,8 +1965,6 @@ const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_cref(const MR_CSharp
 MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_rref(MR_CSharp_NonTrivial *a, MR_CSharp_NonTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_NonTrivial *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_class_nontrivial_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(MR::CSharp::NonTrivial *)(a))),
         (b ? std::move(*(MR::CSharp::NonTrivial *)(b)) : static_cast<MR::CSharp::NonTrivial &&>((MR::CSharp::NonTrivial &&)default_nontrivial))
@@ -2065,8 +1975,6 @@ MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_rref(MR_CSharp_NonTrivial 
 const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_crref(const MR_CSharp_NonTrivial *a, const MR_CSharp_NonTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_NonTrivial *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_class_nontrivial_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const MR::CSharp::NonTrivial *)(a))),
         (b ? std::move(*(const MR::CSharp::NonTrivial *)(b)) : static_cast<const MR::CSharp::NonTrivial &&>((MR::CSharp::NonTrivial &&)default_nontrivial))
@@ -2077,8 +1985,6 @@ const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_crref(const MR_CShar
 MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_ptr(MR_CSharp_NonTrivial *a, MR_CSharp_NonTrivial *b, MR_CSharp_NonTrivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_NonTrivial *)(::MR::CSharp::test_class_nontrivial_ptr(
         ((MR::CSharp::NonTrivial *)a),
         ((MR::CSharp::NonTrivial *)b),
@@ -2090,8 +1996,6 @@ MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_ptr(MR_CSharp_NonTrivial *
 const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_cptr(const MR_CSharp_NonTrivial *a, const MR_CSharp_NonTrivial *b, const MR_CSharp_NonTrivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_NonTrivial *)(::MR::CSharp::test_class_nontrivial_cptr(
         ((const MR::CSharp::NonTrivial *)a),
         ((const MR::CSharp::NonTrivial *)b),
@@ -2103,8 +2007,6 @@ const MR_CSharp_NonTrivial *MR_CSharp_test_class_nontrivial_cptr(const MR_CSharp
 void *MR_CSharp_test_void_ptr(void *a, void *b, void *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_void_ptr(
         a,
         b,
@@ -2116,8 +2018,6 @@ void *MR_CSharp_test_void_ptr(void *a, void *b, void *const *c)
 const void *MR_CSharp_test_void_cptr(const void *a, const void *b, const void *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_void_cptr(
         a,
         b,
@@ -2760,8 +2660,6 @@ MR_C_std_shared_ptr_MR_CSharp_SE *MR_CSharp_mark_se_as_shared(void)
 MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr(MR_C_PassBy a_pass_by, MR_C_std_shared_ptr_MR_CSharp_SA *a, MR_C_PassBy b_pass_by, MR_C_std_shared_ptr_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_CLASSARG_GUARD(a, std::shared_ptr<MR::CSharp::SA>);
     MRBINDC_CLASSARG_GUARD(b, std::shared_ptr<MR::CSharp::SA>);
     return (MR_C_std_shared_ptr_MR_CSharp_SA *)new std::shared_ptr<MR::CSharp::SA>(::MR::CSharp::test_shptr(
@@ -2774,8 +2672,6 @@ MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr(MR_C_PassBy a_pass_by, MR
 MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_ref(MR_C_std_shared_ptr_MR_CSharp_SA *a, MR_C_std_shared_ptr_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_shared_ptr_MR_CSharp_SA *)std::addressof(::MR::CSharp::test_shptr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::shared_ptr<MR::CSharp::SA> *)(a)),
         (b ? *(std::shared_ptr<MR::CSharp::SA> *)(b) : static_cast<std::shared_ptr<MR::CSharp::SA> &>(default_shptr))
@@ -2786,8 +2682,6 @@ MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_ref(MR_C_std_shared_ptr_M
 const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_cref(const MR_C_std_shared_ptr_MR_CSharp_SA *a, const MR_C_std_shared_ptr_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_shared_ptr_MR_CSharp_SA *)std::addressof(::MR::CSharp::test_shptr_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::shared_ptr<MR::CSharp::SA> *)(a)),
         (b ? *(const std::shared_ptr<MR::CSharp::SA> *)(b) : static_cast<const std::shared_ptr<MR::CSharp::SA> &>(default_shptr))
@@ -2798,8 +2692,6 @@ const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_cref(const MR_C_std
 MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_rref(MR_C_std_shared_ptr_MR_CSharp_SA *a, MR_C_std_shared_ptr_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_shared_ptr_MR_CSharp_SA *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_shptr_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(std::shared_ptr<MR::CSharp::SA> *)(a))),
         (b ? std::move(*(std::shared_ptr<MR::CSharp::SA> *)(b)) : static_cast<std::shared_ptr<MR::CSharp::SA> &&>((std::shared_ptr<MR::CSharp::SA> &&)default_shptr))
@@ -2810,8 +2702,6 @@ MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_rref(MR_C_std_shared_ptr_
 const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_crref(const MR_C_std_shared_ptr_MR_CSharp_SA *a, const MR_C_std_shared_ptr_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_shared_ptr_MR_CSharp_SA *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_shptr_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const std::shared_ptr<MR::CSharp::SA> *)(a))),
         (b ? std::move(*(const std::shared_ptr<MR::CSharp::SA> *)(b)) : static_cast<const std::shared_ptr<MR::CSharp::SA> &&>((std::shared_ptr<MR::CSharp::SA> &&)default_shptr))
@@ -2822,8 +2712,6 @@ const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_crref(const MR_C_st
 MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_ptr(MR_C_std_shared_ptr_MR_CSharp_SA *a, MR_C_std_shared_ptr_MR_CSharp_SA *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_shared_ptr_MR_CSharp_SA *)(::MR::CSharp::test_shptr_ptr(
         ((std::shared_ptr<MR::CSharp::SA> *)a),
         (b ? (std::shared_ptr<MR::CSharp::SA> *)(*b) : static_cast<std::shared_ptr<MR::CSharp::SA> *>(&default_shptr))
@@ -2834,8 +2722,6 @@ MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_ptr(MR_C_std_shared_ptr_M
 const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_cptr(const MR_C_std_shared_ptr_MR_CSharp_SA *a, const MR_C_std_shared_ptr_MR_CSharp_SA *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_shared_ptr_MR_CSharp_SA *)(::MR::CSharp::test_shptr_cptr(
         ((const std::shared_ptr<MR::CSharp::SA> *)a),
         (b ? (const std::shared_ptr<MR::CSharp::SA> *)(*b) : static_cast<const std::shared_ptr<MR::CSharp::SA> *>(&default_shptr))
@@ -2846,8 +2732,6 @@ const MR_C_std_shared_ptr_MR_CSharp_SA *MR_CSharp_test_shptr_cptr(const MR_C_std
 MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr(MR_C_PassBy a_pass_by, MR_C_std_shared_ptr_const_MR_CSharp_SA *a, MR_C_PassBy b_pass_by, MR_C_std_shared_ptr_const_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_CLASSARG_GUARD(a, std::shared_ptr<const MR::CSharp::SA>);
     MRBINDC_CLASSARG_GUARD(b, std::shared_ptr<const MR::CSharp::SA>);
     return (MR_C_std_shared_ptr_const_MR_CSharp_SA *)new std::shared_ptr<const MR::CSharp::SA>(::MR::CSharp::test_shcptr(
@@ -2860,8 +2744,6 @@ MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr(MR_C_PassBy a_pass
 MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_ref(MR_C_std_shared_ptr_const_MR_CSharp_SA *a, MR_C_std_shared_ptr_const_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_shared_ptr_const_MR_CSharp_SA *)std::addressof(::MR::CSharp::test_shcptr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::shared_ptr<const MR::CSharp::SA> *)(a)),
         (b ? *(std::shared_ptr<const MR::CSharp::SA> *)(b) : static_cast<std::shared_ptr<const MR::CSharp::SA> &>(default_shcptr))
@@ -2872,8 +2754,6 @@ MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_ref(MR_C_std_share
 const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_cref(const MR_C_std_shared_ptr_const_MR_CSharp_SA *a, const MR_C_std_shared_ptr_const_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_shared_ptr_const_MR_CSharp_SA *)std::addressof(::MR::CSharp::test_shcptr_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::shared_ptr<const MR::CSharp::SA> *)(a)),
         (b ? *(const std::shared_ptr<const MR::CSharp::SA> *)(b) : static_cast<const std::shared_ptr<const MR::CSharp::SA> &>(default_shcptr))
@@ -2884,8 +2764,6 @@ const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_cref(const M
 MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_rref(MR_C_std_shared_ptr_const_MR_CSharp_SA *a, MR_C_std_shared_ptr_const_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_shared_ptr_const_MR_CSharp_SA *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_shcptr_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(std::shared_ptr<const MR::CSharp::SA> *)(a))),
         (b ? std::move(*(std::shared_ptr<const MR::CSharp::SA> *)(b)) : static_cast<std::shared_ptr<const MR::CSharp::SA> &&>((std::shared_ptr<const MR::CSharp::SA> &&)default_shcptr))
@@ -2896,8 +2774,6 @@ MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_rref(MR_C_std_shar
 const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_crref(const MR_C_std_shared_ptr_const_MR_CSharp_SA *a, const MR_C_std_shared_ptr_const_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_shared_ptr_const_MR_CSharp_SA *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_shcptr_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const std::shared_ptr<const MR::CSharp::SA> *)(a))),
         (b ? std::move(*(const std::shared_ptr<const MR::CSharp::SA> *)(b)) : static_cast<const std::shared_ptr<const MR::CSharp::SA> &&>((std::shared_ptr<const MR::CSharp::SA> &&)default_shcptr))
@@ -2908,8 +2784,6 @@ const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_crref(const 
 MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_ptr(MR_C_std_shared_ptr_const_MR_CSharp_SA *a, MR_C_std_shared_ptr_const_MR_CSharp_SA *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_shared_ptr_const_MR_CSharp_SA *)(::MR::CSharp::test_shcptr_ptr(
         ((std::shared_ptr<const MR::CSharp::SA> *)a),
         (b ? (std::shared_ptr<const MR::CSharp::SA> *)(*b) : static_cast<std::shared_ptr<const MR::CSharp::SA> *>(&default_shcptr))
@@ -2920,8 +2794,6 @@ MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_ptr(MR_C_std_share
 const MR_C_std_shared_ptr_const_MR_CSharp_SA *MR_CSharp_test_shcptr_cptr(const MR_C_std_shared_ptr_const_MR_CSharp_SA *a, const MR_C_std_shared_ptr_const_MR_CSharp_SA *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_shared_ptr_const_MR_CSharp_SA *)(::MR::CSharp::test_shcptr_cptr(
         ((const std::shared_ptr<const MR::CSharp::SA> *)a),
         (b ? (const std::shared_ptr<const MR::CSharp::SA> *)(*b) : static_cast<const std::shared_ptr<const MR::CSharp::SA> *>(&default_shcptr))
@@ -2967,8 +2839,6 @@ MR_C_std_shared_ptr_MR_CSharp_SG *MR_CSharp_mark_sg_as_shared(void)
 MR_C_std_string *MR_CSharp_test_string(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_string *)new std::string(::MR::CSharp::test_string(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
         (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string(default_string))
@@ -2979,8 +2849,6 @@ MR_C_std_string *MR_CSharp_test_string(const char *a, const char *a_end, const c
 MR_C_std_string *MR_CSharp_test_string_ref(MR_C_std_string *a, MR_C_std_string *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_string *)std::addressof(::MR::CSharp::test_string_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::string *)(a)),
         (b ? *(std::string *)(b) : static_cast<std::string &>(default_string))
@@ -2991,8 +2859,6 @@ MR_C_std_string *MR_CSharp_test_string_ref(MR_C_std_string *a, MR_C_std_string *
 const MR_C_std_string *MR_CSharp_test_string_cref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_string *)std::addressof(::MR::CSharp::test_string_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
         (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string(default_string))
@@ -3003,8 +2869,6 @@ const MR_C_std_string *MR_CSharp_test_string_cref(const char *a, const char *a_e
 MR_C_std_string *MR_CSharp_test_string_rref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_string *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_string_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
         (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string((std::string &&)default_string))
@@ -3015,8 +2879,6 @@ MR_C_std_string *MR_CSharp_test_string_rref(const char *a, const char *a_end, co
 const MR_C_std_string *MR_CSharp_test_string_crref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_string *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_string_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string(a, a_end) : std::string(a))),
         (b ? (b_end ? std::string(b, b_end) : std::string(b)) : std::string((std::string &&)default_string))
@@ -3027,8 +2889,6 @@ const MR_C_std_string *MR_CSharp_test_string_crref(const char *a, const char *a_
 MR_C_std_string *MR_CSharp_test_string_ptr(MR_C_std_string *a, MR_C_std_string *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_string *)(::MR::CSharp::test_string_ptr(
         ((std::string *)a),
         (b ? (std::string *)(*b) : static_cast<std::string *>(&default_string))
@@ -3039,8 +2899,6 @@ MR_C_std_string *MR_CSharp_test_string_ptr(MR_C_std_string *a, MR_C_std_string *
 const MR_C_std_string *MR_CSharp_test_string_cptr(const MR_C_std_string *a, const MR_C_std_string *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_string *)(::MR::CSharp::test_string_cptr(
         ((const std::string *)a),
         (b ? (const std::string *)(*b) : static_cast<const std::string *>(&default_string))
@@ -3051,8 +2909,6 @@ const MR_C_std_string *MR_CSharp_test_string_cptr(const MR_C_std_string *a, cons
 MR_C_std_string_view *MR_CSharp_test_stringview(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_string_view *)new std::string_view(::MR::CSharp::test_stringview(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
         (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view(default_stringview))
@@ -3063,8 +2919,6 @@ MR_C_std_string_view *MR_CSharp_test_stringview(const char *a, const char *a_end
 MR_C_std_string_view *MR_CSharp_test_stringview_ref(MR_C_std_string_view *a, MR_C_std_string_view *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_string_view *)std::addressof(::MR::CSharp::test_stringview_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::string_view *)(a)),
         (b ? *(std::string_view *)(b) : static_cast<std::string_view &>(default_stringview))
@@ -3075,8 +2929,6 @@ MR_C_std_string_view *MR_CSharp_test_stringview_ref(MR_C_std_string_view *a, MR_
 const MR_C_std_string_view *MR_CSharp_test_stringview_cref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_string_view *)std::addressof(::MR::CSharp::test_stringview_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
         (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view(default_stringview))
@@ -3087,8 +2939,6 @@ const MR_C_std_string_view *MR_CSharp_test_stringview_cref(const char *a, const 
 MR_C_std_string_view *MR_CSharp_test_stringview_rref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_string_view *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_stringview_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
         (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view((std::string_view &&)default_stringview))
@@ -3099,8 +2949,6 @@ MR_C_std_string_view *MR_CSharp_test_stringview_rref(const char *a, const char *
 const MR_C_std_string_view *MR_CSharp_test_stringview_crref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_string_view *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_stringview_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::string_view(a, a_end) : std::string_view(a))),
         (b ? (b_end ? std::string_view(b, b_end) : std::string_view(b)) : std::string_view((std::string_view &&)default_stringview))
@@ -3111,8 +2959,6 @@ const MR_C_std_string_view *MR_CSharp_test_stringview_crref(const char *a, const
 MR_C_std_string_view *MR_CSharp_test_stringview_ptr(MR_C_std_string_view *a, MR_C_std_string_view *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_string_view *)(::MR::CSharp::test_stringview_ptr(
         ((std::string_view *)a),
         (b ? (std::string_view *)(*b) : static_cast<std::string_view *>(&default_stringview))
@@ -3123,8 +2969,6 @@ MR_C_std_string_view *MR_CSharp_test_stringview_ptr(MR_C_std_string_view *a, MR_
 const MR_C_std_string_view *MR_CSharp_test_stringview_cptr(const MR_C_std_string_view *a, const MR_C_std_string_view *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_string_view *)(::MR::CSharp::test_stringview_cptr(
         ((const std::string_view *)a),
         (b ? (const std::string_view *)(*b) : static_cast<const std::string_view *>(&default_stringview))
@@ -3135,8 +2979,6 @@ const MR_C_std_string_view *MR_CSharp_test_stringview_cptr(const MR_C_std_string
 MR_C_std_filesystem_path *MR_CSharp_test_fspath(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_IGNORE_DEPRECATION(
     return (MR_C_std_filesystem_path *)new std::filesystem::path(::MR::CSharp::test_fspath(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
@@ -3149,8 +2991,6 @@ MR_C_std_filesystem_path *MR_CSharp_test_fspath(const char *a, const char *a_end
 MR_C_std_filesystem_path *MR_CSharp_test_fspath_ref(MR_C_std_filesystem_path *a, MR_C_std_filesystem_path *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_filesystem_path *)std::addressof(::MR::CSharp::test_fspath_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::filesystem::path *)(a)),
         (b ? *(std::filesystem::path *)(b) : static_cast<std::filesystem::path &>(default_fspath))
@@ -3161,8 +3001,6 @@ MR_C_std_filesystem_path *MR_CSharp_test_fspath_ref(MR_C_std_filesystem_path *a,
 const MR_C_std_filesystem_path *MR_CSharp_test_fspath_cref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_IGNORE_DEPRECATION(
     return (const MR_C_std_filesystem_path *)std::addressof(::MR::CSharp::test_fspath_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
@@ -3175,8 +3013,6 @@ const MR_C_std_filesystem_path *MR_CSharp_test_fspath_cref(const char *a, const 
 MR_C_std_filesystem_path *MR_CSharp_test_fspath_rref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_IGNORE_DEPRECATION(
     return (MR_C_std_filesystem_path *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_fspath_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
@@ -3189,8 +3025,6 @@ MR_C_std_filesystem_path *MR_CSharp_test_fspath_rref(const char *a, const char *
 const MR_C_std_filesystem_path *MR_CSharp_test_fspath_crref(const char *a, const char *a_end, const char *b, const char *b_end)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_IGNORE_DEPRECATION(
     return (const MR_C_std_filesystem_path *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_fspath_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), (a_end ? std::filesystem::u8path(a, a_end) : std::filesystem::u8path(a))),
@@ -3203,8 +3037,6 @@ const MR_C_std_filesystem_path *MR_CSharp_test_fspath_crref(const char *a, const
 MR_C_std_filesystem_path *MR_CSharp_test_fspath_ptr(MR_C_std_filesystem_path *a, MR_C_std_filesystem_path *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_filesystem_path *)(::MR::CSharp::test_fspath_ptr(
         ((std::filesystem::path *)a),
         (b ? (std::filesystem::path *)(*b) : static_cast<std::filesystem::path *>(&default_fspath))
@@ -3215,8 +3047,6 @@ MR_C_std_filesystem_path *MR_CSharp_test_fspath_ptr(MR_C_std_filesystem_path *a,
 const MR_C_std_filesystem_path *MR_CSharp_test_fspath_cptr(const MR_C_std_filesystem_path *a, const MR_C_std_filesystem_path *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_filesystem_path *)(::MR::CSharp::test_fspath_cptr(
         ((const std::filesystem::path *)a),
         (b ? (const std::filesystem::path *)(*b) : static_cast<const std::filesystem::path *>(&default_fspath))
@@ -8595,8 +8425,6 @@ MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_Construct_2_int(int _1, int _2)
 MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_Construct_2_short(short _1, const int *_2)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ConvCtor *)new MR::CSharp::ConvCtor(MR::CSharp::ConvCtor(
         _1,
         (_2 ? *_2 : static_cast<int>(42))
@@ -8649,8 +8477,6 @@ MR_CSharp_ConvCtor *MR_CSharp_ConvCtor_AssignFromAnother(MR_CSharp_ConvCtor *_th
 MR_CSharp_ConvCtorWithDefArg *MR_CSharp_ConvCtorWithDefArg_Construct(const int *_1)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ConvCtorWithDefArg *)new MR::CSharp::ConvCtorWithDefArg(MR::CSharp::ConvCtorWithDefArg(
         (_1 ? *_1 : static_cast<int>(42))
     ));
@@ -8905,8 +8731,6 @@ MR_CSharp_ConvCtorTrivial *MR_CSharp_ConvCtorTrivial_AssignFromAnother(MR_CSharp
 MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial(const MR_CSharp_ConvCtorTrivial *a, const MR_CSharp_ConvCtorTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ConvCtorTrivial *)new MR::CSharp::ConvCtorTrivial(::MR::CSharp::test_class_convtrivial(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), MR::CSharp::ConvCtorTrivial(*(MR::CSharp::ConvCtorTrivial *)a)),
         (b ? MR::CSharp::ConvCtorTrivial(*(MR::CSharp::ConvCtorTrivial *)b) : static_cast<MR::CSharp::ConvCtorTrivial>(MR::CSharp::ConvCtorTrivial{}))
@@ -8917,8 +8741,6 @@ MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial(const MR_CSharp_Conv
 MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial_ref(MR_CSharp_ConvCtorTrivial *a, MR_CSharp_ConvCtorTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ConvCtorTrivial *)std::addressof(::MR::CSharp::test_class_convtrivial_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::ConvCtorTrivial *)(a)),
         (b ? *(MR::CSharp::ConvCtorTrivial *)(b) : static_cast<MR::CSharp::ConvCtorTrivial &>(default_convtrivial))
@@ -8929,8 +8751,6 @@ MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial_ref(MR_CSharp_ConvCt
 const MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial_cref(const MR_CSharp_ConvCtorTrivial *a, const MR_CSharp_ConvCtorTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_ConvCtorTrivial *)std::addressof(::MR::CSharp::test_class_convtrivial_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::ConvCtorTrivial *)(a)),
         (b ? *(const MR::CSharp::ConvCtorTrivial *)(b) : static_cast<const MR::CSharp::ConvCtorTrivial &>(default_convtrivial))
@@ -8941,8 +8761,6 @@ const MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial_cref(const MR_
 MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial_ptr(MR_CSharp_ConvCtorTrivial *a, MR_CSharp_ConvCtorTrivial *b, MR_CSharp_ConvCtorTrivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ConvCtorTrivial *)(::MR::CSharp::test_class_convtrivial_ptr(
         ((MR::CSharp::ConvCtorTrivial *)a),
         ((MR::CSharp::ConvCtorTrivial *)b),
@@ -8954,8 +8772,6 @@ MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial_ptr(MR_CSharp_ConvCt
 const MR_CSharp_ConvCtorTrivial *MR_CSharp_test_class_convtrivial_cptr(const MR_CSharp_ConvCtorTrivial *a, const MR_CSharp_ConvCtorTrivial *b, const MR_CSharp_ConvCtorTrivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_ConvCtorTrivial *)(::MR::CSharp::test_class_convtrivial_cptr(
         ((const MR::CSharp::ConvCtorTrivial *)a),
         ((const MR::CSharp::ConvCtorTrivial *)b),
@@ -9038,8 +8854,6 @@ MR_CSharp_ConvCtorNonTrivial *MR_CSharp_ConvCtorNonTrivial_AssignFromAnother(MR_
 MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial(MR_C_PassBy a_pass_by, MR_CSharp_ConvCtorNonTrivial *a, MR_C_PassBy b_pass_by, MR_CSharp_ConvCtorNonTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_CLASSARG_GUARD(a, MR::CSharp::ConvCtorNonTrivial);
     MRBINDC_CLASSARG_GUARD(b, MR::CSharp::ConvCtorNonTrivial);
     return (MR_CSharp_ConvCtorNonTrivial *)new MR::CSharp::ConvCtorNonTrivial(::MR::CSharp::test_class_convnontrivial(
@@ -9052,8 +8866,6 @@ MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial(MR_C_PassBy a_
 MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial_ref(MR_CSharp_ConvCtorNonTrivial *a, MR_CSharp_ConvCtorNonTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ConvCtorNonTrivial *)std::addressof(::MR::CSharp::test_class_convnontrivial_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::ConvCtorNonTrivial *)(a)),
         (b ? *(MR::CSharp::ConvCtorNonTrivial *)(b) : static_cast<MR::CSharp::ConvCtorNonTrivial &>(default_convnontrivial))
@@ -9064,8 +8876,6 @@ MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial_ref(MR_CSharp_
 const MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial_cref(const MR_CSharp_ConvCtorNonTrivial *a, const MR_CSharp_ConvCtorNonTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_ConvCtorNonTrivial *)std::addressof(::MR::CSharp::test_class_convnontrivial_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::ConvCtorNonTrivial *)(a)),
         (b ? *(const MR::CSharp::ConvCtorNonTrivial *)(b) : static_cast<const MR::CSharp::ConvCtorNonTrivial &>(default_convnontrivial))
@@ -9076,8 +8886,6 @@ const MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial_cref(con
 MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial_ptr(MR_CSharp_ConvCtorNonTrivial *a, MR_CSharp_ConvCtorNonTrivial *b, MR_CSharp_ConvCtorNonTrivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ConvCtorNonTrivial *)(::MR::CSharp::test_class_convnontrivial_ptr(
         ((MR::CSharp::ConvCtorNonTrivial *)a),
         ((MR::CSharp::ConvCtorNonTrivial *)b),
@@ -9089,8 +8897,6 @@ MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial_ptr(MR_CSharp_
 const MR_CSharp_ConvCtorNonTrivial *MR_CSharp_test_class_convnontrivial_cptr(const MR_CSharp_ConvCtorNonTrivial *a, const MR_CSharp_ConvCtorNonTrivial *b, const MR_CSharp_ConvCtorNonTrivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_ConvCtorNonTrivial *)(::MR::CSharp::test_class_convnontrivial_cptr(
         ((const MR::CSharp::ConvCtorNonTrivial *)a),
         ((const MR::CSharp::ConvCtorNonTrivial *)b),
@@ -9223,8 +9029,6 @@ void MR_C_decr_MR_CSharp_ExposedLayout(MR_CSharp_ExposedLayout _1)
 MR_CSharp_ExposedLayout MR_CSharp_test_exposed_MR_CSharp_ExposedLayout(MR_CSharp_ExposedLayout a, const MR_CSharp_ExposedLayout *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return MRBINDC_BIT_CAST((MR_CSharp_ExposedLayout), ::MR::CSharp::test_exposed(
         MRBINDC_BIT_CAST((MR::CSharp::ExposedLayout), a),
         (b ? MRBINDC_BIT_CAST((MR::CSharp::ExposedLayout), *b) : MR::CSharp::ExposedLayout(default_exposed))
@@ -9235,8 +9039,6 @@ MR_CSharp_ExposedLayout MR_CSharp_test_exposed_MR_CSharp_ExposedLayout(MR_CSharp
 MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayout(MR_CSharp_ExposedLayout *a, MR_CSharp_ExposedLayout *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ExposedLayout *)std::addressof(::MR::CSharp::test_exposed_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::ExposedLayout *)(a)),
         (b ? *(MR::CSharp::ExposedLayout *)(b) : static_cast<MR::CSharp::ExposedLayout &>(default_exposed))
@@ -9247,8 +9049,6 @@ MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayout(MR_C
 const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayout(const MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_ExposedLayout *)std::addressof(::MR::CSharp::test_exposed_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::ExposedLayout *)(a)),
         (b ? *(const MR::CSharp::ExposedLayout *)(b) : static_cast<const MR::CSharp::ExposedLayout &>(default_exposed))
@@ -9259,8 +9059,6 @@ const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayo
 MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_rref(MR_CSharp_ExposedLayout *a, MR_CSharp_ExposedLayout *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ExposedLayout *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_exposed_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(MR::CSharp::ExposedLayout *)(a))),
         (b ? std::move(*(MR::CSharp::ExposedLayout *)(b)) : static_cast<MR::CSharp::ExposedLayout &&>((MR::CSharp::ExposedLayout &&)default_exposed))
@@ -9271,8 +9069,6 @@ MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_rref(MR_CSharp_ExposedLayout *a,
 const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_crref(const MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_ExposedLayout *)std::addressof(mrbindc_details::unmove(::MR::CSharp::test_exposed_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*(const MR::CSharp::ExposedLayout *)(a))),
         (b ? std::move(*(const MR::CSharp::ExposedLayout *)(b)) : static_cast<const MR::CSharp::ExposedLayout &&>((MR::CSharp::ExposedLayout &&)default_exposed))
@@ -9283,8 +9079,6 @@ const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_crref(const MR_CSharp_Expo
 MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayout_ptr(MR_CSharp_ExposedLayout *a, MR_CSharp_ExposedLayout *b, MR_CSharp_ExposedLayout *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ExposedLayout *)(::MR::CSharp::test_exposed_ptr(
         ((MR::CSharp::ExposedLayout *)a),
         ((MR::CSharp::ExposedLayout *)b),
@@ -9296,8 +9090,6 @@ MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayout_ptr(
 const MR_CSharp_ExposedLayout *MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayout_ptr(const MR_CSharp_ExposedLayout *a, const MR_CSharp_ExposedLayout *b, const MR_CSharp_ExposedLayout *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_ExposedLayout *)(::MR::CSharp::test_exposed_cptr(
         ((const MR::CSharp::ExposedLayout *)a),
         ((const MR::CSharp::ExposedLayout *)b),
@@ -9462,8 +9254,6 @@ MR_C_std_shared_ptr_MR_CSharp_ExposedLayoutSh *MR_CSharp_make_exposed_sh(void)
 MR_CSharp_ExposedLayoutSh MR_CSharp_test_exposed_MR_CSharp_ExposedLayoutSh(MR_CSharp_ExposedLayoutSh a, const MR_CSharp_ExposedLayoutSh *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return MRBINDC_BIT_CAST((MR_CSharp_ExposedLayoutSh), ::MR::CSharp::test_exposed(
         MRBINDC_BIT_CAST((MR::CSharp::ExposedLayoutSh), a),
         (b ? MRBINDC_BIT_CAST((MR::CSharp::ExposedLayoutSh), *b) : MR::CSharp::ExposedLayoutSh(default_exposed_sh))
@@ -9474,8 +9264,6 @@ MR_CSharp_ExposedLayoutSh MR_CSharp_test_exposed_MR_CSharp_ExposedLayoutSh(MR_CS
 MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayoutSh(MR_CSharp_ExposedLayoutSh *a, MR_CSharp_ExposedLayoutSh *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ExposedLayoutSh *)std::addressof(::MR::CSharp::test_exposed_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::ExposedLayoutSh *)(a)),
         (b ? *(MR::CSharp::ExposedLayoutSh *)(b) : static_cast<MR::CSharp::ExposedLayoutSh &>(default_exposed_sh))
@@ -9486,8 +9274,6 @@ MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_ref_MR_CSharp_ExposedLayoutSh(
 const MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLayoutSh(const MR_CSharp_ExposedLayoutSh *a, const MR_CSharp_ExposedLayoutSh *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_ExposedLayoutSh *)std::addressof(::MR::CSharp::test_exposed_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::ExposedLayoutSh *)(a)),
         (b ? *(const MR::CSharp::ExposedLayoutSh *)(b) : static_cast<const MR::CSharp::ExposedLayoutSh &>(default_exposed_sh))
@@ -9498,8 +9284,6 @@ const MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_cref_MR_CSharp_ExposedLa
 MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_ptr(MR_CSharp_ExposedLayoutSh *a, MR_CSharp_ExposedLayoutSh *b, MR_CSharp_ExposedLayoutSh *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_ExposedLayoutSh *)(::MR::CSharp::test_exposed_ptr(
         ((MR::CSharp::ExposedLayoutSh *)a),
         ((MR::CSharp::ExposedLayoutSh *)b),
@@ -9511,8 +9295,6 @@ MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_ptr_MR_CSharp_ExposedLayoutSh_
 const MR_CSharp_ExposedLayoutSh *MR_CSharp_test_exposed_cptr_const_MR_CSharp_ExposedLayoutSh_ptr(const MR_CSharp_ExposedLayoutSh *a, const MR_CSharp_ExposedLayoutSh *b, const MR_CSharp_ExposedLayoutSh *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_ExposedLayoutSh *)(::MR::CSharp::test_exposed_cptr(
         ((const MR::CSharp::ExposedLayoutSh *)a),
         ((const MR::CSharp::ExposedLayoutSh *)b),
@@ -9720,8 +9502,6 @@ void MR_CSharp_ArrayMembers_DestroyArray(const MR_CSharp_ArrayMembers *_this)
 MR_C_std_optional_int *MR_CSharp_test_optint(const int *a, const MR_C_std_optional_int *b, const MR_C_std_optional_int *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_int *)new std::optional<int>(::MR::CSharp::test_optint(
         (a ? std::optional<int>(*a) : std::nullopt),
         (b ? std::optional<int>(*(std::optional<int> *)b) : static_cast<std::optional<int>>(default_optint)),
@@ -9733,8 +9513,6 @@ MR_C_std_optional_int *MR_CSharp_test_optint(const int *a, const MR_C_std_option
 MR_C_std_optional_int *MR_CSharp_test_optint_ref(MR_C_std_optional_int *a, MR_C_std_optional_int *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_int *)std::addressof(::MR::CSharp::test_optint_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<int> *)(a)),
         (b ? *(std::optional<int> *)(b) : static_cast<std::optional<int> &>(default_optint))
@@ -9745,8 +9523,6 @@ MR_C_std_optional_int *MR_CSharp_test_optint_ref(MR_C_std_optional_int *a, MR_C_
 const MR_C_std_optional_int *MR_CSharp_test_optint_cref(const int *a, const MR_C_std_optional_int *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_optional_int *)std::addressof(::MR::CSharp::test_optint_cref(
         (a ? std::optional<int>(*a) : std::nullopt),
         (b ? std::optional<int>(*(std::optional<int> *)b) : static_cast<std::optional<int>>(default_optint))
@@ -9757,8 +9533,6 @@ const MR_C_std_optional_int *MR_CSharp_test_optint_cref(const int *a, const MR_C
 MR_C_std_optional_int *MR_CSharp_test_optint_ptr(MR_C_std_optional_int *a, MR_C_std_optional_int *b, MR_C_std_optional_int *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_int *)(::MR::CSharp::test_optint_ptr(
         ((std::optional<int> *)a),
         ((std::optional<int> *)b),
@@ -9770,8 +9544,6 @@ MR_C_std_optional_int *MR_CSharp_test_optint_ptr(MR_C_std_optional_int *a, MR_C_
 const MR_C_std_optional_int *MR_CSharp_test_optint_cptr(const MR_C_std_optional_int *a, const MR_C_std_optional_int *b, const MR_C_std_optional_int *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_optional_int *)(::MR::CSharp::test_optint_cptr(
         ((const std::optional<int> *)a),
         ((const std::optional<int> *)b),
@@ -9783,8 +9555,6 @@ const MR_C_std_optional_int *MR_CSharp_test_optint_cptr(const MR_C_std_optional_
 MR_C_std_optional_std_string *MR_CSharp_test_optstr(const char *a, const char *a_end, MR_C_PassBy b_pass_by, MR_C_std_optional_std_string *b, MR_C_PassBy c_pass_by, MR_C_std_optional_std_string *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_CLASSARG_GUARD(b, std::optional<std::string>);
     MRBINDC_CLASSARG_GUARD(c, std::optional<std::string>);
     return (MR_C_std_optional_std_string *)new std::optional<std::string>(::MR::CSharp::test_optstr(
@@ -9798,8 +9568,6 @@ MR_C_std_optional_std_string *MR_CSharp_test_optstr(const char *a, const char *a
 MR_C_std_optional_std_string *MR_CSharp_test_optstr_ref(MR_C_std_optional_std_string *a, MR_C_std_optional_std_string *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_std_string *)std::addressof(::MR::CSharp::test_optstr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<std::string> *)(a)),
         (b ? *(std::optional<std::string> *)(b) : static_cast<std::optional<std::string> &>(default_optstr))
@@ -9810,8 +9578,6 @@ MR_C_std_optional_std_string *MR_CSharp_test_optstr_ref(MR_C_std_optional_std_st
 const MR_C_std_optional_std_string *MR_CSharp_test_optstr_cref(const char *a, const char *a_end, MR_C_PassBy b_pass_by, MR_C_std_optional_std_string *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_CLASSARG_GUARD(b, std::optional<std::string>);
     return (const MR_C_std_optional_std_string *)std::addressof(::MR::CSharp::test_optstr_cref(
         (a ? std::optional<std::string>(a_end ? std::string(a, a_end) : std::string(a)) : std::nullopt),
@@ -9823,8 +9589,6 @@ const MR_C_std_optional_std_string *MR_CSharp_test_optstr_cref(const char *a, co
 MR_C_std_optional_std_string *MR_CSharp_test_optstr_ptr(MR_C_std_optional_std_string *a, MR_C_std_optional_std_string *b, MR_C_std_optional_std_string *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_std_string *)(::MR::CSharp::test_optstr_ptr(
         ((std::optional<std::string> *)a),
         ((std::optional<std::string> *)b),
@@ -9836,8 +9600,6 @@ MR_C_std_optional_std_string *MR_CSharp_test_optstr_ptr(MR_C_std_optional_std_st
 const MR_C_std_optional_std_string *MR_CSharp_test_optstr_cptr(const MR_C_std_optional_std_string *a, const MR_C_std_optional_std_string *b, const MR_C_std_optional_std_string *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_optional_std_string *)(::MR::CSharp::test_optstr_cptr(
         ((const std::optional<std::string> *)a),
         ((const std::optional<std::string> *)b),
@@ -9849,8 +9611,6 @@ const MR_C_std_optional_std_string *MR_CSharp_test_optstr_cptr(const MR_C_std_op
 MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv(const MR_CSharp_Trivial *a, const MR_C_std_optional_MR_CSharp_Trivial *b, const MR_C_std_optional_MR_CSharp_Trivial *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_Trivial *)new std::optional<MR::CSharp::Trivial>(::MR::CSharp::test_opttriv(
         (a ? std::optional<MR::CSharp::Trivial>(MR::CSharp::Trivial(*(MR::CSharp::Trivial *)a)) : std::nullopt),
         (b ? std::optional<MR::CSharp::Trivial>(*(std::optional<MR::CSharp::Trivial> *)b) : static_cast<std::optional<MR::CSharp::Trivial>>(default_opttriv)),
@@ -9862,8 +9622,6 @@ MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv(const MR_CSharp_Triv
 MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_ref(MR_C_std_optional_MR_CSharp_Trivial *a, MR_C_std_optional_MR_CSharp_Trivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_Trivial *)std::addressof(::MR::CSharp::test_opttriv_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<MR::CSharp::Trivial> *)(a)),
         (b ? *(std::optional<MR::CSharp::Trivial> *)(b) : static_cast<std::optional<MR::CSharp::Trivial> &>(default_opttriv))
@@ -9874,8 +9632,6 @@ MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_ref(MR_C_std_optiona
 const MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_cref(const MR_CSharp_Trivial *a, const MR_C_std_optional_MR_CSharp_Trivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_optional_MR_CSharp_Trivial *)std::addressof(::MR::CSharp::test_opttriv_cref(
         (a ? std::optional<MR::CSharp::Trivial>(MR::CSharp::Trivial(*(MR::CSharp::Trivial *)a)) : std::nullopt),
         (b ? std::optional<MR::CSharp::Trivial>(*(std::optional<MR::CSharp::Trivial> *)b) : static_cast<std::optional<MR::CSharp::Trivial>>(default_opttriv))
@@ -9886,8 +9642,6 @@ const MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_cref(const MR_
 MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_ptr(MR_C_std_optional_MR_CSharp_Trivial *a, MR_C_std_optional_MR_CSharp_Trivial *b, MR_C_std_optional_MR_CSharp_Trivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_Trivial *)(::MR::CSharp::test_opttriv_ptr(
         ((std::optional<MR::CSharp::Trivial> *)a),
         ((std::optional<MR::CSharp::Trivial> *)b),
@@ -9899,8 +9653,6 @@ MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_ptr(MR_C_std_optiona
 const MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_cptr(const MR_C_std_optional_MR_CSharp_Trivial *a, const MR_C_std_optional_MR_CSharp_Trivial *b, const MR_C_std_optional_MR_CSharp_Trivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_optional_MR_CSharp_Trivial *)(::MR::CSharp::test_opttriv_cptr(
         ((const std::optional<MR::CSharp::Trivial> *)a),
         ((const std::optional<MR::CSharp::Trivial> *)b),
@@ -9912,8 +9664,6 @@ const MR_C_std_optional_MR_CSharp_Trivial *MR_CSharp_test_opttriv_cptr(const MR_
 MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv(MR_C_PassBy a_pass_by, MR_CSharp_NonTrivial *a, MR_C_PassBy b_pass_by, MR_CSharp_NonTrivial *b, MR_C_PassBy c_pass_by, MR_CSharp_NonTrivial *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_CLASSARG_GUARD(a, MR::CSharp::NonTrivial);
     MRBINDC_CLASSARG_GUARD(b, MR::CSharp::NonTrivial);
     MRBINDC_CLASSARG_GUARD(c, MR::CSharp::NonTrivial);
@@ -9928,8 +9678,6 @@ MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv(MR_C_PassBy a_
 MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_ref(MR_C_std_optional_MR_CSharp_NonTrivial *a, MR_C_std_optional_MR_CSharp_NonTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_NonTrivial *)std::addressof(::MR::CSharp::test_optnontriv_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<MR::CSharp::NonTrivial> *)(a)),
         (b ? *(std::optional<MR::CSharp::NonTrivial> *)(b) : static_cast<std::optional<MR::CSharp::NonTrivial> &>(default_optnontriv))
@@ -9940,8 +9688,6 @@ MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_ref(MR_C_std_o
 const MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_cref(MR_C_PassBy a_pass_by, MR_CSharp_NonTrivial *a, MR_C_PassBy b_pass_by, MR_CSharp_NonTrivial *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_CLASSARG_GUARD(a, MR::CSharp::NonTrivial);
     MRBINDC_CLASSARG_GUARD(b, MR::CSharp::NonTrivial);
     return (const MR_C_std_optional_MR_CSharp_NonTrivial *)std::addressof(::MR::CSharp::test_optnontriv_cref(
@@ -9954,8 +9700,6 @@ const MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_cref(MR_
 MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_ptr(MR_C_std_optional_MR_CSharp_NonTrivial *a, MR_C_std_optional_MR_CSharp_NonTrivial *b, MR_C_std_optional_MR_CSharp_NonTrivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_NonTrivial *)(::MR::CSharp::test_optnontriv_ptr(
         ((std::optional<MR::CSharp::NonTrivial> *)a),
         ((std::optional<MR::CSharp::NonTrivial> *)b),
@@ -9967,8 +9711,6 @@ MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_ptr(MR_C_std_o
 const MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_cptr(const MR_C_std_optional_MR_CSharp_NonTrivial *a, const MR_C_std_optional_MR_CSharp_NonTrivial *b, const MR_C_std_optional_MR_CSharp_NonTrivial *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_optional_MR_CSharp_NonTrivial *)(::MR::CSharp::test_optnontriv_cptr(
         ((const std::optional<MR::CSharp::NonTrivial> *)a),
         ((const std::optional<MR::CSharp::NonTrivial> *)b),
@@ -9980,8 +9722,6 @@ const MR_C_std_optional_MR_CSharp_NonTrivial *MR_CSharp_test_optnontriv_cptr(con
 MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp(const MR_CSharp_ExposedLayoutSh *a, const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *b, const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_ExposedLayoutSh *)new std::optional<MR::CSharp::ExposedLayoutSh>(::MR::CSharp::test_optshexp(
         (a ? std::optional<MR::CSharp::ExposedLayoutSh>(MRBINDC_BIT_CAST((MR::CSharp::ExposedLayoutSh), *a)) : std::nullopt),
         (b ? std::optional<MR::CSharp::ExposedLayoutSh>(*(std::optional<MR::CSharp::ExposedLayoutSh> *)b) : static_cast<std::optional<MR::CSharp::ExposedLayoutSh>>(default_optshexp)),
@@ -9993,8 +9733,6 @@ MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp(const MR_CS
 MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_ref(MR_C_std_optional_MR_CSharp_ExposedLayoutSh *a, MR_C_std_optional_MR_CSharp_ExposedLayoutSh *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_ExposedLayoutSh *)std::addressof(::MR::CSharp::test_optshexp_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<MR::CSharp::ExposedLayoutSh> *)(a)),
         (b ? *(std::optional<MR::CSharp::ExposedLayoutSh> *)(b) : static_cast<std::optional<MR::CSharp::ExposedLayoutSh> &>(default_optshexp))
@@ -10005,8 +9743,6 @@ MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_ref(MR_C_st
 const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_cref(const MR_CSharp_ExposedLayoutSh *a, const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *)std::addressof(::MR::CSharp::test_optshexp_cref(
         (a ? std::optional<MR::CSharp::ExposedLayoutSh>(MRBINDC_BIT_CAST((MR::CSharp::ExposedLayoutSh), *a)) : std::nullopt),
         (b ? std::optional<MR::CSharp::ExposedLayoutSh>(*(std::optional<MR::CSharp::ExposedLayoutSh> *)b) : static_cast<std::optional<MR::CSharp::ExposedLayoutSh>>(default_optshexp))
@@ -10017,8 +9753,6 @@ const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_cref(
 MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_ptr(MR_C_std_optional_MR_CSharp_ExposedLayoutSh *a, MR_C_std_optional_MR_CSharp_ExposedLayoutSh *b, MR_C_std_optional_MR_CSharp_ExposedLayoutSh *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_ExposedLayoutSh *)(::MR::CSharp::test_optshexp_ptr(
         ((std::optional<MR::CSharp::ExposedLayoutSh> *)a),
         ((std::optional<MR::CSharp::ExposedLayoutSh> *)b),
@@ -10030,8 +9764,6 @@ MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_ptr(MR_C_st
 const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_cptr(const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *a, const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *b, const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *)(::MR::CSharp::test_optshexp_cptr(
         ((const std::optional<MR::CSharp::ExposedLayoutSh> *)a),
         ((const std::optional<MR::CSharp::ExposedLayoutSh> *)b),
@@ -10043,8 +9775,6 @@ const MR_C_std_optional_MR_CSharp_ExposedLayoutSh *MR_CSharp_test_optshexp_cptr(
 MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv(const MR_CSharp_SA *a, const MR_C_std_optional_MR_CSharp_SA *b, const MR_C_std_optional_MR_CSharp_SA *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_SA *)new std::optional<MR::CSharp::SA>(::MR::CSharp::test_optshtriv(
         (a ? std::optional<MR::CSharp::SA>(MR::CSharp::SA(*(MR::CSharp::SA *)a)) : std::nullopt),
         (b ? std::optional<MR::CSharp::SA>(*(std::optional<MR::CSharp::SA> *)b) : static_cast<std::optional<MR::CSharp::SA>>(default_optshtriv)),
@@ -10056,8 +9786,6 @@ MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv(const MR_CSharp_SA *a, 
 MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_ref(MR_C_std_optional_MR_CSharp_SA *a, MR_C_std_optional_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_SA *)std::addressof(::MR::CSharp::test_optshtriv_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::optional<MR::CSharp::SA> *)(a)),
         (b ? *(std::optional<MR::CSharp::SA> *)(b) : static_cast<std::optional<MR::CSharp::SA> &>(default_optshtriv))
@@ -10068,8 +9796,6 @@ MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_ref(MR_C_std_optional_M
 const MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_cref(const MR_CSharp_SA *a, const MR_C_std_optional_MR_CSharp_SA *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_optional_MR_CSharp_SA *)std::addressof(::MR::CSharp::test_optshtriv_cref(
         (a ? std::optional<MR::CSharp::SA>(MR::CSharp::SA(*(MR::CSharp::SA *)a)) : std::nullopt),
         (b ? std::optional<MR::CSharp::SA>(*(std::optional<MR::CSharp::SA> *)b) : static_cast<std::optional<MR::CSharp::SA>>(default_optshtriv))
@@ -10080,8 +9806,6 @@ const MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_cref(const MR_CSh
 MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_ptr(MR_C_std_optional_MR_CSharp_SA *a, MR_C_std_optional_MR_CSharp_SA *b, MR_C_std_optional_MR_CSharp_SA *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_optional_MR_CSharp_SA *)(::MR::CSharp::test_optshtriv_ptr(
         ((std::optional<MR::CSharp::SA> *)a),
         ((std::optional<MR::CSharp::SA> *)b),
@@ -10093,8 +9817,6 @@ MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_ptr(MR_C_std_optional_M
 const MR_C_std_optional_MR_CSharp_SA *MR_CSharp_test_optshtriv_cptr(const MR_C_std_optional_MR_CSharp_SA *a, const MR_C_std_optional_MR_CSharp_SA *b, const MR_C_std_optional_MR_CSharp_SA *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_optional_MR_CSharp_SA *)(::MR::CSharp::test_optshtriv_cptr(
         ((const std::optional<MR::CSharp::SA> *)a),
         ((const std::optional<MR::CSharp::SA> *)b),
@@ -10140,8 +9862,6 @@ bool MR_CSharp_test_tag_cptr(void)
 MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant(const MR_C_std_variant_std_monostate_int_float *a, const MR_C_std_variant_std_monostate_int_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_variant_std_monostate_int_float *)new std::variant<std::monostate, int, float>(::MR::CSharp::test_variant(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::variant<std::monostate, int, float>(*(std::variant<std::monostate, int, float> *)a)),
         (b ? std::variant<std::monostate, int, float>(*(std::variant<std::monostate, int, float> *)b) : static_cast<std::variant<std::monostate, int, float>>(default_variant))
@@ -10152,8 +9872,6 @@ MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant(const MR_C_std_
 MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_ref(MR_C_std_variant_std_monostate_int_float *a, MR_C_std_variant_std_monostate_int_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_variant_std_monostate_int_float *)std::addressof(::MR::CSharp::test_variant_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::variant<std::monostate, int, float> *)(a)),
         (b ? *(std::variant<std::monostate, int, float> *)(b) : static_cast<std::variant<std::monostate, int, float> &>(default_variant))
@@ -10164,8 +9882,6 @@ MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_ref(MR_C_std_va
 const MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_cref(const MR_C_std_variant_std_monostate_int_float *a, const MR_C_std_variant_std_monostate_int_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_variant_std_monostate_int_float *)std::addressof(::MR::CSharp::test_variant_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::variant<std::monostate, int, float> *)(a)),
         (b ? *(const std::variant<std::monostate, int, float> *)(b) : static_cast<const std::variant<std::monostate, int, float> &>(default_variant))
@@ -10176,8 +9892,6 @@ const MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_cref(cons
 MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_ptr(MR_C_std_variant_std_monostate_int_float *a, MR_C_std_variant_std_monostate_int_float *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_variant_std_monostate_int_float *)(::MR::CSharp::test_variant_ptr(
         ((std::variant<std::monostate, int, float> *)a),
         (b ? (std::variant<std::monostate, int, float> *)(*b) : static_cast<std::variant<std::monostate, int, float> *>(&default_variant))
@@ -10188,8 +9902,6 @@ MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_ptr(MR_C_std_va
 const MR_C_std_variant_std_monostate_int_float *MR_CSharp_test_variant_cptr(const MR_C_std_variant_std_monostate_int_float *a, const MR_C_std_variant_std_monostate_int_float *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_variant_std_monostate_int_float *)(::MR::CSharp::test_variant_cptr(
         ((const std::variant<std::monostate, int, float> *)a),
         (b ? (const std::variant<std::monostate, int, float> *)(*b) : static_cast<const std::variant<std::monostate, int, float> *>(&default_variant))
@@ -10243,8 +9955,6 @@ const MR_C_std_ostream *MR_CSharp_test_iostreams_cptr(const MR_C_std_istream *_1
 int *MR_CSharp_test_uniqueptr(int *a, int *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (::MR::CSharp::test_uniqueptr(
         std::unique_ptr<int>(a),
         (b ? std::unique_ptr<int>(*b) : static_cast<std::unique_ptr<int>>(std::move(default_uniqueptr)))
@@ -10255,8 +9965,6 @@ int *MR_CSharp_test_uniqueptr(int *a, int *const *b)
 MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_ref(MR_C_std_unique_ptr_int *a, MR_C_std_unique_ptr_int *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_unique_ptr_int *)std::addressof(::MR::CSharp::test_uniqueptr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::unique_ptr<int> *)(a)),
         (b ? *(std::unique_ptr<int> *)(b) : static_cast<std::unique_ptr<int> &>(default_uniqueptr))
@@ -10267,8 +9975,6 @@ MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_ref(MR_C_std_unique_ptr_int *a
 const MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_cref(const MR_C_std_unique_ptr_int *a, const MR_C_std_unique_ptr_int *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_unique_ptr_int *)std::addressof(::MR::CSharp::test_uniqueptr_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::unique_ptr<int> *)(a)),
         (b ? *(const std::unique_ptr<int> *)(b) : static_cast<const std::unique_ptr<int> &>(default_uniqueptr))
@@ -10279,8 +9985,6 @@ const MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_cref(const MR_C_std_uniq
 MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_ptr(MR_C_std_unique_ptr_int *a, MR_C_std_unique_ptr_int *b, MR_C_std_unique_ptr_int *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_unique_ptr_int *)(::MR::CSharp::test_uniqueptr_ptr(
         ((std::unique_ptr<int> *)a),
         ((std::unique_ptr<int> *)b),
@@ -10292,8 +9996,6 @@ MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_ptr(MR_C_std_unique_ptr_int *a
 const MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_cptr(const MR_C_std_unique_ptr_int *a, const MR_C_std_unique_ptr_int *b, const MR_C_std_unique_ptr_int *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_unique_ptr_int *)(::MR::CSharp::test_uniqueptr_cptr(
         ((const std::unique_ptr<int> *)a),
         ((const std::unique_ptr<int> *)b),
@@ -10305,8 +10007,6 @@ const MR_C_std_unique_ptr_int *MR_CSharp_test_uniqueptr_cptr(const MR_C_std_uniq
 int (*MR_CSharp_test_plainarr_ref(int (*a)[42], int (*b)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_plainarr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int (&)[42]>(default_plainarr))
@@ -10317,8 +10017,6 @@ int (*MR_CSharp_test_plainarr_ref(int (*a)[42], int (*b)[42]))[42]
 const int (*MR_CSharp_test_plainarr_cref(const int (*a)[42], const int (*b)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_plainarr_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int (&)[42]>(default_plainarr))
@@ -10329,8 +10027,6 @@ const int (*MR_CSharp_test_plainarr_cref(const int (*a)[42], const int (*b)[42])
 int (*MR_CSharp_test_plainarr_rref(int (*a)[42], int (*b)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_plainarr_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<int (&&)[42]>((MR::CSharp::PlainArray &&)default_plainarr))
@@ -10341,8 +10037,6 @@ int (*MR_CSharp_test_plainarr_rref(int (*a)[42], int (*b)[42]))[42]
 const int (*MR_CSharp_test_plainarr_crref(const int (*a)[42], const int (*b)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_plainarr_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<const int (&&)[42]>((MR::CSharp::PlainArray &&)default_plainarr))
@@ -10353,8 +10047,6 @@ const int (*MR_CSharp_test_plainarr_crref(const int (*a)[42], const int (*b)[42]
 int (*MR_CSharp_test_plainarr_ptr(int (*a)[42], int (*b)[42], int (*const *c)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_plainarr_ptr(
         a,
         b,
@@ -10366,8 +10058,6 @@ int (*MR_CSharp_test_plainarr_ptr(int (*a)[42], int (*b)[42], int (*const *c)[42
 const int (*MR_CSharp_test_plainarr_cptr(const int (*a)[42], const int (*b)[42], const int (*const *c)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_plainarr_cptr(
         a,
         b,
@@ -10379,8 +10069,6 @@ const int (*MR_CSharp_test_plainarr_cptr(const int (*a)[42], const int (*b)[42],
 int (*MR_CSharp_test_plainarr2_ref(int (*a)[10][20], int (*b)[10][20]))[10][20]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_plainarr2_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int (&)[10][20]>(default_plainarr2))
@@ -10391,8 +10079,6 @@ int (*MR_CSharp_test_plainarr2_ref(int (*a)[10][20], int (*b)[10][20]))[10][20]
 const int (*MR_CSharp_test_plainarr2_cref(const int (*a)[10][20], const int (*b)[10][20]))[10][20]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_plainarr2_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int (&)[10][20]>(default_plainarr2))
@@ -10403,8 +10089,6 @@ const int (*MR_CSharp_test_plainarr2_cref(const int (*a)[10][20], const int (*b)
 int (*MR_CSharp_test_plainarr2_rref(int (*a)[10][20], int (*b)[10][20]))[10][20]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_plainarr2_rref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<int (&&)[10][20]>((MR::CSharp::PlainArray2 &&)default_plainarr2))
@@ -10415,8 +10099,6 @@ int (*MR_CSharp_test_plainarr2_rref(int (*a)[10][20], int (*b)[10][20]))[10][20]
 const int (*MR_CSharp_test_plainarr2_crref(const int (*a)[10][20], const int (*b)[10][20]))[10][20]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(mrbindc_details::unmove(::MR::CSharp::test_plainarr2_crref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::move(*a)),
         (b ? std::move(*b) : static_cast<const int (&&)[10][20]>((MR::CSharp::PlainArray2 &&)default_plainarr2))
@@ -10427,8 +10109,6 @@ const int (*MR_CSharp_test_plainarr2_crref(const int (*a)[10][20], const int (*b
 int (*MR_CSharp_test_plainarr2_ptr(int (*a)[10][20], int (*b)[10][20], int (*const *c)[10][20]))[10][20]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_plainarr2_ptr(
         a,
         b,
@@ -10440,8 +10120,6 @@ int (*MR_CSharp_test_plainarr2_ptr(int (*a)[10][20], int (*b)[10][20], int (*con
 const int (*MR_CSharp_test_plainarr2_cptr(const int (*a)[10][20], const int (*b)[10][20], const int (*const *c)[10][20]))[10][20]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_plainarr2_cptr(
         a,
         b,
@@ -10453,8 +10131,6 @@ const int (*MR_CSharp_test_plainarr2_cptr(const int (*a)[10][20], const int (*b)
 MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_ref(MR_CSharp_E1 (*a)[42], MR_CSharp_E1 (*b)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E1 (*)[42])std::addressof(::MR::CSharp::test_plainarrenum_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::E1 (*)[42])(a)),
         (b ? *(MR::CSharp::E1 (*)[42])(b) : static_cast<MR::CSharp::E1 (&)[42]>(default_plainarrenum))
@@ -10465,8 +10141,6 @@ MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_ref(MR_CSharp_E1 (*a)[42], MR_CSharp_
 const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_cref(const MR_CSharp_E1 (*a)[42], const MR_CSharp_E1 (*b)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_E1 (*)[42])std::addressof(::MR::CSharp::test_plainarrenum_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::E1 (*)[42])(a)),
         (b ? *(const MR::CSharp::E1 (*)[42])(b) : static_cast<const MR::CSharp::E1 (&)[42]>(default_plainarrenum))
@@ -10477,8 +10151,6 @@ const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_cref(const MR_CSharp_E1 (*a)[42
 MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_ptr(MR_CSharp_E1 (*a)[42], MR_CSharp_E1 (*b)[42], MR_CSharp_E1 (*const *c)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E1 (*)[42])(::MR::CSharp::test_plainarrenum_ptr(
         ((MR::CSharp::E1 (*)[42])a),
         ((MR::CSharp::E1 (*)[42])b),
@@ -10490,8 +10162,6 @@ MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_ptr(MR_CSharp_E1 (*a)[42], MR_CSharp_
 const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_cptr(const MR_CSharp_E1 (*a)[42], const MR_CSharp_E1 (*b)[42], const MR_CSharp_E1 (*const *c)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_E1 (*)[42])(::MR::CSharp::test_plainarrenum_cptr(
         ((const MR::CSharp::E1 (*)[42])a),
         ((const MR::CSharp::E1 (*)[42])b),
@@ -10503,8 +10173,6 @@ const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum_cptr(const MR_CSharp_E1 (*a)[42
 MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_ref(MR_CSharp_E1 (*a)[10][20], MR_CSharp_E1 (*b)[10][20]))[10][20]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E1 (*)[10][20])std::addressof(::MR::CSharp::test_plainarrenum2_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(MR::CSharp::E1 (*)[10][20])(a)),
         (b ? *(MR::CSharp::E1 (*)[10][20])(b) : static_cast<MR::CSharp::E1 (&)[10][20]>(default_plainarrenum2))
@@ -10515,8 +10183,6 @@ MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_ref(MR_CSharp_E1 (*a)[10][20], MR_CS
 const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_cref(const MR_CSharp_E1 (*a)[10][20], const MR_CSharp_E1 (*b)[10][20]))[10][20]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_E1 (*)[10][20])std::addressof(::MR::CSharp::test_plainarrenum2_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const MR::CSharp::E1 (*)[10][20])(a)),
         (b ? *(const MR::CSharp::E1 (*)[10][20])(b) : static_cast<const MR::CSharp::E1 (&)[10][20]>(default_plainarrenum2))
@@ -10527,8 +10193,6 @@ const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_cref(const MR_CSharp_E1 (*a)[1
 MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_ptr(MR_CSharp_E1 (*a)[10][20], MR_CSharp_E1 (*b)[10][20], MR_CSharp_E1 (*const *c)[10][20]))[10][20]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_CSharp_E1 (*)[10][20])(::MR::CSharp::test_plainarrenum2_ptr(
         ((MR::CSharp::E1 (*)[10][20])a),
         ((MR::CSharp::E1 (*)[10][20])b),
@@ -10540,8 +10204,6 @@ MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_ptr(MR_CSharp_E1 (*a)[10][20], MR_CS
 const MR_CSharp_E1 (*MR_CSharp_test_plainarrenum2_cptr(const MR_CSharp_E1 (*a)[10][20], const MR_CSharp_E1 (*b)[10][20], const MR_CSharp_E1 (*const *c)[10][20]))[10][20]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_CSharp_E1 (*)[10][20])(::MR::CSharp::test_plainarrenum2_cptr(
         ((const MR::CSharp::E1 (*)[10][20])a),
         ((const MR::CSharp::E1 (*)[10][20])b),
@@ -10573,8 +10235,6 @@ int (***MR_CSharp_test_ptrs2(int (***ptr)[42], int (***ref)[42]))[42]
 int **MR_CSharp_test_intptr_ref(int **a, int **b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intptr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int *&>(default_intptr))
@@ -10585,8 +10245,6 @@ int **MR_CSharp_test_intptr_ref(int **a, int **b)
 int *const *MR_CSharp_test_intptr_cref(int *const *a, int *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intptr_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int *const &>(default_intptr))
@@ -10597,8 +10255,6 @@ int *const *MR_CSharp_test_intptr_cref(int *const *a, int *const *b)
 int **MR_CSharp_test_intptr_ptr(int **a, int **b, int **const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_intptr_ptr(
         a,
         b,
@@ -10610,8 +10266,6 @@ int **MR_CSharp_test_intptr_ptr(int **a, int **b, int **const *c)
 int *const *MR_CSharp_test_intptr_cptr(int *const *a, int *const *b, int *const *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_intptr_cptr(
         a,
         b,
@@ -10623,8 +10277,6 @@ int *const *MR_CSharp_test_intptr_cptr(int *const *a, int *const *b, int *const 
 const int **MR_CSharp_test_intcptr_ref(const int **a, const int **b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intcptr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int *&>(default_intcptr))
@@ -10635,8 +10287,6 @@ const int **MR_CSharp_test_intcptr_ref(const int **a, const int **b)
 const int *const *MR_CSharp_test_intcptr_cref(const int *const *a, const int *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intcptr_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int *const &>(default_intcptr))
@@ -10647,8 +10297,6 @@ const int *const *MR_CSharp_test_intcptr_cref(const int *const *a, const int *co
 const int **MR_CSharp_test_intcptr_ptr(const int **a, const int **b, const int **const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_intcptr_ptr(
         a,
         b,
@@ -10660,8 +10308,6 @@ const int **MR_CSharp_test_intcptr_ptr(const int **a, const int **b, const int *
 const int *const *MR_CSharp_test_intcptr_cptr(const int *const *a, const int *const *b, const int *const *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_intcptr_cptr(
         a,
         b,
@@ -10673,8 +10319,6 @@ const int *const *MR_CSharp_test_intcptr_cptr(const int *const *a, const int *co
 int ***MR_CSharp_test_intptrptr_ref(int ***a, int ***b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intptrptr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int **&>(default_intptrptr))
@@ -10685,8 +10329,6 @@ int ***MR_CSharp_test_intptrptr_ref(int ***a, int ***b)
 int **const *MR_CSharp_test_intptrptr_cref(int **const *a, int **const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_intptrptr_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int **const &>(default_intptrptr))
@@ -10697,8 +10339,6 @@ int **const *MR_CSharp_test_intptrptr_cref(int **const *a, int **const *b)
 int ***MR_CSharp_test_intptrptr_ptr(int ***a, int ***b, int ***const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_intptrptr_ptr(
         a,
         b,
@@ -10710,8 +10350,6 @@ int ***MR_CSharp_test_intptrptr_ptr(int ***a, int ***b, int ***const *c)
 int **const *MR_CSharp_test_intptrptr_cptr(int **const *a, int **const *b, int **const *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_intptrptr_cptr(
         a,
         b,
@@ -10723,8 +10361,6 @@ int **const *MR_CSharp_test_intptrptr_cptr(int **const *a, int **const *b, int *
 void **MR_CSharp_test_voidptr_ref(void **a, void **b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_voidptr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<void *&>(default_voidptr))
@@ -10735,8 +10371,6 @@ void **MR_CSharp_test_voidptr_ref(void **a, void **b)
 void *const *MR_CSharp_test_voidptr_cref(void *const *a, void *const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_voidptr_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<void *const &>(default_voidptr))
@@ -10747,8 +10381,6 @@ void *const *MR_CSharp_test_voidptr_cref(void *const *a, void *const *b)
 void **MR_CSharp_test_voidptr_ptr(void **a, void **b, void **const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_voidptr_ptr(
         a,
         b,
@@ -10760,8 +10392,6 @@ void **MR_CSharp_test_voidptr_ptr(void **a, void **b, void **const *c)
 void *const *MR_CSharp_test_voidptr_cptr(void *const *a, void *const *b, void *const *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_voidptr_cptr(
         a,
         b,
@@ -10773,8 +10403,6 @@ void *const *MR_CSharp_test_voidptr_cptr(void *const *a, void *const *b, void *c
 void ***MR_CSharp_test_voidptrptr_ref(void ***a, void ***b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_voidptrptr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<void **&>(default_voidptrptr))
@@ -10785,8 +10413,6 @@ void ***MR_CSharp_test_voidptrptr_ref(void ***a, void ***b)
 void **const *MR_CSharp_test_voidptrptr_cref(void **const *a, void **const *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_voidptrptr_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<void **const &>(default_voidptrptr))
@@ -10797,8 +10423,6 @@ void **const *MR_CSharp_test_voidptrptr_cref(void **const *a, void **const *b)
 void ***MR_CSharp_test_voidptrptr_ptr(void ***a, void ***b, void ***const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_voidptrptr_ptr(
         a,
         b,
@@ -10810,8 +10434,6 @@ void ***MR_CSharp_test_voidptrptr_ptr(void ***a, void ***b, void ***const *c)
 void **const *MR_CSharp_test_voidptrptr_cptr(void **const *a, void **const *b, void **const *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_voidptrptr_cptr(
         a,
         b,
@@ -10823,8 +10445,6 @@ void **const *MR_CSharp_test_voidptrptr_cptr(void **const *a, void **const *b, v
 int (**MR_CSharp_test_arrptr_ref(int (**a)[42], int (**b)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_arrptr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int (*&)[42]>(default_arrptr))
@@ -10835,8 +10455,6 @@ int (**MR_CSharp_test_arrptr_ref(int (**a)[42], int (**b)[42]))[42]
 int (*const *MR_CSharp_test_arrptr_cref(int (*const *a)[42], int (*const *b)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_arrptr_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<int (*const &)[42]>(default_arrptr))
@@ -10847,8 +10465,6 @@ int (*const *MR_CSharp_test_arrptr_cref(int (*const *a)[42], int (*const *b)[42]
 int (**MR_CSharp_test_arrptr_ptr(int (**a)[42], int (**b)[42], int (**const *c)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_arrptr_ptr(
         a,
         b,
@@ -10860,8 +10476,6 @@ int (**MR_CSharp_test_arrptr_ptr(int (**a)[42], int (**b)[42], int (**const *c)[
 int (*const *MR_CSharp_test_arrptr_cptr(int (*const *a)[42], int (*const *b)[42], int (*const *const *c)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_arrptr_cptr(
         a,
         b,
@@ -10873,8 +10487,6 @@ int (*const *MR_CSharp_test_arrptr_cptr(int (*const *a)[42], int (*const *b)[42]
 const int (**MR_CSharp_test_arrcptr_ref(const int (**a)[42], const int (**b)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_arrcptr_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int (*&)[42]>(default_arrcptr))
@@ -10885,8 +10497,6 @@ const int (**MR_CSharp_test_arrcptr_ref(const int (**a)[42], const int (**b)[42]
 const int (*const *MR_CSharp_test_arrcptr_cref(const int (*const *a)[42], const int (*const *b)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return std::addressof(::MR::CSharp::test_arrcptr_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *a),
         (b ? *b : static_cast<const int (*const &)[42]>(default_arrcptr))
@@ -10897,8 +10507,6 @@ const int (*const *MR_CSharp_test_arrcptr_cref(const int (*const *a)[42], const 
 const int (**MR_CSharp_test_arrcptr_ptr(const int (**a)[42], const int (**b)[42], const int (**const *c)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_arrcptr_ptr(
         a,
         b,
@@ -10910,8 +10518,6 @@ const int (**MR_CSharp_test_arrcptr_ptr(const int (**a)[42], const int (**b)[42]
 const int (*const *MR_CSharp_test_arrcptr_cptr(const int (*const *a)[42], const int (*const *b)[42], const int (*const *const *c)[42]))[42]
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return ::MR::CSharp::test_arrcptr_cptr(
         a,
         b,
@@ -14123,8 +13729,6 @@ void MR_CSharp_TestStdFunction_Call(MR_CSharp_TestStdFunction *_this)
 MR_C_std_expected_int_float *MR_CSharp_test_expected_int(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_int_float *)new std::expected<int, float>(::MR::CSharp::test_expected_int(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<int, float>(*(std::expected<int, float> *)a)),
         (b ? std::expected<int, float>(*(std::expected<int, float> *)b) : static_cast<std::expected<int, float>>(std::expected<int, float>{42}))
@@ -14135,8 +13739,6 @@ MR_C_std_expected_int_float *MR_CSharp_test_expected_int(const MR_C_std_expected
 MR_C_std_expected_int_float *MR_CSharp_test_expected_int_ref(MR_C_std_expected_int_float *a, MR_C_std_expected_int_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_int_float *)std::addressof(::MR::CSharp::test_expected_int_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<int, float> *)(a)),
         (b ? *(std::expected<int, float> *)(b) : static_cast<std::expected<int, float> &>(default_expected_int))
@@ -14147,8 +13749,6 @@ MR_C_std_expected_int_float *MR_CSharp_test_expected_int_ref(MR_C_std_expected_i
 const MR_C_std_expected_int_float *MR_CSharp_test_expected_int_cref(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_int_float *)std::addressof(::MR::CSharp::test_expected_int_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<int, float> *)(a)),
         (b ? *(const std::expected<int, float> *)(b) : static_cast<const std::expected<int, float> &>(default_expected_int))
@@ -14159,8 +13759,6 @@ const MR_C_std_expected_int_float *MR_CSharp_test_expected_int_cref(const MR_C_s
 MR_C_std_expected_int_float *MR_CSharp_test_expected_int_ptr(MR_C_std_expected_int_float *a, MR_C_std_expected_int_float *b, MR_C_std_expected_int_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_int_float *)(::MR::CSharp::test_expected_int_ptr(
         ((std::expected<int, float> *)a),
         ((std::expected<int, float> *)b),
@@ -14172,8 +13770,6 @@ MR_C_std_expected_int_float *MR_CSharp_test_expected_int_ptr(MR_C_std_expected_i
 const MR_C_std_expected_int_float *MR_CSharp_test_expected_int_cptr(const MR_C_std_expected_int_float *a, const MR_C_std_expected_int_float *b, const MR_C_std_expected_int_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_int_float *)(::MR::CSharp::test_expected_int_cptr(
         ((const std::expected<int, float> *)a),
         ((const std::expected<int, float> *)b),
@@ -14185,8 +13781,6 @@ const MR_C_std_expected_int_float *MR_CSharp_test_expected_int_cptr(const MR_C_s
 MR_C_std_expected_void_float *MR_CSharp_test_expected_void(const MR_C_std_expected_void_float *a, const MR_C_std_expected_void_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_void_float *)new std::expected<void, float>(::MR::CSharp::test_expected_void(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<void, float>(*(std::expected<void, float> *)a)),
         (b ? std::expected<void, float>(*(std::expected<void, float> *)b) : static_cast<std::expected<void, float>>(std::expected<void, float>{}))
@@ -14197,8 +13791,6 @@ MR_C_std_expected_void_float *MR_CSharp_test_expected_void(const MR_C_std_expect
 MR_C_std_expected_void_float *MR_CSharp_test_expected_void_ref(MR_C_std_expected_void_float *a, MR_C_std_expected_void_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_void_float *)std::addressof(::MR::CSharp::test_expected_void_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<void, float> *)(a)),
         (b ? *(std::expected<void, float> *)(b) : static_cast<std::expected<void, float> &>(default_expected_void))
@@ -14209,8 +13801,6 @@ MR_C_std_expected_void_float *MR_CSharp_test_expected_void_ref(MR_C_std_expected
 const MR_C_std_expected_void_float *MR_CSharp_test_expected_void_cref(const MR_C_std_expected_void_float *a, const MR_C_std_expected_void_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_void_float *)std::addressof(::MR::CSharp::test_expected_void_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<void, float> *)(a)),
         (b ? *(const std::expected<void, float> *)(b) : static_cast<const std::expected<void, float> &>(default_expected_void))
@@ -14221,8 +13811,6 @@ const MR_C_std_expected_void_float *MR_CSharp_test_expected_void_cref(const MR_C
 MR_C_std_expected_void_float *MR_CSharp_test_expected_void_ptr(MR_C_std_expected_void_float *a, MR_C_std_expected_void_float *b, MR_C_std_expected_void_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_void_float *)(::MR::CSharp::test_expected_void_ptr(
         ((std::expected<void, float> *)a),
         ((std::expected<void, float> *)b),
@@ -14234,8 +13822,6 @@ MR_C_std_expected_void_float *MR_CSharp_test_expected_void_ptr(MR_C_std_expected
 const MR_C_std_expected_void_float *MR_CSharp_test_expected_void_cptr(const MR_C_std_expected_void_float *a, const MR_C_std_expected_void_float *b, const MR_C_std_expected_void_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_void_float *)(::MR::CSharp::test_expected_void_cptr(
         ((const std::expected<void, float> *)a),
         ((const std::expected<void, float> *)b),
@@ -14247,11 +13833,9 @@ const MR_C_std_expected_void_float *MR_CSharp_test_expected_void_cptr(const MR_C
 MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum(const MR_C_std_expected_MR_CSharp_E1_float *a, const MR_C_std_expected_MR_CSharp_E1_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_E1_float *)new std::expected<MR::CSharp::E1, float>(::MR::CSharp::test_expected_enum(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<MR::CSharp::E1, float>(*(std::expected<MR::CSharp::E1, float> *)a)),
-        (b ? std::expected<MR::CSharp::E1, float>(*(std::expected<MR::CSharp::E1, float> *)b) : static_cast<std::expected<MR::CSharp::E1, float>>(std::expected<MR::CSharp::E1, float>{E1::b}))
+        (b ? std::expected<MR::CSharp::E1, float>(*(std::expected<MR::CSharp::E1, float> *)b) : static_cast<std::expected<MR::CSharp::E1, float>>(std::expected<MR::CSharp::E1, float>{MR::CSharp::E1::b}))
     ));
     ) // MRBINDC_TRY
 }
@@ -14259,8 +13843,6 @@ MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum(const MR_C_st
 MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_ref(MR_C_std_expected_MR_CSharp_E1_float *a, MR_C_std_expected_MR_CSharp_E1_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_E1_float *)std::addressof(::MR::CSharp::test_expected_enum_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::E1, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::E1, float> *)(b) : static_cast<std::expected<MR::CSharp::E1, float> &>(default_expected_enum))
@@ -14271,8 +13853,6 @@ MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_ref(MR_C_std_
 const MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_cref(const MR_C_std_expected_MR_CSharp_E1_float *a, const MR_C_std_expected_MR_CSharp_E1_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_E1_float *)std::addressof(::MR::CSharp::test_expected_enum_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::E1, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::E1, float> *)(b) : static_cast<const std::expected<MR::CSharp::E1, float> &>(default_expected_enum))
@@ -14283,8 +13863,6 @@ const MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_cref(co
 MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_ptr(MR_C_std_expected_MR_CSharp_E1_float *a, MR_C_std_expected_MR_CSharp_E1_float *b, MR_C_std_expected_MR_CSharp_E1_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_E1_float *)(::MR::CSharp::test_expected_enum_ptr(
         ((std::expected<MR::CSharp::E1, float> *)a),
         ((std::expected<MR::CSharp::E1, float> *)b),
@@ -14296,8 +13874,6 @@ MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_ptr(MR_C_std_
 const MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_cptr(const MR_C_std_expected_MR_CSharp_E1_float *a, const MR_C_std_expected_MR_CSharp_E1_float *b, const MR_C_std_expected_MR_CSharp_E1_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_E1_float *)(::MR::CSharp::test_expected_enum_cptr(
         ((const std::expected<MR::CSharp::E1, float> *)a),
         ((const std::expected<MR::CSharp::E1, float> *)b),
@@ -14309,8 +13885,6 @@ const MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum_cptr(co
 MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv(const MR_C_std_expected_MR_CSharp_Trivial_float *a, const MR_C_std_expected_MR_CSharp_Trivial_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_Trivial_float *)new std::expected<MR::CSharp::Trivial, float>(::MR::CSharp::test_expected_triv(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<MR::CSharp::Trivial, float>(*(std::expected<MR::CSharp::Trivial, float> *)a)),
         (b ? std::expected<MR::CSharp::Trivial, float>(*(std::expected<MR::CSharp::Trivial, float> *)b) : static_cast<std::expected<MR::CSharp::Trivial, float>>(std::expected<MR::CSharp::Trivial, float>{MR::CSharp::Trivial{}}))
@@ -14321,8 +13895,6 @@ MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv(const MR
 MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_ref(MR_C_std_expected_MR_CSharp_Trivial_float *a, MR_C_std_expected_MR_CSharp_Trivial_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_Trivial_float *)std::addressof(::MR::CSharp::test_expected_triv_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::Trivial, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::Trivial, float> *)(b) : static_cast<std::expected<MR::CSharp::Trivial, float> &>(default_expected_triv))
@@ -14333,8 +13905,6 @@ MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_ref(MR_C
 const MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_cref(const MR_C_std_expected_MR_CSharp_Trivial_float *a, const MR_C_std_expected_MR_CSharp_Trivial_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_Trivial_float *)std::addressof(::MR::CSharp::test_expected_triv_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::Trivial, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::Trivial, float> *)(b) : static_cast<const std::expected<MR::CSharp::Trivial, float> &>(default_expected_triv))
@@ -14345,8 +13915,6 @@ const MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_cr
 MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_ptr(MR_C_std_expected_MR_CSharp_Trivial_float *a, MR_C_std_expected_MR_CSharp_Trivial_float *b, MR_C_std_expected_MR_CSharp_Trivial_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_Trivial_float *)(::MR::CSharp::test_expected_triv_ptr(
         ((std::expected<MR::CSharp::Trivial, float> *)a),
         ((std::expected<MR::CSharp::Trivial, float> *)b),
@@ -14358,8 +13926,6 @@ MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_ptr(MR_C
 const MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_cptr(const MR_C_std_expected_MR_CSharp_Trivial_float *a, const MR_C_std_expected_MR_CSharp_Trivial_float *b, const MR_C_std_expected_MR_CSharp_Trivial_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_Trivial_float *)(::MR::CSharp::test_expected_triv_cptr(
         ((const std::expected<MR::CSharp::Trivial, float> *)a),
         ((const std::expected<MR::CSharp::Trivial, float> *)b),
@@ -14371,8 +13937,6 @@ const MR_C_std_expected_MR_CSharp_Trivial_float *MR_CSharp_test_expected_triv_cp
 MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv(MR_C_PassBy a_pass_by, MR_C_std_expected_MR_CSharp_NonTrivial_float *a, MR_C_PassBy b_pass_by, MR_C_std_expected_MR_CSharp_NonTrivial_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     MRBINDC_CLASSARG_GUARD(a, std::expected<MR::CSharp::NonTrivial, float>);
     MRBINDC_CLASSARG_GUARD(b, std::expected<MR::CSharp::NonTrivial, float>);
     return (MR_C_std_expected_MR_CSharp_NonTrivial_float *)new std::expected<MR::CSharp::NonTrivial, float>(::MR::CSharp::test_expected_nontriv(
@@ -14385,8 +13949,6 @@ MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv(MR
 MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_ref(MR_C_std_expected_MR_CSharp_NonTrivial_float *a, MR_C_std_expected_MR_CSharp_NonTrivial_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_NonTrivial_float *)std::addressof(::MR::CSharp::test_expected_nontriv_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::NonTrivial, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::NonTrivial, float> *)(b) : static_cast<std::expected<MR::CSharp::NonTrivial, float> &>(default_expected_nontriv))
@@ -14397,8 +13959,6 @@ MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_re
 const MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_cref(const MR_C_std_expected_MR_CSharp_NonTrivial_float *a, const MR_C_std_expected_MR_CSharp_NonTrivial_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_NonTrivial_float *)std::addressof(::MR::CSharp::test_expected_nontriv_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::NonTrivial, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::NonTrivial, float> *)(b) : static_cast<const std::expected<MR::CSharp::NonTrivial, float> &>(default_expected_nontriv))
@@ -14409,8 +13969,6 @@ const MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nont
 MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_ptr(MR_C_std_expected_MR_CSharp_NonTrivial_float *a, MR_C_std_expected_MR_CSharp_NonTrivial_float *b, MR_C_std_expected_MR_CSharp_NonTrivial_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_NonTrivial_float *)(::MR::CSharp::test_expected_nontriv_ptr(
         ((std::expected<MR::CSharp::NonTrivial, float> *)a),
         ((std::expected<MR::CSharp::NonTrivial, float> *)b),
@@ -14422,8 +13980,6 @@ MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_pt
 const MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nontriv_cptr(const MR_C_std_expected_MR_CSharp_NonTrivial_float *a, const MR_C_std_expected_MR_CSharp_NonTrivial_float *b, const MR_C_std_expected_MR_CSharp_NonTrivial_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_NonTrivial_float *)(::MR::CSharp::test_expected_nontriv_cptr(
         ((const std::expected<MR::CSharp::NonTrivial, float> *)a),
         ((const std::expected<MR::CSharp::NonTrivial, float> *)b),
@@ -14435,8 +13991,6 @@ const MR_C_std_expected_MR_CSharp_NonTrivial_float *MR_CSharp_test_expected_nont
 MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared(const MR_C_std_expected_MR_CSharp_SA_float *a, const MR_C_std_expected_MR_CSharp_SA_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_SA_float *)new std::expected<MR::CSharp::SA, float>(::MR::CSharp::test_expected_shared(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<MR::CSharp::SA, float>(*(std::expected<MR::CSharp::SA, float> *)a)),
         (b ? std::expected<MR::CSharp::SA, float>(*(std::expected<MR::CSharp::SA, float> *)b) : static_cast<std::expected<MR::CSharp::SA, float>>(std::expected<MR::CSharp::SA, float>{MR::CSharp::SA{}}))
@@ -14447,8 +14001,6 @@ MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared(const MR_C_
 MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_ref(MR_C_std_expected_MR_CSharp_SA_float *a, MR_C_std_expected_MR_CSharp_SA_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_SA_float *)std::addressof(::MR::CSharp::test_expected_shared_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::SA, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::SA, float> *)(b) : static_cast<std::expected<MR::CSharp::SA, float> &>(default_expected_shared))
@@ -14459,8 +14011,6 @@ MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_ref(MR_C_st
 const MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_cref(const MR_C_std_expected_MR_CSharp_SA_float *a, const MR_C_std_expected_MR_CSharp_SA_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_SA_float *)std::addressof(::MR::CSharp::test_expected_shared_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::SA, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::SA, float> *)(b) : static_cast<const std::expected<MR::CSharp::SA, float> &>(default_expected_shared))
@@ -14471,8 +14021,6 @@ const MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_cref(
 MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_ptr(MR_C_std_expected_MR_CSharp_SA_float *a, MR_C_std_expected_MR_CSharp_SA_float *b, MR_C_std_expected_MR_CSharp_SA_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_SA_float *)(::MR::CSharp::test_expected_shared_ptr(
         ((std::expected<MR::CSharp::SA, float> *)a),
         ((std::expected<MR::CSharp::SA, float> *)b),
@@ -14484,8 +14032,6 @@ MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_ptr(MR_C_st
 const MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_cptr(const MR_C_std_expected_MR_CSharp_SA_float *a, const MR_C_std_expected_MR_CSharp_SA_float *b, const MR_C_std_expected_MR_CSharp_SA_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_SA_float *)(::MR::CSharp::test_expected_shared_cptr(
         ((const std::expected<MR::CSharp::SA, float> *)a),
         ((const std::expected<MR::CSharp::SA, float> *)b),
@@ -14497,8 +14043,6 @@ const MR_C_std_expected_MR_CSharp_SA_float *MR_CSharp_test_expected_shared_cptr(
 MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed(const MR_C_std_expected_MR_CSharp_ExposedLayout_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayout_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_ExposedLayout_float *)new std::expected<MR::CSharp::ExposedLayout, float>(::MR::CSharp::test_expected_exposed(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<MR::CSharp::ExposedLayout, float>(*(std::expected<MR::CSharp::ExposedLayout, float> *)a)),
         (b ? std::expected<MR::CSharp::ExposedLayout, float>(*(std::expected<MR::CSharp::ExposedLayout, float> *)b) : static_cast<std::expected<MR::CSharp::ExposedLayout, float>>(std::expected<MR::CSharp::ExposedLayout, float>{MR::CSharp::ExposedLayout{}}))
@@ -14509,8 +14053,6 @@ MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed
 MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_ref(MR_C_std_expected_MR_CSharp_ExposedLayout_float *a, MR_C_std_expected_MR_CSharp_ExposedLayout_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_ExposedLayout_float *)std::addressof(::MR::CSharp::test_expected_exposed_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::ExposedLayout, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::ExposedLayout, float> *)(b) : static_cast<std::expected<MR::CSharp::ExposedLayout, float> &>(default_expected_exposed))
@@ -14521,8 +14063,6 @@ MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed
 const MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_cref(const MR_C_std_expected_MR_CSharp_ExposedLayout_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayout_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_ExposedLayout_float *)std::addressof(::MR::CSharp::test_expected_exposed_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::ExposedLayout, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::ExposedLayout, float> *)(b) : static_cast<const std::expected<MR::CSharp::ExposedLayout, float> &>(default_expected_exposed))
@@ -14533,8 +14073,6 @@ const MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_e
 MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_ptr(MR_C_std_expected_MR_CSharp_ExposedLayout_float *a, MR_C_std_expected_MR_CSharp_ExposedLayout_float *b, MR_C_std_expected_MR_CSharp_ExposedLayout_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_ExposedLayout_float *)(::MR::CSharp::test_expected_exposed_ptr(
         ((std::expected<MR::CSharp::ExposedLayout, float> *)a),
         ((std::expected<MR::CSharp::ExposedLayout, float> *)b),
@@ -14546,8 +14084,6 @@ MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed
 const MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_exposed_cptr(const MR_C_std_expected_MR_CSharp_ExposedLayout_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayout_float *b, const MR_C_std_expected_MR_CSharp_ExposedLayout_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_ExposedLayout_float *)(::MR::CSharp::test_expected_exposed_cptr(
         ((const std::expected<MR::CSharp::ExposedLayout, float> *)a),
         ((const std::expected<MR::CSharp::ExposedLayout, float> *)b),
@@ -14559,8 +14095,6 @@ const MR_C_std_expected_MR_CSharp_ExposedLayout_float *MR_CSharp_test_expected_e
 MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared(const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *)new std::expected<MR::CSharp::ExposedLayoutSh, float>(::MR::CSharp::test_expected_exposed_shared(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), std::expected<MR::CSharp::ExposedLayoutSh, float>(*(std::expected<MR::CSharp::ExposedLayoutSh, float> *)a)),
         (b ? std::expected<MR::CSharp::ExposedLayoutSh, float>(*(std::expected<MR::CSharp::ExposedLayoutSh, float> *)b) : static_cast<std::expected<MR::CSharp::ExposedLayoutSh, float>>(std::expected<MR::CSharp::ExposedLayoutSh, float>{MR::CSharp::ExposedLayoutSh{}}))
@@ -14571,8 +14105,6 @@ MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_expos
 MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_ref(MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *a, MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *)std::addressof(::MR::CSharp::test_expected_exposed_shared_ref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(std::expected<MR::CSharp::ExposedLayoutSh, float> *)(a)),
         (b ? *(std::expected<MR::CSharp::ExposedLayoutSh, float> *)(b) : static_cast<std::expected<MR::CSharp::ExposedLayoutSh, float> &>(default_expected_exposed_shared))
@@ -14583,8 +14115,6 @@ MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_expos
 const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_cref(const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *b)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *)std::addressof(::MR::CSharp::test_expected_exposed_shared_cref(
         ((a ? void() : MRBINDC_THROW("Parameter `a` can not be null.", void)), *(const std::expected<MR::CSharp::ExposedLayoutSh, float> *)(a)),
         (b ? *(const std::expected<MR::CSharp::ExposedLayoutSh, float> *)(b) : static_cast<const std::expected<MR::CSharp::ExposedLayoutSh, float> &>(default_expected_exposed_shared))
@@ -14595,8 +14125,6 @@ const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected
 MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_ptr(MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *a, MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *b, MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *)(::MR::CSharp::test_expected_exposed_shared_ptr(
         ((std::expected<MR::CSharp::ExposedLayoutSh, float> *)a),
         ((std::expected<MR::CSharp::ExposedLayoutSh, float> *)b),
@@ -14608,8 +14136,6 @@ MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_expos
 const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *MR_CSharp_test_expected_exposed_shared_cptr(const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *a, const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *b, const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *const *c)
 {
     MRBINDC_TRY(
-    using namespace MR;
-    using namespace CSharp;
     return (const MR_C_std_expected_MR_CSharp_ExposedLayoutSh_float *)(::MR::CSharp::test_expected_exposed_shared_cptr(
         ((const std::expected<MR::CSharp::ExposedLayoutSh, float> *)a),
         ((const std::expected<MR::CSharp::ExposedLayoutSh, float> *)b),

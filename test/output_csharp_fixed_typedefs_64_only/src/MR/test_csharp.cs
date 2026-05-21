@@ -26974,7 +26974,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum`.
-            /// Parameter `b` defaults to `E1::b`.
+            /// Parameter `b` defaults to `MR::CSharp::E1::b`.
             /// </summary>
             public static unsafe MR.CS.CSharp.E1 testEnum(MR.CS.CSharp.E1 a, MR.CS.CSharp.E1? b = null)
             {
@@ -27074,7 +27074,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum`.
-            /// Parameter `b` defaults to `E2::b`.
+            /// Parameter `b` defaults to `MR::CSharp::E2::b`.
             /// </summary>
             public static unsafe MR.CS.CSharp.E2 testEnum(MR.CS.CSharp.E2 a, MR.CS.CSharp.E2? b = null)
             {
@@ -30094,7 +30094,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_enum`.
-            /// Parameter `b` defaults to `std::expected&lt;MR::CSharp::E1, float&gt;{E1::b}`.
+            /// Parameter `b` defaults to `std::expected&lt;MR::CSharp::E1, float&gt;{MR::CSharp::E1::b}`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpE1_Float testExpectedEnum(MR.CS.Std.Const_Expected_MRCSharpE1_Float a, MR.CS.Std.Const_Expected_MRCSharpE1_Float? b = null)
             {

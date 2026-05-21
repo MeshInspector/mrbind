@@ -76,7 +76,7 @@ MR_C_API void MR_StdOptional_SetEnumDefTrivial(const MR_StdOptional_E *_1);
 
 // Generated from function `MR::StdOptional::SetEnumDef`.
 // Parameter `_1` is a single object.
-// Parameter `_1` has a default argument: `E::e1`, pass a null pointer to use it.
+// Parameter `_1` has a default argument: `MR::StdOptional::E::e1`, pass a null pointer to use it.
 MR_C_API void MR_StdOptional_SetEnumDef(const MR_C_std_optional_MR_StdOptional_E *_1);
 
 // Returns a pointer to a member variable of class `MR::StdOptional::A` named `x`.

@@ -878,7 +878,7 @@ MR_C_API MR_C_std_string *MR_CSharp_test_constness_str(const char *_1, const cha
 MR_C_API void MR_CSharp_test_keyword_in_param_name(int params);
 
 /// Generated from function `MR::CSharp::test_enum`.
-/// Parameter `b` has a default argument: `E1::b`, pass a null pointer to use it.
+/// Parameter `b` has a default argument: `MR::CSharp::E1::b`, pass a null pointer to use it.
 MR_C_API MR_CSharp_E1 MR_CSharp_test_enum_MR_CSharp_E1(MR_CSharp_E1 a, const MR_CSharp_E1 *b);
 
 /// Generated from function `MR::CSharp::test_enum_ref`.
@@ -930,7 +930,7 @@ MR_C_API MR_CSharp_E1 *MR_CSharp_test_enum_ptr_MR_CSharp_E1_ptr(MR_CSharp_E1 *a,
 MR_C_API const MR_CSharp_E1 *MR_CSharp_test_enum_cptr_const_MR_CSharp_E1_ptr(const MR_CSharp_E1 *a, const MR_CSharp_E1 *b, const MR_CSharp_E1 *const *c);
 
 /// Generated from function `MR::CSharp::test_enum`.
-/// Parameter `b` has a default argument: `E2::b`, pass a null pointer to use it.
+/// Parameter `b` has a default argument: `MR::CSharp::E2::b`, pass a null pointer to use it.
 MR_C_API MR_CSharp_E2 MR_CSharp_test_enum_MR_CSharp_E2(MR_CSharp_E2 a, const MR_CSharp_E2 *b);
 
 /// Generated from function `MR::CSharp::test_enum_ref`.
@@ -9453,7 +9453,7 @@ MR_C_API const MR_C_std_expected_void_float *MR_CSharp_test_expected_void_cptr(c
 /// Generated from function `MR::CSharp::test_expected_enum`.
 /// Parameter `a` can not be null. It is a single object.
 /// Parameter `b` is a single object.
-/// Parameter `b` has a default argument: `std::expected<MR::CSharp::E1, float>{E1::b}`, pass a null pointer to use it.
+/// Parameter `b` has a default argument: `std::expected<MR::CSharp::E1, float>{MR::CSharp::E1::b}`, pass a null pointer to use it.
 /// Never returns null. Returns an instance allocated on the heap! Must call `MR_C_std_expected_MR_CSharp_E1_float_Destroy()` to free it when you're done using it.
 MR_C_API MR_C_std_expected_MR_CSharp_E1_float *MR_CSharp_test_expected_enum(const MR_C_std_expected_MR_CSharp_E1_float *a, const MR_C_std_expected_MR_CSharp_E1_float *b);
 

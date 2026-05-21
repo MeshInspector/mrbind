@@ -41,8 +41,6 @@ void MR_StdOptional_SetIntDefTrivial(const int32_t *_1)
 
 void MR_StdOptional_SetIntDef(const MR_C_std_optional_int32_t *_1)
 {
-    using namespace MR;
-    using namespace StdOptional;
     ::MR::StdOptional::SetIntDef(
         (_1 ? std::optional<int32_t>(*(std::optional<int32_t> *)_1) : static_cast<std::optional<int32_t>>(42))
     );
@@ -76,10 +74,8 @@ void MR_StdOptional_SetEnumDefTrivial(const MR_StdOptional_E *_1)
 
 void MR_StdOptional_SetEnumDef(const MR_C_std_optional_MR_StdOptional_E *_1)
 {
-    using namespace MR;
-    using namespace StdOptional;
     ::MR::StdOptional::SetEnumDef(
-        (_1 ? std::optional<MR::StdOptional::E>(*(std::optional<MR::StdOptional::E> *)_1) : static_cast<std::optional<MR::StdOptional::E>>(E::e1))
+        (_1 ? std::optional<MR::StdOptional::E>(*(std::optional<MR::StdOptional::E> *)_1) : static_cast<std::optional<MR::StdOptional::E>>(MR::StdOptional::E::e1))
     );
 }
 
@@ -177,8 +173,6 @@ void MR_StdOptional_SetClassDefTrivial(const MR_StdOptional_A *_1)
 
 void MR_StdOptional_SetClassDef(const MR_C_std_optional_MR_StdOptional_A *_1)
 {
-    using namespace MR;
-    using namespace StdOptional;
     ::MR::StdOptional::SetClassDef(
         (_1 ? std::optional<MR::StdOptional::A>(*(std::optional<MR::StdOptional::A> *)_1) : static_cast<std::optional<MR::StdOptional::A>>(MR::StdOptional::A{42}))
     );
@@ -283,8 +277,6 @@ void MR_StdOptional_SetClass2DefTrivial(MR_C_PassBy _1_pass_by, MR_StdOptional_B
 
 void MR_StdOptional_SetClass2Def(MR_C_PassBy _1_pass_by, MR_StdOptional_B *_1)
 {
-    using namespace MR;
-    using namespace StdOptional;
     MRBINDC_CLASSARG_GUARD(_1, MR::StdOptional::B);
     ::MR::StdOptional::SetClass2Def(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_COPY(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_MOVE(_1, (MR::StdOptional::B), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (MR::StdOptional::B{"blah"}), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_DEF_ARG(_1, MR_C_PassBy_NoObject, (std::nullopt), std::optional<MR::StdOptional::B>) MRBINDC_CLASSARG_END(_1, std::optional<MR::StdOptional::B>))

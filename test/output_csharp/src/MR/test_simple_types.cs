@@ -516,7 +516,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetEnumDef`.
-            /// Parameter `_1` defaults to `E::e1`.
+            /// Parameter `_1` defaults to `MR::TestSimpleTypes::E::e1`.
             public static unsafe void SetEnumDef(MR.CS.TestSimpleTypes.E? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnumDef", ExactSpelling = true)]
@@ -635,7 +635,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::TestSimpleTypes::SetEnum2Def`.
-            /// Parameter `_1` defaults to `E2::e1`.
+            /// Parameter `_1` defaults to `MR::TestSimpleTypes::E2::e1`.
             public static unsafe void SetEnum2Def(MR.CS.TestSimpleTypes.E2? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_TestSimpleTypes_SetEnum2Def", ExactSpelling = true)]

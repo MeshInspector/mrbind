@@ -131,7 +131,7 @@ MR_C_API int32_t MR_TestSimpleTypes_GetEnum(void);
 MR_C_API void MR_TestSimpleTypes_SetEnum(MR_TestSimpleTypes_E _1);
 
 // Generated from function `MR::TestSimpleTypes::SetEnumDef`.
-// Parameter `_1` has a default argument: `E::e1`, pass a null pointer to use it.
+// Parameter `_1` has a default argument: `MR::TestSimpleTypes::E::e1`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetEnumDef(const MR_TestSimpleTypes_E *_1);
 
 // Generated from function `MR::TestSimpleTypes::GetEnumPtr`.
@@ -168,7 +168,7 @@ MR_C_API int32_t MR_TestSimpleTypes_GetEnum2(void);
 MR_C_API void MR_TestSimpleTypes_SetEnum2(MR_TestSimpleTypes_E2 _1);
 
 // Generated from function `MR::TestSimpleTypes::SetEnum2Def`.
-// Parameter `_1` has a default argument: `E2::e1`, pass a null pointer to use it.
+// Parameter `_1` has a default argument: `MR::TestSimpleTypes::E2::e1`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetEnum2Def(const MR_TestSimpleTypes_E2 *_1);
 
 // Generated from function `MR::TestSimpleTypes::GetEnum2Ptr`.

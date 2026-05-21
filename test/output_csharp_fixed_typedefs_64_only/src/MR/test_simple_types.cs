@@ -533,7 +533,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetEnumDef`.
-            /// Parameter `_1` defaults to `E::e1`.
+            /// Parameter `_1` defaults to `MR::TestSimpleTypes::E::e1`.
             /// </summary>
             public static unsafe void setEnumDef(MR.CS.TestSimpleTypes.E? _1 = null)
             {
@@ -650,7 +650,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetEnum2Def`.
-            /// Parameter `_1` defaults to `E2::e1`.
+            /// Parameter `_1` defaults to `MR::TestSimpleTypes::E2::e1`.
             /// </summary>
             public static unsafe void setEnum2Def(MR.CS.TestSimpleTypes.E2? _1 = null)
             {

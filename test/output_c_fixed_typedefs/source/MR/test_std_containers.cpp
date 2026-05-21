@@ -30,8 +30,6 @@ void MR_StdContainers_Set(MR_C_PassBy _1_pass_by, MR_C_std_vector_int32_t *_1)
 
 void MR_StdContainers_SetWithDefault(MR_C_PassBy _1_pass_by, MR_C_std_vector_int32_t *_1)
 {
-    using namespace MR;
-    using namespace StdContainers;
     MRBINDC_CLASSARG_GUARD(_1, std::vector<int32_t>);
     ::MR::StdContainers::SetWithDefault(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::vector<int32_t>) MRBINDC_CLASSARG_COPY(_1, (std::vector<int32_t>), std::vector<int32_t>) MRBINDC_CLASSARG_MOVE(_1, (std::vector<int32_t>), std::vector<int32_t>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::type_identity_t<std::vector<int>>{1, 2, 3}), std::vector<int32_t>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::vector<int32_t>) MRBINDC_CLASSARG_END(_1, std::vector<int32_t>))

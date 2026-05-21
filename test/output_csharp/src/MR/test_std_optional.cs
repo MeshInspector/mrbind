@@ -489,7 +489,7 @@ public static partial class MR
             }
 
             /// Generated from function `MR::StdOptional::SetEnumDef`.
-            /// Parameter `_1` defaults to `E::e1`.
+            /// Parameter `_1` defaults to `MR::StdOptional::E::e1`.
             public static unsafe void SetEnumDef(MR.CS.Std.Const_Optional_MRStdOptionalE? _1 = null)
             {
                 [System.Runtime.InteropServices.DllImport("bleh", EntryPoint = "MR_StdOptional_SetEnumDef", ExactSpelling = true)]

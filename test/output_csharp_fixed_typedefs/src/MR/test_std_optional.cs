@@ -571,7 +571,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::StdOptional::SetEnumDef`.
-            /// Parameter `_1` defaults to `E::e1`.
+            /// Parameter `_1` defaults to `MR::StdOptional::E::e1`.
             /// </summary>
             public static unsafe void setEnumDef(MR.CS.Std.Const_Optional_MRStdOptionalE? _1 = null)
             {
