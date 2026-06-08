@@ -234,7 +234,8 @@ Option **A2** is to trade `[u]int64_t` support for `[unsigned] long long` suppor
 ### Option B
 
 You must stop using `std::[u]int64_t`, and instead add the following typedef to your library:
-```
+```cpp
+// Note, those typedefs are not compatible with option A. If you want to support both options, you have to add a condition to this `#ifdef` that option A is not being used.
 #ifdef __APPLE__
 #include <cstddef>
 namespace mylib
