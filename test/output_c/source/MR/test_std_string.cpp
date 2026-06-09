@@ -20,6 +20,8 @@ void MR_StdString_Set(const char *s, const char *s_end)
 void MR_StdString_SetWithDefault(const char *s, const char *s_end)
 {
     MRBINDC_TRY(
+    using namespace MR;
+    using namespace StdString;
     ::MR::StdString::SetWithDefault(
         (s ? (s_end ? std::string(s, s_end) : std::string(s)) : std::string("42"))
     );

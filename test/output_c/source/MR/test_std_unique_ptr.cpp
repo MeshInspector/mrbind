@@ -46,6 +46,8 @@ void MR_StdUniquePtr_SetIntDefTrivial(int *_1)
 void MR_StdUniquePtr_SetIntDef(int *const *_1)
 {
     MRBINDC_TRY(
+    using namespace MR;
+    using namespace StdUniquePtr;
     ::MR::StdUniquePtr::SetIntDef(
         (_1 ? std::unique_ptr<int>(*_1) : static_cast<std::unique_ptr<int>>(std::make_unique<int>(42)))
     );
@@ -116,6 +118,8 @@ void MR_StdUniquePtr_SetIntArrDefTrivial(int *_1)
 void MR_StdUniquePtr_SetIntArrDef(int *const *_1)
 {
     MRBINDC_TRY(
+    using namespace MR;
+    using namespace StdUniquePtr;
     ::MR::StdUniquePtr::SetIntArrDef(
         (_1 ? std::unique_ptr<int[]>(*_1) : static_cast<std::unique_ptr<int[]>>(std::make_unique<int[]>(42)))
     );
@@ -219,6 +223,8 @@ void MR_StdUniquePtr_SetClassDefTrivial(MR_StdUniquePtr_A *_1)
 void MR_StdUniquePtr_SetClassDef(MR_StdUniquePtr_A *const *_1)
 {
     MRBINDC_TRY(
+    using namespace MR;
+    using namespace StdUniquePtr;
     ::MR::StdUniquePtr::SetClassDef(
         (_1 ? std::unique_ptr<MR::StdUniquePtr::A>((MR::StdUniquePtr::A *)*_1) : static_cast<std::unique_ptr<MR::StdUniquePtr::A>>(std::make_unique<MR::StdUniquePtr::A>(MR::StdUniquePtr::A{})))
     );
@@ -289,6 +295,8 @@ void MR_StdUniquePtr_SetClassArrDefTrivial(MR_StdUniquePtr_A *_1)
 void MR_StdUniquePtr_SetClassArrDef(MR_StdUniquePtr_A *const *_1)
 {
     MRBINDC_TRY(
+    using namespace MR;
+    using namespace StdUniquePtr;
     ::MR::StdUniquePtr::SetClassArrDef(
         (_1 ? std::unique_ptr<MR::StdUniquePtr::A[]>((MR::StdUniquePtr::A *)*_1) : static_cast<std::unique_ptr<MR::StdUniquePtr::A[]>>(std::make_unique<MR::StdUniquePtr::A[]>(42)))
     );

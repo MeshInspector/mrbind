@@ -18,6 +18,8 @@ void MR_StdStringView_Set(const char *s, const char *s_end)
 
 void MR_StdStringView_SetWithDefault(const char *s, const char *s_end)
 {
+    using namespace MR;
+    using namespace StdStringView;
     ::MR::StdStringView::SetWithDefault(
         (s ? (s_end ? std::string_view(s, s_end) : std::string_view(s)) : std::string_view("42"))
     );

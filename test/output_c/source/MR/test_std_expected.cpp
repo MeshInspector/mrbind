@@ -39,6 +39,8 @@ void MR_StdExpected_SetExpConstRef(const MR_C_std_expected_int_std_string *_1)
 void MR_StdExpected_SetExpDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_expected_int_std_string *_1)
 {
     MRBINDC_TRY(
+    using namespace MR;
+    using namespace StdExpected;
     MRBINDC_CLASSARG_GUARD(_1, std::expected<int, std::string>);
     ::MR::StdExpected::SetExpDefTrivial(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::expected<int, std::string>) MRBINDC_CLASSARG_COPY(_1, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_MOVE(_1, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (std::type_identity_t<std::expected<int, std::string>>{}), std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::expected<int, std::string>) MRBINDC_CLASSARG_END(_1, std::expected<int, std::string>))
@@ -49,6 +51,8 @@ void MR_StdExpected_SetExpDefTrivial(MR_C_PassBy _1_pass_by, MR_C_std_expected_i
 void MR_StdExpected_SetExpDef(MR_C_PassBy _1_pass_by, MR_C_std_expected_int_std_string *_1)
 {
     MRBINDC_TRY(
+    using namespace MR;
+    using namespace StdExpected;
     MRBINDC_CLASSARG_GUARD(_1, std::expected<int, std::string>);
     ::MR::StdExpected::SetExpDef(
         (MRBINDC_CLASSARG_DEF_CTOR(_1, std::expected<int, std::string>) MRBINDC_CLASSARG_COPY(_1, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_MOVE(_1, (std::expected<int, std::string>), std::expected<int, std::string>) MRBINDC_CLASSARG_DEF_ARG(_1, (MR_C_PassBy_DefaultArgument), (42), std::expected<int, std::string>) MRBINDC_CLASSARG_NO_DEF_ARG(_1, MR_C_PassBy_NoObject, std::expected<int, std::string>) MRBINDC_CLASSARG_END(_1, std::expected<int, std::string>))
@@ -84,6 +88,8 @@ void MR_StdExpected_SetExpVoidConstRef(const MR_C_std_expected_void_float *_1)
 void MR_StdExpected_SetExpVoidDefTrivial(const MR_C_std_expected_void_float *_1)
 {
     MRBINDC_TRY(
+    using namespace MR;
+    using namespace StdExpected;
     ::MR::StdExpected::SetExpVoidDefTrivial(
         (_1 ? std::expected<void, float>(*(std::expected<void, float> *)_1) : static_cast<std::expected<void, float>>(std::type_identity_t<std::expected<void, float>>{}))
     );
@@ -93,6 +99,8 @@ void MR_StdExpected_SetExpVoidDefTrivial(const MR_C_std_expected_void_float *_1)
 void MR_StdExpected_SetExpVoidDef(const MR_C_std_expected_void_float *_1)
 {
     MRBINDC_TRY(
+    using namespace MR;
+    using namespace StdExpected;
     ::MR::StdExpected::SetExpVoidDef(
         (_1 ? std::expected<void, float>(*(std::expected<void, float> *)_1) : static_cast<std::expected<void, float>>(std::expected<void, float>{}))
     );

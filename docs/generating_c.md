@@ -340,7 +340,7 @@ Normally this would produce broken code, but we counteract it with `--use-size_t
 
 And to replace `[u]int64_t` we suggest using a custom typedef, [as shown above](#option-b).
 
-#### Rational behind approach A
+#### Rationale behind approach A
 
 This is the alternative to approach B.
 

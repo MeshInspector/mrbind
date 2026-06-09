@@ -957,8 +957,8 @@ namespace mrbind
             (std::size_t)(pointer_size, std::size_t(-1))
             (std::size_t)(pointer_alignment, std::size_t(-1))
 
-            // This is false starting with Clang 22.
-            // In older versions of Clang, our printing method for default function arguments didn't add the full namespace qualifiers, so you had to `using namespace` all enclosing namespaces if you wanted it to work in more cases.
+            // If true, our printing method for default function arguments doesn't add the full namespace qualifiers, so you have to `using namespace` all enclosing namespaces if you want it to work in more cases.
+            // This is currently always true. Clang 22 looked like it fixed it, but it didn't fix all cases. See the comments on where this is set for more details.
             (bool)(default_arguments_need_using_namespace, false)
         )
 

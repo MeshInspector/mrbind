@@ -33,6 +33,8 @@ void MR_StdFilesystem_SetPathConstRef(const char *_1, const char *_1_end)
 
 void MR_StdFilesystem_SetPathDefTrivial(const char *_1, const char *_1_end)
 {
+    using namespace MR;
+    using namespace StdFilesystem;
     MRBINDC_IGNORE_DEPRECATION(
     ::MR::StdFilesystem::SetPathDefTrivial(
         (_1 ? (_1_end ? std::filesystem::u8path(_1, _1_end) : std::filesystem::u8path(_1)) : std::filesystem::path(std::filesystem::path{}))
@@ -42,6 +44,8 @@ void MR_StdFilesystem_SetPathDefTrivial(const char *_1, const char *_1_end)
 
 void MR_StdFilesystem_SetPathDef(const char *_1, const char *_1_end)
 {
+    using namespace MR;
+    using namespace StdFilesystem;
     MRBINDC_IGNORE_DEPRECATION(
     ::MR::StdFilesystem::SetPathDef(
         (_1 ? (_1_end ? std::filesystem::u8path(_1, _1_end) : std::filesystem::u8path(_1)) : std::filesystem::path("hmm"))

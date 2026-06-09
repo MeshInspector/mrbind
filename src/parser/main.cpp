@@ -3368,7 +3368,11 @@ namespace mrbind
             params->parsed_result.platform_info.pointer_alignment = DivideByByteSize(ci->getTarget().PointerAlign);
 
             // Other stuff:
-            params->parsed_result.platform_info.default_arguments_need_using_namespace = CLANG_VERSION_MAJOR < 22;
+
+            // I thought this was fixed in Clang 22. The situation has improved in most cases,
+            //   but at least namespace-scoped `inline constexpr static` variables are still unqualified in the output. Oh well.
+            params->parsed_result.platform_info.default_arguments_need_using_namespace = true;
+            // params->parsed_result.platform_info.default_arguments_need_using_namespace = CLANG_VERSION_MAJOR < 22;
         }
 
         // Multiplex the output between several files, if needed.
