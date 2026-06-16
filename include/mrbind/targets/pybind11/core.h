@@ -3883,6 +3883,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         /* (`auto`) return type, and `C` is a class template -- GCC and Clang accept it. The lambda */\
         /* selects the const/non-const overload via the object's const-ness, taking no address of */\
         /* an overloaded member. (`ret_` is intentionally unused now; `decltype(auto)` re-deduces.) */\
+        /* Upstream MSVC bug: https://developercommunity.visualstudio.com/t/C2440:-static_cast-to-select-an-overload/11107969 */\
         DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullname_), deprecated_, DETAIL_MB_PB11_METHOD_FUNC(static_, name_, const_, params_) ) \
         /* Parameter types: */\
         /* Self parameter. */\
