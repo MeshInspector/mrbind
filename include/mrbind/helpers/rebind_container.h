@@ -29,6 +29,8 @@ namespace MRBind
 
     // NOTE: On Clang 18 and older those specializations require `-frelaxed-template-template-args` to function.
     // On MSVC they don't work at all! If we decide we need MSVC support, we'll need to rewrite those, and I have no idea how to make it generic,
+    // (MSVC's P0522 relaxed-template-template-matching gap in partial specializations, reported at
+    //  https://developercommunity.visualstudio.com/t/Partial-specialization-with-a-single-arg/11108062 )
     // especially because e.g. phmap does something very strange with its template parameters (e.g. I think strings use a different hasher?),
     // so it would need handwritten specializations, I think? Ugh.
 
