@@ -3863,13 +3863,17 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 
 // Produces the callable that binds a member function (see the NOTE in `..._method` below for why
 // this is a forwarding lambda rather than a `static_cast`ed pointer-to-member). `_pb11_C` is the
-// class being bound. Mirrors the friend-function lambda in `..._FUNC_PTR_OR_LAMBDA_cl` above, and
-// like it costs an extra move per argument.
-#define DETAIL_MB_PB11_METHOD_FUNC(static_, name_, const_, params_) MRBIND_CAT(DETAIL_MB_PB11_METHOD_FUNC_, static_)(name_, const_, params_)
-#define DETAIL_MB_PB11_METHOD_FUNC_(name_, const_, params_) \
-    +[](_pb11_C const_ &_pb11_self DETAIL_MB_PB11_MAKE_PARAM_DECLS_WITH_LEADING_COMMA(params_)) -> decltype(auto) {return _pb11_self.name_(DETAIL_MB_PB11_MAKE_PARAM_USES(params_));}
-#define DETAIL_MB_PB11_METHOD_FUNC_static(name_, const_, params_) \
-    +[](DETAIL_MB_PB11_MAKE_PARAM_DECLS(params_)) -> decltype(auto) {return _pb11_C::name_(DETAIL_MB_PB11_MAKE_PARAM_USES(params_));}
+// class being bound. We call through `fullname_` (the name WITH any template arguments, e.g.
+// `tryGet<MR::Foo>`), not the bare `name_`: for template members whose template parameter isn't
+// deducible from the arguments, the old static_cast pinned the instantiation via the target type,
+// whereas a by-name call must name it explicitly. Mirrors the friend-function lambda in
+// `..._FUNC_PTR_OR_LAMBDA_cl` above (and the field-accessor lambda's `_pb11_o.MRBIND_IDENTITY
+// fullname_`), and like them costs an extra move per argument.
+#define DETAIL_MB_PB11_METHOD_FUNC(static_, fullname_, const_, params_) MRBIND_CAT(DETAIL_MB_PB11_METHOD_FUNC_, static_)(fullname_, const_, params_)
+#define DETAIL_MB_PB11_METHOD_FUNC_(fullname_, const_, params_) \
+    +[](_pb11_C const_ &_pb11_self DETAIL_MB_PB11_MAKE_PARAM_DECLS_WITH_LEADING_COMMA(params_)) -> decltype(auto) {return _pb11_self.MRBIND_IDENTITY fullname_(DETAIL_MB_PB11_MAKE_PARAM_USES(params_));}
+#define DETAIL_MB_PB11_METHOD_FUNC_static(fullname_, const_, params_) \
+    +[](DETAIL_MB_PB11_MAKE_PARAM_DECLS(params_)) -> decltype(auto) {return _pb11_C::MRBIND_IDENTITY fullname_(DETAIL_MB_PB11_MAKE_PARAM_USES(params_));}
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_, lifetimes_) \
@@ -3884,7 +3888,7 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         /* selects the const/non-const overload via the object's const-ness, taking no address of */\
         /* an overloaded member. (`ret_` is intentionally unused now; `decltype(auto)` re-deduces.) */\
         /* Upstream MSVC bug: https://developercommunity.visualstudio.com/t/C2440:-static_cast-to-select-an-overload/11107969 */\
-        DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullname_), deprecated_, DETAIL_MB_PB11_METHOD_FUNC(static_, name_, const_, params_) ) \
+        DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullname_), deprecated_, DETAIL_MB_PB11_METHOD_FUNC(static_, fullname_, const_, params_) ) \
         /* Parameter types: */\
         /* Self parameter. */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C &)\
