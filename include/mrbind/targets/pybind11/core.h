@@ -63,8 +63,19 @@
 #endif
 
 // Like `offsetof(...)`, but with dumb warnings disabled.
-#if defined(__GNUC__) || defined(__clang__)
+#if defined(__clang__)
 #define MB_PB11_OFFSETOF(...) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Winvalid-offsetof\"") offsetof(__VA_ARGS__) _Pragma("GCC diagnostic pop")
+#elif defined(__GNUC__)
+// Unlike Clang, GCC rejects `_Pragma` in an expression context (`'#pragma' is not allowed here`),
+// and this macro is used inside expressions. Wrap it in a statement expression so the diagnostic
+// pragmas sit at statement scope, while still keeping `-Winvalid-offsetof` suppressed.
+#define MB_PB11_OFFSETOF(...) __extension__ ({ \
+        _Pragma("GCC diagnostic push") \
+        _Pragma("GCC diagnostic ignored \"-Winvalid-offsetof\"") \
+        auto _mb_pb11_offset = offsetof(__VA_ARGS__); \
+        _Pragma("GCC diagnostic pop") \
+        _mb_pb11_offset; \
+    })
 #else
 #define MB_PB11_OFFSETOF(...) offsetof(__VA_ARGS__)
 #endif
