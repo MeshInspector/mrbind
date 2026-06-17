@@ -3861,14 +3861,34 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_) \
     );
 
+// Produces the callable that binds a member function (see the NOTE in `..._method` below for why
+// this is a forwarding lambda rather than a `static_cast`ed pointer-to-member). `_pb11_C` is the
+// class being bound. We call through `fullname_` (the name WITH any template arguments, e.g.
+// `tryGet<MR::Foo>`), not the bare `name_`: for template members whose template parameter isn't
+// deducible from the arguments, the old static_cast pinned the instantiation via the target type,
+// whereas a by-name call must name it explicitly. Mirrors the friend-function lambda in
+// `..._FUNC_PTR_OR_LAMBDA_cl` above (and the field-accessor lambda's `_pb11_o.MRBIND_IDENTITY
+// fullname_`), and like them costs an extra move per argument.
+#define DETAIL_MB_PB11_METHOD_FUNC(static_, fullname_, const_, params_) MRBIND_CAT(DETAIL_MB_PB11_METHOD_FUNC_, static_)(fullname_, const_, params_)
+#define DETAIL_MB_PB11_METHOD_FUNC_(fullname_, const_, params_) \
+    +[](_pb11_C const_ &_pb11_self DETAIL_MB_PB11_MAKE_PARAM_DECLS_WITH_LEADING_COMMA(params_)) -> decltype(auto) {return _pb11_self.MRBIND_IDENTITY fullname_(DETAIL_MB_PB11_MAKE_PARAM_USES(params_));}
+#define DETAIL_MB_PB11_METHOD_FUNC_static(fullname_, const_, params_) \
+    +[](DETAIL_MB_PB11_MAKE_PARAM_DECLS(params_)) -> decltype(auto) {return _pb11_C::MRBIND_IDENTITY fullname_(DETAIL_MB_PB11_MAKE_PARAM_USES(params_));}
+
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_, lifetimes_) \
     MRBind::pb11::TryAddFunc< \
         /* Is this function static? */\
         MRBind::pb11::FuncKind:: MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(nonmember_or_static, member_nonstatic),\
-        /* Member pointer. */\
-        /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullname_), deprecated_, static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) ) \
+        /* The callable to bind. */\
+        /* NOTE: a forwarding lambda, NOT `static_cast<Ret (C::*)(...) const_>(&C::name_)`. MSVC */\
+        /* (through 19.5x / VS 2026) rejects that cast with "C2440: ... none of the functions with */\
+        /* this name in scope match the target type" when `name_` is overloaded, has a deduced */\
+        /* (`auto`) return type, and `C` is a class template -- GCC and Clang accept it. The lambda */\
+        /* selects the const/non-const overload via the object's const-ness, taking no address of */\
+        /* an overloaded member. (`ret_` is intentionally unused now; `decltype(auto)` re-deduces.) */\
+        /* Upstream MSVC bug: https://developercommunity.visualstudio.com/t/C2440:-static_cast-to-select-an-overload/11107969 */\
+        DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullname_), deprecated_, DETAIL_MB_PB11_METHOD_FUNC(static_, fullname_, const_, params_) ) \
         /* Parameter types: */\
         /* Self parameter. */\
         MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C &)\
