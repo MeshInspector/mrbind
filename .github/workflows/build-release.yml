@@ -1,0 +1,51 @@
+name: Build Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    runs-on: ${{ matrix.runner }}
+    container:
+      image: rockylinux:8
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+        include:
+          - arch: x64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+
+    steps:
+      - name: Checkout
+        uses: action/checkout@v6
+
+      - name: Install build tools
+        run: |
+          dnf install -y epel-release
+          dnf install -y --enablerepo powertools \
+            gcc-toolset-14 cmake ninja-build python3
+
+      - name: Download LLVM
+        run: |
+          ci/download_llvm.sh 22.1.8
+
+      - name: Build libclang
+        run: |
+          source /opt/rh/gcc-toolset-14/enable
+          ci/build_llvm.sh
+
+      - name: Build
+        run: |
+          source /opt/rh/gcc-toolset-14/enable
+          cmake -B build -G Ninja \
+            -D Clang_DIR=llvm-out/lib/cmake/clang \
+            -D CMAKE_BUILD_TYPE=Release
+          cmake --build build --parallel $(nproc)
+
+      - name: Verify build
+        run: |
+          ldd build/mrbind*
+          build/mrbind --help
