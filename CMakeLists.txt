@@ -23,12 +23,18 @@ if(WIN32 AND NOT MINGW)
     set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded)
 endif()
 
-if (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fstandalone-debug")
+endif()
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-unused-parameter -Wno-conversion -Wno-extra-semi")
 endif()
 
 include_directories(include src)
 include_directories(deps/cppdecl/include)
+
+
+option(MRBIND_STATIC_BUILD "Build the parser and the generators as static binaries." OFF)
 
 
 add_library(mrbind_common STATIC
@@ -55,7 +61,7 @@ if(MRBIND_BUILD_PARSER)
         src/parser/multiplex_data.cpp
     )
 
-    if (CMAKE_CXX_COMPILER_ID STREQUAL "GCC" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
         set_source_files_properties(src/parser/disable_rtti.cpp PROPERTIES COMPILE_FLAGS -fno-rtti)
     endif()
 
@@ -65,11 +71,19 @@ if(MRBIND_BUILD_PARSER)
 
     target_include_directories(mrbind PRIVATE ${LLVM_INCLUDE_DIR} ${CLANG_INCLUDE_DIR})
 
-    # Clang lets you choose between large dynamic libraries, and fine-grained static libraries.
-    # Those are the large dynamic ones. If they are not available for some reason,
-    #   we could switch to the static ones (probably conditionally here in CMake, by checking what's available).
-    # See the git history to see some related static library names.
-    target_link_libraries(mrbind PRIVATE LLVM clang-cpp)
+    if(MRBIND_STATIC_BUILD)
+        target_link_libraries(mrbind PRIVATE -static-libstdc++ -static-libgcc)
+        if(NOT TARGET clangTooling)
+            message(FATAL_ERROR "clangTooling is required for static builds")
+        endif()
+        target_link_libraries(mrbind PRIVATE clangTooling)
+    else()
+        # Clang lets you choose between large dynamic libraries, and fine-grained static libraries.
+        # Those are the large dynamic ones. If they are not available for some reason,
+        #   we could switch to the static ones (probably conditionally here in CMake, by checking what's available).
+        # See the git history to see some related static library names.
+        target_link_libraries(mrbind PRIVATE LLVM clang-cpp)
+    endif()
 endif()
 
 
@@ -123,6 +137,9 @@ if(MRBIND_BUILD_GENERATOR_C)
         mrbind_gen_common
         mrbind_c_interop
     )
+    if(MRBIND_STATIC_BUILD)
+        target_link_libraries(mrbind_gen_c PRIVATE -static-libstdc++ -static-libgcc)
+    endif()
 endif()
 
 if(MRBIND_BUILD_GENERATOR_CSHARP)
@@ -138,4 +155,7 @@ if(MRBIND_BUILD_GENERATOR_CSHARP)
         mrbind_gen_common
         mrbind_c_interop
     )
+    if(MRBIND_STATIC_BUILD)
+        target_link_libraries(mrbind_gen_csharp PRIVATE -static-libstdc++ -static-libgcc)
+    endif()
 endif()

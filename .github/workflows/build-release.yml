@@ -1,0 +1,85 @@
+name: Build Release
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-linux:
+    runs-on: ${{ matrix.runner }}
+    container:
+      image: almalinux:8
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [x64, arm64]
+        include:
+          - arch: x64
+            runner: ubuntu-24.04
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+
+    steps:
+      - name: Install tools
+        run: |
+          dnf install -y epel-release
+          dnf install -y --enablerepo powertools \
+            gcc-toolset-14 cmake ninja-build \
+            $(: CI requirements ) \
+            git \
+            $(: LLVM build requirements ) \
+            python3 xz
+
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Restore LLVM cache
+        id: llvm-cache
+        uses: actions/cache/restore@v5
+        with:
+          key: linux-${{ matrix.arch }}-llvm_22_1_8-v2
+          path: llvm-out
+
+      - name: Download LLVM
+        if: steps.llvm-cache.outputs.cache-hit != 'true'
+        run: |
+          ci/download_llvm.sh 22.1.8
+
+      - name: Build libclang
+        if: steps.llvm-cache.outputs.cache-hit != 'true'
+        run: |
+          source /opt/rh/gcc-toolset-14/enable
+          ci/build_llvm.sh
+
+      - name: Save LLVM cache
+        if: steps.llvm-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v5
+        with:
+          key: linux-${{ matrix.arch }}-llvm_22_1_8-v2
+          path: llvm-out
+
+      - name: Build
+        run: |
+          source /opt/rh/gcc-toolset-14/enable
+          cmake -B build -G Ninja \
+            -D Clang_DIR=llvm-out/lib/cmake/clang \
+            -D CMAKE_BUILD_TYPE=Release \
+            -D MRBIND_STATIC_BUILD=ON \
+            -D CMAKE_CXX_FLAGS="-ffunction-sections -fdata-sections" \
+            -D CMAKE_EXE_LINKER_FLAGS="-Wl,--gc-sections -Wl,-s"
+          cmake --build build --parallel $(nproc)
+
+      - name: Verify binaries
+        run: |
+          ls -l build/mrbind*
+          ldd build/mrbind*
+
+      - name: Test
+        run: |
+          dnf install -y gcc-c++ findutils python38-devel
+          export CLANG_RESOURCE_DIR="$(pwd)/llvm-out/lib/clang/22"
+          source /opt/rh/gcc-toolset-14/enable
+          echo g++ > examples/cxx.txt
+          examples/c/run.sh
+          PYTHON=python3.8 examples/python/run.sh
