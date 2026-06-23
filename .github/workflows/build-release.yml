@@ -52,48 +52,35 @@ jobs:
       - name: Install tools
         run: |
           dnf install -y epel-release
+          dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
           dnf install -y --enablerepo powertools \
             gcc-toolset-14 cmake ninja-build \
             $(: CI requirements ) \
-            git \
-            $(: LLVM build requirements ) \
-            python3 xz
+            git gh unzip zip \
+            $(: test requirements ) \
+            gcc-c++ findutils python38-devel
 
       - name: Checkout
         uses: actions/checkout@v6
         with:
           submodules: true
 
-      - name: Restore LLVM cache
-        id: llvm-cache
-        uses: actions/cache/restore@v5
-        with:
-          key: linux-${{ matrix.arch }}-llvm_22_1_8-v2
-          path: llvm-out
-
-      - name: Download LLVM
-        if: steps.llvm-cache.outputs.cache-hit != 'true'
+      - name: Download and unpack LLVM
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          ci/download_llvm.sh 22.1.8
-
-      - name: Build libclang
-        if: steps.llvm-cache.outputs.cache-hit != 'true'
-        run: |
-          source /opt/rh/gcc-toolset-14/enable
-          ci/build_llvm.sh
-
-      - name: Save LLVM cache
-        if: steps.llvm-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v5
-        with:
-          key: linux-${{ matrix.arch }}-llvm_22_1_8-v2
-          path: llvm-out
+          # fix git permissions
+          export HOME=${RUNNER_TEMP}
+          git config --global --add safe.directory '*'
+          gh release download llvm-22.1.8 --pattern "llvm-linux-$(uname -m).zip"
+          unzip "llvm-linux-$(uname -m).zip"
+          rm "llvm-linux-$(uname -m).zip"
 
       - name: Build
         run: |
           source /opt/rh/gcc-toolset-14/enable
           cmake -B build -G Ninja \
-            -D Clang_DIR=llvm-out/lib/cmake/clang \
+            -D Clang_DIR=llvm/lib/cmake/clang \
             -D CMAKE_BUILD_TYPE=Release \
             -D MRBIND_STATIC_BUILD=ON \
             -D CMAKE_CXX_FLAGS="-ffunction-sections -fdata-sections" \
@@ -107,8 +94,7 @@ jobs:
 
       - name: Test
         run: |
-          dnf install -y gcc-c++ findutils python38-devel
-          export CLANG_RESOURCE_DIR="$(pwd)/llvm-out/lib/clang/22"
+          export CLANG_RESOURCE_DIR="$(pwd)/llvm/lib/clang/22"
           source /opt/rh/gcc-toolset-14/enable
           echo g++ > examples/cxx.txt
           examples/c/run.sh
@@ -116,10 +102,9 @@ jobs:
 
       - name: Create package
         run: |
-          dnf install -y zip
           mkdir mrbind
           mv build/mrbind{,_gen_c,_gen_csharp} mrbind/
-          mv llvm-out/lib/clang/22 mrbind/resource-dir
+          mv llvm/lib/clang/22 mrbind/resource-dir
           zip -r mrbind-linux-$(uname -m).zip mrbind/
 
       - name: Upload package
@@ -127,11 +112,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           VERSION: ${{ needs.create-release.outputs.version }}
         run: |
-          # TODO: use a ready-made universal GitHub action
-          dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-          dnf install -y gh
-          # fix git permissions
-          export HOME=${RUNNER_TEMP}
-          git config --global --add safe.directory '*'
-          # upload package
           gh release upload ${VERSION} mrbind-linux-$(uname -m).zip --clobber
