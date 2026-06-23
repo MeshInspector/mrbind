@@ -65,13 +65,14 @@ jobs:
         with:
           submodules: true
 
+      - name: Fix git permissions
+        run: |
+          git config --global --add safe.directory '*'
+
       - name: Download and unpack LLVM
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # fix git permissions
-          export HOME=${RUNNER_TEMP}
-          git config --global --add safe.directory '*'
           gh release download llvm-22.1.8 --pattern "llvm-linux-$(uname -m).zip"
           unzip "llvm-linux-$(uname -m).zip"
           rm "llvm-linux-$(uname -m).zip"
