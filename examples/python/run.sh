@@ -50,7 +50,7 @@ find input \( -name '*.h' -or -name '*.hpp' \) -printf "#include <%p>\n" >>pytho
     "${EXTRA_PARSER_FLAGS[@]}" \
     -- \
     -xc++-header \
-    -resource-dir="$("$CLANG_CXX" -print-resource-dir)" \
+    -resource-dir="${CLANG_RESOURCE_DIR:-$("$CLANG_CXX" -print-resource-dir)}" \
     -I. \
     "${EXTRA_PARSER_CXX_FLAGS[@]}"
 
@@ -61,6 +61,8 @@ if [[ ! -d python/pybind11 ]]; then
     # This is an arbitrary commit that's known to work.
     (cd python/pybind11 && git checkout d2413f5bca91a2c091b9b0801e0c1b5bf089e31d)
 fi
+
+PYTHON=${PYTHON:-python3}
 
 # Compile the Python module.
 # Note that the output filename must match the name passed to `-DMB_PB11_MODULE_NAME=`, minus the extension.
@@ -77,8 +79,8 @@ fi
     -DMB_PB11_MODULE_NAME=example \
     -DMB_DEFINE_IMPLEMENTATION \
     -DPYBIND11_COMPILER_TYPE='"_mrbind_example"' -DPYBIND11_BUILD_ABI='"_mrbind_example"' \
-    $(pkg-config --cflags python3-embed) \
+    $(${PYTHON}-config --cflags --embed) \
     "${EXTRA_CXX_FLAGS[@]}"
 
 # Run a test program using the Python module.
-PYTHONPATH=python/output python3 python/example_consumer.py
+PYTHONPATH=python/output $PYTHON python/example_consumer.py

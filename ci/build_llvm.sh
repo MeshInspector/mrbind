@@ -5,12 +5,17 @@ SRC_DIR=${1:-llvm-src/llvm}
 BUILD_DIR=llvm-build
 OUT_DIR=llvm-out
 
+# triples may fail to be auto-detected correctly in some cases
+HOST_TRIPLE="$(uname -m)-unknown-linux-gnu"
+
 cmake -G Ninja -S "$SRC_DIR" -B "$BUILD_DIR" \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX="$OUT_DIR" \
     -DCMAKE_INSTALL_LIBDIR=lib \
     -DLLVM_ENABLE_PROJECTS=clang \
-    -DLLVM_TARGETS_TO_BUILD="" \
+    -DLLVM_TARGETS_TO_BUILD="Native" \
+    -DLLVM_HOST_TRIPLE="$HOST_TRIPLE" \
+    -DLLVM_DEFAULT_TARGET_TRIPLE="$HOST_TRIPLE" \
     -DBUILD_SHARED_LIBS=OFF \
     -DLLVM_BUILD_LLVM_DYLIB=OFF \
     -DLLVM_LINK_LLVM_DYLIB=OFF \

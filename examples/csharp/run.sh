@@ -65,7 +65,7 @@ find input \( -name '*.h' -or -name '*.hpp' \) -printf "#include <%p>\n" >>cshar
     "${EXTRA_PARSER_FLAGS[@]}" \
     -- \
     -xc++-header \
-    -resource-dir="$("$CLANG_CXX" -print-resource-dir)" \
+    -resource-dir="${CLANG_RESOURCE_DIR:-$("$CLANG_CXX" -print-resource-dir)}" \
     -I. \
     "${EXTRA_PARSER_CXX_FLAGS[@]}"
 
