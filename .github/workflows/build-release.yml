@@ -158,7 +158,7 @@ jobs:
           export CLANG_RESOURCE_DIR=$(brew --prefix llvm@18)/lib/clang/18
           echo clang++ > examples/cxx.txt
           examples/c/run.sh
-          PYTHON=python3.10 examples/python/run.sh
+          PYTHON=python3.11 examples/python/run.sh
 
       - name: Create package
         run: |

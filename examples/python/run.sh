@@ -33,12 +33,15 @@ if [[ $(uname -o) == Msys ]]; then
     EXTRA_CXX_FLAGS+=($(python3-config --libs))
     PYTHON_MODULE_EXT=.pyd
 fi
+if [[ $(uname -o) == Darwin ]]; then
+    EXTRA_CXX_FLAGS+=(-undefined dynamic_lookup)
+fi
 
 set -x
 
 # Assemble the combined input header.
 echo "#pragma once" >python/output/tmp/combined_input.h
-find input \( -name '*.h' -or -name '*.hpp' \) -printf "#include <%p>\n" >>python/output/tmp/combined_input.h
+find input \( -name '*.h' -or -name '*.hpp' \) -exec printf "#include <%s>\n" {} \; >>python/output/tmp/combined_input.h
 
 # Parse the input header.
 ../build/mrbind \
@@ -47,7 +50,7 @@ find input \( -name '*.h' -or -name '*.hpp' \) -printf "#include <%p>\n" >>pytho
     -o python/output/tmp/generated.cpp \
     --ignore :: \
     --allow Example \
-    "${EXTRA_PARSER_FLAGS[@]}" \
+    "${EXTRA_PARSER_FLAGS[@]+"${EXTRA_PARSER_FLAGS[@]}"}" \
     -- \
     -xc++-header \
     -resource-dir="${CLANG_RESOURCE_DIR:-$("$CLANG_CXX" -print-resource-dir)}" \
