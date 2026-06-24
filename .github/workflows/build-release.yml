@@ -173,3 +173,48 @@ jobs:
           VERSION: ${{ needs.create-release.outputs.version }}
         run: |
           gh release upload ${VERSION} mrbind-macos-$(uname -m).zip --clobber
+    
+  build-windows:
+    needs:
+      - create-release
+    runs-on: windows-2025
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Download and unpack LLVM
+        env:
+          LLVM_VERSION: 22.1.8
+        run: |
+          curl.exe -fLO "https://github.com/llvm/llvm-project/releases/download/llvmorg-$LLVM_VERSION/clang+llvm-$LLVM_VERSION-x86_64-pc-windows-msvc.tar.xz"
+          tar -xf "clang+llvm-$LLVM_VERSION-x86_64-pc-windows-msvc.tar.xz"
+          mv "clang+llvm-$LLVM_VERSION-x86_64-pc-windows-msvc" C:\clang+llvm
+          echo "C:\clang+llvm\bin" >> $env:GITHUB_PATH
+
+      - name: Patch LLVM
+        if: false
+        shell: bash
+        run: |
+          # more info: https://github.com/jklappenbach/cajeta/commit/17811cfd922f0715c68eb3459cd153760bc890f8
+          expected="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/DIA SDK/lib/amd64/diaguids.lib"
+          actual="C:/Program Files/Microsoft Visual Studio/18/Enterprise/DIA SDK/lib/amd64/diaguids.lib"
+          sed -i "s|${expected}|${actual}|" C:/clang+llvm/lib/cmake/llvm/LLVMExports.cmake
+
+      - name: Build
+        run: |
+          cmake -B build -G Ninja `
+            -D Clang_DIR=C:\clang+llvm\lib\cmake\clang `
+            -D CMAKE_BUILD_TYPE=Release `
+            -D MRBIND_STATIC_BUILD=ON `
+            -D CMAKE_C_COMPILER=clang `
+            -D CMAKE_CXX_COMPILER=clang++ `
+            -D CMAKE_RC_COMPILER=llvm-rc
+          cmake --build build --parallel $env:NUMBER_OF_PROCESSORS
+
+      - name: Verify build
+        run: |
+          ls build\mrbind*.exe
+          llvm-readobj --needed-libs build\mrbind*.exe
