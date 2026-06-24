@@ -36,6 +36,12 @@ include_directories(deps/cppdecl/include)
 
 option(MRBIND_STATIC_BUILD "Build the parser and the generators as static binaries." OFF)
 option(MRBIND_FORCE_LLVM_STATIC "Use llvm-config to get LLVM static libraries for linking." OFF)
+# helper function to link statically with libstdc++ on some platforms
+function(apply_static_stdlib tgt)
+    if(NOT APPLE AND NOT MSVC)
+        target_link_libraries(${tgt} PRIVATE -static-libstdc++ -static-libgcc)
+    endif()
+endfunction()
 
 
 add_library(mrbind_common STATIC
@@ -121,7 +127,7 @@ if(MRBIND_BUILD_PARSER)
             target_link_directories(mrbind PRIVATE ${LLVM_LIBDIR})
             target_link_libraries(mrbind PRIVATE clangTooling ${LLVM_STATIC_LIBS} ${LLVM_SYSTEM_LIBS} ${UNWIND_STATIC})
         else()
-            target_link_libraries(mrbind PRIVATE -static-libstdc++ -static-libgcc)
+            apply_static_stdlib(mrbind)
             if(NOT TARGET clangTooling)
                 message(FATAL_ERROR "clangTooling is required for static builds")
             endif()
@@ -188,7 +194,7 @@ if(MRBIND_BUILD_GENERATOR_C)
         mrbind_c_interop
     )
     if(MRBIND_STATIC_BUILD)
-        target_link_libraries(mrbind_gen_c PRIVATE -static-libstdc++ -static-libgcc)
+        apply_static_stdlib(mrbind_gen_c)
     endif()
 endif()
 
@@ -206,6 +212,6 @@ if(MRBIND_BUILD_GENERATOR_CSHARP)
         mrbind_c_interop
     )
     if(MRBIND_STATIC_BUILD)
-        target_link_libraries(mrbind_gen_csharp PRIVATE -static-libstdc++ -static-libgcc)
+        apply_static_stdlib(mrbind_gen_csharp)
     endif()
 endif()
