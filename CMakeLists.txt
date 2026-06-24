@@ -35,6 +35,13 @@ include_directories(deps/cppdecl/include)
 
 
 option(MRBIND_STATIC_BUILD "Build the parser and the generators as static binaries." OFF)
+option(MRBIND_FORCE_LLVM_STATIC "Use llvm-config to get LLVM static libraries for linking." OFF)
+# helper function to link statically with libstdc++ on some platforms
+function(apply_static_stdlib tgt)
+    if(NOT APPLE AND NOT MSVC)
+        target_link_libraries(${tgt} PRIVATE -static-libstdc++ -static-libgcc)
+    endif()
+endfunction()
 
 
 add_library(mrbind_common STATIC
@@ -61,7 +68,7 @@ if(MRBIND_BUILD_PARSER)
         src/parser/multiplex_data.cpp
     )
 
-    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang" OR CMAKE_CXX_COMPILER_ID STREQUAL "AppleClang")
         set_source_files_properties(src/parser/disable_rtti.cpp PROPERTIES COMPILE_FLAGS -fno-rtti)
     endif()
 
@@ -72,11 +79,60 @@ if(MRBIND_BUILD_PARSER)
     target_include_directories(mrbind PRIVATE ${LLVM_INCLUDE_DIR} ${CLANG_INCLUDE_DIR})
 
     if(MRBIND_STATIC_BUILD)
-        target_link_libraries(mrbind PRIVATE -static-libstdc++ -static-libgcc)
-        if(NOT TARGET clangTooling)
-            message(FATAL_ERROR "clangTooling is required for static builds")
+        if(MRBIND_FORCE_LLVM_STATIC)
+            # by default libclang static libraries try to link with dynamic libLLVM
+            function(recurse_remove_llvm tgt)
+                if(TARGET ${tgt})
+                    get_target_property(lib_deps ${tgt} INTERFACE_LINK_LIBRARIES)
+                    if(lib_deps)
+                        list(REMOVE_ITEM lib_deps LLVM)
+                        set_target_properties(${tgt} PROPERTIES INTERFACE_LINK_LIBRARIES "${lib_deps}")
+                        foreach(dep ${lib_deps})
+                            recurse_remove_llvm(${dep})
+                        endforeach()
+                    endif()
+                endif()
+            endfunction()
+            recurse_remove_llvm(clangTooling)
+
+            # link with static LLVM libraries explicitly
+            execute_process(
+                COMMAND llvm-config --libdir
+                OUTPUT_VARIABLE LLVM_LIBDIR
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+            )
+            execute_process(
+                COMMAND llvm-config --link-static --libs
+                OUTPUT_VARIABLE LLVM_STATIC_LIBS
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+            )
+            execute_process(
+                COMMAND llvm-config --link-static --system-libs
+                OUTPUT_VARIABLE LLVM_SYSTEM_LIBS
+                OUTPUT_STRIP_TRAILING_WHITESPACE
+            )
+            separate_arguments(LLVM_STATIC_LIBS)
+            separate_arguments(LLVM_SYSTEM_LIBS)
+
+            # link with static unwind
+            find_library(UNWIND_STATIC NAMES libunwind.a PATHS ${LLVM_LIBDIR} NO_DEFAULT_PATH)
+
+            # macOS quirk: force replace dynamic zstd with static
+            if("-lzstd" IN_LIST LLVM_SYSTEM_LIBS)
+                find_library(ZSTD_STATIC NAMES libzstd.a REQUIRED)
+                list(REMOVE_ITEM LLVM_SYSTEM_LIBS "-lzstd")
+                list(APPEND LLVM_SYSTEM_LIBS ${ZSTD_STATIC})
+            endif()
+
+            target_link_directories(mrbind PRIVATE ${LLVM_LIBDIR})
+            target_link_libraries(mrbind PRIVATE clangTooling ${LLVM_STATIC_LIBS} ${LLVM_SYSTEM_LIBS} ${UNWIND_STATIC})
+        else()
+            apply_static_stdlib(mrbind)
+            if(NOT TARGET clangTooling)
+                message(FATAL_ERROR "clangTooling is required for static builds")
+            endif()
+            target_link_libraries(mrbind PRIVATE clangTooling)
         endif()
-        target_link_libraries(mrbind PRIVATE clangTooling)
     else()
         # Clang lets you choose between large dynamic libraries, and fine-grained static libraries.
         # Those are the large dynamic ones. If they are not available for some reason,
@@ -138,7 +194,7 @@ if(MRBIND_BUILD_GENERATOR_C)
         mrbind_c_interop
     )
     if(MRBIND_STATIC_BUILD)
-        target_link_libraries(mrbind_gen_c PRIVATE -static-libstdc++ -static-libgcc)
+        apply_static_stdlib(mrbind_gen_c)
     endif()
 endif()
 
@@ -156,6 +212,6 @@ if(MRBIND_BUILD_GENERATOR_CSHARP)
         mrbind_c_interop
     )
     if(MRBIND_STATIC_BUILD)
-        target_link_libraries(mrbind_gen_csharp PRIVATE -static-libstdc++ -static-libgcc)
+        apply_static_stdlib(mrbind_gen_csharp)
     endif()
 endif()

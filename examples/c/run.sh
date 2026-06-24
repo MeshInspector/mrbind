@@ -49,7 +49,7 @@ set -x
 
 # Assemble the combined input header.
 echo "#pragma once" >c/output/tmp/combined_input.h
-find input \( -name '*.h' -or -name '*.hpp' \) -printf "#include <%p>\n" >>c/output/tmp/combined_input.h
+find input \( -name '*.h' -or -name '*.hpp' \) -exec printf "#include <%s>\n" {} \; >>c/output/tmp/combined_input.h
 
 # Parse the input header.
 ../build/mrbind \

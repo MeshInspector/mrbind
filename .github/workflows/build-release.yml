@@ -114,3 +114,62 @@ jobs:
           VERSION: ${{ needs.create-release.outputs.version }}
         run: |
           gh release upload ${VERSION} mrbind-linux-$(uname -m).zip --clobber
+  
+  build-macos:
+    needs:
+      - create-release
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        arch: [arm64, x64]
+        include:
+          - arch: arm64
+            runner: macos-15
+          - arch: x64
+            runner: macos-15-intel
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          submodules: true
+
+      - name: Build
+        run: |
+          export PATH="$(brew --prefix llvm@18)/bin:$PATH"
+          cmake -B build -G Ninja \
+            -D Clang_DIR=$(brew --prefix llvm@18)/lib/cmake/clang \
+            -D CMAKE_BUILD_TYPE=Release \
+            -D MRBIND_STATIC_BUILD=ON \
+            -D MRBIND_FORCE_LLVM_STATIC=ON \
+            -D CMAKE_PREFIX_PATH=$(brew --prefix zstd) \
+            -D CMAKE_OSX_DEPLOYMENT_TARGET=12.0
+          cmake --build build --parallel $(sysctl -n hw.logicalcpu)
+      
+      - name: Verify build
+        run: |
+          ls -l build/mrbind*
+          otool -L build/mrbind*
+          ls -1 build/mrbind* | xargs -n1 vtool -show-build
+
+      - name: Test
+        run: |
+          export CLANG_RESOURCE_DIR=$(brew --prefix llvm@18)/lib/clang/18
+          echo clang++ > examples/cxx.txt
+          examples/c/run.sh
+          PYTHON=python3.11 examples/python/run.sh
+
+      - name: Create package
+        run: |
+          mkdir mrbind
+          mv build/mrbind{,_gen_c,_gen_csharp} mrbind/
+          cp -R $(brew --prefix llvm@18)/lib/clang/18 mrbind/resource-dir
+          zip -r mrbind-macos-$(uname -m).zip mrbind/
+
+      - name: Upload package
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ needs.create-release.outputs.version }}
+        run: |
+          gh release upload ${VERSION} mrbind-macos-$(uname -m).zip --clobber
