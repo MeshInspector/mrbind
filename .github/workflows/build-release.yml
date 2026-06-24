@@ -188,19 +188,22 @@ jobs:
       - name: Download and unpack LLVM
         env:
           LLVM_VERSION: 22.1.8
+          LLVM_PACKAGE_NAME: clang+llvm-22.1.8-x86_64-pc-windows-msvc
         run: |
-          curl.exe -fLO "https://github.com/llvm/llvm-project/releases/download/llvmorg-$LLVM_VERSION/clang+llvm-$LLVM_VERSION-x86_64-pc-windows-msvc.tar.xz"
-          tar -xf "clang+llvm-$LLVM_VERSION-x86_64-pc-windows-msvc.tar.xz"
-          mv "clang+llvm-$LLVM_VERSION-x86_64-pc-windows-msvc" C:\clang+llvm
+          curl.exe -fLO "https://github.com/llvm/llvm-project/releases/download/llvmorg-$env:LLVM_VERSION/$env:LLVM_PACKAGE_NAME.tar.xz"
+          tar -xf "$env:LLVM_PACKAGE_NAME.tar.xz"
+          mv "$env:LLVM_PACKAGE_NAME" C:\clang+llvm
           echo "C:\clang+llvm\bin" >> $env:GITHUB_PATH
 
+      # more info: https://github.com/jklappenbach/cajeta/commit/17811cfd922f0715c68eb3459cd153760bc890f8
       - name: Patch LLVM
-        if: false
         shell: bash
         run: |
-          # more info: https://github.com/jklappenbach/cajeta/commit/17811cfd922f0715c68eb3459cd153760bc890f8
-          expected="C:/Program Files/Microsoft Visual Studio/2022/Enterprise/DIA SDK/lib/amd64/diaguids.lib"
-          actual="C:/Program Files/Microsoft Visual Studio/18/Enterprise/DIA SDK/lib/amd64/diaguids.lib"
+          # copy the actual Visual Studio location from here
+          "/c/Program Files (x86)/Microsoft Visual Studio/Installer/vswhere.exe" -products '*' -latest -property installationPath
+
+          expected="C:/Program Files/Microsoft Visual Studio/2022/Enterprise"
+          actual="C:/Program Files/Microsoft Visual Studio/18/Enterprise"
           sed -i "s|${expected}|${actual}|" C:/clang+llvm/lib/cmake/llvm/LLVMExports.cmake
 
       - name: Build
