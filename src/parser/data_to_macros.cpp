@@ -406,7 +406,8 @@ namespace mrbind
                             << e.name << ", "
                             << "(" << e.full_type << "), "
                             << NsStackToString() << ", "
-                            << "/*is aggregate:*/" << int(e.is_aggregate) << ", "
+                            // Combine `!e.some_nonstatic_data_members_skipped` into `is_aggregate` for simplicity. I don't think the difference matters.
+                            << "/*is aggregate:*/" << int(e.is_aggregate && !e.some_nonstatic_data_members_skipped) << ", "
                             << (e.comment ? EscapeQuoteString(e.comment->text) : "/*no comment*/") << ",";
 
                         // Bases.
