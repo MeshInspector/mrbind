@@ -1838,6 +1838,24 @@ namespace MRBind::pb11
         return ret;
     }
 
+    // Describes one enum element.
+    struct EnumElemRow
+    {
+        const char *name = nullptr;
+        // The value, bit-cast from the enum's underlying type.
+        std::int64_t value = 0;
+        // Null if none.
+        const char *comment = nullptr;
+    };
+
+    // Registers the elements of one enum from a table.
+    template <typename E>
+    void RegisterEnumElemRows(pybind11::enum_<E> &e, const EnumElemRow *rows, std::size_t num_rows)
+    {
+        for (std::size_t i = 0; i < num_rows; i++)
+            e.value(rows[i].name, static_cast<E>(static_cast<std::underlying_type_t<E>>(rows[i].value)), rows[i].comment);
+    }
+
     // Registers the field rows of one class. Only called during the first pass.
     inline void RegisterMemberVarRows(BasicPybindType &b, const MemberVarRow *rows, std::size_t num_rows)
     {
@@ -4103,10 +4121,14 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define DETAIL_MB_PB11_PARAM_ROWS_DEFAULT_0(name_, default_arg_, default_arg_cpp_) \
     +[](const char *_pb11_n) -> pybind11::arg_v {return MRBind::pb11::ParamWithDefaultArg(_pb11_n, MRBIND_IDENTITY default_arg_cpp_, "'" MRBIND_STR(MRBIND_IDENTITY default_arg_) "'");}
 
-// A helper for `MB_ENUM` that generates the elements.
-#define DETAIL_MB_PB11_MAKE_ENUM_ELEMS(name, seq) SF_FOR_EACH(DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY, SF_STATE, SF_NULL, name, seq)
-#define DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY(n, d, name_, value_, comment_) \
-    _pb11_e.value(MRBIND_STR(name_), MRBIND_IDENTITY d::name_ DETAIL_MB_PB11_PREPEND_COMMA_PLUS(comment_));
+// A helper for `MB_ENUM` that generates the element rows.
+#define DETAIL_MB_PB11_MAKE_ENUM_ELEM_ROWS(name, seq) SF_FOR_EACH(DETAIL_MB_PB11_MAKE_ENUM_ELEM_ROWS_BODY, SF_STATE, SF_NULL, name, seq)
+#define DETAIL_MB_PB11_MAKE_ENUM_ELEM_ROWS_BODY(n, d, name_, value_, comment_) \
+    MRBind::pb11::EnumElemRow{ \
+        MRBIND_STR(name_), \
+        (std::int64_t)(std::underlying_type_t<MRBIND_IDENTITY d>)(MRBIND_IDENTITY d::name_), \
+        DETAIL_MB_PB11_COMMENT_PTR(comment_) \
+    },
 
 // A helper for `MB_CLASS` that generates the base class list with a leading comma.
 #define DETAIL_MB_PB11_BASE_TYPES(seq) SF_FOR_EACH(DETAIL_MB_PB11_BASE_TYPES_BODY, SF_NULL, SF_NULL,, seq)
@@ -4270,7 +4292,12 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         { \
             if (_pb11_state.pass_number != 0) return; /* Only one pass is needed. */\
             [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
-            DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
+            /* The extra empty entry avoids a zero-sized array for empty enums. */\
+            static constexpr MRBind::pb11::EnumElemRow _pb11_enum_rows[] = { \
+                DETAIL_MB_PB11_MAKE_ENUM_ELEM_ROWS(qualname_, elems_) \
+                MRBind::pb11::EnumElemRow{} \
+            }; \
+            MRBind::pb11::RegisterEnumElemRows(_pb11_e, _pb11_enum_rows, sizeof(_pb11_enum_rows)/sizeof(_pb11_enum_rows[0]) - 1); \
         }, \
         std::unordered_set<MRBind::TypeIndex>{} \
     ); \
