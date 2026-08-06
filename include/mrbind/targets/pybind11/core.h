@@ -1782,16 +1782,28 @@ namespace MRBind::pb11
         );
     }
 
-    // A copy of `pybind11::class_::get_function_record()`, which is private there.
+    // An equivalent of `pybind11::class_::get_function_record()`, which is private there.
+    // Written against the raw capsule API because the exact retrieval helpers differ across pybind11 versions and forks
+    //   (and the `PyCFunction_GET_SELF` macro doesn't exist under the limited API, unlike the function form).
     inline pybind11::detail::function_record *GetPropertyFuncRecord(pybind11::handle h)
     {
         h = pybind11::detail::get_function(h);
         if (!h)
             return nullptr;
-        pybind11::handle func_self = PyCFunction_GET_SELF(h.ptr());
+        PyObject *func_self = PyCFunction_GetSelf(h.ptr());
         if (!func_self)
+        {
+            if (PyErr_Occurred())
+                throw pybind11::error_already_set();
+            return nullptr;
+        }
+        if (!PyCapsule_CheckExact(func_self))
+            return nullptr;
+        // Passing the capsule's own name back to it sidesteps the version-specific capsule name checks.
+        void *ptr = PyCapsule_GetPointer(func_self, PyCapsule_GetName(func_self));
+        if (!ptr)
             throw pybind11::error_already_set();
-        return pybind11::detail::function_record_ptr_from_PyObject(func_self.ptr());
+        return reinterpret_cast<pybind11::detail::function_record *>(ptr);
     }
 
     // Applies the extras that the `pybind11::class_::def_property...()` chain applies to the getter/setter records:
