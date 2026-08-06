@@ -25,6 +25,8 @@
 #include <mrbind/targets/pybind11/post_include_pybind.h> // ]
 
 #include <cstddef>
+#include <cstdint>
+#include <cstdlib> // For `std::free` in `PostProcessPropertyFunc()`.
 #include <map>
 #include <optional>
 #include <set>
@@ -1780,32 +1782,76 @@ namespace MRBind::pb11
         );
     }
 
+    // A copy of `pybind11::class_::get_function_record()`, which is private there.
+    inline pybind11::detail::function_record *GetPropertyFuncRecord(pybind11::handle h)
+    {
+        h = pybind11::detail::get_function(h);
+        if (!h)
+            return nullptr;
+        pybind11::handle func_self = PyCFunction_GET_SELF(h.ptr());
+        if (!func_self)
+            throw pybind11::error_already_set();
+        return pybind11::detail::function_record_ptr_from_PyObject(func_self.ptr());
+    }
+
+    // Applies the extras that the `pybind11::class_::def_property...()` chain applies to the getter/setter records:
+    // `is_method` (only for non-static), `return_value_policy::reference_internal`, and the comment.
+    // Post-processing the records (as opposed to passing these to the `cpp_function` constructor) is important:
+    //   the signature and docstring texts are already rendered by this point, so they come out exactly as before
+    //   (e.g. the setter's value parameter stays `arg1`, and the comment doesn't leak into the setter's docstring).
+    inline void PostProcessPropertyFunc(pybind11::handle func, pybind11::handle cls_if_method, const char *doc)
+    {
+        namespace pd = pybind11::detail;
+        pd::function_record *rec = GetPropertyFuncRecord(func);
+        if (!rec)
+            return;
+
+        char *doc_prev = rec->doc;
+        std::size_t args_before = rec->args.size();
+        if (cls_if_method)
+            pd::process_attribute<pybind11::is_method>::init(pybind11::is_method(cls_if_method), rec);
+        pd::process_attribute<pybind11::return_value_policy>::init(pybind11::return_value_policy::reference_internal, rec);
+        if (doc)
+            pd::process_attribute<const char *>::init(doc, rec);
+
+        // Same string ownership fixups as in `pybind11::class_::def_property_static()`.
+        if (rec->doc && rec->doc != doc_prev)
+        {
+            std::free(doc_prev);
+            rec->doc = PYBIND11_COMPAT_STRDUP(rec->doc);
+        }
+        for (std::size_t i = args_before; i < rec->args.size(); i++)
+        {
+            if (rec->args[i].name)
+                rec->args[i].name = PYBIND11_COMPAT_STRDUP(rec->args[i].name);
+            if (rec->args[i].descr)
+                rec->args[i].descr = PYBIND11_COMPAT_STRDUP(rec->args[i].descr);
+        }
+    }
+
     // One instantiation per distinct (getter/setter type) shape; `set` is a function pointer or `nullptr` for read-only properties.
-    // The extras exactly reproduce what the `TryAddMemberVar[Static]()` -> `pybind11::class_::def_property...()` chain used to
-    //   accumulate on the getter and setter records.
+    // The construction + post-processing sequence exactly reproduces what the `TryAddMemberVar[Static]()` ->
+    //   `pybind11::class_::def_property...()` chain used to do.
     template <bool IsStatic, typename T>
     void RegisterMemberVarLow(auto *get, auto set, BasicPybindType &b, const char *py_name, const MemberVarRow &row)
     {
         pybind11::object cls = pybind11::reinterpret_borrow<pybind11::object>(b.GetPybindObject());
 
-        auto make = [&](auto f, auto &&... extra)
-        {
-            if constexpr (IsStatic)
-                return pybind11::cpp_function(f, pybind11::return_value_policy::reference_internal, decltype(extra)(extra)..., row.comment);
-            else
-                return pybind11::cpp_function(f, pybind11::is_method(cls), pybind11::return_value_policy::reference_internal, decltype(extra)(extra)..., row.comment);
-        };
-
-        pybind11::cpp_function fget = make(get);
+        pybind11::cpp_function fget(get);
         pybind11::cpp_function fset;
         if constexpr (!std::is_null_pointer_v<decltype(set)>)
         {
             // Note no `is_setter()` in the keep-alive branch, same as `MemberVarDetails::MaybeAddKeepAlive()` before us.
             if constexpr (FieldSetterKeepAlive<T>::value)
-                fset = make(set, pybind11::keep_alive<1, 2>());
+                fset = pybind11::cpp_function(set, pybind11::keep_alive<1, 2>());
             else
-                fset = make(set, pybind11::is_setter());
+                fset = pybind11::cpp_function(set, pybind11::is_setter());
         }
+
+        pybind11::handle cls_if_method = IsStatic ? pybind11::handle{} : pybind11::handle(cls);
+        PostProcessPropertyFunc(fget, cls_if_method, row.comment);
+        if (fset)
+            PostProcessPropertyFunc(fset, cls_if_method, row.comment);
 
         DefPropertyLow(cls, py_name, fget, fset, IsStatic, row.comment);
     }
