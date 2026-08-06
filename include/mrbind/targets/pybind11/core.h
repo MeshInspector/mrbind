@@ -1750,6 +1750,117 @@ namespace MRBind::pb11
     }
 
 
+    // Describes one bound field; the runtime counterpart of `TryAddMemberVar[Static]()`'s arguments.
+    struct MemberVarRow
+    {
+        // The parsed field name, `ToPythonName` is applied at runtime.
+        const char *fullname = nullptr;
+        // Null if none.
+        const char *comment = nullptr;
+        // If non-null, an `_offsetof_*` static property returning `offsetof_value` is added.
+        // This happens even for the fields whose type we can't bind, matching the old behavior.
+        const char *offsetof_name = nullptr;
+        std::size_t offsetof_value = 0;
+        // Null if the field's type can't be bound.
+        void (*registrar)(BasicPybindType &b, const char *py_name, const MemberVarRow &row) = nullptr;
+    };
+
+    // Replicates the tail of `pybind11::class_::def_property_static()` (see `def_property_static_impl()` there),
+    // which we can't call directly because we don't know the exact `class_` type here.
+    // Unlike pybind11, we don't post-process the getter/setter records: the callers fully configure them at construction time instead.
+    inline void DefPropertyLow(pybind11::handle cls, const char *name, pybind11::handle fget, pybind11::handle fset, bool is_static, const char *doc)
+    {
+        auto property = pybind11::handle(reinterpret_cast<PyObject *>(is_static ? pybind11::detail::get_internals().static_property_type : &PyProperty_Type));
+        const bool has_doc = doc != nullptr && pybind11::options::show_user_defined_docstrings();
+        cls.attr(name) = property(
+            fget.ptr() ? fget : pybind11::none(),
+            fset.ptr() ? fset : pybind11::none(),
+            /*deleter*/ pybind11::none(),
+            pybind11::str(has_doc ? doc : "")
+        );
+    }
+
+    // One instantiation per distinct (getter/setter type) shape; `set` is a function pointer or `nullptr` for read-only properties.
+    // The extras exactly reproduce what the `TryAddMemberVar[Static]()` -> `pybind11::class_::def_property...()` chain used to
+    //   accumulate on the getter and setter records.
+    template <bool IsStatic, typename T>
+    void RegisterMemberVarLow(auto *get, auto set, BasicPybindType &b, const char *py_name, const MemberVarRow &row)
+    {
+        pybind11::object cls = pybind11::reinterpret_borrow<pybind11::object>(b.GetPybindObject());
+
+        auto make = [&](auto f, auto &&... extra)
+        {
+            if constexpr (IsStatic)
+                return pybind11::cpp_function(f, pybind11::return_value_policy::reference_internal, decltype(extra)(extra)..., row.comment);
+            else
+                return pybind11::cpp_function(f, pybind11::is_method(cls), pybind11::return_value_policy::reference_internal, decltype(extra)(extra)..., row.comment);
+        };
+
+        pybind11::cpp_function fget = make(get);
+        pybind11::cpp_function fset;
+        if constexpr (!std::is_null_pointer_v<decltype(set)>)
+        {
+            // Note no `is_setter()` in the keep-alive branch, same as `MemberVarDetails::MaybeAddKeepAlive()` before us.
+            if constexpr (FieldSetterKeepAlive<T>::value)
+                fset = make(set, pybind11::keep_alive<1, 2>());
+            else
+                fset = make(set, pybind11::is_setter());
+        }
+
+        DefPropertyLow(cls, py_name, fget, fset, IsStatic, row.comment);
+    }
+
+    // The per-field part: carries the accessor and forwards to the shared `RegisterMemberVarLow()`.
+    template <typename ClassType, auto Accessor, typename T, bool IsStatic>
+    struct MemberVarThunk
+    {
+        static void Register(BasicPybindType &b, const char *py_name, const MemberVarRow &row)
+        {
+            constexpr bool readonly = PropertyTypeIsConst<std::remove_reference_t<T>>;
+            if constexpr (IsStatic)
+                RegisterMemberVarLow<true, T>(MemberVarDetails::GetterStatic<T, Accessor>, [&]{if constexpr (readonly) return nullptr; else return MemberVarDetails::SetterStatic<T, Accessor>;}(), b, py_name, row);
+            else
+                RegisterMemberVarLow<false, T>(MemberVarDetails::Getter<ClassType, T, Accessor>, [&]{if constexpr (readonly) return nullptr; else return MemberVarDetails::Setter<ClassType, T, Accessor>;}(), b, py_name, row);
+        }
+    };
+
+    // Assembles a `MemberVarRow`, applying the same compile-time rejections as `TryAddMemberVar[Static]()`.
+    template <typename ClassType, auto Accessor, typename T, bool IsStatic>
+    constexpr MemberVarRow MakeMemberVarRow(const char *fullname, const char *comment, const char *offsetof_name, std::size_t offsetof_value)
+    {
+        MemberVarRow ret;
+        ret.fullname = fullname;
+        ret.comment = comment;
+        ret.offsetof_name = offsetof_name;
+        ret.offsetof_value = offsetof_value;
+        if constexpr (IsValidFieldType<T>)
+            ret.registrar = &MemberVarThunk<ClassType, Accessor, T, IsStatic>::Register;
+        return ret;
+    }
+
+    // Registers the field rows of one class. Only called during the first pass.
+    inline void RegisterMemberVarRows(BasicPybindType &b, const MemberVarRow *rows, std::size_t num_rows)
+    {
+        for (std::size_t i = 0; i < num_rows; i++)
+        {
+            const MemberVarRow &row = rows[i];
+            if (row.registrar)
+            {
+                std::string py_name = ToPythonName(row.fullname);
+                row.registrar(b, py_name.c_str(), row);
+            }
+            if (row.offsetof_name)
+            {
+                // Same as the old per-field `def_property_readonly_static(name, +[](const pybind11::object &){return offsetof(...);})`,
+                // but with the offset as data, so one lambda serves all fields.
+                pybind11::object cls = pybind11::reinterpret_borrow<pybind11::object>(b.GetPybindObject());
+                pybind11::cpp_function fget([off = row.offsetof_value](const pybind11::object &){return off;}, pybind11::return_value_policy::reference);
+                DefPropertyLow(cls, row.offsetof_name, fget, pybind11::handle{}, true, nullptr);
+            }
+        }
+    }
+
+
     template <CopyMoveKind CopyMove, int NumDefaultArgs, bool IsExplicit, bool IsAggregate, typename ...P>
     void TryAddCtor(auto &c, TryAddFuncScopeState *scope_state, int pass_number, auto &&... data)
     {
@@ -4254,10 +4365,52 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         MRBind::pb11::FuncRow{} \
     }; \
     MRBind::pb11::RegisterMemberFuncRows(_pb11_b, _pb11_state, _pb11_func_alias_registration_funcs, _pb11_func_rows, sizeof(_pb11_func_rows)/sizeof(_pb11_func_rows[0]) - 1); \
-    /* Everything else (fields, constructors, conversion operators, `__setitem__`). */\
+    /* The field table. The extra empty entry avoids a zero-sized array for classes with no fields. */\
+    DETAIL_MB_PB11_NO_WARN_ON_INVALID_OFFSETOF( \
+        static constexpr MRBind::pb11::MemberVarRow _pb11_var_rows[] = { \
+            SF_FOR_EACH1(DETAIL_MB_PB11_MEMBER_VARROW_BODY, SF_STATE, SF_NULL, classname, seq) \
+            MRBind::pb11::MemberVarRow{} \
+        }; \
+    ) \
+    if (_pb11_state.pass_number == 0) \
+        MRBind::pb11::RegisterMemberVarRows(_pb11_b, _pb11_var_rows, sizeof(_pb11_var_rows)/sizeof(_pb11_var_rows[0]) - 1); \
+    /* Everything else (constructors, conversion operators, `__setitem__`). */\
     SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, classname, seq)
 #define DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY(n, d, kind_, ...) \
     MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_, kind_)(d, __VA_ARGS__)
+
+// Like `MB_PB11_OFFSETOF`, but wraps a whole declaration instead of one expression, so that the plain `offsetof(...)`
+// can be used in constant expressions inside (the statement-expression trick in `MB_PB11_OFFSETOF` isn't constexpr-compatible on GCC).
+#if defined(__clang__) || defined(__GNUC__)
+#define DETAIL_MB_PB11_NO_WARN_ON_INVALID_OFFSETOF(...) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Winvalid-offsetof\"") __VA_ARGS__ _Pragma("GCC diagnostic pop")
+#else
+#define DETAIL_MB_PB11_NO_WARN_ON_INVALID_OFFSETOF(...) __VA_ARGS__
+#endif
+
+#define DETAIL_MB_PB11_MEMBER_VARROW_BODY(n, d, kind_, ...) \
+    MRBIND_CAT(DETAIL_MB_PB11_MEMBER_VARROW_, kind_)(d, __VA_ARGS__)
+#define DETAIL_MB_PB11_MEMBER_VARROW_ctor(qualname_, ...)
+#define DETAIL_MB_PB11_MEMBER_VARROW_conv_op(qualname_, ...)
+#define DETAIL_MB_PB11_MEMBER_VARROW_method(qualname_, ...)
+#define DETAIL_MB_PB11_MEMBER_VARROW_field(qualname_, static_, type_, name_, fullname_, comment_) \
+    MRBind::pb11::MakeMemberVarRow< \
+        _pb11_C, \
+        /* Accessor lambda or pointer. */\
+        MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_,static_)(qualname_, fullname_), \
+        /* Type. */\
+        MRBIND_IDENTITY type_, \
+        /* Is this field static? */\
+        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(true, false) \
+    >( \
+        /* Name. */\
+        MRBIND_STR(MRBIND_IDENTITY fullname_), \
+        /* Comment, if any. */\
+        DETAIL_MB_PB11_COMMENT_PTR(comment_), \
+        /* The `offsetof` static property, for non-static fields only. */\
+        MRBIND_CAT(DETAIL_MB_PB11_MEMBER_VARROW_OFFSETOF_, static_)(name_) \
+    ),
+#define DETAIL_MB_PB11_MEMBER_VARROW_OFFSETOF_(name_) "_offsetof_" #name_, offsetof(_pb11_C, name_)
+#define DETAIL_MB_PB11_MEMBER_VARROW_OFFSETOF_static(name_) nullptr, 0
 
 // The `d` state of the two loops below is `(classname, counter)`, where `counter` grows an `i` per iteration,
 // to give each method's parameter table a unique name.
@@ -4311,24 +4464,8 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     ),
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a field.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, fullname_, comment_) \
-    if (_pb11_state.pass_number == 0) \
-    { \
-        MRBind::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
-            /* Accessor lambda or pointer. */\
-            MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_,static_)(qualname_, fullname_),\
-            /* Type. */\
-            MRBIND_IDENTITY type_ \
-        >(\
-            _pb11_c,\
-            /* Name. */\
-            MRBind::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY fullname_)).c_str()\
-            /* Comment, if any. */\
-            DETAIL_MB_PB11_PREPEND_COMMA_PLUS(comment_)\
-        ); \
-        /* Add `offsetof` static variables. */\
-        MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_OFFSETOF_,static_)(qualname_, name_) \
-    }
+// Fields are registered via the `MemberVarRow` table (see `DETAIL_MB_PB11_MEMBER_VARROW_field`), nothing remains here.
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, fullname_, comment_)
 
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_(class_qualname_, fullname_) [](_pb11_C &_pb11_o)->auto&&{return _pb11_o.MRBIND_IDENTITY fullname_;}
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_static(class_qualname_, fullname_) &(MRBIND_IDENTITY class_qualname_::MRBIND_IDENTITY fullname_)
