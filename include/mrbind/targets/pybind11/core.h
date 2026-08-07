@@ -24,6 +24,7 @@
 // NOTE: Not including `<pybind11/stl.h>` because that doesn't cooperate with passing containers by reference.
 #include <mrbind/targets/pybind11/post_include_pybind.h> // ]
 
+#include <algorithm>
 #include <cstddef>
 #include <map>
 #include <optional>
@@ -432,7 +433,8 @@ namespace MRBind::pb11
         std::unordered_map<MRBind::TypeIndex, TypeEntry> type_entries;
 
         // This maps C++-spelled type alias names to the target types.
-        std::unordered_map<std::string_view, std::unordered_set<MRBind::TypeIndex>> type_aliases;
+        // Use an ordered map to get a consistent order.
+        std::map<std::string_view, std::unordered_set<MRBind::TypeIndex>> type_aliases;
 
         std::unordered_map<MRBind::TypeIndex, NamespaceEntry> namespace_entries;
 
@@ -3121,7 +3123,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 queue.pop_back();
 
                 // Get rdeps into a vector and sort them by Python names, to produce stable ordering across platforms.
-                std::vector<decltype(queue)::value_type> sorted_rdeps;
                 sorted_rdeps.clear();
                 sorted_rdeps.reserve(e.second.type_rdeps.size());
                 for (MRBind::TypeIndex rdep : e.second.type_rdeps)
