@@ -32,6 +32,8 @@
 
 #include "pre_include_clang.h"
 #include <clang/AST/DeclBase.h>
+#include <clang/AST/DeclTemplate.h>
+#include <clang/AST/PrettyPrinter.h>
 #include <clang/AST/RecursiveASTVisitor.h>
 #include <clang/Basic/Version.h>
 #include <clang/Frontend/CompilerInstance.h>
@@ -805,65 +807,130 @@ namespace mrbind
         return ret;
     }
 
+    // A `printPretty()` hook that prints the mentioned declarations (variables, constants, functions) with full qualification.
+    // We need this because `Stmt::printPretty()` prints `DeclRefExpr`s only with the qualifiers that were written in the source
+    //   (`PrintingPolicy::FullyQualifiedName` only affects types), while we insert the printed default arguments into the generated
+    //   bindings, which are outside of the original scope. E.g. a default argument `= npos` written inside `class MR::BitSet`
+    //   must be printed as `::MR::BitSet::npos` to be valid there.
+    class QualifyingPrinterHelper : public clang::PrinterHelper
+    {
+        const clang::PrintingPolicy &printing_policy;
+
+      public:
+        explicit QualifyingPrinterHelper(const clang::PrintingPolicy &printing_policy) : printing_policy(printing_policy) {}
+
+        bool handledStmt(clang::Stmt *st, llvm::raw_ostream &os) override
+        {
+            auto ref = llvm::dyn_cast_if_present<clang::DeclRefExpr>(st);
+            if (!ref)
+                return false; // Print in the default manner.
+
+            const clang::ValueDecl *decl = ref->getDecl();
+
+            // Template parameters can't be qualified.
+            if (llvm::isa<clang::NonTypeTemplateParmDecl>(decl))
+                return false;
+
+            // Make sure the declaration can actually be named with a qualified name from the global scope. Reject function-local
+            //   declarations (e.g. variables of lambdas written directly in the default argument), and anything enclosed in an
+            //   unnamed scope (anonymous namespaces, unnamed enums and classes, etc). Those are printed in the default manner.
+            for (const clang::DeclContext *ctx = decl->getDeclContext(); ctx && !ctx->isTranslationUnit(); ctx = ctx->getParent())
+            {
+                if (llvm::isa<clang::LinkageSpecDecl, clang::ExportDecl>(ctx))
+                    continue; // Those are transparent, `printQualifiedName()` skips them too.
+                if (ctx->isFunctionOrMethod())
+                    return false;
+                auto named_ctx = llvm::dyn_cast<clang::NamedDecl>(ctx);
+                if (!named_ctx || named_ctx->getDeclName().isEmpty())
+                    return false;
+            }
+
+            os << "::";
+            decl->printQualifiedName(os, printing_policy);
+
+            // Reproduce the explicit template arguments, if any.
+            if (ref->hasExplicitTemplateArgs())
+                clang::printTemplateArgumentList(os, ref->template_arguments(), printing_policy);
+
+            return true;
+        }
+    };
+
+    // Prints the expression `expr` to a string, like `Stmt::printPretty()`. `helper` can be null.
+    // Removes the newlines from the result. They come up if the expression is or contains a lambda,
+    //   even despite us setting `clang::PrintingPolicy::IncludeNewlines = false`.
+    [[nodiscard]] std::string PrintExprToString(const clang::Expr &expr, clang::PrinterHelper *helper, const clang::PrintingPolicy &printing_policy)
+    {
+        std::string ret;
+        llvm::raw_string_ostream ss(ret);
+        expr.printPretty(ss, helper, printing_policy);
+
+        if (ret.find('\n') != std::string::npos)
+        {
+            std::string new_str;
+            new_str.reserve(ret.size());
+
+            bool skip_whitespace = false;
+
+            for (char ch : ret)
+            {
+                if (skip_whitespace)
+                {
+                    if (cppdecl::IsWhitespace(ch))
+                        continue;
+                    skip_whitespace = false;
+                    if (!new_str.empty() && cppdecl::IsIdentifierChar(new_str.back()) && cppdecl::IsIdentifierChar(ch))
+                        new_str += ' '; // Insert a single separating whitespace if necessary.
+                }
+
+                if (ch == '\n')
+                {
+                    while (!new_str.empty() && cppdecl::IsIdentifierChar(new_str.back()))
+                        new_str.pop_back();
+
+                    skip_whitespace = true; // Skip any whitespace after this too.
+
+                    continue;
+                }
+
+                new_str += ch;
+            }
+
+            ret = std::move(new_str);
+        }
+
+        return ret;
+    }
+
     // Obtains the default argument value as a string, or empty if none.
-    // `out_arg` is the argument as written, while `out_arg_cpp` is slightly adjusted to be viable as a C++ expression (i.e. `{...}` has a its type prepended to it).
+    // `original_spelling` is the argument as written, while `as_cpp_expression` is adjusted to be viable as a C++ expression
+    //   in any scope (the mentioned declarations are fully qualified, and `{...}` has a its type prepended to it).
     void GetDefaultArgumentStrings(std::optional<DefaultArgument> &out_arg, const clang::ParmVarDecl &param, const clang::PrintingPolicy &printing_policy)
     {
         if (auto default_arg = param.getDefaultArg())
         {
             out_arg.emplace();
 
-            llvm::raw_string_ostream ss(out_arg->original_spelling);
-            default_arg->printPretty(ss, nullptr, printing_policy);
+            out_arg->original_spelling = PrintExprToString(*default_arg, nullptr, printing_policy);
 
-            // Remove the newlines! They come up if the default argument is a lambda, even despite us setting `clang::PrintingPolicy::IncludeNewlines = false`.
-            if (out_arg->original_spelling.find('\n') != std::string::npos)
-            {
-                std::string new_str;
-                new_str.reserve(out_arg->original_spelling.size());
-
-                bool skip_whitespace = false;
-
-                for (char ch : out_arg->original_spelling)
-                {
-                    if (skip_whitespace)
-                    {
-                        if (cppdecl::IsWhitespace(ch))
-                            continue;
-                        skip_whitespace = false;
-                        if (!new_str.empty() && cppdecl::IsIdentifierChar(new_str.back()) && cppdecl::IsIdentifierChar(ch))
-                            new_str = ' '; // Insert a single separating whitespace if necessary.
-                    }
-
-                    if (ch == '\n')
-                    {
-                        while (!new_str.empty() && cppdecl::IsIdentifierChar(new_str.back()))
-                            new_str.pop_back();
-
-                        skip_whitespace = true; // Skip any whitespace after this too.
-
-                        continue;
-                    }
-
-                    new_str += ch;
-                }
-
-                out_arg->original_spelling = std::move(new_str);
-            }
+            // Print again with the mentioned declarations fully qualified, since this string is inserted
+            //   into the generated code, which is outside of the original scope.
+            QualifyingPrinterHelper helper(printing_policy);
+            std::string qualified_spelling = PrintExprToString(*default_arg, &helper, printing_policy);
 
             // Adjust `{...}` to add an explicit type.
-            if (out_arg->original_spelling.starts_with('{'))
+            if (qualified_spelling.starts_with('{'))
             {
                 auto type = param.getType().getNonReferenceType().getUnqualifiedType().getAsString(printing_policy);
                 bool type_is_simple = std::all_of(type.begin(), type.end(), [](unsigned char ch){return std::isalnum(ch) || ch == '_' || ch == ':';});
                 if (type_is_simple)
-                    out_arg->as_cpp_expression = type + out_arg->original_spelling;
+                    out_arg->as_cpp_expression = type + qualified_spelling;
                 else
-                    out_arg->as_cpp_expression = "std::type_identity_t<" + type + ">" + out_arg->original_spelling;
+                    out_arg->as_cpp_expression = "std::type_identity_t<" + type + ">" + qualified_spelling;
             }
             else
             {
-                out_arg->as_cpp_expression = out_arg->original_spelling;
+                out_arg->as_cpp_expression = std::move(qualified_spelling);
             }
         }
         else
