@@ -40,10 +40,8 @@
 
 // Enable this macro for only one TU.
 #if MB_DEFINE_IMPLEMENTATION
-#include <algorithm> // For `std::sort` to keep the type registration order deterministic.
 #include <cstdio> // To report debug info if enabled. Also for deprecation warnings.
 #include <cstdlib> // For `getenv` to enable debug logging, also `atoi` to parse the loglevel env variable.
-#include <cstring> // For `std::strcmp` when sorting the types.
 #include <exception> // For `std::terminate()`.
 #include <iostream> // To report errors.
 #include <mrbind/helpers/strings.h>
@@ -3103,10 +3101,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         {
             // Here `.python_type_name[_qual]` are not initialized yet, and they need to be initialized in the
             //   topological order, so it's easier to use the C++ type names.
-            if (int d = a->second.cpp_type_name.compare(b->second.cpp_type_name); d != 0)
-                return d < 0;
-            // The pretty names are normally unique, but `std::sort` is unstable, so tie-break by the mangled name just in case.
-            return std::strcmp(a->first.name(), b->first.name()) < 0;
+            return a->second.cpp_type_name < b->second.cpp_type_name;
         };
         std::sort(final_order.begin(), final_order.end(), TypeNameLess);
         // Now extract the types that have reverse dependencies into the queue.
@@ -3296,19 +3291,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                 throw std::runtime_error("Python name `" + elem.second.pybind_type_name + "` refers to more than one type.");
         }
 
-        // Load the aliases in a sorted order. `type_aliases` is unordered, and its iteration order follows the
-        //   registration (= fragment link) order; without sorting, when two alias spellings map to the same Python
-        //   name, which one wins the assignment below would depend on that order.
-        std::vector<const typename decltype(Registry::type_aliases)::value_type *> sorted_type_aliases;
-        sorted_type_aliases.reserve(r.type_aliases.size());
-        for (const auto &elem : r.type_aliases)
-            sorted_type_aliases.push_back(&elem);
-        std::sort(sorted_type_aliases.begin(), sorted_type_aliases.end(), [](const auto *a, const auto *b){return a->first < b->first;});
-
-        for (const auto *alias_elem : sorted_type_aliases)
+        for (const auto &[spelling, types] : r.type_aliases)
         {
-            const auto &[spelling, types] = *alias_elem;
-
             if (types.size() > 1)
                 continue; // More than one target type, so this is ambiguous (somehow). Ignore this one.
 
@@ -3359,9 +3343,6 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             }
             if (!entry.aliases.empty())
             {
-                // The aliases were collected in the iteration order of `Registry::type_aliases`, which isn't deterministic. Sort them.
-                std::sort(entry.aliases.begin(), entry.aliases.end());
-
                 doc += "Aliases:  ";
                 bool first = true;
                 for (const auto& alias : entry.aliases)
