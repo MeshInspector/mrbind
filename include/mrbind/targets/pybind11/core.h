@@ -39,8 +39,10 @@
 
 // Enable this macro for only one TU.
 #if MB_DEFINE_IMPLEMENTATION
+#include <algorithm> // For `std::sort` to keep the type registration order deterministic.
 #include <cstdio> // To report debug info if enabled. Also for deprecation warnings.
 #include <cstdlib> // For `getenv` to enable debug logging, also `atoi` to parse the loglevel env variable.
+#include <cstring> // For `std::strcmp` when sorting the types.
 #include <exception> // For `std::terminate()`.
 #include <iostream> // To report errors.
 #include <mrbind/helpers/strings.h>
@@ -3084,6 +3086,21 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
 
         std::vector<typename decltype(Registry::type_entries)::value_type *> final_order;
 
+        // Sorts the elements `[first_new, end)` of `final_order` or `queue` by type name.
+        // We sort every batch of appended elements with this to break the topological-sort ties deterministically.
+        // Otherwise the ties would be broken by the iteration order of the unordered containers, which depends on the
+        //   runtime `type_info` addresses, and so can differ between two builds of identical source (and with ASLR between runs).
+        // The registration order is observable e.g. in the relative order of the `__init__` overloads injected from conversion operators.
+        auto SortNewEntries = [](std::vector<typename decltype(Registry::type_entries)::value_type *> &vec, std::size_t first_new)
+        {
+            std::sort(vec.begin() + std::ptrdiff_t(first_new), vec.end(), [](const auto *a, const auto *b)
+            {
+                if (int d = a->second.cpp_type_name.compare(b->second.cpp_type_name); d != 0)
+                    return d < 0;
+                return std::strcmp(a->first.name(), b->first.name()) < 0; // The pretty names should be unique, but let's be safe.
+            });
+        };
+
         // Find types with no deps.
         std::vector<typename decltype(Registry::type_entries)::value_type *> queue;
         for (auto &elem : r.type_entries)
@@ -3096,12 +3113,16 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                     queue.push_back(&elem);
             }
         }
+        SortNewEntries(final_order, 0);
+        SortNewEntries(queue, 0);
 
         // Process the queue.
         while (!queue.empty())
         {
             auto &e = *queue.back();
             queue.pop_back();
+            const std::size_t num_ordered = final_order.size();
+            const std::size_t num_queued = queue.size();
             for (MRBind::TypeIndex rdep : e.second.type_rdeps)
             {
                 auto next_e_iter = r.type_entries.find(rdep);
@@ -3117,6 +3138,8 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
                         queue.push_back(&*next_e_iter);
                 }
             }
+            SortNewEntries(final_order, num_ordered);
+            SortNewEntries(queue, num_queued);
         }
 
         // Complain if there are any remaining cycles.
@@ -3314,6 +3337,9 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             }
             if (!entry.aliases.empty())
             {
+                // The aliases were collected in the iteration order of `Registry::type_aliases`, which isn't deterministic. Sort them.
+                std::sort(entry.aliases.begin(), entry.aliases.end());
+
                 doc += "Aliases:  ";
                 bool first = true;
                 for (const auto& alias : entry.aliases)
