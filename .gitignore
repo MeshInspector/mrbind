@@ -10,6 +10,7 @@
 /test/**/*.so
 /test/**/bin
 /test/**/obj
+/test/order_check/output
 parallel-hashmap/
 /examples/cxx.txt
 /examples/c/output
