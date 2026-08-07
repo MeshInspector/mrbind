@@ -358,6 +358,7 @@ namespace MRBind::pb11
 
         // Other types that must be loaded before this one.
         // Those are keys into `Registry::type_entries`.
+        // Note that this is fully drained by the time initialization finishes.
         std::unordered_set<MRBind::TypeIndex> type_deps;
 
         // Reverse dependencies. Those are populated automatically.
@@ -3057,7 +3058,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             LoadNamespace(LoadNamespace, id, &e);
     }
 
-    { // Topologically sort the classes and load them. https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm
+    { // Topologically sort the classes and load them. For the topo sort we use this: https://en.wikipedia.org/wiki/Topological_sorting#Kahn's_algorithm
         // Populate reverse dependencies.
         for (auto &[id, e] : r.type_entries)
         {
@@ -3085,36 +3086,63 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
         std::vector<typename decltype(Registry::type_entries)::value_type *> final_order;
 
         // Find types with no deps.
-        std::vector<typename decltype(Registry::type_entries)::value_type *> queue;
         for (auto &elem : r.type_entries)
         {
             if (elem.second.type_deps.empty())
             {
                 final_order.push_back(&elem);
                 elem.second.was_processed = true;
-                if (!elem.second.type_rdeps.empty())
-                    queue.push_back(&elem);
             }
         }
-
-        // Process the queue.
-        while (!queue.empty())
+        // Sort by Python name to produce stable ordering across platforms.
+        auto TypeNameLess = [](decltype(final_order)::value_type a, decltype(final_order)::value_type b)
         {
-            auto &e = *queue.back();
-            queue.pop_back();
-            for (MRBind::TypeIndex rdep : e.second.type_rdeps)
-            {
-                auto next_e_iter = r.type_entries.find(rdep);
-                if (next_e_iter == r.type_entries.end())
-                    throw std::runtime_error(std::string("MRBind pybind11: Type not registered: ") + rdep.name());
+            // Here `.python_type_name[_qual]` are not initialized yet, and they need to be initialized in the
+            //   topological order, so it's easier to use the C++ type names.
+            return a->second.cpp_type_name < b->second.cpp_type_name;
+        };
+        std::sort(final_order.begin(), final_order.end(), TypeNameLess);
+        // Now extract the types that have reverse dependencies into the queue.
+        std::vector<typename decltype(Registry::type_entries)::value_type *> queue;
+        queue.reserve(final_order.size());
+        for (auto *elem : final_order)
+        {
+            if (!elem->second.type_rdeps.empty())
+                queue.push_back(elem);
+        }
 
-                next_e_iter->second.type_deps.erase(e.first);
-                if (next_e_iter->second.type_deps.empty())
+        { // Process the queue.
+            // Leaving this outside of the loop to reduce the number of allocations.
+            std::vector<decltype(queue)::value_type> sorted_rdeps;
+
+            while (!queue.empty())
+            {
+                auto &e = *queue.back();
+                queue.pop_back();
+
+                // Get rdeps into a vector and sort them by Python names, to produce stable ordering across platforms.
+                std::vector<decltype(queue)::value_type> sorted_rdeps;
+                sorted_rdeps.clear();
+                sorted_rdeps.reserve(e.second.type_rdeps.size());
+                for (MRBind::TypeIndex rdep : e.second.type_rdeps)
                 {
-                    final_order.push_back(&*next_e_iter);
-                    next_e_iter->second.was_processed = true;
-                    if (!next_e_iter->second.type_rdeps.empty())
-                        queue.push_back(&*next_e_iter);
+                    auto next_e_iter = r.type_entries.find(rdep);
+                    if (next_e_iter == r.type_entries.end())
+                        throw std::runtime_error(std::string("MRBind pybind11: Type not registered: ") + rdep.name());
+                    sorted_rdeps.push_back(&*next_e_iter);
+                }
+                std::sort(sorted_rdeps.begin(), sorted_rdeps.end(), TypeNameLess);
+
+                for (auto *elem : sorted_rdeps)
+                {
+                    elem->second.type_deps.erase(e.first);
+                    if (elem->second.type_deps.empty())
+                    {
+                        final_order.push_back(elem);
+                        elem->second.was_processed = true;
+                        if (!elem->second.type_rdeps.empty())
+                            queue.push_back(elem);
+                    }
                 }
             }
         }
@@ -3464,7 +3492,7 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
     }
 
     // Destroy the registry.
-    // This not only saves memory, but also hopefully fix weird destruction order fiasco crashes.
+    // This not only saves memory, but also hopefully fixes weird destruction order fiasco crashes.
     r = {};
     r.was_loaded = true;
 }
