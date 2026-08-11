@@ -213,6 +213,17 @@ namespace mrbind
 
         // Automatically add lifetime annotations to non-copy/move ctors, assuming they store all passed pointers and references.
         bool infer_lifetime_custom_ctors = false;
+
+        enum class DefaultArgsMode
+        {
+            // Adjust default arguments to use fully qualified names. Tell consumers to not add `using namespace` directives that help handle unqualified names.
+            fix,
+            // Adjust default arguments to use fully qualified names, but tell consumers to add `using namespace` anyway just in case.
+            fix_with_using_namespace,
+            // Don't adjust default arguments, tell consumers to add `using namespace`.
+            as_is,
+        };
+        DefaultArgsMode default_args_mode = DefaultArgsMode::fix;
     };
 
     struct PrintingPolicies
@@ -265,6 +276,38 @@ namespace mrbind
                 // Not all of them though, we still need to remove the remaining ones manually.
                 p->IncludeNewlines = false;
             }
+        }
+
+        [[nodiscard]] std::string ExpressionToString(const clang::Expr &expr) const
+        {
+            class PrintingHelper : public clang::PrinterHelper
+            {
+                const clang::PrintingPolicy &printing_policy;
+
+              public:
+                explicit PrintingHelper(const clang::PrintingPolicy &printing_policy) : printing_policy(printing_policy) {}
+
+                bool handledStmt(clang::Stmt *st, llvm::raw_ostream &os) override
+                {
+                    auto ref = llvm::dyn_cast<clang::DeclRefExpr>(st);
+                    if (!ref)
+                        return false; // Use the default printer.
+
+                    ref->getDecl()->printQualifiedName(os, printing_policy);
+                    return true;
+                }
+            };
+
+            const clang::PrintingPolicy &printing_policy = normal;
+
+            PrintingHelper helper(printing_policy);
+
+            std::string ret;
+            llvm::raw_string_ostream ss(ret);
+
+            expr.printPretty(ss, &helper, printing_policy);
+
+            return ret;
         }
     };
 
@@ -807,14 +850,22 @@ namespace mrbind
 
     // Obtains the default argument value as a string, or empty if none.
     // `out_arg` is the argument as written, while `out_arg_cpp` is slightly adjusted to be viable as a C++ expression (i.e. `{...}` has a its type prepended to it).
-    void GetDefaultArgumentStrings(std::optional<DefaultArgument> &out_arg, const clang::ParmVarDecl &param, const clang::PrintingPolicy &printing_policy)
+    void GetDefaultArgumentStrings(std::optional<DefaultArgument> &out_arg, const clang::ParmVarDecl &param, const VisitorParams &params, const PrintingPolicies &printing_policies)
     {
-        if (auto default_arg = param.getDefaultArg())
+        if (const clang::Expr *default_arg = param.getDefaultArg())
         {
             out_arg.emplace();
 
-            llvm::raw_string_ostream ss(out_arg->original_spelling);
-            default_arg->printPretty(ss, nullptr, printing_policy);
+            // Convert the default argument to string.
+            if (params.default_args_mode == VisitorParams::DefaultArgsMode::as_is)
+            {
+                llvm::raw_string_ostream ss(out_arg->original_spelling);
+                default_arg->printPretty(ss, nullptr, printing_policies.normal);
+            }
+            else
+            {
+                out_arg->original_spelling = printing_policies.ExpressionToString(*default_arg);
+            }
 
             // Remove the newlines! They come up if the default argument is a lambda, even despite us setting `clang::PrintingPolicy::IncludeNewlines = false`.
             if (out_arg->original_spelling.find('\n') != std::string::npos)
@@ -854,7 +905,7 @@ namespace mrbind
             // Adjust `{...}` to add an explicit type.
             if (out_arg->original_spelling.starts_with('{'))
             {
-                auto type = param.getType().getNonReferenceType().getUnqualifiedType().getAsString(printing_policy);
+                auto type = param.getType().getNonReferenceType().getUnqualifiedType().getAsString(printing_policies.normal);
                 bool type_is_simple = std::all_of(type.begin(), type.end(), [](unsigned char ch){return std::isalnum(ch) || ch == '_' || ch == ':';});
                 if (type_is_simple)
                     out_arg->as_cpp_expression = type + out_arg->original_spelling;
@@ -1741,7 +1792,7 @@ namespace mrbind
                 if (auto name = p->getName(); !name.empty())
                     new_param.name = name; // Since `new_param.name` is optional, we don't want to fill it if the parameter name is empty.
                 new_param.type = GetTypeStrings(p->getType(), TypeUses::parameter);
-                GetDefaultArgumentStrings(new_param.default_argument, *p, printing_policies.normal);
+                GetDefaultArgumentStrings(new_param.default_argument, *p, *params, printing_policies);
                 HandleLifetimeAttrs(p, LifetimeRelation::Param{.index = i});
                 i++;
             }
@@ -3369,9 +3420,10 @@ namespace mrbind
 
             // Other stuff:
 
-            // I thought this was fixed in Clang 22. The situation has improved in most cases,
-            //   but at least namespace-scoped `inline constexpr static` variables are still unqualified in the output. Oh well.
-            params->parsed_result.platform_info.default_arguments_need_using_namespace = true;
+            // I thought this was fixed in Clang 22. The situation has improved in some cases (at least enum members are fully qualified now),
+            //   but namespace-scoped variables are still unqualified in the output.
+            // Oh well. We try to fix this ourselves!
+            params->parsed_result.platform_info.default_arguments_need_using_namespace = params->default_args_mode != VisitorParams::DefaultArgsMode::fix;
             // params->parsed_result.platform_info.default_arguments_need_using_namespace = CLANG_VERSION_MAJOR < 22;
         }
 
@@ -3544,7 +3596,7 @@ int main(int raw_argc, char **raw_argv)
             args_parser.AddFlag("-o", {
                 .allow_repeat = true,
                 .arg_names = {"output.cpp"},
-                .desc = "Redirect the output to a file. Specifying this flag multiple times multiplexes the output between several files which can be compiled in parallel, or sequentally for a lower RAM usage.",
+                .desc = "Redirect the output to a file. Specifying this flag multiple times multiplexes the output between several files.",
                 .func = [&](mrbind::CommandLineParser::ArgSpan args)
                 {
                     params.output_filenames.emplace_back(args.front());
@@ -3618,7 +3670,7 @@ int main(int raw_argc, char **raw_argv)
             });
 
             args_parser.AddFlag("--canonicalize-size_t-to-uint64_t", {
-                .desc = "This only has effect if `--canonicalize-[int64-]to-fixed-size-typedefs` is set (at least one of the two), and only if we're targeting Mac. On Mac, `uint64_t` and `size_t` are different types (`unsigned long long` and `unsigned long` respectively), for some unknown reason. If this is enabled, instead of canonicalizing `unsigned long` to `uint64_t`, we canonicalize `unsigned long long` to `uint64_t`. This allows you to use `size_t` and `ptrdiff_t` in the public interface, but means that you can no longer use the standard `[u]int64_t` typedefs in the interface.",
+                .desc = "This only has effect if `--canonicalize-[64-]to-fixed-size-typedefs` is set (at least one of the two), and only if we're targeting Mac. On Mac, `uint64_t` and `size_t` are different types (`unsigned long long` and `unsigned long` respectively). If this is enabled, instead of canonicalizing `unsigned long` to `uint64_t`, we canonicalize `unsigned long long` to `uint64_t`. This allows you to use `size_t` and `ptrdiff_t` in the public interface, but means that you can no longer use the standard `[u]int64_t` typedefs in the interface.",
                 .func = [&](mrbind::CommandLineParser::ArgSpan)
                 {
                     params.only_canonicalize_size_t_to_uint64_t = true;
@@ -3667,7 +3719,7 @@ int main(int raw_argc, char **raw_argv)
 
             args_parser.AddFlag("--adjust-comments", {
                 .allow_repeat = true,
-                .arg_names = {"s/A/B/g"},
+                .arg_names = {"sed_like_rule"},
                 .desc = "Adjusts all parsed comments with a sed-like rule, which is either `s/A/B/g` or `s/A/B/`. The separator can be any character, not necessarily a slash, but it can't appear in `A` and `B`, even escaped. This flag can be used multiple times to apply several rules. We separately record the comments with and without leading slashes, and this is applied to both forms, so it should correctly handle both, and shouldn't remove the leading slashes, at least not without replacing them with some other form of a comment.",
                 .func = [&](mrbind::CommandLineParser::ArgSpan args)
                 {
@@ -3688,10 +3740,32 @@ int main(int raw_argc, char **raw_argv)
 
             args_parser.AddFlag("--no-cppdecl", {
                 .arg_names = {"..."},
-                .desc = "Do not attempt to postprocess the type names using our `cppdecl` library. There's typically no reason to, unless the library ends up being bugged. This will break most non-trivial usecases though.",
+                .desc = "Only adjust this to work around parser bugs. If specified, we don't attempt to postprocess the type names using our `cppdecl` library. This might break things.",
                 .func = [&](mrbind::CommandLineParser::ArgSpan)
                 {
                     params.enable_cppdecl_processing = false;
+                },
+            });
+
+            args_parser.AddFlag("--default-args", {
+                .arg_names = {"mode"},
+                .desc =
+                    "Only adjust this to work around parser bugs. "
+                    "This controls how the default arguments are parsed. "
+                    "The default mode is `fix`, which attempts to make all names in default arguments fully qualified, which is something the generated C/C++ code usually needs. "
+                    "One alternative mode is `as-is`, which leaves the default arguments as is, and sets a flag in the parser output to tell consumers to add `using namespace` to their generated code, "
+                        "which in can work around the missing qualifiers in some simple cases (e.g. not when the qualifiers refer to a class as opposed to a namespace). "
+                    "Another alternative mode is `fix-but-add-using-namespace`, which both attempts to fix the arguments and sets the flag for `using namespace` in case some qualifiers ended up missing.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan args)
+                {
+                    if (args[0] == "fix")
+                        params.default_args_mode = mrbind::VisitorParams::DefaultArgsMode::fix;
+                    else if (args[0] == "as-is")
+                        params.default_args_mode = mrbind::VisitorParams::DefaultArgsMode::as_is;
+                    else if (args[0] == "fix-but-add-using-namespace")
+                        params.default_args_mode = mrbind::VisitorParams::DefaultArgsMode::fix_with_using_namespace;
+                    else
+                        throw std::runtime_error("Invalid mode passed to `--default-args`: `" + std::string(args[0]) + "`.");
                 },
             });
 
