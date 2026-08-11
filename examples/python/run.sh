@@ -82,7 +82,7 @@ PYTHON=${PYTHON:-python3}
     -DMB_PB11_MODULE_NAME=example \
     -DMB_DEFINE_IMPLEMENTATION \
     -DPYBIND11_COMPILER_TYPE='"_mrbind_example"' -DPYBIND11_BUILD_ABI='"_mrbind_example"' \
-    $(${PYTHON}-config --cflags --embed) \
+    $($PYTHON-config --cflags --embed) \
     "${EXTRA_CXX_FLAGS[@]}"
 
 # Run a test program using the Python module.
