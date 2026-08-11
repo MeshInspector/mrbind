@@ -26,6 +26,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <cstdint>
 #include <map>
 #include <optional>
 #include <set>
@@ -243,10 +244,15 @@ namespace MRBind::pb11
         std::unordered_map<std::string, std::vector<std::function<void(ModuleOrClassRef m, const char *name)>>> funcs;
     };
 
+    struct FuncRow;
+
     struct FuncEntry
     {
         using LoadFunc = void (*)(ModuleOrClassRef m, TryAddFuncState &state, TryAddFuncScopeState &scope_state, int pass_number, const char *qual_name, const char *qual_name_with_template_args, FuncAliasRegistrationFuncs *func_alias_registration_funcs);
         LoadFunc load = nullptr;
+
+        // If non-null, this is a table-driven function and `load` is null. See `FuncRow`.
+        const FuncRow *row = nullptr;
 
         const char *qual_name = nullptr;
         const char *qual_name_with_template_args = nullptr;
@@ -260,6 +266,15 @@ namespace MRBind::pb11
             LoadFunc load
         )
             : load(load),
+            qual_name(qual_name),
+            qual_name_with_template_args(qual_name_with_template_args)
+        {}
+        FuncEntry(
+            const char *qual_name,
+            const char *qual_name_with_template_args,
+            const FuncRow *row
+        )
+            : row(row),
             qual_name(qual_name),
             qual_name_with_template_args(qual_name_with_template_args)
         {}
@@ -1275,25 +1290,24 @@ namespace MRBind::pb11
         }
     }
 
+    // `py_name` is already `ToPythonName()`d, and `comment` is null if there's none (which pybind11 treats the same as an absent comment).
     template <auto Getter, typename T>
-    void TryAddMemberVar(auto &c, const char *name, auto &&... data)
+    void TryAddMemberVar(auto &c, const char *py_name, const char *comment)
     {
         if constexpr (IsValidFieldType<T>)
         {
             using ClassType = typename std::remove_cvref_t<decltype(c)>::type; // Extract the target class type.
 
-            std::string py_name = ToPythonName(name);
-
             // Using pybind11 "properties" here because the member can be a reference, and you can't form a pointer-to-member to those.
             if constexpr (PropertyTypeIsConst<std::remove_reference_t<T>>)
-                c.def_property_readonly(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_readonly(py_name, MemberVarDetails::Getter<ClassType, T, Getter>, pybind11::return_value_policy::reference_internal, comment);
             else
-                c.def_property(py_name.c_str(), MemberVarDetails::Getter<ClassType, T, Getter>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::Setter<ClassType, T, Getter>), pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property(py_name, MemberVarDetails::Getter<ClassType, T, Getter>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::Setter<ClassType, T, Getter>), pybind11::return_value_policy::reference_internal, comment);
         }
     }
 
     template <auto Ptr, typename T>
-    void TryAddMemberVarStatic(auto &c, const char *name, auto &&... data)
+    void TryAddMemberVarStatic(auto &c, const char *py_name, const char *comment)
     {
         if constexpr (IsValidFieldType<T>)
         {
@@ -1301,12 +1315,10 @@ namespace MRBind::pb11
             // to weird linking errors (`relocation refers to a discarded section`, last tested on `clang++-18 -fclang-abi-compat=17` on Ubuntu 22.04,
             // only happens in the entire MeshLib and not in test programs).
 
-            std::string py_name = ToPythonName(name);
-
             if constexpr (PropertyTypeIsConst<std::remove_reference_t<T>>)
-                c.def_property_readonly_static(py_name.c_str(), MemberVarDetails::GetterStatic<T, Ptr>, pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_readonly_static(py_name, MemberVarDetails::GetterStatic<T, Ptr>, pybind11::return_value_policy::reference_internal, comment);
             else
-                c.def_property_static(py_name.c_str(), MemberVarDetails::GetterStatic<T, Ptr>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::SetterStatic<T, Ptr>), pybind11::return_value_policy::reference_internal, decltype(data)(data)...);
+                c.def_property_static(py_name, MemberVarDetails::GetterStatic<T, Ptr>, MemberVarDetails::MaybeAddKeepAlive<T>(MemberVarDetails::SetterStatic<T, Ptr>), pybind11::return_value_policy::reference_internal, comment);
         }
     }
 
@@ -1330,6 +1342,490 @@ namespace MRBind::pb11
     // 1. register most functions
     // 2. register delayed functions
     inline constexpr int num_add_func_passes = 3;
+
+
+    // --- Table-driven function registration:
+    //
+    // Normal (non-conversion-operator) methods and free functions are described by constexpr `FuncRow` tables instead of
+    //   per-function straight-line `TryAddFunc<...>()` calls. This collapses most of the per-function template instantiations
+    //   (which dominate the binary size of large bindings) into:
+    //   * `RegisterFuncRow()`, a single non-template function doing everything that doesn't depend on the signature,
+    //   * one `FuncRowRegistrar` instantiation per distinct signature shape, doing the rest,
+    //   * a tiny per-function `FuncRowThunk` that carries the target function pointer,
+    //   * plain data rows for everything else (names, comments, parameters, default arguments).
+    // The pybind11 calls are the same ones `TryAddFunc()` makes; the `pybind11::class_<...>` specialization is carried
+    //   through as `FuncRowRegistrar`'s first template argument so that its `def()` can still be used.
+    // Conversion operators, `TryAddFuncSimple()`, and custom bindings still use `TryAddFunc()` directly.
+
+    // Describes one parameter of a bound function.
+    struct FuncParamRow
+    {
+        // The parsed parameter name, without the Python keyword adjustment. "" if unnamed.
+        const char *name = nullptr;
+        // Null if the parameter has no default argument.
+        // Otherwise returns the pybind11 argument descriptor with the default argument value; `adjusted_name` must outlive the returned object's use.
+        pybind11::arg_v (*make_default)(const char *adjusted_name) = nullptr;
+        // For overload equality detection, same information as `DETAIL_MB_PB11_PARAM_PB_SIGNATURE`.
+        const std::type_info *signature_type = nullptr;
+    };
+
+    // Holds `pybind11::keep_alive<...>` types from the parsed lifetime annotations, as a `FuncRow` shape key.
+    template <typename ...P>
+    struct KeepAliveList {};
+
+    struct FuncRow;
+
+    enum class FuncRowRegMode
+    {
+        normal,
+        // A non-member overloaded operator being injected into the class of one of its operands.
+        inject_operator,
+    };
+
+    using FuncRowRegistrarPtr = void (*)(ModuleOrClassRef m, const char *final_name, const FuncRow &row, FuncRowRegMode mode);
+
+    // Describes one bound function; the runtime counterpart of `TryAddFunc()`'s template arguments.
+    struct FuncRow
+    {
+        FuncKind kind{};
+        // Which pass registers this function, see `num_add_func_passes`.
+        signed char desired_pass_number = 1;
+        // The number of C++ parameters, including `this` for non-static member functions.
+        unsigned char total_arity = 0;
+        // The number of declared parameters (i.e. excluding `this`). Also the size of `params`.
+        unsigned char num_params = 0;
+        const char *simplename = nullptr;
+        // For member functions. Free functions receive their namespace-adjusted names at load time instead.
+        const char *fullname = nullptr;
+        const char *fullname_with_targs = nullptr;
+        // Null if none.
+        const char *comment = nullptr;
+        const FuncParamRow *params = nullptr;
+        // Null if this function is skipped entirely (e.g. an unsupported parameter type).
+        // Such rows still consume a `TryAddFuncState` slot, like the skipped `TryAddFunc()` calls before them.
+        FuncRowRegistrarPtr registrar = nullptr;
+    };
+
+    // A helper to compute the thunk return type: `.release()`d to a plain pointer for `std::unique_ptr`s to builtin types.
+    template <typename T, bool IsUniquePtrToBuiltin>
+    struct FuncRowThunkRet {using type = T;};
+    template <typename T>
+    struct FuncRowThunkRet<T, true> {using type = typename std::remove_cvref_t<T>::pointer;};
+
+    // The reversed-argument thunk for binary non-member operators, injected as `__r*__` into the second operand's type.
+    // The primary template handles all non-binary arities.
+    template <typename Thunk, typename ...AdjP>
+    struct FuncRowSymmetric {static constexpr std::nullptr_t value = nullptr;};
+    template <typename Thunk, typename A, typename B>
+    struct FuncRowSymmetric<Thunk, A, B>
+    {
+        static decltype(auto) Call(B x, A y)
+        {
+            // Using `forward` here to have decent behavior when `x`,`y` are non-references.
+            return Thunk::Call(std::forward<A>(y), std::forward<B>(x));
+        }
+        static constexpr auto value = &Call;
+    };
+
+    // One instantiation per distinct signature shape. Does everything `TryAddFunc()`'s second pass does, driven by a `FuncRow`.
+    // `PybindClass` is the `pybind11::class_<...>` specialization that member functions are registered into, or `void` for free functions.
+    // Adding it to the shape key is free: for non-static member functions the class is already in `P...` as the self parameter.
+    template <typename PybindClass, FuncKind Kind, int NumDefaults, typename KeepAlives, typename ReturnTypeAdjusted, typename ...P>
+    struct FuncRowRegistrar {};
+    template <typename PybindClass, FuncKind Kind, int NumDefaults, typename ...KeepAlives, typename ReturnTypeAdjusted, typename ...P>
+    struct FuncRowRegistrar<PybindClass, Kind, NumDefaults, KeepAliveList<KeepAlives...>, ReturnTypeAdjusted, P...>
+    {
+        static constexpr bool returns_unique_ptr_to_builtin = IsUniquePtrToBuiltinType<ReturnTypeAdjusted>::value;
+
+        // What the thunk actually returns, see `FuncRowThunk::Call`.
+        using ThunkRet = typename FuncRowThunkRet<ReturnTypeAdjusted, returns_unique_ptr_to_builtin>::type;
+        using ThunkPtr = ThunkRet (*)(AdjustedParamType<P>...);
+
+        // This further strips pointers and refs. Not smart pointers though.
+        using ThunkRetPtrRefStripped = typename RemovePointersRefs<ThunkRet>::type;
+
+        // Same logic as in `TryAddFunc()`, see the comments there.
+        static constexpr pybind11::return_value_policy ret_policy =
+            returns_unique_ptr_to_builtin ?
+                pybind11::return_value_policy::take_ownership :
+            (std::is_pointer_v<ThunkRet> || std::is_reference_v<ThunkRet>)
+            #if !MB_PB11_CONST_CAST_RETURNED_CONST_REFS
+            && !std::is_const_v<ThunkRetPtrRefStripped>
+            #endif
+                ? bool(Kind & FuncKind::member_nonstatic) ? pybind11::return_value_policy::reference_internal : pybind11::return_value_policy::reference :
+            std::is_const_v<ThunkRetPtrRefStripped> ? (std::is_copy_constructible_v<ThunkRetPtrRefStripped> ? pybind11::return_value_policy::copy : pybind11::return_value_policy::reference/*ugh*/)
+            : pybind11::return_value_policy::move;
+
+        static constexpr GilHandling gil_handling = CombineGilHandling<ParamGilHandling<P>::value...>::value;
+        static_assert(gil_handling != GilHandling::invalid, "Parameter types of this function give conflicting requirements on what to do with the global interpreter lock.");
+
+        static constexpr int num_self_params = bool(Kind & FuncKind::member_nonstatic) ? 1 : 0;
+        static constexpr int num_decl_params = int(sizeof...(P)) - num_self_params;
+
+        // Calls `continuation(...)` with the pybind11 extras built from the row: the per-parameter descriptors
+        //   (skipping the first `SkipParams`), the comment, and the keep-alives.
+        template <int SkipParams>
+        static void MakeExtras(const FuncRow &row, auto &&continuation)
+        {
+            // Make sure this isn't a hard error. We add our own specializations, and we don't want them to be ambiguous.
+            (void)pybind11::detail::is_copy_constructible<std::remove_cv_t<ThunkRetPtrRefStripped>>::value;
+            (void)pybind11::detail::is_copy_assignable<std::remove_cv_t<ThunkRetPtrRefStripped>>::value;
+
+            // The adjusted names must outlive the pybind11 calls in `continuation`, since pybind11 copies them late.
+            std::array<std::string, (num_decl_params > 0 ? num_decl_params : 1)> names;
+            for (int i = 0; i < num_decl_params; i++)
+                names[std::size_t(i)] = AdjustPythonKeywords(row.params[i].name);
+
+            (MapFilterPack<P...>)(
+                [&]<int I, typename U>()
+                {
+                    if constexpr (I < num_self_params + SkipParams)
+                        ; // Skip `this` and the first `SkipParams` parameters, filtered out by returning void.
+                    else
+                    {
+                        constexpr int j = I - num_self_params;
+                        if constexpr (j < num_decl_params - NumDefaults)
+                            return pybind11::arg(names[j].c_str());
+                        else
+                            return row.params[j].make_default(names[j].c_str());
+                    }
+                },
+                [&](auto &&... param_extras)
+                {
+                    continuation(decltype(param_extras)(param_extras)..., row.comment, KeepAlives{}...);
+                }
+            );
+        }
+
+        static void DefNormal(ThunkPtr f, ModuleOrClassRef m, const char *final_name, const FuncRow &row)
+        {
+            MakeExtras<0>(row, [&](const auto &... extras)
+            {
+                auto def_one = [&](const auto &... more_extras)
+                {
+                    // Same downcast as in `TryAddFunc()`: `m.handle` points to the `pybind11::class_` that `PybindClass` names.
+                    if constexpr (bool(Kind & FuncKind::member_nonstatic))
+                        static_cast<PybindClass *>(m.handle)->def(final_name, f, ret_policy, more_extras...);
+                    else
+                        m.AddFunc(final_name, f, ret_policy, more_extras...);
+                };
+
+                // See `TryAddFunc()` for what this call guard does.
+                if constexpr (gil_handling == GilHandling::must_unlock || gil_handling == GilHandling::prefer_unlock)
+                    def_one(extras..., pybind11::call_guard<pybind11::gil_scoped_release>());
+                else
+                    def_one(extras...);
+            });
+        }
+
+        // `sym` is the reversed-argument thunk for binary operators (see `FuncRowSymmetric`), or `nullptr` when not applicable.
+        // Only reachable for non-member functions with at least one parameter, compiled out otherwise (like in `TryAddFunc()`).
+        template <typename Sym>
+        static void InjectOperator(ThunkPtr f, Sym sym, const char *final_name, const FuncRow &row)
+        {
+            if constexpr (num_self_params == 0 && sizeof...(P) >= 1)
+            {
+                auto &r = GetRegistry();
+
+                // Skipping the first parameter's descriptor, it becomes `this`. Same as the `trimmed_data` in `TryAddFunc()`.
+                MakeExtras<1>(row, [&](const auto &... extras)
+                {
+                    using FirstParam = FirstType<DecayToTrueParamType<P>...>;
+
+                    if (auto iter = r.type_entries.find(typeid(FirstParam)); iter != r.type_entries.end())
+                    {
+                        // Try injecting into the type of the first operand.
+                        iter->second.pybind_type->AddExtraMethod(final_name, f, ret_policy, extras...);
+                    }
+                    else
+                    {
+                        // If the first operand is not registered AND this is a binary operator,
+                        // try injecting the reverse form into the type of the second operand.
+                        if constexpr (!std::is_null_pointer_v<Sym>)
+                        {
+                            using SecondParam = SecondType<DecayToTrueParamType<P>...>;
+                            if (auto iter2 = r.type_entries.find(typeid(SecondParam)); iter2 != r.type_entries.end())
+                            {
+                                // In python, binary operators with reverse argument order are prefixed with `r`: e.g. `__add__` becomes `__radd__`, etc.
+                                iter2->second.pybind_type->AddExtraMethod(("__r" + std::string(final_name + 2)).c_str(), sym, ret_policy, extras...);
+                            }
+                        }
+                    }
+                });
+            }
+            else
+            {
+                (void)f; (void)sym; (void)final_name; (void)row;
+            }
+        }
+    };
+
+    // The per-function part: carries the target function pointer `F` and forwards everything else to the shared per-shape `FuncRowRegistrar`.
+    template <typename PybindClass, FuncKind Kind, auto F, int NumDefaults, typename KeepAlives, typename ...P>
+    struct FuncRowThunk
+    {
+        using ReturnType = std::invoke_result_t<decltype(F), DecayToTrueParamType<P> &&...>; // `DecayToTrueParamType` is not adjusted.
+        using ReturnTypeAdjusted = typename AdjustReturnType<ReturnType>::type;
+
+        static constexpr bool returns_unique_ptr_to_builtin = IsUniquePtrToBuiltinType<ReturnTypeAdjusted>::value;
+        static_assert(
+            IsUniquePtrToBuiltinType<std::remove_cvref_t<ReturnTypeAdjusted>>::value <= returns_unique_ptr_to_builtin,
+            "Why are we returning `std::unique_ptr` by reference? This shouldn't be possible, it should've been adjusted to `std::shared_ptr`."
+        );
+
+        static decltype(auto) Call(AdjustedParamType<P> ...params)
+        {
+            #define INVOKE_FUNC std::invoke(F, (UnadjustParam<DecayToTrueParamType<P>>)(std::forward<AdjustedParamType<P>>(params))...)
+
+            if constexpr (std::is_void_v<ReturnType>) // Sic! Not `ReturnTypeAdjusted`. This matters e.g. for `tl::expected<void, ...>`.
+            {
+                INVOKE_FUNC;
+            }
+            else
+            {
+                #define INVOKE_FUNC_R (AdjustReturnedValue<ReturnType>)(INVOKE_FUNC)
+
+                if constexpr (returns_unique_ptr_to_builtin)
+                    return INVOKE_FUNC_R.release(); // `pybind11::return_value_policy::take_ownership` takes ownership of this.
+                else
+                    return INVOKE_FUNC_R;
+
+                #undef INVOKE_FUNC_R
+            }
+
+            #undef INVOKE_FUNC
+        }
+
+        using Registrar = FuncRowRegistrar<PybindClass, Kind, NumDefaults, KeepAlives, ReturnTypeAdjusted, P...>;
+        static_assert(std::is_same_v<decltype(&Call), typename Registrar::ThunkPtr>, "The thunk signature doesn't match what the registrar reconstructs.");
+
+        static constexpr auto SymmetricPtr()
+        {
+            if constexpr (bool(Kind & FuncKind::member_nonstatic))
+                return nullptr;
+            else
+                return FuncRowSymmetric<FuncRowThunk, AdjustedParamType<P>...>::value;
+        }
+
+        static void Register(ModuleOrClassRef m, const char *final_name, const FuncRow &row, FuncRowRegMode mode)
+        {
+            if (mode == FuncRowRegMode::inject_operator)
+                Registrar::InjectOperator(&Call, SymmetricPtr(), final_name, row);
+            else
+                Registrar::DefNormal(&Call, m, final_name, row);
+        }
+    };
+
+    // Assembles a `FuncRow`, applying the same compile-time whole-function rejections as `TryAddFunc()` (leaving `registrar` null then).
+    template <typename PybindClass, FuncKind Kind, auto F, int NumDefaults, typename KeepAlives, typename ...P>
+    constexpr FuncRow MakeFuncRow(const char *simplename, const char *fullname, const char *fullname_with_targs, const char *comment, const FuncParamRow *params)
+    {
+        static_assert((Kind & FuncKind::conv_op) != FuncKind::conv_op, "Conversion operators must use `TryAddFunc()` directly.");
+        static_assert(
+            bool(Kind & FuncKind::member_nonstatic) == !std::is_void_v<PybindClass>,
+            "`PybindClass` is needed exactly for the non-static member functions; everything else goes through `ModuleOrClassRef`."
+        );
+
+        FuncRow ret;
+        ret.kind = Kind;
+        ret.total_arity = (unsigned char)sizeof...(P);
+        ret.num_params = (unsigned char)(sizeof...(P) - (bool(Kind & FuncKind::member_nonstatic) ? 1 : 0));
+        ret.simplename = simplename;
+        ret.fullname = fullname;
+        ret.fullname_with_targs = fullname_with_targs;
+        ret.comment = comment;
+        ret.params = params;
+
+        if constexpr ((ParamTypeDisablesWholeFunction<DecayToTrueParamType<P>> || ...))
+        {
+            // This function has a parameter of a weird type that we can't support. Leave `registrar` null.
+        }
+        else if constexpr (IgnoreFuncsWithReturnType<std::invoke_result_t<decltype(F), DecayToTrueParamType<P> &&...>>::value)
+        {
+            // Rejected because of the return type. Leave `registrar` null.
+        }
+        else
+        {
+            ret.desired_pass_number = (ParamTypeRequiresLateFuncRegistration<DecayToTrueParamType<P>> || ...) ? 2 : 1;
+            ret.registrar = &FuncRowThunk<PybindClass, Kind, F, NumDefaults, KeepAlives, P...>::Register;
+        }
+        return ret;
+    }
+
+    // The shared runtime driver; the counterpart of `TryAddFunc()`'s type-independent logic (the two passes, overload resolution, aliases).
+    // `is_class_member` is true when this is a (static or non-static) member function of a class, as opposed to a free function.
+    inline void RegisterFuncRow(
+        ModuleOrClassRef m,
+        const FuncRow &row,
+        const char *fullname,
+        const char *fullname_with_template_args,
+        TryAddFuncState *state,
+        TryAddFuncScopeState *scope_state,
+        int pass_number,
+        FuncAliasRegistrationFuncs *alias_registration_funcs,
+        bool is_class_member
+    )
+    {
+        if (!row.registrar)
+            return; // The whole function is skipped; the state slot is still consumed by the caller.
+
+        // First pass.
+        if (state && pass_number == 0)
+        {
+            const char *op = AdjustOverloadedOperatorName(row.simplename, row.total_arity == 1);
+            if (op != row.simplename)
+            {
+                state->is_overloaded_operator = true;
+                state->python_name = op;
+            }
+            else
+            {
+                state->python_name = ToPythonName(fullname);
+
+                TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads[state->python_name];
+                overload.num_overloads++;
+                PybindSignature sig;
+                sig.reserve(row.num_params);
+                for (int i = 0; i < int(row.num_params); i++)
+                    sig.push_back(*row.params[i].signature_type);
+                overload.signatures.insert(std::move(sig));
+            }
+            return;
+        }
+
+        // Second pass starts here...
+
+        // Check the pass number.
+        if (pass_number != row.desired_pass_number && pass_number >= 0)
+            return;
+
+        const char *final_name = state ? state->python_name.c_str() : fullname;
+
+        { // Fix the python name to avoid ambiguous overloads...
+            if (state && !state->is_overloaded_operator)
+            {
+                TryAddFuncScopeState::OverloadEntry &overload = scope_state->overloads.at(state->python_name);
+                if (overload.num_overloads > overload.signatures.size())
+                {
+                    // Those overloads are ambiguous, adjust the name.
+                    state->python_name = ToPythonName(fullname_with_template_args);
+                    final_name = state->python_name.c_str();
+                }
+            }
+        }
+
+        // If this is an overloaded operator defined outside of a class (or as a `friend`), inject it into
+        // the target class, instead of emitting as a global function.
+        if (!is_class_member && row.total_arity >= 1 && state && state->is_overloaded_operator)
+        {
+            // Return unconditionally. If we couldn't inject this operator into one of the arguments' types, just drop it.
+            row.registrar(m, final_name, row, FuncRowRegMode::inject_operator);
+            return;
+        }
+
+        row.registrar(m, final_name, row, FuncRowRegMode::normal);
+
+        // Register the alias registration func.
+        if (alias_registration_funcs)
+        {
+            alias_registration_funcs->funcs.try_emplace(final_name).first->second.push_back(
+                [rowp = &row](ModuleOrClassRef m2, const char *name2){rowp->registrar(m2, name2, *rowp, FuncRowRegMode::normal);}
+            );
+        }
+    }
+
+    // Registers the member function rows of one class, for the current pass.
+    inline void RegisterMemberFuncRows(BasicPybindType &b, TypeEntry::AddClassMembersState &state, FuncAliasRegistrationFuncs *alias_registration_funcs, const FuncRow *rows, std::size_t num_rows)
+    {
+        ModuleOrClassRef m(b.GetPybindObject());
+        for (std::size_t i = 0; i < num_rows; i++)
+        {
+            // Note that the state slot is consumed even for the rows with a null `registrar`, to keep the slot indices stable across passes.
+            RegisterFuncRow(m, rows[i], rows[i].fullname, rows[i].fullname_with_targs, &state.NextFuncState(), &state.func_scope_state, state.pass_number, alias_registration_funcs, true);
+        }
+    }
+
+
+    // Describes one bound field; the runtime counterpart of `TryAddMemberVar[Static]()`'s arguments.
+    struct MemberVarRow
+    {
+        // The parsed field name, `ToPythonName` is applied at runtime.
+        const char *fullname = nullptr;
+        // Null if none.
+        const char *comment = nullptr;
+        // If non-null, an `_offsetof_*` static property returning `offsetof_value` is added.
+        // This happens even for the fields whose type we can't bind, matching the old behavior.
+        const char *offsetof_name = nullptr;
+        std::size_t offsetof_value = 0;
+        // Null if the field's type can't be bound.
+        void (*registrar)(BasicPybindType &b, const char *py_name, const char *comment) = nullptr;
+    };
+
+    // The per-field part: carries the accessor, and forwards to `TryAddMemberVar[Static]()`, which is shared
+    //   by all fields of the same class and type.
+    template <typename PybindClass, auto Accessor, typename T, bool IsStatic>
+    struct MemberVarThunk
+    {
+        static void Register(BasicPybindType &b, const char *py_name, const char *comment)
+        {
+            auto &c = static_cast<SpecificPybindType<PybindClass> &>(b).type;
+            if constexpr (IsStatic)
+                (TryAddMemberVarStatic<Accessor, T>)(c, py_name, comment);
+            else
+                (TryAddMemberVar<Accessor, T>)(c, py_name, comment);
+        }
+    };
+
+    // Assembles a `MemberVarRow`, applying the same compile-time rejections as `TryAddMemberVar[Static]()`.
+    template <typename PybindClass, auto Accessor, typename T, bool IsStatic>
+    constexpr MemberVarRow MakeMemberVarRow(const char *fullname, const char *comment, const char *offsetof_name, std::size_t offsetof_value)
+    {
+        MemberVarRow ret;
+        ret.fullname = fullname;
+        ret.comment = comment;
+        ret.offsetof_name = offsetof_name;
+        ret.offsetof_value = offsetof_value;
+        if constexpr (IsValidFieldType<T>)
+            ret.registrar = &MemberVarThunk<PybindClass, Accessor, T, IsStatic>::Register;
+        return ret;
+    }
+
+    // Describes one enum element.
+    struct EnumElemRow
+    {
+        const char *name = nullptr;
+        // The value, bit-cast from the enum's underlying type.
+        std::int64_t value = 0;
+        // Null if none.
+        const char *comment = nullptr;
+    };
+
+    // Registers the elements of one enum from a table.
+    template <typename E>
+    void RegisterEnumElemRows(pybind11::enum_<E> &e, const EnumElemRow *rows, std::size_t num_rows)
+    {
+        for (std::size_t i = 0; i < num_rows; i++)
+            e.value(rows[i].name, static_cast<E>(static_cast<std::underlying_type_t<E>>(rows[i].value)), rows[i].comment);
+    }
+
+    // Registers the field rows of one class. Only called during the first pass.
+    template <typename PybindClass>
+    void RegisterMemberVarRows(BasicPybindType &b, const MemberVarRow *rows, std::size_t num_rows)
+    {
+        auto &c = static_cast<SpecificPybindType<PybindClass> &>(b).type;
+        for (std::size_t i = 0; i < num_rows; i++)
+        {
+            const MemberVarRow &row = rows[i];
+            if (row.registrar)
+                row.registrar(b, ToPythonName(row.fullname).c_str(), row.comment);
+            if (row.offsetof_name)
+            {
+                // The old per-field version baked the offset into a captureless lambda, which gave every field its own
+                //   `cpp_function` instantiation. Capturing the offset instead lets one lambda serve all of them.
+                c.def_property_readonly_static(row.offsetof_name, [off = row.offsetof_value](const pybind11::object &){return off;});
+            }
+        }
+    }
 
 
     template <CopyMoveKind CopyMove, int NumDefaultArgs, bool IsExplicit, bool IsAggregate, typename ...P>
@@ -3268,7 +3764,10 @@ PYBIND11_MODULE(MB_PB11_MODULE_NAME, m)
             {
                 for (auto &func : scope.second)
                 {
-                    func.entry->load(func.m, func.entry->state, scope_state, pass_number, func.name, func.name_with_template_args, func.func_alias_registration_funcs);
+                    if (func.entry->row)
+                        RegisterFuncRow(func.m, *func.entry->row, func.name, func.name_with_template_args, &func.entry->state, &scope_state, pass_number, func.func_alias_registration_funcs, false);
+                    else
+                        func.entry->load(func.m, func.entry->state, scope_state, pass_number, func.name, func.name_with_template_args, func.func_alias_registration_funcs);
                     if (debug_loglevel >= 3 && pass_number + 1 == num_add_func_passes)
                         std::cout << "mrbind: Registering free function: namespace=`" << (scope.first ? scope.first->pybind_name_qual_fixed : "") << "`, name=`" << func.entry->state.python_name << "`\n";
                 }
@@ -3576,10 +4075,35 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #  define DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_)
 #endif
 
-// A helper for `MB_ENUM` that generates the elements.
-#define DETAIL_MB_PB11_MAKE_ENUM_ELEMS(name, seq) SF_FOR_EACH(DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY, SF_STATE, SF_NULL, name, seq)
-#define DETAIL_MB_PB11_MAKE_ENUM_ELEMS_BODY(n, d, name_, value_, comment_) \
-    _pb11_e.value(MRBIND_STR(name_), MRBIND_IDENTITY d::name_ DETAIL_MB_PB11_PREPEND_COMMA_PLUS(comment_));
+// Returns a `MRBind::pb11::KeepAliveList<...>` of `pybind11::keep_alive<...>` types for the given lifetime annotations.
+#if MB_PB11_USE_PARSED_LIFETIMES
+#  define DETAIL_MB_PB11_KEEP_ALIVE_LIST(lifetimes_) MRBind::pb11::KeepAliveList<MRBIND_STRIP_LEADING_COMMA(SF_FOR_EACH0(DETAIL_MB_PB11_KEEP_ALIVE_LIST_BODY, SF_NULL, SF_NULL,, lifetimes_))>
+#  define DETAIL_MB_PB11_KEEP_ALIVE_LIST_BODY(n, d, holder_, target_) , pybind11::keep_alive<holder_, target_>
+#else
+#  define DETAIL_MB_PB11_KEEP_ALIVE_LIST(lifetimes_) MRBind::pb11::KeepAliveList<>
+#endif
+
+// Generates the `MRBind::pb11::FuncParamRow` initializers for a function's parameters, with a trailing comma.
+#define DETAIL_MB_PB11_PARAM_ROWS(seq) SF_FOR_EACH0(DETAIL_MB_PB11_PARAM_ROWS_BODY, SF_NULL, SF_NULL,, seq)
+#define DETAIL_MB_PB11_PARAM_ROWS_BODY(n, d, type_, name_, default_arg_, .../*default_arg_cpp_*/) \
+    MRBind::pb11::FuncParamRow{ \
+        MRBIND_STR(name_), \
+        MRBIND_CAT(DETAIL_MB_PB11_PARAM_ROWS_DEFAULT_, __VA_OPT__(0))(name_, default_arg_, __VA_ARGS__), \
+        &typeid(MRBind::pb11::ToPybindSignatureType<MRBind::pb11::AdjustedParamType<MRBind::pb11::DecayToTrueParamType<MRBIND_IDENTITY type_>>>) \
+    },
+
+#define DETAIL_MB_PB11_PARAM_ROWS_DEFAULT_(name_, default_arg_, default_arg_cpp_) nullptr
+#define DETAIL_MB_PB11_PARAM_ROWS_DEFAULT_0(name_, default_arg_, default_arg_cpp_) \
+    +[](const char *_pb11_n) -> pybind11::arg_v {return MRBind::pb11::ParamWithDefaultArg(_pb11_n, MRBIND_IDENTITY default_arg_cpp_, "'" MRBIND_STR(MRBIND_IDENTITY default_arg_) "'");}
+
+// A helper for `MB_ENUM` that generates the element rows.
+#define DETAIL_MB_PB11_MAKE_ENUM_ELEM_ROWS(name, seq) SF_FOR_EACH(DETAIL_MB_PB11_MAKE_ENUM_ELEM_ROWS_BODY, SF_STATE, SF_NULL, name, seq)
+#define DETAIL_MB_PB11_MAKE_ENUM_ELEM_ROWS_BODY(n, d, name_, value_, comment_) \
+    MRBind::pb11::EnumElemRow{ \
+        MRBIND_STR(name_), \
+        (std::int64_t)(std::underlying_type_t<MRBIND_IDENTITY d>)(MRBIND_IDENTITY d::name_), \
+        DETAIL_MB_PB11_COMMENT_PTR(comment_) \
+    },
 
 // A helper for `MB_CLASS` that generates the base class list with a leading comma.
 #define DETAIL_MB_PB11_BASE_TYPES(seq) SF_FOR_EACH(DETAIL_MB_PB11_BASE_TYPES_BODY, SF_NULL, SF_NULL,, seq)
@@ -3685,45 +4209,41 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 
 // Bind a function.
 #define MB_FUNC(ret_, name_, simplename_, qualname_, fullqualname_, ns_stack_, deprecated_, comment_, params_, lifetimes_) \
-    MRBind::pb11::GetRegistry().func_entries.emplace_back( \
-        /* Qualified name */\
-        MRBIND_STR(MRBIND_IDENTITY qualname_), \
-        /* Qualified name with template arguments */\
-        MRBIND_STR(MRBIND_IDENTITY fullqualname_), \
-        +[](MRBind::pb11::ModuleOrClassRef _pb11_m, MRBind::pb11::TryAddFuncState &_pb11_state, MRBind::pb11::TryAddFuncScopeState &_pb11_scope_state, int _pb11_pass_number, const char *_pb11_qual_name, const char *_pb11_qual_name_with_template_args, MRBind::pb11::FuncAliasRegistrationFuncs *_pb11_func_alias_registration_funcs) \
-        {\
-            MRBind::pb11::TryAddFunc<\
-                MRBind::pb11::FuncKind::nonmember_or_static, \
-                /* The function pointer or a lambda. */\
-                DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullqualname_), deprecated_, DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) ) \
-                /* Parameter types. */\
-                DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
-            >( \
-                _pb11_m, \
-                /* Simple name */\
-                MRBIND_STR(simplename_), \
-                /* Qualified name */\
-                _pb11_qual_name, \
-                /* Qualified name with template arguments */\
-                _pb11_qual_name_with_template_args, \
-                /* Pybind signature (to detect overloadable functions). */\
-                DETAIL_MB_PB11_PARAM_PB_SIGNATURE(params_), \
-                /* Pass information. */\
-                &_pb11_state, &_pb11_scope_state, _pb11_pass_number, \
-                /* Func alias information. */\
-                _pb11_func_alias_registration_funcs, \
-                /* Pybind extras: */\
-                [](auto _pb11_f){_pb11_f(MRBIND_STRIP_LEADING_COMMA( \
-                    /* Parameters. */\
-                    DETAIL_MB_PB11_MAKE_PARAMS(params_) \
-                    /* Comment, if any. */ \
-                    MRBIND_PREPEND_COMMA(comment_) \
-                    /* Lifetime annotations. */ \
-                    DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_) \
-                ));} \
-            ); \
-        } \
-    );
+    { \
+        /* Parameter table. The extra empty entry avoids a zero-sized array for functions with no parameters. */\
+        static constexpr MRBind::pb11::FuncParamRow _pb11_func_params[] = { \
+            DETAIL_MB_PB11_PARAM_ROWS(params_) \
+            MRBind::pb11::FuncParamRow{} \
+        }; \
+        static constexpr MRBind::pb11::FuncRow _pb11_func_row = MRBind::pb11::MakeFuncRow< \
+            /* Not a class member, so there's no class to register into. */\
+            void, \
+            MRBind::pb11::FuncKind::nonmember_or_static, \
+            /* The function pointer or a lambda. */\
+            DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullqualname_), deprecated_, DETAIL_MB_PB11_FUNC_PTR_OR_LAMBDA(ret_, name_, qualname_, ns_stack_, params_) ), \
+            /* The number of trailing parameters with default arguments. */\
+            DETAIL_MB_PB11_NUM_DEF_ARGS(params_), \
+            /* Lifetime annotations. */\
+            DETAIL_MB_PB11_KEEP_ALIVE_LIST(lifetimes_) \
+            /* Parameter types. */\
+            DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
+        >( \
+            /* Simple name */\
+            MRBIND_STR(simplename_), \
+            /* The qualified names are supplied at load time, adjusted for the namespace. */\
+            nullptr, nullptr, \
+            /* Comment, if any. */\
+            DETAIL_MB_PB11_COMMENT_PTR(comment_), \
+            _pb11_func_params \
+        ); \
+        MRBind::pb11::GetRegistry().func_entries.emplace_back( \
+            /* Qualified name */\
+            MRBIND_STR(MRBIND_IDENTITY qualname_), \
+            /* Qualified name with template arguments */\
+            MRBIND_STR(MRBIND_IDENTITY fullqualname_), \
+            &_pb11_func_row \
+        ); \
+    }
 
 // Bind a enum.
 #define MB_ENUM(kind_, name_, qualname_, ns_stack_, type_, comment_, elems_) \
@@ -3749,7 +4269,12 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         { \
             if (_pb11_state.pass_number != 0) return; /* Only one pass is needed. */\
             [[maybe_unused]] pybind11::enum_<MRBIND_IDENTITY qualname_> &_pb11_e = static_cast<MRBind::pb11::SpecificPybindType<pybind11::enum_<MRBIND_IDENTITY qualname_>> &>(_pb11_b).type; \
-            DETAIL_MB_PB11_MAKE_ENUM_ELEMS(qualname_, elems_); \
+            /* The extra empty entry avoids a zero-sized array for empty enums. */\
+            static constexpr MRBind::pb11::EnumElemRow _pb11_enum_rows[] = { \
+                DETAIL_MB_PB11_MAKE_ENUM_ELEM_ROWS(qualname_, elems_) \
+                MRBind::pb11::EnumElemRow{} \
+            }; \
+            MRBind::pb11::RegisterEnumElemRows(_pb11_e, _pb11_enum_rows, sizeof(_pb11_enum_rows)/sizeof(_pb11_enum_rows[0]) - 1); \
         }, \
         std::unordered_set<MRBind::TypeIndex>{} \
     ); \
@@ -3806,15 +4331,15 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
         +[](MRBind::pb11::ModuleOrClassRef _pb11_m, const char *_pb11_n) -> std::unique_ptr<MRBind::pb11::BasicPybindType> \
         { \
             using _pb11_C = MRBIND_IDENTITY qualname_; \
-            using _pb11_T = MRBind::pb11::SpecificPybindType<pybind11::class_<_pb11_C, MRBind::pb11::SelectPybindHolder<_pb11_C> DETAIL_MB_PB11_BASE_TYPES(bases_)>>; \
-            return std::make_unique<_pb11_T>(*_pb11_m.handle, _pb11_n); \
+            using _pb11_PyC = pybind11::class_<_pb11_C, MRBind::pb11::SelectPybindHolder<_pb11_C> DETAIL_MB_PB11_BASE_TYPES(bases_)>; \
+            return std::make_unique<MRBind::pb11::SpecificPybindType<_pb11_PyC>>(*_pb11_m.handle, _pb11_n); \
         }, \
         /* Members lamdba. */\
         +[](MRBind::pb11::BasicPybindType &_pb11_b, MRBind::pb11::TypeEntry::AddClassMembersState &_pb11_state, [[maybe_unused]] MRBind::pb11::FuncAliasRegistrationFuncs *_pb11_func_alias_registration_funcs) \
         { \
             using _pb11_C = MRBIND_IDENTITY qualname_; \
-            using _pb11_T = MRBind::pb11::SpecificPybindType<pybind11::class_<_pb11_C, MRBind::pb11::SelectPybindHolder<_pb11_C> DETAIL_MB_PB11_BASE_TYPES(bases_)>>; \
-            auto &_pb11_c = static_cast<_pb11_T *>(&_pb11_b)->type; \
+            using _pb11_PyC = pybind11::class_<_pb11_C, MRBind::pb11::SelectPybindHolder<_pb11_C> DETAIL_MB_PB11_BASE_TYPES(bases_)>; \
+            [[maybe_unused]] auto &_pb11_c = static_cast<MRBind::pb11::SpecificPybindType<_pb11_PyC> *>(&_pb11_b)->type; \
             DETAIL_MB_PB11_DISPATCH_MEMBERS(qualname_, members_) \
             /* Finalize at the end of pass 1, before adding greedy function overloads accepting `pybind11::object` (like iostreams). */\
             if (_pb11_state.pass_number == 1) \
@@ -3834,29 +4359,120 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     }
 
 // A helper for `MB_CLASS` that handles different kinds of class members.
-#define DETAIL_MB_PB11_DISPATCH_MEMBERS(classname, seq) SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, classname, seq)
+// Methods are handled via a constexpr `FuncRow` table (see `RegisterMemberFuncRows()`); everything else is dispatched directly.
+#define DETAIL_MB_PB11_DISPATCH_MEMBERS(classname, seq) \
+    /* Per-method parameter tables. */\
+    SF_FOR_EACH1(DETAIL_MB_PB11_MEMBER_PARAMROWS_BODY, DETAIL_MB_PB11_MEMBER_SEQ_STEP, SF_NULL, (classname, i), seq) \
+    /* The method table. The extra empty entry avoids a zero-sized array for classes with no methods. */\
+    static constexpr MRBind::pb11::FuncRow _pb11_func_rows[] = { \
+        SF_FOR_EACH1(DETAIL_MB_PB11_MEMBER_FUNCROW_BODY, DETAIL_MB_PB11_MEMBER_SEQ_STEP, SF_NULL, (classname, i), seq) \
+        MRBind::pb11::FuncRow{} \
+    }; \
+    MRBind::pb11::RegisterMemberFuncRows(_pb11_b, _pb11_state, _pb11_func_alias_registration_funcs, _pb11_func_rows, sizeof(_pb11_func_rows)/sizeof(_pb11_func_rows[0]) - 1); \
+    /* The field table. The extra empty entry avoids a zero-sized array for classes with no fields. */\
+    DETAIL_MB_PB11_NO_WARN_ON_INVALID_OFFSETOF( \
+        static constexpr MRBind::pb11::MemberVarRow _pb11_var_rows[] = { \
+            SF_FOR_EACH1(DETAIL_MB_PB11_MEMBER_VARROW_BODY, SF_STATE, SF_NULL, classname, seq) \
+            MRBind::pb11::MemberVarRow{} \
+        }; \
+    ) \
+    if (_pb11_state.pass_number == 0) \
+        MRBind::pb11::RegisterMemberVarRows<_pb11_PyC>(_pb11_b, _pb11_var_rows, sizeof(_pb11_var_rows)/sizeof(_pb11_var_rows[0]) - 1); \
+    /* Everything else (constructors, conversion operators, `__setitem__`). */\
+    SF_FOR_EACH1(DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY, SF_STATE, SF_NULL, classname, seq)
 #define DETAIL_MB_PB11_DISPATCH_MEMBERS_BODY(n, d, kind_, ...) \
     MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_, kind_)(d, __VA_ARGS__)
 
+// Like `MB_PB11_OFFSETOF`, but wraps a whole declaration instead of one expression, so that the plain `offsetof(...)`
+// can be used in constant expressions inside (the statement-expression trick in `MB_PB11_OFFSETOF` isn't constexpr-compatible on GCC).
+#if defined(__clang__) || defined(__GNUC__)
+#define DETAIL_MB_PB11_NO_WARN_ON_INVALID_OFFSETOF(...) _Pragma("GCC diagnostic push") _Pragma("GCC diagnostic ignored \"-Winvalid-offsetof\"") __VA_ARGS__ _Pragma("GCC diagnostic pop")
+#else
+#define DETAIL_MB_PB11_NO_WARN_ON_INVALID_OFFSETOF(...) __VA_ARGS__
+#endif
+
+#define DETAIL_MB_PB11_MEMBER_VARROW_BODY(n, d, kind_, ...) \
+    MRBIND_CAT(DETAIL_MB_PB11_MEMBER_VARROW_, kind_)(d, __VA_ARGS__)
+#define DETAIL_MB_PB11_MEMBER_VARROW_ctor(qualname_, ...)
+#define DETAIL_MB_PB11_MEMBER_VARROW_conv_op(qualname_, ...)
+#define DETAIL_MB_PB11_MEMBER_VARROW_method(qualname_, ...)
+#define DETAIL_MB_PB11_MEMBER_VARROW_field(qualname_, static_, type_, name_, fullname_, comment_) \
+    MRBind::pb11::MakeMemberVarRow< \
+        _pb11_PyC, \
+        /* Accessor lambda or pointer. */\
+        MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_,static_)(qualname_, fullname_), \
+        /* Type. */\
+        MRBIND_IDENTITY type_, \
+        /* Is this field static? */\
+        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(true, false) \
+    >( \
+        /* Name. */\
+        MRBIND_STR(MRBIND_IDENTITY fullname_), \
+        /* Comment, if any. */\
+        DETAIL_MB_PB11_COMMENT_PTR(comment_), \
+        /* The `offsetof` static property, for non-static fields only. */\
+        MRBIND_CAT(DETAIL_MB_PB11_MEMBER_VARROW_OFFSETOF_, static_)(name_) \
+    ),
+#define DETAIL_MB_PB11_MEMBER_VARROW_OFFSETOF_(name_) "_offsetof_" #name_, offsetof(_pb11_C, name_)
+#define DETAIL_MB_PB11_MEMBER_VARROW_OFFSETOF_static(name_) nullptr, 0
+
+// The `d` state of the two loops below is `(classname, counter)`, where `counter` grows an `i` per iteration,
+// to give each method's parameter table a unique name.
+#define DETAIL_MB_PB11_MEMBER_SEQ_STEP(n, d, ...) DETAIL_MB_PB11_MEMBER_SEQ_STEP_ d
+#define DETAIL_MB_PB11_MEMBER_SEQ_STEP_(classname_, counter_) (classname_, MRBIND_CAT(counter_, i))
+#define DETAIL_MB_PB11_MEMBER_SEQ_CLASSNAME(classname_, counter_) classname_
+#define DETAIL_MB_PB11_MEMBER_SEQ_COUNTER(classname_, counter_) counter_
+
+#define DETAIL_MB_PB11_MEMBER_PARAMROWS_BODY(n, d, kind_, ...) \
+    MRBIND_CAT(DETAIL_MB_PB11_MEMBER_PARAMROWS_, kind_)(DETAIL_MB_PB11_MEMBER_SEQ_CLASSNAME d, DETAIL_MB_PB11_MEMBER_SEQ_COUNTER d, __VA_ARGS__)
+#define DETAIL_MB_PB11_MEMBER_PARAMROWS_field(qualname_, counter_, ...)
+#define DETAIL_MB_PB11_MEMBER_PARAMROWS_ctor(qualname_, counter_, ...)
+#define DETAIL_MB_PB11_MEMBER_PARAMROWS_conv_op(qualname_, counter_, ...)
+#define DETAIL_MB_PB11_MEMBER_PARAMROWS_method(qualname_, counter_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_, lifetimes_) \
+    static constexpr MRBind::pb11::FuncParamRow MRBIND_CAT(_pb11_func_params_, counter_)[] = { \
+        DETAIL_MB_PB11_PARAM_ROWS(params_) \
+        MRBind::pb11::FuncParamRow{} \
+    };
+
+#define DETAIL_MB_PB11_MEMBER_FUNCROW_BODY(n, d, kind_, ...) \
+    MRBIND_CAT(DETAIL_MB_PB11_MEMBER_FUNCROW_, kind_)(DETAIL_MB_PB11_MEMBER_SEQ_CLASSNAME d, DETAIL_MB_PB11_MEMBER_SEQ_COUNTER d, __VA_ARGS__)
+#define DETAIL_MB_PB11_MEMBER_FUNCROW_field(qualname_, counter_, ...)
+#define DETAIL_MB_PB11_MEMBER_FUNCROW_ctor(qualname_, counter_, ...)
+#define DETAIL_MB_PB11_MEMBER_FUNCROW_conv_op(qualname_, counter_, ...)
+#define DETAIL_MB_PB11_MEMBER_FUNCROW_method(qualname_, counter_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_, lifetimes_) \
+    MRBind::pb11::MakeFuncRow< \
+        /* The class to register the member into. Static members go through `ModuleOrClassRef` like free functions do, */\
+        /*   so they don't need it, and leaving it out lets them share registrars with equally-shaped free functions. */\
+        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(void, _pb11_PyC), \
+        /* Is this function static? */\
+        MRBind::pb11::FuncKind:: MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(nonmember_or_static, member_nonstatic), \
+        /* Member pointer. */\
+        /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
+        DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullname_), deprecated_, static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) ), \
+        /* The number of trailing parameters with default arguments. */\
+        DETAIL_MB_PB11_NUM_DEF_ARGS(params_), \
+        /* Lifetime annotations. */\
+        DETAIL_MB_PB11_KEEP_ALIVE_LIST(lifetimes_) \
+        /* Parameter types: */\
+        /* Self parameter. */\
+        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C &)\
+        /* Normal parameter types. */\
+        DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
+    >( \
+        /* Simple name */\
+        MRBIND_STR(simplename_), \
+        /* Full name */\
+        MRBIND_STR(name_), \
+        /* Full name with template arguments. */\
+        MRBIND_STR(MRBIND_IDENTITY fullname_), \
+        /* Comment, if any. */\
+        DETAIL_MB_PB11_COMMENT_PTR(comment_), \
+        MRBIND_CAT(_pb11_func_params_, counter_) \
+    ),
+
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a field.
-#define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, fullname_, comment_) \
-    if (_pb11_state.pass_number == 0) \
-    { \
-        MRBind::pb11::MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_,static_)(TryAddMemberVarStatic, TryAddMemberVar)< \
-            /* Accessor lambda or pointer. */\
-            MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_,static_)(qualname_, fullname_),\
-            /* Type. */\
-            MRBIND_IDENTITY type_ \
-        >(\
-            _pb11_c,\
-            /* Name. */\
-            MRBind::pb11::ToPythonName(MRBIND_STR(MRBIND_IDENTITY fullname_)).c_str()\
-            /* Comment, if any. */\
-            DETAIL_MB_PB11_PREPEND_COMMA_PLUS(comment_)\
-        ); \
-        /* Add `offsetof` static variables. */\
-        MRBIND_CAT(DETAIL_MB_PB11_DISPATCH_MEMBER_field_OFFSETOF_,static_)(qualname_, name_) \
-    }
+// Fields are registered via the `MemberVarRow` table (see `DETAIL_MB_PB11_MEMBER_VARROW_field`), nothing remains here.
+#define DETAIL_MB_PB11_DISPATCH_MEMBER_field(qualname_, static_, type_, name_, fullname_, comment_)
 
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_(class_qualname_, fullname_) [](_pb11_C &_pb11_o)->auto&&{return _pb11_o.MRBIND_IDENTITY fullname_;}
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_field_LAMBDA_static(class_qualname_, fullname_) &(MRBIND_IDENTITY class_qualname_::MRBIND_IDENTITY fullname_)
@@ -3891,42 +4507,8 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
     );
 
 // A helper for `DETAIL_MB_PB11_DISPATCH_MEMBERS` that generates a method.
+// The method itself is registered via the `FuncRow` table (see `DETAIL_MB_PB11_MEMBER_FUNCROW_method`), so only `__setitem__` generation remains here.
 #define DETAIL_MB_PB11_DISPATCH_MEMBER_method(qualname_, static_, assignment_kind_, ret_, name_, simplename_, fullname_, const_, deprecated_, comment_, params_, lifetimes_) \
-    MRBind::pb11::TryAddFunc< \
-        /* Is this function static? */\
-        MRBind::pb11::FuncKind:: MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(nonmember_or_static, member_nonstatic),\
-        /* Member pointer. */\
-        /* Cast to the correct type to handle overloads correctly. Interestingly, the cast can cast away `noexcept` just fine. I don't think we care about it? */\
-        DETAIL_MB_PB11_DEPRECATION_WRAPPER( MRBIND_STR(MRBIND_IDENTITY fullname_), deprecated_, static_cast<std::type_identity_t<MRBIND_IDENTITY ret_>(MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_IDENTITY qualname_::)*)(DETAIL_MB_PB11_PARAM_TYPES(params_)) const_>(&MRBIND_IDENTITY qualname_:: name_) ) \
-        /* Parameter types: */\
-        /* Self parameter. */\
-        MRBIND_CAT(DETAIL_MB_PB11_IF_STATIC_, static_)(,MRBIND_COMMA() _pb11_C &)\
-        /* Normal parameter types. */\
-        DETAIL_MB_PB11_PARAM_ENTRIES_WITH_LEADING_COMMA(params_) \
-    >( \
-        _pb11_c, \
-        /* Simple name */\
-        MRBIND_STR(simplename_), \
-        /* Full name */\
-        MRBIND_STR(name_), \
-        /* Full name with template arguments. */\
-        MRBIND_STR(MRBIND_IDENTITY fullname_), \
-        /* Pybind signature. */\
-        DETAIL_MB_PB11_PARAM_PB_SIGNATURE(params_), \
-        /* State information. */\
-        &_pb11_state.NextFuncState(), &_pb11_state.func_scope_state, _pb11_state.pass_number, \
-        /* Func alias information. */\
-        _pb11_func_alias_registration_funcs, \
-        /* Pybind extras: */\
-        [](auto _pb11_f){_pb11_f(MRBIND_STRIP_LEADING_COMMA( \
-            /* Parameters. */\
-            DETAIL_MB_PB11_MAKE_PARAMS(params_) \
-            /* Comment, if any. */ \
-            MRBIND_PREPEND_COMMA(comment_) \
-            /* Lifetime annotations. */ \
-            DETAIL_MB_PB11_KEEP_ALIVE(lifetimes_) \
-        ));} \
-    ); \
     /* If this is `__getitem__`, also generate `__setitem__`. */\
     DETAIL_MB_PB11_MAYBE_MAKE_INDEX_ASSIGNMENT(simplename_, params_, const_)
 
