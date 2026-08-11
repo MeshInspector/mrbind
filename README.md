@@ -22,6 +22,12 @@ MRBind still has some rough edges, but it is used in production for [MeshLib](ht
 
 MRBind is meant to cover a large API surface area with minimal effort, but in turn you give up the flexibility of handwritten bindings.
 
+#### Note on AI usage:
+
+All MRBind features were developed without any use of AI.
+
+I received some trivial vibecoded bugfix PRs that were merged after manual cleanup (which among other things includes replacing generated comments). I've also merged some generated testcases for those bugs.
+
 ## Usage
 
 1. [Build MRBind itself.](/docs/building_mrbind.md)
