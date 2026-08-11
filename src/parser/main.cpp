@@ -294,6 +294,11 @@ namespace mrbind
                         return false; // Use the default printer.
 
                     ref->getDecl()->printQualifiedName(os, printing_policy);
+
+                    // Add template arguments if any.
+                    if (ref->hasExplicitTemplateArgs())
+                        clang::printTemplateArgumentList(os, ref->template_arguments(), printing_policy);
+
                     return true;
                 }
             };
@@ -883,7 +888,7 @@ namespace mrbind
                             continue;
                         skip_whitespace = false;
                         if (!new_str.empty() && cppdecl::IsIdentifierChar(new_str.back()) && cppdecl::IsIdentifierChar(ch))
-                            new_str = ' '; // Insert a single separating whitespace if necessary.
+                            new_str += ' '; // Insert a single separating whitespace if necessary.
                     }
 
                     if (ch == '\n')
