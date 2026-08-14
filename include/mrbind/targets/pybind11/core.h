@@ -3666,7 +3666,8 @@ static_assert(std::is_same_v<MRBind::RebindContainer<std::array<int, 4>, float>,
 #define MB_FILE static const char MRBIND_UNIQUE_VAR = []{
 #define MB_END_FILE return char{}; }();
 
-#ifdef MR_DEFAULT_ARGUMENTS_NEED_USING_NAMESPACE
+// Checking `MR_USING_PRETTY_TYPE_SPELLING` here because pretty spellings can miss some namespace and class qualifiers, at least as of Clang 18, 22.
+#if defined(MR_DEFAULT_ARGUMENTS_NEED_USING_NAMESPACE) || defined(MR_USING_PRETTY_TYPE_SPELLING)
 #define DETAIL_MB_PB11_MAYBE_USING_NAMESPACE(...) using namespace __VA_ARGS__;
 #else
 #define DETAIL_MB_PB11_MAYBE_USING_NAMESPACE(...)

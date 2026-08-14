@@ -224,6 +224,9 @@ namespace mrbind
             as_is,
         };
         DefaultArgsMode default_args_mode = DefaultArgsMode::fix;
+
+        // See the comment of `ParsedFileToMacros()` for explanation.
+        bool macros_use_pretty_types = false;
     };
 
     struct PrintingPolicies
@@ -3459,7 +3462,7 @@ namespace mrbind
                 mrbind::ParsedFileToJson(multiplexed_data[i], *out);
                 break;
               case OutputFormat::macros:
-                mrbind::ParsedFileToMacros(multiplexed_data[i], *out, params->enable_cppdecl_processing);
+                mrbind::ParsedFileToMacros(multiplexed_data[i], *out, params->enable_cppdecl_processing, params->macros_use_pretty_types);
                 break;
             }
 
@@ -3799,6 +3802,19 @@ int main(int raw_argc, char **raw_argv)
                 .func = [&](mrbind::CommandLineParser::ArgSpan)
                 {
                     remove_pch_flags = true;
+                },
+            });
+
+            args_parser.AddFlag("--macros-use-pretty-types", {
+                .desc =
+                    "Only makes sense with `--format=macros`. When specified, we try to preserve the original spelling of types in a few places, "
+                    "such as in function parameter lists and return types, and in base class lists of classes. In particular, this prevents typedefs from being expanded. "
+                    "But also, at the time of writing it can omit namespace/class qualifiers in rare cases, making consuming the parser output harder. In particular, "
+                    "this can cause errors in the Python backend, but those can usually be counteracted by also adding `--default-args=fix-but-add-using-namespace` (or `=as-is`, but that can add its own issues). "
+                    "This flag adds `#define MR_USING_PRETTY_TYPE_SPELLING` to the generated file.",
+                .func = [&](mrbind::CommandLineParser::ArgSpan)
+                {
+                    params.macros_use_pretty_types = true;
                 },
             });
         }
