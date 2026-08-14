@@ -24,8 +24,6 @@ void MR_TestSimpleTypes_SetInt(int _1)
 
 void MR_TestSimpleTypes_SetIntDef(const int *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetIntDef(
         (_1 ? *_1 : static_cast<int>(42))
     );
@@ -45,10 +43,8 @@ void MR_TestSimpleTypes_SetIntPtr(int *_1)
 
 void MR_TestSimpleTypes_SetIntPtrDef(int *const *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetIntPtrDef(
-        (_1 ? *_1 : static_cast<int *>(&global_int))
+        (_1 ? *_1 : static_cast<int *>(&MR::TestSimpleTypes::global_int))
     );
 }
 
@@ -73,10 +69,8 @@ void MR_TestSimpleTypes_SetIntRef(int *_1)
 
 void MR_TestSimpleTypes_SetIntRefDef(int *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetIntRefDef(
-        (_1 ? *_1 : static_cast<int &>(global_int))
+        (_1 ? *_1 : static_cast<int &>(MR::TestSimpleTypes::global_int))
     );
 }
 
@@ -94,10 +88,8 @@ void MR_TestSimpleTypes_SetVoidPtr(void *_1)
 
 void MR_TestSimpleTypes_SetVoidPtrDef(void *const *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetVoidPtrDef(
-        (_1 ? *_1 : static_cast<void *>(&global_int))
+        (_1 ? *_1 : static_cast<void *>(&MR::TestSimpleTypes::global_int))
     );
 }
 
@@ -122,10 +114,8 @@ void MR_TestSimpleTypes_SetConstVoidPtr(const void *_1)
 
 void MR_TestSimpleTypes_SetConstVoidPtrDef(const void *const *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetConstVoidPtrDef(
-        (_1 ? *_1 : static_cast<const void *>(&global_int))
+        (_1 ? *_1 : static_cast<const void *>(&MR::TestSimpleTypes::global_int))
     );
 }
 
@@ -150,10 +140,8 @@ void MR_TestSimpleTypes_SetVoidPtrPtr(void **_1)
 
 void MR_TestSimpleTypes_SetVoidPtrPtrDef(void **const *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetVoidPtrPtrDef(
-        (_1 ? *_1 : static_cast<void **>(&global_void_ptr))
+        (_1 ? *_1 : static_cast<void **>(&MR::TestSimpleTypes::global_void_ptr))
     );
 }
 
@@ -178,8 +166,6 @@ void MR_TestSimpleTypes_SetEnum(MR_TestSimpleTypes_E _1)
 
 void MR_TestSimpleTypes_SetEnumDef(const MR_TestSimpleTypes_E *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetEnumDef(
         (_1 ? (MR::TestSimpleTypes::E)(*_1) : static_cast<MR::TestSimpleTypes::E>(MR::TestSimpleTypes::E::e1))
     );
@@ -199,10 +185,8 @@ void MR_TestSimpleTypes_SetEnumPtr(MR_TestSimpleTypes_E *_1)
 
 void MR_TestSimpleTypes_SetEnumPtrDef(MR_TestSimpleTypes_E *const *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetEnumPtrDef(
-        (_1 ? (MR::TestSimpleTypes::E *)(*_1) : static_cast<MR::TestSimpleTypes::E *>(&global_enum))
+        (_1 ? (MR::TestSimpleTypes::E *)(*_1) : static_cast<MR::TestSimpleTypes::E *>(&MR::TestSimpleTypes::global_enum))
     );
 }
 
@@ -227,10 +211,8 @@ void MR_TestSimpleTypes_SetEnumRef(MR_TestSimpleTypes_E *_1)
 
 void MR_TestSimpleTypes_SetEnumRefDef(MR_TestSimpleTypes_E *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetEnumRefDef(
-        (_1 ? *(MR::TestSimpleTypes::E *)(_1) : static_cast<MR::TestSimpleTypes::E &>(global_enum))
+        (_1 ? *(MR::TestSimpleTypes::E *)(_1) : static_cast<MR::TestSimpleTypes::E &>(MR::TestSimpleTypes::global_enum))
     );
 }
 
@@ -248,8 +230,6 @@ void MR_TestSimpleTypes_SetEnum2(MR_TestSimpleTypes_E2 _1)
 
 void MR_TestSimpleTypes_SetEnum2Def(const MR_TestSimpleTypes_E2 *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetEnum2Def(
         (_1 ? (MR::TestSimpleTypes::E2)(*_1) : static_cast<MR::TestSimpleTypes::E2>(MR::TestSimpleTypes::E2::e1))
     );
@@ -269,10 +249,8 @@ void MR_TestSimpleTypes_SetEnum2Ptr(MR_TestSimpleTypes_E2 *_1)
 
 void MR_TestSimpleTypes_SetEnum2PtrDef(MR_TestSimpleTypes_E2 *const *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetEnum2PtrDef(
-        (_1 ? (MR::TestSimpleTypes::E2 *)(*_1) : static_cast<MR::TestSimpleTypes::E2 *>(&global_enum2))
+        (_1 ? (MR::TestSimpleTypes::E2 *)(*_1) : static_cast<MR::TestSimpleTypes::E2 *>(&MR::TestSimpleTypes::global_enum2))
     );
 }
 
@@ -297,10 +275,8 @@ void MR_TestSimpleTypes_SetEnum2Ref(MR_TestSimpleTypes_E2 *_1)
 
 void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1)
 {
-    using namespace MR;
-    using namespace TestSimpleTypes;
     ::MR::TestSimpleTypes::SetEnum2RefDef(
-        (_1 ? *(MR::TestSimpleTypes::E2 *)(_1) : static_cast<MR::TestSimpleTypes::E2 &>(global_enum2))
+        (_1 ? *(MR::TestSimpleTypes::E2 *)(_1) : static_cast<MR::TestSimpleTypes::E2 &>(MR::TestSimpleTypes::global_enum2))
     );
 }
 

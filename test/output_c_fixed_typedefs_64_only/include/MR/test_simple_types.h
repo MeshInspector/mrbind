@@ -65,7 +65,7 @@ MR_C_API int *MR_TestSimpleTypes_GetIntPtr(void);
 MR_C_API void MR_TestSimpleTypes_SetIntPtr(int *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetIntPtrDef`.
-/// Parameter `_1` has a default argument: `&global_int`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `&MR::TestSimpleTypes::global_int`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetIntPtrDef(int *const *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetIntPtrDefNull`.
@@ -82,7 +82,7 @@ MR_C_API void MR_TestSimpleTypes_SetIntRef(int *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetIntRefDef`.
 /// Parameter `_1` is a single object.
-/// Parameter `_1` has a default argument: `global_int`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `MR::TestSimpleTypes::global_int`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetIntRefDef(int *_1);
 
 /// Generated from function `MR::TestSimpleTypes::GetVoidPtr`.
@@ -92,7 +92,7 @@ MR_C_API void *MR_TestSimpleTypes_GetVoidPtr(void);
 MR_C_API void MR_TestSimpleTypes_SetVoidPtr(void *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetVoidPtrDef`.
-/// Parameter `_1` has a default argument: `&global_int`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `&MR::TestSimpleTypes::global_int`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetVoidPtrDef(void *const *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetVoidPtrDefNull`.
@@ -106,7 +106,7 @@ MR_C_API const void *MR_TestSimpleTypes_GetConstVoidPtr(void);
 MR_C_API void MR_TestSimpleTypes_SetConstVoidPtr(const void *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetConstVoidPtrDef`.
-/// Parameter `_1` has a default argument: `&global_int`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `&MR::TestSimpleTypes::global_int`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetConstVoidPtrDef(const void *const *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetConstVoidPtrDefNull`.
@@ -120,7 +120,7 @@ MR_C_API void **MR_TestSimpleTypes_GetVoidPtrPtr(void);
 MR_C_API void MR_TestSimpleTypes_SetVoidPtrPtr(void **_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetVoidPtrPtrDef`.
-/// Parameter `_1` has a default argument: `&global_void_ptr`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `&MR::TestSimpleTypes::global_void_ptr`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetVoidPtrPtrDef(void **const *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetVoidPtrPtrDefNull`.
@@ -144,7 +144,7 @@ MR_C_API MR_TestSimpleTypes_E *MR_TestSimpleTypes_GetEnumPtr(void);
 MR_C_API void MR_TestSimpleTypes_SetEnumPtr(MR_TestSimpleTypes_E *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetEnumPtrDef`.
-/// Parameter `_1` has a default argument: `&global_enum`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `&MR::TestSimpleTypes::global_enum`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetEnumPtrDef(MR_TestSimpleTypes_E *const *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetEnumPtrDefNull`.
@@ -161,7 +161,7 @@ MR_C_API void MR_TestSimpleTypes_SetEnumRef(MR_TestSimpleTypes_E *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetEnumRefDef`.
 /// Parameter `_1` is a single object.
-/// Parameter `_1` has a default argument: `global_enum`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `MR::TestSimpleTypes::global_enum`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetEnumRefDef(MR_TestSimpleTypes_E *_1);
 
 /// Generated from function `MR::TestSimpleTypes::GetEnum2`.
@@ -181,7 +181,7 @@ MR_C_API MR_TestSimpleTypes_E2 *MR_TestSimpleTypes_GetEnum2Ptr(void);
 MR_C_API void MR_TestSimpleTypes_SetEnum2Ptr(MR_TestSimpleTypes_E2 *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetEnum2PtrDef`.
-/// Parameter `_1` has a default argument: `&global_enum2`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `&MR::TestSimpleTypes::global_enum2`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetEnum2PtrDef(MR_TestSimpleTypes_E2 *const *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetEnum2PtrDefNull`.
@@ -198,7 +198,7 @@ MR_C_API void MR_TestSimpleTypes_SetEnum2Ref(MR_TestSimpleTypes_E2 *_1);
 
 /// Generated from function `MR::TestSimpleTypes::SetEnum2RefDef`.
 /// Parameter `_1` is a single object.
-/// Parameter `_1` has a default argument: `global_enum2`, pass a null pointer to use it.
+/// Parameter `_1` has a default argument: `MR::TestSimpleTypes::global_enum2`, pass a null pointer to use it.
 MR_C_API void MR_TestSimpleTypes_SetEnum2RefDef(MR_TestSimpleTypes_E2 *_1);
 
 // Test all kinds of `char`.

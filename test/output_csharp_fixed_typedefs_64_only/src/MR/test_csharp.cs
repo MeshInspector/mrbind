@@ -26666,7 +26666,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_bool_ref`.
-            /// Parameter `b` defaults to `default_bool`.
+            /// Parameter `b` defaults to `MR::CSharp::default_bool`.
             /// </summary>
             public static unsafe void testBoolRef(ref bool a, MR.CS.Misc.InOut<bool>? b = null)
             {
@@ -26682,7 +26682,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_bool_ref2`.
-            /// Parameter `b` defaults to `default_bool`.
+            /// Parameter `b` defaults to `MR::CSharp::default_bool`.
             /// </summary>
             public static unsafe int testBoolRef2(ref bool a, MR.CS.Misc.InOut<bool>? b = null)
             {
@@ -26719,7 +26719,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_bool_cref`.
-            /// Parameter `_2` defaults to `default_bool`.
+            /// Parameter `_2` defaults to `MR::CSharp::default_bool`.
             /// </summary>
             public static unsafe bool testBoolCref(bool _1, bool? _2 = null)
             {
@@ -26731,7 +26731,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_int_ref`.
-            /// Parameter `b` defaults to `default_int`.
+            /// Parameter `b` defaults to `MR::CSharp::default_int`.
             /// </summary>
             public static unsafe ref int testIntRef(ref int a, MR.CS.Misc.InOut<int>? b = null)
             {
@@ -26748,7 +26748,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_int_cref`.
-            /// Parameter `b` defaults to `default_int`.
+            /// Parameter `b` defaults to `MR::CSharp::default_int`.
             /// </summary>
             public static unsafe int testIntCref(int a, int? b = null)
             {
@@ -26784,7 +26784,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_int_ptr`.
-            /// Parameter `c` defaults to `&amp;default_int`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_int`.
             /// </summary>
             public static unsafe MR.CS.Misc.Ref<int>? testIntPtr(MR.CS.Misc.InOut<int>? a, MR.CS.Misc.InOut<int>? b = null, MR.CS.Misc._InOutOpt<int>? c = null)
             {
@@ -26803,7 +26803,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_int_cptr`.
-            /// Parameter `c` defaults to `&amp;default_int`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_int`.
             /// </summary>
             public static unsafe int? testIntCptr(int? a, int? b = null, MR.CS.Misc._InOpt<int>? c = null)
             {
@@ -26831,7 +26831,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_ref`.
-            /// Parameter `b` defaults to `default_ushort`.
+            /// Parameter `b` defaults to `MR::CSharp::default_ushort`.
             /// </summary>
             public static unsafe ref ushort testUshortRef(ref ushort a, MR.CS.Misc.InOut<ushort>? b = null)
             {
@@ -26848,7 +26848,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_cref`.
-            /// Parameter `b` defaults to `default_ushort`.
+            /// Parameter `b` defaults to `MR::CSharp::default_ushort`.
             /// </summary>
             public static unsafe ushort testUshortCref(ushort a, ushort? b = null)
             {
@@ -26860,7 +26860,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_rref`.
-            /// Parameter `b` defaults to `(unsigned short&amp;&amp;)default_ushort`.
+            /// Parameter `b` defaults to `(unsigned short&amp;&amp;)MR::CSharp::default_ushort`.
             /// </summary>
             public static unsafe ushort testUshortRref(MR.CS.Misc._MoveRef _move_a, ushort a, MR.CS.Misc._MoveRef _move_b = default, ushort? b = null)
             {
@@ -26872,7 +26872,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_crref`.
-            /// Parameter `b` defaults to `(unsigned short&amp;&amp;)default_ushort`.
+            /// Parameter `b` defaults to `(unsigned short&amp;&amp;)MR::CSharp::default_ushort`.
             /// </summary>
             public static unsafe ushort testUshortCrref(MR.CS.Misc._MoveRef _move_a, ushort a, MR.CS.Misc._MoveRef _move_b = default, ushort? b = null)
             {
@@ -26884,7 +26884,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_ptr`.
-            /// Parameter `c` defaults to `&amp;default_ushort`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_ushort`.
             /// </summary>
             public static unsafe MR.CS.Misc.Ref<ushort>? testUshortPtr(MR.CS.Misc.InOut<ushort>? a, MR.CS.Misc.InOut<ushort>? b = null, MR.CS.Misc._InOutOpt<ushort>? c = null)
             {
@@ -26903,7 +26903,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_ushort_cptr`.
-            /// Parameter `c` defaults to `&amp;default_ushort`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_ushort`.
             /// </summary>
             public static unsafe ushort? testUshortCptr(ushort? a, ushort? b = null, MR.CS.Misc._InOpt<ushort>? c = null)
             {
@@ -26986,7 +26986,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_ref`.
-            /// Parameter `b` defaults to `default_e1`.
+            /// Parameter `b` defaults to `MR::CSharp::default_e1`.
             /// </summary>
             public static unsafe ref MR.CS.CSharp.E1 testEnumRef(ref MR.CS.CSharp.E1 a, MR.CS.Misc.InOut<MR.CS.CSharp.E1>? b = null)
             {
@@ -27003,7 +27003,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_cref`.
-            /// Parameter `b` defaults to `default_e1`.
+            /// Parameter `b` defaults to `MR::CSharp::default_e1`.
             /// </summary>
             public static unsafe MR.CS.CSharp.E1 testEnumCref(MR.CS.CSharp.E1 a, MR.CS.CSharp.E1? b = null)
             {
@@ -27015,7 +27015,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_rref`.
-            /// Parameter `b` defaults to `(MR::CSharp::E1&amp;&amp;)default_e1`.
+            /// Parameter `b` defaults to `(MR::CSharp::E1&amp;&amp;)MR::CSharp::default_e1`.
             /// </summary>
             public static unsafe MR.CS.CSharp.E1 testEnumRref(MR.CS.Misc._MoveRef _move_a, MR.CS.CSharp.E1 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.E1? b = null)
             {
@@ -27027,7 +27027,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_crref`.
-            /// Parameter `b` defaults to `(MR::CSharp::E1&amp;&amp;)default_e1`.
+            /// Parameter `b` defaults to `(MR::CSharp::E1&amp;&amp;)MR::CSharp::default_e1`.
             /// </summary>
             public static unsafe MR.CS.CSharp.E1 testEnumCrref(MR.CS.Misc._MoveRef _move_a, MR.CS.CSharp.E1 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.E1? b = null)
             {
@@ -27039,7 +27039,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_ptr`.
-            /// Parameter `c` defaults to `&amp;default_e1`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_e1`.
             /// </summary>
             public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.E1>? testEnumPtr(MR.CS.Misc.InOut<MR.CS.CSharp.E1>? a, MR.CS.Misc.InOut<MR.CS.CSharp.E1>? b = null, MR.CS.Misc._InOutOpt<MR.CS.CSharp.E1>? c = null)
             {
@@ -27058,7 +27058,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_cptr`.
-            /// Parameter `c` defaults to `&amp;default_e1`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_e1`.
             /// </summary>
             public static unsafe MR.CS.CSharp.E1? testEnumCptr(MR.CS.CSharp.E1? a, MR.CS.CSharp.E1? b = null, MR.CS.Misc._InOpt<MR.CS.CSharp.E1>? c = null)
             {
@@ -27088,7 +27088,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_ref`.
-            /// Parameter `b` defaults to `default_e2`.
+            /// Parameter `b` defaults to `MR::CSharp::default_e2`.
             /// </summary>
             public static unsafe ref MR.CS.CSharp.E2 testEnumRef(ref MR.CS.CSharp.E2 a, MR.CS.Misc.InOut<MR.CS.CSharp.E2>? b = null)
             {
@@ -27107,7 +27107,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_cref`.
-            /// Parameter `b` defaults to `default_e2`.
+            /// Parameter `b` defaults to `MR::CSharp::default_e2`.
             /// </summary>
             public static unsafe MR.CS.CSharp.E2 testEnumCref(MR.CS.CSharp.E2 a, MR.CS.CSharp.E2? b = null)
             {
@@ -27121,7 +27121,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_rref`.
-            /// Parameter `b` defaults to `(MR::CSharp::E2&amp;&amp;)default_e2`.
+            /// Parameter `b` defaults to `(MR::CSharp::E2&amp;&amp;)MR::CSharp::default_e2`.
             /// </summary>
             public static unsafe MR.CS.CSharp.E2 testEnumRref(MR.CS.Misc._MoveRef _move_a, MR.CS.CSharp.E2 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.E2? b = null)
             {
@@ -27135,7 +27135,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_crref`.
-            /// Parameter `b` defaults to `(MR::CSharp::E2&amp;&amp;)default_e2`.
+            /// Parameter `b` defaults to `(MR::CSharp::E2&amp;&amp;)MR::CSharp::default_e2`.
             /// </summary>
             public static unsafe MR.CS.CSharp.E2 testEnumCrref(MR.CS.Misc._MoveRef _move_a, MR.CS.CSharp.E2 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.E2? b = null)
             {
@@ -27149,7 +27149,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_ptr`.
-            /// Parameter `c` defaults to `&amp;default_e2`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_e2`.
             /// </summary>
             public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.E2>? testEnumPtr(MR.CS.Misc.InOut<MR.CS.CSharp.E2>? a, MR.CS.Misc.InOut<MR.CS.CSharp.E2>? b = null, MR.CS.Misc._InOutOpt<MR.CS.CSharp.E2>? c = null)
             {
@@ -27171,7 +27171,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_enum_cptr`.
-            /// Parameter `c` defaults to `&amp;default_e2`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_e2`.
             /// </summary>
             public static unsafe MR.CS.CSharp.E2? testEnumCptr(MR.CS.CSharp.E2? a, MR.CS.CSharp.E2? b = null, MR.CS.Misc._InOpt<MR.CS.CSharp.E2>? c = null)
             {
@@ -27201,7 +27201,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_ref`.
-            /// Parameter `b` defaults to `default_trivial`.
+            /// Parameter `b` defaults to `MR::CSharp::default_trivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Trivial testClassTrivialRef(MR.CS.CSharp.Trivial a, MR.CS.CSharp.Trivial? b = null)
             {
@@ -27212,7 +27212,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_cref`.
-            /// Parameter `b` defaults to `default_trivial`.
+            /// Parameter `b` defaults to `MR::CSharp::default_trivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_Trivial testClassTrivialCref(MR.CS.CSharp.Const_Trivial a, MR.CS.CSharp.Const_Trivial? b = null)
             {
@@ -27223,7 +27223,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_rref`.
-            /// Parameter `b` defaults to `(MR::CSharp::Trivial&amp;&amp;)default_trivial`.
+            /// Parameter `b` defaults to `(MR::CSharp::Trivial&amp;&amp;)MR::CSharp::default_trivial`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Trivial> testClassTrivialRref(MR.CS.Misc._Moved<MR.CS.CSharp.Trivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.Trivial>? b = null)
             {
@@ -27234,7 +27234,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_crref`.
-            /// Parameter `b` defaults to `(MR::CSharp::Trivial&amp;&amp;)default_trivial`.
+            /// Parameter `b` defaults to `(MR::CSharp::Trivial&amp;&amp;)MR::CSharp::default_trivial`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_Trivial> testClassTrivialCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_Trivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_Trivial>? b = null)
             {
@@ -27245,7 +27245,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_ptr`.
-            /// Parameter `c` defaults to `&amp;default_trivial`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_trivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Trivial? testClassTrivialPtr(MR.CS.CSharp.Trivial? a, MR.CS.CSharp.Trivial? b = null, MR.CS.CSharp._InOptMut_Trivial? c = null)
             {
@@ -27258,7 +27258,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_trivial_cptr`.
-            /// Parameter `c` defaults to `&amp;default_trivial`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_trivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_Trivial? testClassTrivialCptr(MR.CS.CSharp.Const_Trivial? a, MR.CS.CSharp.Const_Trivial? b = null, MR.CS.CSharp._InOptConst_Trivial? c = null)
             {
@@ -27282,7 +27282,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_ref`.
-            /// Parameter `b` defaults to `default_nontrivial`.
+            /// Parameter `b` defaults to `MR::CSharp::default_nontrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.NonTrivial testClassNontrivialRef(MR.CS.CSharp.NonTrivial a, MR.CS.CSharp.NonTrivial? b = null)
             {
@@ -27293,7 +27293,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_cref`.
-            /// Parameter `b` defaults to `default_nontrivial`.
+            /// Parameter `b` defaults to `MR::CSharp::default_nontrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_NonTrivial testClassNontrivialCref(MR.CS.CSharp.Const_NonTrivial a, MR.CS.CSharp.Const_NonTrivial? b = null)
             {
@@ -27304,7 +27304,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_rref`.
-            /// Parameter `b` defaults to `(MR::CSharp::NonTrivial&amp;&amp;)default_nontrivial`.
+            /// Parameter `b` defaults to `(MR::CSharp::NonTrivial&amp;&amp;)MR::CSharp::default_nontrivial`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.NonTrivial> testClassNontrivialRref(MR.CS.Misc._Moved<MR.CS.CSharp.NonTrivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.NonTrivial>? b = null)
             {
@@ -27315,7 +27315,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_crref`.
-            /// Parameter `b` defaults to `(MR::CSharp::NonTrivial&amp;&amp;)default_nontrivial`.
+            /// Parameter `b` defaults to `(MR::CSharp::NonTrivial&amp;&amp;)MR::CSharp::default_nontrivial`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_NonTrivial> testClassNontrivialCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_NonTrivial> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_NonTrivial>? b = null)
             {
@@ -27326,7 +27326,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_ptr`.
-            /// Parameter `c` defaults to `&amp;default_nontrivial`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_nontrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.NonTrivial? testClassNontrivialPtr(MR.CS.CSharp.NonTrivial? a, MR.CS.CSharp.NonTrivial? b = null, MR.CS.CSharp._InOptMut_NonTrivial? c = null)
             {
@@ -27339,7 +27339,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_nontrivial_cptr`.
-            /// Parameter `c` defaults to `&amp;default_nontrivial`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_nontrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_NonTrivial? testClassNontrivialCptr(MR.CS.CSharp.Const_NonTrivial? a, MR.CS.CSharp.Const_NonTrivial? b = null, MR.CS.CSharp._InOptConst_NonTrivial? c = null)
             {
@@ -27393,7 +27393,7 @@ public static partial class MR
             // Poking a shared pointer type for a single class causes `std::shared_ptr` to be instantiated for the entire hierarchy (when `--bind-shared-ptr-virally`, which is required for `C#`).
             /// <summary>
             /// Generated from function `MR::CSharp::test_shptr`.
-            /// Parameter `b` defaults to `default_shptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_shptr`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> testShptr(MR.CS.CSharp._ByValueShared_SA a, MR.CS.CSharp._ByValueShared_SA? b = null)
             {
@@ -27404,7 +27404,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_ref`.
-            /// Parameter `b` defaults to `default_shptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_shptr`.
             /// </summary>
             public static unsafe MR.CS.CSharp.SA testShptrRef(MR.CS.CSharp.SA a, MR.CS.CSharp.SA? b = null)
             {
@@ -27415,7 +27415,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_cref`.
-            /// Parameter `b` defaults to `default_shptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_shptr`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_SA testShptrCref(MR.CS.CSharp.Const_SA a, MR.CS.CSharp.Const_SA? b = null)
             {
@@ -27426,7 +27426,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_rref`.
-            /// Parameter `b` defaults to `(std::shared_ptr&lt;MR::CSharp::SA&gt;&amp;&amp;)default_shptr`.
+            /// Parameter `b` defaults to `(std::shared_ptr&lt;MR::CSharp::SA&gt;&amp;&amp;)MR::CSharp::default_shptr`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> testShptrRref(MR.CS.Misc._Moved<MR.CS.CSharp.SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.SA>? b = null)
             {
@@ -27437,7 +27437,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_crref`.
-            /// Parameter `b` defaults to `(std::shared_ptr&lt;MR::CSharp::SA&gt;&amp;&amp;)default_shptr`.
+            /// Parameter `b` defaults to `(std::shared_ptr&lt;MR::CSharp::SA&gt;&amp;&amp;)MR::CSharp::default_shptr`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> testShptrCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA>? b = null)
             {
@@ -27448,7 +27448,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_ptr`.
-            /// Parameter `b` defaults to `&amp;default_shptr`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_shptr`.
             /// </summary>
             public static unsafe MR.CS.CSharp.SA? testShptrPtr(MR.CS.CSharp.SA? a, MR.CS.CSharp._InOptMut_SA? b = null)
             {
@@ -27461,7 +27461,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shptr_cptr`.
-            /// Parameter `b` defaults to `&amp;default_shptr`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_shptr`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_SA? testShptrCptr(MR.CS.CSharp.Const_SA? a, MR.CS.CSharp._InOptConst_SA? b = null)
             {
@@ -27474,7 +27474,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr`.
-            /// Parameter `b` defaults to `default_shcptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_shcptr`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> testShcptr(MR.CS.CSharp._ByValueShared_SA a, MR.CS.CSharp._ByValueShared_SA? b = null)
             {
@@ -27485,7 +27485,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_ref`.
-            /// Parameter `b` defaults to `default_shcptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_shcptr`.
             /// </summary>
             public static unsafe MR.CS.CSharp.SA testShcptrRef(MR.CS.CSharp.SA a, MR.CS.CSharp.SA? b = null)
             {
@@ -27496,7 +27496,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_cref`.
-            /// Parameter `b` defaults to `default_shcptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_shcptr`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_SA testShcptrCref(MR.CS.CSharp.Const_SA a, MR.CS.CSharp.Const_SA? b = null)
             {
@@ -27507,7 +27507,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_rref`.
-            /// Parameter `b` defaults to `(std::shared_ptr&lt;const MR::CSharp::SA&gt;&amp;&amp;)default_shcptr`.
+            /// Parameter `b` defaults to `(std::shared_ptr&lt;const MR::CSharp::SA&gt;&amp;&amp;)MR::CSharp::default_shcptr`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.SA> testShcptrRref(MR.CS.Misc._Moved<MR.CS.CSharp.SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.SA>? b = null)
             {
@@ -27518,7 +27518,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_crref`.
-            /// Parameter `b` defaults to `(std::shared_ptr&lt;const MR::CSharp::SA&gt;&amp;&amp;)default_shcptr`.
+            /// Parameter `b` defaults to `(std::shared_ptr&lt;const MR::CSharp::SA&gt;&amp;&amp;)MR::CSharp::default_shcptr`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> testShcptrCrref(MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA> a, MR.CS.Misc._Moved<MR.CS.CSharp.Const_SA>? b = null)
             {
@@ -27529,7 +27529,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_ptr`.
-            /// Parameter `b` defaults to `&amp;default_shcptr`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_shcptr`.
             /// </summary>
             public static unsafe MR.CS.CSharp.SA? testShcptrPtr(MR.CS.CSharp.SA? a, MR.CS.CSharp._InOptMut_SA? b = null)
             {
@@ -27542,7 +27542,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_shcptr_cptr`.
-            /// Parameter `b` defaults to `&amp;default_shcptr`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_shcptr`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_SA? testShcptrCptr(MR.CS.CSharp.Const_SA? a, MR.CS.CSharp._InOptConst_SA? b = null)
             {
@@ -27565,7 +27565,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_string`.
-            /// Parameter `b` defaults to `default_string`.
+            /// Parameter `b` defaults to `MR::CSharp::default_string`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.String> testString(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27591,7 +27591,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_string_ref`.
-            /// Parameter `b` defaults to `default_string`.
+            /// Parameter `b` defaults to `MR::CSharp::default_string`.
             /// </summary>
             public static unsafe MR.CS.Std.String testStringRef(MR.CS.Std.String a, MR.CS.Std.String? b = null)
             {
@@ -27602,7 +27602,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_string_cref`.
-            /// Parameter `b` defaults to `default_string`.
+            /// Parameter `b` defaults to `MR::CSharp::default_string`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_String testStringCref(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27628,7 +27628,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_string_rref`.
-            /// Parameter `b` defaults to `(std::string&amp;&amp;)default_string`.
+            /// Parameter `b` defaults to `(std::string&amp;&amp;)MR::CSharp::default_string`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.String> testStringRref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27654,7 +27654,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_string_crref`.
-            /// Parameter `b` defaults to `(std::string&amp;&amp;)default_string`.
+            /// Parameter `b` defaults to `(std::string&amp;&amp;)MR::CSharp::default_string`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Const_String> testStringCrref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27680,7 +27680,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_string_ptr`.
-            /// Parameter `b` defaults to `&amp;default_string`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_string`.
             /// </summary>
             public static unsafe MR.CS.Std.String? testStringPtr(MR.CS.Std.String? a, MR.CS.Std._InOptMut_String? b = null)
             {
@@ -27693,7 +27693,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_string_cptr`.
-            /// Parameter `b` defaults to `&amp;default_string`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_string`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_String? testStringCptr(MR.CS.Std.Const_String? a, MR.CS.Std._InOptConst_String? b = null)
             {
@@ -27706,7 +27706,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_stringview`.
-            /// Parameter `b` defaults to `default_stringview`.
+            /// Parameter `b` defaults to `MR::CSharp::default_stringview`.
             /// </summary>
             public static unsafe MR.CS.Std.StringView testStringview(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27732,7 +27732,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_ref`.
-            /// Parameter `b` defaults to `default_stringview`.
+            /// Parameter `b` defaults to `MR::CSharp::default_stringview`.
             /// </summary>
             public static unsafe MR.CS.Std.StringView testStringviewRef(MR.CS.Std.StringView a, MR.CS.Std.StringView? b = null)
             {
@@ -27743,7 +27743,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_cref`.
-            /// Parameter `b` defaults to `default_stringview`.
+            /// Parameter `b` defaults to `MR::CSharp::default_stringview`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_StringView testStringviewCref(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27769,7 +27769,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_rref`.
-            /// Parameter `b` defaults to `(std::string_view&amp;&amp;)default_stringview`.
+            /// Parameter `b` defaults to `(std::string_view&amp;&amp;)MR::CSharp::default_stringview`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.StringView> testStringviewRref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27795,7 +27795,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_crref`.
-            /// Parameter `b` defaults to `(std::string_view&amp;&amp;)default_stringview`.
+            /// Parameter `b` defaults to `(std::string_view&amp;&amp;)MR::CSharp::default_stringview`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Const_StringView> testStringviewCrref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27821,7 +27821,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_ptr`.
-            /// Parameter `b` defaults to `&amp;default_stringview`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_stringview`.
             /// </summary>
             public static unsafe MR.CS.Std.StringView? testStringviewPtr(MR.CS.Std.StringView? a, MR.CS.Std._InOptMut_StringView? b = null)
             {
@@ -27834,7 +27834,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_stringview_cptr`.
-            /// Parameter `b` defaults to `&amp;default_stringview`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_stringview`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_StringView? testStringviewCptr(MR.CS.Std.Const_StringView? a, MR.CS.Std._InOptConst_StringView? b = null)
             {
@@ -27847,7 +27847,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_fspath`.
-            /// Parameter `b` defaults to `default_fspath`.
+            /// Parameter `b` defaults to `MR::CSharp::default_fspath`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Path> testFspath(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27873,7 +27873,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_ref`.
-            /// Parameter `b` defaults to `default_fspath`.
+            /// Parameter `b` defaults to `MR::CSharp::default_fspath`.
             /// </summary>
             public static unsafe MR.CS.Std.Filesystem.Path testFspathRef(MR.CS.Std.Filesystem.Path a, MR.CS.Std.Filesystem.Path? b = null)
             {
@@ -27884,7 +27884,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_cref`.
-            /// Parameter `b` defaults to `default_fspath`.
+            /// Parameter `b` defaults to `MR::CSharp::default_fspath`.
             /// </summary>
             public static unsafe MR.CS.Std.Filesystem.Const_Path testFspathCref(ReadOnlySpan<char> a, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27910,7 +27910,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_rref`.
-            /// Parameter `b` defaults to `(std::filesystem::path&amp;&amp;)default_fspath`.
+            /// Parameter `b` defaults to `(std::filesystem::path&amp;&amp;)MR::CSharp::default_fspath`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Path> testFspathRref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27936,7 +27936,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_crref`.
-            /// Parameter `b` defaults to `(std::filesystem::path&amp;&amp;)default_fspath`.
+            /// Parameter `b` defaults to `(std::filesystem::path&amp;&amp;)MR::CSharp::default_fspath`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Filesystem.Const_Path> testFspathCrref(MR.CS.Misc._MoveRef _move_a, ReadOnlySpan<char> a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.Misc.ReadOnlyCharSpanOpt b = new())
             {
@@ -27962,7 +27962,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_ptr`.
-            /// Parameter `b` defaults to `&amp;default_fspath`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_fspath`.
             /// </summary>
             public static unsafe MR.CS.Std.Filesystem.Path? testFspathPtr(MR.CS.Std.Filesystem.Path? a, MR.CS.Std.Filesystem._InOptMut_Path? b = null)
             {
@@ -27975,7 +27975,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_fspath_cptr`.
-            /// Parameter `b` defaults to `&amp;default_fspath`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_fspath`.
             /// </summary>
             public static unsafe MR.CS.Std.Filesystem.Const_Path? testFspathCptr(MR.CS.Std.Filesystem.Const_Path? a, MR.CS.Std.Filesystem._InOptConst_Path? b = null)
             {
@@ -28030,7 +28030,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_convtrivial_ref`.
-            /// Parameter `b` defaults to `default_convtrivial`.
+            /// Parameter `b` defaults to `MR::CSharp::default_convtrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ConvCtorTrivial testClassConvtrivialRef(MR.CS.CSharp.ConvCtorTrivial a, MR.CS.CSharp.ConvCtorTrivial? b = null)
             {
@@ -28041,7 +28041,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_convtrivial_cref`.
-            /// Parameter `b` defaults to `default_convtrivial`.
+            /// Parameter `b` defaults to `MR::CSharp::default_convtrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_ConvCtorTrivial testClassConvtrivialCref(MR.CS.CSharp.Const_ConvCtorTrivial a, MR.CS.CSharp.Const_ConvCtorTrivial? b = null)
             {
@@ -28052,7 +28052,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_convtrivial_ptr`.
-            /// Parameter `c` defaults to `&amp;default_convtrivial`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_convtrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ConvCtorTrivial? testClassConvtrivialPtr(MR.CS.CSharp.ConvCtorTrivial? a, MR.CS.CSharp.ConvCtorTrivial? b = null, MR.CS.CSharp._InOptMut_ConvCtorTrivial? c = null)
             {
@@ -28065,7 +28065,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_convtrivial_cptr`.
-            /// Parameter `c` defaults to `&amp;default_convtrivial`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_convtrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_ConvCtorTrivial? testClassConvtrivialCptr(MR.CS.CSharp.Const_ConvCtorTrivial? a, MR.CS.CSharp.Const_ConvCtorTrivial? b = null, MR.CS.CSharp._InOptConst_ConvCtorTrivial? c = null)
             {
@@ -28089,7 +28089,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_convnontrivial_ref`.
-            /// Parameter `b` defaults to `default_convnontrivial`.
+            /// Parameter `b` defaults to `MR::CSharp::default_convnontrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ConvCtorNonTrivial testClassConvnontrivialRef(MR.CS.CSharp.ConvCtorNonTrivial a, MR.CS.CSharp.ConvCtorNonTrivial? b = null)
             {
@@ -28100,7 +28100,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_convnontrivial_cref`.
-            /// Parameter `b` defaults to `default_convnontrivial`.
+            /// Parameter `b` defaults to `MR::CSharp::default_convnontrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_ConvCtorNonTrivial testClassConvnontrivialCref(MR.CS.CSharp.Const_ConvCtorNonTrivial a, MR.CS.CSharp.Const_ConvCtorNonTrivial? b = null)
             {
@@ -28111,7 +28111,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_convnontrivial_ptr`.
-            /// Parameter `c` defaults to `&amp;default_convnontrivial`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_convnontrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ConvCtorNonTrivial? testClassConvnontrivialPtr(MR.CS.CSharp.ConvCtorNonTrivial? a, MR.CS.CSharp.ConvCtorNonTrivial? b = null, MR.CS.CSharp._InOptMut_ConvCtorNonTrivial? c = null)
             {
@@ -28124,7 +28124,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_class_convnontrivial_cptr`.
-            /// Parameter `c` defaults to `&amp;default_convnontrivial`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_convnontrivial`.
             /// </summary>
             public static unsafe MR.CS.CSharp.Const_ConvCtorNonTrivial? testClassConvnontrivialCptr(MR.CS.CSharp.Const_ConvCtorNonTrivial? a, MR.CS.CSharp.Const_ConvCtorNonTrivial? b = null, MR.CS.CSharp._InOptConst_ConvCtorNonTrivial? c = null)
             {
@@ -28137,7 +28137,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed`.
-            /// Parameter `b` defaults to `default_exposed`.
+            /// Parameter `b` defaults to `MR::CSharp::default_exposed`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ExposedLayout testExposed(MR.CS.CSharp.ExposedLayout a, MR.CS.CSharp._InOpt_ExposedLayout b = default)
             {
@@ -28148,7 +28148,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_ref`.
-            /// Parameter `b` defaults to `default_exposed`.
+            /// Parameter `b` defaults to `MR::CSharp::default_exposed`.
             /// </summary>
             public static unsafe ref MR.CS.CSharp.ExposedLayout testExposedRef(ref MR.CS.CSharp.ExposedLayout a, MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayout>? b = null)
             {
@@ -28165,7 +28165,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_cref`.
-            /// Parameter `b` defaults to `default_exposed`.
+            /// Parameter `b` defaults to `MR::CSharp::default_exposed`.
             /// </summary>
             public static unsafe ref readonly MR.CS.CSharp.ExposedLayout testExposedCref(in MR.CS.CSharp.ExposedLayout a, MR.CS.CSharp.ExposedLayout? b = null)
             {
@@ -28180,7 +28180,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_rref`.
-            /// Parameter `b` defaults to `(MR::CSharp::ExposedLayout&amp;&amp;)default_exposed`.
+            /// Parameter `b` defaults to `(MR::CSharp::ExposedLayout&amp;&amp;)MR::CSharp::default_exposed`.
             /// </summary>
             public static unsafe ref readonly MR.CS.CSharp.ExposedLayout testExposedRref(MR.CS.Misc._MoveRef _move_a, in MR.CS.CSharp.ExposedLayout a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.ExposedLayout? b = null)
             {
@@ -28195,7 +28195,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_crref`.
-            /// Parameter `b` defaults to `(MR::CSharp::ExposedLayout&amp;&amp;)default_exposed`.
+            /// Parameter `b` defaults to `(MR::CSharp::ExposedLayout&amp;&amp;)MR::CSharp::default_exposed`.
             /// </summary>
             public static unsafe ref readonly MR.CS.CSharp.ExposedLayout testExposedCrref(MR.CS.Misc._MoveRef _move_a, in MR.CS.CSharp.ExposedLayout a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.CSharp.ExposedLayout? b = null)
             {
@@ -28210,7 +28210,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_ptr`.
-            /// Parameter `c` defaults to `&amp;default_exposed`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_exposed`.
             /// </summary>
             public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayout>? testExposedPtr(MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayout>? a, MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayout>? b = null, MR.CS.Misc._InOutOpt<MR.CS.CSharp.ExposedLayout>? c = null)
             {
@@ -28229,7 +28229,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_cptr`.
-            /// Parameter `c` defaults to `&amp;default_exposed`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_exposed`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ExposedLayout? testExposedCptr(MR.CS.CSharp.ExposedLayout? a, MR.CS.CSharp.ExposedLayout? b = null, MR.CS.Misc._InOpt<MR.CS.CSharp.ExposedLayout>? c = null)
             {
@@ -28282,7 +28282,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed`.
-            /// Parameter `b` defaults to `default_exposed_sh`.
+            /// Parameter `b` defaults to `MR::CSharp::default_exposed_sh`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ExposedLayoutSh testExposed(MR.CS.CSharp.ExposedLayoutSh a, MR.CS.CSharp._InOpt_ExposedLayoutSh b = default)
             {
@@ -28293,7 +28293,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_ref`.
-            /// Parameter `b` defaults to `default_exposed_sh`.
+            /// Parameter `b` defaults to `MR::CSharp::default_exposed_sh`.
             /// </summary>
             public static unsafe ref MR.CS.CSharp.ExposedLayoutSh testExposedRef(ref MR.CS.CSharp.ExposedLayoutSh a, MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayoutSh>? b = null)
             {
@@ -28310,7 +28310,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_cref`.
-            /// Parameter `b` defaults to `default_exposed_sh`.
+            /// Parameter `b` defaults to `MR::CSharp::default_exposed_sh`.
             /// </summary>
             public static unsafe ref readonly MR.CS.CSharp.ExposedLayoutSh testExposedCref(in MR.CS.CSharp.ExposedLayoutSh a, MR.CS.CSharp.ExposedLayoutSh? b = null)
             {
@@ -28325,7 +28325,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_ptr`.
-            /// Parameter `c` defaults to `&amp;default_exposed_sh`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_exposed_sh`.
             /// </summary>
             public static unsafe MR.CS.Misc.Ref<MR.CS.CSharp.ExposedLayoutSh>? testExposedPtr(MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayoutSh>? a, MR.CS.Misc.InOut<MR.CS.CSharp.ExposedLayoutSh>? b = null, MR.CS.Misc._InOutOpt<MR.CS.CSharp.ExposedLayoutSh>? c = null)
             {
@@ -28344,7 +28344,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_exposed_cptr`.
-            /// Parameter `c` defaults to `&amp;default_exposed_sh`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_exposed_sh`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ExposedLayoutSh? testExposedCptr(MR.CS.CSharp.ExposedLayoutSh? a, MR.CS.CSharp.ExposedLayoutSh? b = null, MR.CS.Misc._InOpt<MR.CS.CSharp.ExposedLayoutSh>? c = null)
             {
@@ -28360,8 +28360,8 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optint`.
-            /// Parameter `b` defaults to `default_optint`.
-            /// Parameter `c` defaults to `default_optint`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optint`.
+            /// Parameter `c` defaults to `MR::CSharp::default_optint`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_Int testOptint(int? a, MR.CS.Std.Const_Optional_Int? b = null, MR.CS.Std.Const_Optional_Int? c = null)
             {
@@ -28373,7 +28373,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optint_ref`.
-            /// Parameter `b` defaults to `default_optint`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optint`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_Int testOptintRef(MR.CS.Std.Optional_Int a, MR.CS.Std.Optional_Int? b = null)
             {
@@ -28384,7 +28384,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optint_cref`.
-            /// Parameter `b` defaults to `default_optint`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optint`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_Int testOptintCref(int? a, MR.CS.Std.Const_Optional_Int? b = null)
             {
@@ -28396,7 +28396,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optint_ptr`.
-            /// Parameter `c` defaults to `&amp;default_optint`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_optint`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_Int? testOptintPtr(MR.CS.Std.Optional_Int? a, MR.CS.Std.Optional_Int? b = null, MR.CS.Std._InOptMut_Optional_Int? c = null)
             {
@@ -28409,7 +28409,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optint_cptr`.
-            /// Parameter `c` defaults to `&amp;default_optint`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_optint`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_Int? testOptintCptr(MR.CS.Std.Const_Optional_Int? a, MR.CS.Std.Const_Optional_Int? b = null, MR.CS.Std._InOptConst_Optional_Int? c = null)
             {
@@ -28422,8 +28422,8 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optstr`.
-            /// Parameter `b` defaults to `default_optstr`.
-            /// Parameter `c` defaults to `default_optstr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optstr`.
+            /// Parameter `c` defaults to `MR::CSharp::default_optstr`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Optional_StdString> testOptstr(MR.CS.Misc.ReadOnlyCharSpanOpt a, MR.CS.Std._ByValue_Optional_StdString? b = null, MR.CS.Std._ByValue_Optional_StdString? c = null)
             {
@@ -28444,7 +28444,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optstr_ref`.
-            /// Parameter `b` defaults to `default_optstr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optstr`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_StdString testOptstrRef(MR.CS.Std.Optional_StdString a, MR.CS.Std.Optional_StdString? b = null)
             {
@@ -28455,7 +28455,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optstr_cref`.
-            /// Parameter `b` defaults to `default_optstr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optstr`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_StdString testOptstrCref(MR.CS.Misc.ReadOnlyCharSpanOpt a, MR.CS.Std.Const_Optional_StdString? b = null)
             {
@@ -28476,7 +28476,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optstr_ptr`.
-            /// Parameter `c` defaults to `&amp;default_optstr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_optstr`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_StdString? testOptstrPtr(MR.CS.Std.Optional_StdString? a, MR.CS.Std.Optional_StdString? b = null, MR.CS.Std._InOptMut_Optional_StdString? c = null)
             {
@@ -28489,7 +28489,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optstr_cptr`.
-            /// Parameter `c` defaults to `&amp;default_optstr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_optstr`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_StdString? testOptstrCptr(MR.CS.Std.Const_Optional_StdString? a, MR.CS.Std.Const_Optional_StdString? b = null, MR.CS.Std._InOptConst_Optional_StdString? c = null)
             {
@@ -28502,8 +28502,8 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_opttriv`.
-            /// Parameter `b` defaults to `default_opttriv`.
-            /// Parameter `c` defaults to `default_opttriv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_opttriv`.
+            /// Parameter `c` defaults to `MR::CSharp::default_opttriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpTrivial testOpttriv(MR.CS.CSharp.Const_Trivial? a, MR.CS.Std.Const_Optional_MRCSharpTrivial? b = null, MR.CS.Std.Const_Optional_MRCSharpTrivial? c = null)
             {
@@ -28514,7 +28514,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_opttriv_ref`.
-            /// Parameter `b` defaults to `default_opttriv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_opttriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpTrivial testOpttrivRef(MR.CS.Std.Optional_MRCSharpTrivial a, MR.CS.Std.Optional_MRCSharpTrivial? b = null)
             {
@@ -28525,7 +28525,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_opttriv_cref`.
-            /// Parameter `b` defaults to `default_opttriv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_opttriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpTrivial testOpttrivCref(MR.CS.CSharp.Const_Trivial? a, MR.CS.Std.Const_Optional_MRCSharpTrivial? b = null)
             {
@@ -28536,7 +28536,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_opttriv_ptr`.
-            /// Parameter `c` defaults to `&amp;default_opttriv`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_opttriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpTrivial? testOpttrivPtr(MR.CS.Std.Optional_MRCSharpTrivial? a, MR.CS.Std.Optional_MRCSharpTrivial? b = null, MR.CS.Std._InOptMut_Optional_MRCSharpTrivial? c = null)
             {
@@ -28549,7 +28549,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_opttriv_cptr`.
-            /// Parameter `c` defaults to `&amp;default_opttriv`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_opttriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpTrivial? testOpttrivCptr(MR.CS.Std.Const_Optional_MRCSharpTrivial? a, MR.CS.Std.Const_Optional_MRCSharpTrivial? b = null, MR.CS.Std._InOptConst_Optional_MRCSharpTrivial? c = null)
             {
@@ -28562,8 +28562,8 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optnontriv`.
-            /// Parameter `b` defaults to `default_optnontriv`.
-            /// Parameter `c` defaults to `default_optnontriv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optnontriv`.
+            /// Parameter `c` defaults to `MR::CSharp::default_optnontriv`.
             /// </summary>
             public static unsafe MR.CS.Misc._Moved<MR.CS.Std.Optional_MRCSharpNonTrivial> testOptnontriv(MR.CS.CSharp._ByValue_NonTrivial? a, MR.CS.CSharp._ByValueOptOpt_NonTrivial? b = null, MR.CS.CSharp._ByValueOptOpt_NonTrivial? c = null)
             {
@@ -28574,7 +28574,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optnontriv_ref`.
-            /// Parameter `b` defaults to `default_optnontriv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optnontriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial testOptnontrivRef(MR.CS.Std.Optional_MRCSharpNonTrivial a, MR.CS.Std.Optional_MRCSharpNonTrivial? b = null)
             {
@@ -28585,7 +28585,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optnontriv_cref`.
-            /// Parameter `b` defaults to `default_optnontriv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optnontriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpNonTrivial testOptnontrivCref(MR.CS.CSharp._ByValue_NonTrivial? a, MR.CS.CSharp._ByValueOptOpt_NonTrivial? b = null)
             {
@@ -28596,7 +28596,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optnontriv_ptr`.
-            /// Parameter `c` defaults to `&amp;default_optnontriv`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_optnontriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpNonTrivial? testOptnontrivPtr(MR.CS.Std.Optional_MRCSharpNonTrivial? a, MR.CS.Std.Optional_MRCSharpNonTrivial? b = null, MR.CS.Std._InOptMut_Optional_MRCSharpNonTrivial? c = null)
             {
@@ -28609,7 +28609,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optnontriv_cptr`.
-            /// Parameter `c` defaults to `&amp;default_optnontriv`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_optnontriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpNonTrivial? testOptnontrivCptr(MR.CS.Std.Const_Optional_MRCSharpNonTrivial? a, MR.CS.Std.Const_Optional_MRCSharpNonTrivial? b = null, MR.CS.Std._InOptConst_Optional_MRCSharpNonTrivial? c = null)
             {
@@ -28622,8 +28622,8 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optshexp`.
-            /// Parameter `b` defaults to `default_optshexp`.
-            /// Parameter `c` defaults to `default_optshexp`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optshexp`.
+            /// Parameter `c` defaults to `MR::CSharp::default_optshexp`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpExposedLayoutSh testOptshexp(MR.CS.CSharp._InOpt_ExposedLayoutSh a, MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? b = null, MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? c = null)
             {
@@ -28634,7 +28634,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optshexp_ref`.
-            /// Parameter `b` defaults to `default_optshexp`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optshexp`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpExposedLayoutSh testOptshexpRef(MR.CS.Std.Optional_MRCSharpExposedLayoutSh a, MR.CS.Std.Optional_MRCSharpExposedLayoutSh? b = null)
             {
@@ -28645,7 +28645,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optshexp_cref`.
-            /// Parameter `b` defaults to `default_optshexp`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optshexp`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh testOptshexpCref(MR.CS.CSharp._InOpt_ExposedLayoutSh a, MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? b = null)
             {
@@ -28656,7 +28656,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optshexp_ptr`.
-            /// Parameter `c` defaults to `&amp;default_optshexp`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_optshexp`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpExposedLayoutSh? testOptshexpPtr(MR.CS.Std.Optional_MRCSharpExposedLayoutSh? a, MR.CS.Std.Optional_MRCSharpExposedLayoutSh? b = null, MR.CS.Std._InOptMut_Optional_MRCSharpExposedLayoutSh? c = null)
             {
@@ -28669,7 +28669,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optshexp_cptr`.
-            /// Parameter `c` defaults to `&amp;default_optshexp`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_optshexp`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? testOptshexpCptr(MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? a, MR.CS.Std.Const_Optional_MRCSharpExposedLayoutSh? b = null, MR.CS.Std._InOptConst_Optional_MRCSharpExposedLayoutSh? c = null)
             {
@@ -28682,8 +28682,8 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optshtriv`.
-            /// Parameter `b` defaults to `default_optshtriv`.
-            /// Parameter `c` defaults to `default_optshtriv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optshtriv`.
+            /// Parameter `c` defaults to `MR::CSharp::default_optshtriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpSA testOptshtriv(MR.CS.CSharp.Const_SA? a, MR.CS.Std.Const_Optional_MRCSharpSA? b = null, MR.CS.Std.Const_Optional_MRCSharpSA? c = null)
             {
@@ -28694,7 +28694,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optshtriv_ref`.
-            /// Parameter `b` defaults to `default_optshtriv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optshtriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpSA testOptshtrivRef(MR.CS.Std.Optional_MRCSharpSA a, MR.CS.Std.Optional_MRCSharpSA? b = null)
             {
@@ -28705,7 +28705,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optshtriv_cref`.
-            /// Parameter `b` defaults to `default_optshtriv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_optshtriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpSA testOptshtrivCref(MR.CS.CSharp.Const_SA? a, MR.CS.Std.Const_Optional_MRCSharpSA? b = null)
             {
@@ -28716,7 +28716,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optshtriv_ptr`.
-            /// Parameter `c` defaults to `&amp;default_optshtriv`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_optshtriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Optional_MRCSharpSA? testOptshtrivPtr(MR.CS.Std.Optional_MRCSharpSA? a, MR.CS.Std.Optional_MRCSharpSA? b = null, MR.CS.Std._InOptMut_Optional_MRCSharpSA? c = null)
             {
@@ -28729,7 +28729,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_optshtriv_cptr`.
-            /// Parameter `c` defaults to `&amp;default_optshtriv`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_optshtriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Optional_MRCSharpSA? testOptshtrivCptr(MR.CS.Std.Const_Optional_MRCSharpSA? a, MR.CS.Std.Const_Optional_MRCSharpSA? b = null, MR.CS.Std._InOptConst_Optional_MRCSharpSA? c = null)
             {
@@ -28784,7 +28784,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_variant`.
-            /// Parameter `b` defaults to `default_variant`.
+            /// Parameter `b` defaults to `MR::CSharp::default_variant`.
             /// </summary>
             public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float testVariant(MR.CS.Std.Const_Variant_StdMonostate_Int_Float a, MR.CS.Std.Const_Variant_StdMonostate_Int_Float? b = null)
             {
@@ -28795,7 +28795,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_variant_ref`.
-            /// Parameter `b` defaults to `default_variant`.
+            /// Parameter `b` defaults to `MR::CSharp::default_variant`.
             /// </summary>
             public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float testVariantRef(MR.CS.Std.Variant_StdMonostate_Int_Float a, MR.CS.Std.Variant_StdMonostate_Int_Float? b = null)
             {
@@ -28806,7 +28806,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_variant_cref`.
-            /// Parameter `b` defaults to `default_variant`.
+            /// Parameter `b` defaults to `MR::CSharp::default_variant`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Variant_StdMonostate_Int_Float testVariantCref(MR.CS.Std.Const_Variant_StdMonostate_Int_Float a, MR.CS.Std.Const_Variant_StdMonostate_Int_Float? b = null)
             {
@@ -28817,7 +28817,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_variant_ptr`.
-            /// Parameter `b` defaults to `&amp;default_variant`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_variant`.
             /// </summary>
             public static unsafe MR.CS.Std.Variant_StdMonostate_Int_Float? testVariantPtr(MR.CS.Std.Variant_StdMonostate_Int_Float? a, MR.CS.Std._InOptMut_Variant_StdMonostate_Int_Float? b = null)
             {
@@ -28830,7 +28830,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_variant_cptr`.
-            /// Parameter `b` defaults to `&amp;default_variant`.
+            /// Parameter `b` defaults to `&amp;MR::CSharp::default_variant`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Variant_StdMonostate_Int_Float? testVariantCptr(MR.CS.Std.Const_Variant_StdMonostate_Int_Float? a, MR.CS.Std._InOptConst_Variant_StdMonostate_Int_Float? b = null)
             {
@@ -28897,7 +28897,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_uniqueptr`.
-            /// Parameter `b` defaults to `std::move(default_uniqueptr)`.
+            /// Parameter `b` defaults to `std::move(MR::CSharp::default_uniqueptr)`.
             /// </summary>
             public static unsafe void *testUniqueptr(void *a, void **b = null)
             {
@@ -28908,7 +28908,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_uniqueptr_ref`.
-            /// Parameter `b` defaults to `default_uniqueptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_uniqueptr`.
             /// </summary>
             public static unsafe MR.CS.Std.UniquePtr_Int testUniqueptrRef(MR.CS.Std.UniquePtr_Int a, MR.CS.Std.UniquePtr_Int? b = null)
             {
@@ -28919,7 +28919,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_uniqueptr_cref`.
-            /// Parameter `b` defaults to `default_uniqueptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_uniqueptr`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_UniquePtr_Int testUniqueptrCref(MR.CS.Std.Const_UniquePtr_Int a, MR.CS.Std.Const_UniquePtr_Int? b = null)
             {
@@ -28930,7 +28930,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_uniqueptr_ptr`.
-            /// Parameter `c` defaults to `&amp;default_uniqueptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_uniqueptr`.
             /// </summary>
             public static unsafe MR.CS.Std.UniquePtr_Int? testUniqueptrPtr(MR.CS.Std.UniquePtr_Int? a, MR.CS.Std.UniquePtr_Int? b = null, MR.CS.Std._InOptMut_UniquePtr_Int? c = null)
             {
@@ -28943,7 +28943,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_uniqueptr_cptr`.
-            /// Parameter `c` defaults to `&amp;default_uniqueptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_uniqueptr`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_UniquePtr_Int? testUniqueptrCptr(MR.CS.Std.Const_UniquePtr_Int? a, MR.CS.Std.Const_UniquePtr_Int? b = null, MR.CS.Std._InOptConst_UniquePtr_Int? c = null)
             {
@@ -28956,7 +28956,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_ref`.
-            /// Parameter `b` defaults to `default_plainarr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_plainarr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref MR.CS.ArrayInt42 testPlainarrRef(ref MR.CS.ArrayInt42 a, MR.CS.ArrayInt42 *b = null)
@@ -28971,7 +28971,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_cref`.
-            /// Parameter `b` defaults to `default_plainarr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_plainarr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly MR.CS.ConstArrayInt42 testPlainarrCref(in MR.CS.ConstArrayInt42 a, MR.CS.ConstArrayInt42 *b = null)
@@ -28986,7 +28986,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_rref`.
-            /// Parameter `b` defaults to `(MR::CSharp::PlainArray&amp;&amp;)default_plainarr`.
+            /// Parameter `b` defaults to `(MR::CSharp::PlainArray&amp;&amp;)MR::CSharp::default_plainarr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref MR.CS.ArrayInt42 testPlainarrRref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ArrayInt42 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ArrayInt42 *b = null)
@@ -29001,7 +29001,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_crref`.
-            /// Parameter `b` defaults to `(MR::CSharp::PlainArray&amp;&amp;)default_plainarr`.
+            /// Parameter `b` defaults to `(MR::CSharp::PlainArray&amp;&amp;)MR::CSharp::default_plainarr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly MR.CS.ConstArrayInt42 testPlainarrCrref(MR.CS.Misc._MoveRef _move_a, in MR.CS.ConstArrayInt42 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt42 *b = null)
@@ -29016,7 +29016,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_ptr`.
-            /// Parameter `c` defaults to `&amp;default_plainarr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_plainarr`.
             /// </summary>
             public static unsafe MR.CS.ArrayInt42 *testPlainarrPtr(MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 *b = null, MR.CS.ArrayInt42 **c = null)
             {
@@ -29027,7 +29027,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr_cptr`.
-            /// Parameter `c` defaults to `&amp;default_plainarr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_plainarr`.
             /// </summary>
             public static unsafe MR.CS.ConstArrayInt42 *testPlainarrCptr(MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 *b = null, MR.CS.ConstArrayInt42 **c = null)
             {
@@ -29038,7 +29038,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_ref`.
-            /// Parameter `b` defaults to `default_plainarr2`.
+            /// Parameter `b` defaults to `MR::CSharp::default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref MR.CS.ArrayInt10_20 testPlainarr2Ref(ref MR.CS.ArrayInt10_20 a, MR.CS.ArrayInt10_20 *b = null)
@@ -29053,7 +29053,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_cref`.
-            /// Parameter `b` defaults to `default_plainarr2`.
+            /// Parameter `b` defaults to `MR::CSharp::default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly MR.CS.ConstArrayInt10_20 testPlainarr2Cref(in MR.CS.ConstArrayInt10_20 a, MR.CS.ConstArrayInt10_20 *b = null)
@@ -29068,7 +29068,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_rref`.
-            /// Parameter `b` defaults to `(MR::CSharp::PlainArray2&amp;&amp;)default_plainarr2`.
+            /// Parameter `b` defaults to `(MR::CSharp::PlainArray2&amp;&amp;)MR::CSharp::default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref MR.CS.ArrayInt10_20 testPlainarr2Rref(MR.CS.Misc._MoveRef _move_a, ref MR.CS.ArrayInt10_20 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ArrayInt10_20 *b = null)
@@ -29083,7 +29083,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_crref`.
-            /// Parameter `b` defaults to `(MR::CSharp::PlainArray2&amp;&amp;)default_plainarr2`.
+            /// Parameter `b` defaults to `(MR::CSharp::PlainArray2&amp;&amp;)MR::CSharp::default_plainarr2`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly MR.CS.ConstArrayInt10_20 testPlainarr2Crref(MR.CS.Misc._MoveRef _move_a, in MR.CS.ConstArrayInt10_20 a, MR.CS.Misc._MoveRef _move_b = default, MR.CS.ConstArrayInt10_20 *b = null)
@@ -29098,7 +29098,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_ptr`.
-            /// Parameter `c` defaults to `&amp;default_plainarr2`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_plainarr2`.
             /// </summary>
             public static unsafe MR.CS.ArrayInt10_20 *testPlainarr2Ptr(MR.CS.ArrayInt10_20 *a, MR.CS.ArrayInt10_20 *b = null, MR.CS.ArrayInt10_20 **c = null)
             {
@@ -29109,7 +29109,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarr2_cptr`.
-            /// Parameter `c` defaults to `&amp;default_plainarr2`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_plainarr2`.
             /// </summary>
             public static unsafe MR.CS.ConstArrayInt10_20 *testPlainarr2Cptr(MR.CS.ConstArrayInt10_20 *a, MR.CS.ConstArrayInt10_20 *b = null, MR.CS.ConstArrayInt10_20 **c = null)
             {
@@ -29120,7 +29120,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum_ref`.
-            /// Parameter `b` defaults to `default_plainarrenum`.
+            /// Parameter `b` defaults to `MR::CSharp::default_plainarrenum`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref MR.CS.CSharp.ArrayE1_42 testPlainarrenumRef(ref MR.CS.CSharp.ArrayE1_42 a, MR.CS.CSharp.ArrayE1_42 *b = null)
@@ -29135,7 +29135,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum_cref`.
-            /// Parameter `b` defaults to `default_plainarrenum`.
+            /// Parameter `b` defaults to `MR::CSharp::default_plainarrenum`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly MR.CS.CSharp.ConstArrayE1_42 testPlainarrenumCref(in MR.CS.CSharp.ConstArrayE1_42 a, MR.CS.CSharp.ConstArrayE1_42 *b = null)
@@ -29150,7 +29150,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum_ptr`.
-            /// Parameter `c` defaults to `&amp;default_plainarrenum`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_plainarrenum`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ArrayE1_42 *testPlainarrenumPtr(MR.CS.CSharp.ArrayE1_42 *a, MR.CS.CSharp.ArrayE1_42 *b = null, MR.CS.CSharp.ArrayE1_42 **c = null)
             {
@@ -29161,7 +29161,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum_cptr`.
-            /// Parameter `c` defaults to `&amp;default_plainarrenum`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_plainarrenum`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ConstArrayE1_42 *testPlainarrenumCptr(MR.CS.CSharp.ConstArrayE1_42 *a, MR.CS.CSharp.ConstArrayE1_42 *b = null, MR.CS.CSharp.ConstArrayE1_42 **c = null)
             {
@@ -29172,7 +29172,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum2_ref`.
-            /// Parameter `b` defaults to `default_plainarrenum2`.
+            /// Parameter `b` defaults to `MR::CSharp::default_plainarrenum2`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref MR.CS.CSharp.ArrayE1_10_20 testPlainarrenum2Ref(ref MR.CS.CSharp.ArrayE1_10_20 a, MR.CS.CSharp.ArrayE1_10_20 *b = null)
@@ -29187,7 +29187,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum2_cref`.
-            /// Parameter `b` defaults to `default_plainarrenum2`.
+            /// Parameter `b` defaults to `MR::CSharp::default_plainarrenum2`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly MR.CS.CSharp.ConstArrayE1_10_20 testPlainarrenum2Cref(in MR.CS.CSharp.ConstArrayE1_10_20 a, MR.CS.CSharp.ConstArrayE1_10_20 *b = null)
@@ -29202,7 +29202,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum2_ptr`.
-            /// Parameter `c` defaults to `&amp;default_plainarrenum2`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_plainarrenum2`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ArrayE1_10_20 *testPlainarrenum2Ptr(MR.CS.CSharp.ArrayE1_10_20 *a, MR.CS.CSharp.ArrayE1_10_20 *b = null, MR.CS.CSharp.ArrayE1_10_20 **c = null)
             {
@@ -29213,7 +29213,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_plainarrenum2_cptr`.
-            /// Parameter `c` defaults to `&amp;default_plainarrenum2`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_plainarrenum2`.
             /// </summary>
             public static unsafe MR.CS.CSharp.ConstArrayE1_10_20 *testPlainarrenum2Cptr(MR.CS.CSharp.ConstArrayE1_10_20 *a, MR.CS.CSharp.ConstArrayE1_10_20 *b = null, MR.CS.CSharp.ConstArrayE1_10_20 **c = null)
             {
@@ -29251,7 +29251,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intptr_ref`.
-            /// Parameter `b` defaults to `default_intptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_intptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref int *testIntptrRef(ref int *a, int **b = null)
@@ -29266,7 +29266,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intptr_cref`.
-            /// Parameter `b` defaults to `default_intptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_intptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly int *testIntptrCref(in int *a, int **b = null)
@@ -29281,7 +29281,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intptr_ptr`.
-            /// Parameter `c` defaults to `&amp;default_intptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_intptr`.
             /// </summary>
             public static unsafe int **testIntptrPtr(int **a, int **b = null, int ***c = null)
             {
@@ -29292,7 +29292,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intptr_cptr`.
-            /// Parameter `c` defaults to `&amp;default_intptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_intptr`.
             /// </summary>
             public static unsafe int **testIntptrCptr(int **a, int **b = null, int ***c = null)
             {
@@ -29303,7 +29303,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intcptr_ref`.
-            /// Parameter `b` defaults to `default_intcptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_intcptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref int *testIntcptrRef(ref int *a, int **b = null)
@@ -29318,7 +29318,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intcptr_cref`.
-            /// Parameter `b` defaults to `default_intcptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_intcptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly int *testIntcptrCref(in int *a, int **b = null)
@@ -29333,7 +29333,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intcptr_ptr`.
-            /// Parameter `c` defaults to `&amp;default_intcptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_intcptr`.
             /// </summary>
             public static unsafe int **testIntcptrPtr(int **a, int **b = null, int ***c = null)
             {
@@ -29344,7 +29344,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intcptr_cptr`.
-            /// Parameter `c` defaults to `&amp;default_intcptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_intcptr`.
             /// </summary>
             public static unsafe int **testIntcptrCptr(int **a, int **b = null, int ***c = null)
             {
@@ -29355,7 +29355,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intptrptr_ref`.
-            /// Parameter `b` defaults to `default_intptrptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_intptrptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref int **testIntptrptrRef(ref int **a, int ***b = null)
@@ -29370,7 +29370,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intptrptr_cref`.
-            /// Parameter `b` defaults to `default_intptrptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_intptrptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly int **testIntptrptrCref(in int **a, int ***b = null)
@@ -29385,7 +29385,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intptrptr_ptr`.
-            /// Parameter `c` defaults to `&amp;default_intptrptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_intptrptr`.
             /// </summary>
             public static unsafe int ***testIntptrptrPtr(int ***a, int ***b = null, int ****c = null)
             {
@@ -29396,7 +29396,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_intptrptr_cptr`.
-            /// Parameter `c` defaults to `&amp;default_intptrptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_intptrptr`.
             /// </summary>
             public static unsafe int ***testIntptrptrCptr(int ***a, int ***b = null, int ****c = null)
             {
@@ -29407,7 +29407,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_voidptr_ref`.
-            /// Parameter `b` defaults to `default_voidptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_voidptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref void *testVoidptrRef(ref void *a, void **b = null)
@@ -29422,7 +29422,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_voidptr_cref`.
-            /// Parameter `b` defaults to `default_voidptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_voidptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly void *testVoidptrCref(in void *a, void **b = null)
@@ -29437,7 +29437,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_voidptr_ptr`.
-            /// Parameter `c` defaults to `&amp;default_voidptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_voidptr`.
             /// </summary>
             public static unsafe void **testVoidptrPtr(void **a, void **b = null, void ***c = null)
             {
@@ -29448,7 +29448,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_voidptr_cptr`.
-            /// Parameter `c` defaults to `&amp;default_voidptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_voidptr`.
             /// </summary>
             public static unsafe void **testVoidptrCptr(void **a, void **b = null, void ***c = null)
             {
@@ -29459,7 +29459,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_voidptrptr_ref`.
-            /// Parameter `b` defaults to `default_voidptrptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_voidptrptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref void **testVoidptrptrRef(ref void **a, void ***b = null)
@@ -29474,7 +29474,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_voidptrptr_cref`.
-            /// Parameter `b` defaults to `default_voidptrptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_voidptrptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly void **testVoidptrptrCref(in void **a, void ***b = null)
@@ -29489,7 +29489,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_voidptrptr_ptr`.
-            /// Parameter `c` defaults to `&amp;default_voidptrptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_voidptrptr`.
             /// </summary>
             public static unsafe void ***testVoidptrptrPtr(void ***a, void ***b = null, void ****c = null)
             {
@@ -29500,7 +29500,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_voidptrptr_cptr`.
-            /// Parameter `c` defaults to `&amp;default_voidptrptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_voidptrptr`.
             /// </summary>
             public static unsafe void ***testVoidptrptrCptr(void ***a, void ***b = null, void ****c = null)
             {
@@ -29511,7 +29511,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_arrptr_ref`.
-            /// Parameter `b` defaults to `default_arrptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_arrptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref MR.CS.ArrayInt42 *testArrptrRef(ref MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 **b = null)
@@ -29526,7 +29526,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_arrptr_cref`.
-            /// Parameter `b` defaults to `default_arrptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_arrptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly MR.CS.ArrayInt42 *testArrptrCref(in MR.CS.ArrayInt42 *a, MR.CS.ArrayInt42 **b = null)
@@ -29541,7 +29541,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_arrptr_ptr`.
-            /// Parameter `c` defaults to `&amp;default_arrptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_arrptr`.
             /// </summary>
             public static unsafe MR.CS.ArrayInt42 **testArrptrPtr(MR.CS.ArrayInt42 **a, MR.CS.ArrayInt42 **b = null, MR.CS.ArrayInt42 ***c = null)
             {
@@ -29552,7 +29552,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_arrptr_cptr`.
-            /// Parameter `c` defaults to `&amp;default_arrptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_arrptr`.
             /// </summary>
             public static unsafe MR.CS.ArrayInt42 **testArrptrCptr(MR.CS.ArrayInt42 **a, MR.CS.ArrayInt42 **b = null, MR.CS.ArrayInt42 ***c = null)
             {
@@ -29563,7 +29563,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_arrcptr_ref`.
-            /// Parameter `b` defaults to `default_arrcptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_arrcptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref MR.CS.ConstArrayInt42 *testArrcptrRef(ref MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 **b = null)
@@ -29578,7 +29578,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_arrcptr_cref`.
-            /// Parameter `b` defaults to `default_arrcptr`.
+            /// Parameter `b` defaults to `MR::CSharp::default_arrcptr`.
             /// In C++ this function returns an rvalue reference.
             /// </summary>
             public static unsafe ref readonly MR.CS.ConstArrayInt42 *testArrcptrCref(in MR.CS.ConstArrayInt42 *a, MR.CS.ConstArrayInt42 **b = null)
@@ -29593,7 +29593,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_arrcptr_ptr`.
-            /// Parameter `c` defaults to `&amp;default_arrcptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_arrcptr`.
             /// </summary>
             public static unsafe MR.CS.ConstArrayInt42 **testArrcptrPtr(MR.CS.ConstArrayInt42 **a, MR.CS.ConstArrayInt42 **b = null, MR.CS.ConstArrayInt42 ***c = null)
             {
@@ -29604,7 +29604,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_arrcptr_cptr`.
-            /// Parameter `c` defaults to `&amp;default_arrcptr`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_arrcptr`.
             /// </summary>
             public static unsafe MR.CS.ConstArrayInt42 **testArrcptrCptr(MR.CS.ConstArrayInt42 **a, MR.CS.ConstArrayInt42 **b = null, MR.CS.ConstArrayInt42 ***c = null)
             {
@@ -29987,7 +29987,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_int_ref`.
-            /// Parameter `b` defaults to `default_expected_int`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_int`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_Int_Float testExpectedIntRef(MR.CS.Std.Expected_Int_Float a, MR.CS.Std.Expected_Int_Float? b = null)
             {
@@ -29998,7 +29998,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_int_cref`.
-            /// Parameter `b` defaults to `default_expected_int`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_int`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_Int_Float testExpectedIntCref(MR.CS.Std.Const_Expected_Int_Float a, MR.CS.Std.Const_Expected_Int_Float? b = null)
             {
@@ -30009,7 +30009,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_int_ptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_int`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_int`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_Int_Float? testExpectedIntPtr(MR.CS.Std.Expected_Int_Float? a, MR.CS.Std.Expected_Int_Float? b = null, MR.CS.Std._InOptMut_Expected_Int_Float? c = null)
             {
@@ -30022,7 +30022,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_int_cptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_int`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_int`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_Int_Float? testExpectedIntCptr(MR.CS.Std.Const_Expected_Int_Float? a, MR.CS.Std.Const_Expected_Int_Float? b = null, MR.CS.Std._InOptConst_Expected_Int_Float? c = null)
             {
@@ -30046,7 +30046,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_void_ref`.
-            /// Parameter `b` defaults to `default_expected_void`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_void`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_Void_Float testExpectedVoidRef(MR.CS.Std.Expected_Void_Float a, MR.CS.Std.Expected_Void_Float? b = null)
             {
@@ -30057,7 +30057,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_void_cref`.
-            /// Parameter `b` defaults to `default_expected_void`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_void`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_Void_Float testExpectedVoidCref(MR.CS.Std.Const_Expected_Void_Float a, MR.CS.Std.Const_Expected_Void_Float? b = null)
             {
@@ -30068,7 +30068,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_void_ptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_void`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_void`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_Void_Float? testExpectedVoidPtr(MR.CS.Std.Expected_Void_Float? a, MR.CS.Std.Expected_Void_Float? b = null, MR.CS.Std._InOptMut_Expected_Void_Float? c = null)
             {
@@ -30081,7 +30081,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_void_cptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_void`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_void`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_Void_Float? testExpectedVoidCptr(MR.CS.Std.Const_Expected_Void_Float? a, MR.CS.Std.Const_Expected_Void_Float? b = null, MR.CS.Std._InOptConst_Expected_Void_Float? c = null)
             {
@@ -30105,7 +30105,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_enum_ref`.
-            /// Parameter `b` defaults to `default_expected_enum`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_enum`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpE1_Float testExpectedEnumRef(MR.CS.Std.Expected_MRCSharpE1_Float a, MR.CS.Std.Expected_MRCSharpE1_Float? b = null)
             {
@@ -30116,7 +30116,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_enum_cref`.
-            /// Parameter `b` defaults to `default_expected_enum`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_enum`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpE1_Float testExpectedEnumCref(MR.CS.Std.Const_Expected_MRCSharpE1_Float a, MR.CS.Std.Const_Expected_MRCSharpE1_Float? b = null)
             {
@@ -30127,7 +30127,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_enum_ptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_enum`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_enum`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpE1_Float? testExpectedEnumPtr(MR.CS.Std.Expected_MRCSharpE1_Float? a, MR.CS.Std.Expected_MRCSharpE1_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpE1_Float? c = null)
             {
@@ -30140,7 +30140,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_enum_cptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_enum`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_enum`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpE1_Float? testExpectedEnumCptr(MR.CS.Std.Const_Expected_MRCSharpE1_Float? a, MR.CS.Std.Const_Expected_MRCSharpE1_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpE1_Float? c = null)
             {
@@ -30164,7 +30164,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_triv_ref`.
-            /// Parameter `b` defaults to `default_expected_triv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_triv`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpTrivial_Float testExpectedTrivRef(MR.CS.Std.Expected_MRCSharpTrivial_Float a, MR.CS.Std.Expected_MRCSharpTrivial_Float? b = null)
             {
@@ -30175,7 +30175,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_triv_cref`.
-            /// Parameter `b` defaults to `default_expected_triv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_triv`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpTrivial_Float testExpectedTrivCref(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float a, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? b = null)
             {
@@ -30186,7 +30186,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_triv_ptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_triv`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_triv`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpTrivial_Float? testExpectedTrivPtr(MR.CS.Std.Expected_MRCSharpTrivial_Float? a, MR.CS.Std.Expected_MRCSharpTrivial_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpTrivial_Float? c = null)
             {
@@ -30199,7 +30199,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_triv_cptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_triv`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_triv`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? testExpectedTrivCptr(MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? a, MR.CS.Std.Const_Expected_MRCSharpTrivial_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpTrivial_Float? c = null)
             {
@@ -30223,7 +30223,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_nontriv_ref`.
-            /// Parameter `b` defaults to `default_expected_nontriv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_nontriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpNonTrivial_Float testExpectedNontrivRef(MR.CS.Std.Expected_MRCSharpNonTrivial_Float a, MR.CS.Std.Expected_MRCSharpNonTrivial_Float? b = null)
             {
@@ -30234,7 +30234,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_nontriv_cref`.
-            /// Parameter `b` defaults to `default_expected_nontriv`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_nontriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float testExpectedNontrivCref(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float a, MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? b = null)
             {
@@ -30245,7 +30245,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_nontriv_ptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_nontriv`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_nontriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpNonTrivial_Float? testExpectedNontrivPtr(MR.CS.Std.Expected_MRCSharpNonTrivial_Float? a, MR.CS.Std.Expected_MRCSharpNonTrivial_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpNonTrivial_Float? c = null)
             {
@@ -30258,7 +30258,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_nontriv_cptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_nontriv`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_nontriv`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? testExpectedNontrivCptr(MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? a, MR.CS.Std.Const_Expected_MRCSharpNonTrivial_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpNonTrivial_Float? c = null)
             {
@@ -30282,7 +30282,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_shared_ref`.
-            /// Parameter `b` defaults to `default_expected_shared`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_shared`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpSA_Float testExpectedSharedRef(MR.CS.Std.Expected_MRCSharpSA_Float a, MR.CS.Std.Expected_MRCSharpSA_Float? b = null)
             {
@@ -30293,7 +30293,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_shared_cref`.
-            /// Parameter `b` defaults to `default_expected_shared`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_shared`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpSA_Float testExpectedSharedCref(MR.CS.Std.Const_Expected_MRCSharpSA_Float a, MR.CS.Std.Const_Expected_MRCSharpSA_Float? b = null)
             {
@@ -30304,7 +30304,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_shared_ptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_shared`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_shared`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpSA_Float? testExpectedSharedPtr(MR.CS.Std.Expected_MRCSharpSA_Float? a, MR.CS.Std.Expected_MRCSharpSA_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpSA_Float? c = null)
             {
@@ -30317,7 +30317,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_shared_cptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_shared`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_shared`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpSA_Float? testExpectedSharedCptr(MR.CS.Std.Const_Expected_MRCSharpSA_Float? a, MR.CS.Std.Const_Expected_MRCSharpSA_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpSA_Float? c = null)
             {
@@ -30341,7 +30341,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_ref`.
-            /// Parameter `b` defaults to `default_expected_exposed`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_exposed`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayout_Float testExpectedExposedRef(MR.CS.Std.Expected_MRCSharpExposedLayout_Float a, MR.CS.Std.Expected_MRCSharpExposedLayout_Float? b = null)
             {
@@ -30352,7 +30352,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_cref`.
-            /// Parameter `b` defaults to `default_expected_exposed`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_exposed`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float testExpectedExposedCref(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? b = null)
             {
@@ -30363,7 +30363,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_ptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_exposed`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_exposed`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayout_Float? testExpectedExposedPtr(MR.CS.Std.Expected_MRCSharpExposedLayout_Float? a, MR.CS.Std.Expected_MRCSharpExposedLayout_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpExposedLayout_Float? c = null)
             {
@@ -30376,7 +30376,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_cptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_exposed`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_exposed`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? testExpectedExposedCptr(MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? a, MR.CS.Std.Const_Expected_MRCSharpExposedLayout_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpExposedLayout_Float? c = null)
             {
@@ -30400,7 +30400,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_shared_ref`.
-            /// Parameter `b` defaults to `default_expected_exposed_shared`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_exposed_shared`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float testExpectedExposedSharedRef(MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float a, MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? b = null)
             {
@@ -30411,7 +30411,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_shared_cref`.
-            /// Parameter `b` defaults to `default_expected_exposed_shared`.
+            /// Parameter `b` defaults to `MR::CSharp::default_expected_exposed_shared`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float testExpectedExposedSharedCref(MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float a, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? b = null)
             {
@@ -30422,7 +30422,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_shared_ptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_exposed_shared`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_exposed_shared`.
             /// </summary>
             public static unsafe MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? testExpectedExposedSharedPtr(MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? a, MR.CS.Std.Expected_MRCSharpExposedLayoutSh_Float? b = null, MR.CS.Std._InOptMut_Expected_MRCSharpExposedLayoutSh_Float? c = null)
             {
@@ -30435,7 +30435,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::CSharp::test_expected_exposed_shared_cptr`.
-            /// Parameter `c` defaults to `&amp;default_expected_exposed_shared`.
+            /// Parameter `c` defaults to `&amp;MR::CSharp::default_expected_exposed_shared`.
             /// </summary>
             public static unsafe MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? testExpectedExposedSharedCptr(MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? a, MR.CS.Std.Const_Expected_MRCSharpExposedLayoutSh_Float? b = null, MR.CS.Std._InOptConst_Expected_MRCSharpExposedLayoutSh_Float? c = null)
             {

@@ -91,6 +91,7 @@ build/mrbind \
     -o test/output_c/parsed.json \
     --copy-inherited-members \
     --infer-lifetime-constructors \
+    --default-args=as-is \
     "${MRBIND_FLAGS[@]}"
 
 build/mrbind_gen_c \

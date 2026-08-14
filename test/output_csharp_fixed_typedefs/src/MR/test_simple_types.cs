@@ -320,7 +320,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetIntPtrDef`.
-            /// Parameter `_1` defaults to `&amp;global_int`.
+            /// Parameter `_1` defaults to `&amp;MR::TestSimpleTypes::global_int`.
             /// </summary>
             public static unsafe void setIntPtrDef(MR.CS.Misc._InOutOpt<int>? _1 = null)
             {
@@ -369,7 +369,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetIntRefDef`.
-            /// Parameter `_1` defaults to `global_int`.
+            /// Parameter `_1` defaults to `MR::TestSimpleTypes::global_int`.
             /// </summary>
             public static unsafe void setIntRefDef(MR.CS.Misc.InOut<int>? _1 = null)
             {
@@ -404,7 +404,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetVoidPtrDef`.
-            /// Parameter `_1` defaults to `&amp;global_int`.
+            /// Parameter `_1` defaults to `&amp;MR::TestSimpleTypes::global_int`.
             /// Parameter `_1` is a mutable pointer.
             /// </summary>
             public static unsafe void setVoidPtrDef(void **_1 = null)
@@ -449,7 +449,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetConstVoidPtrDef`.
-            /// Parameter `_1` defaults to `&amp;global_int`.
+            /// Parameter `_1` defaults to `&amp;MR::TestSimpleTypes::global_int`.
             /// Parameter `_1` is a read-only pointer.
             /// </summary>
             public static unsafe void setConstVoidPtrDef(void **_1 = null)
@@ -492,7 +492,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetVoidPtrPtrDef`.
-            /// Parameter `_1` defaults to `&amp;global_void_ptr`.
+            /// Parameter `_1` defaults to `&amp;MR::TestSimpleTypes::global_void_ptr`.
             /// </summary>
             public static unsafe void setVoidPtrPtrDef(void ***_1 = null)
             {
@@ -568,7 +568,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetEnumPtrDef`.
-            /// Parameter `_1` defaults to `&amp;global_enum`.
+            /// Parameter `_1` defaults to `&amp;MR::TestSimpleTypes::global_enum`.
             /// </summary>
             public static unsafe void setEnumPtrDef(MR.CS.Misc._InOutOpt<MR.CS.TestSimpleTypes.E>? _1 = null)
             {
@@ -617,7 +617,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetEnumRefDef`.
-            /// Parameter `_1` defaults to `global_enum`.
+            /// Parameter `_1` defaults to `MR::TestSimpleTypes::global_enum`.
             /// </summary>
             public static unsafe void setEnumRefDef(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E>? _1 = null)
             {
@@ -685,7 +685,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetEnum2PtrDef`.
-            /// Parameter `_1` defaults to `&amp;global_enum2`.
+            /// Parameter `_1` defaults to `&amp;MR::TestSimpleTypes::global_enum2`.
             /// </summary>
             public static unsafe void setEnum2PtrDef(MR.CS.Misc._InOutOpt<MR.CS.TestSimpleTypes.E2>? _1 = null)
             {
@@ -734,7 +734,7 @@ public static partial class MR
 
             /// <summary>
             /// Generated from function `MR::TestSimpleTypes::SetEnum2RefDef`.
-            /// Parameter `_1` defaults to `global_enum2`.
+            /// Parameter `_1` defaults to `MR::TestSimpleTypes::global_enum2`.
             /// </summary>
             public static unsafe void setEnum2RefDef(MR.CS.Misc.InOut<MR.CS.TestSimpleTypes.E2>? _1 = null)
             {
