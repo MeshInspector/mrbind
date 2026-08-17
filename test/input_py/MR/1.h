@@ -50,4 +50,15 @@ namespace MR
     struct B : virtual A {};
 
     struct C : B {};
+
+    // The default arguments here mention class members and enum constants without full qualification.
+    // Check that they get fully qualified in the generated code, which is outside of this scope.
+    struct DefaultArgsMentioningMembers
+    {
+        static constexpr int limit = 42;
+        enum E {e0, e1};
+
+        void ByStaticMember(int n = limit) {(void)n;}
+        void ByEnumConstant(E e = e1) {(void)e;}
+    };
 }
